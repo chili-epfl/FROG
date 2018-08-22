@@ -3,7 +3,7 @@
 import { type ActivityPackageT } from 'frog-utils';
 import { isEmpty, isObject } from 'lodash';
 
-import meta from './meta'
+import meta from './meta';
 
 const config = {
   type: 'object',
@@ -31,7 +31,6 @@ const config = {
   }
 };
 
-
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {};
 
@@ -39,26 +38,18 @@ const dataStructure = {};
 const mergeFunction = ({ data: incoming }, dataFn, data) => {
   if (Array.isArray(incoming)) {
     incoming.forEach(item => mergeFunction({ data: item }, dataFn, data));
+    return;
   }
   if (isEmpty(incoming) || !isObject(incoming)) {
     return;
   }
-  if (incoming['1']) {
-    mergeFunction({ data: incoming['1'] }, dataFn, data);
+  if (!data[incoming.trace]) {
+    dataFn.objInsert({ y: [], x: [] }, incoming.trace);
   }
   if (incoming.y) {
-    if (!data[incoming.trace]) {
-      dataFn.objInsert({ y: [] }, incoming.trace);
-    }
     dataFn.listAppend(incoming.y, [incoming.trace, 'y']);
   }
   if (incoming.x) {
-    if (!data[incoming.trace]) {
-      dataFn.objInsert({ x: [] }, incoming.trace);
-    }
-    if (!data[incoming.trace].x) {
-      dataFn.objInsert({ x: [] }, incoming.trace);
-    }
     dataFn.listAppend(incoming.x, [incoming.trace, 'x']);
   }
 };

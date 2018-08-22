@@ -15,20 +15,20 @@ export default {
       title: 'log 100 points and linear',
       config: { title: 'Graph3', plotType: 'all' },
       data: [
-        { trace: '1', x: 1, y: 30 },
-        { trace: '1', x: 2, y: 20 },
-        { trace: '1', x: 3, y: 30 },
-        { trace: '1', x: 4, y: 20 },
-        { trace: '1', x: 5, y: 30 },
-        { trace: '1', x: 6, y: 20 },
-        { trace: '1', x: 7, y: 30 },
-        { trace: '2', x: 1, y: 3 },
-        { trace: '2', x: 2, y: 5 },
-        { trace: '2', x: 3, y: 7 },
-        { trace: '2', x: 4, y: 9 },
-        { trace: '2', x: 5, y: 11 },
-        { trace: '2', x: 6, y: 12 },
-        { trace: '2', x: 7, y: 13 }
+        { trace: 'a', x: 1, y: 30 },
+        { trace: 'a', x: 2, y: 20 },
+        { trace: 'a', x: 3, y: 30 },
+        { trace: 'a', x: 4, y: 20 },
+        { trace: 'a', x: 5, y: 30 },
+        { trace: 'a', x: 6, y: 20 },
+        { trace: 'a', x: 7, y: 30 },
+        { trace: 'b', x: 1, y: 3 },
+        { trace: 'b', x: 2, y: 5 },
+        { trace: 'b', x: 3, y: 7 },
+        { trace: 'b', x: 4, y: 9 },
+        { trace: 'b', x: 5, y: 11 },
+        { trace: 'b', x: 6, y: 12 },
+        { trace: 'b', x: 7, y: 13 }
       ]
     }
   ]

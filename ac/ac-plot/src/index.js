@@ -36,6 +36,7 @@ const dataStructure = {};
 const mergeFunction = ({ data: incoming }, dataFn, data) => {
   if (Array.isArray(incoming)) {
     incoming.forEach(item => mergeFunction({ data: item }, dataFn, data));
+    return;
   }
   if (isEmpty(incoming) || !isObject(incoming)) {
     return;
