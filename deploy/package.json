@@ -1,0 +1,18 @@
+{
+  "name": "frog-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "keybase://team/unilwip/frog-deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rimraf": "^2.6.2"
+  }
+}

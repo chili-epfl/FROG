@@ -49,7 +49,9 @@ class ParticipantsView extends React.Component<
   };
 
   sortParticipants = (a: any, b: any) => {
-    const t = this.props.isTeacher(b.name) - this.props.isTeacher(a.name);
+    const t =
+      this.props.isTeacher({ name: b.name }) -
+      this.props.isTeacher({ name: a.name });
     if (t < 0) return -1;
     if (t > 0) return 1;
     const stream = b.streaming - a.streaming;
@@ -120,7 +122,9 @@ class ParticipantsView extends React.Component<
                   <Avatar>
                     <Videocam
                       color={
-                        this.props.isTeacher(p.name) ? 'primary' : 'secondary'
+                        this.props.isTeacher({ name: p.name })
+                          ? 'primary'
+                          : 'secondary'
                       }
                     />
                   </Avatar>

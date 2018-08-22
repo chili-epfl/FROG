@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Mousetrap from 'mousetrap';
-import { Button } from 'react-bootstrap';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
@@ -191,7 +192,7 @@ const FIGURES = {
   }
 };
 
-export default class Symmetry extends React.Component<
+class Symmetry extends React.Component<
   ActivityRunnerPropsT,
   { figure: Object }
 > {
@@ -264,13 +265,15 @@ export default class Symmetry extends React.Component<
           <Canvas figure={this.state.figure} {...this.props} />
           <div>
             <Button
-              style={{ ...styles.button, left: 0 }}
-              onClick={() => this.onClick(true)}
+              classes={{ root: this.props.classes.button1 }}
+              variant="outlined"
+              onClick={() => this.onClick(false)}
             >
               {texts.yes}
             </Button>
             <Button
-              style={{ ...styles.button, right: 0 }}
+              classes={{ root: this.props.classes.button2 }}
+              variant="outlined"
               onClick={() => this.onClick(false)}
             >
               {texts.no}
@@ -285,3 +288,14 @@ export default class Symmetry extends React.Component<
     );
   }
 }
+
+export default withStyles({
+  button1: {
+    ...styles.button,
+    left: '0'
+  },
+  button2: {
+    ...styles.button,
+    right: '0'
+  }
+})(Symmetry);

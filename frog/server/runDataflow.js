@@ -12,7 +12,8 @@ import { compact } from 'lodash';
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
-import { operatorTypesObj, operators } from '../imports/operatorTypes';
+import { operatorTypesObj } from '../imports/operatorTypes';
+import operators from './operatorRunners';
 import { Products } from '../imports/api/products';
 import { Activities, Connections } from '../imports/api/activities';
 import { Operators } from '../imports/api/operators';
@@ -48,6 +49,8 @@ const runDataflow = (
   nodeId: string,
   sessionId: string
 ) => {
+  const session = Sessions.findOne(sessionId);
+
   const nodeTypes = { operator: Operators, activity: Activities };
   const node = nodeTypes[type].findOne(nodeId);
 
@@ -100,11 +103,13 @@ const runDataflow = (
   // More data needed by the operators. Will need to be completed, documented and typed if possible
   const globalStructure: { studentIds: string[], students: Object } = {
     studentIds: compact(
-      students.map(student => student.username !== 'teacher' && student._id)
+      students.map(
+        student => student.username !== session.ownerId && student._id
+      )
     ),
     students: students.reduce(
       (acc, x) =>
-        x.username === 'teacher' ? acc : { ...acc, [x._id]: x.username },
+        x.username === session.ownerId ? acc : { ...acc, [x._id]: x.username },
       {}
     )
   };

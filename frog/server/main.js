@@ -51,16 +51,20 @@ teacherImports();
 // upgrade graphs, activities and operators if code has changed
 upgradeGraphMongo({});
 
-findActivitiesMongo({}).forEach(x =>
-  Activities.update(x._id, {
-    $set: { data: x.data, configVersion: x.configVersion }
-  })
-);
-findOperatorsMongo({}).forEach(x =>
-  Operators.update(x._id, {
-    $set: { data: x.data, configVersion: x.configVersion }
-  })
-);
+findActivitiesMongo({})
+  .filter(x => x.activityType)
+  .forEach(x =>
+    Activities.update(x._id, {
+      $set: { data: x.data, configVersion: x.configVersion }
+    })
+  );
+findOperatorsMongo({})
+  .filter(x => x.operatorType)
+  .forEach(x =>
+    Operators.update(x._id, {
+      $set: { data: x.data, configVersion: x.configVersion }
+    })
+  );
 
 if (
   process.env.NODE_ENV === 'production' &&
@@ -78,13 +82,7 @@ if (
 }
 
 Meteor.publish('globalSettings', function() {
-  const user = Meteor.user();
-  const username = user && user.username;
-  if (username !== 'teacher') {
-    return this.ready();
-  } else {
-    return GlobalSettings.find({});
-  }
+  return GlobalSettings.find({});
 });
 
 Meteor.publish('userData', function() {
@@ -114,7 +112,7 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
 
   const users = Meteor.users.find(
     { joinedSessions: slug },
-    { fields: { username: 1, joinedSessions: 1 } }
+    { fields: { username: 1, joinedSessions: 1, role: 1 } }
   );
   const object = Objects.find(activityId);
   return [users, object, dashData];
@@ -149,7 +147,13 @@ publishComposite('session_activities', function(slug) {
               return Activities.find({
                 _id: {
                   $in: session.openActivities.filter(x =>
-                    checkActivity(x, operators, connections, this.userId)
+                    checkActivity(
+                      session,
+                      x,
+                      operators,
+                      connections,
+                      this.userId
+                    )
                   )
                 }
               });
@@ -170,17 +174,17 @@ publishComposite('session_activities', function(slug) {
   };
 });
 
-const checkActivity = (activityId, operators, connections, userid) => {
+const checkActivity = (session, activityId, operators, connections, userid) => {
   const act = Activities.findOne(activityId);
-  const uname = Meteor.users.findOne(userid).username;
+  const isTeacher = session.ownerId === userid;
 
-  if (uname === 'teacher' && ![3, 4].includes(act.plane)) {
+  if (isTeacher && ![3, 4].includes(act.plane)) {
     return false;
   }
   if (
     ((act.plane === 3 && act.participationMode === 'projector') ||
       act.plane === 4) &&
-    uname !== 'teacher'
+    !isTeacher
   ) {
     return false;
   }

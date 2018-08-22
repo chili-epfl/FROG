@@ -65,7 +65,13 @@ class ImageList extends React.Component<*, *> {
               type="thumbView"
               id={image.li}
               render={props => (
-                <div style={{ width: '400px', margin: '20px' }}>
+                <div
+                  style={{
+                    display: 'inline-block',
+                    width: '400px',
+                    margin: '20px'
+                  }}
+                >
                   <ImageBox
                     key={image.li.id || image.li}
                     color={image.votes[userInfo.id] ? 'lightgreen' : 'white'}

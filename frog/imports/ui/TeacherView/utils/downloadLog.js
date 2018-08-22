@@ -38,7 +38,7 @@ export default (sessionId: string, callback?: Function) => {
   Meteor.call('session.logs', sessionId, 9999999, (err, succ) => {
     if (err) {
       // eslint-disable-next-line no-alert
-      alert('Cannot export logs');
+      alert(err.reason || 'Cannot export logs');
     } else {
       const lines = succ
         .map(x =>

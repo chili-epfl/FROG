@@ -9,6 +9,7 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj, activityRunners } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
+import { Sessions } from '../../api/sessions';
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {
@@ -65,23 +66,25 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const logger = createLogger(sessionId, groupingValue, activity);
   const readOnly =
     activity.participationMode === 'readonly' &&
-    Meteor.user().username !== 'teacher';
+    Meteor.userId() !== Sessions.findOne(sessionId)?.ownerId;
 
   const Torun = (
     <RunActivity
       key={reactiveId}
       activityTypeId={activity.activityType}
+      {...{
+        reactiveId,
+        logger,
+        stream,
+        activityData,
+        groupingValue,
+        sessionId,
+        readOnly
+      }}
       activityId={activity._id}
-      reactiveId={reactiveId}
-      logger={logger}
-      stream={stream}
       username={Meteor.user().username}
       userid={Meteor.userId()}
-      activityData={activityData}
       groupingKey={activity.groupingKey}
-      groupingValue={groupingValue}
-      sessionId={sessionId}
-      readOnly={readOnly}
     />
   );
 
@@ -114,7 +117,8 @@ type PropsT = {
   activityTypeId: string,
   readOnly?: boolean,
   sessionId: string,
-  activityId: string
+  activityId: string,
+  rawData?: any
 };
 
 export class RunActivity extends React.Component<PropsT, {}> {
@@ -131,7 +135,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
       sessionId,
       groupingKey,
       groupingValue,
-      stream
+      stream,
+      username,
+      rawData
     } = props;
     const activityType = activityTypesObj[activityTypeId];
     const meta: {
@@ -150,6 +156,16 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
     const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
+    const formatProduct = activityType.formatProduct;
+    const transform = formatProduct
+      ? x =>
+          formatProduct(
+            this.props.activityData?.config || {},
+            x,
+            groupingKey,
+            username
+          )
+      : undefined;
 
     this.ActivityToRun = ReactiveHOC(
       reactiveId,
@@ -159,7 +175,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
       meta,
       undefined,
       stream,
-      sessionId
+      sessionId,
+      transform,
+      rawData
     )(RunComp);
   }
 
@@ -176,7 +194,11 @@ export class RunActivity extends React.Component<PropsT, {}> {
         activityId={this.props.activityId}
         userInfo={{
           name: this.props.username,
-          id: this.props.userid
+          id: this.props.userid,
+          role:
+            Sessions.findOne(this.props.sessionId)?.ownerId === Meteor.userId()
+              ? 'teacher'
+              : 'student'
         }}
         logger={this.props.logger}
         stream={this.props.stream}

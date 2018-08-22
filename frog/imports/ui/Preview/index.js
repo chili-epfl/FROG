@@ -33,6 +33,7 @@ const defaultState = {
   instances: [getUserId('Chen Li')],
   plane: 1,
   config: {},
+  metadatas: { uuid: '', title: '', description: '', tags: [] }, // why so high ?
   activityTypeId: null,
   reloadAPIform: ''
 };
@@ -49,8 +50,7 @@ class PreviewPage extends React.Component<any, any> {
         config: { ...this.props.config },
         modal: true,
         dismiss: this.props.dismiss,
-        reloadActivity: uuid(),
-        metadatas: { uuid: '', title: '', description: '', tags: [] }
+        reloadActivity: uuid()
       };
       if (!this.state.activityTypeId) {
         return null;

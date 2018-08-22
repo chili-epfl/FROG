@@ -19,11 +19,7 @@ class Prez extends Component<ActivityRunnerPropsT> {
   render() {
     const { activityData, data, dataFn, userInfo } = this.props;
 
-    const hostname = window.location.hostname;
-    let initialPDF =
-      hostname === 'localhost'
-        ? 'http://localhost:3000/file?name=ac/ac-prez/sample.pdf'
-        : hostname + '/file?name=ac/ac-prez/sample.pdf';
+    let initialPDF = '/clientFiles/ac-prez/sample.pdf';
 
     if (activityData.config.pdf_url) {
       initialPDF = activityData.config.pdf_url;

@@ -87,7 +87,8 @@ export type ActivityRunnerPropsT = {
   data: any,
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
-  userInfo: { id: string, name: string },
+  uploadFn: (files: Array<any>, name: string) => Promise<*>,
+  userInfo: { id: string, name: string, role: string },
   activityId: string,
   groupingValue: string,
   sessionId: string
@@ -147,7 +148,7 @@ export type ActivityPackageT = {
   configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
-  mergeFunction?: (dataUnitStructT, Object) => void,
+  mergeFunction?: (dataUnitStructT, Object, any, ?Object) => void,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (
@@ -251,7 +252,7 @@ export type operatorPackageT =
 export type productOperatorRunnerT = (
   configData: Object,
   object: ObjectT & GlobalStructureT
-) => activityDataT;
+) => activityDataT | Promise<activityDataT>;
 
 export type controlOperatorRunnerT = (
   configData: Object,
@@ -306,6 +307,15 @@ export type LIComponentPropsT =
       autoInsert?: Boolean,
       meta?: Object
     |}
+  | {|
+      type: 'createLIPayload',
+      meta?: Object,
+      liType?: string,
+      onCreate?: Function,
+      autoInsert?: Boolean,
+      meta?: Object,
+      payload: Object
+    |}
   | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
   | {|
       type: 'thumbView',
@@ -341,5 +351,6 @@ export type LearningItemT<T> = {
   Viewer?: React.ComponentType<{
     data: T,
     LearningItem: LearningItemComponentT
-  }>
+  }>,
+  createPayload?: Function
 };

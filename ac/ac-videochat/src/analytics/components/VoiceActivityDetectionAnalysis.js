@@ -1,14 +1,18 @@
 // @flow
 
-import hark from '../lib/hark.bundle';
+export const isBrowser = (() => {
+  try {
+    return !!window;
+  } catch (e) {
+    return false;
+  }
+})();
 
-type OptionsT = {
-  name: string,
-  id: string,
-  logger: Function
-};
+export const hark = isBrowser
+  ? require('../../lib/hark.bundle.js')
+  : (_: any) => {};
 
-export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
+export const analyze = (stream: MediaStream, options: any) => {
   if (hark && stream.getAudioTracks().length !== 0) {
     const speechEvents: any = hark(stream);
 
@@ -36,20 +40,6 @@ export const onStreamAdded = (stream: MediaStream, options: OptionsT) => {
           }
         });
       }
-    });
-  }
-};
-
-export const onVAD = (stream: MediaStream, callback: Function) => {
-  if (hark && stream.getAudioTracks().length !== 0) {
-    const speechEvents: any = hark(stream);
-
-    speechEvents.on('speaking', () => {
-      callback(true);
-    });
-
-    speechEvents.on('stopped_speaking', () => {
-      callback(false);
     });
   }
 };

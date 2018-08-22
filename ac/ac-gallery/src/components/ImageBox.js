@@ -6,11 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
   root: {
-    marginLeft: 20,
-    paddingLeft: 16,
-    paddingRight: 24,
-    paddingTop: 20,
-    paddingBottom: 16
+    marginLeft: 20
   }
 });
 

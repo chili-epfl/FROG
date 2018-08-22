@@ -27,7 +27,8 @@ type DashboardCompPropsT = {
   instances: Array<string>,
   name: string,
   state?: any,
-  ready: boolean
+  ready: boolean,
+  config?: Object
 };
 
 const RawDashboardComp = ({
@@ -55,7 +56,6 @@ const RawDashboardComp = ({
         users,
         activity,
         instances,
-        config: activity.data,
         LearningItem: dataFn.LearningItem
       }}
     />
@@ -81,7 +81,8 @@ export const DashboardComp = withTracker(props => {
       'dashboard',
       props.activity._id,
       props.activity.activityType,
-      props.name
+      props.name,
+      props.config
     );
     const state =
       dashboardCollection &&

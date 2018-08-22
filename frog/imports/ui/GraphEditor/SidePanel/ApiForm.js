@@ -60,7 +60,7 @@ export const check = (
       {
         type: 'frog-config',
         activityType,
-        config: { ...formData, invalid: valid.length > 0 },
+        config: { ...formData },
         errors: valid,
         valid: valid.length === 0
       },
@@ -270,6 +270,7 @@ const ApiForm = observer(
                 }
               />
               <ChooseActivityType
+                hideLibrary={this.props.hideLibrary}
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
                 store={store}
