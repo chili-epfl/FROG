@@ -55,7 +55,7 @@ const ActivityRunner = ({
       {data.completed ? (
         <h1>Form(s) submitted</h1>
       ) : (
-        <div className="bootstrap">
+        <div>
           <Form {...{ schema, formData, onChange, onSubmit }} />
           {activityData.config.multiple && (
             <button onClick={complete} className="btn btn-primary btn-sm">
