@@ -1,7 +1,6 @@
 // @flow
 
 import * as VAD from './components/VoiceActivityDetectionAnalysis';
-import * as VideoEmotion from './components/VideoEmotionAnalysis';
 
 export const isBrowser = (() => {
   try {
@@ -21,9 +20,8 @@ type OptionsT = {
   logger: Function
 };
 
-export const anayzeStream = (stream: MediaStream, options: OptionsT) => {
+export const analyzeStream = (stream: MediaStream, options: OptionsT) => {
   VAD.analyze(stream, options);
-  //VideoEmotion.analyze(stream);
 };
 
 export const onVAD = (stream: MediaStream, callback: Function) => {
