@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RemoveRedEye from '@material-ui/icons/RemoveRedEye';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 
@@ -42,6 +44,8 @@ const ListItems = ({
   hasPreview,
   onPreview,
   isLibrary,
+  setDelete,
+  setIdRemove,
   searchS
 }: any) => (
   <ListItem button value={object.id} onClick={onSelect}>
@@ -60,7 +64,17 @@ const ListItems = ({
         </Typography>
       </Grid>
       {isLibrary ? (
-        <div>{object.tags.map(x => <Chip key={x} label={x} />)}</div>
+        <div>
+          <Grid item xs={12}>
+            <Typography gutterBottom className={classes.secondaryText}>
+              <Highlight
+                text={'Owner: ' + (object.meta.owner_id || 'undefined')}
+                searchStr={searchS}
+              />
+            </Typography>
+          </Grid>
+          {object.tags.map(x => <Chip key={x} label={x} />)}
+        </div>
       ) : (
         showExpanded && (
           <Grid item xs={12}>
@@ -98,23 +112,40 @@ const ListItems = ({
           )}
         </Grid>
         <Grid item xs={6}>
-          {!isLibrary &&
-            !showExpanded && (
-              <IconButton
-                value={object.id}
-                aria-label="Preview"
-                onClick={expand}
-                classes={{
-                  root: classes.iconButtonRoot
-                }}
-              >
-                <ExpandMore
-                  classes={{
-                    root: classes.iconRoot
+          {isLibrary
+            ? setDelete && (
+                <IconButton
+                  variant="fab"
+                  aria-label="Delete"
+                  color="secondary"
+                  disabled={Meteor.user().username !== object.owner_id}
+                  onClick={() => {
+                    setIdRemove({ type: 'activity', id: object.id });
+                    setDelete(true);
                   }}
-                />
-              </IconButton>
-            )}
+                  classes={{
+                    root: classes.iconButtonRoot
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )
+            : !showExpanded && (
+                <IconButton
+                  value={object.id}
+                  aria-label="Preview"
+                  onClick={expand}
+                  classes={{
+                    root: classes.iconButtonRoot
+                  }}
+                >
+                  <ExpandMore
+                    classes={{
+                      root: classes.iconRoot
+                    }}
+                  />
+                </IconButton>
+              )}
         </Grid>
       </Grid>
     </ListItemSecondaryAction>

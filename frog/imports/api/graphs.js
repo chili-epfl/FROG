@@ -86,6 +86,7 @@ export const addGraph = (graphObj?: Object): string => {
     ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
+    ownerId: Meteor.userId(),
     createdAt: new Date()
   });
   if (!graphObjTmp) {
@@ -171,8 +172,8 @@ export const assignGraph = (wantedId: string) => {
   // Get the graph the user is editing and check if the graph exists
   graphId = user.profile ? user.profile.editingGraph : null;
   graphId = graphId && Graphs.findOne(graphId) ? graphId : null;
-  // Assign the id of the first graph of the graph list if there is one
-  const oneGraph = Graphs.findOne();
+  // Assign the id of the first graph of the graph that belongs to the user list if there is one
+  const oneGraph = Graphs.findOne({ ownerId: Meteor.user().username });
   if (!graphId) graphId = oneGraph ? oneGraph._id : null;
   // If nothing worked create new graph
   if (!graphId) graphId = addGraph();

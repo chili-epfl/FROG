@@ -12,6 +12,7 @@ import LearningItem from '../imports/ui/LearningItem';
 Meteor.methods({
   stream: (activity, instanceId, value) => {
     if (activity.streamTarget) {
+      const user = Meteor.users.findOne(Meteor.userId());
       const target = Activities.findOne(activity.streamTarget);
       const docId = activity.streamTarget + '/all';
       const mergeFunction = activityTypesObj[target.activityType].mergeFunction;
@@ -22,21 +23,22 @@ Meteor.methods({
         data: { '1': { ...value, id: '1' } },
         config: {}
       };
+
       if (SharedbCache[docId]) {
         const [dataFn] = SharedbCache[docId];
-        mergeFunction(toSend, dataFn);
+        mergeFunction(toSend, dataFn, dataFn.doc.data, user);
       } else {
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
           const dataFn = generateReactiveFn(doc, LearningItem);
           SharedbCache[docId] = [dataFn];
-          mergeFunction(toSend, dataFn);
+          mergeFunction(toSend, dataFn, dataFn.doc.data, user);
         } else {
           doc.once('load', () => {
             const dataFn = generateReactiveFn(doc, LearningItem);
             SharedbCache[docId] = [dataFn];
-            mergeFunction(toSend, dataFn);
+            mergeFunction(toSend, dataFn, dataFn.doc.data, user);
           });
         }
       }

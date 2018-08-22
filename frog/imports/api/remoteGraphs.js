@@ -1,10 +1,12 @@
+import { Meteor } from 'meteor/meteor';
+
 import { uuid } from 'frog-utils';
 import { Graphs } from '/imports/api/graphs';
 import { LibraryStates } from './cache';
 import { graphToString, doImportGraph } from '../ui/GraphEditor/utils/export';
 
 const RemoteServer =
-  Meteor.settings.public.remoteServer ||
+  (Meteor.settings && Meteor.settings.public.remoteServer) ||
   'https://icchilisrv4.epfl.ch:5500/graphs';
 
 export const removeGraph = (id: string, callback: ?Function) => {
@@ -28,14 +30,17 @@ export const updateGraph = (id: string, graph: Object, callback: ?Function) => {
 };
 
 export const loadGraphMetaData = (id: string, callback: ?Function) => {
-  fetch(RemoteServer + '?uuid=eq.' + id)
+  fetch(
+    RemoteServer + '?uuid=eq.' + id + '&select=title,owner_id,description,tags'
+  )
     .then(e => e.json())
     .then(e => {
-      const toChangeIdx = LibraryStates.graphList.find(x => x.uuid === id);
-      if (toChangeIdx !== -1) {
+      const toChangeIdx = LibraryStates.graphList.findIndex(x => x.uuid === id);
+      if (toChangeIdx >= 0) {
         LibraryStates.graphList[toChangeIdx] = {
           uuid: id,
           title: e[0].title,
+          owner_id: e[0].owner_id,
           description: e[0].description,
           tags: e[0].tags
         };
@@ -43,6 +48,7 @@ export const loadGraphMetaData = (id: string, callback: ?Function) => {
         LibraryStates.graphList.push({
           uuid: id,
           title: e[0].title,
+          owner_id: e[0].owner_id,
           description: e[0].description,
           tags: e[0].tags
         });
@@ -58,7 +64,9 @@ export const refreshGraphDate = () =>
 export const collectGraphs = (callback: ?Function) =>
   fetch(
     RemoteServer +
-      '?select=uuid,title,description,tags,timestamp&deleted=not.is.true'
+      '?select=uuid,title,description,tags,timestamp,owner_id&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
+      Meteor.user().username +
+      ')'
   )
     .then(e => e.json())
     .then(r => {
@@ -83,6 +91,8 @@ export const sendGraph = (state: Object, props: Object) => {
     description: state.description,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: Graphs.findOne(props.graphId).parentId,
+    owner_id: Meteor.user().username,
+    is_public: state.public,
     uuid: newId,
     graph: graphToString(props.graphId)
   };

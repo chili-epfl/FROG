@@ -6,3 +6,4 @@
 templates/*
 frogapi-test/**
 frog/packages/*
+**/clientFiles/*

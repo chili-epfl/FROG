@@ -1,6 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
@@ -182,21 +183,13 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
-        if (Meteor.user().username === 'teacher') {
-          return (
-            <Switch>
-              <Route path="/projector/:slug" component={StudentView} />
-              <Route component={TeacherContainer} />
-            </Switch>
-          );
-        } else {
-          return (
-            <Switch>
-              <Route path="/:slug" component={StudentView} />
-              <Route component={() => <h1>No session specified</h1>} />
-            </Switch>
-          );
-        }
+        return (
+          <Switch>
+            <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/:slug" component={StudentView} />
+          </Switch>
+        );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
@@ -214,20 +207,53 @@ const FROGRouter = withRouter(
   }
 );
 
+const ConnectionDiv = () => (
+  <div
+    style={{
+      backgroundColor: 'white',
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      opacity: '0.8',
+      zIndex: '1500'
+    }}
+  >
+    <div
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%,-50%)'
+      }}
+    >
+      <h2>Disconnected, waiting for reconnection…</h2>
+      <CircularProgress />
+    </div>
+  </div>
+);
+
 export default class Root extends React.Component<
   {},
   {
     mode: string,
     api?: boolean,
-    data?: Object
+    data?: Object,
+    connected: boolean
   }
 > {
   constructor() {
     super();
-    this.state = { mode: 'waiting' };
+    this.state = { mode: 'waiting', connected: true };
   }
 
   componentDidMount = () => {
+    window.setTimeout(
+      () =>
+        Tracker.autorun(() =>
+          this.setState({ connected: Meteor.status().connected })
+        ),
+      5000
+    );
     InjectData.getData('api', data => {
       this.setState({ mode: 'ready', api: !!data, data });
     });
@@ -237,10 +263,16 @@ export default class Root extends React.Component<
     if (this.state.mode === 'waiting') {
       return null;
     } else if (this.state.api && this.state.data) {
-      return <APICall data={this.state.data} />;
+      return (
+        <>
+          {!this.state.connected && <ConnectionDiv />}
+          <APICall data={this.state.data} />
+        </>
+      );
     } else {
       return (
         <ErrorBoundary>
+          {!this.state.connected && <ConnectionDiv />}
           <Router>
             <Switch>
               <Route path="/:slug" component={FROGRouter} />

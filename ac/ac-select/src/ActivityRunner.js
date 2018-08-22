@@ -2,10 +2,29 @@
 
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
-import Highlighter from 'react-highlight-words';
+import Highlighter from './Highlighter';
+import ColorSelect from './ColorSelect';
+
+const TextToColor = text => {
+  const c = Number(
+    text
+      .toLowerCase()
+      .split('')
+      .reduce((acc, cur) => acc + cur.charCodeAt(), '')
+  );
+  const obj = {
+    r: 90 + Math.floor((c % (166 * 166 * 166)) / (166 * 166)),
+    g: 90 + Math.floor((c % (166 * 166)) / 166),
+    b: 90 + (c % 166)
+  };
+  return 'rgb(' + obj.r + ',' + obj.g + ',' + obj.b + ')';
+};
 
 // the actual component that the student sees
-const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
+const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
+  const selectPenColor = color =>
+    dataFn.objReplace(data.currentColor, color, 'currentColor');
+
   const onClick = () => {
     const s = window.getSelection();
     if (s.isCollapsed) {
@@ -15,92 +34,69 @@ const ActivityRunner = ({ activityData, data, dataFn, userInfo, logger }) => {
       const selected = s.toString().toLowerCase();
       s.modify('move', 'forward', 'character'); // clear selection
 
-      if (data[selected] === undefined) {
-        dataFn.objInsert([userInfo.id], selected);
-        logger({ type: 'plus', value: selected });
-      } else if (!data[selected].includes(userInfo.id)) {
-        dataFn.objReplace(
-          data[selected],
-          [...data[selected], userInfo.id],
-          selected
+      if (data['highlighted'][selected] === undefined) {
+        dataFn.objInsert(
+          {
+            color: activityData.config.multi
+              ? TextToColor(selected)
+              : data.currentColor
+          },
+          ['highlighted', selected]
         );
         logger({ type: 'plus', value: selected });
-      } else if (data[selected].length > 1) {
-        dataFn.objReplace(
-          data[selected],
-          data[selected].filter(u => u !== userInfo.id),
-          selected
-        );
-        logger({ type: 'minus', value: selected });
       } else {
-        dataFn.objDel(data[selected], selected);
+        dataFn.objDel(data['highlighted'][selected], ['highlighted', selected]);
         logger({ type: 'minus', value: selected });
       }
     }
   };
-
-  const findChunks = ({ searchWords, textToHighlight }) =>
-    searchWords
-      .filter(searchWord => searchWord) // Remove empty words
-      .reduce((chunks, searchWord) => {
-        const regex = new RegExp('(' + searchWord + ')\\b', 'gi');
-        let match = regex.exec(textToHighlight);
-        while (match) {
-          const start = match.index;
-          const end = regex.lastIndex;
-          // We do not return zero-length matches
-          if (end > start) {
-            chunks.push({ start, end });
-          }
-          // Prevent browsers like Firefox from getting stuck in an infinite loop
-          // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
-          if (match.index === regex.lastIndex) {
-            regex.lastIndex += 1;
-          }
-          match = regex.exec(textToHighlight);
-        }
-        return chunks;
-      }, []);
-
   return (
-    <div
-      onClick={onClick}
-      style={{
-        height: '100%',
-        overflow: 'scroll',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <Highlighter
-        searchWords={Object.keys(data).filter(x =>
-          data[x].includes(userInfo.id)
-        )}
-        autoEscape
-        textToHighlight={
-          activityData.config ? activityData.config.title || '' : ''
-        }
-        highlightStyle={{
-          backgroundColor: 'yellow',
-          fontSize: 'xx-large',
-          cursor: 'help'
+    <>
+      {activityData.config.chooseColor && (
+        <ColorSelect {...{ data, selectPenColor }} />
+      )}
+      <div
+        onClick={onClick}
+        style={{
+          height: '100%',
+          overflow: 'scroll',
+          display: 'flex',
+          flexDirection: 'column',
+          margin: '20px',
+          fontSize: '1.5em',
+          lineHeight: '150%',
+          fontFamily: 'serif'
         }}
-        unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
-        findChunks={findChunks}
-      />
-      <Highlighter
-        searchWords={Object.keys(data).filter(x =>
-          data[x].includes(userInfo.id)
-        )}
-        autoEscape
-        highlightStyle={{ backgroundColor: 'yellow', cursor: 'help' }}
-        unhighlightStyle={{ cursor: 'help' }}
-        textToHighlight={
-          activityData.config ? activityData.config.text || '' : ''
-        }
-        findChunks={findChunks}
-      />
-    </div>
+      >
+        <Highlighter
+          searchWords={data['highlighted']}
+          textToHighlight={
+            activityData.config ? activityData.config.title || '' : ''
+          }
+          highlightStyle={{
+            fontSize: 'xx-large',
+            cursor: 'help'
+          }}
+          unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
+        />
+        {activityData.config.text &&
+          activityData.config.text
+            .split('\n')
+            .filter(x => x !== '')
+            .map(sub => (
+              <p key={sub}>
+                <Highlighter
+                  searchWords={data['highlighted']}
+                  highlightStyle={{ cursor: 'help' }}
+                  unhighlightStyle={{ cursor: 'help' }}
+                  textToHighlight={
+                    activityData.config ? activityData.config.text || '' : ''
+                  }
+                />
+              </p>
+            ))}
+      </div>
+    </>
   );
 };
 

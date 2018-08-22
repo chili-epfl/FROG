@@ -67,7 +67,7 @@ export const meta = {
       config: {
         quadrants: false,
         image: true,
-        imageurl: '/file?name=ac/ac-ck-board/researchCycle.png'
+        imageurl: '/clientFiles/ac-ck-board/researchCycle.png'
       },
       data,
       learningItems

@@ -2408,6 +2408,10 @@ div.bootstrap .form-control {
   border-radius: 4px;
 }
 
+div.bootstrap textarea.form-control { 
+  height: 150px;
+}
+
 div.bootstrap .form-control:focus {
   border-color: #66afe9;
   outline: 0;

@@ -125,7 +125,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     if (this.activityType === 'group') {
       this.role = 'none';
     } else if (this.activityType === 'webinar') {
-      if (this.isTeacher(this.name)) {
+      if (this.isTeacher(this.props.userInfo)) {
         this.role = 'teacher';
       } else {
         this.role = 'watcher';
@@ -675,8 +675,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.setState({ participants });
   };
 
-  isTeacher = (name: string) => {
-    if (name === 'teacher') {
+  isTeacher = (userInfo: Object) => {
+    if (userInfo.role === 'teacher') {
       return true;
     }
     const teacherNames = this.props.activityData.config?.teacherNames;
@@ -684,7 +684,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       return teacherNames
         .split(',')
         .map(x => x.trim())
-        .includes(name);
+        .includes(userInfo.name);
     }
     return false;
   };
@@ -694,19 +694,19 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     const remote = this.state.remote;
     const participants = this.state.participants;
     const removeLocalStream =
-      this.activityType === 'group' || this.isTeacher(this.name)
+      this.activityType === 'group' || this.isTeacher(this.props.userInfo)
         ? undefined
         : this.removeLocalStream;
     const removePresenterStream =
-      this.activityType === 'webinar' && this.isTeacher(this.name)
+      this.activityType === 'webinar' && this.isTeacher(this.props.userInfo)
         ? this.removePresenterStream
         : undefined;
     const raiseHand =
-      this.activityType === 'webinar' && !this.isTeacher(this.name)
+      this.activityType === 'webinar' && !this.isTeacher(this.props.userInfo)
         ? this.raiseHand
         : undefined;
     const giveMic =
-      this.activityType === 'webinar' && this.isTeacher(this.name)
+      this.activityType === 'webinar' && this.isTeacher(this.props.userInfo)
         ? this.giveMic
         : undefined;
     return (
@@ -718,7 +718,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           <Grid item xs={3}>
             <ParticipantsView
               participants={participants.map(
-                x => (this.isTeacher(x.name) ? { ...x, isTeacher: true } : x)
+                x =>
+                  this.isTeacher({ name: x.name })
+                    ? { ...x, isTeacher: true }
+                    : x
               )}
               isTeacher={this.isTeacher}
               giveMic={giveMic}

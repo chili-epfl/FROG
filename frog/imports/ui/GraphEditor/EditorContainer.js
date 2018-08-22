@@ -124,10 +124,6 @@ class Editor extends React.Component<Object, StateT> {
               setModal={val => this.setState({ importOpen: val })}
               locallyChanged={this.state.locallyChanged}
               changesLoaded={() => this.setState({ locallyChanged: true })}
-              {...{
-                setDelete,
-                setIdRemove
-              }}
             />
             <ModalDelete
               modalOpen={this.state.deleteOpen}
