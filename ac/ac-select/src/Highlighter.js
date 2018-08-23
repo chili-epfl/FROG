@@ -107,6 +107,7 @@ export default ({
           );
         }
       })}
+      <br/>
     </span>
   );
 };
