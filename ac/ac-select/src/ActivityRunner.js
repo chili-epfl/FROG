@@ -79,21 +79,27 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           }}
           unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
         />
-        <br/>
+        <br />
         {activityData.config.text &&
-          activityData.config.text
-            .split('\n\n')
-            .map(sub =>
-              <p>
-              {sub.split('\n').map(sub2 =>
-                <Highlighter
-                  searchWords={data['highlighted']}
-                  highlightStyle={{ cursor: 'help' }}
-                  unhighlightStyle={{ cursor: 'help' }}
-                  textToHighlight={sub2}
-                />)}
-                </p>
-          )}
+          activityData.config.text.split('\n\n').map((sub, i) => {
+            const k = sub + i;
+            return (
+              <p key={k}>
+                {sub.split('\n').map((sub2, index) => {
+                  const k2 = sub2 + index;
+                  return (
+                    <Highlighter
+                      key={k2}
+                      searchWords={data['highlighted']}
+                      highlightStyle={{ cursor: 'help' }}
+                      unhighlightStyle={{ cursor: 'help' }}
+                      textToHighlight={sub2}
+                    />
+                  );
+                })}
+              </p>
+            );
+          })}
       </div>
     </>
   );
