@@ -41,9 +41,6 @@ const mergeFunction = ({ data: incoming }, dataFn, data) => {
   if (isEmpty(incoming) || !isObject(incoming)) {
     return;
   }
-  if (incoming['1']) {
-    mergeFunction({ data: incoming['1'] }, dataFn, data);
-  }
   if (incoming.y) {
     if (!data[incoming.trace]) {
       dataFn.objInsert({ y: [] }, incoming.trace);
