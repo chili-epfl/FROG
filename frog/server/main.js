@@ -178,7 +178,7 @@ const checkActivity = (session, activityId, operators, connections, userid) => {
   const act = Activities.findOne(activityId);
   const isTeacher = session.ownerId === userid;
 
-  if (!isTeacher && ![3, 4].includes(act.plane)) {
+  if (isTeacher && ![3, 4].includes(act.plane)) {
     return false;
   }
   if (

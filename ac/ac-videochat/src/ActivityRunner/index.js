@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import WebRtcConfig from '../webrtc-config/config';
-import { onStreamAdded, onVAD } from '../analytics/AVStreamAnalysis';
+import { analyzeStream, onVAD } from '../analytics/StreamAnalysis';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
@@ -380,8 +380,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       logger: this.props.logger
     };
 
-    // from AVStreamAnalysis
-    onStreamAdded(this.stream, analysisOptions);
+    // from StreamAnalysis
+    analyzeStream(this.stream, analysisOptions);
   };
 
   setLocalState = () => {
