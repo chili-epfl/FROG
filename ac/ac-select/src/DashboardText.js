@@ -116,23 +116,28 @@ const ViewerStyleless = ({
             }}
             unhighlightStyle={{ fontSize: 'xx-large' }}
           />
+          <br />
           {activity.data.text &&
-            activity.data.text
-              .split('\n')
-              .filter(x => x !== '')
-              .map(sub => (
-                <p key={sub}>
-                  <Highlighter
-                    {...{ searchWords }}
-                    highlightStyle={{
-                      backgroundColor: currentColor
-                    }}
-                    textToHighlight={
-                      activity.data ? activity.data.text || '' : ''
-                    }
-                  />
+            activity.data.text.split('\n\n').map((sub, i) => {
+              const k = sub + i;
+              return (
+                <p key={k}>
+                  {sub.split('\n').map((sub2, index) => {
+                    const k2 = sub2 + index;
+                    return (
+                      <Highlighter
+                        key={k2}
+                        {...{ searchWords }}
+                        highlightStyle={{
+                          backgroundColor: currentColor
+                        }}
+                        textToHighlight={sub2}
+                      />
+                    );
+                  })}
                 </p>
-              ))}
+              );
+            })}
         </>
       )}
     </div>
