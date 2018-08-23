@@ -7,12 +7,12 @@ export default {
     'Allow the student to see various plots of data chosen by the teacher or the student',
   exampleData: [
     {
-      title: 'Random 100 points step 1',
+      title: '1 point',
       config: { title: 'Graph2', plotType: 'all' },
       data: { trace: '1', x: 20, y: 30 }
     },
     {
-      title: 'log 100 points and linear',
+      title: '2 traces',
       config: { title: 'Graph3', plotType: 'all' },
       data: [
         { trace: 'a', x: 1, y: 30 },
@@ -28,7 +28,25 @@ export default {
         { trace: 'b', x: 4, y: 9 },
         { trace: 'b', x: 5, y: 11 },
         { trace: 'b', x: 6, y: 12 },
+        { trace: 'b', x: 3, y: 12 },
+        { trace: 'b', x: 5, y: 2 },
         { trace: 'b', x: 7, y: 13 }
+      ]
+    },
+    {
+      title: '1 trace 1 axis',
+      config: { title: 'Graph4', plotType: 'all' },
+      data: [
+        { trace: 'size', x: 1.8 },
+        { trace: 'size', x: 1.6 },
+        { trace: 'size', x: 1.6 },
+        { trace: 'size', x: 1.65 },
+        { trace: 'size', x: 1.9 },
+        { trace: 'size', x: 1.62 },
+        { trace: 'size', x: 1.76 },
+        { trace: 'size', x: 1.74 },
+        { trace: 'size', x: 1.82 },
+        { trace: 'size', x: 1.7 }
       ]
     }
   ]

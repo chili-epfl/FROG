@@ -31,8 +31,8 @@ const transformData = (data, type) => {
         mode: 'lines+markers',
         ...trace
       }));
-    case 'bar':
-      return data.map(trace => ({ type: 'bar', ...trace }));
+    case 'histogram':
+      return data.map(trace => ({ type: 'histogram', ...trace }));
     case 'box':
       return data.reduce((acc, cur) => [...acc, { type: 'box', y: cur.y }], []);
     default:
@@ -58,7 +58,7 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
           <MenuItem value="dots">Dots</MenuItem>
           <MenuItem value="line">Lines</MenuItem>
           <MenuItem value="box">Box</MenuItem>
-          <MenuItem value="bar">Bar</MenuItem>
+          <MenuItem value="histogram">Histogram</MenuItem>
         </Select>
       )}
     </div>

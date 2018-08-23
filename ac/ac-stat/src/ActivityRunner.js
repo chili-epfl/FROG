@@ -7,7 +7,7 @@ import Graph from './Graph';
 import DataForm from './DataForm';
 
 export default ({ activityData, data, dataFn }: ActivityRunnerPropsT) => (
-  <div style={{ display: 'flex' }}>
+  <div style={{ display: 'flex', height: 'inherit' }}>
     <DataForm {...{ data, dataFn }} />
     <div
       style={{ width: '1px', height: 'inherit', backgroundColor: '#000000' }}

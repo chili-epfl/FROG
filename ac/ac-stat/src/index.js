@@ -44,14 +44,14 @@ const mergeFunction = ({ data: incoming }, dataFn, data) => {
     return;
   }
   if (!data[incoming.trace]) {
-    dataFn.objInsert({ y: [], x: [] }, incoming.trace);
+    dataFn.objInsert({}, incoming.trace);
+    Object.keys(incoming).filter(field => field !== 'trace').forEach(axis =>
+      dataFn.objInsert([], [incoming.trace, axis])
+    )
   }
-  if (incoming.y) {
-    dataFn.listAppend(incoming.y, [incoming.trace, 'y']);
-  }
-  if (incoming.x) {
-    dataFn.listAppend(incoming.x, [incoming.trace, 'x']);
-  }
+  Object.keys(incoming).filter(field => field !== 'trace').forEach(axis =>
+    dataFn.listAppend(incoming[axis], [incoming.trace, axis])
+  )
 };
 export default ({
   id: 'ac-stat',
