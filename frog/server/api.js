@@ -29,44 +29,42 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
   if (!session) {
     response.writeHead(404);
     response.end();
+    return;
   } else if (session.settings && session.settings.allowLTI === false) {
     response.writeHead(403);
     response.end();
-  } else {
-    let user;
-    try {
-      user = request.body.lis_person_name_full;
-    } catch (e) {
-      console.error('Error parsing username in lti request', request.body, e);
-      user = uuid();
-    }
-    let id;
-    try {
-      id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
-    } catch (e) {
-      console.error('Error parsing userid in lti request', request.body, e);
-      id = uuid();
-    }
-    try {
-      const { userId } = Accounts.updateOrCreateUserFromExternalService(
-        'frog',
-        {
-          id: user
-        }
-      );
-      Meteor.users.update(userId, { $set: { username: user, userid: id } });
-      const stampedLoginToken = Accounts._generateStampedLoginToken();
-      Accounts._insertLoginToken(userId, stampedLoginToken);
-      InjectData.pushData(request, 'login', {
-        token: stampedLoginToken.token,
-        slug
-      });
-      next();
-    } catch (e) {
-      console.error('Error responding to lti request', request.body, e);
-      response.writeHead(400);
-      response.end();
-    }
+    return;
+  }
+  let user;
+  try {
+    user = request.body.lis_person_name_full;
+  } catch (e) {
+    console.error('Error parsing username in lti request', request.body, e);
+    user = uuid();
+  }
+  let id;
+  try {
+    id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
+  } catch (e) {
+    console.error('Error parsing userid in lti request', request.body, e);
+    id = uuid();
+  }
+  try {
+    const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
+      id: user
+    });
+    Meteor.users.update(userId, { $set: { username: user, userid: id } });
+    const stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
+    InjectData.pushData(request, 'login', {
+      token: stampedLoginToken.token,
+      slug
+    });
+    next();
+  } catch (e) {
+    console.error('Error responding to lti request', request.body, e);
+    response.writeHead(400);
+    response.end();
   }
 });
 
