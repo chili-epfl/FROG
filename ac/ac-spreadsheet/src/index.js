@@ -35,15 +35,11 @@ const dataStructure = [0, 1, 2, 3, 4].map((row, i) =>
   })
 );
 
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
-
 export default ({
   id: 'ac-spreadsheet',
   type: 'react-component',
   configVersion: 1,
   meta,
   config,
-  dataStructure,
-  mergeFunction
+  dataStructure
 }: ActivityPackageT);
