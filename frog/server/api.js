@@ -70,7 +70,7 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
   } catch (e) {
     console.error('Error responding to lti request', request.body, e);
     response.writeHead(400);
-    response.end();
+    response.end('Error responding to LTI request');
   }
 });
 
