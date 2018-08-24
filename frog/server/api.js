@@ -28,11 +28,13 @@ WebApp.connectHandlers.use('/lti', (request, response, next) => {
   const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
   if (!session) {
     response.writeHead(404);
-    response.end();
+    response.end('This session does not exist');
     return;
   } else if (session.settings && session.settings.allowLTI === false) {
     response.writeHead(403);
-    response.end();
+    response.end(
+      'This session does not allow LTI login, check the session settings'
+    );
     return;
   }
   let user;
