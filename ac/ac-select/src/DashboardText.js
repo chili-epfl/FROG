@@ -20,8 +20,139 @@ const styles = () => ({
   }
 });
 
+const testState = {
+  dyin: { colors: ['#FFFF00'] },
+  'people ': { colors: ['#FFFF00'] },
+  irate: {
+    colors: [
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00'
+    ]
+  },
+  haterade: { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  questioning: { colors: ['#FFFF00'] },
+  preachin: {
+    colors: [
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00'
+    ]
+  },
+  momma: { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  discriminate: {
+    colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00']
+  },
+  meditate: {
+    colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00']
+  },
+  animosity: {
+    colors: [
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00'
+    ]
+  },
+  'weed ': { colors: ['#FFFF00'] },
+  around: { colors: ['#FFFF00'] },
+  hurtin: { colors: ['#FFFF00', '#FFFF00'] },
+  'hell ': { colors: ['#FFFF00', '#FFFF00'] },
+  'guidance ': {
+    colors: [
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00',
+      '#FFFF00'
+    ]
+  },
+  overseas: { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  'bullets ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  em: { colors: ['#FFFF00', '#FFFF00'] },
+  'bound ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  'ongoing ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00'] },
+  murdered: { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  'truth ': { colors: ['#FFFF00'] },
+  'election ': { colors: ['#FFFF00'] },
+  sellin: { colors: ['#FFFF00', '#FFFF00'] },
+  'breathe ': { colors: ['#FFFF00'] },
+  layin: { colors: ['#FFFF00'] },
+  'selfishness ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00'] },
+  equality: { colors: ['#FFFF00', '#FFFF00', '#FFFF00'] },
+  'suffering ': {
+    colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00']
+  },
+  'cheek ': { colors: ['#FFFF00', '#FFFF00'] },
+  "ain't ": { colors: ['#FFFF00', '#FFFF00'] },
+  'distracted ': {
+    colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00']
+  },
+  'concept ': { colors: ['#FFFF00', '#FFFF00'] },
+  karma: { colors: ['#FFFF00'] },
+  gravitate: { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  'peas ': { colors: ['#FFFF00', '#FFFF00'] },
+  racist: { colors: ['#FFFF00'] },
+  'the ': { colors: ['#FFFF00'] },
+  'get ': { colors: ['#FFFF00', '#FFFF00'] },
+  'help ': { colors: ['#FFFF00'] },
+  along: { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  above: { colors: ['#FFFF00'] },
+  'instead ': { colors: ['#FFFF00'] },
+  'generates ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00', '#FFFF00'] },
+  'madness ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00'] },
+  operates: { colors: ['#FFFF00', '#FFFF00', '#FFFF00'] },
+  'protests ': { colors: ['#FFFF00'] },
+  'chase ': { colors: ['#FFFF00'] },
+  choke: { colors: ['#FFFF00', '#FFFF00'] },
+  'spreading ': { colors: ['#FFFF00'] },
+  'you ': { colors: ['#FFFF00'] },
+  'what ': { colors: ['#FFFF00'] },
+  'discriminate ': { colors: ['#FFFF00'] },
+  'practice ': { colors: ['#FFFF00', '#FFFF00', '#FFFF00'] },
+  mommas: { colors: ['#FFFF00'] },
+  straight: { colors: ['#FFFF00'] },
+  'vote ': { colors: ['#FFFF00'] },
+  'attracted ': { colors: ['#FFFF00', '#FFFF00'] },
+  'streets ': { colors: ['#FFFF00', '#FFFF00'] },
+  demonstrate: { colors: ['#FFFF00', '#FFFF00'] },
+  insane: { colors: ['#FFFF00', '#FFFF00'] },
+  'set ': { colors: ['#FFFF00'] },
+  droppin: { colors: ['#FFFF00', '#FFFF00'] },
+  killin: { colors: ['#FFFF00'] },
+  us: { colors: ['#FFFF00'] },
+  'tell ': { colors: ['#FFFF00'] },
+  'celebrate ': { colors: ['#FFFF00'] },
+  'nation ': { colors: ['#FFFF00'] },
+  'youth ': { colors: ['#FFFF00'] },
+  bacteria: { colors: ['#FFFF00'] },
+  'lack ': { colors: ['#FFFF00', '#FFFF00'] },
+  gosh: { colors: ['#FFFF00'] },
+  unity: { colors: ['#FFFF00'] }
+};
+
 const ViewerStyleless = ({
-  state,
   activity,
   currentColor,
   setCurrentColor,
@@ -29,6 +160,7 @@ const ViewerStyleless = ({
   setMode,
   classes
 }) => {
+  const state = testState;
   const selectPenColor = color => setCurrentColor(color);
   const searchWords =
     currentColor === '#FFFFFF'
@@ -38,6 +170,7 @@ const ViewerStyleless = ({
           return tmp;
         }, {})
       : Object.keys(state)
+
           .filter(x => state[x].colors.includes(currentColor))
           .reduce((acc, cur) => {
             const tmp = { ...acc };
