@@ -22,7 +22,11 @@ WebApp.connectHandlers.use(bodyParser.json());
 setupH5PRoutes();
 
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
-  if (request.method !== 'POST') next();
+  if (request.method !== 'POST') {
+    response.writeHead(403);
+    response.end('LTI sessions must use POST requests');
+    return;
+  }
   const url = require('url').parse(request.url);
   const slug = url.pathname.substring(1);
   const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
