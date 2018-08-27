@@ -15,18 +15,8 @@ const config = {
     plotType: {
       type: 'string',
       title: 'Kind of plot to display:',
-      enum: ['all', 'lines', 'dots', 'dots+lines', 'box', 'bar'],
+      enum: ['all', 'dots', 'box', 'bar'],
       default: 'all'
-    },
-    xLabel: {
-      title: 'X label',
-      type: 'string',
-      default: 'x'
-    },
-    yLabel: {
-      title: 'Y label',
-      type: 'string',
-      default: 'y'
     }
   }
 };
@@ -45,13 +35,14 @@ const mergeFunction = ({ data: incoming }, dataFn, data) => {
   }
   if (!data[incoming.trace]) {
     dataFn.objInsert({}, incoming.trace);
-    Object.keys(incoming).filter(field => field !== 'trace').forEach(axis =>
+    Object.keys(incoming).filter(field => field !== 'trace' && field !== 'filter').forEach(axis =>
       dataFn.objInsert([], [incoming.trace, axis])
     )
   }
-  Object.keys(incoming).filter(field => field !== 'trace').forEach(axis =>
+  Object.keys(incoming).filter(field => field !== 'trace' && field !== 'filter').forEach(axis =>
     dataFn.listAppend(incoming[axis], [incoming.trace, axis])
   )
+  dataFn.objInsert(incoming.filter, [incoming.trace, 'filter'])
 };
 export default ({
   id: 'ac-stat',
