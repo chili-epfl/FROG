@@ -24,6 +24,7 @@ const ReactiveHOC = (
   meta?: Object,
   backend: any,
   stream?: Function,
+  sessionId?: string,
   transform?: Function,
   rawData?: any
 ) => (WrappedComponent: React.ComponentType<*>) => {
