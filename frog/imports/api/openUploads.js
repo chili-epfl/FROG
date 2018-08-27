@@ -5,17 +5,9 @@ import { Mongo } from 'meteor/mongo';
 
 export const UploadList = new Mongo.Collection('uploadList');
 
-export const addFileToList = (
-  name: string,
-  url: string,
-  sessionId?: string
-) => {
-  UploadList.insert({ uploadDate: new Date(), name, url, sessionId });
-};
-
 export const uploadFile = (file: any, name: string, sessionId?: string) => {
   const prom: Promise<any> = new Promise((resolve, reject) => {
-    Meteor.call('minio.signedurl', name, (err, succ) => {
+    Meteor.call('minio.signedurl', name, sessionId, (err, succ) => {
       if (err) {
         reject(err);
       }
@@ -30,9 +22,6 @@ export const uploadFile = (file: any, name: string, sessionId?: string) => {
         }
       };
     });
-  }).then(url => {
-    addFileToList(name, url, sessionId);
-    return url;
   });
   return prom;
 };

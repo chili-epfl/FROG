@@ -64,8 +64,7 @@ export default withTracker(() => {
     'sessions',
     'globalSettings',
     'dashboardData',
-    'externalOperators',
-    'uploadList'
+    'externalOperators'
   ];
 
   if (!Meteor.user().role) {
