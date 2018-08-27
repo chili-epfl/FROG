@@ -30,7 +30,10 @@ export const uploadFile = (file: any, name: string, sessionId?: string) => {
         }
       };
     });
-  }).then(url => addFileToList(name, url, sessionId));
+  }).then(url => {
+    addFileToList(name, url, sessionId);
+    return url;
+  });
   return prom;
 };
 
