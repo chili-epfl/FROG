@@ -5,6 +5,7 @@ import Mousetrap from 'mousetrap';
 import { ReactiveText } from 'frog-utils';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
@@ -66,20 +67,17 @@ const ZoomView = ({
             />
           )}
           {commentBox && (
-            <button
+            <IconButton
+              color="inherit"
               onClick={close}
-              className="btn btn-success"
               style={{
                 position: 'absolute',
                 right: '2px',
                 bottom: '2px'
               }}
             >
-              <div className="bootstrap">
-                {' '}
-                <i className="fa fa-check" style={{ fontSize: 'xx-large' }} />
-              </div>
-            </button>
+              <DoneIcon />
+            </IconButton>
           )}
         </div>
       </Paper>
