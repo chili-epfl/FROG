@@ -46,12 +46,14 @@ class ActivityRunner extends React.Component<*, *> {
   render() {
     return (
       <div>
-        <button onClick={this.screenshot}>Screenshot</button>
+        {this.props.activityData.config.screenshot && (
+          <button onClick={this.screenshot}>Screenshot</button>
+        )}
         <iframe
           id="ac-chocolate"
           style={{ width: '600px', height: '600px' }}
           title="ac-thermoCup"
-          src={`/file/ac/ac-meltingChocolate/index.html?mode=${
+          src={`/clientFiles/ac-meltingChocolate/index.html?mode=${
             this.props.activityData.config?.mode
           }`}
         />

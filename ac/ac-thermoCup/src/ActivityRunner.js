@@ -58,12 +58,14 @@ class ActivityRunner extends React.Component<*, *> {
   render() {
     return (
       <div>
-        <button onClick={this.screenshot}>Screenshot</button>
+        {this.props.activityData.config.screenshot && (
+          <button onClick={this.screenshot}>Screenshot</button>
+        )}
         <iframe
           id="ac-thermoCup"
           style={{ width: '600px', height: '600px' }}
           title="ac-thermoCup"
-          src="/file?name=ac/ac-thermoCup/ThermoChallenge_oneLayer.html"
+          src="/clientFiles/ac-thermoCup/ThermoChallenge_oneLayer.html"
         />
       </div>
     );
