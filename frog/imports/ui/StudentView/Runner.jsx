@@ -175,6 +175,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
       meta,
       undefined,
       stream,
+      sessionId,
       transform,
       rawData
     )(RunComp);

@@ -87,6 +87,7 @@ class ActivityRunner extends Component<
 
     const showCategories =
       this.state.category === 'categories' && !activityData.config.hideCategory;
+
     return (
       <>
         <TopBar

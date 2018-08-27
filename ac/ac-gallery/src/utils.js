@@ -9,7 +9,6 @@ const uploadBufferWithThumbnail = (
   logger,
   dataFn,
   stream,
-  uploadFn,
   type,
   filename
 ) => {
@@ -20,7 +19,7 @@ const uploadBufferWithThumbnail = (
     // upload a thumbnail
     resizeImg(imageBuffer, { width: 128 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
-      uploadFn(blob, imageId + 'thumb').then(url => {
+      dataFn.uploadFn(blob, imageId + 'thumb').then(url => {
         dataFn.objInsert(url, [imageId, 'thumbnail']);
         stream(url, [imageId, 'thumbnail']);
       });
@@ -29,7 +28,7 @@ const uploadBufferWithThumbnail = (
     // upload a bigger picture
     resizeImg(imageBuffer, { width: 800 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
-      uploadFn(blob, imageId).then(url => {
+      dataFn.uploadFn(blob, imageId).then(url => {
         dataFn.objInsert(url, [imageId, 'url']);
         stream(url, [imageId, 'url']);
       });
@@ -39,7 +38,7 @@ const uploadBufferWithThumbnail = (
       stream(filename, [imageId, 'filename']);
     }
   } else {
-    uploadFn(imageBuffer, imageId).then(url => {
+    dataFn.uploadFn(imageBuffer, imageId).then(url => {
       dataFn.objInsert({ url, ext, filename }, imageId);
       stream({ url, ext, filename }, imageId);
     });
@@ -51,7 +50,6 @@ export default (
   logger: Function,
   dataFn: Object,
   stream: Function,
-  uploadFn: Function,
   type: string
 ) => {
   const fr = new FileReader();
@@ -69,7 +67,6 @@ export default (
       logger,
       dataFn,
       stream,
-      uploadFn,
       type,
       filename
     );
