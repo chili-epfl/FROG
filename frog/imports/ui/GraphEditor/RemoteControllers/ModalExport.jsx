@@ -40,7 +40,7 @@ export default class ExportModal extends Component<Object, StateT> {
       this.setState({
         ...nextProps.metadatas,
         is_public:
-          this.props.metadatas.owner_id === Meteor.user().username
+          nextProps.metadatas.owner_id === Meteor.user().username
             ? nextProps.metadatas.is_public
             : false
       });
