@@ -72,7 +72,7 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
   a single port - 3000 and 3002 need to be exposed).
 * If you need to re-run `./initial_setup.sh`, execute these commands first.
   **(Note that this deletes any file that has not been checked in and
-  committed). It will also remove clean all Mongo collections (i.e all graphs and activities that wene nor send to the cloud library)**: `git reset --hard; git clean -fdx; ./initial_setup.sh`
+  committed). It will also remove clean all Mongo collections (i.e all graphs and activities that have not been sent to the cloud library)**: `git reset --hard; git clean -fdx; ./initial_setup.sh`
 * Some warnings when you start Meteor like missing `bcrypt`, `hiredis` etc are
   OK, as long as the following lines are displayed:
 
