@@ -48,7 +48,7 @@ const defaultFindChunks = ({ searchWords, textToHighlight }) =>
   searchWords
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const regex = new RegExp('(' + searchWord + ')\\b', 'gi');
+      const regex = new RegExp('\\b(' + searchWord + ')\\b', 'gi');
       let match = regex.exec(textToHighlight);
       while (match) {
         const start = match.index;
