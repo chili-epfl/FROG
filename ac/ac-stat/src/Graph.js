@@ -15,26 +15,56 @@ const styles = {
   }
 };
 
-const transformData = (data, type) => {
-  // const realAxis = data.map(trace => 
-  //     trace.filter ? Object.keys(trace).filter(axis => axis !== 'filter' && axis !== trace.filter)[0] : null
-  // )
-
-
-  switch (type) {
-    case 'dots':
-      return data.map(trace => ({
-        type: 'scatter',
-        mode: 'markers',
-        ...trace
-      }));
-    case 'histogram':
-      return data.map(trace => ({ type: 'histogram', data: trace['filter'], xbins: {size: 0.05, start: 0, end: 2}, }));
-    case 'box':
-      return data.reduce((acc, cur) => [...acc, { type: 'box', y: cur.y }], []);
-    default:
-      return data;
+const transformData = (data, type,filtered) => {
+  const result = []
+  if(filtered && data.reduce((acc,cur) => acc && Object.keys(cur).length === 2 , true)){
+    const keys = data.reduce((acc,cur) => acc.includes(Object.values(cur)[1]) ? acc : [...acc, Object.values(cur)[1]], [])
+    switch (type) {
+      case 'dots':
+        keys.forEach(k => {
+          result.push({ type: 'scatter',
+          mode: 'markers',
+          name: k,
+           x: data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+        })
+        break
+      case 'histogram':
+        keys.forEach(k => {
+          result.push({ type: 'histogram',
+          histofunc: k,
+          name: k,
+           x: data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+        })
+        break
+      case 'box':
+      keys.forEach(k => {
+        result.push({ type: 'box',
+        name: k,
+         x: data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+      })
+              break
+      default:
+    }
   }
+  else{
+    switch (type) {
+      case 'dots':
+        result.push({
+          type: 'scatter',
+          mode: 'markers',
+          x: data.map(entry => Object.values(entry)[0])
+        });
+        break
+      case 'histogram':
+        result.push({ type: 'histogram', x: data.map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+        break
+      case 'box':
+        result.push({ type: 'box', x: data.map(entry => Object.values(entry)[0]) })
+        break
+      default:
+    }
+  }
+  return result
 };
 
 const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
@@ -62,7 +92,8 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
       config={{ displayModeBar: false }}
       data={transformData(
         data,
-        config.plotType !== 'all' ? config.plotType : plot
+        config.plotType !== 'all' ? config.plotType : plot,
+        config.sort
       )}
       style={{ position: 'sticky', left: '50%' }}
       layout={{

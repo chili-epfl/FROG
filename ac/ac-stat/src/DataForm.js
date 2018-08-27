@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import FilteringPanel from './FilteringPanel'
+
 const styles = () => ({
   table: {
     border: 'solid 1px'
@@ -22,33 +24,32 @@ const Data = ({classes, data, dataFn}) => {
   console.log(data)
   return (
   <div style={{ width: '25%', overflowY: 'scroll' }}>
+    <FilteringPanel/>
     <h3>Data</h3>
-    {Object.keys(data).map(trace =>
-      <Table className={classes.table} key={trace}>
+    {
+      <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            {Object.keys(data[trace]).map(axis => <TableCell className={classes.head} key={axis}>{axis}</TableCell>)}
+            {Object.keys(data[0]).map(axis => <TableCell className={classes.head} key={axis}>{axis}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.values(data[trace])[0].map((entry, index) =>{
-            const k = entry+''+index
-            return (
-            <TableRow key={k}>
-              {Object.keys(data[trace]).map((axis) =>
-                <TableCell key={axis}>
-                  {data[trace][axis][index]}
-                  <div />
-                </TableCell>
-              )
-              }
-            </TableRow>)}
-          )
-
-            }
+          {
+            data.map((entry, index) => {
+              const tmp = entry+''+index
+              return (<TableRow key={tmp}>
+                        {Object.values(entry).map(v =>
+                          <TableCell key={tmp+v}>
+                            {v}
+                          </TableCell>
+                        )}
+              </TableRow>)}
+            )
+          }
         </TableBody>
       </Table>
-    )}
+
+    }
   </div>
 )};
 
