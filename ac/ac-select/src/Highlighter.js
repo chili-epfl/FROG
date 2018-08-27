@@ -47,6 +47,7 @@ export default ({
           chunk.start,
           chunk.end - chunk.start
         );
+        console.log(chunk, text);
 
         if (chunk.highlight) {
           highlightCount += 1;
@@ -75,6 +76,7 @@ export default ({
               ? Object.assign({}, highlightStyle, activeStyle)
               : highlightStyle;
           const word = searchWords[text.toLowerCase()];
+          console.log(searchWords[text], searchWords[text.toLowerCase()]);
           return (
             <Tooltip
               title={word && word.vote ? word.vote.toString() : ''}
