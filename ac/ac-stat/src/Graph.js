@@ -32,7 +32,7 @@ const transformData = (data, type) => {
         ...trace
       }));
     case 'histogram':
-      return data.map(trace => ({ type: 'histogram', ...trace }));
+      return data.map(trace => ({ type: 'histogram', ...trace, xbins: {size: 0.05, start: 0, end: 2}, }));
     case 'box':
       return data.reduce((acc, cur) => [...acc, { type: 'box', y: cur.y }], []);
     default:
