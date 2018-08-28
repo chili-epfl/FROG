@@ -31,7 +31,7 @@ export const updateActivity = (
       description: activity.description,
       config: { ...activity.data },
       tags: '{' + activity.tags.join(',') + '}',
-      is_public: activity.is_public
+      is_public: activity.public
     },
     isNil
   );

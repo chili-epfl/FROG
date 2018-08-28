@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import { isEqual } from 'lodash';
 
@@ -47,7 +48,10 @@ class ConfigPanel extends React.Component<*, *> {
   }
 
   onConfigChange = (e: any) => {
-    if (JSON.stringify(e.config) !== JSON.stringify(this.props.config)) {
+    if (
+      this.props.metadatas.owner_id === Meteor.user().username &&
+      JSON.stringify(e.config) !== JSON.stringify(this.props.config)
+    ) {
       this.setState({ displaySave: true });
     }
     if (e.errors && e.errors.length === 0) {
