@@ -30,13 +30,12 @@ const dataStructure = {};
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = ({ data: incoming }, dataFn, data) => {
   if (!Array.isArray(incoming)) {
-      return;
-    }
-  incoming.forEach(({trace, ...rest}) => {
-    if(!data[trace])
-      dataFn.objInsert([],trace)
-    dataFn.listAppend({...rest},trace)
-  })
+    return;
+  }
+  incoming.forEach(({ trace, ...rest }) => {
+    if (!data[trace]) dataFn.objInsert([], trace);
+    dataFn.listAppend({ ...rest }, trace);
+  });
 };
 
 export default ({

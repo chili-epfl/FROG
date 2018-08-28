@@ -16,59 +16,79 @@ const styles = {
 };
 
 const transformData = (data, type, filtered) => {
-  const result = []
-  if(filtered && data.reduce((acc,cur) => acc && Object.keys(cur).length === 2 , true)){
-    const keys = data.reduce((acc,cur) => acc.includes(Object.values(cur)[1]) ? acc : [...acc, Object.values(cur)[1]], [])
+  const result = [];
+  if (
+    filtered &&
+    data.reduce((acc, cur) => acc && Object.keys(cur).length === 2, true)
+  ) {
+    const keys = data.reduce(
+      (acc, cur) =>
+        acc.includes(Object.values(cur)[1])
+          ? acc
+          : [...acc, Object.values(cur)[1]],
+      []
+    );
     switch (type) {
       case 'dots':
         keys.forEach(k => {
-          const formatData = data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0])
-          result.push({ type: 'scatter',
-          mode: 'markers',
-          name: k,
-           x: formatData});
-        })
-        break
+          const formatData = data
+            .filter(x => Object.values(x)[1] === k)
+            .map(entry => Object.values(entry)[0]);
+          result.push({
+            type: 'scatter',
+            mode: 'markers',
+            name: k,
+            x: formatData
+          });
+        });
+        break;
       case 'histogram':
         keys.forEach(k => {
-          const formatData = data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0])
-          result.push({ type: 'histogram',
-          histofunc: k,
-          name: k,
-           x: formatData});
-        })
-        break
+          const formatData = data
+            .filter(x => Object.values(x)[1] === k)
+            .map(entry => Object.values(entry)[0]);
+          result.push({
+            type: 'histogram',
+            histofunc: k,
+            name: k,
+            x: formatData
+          });
+        });
+        break;
       case 'box':
-      keys.forEach(k => {
-        const formatData = data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0])
-        result.push({ type: 'box',
-        name: k,
-         x: formatData});
-      })
-              break
+        keys.forEach(k => {
+          const formatData = data
+            .filter(x => Object.values(x)[1] === k)
+            .map(entry => Object.values(entry)[0]);
+          result.push({
+            type: 'box',
+            name: k,
+            x: formatData
+          });
+        });
+        break;
       default:
     }
-  }
-  else{
-    const formatData = data.map(entry => Object.values(entry)[0])
+  } else {
+    const formatData = data.map(entry => Object.values(entry)[0]);
     switch (type) {
       case 'dots':
         result.push({
           type: 'scatter',
           mode: 'markers',
-          x: formatData,
+          x: formatData
         });
-        break
+        break;
       case 'histogram':
-        result.push({ type: 'histogram', x: formatData}); // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
-        break
+        result.push({ type: 'histogram', x: formatData }); // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
+        break;
       case 'box':
-        result.push({ type: 'box', x: formatData })
-        break
+        result.push({ type: 'box', x: formatData });
+        break;
       default:
     }
   }
-  return result
+  return result;
 };
 
 const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
@@ -83,7 +103,9 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
           onChange={e => setPlot(e.target.value)}
           classes={{ root: classes.root }}
         >
-          <MenuItem value="histogram" selected>Histogram</MenuItem>
+          <MenuItem value="histogram" selected>
+            Histogram
+          </MenuItem>
           <MenuItem value="dots">Dots</MenuItem>
           <MenuItem value="box">Box</MenuItem>
         </Select>

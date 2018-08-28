@@ -5,13 +5,13 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-class FilteringPanel extends React.Component {
+class FilteringPanel extends React.Component<*, *> {
   state = {
     checkedA: true,
-    checkedB: true,
+    checkedB: true
   };
 
-  handleChange = name => event => {
+  handleChange = (name: string) => (event: Object) => {
     this.setState({ [name]: event.target.checked });
   };
 
@@ -39,7 +39,10 @@ class FilteringPanel extends React.Component {
           }
           label="Primary"
         />
-        <FormControlLabel control={<Switch value="checkedC" />} label="Uncontrolled" />
+        <FormControlLabel
+          control={<Switch value="checkedC" />}
+          label="Uncontrolled"
+        />
       </FormGroup>
     );
   }
