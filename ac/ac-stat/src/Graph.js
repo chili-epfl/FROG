@@ -15,51 +15,55 @@ const styles = {
   }
 };
 
-const transformData = (data, type,filtered) => {
+const transformData = (data, type, filtered) => {
   const result = []
   if(filtered && data.reduce((acc,cur) => acc && Object.keys(cur).length === 2 , true)){
     const keys = data.reduce((acc,cur) => acc.includes(Object.values(cur)[1]) ? acc : [...acc, Object.values(cur)[1]], [])
     switch (type) {
       case 'dots':
         keys.forEach(k => {
+          const formatData = data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0])
           result.push({ type: 'scatter',
           mode: 'markers',
           name: k,
-           x: data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+           x: formatData});
         })
         break
       case 'histogram':
         keys.forEach(k => {
+          const formatData = data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0])
           result.push({ type: 'histogram',
           histofunc: k,
           name: k,
-           x: data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+           x: formatData});
         })
         break
       case 'box':
       keys.forEach(k => {
+        const formatData = data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0])
         result.push({ type: 'box',
         name: k,
-         x: data.filter(x => Object.values(x)[1] === k).map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+         x: formatData});
       })
               break
       default:
     }
   }
   else{
+    const formatData = data.map(entry => Object.values(entry)[0])
     switch (type) {
       case 'dots':
         result.push({
           type: 'scatter',
           mode: 'markers',
-          x: data.map(entry => Object.values(entry)[0])
+          x: formatData,
         });
         break
       case 'histogram':
-        result.push({ type: 'histogram', x: data.map(entry => Object.values(entry)[0]), xbins: {size: 0.05, start: 0, end: 2} });
+        result.push({ type: 'histogram', x: formatData}); // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
         break
       case 'box':
-        result.push({ type: 'box', x: data.map(entry => Object.values(entry)[0]) })
+        result.push({ type: 'box', x: formatData })
         break
       default:
     }

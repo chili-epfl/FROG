@@ -20,37 +20,66 @@ const styles = () => ({
   }
 });
 
-const Data = ({classes, data, dataFn}) => {
-  console.log(data)
-  return (
-  <div style={{ width: '25%', overflowY: 'scroll' }}>
-    <FilteringPanel/>
-    <h3>Data</h3>
-    {
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            {Object.keys(data[0]).map(axis => <TableCell className={classes.head} key={axis}>{axis}</TableCell>)}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-            data.map((entry, index) => {
-              const tmp = entry+''+index
-              return (<TableRow key={tmp}>
-                        {Object.values(entry).map(v =>
-                          <TableCell key={tmp+v}>
-                            {v}
-                          </TableCell>
-                        )}
-              </TableRow>)}
-            )
-          }
-        </TableBody>
-      </Table>
+class Data extends React.Component{
+  state = {
+    selected: [-1,-1],
+    cellStr: ''
+  }
 
-    }
-  </div>
-)};
+  render(){
+    const {classes, data, dataFn, dataset} = this.props
+    return (
+    <div style={{ width: '25%', overflowY: 'scroll' }}>
+      <FilteringPanel/>
+      <h3>Data</h3>
+      {
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              {Object.keys(data[0]).map(axis => <TableCell className={classes.head} key={axis}>{axis}</TableCell>)}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              data.map((entry, index) => {
+                const tmp = entry+''+index
+                return (<TableRow key={tmp}>
+                          {Object.values(entry).map((v,i2) =>
+                            <TableCell key={tmp+v} onClick={() => this.setState({selected: [index,i2], cellStr: v})} className={classes.cell} >
+                              {index === this.state.selected[0] && i2 === this.state.selected[1]
+                                ? <input
+                                  type="text"
+                                  value={this.state.cellStr}
+                                  onChange={e => this.setState({cellStr: e.target.value})}
+                                  style={{padding: '5px', }}
+                                  onKeyPress={e => {
+                                    if (e.key === 'Enter') {
+                                      const newEntry = ({...entry})
+                                      newEntry[Object.keys(entry)[i2]] = this.state.cellStr
+                                      dataFn.listReplace(entry,newEntry,[dataset,index])
+                                      this.setState({selected: [-1,-1], cellStr: ''})
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                  onBlur={() => {
+                                    const newEntry = ({...entry})
+                                    newEntry[Object.keys(entry)[i2]] = this.state.cellStr
+                                    dataFn.listReplace(entry,newEntry,[dataset,index])
+                                    this.setState({selected: [-1,-1], cellStr: ''})
+                                  }}/>
+                                : v }
+                            </TableCell>
+                          )}
+                </TableRow>)}
+              )
+            }
+          </TableBody>
+        </Table>
+
+      }
+    </div>
+  )
+  }
+}
 
 export default withStyles(styles)(Data)
