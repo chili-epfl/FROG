@@ -18,21 +18,25 @@ const styles = {
 class DataGraph extends React.Component<*, *> {
   constructor(props: Object) {
     super(props);
-    this.state = { dataset: 0 };
-  }
+    this.state = {
+      dataset: 0,
+      transformation: ''
+     };
+  } // apply the transformation
 
   render() {
     const { activityData, data, dataFn, classes } = this.props;
+    const {originalData, ...datasets} = data
     if (!data || Object.keys(data).length < 1) return <div />;
     return (
       <>
-        {Object.keys(data).length > 1 && (
+        {Object.keys(datasets).length > 1 && (
           <Select
             value={this.state.dataset}
             onChange={e => this.setState({ dataset: e.target.value })}
             classes={{ root: classes.root }}
           >
-            {Object.keys(data).map((name, index) => (
+            {Object.keys(datasets).map((name, index) => (
               <MenuItem value={index} key={name} selected>
                 {name}
               </MenuItem>
@@ -41,9 +45,9 @@ class DataGraph extends React.Component<*, *> {
         )}
         <div style={{ display: 'flex', height: 'fit-content' }}>
           <DataForm
-            data={Object.values(data)[this.state.dataset]}
-            {...{ dataFn }}
-            dataset={Object.keys(data)[this.state.dataset]}
+            data={Object.values(datasets)[this.state.dataset]}
+            {...{ dataFn, originalData }}
+            dataset={Object.keys(datasets)[this.state.dataset]}
           />
           <div
             style={{
@@ -53,7 +57,7 @@ class DataGraph extends React.Component<*, *> {
             }}
           />
           <Graph
-            data={Object.values(data)[this.state.dataset]}
+            data={Object.values(datasets)[this.state.dataset]}
             config={activityData.config}
           />
         </div>

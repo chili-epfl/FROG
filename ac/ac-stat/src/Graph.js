@@ -131,7 +131,7 @@ return(
           )}
         </div>
 
-        {Object.keys(data[0]).length > 1 && (
+        {data && data[0] && Object.keys(data[0]).length > 1 && (
           <div>
             <Button
               variant="outlined"

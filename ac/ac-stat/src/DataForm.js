@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Clear';
 
-// import FilteringPanel from './FilteringPanel';
+import FilteringPanel from './FilteringPanel';
 
 const styles = () => ({
   root: {
@@ -43,9 +43,10 @@ class Data extends React.Component<*, *> {
   };
 
   render() {
-    const { classes, data, dataFn, dataset } = this.props;
+    const { classes, data, dataFn, dataset, originalData } = this.props;
     return (
       <Paper className={classes.root}>
+        <FilteringPanel {...{data, originalData, dataFn, dataset}}/>
         <h3>Data</h3>
         {
           <Table className={classes.table}>
@@ -138,7 +139,7 @@ class Data extends React.Component<*, *> {
                   <IconButton
                     onClick={() => {
                       const newEntry = {};
-                      Object.keys(data[0]).forEach(e => (newEntry[e] = ''));
+                      Object.keys(originalData[dataset][0]).forEach(e => (newEntry[e] = ''));
                       dataFn.listAppend(newEntry, dataset);
                     }}
                   >
