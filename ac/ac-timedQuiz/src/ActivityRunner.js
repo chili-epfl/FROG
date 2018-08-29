@@ -194,7 +194,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
 const Runner = (props: ActivityRunnerPropsT) => {
   const { data, activityData } = props;
   const { questions } = activityData.config;
-  const p = Math.round(data.progress / questions.length * 100);
+  const p = Math.round((100 * data.progress) / questions.length);
 
   return (
     <div className="bootstrap" style={styles.main}>
