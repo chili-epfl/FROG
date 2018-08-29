@@ -43,7 +43,7 @@ COPY *.js .*ignore *config ./
 RUN /usr/src/frog/initial_setup.sh --single
 
 EXPOSE 3000
-CMD [ "npm", "test" ]
+CMD [ "npm", "start", "test.ci" ]
 `;
 
     // eslint-disable-next-line

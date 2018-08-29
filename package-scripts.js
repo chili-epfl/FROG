@@ -56,10 +56,16 @@ module.exports = {
       )
     },
     server: fromRoot('cd frog && meteor', 'Starting Meteor'),
-    test: fromRoot(
-      `nps -s lockfiles flow.quiet eslint jest`,
-      'Running Flow, ESLint and Jest'
-    ),
+    test: {
+      default: fromRoot(
+        `nps -s flow.quiet eslint jest`,
+        'Running Flow, ESLint and Jest'
+      ),
+      ci: fromRoot(
+        `nps -s lockfiles flow.quiet eslint jest`,
+        'Running LockFiles, Flow, ESLint and Jest'
+      )
+    },
     eslint: {
       default: fromRoot(
         'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
