@@ -24,9 +24,9 @@ export default class uiStore {
       libraryOpen: false,
       showInfo: false,
       showModal:
-        user.profile !== undefined &&
-        user.profile.lastVersionChangelog !== undefined &&
-        user.profile.lastVersionChangelog < changelog.length - 1,
+        user?.profile !== undefined &&
+        user?.profile.lastVersionChangelog !== undefined &&
+        user?.profile.lastVersionChangelog < changelog.length - 1,
       setIsSvg: action((isSvg: boolean) => {
         this.isSvg = isSvg;
         if (isSvg) {

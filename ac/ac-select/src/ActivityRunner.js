@@ -31,7 +31,11 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      const selected = s.toString().toLowerCase();
+      const sel = s.toString().match(/(?!'.*')\b[\w']+\b/g);
+      if (!sel) {
+        return;
+      }
+      const selected = sel[0].toLowerCase().trim();
       s.modify('move', 'forward', 'character'); // clear selection
 
       if (data['highlighted'][selected] === undefined) {
@@ -79,22 +83,27 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           }}
           unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
         />
+        <br />
         {activityData.config.text &&
-          activityData.config.text
-            .split('\n')
-            .filter(x => x !== '')
-            .map(sub => (
-              <p key={sub}>
-                <Highlighter
-                  searchWords={data['highlighted']}
-                  highlightStyle={{ cursor: 'help' }}
-                  unhighlightStyle={{ cursor: 'help' }}
-                  textToHighlight={
-                    activityData.config ? activityData.config.text || '' : ''
-                  }
-                />
+          activityData.config.text.split('\n\n').map((sub, i) => {
+            const k = sub + i;
+            return (
+              <p key={k}>
+                {sub.split('\n').map((sub2, index) => {
+                  const k2 = sub2 + index;
+                  return (
+                    <Highlighter
+                      key={k2}
+                      searchWords={data['highlighted']}
+                      highlightStyle={{ cursor: 'help' }}
+                      unhighlightStyle={{ cursor: 'help' }}
+                      textToHighlight={sub2}
+                    />
+                  );
+                })}
               </p>
-            ))}
+            );
+          })}
       </div>
     </>
   );

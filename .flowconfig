@@ -39,6 +39,7 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/@choojs.*
 .*node_modules/@mapbox.*
 .*node_modules/webpack.*
+.*node_modules/config-chain.*
 .*node_modules/npm/.*
 .*node_modules/plotly.js/.*
 .*node_modules/react-event-listener/.*

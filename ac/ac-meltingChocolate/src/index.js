@@ -15,7 +15,8 @@ const config = {
       title: 'Mode',
       type: 'string',
       enum: ['heating', 'cooling']
-    }
+    },
+    screenshot: { title: 'Enable screenshot', type: 'boolean' }
   }
 };
 

@@ -6,6 +6,7 @@ import {
   Connections,
   DashboardData
 } from '../imports/api/activities.js';
+import { UploadList } from '../imports/api/openUploads.js';
 import { Operators, ExternalOperators } from '../imports/api/operators.js';
 import { Graphs } from '../imports/api/graphs.js';
 import { Sessions } from '../imports/api/sessions.js';
@@ -40,6 +41,7 @@ export default function() {
   teacherPublish('externalOperators', ExternalOperators);
   teacherPublish('dashboardData', DashboardData);
   teacherPublish('connections', Connections);
+  teacherPublish('uploadList', UploadList);
   teacherPublishOwn('graphs', Graphs, this.userId);
   teacherPublish('objects', Objects);
   teacherPublish('products', Products);

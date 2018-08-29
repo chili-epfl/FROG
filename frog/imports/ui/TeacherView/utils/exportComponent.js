@@ -7,6 +7,7 @@ import FileSaver from 'file-saver';
 import { cleanEmptyCols, type ActivityDbT, strfTime } from 'frog-utils';
 import { omit } from 'lodash';
 
+import { UploadList, downloadFile } from '/imports/api/openUploads';
 import { Sessions } from '/imports/api/sessions';
 import { Objects } from '/imports/api/objects';
 import { Activities } from '/imports/api/activities';
@@ -95,6 +96,7 @@ export const exportSession = (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
   const activities = Activities.find({ graphId: session.graphId }).fetch();
   const operators = Operators.find({ graphId: session.graphId }).fetch();
+  const files = UploadList.find({ sessionId }).fetch();
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
   activities.forEach(act => {
@@ -122,6 +124,12 @@ export const exportSession = (sessionId: string) => {
     opfo.file('object.json', Stringify(object));
     opfo.file('config.json', Stringify(op.data));
   });
+
+  // const fileFolder = zip.folder('files')
+  files.forEach(() => {
+    downloadFile(); // don't do anything yet
+  });
+
   zip.file(slugo(session.name || '') + '.frog', graphToString(session.graphId));
 
   exportGraphPNG(url => {
