@@ -4,7 +4,7 @@ import * as React from 'react';
 import Plot from 'react-plotly.js';
 import * as math from 'mathjs';
 
-import { withState } from 'recompose';
+import { withState, compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,6 +12,7 @@ import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   root: {
@@ -97,27 +98,55 @@ const transformData = (data, type, filtered) => {
   return result;
 };
 
-const GraphStateless = ({ config, data, plot, setPlot, classes }) => {
+
+const GraphStateless = ({
+  config,
+  data,
+  plot,
+  setPlot,
+  filter,
+  setFilter,
+  classes
+}) => {
   const rawData = data.map(e => Object.values(e)[0])
-  return(
+return(
   <div style={{ width: '70%' }}>
-    <div style={{ display: 'flex', flexDirection: 'row', height: '40px' }}>
-      <h3 style={{ width: '100px' }}>Diagram</h3>
-      {config.plotType !== 'all' ? (
-        config.plotType
-      ) : (
-        <Select
-          value={plot}
-          onChange={e => setPlot(e.target.value)}
-          classes={{ root: classes.root }}
-        >
-          <MenuItem value="histogram" selected>
-            Histogram
-          </MenuItem>
-          <MenuItem value="dots">Dots</MenuItem>
-          <MenuItem value="box">Box</MenuItem>
-        </Select>
-      )}
+    <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex' }}>
+        <div>
+          <h3 style={{ width: '100px' }}>Diagram</h3>
+          {config.plotType !== 'all' ? (
+            config.plotType
+          ) : (
+            <Select
+              value={plot}
+              onChange={e => setPlot(e.target.value)}
+              classes={{ root: classes.root }}
+            >
+              <MenuItem value="histogram" selected>
+                Histogram
+              </MenuItem>
+              <MenuItem value="dots">Dots</MenuItem>
+              <MenuItem value="box">Box</MenuItem>
+            </Select>
+          )}
+        </div>
+
+        {Object.keys(data[0]).length > 1 && (
+          <div>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => setFilter(!filter)}
+            >
+              {filter
+                ? 'Plot all data together'
+                : 'Use 2nd column to differentiate data'}
+            </Button>
+          </div>
+        )}
+      </div>
+      <div />
     </div>
     Select a zone to zoom on it
     <br />
@@ -127,7 +156,7 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => {
       data={transformData(
         data,
         config.plotType !== 'all' ? config.plotType : plot,
-        config.sort
+        filter
       )}
       style={{ position: 'sticky', left: '50%' }}
       layout={{
@@ -164,6 +193,7 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => {
   </div>
 )};
 
-export default withState('plot', 'setPlot', 'histogram')(
-  withStyles(styles)(GraphStateless)
-);
+export default compose(
+  withState('plot', 'setPlot', 'histogram'),
+  withState('filter', 'setFilter', false)
+)(withStyles(styles)(GraphStateless));
