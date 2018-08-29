@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 
 const styles = {
@@ -97,7 +98,7 @@ const transformData = (data, type, filtered) => {
 };
 
 const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
-  <div>
+  <div style={{width: '70%'}}>
     <div style={{ display: 'flex', flexDirection: 'row', height: '40px' }}>
       <h3 style={{ width: '100px' }}>Diagram</h3>
       {config.plotType !== 'all' ? (
@@ -133,6 +134,36 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
         yaxis: { title: config.yLabel }
       }}
     />
+    <div style={{width: 'fit-content'}}>
+       <Table>
+         <TableBody>
+          <TableRow>
+            <TableCell>
+              Mean
+            </TableCell>
+            <TableCell>
+              {math.mean(data.map(e => Object.values(e)[0]))}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              Standard deviation
+            </TableCell>
+            <TableCell>
+              {math.std(data.map(e => Object.values(e)[0]))}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              Median
+            </TableCell>
+            <TableCell>
+              {math.median(data.map(e => Object.values(e)[0]))}
+            </TableCell>
+          </TableRow>
+        </TableBody>
+        </Table>
+        </div>
   </div>
 );
 
