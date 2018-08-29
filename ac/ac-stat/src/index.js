@@ -17,10 +17,8 @@ const config = {
       enum: ['all', 'dots', 'box', 'bar'],
       default: 'all'
     },
-    sort: {
-      type: 'boolean',
-      title: 'Sort by 2nd column ?'
-    }
+    doubleView: { type: 'boolean', title: 'Show two analysis components?' },
+    summary: { type: 'boolean', title: 'Show statistical summary below graph?' }
   }
 };
 
