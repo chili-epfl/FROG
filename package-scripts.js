@@ -57,7 +57,7 @@ module.exports = {
     },
     server: fromRoot('cd frog && meteor', 'Starting Meteor'),
     test: fromRoot(
-      `nps -s flow.quiet eslint jest`,
+      `nps -s lockfiles flow.quiet eslint jest`,
       'Running Flow, ESLint and Jest'
     ),
     eslint: {
@@ -78,6 +78,9 @@ module.exports = {
       default: fromRoot('jest', 'Starting Jest'),
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
+    lockfiles: fromRoot(
+      'exit `git status | grep -E "(package-lock.json|yarn.lock|package.json)" | wc -l`'
+    ),
     help
   },
   options: {
