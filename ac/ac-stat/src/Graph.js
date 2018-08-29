@@ -98,7 +98,7 @@ const transformData = (data, type, filtered) => {
 };
 
 const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
-  <div style={{width: '70%'}}>
+  <div style={{ width: '70%' }}>
     <div style={{ display: 'flex', flexDirection: 'row', height: '40px' }}>
       <h3 style={{ width: '100px' }}>Diagram</h3>
       {config.plotType !== 'all' ? (
@@ -134,36 +134,30 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
         yaxis: { title: config.yLabel }
       }}
     />
-    <div style={{width: 'fit-content'}}>
-       <Table>
-         <TableBody>
+    <div style={{ width: 'fit-content' }}>
+      <Table>
+        <TableBody>
           <TableRow>
-            <TableCell>
-              Mean
-            </TableCell>
+            <TableCell>Mean</TableCell>
             <TableCell>
               {math.mean(data.map(e => Object.values(e)[0]))}
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>
-              Standard deviation
-            </TableCell>
+            <TableCell>Standard deviation</TableCell>
             <TableCell>
               {math.std(data.map(e => Object.values(e)[0]))}
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>
-              Median
-            </TableCell>
+            <TableCell>Median</TableCell>
             <TableCell>
               {math.median(data.map(e => Object.values(e)[0]))}
             </TableCell>
           </TableRow>
         </TableBody>
-        </Table>
-        </div>
+      </Table>
+    </div>
   </div>
 );
 
