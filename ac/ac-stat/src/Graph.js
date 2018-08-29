@@ -98,7 +98,6 @@ const transformData = (data, type, filtered) => {
   return result;
 };
 
-
 const GraphStateless = ({
   config,
   data,
@@ -165,31 +164,32 @@ return(
         yaxis: { title: config.yLabel }
       }}
     />
-    <div style={{ width: 'fit-content' }}>
-      {rawData && rawData.length > 0 &&
+    {config.summary && rawData && rawData.length > 0 && (
+      <div style={{ width: 'fit-content' }}>
         <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell>Mean</TableCell>
-            <TableCell>
-              {math.mean(rawData)}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Standard deviation</TableCell>
-            <TableCell>
-              {math.std(rawData)}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Median</TableCell>
-            <TableCell>
-              {math.median(rawData)}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>}
-    </div>
+          <TableBody>
+            <TableRow>
+              <TableCell>Mean</TableCell>
+              <TableCell>
+                {math.mean(data.map(e => Object.values(e)[0]))}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Standard deviation</TableCell>
+              <TableCell>
+                {math.std(data.map(e => Object.values(e)[0]))}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Median</TableCell>
+              <TableCell>
+                {math.median(data.map(e => Object.values(e)[0]))}
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+    )}
   </div>
 )};
 
