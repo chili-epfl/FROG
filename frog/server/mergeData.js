@@ -130,11 +130,16 @@ const mergeData = (
   const createGroups = group ? [group] : groups;
 
   const mergeFunction = activityType.mergeFunction;
+
+  const initData =
+    typeof activityType.dataStructure === 'function'
+      ? activityType.dataStructure(activity.data)
+      : activityType.dataStructure;
   const asyncCreates = createGroups.map(grouping =>
     mergeOneInstance(
       grouping,
       activity,
-      activityType.dataStructure,
+      initData,
       mergeFunction,
       activityData,
       structure,

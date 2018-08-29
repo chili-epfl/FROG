@@ -68,6 +68,10 @@ export const getActivityDataFromReactive = (
   const object = Objects.findOne(activityId);
   const { structure } = doGetInstances(activity, object);
   const users = Meteor.users.find({}).fetch();
+  const initData =
+    typeof aT.dataStructure === 'function'
+      ? aT.dataStructure(activity.data)
+      : aT.dataStructure;
 
   const promise = new Promise((resolve, reject) => {
     serverConnection.createFetchQuery(
@@ -84,7 +88,7 @@ export const getActivityDataFromReactive = (
               results,
               aT.formatProduct,
               activity.data,
-              aT.dataStructure,
+              initData,
               users
             )
           );

@@ -167,6 +167,11 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   ) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
+
+    const initData =
+      typeof aT.dataStructure === 'function'
+        ? aT.dataStructure(config)
+        : aT.dataStructure;
     Promise.await(
       new Promise(resolve => {
         const doc = serverConnection.get('rz', docId);
@@ -186,7 +191,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
               mergeOneInstance(
                 null,
                 null,
-                aT.dataStructure,
+                initData,
                 aT.mergeFunction,
                 null,
                 null,
