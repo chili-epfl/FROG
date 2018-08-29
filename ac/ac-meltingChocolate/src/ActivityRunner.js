@@ -4,6 +4,8 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import html2canvas from 'html2canvas';
 import Canvas2Buffer from 'canvas-to-buffer';
+import AddAPhoto from '@material-ui/icons/AddAPhoto';
+import { Button } from '@material-ui/core';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
@@ -46,9 +48,13 @@ class ActivityRunner extends React.Component<*, *> {
   render() {
     return (
       <div>
-        {this.props.activityData.config.screenshot && (
-          <button onClick={this.screenshot}>Screenshot</button>
-        )}
+        <div>
+          {this.props.activityData.config.screenshot && (
+            <Button variant="fab" color="primary" onClick={this.screenshot}>
+              <AddAPhoto />
+            </Button>
+          )}
+        </div>
         <iframe
           id="ac-chocolate"
           style={{ width: '600px', height: '600px' }}
