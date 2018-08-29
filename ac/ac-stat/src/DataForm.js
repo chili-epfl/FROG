@@ -51,7 +51,7 @@ class Data extends React.Component<*, *> {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                {Object.keys(data[0]).map(axis => (
+                {data && data[0] && Object.keys(data[0]).map(axis => (
                   <TableCell className={classes.head} key={axis}>
                     {axis}
                   </TableCell>
@@ -60,7 +60,7 @@ class Data extends React.Component<*, *> {
               </TableRow>
             </TableHead>
             <TableBody className={classes.body}>
-              {data.map((entry, index) => {
+              {data && data.map((entry, index) => {
                 const tmp = entry + '' + index;
                 return (
                   <TableRow key={tmp}>
@@ -122,7 +122,6 @@ class Data extends React.Component<*, *> {
                       <IconButton
                         onClick={() =>
                           dataFn.listDel(entry, [
-                            // delete an elem or the last one only ?
                             dataset,
                             index
                           ])

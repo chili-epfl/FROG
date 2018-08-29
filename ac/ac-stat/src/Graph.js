@@ -97,7 +97,9 @@ const transformData = (data, type, filtered) => {
   return result;
 };
 
-const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
+const GraphStateless = ({ config, data, plot, setPlot, classes }) => {
+  const rawData = data.map(e => Object.values(e)[0])
+  return(
   <div style={{ width: '70%' }}>
     <div style={{ display: 'flex', flexDirection: 'row', height: '40px' }}>
       <h3 style={{ width: '100px' }}>Diagram</h3>
@@ -135,31 +137,32 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
       }}
     />
     <div style={{ width: 'fit-content' }}>
-      <Table>
+      {rawData && rawData.length > 0 &&
+        <Table>
         <TableBody>
           <TableRow>
             <TableCell>Mean</TableCell>
             <TableCell>
-              {math.mean(data.map(e => Object.values(e)[0]))}
+              {math.mean(rawData)}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Standard deviation</TableCell>
             <TableCell>
-              {math.std(data.map(e => Object.values(e)[0]))}
+              {math.std(rawData)}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Median</TableCell>
             <TableCell>
-              {math.median(data.map(e => Object.values(e)[0]))}
+              {math.median(rawData)}
             </TableCell>
           </TableRow>
         </TableBody>
-      </Table>
+      </Table>}
     </div>
   </div>
-);
+)};
 
 export default withState('plot', 'setPlot', 'histogram')(
   withStyles(styles)(GraphStateless)
