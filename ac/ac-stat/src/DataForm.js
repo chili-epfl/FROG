@@ -43,47 +43,83 @@ class Data extends React.Component<*, *> {
   };
 
   render() {
-    const { classes, data, dataFn, dataset, originalData } = this.props;
+    const {
+      classes,
+      data,
+      dataFn,
+      dataset,
+      originalData,
+      transformation,
+      setTransformation
+    } = this.props;
     return (
       <Paper className={classes.root}>
-        <FilteringPanel {...{data, originalData, dataFn, dataset}}/>
+        <FilteringPanel
+          {...{
+            data,
+            originalData,
+            dataFn,
+            dataset,
+            setTransformation,
+            transformation
+          }}
+        />
         <h3>Data</h3>
         {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                {data && data[0] && Object.keys(data[0]).map(axis => (
-                  <TableCell className={classes.head} key={axis}>
-                    {axis}
-                  </TableCell>
-                ))}
+                {data &&
+                  data[0] &&
+                  Object.keys(data[0]).map(axis => (
+                    <TableCell className={classes.head} key={axis}>
+                      {axis}
+                    </TableCell>
+                  ))}
                 <TableCell className={classes.head}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody className={classes.body}>
-              {data && data.map((entry, index) => {
-                const tmp = entry + '' + index;
-                return (
-                  <TableRow key={tmp}>
-                    {Object.values(entry).map((v, i2) => (
-                      <TableCell
-                        key={tmp + v}
-                        onClick={() =>
-                          this.setState({ selected: [index, i2], cellStr: v })
-                        }
-                        className={classes.cell}
-                      >
-                        {index === this.state.selected[0] &&
-                        i2 === this.state.selected[1] ? (
-                          <input
-                            type="text"
-                            value={this.state.cellStr}
-                            onChange={e =>
-                              this.setState({ cellStr: e.target.value })
-                            }
-                            style={{ padding: '5px' }}
-                            onKeyPress={e => {
-                              if (e.key === 'Enter') {
+              {data &&
+                data.map((entry, index) => {
+                  const tmp = entry + '' + index;
+                  return (
+                    <TableRow key={tmp}>
+                      {Object.values(entry).map((v, i2) => (
+                        <TableCell
+                          key={tmp + v}
+                          onClick={() =>
+                            this.setState({ selected: [index, i2], cellStr: v })
+                          }
+                          className={classes.cell}
+                        >
+                          {index === this.state.selected[0] &&
+                          i2 === this.state.selected[1] ? (
+                            <input
+                              type="text"
+                              value={this.state.cellStr}
+                              onChange={e =>
+                                this.setState({ cellStr: e.target.value })
+                              }
+                              style={{ padding: '5px' }}
+                              onKeyPress={e => {
+                                if (e.key === 'Enter') {
+                                  const newEntry = { ...entry };
+                                  newEntry[
+                                    Object.keys(entry)[i2]
+                                  ] = this.state.cellStr;
+                                  dataFn.listReplace(entry, newEntry, [
+                                    dataset,
+                                    index
+                                  ]);
+                                  this.setState({
+                                    selected: [-1, -1],
+                                    cellStr: ''
+                                  });
+                                  e.preventDefault();
+                                }
+                              }}
+                              onBlur={() => {
                                 const newEntry = { ...entry };
                                 newEntry[
                                   Object.keys(entry)[i2]
@@ -96,50 +132,33 @@ class Data extends React.Component<*, *> {
                                   selected: [-1, -1],
                                   cellStr: ''
                                 });
-                                e.preventDefault();
-                              }
-                            }}
-                            onBlur={() => {
-                              const newEntry = { ...entry };
-                              newEntry[
-                                Object.keys(entry)[i2]
-                              ] = this.state.cellStr;
-                              dataFn.listReplace(entry, newEntry, [
-                                dataset,
-                                index
-                              ]);
-                              this.setState({
-                                selected: [-1, -1],
-                                cellStr: ''
-                              });
-                            }}
-                          />
-                        ) : (
-                          v
-                        )}
+                              }}
+                            />
+                          ) : (
+                            v
+                          )}
+                        </TableCell>
+                      ))}
+                      <TableCell>
+                        <IconButton
+                          onClick={() =>
+                            dataFn.listDel(entry, [dataset, index])
+                          }
+                        >
+                          <Remove />
+                        </IconButton>
                       </TableCell>
-                    ))}
-                    <TableCell>
-                      <IconButton
-                        onClick={() =>
-                          dataFn.listDel(entry, [
-                            dataset,
-                            index
-                          ])
-                        }
-                      >
-                        <Remove />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                    </TableRow>
+                  );
+                })}
               <TableRow>
                 <TableCell>
                   <IconButton
                     onClick={() => {
                       const newEntry = {};
-                      Object.keys(originalData[dataset][0]).forEach(e => (newEntry[e] = ''));
+                      Object.keys(originalData[dataset][0]).forEach(
+                        e => (newEntry[e] = '')
+                      );
                       dataFn.listAppend(newEntry, dataset);
                     }}
                   >

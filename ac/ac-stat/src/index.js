@@ -34,7 +34,7 @@ const mergeFunction = ({ data: incoming }, dataFn, data) => {
     if (!data[trace]) dataFn.objInsert([], trace);
     dataFn.listAppend({ ...rest }, trace);
   });
-  dataFn.objInsert(data, 'originalData')
+  dataFn.objInsert(data, 'originalData');
 };
 
 export default ({

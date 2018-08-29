@@ -107,91 +107,96 @@ const GraphStateless = ({
   setFilter,
   classes
 }) => {
-  const rawData = data.map(e => Object.values(e)[0])
-return(
-  <div style={{ width: '70%' }}>
-    <div style={{ display: 'flex' }}>
+  const rawData = data.map(e => Object.values(e)[0]);
+  return (
+    <div style={{ width: '70%' }}>
       <div style={{ display: 'flex' }}>
-        <div>
-          <h3 style={{ width: '100px' }}>Diagram</h3>
-          {config.plotType !== 'all' ? (
-            config.plotType
-          ) : (
-            <Select
-              value={plot}
-              onChange={e => setPlot(e.target.value)}
-              classes={{ root: classes.root }}
-            >
-              <MenuItem value="histogram" selected>
-                Histogram
-              </MenuItem>
-              <MenuItem value="dots">Dots</MenuItem>
-              <MenuItem value="box">Box</MenuItem>
-            </Select>
-          )}
-        </div>
-
-        {data && data[0] && Object.keys(data[0]).length > 1 && (
+        <div style={{ display: 'flex' }}>
           <div>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => setFilter(!filter)}
-            >
-              {filter
-                ? 'Plot all data together'
-                : 'Use 2nd column to differentiate data'}
-            </Button>
+            <h3 style={{ width: '100px' }}>Diagram</h3>
+            {config.plotType !== 'all' ? (
+              config.plotType
+            ) : (
+              <Select
+                value={plot}
+                onChange={e => setPlot(e.target.value)}
+                classes={{ root: classes.root }}
+              >
+                <MenuItem value="histogram" selected>
+                  Histogram
+                </MenuItem>
+                <MenuItem value="dots">Dots</MenuItem>
+                <MenuItem value="box">Box</MenuItem>
+              </Select>
+            )}
+          </div>
+
+          {data &&
+            data[0] &&
+            Object.keys(data[0]).length > 1 && (
+              <div>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setFilter(!filter)}
+                >
+                  {filter
+                    ? 'Plot all data together'
+                    : 'Use 2nd column to differentiate data'}
+                </Button>
+              </div>
+            )}
+        </div>
+        <div />
+      </div>
+      Select a zone to zoom on it
+      <br />
+      Double click on the graph to zoom out
+      <Plot
+        config={{ displayModeBar: false }}
+        data={transformData(
+          data,
+          config.plotType !== 'all' ? config.plotType : plot,
+          filter
+        )}
+        style={{ position: 'sticky', left: '50%' }}
+        layout={{
+          title: config.title,
+          xaxis: { title: config.xLabel },
+          yaxis: { title: config.yLabel }
+        }}
+      />
+      {config.summary &&
+        rawData &&
+        rawData.length > 0 && (
+          <div style={{ width: 'fit-content' }}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Mean</TableCell>
+                  <TableCell>
+                    {math.mean(data.map(e => Object.values(e)[0]))}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Standard deviation</TableCell>
+                  <TableCell>
+                    {math.std(data.map(e => Object.values(e)[0]))}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Median</TableCell>
+                  <TableCell>
+                    {math.median(data.map(e => Object.values(e)[0]))}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </div>
         )}
-      </div>
-      <div />
     </div>
-    Select a zone to zoom on it
-    <br />
-    Double click on the graph to zoom out
-    <Plot
-      config={{ displayModeBar: false }}
-      data={transformData(
-        data,
-        config.plotType !== 'all' ? config.plotType : plot,
-        filter
-      )}
-      style={{ position: 'sticky', left: '50%' }}
-      layout={{
-        title: config.title,
-        xaxis: { title: config.xLabel },
-        yaxis: { title: config.yLabel }
-      }}
-    />
-    {config.summary && rawData && rawData.length > 0 && (
-      <div style={{ width: 'fit-content' }}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Mean</TableCell>
-              <TableCell>
-                {math.mean(data.map(e => Object.values(e)[0]))}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Standard deviation</TableCell>
-              <TableCell>
-                {math.std(data.map(e => Object.values(e)[0]))}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Median</TableCell>
-              <TableCell>
-                {math.median(data.map(e => Object.values(e)[0]))}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    )}
-  </div>
-)};
+  );
+};
 
 export default compose(
   withState('plot', 'setPlot', 'histogram'),

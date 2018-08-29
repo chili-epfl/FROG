@@ -21,12 +21,12 @@ class DataGraph extends React.Component<*, *> {
     this.state = {
       dataset: 0,
       transformation: ''
-     };
+    };
   } // apply the transformation
 
   render() {
     const { activityData, data, dataFn, classes } = this.props;
-    const {originalData, ...datasets} = data
+    const { originalData, ...datasets } = data;
     if (!data || Object.keys(data).length < 1) return <div />;
     return (
       <>
@@ -48,6 +48,8 @@ class DataGraph extends React.Component<*, *> {
             data={Object.values(datasets)[this.state.dataset]}
             {...{ dataFn, originalData }}
             dataset={Object.keys(datasets)[this.state.dataset]}
+            setTransformation={x => this.setState({ transformation: x })}
+            transformation={this.state.transformation}
           />
           <div
             style={{
