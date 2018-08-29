@@ -2,11 +2,15 @@
 
 import * as React from 'react';
 import Plot from 'react-plotly.js';
+import * as math from 'mathjs';
 
 import { withState } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Table from '@material-ui/core/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 const styles = {
   root: {
@@ -80,7 +84,8 @@ const transformData = (data, type, filtered) => {
         });
         break;
       case 'histogram':
-        result.push({ type: 'histogram', x: formatData }); // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
+        result.push({ type: 'histogram', x: formatData });
+        // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
         break;
       case 'box':
         result.push({ type: 'box', x: formatData });
@@ -92,7 +97,7 @@ const transformData = (data, type, filtered) => {
 };
 
 const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
-  <div style={{ width: '70%' }}>
+  <div>
     <div style={{ display: 'flex', flexDirection: 'row', height: '40px' }}>
       <h3 style={{ width: '100px' }}>Diagram</h3>
       {config.plotType !== 'all' ? (

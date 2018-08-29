@@ -23,7 +23,6 @@ class DataGraph extends React.Component<*, *> {
 
   render() {
     const { activityData, data, dataFn, classes } = this.props;
-    console.log(data);
     if (!data || Object.keys(data).length < 1) return <div />;
     return (
       <>
@@ -40,7 +39,7 @@ class DataGraph extends React.Component<*, *> {
             ))}
           </Select>
         )}
-        <div style={{ display: 'flex', height: 'inherit' }}>
+        <div style={{ display: 'flex', height: 'fit-content' }}>
           <DataForm
             data={Object.values(data)[this.state.dataset]}
             {...{ dataFn }}

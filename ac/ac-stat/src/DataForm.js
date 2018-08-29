@@ -2,21 +2,37 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import Add from '@material-ui/icons/Add';
+import Remove from '@material-ui/icons/Clear';
 
-import FilteringPanel from './FilteringPanel';
+// import FilteringPanel from './FilteringPanel';
 
 const styles = () => ({
+  root: {
+    maxWidth: '25%',
+    height: '450px',
+    overflowY: 'scroll'
+  },
   table: {
     border: 'solid 1px'
   },
   head: {
     fontSize: 'large',
-    backgroundColor: '#CCC'
+    backgroundColor: '#CCC',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1
+  },
+  body: {
+    maxHeight: '500px',
+    overflowY: 'scroll'
   }
 });
 
@@ -29,8 +45,7 @@ class Data extends React.Component<*, *> {
   render() {
     const { classes, data, dataFn, dataset } = this.props;
     return (
-      <div style={{ width: '25%', overflowY: 'scroll' }}>
-        <FilteringPanel />
+      <Paper className={classes.root}>
         <h3>Data</h3>
         {
           <Table className={classes.table}>
@@ -41,9 +56,10 @@ class Data extends React.Component<*, *> {
                     {axis}
                   </TableCell>
                 ))}
+                <TableCell className={classes.head}>Action</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody className={classes.body}>
               {data.map((entry, index) => {
                 const tmp = entry + '' + index;
                 return (
@@ -102,13 +118,39 @@ class Data extends React.Component<*, *> {
                         )}
                       </TableCell>
                     ))}
+                    <TableCell>
+                      <IconButton
+                        onClick={() =>
+                          dataFn.listDel(entry, [
+                            // delete an elem or the last one only ?
+                            dataset,
+                            index
+                          ])
+                        }
+                      >
+                        <Remove />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 );
               })}
+              <TableRow>
+                <TableCell>
+                  <IconButton
+                    onClick={() => {
+                      const newEntry = {};
+                      Object.keys(data[0]).forEach(e => (newEntry[e] = ''));
+                      dataFn.listAppend(newEntry, dataset);
+                    }}
+                  >
+                    <Add />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         }
-      </div>
+      </Paper>
     );
   }
 }
