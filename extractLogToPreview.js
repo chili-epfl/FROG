@@ -23,7 +23,7 @@ const logObj = log => {
     timestamp: log[0]
   };
 };
-const logstring = fs.readFileSync('log.tsv', 'utf-8');
+const logstring = fs.readFileSync(process.argv[3] || 'log.tsv', 'utf-8');
 const id = process.argv[2] && process.argv[2].trim();
 logstring
   .split('\n')
