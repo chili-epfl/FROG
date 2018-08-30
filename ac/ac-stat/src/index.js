@@ -18,7 +18,11 @@ const config = {
       default: 'all'
     },
     doubleView: { type: 'boolean', title: 'Show two analysis components?' },
-    summary: { type: 'boolean', title: 'Show statistical summary below graph?' }
+    summary: {
+      type: 'boolean',
+      title: 'Show statistical summary below graph?'
+    },
+    editable: { type: 'boolean', title: 'Are students able to edit the table?' }
   }
 };
 

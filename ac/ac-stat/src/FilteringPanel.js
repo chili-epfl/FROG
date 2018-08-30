@@ -1,35 +1,54 @@
 // @flow
 
 import * as React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import Replay from '@material-ui/icons/Replay';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
 
-export default ({
-  data,
-  dataFn,
-  setTransformation,
-  transformation,
-  dataset,
-  originalData
-}: Object) => (
-  <div style={{ display: 'flex', flexDirection: 'row' }}>
-    <FormControl component="fieldset">
-      <FormLabel component="legend">Gender</FormLabel>
-      <RadioGroup value={transformation} onChange={e => console.log(e)}>
-        <FormControlLabel value="female" control={<Radio />} label="None" />
-        <FormControlLabel value="male" control={<Radio />} label="Log" />
-        <FormControlLabel value="other" control={<Radio />} label="Exp" />
-      </RadioGroup>
-    </FormControl>
-    <IconButton
-      onClick={() => dataFn.objReplace(data, originalData[dataset], dataset)}
+const transfo = ['log', 'exp', 'outliers', 'sqrt', 'x100', '+50', '11x-10E[x]'];
+
+const disabledFun = (data, tr) => {
+  switch (tr) {
+    case 'log':
+      return data.reduce(
+        (acc, cur) =>
+          acc || Number.isNaN(Math.log(Number(Object.values(cur)[0]))),
+        false
+      );
+    case 'sqrt':
+      return data.reduce(
+        (acc, cur) =>
+          acc || Number.isNaN(Math.sqrt(Number(Object.values(cur)[0]))),
+        false
+      );
+    default:
+      return false;
+  }
+};
+
+export default ({ setTransformation, transformation, data }: Object) => (
+  <>
+    Transformations:
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: '10px'
+      }}
     >
-      <Replay />
-    </IconButton>
-  </div>
+      {transfo.map(tr => (
+        <Button
+          disabled={disabledFun(data, tr)}
+          varian="contained"
+          key={tr}
+          onClick={() => {
+            if (transformation !== tr) setTransformation(tr);
+            else setTransformation('');
+          }}
+          style={{ backgroundColor: transformation === tr ? '#DDD' : '#FFF' }}
+        >
+          {tr}
+        </Button>
+      ))}
+    </div>
+  </>
 );
