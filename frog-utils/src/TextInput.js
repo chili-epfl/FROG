@@ -134,7 +134,8 @@ export class ChangeableText extends React.Component<
             tabIndex={0}
             onClick={() => this.setState({ edit: true })}
           >
-            &nbsp;{this.state.value}
+            &nbsp;
+            {this.state.value}
           </span>
           <i
             role="button"

@@ -91,8 +91,8 @@ const MenuItemDeleteFromServer = ({
         handleClose();
       }}
     >
-      <Delete className={classes.leftIcon} aria-hidden="true" />Remove Current
-      Graph from the Server
+      <Delete className={classes.leftIcon} aria-hidden="true" />
+      Remove Current Graph from the Server
     </MenuItem>
   ) : null;
 
@@ -145,7 +145,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <Add className={classes.leftIcon} aria-hidden="true" />Add New Graph
+            <Add className={classes.leftIcon} aria-hidden="true" />
+            Add New Graph
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -153,8 +154,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <FileCopy className={classes.leftIcon} aria-hidden="true" />Duplicate
-            Graph
+            <FileCopy className={classes.leftIcon} aria-hidden="true" />
+            Duplicate Graph
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -162,8 +163,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <Delete className={classes.leftIcon} aria-hidden="true" />Delete
-            Current Graph
+            <Delete className={classes.leftIcon} aria-hidden="true" />
+            Delete Current Graph
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -171,8 +172,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <ImportExport className={classes.leftIcon} aria-hidden="true" />Import
-            Graph from File
+            <ImportExport className={classes.leftIcon} aria-hidden="true" />
+            Import Graph from File
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -181,8 +182,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <ImportExport className={classes.leftIcon} aria-hidden="true" />Import
-            Graph from the Server
+            <ImportExport className={classes.leftIcon} aria-hidden="true" />
+            Import Graph from the Server
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -190,8 +191,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <Timeline className={classes.leftIcon} aria-hidden="true" />Export
-            Graph as File
+            <Timeline className={classes.leftIcon} aria-hidden="true" />
+            Export Graph as File
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -199,8 +200,8 @@ class GraphActionMenu extends React.Component {
               this.handleClose();
             }}
           >
-            <Image className={classes.leftIcon} aria-hidden="true" />Export
-            Graph as Image
+            <Image className={classes.leftIcon} aria-hidden="true" />
+            Export Graph as Image
           </MenuItem>
           <MenuItem
             onClick={() =>
@@ -212,8 +213,8 @@ class GraphActionMenu extends React.Component {
                 : this.props.openExport()
             }
           >
-            <Timeline className={classes.leftIcon} aria-hidden="true" />Export
-            Graph to the Server
+            <Timeline className={classes.leftIcon} aria-hidden="true" />
+            Export Graph to the Server
           </MenuItem>
           <MenuItemDeleteFromServer
             {...{ setIdRemove, parentId, setDelete, classes }}
