@@ -2,7 +2,7 @@
 
 export const config = {
   type: 'object',
-  required: ['title', 'questions'],
+  required: ['questions'],
   properties: {
     title: {
       type: 'string',

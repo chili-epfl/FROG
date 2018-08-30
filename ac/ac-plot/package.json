@@ -2,14 +2,18 @@
   "name": "ac-plot",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "scripts": {"start": "nps"},
-  "dependencies": {
-    "frog-utils": "^1.0.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-plotly.js": "^2.2.0",
-    "plotly.js": "^1.39.2",
-    "@material-ui/core": "^1.3.1"
+  "scripts": {
+    "start": "nps"
   },
-  "devDependencies": {"nps": "5.9.2"}
+  "dependencies": {
+    "@material-ui/core": "^3.0.1",
+    "frog-utils": "^1.0.0",
+    "plotly.js": "^1.39.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-plotly.js": "^2.2.0"
+  },
+  "devDependencies": {
+    "nps": "5.9.3"
+  }
 }
