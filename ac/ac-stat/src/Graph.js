@@ -44,7 +44,7 @@ const transformData = (data, type, filtered) => {
             type: 'scatter',
             mode: 'markers',
             name: k,
-            x: formatData
+            y: formatData
           });
         });
         break;
@@ -69,7 +69,7 @@ const transformData = (data, type, filtered) => {
           result.push({
             type: 'box',
             name: k,
-            x: formatData
+            y: formatData
           });
         });
         break;
@@ -82,7 +82,7 @@ const transformData = (data, type, filtered) => {
         result.push({
           type: 'scatter',
           mode: 'markers',
-          x: formatData
+          y: formatData
         });
         break;
       case 'histogram':
@@ -90,7 +90,7 @@ const transformData = (data, type, filtered) => {
         // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
         break;
       case 'box':
-        result.push({ type: 'box', x: formatData });
+        result.push({ type: 'box', y: formatData });
         break;
       default:
     }
