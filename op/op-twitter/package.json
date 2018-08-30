@@ -14,6 +14,6 @@
     "twit": "^2.2.10"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.9.3"
   }
 }

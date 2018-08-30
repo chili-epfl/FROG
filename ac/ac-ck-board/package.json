@@ -7,16 +7,16 @@
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-draggable": "^3.0.5",
-    "react-dropzone": "^4.2.13",
-    "react-icons": "^2.2.7",
+    "react-dropzone": "^5.0.1",
+    "react-icons": "^3.0.5",
     "react-resize-aware": "^2.7.1",
-    "recompose": "^0.27.1",
-    "styled-components": "^3.3.3"
+    "recompose": "^0.30.0",
+    "styled-components": "^3.4.5"
   },
   "devDependencies": {
-    "nps": "5.9.2"
+    "nps": "5.9.3"
   }
 }
