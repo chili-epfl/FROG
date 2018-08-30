@@ -158,7 +158,7 @@ const GraphSubComponent = ({
         aria-label="Edit"
         onClick={e => onRenameSubmit(e)}
       >
-        <ModeEdit />
+        <Edit />
       </IconButton>
     </Tooltip>
   </form>
