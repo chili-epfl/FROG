@@ -11,7 +11,7 @@ import { Manager, Target, Popper } from 'react-popper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Undo from '@material-ui/icons/Undo';
 import Add from '@material-ui/icons/Add';
-import ContentCopy from '@material-ui/icons/ContentCopy';
+import FileCopy from '@material-ui/icons/FileCopy';
 import Delete from '@material-ui/icons/Delete';
 import ImportExport from '@material-ui/icons/ImportExport';
 import Image from '@material-ui/icons/Image';
@@ -170,7 +170,7 @@ class GraphActionMenu extends React.Component {
                         this.handleClose();
                       }}
                     >
-                      <ContentCopy
+                      <FileCopy
                         className={classes.leftIcon}
                         aria-hidden="true"
                       />Duplicate Graph
