@@ -26,6 +26,9 @@ export const calculateNextOpen = (
       a =>
         a.startTime <= newTimeInGraph && a.startTime + a.length > newTimeInGraph
     );
+    if (openActivities.length === 0) {
+      return calculateNextOpen(newTimeInGraph, activities, sessionId);
+    }
     return [newTimeInGraph, openActivities, false];
   } else {
     if (!sessionId) {
