@@ -103,6 +103,7 @@ export const addGraph = (graphObj?: Object): string => {
       _id: id,
       graphId,
       actualStartingTime: undefined,
+      actualClosingTime: undefined,
       state: undefined
     };
   });
