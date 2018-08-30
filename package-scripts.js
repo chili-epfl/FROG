@@ -56,10 +56,16 @@ module.exports = {
       )
     },
     server: fromRoot('cd frog && meteor', 'Starting Meteor'),
-    test: fromRoot(
-      `nps -s flow.quiet eslint jest`,
-      'Running Flow, ESLint and Jest'
-    ),
+    test: {
+      default: fromRoot(
+        `nps -s flow.quiet eslint jest`,
+        'Running Flow, ESLint and Jest'
+      ),
+      ci: fromRoot(
+        `nps -s lockfiles flow.quiet eslint jest`,
+        'Running LockFiles, Flow, ESLint and Jest'
+      )
+    },
     eslint: {
       default: fromRoot(
         'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
@@ -78,6 +84,9 @@ module.exports = {
       default: fromRoot('jest', 'Starting Jest'),
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
+    lockfiles: fromRoot(
+      'cmp --silent package-lock.json package-lock.json.orig && cmp --silent yarn.lock yarn.lock.orig || (echo Error: package-lock.json or yarn.lock is modified after a fresh install; exit 1)'
+    ),
     help
   },
   options: {

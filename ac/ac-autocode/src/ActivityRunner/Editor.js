@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Ace from 'react-ace';
 
 type EditorPropsT = {
-  Ace: React$Component<any>,
-  mode: String,
   data: any,
   dataFn: any
 };
