@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import AspectRatio from 'react-icons/lib/md/aspect-ratio';
+import { AspectRatio } from 'react-icons/md';
 import Draggable from 'react-draggable';
 
 const ObservationContainer = ({
