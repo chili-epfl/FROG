@@ -1,7 +1,6 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 import {
   config,
@@ -37,11 +36,11 @@ const mergeFunction = (obj, dataFn) => {
 export default ({
   id: 'ac-autocode',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   configUI,
   validateConfig,
-  ActivityRunner,
   dashboards,
   dataStructure,
   mergeFunction

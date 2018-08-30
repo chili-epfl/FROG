@@ -1,20 +1,19 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './Prez';
 import { config } from './config';
 
 const meta = {
-  name: 'Presentation activity',
-  shortDesc: 'Show PDFs',
+  name: 'Presentation',
+  shortDesc: 'Present PDFs',
   description: '',
-  exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
-  ]
+  exampleData: []
 };
 
 const dataStructure = {
   annotations: {},
+  scratchpadAnnotations: [],
+  scratchpadMode: false,
   pageNum: 1,
   pdf_file: '',
   furthestPageNum: 1
@@ -23,8 +22,8 @@ const dataStructure = {
 export default ({
   id: 'ac-prez',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
-  ActivityRunner,
   dataStructure
 }: ActivityPackageT);

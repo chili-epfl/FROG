@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { TableView, TreeView, toTableData } from 'frog-utils';
 
-import { getType } from '../Classifier';
+import { getType } from '../ActivityRunner';
 
 const Container = styled.div`
   position: relative;
@@ -56,7 +56,6 @@ export default ({ obj, small }: { obj: Object, small: boolean }) => {
       </Container>
     );
   } else {
-    // eslint-disable-next-line no-console
     console.warn('No renderer for this object type');
     return null;
   }

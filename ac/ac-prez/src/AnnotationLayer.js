@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import Mousetrap from 'mousetrap';
+import ResizeAware from 'react-resize-aware';
+
+import IconButton from '@material-ui/core/IconButton';
+
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Undo from '@material-ui/icons/Undo';
+import Redo from '@material-ui/icons/Redo';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import ZoomIn from '@material-ui/icons/ZoomIn';
+import ZoomOut from '@material-ui/icons/ZoomOut';
+import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
+import TouchApp from '@material-ui/icons/TouchApp';
+import Edit from '@material-ui/icons/Edit';
+import Title from '@material-ui/icons/Title';
+import CropSquare from '@material-ui/icons/CropSquare';
+import Highlight from '@material-ui/icons/Highlight';
+import FormatStrikethrough from '@material-ui/icons/FormatStrikethrough';
+import SettingsBackupRestore from '@material-ui/icons/SettingsBackupRestore';
+import NoteAdd from '@material-ui/icons/NoteAdd';
+
 import constants from './constants.js';
 
 class AnnotationLayer extends Component {
   constructor(props) {
     super();
 
-    const PDFJSAnnotate = require('pdf-annotate').default;
+    const PDFJSAnnotate = require('@houshuang/pdf-annotate.js');
+    // const PDFJSAnnotate = require('pdf-annotate').default;
     const that = this;
     const StoreAdapter = new PDFJSAnnotate.StoreAdapter({
       getAnnotations(documentId, pageNumber) {
@@ -28,13 +52,25 @@ class AnnotationLayer extends Component {
       addAnnotation(documentId, pageNumber, annotation) {
         const currentPageNum = that.getCurrentPageNum();
         const savedAnnotations = that.getSavedAnnotations();
+        const pageAnnotations = that.getPageAnnotations();
+
+        if (savedAnnotations[currentPageNum] || pageAnnotations.length === 0) {
+          that.ignoreRender = false;
+        } else {
+          that.ignoreRender = true;
+        }
+
         delete savedAnnotations[currentPageNum];
         that.replaceSavedAnnotations(savedAnnotations);
 
         annotation.class = 'Annotation';
         annotation.uuid = uuid();
         annotation.page = pageNumber;
-        const pageAnnotations = that.getPageAnnotations();
+        if (annotation.type === 'textbox') {
+          annotation.size = that.state.penSize * 6;
+          annotation.color = that.state.penColor;
+        }
+
         if (pageAnnotations.length === 0)
           props.dataFn.objInsert([annotation], ['annotations', currentPageNum]);
         else
@@ -94,14 +130,18 @@ class AnnotationLayer extends Component {
     PDFJSAnnotate.UI.disablePoint();
     PDFJSAnnotate.UI.disableRect();
     PDFJSAnnotate.UI.enableEdit();
-    PDFJSAnnotate.UI.setPen(1, '#000000');
+    PDFJSAnnotate.UI.setPen(constants.defaultSize, constants.defaultColor);
+    PDFJSAnnotate.UI.setText(constants.defaultSize * 6, constants.defaultColor);
+
+    localStorage.setItem('aColor', constants.defaultColor);
+    localStorage.setItem('aSize', constants.defaultSize);
 
     this.state = {
-      initialLoading: true,
+      initialPageLoad: true,
       studentPaging: false,
       activeItem: 'cursor',
-      penSize: 1,
-      penColor: '#000000'
+      penSize: constants.defaultSize,
+      penColor: constants.defaultColor
     };
 
     this.PDFJSAnnotate = PDFJSAnnotate;
@@ -111,7 +151,10 @@ class AnnotationLayer extends Component {
     this.resetPaging = true;
     this.savedScale = 1;
     this.rescaleDone = false;
-    this.queuedResize = false;
+    this.queuedResize = true;
+    this.lastLoadedPageNum = 0;
+    this.ignoreRender = false;
+    this.zoomed = false;
   }
 
   componentWillMount() {
@@ -119,7 +162,36 @@ class AnnotationLayer extends Component {
       this.replaceSavedAnnotations({});
     if (this.resetPaging)
       this.props.dataFn.objSet(this.props.data.pageNum, ['furthestPageNum']);
+  }
+
+  handleLeftArrow = () => {
+    this.prevPage();
+  };
+
+  handleRightArror = () => {
+    this.nextPage();
+  };
+
+  componentWillUnmount() {
+    Mousetrap.unbind('backspace');
+    Mousetrap.unbind('r');
+    Mousetrap.unbind('left');
+    Mousetrap.unbind('right');
+    Mousetrap.unbind('d');
+    Mousetrap.unbind('t');
+    Mousetrap.unbind('a');
+    Mousetrap.unbind('s');
+    Mousetrap.unbind('h');
+    Mousetrap.unbind('c');
+    // window.removeEventListener('resize', this.handleResize);
+  }
+
+  componentDidMount() {
+    this.forceRenderPage();
+
+    // window.addEventListener('resize', this.handleResize);
     Mousetrap.bind('backspace', () => this.undo());
+    Mousetrap.bind('r', () => this.redo());
     Mousetrap.bind('left', e => {
       e.preventDefault();
       this.handleLeftArrow();
@@ -128,118 +200,143 @@ class AnnotationLayer extends Component {
       e.preventDefault();
       this.handleRightArror();
     });
-  }
-
-  handleLeftArrow = () => {
-    if (this.checkIfTeacher()) this.prevPageAdmin();
-    else this.prevPageStudent();
-  };
-
-  handleRightArror = () => {
-    if (this.checkIfTeacher()) this.nextPageAdmin();
-    else this.nextPageStudent();
-  };
-
-  componentWillUnmount() {
-    Mousetrap.unbind('backspace');
-    Mousetrap.unbind('left');
-    Mousetrap.unbind('right');
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  componentDidMount() {
-    this.forceRenderPage();
-    window.addEventListener('resize', this.handleResize);
+    Mousetrap.bind('d', () => this.setActiveToolbarItem('draw'));
+    Mousetrap.bind('t', () => this.setActiveToolbarItem('text'));
+    Mousetrap.bind('a', () => this.setActiveToolbarItem('area'));
+    Mousetrap.bind('s', () => this.setActiveToolbarItem('strikeout'));
+    Mousetrap.bind('h', () => this.setActiveToolbarItem('highlight'));
+    Mousetrap.bind('c', () => this.setActiveToolbarItem('cursor'));
   }
 
   shouldComponentUpdate() {
-    if (this.queuedRender) return false;
+    if (!this.editorRender && this.ignoreRender) {
+      this.ignoreRender = false;
+      return false;
+    }
     return true;
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.checkIfTeacher() && !this.editorRender) return;
-
+  componentDidUpdate(prevProps, prevState) {
     if (
-      this.state.studentPaging &&
-      this.state.pageNumStudent !== this.props.data.pageNum &&
-      prevProps.data.pageNum !== this.props.data.pageNum
-    )
-      return;
-
-    if (this.rendering) {
-      if (!this.queuedRender) {
-        this.queuedRender = true;
-        setTimeout(this.queueUpRender, 250);
+      !this.rescaleDone ||
+      (this.state.studentPaging &&
+        prevState.pageNumStudent !== this.state.pageNumStudent) ||
+      (!this.state.studentPaging &&
+        prevProps.data.pageNum !== this.props.data.pageNum) ||
+      prevState.studentPaging !== this.state.studentPaging
+    ) {
+      if (this.rendering) {
+        this.queueUpRender();
+      } else {
+        this.forceRenderPage();
       }
       return;
     }
 
+    // if (!this.props.activityData.config.everyoneCanEdit &&
+    //   (this.checkIfTeacher() && !this.editorRender))
+    //   return;
     this.editorRender = false;
-
-    this.forceRenderPage();
+    setTimeout(this.forceRenderAnnotations, 0);
   }
 
   queueUpRender = () => {
+    // console.log('QUEING');
     if (!this.rendering) {
-      this.queuedRender = false;
-      if (this.checkIfTeacher()) this.editorRender = true;
-      this.forceUpdate();
-    } else {
+      this.forceRenderPage();
+    } else if (this.queuedRender === false) {
+      this.queuedRender = true;
       setTimeout(this.queueUpRender, 250);
     }
   };
 
+  calculateNewScale = () => {
+    const shownPageNum = this.getCurrentPageNum();
+    const containerID = '#pageContainer' + shownPageNum;
+    const container = document.querySelector(containerID);
+    const viewer = document.querySelector('#viewer');
+    // console.log(viewer);
+    // console.log(viewer.clientWidth, viewer.clientHeight);
+
+    // const rectViewer = viewer.getBoundingClientRect();
+    // const rectContainer = container.getBoundingClientRect();
+    // console.log(rectViewer.top, rectViewer.right, rectViewer.bottom, rectViewer.left);
+    // console.log(rectContainer.top, rectContainer.right, rectContainer.bottom, rectContainer.left);
+
+    const w = viewer.clientWidth;
+    const h = viewer.clientHeight - 70;
+    // console.log(w, h);
+
+    const widthScale = w / container.clientWidth;
+    const heightScale = h / container.clientHeight;
+    // console.log(widthScale, heightScale);
+    const newScale = Math.min(widthScale, heightScale);
+
+    return newScale;
+  };
+
+  forceRenderAnnotations = () => {
+    // console.log('RENDERING ANNOTATIONS');
+    const UI = this.PDFJSAnnotate.UI;
+
+    const shownPageNum = this.getCurrentPageNum();
+
+    const RENDER_OPTIONS = {
+      documentId: this.props.pdf.fingerprint,
+      pdfDocument: this.props.pdf,
+      scale: this.savedScale,
+      rotate: 0
+    };
+
+    UI.renderAnnotations(shownPageNum, RENDER_OPTIONS, this.pageViewport).then(
+      result => result,
+      err => {
+        console.error('ERROR RENDERING ANNOTATIONS:\n', err);
+      }
+    );
+  };
+
   forceRenderPage = () => {
+    // console.log('RENDERING PAGE');
     this.rendering = true;
 
-    const shownPageNum = this.state.studentPaging
-      ? this.state.pageNumStudent
-      : this.props.data.pageNum;
+    const shownPageNum = this.getCurrentPageNum();
 
-    if (!this.state.initialLoading && !this.rescaleDone) {
-      const containerID = '#pageContainer' + shownPageNum;
-      const container = document.querySelector(containerID);
-
-      const rect = container.getBoundingClientRect();
-      // console.log(rect.top, rect.right, rect.bottom, rect.left);
-
-      // console.log(container.clientWidth, container.clientHeight);
-      const w = window.innerWidth;
-      const h = window.innerHeight - rect.top - 10;
-      // console.log(w, h);
-
-      const widthScale = w / container.clientWidth;
-      const heightScale = h / container.clientHeight;
-      // console.log(widthScale, heightScale);
-      const newScale = Math.min(widthScale, heightScale);
+    if (!this.state.initialPageLoad && !this.rescaleDone) {
+      const newScale = this.calculateNewScale();
       // console.log(newScale);
       this.savedScale = newScale;
       this.rescaleDone = true;
     }
 
-    const scale = this.savedScale;
-
     const RENDER_OPTIONS = {
       documentId: this.props.pdf.fingerprint,
       pdfDocument: this.props.pdf,
-      scale,
+      scale: this.savedScale,
       rotate: 0
     };
 
     const UI = this.PDFJSAnnotate.UI;
+
     UI.renderPage(shownPageNum, RENDER_OPTIONS).then(
       result => {
+        const pdfPage = result[0];
+        // const annotationsObj = result[1];
+        this.pageViewport = pdfPage.getViewport(this.savedScale, 0);
+        this.queuedRender = false;
         this.rendering = false;
-        this.queuedResize = false;
-        if (this.state.initialLoading === true) {
-          this.editorRender = true;
-          this.setState({ initialLoading: false });
+        this.lastLoadedPageNum = shownPageNum;
+        if (this.state.initialPageLoad && !this.rescaleDone) {
+          this.setState({ initialPageLoad: false });
+        } else {
+          this.queuedResize = false;
         }
+
         return result;
       },
       err => {
         this.rendering = false;
+        this.queuedResize = false;
         console.error('ERROR RENDERING PAGE:\n', err);
       }
     );
@@ -247,38 +344,36 @@ class AnnotationLayer extends Component {
 
   fillPage = () => {
     this.rescaleDone = false;
+    this.queuedResize = true;
+    this.zoomed = false;
     this.savedScale = 1;
-    this.editorRender = true;
-    this.setState({ initialLoading: true });
+    this.setState({ initialPageLoad: true });
   };
 
   handleResize = () => {
-    if (this.queuedResize === true) return;
+    if (this.queuedResize || this.zoomed) return;
     this.queuedResize = true;
-    setTimeout(this.fillPage, 250);
+    setTimeout(this.fillPage, 200);
   };
 
   zoomIn = () => {
     this.savedScale += 0.2;
-    this.editorRender = true;
-    this.forceUpdate();
+    this.zoomed = true;
+    this.forceRenderPage();
   };
 
   zoomOut = () => {
     this.savedScale -= 0.2;
-    this.editorRender = true;
-    this.forceUpdate();
+    this.zoomed = true;
+    this.forceRenderPage();
   };
 
-  checkIfTeacher = () => {
-    const user = this.props.userInfo.name;
-    return user === 'teacher';
-  };
+  checkIfTeacher = () => this.props.userInfo.role === 'teacher';
 
   getAnnotations = () => this.props.data.annotations;
 
   getCurrentPageNum = () => {
-    if (this.studentPaging) return this.state.pageNumStudent;
+    if (this.state.studentPaging) return this.state.pageNumStudent;
     else return this.props.data.pageNum;
   };
 
@@ -298,9 +393,12 @@ class AnnotationLayer extends Component {
   };
 
   clearAnnotations = () => {
-    this.replaceSavedAnnotations({});
-    this.props.dataFn.objSet({}, 'annotations');
+    const currentPageNum = this.getCurrentPageNum();
+    const savedAnnotations = this.getSavedAnnotations();
+    delete savedAnnotations[currentPageNum];
+    this.replaceSavedAnnotations(savedAnnotations);
     this.editorRender = true;
+    this.props.dataFn.objDel(null, ['annotations', currentPageNum]);
   };
 
   setActiveToolbarItem = item => {
@@ -356,7 +454,7 @@ class AnnotationLayer extends Component {
 
   nextPageAdmin = () => {
     if (this.props.data.pageNum + 1 > this.props.pdf.numPages) return;
-    this.editorRender = true;
+
     const pageNum = this.props.data.pageNum + 1;
     this.props.dataFn.numIncr(1, ['pageNum']);
     if (
@@ -368,7 +466,7 @@ class AnnotationLayer extends Component {
 
   prevPageAdmin = () => {
     if (this.props.data.pageNum <= 1) return;
-    this.editorRender = true;
+
     this.props.dataFn.numIncr(-1, ['pageNum']);
   };
 
@@ -430,7 +528,6 @@ class AnnotationLayer extends Component {
   changePageAdmin = pageNum => {
     const newPageNum = this.getValidPageNum(pageNum);
     if (newPageNum) {
-      this.editorRender = true;
       this.props.dataFn.objSet(newPageNum, ['pageNum']);
       if (newPageNum > this.props.data.furthestPageNum)
         this.props.dataFn.objSet(newPageNum, ['furthestPageNum']);
@@ -461,7 +558,7 @@ class AnnotationLayer extends Component {
   undo = () => {
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = this.getPageAnnotations();
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const index = pageAnnotations.length - 1;
     const annotation = pageAnnotations[index];
@@ -484,7 +581,7 @@ class AnnotationLayer extends Component {
     const savedAnnotations = this.getSavedAnnotations();
     const currentPageNum = this.getCurrentPageNum();
     const pageAnnotations = savedAnnotations[currentPageNum];
-    if (pageAnnotations.length === 0) return;
+    if (!pageAnnotations || pageAnnotations.length === 0) return;
 
     const annotation =
       savedAnnotations[currentPageNum][pageAnnotations.length - 1];
@@ -502,13 +599,41 @@ class AnnotationLayer extends Component {
     const size = e.target.value;
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(size, this.state.penColor);
+    UI.setText(size * 6, this.state.penColor);
+    localStorage.setItem('aSize', size);
     this.setState({ penSize: size });
   };
 
   selectPenColor = color => {
     const UI = this.PDFJSAnnotate.UI;
     UI.setPen(this.state.penSize, color);
+    UI.setText(this.state.penSize * 6, color);
+    localStorage.setItem('aColor', color);
     this.setState({ penColor: color });
+  };
+
+  changePageAdmin = pageNum => {
+    const newPageNum = this.getValidPageNum(pageNum);
+    if (newPageNum) {
+      this.props.dataFn.objSet(newPageNum, ['pageNum']);
+      if (newPageNum > this.props.data.furthestPageNum)
+        this.props.dataFn.objSet(newPageNum, ['furthestPageNum']);
+    }
+  };
+
+  changePage = pageNum => {
+    if (this.checkIfTeacher()) this.changePageAdmin(pageNum);
+    else this.changePageStudent(pageNum);
+  };
+
+  nextPage = () => {
+    if (this.checkIfTeacher()) this.nextPageAdmin();
+    else this.nextPageStudent();
+  };
+
+  prevPage = () => {
+    if (this.checkIfTeacher()) this.prevPageAdmin();
+    else this.prevPageStudent();
   };
 
   render() {
@@ -516,9 +641,7 @@ class AnnotationLayer extends Component {
 
     const UI = this.PDFJSAnnotate.UI;
 
-    const shownPageNum = this.state.studentPaging
-      ? this.state.pageNumStudent
-      : this.props.data.pageNum;
+    const shownPageNum = this.getCurrentPageNum();
 
     const pageAnnotationsLocalStorage = this.getSavedPageAnnotations();
     const pageAnnotationsDatabase = this.getPageAnnotations();
@@ -533,33 +656,37 @@ class AnnotationLayer extends Component {
       position: 'relative',
       margin: '0 auto'
     };
-    if (this.state.initialLoading === true) containerStyle.opacity = 0;
-
-    const pagingText = this.state.studentPaging ? 'Student' : 'Admin';
+    if (this.state.initialPageLoad === true) containerStyle.opacity = 0;
 
     const containerID = 'pageContainer' + shownPageNum;
-    const activeToolTipStyle = {
-      border: '2px solid lightblue',
-      borderRadius: '2px'
+
+    const iconMapping = {
+      cursor: <TouchApp />,
+      draw: <Edit />,
+      text: <Title />,
+      area: <CropSquare />,
+      highlight: <Highlight />,
+      strikeout: <FormatStrikethrough />
     };
 
-    const annotateItems = constants.toolbarItems.map(item => {
-      if (this.state.activeItem === item)
-        return (
-          <button
-            key={item}
-            style={activeToolTipStyle}
-            className="activeTooltip"
-            onClick={() => this.setActiveToolbarItem(item)}
-          >
-            {item}
-          </button>
-        );
+    const iconButtonStyle = {
+      width: '48px'
+    };
+
+    let annotateItems = constants.toolbarItems.map(item => {
+      const icon = iconMapping[item];
+      let color = 'primary';
+      if (this.state.activeItem === item) color = 'secondary';
 
       return (
-        <button key={item} onClick={() => this.setActiveToolbarItem(item)}>
-          {item}
-        </button>
+        <IconButton
+          style={iconButtonStyle}
+          color={color}
+          key={item}
+          onClick={() => this.setActiveToolbarItem(item)}
+        >
+          {icon}
+        </IconButton>
       );
     });
 
@@ -570,11 +697,20 @@ class AnnotationLayer extends Component {
       </option>
     ));
 
+    const selectStyle = {
+      display: 'inline-block',
+      fontSize: '14px',
+      fontFamily: 'sans-serif',
+      marginLeft: '10px'
+    };
+
     const penSizeItem = (
       <select
         key="penSize"
+        id="sizeSelect"
         value={this.state.penSize}
         onChange={this.selectPenSize}
+        style={selectStyle}
       >
         {sizeOptions}
       </select>
@@ -586,8 +722,12 @@ class AnnotationLayer extends Component {
       const style = {
         background: color,
         color: 'white',
-        width: '5px',
-        height: '15px'
+        width: '16px',
+        height: '16px',
+        borderRadius: '8px',
+        border: 'none',
+        margin: '0 2px',
+        marginTop: '1px'
       };
       return (
         <button
@@ -602,9 +742,17 @@ class AnnotationLayer extends Component {
 
     const penColorItem = <span key="penColor">{colorOptions}</span>;
 
-    if (this.state.activeItem === 'draw') {
-      annotateItems.push(penColorItem);
-      annotateItems.push(penSizeItem);
+    let drawingItems = [];
+    if (
+      this.state.activeItem === 'draw' ||
+      this.state.activeItem === 'area' ||
+      this.state.activeItem === 'text'
+    ) {
+      drawingItems.push(penColorItem);
+      drawingItems.push(penSizeItem);
+    } else {
+      drawingItems.push(penColorItem);
+      drawingItems.push(penSizeItem);
     }
 
     const debugItems = !activityData.config.debug ? null : (
@@ -615,74 +763,257 @@ class AnnotationLayer extends Component {
       </span>
     );
 
-    const editorItems = !this.checkIfTeacher() ? null : (
+    const disabledRight =
+      this.props.activityData.config.studentCannotGoFurther &&
+      this.getCurrentPageNum() === this.props.pdf.furthestPageNum;
+
+    const pageSpanStyle = {
+      display: 'inline-block',
+      height: '50px',
+      width: '50px',
+      margin: '0 0',
+      fontSize: '15px',
+      textAlign: 'center'
+    };
+
+    if (this.state.studentPaging) pageSpanStyle.fontSize = '11px';
+
+    const goBackToAdminButtonStyle = {
+      height: '24px',
+      width: '24px'
+    };
+
+    const goBackToAdminButton = (
+      <IconButton
+        style={goBackToAdminButtonStyle}
+        onClick={this.goBackToAdminPaging}
+      >
+        <SettingsBackupRestore />
+      </IconButton>
+    );
+
+    const pagingIconStyle = {
+      width: '25px'
+    };
+
+    const pagingItems = this.props.activityData.config.studentMustFollow ? (
+      <span>{shownPageNum + '/' + this.props.pdf.numPages}</span>
+    ) : (
       <span>
-        <span>Teacher/Admin: </span>
-        <button
-          onClick={this.undo}
-          disabled={pageAnnotationsDatabase.length === 0}
+        <IconButton style={pagingIconStyle} onClick={() => this.changePage(1)}>
+          <FirstPage />
+        </IconButton>
+        <IconButton style={pagingIconStyle} onClick={this.prevPage}>
+          <ChevronLeft />
+        </IconButton>
+        <span style={pageSpanStyle}>
+          {shownPageNum + '/' + this.props.pdf.numPages}
+          {this.state.studentPaging && goBackToAdminButton}
+        </span>
+        <IconButton
+          style={pagingIconStyle}
+          onClick={this.nextPage}
+          disabled={disabledRight}
         >
-          UNDO
-        </button>
-        <button
-          onClick={this.redo}
-          disabled={pageAnnotationsLocalStorage.length === 0}
+          <ChevronRight />
+        </IconButton>
+        <IconButton
+          style={pagingIconStyle}
+          onClick={() => this.changePage(this.props.pdf.numPages)}
         >
-          REDO
-        </button>
-        <button onClick={this.clearAnnotations}>Clear All Annotations</button>
-        <button onClick={this.prevPageAdmin}>Prev Page</button>
-        <button onClick={this.nextPageAdmin}>Next Page</button>
-        <button onClick={() => this.changePageAdmin(1)}>First</button>
-        <button onClick={() => this.changePageAdmin(this.props.pdf.numPages)}>
-          Last
-        </button>
-        <hr />
-        <span>Annotate: </span>
-        {annotateItems}
+          <LastPage />
+        </IconButton>
       </span>
     );
 
-    const studentItems =
-      this.checkIfTeacher() || activityData.config.studentMustFollow ? null : (
-        <span>
-          <span>Student: </span>
-          <button onClick={this.prevPageStudent}>Prev Page</button>
-          <button onClick={this.nextPageStudent}>Next Page</button>
-          <button onClick={() => this.changePageStudent(1)}>First</button>
-          <button
-            onClick={() => this.changePageStudent(this.props.pdf.numPages)}
-          >
-            Last
-          </button>
-          {this.state.studentPaging && (
-            <button onClick={this.goBackToAdminPaging}>Back To Teacher</button>
-          )}
-        </span>
-      );
+    const cursorColor =
+      this.state.activeItem === 'cursor' ? 'secondary' : 'primary';
+    const cursorStyle = {};
+    let cursorDisable = false;
+
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
+      cursorStyle.visibility = 'hidden';
+      cursorDisable = true;
+    }
+
+    const cursorItem = (
+      <IconButton
+        disabled={cursorDisable}
+        style={Object.assign({}, cursorStyle, iconButtonStyle)}
+        color={cursorColor}
+        onClick={() => this.setActiveToolbarItem('cursor')}
+      >
+        <TouchApp />
+      </IconButton>
+    );
+
+    const zoomingItems = (
+      <span>
+        {cursorItem}
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.fillPage}
+        >
+          <ZoomOutMap />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.zoomOut}
+        >
+          <ZoomOut />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.zoomIn}
+        >
+          <ZoomIn />
+        </IconButton>
+      </span>
+    );
+
+    let modifyingitems = (
+      <span>
+        <IconButton
+          style={iconButtonStyle}
+          color="secondary"
+          onClick={this.props.switchMode}
+        >
+          <NoteAdd />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.undo}
+          disabled={pageAnnotationsDatabase.length === 0}
+        >
+          <Undo />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.redo}
+          disabled={pageAnnotationsLocalStorage.length === 0}
+        >
+          <Redo />
+        </IconButton>
+        <IconButton
+          style={iconButtonStyle}
+          color="primary"
+          onClick={this.clearAnnotations}
+          disabled={
+            pageAnnotationsDatabase.length === 0 &&
+            pageAnnotationsLocalStorage.length === 0
+          }
+        >
+          <DeleteForever />
+        </IconButton>
+      </span>
+    );
+
+    const toolbarStyle = {
+      minHeight: '50px',
+      paddingTop: '5px',
+      borderBottom: '1px solid lightblue',
+      marginBottom: '5px'
+    };
+
+    const groupDivStyle = {
+      display: 'inline-block',
+      height: '50px',
+      textAlign: 'center',
+      verticalAlign: 'top'
+    };
+
+    const leftyStyle = {
+      width: '27%',
+      minWidth: '250px'
+    };
+
+    const drawingItemsStyle = {
+      width: '15%',
+      lineHeight: '50px',
+      minWidth: '125px'
+    };
+
+    const midStyle = {
+      width: '16%',
+      minWidth: '160px'
+    };
+
+    const zoomyStyle = {
+      width: '21%',
+      minWidth: '200px'
+    };
+
+    const rightyStyle = {
+      width: '21%',
+      minWidth: '200px'
+    };
+
+    if (!drawingItems) {
+      drawingItemsStyle.height = '10px';
+    }
+
+    if (
+      !this.checkIfTeacher() &&
+      !this.props.activityData.config.everyoneCanEdit
+    ) {
+      annotateItems = null;
+      modifyingitems = null;
+      drawingItems = null;
+      leftyStyle.height = '10px';
+      drawingItemsStyle.height = '10px';
+      rightyStyle.height = '10px';
+      leftyStyle.width = '0px';
+      drawingItemsStyle.width = '0px';
+      rightyStyle.width = '0px';
+      leftyStyle.minWidth = '0px';
+      drawingItemsStyle.minWidth = '0px';
+      rightyStyle.minWidth = '0px';
+      zoomyStyle.width = '40%';
+      zoomyStyle.textAlign = 'center';
+      midStyle.width = '60%';
+      midStyle.textAlign = 'right';
+    }
 
     return (
-      <div>
-        <hr />
-        {debugItems}
-        {editorItems}
-        {studentItems}
-        <hr />
-        <span>Scaling: </span>
-        <button onClick={this.fillPage}>Fill Page</button>
-        <button onClick={this.zoomOut}>Zoom Out</button>
-        <button onClick={this.zoomIn}>Zoom In</button>
-        <hr />
-        <span>
-          Page Num: {shownPageNum}/{this.props.pdf.numPages}, Paging:{' '}
-          {pagingText}
-        </span>
-        <div
-          id={containerID}
-          style={containerStyle}
-          dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
-        />
-      </div>
+      <ResizeAware
+        style={{ position: 'relative', height: '100%' }}
+        onlyEvent
+        onResize={this.handleResize}
+      >
+        <div>
+          {debugItems}
+          <div style={toolbarStyle}>
+            <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+              {annotateItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
+              <span>{drawingItems}</span>
+            </div>
+            <div style={Object.assign({}, groupDivStyle, midStyle)}>
+              {pagingItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, zoomyStyle)}>
+              {zoomingItems}
+            </div>
+            <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+              {modifyingitems}
+            </div>
+          </div>
+          <div
+            id={containerID}
+            style={containerStyle}
+            dangerouslySetInnerHTML={{ __html: pageContainer.innerHTML }} // eslint-disable-line react/no-danger
+          />
+        </div>
+      </ResizeAware>
     );
   }
 }

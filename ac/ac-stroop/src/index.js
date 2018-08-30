@@ -2,7 +2,6 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 
 const meta = {
@@ -138,9 +137,9 @@ const dataStructure = {
 export default ({
   id: 'ac-stroop',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
-  ActivityRunner,
   dashboards,
   dataStructure
 }: ActivityPackageT);

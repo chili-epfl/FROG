@@ -42,7 +42,6 @@ const HTML = ({
       }
     });
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.warn(e);
     toRender = html;
   }

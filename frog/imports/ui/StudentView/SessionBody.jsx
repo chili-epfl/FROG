@@ -66,7 +66,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-const StudentView = ({ activities, session, token, classes }) => (
+const StudentView = ({ activities, session, classes }) => (
   <div className={classes.root}>
     <div className={classes.navbar}>
       <AppBar>
@@ -80,18 +80,17 @@ const StudentView = ({ activities, session, token, classes }) => (
               {Meteor.user().username}
             </Typography>
           )}
-          {Meteor.user() &&
-            Meteor.user().username === 'teacher' && (
-              <Button
-                className={classes.button}
-                color="inherit"
-                onClick={() => {}}
-                href={`/?login=teacher&token=${(token && token.value) || ''}`}
-                target="_blank"
-              >
-                Orchestration View
-              </Button>
-            )}
+          {Meteor.userId() === session.ownerId && (
+            <Button
+              className={classes.button}
+              color="inherit"
+              onClick={() => {}}
+              href="/teacher/orchestration"
+              target="_blank"
+            >
+              Orchestration View
+            </Button>
+          )}
           <Button
             className={classes.button}
             color="inherit"
@@ -127,8 +126,7 @@ const StyledStudentView = withStyles(styles)(StudentView);
 class SessionBodyController extends React.Component<
   {
     activities: Array<Object>,
-    session: Object,
-    token?: { value: string }
+    session: Object
   },
   void
 > {
@@ -137,23 +135,20 @@ class SessionBodyController extends React.Component<
   }
 
   render() {
-    const { activities, session, token } = this.props;
+    const { activities, session } = this.props;
     return (
       <React.Fragment>
         {session.countdownStartTime && <Countdown session={session} />}
-        <StyledStudentView
-          session={session}
-          activities={activities}
-          token={token}
-        />
+        <StyledStudentView session={session} activities={activities} />
       </React.Fragment>
     );
   }
 }
 
-const SessionBody = compose(withDragDropContext, toClass)(
-  SessionBodyController
-);
+const SessionBody = compose(
+  withDragDropContext,
+  toClass
+)(SessionBodyController);
 
 SessionBody.displayName = 'SessionBody';
 

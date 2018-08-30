@@ -6,8 +6,7 @@ import ScratchPad from './ScratchPad';
 export default class PDF extends Component {
   state = {
     pdf: null,
-    err: null,
-    blankMode: false
+    err: null
   };
 
   componentDidMount() {
@@ -20,14 +19,23 @@ export default class PDF extends Component {
     }
   }
 
-  onSwitchMode = () => {
-    this.setState(prevState => ({
-      blankMode: !prevState.blankMode
-    }));
+  switchMode = () => {
+    this.props.dataFn.objSet(!this.props.data.scratchpadMode, [
+      'scratchpadMode'
+    ]);
   };
 
   getPDF = () => {
     try {
+      const location = window.location;
+      const cMapUrl =
+        location.protocol +
+        '//' +
+        location.hostname +
+        (location.port ? ':' + location.port : '') +
+        '/cmaps/';
+      PDFJS.PDFJS.cMapUrl = cMapUrl;
+      PDFJS.PDFJS.cMapPacked = true;
       PDFJS.getDocument(this.props.src).then(
         pdf => {
           this.setState({ pdf, err: null });
@@ -50,8 +58,16 @@ export default class PDF extends Component {
 
     let layerDisplay = null;
 
-    if (this.state.blankMode) {
-      layerDisplay = <ScratchPad />;
+    if (this.props.data.scratchpadMode) {
+      layerDisplay = (
+        <ScratchPad
+          userInfo={userInfo}
+          activityData={activityData}
+          data={data}
+          dataFn={dataFn}
+          switchMode={this.switchMode}
+        />
+      );
     } else if (this.state.err) {
       layerDisplay = (
         <div>
@@ -67,20 +83,18 @@ export default class PDF extends Component {
           activityData={activityData}
           data={data}
           dataFn={dataFn}
+          switchMode={this.switchMode}
         />
       );
     }
 
-    const annotationsModeItem = !this.state.blankMode ? (
-      <button onClick={this.onSwitchMode}>Switch to ScrachPad</button>
-    ) : (
-      <button onClick={this.onSwitchMode}>Switch back to PDF</button>
-    );
+    const stylish = {
+      height: '100%'
+    };
 
     return (
-      <div>
-        {annotationsModeItem}
-        <div id="viewer" className="pdf-viewer">
+      <div style={stylish}>
+        <div id="viewer" className="pdf-viewer" style={stylish}>
           {layerDisplay}
         </div>
       </div>

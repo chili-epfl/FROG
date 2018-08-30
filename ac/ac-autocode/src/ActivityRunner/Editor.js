@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import Ace from 'react-ace';
 
 type EditorPropsT = {
-  Ace: React$Component<any>,
-  mode: String,
   data: any,
   dataFn: any
 };
@@ -10,7 +9,6 @@ type EditorPropsT = {
 export default class Editor extends Component<EditorPropsT> {
   constructor(props: Object) {
     super(props);
-    this.Ace = require('react-ace').default;
     this.mode = props.activityData.config.language;
     switch (props.activityData.config.language) {
       case 'python':
@@ -31,7 +29,7 @@ export default class Editor extends Component<EditorPropsT> {
 
   render() {
     return (
-      <this.Ace
+      <Ace
         id="yourcode"
         style={{ width: '600px', height: '750px' }}
         mode={this.props.activityData.config.language || 'javascript'}

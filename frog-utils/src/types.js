@@ -88,7 +88,7 @@ export type ActivityRunnerPropsT = {
   dataFn: Object,
   stream: (value: any, path: string[]) => void,
   uploadFn: (files: Array<any>, name: string) => Promise<*>,
-  userInfo: { id: string, name: string },
+  userInfo: { id: string, name: string, role: string },
   activityId: string,
   groupingValue: string,
   sessionId: string
@@ -128,6 +128,8 @@ export type LogDbT =
 export type ActivityPackageT = {
   id: string,
   type: 'react-component',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   meta: {
     name: string,
     shortName?: string,
@@ -146,8 +148,7 @@ export type ActivityPackageT = {
   configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
-  mergeFunction?: (dataUnitStructT, Object) => void,
-  ActivityRunner: ActivityRunnerT,
+  mergeFunction?: (dataUnitStructT, Object, any, ?Object) => void,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (
@@ -160,7 +161,8 @@ export type ActivityPackageT = {
     configData: Object,
     setConfigData: Object => void,
     formContext: Object
-  }>
+  }>,
+  LearningItems?: LearningItemT<*>[]
 };
 
 export type DashboardT = {
@@ -192,6 +194,8 @@ export type DashboardViewerPropsT = {
 export type productOperatorT = {
   id: string,
   type: 'product',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -202,15 +206,14 @@ export type productOperatorT = {
   config: Object,
   configUI?: Object,
   validateConfig?: validateConfigFnT[],
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => activityDataT
+  LearningItems?: LearningItemT<*>[]
 };
 
 export type controlOperatorT = {
   id: string,
   type: 'control',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -220,16 +223,14 @@ export type controlOperatorT = {
   },
   config: Object,
   configUI?: Object,
-  validateConfig?: validateConfigFnT[],
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => ControlStructureT
+  validateConfig?: validateConfigFnT[]
 };
 
 export type socialOperatorT = {
   id: string,
   type: 'social',
+  configVersion: number,
+  upgradeFunctions?: { [version: string]: (Object) => Object },
   external?: boolean,
   meta: {
     name: string,
@@ -240,17 +241,28 @@ export type socialOperatorT = {
   outputDefinition: string[] | ((config: Object) => string[]),
   validateConfig?: validateConfigFnT[],
   config: Object,
-  configUI?: Object,
-  operator: (
-    configData: Object,
-    object: ObjectT & GlobalStructureT
-  ) => socialStructureT
+  configUI?: Object
 };
 
 export type operatorPackageT =
   | socialOperatorT
   | productOperatorT
   | controlOperatorT;
+
+export type productOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => activityDataT | Promise<activityDataT>;
+
+export type controlOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => ControlStructureT;
+
+export type socialOperatorRunnerT = (
+  configData: Object,
+  object: ObjectT & GlobalStructureT
+) => socialStructureT;
 
 export type CursorT<T> = {
   fetch: () => T[],
@@ -265,7 +277,6 @@ type UpdateQueryT<T> = {
   $inc?: { [key: $Keys<T>]: number },
   $unset?: { [key: $Keys<T>]: any }
 };
-
 export type MongoT<T> = {
   find: (
     string | $Shape<T> | { [$Keys<T>]: { $in: any } },
@@ -295,6 +306,15 @@ export type LIComponentPropsT =
       onCreate?: Function,
       autoInsert?: Boolean,
       meta?: Object
+    |}
+  | {|
+      type: 'createLIPayload',
+      meta?: Object,
+      liType?: string,
+      onCreate?: Function,
+      autoInsert?: Boolean,
+      meta?: Object,
+      payload: Object
     |}
   | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
   | {|
@@ -331,5 +351,6 @@ export type LearningItemT<T> = {
   Viewer?: React.ComponentType<{
     data: T,
     LearningItem: LearningItemComponentT
-  }>
+  }>,
+  createPayload?: Function
 };

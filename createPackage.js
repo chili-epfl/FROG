@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const stringify = require('json-stringify-pretty-compact');
 const childProcess = require('child_process');
+const rimraf = require('rimraf');
 
 if (!process.argv[4]) {
   /*eslint-disable */
@@ -9,10 +10,11 @@ if (!process.argv[4]) {
   
   eg: To create an activity -> node createPackage.js activity ac-new-activity "A new activity" 
 
+  Please stop Meteor before running this command (otherwise this command will crash Meteor).
+
   Features: 
   * Sets up a simple activity or operator package template in ./[ac|op]/<short-name>.  
-  * Adds it to the relevant files (frog/package.json and frog/imports/[activity|operator]Packages.js). 
-  * Also does the correct symlinking and yarn commands to be ready to develop.`);
+  * Also does the correct symlinking to be ready to develop.`);
   /* eslint-enable */
   process.exit();
 }
@@ -29,34 +31,12 @@ if (process.argv[3].slice(0, 3) !== prefix + '-') {
 }
 
 const newActivityId = process.argv[3];
-const camelCased = s => s.replace(/-([a-z])/g, g => g[1].toUpperCase());
-const newActivityName = camelCased(newActivityId);
 
 if (fs.existsSync(`./${prefix}/${newActivityId}/package.json`)) {
   // eslint-disable-next-line no-console
   console.log(`Package already exists.`);
   process.exit();
 }
-
-// adding to frog/package.json
-const pkgjs = fs.readFileSync('./frog/package.json');
-const pkg = JSON.parse(pkgjs);
-pkg.dependencies[newActivityId] = '1.0.0';
-fs.writeFileSync('./frog/package.json', stringify(pkg));
-
-// adding to activityTypes | operatorTypes
-const fname =
-  type === 'activity'
-    ? './frog/imports/activityTypes.js'
-    : './frog/imports/operatorTypes.js';
-const act = fs
-  .readFileSync(fname)
-  .toString()
-  .split('\n');
-act.splice(2, 0, `import ${newActivityName} from '${newActivityId}';`);
-const whereToInsert = act.findIndex(x => x.startsWith('export const'));
-act.splice(whereToInsert + 1, 0, `  ${newActivityName},`);
-fs.writeFileSync(fname, act.join('\n'));
 
 fs.copySync(`./templates/${type}`, `./${prefix}/${newActivityId}`, {
   errorOnExist: true
@@ -86,19 +66,25 @@ fs.writeFileSync(
   actnew.join('\n')
 );
 
+childProcess.execSync(`ln -s ../${prefix}/${newActivityId} ./node_modules/`);
+
 childProcess.execSync(
-  `git add ./${prefix}/${newActivityId} frog/package.json frog/imports/activityTypes.js frog/imports/operatorTypes.js`
+  `ln -s ../../node_modules/${newActivityId} ./frog/imports/packages/`
 );
 
+childProcess.execSync(
+  `git add ./${prefix}/${newActivityId} ./frog/imports/packages/${newActivityId}`
+);
+
+[
+  './frog/.meteor/local/build',
+  './frog/.meteor/local/bundler-cache',
+  './frog/.meteor/local/plugin-cache'
+].forEach(x => rimraf.sync(x));
+
 /*eslint-disable */
-console.log(
+console.info(
   `Package created in './${prefix}/${newActivityId}', and added to ./frog.
-
-Please run 'killall -9 node; git clean -fdx; ./initial_setup.sh' from the
-repository root directory (this will delete all untracked files).
-
-You can then restart 'npm start watchAll' in the root directory, as well
-as 'meteor' in the './frog' directory, which should pick up the new ${type}.
 
 Use 'git diff --cached' to see all the changes that the script has made.`
 );

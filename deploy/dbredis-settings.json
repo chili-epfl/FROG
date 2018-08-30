@@ -1,0 +1,11 @@
+{
+  "dashboardServer": true,
+  "public": {
+    "sharedburl": "wss://icchilisrv3.epfl.ch:3002",
+    "friendlyProduction": true
+  },
+  "sharedb_dburl": "mongodb://127.0.0.1:27017",
+  "sharedb_redis": "127.0.0.1:6379",
+  "token": "9f8sd0f98sdfj3j4jFFFF1",
+  "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]}
+}

@@ -129,11 +129,17 @@ class PreviewDash extends React.Component<
   { state: any }
 > {
   interval: any;
+
   oldInput: any = undefined;
+
   prepDataFn: Function;
+
   aT: Object;
+
   dash: ?Object;
+
   dataFn: any;
+
   oldState: any = {};
 
   dashId = this.props.activity._id + '-' + this.props.name;

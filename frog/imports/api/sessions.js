@@ -4,7 +4,8 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug } from 'frog-utils';
 import { difference } from 'lodash';
 
-import { Activities, Operators, Connections } from './activities';
+import { Activities, Connections } from './activities';
+import { Operators } from './operators';
 import {
   runSessionFn,
   runNextActivity,
@@ -234,6 +235,7 @@ const addSessionFn = (graphId: string, slug: string): string => {
       name: newName,
       graphId: copyGraphId,
       state: 'CREATED',
+      ownerId: Meteor.userId(),
       timeInGraph: -1,
       countdownStartTime: -1,
       countdownLength: DEFAULT_COUNTDOWN_LENGTH,

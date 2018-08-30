@@ -6,12 +6,11 @@ import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { ExternalOperators } from '../../api/activities';
+import { ExternalOperators } from '../../api/operators';
 import { operatorTypesObj, operatorTypes } from '../../operatorTypes';
-import StudentView from './../StudentView';
-import TeacherView from './../TeacherView';
-import GraphEditor from './../GraphEditor';
-import Preview from './../Preview';
+import TeacherView from '../TeacherView';
+import GraphEditor from '../GraphEditor';
+import Preview from '../Preview';
 import TopBar from './TopBar';
 
 const styles = {
@@ -28,8 +27,8 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
   return (
     <div id="app">
       <Switch>
-        <Route path="/graph/:graphId" component={GraphEditor} />
-        <Route path="/graph" component={GraphEditor} />
+        <Route path="/teacher/graph/:graphId" component={GraphEditor} />
+        <Route path="/teacher/graph" component={GraphEditor} />
         <Route component={WithTopBar} />
       </Switch>
     </div>
@@ -41,11 +40,12 @@ const WithTopBar = () => (
     <TopBar />
     <div id="everything-except-top-bar" style={styles.subroot}>
       <Switch>
-        <Route path="/teacher/:graphId" component={TeacherView} />
-        <Route path="/teacher" component={TeacherView} />
-        <Route path="/student" component={StudentView} />
-        <Route path="/preview/:previewId" component={Preview} />
-        <Route path="/preview" component={Preview} />
+        <Route path="/teacher/preview/:previewId" component={Preview} />
+        <Route path="/teacher/preview" component={Preview} />
+        <Route path="/teacher/orchestration/:graphId" component={TeacherView} />
+        <Route path="/teacher/orchestration" component={TeacherView} />
+        <Route path="/teacher/graph/:graphId" component={GraphEditor} />
+        <Route path="/teacher/graph" component={GraphEditor} />
         <Route component={GraphEditor} />
       </Switch>
     </div>
@@ -66,6 +66,11 @@ export default withTracker(() => {
     'dashboardData',
     'externalOperators'
   ];
+
+  if (!Meteor.user().role) {
+    Meteor.call('make.teacher', Meteor.userId());
+  }
+
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   const extOp = ExternalOperators.find({}).fetch();
   extOp.forEach(ext => {

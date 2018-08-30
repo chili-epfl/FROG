@@ -15,7 +15,7 @@ const Quadrants = ({
     return null;
   }
   return (
-    <div>
+    <div position="absolute" style={{ zIndex: -1 }}>
       <Item
         group="a"
         key="a"
@@ -80,6 +80,7 @@ const colors = {
 };
 
 const Item = styled.div`
+  z-index: -1
   background: ${props => colors[props.group]};
 `;
 

@@ -112,8 +112,8 @@ class MapInterface extends React.Component<PropsT, StateT> {
     const { width, height } = dimension;
     const { input } = this.state;
 
-    const normX = Math.round(x / width * 1000);
-    const normY = Math.round(y / height * 1000);
+    const normX = Math.round((x / width) * 1000);
+    const normY = Math.round((y / height) * 1000);
 
     if (input.clickOnCity) {
       const id = findInRange(normX, normY);

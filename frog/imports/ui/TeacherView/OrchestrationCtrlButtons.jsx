@@ -32,12 +32,26 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
           }
         />
       </Grid>
-      <Grid item xs={6} className={classes.textLeft}>
+      <Grid item xs={3} className={classes.textLeft}>
         <ul className={classes.list}>
           {(session.nextActivities || []).map(x => (
             <li key={x.activityId}>{x.description}</li>
           ))}
         </ul>
+      </Grid>
+      <Grid
+        item
+        xs={2}
+        className={classes.textRight}
+        style={{ marginRight: '15px' }}
+      >
+        <ControlButton
+          btnModel={
+            session.state === 'PAUSED'
+              ? buttonsModel.continue
+              : buttonsModel.pause
+          }
+        />
       </Grid>
     </Grid>
   );

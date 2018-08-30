@@ -1,8 +1,7 @@
 // @flow
 
-import { type ActivityPackageT, uuid } from 'frog-utils';
+import { type ActivityPackageT, uuid, values } from 'frog-utils';
 
-import ActivityRunner from './Chat';
 import dashboards from './Dashboard';
 
 const learningItems = [
@@ -109,18 +108,21 @@ const robotFormat = (id, msg, order) => ({
   order
 });
 
-const mergeFunction = (obj, dataFn) => {
+const mergeFunction = (obj, dataFn, _, user) => {
   if (obj.config.hasRobotPrompt) {
     const id = uuid();
     dataFn.objInsert(robotFormat(id, obj.config.robotPrompt), id);
   }
   if (obj.data) {
-    obj.data.forEach((x, i) => {
+    values(obj.data).forEach((x, i) => {
       const id = uuid();
       dataFn.objInsert(
-        x.user
-          ? { id, order: i + 1, ...x }
-          : robotFormat(id, x.msg || x, i + 1),
+        {
+          ...x,
+          user: user?.username || x.user,
+          order: Object.keys(dataFn.doc.data).length + 1 + i,
+          id
+        },
         id
       );
     });
@@ -130,7 +132,7 @@ const mergeFunction = (obj, dataFn) => {
 export default ({
   id: 'ac-chat',
   type: 'react-component',
-  ActivityRunner,
+  configVersion: 1,
   config,
   configUI,
   meta,

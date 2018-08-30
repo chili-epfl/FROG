@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import LearningItemChooser from './LearningItemChooser';
-import { learningItemTypesObj } from './learningItemTypes';
+import { learningItemTypesObj } from '../../activityTypes';
 import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
@@ -54,7 +54,7 @@ const LearningItem = (props: {
       />
     );
   }
-  if (props.type === 'create') {
+  if (props.type === 'create' || props.type === 'createLIPayload') {
     let onCreate;
     if (props.autoInsert) {
       onCreate = li => {
@@ -63,31 +63,46 @@ const LearningItem = (props: {
         if (typeof props.onCreate === 'function') {
           props.onCreate(li);
         }
+        if (props.dataFn.stream) {
+          props.dataFn.stream({ li });
+        }
       };
     }
     if (!onCreate) {
       onCreate = props.onCreate;
     }
+    const dataFn = props.dataFn;
+    const createLearningItem = (liType, item, _, immutable) => {
+      const id = dataFn.createLearningItem(
+        liType,
+        item,
+        { ...(dataFn.meta || {}), ...(props.meta || {}) },
+        immutable
+      );
+      if (id && onCreate) {
+        onCreate(id);
+      }
+      return id;
+    };
+
+    if (props.type === 'createLIPayload' && props.liType && props.payload) {
+      if (learningItemTypesObj[props.liType].createPayload) {
+        return learningItemTypesObj[props.liType].createPayload(
+          props.payload,
+          dataFn,
+          createLearningItem
+        );
+      }
+    }
     if (props.liType) {
       const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
       if (liT.Creator) {
         const ToRun = liT.Creator;
-        const dataFn = props.dataFn;
         return (
           <ToRun
-            createLearningItem={(liType, item, _, immutable) => {
-              const id = dataFn.createLearningItem(
-                liType,
-                item,
-                dataFn.meta,
-                immutable
-              );
-              if (id && onCreate) {
-                onCreate(id);
-              }
-              return id;
-            }}
+            createLearningItem={createLearningItem}
             LearningItem={dataFn.LearningItem}
+            dataFn={dataFn}
           />
         );
       } else {

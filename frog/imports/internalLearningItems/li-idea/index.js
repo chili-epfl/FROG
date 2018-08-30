@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { type LearningItemT, ReactiveText } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
-  <React.Fragment>
+  <div>
     <b>{data.title}</b>
     <br />
     {data.content.split('\n').map((line, i) => (
@@ -15,11 +15,11 @@ const ThumbViewer = ({ data }) => (
         <br />
       </React.Fragment>
     ))}
-  </React.Fragment>
+  </div>
 );
 
 const Editor = ({ dataFn }) => (
-  <div className="bootstrap">
+  <div>
     <b>Title:</b>
     <br />
     <ReactiveText path="title" dataFn={dataFn} />

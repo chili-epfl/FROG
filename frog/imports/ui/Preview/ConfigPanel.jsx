@@ -38,7 +38,7 @@ class ConfigPanel extends React.Component<*, *> {
     this.state = { displaySave: false, metadatas: {} };
     if (!props.metadatas) {
       const metadatas = LibraryStates.activityList.find(
-        x => x.uuid === props.state.metadatas.uuid
+        x => x.uuid === this.state.metadatas.uuid
       );
       props.setMetadatas(metadatas);
     }

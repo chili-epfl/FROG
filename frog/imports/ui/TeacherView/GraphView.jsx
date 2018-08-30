@@ -26,7 +26,7 @@ const styles = {
 
 class GraphViewController extends React.Component<GraphViewPropsT, {}> {
   initStore = (session: any) => {
-    store.setBrowserHistory(this.props.history, '/teacher');
+    store.setBrowserHistory(this.props.history, '/teacher/orchestration');
     store.setId(session.graphId, true);
     store.setSession(session);
     store.session.setTimes(session);

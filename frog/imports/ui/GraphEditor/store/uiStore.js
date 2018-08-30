@@ -1,11 +1,13 @@
 import { extendObservable, action, reaction } from 'mobx';
 
 import { getActivitySequence } from '/imports/api/graphSequence';
+import changelog from '/imports/api/changelog';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 
 export default class uiStore {
   constructor() {
+    const user = Meteor.user();
     extendObservable(this, {
       sidepanelOpen: false,
       svgRef: null,
@@ -21,8 +23,10 @@ export default class uiStore {
       showPreview: false,
       libraryOpen: false,
       showInfo: false,
-      showModal: false,
-
+      showModal:
+        user?.profile !== undefined &&
+        user?.profile.lastVersionChangelog !== undefined &&
+        user?.profile.lastVersionChangelog < changelog.length - 1,
       setIsSvg: action((isSvg: boolean) => {
         this.isSvg = isSvg;
         if (isSvg) {

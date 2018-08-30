@@ -4,6 +4,7 @@ import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
+import { uploadFile } from '/imports/api/openUploads';
 import { uuid } from './index';
 import type { LearningItemComponentT } from './types';
 
@@ -27,7 +28,10 @@ export class Doc {
   LearningItemFn: LearningItemComponentT;
   meta: Object;
   backend: any;
+  stream: ?Function;
   path: rawPathElement[];
+  sessionId: string;
+  uploadFn: Function;
 
   constructor(
     doc: any,
@@ -36,13 +40,18 @@ export class Doc {
     updateFn?: Function,
     meta: Object = {},
     LearningItem: LearningItemComponentT,
-    backend: any
+    backend: any,
+    stream?: Function,
+    sessionId?: string
   ) {
+    this.stream = stream;
     this.backend = backend;
     this.meta = meta;
     this.readOnly = !!readOnly;
     this.doc = doc;
     this.path = path || [];
+    this.sessionId = sessionId || '';
+    this.uploadFn = (file, name) => uploadFile(file, name, this.sessionId);
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
       : e => {
@@ -81,6 +90,22 @@ export class Doc {
     return <LI {...props} dataFn={this} />;
   };
 
+  createLIPayload = (
+    type: string,
+    payload: Object,
+    autoInsert: boolean,
+    meta?: Object
+  ) =>
+    // $FlowFixMe
+    this.LearningItemFn({
+      liType: type,
+      payload,
+      type: 'createLIPayload',
+      autoInsert,
+      dataFn: this,
+      meta
+    });
+
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
     if (typeof get(this.doc.data, path) !== 'string') {
@@ -101,12 +126,14 @@ export class Doc {
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }
+
   listAppend(newVal: any, path: rawPathT) {
     this.submitOp({
       p: [...cleanPath(this.path, path), 999999],
       li: newVal
     });
   }
+
   listAppendLI(
     liType: string,
     payload: Object,
@@ -120,18 +147,21 @@ export class Doc {
       li: liID
     });
   }
+
   listInsert(newVal: any, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
       li: newVal
     });
   }
+
   listDel(oldVal: any, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
       ld: oldVal
     });
   }
+
   listReplace(oldVal: any, newVal: any, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
@@ -139,13 +169,16 @@ export class Doc {
       li: newVal
     });
   }
+
   numIncr(incr: number, path: rawPathT) {
     this.doc.preventCompose = true;
     this.submitOp({ p: cleanPath(this.path, path), na: incr });
   }
+
   objInsert(newVal: any, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), oi: newVal });
   }
+
   keyedObjInsert(newVal: Object, path: rawPathT) {
     const id = uuid();
     const aryPath = Array.isArray(path) ? path : [path];
@@ -154,9 +187,11 @@ export class Doc {
       oi: { id, ...newVal }
     });
   }
+
   objDel(oldVal: Object, path: rawPathT) {
     this.submitOp({ p: cleanPath(this.path, path), od: oldVal });
   }
+
   objReplace(oldVal: Object, newVal: Object, path: rawPathT) {
     this.submitOp({
       p: cleanPath(this.path, path),
@@ -164,12 +199,14 @@ export class Doc {
       oi: newVal
     });
   }
+
   objSet(newVal: Object, path: rawPathT) {
     this.submitOp({
       p: [...this.path, path],
       oi: newVal
     });
   }
+
   specialize(rawPath: rawPathT) {
     const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
     return new Doc(
@@ -197,10 +234,22 @@ export const generateReactiveFn = (
   meta?: Object,
   readOnly?: boolean,
   updateFn?: Function,
-  backend?: any
+  backend?: any,
+  stream?: Function,
+  sessionId?: string
 ): Object => {
   if (doc) {
-    return new Doc(doc, [], !!readOnly, updateFn, meta, LearningItem, backend);
+    return new Doc(
+      doc,
+      [],
+      !!readOnly,
+      updateFn,
+      meta,
+      LearningItem,
+      backend,
+      stream,
+      sessionId
+    );
   } else {
     throw 'Cannot create dataFn without sharedb doc';
   }

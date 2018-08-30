@@ -1,7 +1,6 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './dashboard.js';
 
 const meta = {
@@ -20,9 +19,9 @@ const dataStructure = { students: {}, groups: {} };
 export default ({
   id: 'ac-prox',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   dashboards,
-  ActivityRunner,
   dataStructure
 }: ActivityPackageT);

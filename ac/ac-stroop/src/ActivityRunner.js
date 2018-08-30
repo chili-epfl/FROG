@@ -398,7 +398,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
 const Runner = (props: ActivityRunnerPropsT) => {
   const { data, activityData } = props;
   const { maxQuestions } = activityData.config;
-  const p = Math.round(data.progress / maxQuestions * 100);
+  const p = Math.round((data.progress / maxQuestions) * 100);
   return (
     <div style={styles.main}>
       <ProgressBar now={p} label={`${p}%`} />

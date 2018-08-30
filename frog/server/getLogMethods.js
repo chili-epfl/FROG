@@ -4,6 +4,7 @@ import { readFileSync } from 'fs';
 import { resolve, join } from 'path';
 
 import { Logs } from '../imports/api/logs';
+import { Sessions } from '../imports/api/sessions';
 import { mergeLog } from '../imports/api/mergeLogData';
 import { activityTypesObj } from '../imports/activityTypes';
 import { client } from './redis';
@@ -11,20 +12,27 @@ import { archiveDashboardState } from './dashboardSubscription';
 
 Meteor.methods({
   'session.logs': function(sessionId, limit = 50) {
-    if (
-      this.userId &&
-      Meteor.users.findOne(this.userId).username === 'teacher'
-    ) {
+    if (Sessions.findOne(sessionId).ownerId === this.userId) {
       return Logs.find({ sessionId }, { limit }).fetch();
-    }
+    } else
+      console.error(
+        'Not permitted to download logs',
+        Sessions.findOne(sessionId),
+        this.userId
+      );
+    throw new Meteor.Error(
+      'not-a-teacher',
+      'You have to be the teacher of a session to download its logs'
+    );
   },
   'session.find_start': function(sessionId) {
-    if (
-      this.userId &&
-      Meteor.users.findOne(this.userId).username === 'teacher'
-    ) {
+    if (Sessions.findOne(sessionId).ownerId === this.userId) {
       return Logs.findOne({ sessionId }, { sort: { timestamp: -1 } }).timestamp;
-    }
+    } else
+      throw new Meteor.Error(
+        'not-a-teacher',
+        'You have to be the teacher of a session to download its logs'
+      );
   },
   'get.example.logs': function(ac, name, idx) {
     const rootPath = resolve('.').split('/.meteor')[0];

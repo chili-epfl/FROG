@@ -14,9 +14,9 @@ const server = http.createServer();
 
 const dbUrl =
   (Meteor.settings && Meteor.settings.sharedb_dburl) ||
-  'mongodb://localhost:3001';
+  'mongodb://localhost:3001/sharedb';
 
-const db = ShareDBMongo(`${dbUrl}/sharedb`);
+const db = ShareDBMongo(dbUrl);
 
 let options = { db };
 if (Meteor.settings.sharedb_redis) {

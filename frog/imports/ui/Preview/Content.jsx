@@ -15,12 +15,13 @@ import {
   withDragDropContext,
   uuid
 } from 'frog-utils';
+import Paper from '@material-ui/core/Paper';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
-import { activityTypesObj } from '../../activityTypes';
+import { activityRunners, activityTypesObj } from '../../activityTypes';
 import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
@@ -70,11 +71,15 @@ export const initActivityDocuments = (
           undefined,
           backend
         );
+        const initData =
+          typeof activityType.dataStructure === 'function'
+            ? activityType.dataStructure(config)
+            : activityType.dataStructure;
         const data =
           example === -1 || example === undefined
-            ? cloneDeep(activityType.dataStructure)
+            ? cloneDeep(initData)
             : exs[example].data;
-        mergeFunction(cloneDeep({ data, config }), dataFn);
+        mergeFunction(cloneDeep({ data, config }), dataFn, dataFn.doc.data);
       }
     };
 
@@ -83,7 +88,11 @@ export const initActivityDocuments = (
     if (!doc.type) {
       doc.once('load', () => {
         if (!doc.type) {
-          doc.create(cloneDeep(activityType.dataStructure) || {});
+          const initData =
+            typeof activityType.dataStructure === 'function'
+              ? activityType.dataStructure(config)
+              : activityType.dataStructure;
+          doc.create(cloneDeep(initData) || {});
           runMergeFunction(doc);
         }
       });
@@ -96,7 +105,12 @@ export const initActivityDocuments = (
         undefined,
         backend
       );
-      dataFn.objInsert(cloneDeep(activityType.dataStructure) || {}, []);
+
+      const initData =
+        typeof activityType.dataStructure === 'function'
+          ? activityType.dataStructure(config)
+          : activityType.dataStructure;
+      dataFn.objInsert(cloneDeep(initData) || {}, []);
       runMergeFunction(doc);
     }
   });
@@ -127,7 +141,7 @@ const ContentController = ({
     return <p>The config is invalid</p>;
   }
 
-  const RunComp = activityType.ActivityRunner;
+  const RunComp = activityRunners[activityType.id];
   RunComp.displayName = activityType.id;
 
   const examples = activityType.meta.exampleData || [];
@@ -159,17 +173,19 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <ActivityToRun
-        activityType={activityType.id}
-        key={reloadActivity}
-        activityData={activityData}
-        activityId="preview"
-        userInfo={{ name, id: getUserId(name) }}
-        stream={() => undefined}
-        logger={logger}
-        groupingValue={instance}
-        sessionId={reloadActivity}
-      />
+      <Paper style={{ width: '100%', height: '100%', overflow: 'overlay' }}>
+        <ActivityToRun
+          activityType={activityType.id}
+          key={reloadActivity}
+          activityData={activityData}
+          activityId="preview"
+          userInfo={{ name, id: getUserId(name) }}
+          stream={() => undefined}
+          logger={logger}
+          groupingValue={instance}
+          sessionId={reloadActivity}
+        />
+      </Paper>
     );
   };
 
@@ -200,7 +216,7 @@ const ContentController = ({
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
                 title={'dashboard - ' + activityType.meta.name}
-                toolbarControls={[<div />]}
+                toolbarControls={[<div key={instance} />]}
                 key={JSON.stringify({ config, showData })}
                 path={path}
               >
@@ -209,7 +225,7 @@ const ContentController = ({
             ) : (
               <MosaicWindow
                 path={path}
-                toolbarControls={[<div />]}
+                toolbarControls={[<div key={instance} />]}
                 key={JSON.stringify({ config, showData, reloadActivity })}
                 title={
                   name +
@@ -226,7 +242,7 @@ const ContentController = ({
           initialValue={getInitialState(
             showDash
               ? [
-                  ['dashboard'],
+                  ['dashboard', 'dashboard'],
                   ...users.map((name, idx) => [name, instances[idx]])
                 ]
               : users.map((name, idx) => [name, instances[idx]])
@@ -237,6 +253,9 @@ const ContentController = ({
   );
 };
 
-const Content = compose(withDragDropContext, toClass)(ContentController);
+const Content = compose(
+  withDragDropContext,
+  toClass
+)(ContentController);
 
 export default Content;

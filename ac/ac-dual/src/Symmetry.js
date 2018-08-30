@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Mousetrap from 'mousetrap';
-import { Button } from 'react-bootstrap';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
@@ -56,10 +57,10 @@ const generateFigure = c => {
     const p = {};
     p.x =
       Math.cos(points[i] * 2 * Math.PI) +
-      (Math.random() - 0.5) * complexity / 2.0;
+      ((Math.random() - 0.5) * complexity) / 2.0;
     p.y =
       Math.sin(points[i] * 2 * Math.PI) +
-      (Math.random() - 0.5) * complexity / 2.0;
+      ((Math.random() - 0.5) * complexity) / 2.0;
     figure.push(p);
   }
   return normaliseFigure(figure);
@@ -76,8 +77,8 @@ const drawFigure = (canvas, figure) => {
   c2.translate(xoffset, yoffset);
 
   const scale = {};
-  scale.x = canvas.width / 2 * 0.9;
-  scale.y = canvas.height / 2 * 0.9;
+  scale.x = (canvas.width / 2) * 0.9;
+  scale.y = (canvas.height / 2) * 0.9;
 
   const n = figure.length;
   c2.moveTo(figure[n - 1].x * scale.x, figure[n - 1].y * scale.y);
@@ -119,8 +120,11 @@ const clearFigure = canvas => {
 
 class Canvas extends React.Component<*, *> {
   canvasLeft: any;
+
   canvasRight: any;
+
   width: number;
+
   height: number;
 
   constructor(props) {
@@ -188,7 +192,7 @@ const FIGURES = {
   }
 };
 
-export default class Symmetry extends React.Component<
+class Symmetry extends React.Component<
   ActivityRunnerPropsT,
   { figure: Object }
 > {
@@ -261,13 +265,15 @@ export default class Symmetry extends React.Component<
           <Canvas figure={this.state.figure} {...this.props} />
           <div>
             <Button
-              style={{ ...styles.button, left: 0 }}
-              onClick={() => this.onClick(true)}
+              classes={{ root: this.props.classes.button1 }}
+              variant="outlined"
+              onClick={() => this.onClick(false)}
             >
               {texts.yes}
             </Button>
             <Button
-              style={{ ...styles.button, right: 0 }}
+              classes={{ root: this.props.classes.button2 }}
+              variant="outlined"
               onClick={() => this.onClick(false)}
             >
               {texts.no}
@@ -282,3 +288,14 @@ export default class Symmetry extends React.Component<
     );
   }
 }
+
+export default withStyles({
+  button1: {
+    ...styles.button,
+    left: '0'
+  },
+  button2: {
+    ...styles.button,
+    right: '0'
+  }
+})(Symmetry);

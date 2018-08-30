@@ -2,8 +2,8 @@
 
 const genealogyConfig = {
   title: 'Genealogy',
-  delay: '3000',
-  maxTime: '45000',
+  delay: 3000,
+  maxTime: 45000,
   shuffle: 'none',
   guidelines:
     'This lab intends to measure some phenomena in human cognition. ' +

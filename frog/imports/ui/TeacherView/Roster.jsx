@@ -26,6 +26,7 @@ import styles from './styles';
 
 class Roster extends React.Component {
   studentlist = [];
+
   state = {
     studentName: ''
   };
@@ -39,6 +40,7 @@ class Roster extends React.Component {
   handleChange = (event: Object) => {
     this.setState({ studentName: String(event.target.value) });
   };
+
   handleAddStudent = () => {
     const { session } = this.props;
 

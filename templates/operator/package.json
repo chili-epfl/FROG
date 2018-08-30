@@ -2,7 +2,7 @@
   "name": "op-template",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "nps"
   },
@@ -12,6 +12,6 @@
     "frog-utils": "1.0.0"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.9.2"
   }
 }

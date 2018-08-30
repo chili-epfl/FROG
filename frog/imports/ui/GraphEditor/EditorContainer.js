@@ -21,6 +21,7 @@ import ModalDelete from './RemoteControllers/ModalDelete';
 
 import TopPanel from './TopPanel';
 import Preview from '../Preview';
+import OperatorPreview from '../Preview/OperatorPreview';
 import TopBar from '../App/TopBar';
 
 const styles = () => ({
@@ -80,12 +81,13 @@ class Editor extends React.Component<Object, StateT> {
 
   render() {
     const { classes } = this.props;
-    if (this.props.store.ui.showPreview) {
+    const show = this.props.store.ui.showPreview;
+    if (show && show.activityTypeId) {
       return (
         <Preview
           modal
-          activityTypeId={this.props.store.ui.showPreview.activityTypeId}
-          config={this.props.store.ui.showPreview.config}
+          activityTypeId={show.activityTypeId}
+          config={show.config}
           dismiss={() => this.props.store.ui.setShowPreview(false)}
         />
       );
@@ -122,10 +124,6 @@ class Editor extends React.Component<Object, StateT> {
               setModal={val => this.setState({ importOpen: val })}
               locallyChanged={this.state.locallyChanged}
               changesLoaded={() => this.setState({ locallyChanged: true })}
-              {...{
-                setDelete,
-                setIdRemove
-              }}
             />
             <ModalDelete
               modalOpen={this.state.deleteOpen}
@@ -160,6 +158,14 @@ class Editor extends React.Component<Object, StateT> {
           show={this.props.store.ui.showModal}
           hide={() => this.props.store.ui.setModal(false)}
         />
+        {show &&
+          show.operatorTypeId && (
+            <OperatorPreview
+              operatorTypeId={show.operatorTypeId}
+              config={show.config}
+              dismiss={() => this.props.store.ui.setShowPreview(null)}
+            />
+          )}
       </div>
     );
   }

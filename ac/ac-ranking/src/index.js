@@ -4,7 +4,6 @@ import { type ActivityPackageT } from 'frog-utils';
 import { sortBy } from 'lodash';
 
 import { config, configUI } from './config';
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 import meta from './meta';
 
@@ -44,10 +43,10 @@ export const formatProduct = (
 export default ({
   id: 'ac-ranking',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
   configUI,
-  ActivityRunner,
   dashboards,
   dataStructure,
   formatProduct

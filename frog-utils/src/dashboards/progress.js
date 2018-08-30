@@ -269,6 +269,26 @@ const exampleLogs = [
       actualClosingTime: '2018-03-13T07:34:42.700Z'
     },
     instances: 81
+  },
+  {
+    type: 'logs',
+    title: 'Stroop girls 1',
+    path: 'frog-utils/src/dashboards/logExamples/stroop_girls_1.json',
+    activityMerge: {
+      actualStartingTime: '2018-08-22T09:26:52Z',
+      actualClosingTime: '2018-08-22T09:28:35Z'
+    },
+    instances: 2
+  },
+  {
+    type: 'logs',
+    title: 'Stroop girls 2',
+    path: 'frog-utils/src/dashboards/logExamples/stroop_girls_2.json',
+    activityMerge: {
+      actualStartingTime: '2018-08-22T09:54:48Z',
+      actualClosingTime: '2018-08-22T09:55:59Z'
+    },
+    instances: 2
   }
 ];
 

@@ -1,4 +1,5 @@
 {
   "defaultCommandTimeout": 10000,
-  "projectId": "32bbwc"
+  "projectId": "32bbwc",
+  "modifyObstructiveCode": false
 }

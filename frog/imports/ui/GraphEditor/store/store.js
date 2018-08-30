@@ -3,8 +3,20 @@ import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
 import valid from '/imports/api/validGraphFn';
-import { Graphs, mergeGraph, setCurrentGraph } from '/imports/api/graphs';
-import { Activities, Connections, Operators } from '/imports/api/activities';
+import {
+  Graphs,
+  mergeGraph,
+  setCurrentGraph,
+  findOneGraphMongo
+} from '/imports/api/graphs';
+import {
+  Activities,
+  findActivitiesMongo,
+  Connections
+} from '/imports/api/activities';
+import { Operators, findOperatorsMongo } from '/imports/api/operators';
+import { LibraryStates } from '/imports/api/cache';
+import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
@@ -65,7 +77,9 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 
 export default class Store {
   browserHistory: any;
+
   url: string;
+
   history: any[];
 
   constructor() {
@@ -97,10 +111,12 @@ export default class Store {
         this._state = newState;
       },
 
-      setBrowserHistory: action((history: any, url: string = '/graph') => {
-        this.browserHistory = history;
-        this.url = url;
-      }),
+      setBrowserHistory: action(
+        (history: any, url: string = '/teacher/graph') => {
+          this.browserHistory = history;
+          this.url = url;
+        }
+      ),
 
       changeDuration: action((duration: number) => {
         if (duration && duration >= 30 && duration <= 1200) {
@@ -130,57 +146,57 @@ export default class Store {
           this.ui.selected = null;
         }
       }),
-
+      // should check for new global version of graph
       setId: action((id: string, readOnly: boolean = false) => {
         const desiredUrl = `${this.url}/${id}`;
         if (this.browserHistory.location.pathname !== desiredUrl) {
           this.browserHistory.push(desiredUrl);
         }
         setCurrentGraph(id);
-        const graph = Graphs.findOne(id);
+        // if has a parent => load its metadatas (to know if he can delete the graph)    const parentId = Graphs.findOne(props.store.graphId).parentId
+        const parentId = Graphs.findOne(id).parentId;
+        if (parentId && !LibraryStates.graphList.find(x => x.uuid === parentId))
+          loadGraphMetaData(parentId);
+
+        const graph = findOneGraphMongo(id);
 
         this.readOnly = readOnly;
         this.graphId = id;
 
         this.changeDuration(graph ? graph.duration || 120 : 120);
-
-        this.activityStore.all = Activities.find(
+        this.activityStore.all = findActivitiesMongo(
           { graphId: id },
           { reactive: false }
-        )
-          .fetch()
-          .map(
-            x =>
-              new Activity(
-                x.plane,
-                x.startTime,
-                x.title,
-                x.length,
-                x.config,
-                x.activityType,
-                x._id,
-                x.state
-              )
-          );
+        ).map(
+          x =>
+            new Activity(
+              x.plane,
+              x.startTime,
+              x.title,
+              x.length,
+              x.data,
+              x.activityType,
+              x._id,
+              x.state
+            )
+        );
 
-        this.operatorStore.all = Operators.find(
+        this.operatorStore.all = findOperatorsMongo(
           { graphId: id },
           { reactive: false }
-        )
-          .fetch()
-          .map(
-            x =>
-              new Operator(
-                x.time,
-                x.y,
-                x.type,
-                x.config,
-                x.operatorType,
-                x._id,
-                x.title,
-                x.state
-              )
-          );
+        ).map(
+          x =>
+            new Operator(
+              x.time,
+              x.y,
+              x.type,
+              x.data,
+              x.operatorType,
+              x._id,
+              x.title,
+              x.state
+            )
+        );
 
         this.connectionStore.all = Connections.find(
           { graphId: id },

@@ -1,6 +1,6 @@
 import { object } from '../__fixtures__/object';
 import { object2 } from '../__fixtures__/object2';
-import pkg from '../index';
+import operator from '../operatorRunner';
 
 const config = {
   individual: 'cjgdgp46h001kblj4cwsqtmrk',
@@ -9,7 +9,7 @@ const config = {
 };
 
 test('works', () => {
-  expect(pkg.operator(config, object)).toMatchSnapshot();
+  expect(operator(config, object)).toMatchSnapshot();
 });
 
 const config2 = {
@@ -19,5 +19,5 @@ const config2 = {
 };
 
 test('works twice', () => {
-  expect(pkg.operator(config2, object2)).toMatchSnapshot();
+  expect(operator(config2, object2)).toMatchSnapshot();
 });

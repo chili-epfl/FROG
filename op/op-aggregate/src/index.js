@@ -1,7 +1,6 @@
 // @flow
 
-import { sortBy } from 'lodash';
-import { type productOperatorT, wrapUnitAll } from 'frog-utils';
+import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Aggregate items',
@@ -20,22 +19,10 @@ const config = {
 
 const configUI = { topN: { conditional: 'chooseTop' } };
 
-const operator = (configData = {}, object) => {
-  const result = Object.keys(object.activityData.payload).reduce((acc, x) => {
-    const items = Object.values(object.activityData.payload[x].data);
-    if (configData.topN) {
-      return [...acc, ...sortBy(items, 'score').slice(0, configData.topN)];
-    } else {
-      return [...acc, ...items];
-    }
-  }, []);
-  return wrapUnitAll(result);
-};
-
 export default ({
   id: 'op-aggregate',
   type: 'product',
-  operator,
+  configVersion: 1,
   config,
   configUI,
   meta

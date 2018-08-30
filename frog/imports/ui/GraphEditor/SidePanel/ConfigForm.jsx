@@ -4,12 +4,8 @@ import React, { Component } from 'react';
 import { EnhancedForm } from 'frog-utils';
 import { isEqual } from 'lodash';
 
-import {
-  Activities,
-  Operators,
-  addOperator,
-  addActivity
-} from '/imports/api/activities';
+import { Activities, addActivity } from '/imports/api/activities';
+import { Operators, addOperator } from '/imports/api/operators';
 
 import {
   SelectFormWidget,

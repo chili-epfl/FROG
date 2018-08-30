@@ -22,46 +22,42 @@ const TopBar = ({
   setZoom,
   hideCategory,
   guidelines
-}: Object) => (
-  <div className="bootstrap">
-    <Main>
-      <p style={{ fontSize: '22px' }}>{guidelines}</p>
-      <Body>
-        {!hideCategory &&
-          Object.keys(categories).length > 2 && (
-            <div>
-              {category !== 'categories' && (
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setCategory('categories')}
-                  style={{ margin: '5px' }}
+}: Object) =>
+  !hideCategory && Object.keys(categories).length > 2 ? (
+    <div className="bootstrap">
+      <Main>
+        <p style={{ fontSize: '22px' }}>{guidelines}</p>
+        <Body>
+          <div>
+            {category !== 'categories' && (
+              <button
+                className="btn btn-secondary"
+                onClick={() => setCategory('categories')}
+                style={{ margin: '5px' }}
+              >
+                <span className="glyphicon glyphicon-arrow-left" />{' '}
+              </button>
+            )}
+            <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
+            <DropdownButton title={category} id="dropdown-basic-0">
+              {categories.filter(x => x !== category).map(y => (
+                <MenuItem
+                  key={y}
+                  eventKey="toto"
+                  onClick={() => {
+                    setZoom(false);
+                    setCategory(y);
+                  }}
                 >
-                  <span className="glyphicon glyphicon-arrow-left" />{' '}
-                </button>
-              )}
-              <span style={{ margin: '5px', fontSize: 'large' }}>
-                Library :
-              </span>
-              <DropdownButton title={category} id="dropdown-basic-0">
-                {categories.filter(x => x !== category).map(y => (
-                  <MenuItem
-                    key={y}
-                    eventKey="toto"
-                    onClick={() => {
-                      setZoom(false);
-                      setCategory(y);
-                    }}
-                  >
-                    {y}
-                  </MenuItem>
-                ))}
-              </DropdownButton>
-            </div>
-          )}
-      </Body>
-    </Main>
-  </div>
-);
+                  {y}
+                </MenuItem>
+              ))}
+            </DropdownButton>
+          </div>
+        </Body>
+      </Main>
+    </div>
+  ) : null;
 
 TopBar.displayName = 'TopBar';
 export default TopBar;

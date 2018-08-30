@@ -1,8 +1,6 @@
 // @flow
 
-import pkg from '../index';
-
-const operator = pkg.operator;
+import operator from '../operatorRunner';
 
 const payload = {
   s1: { data: { coordinates: { x: 0, y: 0 } }, config: {} },

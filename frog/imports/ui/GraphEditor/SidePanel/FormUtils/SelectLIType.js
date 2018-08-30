@@ -3,7 +3,7 @@
 import React from 'react';
 import { values } from 'lodash';
 import { FormControl } from 'react-bootstrap';
-import { learningItemTypesObj } from '/imports/ui/LearningItem/learningItemTypes';
+import { learningItemTypesObj } from '/imports/activityTypes';
 
 const SelectLIType = ({ onChange, value = '' }: any) => (
   <span>
@@ -12,11 +12,13 @@ const SelectLIType = ({ onChange, value = '' }: any) => (
       componentClass="select"
       value={value}
     >
-      {['', ...values(learningItemTypesObj)].map(x => (
-        <option value={x.id || ''} key={x.id || 'choose'}>
-          {x === '' ? 'Choose a Learning Item Type' : x.name}
-        </option>
-      ))}
+      {['', ...values(learningItemTypesObj)]
+        .filter(x => x.Creator || x.Editor)
+        .map(x => (
+          <option value={x.id || ''} key={x.id || 'choose'}>
+            {x === '' ? 'Choose a Learning Item Type' : x.name}
+          </option>
+        ))}
     </FormControl>
   </span>
 );

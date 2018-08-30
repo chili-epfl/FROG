@@ -12,9 +12,10 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
-import { updateSessionState, restartSession } from '../../../api/sessions';
+
+import { updateSessionState, restartSession } from '/imports/api/sessions';
+import { nextActivity } from '/imports/api/engine';
 import downloadLog from './downloadLog';
-import { nextActivity } from '../../../api/engine';
 import { exportSession } from './exportComponent';
 
 let lastNext = null;
@@ -171,9 +172,9 @@ export const SessionUtilsButtonsModel = (
     }
   },
   projector: {
-    href: `/projector/${session.slug}?login=teacher&token=${(token &&
-      token.value) ||
-      ''}`
+    href: `/teacher/projector/${session.slug}?login=${
+      Meteor.user().username
+    }&token=${(token && token.value) || ''}`
   }
 });
 

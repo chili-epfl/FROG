@@ -10,9 +10,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 import ModeEdit from '@material-ui/icons/ModeEdit';
 
+import { Graphs, renameGraph } from '/imports/api/graphs';
+
 import { ValidButton } from '../Validator';
 import { connect, store } from '../store';
-import { Graphs, renameGraph } from '../../../api/graphs';
 
 const styles = theme => ({
   root: {
@@ -269,7 +270,7 @@ const GraphMenuController = connect(({ store: { graphId }, graphs }) => (
 
 const toExport = withTracker(props => ({
   ...props,
-  graphs: Graphs.find().fetch()
+  graphs: Graphs.find({}).fetch()
 }))(GraphMenuController);
 
 toExport.displayName = 'GraphMenuSimple';

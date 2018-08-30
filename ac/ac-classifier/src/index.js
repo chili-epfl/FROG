@@ -2,7 +2,6 @@
 
 import { type ActivityPackageT, uuid } from 'frog-utils';
 
-import ActivityRunner from './Classifier';
 import meta from './meta';
 
 const config = {
@@ -63,9 +62,9 @@ const mergeFunction = (object, dataFn) => {
 export default ({
   id: 'ac-classifier',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
-  ActivityRunner,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

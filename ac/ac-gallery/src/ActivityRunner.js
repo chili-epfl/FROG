@@ -1,22 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import Mousetrap from 'mousetrap';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';
 import ZoomView from './components/ZoomView';
-
-const Main = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-`;
 
 type ActivityRunnerStateT = {
   zoomOn: boolean,
@@ -73,7 +63,7 @@ class ActivityRunner extends Component<
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
+    const { activityData, data, dataFn, userInfo, logger } = this.props;
     const minVoteT = activityData.config.minVote || 1;
 
     const images = Object.keys(data)
@@ -89,7 +79,6 @@ class ActivityRunner extends Component<
       logger({ type: 'vote', itemId: key });
       const prev = data[key].votes ? data[key].votes[userId] : false;
       dataFn.objInsert(!prev, [key, 'votes', userId]);
-      stream(!prev, [key, 'votes', userId]);
     };
 
     const setCategory = (c: string) => this.setState({ category: c });
@@ -98,8 +87,9 @@ class ActivityRunner extends Component<
 
     const showCategories =
       this.state.category === 'categories' && !activityData.config.hideCategory;
+
     return (
-      <Main>
+      <>
         <TopBar
           categories={[...Object.keys(this.categories)]}
           category={this.state.category}
@@ -124,10 +114,30 @@ class ActivityRunner extends Component<
           }}
           canVote={activityData.config.canVote}
         />
-        {this.props.activityData.config.canUpload && (
-          <div style={{ position: 'absolute', bottom: '10px' }}>
+        {this.props.activityData.config.provideDefault && (
+          <div style={{ position: 'absolute', bottom: '10px', width: '800px' }}>
             <dataFn.LearningItem
-              liType={activityData.config.onlyImages ? 'li-image' : undefined}
+              liType={activityData.config.liType}
+              stream={this.props.stream}
+              meta={{
+                comment: '',
+                votes: {},
+                categories:
+                  this.state.category &&
+                  this.state.category !== 'categories' &&
+                  this.state.category !== 'all'
+                    ? this.state.category
+                    : []
+              }}
+              type="create"
+              autoInsert
+            />
+          </div>
+        )}
+        {this.props.activityData.config.allowAny && (
+          <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+            <dataFn.LearningItem
+              stream={this.props.stream}
               meta={{
                 comment: '',
                 votes: {},
@@ -159,7 +169,7 @@ class ActivityRunner extends Component<
               }}
             />
           )}
-      </Main>
+      </>
     );
   }
 }

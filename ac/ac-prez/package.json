@@ -6,13 +6,14 @@
     "start": "nps"
   },
   "dependencies": {
+    "@houshuang/pdf-annotate.js": "^0.0.8",
+    "@houshuang/pdfjs-dist": "1.4.162",
     "frog-utils": "^1.0.0",
     "pdf-annotate": "0.0.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "@houshuang/pdfjs-dist": "1.4.162"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
   "devDependencies": {
-    "nps": "5.9.0"
+    "nps": "5.9.2"
   }
 }

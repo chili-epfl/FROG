@@ -1,6 +1,5 @@
 // @flow
 
-import * as React from 'react';
 import { type ActivityPackageT } from 'frog-utils';
 
 import config from './config';
@@ -18,8 +17,8 @@ const meta = {
 export default ({
   id: 'ac-induction',
   type: 'react-component',
+  configVersion: 1,
   config,
   meta,
-  ActivityRunner: () => <div>Activity currently broken</div>,
   dashboard
 }: ActivityPackageT);

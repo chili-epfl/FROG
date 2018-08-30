@@ -19,13 +19,18 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import {
+  addGraph,
+  assignGraph,
+  removeGraph,
+  Graphs
+} from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
+import { LibraryStates } from '/imports/api/cache';
 
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
 import { connect, store } from '../store';
 import exportPicture from '../utils/exportPicture';
-import { removeGraph } from '../../../api/activities';
-import { addGraph, assignGraph, Graphs } from '../../../api/graphs';
 
 const submitRemoveGraph = id => {
   removeGraph(id);
@@ -74,6 +79,28 @@ const UndoButtonComponent = ({ classes, store: { undo } }) => (
 
 export const UndoButton = withStyles(styles)(connect(UndoButtonComponent));
 
+const MenuItemDeleteFromServer = ({
+  setIdRemove,
+  parentId,
+  setDelete,
+  classes,
+  handleClose
+}) =>
+  !LibraryStates.graphList.find(x => x.uuid === parentId) ||
+  LibraryStates.graphList.find(x => x.uuid === parentId).owner_id ===
+    Meteor.user().username ? (
+    <MenuItem
+      onClick={() => {
+        if (setIdRemove) setIdRemove({ type: 'graph', id: parentId });
+        setDelete(true);
+        handleClose();
+      }}
+    >
+      <Delete className={classes.leftIcon} aria-hidden="true" />Remove Current
+      Graph from the Server
+    </MenuItem>
+  ) : null;
+
 class GraphActionMenu extends React.Component {
   state = {
     open: false
@@ -98,7 +125,7 @@ class GraphActionMenu extends React.Component {
       }
     } = this.props;
     const { open } = this.state;
-    const parentId = Graphs.findOne(graphId).parentId;
+    const parentId = Graphs.findOne(graphId)?.parentId;
     return (
       <div className={classes.root}>
         <Manager>
@@ -215,18 +242,10 @@ class GraphActionMenu extends React.Component {
                         aria-hidden="true"
                       />Export Graph to the Server
                     </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        if (setIdRemove)
-                          setIdRemove({ type: 'graph', id: parentId });
-                        setDelete(true);
-                        // submitRemoveGraph(graphId); DO SOMETHING
-                        this.handleClose();
-                      }}
-                    >
-                      <Delete className={classes.leftIcon} aria-hidden="true" />Remove
-                      Current Graph from the Server
-                    </MenuItem>
+                    <MenuItemDeleteFromServer
+                      {...{ setIdRemove, parentId, setDelete, classes }}
+                      handleClose={this.handleClose}
+                    />
                   </MenuList>
                 </Paper>
               </Grow>

@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddCircle from '@material-ui/icons/AddCircle';
 import { type LearningItemT, values } from 'frog-utils';
 
-import { learningItemTypesObj } from './learningItemTypes';
+import { learningItemTypesObj } from '../../activityTypes';
 import LearningItem from './index';
 
 const styles = theme => ({
@@ -61,16 +61,18 @@ class LearningItemChooser extends React.Component<
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {values(learningItemTypesObj).map(item => (
-            <MenuItem
-              key={item.id}
-              onClick={() => {
-                this.setState({ open: item, anchorEl: undefined });
-              }}
-            >
-              {item.name}
-            </MenuItem>
-          ))}
+          {values(learningItemTypesObj)
+            .filter(x => x.Creator || x.Editor)
+            .map(item => (
+              <MenuItem
+                key={item.id}
+                onClick={() => {
+                  this.setState({ open: item, anchorEl: undefined });
+                }}
+              >
+                {item.name}
+              </MenuItem>
+            ))}
         </Menu>
         {this.state.open && (
           <Dialog

@@ -33,6 +33,7 @@ type PropsT = {
 
 class FromToInputs extends React.Component<PropsT> {
   from: HTMLInputElement;
+
   to: HTMLInputElement;
 
   handleFocus = () => {

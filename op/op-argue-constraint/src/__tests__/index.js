@@ -2,9 +2,7 @@
 
 import { type ObjectT, type GlobalStructureT } from 'frog-utils';
 
-import pkg from '../index';
-
-const operator = pkg.operator;
+import operator from '../operatorRunner';
 
 const wrap = (
   instances,
@@ -66,7 +64,7 @@ const getRandomTest = length => {
   const instances = Array.from({ length }, (_, i) => 's' + (i + 1));
   const groups = instances.reduce(
     (acc, val, idx) => {
-      acc['' + (1 + idx % 3)].push(val);
+      acc['' + (1 + (idx % 3))].push(val);
       return acc;
     },
     { '1': [], '2': [], '3': [] }

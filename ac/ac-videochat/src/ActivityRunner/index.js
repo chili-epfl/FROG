@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import WebRtcConfig from '../webrtc-config/config';
-import { onStreamAdded, onVAD } from '../analytics/AVStreamAnalysis';
+import { analyzeStream, onVAD } from '../analytics/StreamAnalysis';
 
 import Header from './Header';
 import VideoLayout from './VideoLayout';
@@ -54,21 +54,35 @@ const styles = theme => ({
 
 class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   name: string;
+
   id: string;
+
   role: string;
+
   roomId: string;
+
   participants: Object;
+
   ws: WebSocket;
+
   stream: MediaStream;
+
   browser: {
     browser: string,
     version: number
   };
+
   activityType: string;
+
   mediaConstraints: Object;
+
   screenSharingOn: boolean;
+
   sendOnlyParticipant: Object;
+
   record: boolean;
+
+  useAnalysis: boolean;
 
   constructor(props: ActivityRunnerPropsT) {
     super(props);
@@ -83,6 +97,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.id = this.props.userInfo.id;
     this.activityType = this.props.activityData.config.activityType;
     this.record = this.props.activityData.config.recordChat;
+    this.useAnalysis = this.props.activityData.config.useAnalysis;
     this.mediaConstraints.audio = !!this.props.activityData.config
       .userMediaConstraints.audio;
     if (!this.props.activityData.config.userMediaConstraints.video) {
@@ -110,7 +125,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     if (this.activityType === 'group') {
       this.role = 'none';
     } else if (this.activityType === 'webinar') {
-      if (this.isTeacher(this.name)) {
+      if (this.isTeacher(this.props.userInfo)) {
         this.role = 'teacher';
       } else {
         this.role = 'watcher';
@@ -184,6 +199,14 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           break;
         case 'changeRole':
           this.onRoleChanged(parsedMessage.userId, parsedMessage.newRole);
+          break;
+
+        case 'alert':
+          if (parsedMessage.alertId === 'otherLogin') {
+            const state = { local: {}, remote: [], participants: [] };
+            this.setState(state);
+          }
+          alert(parsedMessage.message);
           break;
 
         case 'raisedHand': {
@@ -329,11 +352,15 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     // acquired in order to have recvonly connections in safari
     // that condition should be removed once safari fixes recvonly connections
     if (this.stream && this.role !== 'watcher') {
-      this.startAnalysis();
+      if (this.useAnalysis) {
+        this.startAnalysis();
+      }
       this.setLocalState();
-      onVAD(this.stream, isSpeaking => {
-        this.setParticipantSpeaking(this.id, isSpeaking);
-      });
+      if (this.useAnalysis) {
+        onVAD(this.stream, isSpeaking => {
+          this.setParticipantSpeaking(this.id, isSpeaking);
+        });
+      }
       if (this.browser.browser !== 'chrome') {
         this.createPeer('sendrecv', participant);
       } else {
@@ -353,8 +380,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       logger: this.props.logger
     };
 
-    // from AVStreamAnalysis
-    onStreamAdded(this.stream, analysisOptions);
+    // from StreamAnalysis
+    analyzeStream(this.stream, analysisOptions);
   };
 
   setLocalState = () => {
@@ -407,9 +434,11 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       const onAddRemoteTrack = event => {
         const stream = event.streams[0];
         this.addRemoteUserToState(participant, stream);
-        onVAD(event.streams[0], isSpeaking => {
-          this.setParticipantSpeaking(participant.id, isSpeaking);
-        });
+        if (this.useAnalysis) {
+          onVAD(event.streams[0], isSpeaking => {
+            this.setParticipantSpeaking(participant.id, isSpeaking);
+          });
+        }
         this.setParticipantStreaming(participant.id, true);
       };
       options.ontrack = onAddRemoteTrack;
@@ -419,15 +448,21 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
   };
 
   setParticipantSpeaking = (participantId, isSpeaking) => {
-    const participants = this.state.participants;
-    participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
-    this.setState({ participants });
+    if (this.state.participants.filter(p => p.id === participantId)[0]) {
+      const participants = this.state.participants;
+      participants.filter(p => p.id === participantId)[0].speaking = isSpeaking;
+      this.setState({ participants });
+    }
   };
 
   setParticipantStreaming = (participantId, isStreaming) => {
-    const participants = this.state.participants;
-    participants.filter(p => p.id === participantId)[0].streaming = isStreaming;
-    this.setState({ participants });
+    if (this.state.participants.filter(p => p.id === participantId)[0]) {
+      const participants = this.state.participants;
+      participants.filter(
+        p => p.id === participantId
+      )[0].streaming = isStreaming;
+      this.setState({ participants });
+    }
   };
 
   addRemoteUserToState = (participant: Participant, stream: MediaStream) => {
@@ -511,7 +546,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     participant.reloadStream();
   };
 
-  toogleScreenShare = () => {
+  toogleScreenShare = screenType => {
     if (this.browser.browser === 'firefox') {
       if (this.screenSharingOn) {
         this.sendOnlyParticipant.stopScreenShare();
@@ -521,7 +556,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                mediaSource: 'screen'
+                mediaSource: screenType
               }
             })
             .then(screenStream => {
@@ -640,8 +675,8 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     this.setState({ participants });
   };
 
-  isTeacher = (name: string) => {
-    if (name === 'teacher') {
+  isTeacher = (userInfo: Object) => {
+    if (userInfo.role === 'teacher') {
       return true;
     }
     const teacherNames = this.props.activityData.config?.teacherNames;
@@ -649,7 +684,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
       return teacherNames
         .split(',')
         .map(x => x.trim())
-        .includes(name);
+        .includes(userInfo.name);
     }
     return false;
   };
@@ -659,19 +694,19 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
     const remote = this.state.remote;
     const participants = this.state.participants;
     const removeLocalStream =
-      this.activityType === 'group' || this.isTeacher(this.name)
+      this.activityType === 'group' || this.isTeacher(this.props.userInfo)
         ? undefined
         : this.removeLocalStream;
     const removePresenterStream =
-      this.activityType === 'webinar' && this.isTeacher(this.name)
+      this.activityType === 'webinar' && this.isTeacher(this.props.userInfo)
         ? this.removePresenterStream
         : undefined;
     const raiseHand =
-      this.activityType === 'webinar' && !this.isTeacher(this.name)
+      this.activityType === 'webinar' && !this.isTeacher(this.props.userInfo)
         ? this.raiseHand
         : undefined;
     const giveMic =
-      this.activityType === 'webinar' && this.isTeacher(this.name)
+      this.activityType === 'webinar' && this.isTeacher(this.props.userInfo)
         ? this.giveMic
         : undefined;
     return (
@@ -683,7 +718,10 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           <Grid item xs={3}>
             <ParticipantsView
               participants={participants.map(
-                x => (this.isTeacher(x.name) ? { ...x, isTeacher: true } : x)
+                x =>
+                  this.isTeacher({ name: x.name })
+                    ? { ...x, isTeacher: true }
+                    : x
               )}
               isTeacher={this.isTeacher}
               giveMic={giveMic}
@@ -704,6 +742,9 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
               toogleScreenSupported={this.browser.browser === 'firefox'}
               removeLocalStream={removeLocalStream}
               removePresenterStream={removePresenterStream}
+              muteParticipantsByDefault={
+                this.props.activityData.config.muteParticipantsByDefault
+              }
             />
           </Grid>
         </Grid>

@@ -3,10 +3,10 @@
 import { type ActivityPackageT, uuid } from 'frog-utils';
 import { compact, isEmpty, isObject, values } from 'lodash';
 
-import ActivityRunner from './ActivityRunner';
 import dashboards from './Dashboard';
 import { meta } from './meta';
 import { config, configUI } from './config';
+import upgradeFunctions from './upgradeFunctions';
 
 const dataStructure = {};
 
@@ -16,16 +16,18 @@ const mergeFunction = (object, dataFn) => {
   }
   values(object.data).forEach(v => {
     const id = uuid();
-    dataFn.objInsert(
-      {
-        id,
-        votes: v.votes || {},
-        categories: v.categories || (v.category && [v.category]),
-        comment: v.comment || '',
-        li: v.li
-      },
-      id
-    );
+    if (v.li) {
+      dataFn.objInsert(
+        {
+          id,
+          votes: v.votes || {},
+          categories: v.categories || (v.category && [v.category]),
+          comment: v.comment || '',
+          li: v.li
+        },
+        id
+      );
+    }
   });
 };
 
@@ -67,12 +69,13 @@ const exportData = (configData, { payload }) => {
 export default ({
   id: 'ac-gallery',
   type: 'react-component',
+  configVersion: 1,
   meta,
   config,
+  upgradeFunctions,
   configUI,
   dataStructure,
   mergeFunction,
-  ActivityRunner,
   dashboards,
   exportData
 }: ActivityPackageT);
