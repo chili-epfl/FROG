@@ -85,7 +85,7 @@ module.exports = {
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
     lockfiles: fromRoot(
-      'cmp --silent package-lock.json package-lock.json.orig && cmp --silent yarn.lock yarn.lock.orig`'
+      'cmp --silent package-lock.json package-lock.json.orig && cmp --silent yarn.lock yarn.lock.orig'
     ),
     help
   },
