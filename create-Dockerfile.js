@@ -27,6 +27,8 @@ RUN mkdir -p __mocks__ frog-utils/src \\
 ${acopSrc}
 
 COPY package.json yarn.lock .yarnrc babel.config.js ./
+COPY package.json package.json.orig
+COPY yarn.lock yarn.lock.orig
 COPY __mocks__ ./__mocks__
 COPY *.sh package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
