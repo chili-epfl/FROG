@@ -16,48 +16,23 @@ const styles = {
   }
 };
 
-const apply = (transfo: string, data: Array<Object>) => {
-  const mean = math.mean(data.map(e => Object.values(e)[0]));
+const apply = (transfo: string, data: Object) => {
+  const mean = math.mean(data.values.map(e => e[0]));
   switch (transfo) {
     case 'log':
-      return data.filter(e => Number(Object.values(e)[0]) > 0).map(entry => {
-        const newEntry = { ...entry };
-        newEntry[Object.keys(entry)[0]] = Math.log(Object.values(entry)[0]);
-        return newEntry;
-      });
+      return ({columns: data.columns, values: data.values.map(entry => entry.map((a,i) => i === 0 ? Math.log(a) : a ))})
     case 'exp':
-      return data.map(entry => {
-        const newEntry = { ...entry };
-        newEntry[Object.keys(entry)[0]] = Math.exp(Object.values(entry)[0]);
-        return newEntry;
-      });
+      return ({columns: data.columns, values: data.values.map(entry => entry.map((a,i) => i === 0 ? Math.exp(a) : a ))})
     case 'sqrt':
-      return data.filter(e => Number(Object.values(e)[0]) > 0).map(entry => {
-        const newEntry = { ...entry };
-        newEntry[Object.keys(entry)[0]] = Math.sqrt(Object.values(entry)[0]);
-        return newEntry;
-      });
+      return ({columns: data.columns, values: data.values.map(entry => entry.map((a,i) => i === 0 ? Math.sqrt(a) : a ))})
     case 'x100':
-      return data.map(entry => {
-        const newEntry = { ...entry };
-        newEntry[Object.keys(entry)[0]] = Object.values(entry)[0] * 100;
-        return newEntry;
-      });
+      return ({columns: data.columns, values: data.values.map(entry => entry.map((a,i) => i === 0 ? a*100 : a ))})
     case '+50':
-      return data.map(entry => {
-        const newEntry = { ...entry };
-        newEntry[Object.keys(entry)[0]] = Object.values(entry)[0] + 50;
-        return newEntry;
-      });
+      return ({columns: data.columns, values: data.values.map(entry => entry.map((a,i) => i === 0 ? a+50 : a ))})
     case '11x-10E[x]':
-      return data.map(entry => {
-        const newEntry = { ...entry };
-        newEntry[Object.keys(entry)[0]] =
-          11 * Object.values(entry)[0] - 10 * mean;
-        return newEntry;
-      });
+      return ({columns: data.columns, values: data.values.map(entry => entry.map((a,i) => i === 0 ? 11*a-10*mean : a ))})
     case 'outliers':
-      return data.reduce((acc, cur) => [...acc, cur], []);
+      return data
     default:
       return data;
   }
@@ -67,18 +42,19 @@ class DataGraph extends React.Component<*, *> {
   constructor(props: Object) {
     super(props);
     this.state = {
-      dataset: 0,
+      dataset: Object.keys(props.data).filter(ds => ds !== 'originalData')[0],
       transformation: ''
     };
   }
 
   render() {
     const { activityData, data, dataFn, classes } = this.props;
+    console.log(data)
     const { originalData, ...datasets } = data;
     if (!data || Object.keys(data).length < 1) return <div />;
     const dataTr = apply(
       this.state.transformation,
-      Object.values(datasets)[this.state.dataset]
+      datasets[this.state.dataset]
     );
     return (
       <>
@@ -90,8 +66,8 @@ class DataGraph extends React.Component<*, *> {
             }
             classes={{ root: classes.root }}
           >
-            {Object.keys(datasets).map((name, index) => (
-              <MenuItem value={index} key={name} selected>
+            {Object.keys(datasets).map((name) => (
+              <MenuItem value={name} key={name} selected>
                 {name}
               </MenuItem>
             ))}
@@ -103,7 +79,7 @@ class DataGraph extends React.Component<*, *> {
           <DataForm
             data={dataTr}
             {...{ dataFn, originalData }}
-            dataset={Object.keys(datasets)[this.state.dataset]}
+            dataset={this.state.dataset}
             setTransformation={x => this.setState({ transformation: x })}
             transformation={this.state.transformation}
             editable={

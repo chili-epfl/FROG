@@ -30,13 +30,31 @@ const config = {
 const dataStructure = {};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
+// const mergeFunction = ({ data: incoming }, dataFn, data) => {
+//   if (!Array.isArray(incoming)) {
+//     return;
+//   }
+//   incoming.forEach(({ trace, ...rest }) => {
+//     if (!data[trace]) dataFn.objInsert([], trace);
+//     dataFn.listAppend({ ...rest }, trace);
+//   });
+//   dataFn.objInsert(data, 'originalData');
+// };
+
 const mergeFunction = ({ data: incoming }, dataFn, data) => {
   if (!Array.isArray(incoming)) {
     return;
   }
   incoming.forEach(({ trace, ...rest }) => {
-    if (!data[trace]) dataFn.objInsert([], trace);
-    dataFn.listAppend({ ...rest }, trace);
+    if (!data[trace]) dataFn.objInsert({columns: [], values: []}, trace);
+    const tmpEntry = []
+    Object.keys(rest).forEach(key => {
+      if(!data[trace].columns.includes(key))
+        dataFn.listAppend(key, [trace, 'columns']);
+        tmpEntry.push(rest[key])
+    })
+    dataFn.listAppend(tmpEntry, [trace,'values']);
+
   });
   dataFn.objInsert(data, 'originalData');
 };

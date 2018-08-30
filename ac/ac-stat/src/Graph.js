@@ -25,21 +25,14 @@ const transformData = (data, type, filtered) => {
   const result = [];
   if (
     filtered &&
-    data.reduce((acc, cur) => acc && Object.keys(cur).length === 2, true)
+    data.columns.length > 1
   ) {
-    const keys = data.reduce(
-      (acc, cur) =>
-        acc.includes(Object.values(cur)[1])
-          ? acc
-          : [...acc, Object.values(cur)[1]],
-      []
-    );
     switch (type) {
       case 'dots':
-        keys.forEach(k => {
-          const formatData = data
-            .filter(x => Object.values(x)[1] === k)
-            .map(entry => Object.values(entry)[0]);
+        data.columns.forEach(k => {
+          const formatData = data.values
+            .filter(x => x[1] === k)
+            .map(entry => entry[0]);
           result.push({
             type: 'scatter',
             mode: 'markers',
@@ -49,10 +42,10 @@ const transformData = (data, type, filtered) => {
         });
         break;
       case 'histogram':
-        keys.forEach(k => {
-          const formatData = data
-            .filter(x => Object.values(x)[1] === k)
-            .map(entry => Object.values(entry)[0]);
+        data.columns.forEach(k => {
+          const formatData = data.values
+            .filter(x => x[1] === k)
+            .map(entry => entry[0]);
           result.push({
             type: 'histogram',
             histofunc: k,
@@ -62,10 +55,10 @@ const transformData = (data, type, filtered) => {
         });
         break;
       case 'box':
-        keys.forEach(k => {
-          const formatData = data
-            .filter(x => Object.values(x)[1] === k)
-            .map(entry => Object.values(entry)[0]);
+        data.columns.forEach(k => {
+          const formatData = data.values
+            .filter(x => x[1] === k)
+            .map(entry => entry[0]);
           result.push({
             type: 'box',
             name: k,
@@ -76,7 +69,7 @@ const transformData = (data, type, filtered) => {
       default:
     }
   } else {
-    const formatData = data.map(entry => Object.values(entry)[0]);
+    const formatData = data.values.map(entry => entry[0]);
     switch (type) {
       case 'dots':
         result.push({
@@ -107,7 +100,7 @@ const GraphStateless = ({
   setFilter,
   classes
 }) => {
-  const rawData = data.map(e => Object.values(e)[0]);
+  const rawData = data.values;
   return (
     <div style={{ width: '70%' }}>
       <div style={{ display: 'flex' }}>
@@ -132,8 +125,8 @@ const GraphStateless = ({
           </div>
 
           {data &&
-            data[0] &&
-            Object.keys(data[0]).length > 1 && (
+            data.columns &&
+             data.columns.length > 1 && (
               <div>
                 <Button
                   variant="outlined"
@@ -176,7 +169,7 @@ const GraphStateless = ({
                   <TableCell>Mean</TableCell>
                   <TableCell>
                     {Math.round(
-                      1000 * math.mean(data.map(e => Object.values(e)[0]))
+                      1000 * math.mean(rawData)
                     ) / 1000}
                   </TableCell>
                 </TableRow>
@@ -184,7 +177,7 @@ const GraphStateless = ({
                   <TableCell>Standard deviation</TableCell>
                   <TableCell>
                     {Math.round(
-                      1000 * math.std(data.map(e => Object.values(e)[0]))
+                      1000 * math.std(rawData)
                     ) / 1000}
                   </TableCell>
                 </TableRow>
@@ -192,7 +185,7 @@ const GraphStateless = ({
                   <TableCell>Median</TableCell>
                   <TableCell>
                     {Math.round(
-                      1000 * math.median(data.map(e => Object.values(e)[0]))
+                      1000 * math.median(rawData)
                     ) / 1000}
                   </TableCell>
                 </TableRow>

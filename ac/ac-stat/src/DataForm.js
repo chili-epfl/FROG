@@ -49,7 +49,7 @@ class Data extends React.Component<*, *> {
   state = {
     selected: [-1, -1],
     cellStr: '',
-    sort: ''
+    sort: -1
   };
 
   render() {
@@ -64,9 +64,10 @@ class Data extends React.Component<*, *> {
       editable
     } = this.props;
     const sortedData =
-      this.state.sort === ''
+      this.state.sort === -1
         ? data
-        : data.sort((a, b) => a[this.state.sort] > b[this.state.sort]); // do not sort correctly some data
+        : ({columns: data.columns, values: data.values.sort((a,b) => a[this.state.sort] > b[this.state.sort])})
+        // do not sort correctly some data
     return (
       <Paper className={classes.root}>
         <FilteringPanel
@@ -92,15 +93,14 @@ class Data extends React.Component<*, *> {
             <TableHead>
               <TableRow>
                 {data &&
-                  data[0] &&
-                  Object.keys(data[0]).map(axis => (
+                  data.columns &&
+                  data.columns.map((axis,i) => (
                     <TableCell
                       className={classes.head1}
                       key={axis}
-                      value={axis}
                       onClick={() =>
                         this.setState({
-                          sort: this.state.sort === axis ? '' : axis
+                          sort: i
                         })
                       }
                     >
@@ -114,11 +114,11 @@ class Data extends React.Component<*, *> {
             </TableHead>
             <TableBody className={classes.body}>
               {data &&
-                sortedData.map((entry, index) => {
+                sortedData.values.map((entry, index) => {
                   const tmp = '' + index;
                   return (
                     <TableRow key={tmp}>
-                      {Object.values(entry).map((v, i2) => {
+                      {entry.map((v, i2) => {
                         const tmp2 = tmp + i2;
                         return (
                           <TableCell
@@ -135,6 +135,7 @@ class Data extends React.Component<*, *> {
                             {index === this.state.selected[0] &&
                             i2 === this.state.selected[1] ? (
                               <input
+                                id='myInput'
                                 type="text"
                                 value={this.state.cellStr}
                                 onChange={e =>
@@ -143,12 +144,12 @@ class Data extends React.Component<*, *> {
                                 style={{ padding: '5px' }}
                                 onKeyPress={e => {
                                   if (e.key === 'Enter') {
-                                    const newEntry = { ...entry };
-                                    newEntry[
-                                      Object.keys(entry)[i2]
-                                    ] = this.state.cellStr;
+                                    // document.getElementById("myInput").blur()
+                                    const newEntry = [...entry];
+                                    newEntry[i2] = this.state.cellStr;
                                     dataFn.listReplace(entry, newEntry, [
                                       dataset,
+                                      'values',
                                       index
                                     ]);
                                     this.setState({
@@ -159,12 +160,11 @@ class Data extends React.Component<*, *> {
                                   }
                                 }}
                                 onBlur={() => {
-                                  const newEntry = { ...entry };
-                                  newEntry[
-                                    Object.keys(entry)[i2]
-                                  ] = this.state.cellStr;
+                                  const newEntry = [...entry];
+                                  newEntry[i2] = this.state.cellStr;
                                   dataFn.listReplace(entry, newEntry, [
                                     dataset,
+                                    'values',
                                     index
                                   ]);
                                   this.setState({
@@ -183,7 +183,7 @@ class Data extends React.Component<*, *> {
                         <TableCell>
                           <IconButton
                             onClick={() =>
-                              dataFn.listDel(entry, [dataset, index])
+                              dataFn.listDel(entry, [dataset, 'values', index])
                             }
                           >
                             <Remove />
@@ -198,11 +198,7 @@ class Data extends React.Component<*, *> {
                   <TableCell>
                     <IconButton
                       onClick={() => {
-                        const newEntry = {};
-                        Object.keys(originalData[dataset][0]).forEach(
-                          e => (newEntry[e] = '')
-                        );
-                        dataFn.listAppend(newEntry, dataset);
+                        dataFn.listAppend(data.columns.map(() => ''), dataset);
                       }}
                     >
                       <Add />
