@@ -24,7 +24,15 @@ const styles = () => ({
   table: {
     border: 'solid 1px'
   },
-  head: {
+  head1: {
+    fontSize: 'large',
+    backgroundColor: '#CCC',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    cursor: 'pointer'
+  },
+  head2: {
     fontSize: 'large',
     backgroundColor: '#CCC',
     position: 'sticky',
@@ -40,7 +48,8 @@ const styles = () => ({
 class Data extends React.Component<*, *> {
   state = {
     selected: [-1, -1],
-    cellStr: ''
+    cellStr: '',
+    sort: ''
   };
 
   render() {
@@ -54,6 +63,10 @@ class Data extends React.Component<*, *> {
       setTransformation,
       editable
     } = this.props;
+    const sortedData =
+      this.state.sort === ''
+        ? data
+        : data.sort((a, b) => a[this.state.sort] > b[this.state.sort]); // do not sort correctly some data
     return (
       <Paper className={classes.root}>
         <FilteringPanel
@@ -81,18 +94,27 @@ class Data extends React.Component<*, *> {
                 {data &&
                   data[0] &&
                   Object.keys(data[0]).map(axis => (
-                    <TableCell className={classes.head} key={axis}>
+                    <TableCell
+                      className={classes.head1}
+                      key={axis}
+                      value={axis}
+                      onClick={() =>
+                        this.setState({
+                          sort: this.state.sort === axis ? '' : axis
+                        })
+                      }
+                    >
                       {axis}
                     </TableCell>
                   ))}
                 {editable && (
-                  <TableCell className={classes.head}>Action</TableCell>
+                  <TableCell className={classes.head2}>Action</TableCell>
                 )}
               </TableRow>
             </TableHead>
             <TableBody className={classes.body}>
               {data &&
-                data.map((entry, index) => {
+                sortedData.map((entry, index) => {
                   const tmp = '' + index;
                   return (
                     <TableRow key={tmp}>
@@ -152,7 +174,7 @@ class Data extends React.Component<*, *> {
                                 }}
                               />
                             ) : (
-                              v
+                              Math.round(1000 * v) / 1000
                             )}
                           </TableCell>
                         );

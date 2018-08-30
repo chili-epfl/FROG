@@ -175,19 +175,25 @@ const GraphStateless = ({
                 <TableRow>
                   <TableCell>Mean</TableCell>
                   <TableCell>
-                    {math.mean(data.map(e => Object.values(e)[0]))}
+                    {Math.round(
+                      1000 * math.mean(data.map(e => Object.values(e)[0]))
+                    ) / 1000}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Standard deviation</TableCell>
                   <TableCell>
-                    {math.std(data.map(e => Object.values(e)[0]))}
+                    {Math.round(
+                      1000 * math.std(data.map(e => Object.values(e)[0]))
+                    ) / 1000}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Median</TableCell>
                   <TableCell>
-                    {math.median(data.map(e => Object.values(e)[0]))}
+                    {Math.round(
+                      1000 * math.median(data.map(e => Object.values(e)[0]))
+                    ) / 1000}
                   </TableCell>
                 </TableRow>
               </TableBody>
