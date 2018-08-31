@@ -13,22 +13,21 @@ const styles = {
   guidelines: { width: '100%' },
   container: {
     width: '500px',
-    height: '400px',
-    margin: 'auto',
-    marginTop: '80px'
+    maxWidth: '100%',
+    margin: 'auto'
   },
   main: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#bbb',
-    position: 'absolute'
+    backgroundColor: '#ddd',
+    overflow: 'auto'
   },
   commands: {
     width: '250px',
+    maxWidth: '100%',
     height: '50px',
     margin: 'auto',
-    position: 'relative',
-    marginTop: '50px'
+    position: 'relative'
   }
 };
 
