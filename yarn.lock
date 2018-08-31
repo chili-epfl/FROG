@@ -9663,7 +9663,7 @@ react-dnd@^2.5.4, react-dnd@^2.6.0:
     lodash "^4.2.0"
     prop-types "^15.5.10"
 
-react-dom@^16.4.2:
+react-dom@^16.4.1, react-dom@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
   dependencies:
@@ -10048,7 +10048,7 @@ react-video-wrapper@1.0.3:
     blacklist "^1.1.2"
     classnames "^2.2.0"
 
-react@^16.4.2:
+react@^16.4.1, react@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:
@@ -11964,10 +11964,6 @@ type-is@~1.6.16:
 typed-function@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-1.0.3.tgz#57026246214b664a5af45ef0a06679f4453bd090"
-
-typed-function@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-1.1.0.tgz#ea149706e0fb42aca1791c053a6d94ccd6c4fdcb"
 
 typed-styles@^0.0.5:
   version "0.0.5"
