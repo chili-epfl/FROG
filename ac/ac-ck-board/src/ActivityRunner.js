@@ -62,6 +62,9 @@ const BoardPure = ({
       {!config.image && (
         <div style={{ width: width + 'px', height: height + 'px' }} />
       )}
+      {config.quadrants && (
+        <Quadrants config={config} width={width} height={height} />
+      )}
       {width &&
         height &&
         values(data).map(y => (
@@ -78,9 +81,6 @@ const BoardPure = ({
             </ObservationContainer>
           </div>
         ))}
-      {config.quadrants && (
-        <Quadrants config={config} width={width} height={height} />
-      )}
       {info && (
         <ObservationDetail closeInfoFn={() => setInfo(null)}>
           <LearningItem id={info} type="view" />
