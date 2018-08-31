@@ -22,7 +22,13 @@ const disabledFun = (data, tr) => {
   }
 };
 
-export default ({ setTransformation, transformation, data }: Object) => (
+export default ({
+  setTransformation,
+  transformation,
+  data,
+  logger,
+  dataset
+}: Object) => (
   <>
     Transformations:
     <div
@@ -39,8 +45,12 @@ export default ({ setTransformation, transformation, data }: Object) => (
           varian="contained"
           key={tr}
           onClick={() => {
-            if (transformation !== tr) setTransformation(tr);
-            else setTransformation('');
+            setTransformation(transformation !== tr ? tr : '');
+            logger({
+              type: 'set transformation',
+              itemId: dataset,
+              value: transformation !== tr ? tr : ''
+            });
           }}
           style={{ backgroundColor: transformation === tr ? '#DDD' : '#FFF' }}
         >
