@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { ImageReload, type LearningItemT } from 'frog-utils';
-import Paper from '@material-ui/core/Paper';
 
 import ToolBar from './ToolBar';
 import { Creator } from '../li-file';
