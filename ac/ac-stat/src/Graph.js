@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Plot from 'react-plotly.js';
-import * as math from 'mathjs';
+import stats from 'statsjs'
 
 import { withState, compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
@@ -180,19 +180,19 @@ const GraphStateless = ({
                 <TableRow>
                   <TableCell>Mean</TableCell>
                   <TableCell>
-                    {Math.round(1000 * math.mean(rawData)) / 1000}
+                    {Math.round(1000 * stats(rawData).mean()) / 1000}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Standard deviation</TableCell>
                   <TableCell>
-                    {Math.round(1000 * math.std(rawData)) / 1000}
+                    {Math.round(1000 * stats(rawData).stdDev()) / 1000}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Median</TableCell>
                   <TableCell>
-                    {Math.round(1000 * math.median(rawData)) / 1000}
+                    {Math.round(1000 * stats(rawData).median()) / 1000}
                   </TableCell>
                 </TableRow>
               </TableBody>

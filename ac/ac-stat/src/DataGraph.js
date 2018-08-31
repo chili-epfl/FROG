@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import * as math from 'mathjs';
+import stats from 'statsjs'
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,7 +17,14 @@ const styles = {
 };
 
 const apply = (transfo: string, data: Object) => {
-  const mean = math.mean(data.values.map(e => e[0]));
+  const mean = stats(data.values.map(e => e[0])).mean();
+  const q1 = stats(data.values.map(e => e[0])).q1();
+  const q3 = stats(data.values.map(e => e[0])).q3();
+  const out = stats(data.values.map(e => e[0])).outliers();
+  console.log(mean)
+  console.log(q1)
+  console.log(q3)
+  console.log(out)
   switch (transfo) {
     case 'log':
       return {
@@ -62,6 +69,7 @@ const apply = (transfo: string, data: Object) => {
         )
       };
     case 'outliers':
+
       return data;
     default:
       return data;
