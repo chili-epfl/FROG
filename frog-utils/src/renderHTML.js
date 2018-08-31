@@ -4,6 +4,7 @@ import * as React from 'react';
 import { renderToString } from 'katex';
 import { withState } from 'recompose';
 import { uuid } from 'frog-utils';
+import 'katex/dist/katex.min.css';
 
 const Cache = {};
 
