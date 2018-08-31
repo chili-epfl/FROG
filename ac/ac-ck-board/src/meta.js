@@ -254,6 +254,15 @@ export const config = {
   type: 'object',
   properties: {
     allowCreate: { title: 'Enable adding new Learning Items', type: 'boolean' },
+    onlySpecificLI: {
+      title: 'Only allow specific Learning Item Type',
+      type: 'boolean'
+    },
+    liType: { title: 'Learning Item type', type: 'learningItemType' },
+    studentEditOwn: {
+      title: 'Only let students move their own items',
+      type: 'boolean'
+    },
     image: {
       title: 'Display background image',
       type: 'boolean'
@@ -292,5 +301,7 @@ export const configUI = {
   quadrant4: { conditional: 'quadrants' },
   imageurl: { conditional: 'image' },
   image: { conditional: (formData: Object) => !formData.quadrants },
-  quadrants: { conditional: (formData: Object) => !formData.image }
+  quadrants: { conditional: (formData: Object) => !formData.image },
+  onlySpecificLI: { conditional: 'allowCreate' },
+  liType: { conditional: 'onlySpecificLI' }
 };

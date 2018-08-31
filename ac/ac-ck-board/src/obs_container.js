@@ -10,7 +10,9 @@ const ObservationContainer = ({
   scaleY,
   scaleX,
   y,
-  children
+  children,
+  canDrag,
+  username
 }) => {
   const scaling = 1 / ((scaleX + scaleY) / 2) / 1.3;
   const style = {
@@ -22,6 +24,7 @@ const ObservationContainer = ({
   return (
     <Draggable
       onStart={() => true}
+      disabled={!canDrag}
       position={{
         x,
         y
@@ -46,6 +49,7 @@ const ObservationContainer = ({
               </span>
             </div>
             {children}
+            {username}
           </div>
         </Paper>
       </div>
