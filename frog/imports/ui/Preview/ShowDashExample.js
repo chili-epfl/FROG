@@ -185,9 +185,12 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       play === this.state.play
     ) {
       if (this.timeseries[second]) {
-        this.displaySubset(second, this.timeseries[second], second === 0);
-        this.logsProcessed =
-          this.logsProcessed + this.timeseries[second].length;
+        this.logsProcessed += this.timeseries[second].length;
+        this.displaySubset(
+          this.logsProcessed,
+          this.timeseries[second],
+          second === 0
+        );
         this.setState({
           slider: {
             ...this.state.slider,
@@ -253,7 +256,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     this.setState({ data, oldSlider: e });
   };
 
-  throttledDisplaySubset = throttle(this.displaySubset, 500, {
+  throttledDisplaySubset = throttle(this.displaySubset, 1000, {
     leading: false
   });
 

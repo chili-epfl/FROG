@@ -10,12 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.4.1",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.4.2",
+    "react-bootstrap": "^0.32.3",
+    "react-dom": "^16.4.2",
     "react-player": "^1.6.4"
   },
   "devDependencies": {
-    "nps": "5.9.2"
+    "nps": "5.9.3"
   }
 }

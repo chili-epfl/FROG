@@ -9,17 +9,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cuid": "^2.1.1",
+    "cuid": "^2.1.4",
     "jquery": "^3.3.1",
+    "katex": "0.10.0-rc.1",
     "lodash": "^4.17.10",
     "mousetrap": "^1.6.2",
-    "react": "^16.4.1",
+    "react": "^16.4.2",
     "react-bootstrap-table": "^4.3.1",
-    "react-bootstrap-typeahead": "3.1.5",
-    "react-dom": "^16.4.1",
+    "react-bootstrap-typeahead": "3.2.2",
+    "react-dom": "^16.4.2",
     "react-google-charts": "^1.6.6",
-    "react-json-view": "1.19.0",
-    "react-jsonschema-form": "^1.0.3",
+    "react-json-view": "1.19.1",
+    "react-jsonschema-form": "^1.0.4",
     "react-jsonschema-form-extras": "^0.9.23",
     "react-rte": "^0.16.1",
     "recompose": "^0.27.1",
@@ -30,6 +31,6 @@
     "wolfy87-eventemitter": "^5.2.5"
   },
   "devDependencies": {
-    "nps": "^5.9.2"
+    "nps": "^5.9.3"
   }
 }
