@@ -118,7 +118,6 @@ const GraphStateless = ({
       <div style={{ display: 'flex' }}>
         <div style={{ display: 'flex' }}>
           <div>
-            <h3 style={{ width: '100px' }}>Diagram</h3>
             {config.plotType !== 'all' ? (
               config.plotType
             ) : (

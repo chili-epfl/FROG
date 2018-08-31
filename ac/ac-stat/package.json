@@ -9,7 +9,8 @@
     "frog-utils": "^1.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "statsjs": "^1.0.7"
+    "statsjs": "^1.0.7",
+    "human-format": "0.10.0"
   },
   "devDependencies": {
     "nps": "5.9.3"
