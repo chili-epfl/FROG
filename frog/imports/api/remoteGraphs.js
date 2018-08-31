@@ -41,7 +41,7 @@ export const updateGraph = (
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(newGraph) // change to also save changes in metadatas
+    body: JSON.stringify(newGraph)
   }).then(() => collectGraphs(callback));
 };
 
