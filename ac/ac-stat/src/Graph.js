@@ -23,48 +23,60 @@ const styles = {
 
 const transformData = (data, type, filtered) => {
   const result = [];
-  if (
-    filtered &&
-    data.columns.length > 1
-  ) {
+  if (filtered && data.columns.length > 1) {
     switch (type) {
       case 'dots':
-        data.columns.forEach(k => {
-          const formatData = data.values
-            .filter(x => x[1] === k)
-            .map(entry => entry[0]);
-          result.push({
-            type: 'scatter',
-            mode: 'markers',
-            name: k,
-            y: formatData
+        data.values
+          .reduce(
+            (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
+            []
+          )
+          .forEach(k => {
+            const formatData = data.values
+              .filter(x => x[1] === k)
+              .map(entry => entry[0]);
+            result.push({
+              type: 'scatter',
+              mode: 'markers',
+              name: k,
+              y: formatData
+            });
           });
-        });
         break;
       case 'histogram':
-        data.columns.forEach(k => {
-          const formatData = data.values
-            .filter(x => x[1] === k)
-            .map(entry => entry[0]);
-          result.push({
-            type: 'histogram',
-            histofunc: k,
-            name: k,
-            x: formatData
+        data.values
+          .reduce(
+            (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
+            []
+          )
+          .forEach(k => {
+            const formatData = data.values
+              .filter(x => x[1] === k)
+              .map(entry => entry[0]);
+            result.push({
+              type: 'histogram',
+              histofunc: k,
+              name: k,
+              x: formatData
+            });
           });
-        });
         break;
       case 'box':
-        data.columns.forEach(k => {
-          const formatData = data.values
-            .filter(x => x[1] === k)
-            .map(entry => entry[0]);
-          result.push({
-            type: 'box',
-            name: k,
-            y: formatData
+        data.values
+          .reduce(
+            (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
+            []
+          )
+          .forEach(k => {
+            const formatData = data.values
+              .filter(x => x[1] === k)
+              .map(entry => entry[0]);
+            result.push({
+              type: 'box',
+              name: k,
+              y: formatData
+            });
           });
-        });
         break;
       default:
     }
@@ -126,7 +138,7 @@ const GraphStateless = ({
 
           {data &&
             data.columns &&
-             data.columns.length > 1 && (
+            data.columns.length > 1 && (
               <div>
                 <Button
                   variant="outlined"
@@ -168,25 +180,19 @@ const GraphStateless = ({
                 <TableRow>
                   <TableCell>Mean</TableCell>
                   <TableCell>
-                    {Math.round(
-                      1000 * math.mean(rawData)
-                    ) / 1000}
+                    {Math.round(1000 * math.mean(rawData)) / 1000}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Standard deviation</TableCell>
                   <TableCell>
-                    {Math.round(
-                      1000 * math.std(rawData)
-                    ) / 1000}
+                    {Math.round(1000 * math.std(rawData)) / 1000}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Median</TableCell>
                   <TableCell>
-                    {Math.round(
-                      1000 * math.median(rawData)
-                    ) / 1000}
+                    {Math.round(1000 * math.median(rawData)) / 1000}
                   </TableCell>
                 </TableRow>
               </TableBody>

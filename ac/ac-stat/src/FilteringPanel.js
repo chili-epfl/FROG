@@ -8,9 +8,15 @@ const transfo = ['log', 'exp', 'outliers', 'sqrt', 'x100', '+50', '11x-10E[x]'];
 const disabledFun = (data, tr) => {
   switch (tr) {
     case 'log':
-      return data.values.reduce((acc,cur) => acc || Number.isNaN(Math.log(cur[0])), false)
+      return data.values.reduce(
+        (acc, cur) => acc || Number.isNaN(Math.log(cur[0])),
+        false
+      );
     case 'sqrt':
-      return data.values.reduce((acc,cur) => acc || Number.isNaN(Math.sqrt(cur[0])), false)
+      return data.values.reduce(
+        (acc, cur) => acc || Number.isNaN(Math.sqrt(cur[0])),
+        false
+      );
     default:
       return false;
   }

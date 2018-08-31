@@ -46,6 +46,8 @@ const styles = () => ({
 });
 
 class Data extends React.Component<*, *> {
+  el: any
+
   state = {
     selected: [-1, -1],
     cellStr: '',
@@ -66,8 +68,13 @@ class Data extends React.Component<*, *> {
     const sortedData =
       this.state.sort === -1
         ? data
-        : ({columns: data.columns, values: data.values.sort((a,b) => a[this.state.sort] > b[this.state.sort])})
-        // do not sort correctly some data
+        : {
+            columns: data.columns,
+            values: data.values.sort(
+              (a, b) => a[this.state.sort] > b[this.state.sort]
+            )
+          };
+    // do not sort correctly some data
     return (
       <Paper className={classes.root}>
         <FilteringPanel
@@ -94,7 +101,7 @@ class Data extends React.Component<*, *> {
               <TableRow>
                 {data &&
                   data.columns &&
-                  data.columns.map((axis,i) => (
+                  data.columns.map((axis, i) => (
                     <TableCell
                       className={classes.head1}
                       key={axis}
@@ -135,7 +142,7 @@ class Data extends React.Component<*, *> {
                             {index === this.state.selected[0] &&
                             i2 === this.state.selected[1] ? (
                               <input
-                                id='myInput'
+                                ref={e => this.el = e}
                                 type="text"
                                 value={this.state.cellStr}
                                 onChange={e =>
@@ -143,20 +150,8 @@ class Data extends React.Component<*, *> {
                                 }
                                 style={{ padding: '5px' }}
                                 onKeyPress={e => {
-                                  if (e.key === 'Enter') {
-                                    // document.getElementById("myInput").blur()
-                                    const newEntry = [...entry];
-                                    newEntry[i2] = this.state.cellStr;
-                                    dataFn.listReplace(entry, newEntry, [
-                                      dataset,
-                                      'values',
-                                      index
-                                    ]);
-                                    this.setState({
-                                      selected: [-1, -1],
-                                      cellStr: ''
-                                    });
-                                    e.preventDefault();
+                                  if (e.key === 'Enter' && this.el) {
+                                    this.el.blur();
                                   }
                                 }}
                                 onBlur={() => {
@@ -173,6 +168,8 @@ class Data extends React.Component<*, *> {
                                   });
                                 }}
                               />
+                            ) : Number.isNaN(Math.round(1000 * v) / 1000) ? (
+                              v
                             ) : (
                               Math.round(1000 * v) / 1000
                             )}
@@ -198,7 +195,10 @@ class Data extends React.Component<*, *> {
                   <TableCell>
                     <IconButton
                       onClick={() => {
-                        dataFn.listAppend(data.columns.map(() => ''), dataset);
+                        dataFn.listAppend(data.columns.map(() => ''), [
+                          dataset,
+                          'values'
+                        ]);
                       }}
                     >
                       <Add />
