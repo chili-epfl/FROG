@@ -1,51 +1,52 @@
 // @flow
 
 import * as React from 'react';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
 
-class FilteringPanel extends React.Component<*, *> {
-  state = {
-    checkedA: true,
-    checkedB: true
-  };
+const transfo = ['log', 'exp', 'outliers', 'sqrt', 'x100', '+50', '11x-10E[x]'];
 
-  handleChange = (name: string) => (event: Object) => {
-    this.setState({ [name]: event.target.checked });
-  };
-
-  render() {
-    return (
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={this.state.checkedA}
-              onChange={this.handleChange('checkedA')}
-              value="checkedA"
-            />
-          }
-          label="Secondary"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={this.state.checkedB}
-              onChange={this.handleChange('checkedB')}
-              value="checkedB"
-              color="primary"
-            />
-          }
-          label="Primary"
-        />
-        <FormControlLabel
-          control={<Switch value="checkedC" />}
-          label="Uncontrolled"
-        />
-      </FormGroup>
-    );
+const disabledFun = (data, tr) => {
+  switch (tr) {
+    case 'log':
+      return data.values.reduce(
+        (acc, cur) => acc || Number.isNaN(Math.log(cur[0])),
+        false
+      );
+    case 'sqrt':
+      return data.values.reduce(
+        (acc, cur) => acc || Number.isNaN(Math.sqrt(cur[0])),
+        false
+      );
+    default:
+      return false;
   }
-}
+};
 
-export default FilteringPanel;
+export default ({ setTransformation, transformation, data }: Object) => (
+  <>
+    Transformations:
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: '10px'
+      }}
+    >
+      {transfo.map(tr => (
+        <Button
+          disabled={disabledFun(data, tr)}
+          varian="contained"
+          key={tr}
+          onClick={() => {
+            if (transformation !== tr) setTransformation(tr);
+            else setTransformation('');
+          }}
+          style={{ backgroundColor: transformation === tr ? '#DDD' : '#FFF' }}
+        >
+          {tr}
+        </Button>
+      ))}
+    </div>
+  </>
+);

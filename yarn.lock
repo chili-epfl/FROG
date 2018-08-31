@@ -3368,10 +3368,6 @@ complex.js@2.0.10:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/complex.js/-/complex.js-2.0.10.tgz#afac74e4fb9131e8709f9c300420ce58fa36f18d"
 
-complex.js@2.0.11:
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/complex.js/-/complex.js-2.0.11.tgz#09a873fbf15ffd8c18c9c2201ccef425c32b8bf1"
-
 component-classes@^1.2.5:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/component-classes/-/component-classes-1.2.6.tgz#c642394c3618a4d8b0b8919efccbbd930e5cd691"
@@ -3888,10 +3884,6 @@ decamelize@^2.0.0:
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-2.0.0.tgz#656d7bbc8094c4c788ea53c5840908c9c7d063c7"
   dependencies:
     xregexp "4.0.0"
-
-decimal.js@10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.0.1.tgz#d04b16b277f0f9af09671cee225c4882e8857c58"
 
 decimal.js@9.0.1:
   version "9.0.1"
@@ -4515,10 +4507,6 @@ es6-weak-map@^2.0.2:
 escape-latex@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-latex/-/escape-latex-1.0.3.tgz#1b9085e3e66570faabe21f05655643f64e78717a"
-
-escape-latex@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/escape-latex/-/escape-latex-1.1.1.tgz#657d8632af8849a5db8766778d4a43da9dec3376"
 
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -7863,19 +7851,6 @@ mathjs@^4.4.2:
     tiny-emitter "2.0.2"
     typed-function "1.0.3"
 
-mathjs@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-5.1.1.tgz#8010cfc4711af155addc3358d58ff138a2e27247"
-  dependencies:
-    complex.js "2.0.11"
-    decimal.js "10.0.1"
-    escape-latex "1.1.1"
-    fraction.js "4.0.8"
-    javascript-natural-sort "0.7.1"
-    seed-random "2.2.0"
-    tiny-emitter "2.0.2"
-    typed-function "1.1.0"
-
 matrix-camera-controller@^2.1.1, matrix-camera-controller@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/matrix-camera-controller/-/matrix-camera-controller-2.1.3.tgz#35e5260cc1cd550962ba799f2d8d4e94b1a39370"
@@ -9688,7 +9663,7 @@ react-dnd@^2.5.4, react-dnd@^2.6.0:
     lodash "^4.2.0"
     prop-types "^15.5.10"
 
-react-dom@^16.4.2:
+react-dom@^16.4.1, react-dom@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
   dependencies:
@@ -10073,7 +10048,7 @@ react-video-wrapper@1.0.3:
     blacklist "^1.1.2"
     classnames "^2.2.0"
 
-react@^16.4.2:
+react@^16.4.1, react@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:
@@ -11380,6 +11355,10 @@ static-module@^2.2.0:
     static-eval "^2.0.0"
     through2 "~2.0.3"
 
+statsjs@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/statsjs/-/statsjs-1.0.7.tgz#e35800ae45cd1c79eb52ef44b9e3c61ea3cca1ca"
+
 "statuses@>= 1.4.0 < 2":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
@@ -11985,10 +11964,6 @@ type-is@~1.6.16:
 typed-function@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-1.0.3.tgz#57026246214b664a5af45ef0a06679f4453bd090"
-
-typed-function@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/typed-function/-/typed-function-1.1.0.tgz#ea149706e0fb42aca1791c053a6d94ccd6c4fdcb"
 
 typed-styles@^0.0.5:
   version "0.0.5"

@@ -61,7 +61,7 @@ export default {
     },
     {
       title: 'official data',
-      config: { title: 'Graph3', plotType: 'all' },
+      config: { title: 'Graph3', plotType: 'all', editable: true },
       data: [
         { trace: 'dataset1', x: 100.127591586473 },
         { trace: 'dataset2', x: 142.200326908982 },
