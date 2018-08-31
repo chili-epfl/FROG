@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-jsonschema-form": "^1.0.3"
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-jsonschema-form": "^1.0.4"
   },
   "devDependencies": {
-    "nps": "5.9.2"
+    "nps": "5.9.3"
   }
 }

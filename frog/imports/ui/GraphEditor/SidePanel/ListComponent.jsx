@@ -73,7 +73,9 @@ const ListItems = ({
               />
             </Typography>
           </Grid>
-          {object.tags.map(x => <Chip key={x} label={x} />)}
+          {object.tags.map(x => (
+            <Chip key={x} label={x} />
+          ))}
         </div>
       ) : (
         showExpanded && (

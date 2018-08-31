@@ -335,7 +335,8 @@ export default ({
     <div>
       <Button variant="fab" color="primary">
         <i style={{ fontSize: '2em' }} className="fa fa-table" />
-      </Button>Spreadsheet
+      </Button>
+      Spreadsheet
     </div>
   ),
   Editor: MathSheet

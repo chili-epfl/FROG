@@ -19,9 +19,10 @@ const Viewer = ({ state }: { state: Object }) => {
           ) / Object.keys(x.students).length;
         return (
           <div key={x.name}>
-            <h2>{x.name}</h2>Students participated:{' '}
-            {Object.keys(x.students).length}
-            <br />Average success rate: {success}
+            <h2>{x.name}</h2>
+            Students participated: {Object.keys(x.students).length}
+            <br />
+            Average success rate: {success}
           </div>
         );
       })}
