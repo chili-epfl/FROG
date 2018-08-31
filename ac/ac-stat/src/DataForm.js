@@ -46,7 +46,7 @@ const styles = () => ({
 });
 
 class Data extends React.Component<*, *> {
-  el: any
+  el: any;
 
   state = {
     selected: [-1, -1],
@@ -142,7 +142,7 @@ class Data extends React.Component<*, *> {
                             {index === this.state.selected[0] &&
                             i2 === this.state.selected[1] ? (
                               <input
-                                ref={e => this.el = e}
+                                ref={e => (this.el = e)}
                                 type="text"
                                 value={this.state.cellStr}
                                 onChange={e =>

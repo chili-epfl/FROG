@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import stats from 'statsjs'
+import stats from 'statsjs';
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,14 +17,7 @@ const styles = {
 };
 
 const apply = (transfo: string, data: Object) => {
-  const mean = stats(data.values.map(e => e[0])).mean();
-  const q1 = stats(data.values.map(e => e[0])).q1();
-  const q3 = stats(data.values.map(e => e[0])).q3();
-  const out = stats(data.values.map(e => e[0])).outliers();
-  console.log(mean)
-  console.log(q1)
-  console.log(q3)
-  console.log(out)
+  const statArray = stats(data.values.map(e => e[0]));
   switch (transfo) {
     case 'log':
       return {
@@ -65,12 +58,16 @@ const apply = (transfo: string, data: Object) => {
       return {
         columns: data.columns,
         values: data.values.map(entry =>
-          entry.map((a, i) => (i === 0 ? 11 * a - 10 * mean : a))
+          entry.map((a, i) => (i === 0 ? 11 * a - 10 * statArray.mean() : a))
         )
       };
     case 'outliers':
-
-      return data;
+      return {
+        columns: data.columns,
+        values: data.values.filter(
+          entry => !statArray.findOutliers().arr.includes(entry[0])
+        )
+      };
     default:
       return data;
   }

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Plot from 'react-plotly.js';
-import stats from 'statsjs'
+import stats from 'statsjs';
 
 import { withState, compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
@@ -112,7 +112,7 @@ const GraphStateless = ({
   setFilter,
   classes
 }) => {
-  const rawData = data.values;
+  const rawData = data.values.map(e => e[0]);
   return (
     <div style={{ width: '70%' }}>
       <div style={{ display: 'flex' }}>
