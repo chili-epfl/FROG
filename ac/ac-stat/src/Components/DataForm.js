@@ -17,8 +17,6 @@ import Replay from '@material-ui/icons/Replay';
 
 import FilteringPanel from './FilteringPanel';
 
-console.log(humanFormat(123456789.132564648e18));
-
 const styles = () => ({
   root: {
     maxWidth: '25%',
@@ -171,12 +169,12 @@ class Data extends React.Component<*, *> {
                           {index === selected[0] && i2 === selected[1] ? (
                             <input
                               ref={ref => (this.el = ref)}
-                              type="text"
+                              type="number"
                               value={cellStr}
                               onChange={e =>
                                 this.setState({ cellStr: e.target.value })
                               }
-                              style={{ padding: '5px' }}
+                              style={{ padding: '3px' }}
                               onKeyPress={e => {
                                 if (e.key === 'Enter' && this.el) {
                                   this.el.blur();
@@ -196,10 +194,10 @@ class Data extends React.Component<*, *> {
                                 });
                               }}
                             />
-                          ) : Number.isNaN(v) ? (
+                          ) : typeof v === 'number' ? (
                             v
                           ) : (
-                            console.log(v) || humanFormat(v)
+                            humanFormat(v)
                           )}
                         </TableCell>
                       );
