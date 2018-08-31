@@ -125,6 +125,7 @@ export const sendGraph = (state: Object, props: Object) => {
   LibraryStates.graphList.push({
     uuid: newId,
     title: state.title,
+    owner_id: Meteor.user().username,
     description: state.description,
     tags: state.tags,
     timestamp: new Date()

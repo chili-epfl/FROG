@@ -102,6 +102,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   LibraryStates.activityList.push({
     uuid: newId,
     title: state.title,
+    owner_id: Meteor.user().username,
     description: state.description,
     tags: state.tags
   });

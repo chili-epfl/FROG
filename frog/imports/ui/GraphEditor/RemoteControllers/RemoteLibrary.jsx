@@ -58,12 +58,10 @@ class Library extends Component<Object, { searchStr: string }> {
       searchStr,
       store
     } = this.props;
-    const list =
+    const filtered = filterWithStr(
       libraryType === 'activity'
         ? LibraryStates.activityList
-        : LibraryStates.graphList;
-    const filtered = filterWithStr(
-      list,
+        : LibraryStates.graphList,
       searchStr || this.state.searchStr.toLowerCase()
     );
     return (
