@@ -206,28 +206,22 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
 };
 
 const mergeLog = (state: Object, log: LogDbT, activity?: ActivityDbT) => {
-  if (
-    activity &&
-    log.type === 'progress' &&
-    typeof log.value === 'number' &&
-    activity.actualStartingTime !== undefined
-  ) {
-    if (!state.user[log.instanceId]) {
-      state.user[log.instanceId] = [];
-    }
-    const totalTime =
-      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
-    const progress = log.value;
-    state.user[log.instanceId].push([progress, totalTime]);
+  if (!activity || !activity.actualStartingTime) {
+    return;
+  }
+  const diff = (a, b) => (a && b ? (new Date(a) - new Date(b)) / 1000 : 0);
+  if (log.type === 'progress') {
+    state.user[log.instanceId] = state.user[log.instanceId] || [];
+    const userArray = state.user[log.instanceId];
+    const totalTime = diff(log.timestamp, activity.actualStartingTime);
+    const _progress = typeof log.value === 'number' ? log.value : 0;
+    const _last = userArray[userArray.length - 1];
+    const _previous = _last ? _last[0] : 0;
+    const progress = Math.max(_previous, _progress);
+    userArray.push([progress, totalTime]);
     state.maxTime = totalTime;
-  } else if (
-    activity &&
-    log.type === 'activityDidMount' &&
-    activity.actualStartingTime !== undefined &&
-    !state.user[log.instanceId]
-  ) {
-    const startTime =
-      (new Date(log.timestamp) - new Date(activity.actualStartingTime)) / 1000;
+  } else if (log.type === 'activityDidMount' && !state.user[log.instanceId]) {
+    const startTime = diff(log.timestamp, activity.actualStartingTime);
     state.user[log.instanceId] = [[0, startTime]];
     state.maxTime = startTime;
   }
