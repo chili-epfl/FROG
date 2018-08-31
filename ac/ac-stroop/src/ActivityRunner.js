@@ -11,24 +11,29 @@ const styles = {
   button: { width: '90px', margin: 'auto', position: 'absolute' },
   text: { width: '100%', fontSize: 'xx-large', textAlign: 'center' },
   guidelines: { width: '100%' },
-  container: {
-    width: '500px',
-    height: '400px',
-    margin: 'auto',
-    marginTop: '80px'
-  },
   main: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#bbb',
-    position: 'absolute'
+    backgroundColor: '#ddd',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  container: {
+    width: '500px',
+    maxWidth: '100%',
+    flex: '1 1 auto',
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   commands: {
     width: '250px',
+    maxWidth: '100%',
     height: '50px',
-    margin: 'auto',
-    position: 'relative',
-    marginTop: '50px'
+    position: 'relative'
   }
 };
 

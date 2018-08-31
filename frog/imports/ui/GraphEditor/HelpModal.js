@@ -22,7 +22,10 @@ const styles = {
 
 class HelpModal extends React.Component<*, *> {
   componentDidUpdate() {
-    if (Meteor.user().profile.lastVersionChangelog !== changelog.length - 1)
+    if (
+      Meteor.user().profile &&
+      Meteor.user().profile.lastVersionChangelog !== changelog.length - 1
+    )
       updateChangelogVersion();
   }
 
@@ -66,7 +69,9 @@ class HelpModal extends React.Component<*, *> {
                         <h4>
                           {x} ({log.date.toDateString()})
                         </h4>
-                        {log[x].split('<br/>').map(y => <p key={y}>{y}</p>)}
+                        {log[x].split('<br/>').map(y => (
+                          <p key={y}>{y}</p>
+                        ))}
                       </div>
                     ))}
                 </div>
@@ -86,7 +91,9 @@ class HelpModal extends React.Component<*, *> {
                           <h4>
                             {x} ({log.date.toDateString()})
                           </h4>
-                          {log[x].split('<br/>').map(y => <p key={y}>{y}</p>)}
+                          {log[x].split('<br/>').map(y => (
+                            <p key={y}>{y}</p>
+                          ))}
                         </div>
                       ))}
                   </div>

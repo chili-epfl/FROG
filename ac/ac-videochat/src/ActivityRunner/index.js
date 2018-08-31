@@ -213,8 +213,7 @@ class ActivityRunner extends Component<ActivityRunnerPropsT, StateT> {
           const participants = this.state.participants;
           participants.filter(
             p => p.id === parsedMessage.userId
-          )[0].raisedHand =
-            parsedMessage.raised;
+          )[0].raisedHand = parsedMessage.raised;
           this.setState({ participants });
           break;
         }

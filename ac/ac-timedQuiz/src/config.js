@@ -57,5 +57,18 @@ export const validateConfig = [
   (formData: Object) =>
     !formData.questions || formData.questions.length === 0
       ? { err: 'You must have at least one question' }
+      : null,
+  ({ questions }: Object) =>
+    questions && questions.find(q => !q.answers || q.answers.length === 0)
+      ? { err: 'Questions must have at least one answer' }
+      : null,
+  ({ questions }: Object) =>
+    questions &&
+    questions.find(q => q.answers && q.answers.find(({ choice }) => !choice))
+      ? { err: 'Choices must not be left blank or undefined' }
+      : null,
+  ({ questions }: Object) =>
+    questions && questions.find(q => !q.question)
+      ? { err: 'Question text must not be left empty' }
       : null
 ];

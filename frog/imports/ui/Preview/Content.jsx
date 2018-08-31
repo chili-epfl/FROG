@@ -71,9 +71,13 @@ export const initActivityDocuments = (
           undefined,
           backend
         );
+        const initData =
+          typeof activityType.dataStructure === 'function'
+            ? activityType.dataStructure(config)
+            : activityType.dataStructure;
         const data =
           example === -1 || example === undefined
-            ? cloneDeep(activityType.dataStructure)
+            ? cloneDeep(initData)
             : exs[example].data;
         mergeFunction(cloneDeep({ data, config }), dataFn, dataFn.doc.data);
       }
@@ -84,7 +88,11 @@ export const initActivityDocuments = (
     if (!doc.type) {
       doc.once('load', () => {
         if (!doc.type) {
-          doc.create(cloneDeep(activityType.dataStructure) || {});
+          const initData =
+            typeof activityType.dataStructure === 'function'
+              ? activityType.dataStructure(config)
+              : activityType.dataStructure;
+          doc.create(cloneDeep(initData) || {});
           runMergeFunction(doc);
         }
       });
@@ -97,7 +105,12 @@ export const initActivityDocuments = (
         undefined,
         backend
       );
-      dataFn.objInsert(cloneDeep(activityType.dataStructure) || {}, []);
+
+      const initData =
+        typeof activityType.dataStructure === 'function'
+          ? activityType.dataStructure(config)
+          : activityType.dataStructure;
+      dataFn.objInsert(cloneDeep(initData) || {}, []);
       runMergeFunction(doc);
     }
   });
@@ -160,7 +173,7 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <Paper style={{ width: '100%', height: '100%' }}>
+      <Paper style={{ width: '100%', height: '100%', overflow: 'overlay' }}>
         <ActivityToRun
           activityType={activityType.id}
           key={reloadActivity}

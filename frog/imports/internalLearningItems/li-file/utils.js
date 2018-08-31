@@ -2,7 +2,6 @@
 
 import resizeImg from '@houshuang/resize-img';
 import { uuid } from 'frog-utils';
-import { uploadFile } from '../../api/openUploads';
 
 export const uploadBufferWithThumbnail = (
   imageBuffer: any,
@@ -18,10 +17,10 @@ export const uploadBufferWithThumbnail = (
     // upload a thumbnail
     resizeImg(imageBuffer, { max: 128 }).then(buffer => {
       const blob = new Blob([buffer], { type: 'image/jpeg' });
-      uploadFile(blob, imageId + 'thumb').then(thumburl => {
+      dataFn.uploadFn(blob, imageId + 'thumb').then(thumburl => {
         resizeImg(imageBuffer, { max: 800 }).then(buffery => {
           const blob2 = new Blob([buffery], { type: 'image/jpeg' });
-          uploadFile(blob2, imageId).then(url => {
+          dataFn.uploadFn(blob2, imageId).then(url => {
             if (cb) {
               cb();
             }
@@ -35,7 +34,7 @@ export const uploadBufferWithThumbnail = (
       });
     });
   } else {
-    uploadFile(imageBuffer, imageId).then(url => {
+    dataFn.uploadFn(imageBuffer, imageId).then(url => {
       if (cb) {
         cb();
       }

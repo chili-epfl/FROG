@@ -21,12 +21,13 @@ RUN mkdir -p frog/.meteor frog/server && \\
 COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
-RUN npm install -g yarn@1.6.0
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p __mocks__ frog-utils/src \\
 ${acopSrc}
 
 COPY package.json yarn.lock .yarnrc babel.config.js ./
+COPY package-lock.json package-lock.json.orig
+COPY yarn.lock yarn.lock.orig
 COPY __mocks__ ./__mocks__
 COPY *.sh package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
@@ -43,7 +44,7 @@ COPY *.js .*ignore *config ./
 RUN /usr/src/frog/initial_setup.sh --single
 
 EXPOSE 3000
-CMD [ "npm", "test" ]
+CMD [ "npm", "start", "test.ci" ]
 `;
 
     // eslint-disable-next-line

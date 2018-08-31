@@ -2,7 +2,7 @@ import * as React from 'react';
 import { type LearningItemT } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
-  <React.Fragment>
+  <div>
     <img alt="hypothesis logo" src="https://i.imgur.com/dNR3ZMs.png" />
     <b>{data.title}</b>
     <br />
@@ -13,7 +13,7 @@ const ThumbViewer = ({ data }) => (
         <br />
       </React.Fragment>
     ))}
-  </React.Fragment>
+  </div>
 );
 
 export default ({

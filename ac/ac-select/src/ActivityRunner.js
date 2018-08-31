@@ -31,7 +31,11 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      const selected = s.toString().toLowerCase();
+      const sel = s.toString().match(/(?!'.*')\b[\w']+\b/g);
+      if (!sel) {
+        return;
+      }
+      const selected = sel[0].toLowerCase().trim();
       s.modify('move', 'forward', 'character'); // clear selection
 
       if (data['highlighted'][selected] === undefined) {

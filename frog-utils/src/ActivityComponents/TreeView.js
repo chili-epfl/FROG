@@ -46,7 +46,9 @@ export default ({ onChange, data }: Object) => (
   <Main>
     <Img src="/graph.png" />
     <Column>
-      {['a1'].map(id => <Node {...{ onChange, data, id }} key={id} />)}
+      {['a1'].map(id => (
+        <Node {...{ onChange, data, id }} key={id} />
+      ))}
     </Column>
     <Column>
       {['b0', 'b1', 'b2'].map(id => (

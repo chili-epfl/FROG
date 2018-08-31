@@ -54,7 +54,12 @@ const meta = {
         formBoolean: false
       },
       learningItems,
-      data: ['1', '2', '3', '4']
+      data: {
+        a1: { id: 'a1', li: '1' },
+        a2: { id: 'a2', li: '2' },
+        a3: { id: 'a3', li: '3' },
+        a4: { id: 'a4', li: '4' }
+      }
     },
     {
       title: 'List with some items, students able to add',
@@ -64,12 +69,12 @@ const meta = {
         formBoolean: true
       },
       learningItems,
-      data: [
-        { li: '1' },
-        { li: '2' },
-        { li: '3', tags: ['should', 'not', 'break'] },
-        '4'
-      ]
+      data: {
+        a1: { id: 'a1', li: '1' },
+        a2: { id: 'a2', li: '2' },
+        a3: { id: 'a3', li: '3' },
+        a4: { id: 'a4', li: '4', tags: ['should', 'not', 'break'] }
+      }
     }
   ]
 };

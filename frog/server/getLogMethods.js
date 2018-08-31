@@ -12,22 +12,21 @@ import { archiveDashboardState } from './dashboardSubscription';
 
 Meteor.methods({
   'session.logs': function(sessionId, limit = 50) {
-    if (
-      Sessions.findOne(sessionId).ownerId ===
-      Meteor.users.findOne(this.userId).username
-    ) {
+    if (Sessions.findOne(sessionId).ownerId === this.userId) {
       return Logs.find({ sessionId }, { limit }).fetch();
     } else
-      throw new Meteor.Error(
-        'not-a-teacher',
-        'You have to be the teacher of a session to download its logs'
+      console.error(
+        'Not permitted to download logs',
+        Sessions.findOne(sessionId),
+        this.userId
       );
+    throw new Meteor.Error(
+      'not-a-teacher',
+      'You have to be the teacher of a session to download its logs'
+    );
   },
   'session.find_start': function(sessionId) {
-    if (
-      Sessions.findOne(sessionId).ownerId ===
-      Meteor.users.findOne(this.userId).username
-    ) {
+    if (Sessions.findOne(sessionId).ownerId === this.userId) {
       return Logs.findOne({ sessionId }, { sort: { timestamp: -1 } }).timestamp;
     } else
       throw new Meteor.Error(

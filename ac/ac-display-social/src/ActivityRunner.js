@@ -22,7 +22,8 @@ const ActivityRunner = props => {
       {configData.title && <h1>{configData.title}</h1>}
       <h2>
         {configData.displayName && `Hi, ${name}. `} You are{' '}
-        {!hasOthers && 'alone '}in group {groupingValue}.
+        {!hasOthers && 'alone '}
+        in group {groupingValue}.
       </h2>
       {configData.displayGroup &&
         hasOthers && (

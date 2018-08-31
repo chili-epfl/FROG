@@ -65,7 +65,9 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
             scrollable
             scrollButtons="auto"
           >
-            {dashNames.map(name => <Tab key={name} label={name} />)}
+            {dashNames.map(name => (
+              <Tab key={name} label={name} />
+            ))}
           </Tabs>
         </AppBar>
         {children && (

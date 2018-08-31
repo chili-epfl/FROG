@@ -102,6 +102,7 @@ const LearningItem = (props: {
           <ToRun
             createLearningItem={createLearningItem}
             LearningItem={dataFn.LearningItem}
+            dataFn={dataFn}
           />
         );
       } else {

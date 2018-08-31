@@ -22,51 +22,55 @@ WebApp.connectHandlers.use(bodyParser.json());
 setupH5PRoutes();
 
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
-  if (request.method !== 'POST') next();
+  if (request.method !== 'POST') {
+    response.writeHead(403);
+    response.end('LTI sessions must use POST requests');
+    return;
+  }
   const url = require('url').parse(request.url);
   const slug = url.pathname.substring(1);
   const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
   if (!session) {
     response.writeHead(404);
-    response.end();
+    response.end('This session does not exist');
+    return;
   } else if (session.settings && session.settings.allowLTI === false) {
     response.writeHead(403);
-    response.end();
-  } else {
-    let user;
-    try {
-      user = request.body.lis_person_name_full;
-    } catch (e) {
-      console.error('Error parsing username in lti request', request.body, e);
-      user = uuid();
-    }
-    let id;
-    try {
-      id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
-    } catch (e) {
-      console.error('Error parsing userid in lti request', request.body, e);
-      id = uuid();
-    }
-    try {
-      const { userId } = Accounts.updateOrCreateUserFromExternalService(
-        'frog',
-        {
-          id: user
-        }
-      );
-      Meteor.users.update(userId, { $set: { username: user, userid: id } });
-      const stampedLoginToken = Accounts._generateStampedLoginToken();
-      Accounts._insertLoginToken(userId, stampedLoginToken);
-      InjectData.pushData(request, 'login', {
-        token: stampedLoginToken.token,
-        slug
-      });
-      next();
-    } catch (e) {
-      console.error('Error responding to lti request', request.body, e);
-      response.writeHead(400);
-      response.end();
-    }
+    response.end(
+      'This session does not allow LTI login, check the session settings'
+    );
+    return;
+  }
+  let user;
+  try {
+    user = request.body.lis_person_name_full;
+  } catch (e) {
+    console.error('Error parsing username in lti request', request.body, e);
+    user = uuid();
+  }
+  let id;
+  try {
+    id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
+  } catch (e) {
+    console.error('Error parsing userid in lti request', request.body, e);
+    id = uuid();
+  }
+  try {
+    const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
+      id: user
+    });
+    Meteor.users.update(userId, { $set: { username: user, userid: id } });
+    const stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
+    InjectData.pushData(request, 'login', {
+      token: stampedLoginToken.token,
+      slug
+    });
+    next();
+  } catch (e) {
+    console.error('Error responding to lti request', request.body, e);
+    response.writeHead(400);
+    response.end('Error responding to LTI request');
   }
 });
 
@@ -163,6 +167,11 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   ) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
+
+    const initData =
+      typeof aT.dataStructure === 'function'
+        ? aT.dataStructure(config)
+        : aT.dataStructure;
     Promise.await(
       new Promise(resolve => {
         const doc = serverConnection.get('rz', docId);
@@ -182,7 +191,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
               mergeOneInstance(
                 null,
                 null,
-                aT.dataStructure,
+                initData,
                 aT.mergeFunction,
                 null,
                 null,

@@ -37,10 +37,12 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
               FROG is currently in development mode, to access teacher mode, use{' '}
               <b>
                 <i>{`<FROG_URL>?login=teacher`}</i>
-              </b>. Or, to create/log in as a student, use{' '}
+              </b>
+              . Or, to create/log in as a student, use{' '}
               <b>
                 <i>{`<FROG_URL>?login=<student_name>`}</i>
-              </b>.{' '}
+              </b>
+              .{' '}
             </p>
             <p>
               <b>
@@ -49,10 +51,12 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
               is typically{' '}
               <b>
                 <i>http://localhost:3000</i>
-              </b>, so a typical student login could be{' '}
+              </b>
+              , so a typical student login could be{' '}
               <b>
                 <i>http://localhost:3000?login=peter</i>
-              </b>.
+              </b>
+              .
             </p>
             <p>
               You can log in as one user in one tab, and another user in another
@@ -61,10 +65,14 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
               work-around is to define in /etc/hosts:
             </p>
             <p>
-              127.0.0.1 localhost<br />
-              127.0.0.1 dev1<br />
-              127.0.0.1 dev2<br />
-              127.0.0.1 dev3<br />
+              127.0.0.1 localhost
+              <br />
+              127.0.0.1 dev1
+              <br />
+              127.0.0.1 dev2
+              <br />
+              127.0.0.1 dev3
+              <br />
               127.0.0.1 dev4
             </p>
             <p>
