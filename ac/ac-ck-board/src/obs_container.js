@@ -12,14 +12,11 @@ const ObservationContainer = ({
   y,
   children
 }) => {
-  const scaleText = (scaleX + scaleY) / 2;
+  const scaling = 1 / ((scaleX + scaleY) / 2) / 1.3;
   const style = {
-    height: 100 / scaleY,
-    width: 300 / scaleX,
-    margin: 20 / scaleText,
+    transform: `scale(${scaling}`,
     textAlign: 'center',
-    display: 'inline-block',
-    overflow: 'hidden'
+    display: 'inline-block'
   };
 
   return (
@@ -35,18 +32,21 @@ const ObservationContainer = ({
       <div
         style={{
           position: 'absolute',
-          fontSize: 20 / scaleText + 'px',
-          textOverflow: 'ellipsis',
-          overflow: 'hidden'
+          textOverflow: 'ellipsis'
         }}
       >
-        <Paper elevation={3} style={style}>
-          <div>
-            <span style={{ float: 'right' }} className="noDrag">
-              <AspectRatio onClick={openInfoFn} />
-            </span>
+        <Paper
+          elevation={24}
+          style={{ height: 'inherit', width: 'inherit', ...style }}
+        >
+          <div style={{ margin: '15px', maxWidth: '500px' }}>
+            <div>
+              <span style={{ float: 'right' }} className="noDrag">
+                <AspectRatio onClick={openInfoFn} />
+              </span>
+            </div>
+            {children}
           </div>
-          {children}
         </Paper>
       </div>
     </Draggable>

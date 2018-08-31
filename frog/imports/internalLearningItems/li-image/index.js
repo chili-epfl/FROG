@@ -2,21 +2,12 @@
 
 import * as React from 'react';
 import { ImageReload, type LearningItemT } from 'frog-utils';
-import Paper from '@material-ui/core/Paper';
 
 import ToolBar from './ToolBar';
 import { Creator } from '../li-file';
 
 const ImageEditor = props => (
-  <Paper
-    elevation={24}
-    style={{
-      margin: '20px',
-      overflow: 'scroll',
-      display: 'flex',
-      flexDirection: 'column'
-    }}
-  >
+  <div>
     <ToolBar data={props.data} dataFn={props.dataFn} />
     <ImageReload
       style={{
@@ -27,33 +18,29 @@ const ImageEditor = props => (
       }}
       src={props.data.url}
     />
-  </Paper>
+  </div>
 );
 
 export default ({
   name: 'image',
   id: 'li-image',
   Viewer: ({ data }: { data: any }) => (
-    <Paper elevation={24} style={{ margin: '20px' }}>
-      <ImageReload
-        style={{
-          margin: '10px',
-          transform: 'rotate(' + (data.rotation || 0) + 'deg)'
-        }}
-        src={data.url}
-      />
-    </Paper>
+    <ImageReload
+      style={{
+        margin: '10px',
+        transform: 'rotate(' + (data.rotation || 0) + 'deg)'
+      }}
+      src={data.url}
+    />
   ),
   ThumbViewer: ({ data }: { data: any }) => (
-    <Paper elevation={24} style={{ height: 'inherit', width: 'inherit' }}>
-      <ImageReload
-        style={{
-          margin: '10px',
-          transform: 'rotate(' + (data.rotation || 0) + 'deg)'
-        }}
-        src={data.thumburl}
-      />
-    </Paper>
+    <ImageReload
+      style={{
+        margin: '10px',
+        transform: 'rotate(' + (data.rotation || 0) + 'deg)'
+      }}
+      src={data.thumburl}
+    />
   ),
   Creator: (props: any) => (
     <Creator {...props} fileTypes="image/jpeg, image/png" />
