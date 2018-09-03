@@ -86,7 +86,7 @@ class DataGraph extends React.Component<*, *> {
   }
 
   render() {
-    const { activityData, data, dataFn, classes } = this.props;
+    const { activityData, data, dataFn, classes, axis, logger } = this.props;
     const { originalData, ...datasets } = data;
     if (!data || Object.keys(data).length < 1) return <div />;
     const dataTr = apply(
@@ -98,9 +98,10 @@ class DataGraph extends React.Component<*, *> {
         {Object.keys(datasets).length > 1 && (
           <Select
             value={this.state.dataset}
-            onChange={e =>
-              this.setState({ dataset: e.target.value, transformation: '' })
-            }
+            onChange={e => {
+              logger({ type: 'change dataset', itemId: e.target.value });
+              this.setState({ dataset: e.target.value, transformation: '' });
+            }}
           >
             {Object.keys(datasets).map(name => (
               <MenuItem value={name} key={name} selected>
@@ -112,7 +113,7 @@ class DataGraph extends React.Component<*, *> {
         <div className={classes.content}>
           <DataForm
             data={dataTr}
-            {...{ dataFn, originalData }}
+            {...{ dataFn, originalData, logger }}
             dataset={this.state.dataset}
             setTransformation={x => this.setState({ transformation: x })}
             transformation={this.state.transformation}
@@ -120,9 +121,13 @@ class DataGraph extends React.Component<*, *> {
               activityData.config.editable && this.state.transformation === ''
             }
           />
-          <Graph data={dataTr} config={activityData.config} />
+          <Graph
+            data={dataTr}
+            config={activityData.config}
+            {...{ axis, logger }}
+          />
         </div>
-      </div>
+      </div>np
     );
   }
 }

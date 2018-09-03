@@ -40,6 +40,7 @@ const transformData = (data, type, filtered) => {
               mode: 'markers',
               name: k,
               y: formatData
+              // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
             });
           });
         break;
@@ -92,7 +93,6 @@ const transformData = (data, type, filtered) => {
         break;
       case 'histogram':
         result.push({ type: 'histogram', x: formatData });
-        // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
         break;
       case 'box':
         result.push({ type: 'box', y: formatData });
@@ -108,6 +108,8 @@ const GraphStateless = ({
   data,
   plot,
   setPlot,
+  axis,
+  logger,
   filter,
   setFilter,
   classes
@@ -123,7 +125,10 @@ const GraphStateless = ({
             ) : (
               <Select
                 value={plot}
-                onChange={e => setPlot(e.target.value)}
+                onChange={e => {
+                  logger({ type: 'change diagram', itemId: e.target.value });
+                  setPlot(e.target.value);
+                }}
                 classes={{ root: classes.root }}
               >
                 <MenuItem value="histogram" selected>
@@ -142,7 +147,10 @@ const GraphStateless = ({
                 <Button
                   variant="outlined"
                   color="primary"
-                  onClick={() => setFilter(!filter)}
+                  onClick={() => {
+                    logger({ type: 'set filter', itemId: !filter });
+                    setFilter(!filter);
+                  }}
                 >
                   {filter
                     ? 'Plot all data together'
@@ -166,8 +174,14 @@ const GraphStateless = ({
         style={{ position: 'sticky', left: '50%' }}
         layout={{
           title: config.title,
-          xaxis: { title: config.xLabel },
-          yaxis: { title: config.yLabel }
+          xaxis:
+            config.fixAxis && plot === 'histogram'
+              ? { title: config.xLabel, range: axis }
+              : { title: config.xLabel },
+          yaxis:
+            config.fixAxis && plot !== 'histogram'
+              ? { title: config.yLabel, range: axis }
+              : { title: config.yLabel }
         }}
       />
       {config.summary &&

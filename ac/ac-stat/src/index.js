@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, values } from 'frog-utils';
 
 import meta from './meta';
 
@@ -22,24 +22,16 @@ const config = {
       type: 'boolean',
       title: 'Show statistical summary below graph?'
     },
-    editable: { type: 'boolean', title: 'Are students able to edit the table?' }
+    editable: {
+      type: 'boolean',
+      title: 'Are students able to edit the table?'
+    },
+    fixAxis: { type: 'boolean', title: 'Should the axis be fixed?' }
   }
 };
 
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {};
-
-// receives incoming data, and merges it with the reactive data using dataFn.*
-// const mergeFunction = ({ data: incoming }, dataFn, data) => {
-//   if (!Array.isArray(incoming)) {
-//     return;
-//   }
-//   incoming.forEach(({ trace, ...rest }) => {
-//     if (!data[trace]) dataFn.objInsert([], trace);
-//     dataFn.listAppend({ ...rest }, trace);
-//   });
-//   dataFn.objInsert(data, 'originalData');
-// };
 
 const mergeFunction = ({ data: incoming }, dataFn, data) => {
   if (!Array.isArray(incoming)) {
@@ -55,6 +47,23 @@ const mergeFunction = ({ data: incoming }, dataFn, data) => {
     });
     dataFn.listAppend(tmpEntry, [trace, 'values']);
   });
+
+  const { originalData, ...datasets } = data;
+  if (Object.keys(datasets).length > 1)
+    dataFn.objInsert(
+      {
+        columns: [values(datasets)[0].columns[0], 'dataset'],
+        values: Object.keys(datasets).reduce(
+          (acc, cur) => [
+            ...acc,
+            ...datasets[cur].values.map(entry => [entry[0], cur])
+          ],
+          []
+        )
+      },
+      'all datasets'
+    );
+
   dataFn.objInsert(data, 'originalData');
 };
 

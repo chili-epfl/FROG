@@ -49,14 +49,17 @@ const styles = () => ({
   dataTitle: { flex: '0 0 auto', display: 'flex', flexDirection: 'row' }
 });
 
-const TableHeader = ({ columns, classes, editable, sortBy }) => (
+const TableHeader = ({ columns, classes, editable, sortBy, logger }) => (
   <TableHead>
     <TableRow>
       {columns.map((axis, i) => (
         <TableCell
           className={classes.head1}
           key={axis}
-          onClick={() => sortBy(i)}
+          onClick={() => {
+            logger({ type: 'sort', itemId: dataset, value: i });
+            sortBy(i);
+          }}
         >
           {axis}
         </TableCell>
@@ -66,11 +69,12 @@ const TableHeader = ({ columns, classes, editable, sortBy }) => (
   </TableHead>
 );
 
-const AddElementRow = ({ data, dataFn, dataset }) => (
+const AddElementRow = ({ data, dataFn, dataset, logger }) => (
   <TableRow>
     <TableCell>
       <IconButton
         onClick={() => {
+          logger({ type: 'added entry', itemId: dataset });
           dataFn.listAppend(data.columns.map(() => ''), [dataset, 'values']);
         }}
       >
@@ -80,10 +84,17 @@ const AddElementRow = ({ data, dataFn, dataset }) => (
   </TableRow>
 );
 
-const DeleteElementCell = ({ dataFn, entry, dataset, index }) => (
+const DeleteElementCell = ({ dataFn, entry, dataset, index, logger }) => (
   <TableCell>
     <IconButton
-      onClick={() => dataFn.listDel(entry, [dataset, 'values', index])}
+      onClick={() => {
+        logger({
+          type: 'delete entry',
+          itemId: dataset,
+          value: index
+        });
+        dataFn.listDel(entry, [dataset, 'values', index]);
+      }}
     >
       <Remove />
     </IconButton>
@@ -108,6 +119,7 @@ class Data extends React.Component<*, *> {
       data,
       dataFn,
       dataset,
+      logger,
       originalData,
       transformation,
       setTransformation,
@@ -132,12 +144,15 @@ class Data extends React.Component<*, *> {
             data={data}
             setTransformation={setTransformation}
             transformation={transformation}
+            logger={logger}
+            dataset={dataset}
           />
         </div>
         <div className={classes.dataTitle}>
           <h3>Dataset</h3>
           <IconButton
             onClick={() => {
+              logger({ type: 'reset', itemId: dataset });
               dataFn.objReplace(data, originalData[dataset], dataset);
               setTransformation('');
             }}
@@ -152,6 +167,7 @@ class Data extends React.Component<*, *> {
               editable={editable}
               columns={data.columns}
               sortBy={i => this.setState({ sort: i })}
+              logger={logger}
             />
             <TableBody>
               {sortedData.values.map((entry, index) => {
@@ -193,6 +209,11 @@ class Data extends React.Component<*, *> {
                                   'values',
                                   index
                                 ]);
+                                logger({
+                                  type: 'edited value',
+                                  itemId: dataset,
+                                  payload: { old: entry, new: newEntry }
+                                });
                                 this.setState({
                                   selected: [-1, -1],
                                   cellStr: ''
@@ -207,14 +228,14 @@ class Data extends React.Component<*, *> {
                     })}
                     {editable && (
                       <DeleteElementCell
-                        {...{ dataFn, entry, dataset, index }}
+                        {...{ dataFn, entry, dataset, index, logger }}
                       />
                     )}
                   </TableRow>
                 );
               })}
               {editable && (
-                <AddElementRow data={data} dataFn={dataFn} dataset={dataset} />
+                <AddElementRow {...{ data, dataFn, dataset, logger }} />
               )}
             </TableBody>
           </Table>
