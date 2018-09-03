@@ -24,7 +24,7 @@ const disabledFun = (data, tr) => {
 
 export default ({ setTransformation, transformation, data }: Object) => (
   <>
-    Transformations:
+    <span>Transformations:</span>
     <div
       style={{
         display: 'flex',

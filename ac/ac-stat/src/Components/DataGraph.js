@@ -11,9 +11,12 @@ import DataForm from './DataForm';
 
 const styles = {
   root: {
-    width: '150px',
-    height: 'fit-content'
-  }
+    flex: '1 0 0px',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  content: { display: 'flex', flex: '1 0 auto' }
 };
 
 const apply = (transfo: string, data: Object) => {
@@ -91,14 +94,13 @@ class DataGraph extends React.Component<*, *> {
       datasets[this.state.dataset]
     );
     return (
-      <>
+      <div className={classes.root}>
         {Object.keys(datasets).length > 1 && (
           <Select
             value={this.state.dataset}
             onChange={e =>
               this.setState({ dataset: e.target.value, transformation: '' })
             }
-            classes={{ root: classes.root }}
           >
             {Object.keys(datasets).map(name => (
               <MenuItem value={name} key={name} selected>
@@ -107,9 +109,7 @@ class DataGraph extends React.Component<*, *> {
             ))}
           </Select>
         )}
-        <div
-          style={{ display: 'flex', height: 'fit-content', marginTop: '10px' }}
-        >
+        <div className={classes.content}>
           <DataForm
             data={dataTr}
             {...{ dataFn, originalData }}
@@ -120,16 +120,9 @@ class DataGraph extends React.Component<*, *> {
               activityData.config.editable && this.state.transformation === ''
             }
           />
-          <div
-            style={{
-              width: '1px',
-              height: 'inherit',
-              backgroundColor: '#000000'
-            }}
-          />
           <Graph data={dataTr} config={activityData.config} />
         </div>
-      </>
+      </div>
     );
   }
 }

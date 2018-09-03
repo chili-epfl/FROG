@@ -20,15 +20,19 @@ import FilteringPanel from './FilteringPanel';
 const styles = () => ({
   root: {
     maxWidth: '25%',
-    height: '550px',
-    overflowY: 'scroll'
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden'
   },
   table: {
-    border: 'solid 1px'
+    border: 'solid 1px',
+    flex: '1 0 0px',
+    overflow: 'auto'
   },
   head1: {
     fontSize: 'large',
-    backgroundColor: '#CCC',
+    backgroundColor: '#ddd',
     position: 'sticky',
     top: 0,
     zIndex: 1,
@@ -36,16 +40,31 @@ const styles = () => ({
   },
   head2: {
     fontSize: 'large',
-    backgroundColor: '#CCC',
+    backgroundColor: '#ddd',
     position: 'sticky',
     top: 0,
     zIndex: 1
   },
-  body: {
-    maxHeight: '500px',
-    overflowY: 'scroll'
-  }
+  filter: { flex: '0 0 auto' },
+  dataTitle: { flex: '0 0 auto', display: 'flex', flexDirection: 'row' }
 });
+
+const TableHeader = ({ columns, classes, editable, sortBy }) => (
+  <TableHead>
+    <TableRow>
+      {columns.map((axis, i) => (
+        <TableCell
+          className={classes.head1}
+          key={axis}
+          onClick={() => sortBy(i)}
+        >
+          {axis}
+        </TableCell>
+      ))}
+      {editable && <TableCell className={classes.head2}>Action</TableCell>}
+    </TableRow>
+  </TableHead>
+);
 
 const AddElementRow = ({ data, dataFn, dataset }) => (
   <TableRow>
@@ -71,6 +90,9 @@ const DeleteElementCell = ({ dataFn, entry, dataset, index }) => (
   </TableCell>
 );
 
+const displayEntry = e =>
+  Number.isNaN(Number(e)) ? e : humanFormat(Number(e));
+
 class Data extends React.Component<*, *> {
   el: any;
 
@@ -93,18 +115,11 @@ class Data extends React.Component<*, *> {
     } = this.props;
 
     const { sort, selected, cellStr } = this.state;
-
-    console.log(data.values);
-    console.log(sort);
-    const sortedData =
+    const values =
       sort === -1
-        ? data
-        : {
-            columns: data.columns,
-            values: [...data.values].sort((a, b) => a[sort] > b[sort])
-          };
-    console.log(sortedData.values);
-    // do not sort correctly some data
+        ? [...data.values]
+        : [...data.values].sort((a, b) => a[sort] - b[sort]);
+    const sortedData = { columns: data.columns, values };
 
     if (!data || !data.columns) {
       return <p>no data</p>;
@@ -112,15 +127,15 @@ class Data extends React.Component<*, *> {
 
     return (
       <Paper className={classes.root}>
-        <FilteringPanel
-          {...{
-            data,
-            setTransformation,
-            transformation
-          }}
-        />
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <h3>Data</h3>
+        <div className={classes.filter}>
+          <FilteringPanel
+            data={data}
+            setTransformation={setTransformation}
+            transformation={transformation}
+          />
+        </div>
+        <div className={classes.dataTitle}>
+          <h3>Dataset</h3>
           <IconButton
             onClick={() => {
               dataFn.objReplace(data, originalData[dataset], dataset);
@@ -130,25 +145,15 @@ class Data extends React.Component<*, *> {
             <Replay />
           </IconButton>
         </div>
-        {
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                {data.columns.map((axis, i) => (
-                  <TableCell
-                    className={classes.head1}
-                    key={axis}
-                    onClick={() => this.setState({ sort: i })}
-                  >
-                    {axis}
-                  </TableCell>
-                ))}
-                {editable && (
-                  <TableCell className={classes.head2}>Action</TableCell>
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody className={classes.body}>
+        <div className={classes.table}>
+          <Table>
+            <TableHeader
+              classes={classes}
+              editable={editable}
+              columns={data.columns}
+              sortBy={i => this.setState({ sort: i })}
+            />
+            <TableBody>
               {sortedData.values.map((entry, index) => {
                 const tmp = '' + index;
                 return (
@@ -169,7 +174,7 @@ class Data extends React.Component<*, *> {
                           {index === selected[0] && i2 === selected[1] ? (
                             <input
                               ref={ref => (this.el = ref)}
-                              type="number"
+                              type="text"
                               value={cellStr}
                               onChange={e =>
                                 this.setState({ cellStr: e.target.value })
@@ -194,10 +199,8 @@ class Data extends React.Component<*, *> {
                                 });
                               }}
                             />
-                          ) : typeof v === 'number' ? (
-                            v
                           ) : (
-                            humanFormat(v)
+                            displayEntry(v)
                           )}
                         </TableCell>
                       );
@@ -215,7 +218,7 @@ class Data extends React.Component<*, *> {
               )}
             </TableBody>
           </Table>
-        }
+        </div>
       </Paper>
     );
   }
