@@ -13,13 +13,21 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
-const styles = {
+const styles = () => ({
   root: {
-    width: '150px',
-    height: 'fit-content'
+    flex: '1 1 auto',
+    overflow: 'auto',
+    padding: '4px',
+    margin: '4px',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  plot: {
+    flex: '1 0 auto'
   }
-};
+});
 
 const transformData = (data, type, filtered) => {
   const result = [];
@@ -103,6 +111,45 @@ const transformData = (data, type, filtered) => {
   return result;
 };
 
+const StatTable = ({ rawData }) => (
+  <Table>
+    <TableBody>
+      <TableRow>
+        <TableCell>Mean</TableCell>
+        <TableCell>{Math.round(1000 * stats(rawData).mean()) / 1000}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Standard deviation</TableCell>
+        <TableCell>
+          {Math.round(1000 * stats(rawData).stdDev()) / 1000}
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Median</TableCell>
+        <TableCell>
+          {Math.round(1000 * stats(rawData).median()) / 1000}
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+);
+
+const PlotTypeSelector = ({ plot, setPlot, logger }) => (
+  <Select
+    value={plot}
+    onChange={e => {
+      logger({ type: 'change diagram', itemId: e.target.value });
+      setPlot(e.target.value);
+    }}
+  >
+    <MenuItem value="histogram" selected>
+      Histogram
+    </MenuItem>
+    <MenuItem value="dots">Dots</MenuItem>
+    <MenuItem value="box">Box</MenuItem>
+  </Select>
+);
+
 const GraphStateless = ({
   config,
   data,
@@ -114,109 +161,66 @@ const GraphStateless = ({
   setFilter,
   classes
 }) => {
+  if (!data || !data.columns || !data.values) return;
   const rawData = data.values.map(e => e[0]);
+  const dataTr = transformData(
+    data,
+    config.plotType !== 'all' ? config.plotType : plot,
+    filter
+  );
   return (
-    <div style={{ width: '70%' }}>
+    <Paper className={classes.root}>
       <div style={{ display: 'flex' }}>
         <div style={{ display: 'flex' }}>
-          <div>
-            {config.plotType !== 'all' ? (
-              config.plotType
-            ) : (
-              <Select
-                value={plot}
-                onChange={e => {
-                  logger({ type: 'change diagram', itemId: e.target.value });
-                  setPlot(e.target.value);
-                }}
-                classes={{ root: classes.root }}
-              >
-                <MenuItem value="histogram" selected>
-                  Histogram
-                </MenuItem>
-                <MenuItem value="dots">Dots</MenuItem>
-                <MenuItem value="box">Box</MenuItem>
-              </Select>
-            )}
-          </div>
-
-          {data &&
-            data.columns &&
-            data.columns.length > 1 && (
-              <div>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => {
-                    logger({ type: 'set filter', itemId: !filter });
-                    setFilter(!filter);
-                  }}
-                >
-                  {filter
-                    ? 'Plot all data together'
-                    : 'Use 2nd column to differentiate data'}
-                </Button>
-              </div>
-            )}
+          {config.plotType !== 'all' && config.plotType}
+          {config.plotType === 'all' && (
+            <PlotTypeSelector plot={plot} setPlot={setPlot} logger={logger} />
+          )}
+          {data.columns.length > 1 && (
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                logger({ type: 'set filter', itemId: !filter });
+                setFilter(!filter);
+              }}
+            >
+              {filter
+                ? 'Plot all data together'
+                : 'Use 2nd column to differentiate data'}
+            </Button>
+          )}
         </div>
-        <div />
       </div>
-      Select a zone to zoom on it
+      <span>Select a zone to zoom on it</span>
       <br />
-      Double click on the graph to zoom out
-      <Plot
-        config={{ displayModeBar: false }}
-        data={transformData(
-          data,
-          config.plotType !== 'all' ? config.plotType : plot,
-          filter
-        )}
-        style={{ position: 'sticky', left: '50%' }}
-        layout={{
-          title: config.title,
-          xaxis:
-            config.fixAxis && plot === 'histogram'
-              ? { title: config.xLabel, range: axis }
-              : { title: config.xLabel },
-          yaxis:
-            config.fixAxis && plot !== 'histogram'
-              ? { title: config.yLabel, range: axis }
-              : { title: config.yLabel }
-        }}
-      />
-      {config.summary &&
-        rawData &&
-        rawData.length > 0 && (
-          <div style={{ width: 'fit-content' }}>
-            <Table>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Mean</TableCell>
-                  <TableCell>
-                    {Math.round(1000 * stats(rawData).mean()) / 1000}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Standard deviation</TableCell>
-                  <TableCell>
-                    {Math.round(1000 * stats(rawData).stdDev()) / 1000}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Median</TableCell>
-                  <TableCell>
-                    {Math.round(1000 * stats(rawData).median()) / 1000}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
-        )}
-    </div>
+      <span>Double click on the graph to zoom out</span>
+      <div className={classes.plot}>
+        <Plot
+          config={{ displayModeBar: false }}
+          data={dataTr}
+          layout={{
+            title: config.title,
+            width: '80%',
+            height: '80%',
+            xaxis:
+              config.fixAxis && plot === 'histogram'
+                ? { title: config.xLabel, range: axis }
+                : { title: config.xLabel },
+            yaxis:
+              config.fixAxis && plot !== 'histogram'
+                ? { title: config.yLabel, range: axis }
+                : { title: config.yLabel }
+          }}
+        />
+      </div>
+      {config.summary && rawData.length > 0 && <StatTable rawData={rawData} />}
+    </Paper>
   );
 };
 
 export default compose(
   withState('plot', 'setPlot', 'histogram'),
-  withState('filter', 'setFilter', false)
-)(withStyles(styles)(GraphStateless));
+  withState('filter', 'setFilter', false),
+  withStyles(styles)
+)(GraphStateless);

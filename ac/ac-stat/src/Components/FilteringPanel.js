@@ -1,11 +1,31 @@
 // @flow
 
 import * as React from 'react';
+
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+
+const styles = () => ({
+  container: {
+    flex: '0 0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: '4px',
+    margin: '4px'
+  },
+  button: {
+    margin: '4px',
+    padding: '6px',
+    justifyContent: 'baseline'
+  }
+});
 
 const transfo = ['log', 'exp', 'outliers', 'sqrt', 'x100', '+50', '11x-10E[x]'];
 
 const disabledFun = (data, tr) => {
+  if (!data.values) return true;
   switch (tr) {
     case 'log':
       return data.values.reduce(
@@ -22,27 +42,21 @@ const disabledFun = (data, tr) => {
   }
 };
 
-export default ({
-  setTransformation,
-  transformation,
-  data,
-  logger,
-  dataset
-}: Object) => (
-  <>
-    <span>Transformations:</span>
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        padding: '10px'
-      }}
-    >
+export default withStyles(styles)(
+  ({
+    setTransformation,
+    transformation,
+    data,
+    logger,
+    dataset,
+    classes
+  }: Object) => (
+    <Paper className={classes.container}>
       {transfo.map(tr => (
         <Button
+          className={classes.button}
           disabled={disabledFun(data, tr)}
-          varian="contained"
+          variant="contained"
           key={tr}
           onClick={() => {
             setTransformation(transformation !== tr ? tr : '');
@@ -52,11 +66,11 @@ export default ({
               value: transformation !== tr ? tr : ''
             });
           }}
-          style={{ backgroundColor: transformation === tr ? '#DDD' : '#FFF' }}
+          style={{ backgroundColor: transformation === tr ? '#ccc' : '#fff' }}
         >
           {tr}
         </Button>
       ))}
-    </div>
-  </>
+    </Paper>
+  )
 );

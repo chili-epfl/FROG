@@ -14,16 +14,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Clear';
 import Replay from '@material-ui/icons/Replay';
-
-import FilteringPanel from './FilteringPanel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = () => ({
   root: {
-    maxWidth: '25%',
-    height: '100%',
+    flex: '0 1 auto',
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    padding: '4px',
+    margin: '4px'
   },
   table: {
     border: 'solid 1px',
@@ -45,11 +46,26 @@ const styles = () => ({
     top: 0,
     zIndex: 1
   },
-  filter: { flex: '0 0 auto' },
-  dataTitle: { flex: '0 0 auto', display: 'flex', flexDirection: 'row' }
+  header: {
+    flex: '0 0 auto',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  selector: {
+    flex: '1 0 auto'
+  }
 });
 
-const TableHeader = ({ columns, classes, editable, sortBy, logger }) => (
+const TableHeader = ({
+  columns,
+  classes,
+  editable,
+  sortBy,
+  logger,
+  dataset
+}) => (
   <TableHead>
     <TableRow>
       {columns.map((axis, i) => (
@@ -101,12 +117,40 @@ const DeleteElementCell = ({ dataFn, entry, dataset, index, logger }) => (
   </TableCell>
 );
 
+const DatasetSelector = ({ dataset, datasets, changeDataset, classes }) => (
+  <Select className={classes.selector} value={dataset} onChange={changeDataset}>
+    {Object.keys(datasets).map(name => (
+      <MenuItem value={name} key={name} selected>
+        {name}
+      </MenuItem>
+    ))}
+  </Select>
+);
+
+const RefreshDataset = ({
+  logger,
+  dataFn,
+  data,
+  dataset,
+  setTransformation,
+  originalData
+}) => (
+  <IconButton
+    onClick={() => {
+      logger({ type: 'reset', itemId: dataset });
+      dataFn.objReplace(data, originalData[dataset], dataset);
+      setTransformation('');
+    }}
+  >
+    <Replay />
+  </IconButton>
+);
+
 const displayEntry = e =>
   Number.isNaN(Number(e)) ? e : humanFormat(Number(e));
 
 class Data extends React.Component<*, *> {
   el: any;
-
   state = {
     selected: [-1, -1],
     cellStr: '',
@@ -114,18 +158,7 @@ class Data extends React.Component<*, *> {
   };
 
   render() {
-    const {
-      classes,
-      data,
-      dataFn,
-      dataset,
-      logger,
-      originalData,
-      transformation,
-      setTransformation,
-      editable
-    } = this.props;
-
+    const { classes, data, dataFn, dataset, logger, editable } = this.props;
     const { sort, selected, cellStr } = this.state;
     const values =
       sort === -1
@@ -139,35 +172,16 @@ class Data extends React.Component<*, *> {
 
     return (
       <Paper className={classes.root}>
-        <div className={classes.filter}>
-          <FilteringPanel
-            data={data}
-            setTransformation={setTransformation}
-            transformation={transformation}
-            logger={logger}
-            dataset={dataset}
-          />
-        </div>
-        <div className={classes.dataTitle}>
-          <h3>Dataset</h3>
-          <IconButton
-            onClick={() => {
-              logger({ type: 'reset', itemId: dataset });
-              dataFn.objReplace(data, originalData[dataset], dataset);
-              setTransformation('');
-            }}
-          >
-            <Replay />
-          </IconButton>
+        <div className={classes.header}>
+          <DatasetSelector {...this.props} />
+          <RefreshDataset {...this.props} />
         </div>
         <div className={classes.table}>
           <Table>
             <TableHeader
-              classes={classes}
-              editable={editable}
               columns={data.columns}
               sortBy={i => this.setState({ sort: i })}
-              logger={logger}
+              {...this.props}
             />
             <TableBody>
               {sortedData.values.map((entry, index) => {
@@ -227,16 +241,12 @@ class Data extends React.Component<*, *> {
                       );
                     })}
                     {editable && (
-                      <DeleteElementCell
-                        {...{ dataFn, entry, dataset, index, logger }}
-                      />
+                      <DeleteElementCell {...this.props} entry={entry} />
                     )}
                   </TableRow>
                 );
               })}
-              {editable && (
-                <AddElementRow {...{ data, dataFn, dataset, logger }} />
-              )}
+              {editable && <AddElementRow {...this.props} />}
             </TableBody>
           </Table>
         </div>

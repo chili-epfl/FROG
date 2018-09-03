@@ -10,11 +10,11 @@ const style = {
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
   overflow: 'hidden'
 };
 
 export default (props: ActivityRunnerPropsT) => {
-  
   const { originalData, ...datasets } = props.data;
   const axis = [
     Math.min(
@@ -29,8 +29,11 @@ export default (props: ActivityRunnerPropsT) => {
     )
   ];
   return (
-  <div style={style}>
-    <DataGraph {...props}  axis={axis} />
-    {props.activityData.config.doubleView && <DataGraph {...props}  axis={axis} />}
-  </div>
-);
+    <div style={style}>
+      <DataGraph {...props} axis={axis} />
+      {props.activityData.config.doubleView && (
+        <DataGraph {...props} axis={axis} />
+      )}
+    </div>
+  );
+};
