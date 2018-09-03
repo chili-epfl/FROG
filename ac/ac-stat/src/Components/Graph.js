@@ -24,8 +24,20 @@ const styles = () => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: '0 0 auto'
+  },
+  plotContainer: {
+    flex: '1 1 0px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   plot: {
-    flex: '1 0 auto'
+    width: '90%',
+    height: '90%'
   }
 });
 
@@ -150,59 +162,38 @@ const PlotTypeSelector = ({ plot, setPlot, logger }) => (
   </Select>
 );
 
-const GraphStateless = ({
-  config,
-  data,
-  plot,
-  setPlot,
-  axis,
-  logger,
-  filter,
-  setFilter,
-  classes
-}) => {
+const SplitDataButton = ({ filter, setFilter, logger }) => (
+  <Button
+    variant="outlined"
+    color="primary"
+    onClick={() => {
+      logger({ type: 'set filter', itemId: !filter });
+      setFilter(!filter);
+    }}
+  >
+    {filter ? 'Plot all data together' : 'Use 2nd column to differentiate data'}
+  </Button>
+);
+
+const GraphStateless = props => {
+  const { config, data, plot, axis, filter, classes } = props;
   if (!data || !data.columns || !data.values) return;
   const rawData = data.values.map(e => e[0]);
-  const dataTr = transformData(
-    data,
-    config.plotType !== 'all' ? config.plotType : plot,
-    filter
-  );
+  const plotType = config.plotType !== 'all' ? config.plotType : plot;
+  const dataTr = transformData(data, plotType, filter);
   return (
     <Paper className={classes.root}>
-      <div style={{ display: 'flex' }}>
-        <div style={{ display: 'flex' }}>
-          {config.plotType !== 'all' && config.plotType}
-          {config.plotType === 'all' && (
-            <PlotTypeSelector plot={plot} setPlot={setPlot} logger={logger} />
-          )}
-          {data.columns.length > 1 && (
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => {
-                logger({ type: 'set filter', itemId: !filter });
-                setFilter(!filter);
-              }}
-            >
-              {filter
-                ? 'Plot all data together'
-                : 'Use 2nd column to differentiate data'}
-            </Button>
-          )}
-        </div>
+      <div className={classes.header}>
+        {config.plotType !== 'all' && config.plotType}
+        {config.plotType === 'all' && <PlotTypeSelector {...props} />}
+        {data.columns.length > 1 && <SplitDataButton {...props} />}
       </div>
-      <span>Select a zone to zoom on it</span>
-      <br />
-      <span>Double click on the graph to zoom out</span>
-      <div className={classes.plot}>
+      <div className={classes.plotContainer}>
         <Plot
+          className={classes.plot}
           config={{ displayModeBar: false }}
           data={dataTr}
           layout={{
-            title: config.title,
-            width: '80%',
-            height: '80%',
             xaxis:
               config.fixAxis && plot === 'histogram'
                 ? { title: config.xLabel, range: axis }
@@ -210,8 +201,11 @@ const GraphStateless = ({
             yaxis:
               config.fixAxis && plot !== 'histogram'
                 ? { title: config.yLabel, range: axis }
-                : { title: config.yLabel }
+                : { title: config.yLabel },
+            margin: { t: 30, l: 30, r: 30, b: 30 },
+            autosize: true
           }}
+          useResizeHandler
         />
       </div>
       {config.summary && rawData.length > 0 && <StatTable rawData={rawData} />}
