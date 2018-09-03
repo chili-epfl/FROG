@@ -60,6 +60,7 @@ class Data extends React.Component<*, *> {
       data,
       dataFn,
       dataset,
+      logger,
       originalData,
       transformation,
       setTransformation,
@@ -81,13 +82,16 @@ class Data extends React.Component<*, *> {
           {...{
             data,
             setTransformation,
-            transformation
+            transformation,
+            logger,
+            dataset
           }}
         />
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <h3>Data</h3>
           <IconButton
             onClick={() => {
+              logger({ type: 'reset', itemId: dataset });
               dataFn.objReplace(data, originalData[dataset], dataset);
               setTransformation('');
             }}
@@ -105,11 +109,12 @@ class Data extends React.Component<*, *> {
                     <TableCell
                       className={classes.head1}
                       key={axis}
-                      onClick={() =>
+                      onClick={() => {
+                        logger({ type: 'sort', itemId: dataset, value: i });
                         this.setState({
                           sort: i
-                        })
-                      }
+                        });
+                      }}
                     >
                       {axis}
                     </TableCell>
@@ -162,6 +167,11 @@ class Data extends React.Component<*, *> {
                                     'values',
                                     index
                                   ]);
+                                  logger({
+                                    type: 'edited value',
+                                    itemId: dataset,
+                                    payload: { old: entry, new: newEntry }
+                                  });
                                   this.setState({
                                     selected: [-1, -1],
                                     cellStr: ''
@@ -179,9 +189,14 @@ class Data extends React.Component<*, *> {
                       {editable && (
                         <TableCell>
                           <IconButton
-                            onClick={() =>
-                              dataFn.listDel(entry, [dataset, 'values', index])
-                            }
+                            onClick={() => {
+                              logger({
+                                type: 'delete entry',
+                                itemId: dataset,
+                                value: index
+                              });
+                              dataFn.listDel(entry, [dataset, 'values', index]);
+                            }}
                           >
                             <Remove />
                           </IconButton>
@@ -195,6 +210,7 @@ class Data extends React.Component<*, *> {
                   <TableCell>
                     <IconButton
                       onClick={() => {
+                        logger({ type: 'added entry', itemId: dataset });
                         dataFn.listAppend(data.columns.map(() => ''), [
                           dataset,
                           'values'
