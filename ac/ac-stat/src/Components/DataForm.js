@@ -18,6 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = () => ({
   root: {
+    maxWidth: '25%',
     flex: '0 1 auto',
     display: 'flex',
     flexDirection: 'column',
