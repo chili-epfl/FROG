@@ -10,6 +10,7 @@ import Quadrants from './Quadrants';
 
 const BoardPure = ({
   activityData: { config },
+  userInfo,
   data,
   dataFn,
   width,
@@ -45,9 +46,12 @@ const BoardPure = ({
           <LearningItem
             type="create"
             autoInsert
+            liType={config.onlySpecificLI && config.liType}
             meta={{
               x: Math.random() * 650 + 150,
-              y: -(Math.random() * 800) - 100
+              y: -(Math.random() * 800) - 100,
+              userid: userInfo.id,
+              username: userInfo.name
             }}
           />
         </div>
@@ -76,6 +80,8 @@ const BoardPure = ({
               scaleX={scaleX}
               x={y.x / scaleX - offsetWidth}
               y={y.y / scaleY - offsetHeight}
+              canDrag={!config.studentEditOwn || y.userid === userInfo.id}
+              username={y.username}
             >
               <LearningItem disableDragging type="thumbView" id={y.li} />
             </ObservationContainer>

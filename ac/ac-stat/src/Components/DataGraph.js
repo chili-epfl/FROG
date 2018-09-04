@@ -3,17 +3,13 @@
 import * as React from 'react';
 import stats from 'statsjs';
 import { withStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 
 import Graph from './Graph';
 import DataForm from './DataForm';
+import FilteringPanel from './FilteringPanel';
 
 const styles = {
-  root: {
-    width: '150px',
-    height: 'fit-content'
-  }
+  content: { display: 'flex', flex: '1 1 auto', maxHeight: '70%' }
 };
 
 const apply = (transfo: string, data: Object) => {
@@ -82,54 +78,38 @@ class DataGraph extends React.Component<*, *> {
     };
   }
 
+  changeDataset = e => {
+    this.props.logger({ type: 'change dataset', itemId: e.target.value });
+    this.setState({ dataset: e.target.value, transformation: '' });
+  };
+
   render() {
-    const { activityData, data, dataFn, classes } = this.props;
+    const { activityData, data, dataFn, classes, axis, logger } = this.props;
+    const { transformation, dataset } = this.state;
     const { originalData, ...datasets } = data;
-    if (!data || Object.keys(data).length < 1) return <div />;
-    const dataTr = apply(
-      this.state.transformation,
-      datasets[this.state.dataset]
-    );
+    if (!data || Object.keys(data).length < 1) return;
+    const dataTr = apply(transformation, datasets[dataset]);
     return (
-      <>
-        {Object.keys(datasets).length > 1 && (
-          <Select
-            value={this.state.dataset}
-            onChange={e =>
-              this.setState({ dataset: e.target.value, transformation: '' })
-            }
-            classes={{ root: classes.root }}
-          >
-            {Object.keys(datasets).map(name => (
-              <MenuItem value={name} key={name} selected>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        )}
-        <div
-          style={{ display: 'flex', height: 'fit-content', marginTop: '10px' }}
-        >
-          <DataForm
-            data={dataTr}
-            {...{ dataFn, originalData }}
-            dataset={this.state.dataset}
-            setTransformation={x => this.setState({ transformation: x })}
-            transformation={this.state.transformation}
-            editable={
-              activityData.config.editable && this.state.transformation === ''
-            }
-          />
-          <div
-            style={{
-              width: '1px',
-              height: 'inherit',
-              backgroundColor: '#000000'
-            }}
-          />
-          <Graph data={dataTr} config={activityData.config} />
-        </div>
-      </>
+      <div className={classes.content}>
+        <DataForm
+          changeDataset={this.changeDataset}
+          data={dataTr}
+          setTransformation={x => this.setState({ transformation: x })}
+          transformation={transformation}
+          editable={activityData.config.editable && transformation === ''}
+          {...{ dataFn, originalData, logger, datasets, dataset }}
+        />
+        <Graph
+          data={dataTr}
+          config={activityData.config}
+          {...{ axis, logger }}
+        />
+        <FilteringPanel
+          data={dataTr}
+          setTransformation={x => this.setState({ transformation: x })}
+          {...{ transformation, logger, dataset }}
+        />
+      </div>
     );
   }
 }

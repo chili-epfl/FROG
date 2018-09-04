@@ -1,20 +1,39 @@
 // @flow
 
 import * as React from 'react';
-import type { ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT, values } from 'frog-utils';
 
-import DataGraph from './DataGraph';
+import DataGraph from './Components/DataGraph';
 
-export default (props: ActivityRunnerPropsT) => (
-  <>
-    <DataGraph {...props} />
-    {props.activityData.config.doubleView && (
-      <>
-        <div
-          style={{ width: '100%', height: '1px', backgroundColor: '#000' }}
-        />
-        <DataGraph {...props} />
-      </>
-    )}
-  </>
-);
+const style = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  overflow: 'hidden'
+};
+
+export default (props: ActivityRunnerPropsT) => {
+  const { originalData, ...datasets } = props.data;
+  const axis = [
+    Math.min(
+      ...values(datasets).map(ds =>
+        Math.min(...ds.values.map(entry => entry[0]))
+      )
+    ),
+    Math.max(
+      ...values(datasets).map(ds =>
+        Math.max(...ds.values.map(entry => entry[0]))
+      )
+    )
+  ];
+  return (
+    <div style={style}>
+      <DataGraph {...props} axis={axis} />
+      {props.activityData.config.doubleView && (
+        <DataGraph {...props} axis={axis} />
+      )}
+    </div>
+  );
+};
