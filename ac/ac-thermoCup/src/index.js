@@ -4,6 +4,7 @@ import { type ActivityPackageT } from 'frog-utils';
 
 const meta = {
   name: 'Simulate thermo cup',
+  experimental: true,
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [

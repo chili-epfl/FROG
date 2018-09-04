@@ -6,6 +6,7 @@ import dashboards from './Dashboard';
 
 const meta = {
   name: 'Stroop Effect',
+  experimental: true,
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   exampleData: [
