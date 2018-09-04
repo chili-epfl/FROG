@@ -14,7 +14,7 @@ import {
 import { operatorTypes } from './operatorTypes';
 
 const isResearcher =
-  !Meteor.isServer && !!localStorage && localStorage.getItem('isResearcher');
+  Meteor.isServer || (localStorage && localStorage.getItem('isResearcher'));
 const isExperimental = acPkg => acPkg.meta.experimental === true;
 
 const packagesRaw = importAll.sync('../node_modules/ac-*/src/index.js');

@@ -8,7 +8,8 @@ export const Meteor = {
       key
     };
   },
-  methods: () => undefined
+  methods: () => undefined,
+  isServer: true
 };
 
 export const Mongo = {
