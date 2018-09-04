@@ -6273,10 +6273,6 @@ https-proxy-agent@^2.2.0:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-human-format@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/human-format/-/human-format-0.10.0.tgz#0583c91bfcef0e465a31097f1c627db32c7b502f"
-
 hyphenate-style-name@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"

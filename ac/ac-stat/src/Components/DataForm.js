@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import humanFormat from 'human-format';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -146,8 +145,16 @@ const RefreshDataset = ({
   </IconButton>
 );
 
-const displayEntry = e =>
-  Number.isNaN(Number(e)) ? e : humanFormat(Number(e));
+const displayEntry = e => {
+  const x = Number(e);
+  if (Number.isNaN(x)) {
+    return e;
+  } else if (x >= 1000 || x < 0.1) {
+    return x.toExponential(2);
+  } else {
+    return x.toFixed(2);
+  }
+};
 
 class Data extends React.Component<*, *> {
   el: any;
