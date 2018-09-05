@@ -113,12 +113,10 @@ class Editor extends React.Component<Object, StateT> {
               setModal={val => this.setState({ exportOpen: val })}
               graphId={this.props.store.graphId}
               graphName={this.props.store}
-              metadatas={
-                LibraryStates.graphList.find(
-                  x =>
-                    x.uuid === Graphs.findOne(this.props.store.graphId).parentId
-                )
-              }
+              metadatas={LibraryStates.graphList.find(
+                x =>
+                  x.uuid === Graphs.findOne(this.props.store.graphId).parentId
+              )}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
             <ModalImport
