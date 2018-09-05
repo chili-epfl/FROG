@@ -266,7 +266,9 @@ const ApiForm = observer(
                 modalOpen={this.state.deleteOpen}
                 setModal={x => this.setState({ deleteOpen: x })}
                 remove={() =>
-                  removeActivity(this.state.idRemove, () => this.forceUpdate())
+                  removeActivity(this.state.idRemove.id, () =>
+                    this.forceUpdate()
+                  )
                 }
               />
               <ChooseActivityType
