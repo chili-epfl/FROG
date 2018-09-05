@@ -87,7 +87,7 @@ class DataGraph extends React.Component<*, *> {
     const { activityData, data, dataFn, classes, axis, logger } = this.props;
     const { transformation, dataset } = this.state;
     const { originalData, ...datasets } = data;
-    if (!data || Object.keys(data).length < 1) return;
+    if (!data || Object.keys(data).length < 1) return <p>No data</p>;
     const dataTr = apply(transformation, datasets[dataset]);
     return (
       <div className={classes.content}>
