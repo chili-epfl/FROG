@@ -4,8 +4,7 @@ import { rtQ } from './rtQ';
 
 const statQuizConfig = {
   title: 'Stat 101',
-  guidelines:
-    "Ce Quizz est anonyme, pas noté et ne compte donc en aucun cas pour la note à l'examen final. Une seule réponse est correcte par question. Si vous ne connaissez pas la réponse, répondez NA.",
+  showOne: true,
   questions: [
     {
       question: 'Laquelle de ces expressions est fausse?',

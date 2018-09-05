@@ -2,10 +2,24 @@
 
 import React from 'react';
 import seededShuffle from 'seededshuffle';
+import { withState, compose } from 'recompose';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import Justification from './Justification';
 import Question from './Question';
+
+const styles = () => ({
+  buttonRight: {
+    float: 'right'
+  },
+  buttonContainer: {
+    marginTop: '20px'
+  }
+});
 
 export const condShuffle = (
   list: Object,
@@ -14,7 +28,62 @@ export const condShuffle = (
   seed: string
 ) => seededShuffle.shuffle(list, seed + salt, true);
 
-export default (props: ActivityRunnerPropsT) => {
+const BottomQuizNav = withStyles(styles)(
+  ({
+    index,
+    setIndex,
+    startDelay,
+    onSubmit,
+    hasNext,
+    hasAnswered,
+    classes
+  }) => (
+    <div className={classes.buttonContainer}>
+      {index > 0 && (
+        <Button
+          variant="contained"
+          onClick={() => startDelay() || setIndex(index - 1)}
+        >
+          Previous
+        </Button>
+      )}
+      {hasNext &&
+        hasAnswered && (
+          <Button
+            variant="contained"
+            onClick={() => startDelay() || setIndex(index + 1)}
+            className={classes.buttonRight}
+          >
+            Next
+          </Button>
+        )}
+      {!hasNext &&
+        hasAnswered && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onSubmit}
+            className={classes.buttonRight}
+          >
+            Submit
+          </Button>
+        )}
+    </div>
+  )
+);
+
+const Quiz = ({
+  index,
+  setIndex,
+  delay,
+  setDelay,
+  ...props
+}: ActivityRunnerPropsT & {
+  index: number,
+  setIndex: Function,
+  delay: boolean,
+  setDelay: Function
+}) => {
   const { activityData, groupingValue, data, dataFn, logger } = props;
   const { config } = activityData;
 
@@ -46,16 +115,44 @@ export default (props: ActivityRunnerPropsT) => {
     }
   };
 
-  return [
-    ...questions.map(([question, questionIndex], index) => (
-      <Question
-        key={questionIndex}
-        {...{ ...props, question, index, questionIndex }}
-      />
-    )),
-    <Justification {...props} key="justification" />,
-    <button onClick={onSubmit} key="submit">
-      Submit
-    </button>
-  ];
+  const [q, qIdx] = questions[index];
+
+  if (delay) {
+    return <CircularProgress />;
+  }
+
+  return (
+    <React.Fragment>
+      {config.showOne && (
+        <Question {...{ ...props, question: q, index, questionIndex: qIdx }} />
+      )}
+      {!config.showOne &&
+        questions.map(([question, questionIndex], i) => (
+          <Question
+            key={questionIndex}
+            {...{ ...props, question, index: i, questionIndex }}
+          />
+        ))}
+      <Justification {...props} />
+      {config.showOne && (
+        <BottomQuizNav
+          onSubmit={onSubmit}
+          index={index}
+          setIndex={setIndex}
+          hasNext={index < questions.length - 1}
+          hasAnswered={data.form[index] !== undefined}
+          startDelay={() => {
+            setDelay(true);
+            setTimeout(() => setDelay(false), 300);
+          }}
+        />
+      )}
+      {!config.showOne && <button onClick={onSubmit}>Submit</button>}
+    </React.Fragment>
+  );
 };
+
+export default compose(
+  withState('index', 'setIndex', 0),
+  withState('delay', 'setDelay', false)
+)(Quiz);

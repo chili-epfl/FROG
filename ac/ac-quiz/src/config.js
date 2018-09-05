@@ -13,6 +13,11 @@ export const config = {
       enum: ['none', 'answers', 'questions', 'both'],
       default: 'none'
     },
+    showOne: {
+      type: 'boolean',
+      title: 'Show questions only one at a time',
+      default: true
+    },
     guidelines: {
       type: 'rte',
       title: 'Guidelines'
