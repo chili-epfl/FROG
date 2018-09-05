@@ -1,7 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { Nav, NavItem } from 'react-bootstrap';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import CloseIcon from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
 
 import { uuid } from 'frog-utils';
 
@@ -15,6 +20,22 @@ import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 import { addDefaultExample } from './index';
 
+const styles = () => ({
+  root: {
+    padding: '4px',
+    margin: '4px'
+  },
+  exampleSelector: {
+    marginLeft: '20px'
+  },
+  closeButton: {
+    float: 'right',
+    marginRight: '5px',
+    backgroundColor: 'red',
+    color: 'white'
+  }
+});
+
 const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
   ','
 );
@@ -24,8 +45,9 @@ export const getUserId = (name: string) =>
 
 const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
 
-export default (props: Object) => {
+export default withStyles(styles)((props: Object) => {
   const {
+    classes,
     activityTypeId,
     instances,
     config,
@@ -114,103 +136,97 @@ export default (props: Object) => {
   };
 
   return (
-    <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
-      <button
-        type="button"
+    <Paper className={classes.root}>
+      <Button
+        variant="fab"
+        mini
         onClick={_dismiss}
-        className="btn btn-danger btn-large"
-        style={{ float: 'right', margin: '5px' }}
+        className={classes.closeButton}
         data-tip="Close, and show list of activity types to preview"
       >
-        X
-      </button>
-      <h4 className="modal-title">
-        Preview
+        <CloseIcon />
+      </Button>
+      <Icon
+        onClick={() => setShowData(!showData)}
+        icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
+        tooltip={showData ? 'Show component' : 'Show underlying data'}
+      />
+      {activityType.dashboards && (
         <Icon
-          onClick={() => setShowData(!showData)}
-          icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
-          tooltip={showData ? 'Show component' : 'Show underlying data'}
+          onClick={() => setShowDash(!showDash)}
+          icon="fa fa-tachometer"
+          color={showDash ? '#3d76b8' : '#b3cae6'}
+          tooltip="Toggle dashboard"
         />
-        {activityType.dashboards && (
-          <Icon
-            onClick={() => setShowDash(!showDash)}
-            icon="fa fa-tachometer"
-            color={showDash ? '#3d76b8' : '#b3cae6'}
-            tooltip="Toggle dashboard"
-          />
-        )}
-        {hasDashExample(activityType) && (
-          <Icon
-            onClick={() => setShowDashExample(!showDashExample)}
-            icon="fa fa-line-chart"
-            color={showDashExample ? '#3d76b8' : '#b3cae6'}
-            tooltip="Toggle example logs dashboard"
-          />
-        )}
-        <Icon
-          onClick={() => setShowLogs(!showLogs)}
-          icon="fa fa-list"
-          color={showLogs ? '#3d76b8' : '#b3cae6'}
-          tooltip="Toggle log table"
-        />
-        <Icon
-          onClick={addStudent}
-          icon="fa fa-user-plus"
-          color="#3d76b8"
-          tooltip="Add a user"
-        />
-        <Icon
-          onClick={removeStudent}
-          icon="fa fa-user-times"
-          color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
-          tooltip="Remove one user"
-        />
-        <Icon
-          onClick={switchPlane}
-          icon={
-            ['fa fa-user-circle-o', 'fa fa-users', 'fa fa-university'][
-              plane - 1
-            ]
-          }
-          color="#3d76b8"
-          tooltip="Change plane"
-        />
-        <Icon
-          onClick={refresh}
-          icon="fa fa-refresh"
-          tooltip="Reset reactive data"
-        />
-        <Icon
-          onClick={() => setFullWindow(!fullWindow)}
-          icon="fa fa-arrows-alt"
-          tooltip="Toggle full window"
-        />
-      </h4>
-      {!showDashExample && (
-        <Nav bsStyle="pills" activeKey={example}>
-          {examples.map((ex, i) => (
-            <NavItem
-              key={ex.title}
-              className="examples"
-              style={ex.type === 'deeplink' ? { fontStyle: 'italic' } : {}}
-              eventKey={i}
-              onClick={() => {
-                if (modal) {
-                  refresh(i);
-                } else {
-                  const exConf = ex.config;
-                  setConfig(exConf);
-                }
-                setReloadAPIform(uuid());
-                initDashboardDocuments(activityType, true);
-                setExample(i);
-              }}
-            >
-              {ex.title}
-            </NavItem>
-          ))}
-        </Nav>
       )}
-    </div>
+      {hasDashExample(activityType) && (
+        <Icon
+          onClick={() => setShowDashExample(!showDashExample)}
+          icon="fa fa-line-chart"
+          color={showDashExample ? '#3d76b8' : '#b3cae6'}
+          tooltip="Toggle example logs dashboard"
+        />
+      )}
+      <Icon
+        onClick={() => setShowLogs(!showLogs)}
+        icon="fa fa-list"
+        color={showLogs ? '#3d76b8' : '#b3cae6'}
+        tooltip="Toggle log table"
+      />
+      <Icon
+        onClick={addStudent}
+        icon="fa fa-user-plus"
+        color="#3d76b8"
+        tooltip="Add a user"
+      />
+      <Icon
+        onClick={removeStudent}
+        icon="fa fa-user-times"
+        color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
+        tooltip="Remove one user"
+      />
+      <Icon
+        onClick={switchPlane}
+        icon={
+          ['fa fa-user-circle-o', 'fa fa-users', 'fa fa-university'][plane - 1]
+        }
+        color="#3d76b8"
+        tooltip="Change plane"
+      />
+      <Icon
+        onClick={refresh}
+        icon="fa fa-refresh"
+        tooltip="Reset reactive data"
+      />
+      <Icon
+        onClick={() => setFullWindow(!fullWindow)}
+        icon="fa fa-arrows-alt"
+        tooltip="Toggle full window"
+      />
+      {!showDashExample && (
+        <Select
+          className={classes.exampleSelector}
+          value={example}
+          onChange={e => {
+            const i = e.target.value;
+            const ex = examples[i];
+            if (modal) {
+              refresh(i);
+            } else {
+              setConfig(ex.config);
+            }
+            setReloadAPIform(uuid());
+            initDashboardDocuments(activityType, true);
+            setExample(i);
+          }}
+        >
+          {examples.map((ex, i) => (
+            <MenuItem value={i} key={ex.title} selected={i === example}>
+              {ex.title}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
+    </Paper>
   );
-};
+});
