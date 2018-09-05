@@ -38,7 +38,11 @@ export default class ExportModal extends Component<Object, StateT> {
   componentWillReceiveProps(nextProps: Object) {
     if (nextProps.metadatas)
       this.setState({
-        ...nextProps.metadatas
+        ...nextProps.metadatas,
+        is_public:
+          nextProps.metadatas.owner_id === Meteor.user().username
+            ? nextProps.metadatas.is_public
+            : false
       });
     else {
       const name = nextProps.activity
@@ -142,6 +146,7 @@ export default class ExportModal extends Component<Object, StateT> {
                     updateGraph(
                       Graphs.findOne(this.props.graphId).parentId,
                       this.props.graphId,
+                      { ...this.state },
                       () => this.props.setModal(false)
                     );
                   if (this.props.madeChanges) this.props.madeChanges();
