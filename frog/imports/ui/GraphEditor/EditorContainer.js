@@ -113,7 +113,7 @@ class Editor extends React.Component<Object, StateT> {
               setModal={val => this.setState({ exportOpen: val })}
               graphId={this.props.store.graphId}
               graphName={this.props.store}
-              metadatas={LibraryStates.graphList.filter(
+              metadatas={LibraryStates.graphList.find(
                 x =>
                   x.uuid === Graphs.findOne(this.props.store.graphId).parentId
               )}

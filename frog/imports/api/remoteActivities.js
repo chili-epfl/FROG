@@ -30,7 +30,8 @@ export const updateActivity = (
       title: activity.title,
       description: activity.description,
       config: { ...activity.data },
-      tags: '{' + activity.tags.join(',') + '}'
+      tags: '{' + activity.tags.join(',') + '}',
+      is_public: activity.public
     },
     isNil
   );
@@ -48,7 +49,7 @@ export const refreshActDate = () => (LibraryStates.lastRefreshAct = new Date());
 export const collectActivities = (callback: ?Function) =>
   fetch(
     RemoteServer +
-      '?select=uuid,title,description,tags,activity_type,owner_id,timestamp&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
+      '?select=uuid,title,description,tags,activity_type,owner_id,timestamp,is_public&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
       Meteor.user().username +
       ')'
   )
@@ -101,6 +102,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   LibraryStates.activityList.push({
     uuid: newId,
     title: state.title,
+    owner_id: Meteor.user().username,
     description: state.description,
     tags: state.tags
   });
@@ -111,7 +113,7 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
     RemoteServer +
       '?uuid=eq.' +
       id +
-      '&select=id,title,description,tags,owner_id'
+      '&select=id,title,description,tags,owner_id,is_public'
   )
     .then(e => e.json())
     .then(e => {
@@ -124,7 +126,8 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
           title: e[0].title,
           owner_id: e[0].owner_id,
           description: e[0].description,
-          tags: e[0].tags
+          tags: e[0].tags,
+          public: e[0].is_public
         };
       } else
         LibraryStates.activityList.push({
@@ -132,7 +135,8 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
           title: e[0].title,
           owner_id: e[0].owner_id,
           description: e[0].description,
-          tags: e[0].tags
+          tags: e[0].tags,
+          public: e[0].is_public
         });
       if (callback) {
         callback();
