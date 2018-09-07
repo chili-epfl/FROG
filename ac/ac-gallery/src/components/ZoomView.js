@@ -12,9 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   dialogPaper: {
     margin: '15px',
-    minWidth: '30vw',
-    maxWidth: '30vw',
-    maxHeight: '70vh'
+    minWidth: '30vw'
   }
 };
 

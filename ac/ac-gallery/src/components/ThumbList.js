@@ -12,16 +12,13 @@ import CategoryBox from './CategoryBox';
 const styles = () => ({
   liBox: {
     display: 'inline-block',
-    width: '200px',
+    width: '400px',
     margin: '5px',
     padding: '5px',
     overflow: 'auto'
   },
   masonry: {
-    display: 'flex',
-    flexFlow: 'column wrap',
-    alignContent: 'flexStart',
-    height: '100%'
+    columnWidth: '400px'
   }
 });
 
