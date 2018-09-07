@@ -36,6 +36,7 @@ const BottomQuizNav = withStyles(styles)(
     onSubmit,
     hasNext,
     hasAnswered,
+    allowSkip,
     classes
   }) => (
     <div className={classes.buttonContainer}>
@@ -48,7 +49,7 @@ const BottomQuizNav = withStyles(styles)(
         </Button>
       )}
       {hasNext &&
-        hasAnswered && (
+        (hasAnswered || allowSkip) && (
           <Button
             variant="contained"
             onClick={() => startDelay() || setIndex(index + 1)}
@@ -136,6 +137,7 @@ const Quiz = ({
       <Justification {...props} />
       {config.showOne && (
         <BottomQuizNav
+          allowSkip={config.allowSkip}
           onSubmit={onSubmit}
           index={index}
           setIndex={setIndex}
@@ -143,7 +145,7 @@ const Quiz = ({
           hasAnswered={data.form[index] !== undefined}
           startDelay={() => {
             setDelay(true);
-            setTimeout(() => setDelay(false), 300);
+            setTimeout(() => setDelay(false), 0);
           }}
         />
       )}

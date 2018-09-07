@@ -18,6 +18,7 @@ export const config = {
       title: 'Show questions only one at a time',
       default: true
     },
+    allowSkip: { type: 'boolean', title: 'Allow skipping questions?' },
     guidelines: {
       type: 'rte',
       title: 'Guidelines'
