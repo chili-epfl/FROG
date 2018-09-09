@@ -3,8 +3,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 
@@ -25,15 +23,13 @@ const styles = () => ({
     padding: '4px',
     margin: '4px'
   },
-  exampleSelector: {
-    marginLeft: '20px'
-  },
   closeButton: {
     float: 'right',
     marginRight: '5px',
     backgroundColor: 'red',
     color: 'white'
-  }
+  },
+  exampleButton: { root: { padding: '0px' } }
 });
 
 const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
@@ -137,95 +133,99 @@ export default withStyles(styles)((props: Object) => {
 
   return (
     <Paper className={classes.root}>
-      <Button
-        variant="fab"
-        mini
-        onClick={_dismiss}
-        className={classes.closeButton}
-        data-tip="Close, and show list of activity types to preview"
-      >
-        <CloseIcon />
-      </Button>
-      <Icon
-        onClick={() => setShowData(!showData)}
-        icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
-        tooltip={showData ? 'Show component' : 'Show underlying data'}
-      />
-      {activityType.dashboards && (
-        <Icon
-          onClick={() => setShowDash(!showDash)}
-          icon="fa fa-tachometer"
-          color={showDash ? '#3d76b8' : '#b3cae6'}
-          tooltip="Toggle dashboard"
-        />
-      )}
-      {hasDashExample(activityType) && (
-        <Icon
-          onClick={() => setShowDashExample(!showDashExample)}
-          icon="fa fa-line-chart"
-          color={showDashExample ? '#3d76b8' : '#b3cae6'}
-          tooltip="Toggle example logs dashboard"
-        />
-      )}
-      <Icon
-        onClick={() => setShowLogs(!showLogs)}
-        icon="fa fa-list"
-        color={showLogs ? '#3d76b8' : '#b3cae6'}
-        tooltip="Toggle log table"
-      />
-      <Icon
-        onClick={addStudent}
-        icon="fa fa-user-plus"
-        color="#3d76b8"
-        tooltip="Add a user"
-      />
-      <Icon
-        onClick={removeStudent}
-        icon="fa fa-user-times"
-        color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
-        tooltip="Remove one user"
-      />
-      <Icon
-        onClick={switchPlane}
-        icon={
-          ['fa fa-user-circle-o', 'fa fa-users', 'fa fa-university'][plane - 1]
-        }
-        color="#3d76b8"
-        tooltip="Change plane"
-      />
-      <Icon
-        onClick={refresh}
-        icon="fa fa-refresh"
-        tooltip="Reset reactive data"
-      />
-      <Icon
-        onClick={() => setFullWindow(!fullWindow)}
-        icon="fa fa-arrows-alt"
-        tooltip="Toggle full window"
-      />
-      {!showDashExample && (
-        <Select
-          className={classes.exampleSelector}
-          value={example}
-          onChange={e => {
-            const i = e.target.value;
-            const ex = examples[i];
-            if (modal) {
-              refresh(i);
-            } else {
-              setConfig(ex.config);
-            }
-            setReloadAPIform(uuid());
-            initDashboardDocuments(activityType, true);
-            setExample(i);
-          }}
+      <div>
+        <Button
+          variant="fab"
+          mini
+          onClick={_dismiss}
+          className={classes.closeButton}
+          data-tip="Close, and show list of activity types to preview"
         >
+          <CloseIcon />
+        </Button>
+        <Icon
+          onClick={() => setShowData(!showData)}
+          icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
+          tooltip={showData ? 'Show component' : 'Show underlying data'}
+        />
+        {activityType.dashboards && (
+          <Icon
+            onClick={() => setShowDash(!showDash)}
+            icon="fa fa-tachometer"
+            color={showDash ? '#3d76b8' : '#b3cae6'}
+            tooltip="Toggle dashboard"
+          />
+        )}
+        {hasDashExample(activityType) && (
+          <Icon
+            onClick={() => setShowDashExample(!showDashExample)}
+            icon="fa fa-line-chart"
+            color={showDashExample ? '#3d76b8' : '#b3cae6'}
+            tooltip="Toggle example logs dashboard"
+          />
+        )}
+        <Icon
+          onClick={() => setShowLogs(!showLogs)}
+          icon="fa fa-list"
+          color={showLogs ? '#3d76b8' : '#b3cae6'}
+          tooltip="Toggle log table"
+        />
+        <Icon
+          onClick={addStudent}
+          icon="fa fa-user-plus"
+          color="#3d76b8"
+          tooltip="Add a user"
+        />
+        <Icon
+          onClick={removeStudent}
+          icon="fa fa-user-times"
+          color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
+          tooltip="Remove one user"
+        />
+        <Icon
+          onClick={switchPlane}
+          icon={
+            ['fa fa-user-circle-o', 'fa fa-users', 'fa fa-university'][
+              plane - 1
+            ]
+          }
+          color="#3d76b8"
+          tooltip="Change plane"
+        />
+        <Icon
+          onClick={refresh}
+          icon="fa fa-refresh"
+          tooltip="Reset reactive data"
+        />
+        <Icon
+          onClick={() => setFullWindow(!fullWindow)}
+          icon="fa fa-arrows-alt"
+          tooltip="Toggle full window"
+        />
+      </div>
+      {!showDashExample && (
+        <div>
           {examples.map((ex, i) => (
-            <MenuItem value={i} key={ex.title} selected={i === example}>
+            <Button
+              value={i}
+              key={ex.title}
+              color={i === example ? 'primary' : 'secondary'}
+              className={classes.exampleButton}
+              onClick={() => {
+                if (modal) {
+                  refresh(i);
+                } else {
+                  setConfig(ex.config);
+                }
+                setReloadAPIform(uuid());
+                initDashboardDocuments(activityType, true);
+                setExample(i);
+              }}
+            >
               {ex.title}
-            </MenuItem>
+            </Button>
           ))}
-        </Select>
+        </div>
       )}
     </Paper>
   );
