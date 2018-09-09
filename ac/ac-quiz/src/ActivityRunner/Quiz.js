@@ -110,7 +110,10 @@ const Quiz = ({
 
   const onSubmit = allowSkip => {
     updateCoordinates();
-    if (Object.keys(data.form).length >= Object.keys(questions).length) {
+    if (
+      allowSkip ||
+      Object.keys(data.form).length >= Object.keys(questions).length
+    ) {
       dataFn.objInsert(true, ['completed']);
       logger([{ type: 'progress', value: 1 }]);
     }
