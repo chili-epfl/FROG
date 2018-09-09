@@ -31,9 +31,9 @@ const defaultState = {
   showLogs: false,
   users: ['Chen Li'],
   instances: [getUserId('Chen Li')],
-  plane: 1,
+  plane: 2,
   config: {},
-  metadatas: { uuid: '', title: '', description: '', tags: [] }, // why so high ?
+  metadatas: { uuid: '', title: '', description: '', tags: [] },
   activityTypeId: null,
   reloadAPIform: ''
 };
