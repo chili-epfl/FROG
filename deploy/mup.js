@@ -46,7 +46,7 @@ module.exports = {
       // Same api as is given to plugin command handlers
       // If this runs asynchronous tasks, it needs to return a promise.
       const gitHash = childProcess
-        .execSync('git rev-parse HEAD')
+        .execSync('cd ../frog; git rev-parse HEAD')
         .toString()
         .trim();
 
