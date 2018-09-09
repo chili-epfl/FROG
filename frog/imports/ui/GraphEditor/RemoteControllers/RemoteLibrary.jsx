@@ -58,12 +58,10 @@ class Library extends Component<Object, { searchStr: string }> {
       searchStr,
       store
     } = this.props;
-    const list =
+    const filtered = filterWithStr(
       libraryType === 'activity'
         ? LibraryStates.activityList
-        : LibraryStates.graphList;
-    const filtered = filterWithStr(
-      list,
+        : LibraryStates.graphList,
       searchStr || this.state.searchStr.toLowerCase()
     );
     return (
@@ -134,7 +132,7 @@ class Library extends Component<Object, { searchStr: string }> {
                     shortDesc: x.description,
                     owner_id: x.owner_id,
                     activityTypeName:
-                      activityTypesObj?.[x.activity_type]?.meta?.name + ': '
+                      activityTypesObj?.[x.activity_type]?.meta?.name
                   },
                   ...x
                 }}

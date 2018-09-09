@@ -1,7 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { Nav, NavItem } from 'react-bootstrap';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
 
 import { uuid } from 'frog-utils';
 
@@ -15,6 +18,26 @@ import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
 import { addDefaultExample } from './index';
 
+const styles = () => ({
+  root: {
+    padding: '4px',
+    margin: '4px'
+  },
+  closeButton: {
+    float: 'right',
+    marginRight: '5px',
+    backgroundColor: 'red',
+    color: 'white'
+  },
+  exampleButton: {
+    textTransform: 'none'
+  },
+  exampleButtonDeeplink: {
+    textTransform: 'none',
+    fontStyle: 'italic'
+  }
+});
+
 const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
   ','
 );
@@ -24,8 +47,9 @@ export const getUserId = (name: string) =>
 
 const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
 
-export default (props: Object) => {
+export default withStyles(styles)((props: Object) => {
   const {
+    classes,
     activityTypeId,
     instances,
     config,
@@ -114,18 +138,17 @@ export default (props: Object) => {
   };
 
   return (
-    <div className="bootstrap modal-header" style={{ overflow: 'auto' }}>
-      <button
-        type="button"
-        onClick={_dismiss}
-        className="btn btn-danger btn-large"
-        style={{ float: 'right', margin: '5px' }}
-        data-tip="Close, and show list of activity types to preview"
-      >
-        X
-      </button>
-      <h4 className="modal-title">
-        Preview
+    <Paper className={classes.root}>
+      <div>
+        <Button
+          variant="fab"
+          mini
+          onClick={_dismiss}
+          className={classes.closeButton}
+          data-tip="Close, and show list of activity types to preview"
+        >
+          <CloseIcon />
+        </Button>
         <Icon
           onClick={() => setShowData(!showData)}
           icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
@@ -185,21 +208,27 @@ export default (props: Object) => {
           icon="fa fa-arrows-alt"
           tooltip="Toggle full window"
         />
-      </h4>
+      </div>
       {!showDashExample && (
-        <Nav bsStyle="pills" activeKey={example}>
+        <div>
           {examples.map((ex, i) => (
-            <NavItem
+            <Button
+              value={i}
               key={ex.title}
-              className="examples"
-              style={ex.type === 'deeplink' ? { fontStyle: 'italic' } : {}}
-              eventKey={i}
+              variant={i === example ? 'contained' : 'text'}
+              disableRipple
+              disableTouchRipple
+              color="primary"
+              className={
+                ex.type === 'deeplink'
+                  ? classes.exampleButtonDeeplink
+                  : classes.exampleButton
+              }
               onClick={() => {
                 if (modal) {
                   refresh(i);
                 } else {
-                  const exConf = ex.config;
-                  setConfig(exConf);
+                  setConfig(ex.config);
                 }
                 setReloadAPIform(uuid());
                 initDashboardDocuments(activityType, true);
@@ -207,10 +236,10 @@ export default (props: Object) => {
               }}
             >
               {ex.title}
-            </NavItem>
+            </Button>
           ))}
-        </Nav>
+        </div>
       )}
-    </div>
+    </Paper>
   );
-};
+});

@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { omitBy, isNil } from 'lodash';
 
 import { uuid } from 'frog-utils';
 import { Graphs } from '/imports/api/graphs';
@@ -19,13 +20,28 @@ export const removeGraph = (id: string, callback: ?Function) => {
   }).then(() => collectGraphs(callback));
 };
 
-export const updateGraph = (id: string, graph: Object, callback: ?Function) => {
+export const updateGraph = (
+  id: string,
+  graph: Object,
+  state: Object,
+  callback: ?Function
+) => {
+  const newGraph = omitBy(
+    {
+      title: state.title,
+      description: state.description,
+      tags: '{' + state.tags.join(',') + '}',
+      is_public: state.public,
+      graph: graphToString(graph)
+    },
+    isNil
+  );
   fetch(RemoteServer + '?uuid=eq.' + id, {
     method: 'PATCH',
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({ graph: graphToString(graph) })
+    body: JSON.stringify(newGraph)
   }).then(() => collectGraphs(callback));
 };
 
@@ -109,6 +125,7 @@ export const sendGraph = (state: Object, props: Object) => {
   LibraryStates.graphList.push({
     uuid: newId,
     title: state.title,
+    owner_id: Meteor.user().username,
     description: state.description,
     tags: state.tags,
     timestamp: new Date()
