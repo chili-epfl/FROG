@@ -12,15 +12,13 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   dialogPaper: {
     margin: '15px',
-    minWidth: '30vw',
-    maxWidth: '30vw',
-    maxHeight: '70vh'
+    minWidth: '30vw'
   }
 };
 
 const ZoomView = ({
   close,
-  images,
+  learningItems,
   setIndex,
   dataFn,
   index,
@@ -36,7 +34,7 @@ const ZoomView = ({
   });
   Mousetrap.bind('right', e => {
     e.preventDefault();
-    setIndex(Math.min(index + 1, images.length - 1));
+    setIndex(Math.min(index + 1, learningItems.length - 1));
   });
 
   return (
@@ -48,11 +46,11 @@ const ZoomView = ({
           </IconButton>
         </div>
         <div style={{ margin: '20px' }}>
-          <LearningItem id={images[index].li} type="view" />
+          <LearningItem id={learningItems[index].li} type="view" />
           {commentBox && (
             <ReactiveText
               type="textarea"
-              path={[images[index].id, 'comment']}
+              path={[learningItems[index].id, 'comment']}
               logger={logger}
               dataFn={dataFn}
               placeholder={commentGuidelines}

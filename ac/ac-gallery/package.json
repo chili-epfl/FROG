@@ -10,7 +10,6 @@
     "frog-utils": "^1.0.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-masonry-component": "^6.2.1",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {

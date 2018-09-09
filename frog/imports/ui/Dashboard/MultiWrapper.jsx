@@ -24,7 +24,8 @@ const styles = theme => ({
   dash: {
     height: 'calc(100% - 48px)',
     overflow: 'auto'
-  }
+  },
+  tabs: { minWidth: '0px', paddingLeft: '0px', paddingRight: '0px' }
 });
 
 type PropsT = {
@@ -53,6 +54,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
+            classes={{ root: classes.tabs }}
             value={selected !== undefined ? selected : this.state.which}
             onChange={(_, x) => {
               if (onChange) {
@@ -66,7 +68,12 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
             scrollButtons="auto"
           >
             {dashNames.map(name => (
-              <Tab key={name} label={name} />
+              <Tab
+                key={name}
+                label={name}
+                disableRipple
+                classes={{ root: classes.tabs }}
+              />
             ))}
           </Tabs>
         </AppBar>

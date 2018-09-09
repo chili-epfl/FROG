@@ -1,8 +1,20 @@
 import * as React from 'react';
 import Form from 'react-jsonschema-form';
-import { withState } from 'recompose';
+
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
 import { type LearningItemT, ReactiveText } from 'frog-utils';
+
+const styles = () => ({
+  button: {
+    float: 'right'
+  },
+  editorContainer: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
+});
 
 const ThumbViewer = ({ data }) => (
   <div>
@@ -18,17 +30,14 @@ const ThumbViewer = ({ data }) => (
   </div>
 );
 
-const Editor = ({ dataFn }) => (
-  <div>
+const Editor = withStyles(styles)(({ dataFn, classes }) => (
+  <div className={classes.editorContainer}>
     <b>Title:</b>
-    <br />
     <ReactiveText path="title" dataFn={dataFn} />
-    <br />
     <b>Content:</b>
-    <br />
     <ReactiveText path="content" type="textarea" dataFn={dataFn} />
   </div>
-);
+));
 
 const schema = {
   type: 'object',
@@ -44,44 +53,26 @@ const schema = {
   }
 };
 
-const Creator = withState('formdata', 'setFormdata', {})(
-  ({ formdata, setFormdata, createLearningItem }) => (
-    <div className="bootstrap">
-      <hr
-        style={{
-          boxShadow: 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)',
-          height: '12px'
-        }}
-      />
-      <Form
-        schema={schema}
-        formData={formdata}
-        onSubmit={e => {
-          if (e.formData && e.formData.title && e.formData.content) {
-            createLearningItem('li-idea', {
-              title: e.formData.title,
-              content: e.formData.content
-            });
-            setFormdata({});
-          }
-        }}
-      >
-        <div
-          style={{
-            layout: 'flex',
-            flexDirection: 'row',
-            width: '100%'
-          }}
-        >
-          <Button style={{ marginRight: '20px' }} type="submit" id="addButton">
-            Add idea
-          </Button>
-        </div>
-      </Form>
-      <div style={{ width: '500px' }} />
-    </div>
-  )
-);
+const Creator = withStyles(styles)(({ createLearningItem, classes }) => (
+  <div className="bootstrap">
+    <Form
+      schema={schema}
+      formData={{}}
+      onSubmit={e => {
+        if (e.formData && e.formData.title && e.formData.content) {
+          createLearningItem('li-idea', {
+            title: e.formData.title,
+            content: e.formData.content
+          });
+        }
+      }}
+    >
+      <Button className={classes.button} type="submit" id="addButton">
+        Add idea
+      </Button>
+    </Form>
+  </div>
+));
 
 export default ({
   name: 'Idea',
