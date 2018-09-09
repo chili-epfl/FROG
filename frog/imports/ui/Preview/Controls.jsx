@@ -29,7 +29,10 @@ const styles = () => ({
     backgroundColor: 'red',
     color: 'white'
   },
-  exampleButton: { root: { padding: '0px' } }
+  exampleButton: {
+    root: { padding: '0px' },
+    textTransform: 'none'
+  }
 });
 
 const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
@@ -209,7 +212,10 @@ export default withStyles(styles)((props: Object) => {
             <Button
               value={i}
               key={ex.title}
-              color={i === example ? 'primary' : 'secondary'}
+              variant={i === example && 'contained'}
+              disableRipple
+              disableTouchRipple
+              color="primary"
               className={classes.exampleButton}
               onClick={() => {
                 if (modal) {
