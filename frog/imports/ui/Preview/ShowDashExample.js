@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { throttle, isEmpty } from 'lodash';
+import { Paper } from '@material-ui/core';
 import { Meteor } from 'meteor/meteor';
 import {
   cloneDeep,
@@ -290,7 +291,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       return <CircularProgress />;
     }
     return (
-      <React.Fragment>
+      <div style={{ overflow: 'hidden' }}>
         <div style={{ height: '30px' }}>
           <DashboardSelector
             selected={this.state.exampleIdx}
@@ -405,18 +406,20 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             />
           </React.Fragment>
         )}
-        {this.props.showLogs ? (
-          <Inspector data={this.state.logs} />
-        ) : (
-          <Viewer
-            users={users}
-            activity={this.activityDbObject}
-            instances={instances}
-            config={this.activityDbObject.data}
-            state={this.state.data}
-          />
-        )}
-      </React.Fragment>
+        <Paper style={{ display: 'flex' }}>
+          {this.props.showLogs ? (
+            <Inspector data={this.state.logs} />
+          ) : (
+            <Viewer
+              users={users}
+              activity={this.activityDbObject}
+              instances={instances}
+              config={this.activityDbObject.data}
+              state={this.state.data}
+            />
+          )}
+        </Paper>
+      </div>
     );
   }
 }
