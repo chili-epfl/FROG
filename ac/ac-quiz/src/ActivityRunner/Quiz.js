@@ -59,7 +59,7 @@ const BottomQuizNav = withStyles(styles)(
           </Button>
         )}
       {!hasNext &&
-        hasAnswered && (
+        (hasAnswered || allowSkip) && (
           <Button
             variant="contained"
             color="primary"
