@@ -108,7 +108,7 @@ const Quiz = ({
     logger([{ type: 'coordinates', payload: coordinates }]);
   };
 
-  const onSubmit = () => {
+  const onSubmit = allowSkip => {
     updateCoordinates();
     if (Object.keys(data.form).length >= Object.keys(questions).length) {
       dataFn.objInsert(true, ['completed']);
@@ -138,7 +138,7 @@ const Quiz = ({
       {config.showOne && (
         <BottomQuizNav
           allowSkip={config.allowSkip}
-          onSubmit={onSubmit}
+          onSubmit={() => onSubmit(config.allowSkip)}
           index={index}
           setIndex={setIndex}
           hasNext={index < questions.length - 1}
@@ -149,7 +149,9 @@ const Quiz = ({
           }}
         />
       )}
-      {!config.showOne && <button onClick={onSubmit}>Submit</button>}
+      {!config.showOne && (
+        <button onClick={() => onSubmit(config.allowSkip)}>Submit</button>
+      )}
     </React.Fragment>
   );
 };
