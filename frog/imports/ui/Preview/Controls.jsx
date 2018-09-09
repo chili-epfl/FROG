@@ -30,8 +30,11 @@ const styles = () => ({
     color: 'white'
   },
   exampleButton: {
-    root: { padding: '0px' },
     textTransform: 'none'
+  },
+  exampleButtonDeeplink: {
+    textTransform: 'none',
+    fontStyle: 'italic'
   }
 });
 
@@ -212,11 +215,15 @@ export default withStyles(styles)((props: Object) => {
             <Button
               value={i}
               key={ex.title}
-              variant={i === example && 'contained'}
+              variant={i === example ? 'contained' : 'text'}
               disableRipple
               disableTouchRipple
               color="primary"
-              className={classes.exampleButton}
+              className={
+                ex.type === 'deeplink'
+                  ? classes.exampleButtonDeeplink
+                  : classes.exampleButton
+              }
               onClick={() => {
                 if (modal) {
                   refresh(i);
