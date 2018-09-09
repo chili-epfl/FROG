@@ -59,18 +59,6 @@ class ImageList extends React.Component<*, *> {
             }
           };
 
-          // const voteCount = Object.values(liObj.votes || {}).reduce(
-          //   (n, v) => (v ? n + 1 : n),
-          //   0
-          // );
-
-          // const styleCode =
-          //   voteCount >= minVoteT
-          //     ? 'chosen_by_team'
-          //     : voteCount > 0
-          //       ? 'chosen_partially'
-          //       : 'not_chosen';
-
           const backgroundColor = liObj.votes[userInfo.id]
             ? 'lightgreen'
             : 'white';
