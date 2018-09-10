@@ -15,17 +15,15 @@ export const config = {
     },
     showOne: {
       type: 'boolean',
-      title: 'Show questions only one at a time',
-      default: true
+      title: 'Show questions only one at a time'
     },
-    allowSkip: { type: 'boolean', title: 'Allow skipping questions?' },
+    allowSkip: {
+      type: 'boolean',
+      title: 'Allow skipping questions?'
+    },
     guidelines: {
       type: 'rte',
       title: 'Guidelines'
-    },
-    justify: {
-      type: 'boolean',
-      title: 'Students must provide a justification after filling out the quiz'
     },
     argueWeighting: {
       type: 'boolean',
@@ -41,6 +39,16 @@ export const config = {
           question: {
             type: 'rte',
             title: 'Question'
+          },
+          multiple: {
+            type: 'boolean',
+            title: 'Allow selecting multiple answers',
+            default: false
+          },
+          text: {
+            type: 'boolean',
+            title: 'Ask for a text answer',
+            default: false
           },
           answers: {
             type: 'array',
@@ -64,6 +72,10 @@ export const config = {
           }
         }
       }
+    },
+    advancedConfig: {
+      type: 'boolean',
+      title: 'Use advanced configuration'
     }
   }
 };
@@ -76,6 +88,13 @@ export const validateConfig = [
 ];
 
 export const configUI = {
+  shuffle: { conditional: 'advancedConfig' },
+  showOne: { conditional: 'advancedConfig' },
+  allowSkip: { conditional: 'advancedConfig' },
+  argueWeighting: { conditional: 'advancedConfig' },
+  hasAnswers: { conditional: 'advancedConfig' },
+  'questions.multiple': { conditional: 'advancedConfig' },
+  'questions.text': { conditional: 'advancedConfig' },
   'questions.answers.x': { conditional: 'argueWeighting' },
   'questions.answers.y': { conditional: 'argueWeighting' },
   'questions.answers.isCorrect': { conditional: 'hasAnswers' }

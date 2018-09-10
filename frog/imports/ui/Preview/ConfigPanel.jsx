@@ -33,7 +33,8 @@ const styles = () => ({
     height: '100%',
     overflow: 'hidden',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: 'lightskyblue'
   },
   metadataContainer: {
     backgroundColor: '#dbdbdb',
@@ -108,6 +109,8 @@ const MetadataModal = withStyles(styles)(
 );
 
 class ConfigPanel extends React.Component<*, *> {
+  timeout: any;
+
   constructor(props: Object) {
     super(props);
     this.state = { displaySave: false, metadatas: {} };
@@ -120,43 +123,54 @@ class ConfigPanel extends React.Component<*, *> {
   }
 
   onConfigChange = (e: any) => {
-    if (
-      this.props.metadatas.owner_id === Meteor.user().username &&
-      JSON.stringify(e.config) !== JSON.stringify(this.props.config)
-    ) {
-      this.setState({ displaySave: true });
+    this.props.setDelay(true);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
-    if (e.errors && e.errors.length === 0) {
-      const aT = activityTypesObj[e.activityType];
-      this.props.setConfig(e.config);
-      initActivityDocuments(
-        this.props.instances,
-        aT,
-        this.props.example,
-        e.config,
-        true
-      );
-      initDashboardDocuments(aT, true);
-    } else {
-      this.props.setConfig({ ...e.config, invalid: true });
-    }
-    this.props.setActivityTypeId(e.activityType);
-    this.forceUpdate();
+    this.timeout = setTimeout(() => {
+      console.log('DOING WORK onConfigChange');
+      if (
+        this.props.metadatas.owner_id === Meteor.user().username &&
+        JSON.stringify(e.config) !== JSON.stringify(this.props.config)
+      ) {
+        this.setState({ displaySave: true });
+      }
+      if (e.errors && e.errors.length === 0) {
+        const aT = activityTypesObj[e.activityType];
+        this.props.setConfig(e.config);
+        initActivityDocuments(
+          this.props.instances,
+          aT,
+          this.props.example,
+          e.config,
+          true
+        );
+        initDashboardDocuments(aT, true);
+      } else {
+        this.props.setConfig({ ...e.config, invalid: true });
+      }
+      this.props.setActivityTypeId(e.activityType);
+      this.forceUpdate();
+      this.props.setDelay(false);
+    }, 250);
   };
 
   shouldComponentUpdate = (nextProps: any) => {
-    if (
-      !isEqual(nextProps.config, this.props.config) ||
-      this.props.activityId !== nextProps.activityId ||
-      this.props.metadatas !== nextProps.metadatas
-    ) {
-      return true;
-    } else {
+    console.log('DOING WORK shouldComponentUpdate');
+    if (this.props.delay) {
       return false;
     }
+
+    return (
+      this.props.activityId !== nextProps.activityId ||
+      this.props.metadatas !== nextProps.metadatas ||
+      !isEqual(nextProps.config, this.props.config)
+    );
   };
 
   componentDidUpdate = () => {
+    console.log('DOING WORK componentDidUpdate');
+
     this.setState({ displaySave: false });
     if (this.props.activityTypeId && this.props.config.invalid === undefined) {
       check(
@@ -182,47 +196,54 @@ class ConfigPanel extends React.Component<*, *> {
     setReloadAPIform(uuid());
   };
 
+  onSelectActivityType = activityType => {
+    const {
+      showDash,
+      setShowDash,
+      instances,
+      setConfig,
+      setReloadAPIform,
+      setExample,
+      setShowDashExample,
+      setActivityTypeId
+    } = this.props;
+
+    const exConf = activityType.title
+      ? activityType.config
+      : addDefaultExample(activityTypesObj[activityType])[0].config;
+    const actTypeId = activityType.title
+      ? activityType.activity_type
+      : activityType;
+    const aTObj = activityTypesObj[actTypeId];
+    setConfig(exConf);
+    const newMetadatas = activityType.uuid
+      ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
+      : { uuid: '', title: '', description: '', tags: [] };
+    this.props.setMetadatas(newMetadatas);
+    if (showDash && !aTObj.dashboard) {
+      setShowDash(false);
+    }
+    setReloadAPIform(uuid());
+    initActivityDocuments(instances, aTObj, 0, exConf, true);
+    initDashboardDocuments(actTypeId, true);
+    setExample(0);
+    setShowDashExample(false);
+    setActivityTypeId(actTypeId);
+  };
+
   render() {
+    console.log('DOING WORK render');
+
     const {
       config,
       reloadAPIform,
       setConfig,
-      setExample,
-      setShowDashExample,
       activityTypeId,
       metadatas,
       setMetadatas,
-      setReloadAPIform,
       setActivityTypeId,
-      showDash,
-      setShowDash,
-      instances,
       classes
     } = this.props;
-
-    const onSelectActivityType = activityType => {
-      const exConf = activityType.title
-        ? activityType.config
-        : addDefaultExample(activityTypesObj[activityType])[0].config;
-      const actTypeId = activityType.title
-        ? activityType.activity_type
-        : activityType;
-      const aTObj = activityTypesObj[actTypeId];
-      setConfig(exConf);
-      const newMetadatas = activityType.uuid
-        ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
-        : { uuid: '', title: '', description: '', tags: [] };
-      this.props.setMetadatas(newMetadatas);
-      if (showDash && !aTObj.dashboard) {
-        setShowDash(false);
-      }
-      setReloadAPIform(uuid());
-      initActivityDocuments(instances, aTObj, 0, exConf, true);
-      initDashboardDocuments(actTypeId, true);
-      setExample(0);
-      setShowDashExample(false);
-      setActivityTypeId(actTypeId);
-    };
 
     return (
       <div className={classes.side}>
@@ -290,7 +311,7 @@ class ConfigPanel extends React.Component<*, *> {
             {...{ config, setConfig, setActivityTypeId, setMetadatas }}
             activityType={activityTypeId}
             onConfigChange={this.onConfigChange}
-            onSelect={onSelectActivityType}
+            onSelect={this.onSelectActivityType}
             reload={reloadAPIform}
           />
         </div>

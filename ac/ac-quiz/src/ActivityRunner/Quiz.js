@@ -9,7 +9,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
-import Justification from './Justification';
 import Question from './Question';
 
 const styles = () => ({
@@ -37,19 +36,23 @@ const BottomQuizNav = withStyles(styles)(
     hasNext,
     hasAnswered,
     allowSkip,
+    showOne,
     classes
-  }) => (
-    <div className={classes.buttonContainer}>
-      {index > 0 && (
-        <Button
-          variant="contained"
-          onClick={() => startDelay() || setIndex(index - 1)}
-        >
-          Previous
-        </Button>
-      )}
-      {hasNext &&
-        (hasAnswered || allowSkip) && (
+  }) => {
+    const showPrevious = showOne && index > 0;
+    const showNext = showOne && hasNext && (hasAnswered || allowSkip);
+    const showSubmit = !showOne || (!hasNext && (hasAnswered || allowSkip));
+    return (
+      <div className={classes.buttonContainer}>
+        {showPrevious && (
+          <Button
+            variant="contained"
+            onClick={() => startDelay() || setIndex(index - 1)}
+          >
+            Previous
+          </Button>
+        )}
+        {showNext && (
           <Button
             variant="contained"
             onClick={() => startDelay() || setIndex(index + 1)}
@@ -58,8 +61,7 @@ const BottomQuizNav = withStyles(styles)(
             Next
           </Button>
         )}
-      {!hasNext &&
-        (hasAnswered || allowSkip) && (
+        {showSubmit && (
           <Button
             variant="contained"
             color="primary"
@@ -69,8 +71,9 @@ const BottomQuizNav = withStyles(styles)(
             Submit
           </Button>
         )}
-    </div>
-  )
+      </div>
+    );
+  }
 );
 
 const Quiz = ({
@@ -137,24 +140,19 @@ const Quiz = ({
             {...{ ...props, question, index: i, questionIndex }}
           />
         ))}
-      <Justification {...props} />
-      {config.showOne && (
-        <BottomQuizNav
-          allowSkip={config.allowSkip}
-          onSubmit={() => onSubmit(config.allowSkip)}
-          index={index}
-          setIndex={setIndex}
-          hasNext={index < questions.length - 1}
-          hasAnswered={data.form[index] !== undefined}
-          startDelay={() => {
-            setDelay(true);
-            setTimeout(() => setDelay(false), 0);
-          }}
-        />
-      )}
-      {!config.showOne && (
-        <button onClick={() => onSubmit(config.allowSkip)}>Submit</button>
-      )}
+      <BottomQuizNav
+        allowSkip={config.allowSkip}
+        onSubmit={() => onSubmit(config.allowSkip)}
+        index={index}
+        setIndex={setIndex}
+        showOne={config.showOne}
+        hasNext={index < questions.length - 1}
+        hasAnswered={data.form[index] !== undefined}
+        startDelay={() => {
+          setDelay(true);
+          setTimeout(() => setDelay(false), 0);
+        }}
+      />
     </React.Fragment>
   );
 };

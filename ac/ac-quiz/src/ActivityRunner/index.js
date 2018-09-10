@@ -42,7 +42,7 @@ export default withStyles(styles)(
       config: { title, guidelines }
     } = activityData;
     return (
-      <div className={[classes.main, 'bootstrap'].join(' ')}>
+      <div className={classes.main}>
         {title && title !== '' && <h1>{title}</h1>}
         {guidelines &&
           guidelines !== '<p><br></p>' && (
