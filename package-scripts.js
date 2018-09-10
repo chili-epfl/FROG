@@ -39,7 +39,7 @@ module.exports = {
       'Relinked, you can run Meteor now'
     ),
     cleanCache: fromRoot(
-      'rm -rf ./frog/.meteor/local/build ./frog/.meteor/local/bundler-cache ./frog/.meteor/local/plugin-cache'
+      'rm -rf ./frog/.meteor/local/build ./frog/.meteor/local/bundler-cache ./frog/.meteor/local/plugin-cache; node linkFiles.js'
     ),
     yarn: fromRoot(
       'rm -rf frog/node_modules; yarn; rm -rf frog/node_modules; ln -s `pwd`/node_modules frog',
