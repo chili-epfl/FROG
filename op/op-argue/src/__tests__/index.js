@@ -1,6 +1,6 @@
 // @flow
 
-import { type ObjectT, type GlobalStructureT } from 'frog-utils';
+import { type ObjectT, type GlobalStructureT, values } from 'frog-utils';
 
 import operator from '../operatorRunner';
 
@@ -18,8 +18,10 @@ const wrap = (instances, distanceMatrix): ObjectT & GlobalStructureT => ({
     }
   },
   socialStructure: {},
-  globalStructure: { studentIds: [], students: {} }
+  globalStructure: { studentIds: instances, students: {} }
 });
+
+const sortProduct = x => values(x.group).sort((a, b) => (a[0] < b[0] ? -1 : 1));
 
 const test1 = wrap(
   ['s1', 's2', 's3', 's4'],
@@ -55,21 +57,26 @@ const test4 = wrap(
 );
 
 test('test 1', () =>
-  expect(operator({}, test1)).toEqual({
-    group: { '1': ['s1', 's2'], '2': ['s3', 's4'] }
-  }));
+  expect(sortProduct(operator({}, test1))).toEqual([
+    ['s1', 's2'],
+    ['s3', 's4']
+  ]));
 
 test('test 2', () =>
-  expect(operator({}, test2)).toEqual({
-    group: { '1': ['s1', 's2'], '2': ['s3', 's4'] }
-  }));
+  expect(sortProduct(operator({}, test2))).toEqual([
+    ['s1', 's2'],
+    ['s3', 's4']
+  ]));
 
 test('test 3', () =>
-  expect(operator({}, test3)).toEqual({
-    group: { '1': ['s1', 's4'], '2': ['s3', 's6'], '3': ['s2', 's5'] }
-  }));
+  expect(sortProduct(operator({}, test3))).toEqual([
+    ['s1', 's4'],
+    ['s2', 's5'],
+    ['s3', 's6']
+  ]));
 
 test('test 4', () =>
-  expect(operator({}, test4)).toEqual({
-    group: { '1': ['s1', 's4', 's5'], '2': ['s2', 's3'] }
-  }));
+  expect(sortProduct(operator({}, test4))).toEqual([
+    ['s1', 's4', 's5'],
+    ['s2', 's3']
+  ]));
