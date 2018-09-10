@@ -30,8 +30,10 @@ import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 const styles = () => ({
   side: {
     flex: '0 0 350px',
+    height: '100%',
     overflow: 'hidden',
-    background: 'white'
+    display: 'flex',
+    flexDirection: 'column'
   },
   metadataContainer: {
     backgroundColor: '#dbdbdb',
@@ -39,8 +41,71 @@ const styles = () => ({
     flexDirection: 'column',
     width: '100%',
     padding: '10px'
+  },
+  formContainer: {
+    flex: '1 0 0px',
+    overflow: 'auto'
   }
 });
+
+const MetadataModal = withStyles(styles)(
+  ({ classes, metadatas, setState, forceUpdate, setMetadatas }) => (
+    <div className={classes.metadataContainer}>
+      <h3>Cloud metadata:</h3>
+      <TextField
+        id="name"
+        label="Title"
+        value={metadatas.title}
+        onChange={e => {
+          metadatas.title = e.target.value;
+          setMetadatas(metadatas);
+          setState({ displaySave: true });
+          forceUpdate();
+        }}
+        name="title"
+        margin="normal"
+      />
+      <TextField
+        label="Description"
+        value={metadatas.description}
+        multiline
+        onChange={e => {
+          metadatas.description = e.target.value;
+          setMetadatas(metadatas);
+          setState({ displaySave: true });
+          forceUpdate();
+        }}
+        id="exampleFormControlTextarea1"
+        rows="3"
+      />
+      <TagsInput
+        value={metadatas.tags}
+        onChange={e => {
+          metadatas.tags = e;
+          setMetadatas(metadatas);
+          setState({ displaySave: true });
+          forceUpdate();
+        }}
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={!!metadatas.is_public}
+            onChange={() => {
+              metadatas.is_public = !metadatas.is_public;
+              setMetadatas(metadatas);
+              setState({ displaySave: true });
+              forceUpdate();
+            }}
+            color="default"
+          />
+        }
+        label="Make public"
+      />
+      <div style={{ height: '10px' }} />
+    </div>
+  )
+);
 
 class ConfigPanel extends React.Component<*, *> {
   constructor(props: Object) {
@@ -210,71 +275,25 @@ class ConfigPanel extends React.Component<*, *> {
               <Divider />
             </Grid>
             {metadatas.uuid && (
-              <div className={classes.metadataContainer}>
-                <h3>Cloud metadata:</h3>
-                <TextField
-                  id="name"
-                  label="Title"
-                  value={metadatas.title}
-                  onChange={e => {
-                    metadatas.title = e.target.value;
-                    setMetadatas(metadatas);
-                    this.setState({ displaySave: true });
-                    this.forceUpdate();
-                  }}
-                  name="title"
-                  margin="normal"
-                />
-                <TextField
-                  label="Description"
-                  value={metadatas.description}
-                  multiline
-                  onChange={e => {
-                    metadatas.description = e.target.value;
-                    setMetadatas(metadatas);
-                    this.setState({ displaySave: true });
-                    this.forceUpdate();
-                  }}
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                />
-                <TagsInput
-                  value={metadatas.tags}
-                  onChange={e => {
-                    metadatas.tags = e;
-                    setMetadatas(metadatas);
-                    this.setState({ displaySave: true });
-                    this.forceUpdate();
-                  }}
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={!!metadatas.is_public}
-                      onChange={() => {
-                        metadatas.is_public = !metadatas.is_public;
-                        setMetadatas(metadatas);
-                        this.setState({ displaySave: true });
-                        this.forceUpdate();
-                      }}
-                      color="default"
-                    />
-                  }
-                  label="Make public"
-                />
-                <div style={{ height: '10px' }} />
-              </div>
+              <MetadataModal
+                metadatas={metadatas}
+                setMetadatas={x => setMetadatas(x)}
+                forceUpdate={() => this.forceUpdate()}
+                setState={x => this.setState(x)}
+              />
             )}
           </Grid>
         )}
-        <ApiForm
-          hidePreview
-          {...{ config, setConfig, setActivityTypeId, setMetadatas }}
-          activityType={activityTypeId}
-          onConfigChange={this.onConfigChange}
-          onSelect={onSelectActivityType}
-          reload={reloadAPIform}
-        />
+        <div className={classes.formContainer}>
+          <ApiForm
+            hidePreview
+            {...{ config, setConfig, setActivityTypeId, setMetadatas }}
+            activityType={activityTypeId}
+            onConfigChange={this.onConfigChange}
+            onSelect={onSelectActivityType}
+            reload={reloadAPIform}
+          />
+        </div>
       </div>
     );
   }
