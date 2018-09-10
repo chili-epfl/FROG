@@ -22,6 +22,7 @@ echo "Yarn: $YARN"
 "$YARN" install
 rm -rf frog/node_modules
 ln -s `pwd`/node_modules frog
+node linkFiles.js
 
 echo
 echo -e "\xE2\x9C\xA8  Finished Initial Setup."
