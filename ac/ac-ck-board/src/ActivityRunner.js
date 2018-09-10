@@ -31,6 +31,7 @@ const BoardPure = ({
   if (!width || !height) {
     return null;
   }
+
   return (
     <div
       style={{

@@ -24,6 +24,18 @@ const mergeFunction = (obj: any, dataFn: any) => {
   }
 };
 
+const formatProduct = (_: Object, item: Object) => {
+  const n = values(item).length;
+  const coordinates = values(item).reduce(
+    (acc, { x, y }) => ({ x: acc.x + x / n, y: acc.y + y / n }),
+    { x: 0, y: 0 }
+  );
+  return {
+    ...item,
+    coordinates
+  };
+};
+
 export default ({
   id: 'ac-ck-board',
   type: 'react-component',
@@ -31,6 +43,7 @@ export default ({
   meta,
   config,
   configUI,
+  formatProduct,
   Dashboard: null,
   dataStructure,
   mergeFunction
