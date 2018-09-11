@@ -84,17 +84,21 @@ export default withStyles(styles)((props: Object) => {
   const examples = addDefaultExample(activityType);
 
   const refresh = ex => {
-    initActivityDocuments(
-      instances,
-      activityType,
-      ex === undefined ? example : ex,
-      config,
-      true
-    );
-    // resets the reactive documents for the dashboard
-    initDashboardDocuments(activityType, true);
-    Logs.length = 0;
-    setReloadActivity(uuid());
+    props.setDelay(true);
+    setTimeout(() => {
+      initActivityDocuments(
+        instances,
+        activityType,
+        ex === undefined ? example : ex,
+        config,
+        true
+      );
+      // resets the reactive documents for the dashboard
+      initDashboardDocuments(activityType, true);
+      Logs.length = 0;
+      setReloadActivity(uuid());
+      props.setDelay(false);
+    }, 50);
   };
 
   const _dismiss = () => {

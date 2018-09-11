@@ -10,33 +10,24 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
     return;
   }
 
-  const questionStats = questions.reduce(
-    (acc, x, i) => ({
-      ...acc,
-      [i]: x.answers.reduce(
-        (acc2, ans, i2) => ({ ...acc2, [i2]: { x: ans.choice, y: 0 } }),
-        {}
-      )
-    }),
-    {}
+  const questionStats = questions.map(q =>
+    (q.answers || []).map(a => ({ x: a.choice, y: 0 }))
   );
 
-  values(reactive).forEach(student =>
-    entries(student.form || {}).forEach(
-      ([k, v]) => (questionStats[k][v].y += 1)
-    )
+  values(reactive).forEach(instanceData =>
+    entries(instanceData.form || {}).forEach(([qIdx, answer]) => {
+      entries(answer || {}).forEach(([aIdx, aValue]) => {
+        if (aValue === true) {
+          questionStats[qIdx][aIdx].y += 1;
+        }
+      });
+    })
   );
 
-  const result = entries(questionStats).reduce(
-    (acc, [k, v]) => ({
-      ...acc,
-      [parseInt(k, 10) +
-      1 +
-      ': ' +
-      questions[parseInt(k, 10)].question]: reverse(values(v))
-    }),
-    {}
-  );
+  const result = questionStats
+    .map((v, k) => [questions[k].question, reverse(v), k])
+    .filter(([_, v]) => v && v.length > 0);
+
   return result;
 };
 

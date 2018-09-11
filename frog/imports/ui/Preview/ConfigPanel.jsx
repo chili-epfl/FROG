@@ -151,14 +151,13 @@ class ConfigPanel extends React.Component<*, *> {
       this.props.setActivityTypeId(e.activityType);
       this.forceUpdate();
       this.props.setDelay(false);
-    }, 100);
+    }, 50);
   };
 
-  shouldComponentUpdate = (nextProps: any) => (
-      this.props.activityId !== nextProps.activityId ||
-      this.props.metadatas !== nextProps.metadatas ||
-      !isEqual(nextProps.config, this.props.config)
-    );
+  shouldComponentUpdate = (nextProps: any) =>
+    this.props.activityId !== nextProps.activityId ||
+    this.props.metadatas !== nextProps.metadatas ||
+    !isEqual(nextProps.config, this.props.config);
 
   componentDidUpdate = () => {
     this.setState({ displaySave: false });
@@ -222,8 +221,6 @@ class ConfigPanel extends React.Component<*, *> {
   };
 
   render() {
-    console.log('DOING WORK render');
-
     const {
       config,
       reloadAPIform,

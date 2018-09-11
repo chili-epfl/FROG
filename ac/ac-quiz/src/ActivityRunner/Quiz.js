@@ -3,12 +3,12 @@
 import React from 'react';
 import seededShuffle from 'seededshuffle';
 import { withState } from 'recompose';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import Question from './Question';
 import BottomNav from './BottomNav';
+import { isAnswered, computeCoordinates } from '../utils';
 
 export const condShuffle = (
   list: Object,
@@ -33,16 +33,22 @@ const Quiz = ({
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
 
-  // test if the question has been answered
-  const isAnswered = qIndex => true;
-
-  const computeProgress = () => 0;
+  questions.forEach(([_, questionIndex]) => {
+    if (!data.form[questionIndex]) {
+      dataFn.objInsert({ text: '' }, ['form', questionIndex]);
+    }
+  });
 
   const onSubmit = () => {
     const { allowSkip } = config;
     if (allowSkip || Object.keys(data.form).length >= questions.length) {
       dataFn.objInsert(true, ['completed']);
-      logger([{ type: 'progress', value: 1 }]);
+      const coordinates = computeCoordinates(config.questions, data.form);
+
+      logger([
+        { type: 'progress', value: 1 },
+        { type: 'coordinates', payload: coordinates }
+      ]);
     }
   };
 
@@ -67,7 +73,7 @@ const Quiz = ({
         setIndex={setIndex}
         showOne={config.showOne}
         hasNext={index < questions.length - 1}
-        hasAnswered={data.form[index] !== undefined}
+        hasAnswered={isAnswered(data.form[qIdx], config.questions[qIdx])}
       />
     </React.Fragment>
   );

@@ -31,7 +31,10 @@ const styles = () => ({
 const Completed = ({ dataFn }) => (
   <React.Fragment>
     <h1>Completed!</h1>
-    <Button onClick={() => dataFn.objInsert(false, ['completed'])}>
+    <Button
+      color="primary"
+      onClick={() => dataFn.objInsert(false, ['completed'])}
+    >
       Go back
     </Button>
   </React.Fragment>

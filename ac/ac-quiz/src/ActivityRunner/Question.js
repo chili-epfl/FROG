@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { condShuffle } from './Quiz';
+import { computeProgress, isAnswered } from '../utils';
 
 const styles = theme => ({
   root: {
@@ -107,7 +108,6 @@ export default withStyles(styles)(
     classes
   }: Object) => {
     if (!data.form[questionIndex]) {
-      dataFn.objInsert({ text: '' }, ['form', questionIndex]);
       return <CircularProgress />;
     }
 
@@ -118,8 +118,8 @@ export default withStyles(styles)(
       ? condShuffle(answersWithIndex, 'answers', index, groupingValue)
       : answersWithIndex;
 
-    const hasChoices = question.answers && question.answers.length > 0;
-    const questionData = data.form[questionIndex] || {};
+    const hasChoices = answers && answers.length > 0;
+    const questionData = data.form[questionIndex] || { text: '' };
 
     const onChange = idx => {
       if (multiple) {
@@ -131,16 +131,28 @@ export default withStyles(styles)(
         ]);
       }
 
-      const numAnswers =
-        Object.keys(data.form).length +
-        (data.form[questionIndex] !== undefined ? 0 : 1);
-      const numQuestions = activityData.config.questions.length;
+      const nQuestions = activityData.config.questions.length;
+      const includeCurrentQuestion =
+        isAnswered(questionData, question) && (!text || questionData.text)
+          ? 0
+          : 1;
+      const newProgress =
+        computeProgress(activityData.config.questions, data.form) +
+        includeCurrentQuestion / nQuestions;
 
       logger([
-        { type: 'progress', value: numAnswers / (numQuestions + 0.1) },
-        { type: 'score', value: numAnswers },
+        { type: 'progress', value: newProgress },
+        { type: 'score', value: newProgress },
         { type: 'choice', itemId: questionIndex, value: idx }
       ]);
+    };
+
+    const logProgressAndLog = x => {
+      const progress = computeProgress(
+        activityData.config.questions,
+        data.form
+      );
+      logger([x, { type: 'progress', value: progress }]);
     };
 
     return (
@@ -161,7 +173,7 @@ export default withStyles(styles)(
         {text &&
           questionData.text !== undefined && (
             <Justify
-              logger={logger}
+              logger={logProgressAndLog}
               dataFn={dataFn}
               questionIndex={questionIndex}
             />
