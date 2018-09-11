@@ -34,7 +34,7 @@ const styles = () => ({
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'lightskyblue'
+    backgroundColor: '#fff'
   },
   metadataContainer: {
     backgroundColor: '#dbdbdb',
