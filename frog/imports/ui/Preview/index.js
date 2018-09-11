@@ -22,6 +22,7 @@ export const addDefaultExample = (activityType: Object) => [
 ];
 
 const defaultState = {
+  delay: false,
   example: 0,
   fullWindow: false,
   reloadActivity: uuid(),
@@ -93,6 +94,7 @@ class PreviewPage extends React.Component<any, any> {
       }
     }
     this.setStates = {
+      setDelay: delay => this.setState({ delay }),
       setExample: example => this.setState({ example }),
       setFullWindow: fullWindow => this.setState({ fullWindow }),
       setShowData: showData => this.setState({ showData }),

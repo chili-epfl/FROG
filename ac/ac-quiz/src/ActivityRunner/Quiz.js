@@ -2,88 +2,28 @@
 
 import React from 'react';
 import seededShuffle from 'seededshuffle';
-import { withState, compose } from 'recompose';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { withState } from 'recompose';
 
 import { type ActivityRunnerPropsT } from 'frog-utils';
 
-import Justification from './Justification';
 import Question from './Question';
-
-const styles = () => ({
-  buttonRight: {
-    float: 'right'
-  },
-  buttonContainer: {
-    marginTop: '20px'
-  }
-});
+import BottomNav from './BottomNav';
+import { isAnswered, computeCoordinates } from '../utils';
 
 export const condShuffle = (
-  list: Object,
+  list: any[],
   type: string,
   salt: string,
   seed: string
 ) => seededShuffle.shuffle(list, seed + salt, true);
 
-const BottomQuizNav = withStyles(styles)(
-  ({
-    index,
-    setIndex,
-    startDelay,
-    onSubmit,
-    hasNext,
-    hasAnswered,
-    allowSkip,
-    classes
-  }) => (
-    <div className={classes.buttonContainer}>
-      {index > 0 && (
-        <Button
-          variant="contained"
-          onClick={() => startDelay() || setIndex(index - 1)}
-        >
-          Previous
-        </Button>
-      )}
-      {hasNext &&
-        (hasAnswered || allowSkip) && (
-          <Button
-            variant="contained"
-            onClick={() => startDelay() || setIndex(index + 1)}
-            className={classes.buttonRight}
-          >
-            Next
-          </Button>
-        )}
-      {!hasNext &&
-        (hasAnswered || allowSkip) && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onSubmit}
-            className={classes.buttonRight}
-          >
-            Submit
-          </Button>
-        )}
-    </div>
-  )
-);
-
 const Quiz = ({
   index,
   setIndex,
-  delay,
-  setDelay,
   ...props
 }: ActivityRunnerPropsT & {
   index: number,
-  setIndex: Function,
-  delay: boolean,
-  setDelay: Function
+  setIndex: Function
 }) => {
   const { activityData, groupingValue, data, dataFn, logger } = props;
   const { config } = activityData;
@@ -93,37 +33,26 @@ const Quiz = ({
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
 
-  const updateCoordinates = () => {
-    const coordinates = { x: 0, y: 0, valid: true };
+  questions.forEach(([_, questionIndex]) => {
+    if (!data.form[questionIndex]) {
+      dataFn.objInsert({ text: '' }, ['form', questionIndex]);
+    }
+  });
 
-    Object.keys(data.form).forEach(qIndex => {
-      const answerIndex = data.form[qIndex];
-      const q = config.questions[qIndex];
-      const a = q.answers[answerIndex];
-      coordinates.x += a.x || 0;
-      coordinates.y += a.y || 0;
-    });
-
-    dataFn.objInsert(coordinates, ['coordinates']);
-    logger([{ type: 'coordinates', payload: coordinates }]);
-  };
-
-  const onSubmit = allowSkip => {
-    updateCoordinates();
-    if (
-      allowSkip ||
-      Object.keys(data.form).length >= Object.keys(questions).length
-    ) {
+  const onSubmit = () => {
+    const { allowSkip } = config;
+    if (allowSkip || Object.keys(data.form).length >= questions.length) {
       dataFn.objInsert(true, ['completed']);
-      logger([{ type: 'progress', value: 1 }]);
+      const coordinates = computeCoordinates(config.questions, data.form);
+
+      logger([
+        { type: 'progress', value: 1 },
+        { type: 'coordinates', payload: coordinates }
+      ]);
     }
   };
 
   const [q, qIdx] = questions[index];
-
-  if (delay) {
-    return <CircularProgress />;
-  }
 
   return (
     <React.Fragment>
@@ -137,29 +66,17 @@ const Quiz = ({
             {...{ ...props, question, index: i, questionIndex }}
           />
         ))}
-      <Justification {...props} />
-      {config.showOne && (
-        <BottomQuizNav
-          allowSkip={config.allowSkip}
-          onSubmit={() => onSubmit(config.allowSkip)}
-          index={index}
-          setIndex={setIndex}
-          hasNext={index < questions.length - 1}
-          hasAnswered={data.form[index] !== undefined}
-          startDelay={() => {
-            setDelay(true);
-            setTimeout(() => setDelay(false), 0);
-          }}
-        />
-      )}
-      {!config.showOne && (
-        <button onClick={() => onSubmit(config.allowSkip)}>Submit</button>
-      )}
+      <BottomNav
+        allowSkip={config.allowSkip}
+        onSubmit={onSubmit}
+        index={index}
+        setIndex={setIndex}
+        showOne={config.showOne}
+        hasNext={index < questions.length - 1}
+        hasAnswered={isAnswered(data.form[qIdx], config.questions[qIdx])}
+      />
     </React.Fragment>
   );
 };
 
-export default compose(
-  withState('index', 'setIndex', 0),
-  withState('delay', 'setDelay', false)
-)(Quiz);
+export default withState('index', 'setIndex', 0)(Quiz);

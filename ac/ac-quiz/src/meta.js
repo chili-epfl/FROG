@@ -4,7 +4,6 @@ import { rtQ } from './rtQ';
 
 const statQuizConfig = {
   title: 'Stat 101',
-  showOne: true,
   questions: [
     {
       question: 'Laquelle de ces expressions est fausse?',
@@ -27,7 +26,7 @@ const statQuizConfig = {
       answers: [
         {
           choice:
-            "Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci."
+            "Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci. Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci. Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci. Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci."
         },
         {
           choice:
@@ -107,6 +106,7 @@ const statQuizConfig = {
 const withJustificationConfig = {
   title: 'Question with justification',
   guidelines: 'Placeholder for guidelines',
+  advancedConfig: true,
   argueWeighting: true,
   justify: true,
   shuffle: 'none',
@@ -141,6 +141,7 @@ const withJustificationConfig = {
 
 const richQuizConfig = {
   title: 'Rich text form',
+  advancedConfig: true,
   shuffle: 'none',
   guidelines:
     '<p>Just a <strong>video</strong> [[https://www.youtube.com/watch?v=fb6UnKVkwVA&amp;feature=youtu.be]]</p>',
@@ -158,7 +159,7 @@ const richQuizConfig = {
 
 const capitalQuizConfig = {
   title: 'Capitals',
-  shuffle: 'none',
+  advancedConfig: true,
   hasAnswers: true,
   questions: [
     {
@@ -176,6 +177,41 @@ const capitalQuizConfig = {
         { choice: 'Vilnius', isCorrect: true },
         { choice: 'Zagreb' }
       ]
+    }
+  ]
+};
+
+const questionTypesQuizConfig = {
+  title: 'Question Types',
+  advancedConfig: true,
+  questions: [
+    {
+      question: 'How many types of questions is there?',
+      answers: [
+        { choice: 'There is only 1' },
+        { choice: 'There are 2' },
+        { choice: 'There are 3 or more' }
+      ]
+    },
+    {
+      question: 'What are the possible types? (select several)',
+      multiple: true,
+      answers: [
+        { choice: 'Multiple Choice' },
+        { choice: 'Open Questions' },
+        { choice: 'All of the above' },
+        { choice: 'True or False questions' }
+      ]
+    },
+    {
+      question: 'Are quiz important for learning? (justify below)',
+      text: true,
+      answers: [{ choice: 'Yes' }, { choice: 'No' }]
+    },
+    {
+      question: 'What did you learn today?',
+      text: true,
+      answers: []
     }
   ]
 };
@@ -210,6 +246,11 @@ export default {
       title: 'European capitals with correct answer',
       activityData: {},
       config: capitalQuizConfig
+    },
+    {
+      title: '4 types of questions',
+      activityData: {},
+      config: questionTypesQuizConfig
     }
   ]
 };

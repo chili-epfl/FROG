@@ -8,6 +8,7 @@ import Draggable from 'react-draggable';
 
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 
 import { activityTypesObj } from '../../activityTypes';
@@ -79,6 +80,7 @@ window.connection = connection;
 
 const StatelessPreview = (props: Object) => {
   const {
+    delay,
     activityTypeId,
     modal,
     dismiss,
@@ -96,12 +98,13 @@ const StatelessPreview = (props: Object) => {
     );
   }
 
-  const PreviewContent =
-    showLogs && !showDashExample ? (
-      <ShowLogs logs={Logs} />
-    ) : (
-      <Content {...props} classes={undefined} />
-    );
+  const PreviewContent = delay ? (
+    <CircularProgress />
+  ) : showLogs && !showDashExample ? (
+    <ShowLogs logs={Logs} />
+  ) : (
+    <Content {...props} classes={undefined} />
+  );
 
   const FullWindowP = (
     <Dialog open={fullWindow} fullScreen>

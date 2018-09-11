@@ -30,8 +30,11 @@ import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 const styles = () => ({
   side: {
     flex: '0 0 350px',
+    height: '100%',
     overflow: 'hidden',
-    background: 'white'
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'white'
   },
   metadataContainer: {
     backgroundColor: '#dbdbdb',
@@ -39,10 +42,75 @@ const styles = () => ({
     flexDirection: 'column',
     width: '100%',
     padding: '10px'
+  },
+  formContainer: {
+    flex: '1 0 0px',
+    overflow: 'auto'
   }
 });
 
+const MetadataModal = withStyles(styles)(
+  ({ classes, metadatas, setState, forceUpdate, setMetadatas }) => (
+    <div className={classes.metadataContainer}>
+      <h3>Cloud metadata:</h3>
+      <TextField
+        id="name"
+        label="Title"
+        value={metadatas.title}
+        onChange={e => {
+          metadatas.title = e.target.value;
+          setMetadatas(metadatas);
+          setState({ displaySave: true });
+          forceUpdate();
+        }}
+        name="title"
+        margin="normal"
+      />
+      <TextField
+        label="Description"
+        value={metadatas.description}
+        multiline
+        onChange={e => {
+          metadatas.description = e.target.value;
+          setMetadatas(metadatas);
+          setState({ displaySave: true });
+          forceUpdate();
+        }}
+        id="exampleFormControlTextarea1"
+        rows="3"
+      />
+      <TagsInput
+        value={metadatas.tags}
+        onChange={e => {
+          metadatas.tags = e;
+          setMetadatas(metadatas);
+          setState({ displaySave: true });
+          forceUpdate();
+        }}
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={!!metadatas.is_public}
+            onChange={() => {
+              metadatas.is_public = !metadatas.is_public;
+              setMetadatas(metadatas);
+              setState({ displaySave: true });
+              forceUpdate();
+            }}
+            color="default"
+          />
+        }
+        label="Make public"
+      />
+      <div style={{ height: '10px' }} />
+    </div>
+  )
+);
+
 class ConfigPanel extends React.Component<*, *> {
+  timeout: any;
+
   constructor(props: Object) {
     super(props);
     this.state = { displaySave: false, metadatas: {} };
@@ -55,41 +123,41 @@ class ConfigPanel extends React.Component<*, *> {
   }
 
   onConfigChange = (e: any) => {
-    if (
-      this.props.metadatas.owner_id === Meteor.user().username &&
-      JSON.stringify(e.config) !== JSON.stringify(this.props.config)
-    ) {
-      this.setState({ displaySave: true });
+    this.props.setDelay(true);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
-    if (e.errors && e.errors.length === 0) {
-      const aT = activityTypesObj[e.activityType];
-      this.props.setConfig(e.config);
-      initActivityDocuments(
-        this.props.instances,
-        aT,
-        this.props.example,
-        e.config,
-        true
-      );
-      initDashboardDocuments(aT, true);
-    } else {
-      this.props.setConfig({ ...e.config, invalid: true });
-    }
-    this.props.setActivityTypeId(e.activityType);
-    this.forceUpdate();
+    this.timeout = setTimeout(() => {
+      if (
+        this.props.metadatas.owner_id === Meteor.user().username &&
+        JSON.stringify(e.config) !== JSON.stringify(this.props.config)
+      ) {
+        this.setState({ displaySave: true });
+      }
+      if (e.errors && e.errors.length === 0) {
+        const aT = activityTypesObj[e.activityType];
+        this.props.setConfig(e.config);
+        initActivityDocuments(
+          this.props.instances,
+          aT,
+          this.props.example,
+          e.config,
+          true
+        );
+        initDashboardDocuments(aT, true);
+      } else {
+        this.props.setConfig({ ...e.config, invalid: true });
+      }
+      this.props.setActivityTypeId(e.activityType);
+      this.forceUpdate();
+      this.props.setDelay(false);
+    }, 50);
   };
 
-  shouldComponentUpdate = (nextProps: any) => {
-    if (
-      !isEqual(nextProps.config, this.props.config) ||
-      this.props.activityId !== nextProps.activityId ||
-      this.props.metadatas !== nextProps.metadatas
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  shouldComponentUpdate = (nextProps: any) =>
+    this.props.activityId !== nextProps.activityId ||
+    this.props.metadatas !== nextProps.metadatas ||
+    !isEqual(nextProps.config, this.props.config);
 
   componentDidUpdate = () => {
     this.setState({ displaySave: false });
@@ -117,47 +185,52 @@ class ConfigPanel extends React.Component<*, *> {
     setReloadAPIform(uuid());
   };
 
+  onSelectActivityType = activityType => {
+    const {
+      showDash,
+      setShowDash,
+      instances,
+      setConfig,
+      setReloadAPIform,
+      setExample,
+      setShowDashExample,
+      setActivityTypeId
+    } = this.props;
+
+    const exConf = activityType.title
+      ? activityType.config
+      : addDefaultExample(activityTypesObj[activityType])[0].config;
+    const actTypeId = activityType.title
+      ? activityType.activity_type
+      : activityType;
+    const aTObj = activityTypesObj[actTypeId];
+    setConfig(exConf);
+    const newMetadatas = activityType.uuid
+      ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
+      : { uuid: '', title: '', description: '', tags: [] };
+    this.props.setMetadatas(newMetadatas);
+    if (showDash && !aTObj.dashboard) {
+      setShowDash(false);
+    }
+    setReloadAPIform(uuid());
+    initActivityDocuments(instances, aTObj, 0, exConf, true);
+    initDashboardDocuments(actTypeId, true);
+    setExample(0);
+    setShowDashExample(false);
+    setActivityTypeId(actTypeId);
+  };
+
   render() {
     const {
       config,
       reloadAPIform,
       setConfig,
-      setExample,
-      setShowDashExample,
       activityTypeId,
       metadatas,
       setMetadatas,
-      setReloadAPIform,
       setActivityTypeId,
-      showDash,
-      setShowDash,
-      instances,
       classes
     } = this.props;
-
-    const onSelectActivityType = activityType => {
-      const exConf = activityType.title
-        ? activityType.config
-        : addDefaultExample(activityTypesObj[activityType])[0].config;
-      const actTypeId = activityType.title
-        ? activityType.activity_type
-        : activityType;
-      const aTObj = activityTypesObj[actTypeId];
-      setConfig(exConf);
-      const newMetadatas = activityType.uuid
-        ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
-        : { uuid: '', title: '', description: '', tags: [] };
-      this.props.setMetadatas(newMetadatas);
-      if (showDash && !aTObj.dashboard) {
-        setShowDash(false);
-      }
-      setReloadAPIform(uuid());
-      initActivityDocuments(instances, aTObj, 0, exConf, true);
-      initDashboardDocuments(actTypeId, true);
-      setExample(0);
-      setShowDashExample(false);
-      setActivityTypeId(actTypeId);
-    };
 
     return (
       <div className={classes.side}>
@@ -210,71 +283,25 @@ class ConfigPanel extends React.Component<*, *> {
               <Divider />
             </Grid>
             {metadatas.uuid && (
-              <div className={classes.metadataContainer}>
-                <h3>Cloud metadata:</h3>
-                <TextField
-                  id="name"
-                  label="Title"
-                  value={metadatas.title}
-                  onChange={e => {
-                    metadatas.title = e.target.value;
-                    setMetadatas(metadatas);
-                    this.setState({ displaySave: true });
-                    this.forceUpdate();
-                  }}
-                  name="title"
-                  margin="normal"
-                />
-                <TextField
-                  label="Description"
-                  value={metadatas.description}
-                  multiline
-                  onChange={e => {
-                    metadatas.description = e.target.value;
-                    setMetadatas(metadatas);
-                    this.setState({ displaySave: true });
-                    this.forceUpdate();
-                  }}
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                />
-                <TagsInput
-                  value={metadatas.tags}
-                  onChange={e => {
-                    metadatas.tags = e;
-                    setMetadatas(metadatas);
-                    this.setState({ displaySave: true });
-                    this.forceUpdate();
-                  }}
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={!!metadatas.is_public}
-                      onChange={() => {
-                        metadatas.is_public = !metadatas.is_public;
-                        setMetadatas(metadatas);
-                        this.setState({ displaySave: true });
-                        this.forceUpdate();
-                      }}
-                      color="default"
-                    />
-                  }
-                  label="Make public"
-                />
-                <div style={{ height: '10px' }} />
-              </div>
+              <MetadataModal
+                metadatas={metadatas}
+                setMetadatas={x => setMetadatas(x)}
+                forceUpdate={() => this.forceUpdate()}
+                setState={x => this.setState(x)}
+              />
             )}
           </Grid>
         )}
-        <ApiForm
-          hidePreview
-          {...{ config, setConfig, setActivityTypeId, setMetadatas }}
-          activityType={activityTypeId}
-          onConfigChange={this.onConfigChange}
-          onSelect={onSelectActivityType}
-          reload={reloadAPIform}
-        />
+        <div className={classes.formContainer}>
+          <ApiForm
+            hidePreview
+            {...{ config, setConfig, setActivityTypeId, setMetadatas }}
+            activityType={activityTypeId}
+            onConfigChange={this.onConfigChange}
+            onSelect={this.onSelectActivityType}
+            reload={reloadAPIform}
+          />
+        </div>
       </div>
     );
   }
