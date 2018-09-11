@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import { isEqual } from 'lodash';
 
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
@@ -26,14 +27,20 @@ import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 
-const styles = {
+const styles = () => ({
   side: {
-    flex: '0 0 auto',
-    overflowY: 'auto',
-    width: '350px',
+    flex: '0 0 350px',
+    overflow: 'hidden',
     background: 'white'
+  },
+  metadataContainer: {
+    backgroundColor: '#dbdbdb',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    padding: '10px'
   }
-};
+});
 
 class ConfigPanel extends React.Component<*, *> {
   constructor(props: Object) {
@@ -124,10 +131,36 @@ class ConfigPanel extends React.Component<*, *> {
       setActivityTypeId,
       showDash,
       setShowDash,
-      instances
+      instances,
+      classes
     } = this.props;
+
+    const onSelectActivityType = activityType => {
+      const exConf = activityType.title
+        ? activityType.config
+        : addDefaultExample(activityTypesObj[activityType])[0].config;
+      const actTypeId = activityType.title
+        ? activityType.activity_type
+        : activityType;
+      const aTObj = activityTypesObj[actTypeId];
+      setConfig(exConf);
+      const newMetadatas = activityType.uuid
+        ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
+        : { uuid: '', title: '', description: '', tags: [] };
+      this.props.setMetadatas(newMetadatas);
+      if (showDash && !aTObj.dashboard) {
+        setShowDash(false);
+      }
+      setReloadAPIform(uuid());
+      initActivityDocuments(instances, aTObj, 0, exConf, true);
+      initDashboardDocuments(actTypeId, true);
+      setExample(0);
+      setShowDashExample(false);
+      setActivityTypeId(actTypeId);
+    };
+
     return (
-      <div style={styles.side}>
+      <div className={classes.side}>
         {activityTypeId && (
           <Grid container spacing={8} alignItems="center">
             <Grid item xs={2}>
@@ -139,7 +172,6 @@ class ConfigPanel extends React.Component<*, *> {
                 <ArrowBack />
               </IconButton>
             </Grid>
-
             <Grid item xs={8}>
               <Typography variant="title">
                 {activityTypesObj[activityTypeId].meta.name}
@@ -178,15 +210,7 @@ class ConfigPanel extends React.Component<*, *> {
               <Divider />
             </Grid>
             {metadatas.uuid && (
-              <div
-                style={{
-                  backgroundColor: '#dbdbdb',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '100%',
-                  padding: '10px'
-                }}
-              >
+              <div className={classes.metadataContainer}>
                 <h3>Cloud metadata:</h3>
                 <TextField
                   id="name"
@@ -214,7 +238,6 @@ class ConfigPanel extends React.Component<*, *> {
                   id="exampleFormControlTextarea1"
                   rows="3"
                 />
-                <div style={{ height: '20px' }} />
                 <TagsInput
                   value={metadatas.tags}
                   onChange={e => {
@@ -249,36 +272,7 @@ class ConfigPanel extends React.Component<*, *> {
           {...{ config, setConfig, setActivityTypeId, setMetadatas }}
           activityType={activityTypeId}
           onConfigChange={this.onConfigChange}
-          onSelect={activityType => {
-            const exConf = activityType.title
-              ? activityType.config
-              : addDefaultExample(activityTypesObj[activityType])[0].config;
-            const actTypeId = activityType.title
-              ? activityType.activity_type
-              : activityType;
-            setConfig(exConf);
-            const newMetadatas = activityType.uuid
-              ? LibraryStates.activityList.find(
-                  x => x.uuid === activityType.uuid
-                )
-              : { uuid: '', title: '', description: '', tags: [] };
-            this.props.setMetadatas(newMetadatas);
-            if (showDash && !activityTypesObj[actTypeId].dashboard) {
-              setShowDash(false);
-            }
-            setReloadAPIform(uuid());
-            initActivityDocuments(
-              instances,
-              activityTypesObj[actTypeId],
-              0,
-              exConf,
-              true
-            );
-            initDashboardDocuments(actTypeId, true);
-            setExample(0);
-            setShowDashExample(false);
-            setActivityTypeId(actTypeId);
-          }}
+          onSelect={onSelectActivityType}
           reload={reloadAPIform}
         />
       </div>
@@ -286,4 +280,4 @@ class ConfigPanel extends React.Component<*, *> {
   }
 }
 
-export default ConfigPanel;
+export default withStyles(styles)(ConfigPanel);

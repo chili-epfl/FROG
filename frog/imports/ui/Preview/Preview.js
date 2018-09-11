@@ -8,6 +8,7 @@ import Draggable from 'react-draggable';
 
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import Paper from '@material-ui/core/Paper';
 
 import { activityTypesObj } from '../../activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
@@ -23,13 +24,16 @@ const styles = {
     height: 'calc(100vh - 48px)'
   },
   noModal: {
-    flex: '0 0 auto',
-    paddingLeft: '10px',
-    width: '70%'
+    flex: '1 0 0px',
+    padding: '8px',
+    display: 'flex',
+    flexDirection: 'column'
   },
   noModalPreviewContent: {
     overflow: 'auto',
-    height: 'calc(100% - 100px)'
+    flex: '1 0 0px',
+    padding: '4px',
+    margin: '4px'
   },
   fullWindowControl: {
     zIndex: 99,
@@ -54,6 +58,18 @@ const styles = {
   text: {
     width: '125px',
     margin: 'auto'
+  },
+  configPanelMain: {
+    flex: '0 0 350px',
+    overflow: 'hidden',
+    background: '#fff0'
+  },
+  configPanelMetadataContainer: {
+    backgroundColor: '#dbdbdb',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    padding: '10px'
   }
 };
 
@@ -75,7 +91,7 @@ const StatelessPreview = (props: Object) => {
   if (!activityType) {
     return (
       <div className={classes.main}>
-        <ConfigPanel {...props} />
+        <ConfigPanel {...props} classes={undefined} />
       </div>
     );
   }
@@ -84,7 +100,7 @@ const StatelessPreview = (props: Object) => {
     showLogs && !showDashExample ? (
       <ShowLogs logs={Logs} />
     ) : (
-      <Content {...props} />
+      <Content {...props} classes={undefined} />
     );
 
   const FullWindowP = (
@@ -92,20 +108,22 @@ const StatelessPreview = (props: Object) => {
       {PreviewContent}
       <Draggable onStart={() => true} defaultPosition={{ x: 200, y: 300 }}>
         <div className={classes.fullWindowControl}>
-          <Controls {...props} />
+          <Controls {...props} classes={undefined} />
         </div>
       </Draggable>
-      <ReactTooltip delayShow={1000} place="right" />
+      <ReactTooltip delayShow={300} place="right" />
     </Dialog>
   );
 
   const NoModalP = (
     <div className={classes.main}>
-      <ConfigPanel {...props} />
+      <ConfigPanel {...props} classes={undefined} />
       <div className={classes.noModal}>
-        <Controls {...props} />
-        <div className={classes.noModalPreviewContent}>{PreviewContent}</div>
-        <ReactTooltip delayShow={1000} place="right" />
+        <Controls {...props} classes={undefined} />
+        <Paper className={classes.noModalPreviewContent}>
+          {PreviewContent}
+        </Paper>
+        <ReactTooltip delayShow={300} place="right" />
       </div>
     </div>
   );
@@ -117,15 +135,13 @@ const StatelessPreview = (props: Object) => {
       isOpen
       onRequestClose={dismiss}
     >
-      <Controls {...props} />
+      <Controls {...props} classes={undefined} />
       {PreviewContent}
-      <ReactTooltip delayShow={1000} place="right" />
+      <ReactTooltip delayShow={300} place="right" />
     </Modal>
   );
 
   return fullWindow ? FullWindowP : modal ? ModalP : NoModalP;
 };
 
-const StyledPreview = withStyles(styles)(StatelessPreview);
-
-export default StyledPreview;
+export default withStyles(styles)(StatelessPreview);

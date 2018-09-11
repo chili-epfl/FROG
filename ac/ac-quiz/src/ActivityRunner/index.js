@@ -1,27 +1,30 @@
 // @flow
 
 import * as React from 'react';
-import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import { type ActivityRunnerPropsT, HTML } from 'frog-utils';
 
 import Quiz from './Quiz';
 
-const Main = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fdfdfd;
-`;
-
-const Container = styled.div`
-  max-width: 500px;
-  margin: 10px;
-  flex: 0 1 auto;
-`;
+const styles = () => ({
+  main: {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#fdfdfd'
+  },
+  container: {
+    maxWidth: '100%',
+    width: '500px',
+    margin: '5px',
+    padding: '5px',
+    flex: '0 1 auto'
+  }
+});
 
 const Completed = ({ dataFn }) => (
   <React.Fragment>
@@ -32,18 +35,25 @@ const Completed = ({ dataFn }) => (
   </React.Fragment>
 );
 
-export default (props: ActivityRunnerPropsT) => {
-  const { activityData, data } = props;
-  const { config } = activityData;
-  return (
-    <Main className="bootstrap">
-      <h1>{config.title || 'Quiz'}</h1>
-      <Container>
-        <HTML html={config.guidelines || 'Answer the following questions'} />
-      </Container>
-      <Container>
-        {data.completed ? <Completed {...props} /> : <Quiz {...props} />}
-      </Container>
-    </Main>
-  );
-};
+export default withStyles(styles)(
+  ({ classes, ...props }: ActivityRunnerPropsT & { classes: Object }) => {
+    const { activityData, data } = props;
+    const {
+      config: { title, guidelines }
+    } = activityData;
+    return (
+      <div className={[classes.main, 'bootstrap'].join(' ')}>
+        {title && title !== '' && <h1>{title}</h1>}
+        {guidelines &&
+          guidelines !== '<p><br></p>' && (
+            <div className={classes.container}>
+              <HTML html={guidelines} />
+            </div>
+          )}
+        <div className={classes.container}>
+          {data.completed ? <Completed {...props} /> : <Quiz {...props} />}
+        </div>
+      </div>
+    );
+  }
+);

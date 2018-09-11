@@ -64,16 +64,18 @@ class ActivityRunner extends Component<
 
   render() {
     const { activityData, data, dataFn, userInfo, logger } = this.props;
+    const { category } = this.state;
+
     const minVoteT = activityData.config.minVote || 1;
 
-    const images = Object.keys(data)
+    const learningItems = Object.keys(data)
+      .map(key => ({ ...data[key], key }))
       .filter(
-        key =>
-          this.state.category === 'all' ||
-          (data[key].categories !== undefined &&
-            data[key].categories.includes(this.state.category))
-      )
-      .map(key => ({ ...data[key], key }));
+        liObj =>
+          category === 'all' ||
+          (liObj.categories !== undefined &&
+            liObj.categories.includes(category))
+      );
 
     const vote = (key, userId) => {
       logger({ type: 'vote', itemId: key });
@@ -86,21 +88,20 @@ class ActivityRunner extends Component<
     const setIndex = (i: number) => this.setState({ index: i });
 
     const showCategories =
-      this.state.category === 'categories' && !activityData.config.hideCategory;
+      category === 'categories' && !activityData.config.hideCategory;
 
     return (
       <>
         <TopBar
           categories={[...Object.keys(this.categories)]}
-          category={this.state.category}
           canVote={activityData.config.canVote}
           hideCategory={activityData.config.hideCategory}
           guidelines={activityData.config.guidelines}
-          {...{ setCategory, setZoom }}
+          {...{ setCategory, setZoom, category }}
         />
         <ThumbList
           {...{
-            images,
+            learningItems,
             categories: this.categories,
             minVoteT,
             vote,
@@ -114,7 +115,7 @@ class ActivityRunner extends Component<
           }}
           canVote={activityData.config.canVote}
         />
-        {this.props.activityData.config.provideDefault && (
+        {activityData.config.provideDefault && (
           <div style={{ position: 'absolute', bottom: '10px', width: '800px' }}>
             <dataFn.LearningItem
               liType={activityData.config.liType}
@@ -123,10 +124,8 @@ class ActivityRunner extends Component<
                 comment: '',
                 votes: {},
                 categories:
-                  this.state.category &&
-                  this.state.category !== 'categories' &&
-                  this.state.category !== 'all'
-                    ? this.state.category
+                  category && category !== 'categories' && category !== 'all'
+                    ? category
                     : []
               }}
               type="create"
@@ -134,7 +133,7 @@ class ActivityRunner extends Component<
             />
           </div>
         )}
-        {this.props.activityData.config.allowAny && (
+        {activityData.config.allowAny && (
           <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
             <dataFn.LearningItem
               stream={this.props.stream}
@@ -142,10 +141,8 @@ class ActivityRunner extends Component<
                 comment: '',
                 votes: {},
                 categories:
-                  this.state.category &&
-                  this.state.category !== 'categories' &&
-                  this.state.category !== 'all'
-                    ? this.state.category
+                  category && category !== 'categories' && category !== 'all'
+                    ? category
                     : []
               }}
               type="create"
@@ -153,7 +150,7 @@ class ActivityRunner extends Component<
             />
           </div>
         )}
-        {this.state.category !== 'categories' &&
+        {category !== 'categories' &&
           this.state.zoomOn && (
             <ZoomView
               index={this.state.index}
@@ -161,7 +158,7 @@ class ActivityRunner extends Component<
               commentGuidelines={activityData.config.commentGuidelines}
               close={() => setZoom(false)}
               {...{
-                images,
+                learningItems,
                 LearningItem: dataFn.LearningItem,
                 setIndex,
                 dataFn,

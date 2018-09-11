@@ -13,6 +13,12 @@ export const config = {
       enum: ['none', 'answers', 'questions', 'both'],
       default: 'none'
     },
+    showOne: {
+      type: 'boolean',
+      title: 'Show questions only one at a time',
+      default: true
+    },
+    allowSkip: { type: 'boolean', title: 'Allow skipping questions?' },
     guidelines: {
       type: 'rte',
       title: 'Guidelines'
