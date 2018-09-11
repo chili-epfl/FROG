@@ -36,8 +36,6 @@ export const check = (
   setValid?: Function,
   onConfigChange?: Function
 ) => {
-  console.log('DOING WORK check');
-
   const aT = activityTypesObj[activityType];
   const valid = validateConfig(
     'activity',

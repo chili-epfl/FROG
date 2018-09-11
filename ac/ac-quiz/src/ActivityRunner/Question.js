@@ -54,7 +54,7 @@ const CheckBox = withStyles(styles)(({ classes, answers, data, onChange }) => (
             value={idx.toString()}
           />
         }
-        label={choice}
+        label={<HTML html={choice} />}
       />
     ))}
   </FormControl>
@@ -73,7 +73,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
           key={idx}
           value={idx.toString()}
           control={<Radio />}
-          label={choice}
+          label={<HTML html={choice} />}
         />
       ))}
     </RadioGroup>
@@ -130,16 +130,17 @@ export default withStyles(styles)(
           questionIndex
         ]);
       }
-      // const numAnswers =
-      //   Object.keys(data.form).length +
-      //   (data.form[questionIndex] !== undefined ? 0 : 1);
-      // const numQuestions = activityData.config.questions.length;
 
-      // logger([
-      //   { type: 'progress', value: numAnswers / (numQuestions + 0.1) },
-      //   { type: 'score', value: numAnswers },
-      //   { type: 'choice', itemId: questionIndex, value: e.formData - 1 }
-      // ]);
+      const numAnswers =
+        Object.keys(data.form).length +
+        (data.form[questionIndex] !== undefined ? 0 : 1);
+      const numQuestions = activityData.config.questions.length;
+
+      logger([
+        { type: 'progress', value: numAnswers / (numQuestions + 0.1) },
+        { type: 'score', value: numAnswers },
+        { type: 'choice', itemId: questionIndex, value: idx }
+      ]);
     };
 
     return (

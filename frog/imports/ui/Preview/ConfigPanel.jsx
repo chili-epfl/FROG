@@ -128,7 +128,6 @@ class ConfigPanel extends React.Component<*, *> {
       clearTimeout(this.timeout);
     }
     this.timeout = setTimeout(() => {
-      console.log('DOING WORK onConfigChange');
       if (
         this.props.metadatas.owner_id === Meteor.user().username &&
         JSON.stringify(e.config) !== JSON.stringify(this.props.config)
@@ -152,25 +151,16 @@ class ConfigPanel extends React.Component<*, *> {
       this.props.setActivityTypeId(e.activityType);
       this.forceUpdate();
       this.props.setDelay(false);
-    }, 250);
+    }, 100);
   };
 
-  shouldComponentUpdate = (nextProps: any) => {
-    console.log('DOING WORK shouldComponentUpdate');
-    if (this.props.delay) {
-      return false;
-    }
-
-    return (
+  shouldComponentUpdate = (nextProps: any) => (
       this.props.activityId !== nextProps.activityId ||
       this.props.metadatas !== nextProps.metadatas ||
       !isEqual(nextProps.config, this.props.config)
     );
-  };
 
   componentDidUpdate = () => {
-    console.log('DOING WORK componentDidUpdate');
-
     this.setState({ displaySave: false });
     if (this.props.activityTypeId && this.props.config.invalid === undefined) {
       check(

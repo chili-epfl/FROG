@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 import { type ActivityRunnerPropsT, HTML } from 'frog-utils';
 
 import Quiz from './Quiz';
@@ -29,9 +31,9 @@ const styles = () => ({
 const Completed = ({ dataFn }) => (
   <React.Fragment>
     <h1>Completed!</h1>
-    <button onClick={() => dataFn.objInsert(false, ['completed'])}>
+    <Button onClick={() => dataFn.objInsert(false, ['completed'])}>
       Go back
-    </button>
+    </Button>
   </React.Fragment>
 );
 
