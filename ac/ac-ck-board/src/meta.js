@@ -263,6 +263,10 @@ export const config = {
       title: 'Only let students move their own items',
       type: 'boolean'
     },
+    studentEditOthers: {
+      title: "Only let students move other students' items",
+      type: 'boolean'
+    },
     image: {
       title: 'Display background image',
       type: 'boolean'
@@ -303,5 +307,11 @@ export const configUI = {
   image: { conditional: (formData: Object) => !formData.quadrants },
   quadrants: { conditional: (formData: Object) => !formData.image },
   onlySpecificLI: { conditional: 'allowCreate' },
-  liType: { conditional: 'onlySpecificLI' }
+  liType: { conditional: 'onlySpecificLI' },
+  studentEditOwn: {
+    conditional: (formData: Object) => !formData.studentEditOthers
+  },
+  studentEditOthers: {
+    conditional: (formData: Object) => !formData.studentEditOwn
+  }
 };

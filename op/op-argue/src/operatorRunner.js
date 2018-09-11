@@ -1,86 +1,89 @@
 // @flow
 import { chunk } from 'lodash';
-import type { socialStructureT, socialOperatorRunnerT } from 'frog-utils';
+import { type socialStructureT, type socialOperatorRunnerT } from 'frog-utils';
 
-const optim = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
-
-const testInput = instances => {
-  if (instances.find(i => typeof i !== 'string')) {
-    throw 'instances should all be strings';
-  }
-  return true;
-};
+// Function that computes our optimization goal given a list of distances
+const M = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);
 
 const operator = (configData, object): socialStructureT => {
-  const {
-    activityData: { payload }
-  } = object;
-  const { instances, distanceMatrix } = payload.all.data;
-  testInput(instances);
+  const { activityData, globalStructure } = object;
 
-  const groups = { '1': [] };
+  // Function to create an initial pairing which will be
+  // iteratively improved
+  const { studentIds } = globalStructure;
+  const matchedStudents = {};
+  const makeInitialGrouping = () => {
+    const pairs = [];
+    studentIds.forEach(A =>
+      studentIds.forEach(B => {
+        if (A !== B && !matchedStudents[A] && !matchedStudents[B]) {
+          matchedStudents[A] = true;
+          matchedStudents[B] = true;
+          pairs.push([A, B]);
+        }
+      })
+    );
+    return pairs;
+  };
+  const pairs = makeInitialGrouping();
+  // Function to return the distance between two students
+  const { payload } = activityData;
+  const data = (payload.all && payload.all.data) || {};
+  const matrix = data.distanceMatrix;
+  const studentIndex = {};
+  studentIds.forEach((stu, idx) => {
+    studentIndex[stu] = idx;
+  });
+  const D = (studentA, studentB) => {
+    const idxA = studentIndex[studentA];
+    const idxB = studentIndex[studentB];
+    return (matrix && matrix[idxA] && matrix[idxA][idxB]) || 0;
+  };
 
-  const last = instances.length % 2 ? instances.pop() : null;
-
-  if (last && instances.length === 0) {
-    groups['1'] = [last];
-  } else {
-    const tmp = chunk([...instances.keys()], 2);
-
-    let modified = true;
-    let iter = 0;
-    while (modified && iter < 10000) {
-      iter += 1;
-      modified = false;
-      for (let i = 0; i < tmp.length && !modified; i = 1 + i) {
-        for (let j = i + 1; j < tmp.length && !modified; j = 1 + j) {
-          const currentScore = optim([
-            distanceMatrix[tmp[i][0]][tmp[i][1]],
-            distanceMatrix[tmp[j][0]][tmp[j][1]]
-          ]);
-          if (
-            optim([
-              distanceMatrix[tmp[i][0]][tmp[j][0]],
-              distanceMatrix[tmp[i][1]][tmp[j][1]]
-            ]) > currentScore
-          ) {
-            const k = tmp[i][1];
-            tmp[i][1] = tmp[j][0];
-            tmp[j][0] = k;
+  // Iteratively improves the matching `pairs`
+  let modified = true;
+  let iter = 0;
+  const iteration = () => {
+    iter += 1;
+    modified = false;
+    pairs.forEach((p0, i0) => {
+      pairs.forEach((p1, i1) => {
+        if (!modified && i0 < i1) {
+          const [A, B, a, b] = [...p0, ...p1];
+          const score = M([D(A, B), D(a, b)]);
+          if (M([D(A, a), D(B, b)]) > score) {
+            pairs[i0] = [A, a];
+            pairs[i1] = [B, b];
             modified = true;
-          } else if (
-            optim([
-              distanceMatrix[tmp[i][0]][tmp[j][1]],
-              distanceMatrix[tmp[i][1]][tmp[j][0]]
-            ]) > currentScore
-          ) {
-            const k = tmp[i][1];
-            tmp[i][1] = tmp[j][1];
-            tmp[j][1] = k;
+          } else if (M([D(A, b), D(B, a)]) > score) {
+            pairs[i0] = [A, b];
+            pairs[i1] = [B, a];
             modified = true;
           }
         }
-      }
-    }
-
-    if (last) {
-      tmp[0].push(instances.length);
-    }
-
-    for (let i = 0; i < tmp.length; i = 1 + i) {
-      tmp[i].sort((a, b) => a - b);
-      const pair = tmp[i].map(x => instances[x] || last);
-      if (Array.isArray(pair)) {
-        groups['' + (i + 1)] = pair;
-      }
-    }
+      });
+    });
+  };
+  while (modified && iter < 10000) {
+    iteration();
   }
 
-  const unmatchedStudents = object.globalStructure.studentIds.filter(
-    id => !instances.includes(id) && id !== last
-  );
+  const groups = {};
+  pairs.forEach((pair, idx) => {
+    groups['' + (1 + idx)] = pair;
+  });
+
+  const unmatchedStudents = studentIds.filter(id => !matchedStudents[id]);
   chunk(unmatchedStudents, 2).forEach((pair, idx) => {
-    groups['unmatched' + (idx + 1)] = pair;
+    if (pair.length > 1) {
+      groups['A' + (idx + 1)] = pair;
+    } else if (groups['A1']) {
+      groups['A1'].push(pair[0]);
+    } else if (groups['1']) {
+      groups['1'].push(pair[0]);
+    } else {
+      groups['alone'] = pair;
+    }
   });
 
   return { group: groups };
