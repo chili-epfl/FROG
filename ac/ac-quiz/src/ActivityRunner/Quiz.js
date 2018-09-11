@@ -11,7 +11,7 @@ import BottomNav from './BottomNav';
 import { isAnswered, computeCoordinates } from '../utils';
 
 export const condShuffle = (
-  list: Object,
+  list: any[],
   type: string,
   salt: string,
   seed: string

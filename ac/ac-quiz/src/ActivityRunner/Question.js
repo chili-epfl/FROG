@@ -89,7 +89,6 @@ const Justify = withStyles(styles)(props => {
       path={['form', questionIndex, 'text']}
       logger={logger}
       dataFn={dataFn}
-      placeholder="Justify your answer"
       className={classes.justify}
     />
   );
@@ -113,7 +112,7 @@ export default withStyles(styles)(
 
     const { multiple, text } = question;
 
-    const answersWithIndex = question.answers.map((x, y) => [x, y]);
+    const answersWithIndex = (question.answers || []).map((x, y) => [x, y]);
     const answers = ['answers', 'both'].includes(activityData.config.shuffle)
       ? condShuffle(answersWithIndex, 'answers', index, groupingValue)
       : answersWithIndex;
