@@ -10,7 +10,8 @@ test('all correct formatProduct', () => {
     correctCount: 2,
     correctQs: [true, true],
     maxCorrect: 2,
-    questions: ['A or B?', 'C or D?']
+    questions: ['A or B?', 'C or D?'],
+    coordinates: { x: 0, y: 0 }
   });
 });
 
@@ -23,7 +24,8 @@ test('not all correct formatProduct', () => {
     correctCount: 0,
     correctQs: [false, false],
     maxCorrect: 2,
-    questions: ['A or B?', 'C or D?']
+    questions: ['A or B?', 'C or D?'],
+    coordinates: { x: 0, y: 0 }
   });
 });
 
@@ -36,7 +38,8 @@ test('no answers', () => {
     correctCount: 0,
     correctQs: [false, false],
     maxCorrect: 2,
-    questions: ['A or B?', 'C or D?']
+    questions: ['A or B?', 'C or D?'],
+    coordinates: { x: 0, y: 0 }
   });
 });
 
