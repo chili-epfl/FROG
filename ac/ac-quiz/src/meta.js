@@ -4,7 +4,6 @@ import { rtQ } from './rtQ';
 
 const statQuizConfig = {
   title: 'Stat 101',
-  showOne: true,
   questions: [
     {
       question: 'Laquelle de ces expressions est fausse?',
@@ -27,7 +26,7 @@ const statQuizConfig = {
       answers: [
         {
           choice:
-            "Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci."
+            "Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci. Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci. Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci. Le $p$-ème quantile $Q(p)$ est une valeur telle qu'une proportion $p$ des données ont des valeurs en dessous de celle-ci."
         },
         {
           choice:

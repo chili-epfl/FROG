@@ -7,6 +7,10 @@ export const config = {
       type: 'string',
       title: 'Title'
     },
+    guidelines: {
+      type: 'rte',
+      title: 'Guidelines'
+    },
     shuffle: {
       type: 'string',
       title: 'Shuffle questions, answers or both for each student?',
@@ -20,10 +24,6 @@ export const config = {
     allowSkip: {
       type: 'boolean',
       title: 'Allow skipping questions?'
-    },
-    guidelines: {
-      type: 'rte',
-      title: 'Guidelines'
     },
     argueWeighting: {
       type: 'boolean',
