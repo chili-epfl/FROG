@@ -31,6 +31,9 @@ const BoardPure = ({
   if (!width || !height) {
     return null;
   }
+
+  const canDragOwn = !config.studentEditOthers;
+  const canDragOthers = !config.studentEditOwn;
   return (
     <div
       style={{
@@ -71,22 +74,24 @@ const BoardPure = ({
       )}
       {width &&
         height &&
-        values(data).map(y => (
-          <div key={y.id}>
-            <ObservationContainer
-              setXY={(_, ui) => setXY(y.id, ui)}
-              openInfoFn={() => setInfo(y.li)}
-              scaleY={scaleY}
-              scaleX={scaleX}
-              x={y.x / scaleX - offsetWidth}
-              y={y.y / scaleY - offsetHeight}
-              canDrag={!config.studentEditOwn || y.userid === userInfo.id}
-              username={y.username}
-            >
-              <LearningItem disableDragging type="thumbView" id={y.li} />
-            </ObservationContainer>
-          </div>
-        ))}
+        values(data)
+          .filter(x => x.li)
+          .map(y => (
+            <div key={y.id}>
+              <ObservationContainer
+                setXY={(_, ui) => setXY(y.id, ui)}
+                openInfoFn={() => setInfo(y.li)}
+                scaleY={scaleY}
+                scaleX={scaleX}
+                x={y.x / scaleX - offsetWidth}
+                y={y.y / scaleY - offsetHeight}
+                canDrag={y.userid === userInfo.id ? canDragOwn : canDragOthers}
+                username={y.username}
+              >
+                <LearningItem disableDragging type="thumbView" id={y.li} />
+              </ObservationContainer>
+            </div>
+          ))}
       {info && (
         <ObservationDetail closeInfoFn={() => setInfo(null)}>
           <LearningItem id={info} type="view" />
