@@ -31,6 +31,9 @@ const BoardPure = ({
   if (!width || !height) {
     return null;
   }
+
+  const canDragOwn = !config.studentEditOthers;
+  const canDragOthers = !config.studentEditOwn;
   return (
     <div
       style={{
@@ -80,7 +83,7 @@ const BoardPure = ({
               scaleX={scaleX}
               x={y.x / scaleX - offsetWidth}
               y={y.y / scaleY - offsetHeight}
-              canDrag={!config.studentEditOwn || y.userid === userInfo.id}
+              canDrag={y.userid === userInfo.id ? canDragOwn : canDragOthers}
               username={y.username}
             >
               <LearningItem disableDragging type="thumbView" id={y.li} />
