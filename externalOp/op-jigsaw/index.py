@@ -2,6 +2,7 @@ import spacy
 from sklearn.cluster import KMeans
 from operatorUtils import defineOperator
 
+print('Loading SpaCY model and preparing operator')
 nlp = spacy.load('en_core_web_lg')
 
 operatorPackage = {
@@ -9,6 +10,7 @@ operatorPackage = {
     'type': 'social',
     'external': True,
     'outputDefinition': ['group', 'role'],
+    'configVersion': 1,
     'meta': {
         'name': 'Jigsaw external operator',
         'shortDesc': 'Generates roles and groups',
@@ -26,12 +28,14 @@ operatorPackage = {
 
 def operator(data, object):
     studentmapping = [k for k, v in object['activityData']['payload'].items()]
-    texts = [v['data']['text'] for k, v in object['activityData']['payload'].items()]
-    docs = [nlp(txt).vector for txt in texts]    
+    texts = [v['data']['1']['text'] for k, v in object['activityData']['payload'].items()]
+    print(texts)
+    docs = [nlp(txt).vector for txt in texts]
     kmeans = KMeans(n_clusters=2)
     kmeans.fit(docs)
     y_kmeans = kmeans.predict(docs)
     indices = [[i, k] for (i,k) in enumerate(y_kmeans)]
+    print(indices)
     roles = {}
     groups = {}
 

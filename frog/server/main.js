@@ -55,14 +55,14 @@ findActivitiesMongo({})
   .filter(x => x.activityType)
   .forEach(x =>
     Activities.update(x._id, {
-      $set: { data: x.data, configVersion: x.configVersion }
+      $set: { data: x.data || {}, configVersion: x.configVersion || 1 }
     })
   );
 findOperatorsMongo({})
   .filter(x => x.operatorType)
   .forEach(x =>
     Operators.update(x._id, {
-      $set: { data: x.data, configVersion: x.configVersion }
+      $set: { data: x.data || {}, configVersion: x.configVersion || 1 }
     })
   );
 

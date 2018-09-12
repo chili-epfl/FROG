@@ -6,7 +6,6 @@ import { omit } from 'lodash';
 
 import Preview from './Preview';
 import { activityTypesObj } from '../../activityTypes';
-import { getUserId } from './Controls';
 import ErrorWrapper from './ErrorWrapper';
 import { initActivityDocuments } from './Content';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
@@ -31,7 +30,7 @@ const defaultState = {
   showDashExample: false,
   showLogs: false,
   users: ['Chen Li'],
-  instances: [getUserId('Chen Li')],
+  instances: ['group1'],
   plane: 2,
   config: {},
   metadatas: { uuid: '', title: '', description: '', tags: [] },

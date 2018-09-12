@@ -13,6 +13,7 @@ def defineOperator(operatorPackage, operator):
 
     def sendOperator(msg): 
         if json.loads(msg['data'])['msgType'] == 'who-is-here':
+            print("Received who-is-there, announcing my presence")
             r.publish('frog.control', operatorJSON)
 
     p.subscribe(**{'frog.control': sendOperator})
@@ -26,7 +27,9 @@ def defineOperator(operatorPackage, operator):
         print(msg)
         try:
             if(msg['msgType'] == 'run'):
-                r.rpush('frog.external.'+msg['callback'], json.dumps({'msgType': 'product', 'payload': operator(msg['data'], msg['object'])}))
+                product = operator(msg['data'], msg['object'])
+                print(product)
+                r.rpush('frog.external.'+msg['callback'], json.dumps({'msgType': 'product', 'payload': product }))
         except:
             pass
 

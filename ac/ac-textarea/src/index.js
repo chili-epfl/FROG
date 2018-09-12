@@ -80,8 +80,10 @@ export const formatProduct = (
   instanceId: string,
   username?: string
 ) => ({
-  ...data,
-  msg: `${username || 'Anonymous'} wrote ${data.text}`
+  '1': {
+    ...data,
+    msg: `${username || 'Anonymous'} wrote ${data.text}`
+  }
 });
 
 export default ({
