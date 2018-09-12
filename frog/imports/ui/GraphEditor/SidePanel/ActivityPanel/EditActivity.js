@@ -211,7 +211,7 @@ const RawEditActivity = ({
           <SelectAttributeWidget
             activity={activity}
             onChange={grp => {
-              addActivity(activity.activityType, null, activity._id, grp);
+              addActivity(activity.activityType, null, activity._id, null, grp);
               props.store.refreshValidate();
             }}
           />
