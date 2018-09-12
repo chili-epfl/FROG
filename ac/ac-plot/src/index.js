@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, entries } from 'frog-utils';
+import { type ActivityPackageT, values, entries } from 'frog-utils';
 import { isEmpty, isObject } from 'lodash';
 
 import meta from './meta';
@@ -47,11 +47,11 @@ const mergeFunction = ({ data: incomingData }, dataFn, data) => {
   };
 
   // These allow the merge function to accept Arrays of
-  // datapoints or single datapoints
+  // datapoints or an object datapoints as values
   if (Array.isArray(incomingData)) {
     incomingData.forEach(prepareMergeItem);
   } else {
-    prepareMergeItem(incomingData);
+    values(incomingData).forEach(prepareMergeItem);
   }
 
   // Uses dataFn to asynchronously insert the prepared data
