@@ -7,7 +7,7 @@ import {
   VictoryAxis,
   VictoryTheme
 } from 'victory';
-import { HTML, values } from 'frog-utils';
+import { HTML } from 'frog-utils';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
