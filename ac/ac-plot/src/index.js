@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT, entries } from 'frog-utils';
 import { isEmpty, isObject } from 'lodash';
 
 import meta from './meta';
@@ -33,32 +33,36 @@ const config = {
 
 const dataStructure = {};
 
-const mergeFunction = ({ data: incoming }, dataFn, data) => {
-  if (Array.isArray(incoming)) {
-    incoming.forEach(item => mergeFunction({ data: item }, dataFn, data));
-    return;
-  }
-  if (isEmpty(incoming) || !isObject(incoming)) {
-    return;
-  }
-  if (incoming['1']) {
-    mergeFunction({ data: incoming['1'] }, dataFn, data);
-  }
-  if (incoming.y) {
-    if (!data[incoming.trace]) {
-      dataFn.objInsert({ y: [] }, incoming.trace);
+const mergeFunction = ({ data: incomingData }, dataFn, data) => {
+  const toInsert = {};
+  const prepareMergeItem = (item: { trace: string, x: number, y: number }) => {
+    if (item && !isEmpty(item) && isObject(item)) {
+      const { x, y, trace } = item;
+      if (x !== undefined && y !== undefined && trace) {
+        toInsert[trace] = toInsert[trace] || { x: [], y: [] };
+        toInsert[trace].x.push(x);
+        toInsert[trace].y.push(y);
+      }
     }
-    dataFn.listAppend(incoming.y, [incoming.trace, 'y']);
+  };
+
+  // These allow the merge function to accept Arrays of
+  // datapoints or single datapoints
+  if (Array.isArray(incomingData)) {
+    incomingData.forEach(prepareMergeItem);
+  } else {
+    prepareMergeItem(incomingData);
   }
-  if (incoming.x) {
-    if (!data[incoming.trace]) {
-      dataFn.objInsert({ x: [] }, incoming.trace);
+
+  // Uses dataFn to asynchronously insert the prepared data
+  entries(toInsert).forEach(([trace, { x, y }]) => {
+    if (!data[trace]) {
+      dataFn.objInsert({ x, y }, trace);
+    } else {
+      x.forEach(el => dataFn.listAppend(el, [trace, 'x']));
+      y.forEach(el => dataFn.listAppend(el, [trace, 'y']));
     }
-    if (!data[incoming.trace].x) {
-      dataFn.objInsert({ x: [] }, incoming.trace);
-    }
-    dataFn.listAppend(incoming.x, [incoming.trace, 'x']);
-  }
+  });
 };
 
 export default ({
