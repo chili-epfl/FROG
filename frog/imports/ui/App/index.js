@@ -12,7 +12,8 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch
+  Switch,
+  Link
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -188,6 +189,16 @@ const FROGRouter = withRouter(
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
+            <Route
+              render={() => (
+                <h3>
+                  Welcome to FROG. You are logged in as {Meteor.user().username}.
+                  If you want to access the teacher view, go to{' '}
+                  <Link to="/teacher">/teacher</Link>, otherwise go to the /SLUG
+                  of the session you are a student of
+                </h3>
+              )}
+            />
           </Switch>
         );
       }
