@@ -17,9 +17,9 @@ const styles = () => ({
 });
 
 const ThumbViewer = ({ data }) => (
-  <div>
+  <div style={{ minWidth: '200px' }}>
     <b>{data.topic}</b>
-    <br />
+    <p>{data.content}</p>
   </div>
 );
 
