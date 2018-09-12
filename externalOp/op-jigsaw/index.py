@@ -2,6 +2,7 @@ import spacy
 from sklearn.cluster import KMeans
 from operatorUtils import defineOperator
 
+print('Loading SpaCY model and preparing operator')
 nlp = spacy.load('en_core_web_lg')
 
 operatorPackage = {
