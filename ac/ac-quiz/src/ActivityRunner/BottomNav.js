@@ -21,11 +21,12 @@ const BottomNav = ({
   hasAnswered,
   allowSkip,
   showOne,
+  canSubmit,
   classes
 }) => {
   const showPrevious = showOne && index > 0;
-  const showNext = showOne && hasNext && (hasAnswered || allowSkip);
-  const showSubmit = !showOne || (!hasNext && (hasAnswered || allowSkip));
+  const showNext = showOne && hasNext;
+  const showSubmit = !showOne || !hasNext;
   return (
     <div className={classes.buttonContainer}>
       {showPrevious && (
@@ -38,6 +39,7 @@ const BottomNav = ({
           variant="contained"
           onClick={() => setIndex(index + 1)}
           className={classes.buttonRight}
+          disabled={!hasAnswered && !allowSkip}
         >
           Next
         </Button>
@@ -46,6 +48,7 @@ const BottomNav = ({
         <Button
           variant="contained"
           color="primary"
+          disabled={!canSubmit}
           onClick={onSubmit}
           className={classes.buttonRight}
         >

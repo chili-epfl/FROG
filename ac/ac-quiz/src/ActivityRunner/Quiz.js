@@ -39,9 +39,15 @@ const Quiz = ({
     }
   });
 
+  const canSubmit =
+    config.allowSkip ||
+    config.questions.reduce(
+      (acc, q, qIdx) => acc && isAnswered(data.form[qIdx], q),
+      true
+    );
+
   const onSubmit = () => {
-    const { allowSkip } = config;
-    if (allowSkip || Object.keys(data.form).length >= questions.length) {
+    if (canSubmit) {
       dataFn.objInsert(true, ['completed']);
       const coordinates = computeCoordinates(config.questions, data.form);
 
@@ -74,6 +80,7 @@ const Quiz = ({
         showOne={config.showOne}
         hasNext={index < questions.length - 1}
         hasAnswered={isAnswered(data.form[qIdx], config.questions[qIdx])}
+        canSubmit={canSubmit}
       />
     </React.Fragment>
   );
