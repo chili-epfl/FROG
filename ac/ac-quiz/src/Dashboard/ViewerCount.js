@@ -7,7 +7,7 @@ import {
   VictoryAxis,
   VictoryTheme
 } from 'victory';
-import { HTML } from 'frog-utils';
+import { HTML, values } from 'frog-utils';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -70,7 +70,7 @@ const Question = withStyles(styles)(({ question, answers, classes }) => (
 const Viewer = withStyles(styles)(
   ({ state, classes }: { state: Object, classes: Object }) => (
     <div className={classes.root}>
-      {state.map(([k, v, idx]) => (
+      {values(state).map(([k, v, idx]) => (
         <Question key={idx} question={k} answers={v} />
       ))}
     </div>
