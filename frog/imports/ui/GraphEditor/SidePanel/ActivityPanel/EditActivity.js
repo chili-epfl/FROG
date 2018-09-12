@@ -120,6 +120,7 @@ const RawEditActivity = ({
       activity.activityType,
       null,
       activity._id,
+      null,
       props.store.valid.social[activity._id][0]
     );
   }

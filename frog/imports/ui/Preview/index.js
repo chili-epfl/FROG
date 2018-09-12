@@ -31,7 +31,7 @@ const defaultState = {
   showDashExample: false,
   showLogs: false,
   users: ['Chen Li'],
-  instances: [getUserId('Chen Li')],
+  instances: ['group1'],
   plane: 2,
   config: {},
   metadatas: { uuid: '', title: '', description: '', tags: [] },

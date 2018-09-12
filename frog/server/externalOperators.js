@@ -29,6 +29,7 @@ export default () => {
       try {
         const msg = JSON.parse(message);
         if (msg.msgType === 'operatorPackage') {
+          console.log('new operator!', msg);
           operatorTypes.push(msg.payload);
           operatorTypesObj[msg.payload.id] = msg.payload;
           ExternalOperators.update(msg.payload.id, msg.payload, {
