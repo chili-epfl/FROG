@@ -28,7 +28,7 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
     .map((v, k) => [questions[k].question, reverse(v), k])
     .filter(([_, v]) => v && v.length > 0)
     .reduce((acc, [k, v, idx]) => {
-      acc[k] = [k, v, idx];
+      acc[idx] = [k, v, idx];
       return acc;
     }, {});
 
