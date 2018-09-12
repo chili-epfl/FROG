@@ -24,11 +24,11 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
     })
   );
 
-  const result = questionStats
+  const results = questionStats
     .map((v, k) => [questions[k].question, reverse(v), k])
     .filter(([_, v]) => v && v.length > 0);
 
-  return result;
+  return { questions: results };
 };
 
 export default {
