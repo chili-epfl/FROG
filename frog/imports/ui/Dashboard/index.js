@@ -90,7 +90,7 @@ export const DashboardComp = withTracker(props => {
     if (state) {
       return {
         ready: true,
-        state: omit(state, '_id')
+        state: state.data
       };
     } else {
       return { ready: false };

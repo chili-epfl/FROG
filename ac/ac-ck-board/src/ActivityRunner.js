@@ -87,6 +87,7 @@ const BoardPure = ({
                 y={y.y / scaleY - offsetHeight}
                 canDrag={y.userid === userInfo.id ? canDragOwn : canDragOthers}
                 username={y.username}
+                showUsername={config.showUsername}
               >
                 <LearningItem disableDragging type="thumbView" id={y.li} />
               </ObservationContainer>

@@ -12,7 +12,8 @@ const ObservationContainer = ({
   y,
   children,
   canDrag,
-  username
+  username,
+  showUsername
 }) => {
   const scaling = 1 / ((scaleX + scaleY) / 2) / 1.3;
   const style = {
@@ -49,7 +50,7 @@ const ObservationContainer = ({
               </span>
             </div>
             {children}
-            {username}
+            {showUsername && <i>{username}</i>}
           </div>
         </Paper>
       </div>

@@ -34,5 +34,5 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
 export default {
   Viewer,
   reactiveToDisplay,
-  initData: {}
+  initData: []
 };

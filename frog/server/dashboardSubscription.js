@@ -41,7 +41,7 @@ const updateAndSend = (dashId, prepareDataForDisplayFn, activity, reactive) => {
     const dashState = cloneDeep(DashboardStates[dashId]);
     const newState = prepareDataForDisplayFn(dashState, activity);
     values(subscriptions[dashId]).forEach(that => {
-      that.changed('dashboard', dashId, newState);
+      that.changed('dashboard', dashId, { data: newState });
     });
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
   }
@@ -63,7 +63,7 @@ export default () => {
     if (DashboardStates[dashId] === undefined) {
       const archived = DashboardData.findOne({ dashId });
       if (archived) {
-        this.added('dashboard', dashId, archived.data);
+        this.added('dashboard', dashId, { data: archived.data });
         this.ready();
         return;
       } else {
@@ -82,7 +82,7 @@ export default () => {
     }
     const dashState = cloneDeep(DashboardStates[dashId]);
     const newState = prepDataForDisplayFn(dashState, act);
-    this.added('dashboard', dashId, newState);
+    this.added('dashboard', dashId, { data: newState });
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
       interval[dashId] = setInterval(

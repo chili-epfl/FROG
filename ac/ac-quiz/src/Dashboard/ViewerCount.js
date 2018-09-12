@@ -40,7 +40,7 @@ const Question = withStyles(styles)(({ question, answers, classes }) => (
       style={{
         tickLabels: { fontSize: 10 }
       }}
-      padding={{ top: 0, left: 50, right: 10, bottom: 30 }}
+      padding={{ top: 0, left: 200, right: 10, bottom: 30 }}
       domainPadding={20}
     >
       <VictoryAxis
