@@ -284,8 +284,18 @@ export default class Store {
           return;
         }
         const [connections, activities, operators] = last[0];
+
         this.activityStore.all = activities.map(
-          x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
+          x =>
+            new Activity(
+              x.plane,
+              x.startTime,
+              x.title,
+              x.length,
+              x.data,
+              x.activityType,
+              x.id
+            )
         );
         this.operatorStore.all = operators.map(
           x => new Operator(x.time, x.y, x.type, x.id, x.title)
