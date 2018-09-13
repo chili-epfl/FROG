@@ -45,12 +45,12 @@ const Quadrants = ({
   config: Object,
   classes: Object
 }) => (
-    <div className={classes.container}>
-      <div className={classes.topLeft}>{config.quadrant1}</div>
-      <div className={classes.topRight}>{config.quadrant2}</div>
-      <div className={classes.bottomLeft}>{config.quadrant3}</div>
-      <div className={classes.bottomRight}>{config.quadrant4}</div>
-    </div>
-  );
+  <div className={classes.container}>
+    <div className={classes.topLeft}>{config.quadrant1}</div>
+    <div className={classes.topRight}>{config.quadrant2}</div>
+    <div className={classes.bottomLeft}>{config.quadrant3}</div>
+    <div className={classes.bottomRight}>{config.quadrant4}</div>
+  </div>
+);
 
 export default withStyles(styles)(Quadrants);
