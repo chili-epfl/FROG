@@ -101,15 +101,13 @@ const runDataflow = (
   }
 
   // More data needed by the operators. Will need to be completed, documented and typed if possible
+  const eligibleStudents = students.filter(
+    student => student._id !== session.ownerId
+  );
   const globalStructure: { studentIds: string[], students: Object } = {
-    studentIds: compact(
-      students.map(
-        student => student.username !== session.ownerId && student._id
-      )
-    ),
-    students: students.reduce(
-      (acc, x) =>
-        x.username === session.ownerId ? acc : { ...acc, [x._id]: x.username },
+    studentIds: eligibleStudents.map(student => student._id),
+    students: eligibleStudents.reduce(
+      (acc, x) => ({ ...acc, [x._id]: x.username }),
       {}
     )
   };
