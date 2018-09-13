@@ -12,22 +12,11 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
       y={y}
       width={width}
       fill={color}
-      stroke={strokeColor}
+      stroke={selected ? '#ff9900' : strokeColor}
+      strokeWidth={selected ? 2 : 1}
       rx={10}
       height={30}
     />
-    ;
-    {selected && (
-      <rect
-        x={x - 2}
-        y={y - 2}
-        width={width + 2}
-        stroke="#ff9900"
-        fill="transparent"
-        rx={10}
-        height={34}
-      />
-    )}
   </g>
 );
 
