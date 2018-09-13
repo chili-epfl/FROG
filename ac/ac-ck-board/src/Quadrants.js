@@ -1,86 +1,56 @@
 // @flow
 import * as React from 'react';
-import styled from 'styled-components';
+
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = () => ({
+  topLeft: {
+    position: 'absolute',
+    backgroundColor: '#e7ffac',
+    top: 0,
+    left: 0,
+    height: '50%',
+    width: '50%'
+  },
+  topRight: {
+    position: 'absolute',
+    backgroundColor: '#fbe4ff',
+    top: 0,
+    left: '50%',
+    height: '50%',
+    width: '50%'
+  },
+  bottomLeft: {
+    position: 'absolute',
+    backgroundColor: '#dcd3ff',
+    top: '50%',
+    left: 0,
+    height: '50%',
+    width: '50%'
+  },
+  bottomRight: {
+    position: 'absolute',
+    backgroundColor: '#ffccf9',
+    top: '50%',
+    left: '50%',
+    height: '50%',
+    width: '50%'
+  }
+});
 
 const Quadrants = ({
   config,
-  width,
-  height
+  classes
 }: {
   config: Object,
-  width: number,
-  height: number
-}) => {
-  if (!width || !height) {
-    return null;
-  }
-  return (
-    <div position="absolute">
-      <Item
-        group="a"
-        key="a"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: height / 2,
-          width: width / 2
-        }}
-      >
-        {config.quadrant1}
-      </Item>
-      <Item
-        group="b"
-        key="b"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: width / 2,
-          height: height / 2,
-          width: width / 2
-        }}
-      >
-        {config.quadrant2}
-      </Item>
-      <Item
-        group="c"
-        key="c"
-        style={{
-          position: 'absolute',
-          top: height / 2,
-          left: 0,
-          height: height / 2,
-          width: width / 2
-        }}
-      >
-        {config.quadrant3}
-      </Item>
-      <Item
-        group="d"
-        key="d"
-        style={{
-          position: 'absolute',
-          top: height / 2,
-          left: width / 2,
-          height: height / 2,
-          width: width / 2
-        }}
-      >
-        {config.quadrant4}
-      </Item>
-    </div>
-  );
-};
+  classes: Object
+}) => (
+  <div className={classes.container}>
+    <div className={classes.topLeft}>{config.quadrant1}</div>
+    <div className={classes.topRight}>{config.quadrant2}</div>
+    <div className={classes.bottomLeft}>{config.quadrant3}</div>
+    <div className={classes.bottomRight}>{config.quadrant4}</div>
+  </div>
+);
 
-const colors = {
-  a: '#e7ffac',
-  b: '#fbe4ff',
-  c: '#dcd3ff',
-  d: '#ffccf9'
-};
-
-const Item = styled.div`
-  background: ${props => colors[props.group]};
-`;
-
-export default Quadrants;
+export default withStyles(styles)(Quadrants);
