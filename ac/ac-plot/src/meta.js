@@ -2,7 +2,6 @@
 
 const uniformData: any[] = new Array(200).fill().map((_, x) => ({
   trace: ((x % 2) + 1).toString(),
-  x: Math.floor(x / 2),
   y: Math.random()
 }));
 

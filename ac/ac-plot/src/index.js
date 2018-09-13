@@ -41,10 +41,13 @@ const mergeFunction = ({ data: incomingData }, dataFn, data) => {
   const toInsert = {};
   const prepareMergeItem = (item: { trace: string, x: number, y: number }) => {
     if (item && !isEmpty(item) && isObject(item)) {
-      const { x, y, trace } = item;
-      if (x !== undefined && y !== undefined && trace) {
-        toInsert[trace] = toInsert[trace] || { x: [], y: [] };
+      const { x, y } = item;
+      const trace = item.trace || 'default';
+      toInsert[trace] = toInsert[trace] || { x: [], y: [] };
+      if (x) {
         toInsert[trace].x.push(x);
+      }
+      if (y) {
         toInsert[trace].y.push(y);
       }
     }
@@ -61,7 +64,13 @@ const mergeFunction = ({ data: incomingData }, dataFn, data) => {
   // Uses dataFn to asynchronously insert the prepared data
   entries(toInsert).forEach(([trace, { x, y }]) => {
     if (!data[trace]) {
-      dataFn.objInsert({ x, y }, trace);
+      dataFn.objInsert({}, trace);
+      if (x.length > 0) {
+        dataFn.objInsert(x, [trace, 'x']);
+      }
+      if (y.length > 0) {
+        dataFn.objInsert(y, [trace, 'y']);
+      }
     } else {
       x.forEach(el => dataFn.listAppend(el, [trace, 'x']));
       y.forEach(el => dataFn.listAppend(el, [trace, 'y']));
