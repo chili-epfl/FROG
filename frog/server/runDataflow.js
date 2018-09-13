@@ -7,7 +7,6 @@ import {
   type GlobalStructureT,
   type socialStructureT
 } from 'frog-utils';
-import { compact } from 'lodash';
 
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
