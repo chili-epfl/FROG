@@ -34,6 +34,10 @@ const config = {
 const dataStructure = {};
 
 const mergeFunction = ({ data: incomingData }, dataFn, data) => {
+  if (!incomingData) {
+    return;
+  }
+
   const toInsert = {};
   const prepareMergeItem = (item: { trace: string, x: number, y: number }) => {
     if (item && !isEmpty(item) && isObject(item)) {
