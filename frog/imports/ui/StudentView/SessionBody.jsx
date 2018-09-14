@@ -6,6 +6,7 @@ import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { MosaicWithoutDragDropContext } from 'react-mosaic-component';
 import AppBar from '@material-ui/core/AppBar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -136,6 +137,9 @@ class SessionBodyController extends React.Component<
 
   render() {
     const { activities, session } = this.props;
+    if (!session) {
+      return <CircularProgress />;
+    }
     return (
       <React.Fragment>
         {session.countdownStartTime && <Countdown session={session} />}
