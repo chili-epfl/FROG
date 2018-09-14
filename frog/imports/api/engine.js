@@ -41,18 +41,11 @@ export const runNextActivity = (sessionId: string) => {
     const oldOpen = [...session.openActivities];
     const activities = Activities.find({ graphId: session.graphId }).fetch();
 
-    const [newTimeInGraph, openActivities] = calculateNextOpen(
+    const [newTimeInGraph, openActivities, final] = calculateNextOpen(
       session.timeInGraph,
       activities,
       sessionId
     );
-    const openActivityIds = openActivities.map(x => x._id);
-    updateOpenActivities(sessionId, openActivityIds, newTimeInGraph);
-    if (openActivities.some(x => x.plane === 2)) {
-      Sessions.update(sessionId, { $set: { tooLate: true } });
-    }
-
-    engineLogger(sessionId, 'nextActivity', newTimeInGraph);
     const justClosedActivities = oldOpen.filter(actId => {
       const act = Activities.findOne(actId);
       return act.startTime + act.length < newTimeInGraph;
@@ -61,12 +54,24 @@ export const runNextActivity = (sessionId: string) => {
       Meteor.call('reactive.to.product', act);
       Meteor.call('archive.dashboard.state', act);
     });
+    const openActivityIds = openActivities.map(x => x._id);
+    updateOpenActivities(sessionId, openActivityIds, newTimeInGraph);
+    if (openActivities.some(x => x.plane === 2)) {
+      Sessions.update(sessionId, { $set: { tooLate: true } });
+    }
+
+    engineLogger(sessionId, 'nextActivity', newTimeInGraph);
     updateNextOpenActivities(sessionId, newTimeInGraph, activities);
+    if (final) {
+      Sessions.update(sessionId, {
+        $set: { state: 'FINISHED', nextOpenActivities: [] }
+      });
+    }
   }
 };
 
 export const runSessionFn = (sessionId: string) => {
-  updateSessionState(sessionId, 'STARTED');
+  updateSessionState(sessionId, 'READY');
   Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
   engineLogger(sessionId, 'startSession');
   const session = Sessions.findOne(sessionId);

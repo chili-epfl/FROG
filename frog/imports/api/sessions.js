@@ -38,6 +38,9 @@ Meteor.methods({
       }
       sessionCancelCountDown(session._id);
       Sessions.update(session._id, { $set: { slug: session.slug + '-old' } });
+      Meteor.users.update(Meteor.userId(), {
+        $unset: { 'profile.controlSession': '' }
+      });
       const newSessionId = addSessionFn(graphId, session.slug);
       if (session.settings) {
         Sessions.update(newSessionId, {
@@ -46,8 +49,17 @@ Meteor.methods({
       }
       runSessionFn(newSessionId);
     }
-  }
+  },
+  'remove.all.users': session =>
+    Meteor.users.update(
+      { joinedSessions: session.slug },
+      { $pull: { joinedSessions: session.slug } },
+      { multi: true }
+    )
 });
+
+export const removeAllUsers = (session: string) =>
+  Meteor.call('remove.all.users', session);
 
 export const setTeacherSession = (sessionId: ?string) => {
   if (!sessionId) {
@@ -175,7 +187,11 @@ export const updateOpenActivities = (
     });
   }
   Sessions.update(sessionId, {
-    $set: { openActivities, timeInGraph, state: 'STARTED' }
+    $set: {
+      openActivities,
+      timeInGraph,
+      state: timeInGraph === -1 ? 'READY' : 'STARTED'
+    }
   });
 };
 

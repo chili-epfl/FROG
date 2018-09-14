@@ -63,6 +63,7 @@ class UtilsMenu extends React.Component<any, { anchorEl: any }> {
     const menuItems = [
       buttonsModel.settings,
       buttonsModel.restart,
+      buttonsModel.removeStudents,
       buttonsModel.export,
       buttonsModel.download
     ];

@@ -109,7 +109,15 @@ const StudentView = ({ activities, session, classes }) => (
     <div className={classes.mainContent}>
       {(() => {
         if (!activities || activities.length === 0) {
-          return <h1>No Activity right now</h1>;
+          if (session.state === 'READY' || session.state === 'CREATED') {
+            return <h1>Waiting for teacher to start the session</h1>;
+          }
+          if (session.state === 'STARTED') {
+            return <h1>No activity right now</h1>;
+          }
+          if (session.state === 'FINISHED') {
+            return <h1>Session finished</h1>;
+          }
         }
         if (session.state === 'PAUSED') {
           return <h1>Paused</h1>;

@@ -13,7 +13,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
 
-import { updateSessionState, restartSession } from '/imports/api/sessions';
+import {
+  removeAllUsers,
+  updateSessionState,
+  restartSession
+} from '/imports/api/sessions';
 import { nextActivity } from '/imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
@@ -156,6 +160,13 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () => restartSession(session),
       text: 'Restart Session',
+      color: red[700]
+    }
+  },
+  removeStudents: {
+    button: {
+      onClick: () => removeAllUsers(session),
+      text: 'Remove All Users from Session',
       color: red[700]
     }
   },
