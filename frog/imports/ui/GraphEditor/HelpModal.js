@@ -3,25 +3,44 @@
 import * as React from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
+import Slide from '@material-ui/core/Slide';
+import { withStyles } from '@material-ui/core/styles';
 
-const HelpModal = ({ show, hide }: Object) => (
-  <Dialog open={show} onClose={hide}>
-    <AppBar>
-      <Toolbar>
-        <IconButton color="inherit" onClick={hide} aria-label="Close">
-          <CloseIcon />
-        </IconButton>
-        <Typography variant="title" color="inherit">
-          Help for the graph editor
-        </Typography>
-      </Toolbar>
-    </AppBar>
+const Transition = props => <Slide direction="up" {...props} />;
+
+const styles = {
+  paper: {
+    width: '750px',
+    height: '1000px'
+  }
+};
+
+const HelpModal = ({ show, hide, classes }: Object) => (
+  <Dialog
+    open={show}
+    onClose={hide}
+    TransitionComponent={Transition}
+    classes={classes}
+  >
+    <DialogTitle id="scroll-dialog-title">
+      <AppBar>
+        <Toolbar>
+          <IconButton color="inherit" onClick={hide} aria-label="Close">
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="title" color="inherit">
+            Help for the graph editor
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </DialogTitle>
     <List style={{ margin: '10px' }}>
       <h4>Adding activities</h4>
       Double-click on one of the three plane lines to add activities. Choose the
@@ -75,4 +94,4 @@ const HelpModal = ({ show, hide }: Object) => (
   </Dialog>
 );
 
-export default HelpModal;
+export default withStyles(styles)(HelpModal);

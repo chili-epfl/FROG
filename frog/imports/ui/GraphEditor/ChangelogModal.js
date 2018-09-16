@@ -51,7 +51,7 @@ class HelpModal extends React.Component<*, *> {
                 <CloseIcon />
               </IconButton>
               <Typography variant="title" color="inherit">
-                What is new in FROG:
+                What is new in FROG
               </Typography>
             </Toolbar>
           </AppBar>
@@ -67,9 +67,7 @@ class HelpModal extends React.Component<*, *> {
                         <h4>
                           {x} ({log.date.toDateString()})
                         </h4>
-                        {log[x].split('<br/>').map(y => (
-                          <p key={y}>{y}</p>
-                        ))}
+                        {log[x].split('<br/>').map(y => <p key={y}>{y}</p>)}
                       </div>
                     ))}
                 </div>
@@ -89,9 +87,7 @@ class HelpModal extends React.Component<*, *> {
                           <h4>
                             {x} ({log.date.toDateString()})
                           </h4>
-                          {log[x].split('<br/>').map(y => (
-                            <p key={y}>{y}</p>
-                          ))}
+                          {log[x].split('<br/>').map(y => <p key={y}>{y}</p>)}
                         </div>
                       ))}
                   </div>

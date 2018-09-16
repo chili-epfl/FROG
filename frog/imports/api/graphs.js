@@ -164,7 +164,7 @@ export const setCurrentGraph = (graphId: string) => {
   });
 };
 
-export const assignGraph = (wantedId: ?string) => {
+export const assignGraph = (wantedId?: string) => {
   const user = Meteor.user();
   if (wantedId && Graphs.findOne(wantedId)) {
     return wantedId;
