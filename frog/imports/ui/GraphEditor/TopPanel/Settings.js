@@ -1,4 +1,8 @@
+// @flow
+
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -96,9 +100,10 @@ const MenuItemDeleteFromServer = ({
     </MenuItem>
   ) : null;
 
-class GraphActionMenu extends React.Component {
+class GraphActionMenu extends React.Component<*, *> {
   state = {
-    open: false
+    open: false,
+    anchorEl: null
   };
 
   handleClick = event => {

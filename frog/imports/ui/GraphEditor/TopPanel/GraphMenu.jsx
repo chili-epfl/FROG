@@ -20,7 +20,11 @@ const styles = theme => ({
     display: 'flex',
     minWidth: 0,
     flexGrow: 1,
+    marginRight: 10,
     whiteSpace: 'nowrap'
+  },
+  formContainer: {
+    marginRight: 10
   },
   button: {
     marginTop: theme.spacing.unit / 2,
@@ -32,11 +36,11 @@ const styles = theme => ({
     paddingRight: 0,
     width: 200
   },
-  spacer: {
-    width: 50
-  },
-  validButton: {
-    width: 50
+  validatorContainer: {
+    width: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   durationTextField: {
     marginTop: theme.spacing.unit,
@@ -53,20 +57,20 @@ type DurationPropsT = {
   classes: Object
 };
 
-const Duration = ({
-  duration,
-  editState,
-  onDurationChange,
-  onDurationSubmit,
-  classes
-}: DurationPropsT) => (
-  <form
-    onSubmit={onDurationSubmit}
-    className={classes.root}
-    noValidate
-    autoComplete="off"
-  >
-    <div className={classes.root}>
+const Duration = withStyles(styles)(
+  ({
+    duration,
+    editState,
+    onDurationChange,
+    onDurationSubmit,
+    classes
+  }: DurationPropsT) => (
+    <form
+      onSubmit={onDurationSubmit}
+      noValidate
+      autoComplete="off"
+      className={classes.formContainer}
+    >
       <TextField
         autoFocus
         className={classes.durationTextField}
@@ -87,15 +91,14 @@ const Duration = ({
           <Edit />
         </IconButton>
       </Tooltip>
-    </div>
-  </form>
+    </form>
+  )
 );
 
-const StyledDuration = withStyles(styles)(Duration);
-
-type GraphSubPropsT = {
+type GraphNameSelectorPropsT = {
   graphList: Object[],
   name: string,
+  graphId: string,
   editState: boolean,
   onRename: Function,
   onRenameSubmit: Function,
@@ -103,68 +106,69 @@ type GraphSubPropsT = {
   classes: Object
 };
 
-const GraphSubComponent = ({
-  graphList,
-  name,
-  editState,
-  onRename,
-  onRenameSubmit,
-  onMenuChange,
-  classes
-}: GraphSubPropsT) => (
-  <form
-    onSubmit={onRenameSubmit}
-    className={classes.root}
-    noValidate
-    autoComplete="off"
-  >
-    {editState ? (
-      <TextField
-        autoFocus
-        id="edit-graph"
-        className={classes.textField}
-        value={name}
-        onChange={onRename}
-      />
-    ) : (
-      <TextField
-        id="select-graph"
-        select
-        value={name}
-        className={classes.textField}
-        onChange={onMenuChange}
-        SelectProps={{
-          native: true,
-          MenuProps: {
-            className: classes.menu
-          }
-        }}
-      >
-        {graphList.length ? (
-          graphList.map(g => (
-            <option key={g._id} data-key={g._id} value={g.name}>
-              {g.name}
-            </option>
-          ))
-        ) : (
-          <option>No graph</option>
-        )}
-      </TextField>
-    )}
-    <Tooltip id="tooltip-top" title="edit graph name" placement="top">
-      <IconButton
-        className={classes.button}
-        color={editState ? 'secondary' : 'primary'}
-        aria-label="Edit"
-        onClick={e => onRenameSubmit(e)}
-      >
-        <Edit />
-      </IconButton>
-    </Tooltip>
-  </form>
+const GraphNameSelector = withStyles(styles)(
+  ({
+    graphList,
+    name,
+    graphId,
+    editState,
+    onRename,
+    onRenameSubmit,
+    onMenuChange,
+    classes
+  }: GraphNameSelectorPropsT) => (
+    <form
+      onSubmit={onRenameSubmit}
+      noValidate
+      autoComplete="off"
+      className={classes.formContainer}
+    >
+      {editState ? (
+        <TextField
+          autoFocus
+          id="edit-graph"
+          className={classes.textField}
+          value={name}
+          onChange={onRename}
+        />
+      ) : (
+        <TextField
+          id="select-graph"
+          select
+          value={graphId}
+          className={classes.textField}
+          onChange={onMenuChange}
+          SelectProps={{
+            native: true,
+            MenuProps: {
+              className: classes.menu
+            }
+          }}
+        >
+          {graphList.length ? (
+            graphList.map(g => (
+              <option key={g._id} data-key={g._id} value={g._id}>
+                {g.name}
+              </option>
+            ))
+          ) : (
+            <option>No graph</option>
+          )}
+        </TextField>
+      )}
+      <Tooltip id="tooltip-top" title="edit graph name" placement="top">
+        <IconButton
+          className={classes.button}
+          color={editState ? 'secondary' : 'primary'}
+          aria-label="Edit"
+          onClick={e => onRenameSubmit(e)}
+        >
+          <Edit />
+        </IconButton>
+      </Tooltip>
+    </form>
+  )
 );
-
-const StyledGraphSubComponent = withStyles(styles)(GraphSubComponent);
 
 type PropsT = {
   graphId: string,
@@ -176,20 +180,21 @@ type StateT = {
   isEditingName: boolean,
   isEditingDuration: boolean,
   name: string,
-  duration: number
+  duration: number,
+  selectedGraph: Object
 };
 
 class GraphMenu extends React.Component<PropsT, StateT> {
-  selectedGraph: Object;
-
   constructor(props) {
     super(props);
-    this.selectedGraph = Graphs.findOne({ _id: this.props.graphId });
+    const { graphs, graphId } = this.props;
+    const selectedGraph = graphs.find(g => g._id === graphId);
     this.state = {
       isEditingName: false,
       isEditingDuration: false,
-      name: this.selectedGraph ? this.selectedGraph.name : 'untitled',
-      duration: this.selectedGraph ? this.selectedGraph.duration : 30
+      name: selectedGraph ? selectedGraph.name : 'untitled',
+      duration: selectedGraph ? selectedGraph.duration : 30,
+      selectedGraph
     };
   }
 
@@ -198,12 +203,9 @@ class GraphMenu extends React.Component<PropsT, StateT> {
     const graphId = e.target.options[selectedIndex].getAttribute('data-key');
     store.setId(graphId);
 
-    this.selectedGraph = Graphs.findOne({ _id: graphId });
-
-    this.setState({
-      name: this.selectedGraph.name,
-      duration: this.selectedGraph.duration
-    });
+    const selectedGraph = this.props.graphs.find(g => g._id === graphId);
+    const { name, duration } = selectedGraph;
+    this.setState({ name, duration, selectedGraph });
   };
 
   handleRename = e => {
@@ -215,10 +217,11 @@ class GraphMenu extends React.Component<PropsT, StateT> {
 
   handleRenameSubmit = e => {
     e.preventDefault();
-    if (this.state.isEditingName) {
-      renameGraph(this.selectedGraph._id, this.state.name);
+    const { isEditingName, selectedGraph, name } = this.state;
+    if (isEditingName) {
+      renameGraph(selectedGraph._id, name);
     }
-    this.setState({ isEditingName: !this.state.isEditingName });
+    this.setState({ isEditingName: !isEditingName });
   };
 
   handleDurationChange = e => {
@@ -230,34 +233,47 @@ class GraphMenu extends React.Component<PropsT, StateT> {
 
   handleDurationSubmit = e => {
     e.preventDefault();
-    if (this.state.isEditingDuration) {
-      store.changeDuration(parseInt(this.state.duration, 10));
+    const { isEditingDuration, duration } = this.state;
+    if (isEditingDuration) {
+      store.changeDuration(parseInt(duration, 10));
     }
-    this.setState({ isEditingDuration: !this.state.isEditingDuration });
+    this.setState({ isEditingDuration: !isEditingDuration });
   };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.graphId !== state.selectedGraph._id) {
+      const selectedGraph = props.graphs.find(g => g._id === props.graphId);
+      if (selectedGraph) {
+        const { name, duration } = selectedGraph;
+        return { name, duration, selectedGraph };
+      }
+      return { name: '', duration: 0, selectedGraph: {} };
+    }
+    return null;
+  }
 
   render() {
     const { classes, graphs } = this.props;
-
     return (
       <div className={classes.root}>
-        <StyledGraphSubComponent
+        <GraphNameSelector
           name={this.state.name}
+          graphId={this.state.selectedGraph._id}
           editState={this.state.isEditingName}
           graphList={graphs}
           onRename={this.handleRename}
           onRenameSubmit={this.handleRenameSubmit}
           onMenuChange={this.handleMenuChange}
         />
-        <div className={classes.spacer} />
-        <StyledDuration
+        <Duration
           duration={this.state.duration}
           editState={this.state.isEditingDuration}
           onDurationChange={this.handleDurationChange}
           onDurationSubmit={this.handleDurationSubmit}
         />
-        <div className={classes.spacer} />
-        <ValidButton />
+        <div className={classes.validatorContainer}>
+          <ValidButton />
+        </div>
       </div>
     );
   }

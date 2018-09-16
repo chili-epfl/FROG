@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { ChangeableText } from 'frog-utils';
@@ -27,7 +29,7 @@ const Config = ({ graph }) => (
       <ChangeableText
         onlyHover
         style={{ width: '60px' }}
-        value={graph ? graph.duration : 30}
+        value={(graph ? graph.duration : 30).toString()}
         onSubmit={e => store.changeDuration(parseInt(e, 10))}
       />{' '}
       mins.
