@@ -48,7 +48,7 @@ const RawDashboardComp = ({
     return <p>The selected activity has no dashboard</p>;
   }
   const Dash = aT.dashboards[name].Viewer;
-  return (
+  return state ? (
     <Dash
       {...{
         state,
@@ -58,7 +58,7 @@ const RawDashboardComp = ({
         LearningItem: dataFn.LearningItem
       }}
     />
-  );
+  ) : null;
 };
 
 export const DashboardComp = withTracker(props => {

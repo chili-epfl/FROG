@@ -6,6 +6,7 @@ import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { MosaicWithoutDragDropContext } from 'react-mosaic-component';
 import AppBar from '@material-ui/core/AppBar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -108,7 +109,15 @@ const StudentView = ({ activities, session, classes }) => (
     <div className={classes.mainContent}>
       {(() => {
         if (!activities || activities.length === 0) {
-          return <h1>No Activity right now</h1>;
+          if (session.state === 'READY' || session.state === 'CREATED') {
+            return <h1>Waiting for teacher to start the session</h1>;
+          }
+          if (session.state === 'STARTED') {
+            return <h1>No activity right now</h1>;
+          }
+          if (session.state === 'FINISHED') {
+            return <h1>Session finished</h1>;
+          }
         }
         if (session.state === 'PAUSED') {
           return <h1>Paused</h1>;
@@ -136,6 +145,9 @@ class SessionBodyController extends React.Component<
 
   render() {
     const { activities, session } = this.props;
+    if (!session) {
+      return <CircularProgress />;
+    }
     return (
       <React.Fragment>
         {session.countdownStartTime && <Countdown session={session} />}
