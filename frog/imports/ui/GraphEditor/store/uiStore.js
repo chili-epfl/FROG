@@ -1,11 +1,64 @@
+// @flow
+
+import { Meteor } from 'meteor/meteor';
 import { extendObservable, action, reaction } from 'mobx';
+
+import { type ActivityDbT } from 'frog-utils';
 
 import { getActivitySequence } from '/imports/api/graphSequence';
 import changelog from '/imports/api/changelog';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
+import Elem from './elemClass';
 
 export default class uiStore {
+  setLibraryOpen: boolean => void;
+  selected: ?Elem;
+  setIsSvg: boolean => void;
+  isSvg: boolean;
+  panx: number;
+  panBoxSize: number;
+  scale: number;
+  socialPan: number => void;
+  socialCoordsTime: [number, number];
+  panDelta: number => void;
+  scrollIntervalID: any;
+  updateWindow: () => void;
+  windowWidth: number;
+  storeInterval: any => void;
+  cancelScroll: () => void;
+  setShowInfo: ('activity' | 'operator', string) => void;
+  showInfo: ?{ klass: 'activity' | 'operator', id: string };
+  svgRef: any;
+  setShowErrors: boolean | (string => void);
+  showErrors: boolean | string;
+  socialCoords: [number, number];
+  socialCoordsScaled: [number, number];
+  panTime: number;
+  rightEdgeTime: number;
+  furthestObject: number;
+  setScaleDelta: number => void;
+  setScaleValue: number => void;
+  canvasClick: () => void;
+  endRename: () => void;
+  socialMove: (number, number) => void;
+  scrollEnabled: boolean;
+  panOffset: number;
+  setSvgRef: any => void;
+  svgRef: any;
+  setShowPreview: (?Object) => void;
+  showPreview: ?Object;
+  setSidepanelOpen: boolean => void;
+  sidepanelOpen: boolean;
+  toggleSidepanelOpen: () => void;
+  setLibraryOpen: boolean => void;
+  libraryOpen: boolean;
+  setModal: boolean => void;
+  showModal: boolean;
+  updateGraphWidth: () => void;
+  setGraphWidth: number => void;
+  graphWidth: number;
+
   constructor() {
     const user = Meteor.user();
     extendObservable(this, {
@@ -32,7 +85,16 @@ export default class uiStore {
         if (isSvg) {
           store.activityStore.setActivitySequence(
             getActivitySequence(
-              store.activityStore.all.map(x => ({ ...x, _id: x.id }))
+              store.activityStore.all.map(x => {
+                const acObj: ActivityDbT = {
+                  data: x.data,
+                  startTime: x.startTime,
+                  length: x.length,
+                  activityType: x.activityType,
+                  _id: x.id
+                };
+                return acObj;
+              })
             )
           );
         }
@@ -178,7 +240,7 @@ export default class uiStore {
 
       cancelScroll: action(() => {
         if (this.scrollIntervalID) {
-          window.clearInterval(this.scrollIntervalID);
+          clearInterval(this.scrollIntervalID);
         }
         this.scrollIntervalID = undefined;
       }),

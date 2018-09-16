@@ -1,3 +1,5 @@
+// @flow
+
 import { isEmpty, isEqual, sortBy } from 'lodash';
 import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
@@ -44,17 +46,13 @@ export type StateT =
   | {
       mode: 'resizing',
       currentActivity: Activity,
-      bounds: BoundsT,
-      activitiesToPush?: Activity[],
-      operatorsToPush?: Operator[]
+      bounds: BoundsT
     }
   | {
       mode: 'moving',
       currentActivity: Activity,
       mouseOffset: number,
-      initialStartTime: number,
-      activitiesToPush?: Activity[],
-      operatorsToPush?: Operator[]
+      initialStartTime: number
     }
   | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: Operator }
@@ -66,7 +64,7 @@ export type StateT =
 
 const getOne = (coll: Coll, crit: Function): ?Elem => {
   const found = coll.filter(crit);
-  if (found.size === 0) {
+  if (found.length === 0) {
     return undefined;
   }
   return found[0];
@@ -77,10 +75,34 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 
 export default class Store {
   browserHistory: any;
-
   url: string;
-
   history: any[];
+  objects: {
+    connections: Elem[],
+    activities: Elem[],
+    operators: Elem[],
+    graphId: string,
+    graphDuration: number
+  };
+  state: StateT;
+  connectionStore: ConnectionStore;
+  activityStore: ActivityStore;
+  operatorStore: OperatorStore;
+  ui: UI;
+  overlapAllowed: boolean;
+  graphId: string;
+  _graphDuration: number;
+  graphDuration: number;
+  readOnly: boolean;
+  changeDuration: number => void;
+  addHistory: () => void;
+  refreshValidate: () => void;
+  session: Session;
+  graphErrors: Object[];
+  valid: Object;
+  setId: (string, ?boolean) => void;
+  setBrowserHistory: (Object, string) => void;
+  setSession: any => void;
 
   constructor() {
     extendObservable(this, {
