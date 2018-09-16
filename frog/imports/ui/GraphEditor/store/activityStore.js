@@ -54,7 +54,7 @@ export default class ActivityStore {
   organize: () => void;
   resize: () => void;
   addActivity: (number, number, boolean) => void;
-  newActivityAbove: number => void;
+  newActivityAbove: (?number) => void;
   swapActivities: (left: Activity, right: Activity) => void;
   moveDelete: Activity => void;
   startResizing: Activity => void;

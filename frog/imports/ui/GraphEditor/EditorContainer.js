@@ -15,6 +15,7 @@ import Graph from './Graph';
 import { RenameBox } from './Rename';
 import SidePanel from './SidePanel';
 import HelpModal from './HelpModal';
+import ChangelogModal from './ChangelogModal';
 import ModalExport from './RemoteControllers/ModalExport';
 import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
@@ -80,7 +81,7 @@ class Editor extends React.Component<Object, StateT> {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, store } = this.props;
     const show = this.props.store.ui.showPreview;
     if (show && show.activityTypeId) {
       return (
@@ -88,7 +89,7 @@ class Editor extends React.Component<Object, StateT> {
           modal
           activityTypeId={show.activityTypeId}
           config={show.config}
-          dismiss={() => this.props.store.ui.setShowPreview(false)}
+          dismiss={() => store.ui.setShowPreview(false)}
         />
       );
     }
@@ -111,11 +112,10 @@ class Editor extends React.Component<Object, StateT> {
               exportType="graph"
               modalOpen={this.state.exportOpen}
               setModal={val => this.setState({ exportOpen: val })}
-              graphId={this.props.store.graphId}
-              graphName={this.props.store}
+              graphId={store.graphId}
+              graphName={store}
               metadatas={LibraryStates.graphList.find(
-                x =>
-                  x.uuid === Graphs.findOne(this.props.store.graphId).parentId
+                x => x.uuid === Graphs.findOne(store.graphId).parentId
               )}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
@@ -155,8 +155,12 @@ class Editor extends React.Component<Object, StateT> {
           </Grid>
         </Grid>
         <HelpModal
-          show={this.props.store.ui.showModal}
-          hide={() => this.props.store.ui.setModal(false)}
+          show={store.ui.showHelpModal}
+          hide={() => store.ui.setShowHelpModal(false)}
+        />
+        <ChangelogModal
+          show={store.ui.showChangelogModal}
+          hide={() => store.ui.setShowChangelogModal(false)}
         />
         {show &&
           show.operatorTypeId && (

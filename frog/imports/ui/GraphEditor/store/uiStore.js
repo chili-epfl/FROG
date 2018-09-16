@@ -53,11 +53,15 @@ export default class uiStore {
   toggleSidepanelOpen: () => void;
   setLibraryOpen: boolean => void;
   libraryOpen: boolean;
-  setModal: boolean => void;
-  showModal: boolean;
+  setShowChangelogModal: boolean => void;
+  showChangelogModal: boolean;
+  setShowHelpModal: boolean => void;
+  showHelpModal: boolean;
   updateGraphWidth: () => void;
   setGraphWidth: number => void;
   graphWidth: number;
+  cancelAll: () => void;
+  unselect: () => void;
 
   constructor() {
     const user = Meteor.user();
@@ -76,10 +80,11 @@ export default class uiStore {
       showPreview: false,
       libraryOpen: false,
       showInfo: false,
-      showModal:
+      showChangelogModal:
         user?.profile !== undefined &&
         user?.profile.lastVersionChangelog !== undefined &&
         user?.profile.lastVersionChangelog < changelog.length - 1,
+      showHelpModal: false,
       setIsSvg: action((isSvg: boolean) => {
         this.isSvg = isSvg;
         if (isSvg) {
@@ -202,8 +207,12 @@ export default class uiStore {
         this.selected = null;
       }),
 
-      setModal: action((set: boolean) => {
-        this.showModal = set;
+      setShowChangelogModal: action((set: boolean) => {
+        this.showChangelogModal = set;
+      }),
+
+      setShowHelpModal: action((set: boolean) => {
+        this.showHelpModal = set;
       }),
 
       cancelAll: action(() => {
