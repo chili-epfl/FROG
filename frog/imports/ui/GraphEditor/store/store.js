@@ -235,10 +235,12 @@ export default class Store {
               !source ||
               !target
             ) {
-              throw 'Cannot find connection source/target, or source/target is a connection';
+              // throw 'Cannot find connection source/target, or source/target is a connection';
+              return undefined;
             }
             return new Connection(source, target, x._id);
-          });
+          })
+          .filter(x => !!x);
 
         this.ui.selected = null;
         this.history = [];
@@ -306,6 +308,10 @@ export default class Store {
         if (isEmpty(last)) {
           return;
         }
+
+        console.log(connections);
+        console.log(this.connectionStore.all);
+
         const [connections, activities, operators] = last[0];
 
         this.activityStore.all = activities.map(
@@ -323,19 +329,22 @@ export default class Store {
         this.operatorStore.all = operators.map(
           x => new Operator(x.time, x.y, x.type, x.id, x.title)
         );
-        this.connectionStore.all = connections.map(x => {
-          const source = this.findId(x.source);
-          const target = this.findId(x.target);
-          if (
-            source instanceof Connection ||
-            target instanceof Connection ||
-            !source ||
-            !target
-          ) {
-            throw 'Cannot find connection source/target, or source/target is a connection';
-          }
-          return new Connection(source, target, x._id);
-        });
+        this.connectionStore.all = connections
+          .map(x => {
+            const source = this.findId(x.source);
+            const target = this.findId(x.target);
+            if (
+              source instanceof Connection ||
+              target instanceof Connection ||
+              !source ||
+              !target
+            ) {
+              // throw 'Cannot find connection source/target, or source/target is a connection';
+              return undefined;
+            }
+            return new Connection(source, target, x._id);
+          })
+          .filter(x => !!x);
 
         mergeGraph(this.objects);
       }),
