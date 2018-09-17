@@ -14,14 +14,14 @@ export const PanMap = connect(
   }: StoreProp) => (
     <DraggableCore onDrag={(_, { deltaX }) => panDelta(deltaX)}>
       <rect
-        x={panx}
-        y={0}
+        x={1 + panx}
+        y={1}
         fill="transparent"
         stroke="black"
-        strokeWidth={4}
+        strokeWidth={2}
         rx={10}
-        width={graphWidth / scale}
-        height={150}
+        width={graphWidth / scale - 2}
+        height={148}
       />
     </DraggableCore>
   )

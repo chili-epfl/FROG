@@ -28,28 +28,25 @@ import TopBar from '../App/TopBar';
 const styles = () => ({
   root: {
     marginTop: '48px',
-    height: 'calc(100vh - 48px)'
+    height: 'calc(100vh - 48px)',
+    overflowX: 'auto'
   },
-  sheet: {
-    background: 'white'
-  }
+  editor: { height: 600 },
+  editorWithPanMap: { height: 150 }
 });
 
-const EditorPanel = () => (
-  <div className="bootstrap" style={styles.sheet}>
-    <div style={{ height: '600px' }}>
+const EditorPanel = withStyles(styles)(({ classes }) => (
+  <React.Fragment>
+    <div className={classes.editor}>
       <ReactTooltip delayShow={500} />
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-    <div
-      className="bootstrap"
-      style={{ margin: 2, height: 150, border: '1px solid black' }}
-    >
+    <div className={classes.editorWithPanMap}>
       <Graph hasPanMap />
     </div>
-  </div>
-);
+  </React.Fragment>
+));
 
 type StateT = {
   exportOpen: boolean,
