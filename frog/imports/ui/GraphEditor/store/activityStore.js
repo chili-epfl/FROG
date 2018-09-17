@@ -106,7 +106,7 @@ export default class ActivityStore {
           this.organizeNextState = 'compress';
         } else {
           let expand = 0;
-          const last = [0, {}];
+          const last = [-1, {}];
           if (this.organizeNextState === 'compress') {
             this.organizeNextState = 'expand';
           } else {
