@@ -7,13 +7,24 @@ import { getClickHandler } from './utils';
 
 const Box = ({ x, y, width, selected, strokeColor, color }) => (
   <g>
+    {selected && (
+      <rect
+        x={x - 1}
+        y={y - 1}
+        width={width + 2}
+        stroke="#ff9900"
+        strokeWidth={3}
+        rx={11}
+        height={32}
+      />
+    )}
     <rect
       x={x}
       y={y}
       width={width}
       fill={color}
-      stroke={selected ? '#ff9900' : strokeColor}
-      strokeWidth={selected ? 2 : 1}
+      stroke={strokeColor}
+      strokeWidth={1}
       rx={10}
       height={30}
     />
