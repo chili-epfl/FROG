@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable react/no-array-index-key */
 import * as React from 'react';
 import {
   VictoryBar,
@@ -28,6 +29,19 @@ const styles = () => ({
     marginBottom: '8px'
   }
 });
+
+const TextQ = withStyles(styles)(({ question, answers, classes }) => (
+  <Paper className={classes.question}>
+    <Typography align="center" variant="button" gutterBottom>
+      <HTML html={question} />
+    </Typography>
+    <ul>
+      {answers.map((x, i) => (
+        <li key={i}>{x}</li>
+      ))}
+    </ul>
+  </Paper>
+));
 
 const Question = withStyles(styles)(({ question, answers, classes }) => (
   <Paper className={classes.question}>
@@ -70,8 +84,11 @@ const Question = withStyles(styles)(({ question, answers, classes }) => (
 const Viewer = withStyles(styles)(
   ({ state, classes }: { state: Object, classes: Object }) => (
     <div className={classes.root}>
-      {state.map(([k, v, idx]) => (
+      {state.result.map(([k, v, idx]) => (
         <Question key={idx} question={k} answers={v} />
+      ))}
+      {state.questionTexts.map((k, idx) => (
+        <TextQ key={idx} question={state.questions[idx].question} answers={k} />
       ))}
     </div>
   )
