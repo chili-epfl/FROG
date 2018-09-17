@@ -144,7 +144,7 @@ const IdeaListRaw = ({
       <FlipMove duration={750} easing="ease-out">
         {sortBy(values(data), x => [-x.score, x.id]).map(x => (
           <div
-            key={x.li}
+            key={x.id || x.li}
             style={{
               display: 'flex',
               flexDirection: 'column',

@@ -32,6 +32,7 @@ const LearningItem = (props: {
     props.type === 'thumbView' ||
     props.type === 'edit'
   ) {
+    console.log(props);
     const id = props.id;
     const ToRun =
       typeof id === 'string'

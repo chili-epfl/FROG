@@ -1,12 +1,12 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
 import { type productOperatorT } from 'frog-utils';
+import liType from './liType';
 
 const meta = {
   name: 'Distribute for peer-review',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: 'Wraps LI in li-peerReview, and distributes to other students',
+  description: ''
 };
 
 const config = {
@@ -19,5 +19,6 @@ export default ({
   type: 'product',
   configVersion: 1,
   config,
-  meta
+  meta,
+  LearningItems: [liType]
 }: productOperatorT);
