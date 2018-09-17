@@ -8,7 +8,7 @@ import { store } from '../store';
 import { timeToPx } from '.';
 import Graph from '../Graph';
 
-export default (dataCB: string => void) => {
+export default (dataCB?: string => void) => {
   const canvas = document.createElement('canvas');
 
   const oldScale = store.ui.scale;

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
 // @flow
+
+import * as React from 'react';
 import { Provider } from 'mobx-react';
 import Mousetrap from 'mousetrap';
 import { withRouter } from 'react-router';
@@ -8,7 +9,7 @@ import { store } from './store';
 import { assignGraph } from '../../api/graphs';
 import EditorContainer from './EditorContainer';
 
-class AppClass extends Component<$FlowFixMeProps> {
+class AppClass extends React.Component<*, *> {
   componentWillMount() {
     store.setBrowserHistory(this.props.history);
     this.updateGraphId(this.props.match && this.props.match.params.graphId);
@@ -62,7 +63,8 @@ const bindKeys = () => {
   });
   Mousetrap.bind('backspace', () => store.deleteSelected(false));
   Mousetrap.bind('shift+backspace', () => store.deleteSelected(true));
-  Mousetrap.bind('?', () => store.ui.setModal(true));
+  Mousetrap.bind('?', () => store.ui.setShowHelpModal(true));
+  Mousetrap.bind('!', () => store.ui.setShowChangelogModal(true));
   Mousetrap.bind('s', () => store.operatorStore.place('social'));
   Mousetrap.bind('+', () => store.activityStore.duplicateActivity());
   Mousetrap.bind('c', () => store.operatorStore.place('control'));

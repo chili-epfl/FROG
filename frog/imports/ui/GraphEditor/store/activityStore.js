@@ -1,3 +1,5 @@
+// @flow
+
 import { extendObservable, action } from 'mobx';
 import { maxBy, isEmpty } from 'lodash';
 
@@ -41,8 +43,30 @@ export const calculateBounds = (
 
 export default class ActivityStore {
   all: Activity[];
-
-  activitySequence: { [id: string]: number };
+  sizes: Object;
+  positions: Object;
+  organizeNextState: string;
+  activitySequence: any;
+  setActivitySequence: any => void;
+  duplicateActivity: () => void;
+  setOrganizeNextState: any => void;
+  emptySizes: () => void;
+  organize: () => void;
+  resize: () => void;
+  addActivity: (number, number, boolean) => void;
+  newActivityAbove: (?number) => void;
+  swapActivities: (left: Activity, right: Activity) => void;
+  moveDelete: Activity => void;
+  startResizing: Activity => void;
+  movePlane: number => void;
+  stopMoving: () => void;
+  stopResizing: () => void;
+  mongoAdd: (x: Activity) => void;
+  mongoChange: (any, any) => void;
+  mongoRemove: ({ _id: string }) => void;
+  history: Array<Object>;
+  furthestActivity: number;
+  activityOffsets: Object;
 
   constructor() {
     extendObservable(this, {
@@ -82,7 +106,7 @@ export default class ActivityStore {
           this.organizeNextState = 'compress';
         } else {
           let expand = 0;
-          const last = [null, null];
+          const last = [-1, {}];
           if (this.organizeNextState === 'compress') {
             this.organizeNextState = 'expand';
           } else {
@@ -94,7 +118,7 @@ export default class ActivityStore {
             if (this.organizeNextState === 'expand') {
               this.positions[act.id] = act.startTime;
             }
-            if (act.startTime === last[0]) {
+            if (act.startTime === last[0] && last[1]) {
               act.setStart(last[1].startTime);
               if (last[1].length < act.length) {
                 index += act.length - last[1].length;
@@ -139,9 +163,9 @@ export default class ActivityStore {
             this.all
           );
           const maxLength = rightBoundTime - time;
-          length = Math.min(maxLength, 5);
+          length = Math.min(maxLength, 10);
         } else {
-          length = 5;
+          length = 10;
         }
         if (length >= 1) {
           const newActivity = new Activity(plane, time, 'Unnamed', length);
@@ -193,10 +217,11 @@ export default class ActivityStore {
       }),
 
       movePlane: action((increment: number) => {
-        if (store.ui.selected instanceof Activity) {
-          const oldplane = store.ui.selected.plane;
-          store.ui.selected.plane = between(1, 4, oldplane + increment);
-          if (oldplane !== store.ui.selected.plane) {
+        const { selected } = store.ui;
+        if (selected && selected instanceof Activity) {
+          const oldplane = selected.plane;
+          selected.plane = between(1, 4, oldplane + increment);
+          if (oldplane !== selected.plane) {
             store.addHistory();
           }
         }

@@ -38,10 +38,13 @@ export const exportGraph = () => {
 export const duplicateGraph = graphId =>
   doImportGraph({ target: { result: graphToString(graphId) } });
 
-export const doImportGraph = graphStr => {
+export const doImportGraph = (graphStr: string, title?: string) => {
   try {
     const graph = graphStr.target ? graphStr.target.result : graphStr;
     const graphObj = JSON.parse(graph);
+    if (title) {
+      graphObj.graph.name = title;
+    }
     const graphId = addGraph(graphObj);
     store.setId(graphId);
     return graphId;

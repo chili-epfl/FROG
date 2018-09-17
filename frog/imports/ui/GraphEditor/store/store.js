@@ -1,3 +1,5 @@
+// @flow
+
 import { isEmpty, isEqual, sortBy } from 'lodash';
 import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
@@ -44,17 +46,13 @@ export type StateT =
   | {
       mode: 'resizing',
       currentActivity: Activity,
-      bounds: BoundsT,
-      activitiesToPush?: Activity[],
-      operatorsToPush?: Operator[]
+      bounds: BoundsT
     }
   | {
       mode: 'moving',
       currentActivity: Activity,
       mouseOffset: number,
-      initialStartTime: number,
-      activitiesToPush?: Activity[],
-      operatorsToPush?: Operator[]
+      initialStartTime: number
     }
   | { mode: 'waitingDrag' }
   | { mode: 'movingOperator', currentOperator: Operator }
@@ -66,7 +64,7 @@ export type StateT =
 
 const getOne = (coll: Coll, crit: Function): ?Elem => {
   const found = coll.filter(crit);
-  if (found.size === 0) {
+  if (found.length === 0) {
     return undefined;
   }
   return found[0];
@@ -77,10 +75,35 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 
 export default class Store {
   browserHistory: any;
-
   url: string;
-
   history: any[];
+  objects: {
+    connections: Elem[],
+    activities: Elem[],
+    operators: Elem[],
+    graphId: string,
+    graphDuration: number
+  };
+  state: StateT;
+  connectionStore: ConnectionStore;
+  activityStore: ActivityStore;
+  operatorStore: OperatorStore;
+  ui: UI;
+  overlapAllowed: boolean;
+  graphId: string;
+  _graphDuration: number;
+  graphDuration: number;
+  readOnly: boolean;
+  changeDuration: number => void;
+  addHistory: () => void;
+  refreshValidate: () => void;
+  session: Session;
+  graphErrors: Object[];
+  valid: Object;
+  setId: (string, ?boolean) => void;
+  setBrowserHistory: (Object, ?string) => void;
+  setSession: any => void;
+  deleteSelected: (?boolean) => void;
 
   constructor() {
     extendObservable(this, {
@@ -93,7 +116,7 @@ export default class Store {
       graphId: '',
       graphErrors: [],
       valid: undefined,
-      _graphDuration: 120,
+      _graphDuration: 60,
       readOnly: false,
 
       get graphDuration(): number {
@@ -122,8 +145,10 @@ export default class Store {
         if (duration && duration >= 30 && duration <= 1200) {
           const oldPanTime = this.ui.panTime;
           // changes the scale on duration change
+          this.ui.setScaleValue(
+            (this.ui.scale * duration) / this._graphDuration
+          );
           this._graphDuration = duration;
-          this.ui.setScaleValue(this.ui.scale / this.graphDuration);
           const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
           this.ui.panDelta(needPanDelta);
           Graphs.update(this.graphId, {
@@ -163,7 +188,7 @@ export default class Store {
         this.readOnly = readOnly;
         this.graphId = id;
 
-        this.changeDuration(graph ? graph.duration || 120 : 120);
+        this.changeDuration(graph ? graph.duration || 60 : 60);
         this.activityStore.all = findActivitiesMongo(
           { graphId: id },
           { reactive: false }
@@ -212,10 +237,14 @@ export default class Store {
               !source ||
               !target
             ) {
-              throw 'Cannot find connection source/target, or source/target is a connection';
+              console.error(
+                'Cannot find connection source/target, or source/target is a connection'
+              );
+              return undefined;
             }
             return new Connection(source, target, x._id);
-          });
+          })
+          .filter(x => !!x);
 
         this.ui.selected = null;
         this.history = [];
@@ -283,26 +312,51 @@ export default class Store {
         if (isEmpty(last)) {
           return;
         }
+
         const [connections, activities, operators] = last[0];
+
         this.activityStore.all = activities.map(
-          x => new Activity(x.plane, x.startTime, x.title, x.length, x.id)
+          x =>
+            new Activity(
+              x.plane,
+              x.startTime,
+              x.title,
+              x.length,
+              x.data,
+              x.activityType,
+              x.id
+            )
         );
         this.operatorStore.all = operators.map(
-          x => new Operator(x.time, x.y, x.type, x.id, x.title)
+          x =>
+            new Operator(
+              x.time,
+              x.y,
+              x.type,
+              x.data,
+              x.operatorType,
+              x.id,
+              x.title
+            )
         );
-        this.connectionStore.all = connections.map(x => {
-          const source = this.findId(x.source);
-          const target = this.findId(x.target);
-          if (
-            source instanceof Connection ||
-            target instanceof Connection ||
-            !source ||
-            !target
-          ) {
-            throw 'Cannot find connection source/target, or source/target is a connection';
-          }
-          return new Connection(source, target, x._id);
-        });
+        this.connectionStore.all = connections
+          .map(x => {
+            const source = this.findId(x.source);
+            const target = this.findId(x.target);
+            if (
+              source instanceof Connection ||
+              target instanceof Connection ||
+              !source ||
+              !target
+            ) {
+              console.error(
+                'Cannot find connection source/target, or source/target is a connection'
+              );
+              return undefined;
+            }
+            return new Connection(source, target, x._id);
+          })
+          .filter(x => !!x);
 
         mergeGraph(this.objects);
       }),

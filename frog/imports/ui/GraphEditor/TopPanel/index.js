@@ -1,43 +1,25 @@
 // @flow
 
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import GraphMenu from './GraphMenu';
 
+import GraphMenu from './GraphMenu';
 import { UndoButton, ConfigMenu } from './Settings';
 import ExpandButton from '../SidePanel/ExpandButton';
 
 const styles = {
   root: {
-    flexGrow: 1
+    display: 'flex',
+    flexDirection: 'row'
   }
 };
 
-const TopPanel = (props: Object) => (
-  <div id="topPanel">
-    <Grid container justify="space-between" spacing={0}>
-      <Grid item>
-        <Grid container>
-          <Grid item>
-            <ConfigMenu {...props} />
-          </Grid>
-          <Grid item>
-            <GraphMenu />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <Grid container>
-          <Grid item>
-            <UndoButton />
-          </Grid>
-          <Grid item>
-            <ExpandButton />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+const TopPanel = ({ classes, ...props }: Object) => (
+  <div className={classes.root}>
+    <ConfigMenu {...props} />
+    <GraphMenu />
+    <UndoButton />
+    <ExpandButton />
   </div>
 );
 
