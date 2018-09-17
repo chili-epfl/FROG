@@ -116,7 +116,7 @@ export default class Store {
       graphId: '',
       graphErrors: [],
       valid: undefined,
-      _graphDuration: 120,
+      _graphDuration: 60,
       readOnly: false,
 
       get graphDuration(): number {
@@ -186,7 +186,7 @@ export default class Store {
         this.readOnly = readOnly;
         this.graphId = id;
 
-        this.changeDuration(graph ? graph.duration || 120 : 120);
+        this.changeDuration(graph ? graph.duration || 60 : 60);
         this.activityStore.all = findActivitiesMongo(
           { graphId: id },
           { reactive: false }
