@@ -68,7 +68,7 @@ export default class uiStore {
     extendObservable(this, {
       sidepanelOpen: false,
       svgRef: null,
-      scale: 2,
+      scale: 1,
       windowWidth: 1000,
       graphWidth: 1000,
       socialCoordsTime: [0, 0],
