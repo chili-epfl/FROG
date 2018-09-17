@@ -235,7 +235,9 @@ export default class Store {
               !source ||
               !target
             ) {
-              // throw 'Cannot find connection source/target, or source/target is a connection';
+              console.error(
+                'Cannot find connection source/target, or source/target is a connection'
+              );
               return undefined;
             }
             return new Connection(source, target, x._id);
@@ -309,9 +311,6 @@ export default class Store {
           return;
         }
 
-        console.log(connections);
-        console.log(this.connectionStore.all);
-
         const [connections, activities, operators] = last[0];
 
         this.activityStore.all = activities.map(
@@ -327,7 +326,16 @@ export default class Store {
             )
         );
         this.operatorStore.all = operators.map(
-          x => new Operator(x.time, x.y, x.type, x.id, x.title)
+          x =>
+            new Operator(
+              x.time,
+              x.y,
+              x.type,
+              x.data,
+              x.operatorType,
+              x.id,
+              x.title
+            )
         );
         this.connectionStore.all = connections
           .map(x => {
@@ -339,7 +347,9 @@ export default class Store {
               !source ||
               !target
             ) {
-              // throw 'Cannot find connection source/target, or source/target is a connection';
+              console.error(
+                'Cannot find connection source/target, or source/target is a connection'
+              );
               return undefined;
             }
             return new Connection(source, target, x._id);
