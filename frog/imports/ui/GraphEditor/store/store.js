@@ -145,8 +145,10 @@ export default class Store {
         if (duration && duration >= 30 && duration <= 1200) {
           const oldPanTime = this.ui.panTime;
           // changes the scale on duration change
+          this.ui.setScaleValue(
+            (this.ui.scale * duration) / this._graphDuration
+          );
           this._graphDuration = duration;
-          this.ui.setScaleValue(this.ui.scale / this.graphDuration);
           const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
           this.ui.panDelta(needPanDelta);
           Graphs.update(this.graphId, {

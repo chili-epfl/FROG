@@ -68,7 +68,7 @@ export default class uiStore {
     extendObservable(this, {
       sidepanelOpen: false,
       svgRef: null,
-      scale: 4,
+      scale: 2,
       windowWidth: 1000,
       graphWidth: 1000,
       socialCoordsTime: [0, 0],
@@ -230,7 +230,7 @@ export default class uiStore {
       }),
 
       setScaleValue: action((newScale: number) => {
-        this.scale = between(1, store.graphDuration / 15, newScale);
+        this.scale = between(1, store.graphDuration / 10, newScale);
         this.panDelta(0);
       }),
 
