@@ -174,7 +174,10 @@ export default class Store {
       // should check for new global version of graph
       setId: action((id: string, readOnly: boolean = false) => {
         const desiredUrl = `${this.url}/${id}`;
-        if (this.browserHistory.location.pathname !== desiredUrl) {
+        if (
+          this.browserHistory &&
+          this.browserHistory.location.pathname !== desiredUrl
+        ) {
           this.browserHistory.push(desiredUrl);
         }
         setCurrentGraph(id);

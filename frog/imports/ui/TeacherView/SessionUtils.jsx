@@ -113,7 +113,7 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
               setTeacherSession(undefined);
             }}
           >
-            Quit session
+            Switch to Other Session
           </MenuItem>
         </Menu>
       </div>

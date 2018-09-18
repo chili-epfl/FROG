@@ -37,7 +37,25 @@ Meteor.methods({
         return;
       }
       sessionCancelCountDown(session._id);
-      Sessions.update(session._id, { $set: { slug: session.slug + '-old' } });
+      const prev = Sessions.find({
+        slug: { $regex: '^' + session.slug + '-old-' }
+      }).fetch();
+      let nextNum = 1;
+      if (prev && prev.length > 0) {
+        prev.sort((x, y) => y.slug - x.slug);
+        const prevNum = parseInt(
+          prev
+            .pop()
+            .slug.split('-')
+            .pop(),
+          10
+        );
+        nextNum = prevNum + 1;
+      }
+
+      Sessions.update(session._id, {
+        $set: { slug: session.slug + '-old-' + nextNum }
+      });
       Meteor.users.update(Meteor.userId(), {
         $unset: { 'profile.controlSession': '' }
       });
@@ -73,16 +91,20 @@ export const setTeacherSession = (sessionId: ?string) => {
   }
 };
 
-export const addSession = (graphId: string) => {
-  Meteor.call('add.session', graphId, null, (err, result) => {
-    if (result === 'invalidGraph') {
-      // eslint-disable-next-line no-alert
-      window.alert(
-        'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.'
-      );
-    }
-  });
-};
+export const addSession = (graphId: string): Promise<string> =>
+  new Promise((resolve, reject) =>
+    Meteor.call('add.session', graphId, null, (err, result) => {
+      if (result === 'invalidGraph') {
+        // eslint-disable-next-line no-alert
+        window.alert(
+          'Cannot create session from invalid graph. Please open graph in graph editor and correct errors.'
+        );
+        reject();
+      } else {
+        resolve(result);
+      }
+    })
+  );
 
 export const sessionStartCountDown = (
   sessionId: string,
