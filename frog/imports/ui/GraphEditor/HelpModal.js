@@ -42,6 +42,9 @@ const HelpModal = ({ show, hide, classes }: Object) => (
       </AppBar>
     </DialogTitle>
     <List style={{ margin: '10px' }}>
+      <h4>
+        <a href="https://youtu.be/AN2kBK8qzF4">Video tutorial</a>
+      </h4>
       <h4>Adding activities</h4>
       Double-click on one of the three plane lines to add activities. Choose the
       kind of activity, and configure it, in the right sidebar.

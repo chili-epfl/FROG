@@ -4,7 +4,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 import GraphMenu from './GraphMenu';
-import { UndoButton, ConfigMenu } from './Settings';
+import { UndoButton, HelpButton, ConfigMenu } from './Settings';
 import ExpandButton from '../SidePanel/ExpandButton';
 
 const styles = {
@@ -18,6 +18,7 @@ const TopPanel = ({ classes, ...props }: Object) => (
   <div className={classes.root}>
     <ConfigMenu {...props} />
     <GraphMenu />
+    <HelpButton />
     <UndoButton />
     <ExpandButton />
   </div>

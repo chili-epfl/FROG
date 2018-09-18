@@ -17,6 +17,7 @@ import Image from '@material-ui/icons/Image';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
+import Help from '@material-ui/icons/Help';
 
 import {
   addGraph,
@@ -48,6 +49,12 @@ const styles = theme => ({
     padding: 3,
     width: 35
   },
+  helpButton: {
+    marginTop: theme.spacing.unit,
+    padding: 3,
+    width: 35,
+    marginRight: 70
+  },
   button: {
     marginTop: theme.spacing.unit / 2,
     padding: 3,
@@ -60,6 +67,21 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit
   }
 });
+
+const HelpButtonComponent = ({ classes, store: { ui } }) => (
+  <div className={classes.root}>
+    <Tooltip id="tooltip-top" title="Show instructions" placement="top">
+      <Button
+        onClick={() => ui.setShowHelpModal(true)}
+        color="primary"
+        className={classes.helpButton}
+      >
+        HELP
+        <Help className={classes.rightIcon} />
+      </Button>
+    </Tooltip>
+  </div>
+);
 
 const UndoButtonComponent = ({ classes, store: { undo } }) => (
   <div className={classes.root}>
@@ -77,6 +99,7 @@ const UndoButtonComponent = ({ classes, store: { undo } }) => (
 );
 
 export const UndoButton = withStyles(styles)(connect(UndoButtonComponent));
+export const HelpButton = withStyles(styles)(connect(HelpButtonComponent));
 
 const MenuItemDeleteFromServer = ({
   setIdRemove,
