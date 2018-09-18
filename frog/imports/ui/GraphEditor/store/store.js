@@ -101,7 +101,7 @@ export default class Store {
   graphErrors: Object[];
   valid: Object;
   setId: (string, ?boolean) => void;
-  setBrowserHistory: (Object, ?string) => void;
+  setBrowserHistory: (?Object, ?string) => void;
   setSession: any => void;
   deleteSelected: (?boolean) => void;
 
