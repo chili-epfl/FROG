@@ -88,6 +88,7 @@ class LogoutMenu extends React.Component<*, *> {
           <MenuItem onClick={this.handleClose}>Change password</MenuItem>
           <MenuItem
             onClick={() => {
+              sessionStorage.removeItem('frog.sessionToken');
               Meteor.logout();
               window.location.assign('/');
             }}

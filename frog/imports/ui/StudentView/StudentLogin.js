@@ -53,11 +53,11 @@ class StudentLogin extends React.Component<
         return window.alert('Secret token is not correct');
       }
     }
-    this.props.login(
-      this.state.selected || (this.state.name && this.state.name.trim()),
-      null,
-      { studentLogin: true }
-    );
+    this.props.login({
+      username:
+        this.state.selected || (this.state.name && this.state.name.trim()),
+      isStudentList: true
+    });
   };
 
   render() {

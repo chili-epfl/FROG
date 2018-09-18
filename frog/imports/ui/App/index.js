@@ -43,7 +43,6 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
     setState('error');
   } else {
     if (storeInSession) {
-      console.log('storing');
       sessionStorage.setItem(
         'frog.sessionToken',
         JSON.stringify({
@@ -180,12 +179,10 @@ const FROGRouter = withRouter(
         if (this.state.mode !== 'loggingIn') {
           const username = query.login;
           if (username) {
-            console.log('logging in');
             this.login({ username, token: query.token, loginQuery: true });
           }
           if (!hasLogin && this.state.mode !== 'ready') {
             const sessionLogin = sessionStorage.getItem('frog.sessionToken');
-            console.log(sessionLogin);
             if (sessionLogin) {
               this.tokenLogin(JSON.parse(sessionLogin).token);
             } else if (Accounts._storedLoginToken()) {
