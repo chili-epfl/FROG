@@ -56,7 +56,7 @@ class StudentLogin extends React.Component<
     this.props.login(
       this.state.selected || (this.state.name && this.state.name.trim()),
       null,
-      true
+      { studentLogin: true }
     );
   };
 

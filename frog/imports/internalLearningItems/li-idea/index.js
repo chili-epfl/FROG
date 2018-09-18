@@ -18,6 +18,7 @@ const styles = () => ({
 
 const ThumbViewer = ({ data }) => (
   <div>
+    <h1>Thumbnail</h1>
     <b>{data.title}</b>
     <br />
     {data.content.split('\n').map((line, i) => (

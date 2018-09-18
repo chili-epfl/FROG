@@ -38,10 +38,21 @@ const APICall = Loadable({
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();
 
-const subscriptionCallback = (error, response, setState) => {
+const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
   } else {
+    if (storeInSession) {
+      console.log('storing');
+      sessionStorage.setItem(
+        'frog.sessionToken',
+        JSON.stringify({
+          token: response.token,
+          id: response.id,
+          expires: response.tokenExpires
+        })
+      );
+    }
     Accounts.makeClientLoggedIn(
       response.id,
       response.token,
@@ -52,6 +63,7 @@ const subscriptionCallback = (error, response, setState) => {
       response.token,
       response.tokenExpires
     );
+
     Meteor.subscribe('userData', { onReady: () => setState('ready') });
   }
 };
@@ -100,7 +112,17 @@ const FROGRouter = withRouter(
       }
     }
 
-    login = (username: string, token?: string, isStudentList?: boolean) => {
+    login = ({
+      username,
+      token,
+      isStudentList,
+      loginQuery
+    }: {
+      username: string,
+      token?: string,
+      isStudentList?: boolean,
+      loginQuery?: boolean
+    }) => {
       this.setState({ mode: 'loggingIn' });
       Meteor.call(
         'frog.username.login',
@@ -109,7 +131,12 @@ const FROGRouter = withRouter(
         isStudentList,
         this.props.match.params.slug,
         (err, id) => {
-          subscriptionCallback(err, id, x => this.setState({ mode: x }));
+          subscriptionCallback(
+            err,
+            id,
+            x => this.setState({ mode: x }),
+            loginQuery
+          );
         }
       );
     };
@@ -153,10 +180,15 @@ const FROGRouter = withRouter(
         if (this.state.mode !== 'loggingIn') {
           const username = query.login;
           if (username) {
-            this.login(username, query.token);
+            console.log('logging in');
+            this.login({ username, token: query.token, loginQuery: true });
           }
           if (!hasLogin && this.state.mode !== 'ready') {
-            if (Accounts._storedLoginToken()) {
+            const sessionLogin = sessionStorage.getItem('frog.sessionToken');
+            console.log(sessionLogin);
+            if (sessionLogin) {
+              this.tokenLogin(JSON.parse(sessionLogin).token);
+            } else if (Accounts._storedLoginToken()) {
               this.tokenLogin(Accounts._storedLoginToken());
             } else if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
