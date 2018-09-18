@@ -2,9 +2,7 @@
 
 import * as React from 'react';
 import { Provider } from 'mobx-react';
-import { withRouter } from 'react-router';
 import { isEqual } from 'lodash';
-
 import { withStyles } from '@material-ui/core/styles';
 
 import ShowInfo from './ShowInfo';
@@ -13,7 +11,6 @@ import { store } from '../GraphEditor/store';
 
 type GraphViewPropsT = {
   session: Object,
-  history: Object,
   classes: Object
 };
 
@@ -68,6 +65,6 @@ class GraphViewController extends React.Component<GraphViewPropsT, {}> {
   }
 }
 
-const GraphView = withRouter(GraphViewController);
+const GraphView = GraphViewController;
 
 export default withStyles(styles)(GraphView);
