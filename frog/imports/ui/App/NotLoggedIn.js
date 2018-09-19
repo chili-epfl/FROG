@@ -99,10 +99,14 @@ const NotLoggedIn = ({ login }: { login: Function }) => {
               <h3>Shortcuts</h3>
               <ul>
                 <li>
-                  <A onClick={() => login('teacher')}>Log in as teacher</A>
+                  <A onClick={() => login({ username: 'teacher' })}>
+                    Log in as teacher
+                  </A>
                 </li>
                 <li>
-                  <A onClick={() => login(name)}>Log in as {name} (student)</A>
+                  <A onClick={() => login({ username: name })}>
+                    Log in as {name} (student)
+                  </A>
                 </li>
               </ul>
             </div>

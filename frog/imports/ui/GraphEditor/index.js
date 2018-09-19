@@ -4,7 +4,9 @@ import * as React from 'react';
 import { Provider } from 'mobx-react';
 import Mousetrap from 'mousetrap';
 import { withRouter } from 'react-router';
+import { Meteor } from 'meteor/meteor';
 
+import changelog from '/imports/api/changelog';
 import { store } from './store';
 import { assignGraph } from '../../api/graphs';
 import EditorContainer from './EditorContainer';
@@ -32,6 +34,13 @@ class AppClass extends React.Component<*, *> {
 
   componentDidMount() {
     bindKeys();
+
+    const user = Meteor.user();
+    if (!user?.profile.lastVersionChangelog) {
+      Meteor.users.update(Meteor.userId(), {
+        $set: { 'profile.lastVersionChangelog': changelog.length - 1 }
+      });
+    }
   }
 
   componentWillUnmount() {
