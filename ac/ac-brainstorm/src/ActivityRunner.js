@@ -57,7 +57,8 @@ const Idea = ({
   editFn,
   zoomable,
   editable,
-  zoomFn
+  zoomFn,
+  config
 }) => (
   <ListItem>
     {children}
@@ -70,24 +71,26 @@ const Idea = ({
         top: '5px'
       }}
     >
-      <div style={{ flexDirection: 'row' }}>
-        <A onClick={() => vote(meta.id, -1)}>
-          <ThumbDownIcon
-            style={{
-              color: chooseColor(meta.students[userInfo.id], false),
-              marginRight: '10px'
-            }}
-          />
-        </A>
-        <A onClick={() => vote(meta.id, 1)}>
-          <ThumbUpIcon
-            style={{
-              color: chooseColor(meta.students[userInfo.id], true),
-              marginRight: '10px'
-            }}
-          />
-        </A>
-      </div>
+      {config.allowVoting && (
+        <div style={{ flexDirection: 'row' }}>
+          <A onClick={() => vote(meta.id, -1)}>
+            <ThumbDownIcon
+              style={{
+                color: chooseColor(meta.students[userInfo.id], false),
+                marginRight: '10px'
+              }}
+            />
+          </A>
+          <A onClick={() => vote(meta.id, 1)}>
+            <ThumbUpIcon
+              style={{
+                color: chooseColor(meta.students[userInfo.id], true),
+                marginRight: '10px'
+              }}
+            />
+          </A>
+        </div>
+      )}
       <div style={{ flexDirection: 'row' }}>
         <font size={4}>
           <A onClick={() => delFn(meta)}>
@@ -99,27 +102,29 @@ const Idea = ({
               }}
             />
           </A>
-          {editable && (
-            <A onClick={() => editFn(meta.id)}>
-              <PencilIcon
-                style={{
-                  float: 'right',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
-          )}
-          {zoomable && (
-            <A onClick={() => zoomFn(meta.id)}>
-              <ZoomInIcon
-                glyph="zoom-in"
-                style={{
-                  float: 'right',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
-          )}
+          {editable &&
+            config.allowEdit && (
+              <A onClick={() => editFn(meta.id)}>
+                <PencilIcon
+                  style={{
+                    float: 'right',
+                    marginRight: '10px'
+                  }}
+                />
+              </A>
+            )}
+          {zoomable &&
+            !config.expandItems && (
+              <A onClick={() => zoomFn(meta.id)}>
+                <ZoomInIcon
+                  glyph="zoom-in"
+                  style={{
+                    float: 'right',
+                    marginRight: '10px'
+                  }}
+                />
+              </A>
+            )}
         </font>
       </div>
     </div>
@@ -137,6 +142,7 @@ const IdeaListRaw = ({
   setZoom,
   LearningItem,
   history,
+  config,
   classes
 }) => (
   <div>
@@ -165,12 +171,15 @@ const IdeaListRaw = ({
                       ? history
                         ? 'history'
                         : 'view'
-                      : 'thumbView'
+                      : config.expandItems
+                        ? 'view'
+                        : 'thumbView'
                 }
                 render={({ zoomable, editable, children }) => (
                   <Idea
                     zoomable={zoomable || history}
                     editable={editable}
+                    config={config}
                     meta={x}
                     vote={vote}
                     delFn={item => dataFn.objDel(item, item.id)}
@@ -239,12 +248,14 @@ const ActivityRunner = ({
   const formBoolean = activityData.config.formBoolean;
   const LearningItem = dataFn.LearningItem;
   const slider = activityData.config.zoomShowsHistory;
+  const { config } = activityData;
   return (
-    <React.Fragment>
+    <>
       <div style={{ width: '80%' }}>
         <ListContainer>
           <p>{activityData.config.text}</p>
           <IdeaList
+            config={activityData.config}
             data={data}
             vote={vote}
             dataFn={dataFn}
@@ -254,26 +265,28 @@ const ActivityRunner = ({
           />
         </ListContainer>
       </div>
-      {formBoolean && (
-        <React.Fragment>
-          <div style={{ display: 'flex' }}>
-            <div style={{ width: '500px' }}>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '500px' }}>
+          {config.allowCreate &&
+            config.specificLI && (
               <LearningItem
-                liType="li-idea"
+                liType={config.liType || 'li-idea'}
                 type="create"
                 meta={{ score: 0, students: {} }}
                 autoInsert
               />
-            </div>
+            )}
+        </div>
+        {config.allowCreate &&
+          config.allowGeneralLI && (
             <LearningItem
               type="create"
               meta={{ score: 0, students: {} }}
               autoInsert
             />
-          </div>
-        </React.Fragment>
-      )}
-    </React.Fragment>
+          )}
+      </div>
+    </>
   );
 };
 
