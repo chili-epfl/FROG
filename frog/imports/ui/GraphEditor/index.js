@@ -37,8 +37,8 @@ class AppClass extends React.Component<*, *> {
 
     const user = Meteor.user();
     if (!user?.profile.lastVersionChangelog) {
-      Meteor.user.update(Meteor.userId(), {
-        $set: { 'user.profile.lastVersionChangelog': changelog.length - 1 }
+      Meteor.users.update(Meteor.userId(), {
+        $set: { 'profile.lastVersionChangelog': changelog.length - 1 }
       });
     }
   }
