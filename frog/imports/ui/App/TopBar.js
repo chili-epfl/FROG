@@ -17,7 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings';
 
-import HelpModal from '../GraphEditor/HelpModal';
+import ChangelogModal from '../GraphEditor/ChangelogModal';
 
 const styles = theme => ({
   root: {
@@ -66,7 +66,7 @@ class LogoutMenu extends React.Component<*, *> {
         >
           <Settings />
         </IconButton>
-        <HelpModal
+        <ChangelogModal
           show={this.state.modal}
           hide={() => this.setState({ modal: false })}
         />

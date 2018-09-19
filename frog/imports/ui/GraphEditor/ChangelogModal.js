@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -22,17 +24,20 @@ const styles = {
 
 class HelpModal extends React.Component<*, *> {
   componentDidUpdate() {
-    if (
-      Meteor.user().profile &&
-      Meteor.user().profile.lastVersionChangelog !== changelog.length - 1
-    )
+    if (Meteor.user()?.profile?.lastVersionChangelog !== changelog.length - 1)
       updateChangelogVersion();
   }
 
   render() {
-    const version = Meteor.user().profile
-      ? Meteor.user().profile.lastVersionChangelog
-      : undefined;
+    const version = Meteor.user()?.profile?.lastVersionChangelog;
+
+    const logs =
+      version === changelog.length - 1
+        ? changelog.sort((a, b) => (a.date > b.date ? -1 : 1))
+        : changelog
+            .slice(version + 1)
+            .sort((a, b) => (a.date > b.date ? -1 : 1));
+
     return (
       <Dialog
         open={this.props.show}
@@ -57,45 +62,20 @@ class HelpModal extends React.Component<*, *> {
           </AppBar>
         </DialogTitle>
         <List style={{ top: '50px' }}>
-          {version === changelog.length - 1
-            ? changelog.sort((a, b) => (a.date > b.date ? -1 : 1)).map(log => (
-                <div key={log.date} style={{ padding: '10px' }}>
-                  {Object.keys(log)
-                    .filter(y => y !== 'date')
-                    .map(x => (
-                      <div key={x}>
-                        <h4>
-                          {x} ({log.date.toDateString()})
-                        </h4>
-                        {log[x].split('<br/>').map(y => (
-                          <p key={y}>{y}</p>
-                        ))}
-                      </div>
-                    ))}
-                </div>
-              ))
-            : changelog
-                .slice(version + 1)
-                .sort((a, b) => (a.date > b.date ? -1 : 1))
-                .map(log => (
-                  <div
-                    key={log.date}
-                    style={{ border: '1px solid', padding: '10px' }}
-                  >
-                    {Object.keys(log)
-                      .filter(y => y !== 'date')
-                      .map(x => (
-                        <div key={x}>
-                          <h4>
-                            {x} ({log.date.toDateString()})
-                          </h4>
-                          {log[x].split('<br/>').map(y => (
-                            <p key={y}>{y}</p>
-                          ))}
-                        </div>
-                      ))}
-                  </div>
-                ))}
+          {logs.map(log => (
+            <div key={log.date} style={{ padding: '10px' }}>
+              <div key={log.date}>
+                <h4>
+                  {log.title} ({log.date.toDateString()})
+                </h4>
+                <ul>
+                  {log.content.map((y, i) => (
+                    <li key={i}>{y}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </List>
       </Dialog>
     );

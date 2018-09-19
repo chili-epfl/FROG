@@ -14,15 +14,11 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
     (q.answers || []).map(a => ({ x: a.choice, y: 0 }))
   );
 
-  const questionTexts = questions.map(() => []);
   values(reactive).forEach(instanceData =>
     entries(instanceData.form || {}).forEach(([qIdx, answer]) => {
       entries(answer || {}).forEach(([aIdx, aValue]) => {
         if (aValue === true) {
           questionStats[qIdx][aIdx].y += 1;
-        }
-        if (answer && answer.text) {
-          questionTexts[qIdx].push(answer.text);
         }
       });
     })
@@ -32,7 +28,7 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
     .map((v, k) => [questions[k].question, reverse(v), k])
     .filter(([_, v]) => v && v.length > 0);
 
-  return { result, questionTexts, questions };
+  return result;
 };
 
 export default {

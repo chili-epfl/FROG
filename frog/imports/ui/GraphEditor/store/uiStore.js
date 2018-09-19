@@ -65,6 +65,7 @@ export default class uiStore {
 
   constructor() {
     const user = Meteor.user();
+
     extendObservable(this, {
       sidepanelOpen: false,
       svgRef: null,
@@ -81,8 +82,7 @@ export default class uiStore {
       libraryOpen: false,
       showInfo: false,
       showChangelogModal:
-        user?.profile !== undefined &&
-        user?.profile.lastVersionChangelog !== undefined &&
+        user?.profile?.lastVersionChangelog !== undefined &&
         user?.profile.lastVersionChangelog < changelog.length - 1,
       showHelpModal: false,
       setIsSvg: action((isSvg: boolean) => {
