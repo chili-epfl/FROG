@@ -52,6 +52,7 @@ class ActivityRunner extends React.Component<
               <div>
                 {children}
                 {!editing &&
+                  !conf.noSubmit &&
                   conf.allowEditing && (
                     <Button
                       onClick={() =>

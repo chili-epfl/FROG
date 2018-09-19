@@ -48,6 +48,30 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
+const AddingLI = ({ LearningItem, config }) => (
+  <>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '500px' }}>
+        {config.specificLI && (
+          <LearningItem
+            liType={config.liType || 'li-idea'}
+            type="create"
+            meta={{ score: 0, students: {} }}
+            autoInsert
+          />
+        )}
+      </div>
+      {config.allowGeneralLI && (
+        <LearningItem
+          type="create"
+          meta={{ score: 0, students: {} }}
+          autoInsert
+        />
+      )}
+    </div>
+  </>
+);
+
 const Idea = ({
   children,
   delFn,
@@ -266,27 +290,9 @@ const ActivityRunner = ({
           />
         </ListContainer>
       </div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ width: '500px' }}>
-          {config.allowCreate &&
-            config.specificLI && (
-              <LearningItem
-                liType={config.liType || 'li-idea'}
-                type="create"
-                meta={{ score: 0, students: {} }}
-                autoInsert
-              />
-            )}
-        </div>
-        {config.allowCreate &&
-          config.allowGeneralLI && (
-            <LearningItem
-              type="create"
-              meta={{ score: 0, students: {} }}
-              autoInsert
-            />
-          )}
-      </div>
+      {config.allowCreate && (
+        <AddingLI LearningItem={LearningItem} config={config} />
+      )}
     </>
   );
 };
