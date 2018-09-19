@@ -93,15 +93,17 @@ const Idea = ({
       )}
       <div style={{ flexDirection: 'row' }}>
         <font size={4}>
-          <A onClick={() => delFn(meta)}>
-            <DeleteIcon
-              style={{
-                float: 'right',
-                color: 'grey',
-                marginRight: '10px'
-              }}
-            />
-          </A>
+          {config.allowDelete && (
+            <A onClick={() => delFn(meta)}>
+              <DeleteIcon
+                style={{
+                  float: 'right',
+                  color: 'grey',
+                  marginRight: '10px'
+                }}
+              />
+            </A>
+          )}
           {editable &&
             config.allowEdit && (
               <A onClick={() => editFn(meta.id)}>
@@ -245,7 +247,6 @@ const ActivityRunner = ({
     }
   };
 
-  const formBoolean = activityData.config.formBoolean;
   const LearningItem = dataFn.LearningItem;
   const slider = activityData.config.zoomShowsHistory;
   const { config } = activityData;

@@ -1,6 +1,12 @@
 // @flow
 
-import { type ActivityPackageT, uuid, ProgressDashboard } from 'frog-utils';
+import { isObject } from 'lodash';
+import {
+  type ActivityPackageT,
+  uuid,
+  ProgressDashboard,
+  values
+} from 'frog-utils';
 
 const meta = {
   name: 'Add/edit single LI',
@@ -21,7 +27,8 @@ const config = {
       title: 'Allow editing after submission',
       default: true,
       type: 'boolean'
-    }
+    },
+    noSubmit: { title: 'No submit button', type: 'boolean' }
   }
 };
 
@@ -31,6 +38,15 @@ const formatProduct = (_, product) => {
 };
 
 const configUI = { instructions: { 'ui:widget': 'textarea' } };
+
+const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
+  if (isObject(obj?.data)) {
+    const { li } = values(obj.data)?.[0];
+    if (li) {
+      dataFn.objInsert({ li });
+    }
+  }
+};
 
 const dataStructure = {};
 
@@ -43,5 +59,6 @@ export default ({
   configUI,
   formatProduct,
   dashboards: { progress: ProgressDashboard },
-  dataStructure
+  dataStructure,
+  mergeFunction
 }: ActivityPackageT);

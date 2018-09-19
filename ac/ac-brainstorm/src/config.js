@@ -32,6 +32,11 @@ export const config = {
       title: 'Allow editing Learning Items in the list',
       default: true
     },
+    allowDelete: {
+      type: 'boolean',
+      title: 'Allow deleting Learning Items in the list',
+      default: true
+    },
     expandItems: { type: 'boolean', title: 'View items expanded' },
     allowVoting: { type: 'boolean', title: 'Allow voting', default: true }
   }

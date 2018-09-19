@@ -45,7 +45,7 @@ class ActivityRunner extends React.Component<
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={this.state.editing ? 'edit' : 'thumbView'}
+            type={this.state.editing || conf.noSubmit ? 'edit' : 'thumbView'}
             id={data.li}
             clickZoomable
             render={({ editable, children }) => (
@@ -66,16 +66,17 @@ class ActivityRunner extends React.Component<
                       {editable ? <EditIcon /> : <CloseIcon />}
                     </Button>
                   )}
-                {editing && (
-                  <Button
-                    onClick={() => this.setState({ editing: false })}
-                    color="primary"
-                    variant="raised"
-                    aria-label="save"
-                  >
-                    Save
-                  </Button>
-                )}
+                {editing &&
+                  !conf.noSubmit && (
+                    <Button
+                      onClick={() => this.setState({ editing: false })}
+                      color="primary"
+                      variant="raised"
+                      aria-label="save"
+                    >
+                      Save
+                    </Button>
+                  )}
               </div>
             )}
           />
