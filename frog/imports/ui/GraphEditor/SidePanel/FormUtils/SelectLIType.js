@@ -13,17 +13,15 @@ const SelectLIType = ({ onChange, value = '' }: any) => (
       value={value}
     >
       <option value="" key="Choose">
-        'Choose a Learning Item Type'
+        Choose a Learning Item Type
       </option>
-      <>
-        {values(learningItemTypesObj)
-          .filter(x => x.Creator || x.Editor)
-          .map(x => (
-            <option value={x.id || ''} key={x.id || 'choose'}>
-              {x === '' ? 'Choose a Learning Item Type' : x.name}
-            </option>
-          ))}
-      </>
+      {values(learningItemTypesObj)
+        .filter(x => x.Creator || x.Editor)
+        .map(x => (
+          <option value={x.id || ''} key={x.id || 'choose'}>
+            {x === '' ? 'Choose a Learning Item Type' : x.name}
+          </option>
+        ))}
     </FormControl>
   </span>
 );

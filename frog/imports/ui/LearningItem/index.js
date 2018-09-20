@@ -6,6 +6,7 @@ import {
   uuid,
   Doc
 } from 'frog-utils';
+import { omit, isEqual } from 'lodash';
 import Button from '@material-ui/core/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
@@ -26,8 +27,11 @@ class LearningItem extends React.Component<
   getEmptyDataStructure = (liType: string): any =>
     learningItemTypesObj[liType].dataStructure;
 
-  shouldComponentUpdate(_: Object, nextState: Object) {
-    return nextState.reload !== this.state.reload;
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
+    return (
+      nextState.reload !== this.state.reload ||
+      !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn'))
+    );
   }
 
   render() {

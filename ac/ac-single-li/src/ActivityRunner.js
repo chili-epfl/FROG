@@ -113,6 +113,7 @@ class ActivityRunner extends React.Component<
               dataFn.objInsert(li, 'li');
               this.props.logger({ type: 'progress', value: 1 });
               this.props.stream({ li });
+              this.forceUpdate();
             }}
           />
         </div>
