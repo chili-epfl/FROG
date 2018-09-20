@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
-import { sortBy } from 'lodash';
+import { orderBy } from 'lodash';
 
 const styles = theme => ({
   badge: {
@@ -174,9 +174,9 @@ const IdeaListRaw = ({
   <div>
     <List className="item">
       <FlipMove duration={750} easing="ease-out">
-        {sortBy(values(data), x => [-x.score, x.id]).map(x => (
+        {orderBy(values(data), x => [x.score, x.id], ['desc']).map(x => (
           <div
-            key={x.li}
+            key={x.id}
             style={{
               display: 'flex',
               flexDirection: 'column',
