@@ -7,6 +7,7 @@ import {
   values
 } from 'frog-utils';
 import { isObject } from 'lodash';
+import upgradeFunctions from './upgradeFunctions';
 
 import { config, configUI } from './config';
 
@@ -150,7 +151,7 @@ const meta = {
       title: 'List with some items, students not able to add',
       config: {
         text: 'This list has some items, vote them up or down',
-        formBoolean: false
+        allowCreate: false
       },
       learningItems,
       data: {
@@ -166,7 +167,7 @@ const meta = {
       config: {
         text:
           'This list has some items, vote them up or down, and add new ones',
-        formBoolean: true
+        allowCreate: true
       },
       learningItems,
       data: {
@@ -201,10 +202,11 @@ const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
 export default ({
   id: 'ac-brainstorm',
   type: 'react-component',
-  configVersion: 1,
+  configVersion: 2,
   config,
   configUI,
   meta,
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  upgradeFunctions
 }: ActivityPackageT);

@@ -23,12 +23,14 @@ class LearningItem extends React.Component<
 > {
   state = { reload: '' };
 
-  shouldComponentUpdate(_: Object, nextState) {
+  getEmptyDataStructure = (liType: string): any =>
+    learningItemTypesObj[liType].dataStructure;
+
+  shouldComponentUpdate(_: Object, nextState: Object) {
     return nextState.reload !== this.state.reload;
   }
 
   render() {
-    console.log('render', this.props);
     const props = this.props;
     if (props.type === 'history' && typeof props.id === 'string') {
       return (
@@ -71,6 +73,7 @@ class LearningItem extends React.Component<
     if (props.type === 'create' || props.type === 'createLIPayload') {
       let onCreate;
       if (props.autoInsert) {
+        console.log('autoinsert');
         onCreate = li => {
           const id = uuid();
           props.dataFn.objInsert({ li, id, ...(props.meta || {}) }, id);
@@ -89,9 +92,6 @@ class LearningItem extends React.Component<
       }
       const dataFn = props.dataFn;
 
-      const getEmptyForLIType = (liType: string) =>
-        learningItemTypesObj[liType].dataStructure;
-
       const createLearningItem = (liType, item, _, immutable) => {
         const id = dataFn.createLearningItem(
           liType,
@@ -105,7 +105,7 @@ class LearningItem extends React.Component<
         return id;
       };
 
-      if (props.type === 'createLIPayload' && props.liType && props.payload) {
+      if (props.type === 'createLIPayload' && props.liType) {
         if (learningItemTypesObj[props.liType].createPayload) {
           return learningItemTypesObj[props.liType].createPayload(
             props.payload,
@@ -114,6 +114,7 @@ class LearningItem extends React.Component<
           );
         }
       }
+
       if (props.liType) {
         const liT: LearningItemT<any> = learningItemTypesObj[props.liType];
         if (liT.Creator) {

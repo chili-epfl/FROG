@@ -3,6 +3,7 @@ import { type ActivityRunnerPropsT } from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const style = {
   margin: 'auto',
@@ -18,7 +19,21 @@ class ActivityRunner extends React.Component<
 > {
   state = { editing: false };
 
-  componentDidMount = () => this.props.logger({ type: 'progress', value: 0 });
+  constructor(props) {
+    super(props);
+    const { activityData, data, dataFn } = this.props;
+    if (activityData.config.noSubmit && !data.li) {
+      const newLI = dataFn.createLearningItem(activityData.config.liType);
+      dataFn.objInsert({ li: newLI });
+    }
+  }
+
+  componentDidMount = () => {
+    const { logger, activityData } = this.props;
+    if (!activityData.config.noSubmit) {
+      logger({ type: 'progress', value: 0 });
+    }
+  };
 
   render() {
     const {
@@ -39,6 +54,10 @@ class ActivityRunner extends React.Component<
         )}
       </>
     );
+
+    if (conf.noSubmit && !data.li) {
+      return <CircularProgress />;
+    }
 
     if (data.li) {
       return (

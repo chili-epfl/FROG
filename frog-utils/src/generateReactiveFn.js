@@ -69,7 +69,7 @@ export class Doc {
   ): string | Object {
     const id = uuid();
     const properPayload =
-      payload || this.LearningItem.getEmptyForLIType(liType);
+      payload || new this.LearningItemFn().getEmptyDataStructure(liType);
     const newLI = {
       liType,
       payload: properPayload,
