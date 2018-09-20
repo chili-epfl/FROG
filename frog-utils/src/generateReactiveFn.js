@@ -69,6 +69,7 @@ export class Doc {
   ): string | Object {
     const id = uuid();
     const properPayload =
+      // $FlowFixMe
       payload || new this.LearningItemFn().getEmptyDataStructure(liType);
     const newLI = {
       liType,
