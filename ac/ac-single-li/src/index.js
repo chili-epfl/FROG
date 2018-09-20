@@ -39,7 +39,7 @@ const formatProduct = (_, product) => {
 
 const configUI = { instructions: { 'ui:widget': 'textarea' } };
 
-const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
+const mergeFunction = (obj: Object, dataFn: Object) => {
   if (isObject(obj?.data)) {
     const { li } = values(obj.data)?.[0];
     if (li) {

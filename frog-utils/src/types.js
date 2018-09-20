@@ -329,7 +329,10 @@ export type LIComponentPropsT =
       render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
     |};
 
-export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
+export type LearningItemComponentT = {
+  ...React.ComponentType<LIComponentPropsT>,
+  getEmptyDataStructure: string => string
+};
 
 export type LearningItemT<T> = {
   name: string,
