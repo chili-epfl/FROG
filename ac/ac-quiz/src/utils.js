@@ -76,41 +76,45 @@ export const computeProgress = (
 };
 
 export const formatProduct = (config: Object, item: Object) => {
-  if (item && item.form) {
-    const { form } = item;
+  try {
+    if (item && item.form) {
+      const { form } = item;
 
-    const coordinates = computeCoordinates(config.questions, form);
+      const coordinates = computeCoordinates(config.questions, form);
 
-    const questions = config.questions.map(q => q.question);
-    const answers = config.questions.map(
-      (q, qIndex) =>
-        form[qIndex] !== undefined && q.answers[form[qIndex]]
-          ? q.answers[form[qIndex]].choice
-          : undefined
-    );
-    const answersIndex = config.questions.map(
-      (q, qIndex) => (form[qIndex] !== undefined ? form[qIndex] : -1)
-    );
-    const correctQs = config.hasAnswers
-      ? config.questions.map(
-          (q, qIndex) =>
-            form[qIndex] !== undefined &&
-            q.answers[form[qIndex]] &&
-            !!q.answers[form[qIndex]].isCorrect
-        )
-      : undefined;
-    const correctCount = correctQs
-      ? correctQs.filter(x => x).length
-      : undefined;
-    const maxCorrect = questions.length;
-    return {
-      questions,
-      answers,
-      answersIndex,
-      correctQs,
-      correctCount,
-      maxCorrect,
-      coordinates
-    };
+      const questions = config.questions.map(q => q.question);
+      const answers = config.questions.map(
+        (q, qIndex) =>
+          form[qIndex] !== undefined && q.answers[form[qIndex]]
+            ? q.answers[form[qIndex]].choice
+            : undefined
+      );
+      const answersIndex = config.questions.map(
+        (q, qIndex) => (form[qIndex] !== undefined ? form[qIndex] : -1)
+      );
+      const correctQs = config.hasAnswers
+        ? config.questions.map(
+            (q, qIndex) =>
+              form[qIndex] !== undefined &&
+              q.answers[form[qIndex]] &&
+              !!q.answers[form[qIndex]].isCorrect
+          )
+        : undefined;
+      const correctCount = correctQs
+        ? correctQs.filter(x => x).length
+        : undefined;
+      const maxCorrect = questions.length;
+      return {
+        questions,
+        answers,
+        answersIndex,
+        correctQs,
+        correctCount,
+        maxCorrect,
+        coordinates
+      };
+    }
+  } catch (_) {
+    return item;
   }
 };
