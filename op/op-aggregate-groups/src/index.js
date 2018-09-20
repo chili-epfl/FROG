@@ -11,7 +11,16 @@ const meta = {
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    incomingGrouping: {
+      type: 'socialAttribute',
+      title: 'Grouping attribute of incoming groups'
+    },
+    outgoingGrouping: {
+      type: 'socialAttribute',
+      title: 'Grouping attribute of outgoing groups'
+    }
+  }
 };
 
 export default ({
