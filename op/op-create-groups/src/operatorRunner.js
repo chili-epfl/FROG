@@ -2,17 +2,11 @@
 import { shuffle, chunk, compact, range } from 'lodash';
 import { type socialOperatorRunnerT } from 'frog-utils';
 
-const splitArray = (ary, splits, overflow) => {
+const splitArray = (ary, splits) => {
   const grpsize = Math.round(ary.length / splits);
   const grps = range(1, splits).map(() => ary.splice(-grpsize));
   if (ary.length > 0) {
-    if (grps.length >= ary.length && !overflow && grps.length + 1 < splits) {
-      ary.forEach((x, i) => {
-        grps[i].push(x);
-      });
-    } else {
-      grps.push(ary);
-    }
+    grps.push(ary);
   }
   return grps;
 };
@@ -24,12 +18,10 @@ const operator = (configData, object) => {
   let struct: string[][];
   if (configData.groupnumber) {
     let globalnum = configData.globalnum;
-    let overflow = false;
     if (ids && configData.globalnum >= ids.length) {
       globalnum = ids.length;
-      overflow = true;
     }
-    struct = splitArray(ids, globalnum, overflow);
+    struct = splitArray(ids, globalnum);
   } else {
     if (ids && configData.groupsize >= ids.length) {
       return { group: { '1': ids } };
