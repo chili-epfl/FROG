@@ -77,7 +77,6 @@ class LearningItem extends React.Component<
     if (props.type === 'create' || props.type === 'createLIPayload') {
       let onCreate;
       if (props.autoInsert) {
-        console.log('autoinsert');
         onCreate = li => {
           const id = uuid();
           props.dataFn.objInsert({ li, id, ...(props.meta || {}) }, id);

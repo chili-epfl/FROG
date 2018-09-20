@@ -1,5 +1,4 @@
 const upgr1 = formData => {
-  console.log(formData);
   const newObj = { ...formData };
   if (formData.formBoolean) {
     delete newObj.formBoolean;
