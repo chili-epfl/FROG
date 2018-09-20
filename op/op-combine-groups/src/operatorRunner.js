@@ -12,28 +12,33 @@ const splitArray = (ary, splits) => {
 };
 
 const operator = (configData, object) => {
-  const { globalStructure } = object;
+  const { socialStructure } = object;
+
   const newGrouping =
     configData.grouping && configData.grouping.length > 0
       ? configData.grouping
-      : 'group';
+      : 'groupCombined';
 
-  const ids = shuffle(globalStructure.studentIds);
+  const oldGroup = socialStructure[configData.incomingGrouping];
+  const groupIds = shuffle(Object.keys(oldGroup));
+
   let struct: string[][];
   if (configData.groupnumber) {
     let globalnum = configData.globalnum;
-    if (ids && configData.globalnum >= ids.length) {
-      globalnum = ids.length;
+    if (groupIds && configData.globalnum >= groupIds.length) {
+      globalnum = groupIds.length;
     }
-    struct = splitArray(ids, globalnum);
+    struct = splitArray(groupIds, globalnum);
   } else {
-    if (ids && configData.groupsize >= ids.length) {
+    if (groupIds && configData.groupsize >= groupIds.length) {
       return {
-        [newGrouping]: { '1': ids }
+        [newGrouping]: {
+          '1': groupIds.reduce((acc, x) => acc.concat(oldGroup[x]), [])
+        }
       };
     }
 
-    struct = chunk(ids, configData.groupsize);
+    struct = chunk(groupIds, configData.groupsize);
     const last = struct.slice(-1)[0];
     if (
       last.length < configData.groupsize &&
@@ -48,7 +53,13 @@ const operator = (configData, object) => {
 
   const result = {
     [newGrouping]: struct.reduce(
-      (acc, k, i) => ({ ...acc, [i + 1 + '']: compact(k) }),
+      (acc, k, i) => ({
+        ...acc,
+        [i + 1 + '']: compact(k).reduce(
+          (acc1, x) => acc1.concat(oldGroup[x]),
+          []
+        )
+      }),
       {}
     )
   };
