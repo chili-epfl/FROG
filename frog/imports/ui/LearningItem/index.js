@@ -19,12 +19,16 @@ class LearningItem extends React.Component<
     ...{| dataFn: Doc |},
     ...LIComponentPropsT
   },
-  {}
+  { reload: string }
 > {
-  shouldComponentUpdate() {
-    return false;
+  state = { reload: '' };
+
+  shouldComponentUpdate(_: Object, nextState) {
+    return nextState.reload !== this.state.reload;
   }
+
   render() {
+    console.log('render', this.props);
     const props = this.props;
     if (props.type === 'history' && typeof props.id === 'string') {
       return (
@@ -76,12 +80,18 @@ class LearningItem extends React.Component<
           if (props.dataFn.stream) {
             props.dataFn.stream({ li });
           }
+          this.setState({ reload: uuid() });
+          this.forceUpdate();
         };
       }
       if (!onCreate) {
         onCreate = props.onCreate;
       }
       const dataFn = props.dataFn;
+
+      const getEmptyForLIType = (liType: string) =>
+        learningItemTypesObj[liType].dataStructure;
+
       const createLearningItem = (liType, item, _, immutable) => {
         const id = dataFn.createLearningItem(
           liType,
@@ -126,8 +136,10 @@ class LearningItem extends React.Component<
           if (typeof lid === 'string') {
             return (
               <LearningItem
+                key={this.state.reload}
                 id={lid}
                 type="edit"
+                reload={this.state.reload}
                 dataFn={props.dataFn}
                 render={({ dataFn: childDataFn, children }) => (
                   <div style={{ marginLeft: '10px' }}>

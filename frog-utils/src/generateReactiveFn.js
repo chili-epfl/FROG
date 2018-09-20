@@ -68,9 +68,11 @@ export class Doc {
     immutable: boolean = false
   ): string | Object {
     const id = uuid();
+    const properPayload =
+      payload || this.LearningItem.getEmptyForLIType(liType);
     const newLI = {
       liType,
-      payload,
+      payload: properPayload,
       createdAt: new Date(),
       ...meta,
       ...this.meta

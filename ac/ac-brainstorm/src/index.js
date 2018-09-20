@@ -12,6 +12,62 @@ import { config, configUI } from './config';
 
 const learningItems = [
   {
+    id: '1d',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '2d',
+    liType: 'li-idea',
+    payload: { title: 'Uber', content: 'AirBnB for taxis' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '3d',
+    liType: 'li-idea',
+    payload: { title: 'Amazon Alexa', content: 'AskJeeves for speech' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '4d',
+    liType: 'li-image',
+    payload: {
+      url: 'https://i.imgur.com/pfZAxeTb.jpg',
+      thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
+    },
+    createdAt: '2018-05-10T12:05:08.700Z'
+  },
+
+  {
+    id: '1a',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '2b',
+    liType: 'li-idea',
+    payload: { title: 'Uber', content: 'AirBnB for taxis' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '3c',
+    liType: 'li-idea',
+    payload: { title: 'Amazon Alexa', content: 'AskJeeves for speech' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '4d',
+    liType: 'li-image',
+    payload: {
+      url: 'https://i.imgur.com/pfZAxeTb.jpg',
+      thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
+    },
+    createdAt: '2018-05-10T12:05:08.700Z'
+  },
+
+  {
     id: '1',
     liType: 'li-idea',
     payload: { title: 'Hi', content: 'Hello' },

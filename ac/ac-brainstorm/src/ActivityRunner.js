@@ -237,7 +237,7 @@ const IdeaList = compose(
   withState('zoom', 'setZoom', undefined)
 )(withStyles(styles)(IdeaListRaw));
 
-const ActivityRunner = ({
+const ListComponent = ({
   userInfo,
   logger,
   activityData,
@@ -273,7 +273,6 @@ const ActivityRunner = ({
 
   const LearningItem = dataFn.LearningItem;
   const slider = activityData.config.zoomShowsHistory;
-  const { config } = activityData;
   return (
     <>
       <div style={{ width: '80%' }}>
@@ -290,11 +289,20 @@ const ActivityRunner = ({
           />
         </ListContainer>
       </div>
-      {config.allowCreate && (
-        <AddingLI LearningItem={LearningItem} config={config} />
-      )}
     </>
   );
 };
+
+const ActivityRunner = (props: ActivityRunnerPropsT) => (
+  <div>
+    <ListComponent {...props} />
+    {props.activityData.config.allowCreate && (
+      <AddingLI
+        LearningItem={props.dataFn.LearningItem}
+        config={props.activityData.config}
+      />
+    )}
+  </div>
+);
 
 export default ActivityRunner;
