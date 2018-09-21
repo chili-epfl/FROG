@@ -1,7 +1,6 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
-import { type productOperatorT } from 'frog-utils';
+import { type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Combine groups into larger groups',
@@ -46,10 +45,13 @@ const config = {
   }
 };
 
+const outputDefinition = conf => [(conf && conf.grouping) || 'combinedGroup'];
+
 export default ({
   id: 'op-combine-groups',
-  type: 'product',
+  type: 'social',
   configVersion: 1,
+  outputDefinition,
   config,
   meta
-}: productOperatorT);
+}: socialOperatorT);

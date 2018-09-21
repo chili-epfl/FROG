@@ -6,63 +6,79 @@ jest.mock('frog-utils');
 const object2 = {
   _id: 'cjgccn7m5000ik7j4g5i6uc2i',
   activityData: {
-    structure: 'individual',
+    structure: { groupingKey: 'group' },
     payload: {
-      '2vxRoyvvKJY3dpEDd': {
+      '1': {
         config: {},
         data: {
-          ididi: { msg: 'hello', score: 1 },
-          pap33: { msg: 'hi', score: 0 }
+          ididi1: { msg: 'hello', score: 1 },
+          af1: { msg: 'hello', score: 1 }
         }
       },
-      J29phNHao76KzhiAY: {
+      '2': {
         config: {},
         data: {
-          i3idi: { msg: 'ciao cara', score: 1 },
-          p4p33: { msg: 'dobriy dyen' }
+          ididi2: { msg: 'hello', score: 1 },
+          af2: { msg: 'hello', score: 1 }
         }
       },
-      student3: {
+      '3': {
         config: {},
         data: {
-          j3434: { msg: '3403' },
-          j3435: { msg: '34031', score: 3 },
-          j3436: { msg: '34032', score: 2 },
-          f4343: { msg: '04403', score: 1 }
+          ididi3: { msg: 'hello', score: 1 },
+          af3: { msg: 'hello', score: 1 }
+        }
+      },
+      '4': {
+        config: {},
+        data: {
+          ididi4: { msg: 'hello', score: 1 },
+          af4: { msg: 'hello', score: 1 }
         }
       }
     }
   },
   socialStructure: {
     group: {
-      '1': ['J29phNHao76KzhiAY', '2vxRoyvvKJY3dpEDd'],
-      '2': ['student3']
-    }
-  },
-  globalStructure: {
-    studentIds: ['J29phNHao76KzhiAY', '2vxRoyvvKJY3dpEDd'],
-    students: {
-      J29phNHao76KzhiAY: 'Leon',
-      '2vxRoyvvKJY3dpEDd': 'Jan',
-      student3: 'Student 3'
+      '1': ['1', '2'],
+      '2': ['3', '4'],
+      '3': ['5', '6'],
+      '4': ['7', '8']
+    },
+    combinedGroups: {
+      a: ['1', '2', '3', '4'],
+      b: ['5', '6', '7', '8']
     }
   }
 };
 
-const config2 = { grouping: 'group', chooseTop: true, topN: 1 };
+const config2 = {
+  incomingGrouping: 'group',
+  outgoingGrouping: 'combinedGroups'
+};
 
 test('deal with whole instance data', () => {
   expect(operator(config2, object2)).toEqual({
     payload: {
-      all: {
+      a: {
         config: {},
         data: {
-          '1': { id: 1, msg: 'hello', score: 1 },
-          '2': { id: 2, msg: 'ciao cara', score: 1 },
-          '3': { id: 3, msg: '34031', score: 3 }
+          af1: { msg: 'hello', score: 1 },
+          af2: { msg: 'hello', score: 1 },
+          ididi1: { msg: 'hello', score: 1 },
+          ididi2: { msg: 'hello', score: 1 }
+        }
+      },
+      b: {
+        config: {},
+        data: {
+          af3: { msg: 'hello', score: 1 },
+          af4: { msg: 'hello', score: 1 },
+          ididi3: { msg: 'hello', score: 1 },
+          ididi4: { msg: 'hello', score: 1 }
         }
       }
     },
-    structure: 'all'
+    structure: { groupingKey: 'combinedGroups' }
   });
 });
