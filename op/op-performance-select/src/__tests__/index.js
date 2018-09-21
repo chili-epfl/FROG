@@ -1,15 +1,8 @@
-import pkg from '..';
+import operator from '../operatorRunner';
 
 const config = {
   use_percentage: false,
   min_correct: 2,
-  activity_low: 'act1',
-  activity_high: 'act2'
-};
-
-const configScaled = {
-  use_percentage: true,
-  min_percentage: 0.5,
   activity_low: 'act1',
   activity_high: 'act2'
 };
@@ -45,31 +38,8 @@ const object = {
   }
 };
 
-const objectScaled = {
-  activityData: {
-    structure: 'individual',
-    payload: {
-      '28QHwrh25qvZ2Yr54': {
-        data: {
-          scaledScore: 0.2
-        }
-      },
-      uaCMyK6DJtsut5zGm: {
-        data: {
-          scaledScore: 1
-        }
-      }
-    }
-  },
-  socialStructure: {},
-  globalStructure: {
-    studentIds: ['28QHwrh25qvZ2Yr54', 'uaCMyK6DJtsut5zGm'],
-    students: { '28QHwrh25qvZ2Yr54': 'Ahmed', uaCMyK6DJtsut5zGm: 'Leon' }
-  }
-};
-
 test('split in two', () => {
-  expect(pkg.operator(config, object)).toEqual({
+  expect(operator(config, object)).toEqual({
     list: {
       act1: {
         mode: 'include',
@@ -79,23 +49,6 @@ test('split in two', () => {
       act2: {
         mode: 'include',
         payload: { '28QHwrh25qvZ2Yr54': true },
-        structure: 'individual'
-      }
-    }
-  });
-});
-
-test('split in two scaled', () => {
-  expect(pkg.operator(configScaled, objectScaled)).toEqual({
-    list: {
-      act1: {
-        mode: 'include',
-        payload: { '28QHwrh25qvZ2Yr54': true },
-        structure: 'individual'
-      },
-      act2: {
-        mode: 'include',
-        payload: { uaCMyK6DJtsut5zGm: true },
         structure: 'individual'
       }
     }

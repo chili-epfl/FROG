@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 import { H5PIframePrepare } from '/imports/ui/App/h5p';
-import { get } from 'lodash';
 
 export class ActivityRunner extends React.Component<
   ActivityRunnerPropsT,
@@ -24,11 +23,6 @@ export class ActivityRunner extends React.Component<
         e.data.type === 'h5p-log' &&
         e.data.id === this.props.activityData.config.component.fileId
       ) {
-        const score = get(e, 'data.msg.result.score.scaled');
-        if (score !== undefined) {
-          this.props.dataFn.objInsert(score, 'scaledScore');
-        }
-
         this.props.logger({
           type:
             (e.data.msg.verb && e.data.msg.verb.display['en-US']) || 'h5p-xapi',
