@@ -36,7 +36,6 @@ class LearningItem extends React.Component<
 
   render() {
     const props = this.props;
-    console.log(props);
     if (props.type === 'history' && typeof props.id === 'string') {
       return (
         <LearningItemWithSlider
@@ -110,7 +109,6 @@ class LearningItem extends React.Component<
       };
 
       if (props.type === 'createLIPayload' && props.liType) {
-        console.log('hey');
         if (learningItemTypesObj[props.liType].createPayload) {
           return learningItemTypesObj[props.liType].createPayload(
             props.payload,
