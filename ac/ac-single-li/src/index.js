@@ -1,6 +1,6 @@
 // @flow
 
-import { isObject } from 'lodash';
+import { isEmpty, isObject } from 'lodash';
 import {
   type ActivityPackageT,
   uuid,
@@ -40,8 +40,8 @@ const formatProduct = (_, product) => {
 const configUI = { instructions: { 'ui:widget': 'textarea' } };
 
 const mergeFunction = (obj: Object, dataFn: Object) => {
-  if (isObject(obj?.data)) {
-    const { li } = values(obj.data)?.[0];
+  if (!isEmpty(obj?.data) && isObject(obj?.data)) {
+    const li = values(obj.data)?.[0]?.li;
     if (li) {
       dataFn.objInsert({ li });
     }
