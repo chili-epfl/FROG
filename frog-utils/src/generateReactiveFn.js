@@ -100,14 +100,14 @@ export class Doc {
     meta?: Object
   ) =>
     // $FlowFixMe
-    this.LearningItemFn({
+    new this.LearningItemFn({
       liType: type,
       payload,
       type: 'createLIPayload',
       autoInsert,
       dataFn: this,
       meta
-    });
+    }).render();
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
