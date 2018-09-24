@@ -12,7 +12,10 @@ const SelectLIType = ({ onChange, value = '' }: any) => (
       componentClass="select"
       value={value}
     >
-      {['', ...values(learningItemTypesObj)]
+      <option value="" key="Choose">
+        Choose a Learning Item Type
+      </option>
+      {values(learningItemTypesObj)
         .filter(x => x.Creator || x.Editor)
         .map(x => (
           <option value={x.id || ''} key={x.id || 'choose'}>

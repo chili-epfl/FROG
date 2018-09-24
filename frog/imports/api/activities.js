@@ -106,7 +106,7 @@ export const addActivity = (
     insertActivityMongo({
       _id: uuid(),
       parentId,
-      configVersion,
+      configVersion: configVersion || 1,
       activityType,
       data,
       groupingKey,

@@ -3,6 +3,7 @@ import { type ActivityRunnerPropsT } from 'frog-utils';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const style = {
   margin: 'auto',
@@ -18,7 +19,21 @@ class ActivityRunner extends React.Component<
 > {
   state = { editing: false };
 
-  componentDidMount = () => this.props.logger({ type: 'progress', value: 0 });
+  constructor(props) {
+    super(props);
+    const { activityData, data, dataFn } = this.props;
+    if (activityData.config.noSubmit && !data.li) {
+      const newLI = dataFn.createLearningItem(activityData.config.liType);
+      dataFn.objInsert({ li: newLI });
+    }
+  }
+
+  componentDidMount = () => {
+    const { logger, activityData } = this.props;
+    if (!activityData.config.noSubmit) {
+      logger({ type: 'progress', value: 0 });
+    }
+  };
 
   render() {
     const {
@@ -40,18 +55,23 @@ class ActivityRunner extends React.Component<
       </>
     );
 
+    if (conf.noSubmit && !data.li) {
+      return <CircularProgress />;
+    }
+
     if (data.li) {
       return (
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={this.state.editing ? 'edit' : 'thumbView'}
+            type={this.state.editing || conf.noSubmit ? 'edit' : 'thumbView'}
             id={data.li}
             clickZoomable
             render={({ editable, children }) => (
               <div>
                 {children}
                 {!editing &&
+                  !conf.noSubmit &&
                   conf.allowEditing && (
                     <Button
                       onClick={() =>
@@ -66,16 +86,17 @@ class ActivityRunner extends React.Component<
                       {editable ? <EditIcon /> : <CloseIcon />}
                     </Button>
                   )}
-                {editing && (
-                  <Button
-                    onClick={() => this.setState({ editing: false })}
-                    color="primary"
-                    variant="raised"
-                    aria-label="save"
-                  >
-                    Save
-                  </Button>
-                )}
+                {editing &&
+                  !conf.noSubmit && (
+                    <Button
+                      onClick={() => this.setState({ editing: false })}
+                      color="primary"
+                      variant="raised"
+                      aria-label="save"
+                    >
+                      Save
+                    </Button>
+                  )}
               </div>
             )}
           />
@@ -92,6 +113,7 @@ class ActivityRunner extends React.Component<
               dataFn.objInsert(li, 'li');
               this.props.logger({ type: 'progress', value: 1 });
               this.props.stream({ li });
+              this.forceUpdate();
             }}
           />
         </div>

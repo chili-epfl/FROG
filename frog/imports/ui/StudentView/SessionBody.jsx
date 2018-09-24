@@ -26,7 +26,8 @@ const styles = {
     display: 'flex',
     flexGrow: 1,
     height: '100%',
-    width: '100%'
+    width: '100%',
+    overflow: 'auto'
   },
   toolbar: {
     minHeight: 48,
