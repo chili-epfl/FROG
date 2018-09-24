@@ -72,6 +72,12 @@ module.exports = {
           );
         }
       });
+      if (fs.existsSync(`../frog/frog-utils/clientFiles`)) {
+        fs.symlinkSync(
+          `../../../frog-utils/clientFiles`,
+          `../frog/frog/public/clientFiles/frog-utils`
+        );
+      }
     }
   }
 };
