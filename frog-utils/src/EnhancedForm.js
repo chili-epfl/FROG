@@ -72,7 +72,11 @@ class EnhancedForm extends Component<
     ) {
       this.setState({
         schema,
-        formData: hideConditional(this.formData, props.schema, props.uiSchema)
+        formData: hideConditional(
+          this.formData || {},
+          props.schema,
+          props.uiSchema || {}
+        )
       });
     }
   };
