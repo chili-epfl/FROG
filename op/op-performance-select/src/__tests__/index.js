@@ -1,4 +1,4 @@
-import pkg from '..';
+import pkg from '../operatorRunner';
 
 const config = {
   use_percentage: false,
