@@ -16,7 +16,14 @@ type MongoConnectionT = {
 };
 
 export default class ConnectionStore {
-  all: Object[];
+  all: Connection[];
+  history: Object[];
+  startDragging: (Activity | Operator) => void;
+  stopDragging: () => void;
+  dragPath: string;
+  mongoAdd: MongoConnectionT => void;
+  mongoRemove: MongoConnectionT => void;
+  cleanDangling: () => void;
 
   constructor() {
     extendObservable(this, {

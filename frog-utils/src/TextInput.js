@@ -9,7 +9,7 @@ type TextInputPropsT = {
   onSubmit?: Function,
   onCancel?: Function,
   onFocus?: Function,
-  style?: string
+  style?: Object
 };
 
 export class TextInput extends React.Component<
@@ -84,7 +84,7 @@ export class TextInput extends React.Component<
 export class ChangeableText extends React.Component<
   TextInputPropsT & {
     EditComponent?: React.ComponentType<*>,
-    onlyHover?: Boolean
+    onlyHover?: boolean
   },
   {
     edit: boolean,
@@ -94,7 +94,7 @@ export class ChangeableText extends React.Component<
   constructor(
     props: TextInputPropsT & {
       EditComponent?: React.ComponentType<*>,
-      onlyHover?: Boolean
+      onlyHover?: boolean
     }
   ) {
     super(props);

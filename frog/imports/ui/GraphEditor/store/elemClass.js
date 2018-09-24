@@ -1,8 +1,18 @@
-//
+// @flow
+
 import { extendObservable, action } from 'mobx';
 import { store } from './index';
+import Activity from './activity';
 
 export default class Elem {
+  selected: boolean;
+  color: string;
+  select: () => void;
+  klass: 'activity' | 'operator' | 'connection';
+  id: string;
+  wasMoved: boolean;
+  remove: boolean => void;
+
   constructor() {
     extendObservable(this, {
       select: action(() => {
@@ -19,18 +29,18 @@ export default class Elem {
       }),
 
       remove: action(shift => {
-        let thisstore;
+        const { activityStore, operatorStore, connectionStore } = store;
+        const filter = x => x !== this;
         if (this.klass === 'activity') {
-          thisstore = store.activityStore;
+          activityStore.all = activityStore.all.filter(filter);
         } else if (this.klass === 'operator') {
-          thisstore = store.operatorStore;
+          operatorStore.all = operatorStore.all.filter(filter);
         } else {
-          thisstore = store.connectionStore;
+          connectionStore.all = connectionStore.all.filter(filter);
         }
-        if (this.klass === 'activity' && shift) {
-          store.activityStore.moveDelete(this);
+        if (shift && this instanceof Activity) {
+          activityStore.moveDelete(this);
         }
-        thisstore.all = thisstore.all.filter(x => x !== this);
         store.connectionStore.cleanDangling();
         store.addHistory();
       }),

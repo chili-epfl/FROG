@@ -150,7 +150,7 @@ class Library extends Component<Object, { searchStr: string }> {
                       this.props.onSelect
                     );
                   } else if (libraryType === 'graph') {
-                    importGraph(x.uuid);
+                    importGraph(x.uuid, x.title);
                     this.props.setModal(false);
                   }
                 }}

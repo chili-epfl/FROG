@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { DraggableCore } from 'react-draggable';
 
@@ -16,7 +18,7 @@ export default ({
   onStop,
   transparent,
   title
-}) => {
+}: Object) => {
   const stroke = selected ? '#ff9900' : 'transparent';
   let icon;
   switch (type) {

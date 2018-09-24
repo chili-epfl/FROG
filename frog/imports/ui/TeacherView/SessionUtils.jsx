@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { withRouter } from 'react-router';
 
 import { setTeacherSession } from '../../api/sessions';
 
@@ -44,7 +45,7 @@ const DashToggle = ({
   </ToolTipComponent>
 );
 
-class UtilsMenu extends React.Component<any, { anchorEl: any }> {
+class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
   state = {
     anchorEl: null
   };
@@ -106,14 +107,21 @@ class UtilsMenu extends React.Component<any, { anchorEl: any }> {
               Projector View in New Tab
             </a>
           </MenuItem>
-          <MenuItem onClick={() => setTeacherSession(undefined)}>
-            Quit session
+          <MenuItem
+            onClick={() => {
+              this.props.history.push('/teacher/orchestration');
+              setTeacherSession(undefined);
+            }}
+          >
+            Switch to Other Session
           </MenuItem>
         </Menu>
       </div>
     );
   }
 }
+
+const UtilsMenu = withRouter(UtilsMenuRaw);
 
 const SessionUtils = ({
   classes,

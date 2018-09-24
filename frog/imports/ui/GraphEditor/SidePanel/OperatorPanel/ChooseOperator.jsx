@@ -115,7 +115,9 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
     Operators.update(this.props.operator._id, {
       $set: { operatorType: operatorType.id }
     });
-    graphOperator.rename(newName);
+    if (graphOperator) {
+      graphOperator.rename(newName);
+    }
   };
 
   handleSearch = e => {

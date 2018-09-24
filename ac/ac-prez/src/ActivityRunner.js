@@ -22,7 +22,10 @@ class Prez extends Component<ActivityRunnerPropsT> {
     let initialPDF = '/clientFiles/ac-prez/sample.pdf';
 
     if (activityData.config.pdf_url) {
-      initialPDF = activityData.config.pdf_url;
+      initialPDF =
+        activityData.config.pdf_url[0] === '/'
+          ? activityData.config.pdf_url
+          : '/api/proxy/' + activityData.config.pdf_url;
     }
 
     const pdfSRC = this.props.data.pdf_file

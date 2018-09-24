@@ -5,9 +5,9 @@ import * as React from 'react';
 import { connect, store, type StoreProp } from '../store';
 
 const scrollInterval = direction => {
-  if (!store.scrollIntervalID) {
+  if (!store.ui.scrollIntervalID) {
     store.ui.storeInterval(
-      window.setInterval(() => store.ui.panDelta(3 * direction), 20)
+      setInterval(() => store.ui.panDelta(3 * direction), 20)
     );
   }
 };

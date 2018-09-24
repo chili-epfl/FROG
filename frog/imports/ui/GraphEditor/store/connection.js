@@ -1,3 +1,5 @@
+// @flow
+
 import cuid from 'cuid';
 import { extendObservable } from 'mobx';
 
@@ -20,6 +22,11 @@ const getType = item => {
 type ConnectableT = Activity | Operator;
 
 export default class Connection extends Elem {
+  pathScaled: string;
+  path: string;
+  source: ConnectableT;
+  target: ConnectableT;
+
   constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
     super();
 

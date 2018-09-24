@@ -11,11 +11,6 @@ export const config = {
       title: 'Full PDF URL',
       type: 'string'
     },
-    debug: {
-      title: 'Debugging',
-      default: false,
-      type: 'boolean'
-    },
     studentCannotGoFurther: {
       title: 'Student cannot go further than teacher',
       default: false,

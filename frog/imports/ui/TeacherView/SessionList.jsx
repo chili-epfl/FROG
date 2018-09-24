@@ -6,6 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
@@ -54,7 +55,9 @@ class SessionAdmin extends React.Component<
 
   handleSessionCreation = () => {
     if (this.state.graphId !== undefined && this.state.graphId !== '') {
-      addSession(this.state.graphId);
+      addSession(this.state.graphId).then(e =>
+        this.props.history.push('/teacher/orchestration/' + e)
+      );
     }
   };
 
@@ -179,30 +182,32 @@ class SessionAdmin extends React.Component<
   }
 }
 
-const SessionList = ({
-  graphs,
-  sessions,
-  ...props
-}: {
-  graphs: Array<Object>,
-  sessions: Array<Object>,
-  classes: Object
-}) => {
-  const { classes } = props;
-  return (
-    <div>
-      <Grid id="graph-session" item xs={12}>
-        <Card>
-          <CardContent>
-            <Typography type="title" className={classes.title}>
-              Session Controls
-            </Typography>
-            <SessionAdmin sessions={sessions} graphs={graphs} {...props} />
-          </CardContent>
-        </Card>
-      </Grid>
-    </div>
-  );
-};
+const SessionList = withRouter(
+  ({
+    graphs,
+    sessions,
+    ...props
+  }: {
+    graphs: Array<Object>,
+    sessions: Array<Object>,
+    classes: Object
+  }) => {
+    const { classes } = props;
+    return (
+      <div>
+        <Grid id="graph-session" item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography type="title" className={classes.title}>
+                Session Controls
+              </Typography>
+              <SessionAdmin sessions={sessions} graphs={graphs} {...props} />
+            </CardContent>
+          </Card>
+        </Grid>
+      </div>
+    );
+  }
+);
 
 export default withStyles(styles)(SessionList);

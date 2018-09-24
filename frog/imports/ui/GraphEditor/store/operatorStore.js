@@ -1,13 +1,25 @@
+// @flow
+
 import { extendObservable, action } from 'mobx';
 import { maxBy } from 'lodash';
 
 import { store } from './index';
 import Operator from './operator';
 import Connection from './connection';
+import Activity from './activity';
 
 export type OperatorTypes = 'product' | 'social' | 'control';
 
 export default class OperatorStore {
+  all: Operator[];
+  mongoAdd: any => void;
+  mongoChange: (newx: Operator, oldx: { _id: string }) => void;
+  mongoRemove: ({ _id: string }) => void;
+  place: OperatorTypes => void;
+  addOperator: () => void;
+  history: Array<any>;
+  furthestOperator: number;
+
   constructor() {
     extendObservable(this, {
       all: [],
@@ -41,19 +53,21 @@ export default class OperatorStore {
       }),
 
       place: action((type: OperatorTypes) => {
-        if (store.ui.selected?.klass === 'connection') {
-          const source = store.ui.selected.source;
-          const target = store.ui.selected.target;
+        const { selected } = store.ui;
+        if (selected && selected instanceof Connection) {
+          const source = selected.source;
+          const target = selected.target;
           const y = (source.dragPointFrom.Y + target.dragPointTo.Y) / 2;
-          const time =
-            ((source.klass === 'activity'
+          const sourceTime =
+            source instanceof Activity
               ? source.startTime + source.length
-              : source.time) +
-              (target.klass === 'activity' ? target.startTime : target.time)) /
-            2;
+              : source.time;
+          const targetTime =
+            target instanceof Activity ? target.startTime : target.time;
+          const time = (sourceTime + targetTime) / 2;
           const newOp = new Operator(time, y, type);
           this.all.push(newOp);
-          store.ui.selected.remove(false);
+          selected.remove(false);
           store.connectionStore.all.push(new Connection(source, newOp));
           store.connectionStore.all.push(new Connection(newOp, target));
         } else if (store.state.mode === 'normal') {

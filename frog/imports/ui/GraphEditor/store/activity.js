@@ -1,3 +1,5 @@
+// @flow
+
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
 
@@ -10,38 +12,57 @@ import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
   length: number;
-
   startTime: number;
-
   id: string;
-
   over: boolean;
-
   data: Object;
-
   activityType: string;
-
   rawTitle: string;
-
-  klass: string;
-
-  state: string;
-
   wasMoved: boolean;
-
   title: string;
-
   bounds: BoundsT;
-
   endTime: number;
+  plane: number;
+  update: ($Shape<Activity>) => void;
+  rename: string => void;
+  move: (?boolean) => void;
+  push: number => void;
+  setStart: number => void;
+  setLength: number => void;
+  resize: (?boolean) => void;
+  state: any;
+  onLeave: () => void;
+  onOver: () => void;
+  setRename: () => void;
+  title: string;
+  xScaled: number;
+  x: number;
+  screenX: number;
+  widthScaled: number;
+  width: number;
+  y: number;
+  endTime: number;
+  object: {
+    _id: string,
+    title: string,
+    startTime: number,
+    length: number,
+    plane: number
+  };
+  dragPointFromScaled: AnchorT;
+  dragPointToScaled: AnchorT;
+  dragPointFrom: AnchorT;
+  dragPointTo: AnchorT;
+  bounds: BoundsT;
+  strokeColor: string;
 
   constructor(
     plane: number,
     startTime: number,
     title: string,
     length: number,
-    data: Object,
-    activityType: string,
+    data: ?Object,
+    activityType: ?string,
     id: ?string,
     state: ?string
   ) {
@@ -87,22 +108,19 @@ export default class Activity extends Elem {
           };
           this.wasMoved = true;
         }
-        if (shiftkey && !store.state.activitiesToPush) {
-          store.state = {
-            ...store.state,
-            activitiesToPush: store.activityStore.all.filter(
-              x => x.startTime >= this.startTime && x.id !== this.id
-            ),
-            operatorsToPush: store.operatorStore.all.filter(
-              x => x.time >= this.startTime
-            )
-          };
-        }
 
-        const _state = store.state;
+        const activitiesToPush = shiftkey
+          ? store.activityStore.all.filter(
+              x => x.startTime >= this.startTime && x.id !== this.id
+            )
+          : [];
+        const operatorsToPush = shiftkey
+          ? store.operatorStore.all.filter(x => x.time >= this.startTime)
+          : [];
+
         const oldTime = this.startTime;
         const newTime = Math.round(
-          store.ui.socialCoordsTime[0] - _state.mouseOffset
+          store.ui.socialCoordsTime[0] - store.state.mouseOffset
         );
         if (store.overlapAllowed) {
           this.startTime = between(
@@ -112,9 +130,9 @@ export default class Activity extends Elem {
           );
 
           const diff = newTime - oldTime;
-          if (diff !== 0 && store.state.activitiesToPush) {
-            store.state.activitiesToPush.forEach(x => x.push(diff));
-            store.state.operatorsToPush.forEach(x => x.push(diff));
+          if (diff !== 0) {
+            activitiesToPush.forEach(x => x.push(diff));
+            operatorsToPush.forEach(x => x.push(diff));
           }
         } else {
           this.startTime = between(
@@ -122,9 +140,14 @@ export default class Activity extends Elem {
             this.bounds.rightBoundTime - this.length,
             newTime
           );
+          if (store.state.mode !== 'moving') {
+            return;
+          }
 
           const overdrag =
-            store.ui.socialCoordsTime[0] - _state.mouseOffset - this.startTime;
+            store.ui.socialCoordsTime[0] -
+            store.state.mouseOffset -
+            this.startTime;
 
           if (overdrag < -2 && this.bounds.leftBoundActivity) {
             store.activityStore.swapActivities(
@@ -160,24 +183,21 @@ export default class Activity extends Elem {
         this.length = x;
       }),
 
-      resize: action(shiftkey => {
-        const _state = store.state;
-        if (_state.mode === 'resizing') {
-          if (shiftkey && !store.state.activitiesToPush) {
-            store.state = {
-              ...store.state,
-              activitiesToPush: store.activityStore.all.filter(
+      resize: action((shiftkey: boolean) => {
+        if (store.state.mode === 'resizing') {
+          const { bounds } = store.state;
+          const activitiesToPush = shiftkey
+            ? store.activityStore.all.filter(
                 x => x.startTime > this.startTime && x.id !== this.id
-              ),
-              operatorsToPush: store.operatorStore.all.filter(
-                x => x.time >= this.startTime
               )
-            };
-          }
+            : [];
+          const operatorsToPush = shiftkey
+            ? store.operatorStore.all.filter(x => x.time >= this.startTime)
+            : [];
           const newTime = Math.round(store.ui.socialCoordsTime[0]);
           const max = store.overlapAllowed
             ? store.graphDuration
-            : _state.bounds.rightBoundTime;
+            : bounds.rightBoundTime;
           const oldLength = this.length;
           this.length = between(
             1,
@@ -185,9 +205,9 @@ export default class Activity extends Elem {
             newTime - this.startTime
           );
           const diff = this.length - oldLength;
-          if (diff !== 0 && store.state.activitiesToPush) {
-            store.state.activitiesToPush.forEach(x => x.push(diff));
-            store.state.operatorsToPush.forEach(x => x.push(diff));
+          if (diff !== 0) {
+            activitiesToPush.forEach(x => x.push(diff));
+            operatorsToPush.forEach(x => x.push(diff));
           }
         }
         store.activityStore.emptySizes();
