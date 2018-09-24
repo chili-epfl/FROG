@@ -9,7 +9,7 @@ const upgr1 = formData => {
   if (formData.zoomShowsHistory) {
     delete newObj.zoomShowsHistory;
   }
-  return {
+  const toReturn = {
     ...newObj,
     specificLI: true,
     liType: 'li-idea',
@@ -18,6 +18,7 @@ const upgr1 = formData => {
     allowDelete: true,
     allowVoting: true
   };
+  return toReturn;
 };
 
-export default { '1': upgr1 };
+export default { '2': upgr1 };

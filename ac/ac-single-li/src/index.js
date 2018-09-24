@@ -37,7 +37,10 @@ const formatProduct = (_, product) => {
   return product.li ? { [id]: { id, li: product.li } } : {};
 };
 
-const configUI = { instructions: { 'ui:widget': 'textarea' } };
+const configUI = {
+  instructions: { 'ui:widget': 'textarea' },
+  noSubmit: { conditional: formData => !isEmpty(formData.liType) }
+};
 
 const mergeFunction = (obj: Object, dataFn: Object) => {
   if (!isEmpty(obj?.data) && isObject(obj?.data)) {
