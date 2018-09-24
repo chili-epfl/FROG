@@ -48,7 +48,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'CS211 test',
-    path: 'ac/ac-chat/src/dashboardExample/cs211-test-logs.json'
+    path: '/clientFiles/ac-chat/exampleLogs/cs211-test-logs.json'
   }
 ];
 
