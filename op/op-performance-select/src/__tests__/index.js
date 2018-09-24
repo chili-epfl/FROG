@@ -1,4 +1,4 @@
-import pkg from '../operatorRunner';
+import operator from '../operatorRunner';
 
 const config = {
   use_percentage: false,
@@ -9,7 +9,7 @@ const config = {
 
 const configScaled = {
   use_percentage: true,
-  min_percentage: 0.5,
+  min_percentage: 50,
   activity_low: 'act1',
   activity_high: 'act2'
 };
@@ -69,7 +69,7 @@ const objectScaled = {
 };
 
 test('split in two', () => {
-  expect(pkg.operator(config, object)).toEqual({
+  expect(operator(config, object)).toEqual({
     list: {
       act1: {
         mode: 'include',
@@ -86,7 +86,7 @@ test('split in two', () => {
 });
 
 test('split in two scaled', () => {
-  expect(pkg.operator(configScaled, objectScaled)).toEqual({
+  expect(operator(configScaled, objectScaled)).toEqual({
     list: {
       act1: {
         mode: 'include',
