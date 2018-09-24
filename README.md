@@ -1,5 +1,7 @@
 # FROG
 
+__Visit [our blog](https://froglearning.wordpress.com) to see pedagogical scenarios, as well as technical and research updates.__
+
 Fabricating and running orchestration graphs. To learn more about the design and
 architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 
