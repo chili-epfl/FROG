@@ -159,7 +159,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'CS211',
-    path: 'ac/ac-train/src/Dashboards/exampleLogs/cs211.json'
+    path: '/clientFiles/ac-train/exampleLogs/cs211.json'
   }
 ];
 

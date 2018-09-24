@@ -19,3 +19,9 @@ fs.readdirSync('./ac').forEach(x => {
     );
   }
 });
+if (fs.existsSync(`./frog-utils/clientFiles`)) {
+  fs.symlinkSync(
+    `./../../../frog-utils/clientFiles`,
+    `./frog/public/clientFiles/frog-utils`
+  );
+}
