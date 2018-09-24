@@ -248,7 +248,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'CS211 week 1',
-    path: '/clientFiles/frog-utils/exampleLogs/progress-cs211-w1-2018.json',
+    path: '/clientFiles/frog-utils/exampleLogs/progress-cs211-w1.json',
     activityMerge,
     instances: 118
   },
