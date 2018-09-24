@@ -121,12 +121,21 @@ const mergeLog = (state: any, log: LogDbT) => {
       state.results[index].wrong.time += answerTime - startTime;
     } else {
       state.results[index].correct.count += 1;
-      state.results[index].correct += answerTime - startTime;
+      state.results[index].correct.time += answerTime - startTime;
     }
   }
 };
 
-const resultsDashboard = { Viewer, mergeLog, initData };
+const exampleLogs = [
+  {
+    type: 'logs',
+    title: 'Genealogy 2 people',
+    path: 'ac/ac-timedQuiz/src/exampleLogs/genealogy.json',
+    instances: 2
+  }
+];
+
+const resultsDashboard = { Viewer, mergeLog, initData, exampleLogs };
 
 export default {
   progress: ProgressDashboard,

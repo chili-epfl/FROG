@@ -1,5 +1,5 @@
 // @flow
-import { cloneDeep, isEqual } from 'lodash';
+import { cloneDeep, isEqual, unset } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
 import { type ActivityPackageT } from './index';
 
@@ -47,7 +47,9 @@ export const hideConditional = (
   if (UISchema) {
     const hides = calculateHides(formData, schema, UISchema);
     const newFormData = cloneDeep(formData);
-    hides.forEach(hide => delete newFormData[hide]);
+    console.log(hides);
+    hides.forEach(hide => unset(newFormData, hide));
+    console.log(newFormData);
     return newFormData;
   } else {
     return formData;
