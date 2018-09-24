@@ -68,9 +68,12 @@ export class Doc {
     immutable: boolean = false
   ): string | Object {
     const id = uuid();
+    const properPayload =
+      // $FlowFixMe
+      payload || new this.LearningItemFn().getEmptyDataStructure(liType);
     const newLI = {
       liType,
-      payload,
+      payload: properPayload,
       createdAt: new Date(),
       ...meta,
       ...this.meta
@@ -97,14 +100,14 @@ export class Doc {
     meta?: Object
   ) =>
     // $FlowFixMe
-    this.LearningItemFn({
+    new this.LearningItemFn({
       liType: type,
       payload,
       type: 'createLIPayload',
       autoInsert,
       dataFn: this,
       meta
-    });
+    }).render();
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);

@@ -1,40 +1,54 @@
 import * as React from 'react';
 import { type LearningItemT, values } from 'frog-utils';
 
-const Editor = ({ dataFn, data, LearningItem }) => {
-  let newReviewId;
-  if (data.reviewId) {
-    newReviewId = dataFn.createLearningItem('li-textarea', { text: '' });
-    dataFn.objInsert(newReviewId, 'reviewId');
+class Editor extends React.Component<
+  { dataFn: Object, data: any, LearningItem: Function },
+  {}
+> {
+  constructor(props) {
+    super(props);
+    const { dataFn, data } = props;
+    console.log(dataFn.doc.data, data);
+    let newReviewId;
+    if (!data.reviewId) {
+      newReviewId = dataFn.createLearningItem('li-textArea', { text: '' });
+      dataFn.objInsert(newReviewId, ['reviewId']);
+    }
   }
 
-  return (
-    <div>
+  render() {
+    const { data, LearningItem } = this.props;
+    return (
       <div>
-        {values(data.reviewItem).map(x => (
-          <LearningItem type="view" id={x.li} />
-        ))}
+        <div>
+          {values(data.reviewItem).map(x => (
+            <LearningItem type="view" id={x.li} key={x.li} />
+          ))}
+        </div>
+        <hr />
+        <p>
+          <b>Review: </b>
+        </p>
+        {data.reviewId && <LearningItem type="edit" id={data.reviewId} />}
       </div>
-      <LearningItem type="edit" id={data.reviewId || newReviewId} />
-    </div>
-  );
-};
+    );
+  }
+}
 
 const Viewer = ({ data, LearningItem }) => (
   <div>
-    <h1>Hi</h1>
+    <div>
+      {values(data.reviewItem).map(x => (
+        <LearningItem type="view" id={x.li} key={x.li} />
+      ))}
+    </div>
+    <hr />
+    <p>
+      <b>Review:</b>
+    </p>
+    {data.reviewId && <LearningItem type="view" id={data.reviewId} />}
   </div>
 );
-
-// <div>
-//   {values(data.reviewItem).map(
-//     x => console.log(x.li) || <LearningItem type="view" id={x.li} />
-//   )}
-// <LearningItem type="view" id="cjm65g3ek00013h6jhwyb477k" />;
-// </div>
-// {data.reviewId && <LearningItem type="view" id={data.reviewId} />}
-// </div>
-// );
 
 export default ({
   name: 'Peer-Review',

@@ -251,17 +251,20 @@ export type operatorPackageT =
 
 export type productOperatorRunnerT = (
   configData: Object,
-  object: ObjectT & GlobalStructureT
+  object: ObjectT & GlobalStructureT,
+  LearningItem: Function
 ) => activityDataT | Promise<activityDataT>;
 
 export type controlOperatorRunnerT = (
   configData: Object,
-  object: ObjectT & GlobalStructureT
+  object: ObjectT & GlobalStructureT,
+  LearningItem: Function
 ) => ControlStructureT;
 
 export type socialOperatorRunnerT = (
   configData: Object,
-  object: ObjectT & GlobalStructureT
+  object: ObjectT & GlobalStructureT,
+  LearningItem: Function
 ) => socialStructureT;
 
 export type CursorT<T> = {

@@ -3,30 +3,21 @@
 import { type productOperatorRunnerT, uuid } from 'frog-utils';
 import { shuffle } from 'lodash';
 
-const createLI = (item, litype, from) => {
+const createLI = (dataFn, item, litype, from) => {
   const id = uuid();
-  return {
-    [id]: {
-      id,
-      li: {
-        id: uuid(),
-        liDocument: {
-          liType: 'li-peerReview',
-          createdAt: new Date(),
-          createdBy: 'op-distrib-peer-review',
-          payload: {
-            reviewItem: item.data,
-            reviewComponentLIType: litype,
-            reviewId: undefined,
-            from
-          }
-        }
-      }
-    }
-  };
+  console.log('create li payload');
+  const li = dataFn.createLearningItem('li-peerReview', {
+    reviewItem: item.data,
+    reviewComponentLIType: litype,
+    reviewId: undefined,
+    from
+  });
+  console.log('done', li);
+  return { [id]: { id, li } };
 };
 
-const operator = (configData, { activityData }) => {
+const operator = (configData, { activityData }, dataFn) => {
+  console.log(dataFn);
   if (activityData.structure !== 'individual') {
     console.error('Cannot work with data that is not individually structured');
     throw new Error();
@@ -40,8 +31,9 @@ const operator = (configData, { activityData }) => {
     payload: shuffled.reduce((acc, x, i) => {
       acc[x] = {
         data: createLI(
+          dataFn,
           activityData.payload[shuffledShifted[i]],
-          configData.liType || 'li-textarea',
+          configData.liType || 'li-textArea',
           shuffledShifted[i]
         )
       };

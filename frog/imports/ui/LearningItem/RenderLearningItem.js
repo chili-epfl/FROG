@@ -24,7 +24,6 @@ class RenderLearningItem extends React.Component<any, any> {
 
   render() {
     const { data, dataFn, render, type = 'view', clickZoomable } = this.props;
-    console.log(this.props, data, dataFn);
     const liType = learningItemTypesObj[data.liType];
     if (!liType) {
       return <h3>Oops ! Incorrect LI-type</h3>;
@@ -48,7 +47,7 @@ class RenderLearningItem extends React.Component<any, any> {
       );
     }
     const Comp = (
-      <React.Fragment>
+      <>
         <MaybeClickable
           onClick={() => {
             this.setState({ open: true });
@@ -72,12 +71,11 @@ class RenderLearningItem extends React.Component<any, any> {
             >
               <liType.Viewer
                 data={data.payload}
-                dataFn={dataFn && dataFn.specialize('payload')}
                 LearningItem={dataFn && dataFn.LearningItem}
               />
             </Dialog>
           )}
-      </React.Fragment>
+      </>
     );
     if (render) {
       return render({
