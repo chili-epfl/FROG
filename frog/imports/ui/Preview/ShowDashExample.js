@@ -11,7 +11,6 @@ import {
   isBrowser
 } from 'frog-utils';
 import { CircularProgress } from '@material-ui/core/CircularProgress';
-import { activityTypesObj } from '../../activityTypes';
 
 import { createDashboards } from '../../api/mergeLogData';
 import { DashboardStates } from '../../api/cache';

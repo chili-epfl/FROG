@@ -1,12 +1,9 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import { readFileSync } from 'fs';
-import { resolve, join } from 'path';
 
 import { Logs } from '../imports/api/logs';
 import { Sessions } from '../imports/api/sessions';
 import { mergeLog } from '../imports/api/mergeLogData';
-import { activityTypesObj } from '../imports/activityTypes';
 import { client } from './redis';
 import { archiveDashboardState } from './dashboardSubscription';
 
