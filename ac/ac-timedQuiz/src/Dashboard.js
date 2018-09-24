@@ -130,8 +130,12 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'Genealogy 2 people',
-    path: 'ac/ac-timedQuiz/src/exampleLogs/genealogy.json',
-    instances: 2
+    path: 'ac/ac-timedQuiz/src/exampleLogs/genealogy.json'
+  },
+  {
+    type: 'logs',
+    title: 'Genealogy CS211',
+    path: 'ac/ac-timedQuiz/src/exampleLogs/cs211.json'
   }
 ];
 
