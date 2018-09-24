@@ -4,6 +4,7 @@ import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { isEmpty } from 'lodash';
 import { type LogDbT, type DashboardT } from 'frog-utils';
+
 import exampleState from './dashboard-example-avion';
 
 const fontSizeMapper = (itMax, word) => 10 + (word.value * 150) / Number(itMax);
