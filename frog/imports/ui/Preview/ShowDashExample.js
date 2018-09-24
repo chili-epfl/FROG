@@ -117,17 +117,14 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const data = (exampleData && exampleData[0].config) || {};
 
     const dash = dashboards && dashboards[this.state.example];
-    if (
-      !dash ||
-      !dash.exampleLogs ||
-      dash.exampleLogs[this.state.idx].type === 'state'
-    ) {
+    const dashExample = dash?.exampleLogs?.[this.state.idx];
+    if (!dashExample || dashExample.type === 'state') {
       return;
     }
 
     this.setActivityObj(dashboards, data);
 
-    fetch(dash.exampleLogs[this.state.idx].path)
+    fetch(dashExample.path)
       .then(response => response.text())
       .then(rawResult => {
         const result = rawResult
