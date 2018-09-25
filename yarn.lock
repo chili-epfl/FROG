@@ -1307,6 +1307,21 @@
   version "2.9.16"
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
 
+"@houshuang/react-tweet@1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@houshuang/react-tweet/-/react-tweet-1.7.1.tgz#a66eb25162df3b6d539318521d6d2afa1d59127f"
+  dependencies:
+    babel "6.2.4"
+    babel-cli "6.2.0"
+    babel-core "6.26.0"
+    babel-loader "6.2.0"
+    babel-plugin-transform-react-jsx "6.24.1"
+    babel-plugin-transform-runtime "6.23.0"
+    babel-preset-es2015 "6.24.1"
+    react-video-wrapper "1.0.3"
+    twemoji "1.4.1"
+    twitter-text "1.13.2"
+
 "@houshuang/react-webcam@^0.5":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@houshuang/react-webcam/-/react-webcam-0.5.0.tgz#59b3c7f1ed5c3d52abf2482549fda04cd9c40983"
@@ -9965,21 +9980,6 @@ react-transition-group@^2.0.0, react-transition-group@^2.2.0, react-transition-g
     dom-helpers "^3.3.1"
     loose-envify "^1.3.1"
     prop-types "^15.6.1"
-
-react-tweet@1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/react-tweet/-/react-tweet-1.7.1.tgz#06c10ffc23e31275d91d43bc6f927bf2cddab997"
-  dependencies:
-    babel "6.2.4"
-    babel-cli "6.2.0"
-    babel-core "6.26.0"
-    babel-loader "6.2.0"
-    babel-plugin-transform-react-jsx "6.24.1"
-    babel-plugin-transform-runtime "6.23.0"
-    babel-preset-es2015 "6.24.1"
-    react-video-wrapper "1.0.3"
-    twemoji "1.4.1"
-    twitter-text "1.13.2"
 
 react-video-wrapper@1.0.3:
   version "1.0.3"
