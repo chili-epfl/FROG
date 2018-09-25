@@ -39,7 +39,6 @@ const validateConfig = [
     }
     try {
       const data = JSON.parse(form.dataSets);
-      console.log(data);
       data.forEach(x => {
         if (!x.trace) {
           return { err: 'Not valid dataset, missing trace' };
