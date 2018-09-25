@@ -1,12 +1,7 @@
 // @flow
 
-import {
-  type dataUnitStructT,
-  type ActivityPackageT,
-  uuid,
-  values
-} from 'frog-utils';
-import { isObject } from 'lodash';
+import { type ActivityPackageT, uuid, values } from 'frog-utils';
+import { isObject, isEmpty } from 'lodash';
 import upgradeFunctions from './upgradeFunctions';
 
 import { config, configUI } from './config';
@@ -182,21 +177,24 @@ const meta = {
 
 const dataStructure = {};
 
-const mergeFunction = (obj: dataUnitStructT, dataFn: Object) => {
-  if (isObject(obj?.data)) {
-    values(obj.data).forEach(x => {
+const mergeFunction = (object, dataFn) => {
+  if (isEmpty(object.data) || !isObject(object.data)) {
+    return;
+  }
+  values(object.data).forEach(v => {
+    if (v.li) {
       const id = uuid();
       dataFn.objInsert(
         {
           students: {},
           score: 0,
-          ...x,
+          ...v,
           id
         },
         id
       );
-    });
-  }
+    }
+  });
 };
 
 export default ({
