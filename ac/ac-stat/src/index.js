@@ -26,18 +26,42 @@ const config = {
       type: 'boolean',
       title: 'Are students able to edit the table?'
     },
-    fixAxis: { type: 'boolean', title: 'Should the axis be fixed?' }
+    fixAxis: { type: 'boolean', title: 'Should the axis be fixed?' },
+    dataSets: { type: 'string', title: 'Datasets' }
   }
 };
+
+const configUI = { dataSets: { 'ui:widget': 'textarea' } };
+const validateConfig = [
+  form => {
+    if (!form.dataSets || form.dataSets.trim() === '') {
+      return null;
+    }
+    try {
+      const data = JSON.parse(form.dataSets);
+      console.log(data);
+      data.forEach(x => {
+        if (!x.trace) {
+          return { err: 'Not valid dataset, missing trace' };
+        }
+      });
+      return null;
+    } catch (e) {
+      console.error(e);
+      return { err: 'Not valid dataset' };
+    }
+  }
+];
 
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {};
 
-const mergeFunction = ({ data: incoming }, dataFn, data) => {
-  if (!Array.isArray(incoming)) {
-    return;
+const mergeFunction = ({ data: incoming, config: configObj }, dataFn, data) => {
+  let dataset = [];
+  if (configObj.dataSets) {
+    dataset = JSON.parse(configObj.dataSets);
   }
-  incoming.forEach(({ trace, ...rest }) => {
+  [...(incoming || []), ...dataset].forEach(({ trace, ...rest }) => {
     if (!data[trace]) dataFn.objInsert({ columns: [], values: [] }, trace);
     const tmpEntry = [];
     Object.keys(rest).forEach(key => {
@@ -73,7 +97,9 @@ export default ({
   configVersion: 1,
   meta,
   config,
+  configUI,
   dashboard: null,
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  validateConfig
 }: ActivityPackageT);
