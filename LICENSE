@@ -1,0 +1,8 @@
+The main FROG program (in the frog/ directory) is licensed under the GNU Affero
+General Public License 3.0 (or, at your option, a later version). The licenses
+of all other packages may be found in their respective directories (LICENSE
+files in each sub-directory). While the main application is AGPL, we generally
+license more broadly applicable libraries, as well as specific learning
+activities, under permissive licenses such as the ISC license to facilitate
+their reuse in other systems. Please Contact us if you have any questions about
+licensing.

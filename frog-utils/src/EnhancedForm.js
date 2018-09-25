@@ -5,7 +5,7 @@ import { isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
 import Fields from 'react-jsonschema-form-extras';
 
-import { calculateSchema } from './enhancedFormUtils';
+import { calculateSchema, hideConditional } from './enhancedFormUtils';
 
 const RteField = props => (
   <div key={props.reload || 'x'}>
@@ -72,7 +72,11 @@ class EnhancedForm extends Component<
     ) {
       this.setState({
         schema,
-        formData: this.formData
+        formData: hideConditional(
+          this.formData || {},
+          props.schema,
+          props.uiSchema || {}
+        )
       });
     }
   };

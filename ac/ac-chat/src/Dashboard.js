@@ -4,7 +4,8 @@ import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { isEmpty } from 'lodash';
 import { type LogDbT, type DashboardT } from 'frog-utils';
-import exampleState from './dashboardExample/avion.js';
+
+import exampleState from './dashboard-example-avion';
 
 const fontSizeMapper = (itMax, word) => 10 + (word.value * 150) / Number(itMax);
 
@@ -48,7 +49,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'CS211 test',
-    path: 'ac/ac-chat/src/dashboardExample/cs211-test-logs.json'
+    path: '/clientFiles/ac-chat/exampleLogs/cs211-test-logs.json'
   }
 ];
 

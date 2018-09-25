@@ -241,21 +241,21 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'CS211 week 1 (n=400)',
-    path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1-short.json',
+    path: '/clientFiles/frog-utils/exampleLogs/progress-cs211-w1-short.json',
     activityMerge,
     instances: 118
   },
   {
     type: 'logs',
     title: 'CS211 week 1',
-    path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w1.json',
+    path: '/clientFiles/frog-utils/exampleLogs/progress-cs211-w1.json',
     activityMerge,
     instances: 118
   },
   {
     type: 'logs',
     title: 'CS211 week 2',
-    path: 'frog-utils/src/dashboards/logExamples/progress-cs211-w2-2018.json',
+    path: '/clientFiles/frog-utils/exampleLogs/progress-cs211-w2-2018.json',
     activityMerge: {
       actualStartingTime: '2018-03-13T07:28:02.833Z',
       actualClosingTime: '2018-03-13T07:34:42.700Z'
@@ -265,7 +265,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'Stroop girls 1',
-    path: 'frog-utils/src/dashboards/logExamples/stroop_girls_1.json',
+    path: '/clientFiles/frog-utils/exampleLogs/stroop_girls_1.json',
     activityMerge: {
       actualStartingTime: '2018-08-22T09:26:52Z',
       actualClosingTime: '2018-08-22T09:28:35Z'
@@ -275,7 +275,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'Stroop girls 2',
-    path: 'frog-utils/src/dashboards/logExamples/stroop_girls_2.json',
+    path: '/clientFiles/frog-utils/exampleLogs/stroop_girls_2.json',
     activityMerge: {
       actualStartingTime: '2018-08-22T09:54:48Z',
       actualClosingTime: '2018-08-22T09:55:59Z'

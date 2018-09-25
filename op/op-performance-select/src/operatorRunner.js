@@ -3,8 +3,11 @@ import { type controlOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
   const isHighPerformer = configData.use_percentage
-    ? (actual, max) => actual / max >= configData.min_percentage / 100
-    : (actual, _) => actual >= configData.min_correct;
+    ? (actual, max, scaled) =>
+        scaled
+          ? scaled >= configData.min_percentage / 100
+          : actual / max >= configData.min_percentage / 100
+    : (actual, _, __) => actual >= configData.min_correct;
 
   const data = object.activityData;
   const high = [];
@@ -16,7 +19,8 @@ const operator = (configData, object) => {
       } else if (
         isHighPerformer(
           data.payload[student].data.correctCount,
-          data.payload[student].data.maxCorrect
+          data.payload[student].data.maxCorrect,
+          data.payload[student].data.scaledScore
         )
       ) {
         high.push(student);

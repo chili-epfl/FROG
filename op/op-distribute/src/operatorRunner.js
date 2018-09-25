@@ -7,9 +7,9 @@ const operator = (configData, object) => {
   if (activityData.structure !== 'all') {
     throw 'Cannot redistribute already distributed content';
   }
-  const products = activityData.payload.all.data;
+  let products = activityData.payload.all.data;
   if (!Array.isArray(products)) {
-    throw 'Can only reshuffle an array';
+    products = Object.values(products);
   }
   const groups = configData.individual
     ? globalStructure.studentIds

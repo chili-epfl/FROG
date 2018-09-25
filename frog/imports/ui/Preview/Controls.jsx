@@ -224,9 +224,10 @@ export default withStyles(styles)((props: Object) => {
               disableTouchRipple
               color="primary"
               className={
-                ex.type === 'deeplink'
+                'example ' +
+                (ex.type === 'deeplink'
                   ? classes.exampleButtonDeeplink
-                  : classes.exampleButton
+                  : classes.exampleButton)
               }
               onClick={() => {
                 if (modal) {

@@ -47,7 +47,7 @@ class RenderLearningItem extends React.Component<any, any> {
       );
     }
     const Comp = (
-      <React.Fragment>
+      <>
         <MaybeClickable
           onClick={() => {
             this.setState({ open: true });
@@ -75,7 +75,7 @@ class RenderLearningItem extends React.Component<any, any> {
               />
             </Dialog>
           )}
-      </React.Fragment>
+      </>
     );
     if (render) {
       return render({

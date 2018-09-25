@@ -172,7 +172,7 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <div style={{ width: '100%', height: '100%', overflow: 'overlay' }}>
+      <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
         <ActivityToRun
           activityType={activityType.id}
           key={reloadActivity}

@@ -98,7 +98,7 @@ const exampleLogs = [
   {
     type: 'logs',
     title: 'CS211 week 1',
-    path: 'ac/ac-stroop/src/logExamples/progress-cs211-w1.json',
+    path: '/clientFiles/ac-stroop/exampleLogs/progress-cs211-w1.json',
     activityMerge,
     instances: 118
   }
