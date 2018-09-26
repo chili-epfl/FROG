@@ -18,6 +18,7 @@ export const config = {
       type: 'string',
       title: 'Hashtag'
     },
+    group: { type: 'string', title: 'Group' },
     url: {
       type: 'string',
       title: 'URL'
@@ -27,14 +28,15 @@ export const config = {
       default: 20,
       type: 'number',
       title: 'Max number of items to fetch'
-    }
+    },
+    token: { title: 'Authorization token', type: 'string' }
   }
 };
 const validateConfig = [
   formData =>
-    formData.tag || formData.url || formData.search
+    formData.tag || formData.url || formData.search || formData.group
       ? null
-      : { err: 'You need either tag, URL, or search term' }
+      : { err: 'You need either tag, URL, group, or search term' }
 ];
 
 export default ({
