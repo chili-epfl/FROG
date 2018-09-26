@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { type LearningItemT } from 'frog-utils';
-import Viewer from './hypothesis/HypothesisThread';
+import Viewer from './hypothesis';
 
 const ThumbViewer = ({ data }) => <Viewer data={data} shouldShorten />;
 
