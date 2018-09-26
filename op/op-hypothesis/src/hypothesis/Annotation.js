@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { HTML } from 'frog-utils';
 
 export const Annotation = ({
   username,
@@ -77,7 +78,7 @@ export const Annotation = ({
                       className="annotation-quote ng-binding ng-scope"
                       h-branding="selectionFontFamily"
                     >
-                      {quotation}
+                      <HTML html={quotation} />
                     </blockquote>
                   </div>
                   <div
@@ -96,7 +97,9 @@ export const Annotation = ({
             <div className="excerpt">
               <div className="ng-scope ng-isolate-scope">
                 <div className="markdown-body js-markdown-preview has-content">
-                  <p>{text}</p>
+                  <p>
+                    <HTML html={text} />
+                  </p>
                 </div>
               </div>
             </div>
@@ -108,7 +111,7 @@ export const Annotation = ({
 );
 
 export const Hypothesis = ({ children }) => (
-  <div className="content">
+  <div className="content" style={{ textAlign: 'left' }}>
     <main className="ng-scope">
       <annotation-viewer-content className="ng-scope ng-isolate-scope">
         <thread-list className="ng-isolate-scope">
