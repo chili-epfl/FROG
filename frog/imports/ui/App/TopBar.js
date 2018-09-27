@@ -130,6 +130,8 @@ class TopBarController extends React.Component<
 
     if (found !== undefined) {
       this.state = { value: found.to };
+    } else {
+      this.state = { value: '/teacher/graph' };
     }
   }
 
