@@ -84,7 +84,14 @@ class LogoutMenu extends React.Component<*, *> {
           >
             Show changelog
           </MenuItem>
-          <MenuItem onClick={this.handleClose}>Website</MenuItem>
+          <MenuItem
+            onClick={() => {
+              window.open('https://github.com/chili-epfl/FROG/wiki', '_blank');
+              this.handleClose();
+            }}
+          >
+            FROG website
+          </MenuItem>
           <MenuItem onClick={this.handleClose}>Change password</MenuItem>
           <MenuItem
             onClick={() => {
@@ -101,17 +108,19 @@ class LogoutMenu extends React.Component<*, *> {
   }
 }
 
-class TopBarController extends React.Component<{ classes: any }, {}> {
+class TopBarController extends React.Component<
+  { classes: any },
+  { value: string }
+> {
   routes = [
     { name: 'Graph Editor', to: '/teacher/graph' },
     { name: 'Sessions', to: '/teacher/orchestration' },
+    { name: 'Graph Testing', to: '/teacher/testing' },
     {
-      name: 'Activity Creator',
+      name: 'Activity Preview',
       to: '/teacher/preview'
     }
   ];
-
-  value = '/teacher/preview';
 
   constructor(props) {
     super(props);
@@ -120,12 +129,12 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
     )[0];
 
     if (found !== undefined) {
-      this.value = found.to;
+      this.state = { value: found.to };
     }
   }
 
   handleChange = (event, value) => {
-    this.value = value;
+    this.setState({ value });
   };
 
   render() {
@@ -139,7 +148,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
             </Typography>
             <Tabs
               className={classes.tabs}
-              value={this.value}
+              value={this.state.value}
               onChange={this.handleChange}
               fullWidth
             >

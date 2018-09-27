@@ -23,7 +23,6 @@ import ModalDelete from './RemoteControllers/ModalDelete';
 import TopPanel from './TopPanel';
 import Preview from '../Preview';
 import OperatorPreview from '../Preview/OperatorPreview';
-import TopBar from '../App/TopBar';
 
 const styles = () => ({
   root: {
@@ -94,7 +93,6 @@ class Editor extends React.Component<Object, StateT> {
     const setIdRemove = val => this.setState({ idRemove: val });
     return (
       <div className={classes.root}>
-        <TopBar />
         <Grid container>
           <Grid item xs={12}>
             <TopPanel
