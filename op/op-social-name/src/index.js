@@ -68,7 +68,7 @@ const validateConfig = [
 ];
 
 const outputDefinition = configData =>
-  configData.defaultGroupingValue.split(',').map(f => f.trim());
+  configData.groupingKeys.split(',').map(f => f.trim());
 
 export default ({
   id: 'op-social-name',
