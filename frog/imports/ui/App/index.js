@@ -145,6 +145,7 @@ const FROGRouter = withRouter(
       Accounts.loginWithToken(token, err => {
         if (err) {
           Accounts._unstoreLoginToken();
+          sessionStorage.removeItem('frog.sessionToken');
           this.setState({ mode: 'waiting' });
         } else {
           Meteor.subscribe('userData', {

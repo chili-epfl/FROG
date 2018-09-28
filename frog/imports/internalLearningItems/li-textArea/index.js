@@ -31,6 +31,7 @@ export const FlexViewer = withStyles(styles)(
 export const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
   <div className={classes.editorContainer}>
     <ReactiveText
+      style={{ height: '600px' }}
       path="text"
       dataFn={dataFn}
       type="textarea"
