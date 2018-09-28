@@ -1,6 +1,7 @@
+// @flow
+
 import * as React from 'react';
-import { type LearningItemT, ReactiveText, shorten } from 'frog-utils';
-import { withStyles } from '@material-ui/core/styles';
+import { type LearningItemT } from 'frog-utils';
 import { FlexViewer, Editor } from '../li-textArea';
 
 export default ({
@@ -10,4 +11,4 @@ export default ({
   ThumbViewer: props => <FlexViewer {...props} shouldShorten />,
   Viewer: FlexViewer,
   Editor: props => <Editor {...props} large />
-}: LearningItemT<{ title: string, content: string }>);
+}: LearningItemT<{ text: string }>);
