@@ -50,7 +50,7 @@ class HypothesisThread extends React.Component<
       <Hypothesis>
         <Thread
           data={!shouldShorten && this.state.expand ? annotations : []}
-          threadLength={!this.state.expand && annotations.length - 1}
+          threadLength={this.state.expand && annotations.length - 1}
           item={top}
           toggleFn={this.toggleFn}
           expandable={!shouldShorten && annotations.length > 1}

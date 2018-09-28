@@ -11,7 +11,8 @@ export const Annotation = ({
   timestampLink,
   toggleFn,
   threadLength,
-  expandable
+  expandable,
+  shouldShorten
 }) => (
   <div className="ng-scope ng-isolate-scope annotation annotation--reply is-highlighted">
     <div className="ng-scope">
@@ -59,7 +60,7 @@ export const Annotation = ({
                       className="annotation-quote ng-binding ng-scope"
                       h-branding="selectionFontFamily"
                     >
-                      <HTML html={quotation} shorten={100} />
+                      <HTML html={quotation} shorten={shouldShorten && 100} />
                     </blockquote>
                   </div>
                   <div
@@ -78,14 +79,21 @@ export const Annotation = ({
             <div className="excerpt">
               <div className="ng-scope ng-isolate-scope">
                 <div className="markdown-body js-markdown-preview has-content">
-                  <HTML html={text} shorten={100} />
+                  <HTML html={text} shorten={shouldShorten && 100} />
+                  {shouldShorten &&
+                    threadLength > 0 && (
+                      <i>
+                        (...
+                        {threadLength} comments...)
+                      </i>
+                    )}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      {expandable ? (
+      {expandable && (
         <p>
           <A onClick={toggleFn}>
             {threadLength
@@ -93,15 +101,6 @@ export const Annotation = ({
               : `Click to hide replies...`}
           </A>
         </p>
-      ) : (
-        threadLength && (
-          <p>
-            <i>
-              (...
-              {threadLength} comments)
-            </i>
-          </p>
-        )
       )}
     </div>
   </div>
