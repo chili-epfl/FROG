@@ -7,7 +7,9 @@ export const Annotation = ({
   text,
   quotation,
   article,
-  articleSite
+  articleSite,
+  articleLink,
+  timestampLink
 }) => (
   <div className="ng-scope ng-isolate-scope annotation annotation--reply is-highlighted">
     <div className="ng-scope">
@@ -18,33 +20,23 @@ export const Annotation = ({
               className="annotation-header__user ng-binding ng-scope"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://hypothes.is/u/acct%3Abchen%40hypothes.is"
+              href={`acct:https://hypothes.is/u/${username}@hypothes.is`}
             >
               {username}{' '}
             </a>
             <br />
             <span className="annotation-header__share-info">
-              <a
-                className="annotation-header__group ng-scope"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://hypothes.is/groups/__world__/public"
-              >
-                <i className="h-icon-group" />
-                <span className="annotation-header__group-name ng-binding">
-                  Public
-                </span>
-              </a>
+              <i className="h-icon-group" />
+              <span className="annotation-header__group-name ng-binding">
+                Public
+              </span>
             </span>
           </span>
           {article && (
             <span className="ng-scope">
               <span className="annotation-citation ng-scope">
                 on "
-                <a
-                  className="ng-binding"
-                  href="https://hyp.is/EACZXEsHEeeGMqf34RogmA/www.authorea.com/users/4746/articles/169983-designing-for-collaborative-discourse-in-an-online-class-an-unlms-approach"
-                >
+                <a className="ng-binding" href={articleLink}>
                   {article}
                 </a>
                 "
@@ -62,7 +54,7 @@ export const Annotation = ({
               target="_blank"
               rel="noopener noreferrer"
               title="Wednesday, 07 Jun 2017, 03:35"
-              href="https://hypothes.is/a/jD7MwkshEeelqlcynEiC8A"
+              href={timestampLink}
             >
               {date}
             </a>

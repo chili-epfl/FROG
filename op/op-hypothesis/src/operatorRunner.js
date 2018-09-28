@@ -25,9 +25,10 @@ const parseAnnotation = a => {
       a.target[0].source.split('/')[2],
     lastRef: a.references && a.references.pop(),
     id: a.id,
-    updated: a.updated
+    updated: a.updated,
+    articleLink: a.links?.incontext,
+    timestampLink: a.links?.html
   };
-
   return res;
 };
 
