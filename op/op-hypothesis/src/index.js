@@ -29,9 +29,16 @@ export const config = {
       type: 'number',
       title: 'Max number of items to fetch'
     },
+    afterDate: {
+      type: 'string',
+      title: 'After date (must be fully specified)'
+    },
     token: { title: 'Authorization token', type: 'string' }
   }
 };
+
+const configUI = { afterDate: { 'ui:widget': 'alt-date' } };
+
 const validateConfig = [
   formData =>
     formData.tag || formData.url || formData.search || formData.group
@@ -44,6 +51,7 @@ export default ({
   type: 'product',
   configVersion: 1,
   config,
+  configUI,
   validateConfig,
   meta,
   LearningItems: [liType]
