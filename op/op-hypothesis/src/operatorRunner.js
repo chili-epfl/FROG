@@ -5,7 +5,6 @@ import { isEmpty, isArray, flatten } from 'lodash';
 import fetch from 'isomorphic-fetch';
 import {
   uuid,
-  shorten,
   wrapUnitAll,
   type activityDataT,
   type productOperatorRunnerT
@@ -19,16 +18,13 @@ const parseAnnotation = a => {
     date: a.updated && new Date(a.updated).toDateString(),
     quotation:
       a.target?.[0]?.selector && a.target[0].selector.find(x => x.exact)?.exact,
-    article: !a.references && shorten(a.document?.title?.[0], 50),
-    articleSite:
-      a.target?.[0]?.source &&
-      a.target[0].source.split('/')?.length > 2 &&
-      a.target[0].source.split('/')[2],
+    article: !a.references && a.document?.title?.[0],
+    articleLink: a.links?.incontext,
     lastRef: a.references && a.references.pop(),
     id: a.id,
-    updated: a.updated
+    updated: a.updated,
+    timestampLink: a.links?.html
   };
-
   return res;
 };
 
@@ -82,7 +78,7 @@ const operator = (configData: {
 }): activityDataT => {
   const query = queryString.stringify({
     tag: configData.tag,
-    source: configData.url,
+    url: configData.url,
     any: configData.search,
     group: configData.group,
     limit: configData.limit || 0

@@ -5,6 +5,7 @@ import { renderToString } from 'katex';
 import { withState } from 'recompose';
 import { uuid } from 'frog-utils';
 import 'katex/dist/katex.min.css';
+import clip from 'text-clipper';
 
 const Cache = {};
 
@@ -19,10 +20,12 @@ const getCache = (item: string, setUpdate) => {
 
 const HTML = ({
   html,
-  setUpdate
+  setUpdate,
+  shorten
 }: {
   html: string,
-  setUpdate: string => void
+  setUpdate: string => void,
+  shorten: number
 }) => {
   if (typeof html !== 'string') {
     return null;
@@ -45,6 +48,9 @@ const HTML = ({
   } catch (e) {
     console.warn(e);
     toRender = html;
+  }
+  if (shorten) {
+    toRender = clip(toRender, shorten, { html: true });
   }
 
   // eslint-disable-next-line react/no-danger
