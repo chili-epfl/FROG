@@ -77,7 +77,7 @@ Meteor.methods({
       return -1;
     }
     const session = Sessions.findOne({ slug: slug.trim().toUpperCase() });
-    if (session && session.settings) {
+    if (session?.settings?.studentlist) {
       return session.settings;
     } else {
       return -1;

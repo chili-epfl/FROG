@@ -12,23 +12,31 @@ const styles = () => ({
   }
 });
 
-const FlexViewer = withStyles(styles)(({ classes, data, shouldShorten }) => (
-  <div className={classes.editorContainer}>
-    {(shouldShorten ? shorten(data.text, 150) : data.text)
-      .split('\n')
-      .map((line, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <React.Fragment key={i}>
-          {line}
-          <br />
-        </React.Fragment>
-      ))}
-  </div>
-));
+export const FlexViewer = withStyles(styles)(
+  ({ classes, data, shouldShorten }) => (
+    <div className={classes.editorContainer}>
+      {(shouldShorten ? shorten(data.text, 150) : data.text)
+        .split('\n')
+        .map((line, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <React.Fragment key={i}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
+    </div>
+  )
+);
 
-const Editor = withStyles(styles)(({ dataFn, classes }) => (
+export const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
   <div className={classes.editorContainer}>
-    <ReactiveText path="text" dataFn={dataFn} type="textarea" />
+    <ReactiveText
+      style={{ height: '600px' }}
+      path="text"
+      dataFn={dataFn}
+      type="textarea"
+      rows={large && 20}
+    />
   </div>
 ));
 
