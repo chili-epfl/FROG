@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { isEqual } from 'lodash';
-import download from 'downloadjs';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -46,13 +45,12 @@ class ImageList extends React.Component<*, *> {
           const onClick = e => {
             if (canVote && e.shiftKey) {
               vote(liObj.key, userInfo.id);
-            } else if (!expand )
+            } else if (!expand) {
               setIndex(i);
               setZoom(true);
               logger({ type: 'zoom', itemId: liObj.key });
             }
           };
-
           const backgroundColor = liObj.votes[userInfo.id]
             ? 'lightgreen'
             : 'white';

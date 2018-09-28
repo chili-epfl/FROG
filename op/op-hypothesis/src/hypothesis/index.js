@@ -23,7 +23,6 @@ const Thread = ({
         thumbnail={thumbnail}
         threadLength={threadLength}
         expandable={expandable}
-        shouldShorten={shouldShorten}
       />
       {next.length > 0 && (
         <Indented>
@@ -46,6 +45,7 @@ class HypothesisThread extends React.Component<
   render() {
     const annotations = this.props.data.rows;
     const top = annotations.find(x => !x.lastRef);
+    const { shouldShorten } = this.props;
     return (
       <Hypothesis>
         <Thread

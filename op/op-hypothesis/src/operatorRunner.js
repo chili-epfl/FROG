@@ -78,7 +78,7 @@ const operator = (configData: {
 }): activityDataT => {
   const query = queryString.stringify({
     tag: configData.tag,
-    source: configData.url,
+    url: configData.url,
     any: configData.search,
     group: configData.group,
     limit: configData.limit || 0

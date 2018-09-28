@@ -59,7 +59,7 @@ export const Annotation = ({
                       className="annotation-quote ng-binding ng-scope"
                       h-branding="selectionFontFamily"
                     >
-                      <HTML html={quotation} />
+                      <HTML html={quotation} shorten={100} />
                     </blockquote>
                   </div>
                   <div
@@ -78,14 +78,14 @@ export const Annotation = ({
             <div className="excerpt">
               <div className="ng-scope ng-isolate-scope">
                 <div className="markdown-body js-markdown-preview has-content">
-                  <HTML html={text} />
+                  <HTML html={text} shorten={100} />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      {expandable && (
+      {expandable ? (
         <p>
           <A onClick={toggleFn}>
             {threadLength
@@ -93,6 +93,15 @@ export const Annotation = ({
               : `Click to hide replies...`}
           </A>
         </p>
+      ) : (
+        threadLength && (
+          <p>
+            <i>
+              (...
+              {threadLength} comments)
+            </i>
+          </p>
+        )
       )}
     </div>
   </div>

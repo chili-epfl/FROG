@@ -11639,6 +11639,10 @@ text-cache@^4.1.0:
   dependencies:
     vectorize-text "^3.0.1"
 
+text-clipper@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/text-clipper/-/text-clipper-1.2.2.tgz#2f7ae434d8546490de75bc150fc5f3be46f3dde6"
+
 text-diff-binding@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/text-diff-binding/-/text-diff-binding-1.1.0.tgz#3e0adfcb7aee19c16e3afd3e7b7d897998e42a27"
