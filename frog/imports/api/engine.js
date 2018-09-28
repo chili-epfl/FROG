@@ -76,8 +76,9 @@ export const runSessionFn = (sessionId: string) => {
   engineLogger(sessionId, 'startSession');
   const session = Sessions.findOne(sessionId);
   if (Meteor.isServer) {
-    if (session.studentlist) {
-      session.studentlist.forEach(student => {
+    if (session.settings?.studentlist) {
+      const studentlist = session.settings.studentlist.split('\n');
+      studentlist.forEach(student => {
         const { userId } = Accounts.updateOrCreateUserFromExternalService(
           'frog',
           {
