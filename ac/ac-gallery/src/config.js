@@ -33,6 +33,7 @@ export const config = {
       title: 'Comment guidelines',
       type: 'string'
     },
+    expand: { title: 'Expand Learning Items', type: 'boolean' },
     hideCategory: {
       title: 'Hide the categories',
       type: 'boolean'

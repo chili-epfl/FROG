@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HTML } from 'frog-utils';
+import { HTML, shorten, A } from 'frog-utils';
 
 export const Annotation = ({
   username,
@@ -7,9 +7,11 @@ export const Annotation = ({
   text,
   quotation,
   article,
-  articleSite,
   articleLink,
-  timestampLink
+  timestampLink,
+  toggleFn,
+  threadLength,
+  expandable
 }) => (
   <div className="ng-scope ng-isolate-scope annotation annotation--reply is-highlighted">
     <div className="ng-scope">
@@ -20,30 +22,17 @@ export const Annotation = ({
               className="annotation-header__user ng-binding ng-scope"
               target="_blank"
               rel="noopener noreferrer"
-              href={`acct:https://hypothes.is/u/${username}@hypothes.is`}
+              href={`https://hypothes.is/u/acct:${username}@hypothes.is`}
             >
-              {username}{' '}
+              {shorten(username, 10)}{' '}
             </a>
             <br />
-            <span className="annotation-header__share-info">
-              <i className="h-icon-group" />
-              <span className="annotation-header__group-name ng-binding">
-                Public
-              </span>
-            </span>
           </span>
           {article && (
             <span className="ng-scope">
               <span className="annotation-citation ng-scope">
-                on "
-                <a className="ng-binding" href={articleLink}>
-                  {article}
-                </a>
-                "
-              </span>
-              <span className="annotation-citation-domain ng-binding ng-scope">
                 {' '}
-                ({articleSite})
+                on "<a href={articleLink}>{shorten(article, 30)}</a>"
               </span>
             </span>
           )}
@@ -89,41 +78,43 @@ export const Annotation = ({
             <div className="excerpt">
               <div className="ng-scope ng-isolate-scope">
                 <div className="markdown-body js-markdown-preview has-content">
-                  <p>
-                    <HTML html={text} />
-                  </p>
+                  <HTML html={text} />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      {expandable && (
+        <p>
+          <A onClick={toggleFn}>
+            {threadLength
+              ? `${threadLength} hidden comments, click to expand...`
+              : `Click to hide replies...`}
+          </A>
+        </p>
+      )}
     </div>
   </div>
 );
 
 export const Hypothesis = ({ children }) => (
-  <div className="content" style={{ textAlign: 'left' }}>
-    <main className="ng-scope">
-      <annotation-viewer-content className="ng-scope ng-isolate-scope">
-        <thread-list className="ng-isolate-scope">
-          <ul className="thread-list">
-            <li className="thread-list__spacer" />
-
-            <li className="ng-scope">
-              <div className="thread-list__card">
-                <annotation-thread className="ng-isolate-scope">
-                  <div className="annotation-thread">
-                    <div className="annotation-thread__content">{children}</div>
-                  </div>
-                </annotation-thread>
+  <div style={{ textAlign: 'left' }}>
+    <annotation-viewer-content className="ng-scope ng-isolate-scope">
+      <thread-list className="ng-isolate-scope">
+        <ul className="thread-list">
+          <li className="thread-list__spacer" />
+          <li className="ng-scope">
+            <annotation-thread className="ng-isolate-scope">
+              <div className="annotation-thread">
+                <div className="annotation-thread__content">{children}</div>
               </div>
-            </li>
-            <li className="thread-list__spacer" style={{ height: 0 }} />
-          </ul>
-        </thread-list>
-      </annotation-viewer-content>
-    </main>
+            </annotation-thread>
+          </li>
+          <li className="thread-list__spacer" style={{ height: 0 }} />
+        </ul>
+      </thread-list>
+    </annotation-viewer-content>
   </div>
 );
 

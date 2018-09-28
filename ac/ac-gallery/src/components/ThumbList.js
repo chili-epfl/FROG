@@ -36,7 +36,8 @@ class ImageList extends React.Component<*, *> {
       setZoom,
       setIndex,
       logger,
-      LearningItem
+      LearningItem,
+      expand
     } = this.props;
 
     return (
@@ -45,17 +46,10 @@ class ImageList extends React.Component<*, *> {
           const onClick = e => {
             if (canVote && e.shiftKey) {
               vote(liObj.key, userInfo.id);
-            } else if (liObj.thumbnail || !liObj.filename) {
+            } else if (!expand )
               setIndex(i);
               setZoom(true);
               logger({ type: 'zoom', itemId: liObj.key });
-            } else {
-              logger({
-                type: 'download',
-                itemId: liObj.key,
-                value: liObj.filename
-              });
-              download(liObj.url, liObj.filename);
             }
           };
 
@@ -66,7 +60,7 @@ class ImageList extends React.Component<*, *> {
           return (
             <LearningItem
               key={liObj.key}
-              type="thumbView"
+              type={expand ? 'view' : 'thumbView'}
               id={liObj.li}
               render={props => (
                 <Paper

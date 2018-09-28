@@ -5,7 +5,6 @@ import { isEmpty, isArray, flatten } from 'lodash';
 import fetch from 'isomorphic-fetch';
 import {
   uuid,
-  shorten,
   wrapUnitAll,
   type activityDataT,
   type productOperatorRunnerT
@@ -19,15 +18,11 @@ const parseAnnotation = a => {
     date: a.updated && new Date(a.updated).toDateString(),
     quotation:
       a.target?.[0]?.selector && a.target[0].selector.find(x => x.exact)?.exact,
-    article: !a.references && shorten(a.document?.title?.[0], 50),
-    articleSite:
-      a.target?.[0]?.source &&
-      a.target[0].source.split('/')?.length > 2 &&
-      a.target[0].source.split('/')[2],
+    article: !a.references && a.document?.title?.[0],
+    articleLink: a.links?.incontext,
     lastRef: a.references && a.references.pop(),
     id: a.id,
     updated: a.updated,
-    articleLink: a.links?.incontext,
     timestampLink: a.links?.html
   };
   return res;
