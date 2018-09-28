@@ -9,6 +9,4 @@ export const operatorTypesObj = entries(packagesRaw).reduce(
   {}
 );
 
-console.log(packagesRaw);
-
 export const operatorTypes: operatorPackageT[] = values(operatorTypesObj);

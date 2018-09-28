@@ -1,6 +1,5 @@
 // @flow
 
-import util from 'util';
 import { type productOperatorRunnerT, wrapUnitAll, values } from 'frog-utils';
 import { isObject, invert } from 'lodash';
 

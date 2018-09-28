@@ -141,7 +141,6 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
           x.meta.description.toLowerCase().includes(this.state.searchStr)
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
-    console.log(this.props.operator.type, filteredList, operatorTypes);
 
     const { classes } = this.props;
 

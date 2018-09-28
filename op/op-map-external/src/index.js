@@ -1,12 +1,11 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
 import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Map external product to student',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: 'External usernames must match FROG usernames',
+  description: ''
 };
 
 const config = {
