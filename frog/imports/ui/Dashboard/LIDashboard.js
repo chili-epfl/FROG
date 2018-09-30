@@ -15,7 +15,7 @@ import {
   TableCell,
   TableBody
 } from '@material-ui/core';
-import { generateReactiveFn } from 'frog-utils';
+import { Doc } from 'frog-utils';
 
 import { learningItemTypesObj } from '../../activityTypes';
 import { Activities } from '../../api/activities';
@@ -25,7 +25,7 @@ import LI from '../LearningItem';
 import { connection } from '../App/connection';
 
 const doc = connection.get('li', 'displayLI');
-const dataFn = generateReactiveFn(doc, LI);
+const dataFn = new Doc(doc, { LearningItem: LI });
 const LearningItem = dataFn.LearningItem;
 
 class MyMenu extends React.Component<any, any> {

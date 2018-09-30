@@ -177,7 +177,8 @@ export class RunActivity extends React.Component<PropsT, {}> {
       stream,
       sessionId,
       transform,
-      rawData
+      rawData,
+      Meteor.userId()
     )(RunComp);
   }
 

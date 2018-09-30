@@ -27,38 +27,40 @@ export class Doc {
   updateFn: ?Function;
   LearningItemFn: LearningItemComponentT;
   meta: Object;
-  backend: any;
   stream: ?Function;
   path: rawPathElement[];
   sessionId: string;
   uploadFn: Function;
+  userId: ?string;
 
   constructor(
     doc: any,
-    path?: rawPathElement[],
-    readOnly: boolean,
-    updateFn?: Function,
-    meta: Object = {},
-    LearningItem: LearningItemComponentT,
-    backend: any,
-    stream?: Function,
-    sessionId?: string
+    options: {
+      path?: rawPathElement[],
+      readOnly?: boolean,
+      updateFn?: Function,
+      meta?: Object,
+      LearningItem: LearningItemComponentT,
+      stream?: Function,
+      sessionId?: string,
+      userId?: string
+    }
   ) {
-    this.stream = stream;
-    this.backend = backend;
-    this.meta = meta;
-    this.readOnly = !!readOnly;
+    this.stream = options.stream;
+    this.meta = options.meta || {};
+    this.readOnly = !!options.readOnly;
     this.doc = doc;
-    this.path = path || [];
-    this.sessionId = sessionId || '';
+    this.userId = options.userId;
+    this.path = options.path || [];
+    this.sessionId = options.sessionId || '';
     this.uploadFn = (file, name) => uploadFile(file, name, this.sessionId);
-    this.submitOp = readOnly
-      ? () => updateFn && updateFn()
+    this.submitOp = options.readOnly
+      ? () => options.updateFn && options.updateFn()
       : e => {
-          doc.submitOp(e);
+          doc.submitOp(e, this.userId ? { source: this.userId } : {});
         };
-    this.updateFn = updateFn;
-    this.LearningItemFn = LearningItem;
+    this.updateFn = options.updateFn;
+    this.LearningItemFn = options.LearningItem;
   }
 
   createLearningItem(
@@ -212,15 +214,14 @@ export class Doc {
 
   specialize(rawPath: rawPathT) {
     const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
-    return new Doc(
-      this.doc,
-      [...this.path, ...newPath],
-      this.readOnly,
-      this.updateFn || (_ => {}),
-      this.meta,
-      this.LearningItemFn,
-      this.backend
-    );
+    return new Doc(this.doc, {
+      path: [...this.path, ...newPath],
+      readOnly: this.readOnly,
+      updateFn: this.updateFn || (_ => {}),
+      meta: this.meta,
+      LearningItem: this.LearningItemFn,
+      userId: this.userId || undefined
+    });
   }
 
   specializeData(path: rawPathT, data: Object) {
@@ -231,37 +232,9 @@ export class Doc {
   }
 }
 
-export const generateReactiveFn = (
-  doc: any,
-  LearningItem: any,
-  meta?: Object,
-  readOnly?: boolean,
-  updateFn?: Function,
-  backend?: any,
-  stream?: Function,
-  sessionId?: string
-): Object => {
-  if (doc) {
-    return new Doc(
-      doc,
-      [],
-      !!readOnly,
-      updateFn,
-      meta,
-      LearningItem,
-      backend,
-      stream,
-      sessionId
-    );
-  } else {
-    throw 'Cannot create dataFn without sharedb doc';
-  }
-};
-
 export const inMemoryReactive = (
   initial: any,
-  LearningItem: any,
-  backend: any
+  LearningItem: any
 ): Promise<{ data: any, dataFn: Doc }> => {
   const share = new ShareDB();
   const connection = share.connect();
@@ -275,6 +248,6 @@ export const inMemoryReactive = (
     });
   }).then(doc => ({
     data: doc,
-    dataFn: new Doc(doc, [], false, undefined, undefined, LearningItem, backend)
+    dataFn: new Doc(doc, { path: [], LearningItem })
   }));
 };

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
-import { generateReactiveFn, getDisplayName } from 'frog-utils';
+import { Doc, getDisplayName } from 'frog-utils';
 
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { connection } from '../App/connection';
@@ -26,7 +26,8 @@ const ReactiveHOC = (
   stream?: Function,
   sessionId?: string,
   transform?: Function,
-  rawData?: any
+  rawData?: any,
+  userId?: string
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
@@ -55,14 +56,15 @@ const ReactiveHOC = (
       this.unmounted = false;
       if (readOnly && rawData !== undefined) {
         this.setState({
-          dataFn: generateReactiveFn(
+          dataFn: new Doc(
             {},
-            LearningItem,
-            meta,
-            readOnly,
-            undefined,
-            backend,
-            stream
+            {
+              LearningItem,
+              meta,
+              readOnly,
+              stream,
+              userId: this.props.userId
+            }
           ),
           data: rawData
         });
@@ -99,16 +101,15 @@ const ReactiveHOC = (
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({
-            dataFn: generateReactiveFn(
-              this.doc,
+            dataFn: new Doc(this.doc, {
               LearningItem,
               meta,
               readOnly,
-              this.update,
-              backend,
+              updateFn: this.update,
               stream,
-              sessionId
-            )
+              sessionId,
+              userId: this.props.userId
+            })
           });
         }
         if (this.doc.data !== undefined) {
