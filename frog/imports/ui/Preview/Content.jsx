@@ -21,7 +21,7 @@ import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityRunners, activityTypesObj } from '../../activityTypes';
-import { connection, backend } from './Preview';
+import { connection } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
 import LearningItem from '../LearningItem';
@@ -138,17 +138,10 @@ const ContentController = ({
       ? x => formatProduct(config || {}, x, instance, name)
       : undefined;
 
-    const ActivityToRun = ReactiveHOC(
-      docId,
-      connection,
-      false,
-      undefined,
-      undefined,
-      backend,
-      undefined,
-      undefined,
+    const ActivityToRun = ReactiveHOC(docId, {
+      conn: connection,
       transform
-    )(showData ? ShowInfo : RunComp);
+    })(showData ? ShowInfo : RunComp);
 
     const logger = createLogger(
       'preview',

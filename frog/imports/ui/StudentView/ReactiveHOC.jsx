@@ -18,29 +18,26 @@ type ReactiveCompsStateT = {
 
 const ReactiveHOC = (
   docId: string,
-  conn?: any,
-  readOnly: boolean = false,
-  collection?: string,
-  meta?: Object,
-  backend: any,
-  stream?: Function,
-  sessionId?: string,
-  transform?: Function,
-  rawData?: any,
-  userId?: string
+  options: {
+    conn?: any,
+    readOnly: boolean,
+    collection?: string,
+    meta?: Object,
+    stream?: Function,
+    sessionId?: string,
+    transform?: Function,
+    rawData?: any,
+    userId?: string
+  }
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT
   > {
     doc: any;
-
     unmounted: boolean;
-
     interval: any;
-
     intervalCount: number = 0;
-
     times: 0;
 
     constructor(props: Object) {
@@ -54,22 +51,25 @@ const ReactiveHOC = (
 
     componentDidMount = () => {
       this.unmounted = false;
-      if (readOnly && rawData !== undefined) {
+      if (options.readOnly && options.rawData !== undefined) {
         this.setState({
           dataFn: new Doc(
             {},
             {
               LearningItem,
-              meta,
-              readOnly,
-              stream,
+              meta: options.meta,
+              readOnly: options.readOnly,
+              stream: options.stream,
               userId: this.props.userId
             }
           ),
-          data: rawData
+          data: options.rawData
         });
       } else {
-        this.doc = (conn || connection || {}).get(collection || 'rz', docId);
+        this.doc = (options.conn || connection || {}).get(
+          options.collection || 'rz',
+          docId
+        );
         this.doc.setMaxListeners(3000);
         this.doc.subscribe();
 
@@ -103,11 +103,11 @@ const ReactiveHOC = (
           this.setState({
             dataFn: new Doc(this.doc, {
               LearningItem,
-              meta,
-              readOnly,
+              meta: options.meta,
+              readOnly: options.readOnly,
               updateFn: this.update,
-              stream,
-              sessionId,
+              stream: options.stream,
+              sessionId: options.sessionId,
               userId: this.props.userId
             })
           });
@@ -123,11 +123,11 @@ const ReactiveHOC = (
             '*'
           );
 
-          if (transform) {
+          if (options.transform) {
             window.parent.postMessage(
               {
                 type: 'frog-data-transformed',
-                msg: transform(this.doc.data)
+                msg: options.transform(this.doc.data)
               },
               '*'
             );

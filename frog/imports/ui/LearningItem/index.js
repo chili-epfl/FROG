@@ -53,14 +53,10 @@ class LearningItem extends React.Component<
       const id = props.id;
       const ToRun =
         typeof id === 'string'
-          ? ReactiveHOC(
-              id,
-              props.dataFn.doc.connection,
-              undefined,
-              'li',
-              undefined,
-              props.dataFn.backend
-            )(RenderLearningItem)
+          ? ReactiveHOC(id, {
+              conn: props.dataFn.doc.connection,
+              collection: 'li'
+            })(RenderLearningItem)
           : newprops => (
               <RenderLearningItem data={id.liDocument} {...newprops} />
             );
