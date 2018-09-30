@@ -26,8 +26,7 @@ const ReactiveHOC = (
     stream?: Function,
     sessionId?: string,
     transform?: Function,
-    rawData?: any,
-    userId?: string
+    rawData?: any
   }
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
@@ -59,8 +58,7 @@ const ReactiveHOC = (
               LearningItem,
               meta: options.meta,
               readOnly: options.readOnly,
-              stream: options.stream,
-              userId: this.props.userId
+              stream: options.stream
             }
           ),
           data: options.rawData
@@ -107,8 +105,7 @@ const ReactiveHOC = (
               readOnly: options.readOnly,
               updateFn: this.update,
               stream: options.stream,
-              sessionId: options.sessionId,
-              userId: this.props.userId
+              sessionId: options.sessionId
             })
           });
         }

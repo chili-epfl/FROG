@@ -31,7 +31,6 @@ export class Doc {
   path: rawPathElement[];
   sessionId: string;
   uploadFn: Function;
-  userId: ?string;
 
   constructor(
     doc: any,
@@ -42,22 +41,20 @@ export class Doc {
       meta?: Object,
       LearningItem: LearningItemComponentT,
       stream?: Function,
-      sessionId?: string,
-      userId?: string
+      sessionId?: string
     }
   ) {
     this.stream = options.stream;
     this.meta = options.meta || {};
     this.readOnly = !!options.readOnly;
     this.doc = doc;
-    this.userId = options.userId;
     this.path = options.path || [];
     this.sessionId = options.sessionId || '';
     this.uploadFn = (file, name) => uploadFile(file, name, this.sessionId);
     this.submitOp = options.readOnly
       ? () => options.updateFn && options.updateFn()
       : e => {
-          doc.submitOp(e, this.userId ? { source: this.userId } : {});
+          doc.submitOp(e);
         };
     this.updateFn = options.updateFn;
     this.LearningItemFn = options.LearningItem;
@@ -219,8 +216,7 @@ export class Doc {
       readOnly: this.readOnly,
       updateFn: this.updateFn || (_ => {}),
       meta: this.meta,
-      LearningItem: this.LearningItemFn,
-      userId: this.userId || undefined
+      LearningItem: this.LearningItemFn
     });
   }
 
