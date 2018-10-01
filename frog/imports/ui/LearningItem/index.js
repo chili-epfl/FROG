@@ -4,7 +4,7 @@ import {
   type LIComponentPropsT,
   type LearningItemT,
   uuid,
-  Doc
+  ReactiveDoc
 } from 'frog-utils';
 import { omit, isEqual } from 'lodash';
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,7 @@ import RenderLearningItem from './RenderLearningItem';
 
 class LearningItem extends React.Component<
   {
-    ...{| dataFn: Doc |},
+    ...{| dataFn: ReactiveDoc |},
     ...LIComponentPropsT
   },
   { reload: string }

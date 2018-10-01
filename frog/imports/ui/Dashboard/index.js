@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp-client';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { type ActivityDbT, Doc } from 'frog-utils';
+import { type ActivityDbT, ReactiveDoc } from 'frog-utils';
 
 import doGetInstances from '../../api/doGetInstances';
 import { Sessions } from '../../api/sessions';
@@ -43,7 +43,7 @@ const RawDashboardComp = ({
   }
   const aT = activityTypesObj[activity.activityType];
   const doc = conn.get('li', 'bookmark');
-  const dataFn = new Doc(doc, { LearningItem });
+  const dataFn = new ReactiveDoc(doc, { LearningItem });
   if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
     return <p>The selected activity has no dashboard</p>;
   }

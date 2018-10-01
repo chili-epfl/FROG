@@ -1,7 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { Doc } from 'frog-utils';
+import { ReactiveDoc } from 'frog-utils';
 
 import { Activities } from '/imports/api/activities';
 import { activityTypesObj } from '/imports/activityTypes';
@@ -31,12 +31,12 @@ Meteor.methods({
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
-          const dataFn = new Doc(doc, { LearningItem });
+          const dataFn = new ReactiveDoc(doc, { LearningItem });
           SharedbCache[docId] = [dataFn];
           mergeFunction(toSend, dataFn, dataFn.doc.data, user);
         } else {
           doc.once('load', () => {
-            const dataFn = new Doc(doc, { LearningItem });
+            const dataFn = new ReactiveDoc(doc, { LearningItem });
             SharedbCache[docId] = [dataFn];
             mergeFunction(toSend, dataFn, dataFn.doc.data, user);
           });

@@ -11,7 +11,7 @@ import {
 import {
   cloneDeep,
   getInitialState,
-  Doc,
+  ReactiveDoc,
   withDragDropContext,
   uuid
 } from 'frog-utils';
@@ -30,7 +30,7 @@ const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 
 export const generateDataFn = () => {
   const doc = connection.get('li', uuid());
-  return new Doc(doc, { LearningItem });
+  return new ReactiveDoc(doc, { LearningItem });
 };
 
 export const initActivityDocuments = (
@@ -55,7 +55,7 @@ export const initActivityDocuments = (
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
-        const dataFn = new Doc(_doc, { LearningItem });
+        const dataFn = new ReactiveDoc(_doc, { LearningItem });
         const initData =
           typeof activityType.dataStructure === 'function'
             ? activityType.dataStructure(config)
@@ -82,7 +82,7 @@ export const initActivityDocuments = (
         }
       });
     } else if (refresh) {
-      const dataFn = new Doc(doc, { LearningItem });
+      const dataFn = new ReactiveDoc(doc, { LearningItem });
 
       const initData =
         typeof activityType.dataStructure === 'function'

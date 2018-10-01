@@ -2,7 +2,7 @@
 import * as React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
-import { Doc, getDisplayName } from 'frog-utils';
+import { ReactiveDoc, getDisplayName } from 'frog-utils';
 
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { connection } from '../App/connection';
@@ -52,7 +52,7 @@ const ReactiveHOC = (
       this.unmounted = false;
       if (options.readOnly && options.rawData !== undefined) {
         this.setState({
-          dataFn: new Doc(
+          dataFn: new ReactiveDoc(
             {},
             {
               LearningItem,
@@ -99,7 +99,7 @@ const ReactiveHOC = (
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({
-            dataFn: new Doc(this.doc, {
+            dataFn: new ReactiveDoc(this.doc, {
               LearningItem,
               meta: options.meta,
               readOnly: options.readOnly,

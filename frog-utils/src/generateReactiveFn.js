@@ -18,7 +18,7 @@ const cleanPath = (
   return [...defPath, ...newPath];
 };
 
-export class Doc {
+export class ReactiveDoc {
   doc: any;
   path: rawPathElement[];
   submitOp: Function;
@@ -210,7 +210,7 @@ export class Doc {
 
   specialize(rawPath: rawPathT) {
     const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
-    return new Doc(this.doc, {
+    return new ReactiveDoc(this.doc, {
       path: [...this.path, ...newPath],
       readOnly: this.readOnly,
       updateFn: this.updateFn || (_ => {}),
@@ -230,7 +230,7 @@ export class Doc {
 export const inMemoryReactive = (
   initial: any,
   LearningItem: any
-): Promise<{ data: any, dataFn: Doc }> => {
+): Promise<{ data: any, dataFn: ReactiveDoc }> => {
   const share = new ShareDB();
   const connection = share.connect();
 
@@ -243,6 +243,6 @@ export const inMemoryReactive = (
     });
   }).then(doc => ({
     data: doc,
-    dataFn: new Doc(doc, { path: [], LearningItem })
+    dataFn: new ReactiveDoc(doc, { path: [], LearningItem })
   }));
 };

@@ -25,7 +25,7 @@ export {
   calculateSchema,
   defaultConfig
 } from './enhancedFormUtils';
-export { inMemoryReactive, Doc } from './generateReactiveFn';
+export { inMemoryReactive, ReactiveDoc } from './generateReactiveFn';
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
