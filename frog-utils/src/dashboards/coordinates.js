@@ -13,27 +13,22 @@ import { type LogDbT, type DashboardViewerPropsT } from 'frog-utils';
 
 const target = 'labels';
 const onMouseOver = () => ({ target, mutation: p => ({ text: p.datum.name }) });
-const onMouseOut = () => ({ target, mutation: _ => ({ text: null }) });
+const onMouseOut = () => ({ target, mutation: _ => ({ text: '' }) });
 const eventHandlers = { onMouseOver, onMouseOut };
 const eventHandler = [{ target: 'data', eventHandlers }];
 
 const Viewer = (props: DashboardViewerPropsT) => {
-  const {
-    users,
-    activity,
-    state: { coordinates }
-  } = props;
+  const { users, activity, state } = props;
+  const { coordinates } = state;
   const coordinateLabels = activity.data.answers || [];
   if (!coordinates || Object.keys(coordinates).length < 1) {
     return <p>No data to display</p>;
   } else {
-    const noiseWeight = 1;
-    const noise = x => x + noiseWeight * (2 * Math.random() - 1);
-    const instanceName = instanceId =>
-      activity.plane === 1 ? users[instanceId] : instanceId;
-    const state = Object.keys(coordinates).map(k => {
+    const noise = x => x + 0.5 * (2 * Math.random() - 1);
+    const instanceName = ins => (activity.plane === 1 ? users[ins] : ins);
+    const data = Object.keys(coordinates).map(k => {
       const { x, y } = coordinates[k];
-      return { x: noise(x), y: noise(y), name: instanceName(k) };
+      return { x: noise(x), y: noise(y), label: '', name: instanceName(k) };
     });
     return (
       <VictoryChart
@@ -70,7 +65,7 @@ const Viewer = (props: DashboardViewerPropsT) => {
           style={{ title: { fontSize: 16 } }}
           text={coordinateLabels[3]}
         />
-        <VictoryScatter size={4} data={state} events={eventHandler} />
+        <VictoryScatter size={4} data={data} events={eventHandler} />
       </VictoryChart>
     );
   }
