@@ -12,7 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { condShuffle } from './Quiz';
-import { computeProgress, computeCoordinates, isAnswered } from '../utils';
+import { computeProgress, computeCoordinates } from '../utils';
 
 const styles = theme => ({
   root: {
