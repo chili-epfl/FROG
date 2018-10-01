@@ -6,7 +6,6 @@ import { get } from 'lodash';
 
 import { uploadFile } from '/imports/api/openUploads';
 import { uuid } from './index';
-import type { LearningItemComponentT } from './types';
 
 type rawPathElement = string | number;
 type rawPathT = rawPathElement | rawPathElement[];
@@ -19,15 +18,14 @@ const cleanPath = (
   return [...defPath, ...newPath];
 };
 
-export class Doc {
+export class ReactiveDoc {
   doc: any;
   path: rawPathElement[];
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
-  LearningItemFn: LearningItemComponentT;
+  LearningItemFn: any;
   meta: Object;
-  backend: any;
   stream: ?Function;
   path: rawPathElement[];
   sessionId: string;
@@ -35,30 +33,30 @@ export class Doc {
 
   constructor(
     doc: any,
-    path?: rawPathElement[],
-    readOnly: boolean,
-    updateFn?: Function,
-    meta: Object = {},
-    LearningItem: LearningItemComponentT,
-    backend: any,
-    stream?: Function,
-    sessionId?: string
+    options: {
+      path?: rawPathElement[],
+      readOnly?: boolean,
+      updateFn?: Function,
+      meta?: Object,
+      LearningItem: any,
+      stream?: Function,
+      sessionId?: string
+    }
   ) {
-    this.stream = stream;
-    this.backend = backend;
-    this.meta = meta;
-    this.readOnly = !!readOnly;
+    this.stream = options.stream;
+    this.meta = options.meta || {};
+    this.readOnly = !!options.readOnly;
     this.doc = doc;
-    this.path = path || [];
-    this.sessionId = sessionId || '';
+    this.path = options.path || [];
+    this.sessionId = options.sessionId || '';
     this.uploadFn = (file, name) => uploadFile(file, name, this.sessionId);
-    this.submitOp = readOnly
-      ? () => updateFn && updateFn()
+    this.submitOp = options.readOnly
+      ? () => options.updateFn && options.updateFn()
       : e => {
           doc.submitOp(e);
         };
-    this.updateFn = updateFn;
-    this.LearningItemFn = LearningItem;
+    this.updateFn = options.updateFn;
+    this.LearningItemFn = options.LearningItem;
   }
 
   createLearningItem(
@@ -212,15 +210,13 @@ export class Doc {
 
   specialize(rawPath: rawPathT) {
     const newPath = Array.isArray(rawPath) ? rawPath : [rawPath];
-    return new Doc(
-      this.doc,
-      [...this.path, ...newPath],
-      this.readOnly,
-      this.updateFn || (_ => {}),
-      this.meta,
-      this.LearningItemFn,
-      this.backend
-    );
+    return new ReactiveDoc(this.doc, {
+      path: [...this.path, ...newPath],
+      readOnly: this.readOnly,
+      updateFn: this.updateFn || (_ => {}),
+      meta: this.meta,
+      LearningItem: this.LearningItemFn
+    });
   }
 
   specializeData(path: rawPathT, data: Object) {
@@ -231,38 +227,10 @@ export class Doc {
   }
 }
 
-export const generateReactiveFn = (
-  doc: any,
-  LearningItem: any,
-  meta?: Object,
-  readOnly?: boolean,
-  updateFn?: Function,
-  backend?: any,
-  stream?: Function,
-  sessionId?: string
-): Object => {
-  if (doc) {
-    return new Doc(
-      doc,
-      [],
-      !!readOnly,
-      updateFn,
-      meta,
-      LearningItem,
-      backend,
-      stream,
-      sessionId
-    );
-  } else {
-    throw 'Cannot create dataFn without sharedb doc';
-  }
-};
-
 export const inMemoryReactive = (
   initial: any,
-  LearningItem: any,
-  backend: any
-): Promise<{ data: any, dataFn: Doc }> => {
+  LearningItem: any
+): Promise<{ data: any, dataFn: ReactiveDoc }> => {
   const share = new ShareDB();
   const connection = share.connect();
 
@@ -275,6 +243,6 @@ export const inMemoryReactive = (
     });
   }).then(doc => ({
     data: doc,
-    dataFn: new Doc(doc, [], false, undefined, undefined, LearningItem, backend)
+    dataFn: new ReactiveDoc(doc, { path: [], LearningItem })
   }));
 };
