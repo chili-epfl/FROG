@@ -12,7 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { condShuffle } from './Quiz';
-import { computeProgress, isAnswered } from '../utils';
+import { computeProgress, computeCoordinates, isAnswered } from '../utils';
 
 const styles = theme => ({
   root: {
@@ -135,19 +135,19 @@ export default withStyles(styles)(
         ]);
       }
 
-      const nQuestions = activityData.config.questions.length;
-      const includeCurrentQuestion =
-        isAnswered(questionData, question) && (!text || questionData.text)
-          ? 0
-          : 1;
-      const newProgress =
-        computeProgress(activityData.config.questions, data.form) +
-        includeCurrentQuestion / nQuestions;
+      const prevQuestion = (multiple && data.form[questionIndex]) || {};
+      const newQuestion = { ...prevQuestion, [idx]: !prevQuestion[idx] };
+      const newForm = { ...data.form, [questionIndex]: newQuestion };
+      const configQuestions = activityData.config.questions;
+
+      const newProgress = computeProgress(configQuestions, newForm);
+      const newCoordinates = computeCoordinates(configQuestions, newForm);
 
       logger([
         { type: 'progress', value: newProgress },
         { type: 'score', value: newProgress },
-        { type: 'choice', itemId: questionIndex, value: idx }
+        { type: 'choice', itemId: questionIndex, value: idx },
+        { type: 'coordinates', payload: newCoordinates }
       ]);
     };
 
