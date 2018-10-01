@@ -20,7 +20,7 @@ const ReactiveHOC = (
   docId: string,
   options: {
     conn?: any,
-    readOnly: boolean,
+    readOnly?: boolean,
     collection?: string,
     meta?: Object,
     stream?: Function,

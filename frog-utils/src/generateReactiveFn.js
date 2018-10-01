@@ -6,7 +6,6 @@ import { get } from 'lodash';
 
 import { uploadFile } from '/imports/api/openUploads';
 import { uuid } from './index';
-import type { LearningItemComponentT } from './types';
 
 type rawPathElement = string | number;
 type rawPathT = rawPathElement | rawPathElement[];
@@ -25,7 +24,7 @@ export class Doc {
   submitOp: Function;
   readOnly: boolean;
   updateFn: ?Function;
-  LearningItemFn: LearningItemComponentT;
+  LearningItemFn: any;
   meta: Object;
   stream: ?Function;
   path: rawPathElement[];
@@ -39,7 +38,7 @@ export class Doc {
       readOnly?: boolean,
       updateFn?: Function,
       meta?: Object,
-      LearningItem: LearningItemComponentT,
+      LearningItem: any,
       stream?: Function,
       sessionId?: string
     }
