@@ -24,7 +24,7 @@ test('Can get empty doc', () =>
 // eslint-disable-next-line
 const wrapOps = (ops, initial = {}) =>
   createDoc([]).then(doc => {
-    const dataFn = new Doc(doc);
+    const dataFn = new Doc(doc, {});
     ops.forEach(([fn, x]) => dataFn[fn](...x));
     return doc.data;
   });
