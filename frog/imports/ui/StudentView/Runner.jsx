@@ -167,15 +167,18 @@ export class RunActivity extends React.Component<PropsT, {}> {
           )
       : undefined;
 
-    this.ActivityToRun = ReactiveHOC(reactiveId, {
+    this.ActivityToRun = ReactiveHOC(
+      reactiveId,
+      undefined,
       readOnly,
+      undefined,
       meta,
+      undefined,
       stream,
       sessionId,
       transform,
-      rawData,
-      userId: Meteor.userId()
-    })(RunComp);
+      rawData
+    )(RunComp);
   }
 
   componentDidMount() {

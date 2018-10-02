@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import { cloneDeep } from 'lodash';
 import {
-  ReactiveDoc,
+  generateReactiveFn,
   getMergedExtractedUnit,
   type ObjectT,
   type GlobalStructureT,
@@ -72,7 +72,7 @@ export const mergeOneInstance = (
                 );
               }
 
-              const dataFn = new ReactiveDoc(doc, { LearningItem });
+              const dataFn = generateReactiveFn(doc, LearningItem);
               // merging in config with incoming product
               if (mergeFunction) {
                 mergeFunction(instanceActivityData, dataFn, doc.data);
