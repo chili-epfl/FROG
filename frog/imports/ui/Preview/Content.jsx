@@ -11,7 +11,7 @@ import {
 import {
   cloneDeep,
   getInitialState,
-  ReactiveDoc,
+  generateReactiveFn,
   withDragDropContext,
   uuid
 } from 'frog-utils';
@@ -21,7 +21,7 @@ import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
 import ShowDashExample from './ShowDashExample';
 import { activityRunners, activityTypesObj } from '../../activityTypes';
-import { connection } from './Preview';
+import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
 import LearningItem from '../LearningItem';
@@ -30,7 +30,14 @@ const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 
 export const generateDataFn = () => {
   const doc = connection.get('li', uuid());
-  return new ReactiveDoc(doc, { LearningItem });
+  return generateReactiveFn(
+    doc,
+    LearningItem,
+    undefined,
+    undefined,
+    undefined,
+    backend
+  );
 };
 
 export const initActivityDocuments = (
@@ -55,7 +62,14 @@ export const initActivityDocuments = (
     const runMergeFunction = _doc => {
       const mergeFunction = activityType.mergeFunction;
       if (mergeFunction) {
-        const dataFn = new ReactiveDoc(_doc, { LearningItem });
+        const dataFn = generateReactiveFn(
+          _doc,
+          LearningItem,
+          undefined,
+          undefined,
+          undefined,
+          backend
+        );
         const initData =
           typeof activityType.dataStructure === 'function'
             ? activityType.dataStructure(config)
@@ -82,7 +96,14 @@ export const initActivityDocuments = (
         }
       });
     } else if (refresh) {
-      const dataFn = new ReactiveDoc(doc, { LearningItem });
+      const dataFn = generateReactiveFn(
+        doc,
+        LearningItem,
+        undefined,
+        undefined,
+        undefined,
+        backend
+      );
 
       const initData =
         typeof activityType.dataStructure === 'function'
@@ -138,10 +159,17 @@ const ContentController = ({
       ? x => formatProduct(config || {}, x, instance, name)
       : undefined;
 
-    const ActivityToRun = ReactiveHOC(docId, {
-      conn: connection,
+    const ActivityToRun = ReactiveHOC(
+      docId,
+      connection,
+      false,
+      undefined,
+      undefined,
+      backend,
+      undefined,
+      undefined,
       transform
-    })(showData ? ShowInfo : RunComp);
+    )(showData ? ShowInfo : RunComp);
 
     const logger = createLogger(
       'preview',
