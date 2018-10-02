@@ -120,12 +120,12 @@ const runDataflow = (
   addObject(nodeId, object);
 
   if (type === 'operator') {
-    const operatorFunction = operatorTypesObj[node.operatorType].external
-      ? remote(node.operatorType)
-      : operators[node.operatorType];
     console.info(
       `Running operator ${node.title} (${node.operatorType}) - ${node._id}`
     );
+    const operatorFunction = operatorTypesObj[node.operatorType].external
+      ? remote(node.operatorType)
+      : operators[node.operatorType];
     const product = Promise.await(operatorFunction(node.data || {}, object));
     const dataType = {
       product: 'activityData',
