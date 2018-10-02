@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { HTML, shorten, A } from 'frog-utils';
+import { shorten, A } from 'frog-utils';
+import Markdown from 'markdown-to-jsx';
 
 export const Annotation = ({
   username,
@@ -60,7 +61,7 @@ export const Annotation = ({
                       className="annotation-quote ng-binding ng-scope"
                       h-branding="selectionFontFamily"
                     >
-                      <HTML html={quotation} shorten={shouldShorten && 100} />
+                      <Markdown>{quotation}</Markdown>
                     </blockquote>
                   </div>
                   <div
@@ -79,7 +80,7 @@ export const Annotation = ({
             <div className="excerpt">
               <div className="ng-scope ng-isolate-scope">
                 <div className="markdown-body js-markdown-preview has-content">
-                  <HTML html={text} shorten={shouldShorten && 100} />
+                  <Markdown>{text}</Markdown>
                   {shouldShorten &&
                     threadLength > 0 && (
                       <i>
