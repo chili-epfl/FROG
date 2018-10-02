@@ -1,4 +1,5 @@
 import operator from '../operatorRunner';
+
 jest.mock('frog-utils');
 
 test('test empty', () =>
