@@ -1,6 +1,6 @@
 import ShareDB from 'sharedb';
 import { uuid } from '..';
-import { generateReactiveFn } from '../generateReactiveFn';
+import { ReactiveDoc } from '../generateReactiveFn';
 
 const share = new ShareDB();
 const connection = share.connect();
@@ -24,7 +24,7 @@ test('Can get empty doc', () =>
 // eslint-disable-next-line
 const wrapOps = (ops, initial = {}) =>
   createDoc([]).then(doc => {
-    const dataFn = generateReactiveFn(doc);
+    const dataFn = new ReactiveDoc(doc, {});
     ops.forEach(([fn, x]) => dataFn[fn](...x));
     return doc.data;
   });

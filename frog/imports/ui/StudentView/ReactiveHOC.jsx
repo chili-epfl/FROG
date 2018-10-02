@@ -2,7 +2,7 @@
 import * as React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
-import { generateReactiveFn, getDisplayName } from 'frog-utils';
+import { ReactiveDoc, getDisplayName } from 'frog-utils';
 
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { connection } from '../App/connection';
@@ -18,28 +18,25 @@ type ReactiveCompsStateT = {
 
 const ReactiveHOC = (
   docId: string,
-  conn?: any,
-  readOnly: boolean = false,
-  collection?: string,
-  meta?: Object,
-  backend: any,
-  stream?: Function,
-  sessionId?: string,
-  transform?: Function,
-  rawData?: any
+  options: {
+    conn?: any,
+    readOnly?: boolean,
+    collection?: string,
+    meta?: Object,
+    stream?: Function,
+    sessionId?: string,
+    transform?: Function,
+    rawData?: any
+  }
 ) => (WrappedComponent: React.ComponentType<*>) => {
   class ReactiveComp extends React.Component<
     ReactiveCompPropsT,
     ReactiveCompsStateT
   > {
     doc: any;
-
     unmounted: boolean;
-
     interval: any;
-
     intervalCount: number = 0;
-
     times: 0;
 
     constructor(props: Object) {
@@ -53,21 +50,24 @@ const ReactiveHOC = (
 
     componentDidMount = () => {
       this.unmounted = false;
-      if (readOnly && rawData !== undefined) {
+      if (options.readOnly && options.rawData !== undefined) {
         this.setState({
-          dataFn: generateReactiveFn(
+          dataFn: new ReactiveDoc(
             {},
-            LearningItem,
-            meta,
-            readOnly,
-            undefined,
-            backend,
-            stream
+            {
+              LearningItem,
+              meta: options.meta,
+              readOnly: options.readOnly,
+              stream: options.stream
+            }
           ),
-          data: rawData
+          data: options.rawData
         });
       } else {
-        this.doc = (conn || connection || {}).get(collection || 'rz', docId);
+        this.doc = (options.conn || connection || {}).get(
+          options.collection || 'rz',
+          docId
+        );
         this.doc.setMaxListeners(3000);
         this.doc.subscribe();
 
@@ -99,16 +99,14 @@ const ReactiveHOC = (
       if (!this.unmounted) {
         if (!this.state.dataFn) {
           this.setState({
-            dataFn: generateReactiveFn(
-              this.doc,
+            dataFn: new ReactiveDoc(this.doc, {
               LearningItem,
-              meta,
-              readOnly,
-              this.update,
-              backend,
-              stream,
-              sessionId
-            )
+              meta: options.meta,
+              readOnly: options.readOnly,
+              updateFn: this.update,
+              stream: options.stream,
+              sessionId: options.sessionId
+            })
           });
         }
         if (this.doc.data !== undefined) {
@@ -122,11 +120,11 @@ const ReactiveHOC = (
             '*'
           );
 
-          if (transform) {
+          if (options.transform) {
             window.parent.postMessage(
               {
                 type: 'frog-data-transformed',
-                msg: transform(this.doc.data)
+                msg: options.transform(this.doc.data)
               },
               '*'
             );

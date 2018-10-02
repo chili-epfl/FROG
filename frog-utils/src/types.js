@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import type { Doc } from './generateReactiveFn';
+import type { ReactiveDoc } from './generateReactiveFn';
 
 export type ActivityDbT = {|
   _id: string,
@@ -326,7 +326,10 @@ export type LIComponentPropsT =
   | {|
       type: 'edit',
       id: string,
-      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+      render?: React.ComponentType<{
+        ...{| dataFn: ReactiveDoc |},
+        ...LIRenderPropsT
+      }>
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
@@ -337,7 +340,7 @@ export type LearningItemT<T> = {
   dataStructure?: T,
   Editor?: React.ComponentType<{
     data: T,
-    dataFn: Doc,
+    dataFn: ReactiveDoc,
     LearningItem: LearningItemComponentT
   }>,
   Creator?: React.ComponentType<{

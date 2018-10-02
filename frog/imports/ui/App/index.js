@@ -23,6 +23,7 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+import { connection } from './connection';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -214,6 +215,7 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
+        connection.id = Meteor.user()._id;
         return (
           <Switch>
             <Route path="/teacher/projector/:slug" component={StudentView} />

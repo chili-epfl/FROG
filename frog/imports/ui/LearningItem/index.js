@@ -4,7 +4,7 @@ import {
   type LIComponentPropsT,
   type LearningItemT,
   uuid,
-  Doc
+  ReactiveDoc
 } from 'frog-utils';
 import { omit, isEqual } from 'lodash';
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,7 @@ import RenderLearningItem from './RenderLearningItem';
 
 class LearningItem extends React.Component<
   {
-    ...{| dataFn: Doc |},
+    ...{| dataFn: ReactiveDoc |},
     ...LIComponentPropsT
   },
   { reload: string }
@@ -53,14 +53,10 @@ class LearningItem extends React.Component<
       const id = props.id;
       const ToRun =
         typeof id === 'string'
-          ? ReactiveHOC(
-              id,
-              props.dataFn.doc.connection,
-              undefined,
-              'li',
-              undefined,
-              props.dataFn.backend
-            )(RenderLearningItem)
+          ? ReactiveHOC(id, {
+              conn: props.dataFn.doc.connection,
+              collection: 'li'
+            })(RenderLearningItem)
           : newprops => (
               <RenderLearningItem data={id.liDocument} {...newprops} />
             );
