@@ -81,24 +81,29 @@ export const formatProduct = (config: Object, item: Object) => {
       const { form } = item;
 
       const coordinates = computeCoordinates(config.questions, form);
-
       const questions = config.questions.map(q => q.question);
-      const answers = config.questions.map(
-        (q, qIndex) =>
-          form[qIndex] !== undefined && q.answers[form[qIndex]]
-            ? q.answers[form[qIndex]].choice
-            : undefined
-      );
-      const answersIndex = config.questions.map(
-        (q, qIndex) => (form[qIndex] !== undefined ? form[qIndex] : -1)
-      );
+      // The code below works well for single choice questions,
+      // For questions with multiple selection it will keep only one option
+      const answers = config.questions.map((q, qIndex) => {
+        if (!form[qIndex]) return undefined;
+        const aIndex = Object.keys(form[qIndex]).find(k => form[qIndex][k]);
+        return aIndex !== undefined && aIndex !== 'text'
+          ? q.answers[aIndex].choice
+          : undefined;
+      });
+      const answersIndex = config.questions.map((q, qIndex) => {
+        if (!form[qIndex]) return -1;
+        const aIndex = Object.keys(form[qIndex]).find(k => form[qIndex][k]);
+        return aIndex !== undefined && aIndex !== 'text' ? Number(aIndex) : -1;
+      });
       const correctQs = config.hasAnswers
-        ? config.questions.map(
-            (q, qIndex) =>
-              form[qIndex] !== undefined &&
-              q.answers[form[qIndex]] &&
-              !!q.answers[form[qIndex]].isCorrect
-          )
+        ? config.questions.map((q, qIndex) => {
+            if (!form[qIndex]) return false;
+            const aIndex = Object.keys(form[qIndex]).find(k => form[qIndex][k]);
+            return aIndex !== undefined && aIndex !== 'text'
+              ? q.answers[aIndex].isCorrect
+              : false;
+          })
         : undefined;
       const correctCount = correctQs
         ? correctQs.filter(x => x).length

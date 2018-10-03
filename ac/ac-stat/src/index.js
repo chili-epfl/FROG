@@ -55,7 +55,9 @@ const validateConfig = [
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {};
 
-const mergeFunction = ({ data: incoming, config: configObj }, dataFn, data) => {
+const mergeFunction = (object, dataFn, data) => {
+  const { data: incoming, config: configObj } = object;
+
   let dataset = [];
   if (configObj.dataSets) {
     dataset = JSON.parse(configObj.dataSets);
