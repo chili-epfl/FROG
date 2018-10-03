@@ -4,6 +4,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import { type LogT, type LogDbT } from 'frog-utils';
+import { GlobalState } from '../ui/App/index';
 
 export const Logs = new Mongo.Collection('logs');
 
@@ -25,6 +26,16 @@ export const engineLogger = (sessionId: string, type: string, value?: number) =>
       value
     }: $Diff<LogDbT, { timestamp: Date }>)
   );
+
+export const teacherLogger = (
+  sessionId: string,
+  type: string,
+  value?: number
+) => {
+  if (!GlobalState.researchLogin) {
+    engineLogger(sessionId, type, value);
+  }
+};
 
 export const createLogger = (
   sessionId: string,

@@ -60,7 +60,7 @@ export const runNextActivity = (sessionId: string) => {
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
 
-    engineLogger(sessionId, 'nextActivity', newTimeInGraph);
+    engineLogger(sessionId, 'teacher.nextActivity', newTimeInGraph);
     updateNextOpenActivities(sessionId, newTimeInGraph, activities);
     if (final) {
       Sessions.update(sessionId, {
@@ -73,7 +73,7 @@ export const runNextActivity = (sessionId: string) => {
 export const runSessionFn = (sessionId: string) => {
   updateSessionState(sessionId, 'READY');
   Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
-  engineLogger(sessionId, 'startSession');
+  engineLogger(sessionId, 'teacher.startSession');
   const session = Sessions.findOne(sessionId);
   if (Meteor.isServer) {
     if (session.settings?.studentlist) {

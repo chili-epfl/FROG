@@ -38,6 +38,8 @@ const APICall = Loadable({
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();
 
+export const GlobalState = {};
+
 const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
@@ -178,7 +180,10 @@ const FROGRouter = withRouter(
         const hasLogin = query.login;
 
         if (this.state.mode !== 'loggingIn') {
-          const username = query.login;
+          const username = query.login || query.researchLogin;
+          if (researchLogin) {
+            GlobalState.researchLogin = true;
+          }
           if (username) {
             this.login({ username, token: query.token, loginQuery: true });
           }

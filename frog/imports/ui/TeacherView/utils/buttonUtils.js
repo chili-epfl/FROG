@@ -21,6 +21,7 @@ import {
 import { nextActivity } from '/imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
+import { teacherLogger } from '../../../api/logs';
 
 let lastNext = null;
 
@@ -73,8 +74,10 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: green[700],
-      onClick: () =>
-        updateSessionState(session._id, 'STARTED', TimeSync.serverTime()),
+      onClick: () => {
+        teacherLogger(session._id, 'teacher.pause-resume');
+        updateSessionState(session._id, 'STARTED', TimeSync.serverTime());
+      },
       variant: 'raised'
     },
     icon: <PlayArrow className={classes.icon} />
@@ -87,8 +90,10 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: red[700],
-      onClick: () =>
-        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime()),
+      onClick: () => {
+        teacherLogger(session._id, 'teacher.pause');
+        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime());
+      },
       variant: 'raised'
     },
     icon: <Pause className={classes.icon} />

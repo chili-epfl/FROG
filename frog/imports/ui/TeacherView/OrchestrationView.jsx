@@ -14,6 +14,7 @@ import DashboardNav from '../Dashboard/DashboardNav';
 import SessionUtils from './SessionUtils';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import SettingsModal from './SettingsModal';
+import { teacherLogger } from '../../api/logs';
 
 const styles = {
   root: {
@@ -43,7 +44,15 @@ const OrchestrationViewController = ({
         <Grid item xs={12}>
           <SessionUtils
             session={session}
-            toggle={toggleVisibility}
+            toggle={() => {
+              teacherLogger(
+                session._id,
+                visible
+                  ? 'teacher.toggleGraphView'
+                  : 'teacher.toggleDashboardView'
+              );
+              toggleVisibility();
+            }}
             visible={visible}
             token={token}
             openSettings={() => setSettingsOpen(true)}
