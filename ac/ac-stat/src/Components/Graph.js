@@ -181,7 +181,6 @@ const GraphStateless = props => {
   const rawData = data.values.map(e => e[0]);
   const plotType = config.plotType !== 'all' ? config.plotType : plot;
   const dataTr = transformData(data, plotType, filter);
-  console.log(dataTr);
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
