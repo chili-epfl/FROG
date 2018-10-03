@@ -177,7 +177,7 @@ const SplitDataButton = ({ filter, setFilter, logger }) => (
 
 const GraphStateless = props => {
   const { config, data, plot, axis, filter, classes } = props;
-  if (!data || !data.columns || !data.values) return;
+  if (!data || !data.columns || !data.values) return <p>No data</p>;
   const rawData = data.values.map(e => e[0]);
   const plotType = config.plotType !== 'all' ? config.plotType : plot;
   const dataTr = transformData(data, plotType, filter);

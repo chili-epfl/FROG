@@ -13,6 +13,7 @@ const styles = {
 };
 
 const apply = (transfo: string, data: Object) => {
+  if (!data) return undefined;
   const statArray = stats(data.values.map(e => e[0]));
   switch (transfo) {
     case 'log':
@@ -87,8 +88,9 @@ class DataGraph extends React.Component<*, *> {
     const { activityData, data, dataFn, classes, axis, logger } = this.props;
     const { transformation, dataset } = this.state;
     const { originalData, ...datasets } = data;
-    if (!data || Object.keys(data).length < 1) return <p>No data</p>;
+    if (!data || Object.keys(data).length < 1) return <h2>No data</h2>;
     const dataTr = apply(transformation, datasets[dataset]);
+    if (!dataTr) return <h2>No data</h2>;
     return (
       <div className={classes.content}>
         <DataForm

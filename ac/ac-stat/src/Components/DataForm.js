@@ -174,10 +174,6 @@ class Data extends React.Component<*, *> {
         : [...data.values].sort((a, b) => a[sort] - b[sort]);
     const sortedData = { columns: data.columns, values };
 
-    if (!data || !data.columns) {
-      return <p>no data</p>;
-    }
-
     return (
       <Paper className={classes.root}>
         <div className={classes.header}>
