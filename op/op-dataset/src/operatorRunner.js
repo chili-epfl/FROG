@@ -7,11 +7,12 @@ const operator = (_, object) => {
   const dataset = [];
   values(payload)
     .filter(x => x.data && !!x.data.answers)
-    .forEach(x => {
-      x.data.answers.forEach((a, i) => {
-        const toAppend = { trace: 'dataset ' + (i + 1), x: a };
-        dataset.push(toAppend);
-      });
+    .forEach(instanceData => {
+      // builds dataset with only the first two answers
+      const x = instanceData.data.answersIndex[0] + 1;
+      const y = instanceData.data.answers[1];
+      const toAppend = { trace: 'dataset', x, y };
+      if (x > 0 && !!y) dataset.push(toAppend);
     });
 
   return wrapUnitAll(dataset);

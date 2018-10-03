@@ -102,7 +102,7 @@ const transformData = (data, type, filtered) => {
       default:
     }
   } else {
-    const formatData = data.values.map(entry => entry[0]);
+    const formatData = data.values.map(entry => entry[0]).sort();
     switch (type) {
       case 'dots':
         result.push({
@@ -181,6 +181,7 @@ const GraphStateless = props => {
   const rawData = data.values.map(e => e[0]);
   const plotType = config.plotType !== 'all' ? config.plotType : plot;
   const dataTr = transformData(data, plotType, filter);
+  console.log(dataTr);
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
