@@ -92,6 +92,7 @@ class LogoutMenu extends React.Component<*, *> {
               sessionStorage.removeItem('frog.sessionToken');
               Meteor.logout();
               this.props.history.push('/');
+              window.notReady();
             }}
           >
             Logout
