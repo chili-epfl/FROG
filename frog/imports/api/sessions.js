@@ -42,14 +42,9 @@ Meteor.methods({
       }).fetch();
       let nextNum = 1;
       if (prev && prev.length > 0) {
-        prev.sort((x, y) => y.slug - x.slug);
-        const prevNum = parseInt(
-          prev
-            .pop()
-            .slug.split('-')
-            .pop(),
-          10
-        );
+        const findIndex = s => parseInt(s.slug.split('-').pop(), 10);
+        const findMax = (maxVal, val) => (val > maxVal ? val : maxVal);
+        const prevNum = prev.map(findIndex).reduce(findMax, -1);
         nextNum = prevNum + 1;
       }
 
