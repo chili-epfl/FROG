@@ -12,30 +12,16 @@ import { GlobalSettings } from '../../api/settings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
-import { teacherLogger } from '../../api/logs';
 
-class TeacherView extends React.Component<any, {}> {
-  componentDidMount() {
-    if (this.props.session) {
-      teacherLogger(this.props.session._id, 'teacher.enteredOrchestrationView');
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.props.session) {
-      teacherLogger(this.props.session._id, 'teacher.leftOrchestrationView');
-    }
-  }
-
-  render() {
-    return (
-      <>
-        <OrchestrationView {...this.props} />
-        {!this.props.session && <SessionList {...this.props} />}
-      </>
-    );
-  }
-}
+const TeacherView = props => (
+  <>
+    {props.session ? (
+      <OrchestrationView {...props} />
+    ) : (
+      <SessionList {...props} />
+    )}
+  </>
+);
 
 const TeacherViewRunner = withRouter(
   withTracker(({ match, history }) => {
