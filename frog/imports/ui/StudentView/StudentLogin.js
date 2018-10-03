@@ -93,7 +93,7 @@ class StudentLogin extends React.Component<
   };
 
   render() {
-    const { settings, classes, history, slug } = this.props;
+    const { settings, classes } = this.props;
     return (
       <>
         <div className={classes.root}>
