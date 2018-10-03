@@ -6,13 +6,13 @@ const operator = (_, object) => {
   const { payload } = object.activityData;
   const dataset = [];
   values(payload)
-    .filter(x => x.data && !!x.data.answers)
+    .filter(x => x.data?.answers)
     .forEach(instanceData => {
       // builds dataset with only the first two answers
-      const x = instanceData.data.answersIndex[0] + 1;
+      const x = instanceData.data.answers[0];
       const y = instanceData.data.answers[1];
       const toAppend = { trace: 'dataset', x, y };
-      if (x > 0 && !!y) dataset.push(toAppend);
+      if (x && y) dataset.push(toAppend);
     });
 
   return wrapUnitAll(dataset);
