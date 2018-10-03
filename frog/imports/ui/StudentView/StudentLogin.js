@@ -51,9 +51,7 @@ type SettingsT = {
 type StudentLoginPropsT = {
   login: Function,
   settings: SettingsT,
-  classes: Object,
-  history: Object,
-  slug: string
+  classes: Object
 };
 
 class StudentLogin extends React.Component<
