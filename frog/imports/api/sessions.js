@@ -43,9 +43,7 @@ Meteor.methods({
       let nextNum = 1;
       if (prev && prev.length > 0) {
         const findIndex = s => parseInt(s.slug.split('-').pop(), 10);
-        console.log(prev.map(findIndex));
         const prevNum = Math.max(...prev.map(findIndex));
-        console.log(prevNum);
         nextNum = prevNum + 1;
       }
 
