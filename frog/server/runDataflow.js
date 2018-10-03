@@ -120,6 +120,9 @@ const runDataflow = (
   addObject(nodeId, object);
 
   if (type === 'operator') {
+    console.info(
+      `Running operator ${node.title} (${node.operatorType}) - ${node._id}`
+    );
     const operatorFunction = operatorTypesObj[node.operatorType].external
       ? remote(node.operatorType)
       : operators[node.operatorType];

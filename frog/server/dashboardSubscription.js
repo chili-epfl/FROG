@@ -1,7 +1,7 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { set, isEqual } from 'lodash';
+import { set } from 'lodash';
 import { uuid, cloneDeep, values } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
@@ -36,15 +36,13 @@ export const reactiveWrapper = (act: any, dashboard: any) => {
   };
 };
 
-const updateAndSend = (dashId, prepareDataForDisplayFn, activity, reactive) => {
-  if (reactive || !isEqual(oldInput[dashId], DashboardStates[dashId])) {
-    const dashState = cloneDeep(DashboardStates[dashId]);
-    const newState = prepareDataForDisplayFn(dashState, activity);
-    values(subscriptions[dashId]).forEach(that => {
-      that.changed('dashboard', dashId, { data: newState });
-    });
-    oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
-  }
+const updateAndSend = (dashId, prepareDataForDisplayFn, activity) => {
+  const dashState = cloneDeep(DashboardStates[dashId]);
+  const newState = prepareDataForDisplayFn(dashState, activity);
+  values(subscriptions[dashId]).forEach(that => {
+    that.changed('dashboard', dashId, { data: newState });
+  });
+  oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
 };
 
 export default () => {
@@ -86,14 +84,8 @@ export default () => {
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
       interval[dashId] = setInterval(
-        () =>
-          updateAndSend(
-            dashId,
-            prepDataForDisplayFn,
-            act,
-            aTDash.reactiveToDisplay
-          ),
-        1000
+        () => updateAndSend(dashId, prepDataForDisplayFn, act),
+        5000
       );
     }
     this.ready();
