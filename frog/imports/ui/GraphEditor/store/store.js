@@ -269,7 +269,7 @@ export default class Store {
         ];
         const lastEntry = this.history.slice(-1).pop() || [];
         if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) {
-          this.history.push(newEntry + LocalSettings.UrlCoda);
+          this.history.push(newEntry);
           mergeGraph(this.objects);
         }
         this.refreshValidate();
