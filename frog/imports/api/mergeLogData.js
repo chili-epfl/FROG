@@ -69,7 +69,6 @@ export const mergeLog = (
 ) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
-    console.info(logs);
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
       if (!dontWriteDB) {

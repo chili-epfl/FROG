@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
-import { GlobalSettings } from '../../api/globalSettings';
+import { GlobalSettings } from '../../api/settings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
@@ -16,11 +16,15 @@ import { teacherLogger } from '../../api/logs';
 
 class TeacherView extends React.Component<any, {}> {
   componentDidMount() {
-    teacherLogger(this.props.session._id, 'teacher.enteredOrchestrationView');
+    if (this.props.session) {
+      teacherLogger(this.props.session._id, 'teacher.enteredOrchestrationView');
+    }
   }
 
   componentWillUnmount() {
-    teacherLogger(this.props.session._id, 'teacher.leftOrchestrationView');
+    if (this.props.session) {
+      teacherLogger(this.props.session._id, 'teacher.leftOrchestrationView');
+    }
   }
 
   render() {

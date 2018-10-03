@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings';
 
 import ChangelogModal from '../GraphEditor/ChangelogModal';
+import { LocalSettings } from '../../api/settings';
 
 const styles = theme => ({
   root: {
@@ -153,7 +154,10 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
                 />
               ))}
             </Tabs>
-            <h3>{Meteor.user().username}</h3>
+            <h3>
+              {LocalSettings.researchLogin ? ' * ' : ''}
+              {Meteor.user().username}
+            </h3>
             <LogoutMenu />
           </Toolbar>
         </AppBar>

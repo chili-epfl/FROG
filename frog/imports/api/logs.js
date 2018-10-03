@@ -4,7 +4,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import { type LogT, type LogDbT } from 'frog-utils';
-import { GlobalState } from '../ui/App/index';
+import { LocalSettings } from './settings';
 
 export const Logs = new Mongo.Collection('logs');
 
@@ -32,7 +32,7 @@ export const teacherLogger = (
   type: string,
   value?: number
 ) => {
-  if (!GlobalState.researchLogin) {
+  if (!LocalSettings.researchLogin) {
     engineLogger(sessionId, type, value);
   }
 };
