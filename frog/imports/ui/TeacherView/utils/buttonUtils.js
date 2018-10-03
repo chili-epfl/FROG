@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
+import { uuid } from 'frog-utils';
 
 import {
   removeAllUsers,
@@ -186,6 +187,22 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () => toggle(),
       text: 'Toggle Dashboard'
+    }
+  },
+  open1: {
+    button: {
+      onClick: () => window.open(`/${session.slug}?debugLogin=Chen Li`, uuid()),
+      text: 'Open one student window'
+    }
+  },
+  open3: {
+    button: {
+      onClick: () => {
+        ['Chen Li', 'Joanna', 'Marius'].forEach(x =>
+          window.open(`/${session.slug}?debugLogin=${x}`, uuid())
+        );
+      },
+      text: 'Open 3 student windows'
     }
   },
   projector: {

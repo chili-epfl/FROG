@@ -66,6 +66,8 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
       buttonsModel.settings,
       buttonsModel.restart,
       buttonsModel.removeStudents,
+      buttonsModel.open1,
+      buttonsModel.open3,
       buttonsModel.export,
       buttonsModel.download
     ];
