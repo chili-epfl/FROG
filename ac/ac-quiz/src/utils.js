@@ -85,16 +85,16 @@ export const formatProduct = (config: Object, item: Object) => {
       // The code below works well for single choice questions,
       // For questions with multiple selection it will keep only one option
       const answers = config.questions.map((q, qIndex) => {
-        if (!form[qIndex]) return '';
+        if (!form[qIndex]) return undefined;
         const aIndex = Object.keys(form[qIndex]).find(k => form[qIndex][k]);
         return aIndex !== undefined && aIndex !== 'text'
           ? q.answers[aIndex].choice
-          : '';
+          : undefined;
       });
       const answersIndex = config.questions.map((q, qIndex) => {
         if (!form[qIndex]) return -1;
         const aIndex = Object.keys(form[qIndex]).find(k => form[qIndex][k]);
-        return aIndex !== undefined && aIndex !== 'text' ? aIndex : -1;
+        return aIndex !== undefined && aIndex !== 'text' ? Number(aIndex) : -1;
       });
       const correctQs = config.hasAnswers
         ? config.questions.map((q, qIndex) => {
