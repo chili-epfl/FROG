@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
-import { GlobalSettings } from '../../api/settings';
+import { GlobalSettings, LocalSettings } from '../../api/settings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
@@ -41,7 +41,9 @@ const TeacherViewRunner = withRouter(
       session = user.profile && Sessions.findOne(user.profile.controlSession);
     }
     if (session && session.slug !== match.params.slug) {
-      history.push('/teacher/orchestration/' + session.slug);
+      history.push(
+        '/teacher/orchestration/' + session.slug + LocalSettings.UrlCoda
+      );
     }
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();

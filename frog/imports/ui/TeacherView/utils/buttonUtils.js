@@ -22,6 +22,7 @@ import { nextActivity } from '/imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
 import { teacherLogger } from '../../../api/logs';
+import { LocalSettings } from '../../../api/settings';
 
 let lastNext = null;
 
@@ -188,8 +189,10 @@ export const SessionUtilsButtonsModel = (
     }
   },
   projector: {
-    href: `/teacher/projector/${session.slug}?login=${
-      Meteor.user().username
+    href: `/teacher/projector/${session.slug}${
+      LocalSettings.UrlCoda.length > 0
+        ? LocalSettings.UrlCoda
+        : `?login=${Meteor.user().username}`
     }&token=${(token && token.value) || ''}`
   }
 });

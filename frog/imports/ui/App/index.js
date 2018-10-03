@@ -43,27 +43,15 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
   } else {
-    if (storeInSession) {
-      sessionStorage.setItem(
-        'frog.sessionToken',
-        JSON.stringify({
-          token: response.token,
-          id: response.id,
-          expires: response.tokenExpires,
-          researchLogin: LocalSettings.researchLogin
-        })
+    if (!storeInSession) {
+      Accounts.makeClientLoggedIn(
+        response.id,
+        response.token,
+        response.tokenExpires
       );
+    } else {
+      Meteor.connection.setUserId(response.id);
     }
-    Accounts.makeClientLoggedIn(
-      response.id,
-      response.token,
-      response.tokenExpires
-    );
-    Accounts._storeLoginToken(
-      response.id,
-      response.token,
-      response.tokenExpires
-    );
 
     Meteor.subscribe('userData', { onReady: () => setState('ready') });
   }
@@ -156,7 +144,7 @@ const FROGRouter = withRouter(
             }
           });
           if (slug) {
-            this.props.history.push('/' + slug);
+            this.props.history.push('/' + slug + LocalSettings.UrlCoda);
           }
         }
       });
@@ -177,29 +165,29 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        const hasLogin = query.login;
+        const username = query.login || query.researchLogin || query.debugLogin;
 
         if (this.state.mode !== 'loggingIn') {
-          const username = query.login || query.researchLogin;
           if (query.researchLogin) {
             LocalSettings.researchLogin = true;
+            LocalSettings.UrlCoda = '?researchLogin=' + query.researchLogin;
+          } else if (query.debugLogin) {
+            LocalSettings.UrlCoda = '?debugLogin=' + query.debugLogin;
           }
           if (username) {
-            this.login({ username, token: query.token, loginQuery: true });
+            this.login({
+              username,
+              token: query.token,
+              loginQuery: query.debugLogin || query.researchLogin
+            });
           }
-          if (!hasLogin && this.state.mode !== 'ready') {
+          if (!username && this.state.mode !== 'ready') {
             if (!query.reset) {
-              const sessionLogin = sessionStorage.getItem('frog.sessionToken');
-              if (sessionLogin) {
-                const loginData = JSON.parse(sessionLogin);
-                if (loginData.researchLogin) {
-                  LocalSettings.researchLogin = true;
-                }
-                this.tokenLogin(loginData.token);
-              } else if (Accounts._storedLoginToken()) {
-                this.tokenLogin(Accounts._storedLoginToken());
+              if (Accounts._storedLoginToken()) {
+                return this.tokenLogin(Accounts._storedLoginToken());
               }
-            } else if (this.props.match.params.slug) {
+            }
+            if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',

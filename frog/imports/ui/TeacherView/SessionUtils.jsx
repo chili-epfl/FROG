@@ -13,6 +13,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router';
 
 import { setTeacherSession } from '../../api/sessions';
+import { LocalSettings } from '../../api/settings';
 
 import {
   ToolTipComponent,
@@ -109,7 +110,9 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              this.props.history.push('/teacher/orchestration');
+              this.props.history.push(
+                '/teacher/orchestration' + LocalSettings.UrlCoda
+              );
               setTeacherSession(undefined);
             }}
           >

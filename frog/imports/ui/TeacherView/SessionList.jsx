@@ -16,6 +16,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import { addSession, setTeacherSession } from '../../api/sessions';
+import { LocalSettings } from '../../api/settings';
 
 const styles = theme => ({
   root: {
@@ -56,7 +57,9 @@ class SessionAdmin extends React.Component<
   handleSessionCreation = () => {
     if (this.state.graphId !== undefined && this.state.graphId !== '') {
       addSession(this.state.graphId).then(e =>
-        this.props.history.push('/teacher/orchestration/' + e)
+        this.props.history.push(
+          '/teacher/orchestration/' + e + LocalSettings.UrlCoda
+        )
       );
     }
   };

@@ -19,6 +19,7 @@ import {
 import { Operators, findOperatorsMongo } from '/imports/api/operators';
 import { LibraryStates } from '/imports/api/cache';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
+import { LocalSettings } from '/imports/api/settings';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
@@ -178,7 +179,7 @@ export default class Store {
           this.browserHistory &&
           this.browserHistory.location.pathname !== desiredUrl
         ) {
-          this.browserHistory.push(desiredUrl);
+          this.browserHistory.push(desiredUrl + LocalSettings.UrlCoda);
         }
         setCurrentGraph(id);
         // if has a parent => load its metadatas (to know if he can delete the graph)    const parentId = Graphs.findOne(props.store.graphId).parentId
@@ -268,7 +269,7 @@ export default class Store {
         ];
         const lastEntry = this.history.slice(-1).pop() || [];
         if (!isEqual(Stringify(lastEntry), Stringify(newEntry))) {
-          this.history.push(newEntry);
+          this.history.push(newEntry + LocalSettings.UrlCoda);
           mergeGraph(this.objects);
         }
         this.refreshValidate();

@@ -91,7 +91,7 @@ class LogoutMenu extends React.Component<*, *> {
             onClick={() => {
               sessionStorage.removeItem('frog.sessionToken');
               Meteor.logout();
-              window.location.assign('/');
+              this.props.history.push('/');
             }}
           >
             Logout
@@ -102,7 +102,10 @@ class LogoutMenu extends React.Component<*, *> {
   }
 }
 
-class TopBarController extends React.Component<{ classes: any }, {}> {
+class TopBarController extends React.Component<
+  { classes: any, history: any, location: any },
+  {}
+> {
   routes = [
     { name: 'Graph Editor', to: '/teacher/graph' },
     { name: 'Sessions', to: '/teacher/orchestration' },
@@ -149,7 +152,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
                   key={route.to}
                   label={route.name}
                   component={Link}
-                  to={route.to}
+                  to={route.to + LocalSettings.UrlCoda}
                   value={route.to}
                 />
               ))}
@@ -158,7 +161,7 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
               {LocalSettings.researchLogin ? ' * ' : ''}
               {Meteor.user().username}
             </h3>
-            <LogoutMenu />
+            <LogoutMenu history={this.props.history} />
           </Toolbar>
         </AppBar>
       </div>
