@@ -181,10 +181,8 @@ const FROGRouter = withRouter(
 
         if (this.state.mode !== 'loggingIn') {
           const username = query.login || query.researchLogin;
-          console.log(query);
           if (query.researchLogin) {
             LocalSettings.researchLogin = true;
-            console.log('research');
           }
           if (username) {
             this.login({ username, token: query.token, loginQuery: true });
@@ -193,18 +191,15 @@ const FROGRouter = withRouter(
             if (!query.reset) {
               const sessionLogin = sessionStorage.getItem('frog.sessionToken');
               if (sessionLogin) {
-                console.log('sessionLogin');
                 const loginData = JSON.parse(sessionLogin);
                 if (loginData.researchLogin) {
                   LocalSettings.researchLogin = true;
                 }
                 this.tokenLogin(loginData.token);
               } else if (Accounts._storedLoginToken()) {
-                console.log('storedLoginToken');
                 this.tokenLogin(Accounts._storedLoginToken());
               }
             } else if (this.props.match.params.slug) {
-              console.log('SLUG');
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
