@@ -9,10 +9,12 @@ import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Search from '@material-ui/icons/Search';
 import StarBorder from '@material-ui/icons/StarBorder';
+import Clear from '@material-ui/icons/Clear';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import Button from '@material-ui/core/Button';
 
 import CategoryBox from './CategoryBox';
 
@@ -47,7 +49,8 @@ const styles = () => ({
   },
   star: { float: 'right', color: '#CCCCCC' },
   starSelected: { float: 'right' },
-  searchContainer: { display: 'flex', flexDirection: 'row' }
+  searchContainer: { display: 'flex', flexDirection: 'row' },
+  margin: { marginRight: '40px' }
 });
 
 const Switcher = ({ onlyShow, toggleFn }) => (
@@ -60,7 +63,7 @@ const Switcher = ({ onlyShow, toggleFn }) => (
 );
 
 class ImageList extends React.Component<*, *> {
-  state = { search: '', bookmarks: {}, onlyBookmarked: false };
+  state = { search: '', filter: '', bookmarks: {}, onlyBookmarked: false };
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !isEqual(nextProps.learningItems, this.props.learningItems) ||
@@ -68,7 +71,13 @@ class ImageList extends React.Component<*, *> {
     );
   }
 
-  updateSearch = debounce(e => this.setState({ search: e.target.value }), 1000);
+  updateSearch = debounce(e => {
+    this.setState({ filter: e.target.value });
+    this.props.logger({
+      type: e.target.value.trim() === '' ? 'resetSearch' : 'search',
+      value: e.target.value
+    });
+  }, 1000);
 
   render() {
     const {
@@ -99,8 +108,10 @@ class ImageList extends React.Component<*, *> {
                 className={classes.margin}
                 id="search"
                 label="Search"
+                value={this.state.search}
                 onChange={e => {
                   e.persist();
+                  this.setState({ search: e.target.value });
                   this.updateSearch(e);
                 }}
                 InputProps={{
@@ -108,17 +119,39 @@ class ImageList extends React.Component<*, *> {
                     <InputAdornment position="start">
                       <Search />
                     </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <div
+                        onClick={() => {
+                          this.props.logger({ type: 'resetSearch' });
+                          this.setState({ search: '' });
+                          this.setState({ filter: '' });
+                        }}
+                      >
+                        <Clear />
+                      </div>
+                    </InputAdornment>
                   )
                 }}
               />
             )}
           {canBookmark && (
-            <Switcher
-              onlyShow={this.state.onlyBookmarked}
-              toggleFn={() =>
-                this.setState({ onlyBookmarked: !this.state.onlyBookmarked })
-              }
-            />
+            <>
+              <Switcher
+                className={classes.margin}
+                onlyShow={this.state.onlyBookmarked}
+                toggleFn={() =>
+                  this.setState({ onlyBookmarked: !this.state.onlyBookmarked })
+                }
+              />
+              <Button
+                variant="outlined"
+                onClick={() => this.setState({ bookmarks: {} })}
+              >
+                Clear all stars
+              </Button>
+            </>
           )}
         </div>
         <div className={classes.masonry}>
@@ -138,7 +171,7 @@ class ImageList extends React.Component<*, *> {
             const bookmarked = this.state.bookmarks[liObj.key];
             return (
               <LearningItem
-                search={this.state.search.length > 0 && this.state.search}
+                search={this.state.filter.length > 0 && this.state.search}
                 key={liObj.key}
                 type={expand ? 'view' : 'thumbView'}
                 id={liObj.li}
@@ -152,6 +185,10 @@ class ImageList extends React.Component<*, *> {
                     {canBookmark && (
                       <div
                         onClick={() => {
+                          this.props.logger({
+                            type: bookmarked ? 'unstar' : 'star',
+                            itemId: liObj.key
+                          });
                           this.setState({
                             bookmarks: {
                               ...this.state.bookmarks,

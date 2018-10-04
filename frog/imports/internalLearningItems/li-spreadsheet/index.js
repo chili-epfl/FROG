@@ -351,13 +351,17 @@ export default ({
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
   Viewer: MathSheet,
-  ThumbViewer: () => (
-    <div>
-      <Button variant="fab" color="primary">
-        <i style={{ fontSize: '2em' }} className="fa fa-table" />
-      </Button>
-      Spreadsheet
-    </div>
-  ),
+  ThumbViewer: ({ search, data }) =>
+    search &&
+    !JSON.stringify(data)
+      .toLowerCase()
+      .includes(search) ? null : (
+      <div>
+        <Button variant="fab" color="primary">
+          <i style={{ fontSize: '2em' }} className="fa fa-table" />
+        </Button>
+        Spreadsheet
+      </div>
+    ),
   Editor: MathSheet
 }: LearningItemT<any>);
