@@ -177,6 +177,7 @@ class MathSheet extends React.Component<*, *> {
       this.props.type === 'view'
         ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
         : this.props.data;
+    const search = this.props.search;
     return (
       <div
         style={{
@@ -224,7 +225,17 @@ class MathSheet extends React.Component<*, *> {
                 onMouseDown={props.onMouseDown}
                 onMouseOver={props.onMouseOver}
                 onDoubleClick={props.onDoubleClick}
-                style={{ width: '40px', height: '30px' }}
+                style={{
+                  width: '40px',
+                  height: '30px',
+                  backgroundColor:
+                    search &&
+                    ((data[props.row][props.col].value || '') + '')
+                      .toLowerCase()
+                      .includes(search)
+                      ? '#FFFF00'
+                      : undefined
+                }}
               >
                 {props.children}
               </td>

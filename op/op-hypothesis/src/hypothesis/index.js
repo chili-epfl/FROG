@@ -29,7 +29,7 @@ const Thread = ({
       {next.length > 0 && (
         <Indented>
           {next.map(x => (
-            <Thread key={x.id} data={data} item={x} />
+            <Thread search={search} key={x.id} data={data} item={x} />
           ))}
         </Indented>
       )}

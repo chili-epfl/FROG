@@ -33,8 +33,9 @@ export const config = {
       title: 'Enable filtering/searching Learning Items',
       type: 'boolean'
     },
-    searchCollab: {
-      title: 'Filtering/searching is collaborative',
+    canBookmark: {
+      title:
+        'Enable bookmarking (starring) items, and toggle to view only starred items',
       type: 'boolean'
     },
     commentGuidelines: {
@@ -53,6 +54,5 @@ export const configUI = {
   provideDefault: { conditional: 'canUpload' },
   liType: { conditional: 'provideDefault' },
   allowAny: { conditional: 'canUpload' },
-  commentGuidelines: { conditional: 'canComment' },
-  searchCollab: { conditional: 'canSearch' }
+  commentGuidelines: { conditional: 'canComment' }
 };

@@ -74,6 +74,68 @@ export const meta = {
         a2: { id: 'a2', li: '2' },
         a3: { id: 'a3', li: '3' },
         a4: { id: 'a4', li: '4' },
+        id1: {
+          id: 'id1',
+          li: {
+            id: 'id2',
+            liDocument: {
+              liType: 'li-spreadsheet',
+              payload: [
+                [
+                  { readOnly: true, value: '                ' },
+                  { readOnly: true, value: 'A' },
+                  { readOnly: true, value: 'B' },
+                  { readOnly: true, value: 'C' },
+                  { readOnly: true, value: 'D' }
+                ],
+                [
+                  { readOnly: true, value: 1 },
+                  {
+                    value: 'democracy',
+                    key: 'A1',
+                    col: 1,
+                    row: 1,
+                    className: '',
+                    expr: 'democracy'
+                  },
+                  { value: '', key: 'B1', col: 2, row: 1 },
+                  { value: '', key: 'C1', col: 3, row: 1 },
+                  { value: '', key: 'D1', col: 4, row: 1 }
+                ],
+                [
+                  { readOnly: true, value: 2 },
+                  {
+                    value: 'is great',
+                    key: 'A2',
+                    col: 1,
+                    row: 2,
+                    className: '',
+                    expr: 'is great'
+                  },
+                  { value: '', key: 'B2', col: 2, row: 2 },
+                  { value: '', key: 'C2', col: 3, row: 2 },
+                  { value: '', key: 'D2', col: 4, row: 2 }
+                ],
+                [
+                  { readOnly: true, value: 3 },
+                  { value: '', key: 'A3', col: 1, row: 3 },
+                  { value: '', key: 'B3', col: 2, row: 3 },
+                  { value: '', key: 'C3', col: 3, row: 3 },
+                  { value: '', key: 'D3', col: 4, row: 3 }
+                ],
+                [
+                  { readOnly: true, value: 4 },
+                  { value: '', key: 'A4', col: 1, row: 4 },
+                  { value: '', key: 'B4', col: 2, row: 4 },
+                  { value: '', key: 'C4', col: 3, row: 4 },
+                  { value: '', key: 'D4', col: 4, row: 4 }
+                ]
+              ],
+              createdAt: '2018-10-04T08:10:30.224Z',
+              draft: false
+            }
+          }
+        },
         cjlhuby9z000k01ywgce8n7nd: {
           id: 'cjlhuby9z000k01ywgce8n7nd',
           li: {
