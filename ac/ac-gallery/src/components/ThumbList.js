@@ -62,22 +62,59 @@ const Switcher = ({ onlyShow, toggleFn }) => (
   </FormGroup>
 );
 
+class SearchField extends React.Component<*, *> {
+  state = { search: '' };
+
+  updateSearch = debounce(e => {
+    this.props.onChange(e);
+  }, 1000);
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <TextField
+        className={classes.margin}
+        id="search"
+        label="Search"
+        value={this.state.search}
+        onChange={e => {
+          e.persist();
+          this.setState({ search: e.target.value });
+          this.updateSearch(e.target.value);
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <div
+                onClick={() => {
+                  this.props.logger({ type: 'resetSearch' });
+                  this.setState({ search: '' });
+                  this.props.onChange('');
+                }}
+              >
+                <Clear />
+              </div>
+            </InputAdornment>
+          )
+        }}
+      />
+    );
+  }
+}
+
 class ImageList extends React.Component<*, *> {
-  state = { search: '', filter: '', bookmarks: {}, onlyBookmarked: false };
+  state = { filter: '', bookmarks: {}, onlyBookmarked: false };
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !isEqual(nextProps.learningItems, this.props.learningItems) ||
       !isEqual(this.state, nextState)
     );
   }
-
-  updateSearch = debounce(e => {
-    this.setState({ filter: e.target.value });
-    this.props.logger({
-      type: e.target.value.trim() === '' ? 'resetSearch' : 'search',
-      value: e.target.value
-    });
-  }, 1000);
 
   render() {
     const {
@@ -92,8 +129,7 @@ class ImageList extends React.Component<*, *> {
       LearningItem,
       expand,
       canSearch,
-      canBookmark,
-      searchCollab
+      canBookmark
     } = this.props;
     const learningItemsFiltered = this.state.onlyBookmarked
       ? learningItems.filter(x => this.state.bookmarks[x.key])
@@ -102,40 +138,19 @@ class ImageList extends React.Component<*, *> {
     return (
       <div>
         <div className={classes.searchContainer}>
-          {canSearch &&
-            !searchCollab && (
-              <TextField
-                className={classes.margin}
-                id="search"
-                label="Search"
-                value={this.state.search}
-                onChange={e => {
-                  e.persist();
-                  this.setState({ search: e.target.value });
-                  this.updateSearch(e);
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <div
-                        onClick={() => {
-                          this.props.logger({ type: 'resetSearch' });
-                          this.setState({ search: '' });
-                          this.setState({ filter: '' });
-                        }}
-                      >
-                        <Clear />
-                      </div>
-                    </InputAdornment>
-                  )
-                }}
-              />
-            )}
+          {canSearch && (
+            <SearchField
+              logger={this.props.logger}
+              classes={classes}
+              onChange={e => {
+                this.setState({ filter: e });
+                this.props.logger({
+                  type: e.trim() === '' ? 'resetSearch' : 'search',
+                  value: e
+                });
+              }}
+            />
+          )}
           {canBookmark && (
             <>
               <Switcher
@@ -171,7 +186,7 @@ class ImageList extends React.Component<*, *> {
             const bookmarked = this.state.bookmarks[liObj.key];
             return (
               <LearningItem
-                search={this.state.filter.length > 0 && this.state.search}
+                search={this.state.filter.length > 0 && this.state.filter}
                 key={liObj.key}
                 type={expand ? 'view' : 'thumbView'}
                 id={liObj.li}
