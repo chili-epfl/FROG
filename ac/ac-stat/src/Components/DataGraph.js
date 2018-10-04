@@ -106,11 +106,13 @@ class DataGraph extends React.Component<*, *> {
           config={activityData.config}
           {...{ axis, logger }}
         />
-        <FilteringPanel
-          data={dataTr}
-          setTransformation={x => this.setState({ transformation: x })}
-          {...{ transformation, logger, dataset }}
-        />
+        {activityData.config.showTransformations && (
+          <FilteringPanel
+            data={dataTr}
+            setTransformation={x => this.setState({ transformation: x })}
+            {...{ transformation, logger, dataset }}
+          />
+        )}
       </div>
     );
   }

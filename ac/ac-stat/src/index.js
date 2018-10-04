@@ -26,6 +26,8 @@ const config = {
       type: 'boolean',
       title: 'Are students able to edit the table?'
     },
+    showTransformations: { type: 'boolean', title: 'Show transformations' },
+    sortData: { type: 'boolean', title: 'Sort data' },
     fixAxis: { type: 'boolean', title: 'Should the axis be fixed?' },
     dataSets: { type: 'string', title: 'Datasets' }
   }

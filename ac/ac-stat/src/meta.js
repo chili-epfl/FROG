@@ -1,4 +1,5 @@
 // @flow
+import { shuffle } from 'lodash';
 
 export default {
   name: 'Statistical intuition',
@@ -58,6 +59,34 @@ export default {
         { trace: 'dataset1', size: 1.85 },
         { trace: 'dataset2', size: 1.99 }
       ]
+    },
+    {
+      title: 'male/female birth months',
+      config: {},
+      data: (() => {
+        const months = [
+          '01-janvier',
+          '02-février',
+          '03-mars',
+          '04-avril',
+          '05-mai',
+          '06-juin',
+          '07-juillet',
+          '08-août',
+          '09-septembre',
+          '10-octobre',
+          '11-novembre',
+          '12-décembre'
+        ];
+        const genders = ['male', 'femelle'];
+        return new Array(150).fill().map(_ => {
+          return {
+            trace: 'dataset1',
+            x: shuffle(months)[0],
+            y: shuffle(genders)[0]
+          };
+        });
+      })()
     },
     {
       title: 'official data',
