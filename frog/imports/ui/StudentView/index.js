@@ -9,7 +9,7 @@ import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 
 import { Sessions } from '/imports/api/sessions';
-import { GlobalSettings } from '/imports/api/globalSettings';
+import { GlobalSettings } from '/imports/api/settings';
 import SessionBody from './SessionBody';
 
 const once = { already: false };

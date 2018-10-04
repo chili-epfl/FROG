@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings';
 
 import ChangelogModal from '../GraphEditor/ChangelogModal';
+import { LocalSettings } from '../../api/settings';
 
 const styles = theme => ({
   root: {
@@ -90,7 +91,8 @@ class LogoutMenu extends React.Component<*, *> {
             onClick={() => {
               sessionStorage.removeItem('frog.sessionToken');
               Meteor.logout();
-              window.location.assign('/');
+              this.props.history.push('/');
+              window.notReady();
             }}
           >
             Logout
@@ -101,7 +103,10 @@ class LogoutMenu extends React.Component<*, *> {
   }
 }
 
-class TopBarController extends React.Component<{ classes: any }, {}> {
+class TopBarController extends React.Component<
+  { classes: any, history: any, location: any },
+  {}
+> {
   routes = [
     { name: 'Graph Editor', to: '/teacher/graph' },
     { name: 'Sessions', to: '/teacher/orchestration' },
@@ -148,13 +153,16 @@ class TopBarController extends React.Component<{ classes: any }, {}> {
                   key={route.to}
                   label={route.name}
                   component={Link}
-                  to={route.to}
+                  to={route.to + LocalSettings.UrlCoda}
                   value={route.to}
                 />
               ))}
             </Tabs>
-            <h3>{Meteor.user().username}</h3>
-            <LogoutMenu />
+            <h3>
+              {LocalSettings.researchLogin ? ' * ' : ''}
+              {Meteor.user().username}
+            </h3>
+            <LogoutMenu history={this.props.history} />
           </Toolbar>
         </AppBar>
       </div>

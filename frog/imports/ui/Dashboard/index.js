@@ -110,7 +110,7 @@ export const DashboardReactiveWrapper = withTracker(props => {
     (acc, u) => ({ ...acc, [u._id]: u.username }),
     {}
   );
-  return { users, instances, activity, dashboardData };
+  return { users, instances, activity, dashboardData, session };
 })(MultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<

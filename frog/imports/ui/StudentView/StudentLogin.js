@@ -1,15 +1,38 @@
 // @flow
 import * as React from 'react';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router';
 import { isEmpty } from 'lodash';
-import { Button } from 'react-bootstrap';
 import { TextInput } from 'frog-utils';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 const splitList = (liststr: string) => {
   const list = (liststr || '').split('\n');
-  const extra = list.length % 2 ? 1 : 0;
-  const length = list.length / 2;
-  return [list.slice(0, length + extra), list.slice(length + extra)];
+  return list;
 };
+
+const styles = () => ({
+  container: {
+    width: '100%',
+    overflow: 'auto',
+    marginLeft: 10
+  },
+  toolbar: {
+    minHeight: 48,
+    height: 48
+  },
+  mainContent: {
+    width: '100%',
+    marginTop: 48
+  },
+  mustLogin: { marginTop: '15px' },
+  loginButton: { marginLeft: 10 },
+  studentNameButton: {
+    minWidth: 250,
+    margin: 5
+  }
+});
 
 type SettingsT = {
   loginByName: boolean,
@@ -21,7 +44,8 @@ type SettingsT = {
 
 type StudentLoginPropsT = {
   login: Function,
-  settings: SettingsT
+  settings: SettingsT,
+  classes: Object
 };
 
 class StudentLogin extends React.Component<
@@ -61,101 +85,104 @@ class StudentLogin extends React.Component<
   };
 
   render() {
-    const settings = this.props.settings;
-    if (
-      !settings ||
-      settings.loginByName === false ||
-      (!settings.specifyName && isEmpty(settings.studentlist))
-    ) {
-      return <h1>Must log in to access this session</h1>;
-    }
+    const { settings, classes } = this.props;
     return (
-      <div className="bootstrap">
-        {settings.studentlist && (
-          <div className="row" style={{ marginLeft: '10px' }}>
-            <h2>Select your name below</h2>
-            {splitList(settings.studentlist).map(lst => (
-              <div className="col-md-6" key={lst[0]}>
-                <ul className="list-group">
-                  {lst.map(x => (
-                    <li
-                      key={x}
-                      className={
-                        this.state.selected === x
-                          ? 'active list-group-item'
-                          : 'list-group-item'
-                      }
-                      onClick={() => {
-                        if (this.state.selected === x) {
-                          this.setState({ selected: null });
-                        } else {
-                          this.setState({ selected: x });
-                        }
-                      }}
-                    >
-                      {x}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-        <div
-          className="row"
-          style={{ marginLeft: '10px', marginRight: '20px' }}
-        >
-          {settings.specifyName && (
-            <React.Fragment>
-              <h2>Log in as new user:</h2>
-              {this.state.selected ? (
-                <p>
-                  Cancel the selection above, to be able to specify a new name
-                </p>
-              ) : (
-                <React.Fragment>
-                  <b>Enter your name to login as a new user</b>
-                  <br />
-                  <TextInput
-                    focus={false}
-                    onChange={e => this.setState({ name: e })}
-                  />
-                  <p />
-                </React.Fragment>
+      <>
+        <AppBar>
+          <Toolbar className={classes.toolbar} />
+        </AppBar>
+        <div className={classes.mainContent}>
+          {!settings ||
+          settings.loginByName === false ||
+          (!settings.specifyName && isEmpty(settings.studentlist)) ? (
+            <h2 className={classes.mustLogin}>
+              Must log in to access this session
+            </h2>
+          ) : (
+            <>
+              {settings.studentlist && (
+                <div className={classes.container}>
+                  <h2>Select your name below</h2>
+                  {splitList(settings.studentlist).map(studentName => {
+                    const isSelected = this.state.selected === studentName;
+                    return (
+                      <Button
+                        key={studentName}
+                        className={classes.studentNameButton}
+                        variant="raised"
+                        color={isSelected ? 'primary' : 'default'}
+                        onClick={() => {
+                          if (isSelected) {
+                            this.setState({ selected: null });
+                          } else {
+                            this.setState({ selected: studentName });
+                          }
+                        }}
+                      >
+                        {studentName}
+                      </Button>
+                    );
+                  })}
+                </div>
               )}
-            </React.Fragment>
+              {settings.specifyName && (
+                <div className={classes.container}>
+                  <h2>Log in as new user:</h2>
+                  {this.state.selected ? (
+                    <p>
+                      Cancel the selection above, to be able to specify a new
+                      name
+                    </p>
+                  ) : (
+                    <>
+                      <b>Enter your name to login as a new user</b>
+                      <br />
+                      <TextInput
+                        focus={false}
+                        onChange={e => this.setState({ name: e })}
+                      />
+                      <p />
+                    </>
+                  )}
+                </div>
+              )}
+              {settings.secret &&
+                !isEmpty(settings.secretString) && (
+                  <div className={classes.container}>
+                    <h2>Secret token:</h2>
+                    <b>Please enter the token that your teacher gave you:</b>
+                    <br />
+                    <TextInput
+                      focus={false}
+                      onChange={e => this.setState({ secret: e })}
+                    />
+                    <p />
+                  </div>
+                )}
+              <Button
+                onClick={this.login}
+                className={classes.loginButton}
+                disabled={
+                  (!this.state.selected && isEmpty(this.state.name)) ||
+                  ((settings.studentlist && settings.studentlist) || '')
+                    .split('\n')
+                    .map(x => x.toUpperCase())
+                    .includes(
+                      this.state.name && this.state.name.trim().toUpperCase()
+                    )
+                }
+              >
+                Log in
+              </Button>
+            </>
           )}
-          {settings.secret &&
-            !isEmpty(settings.secretString) && (
-              <React.Fragment>
-                <h2>Secret token:</h2>
-                <b>Please enter the token that your teacher gave you:</b>
-                <br />
-                <TextInput
-                  focus={false}
-                  onChange={e => this.setState({ secret: e })}
-                />
-                <p />
-              </React.Fragment>
-            )}
         </div>
-        <Button
-          style={{ marginLeft: '10px' }}
-          onClick={this.login}
-          className="btn btn-success"
-          disabled={
-            (!this.state.selected && isEmpty(this.state.name)) ||
-            ((settings.studentlist && settings.studentlist) || '')
-              .split('\n')
-              .map(x => x.toUpperCase())
-              .includes(this.state.name && this.state.name.trim().toUpperCase())
-          }
-        >
-          Log in
-        </Button>
-      </div>
+      </>
     );
   }
 }
 
-export default StudentLogin;
+export default compose(
+  withStyles(styles),
+  withRouter
+)(StudentLogin);

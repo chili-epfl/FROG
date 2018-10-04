@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
+import { uuid } from 'frog-utils';
 
 import {
   removeAllUsers,
@@ -21,6 +22,8 @@ import {
 import { nextActivity } from '/imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
+import { teacherLogger } from '../../../api/logs';
+import { LocalSettings } from '../../../api/settings';
 
 let lastNext = null;
 
@@ -73,8 +76,10 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: green[700],
-      onClick: () =>
-        updateSessionState(session._id, 'STARTED', TimeSync.serverTime()),
+      onClick: () => {
+        teacherLogger(session._id, 'teacher.pause-resume');
+        updateSessionState(session._id, 'STARTED', TimeSync.serverTime());
+      },
       variant: 'raised'
     },
     icon: <PlayArrow className={classes.icon} />
@@ -87,8 +92,10 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     },
     button: {
       color: red[700],
-      onClick: () =>
-        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime()),
+      onClick: () => {
+        teacherLogger(session._id, 'teacher.pause');
+        updateSessionState(session._id, 'PAUSED', TimeSync.serverTime());
+      },
       variant: 'raised'
     },
     icon: <Pause className={classes.icon} />
@@ -182,9 +189,27 @@ export const SessionUtilsButtonsModel = (
       text: 'Toggle Dashboard'
     }
   },
+  open1: {
+    button: {
+      onClick: () => window.open(`/${session.slug}?debugLogin=Chen Li`, uuid()),
+      text: 'Open one student window'
+    }
+  },
+  open3: {
+    button: {
+      onClick: () => {
+        ['Chen Li', 'Joanna', 'Marius'].forEach(x =>
+          window.open(`/${session.slug}?debugLogin=${x}`, uuid())
+        );
+      },
+      text: 'Open 3 student windows'
+    }
+  },
   projector: {
-    href: `/teacher/projector/${session.slug}?login=${
-      Meteor.user().username
+    href: `/teacher/projector/${session.slug}${
+      LocalSettings.UrlCoda.length > 0
+        ? LocalSettings.UrlCoda
+        : `?login=${Meteor.user().username}`
     }&token=${(token && token.value) || ''}`
   }
 });
