@@ -45,7 +45,6 @@ class HypothesisThread extends React.Component<
   toggleFn = () => this.setState({ expand: !this.state.expand });
 
   render() {
-    console.log('render hypothesis');
     const annotations = this.props.data.rows;
     const top = annotations.find(x => !x.lastRef);
     const { type, search } = this.props;
