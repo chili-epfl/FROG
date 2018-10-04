@@ -4,8 +4,8 @@ import ReactTweet from '@houshuang/react-tweet';
 
 const ThumbViewer = ({ data, search }) => {
   if (
-    (search && !data.full_text) ||
-    !data.full_text.toLowerCase().includes(search)
+    search &&
+    (!data.full_text || !data.full_text.toLowerCase().includes(search))
   ) {
     return null;
   }
