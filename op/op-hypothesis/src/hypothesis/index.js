@@ -8,7 +8,8 @@ const Thread = ({
   thumbnail,
   threadLength,
   expandable,
-  shouldShorten
+  shouldShorten,
+  search
 }) => {
   const next = data.filter(x => x.lastRef === item.id);
 
@@ -23,6 +24,7 @@ const Thread = ({
         thumbnail={thumbnail}
         threadLength={threadLength}
         expandable={expandable}
+        search={search}
       />
       {next.length > 0 && (
         <Indented>
@@ -36,7 +38,7 @@ const Thread = ({
 };
 
 class HypothesisThread extends React.Component<
-  { data: Object, shouldShorten: boolean, search?: string },
+  { data: Object, search?: string },
   { expand: boolean }
 > {
   state = { expand: true };

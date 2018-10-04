@@ -4,7 +4,11 @@ import Form from 'react-jsonschema-form';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { type LearningItemT, ReactiveText } from 'frog-utils';
+import {
+  type LearningItemT,
+  ReactiveText,
+  HighlightSearchText
+} from 'frog-utils';
 
 const styles = () => ({
   button: {
@@ -26,12 +30,14 @@ const ThumbViewer = ({ data, search }) => {
   }
   return (
     <div>
-      <b>{data.title}</b>
+      <b>
+        <HighlightSearchText haystack={data.title} needle={search} />
+      </b>
       <br />
       {data.content.split('\n').map((line, i) => (
         // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={i}>
-          {line}
+          <HighlightSearchText haystack={line} needle={search} />
           <br />
         </React.Fragment>
       ))}

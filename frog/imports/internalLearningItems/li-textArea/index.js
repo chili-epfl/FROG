@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { type LearningItemT, ReactiveText, shorten } from 'frog-utils';
+import {
+  type LearningItemT,
+  ReactiveText,
+  shorten,
+  HighlightSearchText
+} from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
@@ -25,7 +30,7 @@ export const FlexViewer = withStyles(styles)(
           .map((line, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <React.Fragment key={i}>
-              {line}
+              <HighlightSearchText haystack={line} needle={search} />
               <br />
             </React.Fragment>
           ))}

@@ -1,4 +1,6 @@
 // @flow
+/* eslint-disable react/no-array-index-key */
+
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle } from 'lodash';
@@ -122,6 +124,45 @@ export const A = ({ onClick, children, ...rest }: any): any => (
 export const currentDate = (): string => {
   const d = new Date();
   return d.toString();
+};
+
+export const highlightSearchHTML = (haystack: string, needle: string) =>
+  !needle
+    ? haystack
+    : haystack.replace(
+        new RegExp(needle, 'gi'),
+        str => `<span style="background-color: #FFFF00">${str}</span>`
+      );
+
+export const HighlightSearchText = ({
+  haystack,
+  needle
+}: {
+  haystack: string,
+  needle?: string
+}) => {
+  if (!needle) {
+    return haystack;
+  }
+  const parts = haystack.split(new RegExp(`(${needle})`, 'gi'));
+  return (
+    <>
+      {parts.map((part, i) => (
+        <span
+          key={i}
+          style={
+            part.toLowerCase() === needle.toLowerCase()
+              ? {
+                  backgroundColor: '#FFFF00'
+                }
+              : {}
+          }
+        >
+          {part}
+        </span>
+      ))}
+    </>
+  );
 };
 
 export const booleanize = (bool: string): boolean => bool === 'true';

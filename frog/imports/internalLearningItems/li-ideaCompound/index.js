@@ -1,7 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { type LearningItemT, ReactiveText } from 'frog-utils';
+import {
+  type LearningItemT,
+  ReactiveText,
+  HighlightSearchText
+} from 'frog-utils';
 
 const ThumbViewer = ({ LearningItem, data, search }) => {
   if (
@@ -13,12 +17,12 @@ const ThumbViewer = ({ LearningItem, data, search }) => {
   }
   return (
     <div>
-      <b>{data.title}</b>
+      <HighlightSearchText haystack={data.title} needle={search} />
       <br />
       {data.content.split('\n').map((line, i) => (
         // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={i}>
-          {line}
+          <HighlightSearchText haystack={line} needle={search} />
           <br />
         </React.Fragment>
       ))}
@@ -39,12 +43,14 @@ const Viewer = ({ LearningItem, data, search }) => {
   }
   return (
     <div>
-      <b>{data.title}</b>
+      <b>
+        <HighlightSearchText haystack={data.title} needle={search} />
+      </b>
       <br />
       {data.content.split('\n').map((line, i) => (
         // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={i}>
-          {line}
+          <HighlightSearchText haystack={line} needle={search} />
           <br />
         </React.Fragment>
       ))}
