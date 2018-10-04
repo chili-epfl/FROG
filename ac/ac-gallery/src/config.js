@@ -29,6 +29,14 @@ export const config = {
       title: 'Should students comment on Learning Items?',
       type: 'boolean'
     },
+    canSearch: {
+      title: 'Enable filtering/searching Learning Items',
+      type: 'boolean'
+    },
+    searchCollab: {
+      title: 'Filtering/searching is collaborative',
+      type: 'boolean'
+    },
     commentGuidelines: {
       title: 'Comment guidelines',
       type: 'string'
@@ -45,5 +53,6 @@ export const configUI = {
   provideDefault: { conditional: 'canUpload' },
   liType: { conditional: 'provideDefault' },
   allowAny: { conditional: 'canUpload' },
-  commentGuidelines: { conditional: 'canComment' }
+  commentGuidelines: { conditional: 'canComment' },
+  searchCollab: { conditional: 'canSearch' }
 };

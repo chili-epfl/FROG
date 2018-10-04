@@ -67,9 +67,11 @@ class LearningItem extends React.Component<
 
       return (
         <ToRun
+          key={typeof props.id === 'string' ? props.id : props.id.liDocument.id}
           render={props.render}
           type={props.type}
           id={props.id}
+          search={props.search}
           clickZoomable={props.type === 'thumbView' && props.clickZoomable}
         />
       );

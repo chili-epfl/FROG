@@ -165,9 +165,18 @@ class MathSheet extends React.Component<*, *> {
   };
 
   render() {
-    const data = this.props.readOnly
-      ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
-      : this.props.data;
+    if (
+      this.props.search &&
+      !JSON.stringify(this.props.data)
+        .toLowerCase()
+        .includes(this.props.search)
+    ) {
+      return null;
+    }
+    const data =
+      this.props.type === 'view'
+        ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
+        : this.props.data;
     return (
       <div
         style={{
@@ -330,7 +339,7 @@ export default ({
   ),
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
-  Viewer: ({ data }) => <MathSheet readOnly data={data} />,
+  Viewer: MathSheet,
   ThumbViewer: () => (
     <div>
       <Button variant="fab" color="primary">

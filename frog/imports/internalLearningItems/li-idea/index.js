@@ -16,19 +16,28 @@ const styles = () => ({
   }
 });
 
-const ThumbViewer = ({ data }) => (
-  <div>
-    <b>{data.title}</b>
-    <br />
-    {data.content.split('\n').map((line, i) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <React.Fragment key={i}>
-        {line}
-        <br />
-      </React.Fragment>
-    ))}
-  </div>
-);
+const ThumbViewer = ({ data, search }) => {
+  if (
+    search &&
+    !data.title.toLowerCase().includes(search) &&
+    !data.content.toLowerCase().includes(search)
+  ) {
+    return null;
+  }
+  return (
+    <div>
+      <b>{data.title}</b>
+      <br />
+      {data.content.split('\n').map((line, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <React.Fragment key={i}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
 
 const Editor = withStyles(styles)(({ dataFn, classes }) => (
   <div className={classes.editorContainer}>

@@ -13,19 +13,25 @@ const styles = () => ({
 });
 
 export const FlexViewer = withStyles(styles)(
-  ({ classes, data, shouldShorten }) => (
-    <div className={classes.editorContainer}>
-      {(shouldShorten ? shorten(data.text, 150) : data.text)
-        .split('\n')
-        .map((line, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <React.Fragment key={i}>
-            {line}
-            <br />
-          </React.Fragment>
-        ))}
-    </div>
-  )
+  ({ classes, data, search, type }) => {
+    const shouldShorten = type === 'thumbView';
+    if (search && !data.text.toLowerCase().includes(search)) {
+      return null;
+    }
+    return (
+      <div className={classes.editorContainer}>
+        {(shouldShorten ? shorten(data.text, 150) : data.text)
+          .split('\n')
+          .map((line, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <React.Fragment key={i}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
+      </div>
+    );
+  }
 );
 
 export const Editor = withStyles(styles)(({ dataFn, classes, large }) => (

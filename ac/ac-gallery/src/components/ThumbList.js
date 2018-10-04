@@ -1,10 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { isEqual } from 'lodash';
+import { isEqual, debounce } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Search from '@material-ui/icons/Search';
 
 import CategoryBox from './CategoryBox';
 
@@ -22,9 +25,16 @@ const styles = () => ({
 });
 
 class ImageList extends React.Component<*, *> {
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(nextProps.learningItems, this.props.learningItems);
+  state = { search: '' };
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      !isEqual(nextProps.learningItems, this.props.learningItems) ||
+      this.state.search !== nextState.search
+    );
   }
+
+  updateSearch = debounce(e => this.setState({ search: e.target.value }), 1000);
+
   render() {
     const {
       classes,
@@ -36,43 +46,67 @@ class ImageList extends React.Component<*, *> {
       setIndex,
       logger,
       LearningItem,
-      expand
+      expand,
+      canSearch,
+      searchCollab
     } = this.props;
 
     return (
-      <div className={classes.masonry}>
-        {learningItems.map((liObj, i) => {
-          const onClick = e => {
-            if (canVote && e.shiftKey) {
-              vote(liObj.key, userInfo.id);
-            } else if (!expand) {
-              setIndex(i);
-              setZoom(true);
-              logger({ type: 'zoom', itemId: liObj.key });
-            }
-          };
-          const backgroundColor = liObj.votes[userInfo.id]
-            ? 'lightgreen'
-            : 'white';
-
-          return (
-            <LearningItem
-              key={liObj.key}
-              type={expand ? 'view' : 'thumbView'}
-              id={liObj.li}
-              render={props => (
-                <Paper
-                  elevation={12}
-                  onClick={onClick}
-                  className={classes.liBox}
-                  style={{ backgroundColor }}
-                >
-                  {props.children}
-                </Paper>
-              )}
+      <div>
+        {canSearch &&
+          !searchCollab && (
+            <TextField
+              className={classes.margin}
+              id="search"
+              label="Search"
+              onChange={e => {
+                e.persist();
+                this.updateSearch(e);
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                )
+              }}
             />
-          );
-        })}
+          )}
+        <div className={classes.masonry}>
+          {learningItems.map((liObj, i) => {
+            const onClick = e => {
+              if (canVote && e.shiftKey) {
+                vote(liObj.key, userInfo.id);
+              } else if (!expand) {
+                setIndex(i);
+                setZoom(true);
+                logger({ type: 'zoom', itemId: liObj.key });
+              }
+            };
+            const backgroundColor = liObj.votes[userInfo.id]
+              ? 'lightgreen'
+              : 'white';
+
+            return (
+              <LearningItem
+                search={this.state.search.length > 0 && this.state.search}
+                key={liObj.key}
+                type={expand ? 'view' : 'thumbView'}
+                id={liObj.li}
+                render={props => (
+                  <Paper
+                    elevation={12}
+                    onClick={onClick}
+                    className={classes.liBox}
+                    style={{ backgroundColor }}
+                  >
+                    {props.children}
+                  </Paper>
+                )}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
