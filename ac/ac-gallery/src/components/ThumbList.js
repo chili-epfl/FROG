@@ -162,7 +162,9 @@ class ImageList extends React.Component<*, *> {
               />
               <Button
                 variant="outlined"
-                onClick={() => this.setState({ bookmarks: {} })}
+                onClick={() =>
+                  this.setState({ bookmarks: {}, onlyBookmarked: false })
+                }
               >
                 Clear all stars
               </Button>
