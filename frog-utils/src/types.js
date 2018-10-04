@@ -344,11 +344,13 @@ export type LearningItemT<T> = {
   Editor?: React.ComponentType<{
     data: T,
     dataFn: Doc,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Creator?: React.ComponentType<{
     createLearningItem: Function,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   ThumbViewer?: React.ComponentType<{
     data: T,

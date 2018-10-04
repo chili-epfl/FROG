@@ -350,6 +350,7 @@ export default ({
   ),
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
+  //  $FlowFixMe
   Viewer: MathSheet,
   ThumbViewer: ({ search, data }) =>
     search &&

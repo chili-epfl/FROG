@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { type LearningItemT } from 'frog-utils';
 import Viewer from './hypothesis';
 

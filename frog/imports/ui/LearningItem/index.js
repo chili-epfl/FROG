@@ -71,7 +71,7 @@ class LearningItem extends React.Component<
           render={props.render}
           type={props.type}
           id={props.id}
-          search={props.search}
+          search={props.search || undefined}
           clickZoomable={props.type === 'thumbView' && props.clickZoomable}
         />
       );

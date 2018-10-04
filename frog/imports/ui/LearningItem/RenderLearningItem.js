@@ -22,7 +22,9 @@ const withNullCheck = ({
   open,
   setOpen
 }) => WrappedComponent => {
+  // $FlowFixMe
   const WrappedComponentClass = toClass(WrappedComponent);
+  // $FlowFixMe
   class NullChecker extends WrappedComponentClass {
     shouldComponentUpdate() {
       return false;
@@ -120,7 +122,9 @@ class RenderLearningItem extends React.Component<any, any> {
         data,
         clickZoomable,
         liType,
-        type
+        type,
+        open: this.state.open,
+        setOpen: e => this.setState({ open: e })
       })(LIComponent);
     }
   }
