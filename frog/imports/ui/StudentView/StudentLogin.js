@@ -4,29 +4,19 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { isEmpty } from 'lodash';
 import { TextInput } from 'frog-utils';
-import {
-  AppBar,
-  Toolbar,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-  Grid
-} from '@material-ui/core';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const splitList = (liststr: string) => {
   const list = (liststr || '').split('\n');
-  const extra = list.length % 2 ? 1 : 0;
-  const length = list.length / 2;
-  return [list.slice(0, length + extra), list.slice(length + extra)];
+  return list;
 };
 
 const styles = () => ({
-  root: {
+  container: {
     width: '100%',
     overflow: 'auto',
-    marginLeft: '10px'
+    marginLeft: 10
   },
   toolbar: {
     minHeight: 48,
@@ -37,7 +27,11 @@ const styles = () => ({
     marginTop: 48
   },
   mustLogin: { marginTop: '15px' },
-  listItem: { minWidth: '300px' }
+  loginButton: { marginLeft: 10 },
+  studentNameButton: {
+    minWidth: 250,
+    margin: 5
+  }
 });
 
 type SettingsT = {
@@ -94,11 +88,9 @@ class StudentLogin extends React.Component<
     const { settings, classes } = this.props;
     return (
       <>
-        <div className={classes.root}>
-          <AppBar>
-            <Toolbar className={classes.toolbar} />
-          </AppBar>
-        </div>
+        <AppBar>
+          <Toolbar className={classes.toolbar} />
+        </AppBar>
         <div className={classes.mainContent}>
           {!settings ||
           settings.loginByName === false ||
@@ -109,40 +101,32 @@ class StudentLogin extends React.Component<
           ) : (
             <>
               {settings.studentlist && (
-                <div className={classes.root}>
+                <div className={classes.container}>
                   <h2>Select your name below</h2>
-                  <Grid container spacing={24}>
-                    {splitList(settings.studentlist).map(lst => (
-                      <Grid key={lst[0] || 'key'}>
-                        <List>
-                          {lst.map(x => (
-                            <ListItem
-                              className={classes.listItem}
-                              selected={this.state.selected === x}
-                              disabled={
-                                this.state.selected && this.state.selected !== x
-                              }
-                              key={x}
-                              button
-                              onClick={() => {
-                                if (this.state.selected === x) {
-                                  this.setState({ selected: null });
-                                } else {
-                                  this.setState({ selected: x });
-                                }
-                              }}
-                            >
-                              <ListItemText primary={x} />
-                            </ListItem>
-                          ))}
-                        </List>
-                      </Grid>
-                    ))}
-                  </Grid>
+                  {splitList(settings.studentlist).map(studentName => {
+                    const isSelected = this.state.selected === studentName;
+                    return (
+                      <Button
+                        key={studentName}
+                        className={classes.studentNameButton}
+                        variant="raised"
+                        color={isSelected ? 'primary' : 'default'}
+                        onClick={() => {
+                          if (isSelected) {
+                            this.setState({ selected: null });
+                          } else {
+                            this.setState({ selected: studentName });
+                          }
+                        }}
+                      >
+                        {studentName}
+                      </Button>
+                    );
+                  })}
                 </div>
               )}
               {settings.specifyName && (
-                <>
+                <div className={classes.container}>
                   <h2>Log in as new user:</h2>
                   {this.state.selected ? (
                     <p>
@@ -160,11 +144,11 @@ class StudentLogin extends React.Component<
                       <p />
                     </>
                   )}
-                </>
+                </div>
               )}
               {settings.secret &&
                 !isEmpty(settings.secretString) && (
-                  <>
+                  <div className={classes.container}>
                     <h2>Secret token:</h2>
                     <b>Please enter the token that your teacher gave you:</b>
                     <br />
@@ -173,12 +157,11 @@ class StudentLogin extends React.Component<
                       onChange={e => this.setState({ secret: e })}
                     />
                     <p />
-                  </>
+                  </div>
                 )}
               <Button
-                style={{ marginLeft: '10px' }}
                 onClick={this.login}
-                className="btn btn-success"
+                className={classes.loginButton}
                 disabled={
                   (!this.state.selected && isEmpty(this.state.name)) ||
                   ((settings.studentlist && settings.studentlist) || '')
