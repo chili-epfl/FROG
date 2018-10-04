@@ -3,32 +3,94 @@
 import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
+import { getDisplayName } from 'frog-utils';
+import { toClass } from 'recompose';
 
 import { learningItemTypesObj } from '../../activityTypes';
 
 const MaybeClickable = ({ condition, children, onClick }) =>
   condition ? <span onClick={onClick}>{children}</span> : children;
 
+const withNullCheck = ({
+  render,
+  renderArgs,
+  type,
+  clickZoomable,
+  liType,
+  data,
+  dataFn,
+  open,
+  setOpen
+}) => WrappedComponent => {
+  // $FlowFixMe
+  const WrappedComponentClass = toClass(WrappedComponent);
+  // $FlowFixMe
+  class NullChecker extends WrappedComponentClass {
+    shouldComponentUpdate() {
+      return false;
+    }
+
+    render() {
+      const result = super.render();
+
+      if (!result) {
+        return null;
+      }
+
+      const Comp = (
+        <>
+          <MaybeClickable
+            onClick={() => {
+              setOpen(true);
+            }}
+            condition={type === 'thumbView' && clickZoomable && liType.Viewer}
+          >
+            {result}
+          </MaybeClickable>
+          {open &&
+            liType.Viewer && (
+              <Dialog
+                maxWidth={false}
+                open
+                onClose={() => {
+                  setOpen(false);
+                }}
+              >
+                <liType.Viewer
+                  type="view"
+                  data={data.payload}
+                  LearningItem={dataFn && dataFn.LearningItem}
+                />
+              </Dialog>
+            )}
+        </>
+      );
+      if (render) {
+        return render({ ...renderArgs, children: Comp });
+      } else {
+        return Comp;
+      }
+    }
+  }
+
+  NullChecker.displayName = `withNullCheck(${getDisplayName(
+    WrappedComponent
+  )})`;
+  return NullChecker;
+};
+
 class RenderLearningItem extends React.Component<any, any> {
+  Comp: any;
+
   constructor(props: any) {
     super(props);
     this.state = { open: false };
-  }
-
-  shouldComponentUpdate(nextProps: any, nextState: any) {
-    return (
-      !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
-      nextState.open !== this.state.open
-    );
-  }
-
-  render() {
-    const { data, dataFn, render, type = 'view', clickZoomable } = this.props;
+    const { data, dataFn, render, type = 'view', clickZoomable } = props;
     const liType = learningItemTypesObj[data.liType];
-    if (!liType) {
-      return <h3>Oops ! Incorrect LI-type</h3>;
-    }
     let LIComponent;
+    if (!liType) {
+      this.Comp = () => <h3>Oops ! Incorrect LI-type</h3>;
+    }
     if (type === 'view' && liType.Viewer) {
       LIComponent = liType.Viewer;
     } else if (
@@ -39,56 +101,57 @@ class RenderLearningItem extends React.Component<any, any> {
     } else if (type === 'edit' && liType.Editor) {
       LIComponent = liType.Editor;
     } else {
-      return (
+      this.Comp = () => (
         <b>
           Unsupported learning item type {JSON.stringify(data.liType)} or
           component type {type}
         </b>
       );
     }
-    const Comp = (
-      <>
-        <MaybeClickable
-          onClick={() => {
-            this.setState({ open: true });
-          }}
-          condition={type === 'thumbView' && clickZoomable && liType.Viewer}
-        >
-          <LIComponent
-            data={data.payload}
-            dataFn={dataFn && dataFn.specialize('payload')}
-            LearningItem={dataFn && dataFn.LearningItem}
-          />
-        </MaybeClickable>
-        {this.state.open &&
-          liType.Viewer && (
-            <Dialog
-              maxWidth={false}
-              open
-              onClose={() => {
-                this.setState({ open: false });
-              }}
-            >
-              <liType.Viewer
-                data={data.payload}
-                LearningItem={dataFn && dataFn.LearningItem}
-              />
-            </Dialog>
-          )}
-      </>
-    );
-    if (render) {
-      return render({
+    if (!this.Comp && LIComponent) {
+      this.Comp = withNullCheck({
+        render,
+        renderArgs: {
+          dataFn,
+          data,
+          editable: liType.Editor,
+          zoomable: liType.Viewer,
+          liType: liType.id
+        },
         dataFn,
         data,
-        children: Comp,
-        editable: liType.Editor,
-        zoomable: liType.Viewer,
-        liType: liType.id
-      });
-    } else {
-      return Comp;
+        clickZoomable,
+        liType,
+        type,
+        open: this.state.open,
+        setOpen: e => this.setState({ open: e })
+      })(LIComponent);
     }
+  }
+
+  shouldComponentUpdate(nextProps: any, nextState: any) {
+    return (
+      !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
+      nextState.open !== this.state.open
+    );
+  }
+
+  render() {
+    const { type, search, data, dataFn } = this.props;
+    const Comp = this.Comp;
+    return Comp ? (
+      <Comp
+        data={data.payload}
+        dataFn={dataFn && dataFn.specialize('payload')}
+        LearningItem={dataFn && dataFn.LearningItem}
+        search={search && search.toLowerCase()}
+        open={this.state.open}
+        type={type}
+        setOpen={e => this.setState({ open: e })}
+      />
+    ) : (
+      <h4>Error</h4>
+    );
   }
 }
 

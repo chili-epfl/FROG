@@ -316,12 +316,18 @@ export type LIComponentPropsT =
       meta?: Object,
       payload: Object
     |}
-  | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
+  | {|
+      type: 'view',
+      id: string | ImmutableLIT,
+      render?: LIRenderT,
+      search?: string
+    |}
   | {|
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      clickZoomable?: boolean
+      clickZoomable?: boolean,
+      search?: string
     |}
   | {|
       type: 'edit',
@@ -338,19 +344,23 @@ export type LearningItemT<T> = {
   Editor?: React.ComponentType<{
     data: T,
     dataFn: Doc,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Creator?: React.ComponentType<{
     createLearningItem: Function,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   ThumbViewer?: React.ComponentType<{
     data: T,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Viewer?: React.ComponentType<{
     data: T,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   createPayload?: Function
 };
