@@ -69,7 +69,7 @@ export default (nodeType, id, configObj, schema, validationFns, uiSchema) => {
         }
       } else {
         // eslint-disable-next-line no-console
-        console.error('missing validator error', result.err);
+        console.error('missing validator error', result);
       }
       return null;
     })

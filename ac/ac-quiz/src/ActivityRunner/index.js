@@ -29,7 +29,7 @@ const styles = () => ({
 });
 
 const Completed = ({ dataFn }) => (
-  <React.Fragment>
+  <>
     <h1>Completed!</h1>
     <Button
       color="primary"
@@ -37,12 +37,18 @@ const Completed = ({ dataFn }) => (
     >
       Go back
     </Button>
-  </React.Fragment>
+  </>
 );
 
-export default withStyles(styles)(
-  ({ classes, ...props }: ActivityRunnerPropsT & { classes: Object }) => {
-    const { activityData, data } = props;
+class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT & { classes: Object }
+> {
+  componentDidMount() {
+    this.props.logger({ type: 'progress', value: 0 });
+  }
+
+  render() {
+    const { classes, activityData, data } = this.props;
     const {
       config: { title, guidelines }
     } = activityData;
@@ -56,9 +62,15 @@ export default withStyles(styles)(
             </div>
           )}
         <div className={classes.container}>
-          {data.completed ? <Completed {...props} /> : <Quiz {...props} />}
+          {data.completed ? (
+            <Completed {...this.props} />
+          ) : (
+            <Quiz {...this.props} />
+          )}
         </div>
       </div>
     );
   }
-);
+}
+
+export default withStyles(styles)(ActivityRunner);

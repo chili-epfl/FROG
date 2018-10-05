@@ -20,11 +20,13 @@ const styles = () => ({
     flexDirection: 'column',
     backgroundColor: '#bbb',
     height: '100%',
+    width: '100%',
     overflow: 'auto',
     padding: '4px'
   },
   question: {
-    width: '100%',
+    width: '50%',
+    height: '50%',
     padding: '4px',
     marginBottom: '8px'
   }
