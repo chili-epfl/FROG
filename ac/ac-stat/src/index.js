@@ -14,10 +14,10 @@ const config = {
     plotTypes: {
       type: 'array',
       title: 'Plots to display',
-      default: ['dots', 'box', 'bar'],
+      default: ['dots', 'box', 'histogram'],
       items: {
         type: 'string',
-        enum: ['dots', 'box', 'bar']
+        enum: ['dots', 'box', 'histogram']
       },
       uniqueItems: true
     },

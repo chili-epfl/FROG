@@ -159,7 +159,7 @@ const PlotTypeSelector = ({ plotTypes, plot, setPlot, logger }) => (
   >
     {plotTypes.includes('histogram') && (
       <MenuItem value="histogram" selected>
-        histogramplot
+        Histogram
       </MenuItem>
     )}
     {plotTypes.includes('dots') && <MenuItem value="dots">Dots</MenuItem>}
@@ -197,7 +197,7 @@ const GraphStateless = props => {
       <div className={classes.plotContainer}>
         <Plot
           className={classes.plot}
-          config={{ displayModehistogram: false }}
+          config={{ displayModeBar: false }}
           data={dataTr}
           layout={{
             xaxis:
@@ -209,7 +209,8 @@ const GraphStateless = props => {
                 ? { title: config.yLabel, range: axis }
                 : { title: config.yLabel },
             margin: { t: 30, l: 30, r: 30, b: 30 },
-            autosize: true
+            autosize: true,
+            hovermode: false
           }}
           useResizeHandler
         />
