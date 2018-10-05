@@ -11,7 +11,7 @@
     "react-dom": "^16.5.2",
     "react-draggable": "^3.0.5",
     "react-dropzone": "^6.0.2",
-    "react-icons": "^3.1.0",
+    "react-icons": "^2.2.7",
     "react-resize-aware": "^2.7.1",
     "recompose": "^0.30.0",
     "styled-components": "^3.4.9"
