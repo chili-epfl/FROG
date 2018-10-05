@@ -63,7 +63,7 @@ export default {
     {
       title: 'male/female birth months',
       config: {},
-      data: (() => {
+      data: ((): Array<{ trace: string, x: string, y: string }> => {
         const months = [
           '01-janvier',
           '02-février',
@@ -79,13 +79,11 @@ export default {
           '12-décembre'
         ];
         const genders = ['male', 'femelle'];
-        return new Array(150).fill().map(_ => {
-          return {
-            trace: 'dataset1',
-            x: shuffle(months)[0],
-            y: shuffle(genders)[0]
-          };
-        });
+        return new Array(150).fill().map(_ => ({
+          trace: 'dataset1',
+          x: shuffle(months)[0],
+          y: shuffle(genders)[0]
+        }));
       })()
     },
     {
