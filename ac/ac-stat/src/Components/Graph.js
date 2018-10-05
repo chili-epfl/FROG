@@ -64,7 +64,7 @@ const transformData = (data, type, filtered, sortData) => {
             });
           });
         break;
-      case 'bar':
+      case 'histogram':
         data.values
           .reduce(
             (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
@@ -114,7 +114,7 @@ const transformData = (data, type, filtered, sortData) => {
           y: formatData
         });
         break;
-      case 'bar':
+      case 'histogram':
         result.push({ type: 'histogram', x: formatData });
         break;
       case 'box':
@@ -157,9 +157,9 @@ const PlotTypeSelector = ({ plotTypes, plot, setPlot, logger }) => (
       setPlot(e.target.value);
     }}
   >
-    {plotTypes.includes('bar') && (
-      <MenuItem value="bar" selected>
-        Barplot
+    {plotTypes.includes('histogram') && (
+      <MenuItem value="histogram" selected>
+        histogramplot
       </MenuItem>
     )}
     {plotTypes.includes('dots') && <MenuItem value="dots">Dots</MenuItem>}
@@ -197,15 +197,15 @@ const GraphStateless = props => {
       <div className={classes.plotContainer}>
         <Plot
           className={classes.plot}
-          config={{ displayModeBar: false }}
+          config={{ displayModehistogram: false }}
           data={dataTr}
           layout={{
             xaxis:
-              config.fixAxis && plot === 'bar'
+              config.fixAxis && plot === 'histogram'
                 ? { title: config.xLabel, range: axis }
                 : { title: config.xLabel },
             yaxis:
-              config.fixAxis && plot !== 'bar'
+              config.fixAxis && plot !== 'histogram'
                 ? { title: config.yLabel, range: axis }
                 : { title: config.yLabel },
             margin: { t: 30, l: 30, r: 30, b: 30 },
@@ -220,7 +220,7 @@ const GraphStateless = props => {
 };
 
 export default compose(
-  withState('plot', 'setPlot', 'bar'),
+  withState('plot', 'setPlot', 'histogram'),
   withState('filter', 'setFilter', false),
   withStyles(styles)
 )(GraphStateless);
