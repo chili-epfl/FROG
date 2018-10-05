@@ -9,7 +9,7 @@ export default {
   exampleData: [
     {
       title: '1 trace 1 axis',
-      config: { title: 'Graph1', plotType: ['plot', 'histogram', 'box'] },
+      config: { title: 'Graph1', plotTypes: ['plot', 'histogram', 'box'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -25,7 +25,7 @@ export default {
     },
     {
       title: '1 trace 2 axis',
-      config: { title: 'Graph2', plotType: ['dots', 'box', 'histogram'] },
+      config: { title: 'Graph2', plotTypes: ['dots', 'box', 'histogram'] },
       data: [
         { trace: 'dataset1', size: 1.5, sex: 'F' },
         { trace: 'dataset1', size: 1.54, sex: 'F' },
@@ -41,7 +41,7 @@ export default {
     },
     {
       title: '2 trace 1 axis',
-      config: { title: 'Graph3', plotType: ['dots', 'box', 'histogram'] },
+      config: { title: 'Graph3', plotTypes: ['dots', 'box', 'histogram'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -63,7 +63,7 @@ export default {
     {
       title: 'male/female birth months',
       config: {
-        plotType: ['histogram'],
+        plotTypes: ['histogram'],
         sortData: true
       },
       data: ((): Array<{ trace: string, x: string, y: string }> => {
@@ -93,7 +93,7 @@ export default {
       title: 'official data',
       config: {
         title: 'Graph3',
-        plotType: ['dots', 'box', 'histogram'],
+        plotTypes: ['dots', 'box', 'histogram'],
         editable: true
       },
       data: [

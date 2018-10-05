@@ -2,6 +2,7 @@
 
 import { type ActivityPackageT, values } from 'frog-utils';
 
+import upgradeFunctions from './upgradeFunctions';
 import meta from './meta';
 
 const config = {
@@ -106,11 +107,12 @@ const mergeFunction = (object, dataFn, data) => {
 export default ({
   id: 'ac-stat',
   type: 'react-component',
-  configVersion: 1,
+  configVersion: 2,
   meta,
   config,
   configUI,
   dashboard: null,
+  upgradeFunctions,
   dataStructure,
   mergeFunction,
   validateConfig
