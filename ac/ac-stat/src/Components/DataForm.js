@@ -148,12 +148,13 @@ const RefreshDataset = ({
 
 const displayEntry = e => {
   const x = Number(e);
+  const between = (a, mini, maxi) => a > mini && a < maxi;
   if (Number.isNaN(x)) {
     return e;
-  } else if (x >= 1000 || x < 0.1) {
-    return x.toExponential(2);
-  } else {
+  } else if (between(x, 0.1, 1000) || between(x, -1000, -0.1)) {
     return x.toFixed(2);
+  } else {
+    return x.toExponential(2);
   }
 };
 
