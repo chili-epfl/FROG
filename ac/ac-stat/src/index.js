@@ -14,7 +14,7 @@ const config = {
     plotType: {
       type: 'string',
       title: 'Kind of plot to display:',
-      enum: ['all', 'dots', 'box', 'bar'],
+      enum: ['all', 'dots', 'box', 'histogram'],
       default: 'all'
     },
     doubleView: { type: 'boolean', title: 'Show two analysis components?' },

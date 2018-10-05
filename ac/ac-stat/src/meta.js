@@ -62,7 +62,10 @@ export default {
     },
     {
       title: 'male/female birth months',
-      config: {},
+      config: {
+        plotType: 'histogram',
+        sortData: true
+      },
       data: ((): Array<{ trace: string, x: string, y: string }> => {
         const months = [
           '01-janvier',
