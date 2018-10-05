@@ -187,7 +187,6 @@ const GraphStateless = props => {
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
-        {config.plotType !== 'all' && config.plotType}
         {config.plotType === 'all' && <PlotTypeSelector {...props} />}
         {data.columns.length > 1 && <SplitDataButton {...props} />}
       </div>
