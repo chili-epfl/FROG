@@ -9,7 +9,7 @@ export default {
   exampleData: [
     {
       title: '1 trace 1 axis',
-      config: { title: 'Graph1', plotType: 'all' },
+      config: { title: 'Graph1', plotType: ['plot', 'bar', 'box'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -25,7 +25,7 @@ export default {
     },
     {
       title: '1 trace 2 axis',
-      config: { title: 'Graph2', plotType: 'all' },
+      config: { title: 'Graph2', plotType: ['dots', 'box', 'bar'] },
       data: [
         { trace: 'dataset1', size: 1.5, sex: 'F' },
         { trace: 'dataset1', size: 1.54, sex: 'F' },
@@ -41,7 +41,7 @@ export default {
     },
     {
       title: '2 trace 1 axis',
-      config: { title: 'Graph3', plotType: 'all' },
+      config: { title: 'Graph3', plotType: ['dots', 'box', 'bar'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -63,7 +63,7 @@ export default {
     {
       title: 'male/female birth months',
       config: {
-        plotType: 'histogram',
+        plotType: ['bar'],
         sortData: true
       },
       data: ((): Array<{ trace: string, x: string, y: string }> => {
@@ -91,7 +91,11 @@ export default {
     },
     {
       title: 'official data',
-      config: { title: 'Graph3', plotType: 'all', editable: true },
+      config: {
+        title: 'Graph3',
+        plotType: ['dots', 'box', 'bar'],
+        editable: true
+      },
       data: [
         { trace: 'dataset1', x: 100.127591586473 },
         { trace: 'dataset2', x: 142.200326908982 },
