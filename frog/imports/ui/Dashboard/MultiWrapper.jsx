@@ -100,6 +100,7 @@ export const DashboardSelector: React.ComponentType<
 DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
+  object: Object,
   activity: ActivityDbT,
   names?: string[],
   children?: Function,
@@ -115,7 +116,8 @@ const MultiWrapper = (props: {
     children,
     users,
     instances,
-    session
+    session,
+    object
   } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboards || {});
@@ -153,6 +155,7 @@ const MultiWrapper = (props: {
             key={which + activity._id}
             users={users}
             instances={instances}
+            object={object}
           />
         ))}
     </DashboardSelector>

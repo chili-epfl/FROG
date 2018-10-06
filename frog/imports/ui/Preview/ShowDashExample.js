@@ -409,6 +409,14 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             <Viewer
               users={users}
               activity={this.activityDbObject}
+              object={{
+                activityData: {
+                  structure: 'all',
+                  payload: { all: { data: {}, config: {} } }
+                },
+                socialStructure: {},
+                globalStructure: { students: {}, studentIds: [] }
+              }}
               instances={instances}
               config={this.activityDbObject.data}
               state={this.state.data}
