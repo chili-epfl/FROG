@@ -252,12 +252,10 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       plane
     );
     const studentGroups = {};
-    const userGroups = Object.values(users).forEach((x, i) => {
+    values(users).forEach((x, i) => {
       studentGroups[x] = { group: groupName[i] };
     });
-    console.log(userGroups);
-    const socStruct = focusRole(userGroups);
-    console.log(socStruct);
+    const socStruct = focusRole(studentGroups);
     const object = {
       activityData: {
         structure: 'all',
