@@ -74,7 +74,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       style={
         LocalSettings.scaled
           ? { height: '100%', width: '100%', zoom: '50%' }
-          : {}
+          : { height: '100%', width: '100%' }
       }
     >
       <RunActivity

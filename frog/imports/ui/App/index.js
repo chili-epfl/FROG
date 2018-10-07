@@ -242,7 +242,6 @@ const FROGRouter = withRouter(
         return (
           <Switch>
             <Route path="/teacher/projector/:slug" component={StudentView} />
-            <Route path="/teacher/projector" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route

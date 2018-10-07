@@ -193,7 +193,7 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () =>
         window.open(
-          `/${session.slug}?debugLogin=Chen Li&follow=${
+          `/${session.slug}?followLogin=Chen Li&follow=${
             Meteor.user().username
           }`,
           uuid()
@@ -235,7 +235,7 @@ export const SessionUtilsButtonsModel = (
           `/multiFollow/${Meteor.user().username}?layout=2+1+1`,
           uuid()
         ),
-      text: 'Open 3 students+teacher+projector'
+      text: 'Open 2 students+teacher+projector'
     }
   },
   projector: {

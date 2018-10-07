@@ -32,7 +32,7 @@ const extractParam = (query, param) =>
 WebApp.connectHandlers.use('/multiFollow', (request, response) => {
   const root = process.env.ROOT_URL || 'http://localhost:3000/';
   const url = require('url').parse(request.url);
-  const layout = extractParam(url.query, 'layout');
+  const layout = url.query ? extractParam(url.query, 'layout') : '';
   const follow = url.pathname.substring(1);
   const template = `
 <!DOCTYPE html><html><head>
