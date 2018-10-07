@@ -28,7 +28,7 @@ import { LocalSettings } from '../../../api/settings';
 let lastNext = null;
 
 const throttledNext = sessionId => {
-  if (lastNext && new Date() - lastNext < 10000) {
+  if (lastNext && new Date() - lastNext < 10000 && !LocalSettings.debugLogin) {
     // eslint-disable-next-line no-alert
     const response = window.confirm(
       'You very recently pressed next activity. Do you want to advance once more?'
@@ -191,7 +191,13 @@ export const SessionUtilsButtonsModel = (
   },
   open1: {
     button: {
-      onClick: () => window.open(`/${session.slug}?debugLogin=Chen Li`, uuid()),
+      onClick: () =>
+        window.open(
+          `/${session.slug}?debugLogin=Chen Li&follow=${
+            Meteor.user().username
+          }`,
+          uuid()
+        ),
       text: 'Open one student window'
     }
   },
@@ -203,6 +209,33 @@ export const SessionUtilsButtonsModel = (
         );
       },
       text: 'Open 3 student windows'
+    }
+  },
+  open4win: {
+    button: {
+      onClick: () =>
+        window.open(`/multiFollow/${Meteor.user().username}`, uuid()),
+      text: 'Open 4 students'
+    }
+  },
+  open3plus1win: {
+    button: {
+      onClick: () =>
+        window.open(
+          `/multiFollow/${Meteor.user().username}?layout=3+1`,
+          uuid()
+        ),
+      text: 'Open 3 students+teacher'
+    }
+  },
+  open2plus1plus1win: {
+    button: {
+      onClick: () =>
+        window.open(
+          `/multiFollow/${Meteor.user().username}?layout=2+1+1`,
+          uuid()
+        ),
+      text: 'Open 3 students+teacher+projector'
     }
   },
   projector: {

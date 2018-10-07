@@ -165,20 +165,46 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        const username = query.login || query.researchLogin || query.debugLogin;
+        const username =
+          query.login ||
+          query.researchLogin ||
+          query.debugLogin ||
+          query.followLogin;
+        if (query.scaled) {
+          LocalSettings.scaled = true;
+        }
 
         if (this.state.mode !== 'loggingIn') {
           if (query.researchLogin) {
             LocalSettings.researchLogin = true;
-            LocalSettings.UrlCoda = '?researchLogin=' + query.researchLogin;
+            LocalSettings.UrlCoda =
+              '?researchLogin=' +
+              query.researchLogin +
+              '&scaled=' +
+              (!!LocalSettings.scaled).toString();
           } else if (query.debugLogin) {
-            LocalSettings.UrlCoda = '?debugLogin=' + query.debugLogin;
+            LocalSettings.debugLogin = true;
+            LocalSettings.UrlCoda =
+              '?debugLogin=' +
+              query.debugLogin +
+              '&scaled=' +
+              (!!LocalSettings.scaled).toString();
+          } else if (query.followLogin && query.follow) {
+            LocalSettings.UrlCoda =
+              '?followLogin=' +
+              query.followLogin +
+              '&follow=' +
+              query.follow +
+              '&scaled=' +
+              (!!LocalSettings.scaled).toString();
+            LocalSettings.follow = query.follow;
           }
           if (username) {
             this.login({
               username,
               token: query.token,
-              loginQuery: query.debugLogin || query.researchLogin
+              loginQuery:
+                query.debugLogin || query.researchLogin || query.followLogin
             });
           }
           if (!username && this.state.mode !== 'ready') {
@@ -216,17 +242,22 @@ const FROGRouter = withRouter(
         return (
           <Switch>
             <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/projector" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
-              render={() => (
-                <h3>
-                  Welcome to FROG. You are logged in as {Meteor.user().username}
-                  . If you want to access the teacher view, go to{' '}
-                  <Link to="/teacher">/teacher</Link>, otherwise go to the /SLUG
-                  of the session you are a student of
-                </h3>
-              )}
+              render={() =>
+                LocalSettings.follow ? (
+                  <StudentView />
+                ) : (
+                  <h3>
+                    Welcome to FROG. You are logged in as{' '}
+                    {Meteor.user().username}. If you want to access the teacher
+                    view, go to <Link to="/teacher">/teacher</Link>, otherwise
+                    go to the /SLUG of the session you are a student of
+                  </h3>
+                )
+              }
             />
           </Switch>
         );
