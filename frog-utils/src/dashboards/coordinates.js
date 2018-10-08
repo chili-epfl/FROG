@@ -18,14 +18,30 @@ const eventHandlers = { onMouseOver, onMouseOut };
 const eventHandler = [{ target: 'data', eventHandlers }];
 
 const Viewer = (props: DashboardViewerPropsT) => {
-  const { users, activity, state } = props;
+  const { users, activity, state, object } = props;
   const { coordinates } = state;
   const coordinateLabels = activity.data.answers || [];
   if (!coordinates || Object.keys(coordinates).length < 1) {
     return <p>No data to display</p>;
   } else {
     const noise = x => x + 0.5 * (2 * Math.random() - 1);
-    const instanceName = ins => (activity.plane === 1 ? users[ins] : ins);
+    const instanceName = ins => {
+      if (activity.plane === 1) {
+        return users[ins];
+      }
+      if (activity.plane === 2 && activity.groupingKey) {
+        const socStruct = object.socialStructure[activity.groupingKey];
+        if (!socStruct) {
+          return ins;
+        }
+        const students = socStruct[ins].map(
+          x => object.globalStructure.students[x]
+        );
+        return `${ins}: ${students.join(', ')}`;
+      }
+
+      return 'all';
+    };
     const data = Object.keys(coordinates).map(k => {
       const { x, y } = coordinates[k];
       return { x: noise(x), y: noise(y), label: '', name: instanceName(k) };
