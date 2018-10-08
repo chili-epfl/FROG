@@ -82,7 +82,7 @@ export const formatProduct = (
   config: Object,
   item: Object,
   _: any,
-  username: string
+  username?: string
 ) => {
   try {
     if (item && item.form) {
@@ -122,7 +122,8 @@ export const formatProduct = (
           (x, i) => `${stripTags(x)} ${answers[i]}, because ${form[i].text}. `
         )
         .join(' ');
-      const msg = `${username} answered the questions as follows: ${chatQA}`;
+      const msg = `${username ||
+        'Your partner'} answered the questions as follows: ${chatQA}`;
       return {
         questions,
         answers,
