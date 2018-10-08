@@ -2,6 +2,7 @@
 
 import { type ActivityPackageT, values } from 'frog-utils';
 
+import upgradeFunctions from './upgradeFunctions';
 import meta from './meta';
 
 const config = {
@@ -11,11 +12,15 @@ const config = {
       title: 'What is the title of the graph?',
       type: 'string'
     },
-    plotType: {
-      type: 'string',
-      title: 'Kind of plot to display:',
-      enum: ['all', 'dots', 'box', 'bar'],
-      default: 'all'
+    plotTypes: {
+      type: 'array',
+      title: 'Plots to display',
+      default: ['dots', 'box', 'histogram'],
+      items: {
+        type: 'string',
+        enum: ['dots', 'box', 'histogram']
+      },
+      uniqueItems: true
     },
     doubleView: { type: 'boolean', title: 'Show two analysis components?' },
     summary: {
@@ -26,12 +31,19 @@ const config = {
       type: 'boolean',
       title: 'Are students able to edit the table?'
     },
+    showTransformations: { type: 'boolean', title: 'Show transformations' },
+    sortData: { type: 'boolean', title: 'Sort data' },
     fixAxis: { type: 'boolean', title: 'Should the axis be fixed?' },
     dataSets: { type: 'string', title: 'Datasets' }
   }
 };
 
-const configUI = { dataSets: { 'ui:widget': 'textarea' } };
+const configUI = {
+  dataSets: { 'ui:widget': 'textarea' },
+  plotTypes: {
+    'ui:widget': 'checkboxes'
+  }
+};
 const validateConfig = [
   form => {
     if (!form.dataSets || form.dataSets.trim() === '') {
@@ -95,11 +107,12 @@ const mergeFunction = (object, dataFn, data) => {
 export default ({
   id: 'ac-stat',
   type: 'react-component',
-  configVersion: 1,
+  configVersion: 2,
   meta,
   config,
   configUI,
   dashboard: null,
+  upgradeFunctions,
   dataStructure,
   mergeFunction,
   validateConfig
