@@ -28,6 +28,14 @@ export default ({ data }: { data: Object }) => {
         }}
         users={{}}
         config={data.config}
+        object={{
+          activityData: {
+            structure: 'all',
+            payload: { all: { data: {}, config: {} } }
+          },
+          socialStructure: {},
+          globalStructure: { students: {}, studentIds: [] }
+        }}
         instances={[]}
       />
     );
