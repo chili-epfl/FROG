@@ -7,11 +7,13 @@ test('all correct formatProduct', () => {
   ).toEqual({
     answers: ['A', 'D'],
     answersIndex: [0, 1],
+    coordinates: { x: 0, y: 0 },
     correctCount: 2,
     correctQs: [true, true],
     maxCorrect: 2,
-    questions: ['A or B?', 'C or D?'],
-    coordinates: { x: 0, y: 0 }
+    msg:
+      'Your partner answered the questions as follows: A or B? A.  C or D? D.',
+    questions: ['A or B?', 'C or D?']
   });
 });
 
@@ -21,11 +23,12 @@ test('not all correct formatProduct', () => {
   ).toEqual({
     answers: [undefined, 'C'],
     answersIndex: [-1, 0],
+    coordinates: { x: 0, y: 0 },
     correctCount: 0,
     correctQs: [false, false],
     maxCorrect: 2,
-    questions: ['A or B?', 'C or D?'],
-    coordinates: { x: 0, y: 0 }
+    msg: 'Your partner answered the questions as follows: C or D? C.',
+    questions: ['A or B?', 'C or D?']
   });
 });
 

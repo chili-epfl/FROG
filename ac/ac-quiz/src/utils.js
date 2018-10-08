@@ -1,6 +1,6 @@
 // @flow
 
-import { compact } from 'lodash';
+import { compact, some } from 'lodash';
 import { entries } from 'frog-utils';
 
 const regex = /(&nbsp;|<([^>]+)>)/gi;
@@ -117,13 +117,19 @@ export const formatProduct = (
         ? correctQs.filter(x => x).length
         : undefined;
       const maxCorrect = questions.length;
-      const chatQA = questions
-        .map(
-          (x, i) => `${stripTags(x)} ${answers[i]}, because ${form[i].text}. `
+      const chatQA = compact(
+        questions.map(
+          (x, i) =>
+            answers[i] &&
+            `${stripTags(x)} ${answers[i]}${
+              form[i]?.text ? `, because ${form[i].text}` : ''
+            }. `
         )
-        .join(' ');
-      const msg = `${username ||
-        'Your partner'} answered the questions as follows: ${chatQA}`;
+      ).join(' ');
+      const msg = some(answers, x => x)
+        ? `${username ||
+            `Your partner`} answered the questions as follows: ${chatQA}`.trim()
+        : undefined;
       return {
         questions,
         answers,
