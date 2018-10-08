@@ -2,17 +2,22 @@
 import { focusStudent, values, type productOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
-  const { socialStructure } = object;
+  const { socialStructure, activityData } = object;
   const groups = Object.keys(socialStructure[configData.grouping]);
 
   const studentMapping = focusStudent(socialStructure);
-  let res = groups.reduce((acc, g) => ({ ...acc, [g]: [] }), {});
+  const res = groups.reduce((acc, g) => {
+    acc[g] = [];
+    return acc;
+  }, {});
 
-  values(object.activityData).forEach(inputProduct => {
-    Object.keys(inputProduct.payload).forEach(x => {
+  const hasMultipleIn = !activityData.payload;
+  const products = hasMultipleIn ? values(activityData) : [activityData];
+  products.forEach(product => {
+    Object.keys(product.payload).forEach(x => {
       const items = configData.wholeElement
-        ? inputProduct.payload[x].data
-        : Object.values(inputProduct.payload[x].data);
+        ? product.payload[x].data
+        : Object.values(product.payload[x].data);
       const group = studentMapping[x]
         ? studentMapping[x][configData.grouping]
         : x;
@@ -23,11 +28,11 @@ const operator = (configData, object) => {
     });
   });
 
-  res = Object.keys(res).reduce(
-    (acc, x) => ({ ...acc, [x]: { data: res[x], config: {} } }),
-    {}
-  );
-  return { structure: { groupingKey: configData.grouping }, payload: res };
+  const payload = Object.keys(res).reduce((acc, g) => {
+    acc[g] = { data: res[g], config: {} };
+    return acc;
+  }, {});
+  return { structure: { groupingKey: configData.grouping }, payload };
 };
 
 export default (operator: productOperatorRunnerT);
