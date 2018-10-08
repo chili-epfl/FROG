@@ -1,7 +1,10 @@
 // @flow
 
-import { compact } from 'lodash';
+import { compact, some } from 'lodash';
 import { entries } from 'frog-utils';
+
+const regex = /(&nbsp;|<([^>]+)>)/gi;
+const stripTags = html => html.replace(regex, '');
 
 export const exportData = (config: Object, { payload }: Object) => {
   const csv = Object.keys(payload).map(instanceId => {
@@ -75,7 +78,12 @@ export const computeProgress = (
   return nAnsweredQuestions / questions.length;
 };
 
-export const formatProduct = (config: Object, item: Object) => {
+export const formatProduct = (
+  config: Object,
+  item: Object,
+  _: any,
+  username?: string
+) => {
   try {
     if (item && item.form) {
       const { form } = item;
@@ -109,6 +117,19 @@ export const formatProduct = (config: Object, item: Object) => {
         ? correctQs.filter(x => x).length
         : undefined;
       const maxCorrect = questions.length;
+      const chatQA = compact(
+        questions.map(
+          (x, i) =>
+            answers[i] &&
+            `${stripTags(x)} ${answers[i]}${
+              form[i]?.text ? `, because ${form[i].text}` : ''
+            }. `
+        )
+      ).join(' ');
+      const msg = some(answers, x => x)
+        ? `${username ||
+            `Your partner`} answered the questions as follows: ${chatQA}`.trim()
+        : undefined;
       return {
         questions,
         answers,
@@ -116,10 +137,12 @@ export const formatProduct = (config: Object, item: Object) => {
         correctQs,
         correctCount,
         maxCorrect,
-        coordinates
+        coordinates,
+        msg
       };
     }
-  } catch (_) {
+  } catch (e) {
+    console.error(item, e);
     return item;
   }
 };
