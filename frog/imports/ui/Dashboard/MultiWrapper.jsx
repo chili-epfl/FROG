@@ -107,7 +107,8 @@ const MultiWrapper = (props: {
   users: Object,
   instances: any,
   dashboardData?: Object,
-  session?: Object
+  session?: Object,
+  object: Object
 }) => {
   const {
     dashboardData,
