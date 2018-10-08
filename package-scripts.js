@@ -68,11 +68,11 @@ module.exports = {
     },
     eslint: {
       default: fromRoot(
-        'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx .',
         'Running ESLint'
       ),
       fix: fromRoot(
-        'eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx .',
         'Running ESLint in Fix mode'
       )
     },
