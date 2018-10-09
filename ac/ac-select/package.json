@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-highlight-words": "0.12",
-    "react-highlighter": "0.4.2"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-highlight-words": "0.14.0",
+    "react-highlighter": "0.4.3"
   },
   "devDependencies": {
     "nps": "5.9.3"
