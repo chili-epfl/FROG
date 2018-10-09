@@ -14,6 +14,7 @@ import { withRouter } from 'react-router';
 
 import { setTeacherSession } from '../../api/sessions';
 import { LocalSettings } from '../../api/settings';
+import externalStyles from './styles';
 
 import {
   ToolTipComponent,
@@ -21,6 +22,7 @@ import {
 } from './utils/buttonUtils.js';
 
 const styles = {
+  ...externalStyles,
   textCenter: {
     textAlign: 'center'
   }
@@ -67,7 +69,9 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
       buttonsModel.restart,
       buttonsModel.removeStudents,
       buttonsModel.open1,
-      buttonsModel.open3,
+      buttonsModel.open4win,
+      buttonsModel.open3plus1win,
+      buttonsModel.open2plus1plus1win,
       buttonsModel.export,
       buttonsModel.download
     ];
@@ -152,7 +156,7 @@ const SessionUtils = ({
         <DashToggle visible={visible} toggleVisible={toggle} />
       </Grid>
       <Grid item xs={4} style={{ textAlign: 'right' }}>
-        <UtilsMenu buttonsModel={buttonsModel} />
+        <UtilsMenu classes={classes} buttonsModel={buttonsModel} />
       </Grid>
     </Grid>
   );

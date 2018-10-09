@@ -118,6 +118,30 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
   return [users, object, dashData];
 });
 
+Meteor.publishComposite('follow', function(follow) {
+  if (
+    process.env.NODE_ENV === 'production' &&
+    !Meteor.settings.public.friendlyProduction
+  ) {
+    return this.ready();
+  }
+  return {
+    find() {
+      return Meteor.users.find(
+        { username: follow },
+        { fields: { 'profile.controlSession': 1, username: 1 } }
+      );
+    },
+    children: [
+      {
+        find(user) {
+          return Sessions.find(user.profile.controlSession);
+        }
+      }
+    ]
+  };
+});
+
 publishComposite('session_activities', function(slug) {
   return {
     find() {
