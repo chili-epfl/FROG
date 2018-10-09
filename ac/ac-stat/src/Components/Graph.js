@@ -149,21 +149,19 @@ const StatTable = ({ rawData }) => (
   </Table>
 );
 
-const PlotTypeSelector = ({ plotTypes, plot, setPlot, logger }) => (
+const PlotTypeSelector = ({ plotTypes, plotType, setPlot, logger }) => (
   <Select
-    value={plot}
+    value={plotType}
     onChange={e => {
       logger({ type: 'change diagram', itemId: e.target.value });
       setPlot(e.target.value);
     }}
   >
-    {plotTypes.includes('histogram') && (
-      <MenuItem value="histogram" selected>
-        Histogram
+    {plotTypes.map(t => (
+      <MenuItem key={t} value={t} selected={t === plotType}>
+        {t.charAt(0).toUpperCase() + t.slice(1)}
       </MenuItem>
-    )}
-    {plotTypes.includes('dots') && <MenuItem value="dots">Dots</MenuItem>}
-    {plotTypes.includes('box') && <MenuItem value="box">Boxplot</MenuItem>}
+    ))}
   </Select>
 );
 
@@ -184,13 +182,18 @@ const GraphStateless = props => {
   const { config, data, plot, axis, filter, classes } = props;
   if (!data || !data.columns || !data.values) return <p>No data</p>;
   const rawData = data.values.map(e => e[0]);
-  const plotType = config.plotTypes?.length === 1 ? config.plotTypes[0] : plot;
+  const plotType = !plot ? config.plotTypes[0] : plot || 'dots';
   const dataTr = transformData(data, plotType, filter, config.sortData);
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
         {config.plotTypes?.length > 1 && (
-          <PlotTypeSelector plotTypes={config.plotTypes} {...props} />
+          <PlotTypeSelector
+            logger={props.logger}
+            setPlot={props.setPlot}
+            plotTypes={config.plotTypes}
+            plotType={plotType}
+          />
         )}
         {data.columns.length > 1 && <SplitDataButton {...props} />}
       </div>
@@ -201,11 +204,11 @@ const GraphStateless = props => {
           data={dataTr}
           layout={{
             xaxis:
-              config.fixAxis && plot === 'histogram'
+              config.fixAxis && plotType === 'histogram'
                 ? { title: config.xLabel, range: axis }
                 : { title: config.xLabel },
             yaxis:
-              config.fixAxis && plot !== 'histogram'
+              config.fixAxis && plotType !== 'histogram'
                 ? { title: config.yLabel, range: axis }
                 : { title: config.yLabel },
             margin: { t: 30, l: 30, r: 30, b: 30 },
@@ -221,7 +224,7 @@ const GraphStateless = props => {
 };
 
 export default compose(
-  withState('plot', 'setPlot', 'histogram'),
+  withState('plot', 'setPlot', null),
   withState('filter', 'setFilter', false),
   withStyles(styles)
 )(GraphStateless);
