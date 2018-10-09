@@ -8,5 +8,5 @@ export const LocalSettings = ({ UrlCoda: '' }: {
   UrlCoda: string,
   follow?: string,
   scaled?: boolean,
-  api: boolean,
+  api?: boolean
 });

@@ -11,7 +11,6 @@ import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import { LocalSettings } from '../../api/settings';
 import { Sessions } from '../../api/sessions';
-import { LocalSettings } from '../../api/settings';
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {
