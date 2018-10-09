@@ -9,6 +9,7 @@ import { DashboardData, Activities } from '../imports/api/activities';
 import { DashboardStates } from '../imports/api/cache';
 import { regenerateState } from '../imports/api/mergeLogData';
 import { serverConnection } from './share-db-manager';
+import { Objects } from '../imports/api/objects';
 
 const interval = {};
 const subscriptions = {};
@@ -54,19 +55,18 @@ export default () => {
   ) {
     const id = uuid();
     const dashId = activityId + '-' + dashboard;
+    const archived = DashboardData.findOne({ dashId });
+    if (archived) {
+      this.added('dashboard', dashId, { data: archived.data });
+      this.ready();
+      return;
+    }
     const aT = activityTypesObj[activityType];
     const act = config
       ? { _id: activityId, data: config }
       : Activities.findOne(activityId);
     if (DashboardStates[dashId] === undefined) {
-      const archived = DashboardData.findOne({ dashId });
-      if (archived) {
-        this.added('dashboard', dashId, { data: archived.data });
-        this.ready();
-        return;
-      } else {
-        regenerateState(aT, activityId, dashboard);
-      }
+      regenerateState(aT, activityId, dashboard);
     }
     set(subscriptions, [dashId, id], this);
     const aTDash = aT.dashboards[dashboard];
@@ -97,6 +97,8 @@ export default () => {
       }
     });
   });
+
+  Meteor.publish('dashboard.object', id => Objects.find(id));
 };
 
 export const archiveDashboardState = (activityId: string) => {

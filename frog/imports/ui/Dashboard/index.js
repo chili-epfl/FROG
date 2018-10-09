@@ -86,6 +86,7 @@ export const DashboardComp = withTracker(props => {
       props.name,
       props.config
     );
+    (connection || Meteor).subscribe('dashboard.object', props.activity._id);
     const state =
       dashboardCollection &&
       dashboardCollection.findOne(props.activity._id + '-' + props.name);

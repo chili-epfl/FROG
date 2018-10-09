@@ -58,12 +58,10 @@ export default withTracker(() => {
     'activities',
     'connections',
     'graphs',
-    'objects',
     'operators',
     'users',
     'sessions',
     'globalSettings',
-    'dashboardData',
     'externalOperators'
   ];
 
