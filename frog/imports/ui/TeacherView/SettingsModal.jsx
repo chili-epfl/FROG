@@ -46,7 +46,7 @@ class SettingsModal extends React.Component {
   render() {
     const { onClose, classes } = this.props;
     return (
-      <Dialog open onClose={onClose}>
+      <Dialog className={classes.maybeZoom} open onClose={onClose}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton color="inherit" onClick={onClose} aria-label="Close">
