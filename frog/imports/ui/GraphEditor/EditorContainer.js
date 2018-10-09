@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from 'react-tooltip';
 import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 
 import { removeActivity } from '/imports/api/remoteActivities';
 import { removeGraph } from '/imports/api/remoteGraphs';
@@ -172,4 +174,8 @@ class Editor extends React.Component<Object, StateT> {
   }
 }
 
-export default withStyles(styles)(connect(Editor));
+const SubscriptionWrapper = withTracker(({ store: { graphId } }) =>
+  Meteor.subscribe('teacher.graph', graphId)
+)(Editor);
+
+export default withStyles(styles)(connect(SubscriptionWrapper));

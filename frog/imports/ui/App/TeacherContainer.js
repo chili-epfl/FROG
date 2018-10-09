@@ -52,21 +52,15 @@ const WithTopBar = () => (
   </React.Fragment>
 );
 
-export default withTracker(() => {
-  const collections = [
-    'activities',
-    'connections',
-    'graphs',
-    'objects',
-    'operators',
-    'users',
-    'products',
-    'sessions',
-    'globalSettings',
-    'dashboardData',
-    'externalOperators'
-  ];
+const collections = [
+  'graphs',
+  'sessions',
+  'globalSettings',
+  'externalOperators',
+  'users'
+];
 
+export default withTracker(() => {
   if (!Meteor.user().role) {
     Meteor.call('make.teacher', Meteor.userId());
   }

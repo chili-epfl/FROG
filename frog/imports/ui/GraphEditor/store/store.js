@@ -241,7 +241,7 @@ export default class Store {
               !source ||
               !target
             ) {
-              console.error(
+              console.warn(
                 'Cannot find connection source/target, or source/target is a connection'
               );
               return undefined;

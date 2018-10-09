@@ -155,7 +155,7 @@ export const renameGraph = (graphId: string, name: string) =>
 
 // updating graph from graph editor
 export const mergeGraph = (mergeObj: Object) => {
-  Meteor.call('graph.merge', mergeObj);
+  // Meteor.call('graph.merge', mergeObj);
 };
 
 export const setCurrentGraph = (graphId: string) => {

@@ -36,6 +36,18 @@ const teacherPublishOwn = (publish, collection) => {
 };
 
 export default function() {
+  Meteor.publish('teacher.graph', function(graphId) {
+    const graph = Graphs.findOne(graphId);
+    if (!graph || !graph.ownerId === this.userID) {
+      return this.ready();
+    }
+    return [
+      Activities.find({ graphId }),
+      Operators.find({ graphId }),
+      Connections.find({ graphId })
+    ];
+  });
+
   teacherPublish('activities', Activities);
   teacherPublish('operators', Operators);
   teacherPublish('externalOperators', ExternalOperators);
