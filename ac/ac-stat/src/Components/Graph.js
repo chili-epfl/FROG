@@ -184,13 +184,13 @@ const GraphStateless = props => {
   const { config, data, plot, axis, filter, classes } = props;
   if (!data || !data.columns || !data.values) return <p>No data</p>;
   const rawData = data.values.map(e => e[0]);
-  const plotTypes = config.plotTypes?.length === 1 ? config.plotTypes : plot;
-  const dataTr = transformData(data, plotTypes, filter, config.sortData);
+  const plotType = config.plotTypes?.length === 1 ? config.plotTypes[0] : plot;
+  const dataTr = transformData(data, plotType, filter, config.sortData);
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
         {config.plotTypes?.length > 1 && (
-          <PlotTypeSelector plotTypes={config.plotTypes || []} {...props} />
+          <PlotTypeSelector plotTypes={config.plotTypes} {...props} />
         )}
         {data.columns.length > 1 && <SplitDataButton {...props} />}
       </div>
