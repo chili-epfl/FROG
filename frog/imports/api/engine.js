@@ -51,7 +51,6 @@ export const runNextActivity = (sessionId: string) => {
       return act.startTime + act.length < newTimeInGraph;
     });
     justClosedActivities.forEach(act => {
-      Meteor.call('reactive.to.product', act);
       Meteor.call('archive.dashboard.state', act);
     });
     const openActivityIds = openActivities.map(x => x._id);
