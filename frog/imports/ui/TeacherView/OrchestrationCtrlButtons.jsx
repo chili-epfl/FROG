@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import { LocalSettings } from '../../api/settings';
 import {
   ControlButton,
   OrchestrationButtonsModel
@@ -39,6 +40,9 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
           ))}
         </ul>
       </Grid>
+      {LocalSettings.debugLogin && (
+        <ControlButton btnModel={buttonsModel.restart} />
+      )}
       <Grid
         item
         xs={2}
