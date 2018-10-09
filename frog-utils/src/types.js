@@ -188,7 +188,8 @@ export type DashboardViewerPropsT = {
   users: { [uid: string]: string },
   activity: ActivityDbT,
   instances: Array<string>,
-  state: any
+  state: any,
+  object: ObjectT & GlobalStructureT
 };
 
 export type productOperatorT = {

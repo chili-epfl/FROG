@@ -27,7 +27,8 @@ type DashboardCompPropsT = {
   name: string,
   state?: any,
   ready: boolean,
-  config?: Object
+  config?: Object,
+  object: Object
 };
 
 const RawDashboardComp = ({
@@ -36,7 +37,8 @@ const RawDashboardComp = ({
   instances,
   name,
   state,
-  ready
+  ready,
+  object
 }: DashboardCompPropsT) => {
   if (!ready && !state) {
     return <CircularProgress />;
@@ -55,6 +57,7 @@ const RawDashboardComp = ({
         users,
         activity,
         instances,
+        object,
         LearningItem: dataFn.LearningItem
       }}
     />
@@ -110,7 +113,7 @@ export const DashboardReactiveWrapper = withTracker(props => {
     (acc, u) => ({ ...acc, [u._id]: u.username }),
     {}
   );
-  return { users, instances, activity, dashboardData, session };
+  return { users, instances, object, activity, dashboardData, session };
 })(MultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<

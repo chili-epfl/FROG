@@ -11,6 +11,7 @@ import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
 import { LocalSettings } from '../../api/settings';
 import { Sessions } from '../../api/sessions';
+import { LocalSettings } from '../../api/settings';
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {
@@ -165,7 +166,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
     const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
-    const formatProduct = activityType.formatProduct;
+    const formatProduct = LocalSettings.api
+      ? activityType.formatProduct
+      : undefined;
     const transform = formatProduct
       ? x =>
           formatProduct(

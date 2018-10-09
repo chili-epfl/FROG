@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
 import { uuid } from 'frog-utils';
@@ -6,8 +8,10 @@ import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import { LocalSettings } from '../../api/settings';
 
-export default ({ data }) => {
+export default ({ data }: { data: Object }) => {
+  LocalSettings.api = true;
   if (data.callType === 'dashboard') {
     return (
       <DashMultiWrapper
@@ -18,10 +22,20 @@ export default ({ data }) => {
             data.activityId || 'default'
           ].join('-'),
           activityType: data.activityType,
-          data: data.config
+          data: data.config,
+          length: 900,
+          startTime: 0
         }}
-        users={[]}
+        users={{}}
         config={data.config}
+        object={{
+          activityData: {
+            structure: 'all',
+            payload: { all: { data: {}, config: {} } }
+          },
+          socialStructure: {},
+          globalStructure: { students: {}, studentIds: [] }
+        }}
         instances={[]}
       />
     );
@@ -96,6 +110,9 @@ export default ({ data }) => {
         groupingValue={data.instanceId}
         activityData={activityData}
         rawData={data.rawData}
+        sessionId={data.activityId}
+        activityId={data.activityId}
+        groupingKey="group"
       />
     );
   }
