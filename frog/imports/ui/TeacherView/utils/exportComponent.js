@@ -92,6 +92,11 @@ const slugo = input =>
     .replace(/(\s|\.)/g, '-')
     .toLowerCase();
 
+const productPromise = id =>
+  new Promise(resolve =>
+    Meteor.call('reactive.to.product', id, product => resolve(product))
+  );
+
 export const exportSession = (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
   const activities = Activities.find({ graphId: session.graphId }).fetch();
@@ -99,8 +104,11 @@ export const exportSession = (sessionId: string) => {
   const files = UploadList.find({ sessionId }).fetch();
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
-  activities.forEach(act => {
-    const product = Products.findOne(act._id);
+  activities.forEach(async act => {
+    let product = Products.findOne(act._id);
+    if (!product) {
+      product = await productPromise(act._id);
+    }
     const object = Objects.findOne(act._id);
     const img = zip.folder(
       `${activitySequence[act._id]}-${slugo(act.title || '').slice(0, 20)}__p${
