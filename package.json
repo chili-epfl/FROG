@@ -60,6 +60,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "yarn": "^1.9.4"
+    "yarn": "^1.10.1"
   }
 }

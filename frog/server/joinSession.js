@@ -22,5 +22,4 @@ function sessionJoin(slug: string) {
   ensureReactive(session._id, this.userId);
   return { result: 'success' };
 }
-
 Meteor.methods({ 'session.join': sessionJoin });

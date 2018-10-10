@@ -7,6 +7,6 @@ export const LocalSettings = ({ UrlCoda: '' }: {
   debugLogin?: boolean,
   UrlCoda: string,
   follow?: string,
-  scaled?: boolean,
+  scaled?: number,
   api?: boolean
 });

@@ -8,6 +8,7 @@ import * as React from 'react';
 import Modal from 'react-modal';
 import Loadable from 'react-loadable';
 import path from 'path';
+import queryString from 'query-string';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -84,11 +85,8 @@ const FROGRouter = withRouter(
       }
     }
 
-    componentWillMount() {
-      this.update();
-    }
-
     componentDidMount() {
+      this.update();
       Modal.setAppElement('#render-target');
       window.notReady = this.notReady;
     }
@@ -172,34 +170,37 @@ const FROGRouter = withRouter(
           query.debugLogin ||
           query.followLogin;
         if (query.scaled) {
-          LocalSettings.scaled = true;
+          LocalSettings.scaled = parseInt(query.scaled, 10) || 50;
         }
 
         if (this.state.mode !== 'loggingIn') {
           if (query.researchLogin) {
-            LocalSettings.researchLogin = true;
+            LocalSettings.researchLogin = query.researchLogin;
             LocalSettings.UrlCoda =
-              '?researchLogin=' +
-              query.researchLogin +
-              '&scaled=' +
-              (!!LocalSettings.scaled).toString();
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                researchLogin: query.researchLogin
+              });
           } else if (query.debugLogin) {
             LocalSettings.debugLogin = true;
             LocalSettings.UrlCoda =
-              '?debugLogin=' +
-              query.debugLogin +
-              '&scaled=' +
-              (!!LocalSettings.scaled).toString();
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                debugLogin: query.debugLogin
+              });
           } else if (query.followLogin && query.follow) {
-            LocalSettings.UrlCoda =
-              '?followLogin=' +
-              query.followLogin +
-              '&follow=' +
-              query.follow +
-              '&scaled=' +
-              (!!LocalSettings.scaled).toString();
             LocalSettings.follow = query.follow;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                follow: query.follow,
+                followLogin: query.followLogin
+              });
           }
+
           if (username) {
             this.login({
               username,

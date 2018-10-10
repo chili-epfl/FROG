@@ -2,7 +2,11 @@ import blue from '@material-ui/core/colors/blue';
 import { LocalSettings } from '../../api/settings';
 
 const styles = theme => ({
-  maybeZoom: LocalSettings.scaled ? { zoom: '50%' } : {},
+  maybeZoom: LocalSettings.scaled
+    ? {
+        zoom: LocalSettings.scaled + '%'
+      }
+    : {},
   root: {
     flexGrow: 1,
     padding: 0,
