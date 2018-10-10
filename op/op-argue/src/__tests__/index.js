@@ -80,3 +80,26 @@ test('test 4', () =>
     ['s1', 's4', 's5'],
     ['s2', 's3']
   ]));
+
+test('test empty', () =>
+  expect(
+    operator(
+      {},
+      {
+        activityData: {
+          structure: 'all',
+          payload: {
+            all: {
+              data: {},
+              config: {}
+            }
+          }
+        },
+        socialStructure: {},
+        globalStructure: {
+          studentIds: [],
+          students: {}
+        }
+      }
+    )
+  ).toEqual({ group: {} }));

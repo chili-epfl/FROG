@@ -19,3 +19,25 @@ lodash.shuffle = jest.fn(x => x.sort());
 test('Works', () => {
   expect(operator(configData, object)).toEqual(expectedOutput);
 });
+
+test('test empty', () =>
+  expect(
+    operator(configData, {
+      socialStructure: {},
+      globalStructure: {
+        studentIds: [],
+        students: {}
+      }
+    })
+  ).toEqual({ group: {}, role: {} }));
+
+test('test almost empty', () =>
+  expect(
+    operator(configData, {
+      socialStructure: {},
+      globalStructure: {
+        studentIds: ['a'],
+        students: {}
+      }
+    })
+  ).toEqual({ group: { '0': ['a'] }, role: { chef: ['a'] } }));
