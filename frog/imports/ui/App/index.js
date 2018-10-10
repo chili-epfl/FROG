@@ -67,7 +67,8 @@ const FROGRouter = withRouter(
         | 'error'
         | 'waiting'
         | 'studentlist'
-        | 'nostudentlist',
+        | 'nostudentlist'
+        | 'tooLate',
       settings?: Object
     }
   > {
@@ -221,6 +222,8 @@ const FROGRouter = withRouter(
                 (err, result) => {
                   if (err || result === -1) {
                     this.setState({ mode: 'nostudentlist' });
+                  } else if (result === 'tooLate') {
+                    this.setState({ mode: 'tooLate' });
                   } else {
                     this.setState({ settings: result, mode: 'studentlist' });
                   }
@@ -233,6 +236,9 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      if (this.state.mode === 'tooLate') {
+        return <h1>Too late to join this session</h1>;
+      }
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
         return <Redirect to={this.props.location.pathname} />;
