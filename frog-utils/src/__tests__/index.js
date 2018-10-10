@@ -1,4 +1,5 @@
 import { flattenOne, splitPathObject } from '..';
+
 jest.mock(
   '..',
   () => require.requireActual('../../../__mocks__/frog-utils').default
