@@ -163,7 +163,6 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        console.log(query);
         const username =
           query.login ||
           query.researchLogin ||
