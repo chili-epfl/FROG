@@ -71,7 +71,7 @@ const mergeFunction = (object, dataFn, data) => {
   const { data: incoming, config: configObj } = object;
 
   let dataset = [];
-  if (configObj.dataSets) {
+  if (configObj.dataSets && configObj.editable) {
     dataset = JSON.parse(configObj.dataSets);
   }
   [...(incoming || []), ...dataset].forEach(({ trace, ...rest }) => {
