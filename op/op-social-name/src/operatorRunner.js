@@ -25,7 +25,13 @@ const operator = (
     return { ...acc, [stud]: attribs };
   }, {});
 
-  return focusRole(studentStruct);
+  const result = focusRole(studentStruct);
+  groupingKeys.forEach(x => {
+    if (result[x] === undefined) {
+      result[x] = {};
+    }
+  });
+  return result;
 };
 
 export default (operator: socialOperatorRunnerT);

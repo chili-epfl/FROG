@@ -123,3 +123,26 @@ test('test 200', () =>
   expect(
     time(() => operator({ matching: '1,1;2,2' }, getRandomTest(200)))
   ).toEqual(true));
+
+test('test empty', () =>
+  expect(
+    operator(
+      {},
+      {
+        activityData: {
+          structure: 'all',
+          payload: {
+            all: {
+              data: {},
+              config: {}
+            }
+          }
+        },
+        socialStructure: {},
+        globalStructure: {
+          studentIds: [],
+          students: {}
+        }
+      }
+    )
+  ).toEqual({ group: {} }));

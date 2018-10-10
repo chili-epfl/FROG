@@ -1,5 +1,10 @@
 import { flattenOne, splitPathObject } from '..';
 
+jest.mock(
+  '..',
+  () => require.requireActual('../../../__mocks__/frog-utils').default
+);
+
 test('flattenOne', () => {
   expect(flattenOne([1, 2, 3])).toEqual([1, 2, 3]);
   expect(flattenOne([1, [2, 3], 4])).toEqual([1, 2, 3, 4]);
