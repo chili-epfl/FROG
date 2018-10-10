@@ -75,10 +75,6 @@ class SettingsModal extends React.Component {
               }}
               onSubmit={({ formData: f }) => {
                 updateSession(f, this.props.session);
-                this.formData = {
-                  ...this.formData,
-                  studentlist: cleanStudentList(this.formData.studentlist)
-                };
               }}
               schema={{
                 type: 'object',
