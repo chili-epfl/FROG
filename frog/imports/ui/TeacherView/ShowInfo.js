@@ -6,13 +6,15 @@ import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 
 import { connect } from '../GraphEditor/store';
-import { Objects } from '../../api/objects';
 import { Activities } from '../../api/activities';
 import { Operators } from '../../api/operators';
 import { downloadExport } from './utils/exportComponent';
 
-class InfoComponent extends React.Component<any, { product: ?Object }> {
-  state = { product: undefined };
+class InfoComponent extends React.Component<
+  any,
+  { product: ?Object, object: ?Object }
+> {
+  state = { product: undefined, object: undefined };
   inFlight = false;
 
   constructor(props) {
@@ -35,17 +37,20 @@ class InfoComponent extends React.Component<any, { product: ?Object }> {
   update(id) {
     if (!this.inFlight) {
       this.inFlight = true;
-      this.setState({ product: undefined });
-      Meteor.call('get.product', id, (error, product) => {
-        this.setState({ product });
+      this.setState({ product: undefined, object: undefined });
+      Meteor.call('get.object.product', id, (error, result) => {
+        if (Array.isArray(result)) {
+          this.setState({ object: result[0], product: result[1] });
+        }
         this.inFlight = false;
       });
     }
   }
 
   render() {
-    const { showInfo, cancelInfo, item, object } = this.props;
+    const { showInfo, cancelInfo, item } = this.props;
     const product = this.state?.product;
+    const object = this.state?.object;
     if (!showInfo) {
       return null;
     }
@@ -62,7 +67,11 @@ class InfoComponent extends React.Component<any, { product: ?Object }> {
           <li>State: {item.state}</li>
           {product && (
             <li>
-              <A onClick={() => downloadExport(item, object, product)}>
+              <A
+                onClick={() =>
+                  downloadExport(item, object || {}, product || {})
+                }
+              >
                 Export data
               </A>
             </li>
@@ -97,7 +106,6 @@ const ShowInfoConnect = withTracker(({ showInfo, cancelInfo }) => {
       : Operators.findOne(showInfo.id);
   return {
     item,
-    object: Objects.findOne(showInfo.id),
     showInfo,
     cancelInfo
   };
