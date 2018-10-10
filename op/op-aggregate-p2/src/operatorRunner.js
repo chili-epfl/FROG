@@ -1,4 +1,3 @@
-// @flow
 import { focusStudent, values, type productOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
