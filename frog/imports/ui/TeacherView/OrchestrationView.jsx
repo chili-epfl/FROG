@@ -30,7 +30,7 @@ const styles = {
   },
   maybeScaled: LocalSettings.scaled
     ? {
-        zoom: '50%'
+        zoom: LocalSettings.scaled + '%'
       }
     : {}
 };
