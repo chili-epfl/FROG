@@ -12,6 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardComp } from './index';
 import { ErrorBoundary } from '../App/ErrorBoundary';
+import { teacherLogger } from '../../api/logs';
 
 const styles = theme => ({
   root: {
@@ -99,14 +100,26 @@ export const DashboardSelector: React.ComponentType<
 DashboardSelector.displayName = 'DashboardSelector';
 
 const MultiWrapper = (props: {
+  object: Object,
   activity: ActivityDbT,
   names?: string[],
   children?: Function,
   users: Object,
   instances: any,
-  dashboardData?: Object
+  dashboardData?: Object,
+  session?: Object,
+  object: Object
 }) => {
-  const { dashboardData, activity, names, children, users, instances } = props;
+  const {
+    dashboardData,
+    activity,
+    names,
+    children,
+    users,
+    instances,
+    session,
+    object
+  } = props;
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboards || {});
   if (isEmpty(dashNames)) {
@@ -114,7 +127,18 @@ const MultiWrapper = (props: {
   }
 
   return (
-    <DashboardSelector dashNames={dashNames} onChange={() => {}}>
+    <DashboardSelector
+      dashNames={dashNames}
+      onChange={id => {
+        if (session) {
+          teacherLogger(
+            session._id,
+            'teacher.switchActivityDashboard',
+            activity._id + '-' + dashNames[id]
+          );
+        }
+      }}
+    >
       {children ||
         (which => (
           <DashboardComp
@@ -132,6 +156,7 @@ const MultiWrapper = (props: {
             key={which + activity._id}
             users={users}
             instances={instances}
+            object={object}
           />
         ))}
     </DashboardSelector>

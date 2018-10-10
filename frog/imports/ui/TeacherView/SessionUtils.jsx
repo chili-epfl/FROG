@@ -13,6 +13,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router';
 
 import { setTeacherSession } from '../../api/sessions';
+import { LocalSettings } from '../../api/settings';
+import externalStyles from './styles';
 
 import {
   ToolTipComponent,
@@ -20,6 +22,7 @@ import {
 } from './utils/buttonUtils.js';
 
 const styles = {
+  ...externalStyles,
   textCenter: {
     textAlign: 'center'
   }
@@ -65,6 +68,10 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
       buttonsModel.settings,
       buttonsModel.restart,
       buttonsModel.removeStudents,
+      buttonsModel.open1,
+      buttonsModel.open4win,
+      buttonsModel.open3plus1win,
+      buttonsModel.open2plus1plus1win,
       buttonsModel.export,
       buttonsModel.download
     ];
@@ -109,7 +116,9 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              this.props.history.push('/teacher/orchestration');
+              this.props.history.push(
+                '/teacher/orchestration' + LocalSettings.UrlCoda
+              );
               setTeacherSession(undefined);
             }}
           >
@@ -147,7 +156,7 @@ const SessionUtils = ({
         <DashToggle visible={visible} toggleVisible={toggle} />
       </Grid>
       <Grid item xs={4} style={{ textAlign: 'right' }}>
-        <UtilsMenu buttonsModel={buttonsModel} />
+        <UtilsMenu classes={classes} buttonsModel={buttonsModel} />
       </Grid>
     </Grid>
   );

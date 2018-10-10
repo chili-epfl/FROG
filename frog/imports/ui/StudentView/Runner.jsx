@@ -9,6 +9,7 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj, activityRunners } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
+import { LocalSettings } from '../../api/settings';
 import { Sessions } from '../../api/sessions';
 import ReactiveHOC from './ReactiveHOC';
 
@@ -69,23 +70,31 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     Meteor.userId() !== Sessions.findOne(sessionId)?.ownerId;
 
   const Torun = (
-    <RunActivity
-      key={reactiveId}
-      activityTypeId={activity.activityType}
-      {...{
-        reactiveId,
-        logger,
-        stream,
-        activityData,
-        groupingValue,
-        sessionId,
-        readOnly
-      }}
-      activityId={activity._id}
-      username={Meteor.user().username}
-      userid={Meteor.userId()}
-      groupingKey={activity.groupingKey}
-    />
+    <div
+      style={
+        LocalSettings.scaled
+          ? { height: '100%', width: '100%', zoom: '50%' }
+          : { height: '100%', width: '100%' }
+      }
+    >
+      <RunActivity
+        key={reactiveId}
+        activityTypeId={activity.activityType}
+        {...{
+          reactiveId,
+          logger,
+          stream,
+          activityData,
+          groupingValue,
+          sessionId,
+          readOnly
+        }}
+        activityId={activity._id}
+        username={Meteor.user().username}
+        userid={Meteor.userId()}
+        groupingKey={activity.groupingKey}
+      />
+    </div>
   );
 
   if (single) {
@@ -156,7 +165,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
     const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
-    const formatProduct = activityType.formatProduct;
+    const formatProduct = LocalSettings.api
+      ? activityType.formatProduct
+      : undefined;
     const transform = formatProduct
       ? x =>
           formatProduct(
@@ -167,15 +178,18 @@ export class RunActivity extends React.Component<PropsT, {}> {
           )
       : undefined;
 
-    this.ActivityToRun = ReactiveHOC(reactiveId, {
+    this.ActivityToRun = ReactiveHOC(
+      reactiveId,
+      undefined,
       readOnly,
+      undefined,
       meta,
+      undefined,
       stream,
       sessionId,
       transform,
-      rawData,
-      userId: Meteor.userId()
-    })(RunComp);
+      rawData
+    )(RunComp);
   }
 
   componentDidMount() {

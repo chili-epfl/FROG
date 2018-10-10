@@ -41,7 +41,7 @@ const styles = () => ({
   }
 });
 
-const transformData = (data, type, filtered) => {
+const transformData = (data, type, filtered, sortData) => {
   const result = [];
   if (filtered && data.columns.length > 1) {
     switch (type) {
@@ -103,6 +103,9 @@ const transformData = (data, type, filtered) => {
     }
   } else {
     const formatData = data.values.map(entry => entry[0]);
+    if (sortData) {
+      formatData.sort();
+    }
     switch (type) {
       case 'dots':
         result.push({
@@ -146,19 +149,19 @@ const StatTable = ({ rawData }) => (
   </Table>
 );
 
-const PlotTypeSelector = ({ plot, setPlot, logger }) => (
+const PlotTypeSelector = ({ plotTypes, plotType, setPlot, logger }) => (
   <Select
-    value={plot}
+    value={plotType}
     onChange={e => {
       logger({ type: 'change diagram', itemId: e.target.value });
       setPlot(e.target.value);
     }}
   >
-    <MenuItem value="histogram" selected>
-      Histogram
-    </MenuItem>
-    <MenuItem value="dots">Dots</MenuItem>
-    <MenuItem value="box">Box</MenuItem>
+    {plotTypes.map(t => (
+      <MenuItem key={t} value={t} selected={t === plotType}>
+        {t.charAt(0).toUpperCase() + t.slice(1)}
+      </MenuItem>
+    ))}
   </Select>
 );
 
@@ -177,15 +180,21 @@ const SplitDataButton = ({ filter, setFilter, logger }) => (
 
 const GraphStateless = props => {
   const { config, data, plot, axis, filter, classes } = props;
-  if (!data || !data.columns || !data.values) return;
+  if (!data || !data.columns || !data.values) return <p>No data</p>;
   const rawData = data.values.map(e => e[0]);
-  const plotType = config.plotType !== 'all' ? config.plotType : plot;
-  const dataTr = transformData(data, plotType, filter);
+  const plotType = !plot ? config.plotTypes[0] : plot || 'dots';
+  const dataTr = transformData(data, plotType, filter, config.sortData);
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
-        {config.plotType !== 'all' && config.plotType}
-        {config.plotType === 'all' && <PlotTypeSelector {...props} />}
+        {config.plotTypes?.length > 1 && (
+          <PlotTypeSelector
+            logger={props.logger}
+            setPlot={props.setPlot}
+            plotTypes={config.plotTypes}
+            plotType={plotType}
+          />
+        )}
         {data.columns.length > 1 && <SplitDataButton {...props} />}
       </div>
       <div className={classes.plotContainer}>
@@ -195,15 +204,16 @@ const GraphStateless = props => {
           data={dataTr}
           layout={{
             xaxis:
-              config.fixAxis && plot === 'histogram'
+              config.fixAxis && plotType === 'histogram'
                 ? { title: config.xLabel, range: axis }
                 : { title: config.xLabel },
             yaxis:
-              config.fixAxis && plot !== 'histogram'
+              config.fixAxis && plotType !== 'histogram'
                 ? { title: config.yLabel, range: axis }
                 : { title: config.yLabel },
             margin: { t: 30, l: 30, r: 30, b: 30 },
-            autosize: true
+            autosize: true,
+            hovermode: false
           }}
           useResizeHandler
         />
@@ -214,7 +224,7 @@ const GraphStateless = props => {
 };
 
 export default compose(
-  withState('plot', 'setPlot', 'histogram'),
+  withState('plot', 'setPlot', null),
   withState('filter', 'setFilter', false),
   withStyles(styles)
 )(GraphStateless);

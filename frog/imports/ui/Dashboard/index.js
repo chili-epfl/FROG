@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp-client';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { type ActivityDbT, ReactiveDoc } from 'frog-utils';
+import { type ActivityDbT, generateReactiveFn } from 'frog-utils';
 
 import doGetInstances from '../../api/doGetInstances';
 import { Sessions } from '../../api/sessions';
@@ -27,7 +27,8 @@ type DashboardCompPropsT = {
   name: string,
   state?: any,
   ready: boolean,
-  config?: Object
+  config?: Object,
+  object: Object
 };
 
 const RawDashboardComp = ({
@@ -36,14 +37,15 @@ const RawDashboardComp = ({
   instances,
   name,
   state,
-  ready
+  ready,
+  object
 }: DashboardCompPropsT) => {
   if (!ready && !state) {
     return <CircularProgress />;
   }
   const aT = activityTypesObj[activity.activityType];
   const doc = conn.get('li', 'bookmark');
-  const dataFn = new ReactiveDoc(doc, { LearningItem });
+  const dataFn = generateReactiveFn(doc, LearningItem);
   if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
     return <p>The selected activity has no dashboard</p>;
   }
@@ -55,6 +57,7 @@ const RawDashboardComp = ({
         users,
         activity,
         instances,
+        object,
         LearningItem: dataFn.LearningItem
       }}
     />
@@ -110,7 +113,7 @@ export const DashboardReactiveWrapper = withTracker(props => {
     (acc, u) => ({ ...acc, [u._id]: u.username }),
     {}
   );
-  return { users, instances, activity, dashboardData };
+  return { users, instances, object, activity, dashboardData, session };
 })(MultiWrapper);
 
 export class DashboardSubscriptionWrapper extends React.Component<

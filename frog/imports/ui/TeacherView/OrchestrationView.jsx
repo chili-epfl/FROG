@@ -14,6 +14,8 @@ import DashboardNav from '../Dashboard/DashboardNav';
 import SessionUtils from './SessionUtils';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import SettingsModal from './SettingsModal';
+import { teacherLogger } from '../../api/logs';
+import { LocalSettings } from '../../api/settings';
 
 const styles = {
   root: {
@@ -25,61 +27,92 @@ const styles = {
   },
   buttonsToBottom: {
     alignSelf: 'flex-end'
-  }
+  },
+  maybeScaled: LocalSettings.scaled
+    ? {
+        zoom: '50%'
+      }
+    : {}
 };
 
-const OrchestrationViewController = ({
-  session,
-  token,
-  visible,
-  toggleVisibility,
-  settingsOpen,
-  setSettingsOpen,
-  classes
-}) => (
-  <React.Fragment>
-    {session && (
-      <Grid container className={classes.root}>
-        <Grid item xs={12}>
-          <SessionUtils
-            session={session}
-            toggle={toggleVisibility}
-            visible={visible}
-            token={token}
-            openSettings={() => setSettingsOpen(true)}
-          />
-        </Grid>
+class OrchestrationViewController extends React.Component<any, {}> {
+  componentDidMount() {
+    if (this.props.session) {
+      teacherLogger(this.props.session._id, 'teacher.enteredOrchestrationView');
+    }
+  }
 
-        <Grid item xs={12}>
-          <Grid container className={classes.subroot}>
-            <Grid item xs={12}>
-              {visible ? (
-                // when the graph is turned off
-                <DashboardNav
-                  session={session}
-                  openActivities={session.openActivities}
-                />
-              ) : (
-                <Card>
-                  <CardContent>
-                    <GraphView session={session} />
-                  </CardContent>
-                </Card>
-              )}
-            </Grid>
-            <Grid item xs={12} className={classes.buttonsToBottom}>
-              <OrchestrationCtrlButtons session={session} />
+  componentWillUnmount() {
+    if (this.props.session) {
+      teacherLogger(this.props.session._id, 'teacher.leftOrchestrationView');
+    }
+  }
+
+  render() {
+    const {
+      session,
+      token,
+      visible,
+      toggleVisibility,
+      settingsOpen,
+      setSettingsOpen,
+      classes
+    } = this.props;
+    return (
+      <React.Fragment>
+        <Grid container className={classes.root}>
+          <Grid item xs={12}>
+            <SessionUtils
+              session={session}
+              toggle={() => {
+                teacherLogger(
+                  session._id,
+                  visible
+                    ? 'teacher.toggleGraphView'
+                    : 'teacher.toggleDashboardView'
+                );
+                toggleVisibility();
+              }}
+              visible={visible}
+              token={token}
+              openSettings={() => setSettingsOpen(true)}
+            />
+          </Grid>
+
+          <Grid item xs={12} className={classes.maybeScaled}>
+            <Grid container className={classes.subroot}>
+              <Grid item xs={12}>
+                {visible ? (
+                  // when the graph is turned off
+                  <DashboardNav
+                    session={session}
+                    openActivities={session.openActivities}
+                  />
+                ) : (
+                  <Card>
+                    <CardContent>
+                      <GraphView session={session} />
+                    </CardContent>
+                  </Card>
+                )}
+              </Grid>
+              <Grid item xs={12} className={classes.buttonsToBottom}>
+                <OrchestrationCtrlButtons session={session} />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    )}
 
-    {settingsOpen && (
-      <SettingsModal session={session} onClose={() => setSettingsOpen(false)} />
-    )}
-  </React.Fragment>
-);
+        {settingsOpen && (
+          <SettingsModal
+            session={session}
+            onClose={() => setSettingsOpen(false)}
+          />
+        )}
+      </React.Fragment>
+    );
+  }
+}
 
 const OrchestrationView = compose(
   withVisibility,

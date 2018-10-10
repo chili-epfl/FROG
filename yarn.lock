@@ -7781,6 +7781,13 @@ marching-simplex-table@^1.0.0:
   dependencies:
     convex-hull "^1.0.3"
 
+markdown-to-jsx@^6.7.2:
+  version "6.7.3"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-6.7.3.tgz#14c5079589eee112e6c620c475660cb4046aeb58"
+  dependencies:
+    prop-types "^15.5.10"
+    unquote "^1.1.0"
+
 mat4-decompose@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mat4-decompose/-/mat4-decompose-1.0.4.tgz#65eb4fe39d70878f7a444eb4624d52f7e7eb2faf"

@@ -8,7 +8,7 @@ export default ({
   name: 'Large text area',
   id: 'li-largeTextArea',
   dataStructure: { text: '' },
-  ThumbViewer: props => <FlexViewer {...props} shouldShorten />,
+  ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor: props => <Editor {...props} large />
 }: LearningItemT<{ text: string }>);

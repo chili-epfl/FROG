@@ -55,9 +55,7 @@ class SessionAdmin extends React.Component<
 
   handleSessionCreation = () => {
     if (this.state.graphId !== undefined && this.state.graphId !== '') {
-      addSession(this.state.graphId).then(e =>
-        this.props.history.push('/teacher/orchestration/' + e)
-      );
+      addSession(this.state.graphId);
     }
   };
 

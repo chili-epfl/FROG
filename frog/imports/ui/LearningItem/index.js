@@ -4,7 +4,7 @@ import {
   type LIComponentPropsT,
   type LearningItemT,
   uuid,
-  ReactiveDoc
+  Doc
 } from 'frog-utils';
 import { omit, isEqual } from 'lodash';
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,7 @@ import RenderLearningItem from './RenderLearningItem';
 
 class LearningItem extends React.Component<
   {
-    ...{| dataFn: ReactiveDoc |},
+    ...{| dataFn: Doc |},
     ...LIComponentPropsT
   },
   { reload: string }
@@ -53,19 +53,25 @@ class LearningItem extends React.Component<
       const id = props.id;
       const ToRun =
         typeof id === 'string'
-          ? ReactiveHOC(id, {
-              conn: props.dataFn.doc.connection,
-              collection: 'li'
-            })(RenderLearningItem)
+          ? ReactiveHOC(
+              id,
+              props.dataFn.doc.connection,
+              undefined,
+              'li',
+              undefined,
+              props.dataFn.backend
+            )(RenderLearningItem)
           : newprops => (
               <RenderLearningItem data={id.liDocument} {...newprops} />
             );
 
       return (
         <ToRun
+          key={typeof props.id === 'string' ? props.id : props.id.liDocument.id}
           render={props.render}
           type={props.type}
           id={props.id}
+          search={props.search || undefined}
           clickZoomable={props.type === 'thumbView' && props.clickZoomable}
         />
       );

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import type { ReactiveDoc } from './generateReactiveFn';
+import type { Doc } from './generateReactiveFn';
 
 export type ActivityDbT = {|
   _id: string,
@@ -188,7 +188,8 @@ export type DashboardViewerPropsT = {
   users: { [uid: string]: string },
   activity: ActivityDbT,
   instances: Array<string>,
-  state: any
+  state: any,
+  object: ObjectT & GlobalStructureT
 };
 
 export type productOperatorT = {
@@ -316,20 +317,23 @@ export type LIComponentPropsT =
       meta?: Object,
       payload: Object
     |}
-  | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
+  | {|
+      type: 'view',
+      id: string | ImmutableLIT,
+      render?: LIRenderT,
+      search?: string
+    |}
   | {|
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      clickZoomable?: boolean
+      clickZoomable?: boolean,
+      search?: string
     |}
   | {|
       type: 'edit',
       id: string,
-      render?: React.ComponentType<{
-        ...{| dataFn: ReactiveDoc |},
-        ...LIRenderPropsT
-      }>
+      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
@@ -340,20 +344,24 @@ export type LearningItemT<T> = {
   dataStructure?: T,
   Editor?: React.ComponentType<{
     data: T,
-    dataFn: ReactiveDoc,
-    LearningItem: LearningItemComponentT
+    dataFn: Doc,
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Creator?: React.ComponentType<{
     createLearningItem: Function,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   ThumbViewer?: React.ComponentType<{
     data: T,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Viewer?: React.ComponentType<{
     data: T,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   createPayload?: Function
 };

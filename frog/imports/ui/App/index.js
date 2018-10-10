@@ -23,7 +23,7 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
-import { connection } from './connection';
+import { LocalSettings } from '../../api/settings';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -43,26 +43,15 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
   } else {
-    if (storeInSession) {
-      sessionStorage.setItem(
-        'frog.sessionToken',
-        JSON.stringify({
-          token: response.token,
-          id: response.id,
-          expires: response.tokenExpires
-        })
+    if (!storeInSession) {
+      Accounts.makeClientLoggedIn(
+        response.id,
+        response.token,
+        response.tokenExpires
       );
+    } else {
+      Meteor.connection.setUserId(response.id);
     }
-    Accounts.makeClientLoggedIn(
-      response.id,
-      response.token,
-      response.tokenExpires
-    );
-    Accounts._storeLoginToken(
-      response.id,
-      response.token,
-      response.tokenExpires
-    );
 
     Meteor.subscribe('userData', { onReady: () => setState('ready') });
   }
@@ -155,7 +144,7 @@ const FROGRouter = withRouter(
             }
           });
           if (slug) {
-            this.props.history.push('/' + slug);
+            this.props.history.push('/' + slug + LocalSettings.UrlCoda);
           }
         }
       });
@@ -176,20 +165,55 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        const hasLogin = query.login;
+        const username =
+          query.login ||
+          query.researchLogin ||
+          query.debugLogin ||
+          query.followLogin;
+        if (query.scaled) {
+          LocalSettings.scaled = true;
+        }
 
         if (this.state.mode !== 'loggingIn') {
-          const username = query.login;
-          if (username) {
-            this.login({ username, token: query.token, loginQuery: true });
+          if (query.researchLogin) {
+            LocalSettings.researchLogin = true;
+            LocalSettings.UrlCoda =
+              '?researchLogin=' +
+              query.researchLogin +
+              '&scaled=' +
+              (!!LocalSettings.scaled).toString();
+          } else if (query.debugLogin) {
+            LocalSettings.debugLogin = true;
+            LocalSettings.UrlCoda =
+              '?debugLogin=' +
+              query.debugLogin +
+              '&scaled=' +
+              (!!LocalSettings.scaled).toString();
+          } else if (query.followLogin && query.follow) {
+            LocalSettings.UrlCoda =
+              '?followLogin=' +
+              query.followLogin +
+              '&follow=' +
+              query.follow +
+              '&scaled=' +
+              (!!LocalSettings.scaled).toString();
+            LocalSettings.follow = query.follow;
           }
-          if (!hasLogin && this.state.mode !== 'ready') {
-            const sessionLogin = sessionStorage.getItem('frog.sessionToken');
-            if (sessionLogin) {
-              this.tokenLogin(JSON.parse(sessionLogin).token);
-            } else if (Accounts._storedLoginToken()) {
-              this.tokenLogin(Accounts._storedLoginToken());
-            } else if (this.props.match.params.slug) {
+          if (username) {
+            this.login({
+              username,
+              token: query.token,
+              loginQuery:
+                query.debugLogin || query.researchLogin || query.followLogin
+            });
+          }
+          if (!username && this.state.mode !== 'ready') {
+            if (!query.reset) {
+              if (Accounts._storedLoginToken()) {
+                return this.tokenLogin(Accounts._storedLoginToken());
+              }
+            }
+            if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
@@ -215,21 +239,24 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && Meteor.user()) {
-        connection.id = Meteor.user()._id;
         return (
           <Switch>
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
-              render={() => (
-                <h3>
-                  Welcome to FROG. You are logged in as {Meteor.user().username}
-                  . If you want to access the teacher view, go to{' '}
-                  <Link to="/teacher">/teacher</Link>, otherwise go to the /SLUG
-                  of the session you are a student of
-                </h3>
-              )}
+              render={() =>
+                LocalSettings.follow ? (
+                  <StudentView />
+                ) : (
+                  <h3>
+                    Welcome to FROG. You are logged in as{' '}
+                    {Meteor.user().username}. If you want to access the teacher
+                    view, go to <Link to="/teacher">/teacher</Link>, otherwise
+                    go to the /SLUG of the session you are a student of
+                  </h3>
+                )
+              }
             />
           </Switch>
         );
