@@ -37,19 +37,27 @@ export default class Connection extends Elem {
       klass: 'connection',
 
       get path(): string {
-        return drawPath({
-          dragging: false,
-          source: this.source.dragPointFrom,
-          target: this.target.dragPointTo
-        });
+        return (
+          this.source &&
+          this.target &&
+          drawPath({
+            dragging: false,
+            source: this.source?.dragPointFrom,
+            target: this.target?.dragPointTo
+          })
+        );
       },
 
       get pathScaled(): string {
-        return drawPath({
-          dragging: false,
-          source: this.source.dragPointFromScaled,
-          target: this.target.dragPointToScaled
-        });
+        return (
+          this.source &&
+          this.target &&
+          drawPath({
+            dragging: false,
+            source: this.source.dragPointFromScaled,
+            target: this.target.dragPointToScaled
+          })
+        );
       },
 
       get object(): Object {
