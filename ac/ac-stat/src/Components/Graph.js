@@ -42,87 +42,28 @@ const styles = () => ({
 });
 
 const transformData = (data, type, filtered, sortData) => {
-  const result = [];
-  if (filtered && data.columns.length > 1) {
-    switch (type) {
-      case 'dots':
-        data.values
-          .reduce(
-            (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
-            []
-          )
-          .forEach(k => {
-            const formatData = data.values
-              .filter(x => x[1] === k)
-              .map(entry => entry[0]);
-            result.push({
-              type: 'scatter',
-              mode: 'markers',
-              name: k,
-              y: formatData
-              // autobinx: false, xbins: {size: (max-min)/formatData.length, start: min, end: max}
-            });
-          });
-        break;
-      case 'histogram':
-        data.values
-          .reduce(
-            (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
-            []
-          )
-          .forEach(k => {
-            const formatData = data.values
-              .filter(x => x[1] === k)
-              .map(entry => entry[0]);
-            result.push({
-              type: 'histogram',
-              histofunc: k,
-              name: k,
-              x: formatData
-            });
-          });
-        break;
-      case 'box':
-        data.values
-          .reduce(
-            (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
-            []
-          )
-          .forEach(k => {
-            const formatData = data.values
-              .filter(x => x[1] === k)
-              .map(entry => entry[0]);
-            result.push({
-              type: 'box',
-              name: k,
-              y: formatData
-            });
-          });
-        break;
-      default:
-    }
-  } else {
-    const formatData = data.values.map(entry => entry[0]);
+  const uniqueLabels = !filtered
+    ? ['data']
+    : data.values.reduce(
+        (acc, cur) => (acc.includes(cur[1]) ? acc : [...acc, cur[1]]),
+        []
+      );
+
+  const result = uniqueLabels.map(k => {
+    const formatData = data.values
+      .filter(x => x[1] === k || !filtered)
+      .map(entry => entry[0]);
     if (sortData) {
       formatData.sort();
     }
-    switch (type) {
-      case 'dots':
-        result.push({
-          type: 'scatter',
-          mode: 'markers',
-          y: formatData
-        });
-        break;
-      case 'histogram':
-        result.push({ type: 'histogram', x: formatData });
-        break;
-      case 'box':
-        result.push({ type: 'box', y: formatData });
-        break;
-      default:
-    }
-  }
+    return {
+      type: { dots: 'scatter', box: 'box', histogram: 'histogram' }[type],
+      mode: 'markers',
+      histofunc: k,
+      name: k,
+      [type === 'histogram' ? 'x' : 'y']: formatData
+    };
+  });
   return result;
 };
 

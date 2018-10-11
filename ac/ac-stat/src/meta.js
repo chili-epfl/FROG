@@ -81,7 +81,7 @@ export default {
           '11-novembre',
           '12-décembre'
         ];
-        const genders = ['male', 'femelle'];
+        const genders = ['male', 'female'];
         return new Array(150).fill().map(_ => ({
           trace: 'dataset1',
           x: shuffle(months)[0],
