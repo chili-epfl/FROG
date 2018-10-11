@@ -28,13 +28,10 @@ const styles = () => ({
   }
 });
 
-const Completed = ({ dataFn }) => (
+const Completed = ({ back }) => (
   <>
     <h1>Completed!</h1>
-    <Button
-      color="primary"
-      onClick={() => dataFn.objInsert(false, ['completed'])}
-    >
+    <Button color="primary" onClick={back}>
       Go back
     </Button>
   </>
@@ -48,10 +45,9 @@ class ActivityRunner extends React.Component<
   }
 
   render() {
-    const { classes, activityData, data } = this.props;
-    const {
-      config: { title, guidelines }
-    } = activityData;
+    const { classes, ...propsNoClasses } = this.props;
+    const { activityData, data, dataFn } = propsNoClasses;
+    const { title, guidelines } = activityData.config;
     return (
       <div className={classes.main}>
         {title && title !== '' && <h1>{title}</h1>}
@@ -63,9 +59,9 @@ class ActivityRunner extends React.Component<
           )}
         <div className={classes.container}>
           {data.completed ? (
-            <Completed {...this.props} />
+            <Completed back={() => dataFn.objInsert(false, ['completed'])} />
           ) : (
-            <Quiz {...this.props} />
+            <Quiz {...propsNoClasses} />
           )}
         </div>
       </div>

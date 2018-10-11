@@ -8,6 +8,7 @@ import * as React from 'react';
 import Modal from 'react-modal';
 import Loadable from 'react-loadable';
 import path from 'path';
+import queryString from 'query-string';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -67,7 +68,8 @@ const FROGRouter = withRouter(
         | 'error'
         | 'waiting'
         | 'studentlist'
-        | 'nostudentlist',
+        | 'nostudentlist'
+        | 'tooLate',
       settings?: Object
     }
   > {
@@ -83,11 +85,8 @@ const FROGRouter = withRouter(
       }
     }
 
-    componentWillMount() {
-      this.update();
-    }
-
     componentDidMount() {
+      this.update();
       Modal.setAppElement('#render-target');
       window.notReady = this.notReady;
     }
@@ -165,20 +164,49 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        const username = query.login || query.researchLogin || query.debugLogin;
+        const username =
+          query.login ||
+          query.researchLogin ||
+          query.debugLogin ||
+          query.followLogin;
+        if (query.scaled) {
+          LocalSettings.scaled = parseInt(query.scaled, 10) || 50;
+        }
 
         if (this.state.mode !== 'loggingIn') {
           if (query.researchLogin) {
-            LocalSettings.researchLogin = true;
-            LocalSettings.UrlCoda = '?researchLogin=' + query.researchLogin;
+            LocalSettings.researchLogin = query.researchLogin;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                researchLogin: query.researchLogin
+              });
           } else if (query.debugLogin) {
-            LocalSettings.UrlCoda = '?debugLogin=' + query.debugLogin;
+            LocalSettings.debugLogin = true;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                debugLogin: query.debugLogin
+              });
+          } else if (query.followLogin && query.follow) {
+            LocalSettings.follow = query.follow;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                follow: query.follow,
+                followLogin: query.followLogin
+              });
           }
+
           if (username) {
             this.login({
               username,
               token: query.token,
-              loginQuery: query.debugLogin || query.researchLogin
+              loginQuery:
+                query.debugLogin || query.researchLogin || query.followLogin
             });
           }
           if (!username && this.state.mode !== 'ready') {
@@ -195,6 +223,8 @@ const FROGRouter = withRouter(
                 (err, result) => {
                   if (err || result === -1) {
                     this.setState({ mode: 'nostudentlist' });
+                  } else if (result === 'tooLate') {
+                    this.setState({ mode: 'tooLate' });
                   } else {
                     this.setState({ settings: result, mode: 'studentlist' });
                   }
@@ -207,6 +237,9 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      if (this.state.mode === 'tooLate') {
+        return <h1>Too late to join this session</h1>;
+      }
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
         return <Redirect to={this.props.location.pathname} />;
@@ -219,14 +252,18 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
-              render={() => (
-                <h3>
-                  Welcome to FROG. You are logged in as {Meteor.user().username}
-                  . If you want to access the teacher view, go to{' '}
-                  <Link to="/teacher">/teacher</Link>, otherwise go to the /SLUG
-                  of the session you are a student of
-                </h3>
-              )}
+              render={() =>
+                LocalSettings.follow ? (
+                  <StudentView />
+                ) : (
+                  <h3>
+                    Welcome to FROG. You are logged in as{' '}
+                    {Meteor.user().username}. If you want to access the teacher
+                    view, go to <Link to="/teacher">/teacher</Link>, otherwise
+                    go to the /SLUG of the session you are a student of
+                  </h3>
+                )
+              }
             />
           </Switch>
         );

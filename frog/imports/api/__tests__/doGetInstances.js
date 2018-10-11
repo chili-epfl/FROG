@@ -90,7 +90,7 @@ test('P1 instances with social structure', () => {
   });
 });
 
-test('P3 jnstances with social structure', () => {
+test('P3 instances with social structure', () => {
   expect(
     doGetInstances(
       {

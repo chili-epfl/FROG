@@ -40,7 +40,7 @@ test('works with no students', () =>
       activityData: wrapUnitAll({}),
       globalStructure: globalStructure1
     })
-  ).toEqual({}));
+  ).toEqual({ first: {}, last: {} }));
 
 const validateFormData = formData =>
   compact((pkg.validateConfig || []).map(x => x(formData)));

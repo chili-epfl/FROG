@@ -9,10 +9,8 @@ import { omit } from 'lodash';
 
 import { UploadList, downloadFile } from '/imports/api/openUploads';
 import { Sessions } from '/imports/api/sessions';
-import { Objects } from '/imports/api/objects';
 import { Activities } from '/imports/api/activities';
 import { Operators } from '/imports/api/operators';
-import { Products } from '/imports/api/products';
 import { activityTypesObj } from '/imports/activityTypes';
 import { getActivitySequence } from '/imports/api/graphSequence';
 import { graphToString } from '../../GraphEditor/utils/export';
@@ -92,6 +90,16 @@ const slugo = input =>
     .replace(/(\s|\.)/g, '-')
     .toLowerCase();
 
+const productPromise = id =>
+  new Promise(resolve =>
+    Meteor.call('reactive.to.product', id, (_, result) => resolve(result))
+  );
+
+const objectProductPromise = id =>
+  new Promise(resolve =>
+    Meteor.call('get.object.product', id, (_, result) => resolve(result))
+  );
+
 export const exportSession = (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
   const activities = Activities.find({ graphId: session.graphId }).fetch();
@@ -99,9 +107,13 @@ export const exportSession = (sessionId: string) => {
   const files = UploadList.find({ sessionId }).fetch();
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
-  activities.forEach(act => {
-    const product = Products.findOne(act._id);
-    const object = Objects.findOne(act._id);
+  activities.forEach(async act => {
+    const result = await objectProductPromise(act._id);
+    const object = result[0];
+    let product = result[1];
+    if (!product) {
+      product = await productPromise(act._id);
+    }
     const img = zip.folder(
       `${activitySequence[act._id]}-${slugo(act.title || '').slice(0, 20)}__p${
         act.plane
@@ -111,14 +123,13 @@ export const exportSession = (sessionId: string) => {
   });
 
   const opfolder = zip.folder('op');
-  operators.forEach(op => {
+  operators.forEach(async op => {
     const opfo = opfolder.folder(
       `${slugo((op.title || '').slice(0, 20))}__${
         op.operatorType
       }-${op._id.slice(-4)}`
     );
-    const product = Products.findOne(op._id);
-    const object = Objects.findOne(op._id);
+    const [object, product] = await objectProductPromise(op._id);
 
     opfo.file('product.json', Stringify(product));
     opfo.file('object.json', Stringify(object));

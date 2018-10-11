@@ -43,8 +43,6 @@ export default function() {
   teacherPublish('connections', Connections);
   teacherPublish('uploadList', UploadList);
   teacherPublishOwn('graphs', Graphs, this.userId);
-  teacherPublish('objects', Objects);
-  teacherPublish('products', Products);
   teacherPublishOwn('sessions', Sessions, this.userId);
   teacherPublish('users', Meteor.users, {
     fields: { username: 1, joinedSessions: 1, role: 1 }
@@ -53,5 +51,6 @@ export default function() {
 
 Meteor.methods({
   'make.teacher': userid =>
-    Meteor.users.update(userid, { $set: { role: 'teacher' } })
+    Meteor.users.update(userid, { $set: { role: 'teacher' } }),
+  'get.object.product': id => [Objects.findOne(id), Products.findOne(id)]
 });
