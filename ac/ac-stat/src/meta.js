@@ -9,7 +9,7 @@ export default {
   exampleData: [
     {
       title: '1 trace 1 axis',
-      config: { title: 'Graph1', plotTypes: ['plot', 'histogram', 'box'] },
+      config: { title: 'Graph1', plotTypes: ['dots', 'histogram', 'box'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
