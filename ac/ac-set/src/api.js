@@ -27,7 +27,8 @@ const shuffle = array => {
 
 export const encode = ([a, b, c, d]) => a + 3 * b + 9 * c + 27 * d;
 
-export const isSET = ([card1, card2, card3]) => card3 === completeSET(card1, card2);
+export const isSET = ([card1, card2, card3]) =>
+  card3 === completeSET(card1, card2);
 
 const completeSET = (card1, card2) => {
   const [a1, b1, c1, d1] = decode(card1);
@@ -76,14 +77,12 @@ export const getRandomTriplet = isSet => {
     const [a1, a2] = [r(), r()];
     const [b1, b2] = [r(), r()];
     const [c1, c2] = [(6 - a1 - b1) % 3, (6 - a2 - b2) % 3];
-
     return [f(a1, a2), f(b1, b2), f(c1, c2)];
   } else {
     while (true) {
       const [a1, a2] = [r(), r()];
       const [b1, b2] = [r(), r()];
       const [c1, c2] = [r(), r()];
-
       const triplet = [f(a1, a2), f(b1, b2), f(c1, c2)];
       if (!isSET(triplet)) return triplet;
     }

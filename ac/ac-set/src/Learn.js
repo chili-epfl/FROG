@@ -85,7 +85,7 @@ const Example = withStyles(styles)(({ cards, classes, styleName }) => (
   <Paper className={styleName || classes.example}>
     {cards.map((card, idx) => (
       <Card
-        key={idx}
+        key={idx.toString()}
         value={card}
         style={{
           height: '94%',
@@ -117,7 +117,7 @@ const ExampleList = withStyles(styles)(({ examples, positive, classes }) => {
       )}
       <div className={classes.examplesList}>
         {examples.map((ex, i) => (
-          <Example cards={ex} key={i} />
+          <Example cards={ex} key={i.toString()} />
         ))}
       </div>
     </div>

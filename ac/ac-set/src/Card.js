@@ -72,7 +72,7 @@ export default ({ value, selected, correct, wrong, onClick, style }) => {
       {((!correct && !wrong) || selected) &&
         new Array(number).fill().map((_, idx) => (
           <svg
-            key={idx}
+            key={idx.toString()}
             viewBox="0 0 100 100"
             width="100%"
             height="33%"
