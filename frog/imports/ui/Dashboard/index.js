@@ -11,7 +11,7 @@ import { type ActivityDbT, generateReactiveFn } from 'frog-utils';
 import doGetInstances from '../../api/doGetInstances';
 import { Sessions } from '../../api/sessions';
 import { Objects } from '../../api/objects';
-import { DashboardData, Activities } from '../../api/activities';
+import { DashboardData } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import MultiWrapper from './MultiWrapper';
 import { connection as conn } from '../App/connection';

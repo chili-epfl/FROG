@@ -8,12 +8,12 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardComp } from './index';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { teacherLogger } from '../../api/logs';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {

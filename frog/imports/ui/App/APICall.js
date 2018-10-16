@@ -37,7 +37,7 @@ export default ({ data }: { data: Object }) => {
           globalStructure: { students: {}, studentIds: [] }
         }}
         instances={[]}
-        ready={true}
+        ready
       />
     );
   }
