@@ -181,5 +181,11 @@ export const flushActivities = () => Meteor.call('activities.flush');
 Meteor.methods({
   'activities.flush': () => {
     Activities.remove({});
+  },
+  'get.activity.for.dashboard': id => {
+    if (Meteor.isServer) {
+      const activity = Activities.findOne(id);
+      return { activity };
+    }
   }
 });

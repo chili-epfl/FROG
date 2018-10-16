@@ -126,6 +126,7 @@ class PreviewDash extends React.Component<
     activity: ActivityDbT,
     instances: Object,
     users: Object,
+    object: Object,
     showData: boolean
   },
   { state: any }
@@ -218,6 +219,7 @@ class PreviewDash extends React.Component<
         />
       ) : (
         <Viewer
+          object={this.props.object}
           state={this.state.state}
           activity={this.props.activity}
           instances={uniq(this.props.instances)}
@@ -252,8 +254,8 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       plane
     );
     const studentGroups = {};
-    values(users).forEach((x, i) => {
-      studentGroups[x] = { group: groupName[i] };
+    Object.keys(users).forEach((x, i) => {
+      studentGroups[x] = { group: groupName(i) };
     });
     const socStruct = focusRole(studentGroups);
     const object = {
@@ -262,11 +264,11 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
         payload: { all: { data: {}, config: {} } }
       },
       socialStructure: socStruct,
-      globalStructure: { students: users, studentIds: getUserId }
+      globalStructure: { students: users, studentIds: Object.keys(users) }
     };
     return ready ? (
       <DashMultiWrapper
-        ready={true}
+        ready
         object={object}
         activity={activity}
         instances={instances}

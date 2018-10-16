@@ -115,7 +115,7 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
     { fields: { username: 1, joinedSessions: 1, role: 1 } }
   );
   const object = Objects.find(activityId);
-  return [users, Activities.find(activityId), object, dashData];
+  return [users, object, dashData];
 });
 
 Meteor.publishComposite('follow', function(follow) {

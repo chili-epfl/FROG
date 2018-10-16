@@ -104,17 +104,13 @@ export const DashboardComp = withTracker(props => {
 })(RawDashboardComp);
 
 export const DashboardReactiveWrapper = withTracker(props => {
-  const { activityId, names, sessionId } = props;
+  const { activity, names, sessionId } = props;
   const subscription = Meteor.subscribe(
     'dashboard.data',
     sessionId,
-    activityId,
+    activity._id,
     names
   );
-  const activity = Activities.findOne(activityId);
-  if (!activity) {
-    return { ready: false };
-  }
   const session = Sessions.findOne(sessionId);
   const object = Objects.findOne(activity._id);
   const instances = object && doGetInstances(activity, object).groups;
@@ -141,3 +137,36 @@ export const DashboardReactiveWrapper = withTracker(props => {
 })(MultiWrapper);
 
 DashboardReactiveWrapper.displayName = 'DashboardReactiveWrapper';
+
+export class DashboardSubscriptionWrapper extends React.Component<
+  {
+    activityId: string
+  },
+  { activity: any }
+> {
+  subscription: any;
+  constructor() {
+    super();
+    this.state = { activity: null };
+  }
+
+  componentDidMount() {
+    const { activityId } = this.props;
+    Meteor.call('get.activity.for.dashboard', activityId, (err, value) => {
+      if (!err) {
+        this.setState({
+          activity: value.activity
+        });
+      }
+    });
+  }
+
+  render() {
+    const { activity } = this.state;
+    return (
+      activity && (
+        <DashboardReactiveWrapper activity={activity} {...this.props} />
+      )
+    );
+  }
+}

@@ -114,7 +114,7 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
             (activityToDash === 'blank' ? null : (
               <DashboardReactiveWrapper
                 sessionId={session._id}
-                activityId={activityToDash._id}
+                activity={activityToDash}
               />
             ))}
         </main>
