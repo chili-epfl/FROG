@@ -18,7 +18,10 @@ const Viewer = (props: Object) => {
   const nowLine = [{ x: state.now, y: 0 }, { x: state.now, y: 1 }];
   return (
     <React.Fragment>
-      <VictoryChart style={{height: calc('100vh - 50px)'}} theme={VictoryTheme.material}>
+      <VictoryChart
+        style={{ height: 'calc(100vh - 50px)' }}
+        theme={VictoryTheme.material}
+      >
         <VictoryLegend
           x={50}
           y={0}
