@@ -266,6 +266,7 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
     };
     return ready ? (
       <DashMultiWrapper
+        ready={true}
         object={object}
         activity={activity}
         instances={instances}

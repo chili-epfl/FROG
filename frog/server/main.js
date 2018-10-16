@@ -100,9 +100,9 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
   if (!sessionId) return;
   const slug = Sessions.findOne(sessionId).slug;
   if (!slug) return;
-  const act = Activities.findOne(activityId);
-  if (!act) return;
-  const aT = activityTypesObj[act.activityType];
+  const activity = Activities.findOne(activityId);
+  if (!activity) return;
+  const aT = activityTypesObj[activity.activityType];
   const dashNames = (
     (!names || names === 'all'
       ? aT.dashboards && Object.keys(aT.dashboards)
@@ -115,7 +115,7 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
     { fields: { username: 1, joinedSessions: 1, role: 1 } }
   );
   const object = Objects.find(activityId);
-  return [users, object, dashData];
+  return [users, Activities.find(activityId), object, dashData];
 });
 
 Meteor.publishComposite('follow', function(follow) {

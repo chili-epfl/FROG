@@ -3,7 +3,7 @@
 import * as React from 'react';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 
-import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
+import { DashboardReactiveWrapper } from '/imports/ui/Dashboard';
 
 const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const {
@@ -13,7 +13,7 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const activityId = config.component.activity;
   const names = config.component.dashboards;
   return (
-    <DashboardSubscriptionWrapper
+    <DashboardReactiveWrapper
       activityId={activityId}
       sessionId={sessionId}
       names={names}

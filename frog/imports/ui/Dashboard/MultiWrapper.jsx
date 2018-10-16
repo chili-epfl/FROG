@@ -13,6 +13,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { DashboardComp } from './index';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { teacherLogger } from '../../api/logs';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -108,7 +109,8 @@ const MultiWrapper = (props: {
   instances: any,
   dashboardData?: Object,
   session?: Object,
-  object: Object
+  object: Object,
+  ready?: boolean
 }) => {
   const {
     dashboardData,
@@ -118,8 +120,12 @@ const MultiWrapper = (props: {
     users,
     instances,
     session,
-    object
+    object,
+    ready
   } = props;
+  if (!ready) {
+    return <CircularProgress />;
+  }
   const aT = activityTypesObj[activity.activityType];
   const dashNames = names || Object.keys(aT.dashboards || {});
   if (isEmpty(dashNames)) {
