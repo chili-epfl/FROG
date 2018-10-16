@@ -20,7 +20,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { DashboardStates } from '../../api/cache';
 import { ShowInfoDash } from './ShowInfo';
 import { generateDataFn } from './Content';
-import { getUserId, groupName } from './Controls';
+import { groupName } from './Controls';
 
 export const DocumentCache = {};
 export const Logs: Object[] = [];
