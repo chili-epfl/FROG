@@ -31,7 +31,7 @@ export const config = {
     },
     afterDate: {
       type: 'string',
-      title: 'After date (must be fully specified)'
+      title: 'On or after date (must be fully specified)'
     },
     token: { title: 'Authorization token', type: 'string' }
   }
