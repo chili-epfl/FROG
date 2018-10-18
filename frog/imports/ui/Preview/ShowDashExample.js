@@ -402,7 +402,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             />
           </React.Fragment>
         )}
-        <Paper>
+        <Paper style={{ height: 'calc(100vh - 250px)' }}>
           {this.props.showLogs ? (
             <Inspector data={this.state.logs} />
           ) : (
