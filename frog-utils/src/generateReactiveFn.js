@@ -128,6 +128,41 @@ export class Doc {
     return binding;
   }
 
+  bindRichTextEditor(ref: any, rawpath: rawPathT) {
+    const path = cleanPath(this.path, rawpath);
+
+    ref.setContents(get(this.doc.data, path));
+
+    const opListener = (op, source) => {
+      console.log('received op', op, 'source', source);
+      if (source === ref) return;
+      op.forEach(operation => {
+        ref.updateContents(operation.o);
+      });
+    };
+    const editorListener = (delta, oldDelta, source) => {
+      const op = {
+        p: path,
+        t:'rich-text',
+        o: delta.ops
+      };
+      console.log('on textchange op', op, 'source', source);
+      if (source !== 'user') return;
+
+      this.doc.submitOp([op], {source: ref});
+    };
+
+    this.doc.on('op', opListener);
+    ref.on('text-change', editorListener);
+
+    return {
+      destroy: () => {
+        ref.off('text-change', editorListener);
+        this.doc.removeListener('op', opListener);
+      }
+    };
+  }
+
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }
@@ -272,7 +307,6 @@ export const inMemoryReactive = (
     const doc = connection.get('coll', uuid());
     doc.subscribe();
     doc.on('load', () => {
-      console.log('inmemeroy doc create')
       doc.create(initial);
       resolve(doc);
     });

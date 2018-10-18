@@ -1,53 +1,39 @@
 // @flow
 import React, { Component } from 'react';
-import { get, omit, isEqual } from 'lodash';
+import { omit, isEqual } from 'lodash';
 import Quill from 'quill';
 import { type LogT } from 'frog-utils';
 
 type ReactivePropsT = {
   path: string | string[],
   dataFn: Object,
-  type: 'textarea' | 'textinput',
-  logger?: LogT => void
+  logger?: LogT => void,
+  readOnly: boolean
 };
 
 export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> {
   textRef: any;
 
+  binding: any;
+
   update = (props: ReactivePropsT) => {
     this.setState({ path: props.path, dataFn: props.dataFn });
+
+    const editor = new Quill(this.textRef, { readOnly: this.props.readOnly });
+
+    if (this.binding) {
+      this.binding.destroy();
+    }
+    if (!this.props.dataFn.readOnly) {
+      this.binding = props.dataFn.bindRichTextEditor(editor, props.path);
+    }
   };
 
   componentDidMount() {
-    const quill = new Quill(this.textRef);
-    quill.setContents(this.props.dataFn.doc.data['payload'][this.props.path]);
-    console.log('data', this.props.dataFn.doc.data);
-    console.log('path', this.props.path);
-    quill.on('text-change', (delta, oldDelta, source) => {
-      console.log("delta", delta);
-
-      const op = {
-        p: ['payload', this.props.path],
-        t:'rich-text',
-        o: delta.ops
-      };
-      if (source !== 'user') return;
-      console.log("op", op);
-
-      this.props.dataFn.doc.submitOp([op]);
-    });
-    this.props.dataFn.doc.on('op', (op, source) => {
-      console.log('received op', op, 'source', source);
-      if (source) return;
-      op.forEach(operation => {
-        quill.updateContents(operation.o);
-      });
-    });
     this.update(this.props);
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
-    console.log(nextProps.dataFn);
     if (
       (nextProps.dataFn && nextProps.dataFn.doc.id) !==
       (this.props.dataFn && this.props.dataFn.doc.id) ||
@@ -57,12 +43,12 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
       this.update(nextProps);
     }
   }
-  //
-  // componentWillUnmount() {
-  //   if (this.binding) {
-  //     this.binding.destroy();
-  //   }
-  // }
+
+  componentWillUnmount() {
+    if (this.binding) {
+      this.binding.destroy();
+    }
+  }
 
   log(msg: string, props?: ReactivePropsT) {
     const logger = props ? props.logger : this.props.logger;
@@ -76,16 +62,9 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
   }
 
   render() {
-    const rest = omit(this.props, ['logger', 'path', 'dataFn']);
-    if (this.props.dataFn.readOnly) {
-      rest.value = get(this.props.dataFn.doc.data, this.props.path);
-      rest.readOnly = true;
-      rest.defaultValue = undefined;
-    }
+    const rest = omit(this.props, ['logger', 'path', 'dataFn', 'readOnly']);
     return (
-      <div className="bootstrap">
-        <div {...rest} id="ql-editor" ref={ref => (this.textRef = ref)}/>
-      </div>
+      <div {...rest} ref={ref => (this.textRef = ref)}/>
     );
   }
 }
