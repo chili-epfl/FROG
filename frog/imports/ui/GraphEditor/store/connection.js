@@ -36,31 +36,28 @@ export default class Connection extends Elem {
       id: id || cuid(),
       klass: 'connection',
 
-      get path(): ?string {
-        if (this.source?.dragPointFrom && this.target?.dragPointTo) {
-          return drawPath({
+      get path(): string {
+        return (
+          this.source &&
+          this.target &&
+          drawPath({
             dragging: false,
-            source: this.source.dragPointFrom,
-            target: this.target.dragPointTo
-          });
-        } else {
-          return undefined;
-        }
+            source: this.source?.dragPointFrom,
+            target: this.target?.dragPointTo
+          })
+        );
       },
 
-      get pathScaled(): ?string {
-        if (
-          this.source?.dragPointFromScaled &&
-          this.target?.dragPointToScaled
-        ) {
-          return drawPath({
+      get pathScaled(): string {
+        return (
+          this.source &&
+          this.target &&
+          drawPath({
             dragging: false,
             source: this.source.dragPointFromScaled,
             target: this.target.dragPointToScaled
-          });
-        } else {
-          return undefined;
-        }
+          })
+        );
       },
 
       get object(): ?Object {

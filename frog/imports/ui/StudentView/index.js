@@ -9,13 +9,12 @@ import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 
 import { Sessions } from '/imports/api/sessions';
-import { GlobalSettings } from '/imports/api/settings';
+import { GlobalSettings, LocalSettings } from '/imports/api/settings';
 import SessionBody from './SessionBody';
 
 const once = { already: false };
 
 type StudentViewCompPropsT = {
-  match: Object,
   token?: { value: string },
   slug: string,
   session: Object,
@@ -32,12 +31,19 @@ class StudentViewComp extends React.Component<
   }
 
   componentWillMount() {
-    this.checkSessionJoin(this.props.match.params.slug);
+    if (this.props.ready && this.props.slug !== 'NO-SESSION') {
+      this.checkSessionJoin(this.props.slug);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.slug !== this.props.match.params.slug) {
-      this.checkSessionJoin(nextProps.match.params.slug);
+    if (
+      (nextProps.slug !== this.props.slug ||
+        (!this.props.ready && nextProps.ready)) &&
+      nextProps.ready &&
+      nextProps.slug !== 'NO-SESSION'
+    ) {
+      this.checkSessionJoin(nextProps.slug);
     }
   }
 
@@ -57,6 +63,9 @@ class StudentViewComp extends React.Component<
   }
 
   render() {
+    if (this.props.slug === 'NO-SESSION') {
+      return <h1>Waiting for teacher to select new session</h1>;
+    }
     if (this.state.result === 'error') {
       return <h1>Error: {this.state.message}</h1>;
     }
@@ -112,14 +121,34 @@ export default withTracker(props => {
     once.already = true;
   }
 
-  const slug = props.match.params.slug.trim().toUpperCase();
+  let slug =
+    props.match?.params?.slug && props.match.params.slug.trim().toUpperCase();
+  let subscriptions = [];
 
-  const collections = ['session_activities', 'globalSettings'];
-  const subscriptions = collections.map(x => Meteor.subscribe(x, slug));
+  if (LocalSettings.follow) {
+    Meteor.subscribe('follow', LocalSettings.follow);
+    const follow = Meteor.users.findOne({ username: LocalSettings.follow });
+    if (follow) {
+      const session = follow.profile?.controlSession;
+
+      slug = session
+        ? Sessions.findOne(follow.profile?.controlSession)?.slug
+        : 'NO-SESSION';
+      if (slug === 'NO-SESSION') {
+        subscriptions.map(x => x.stop());
+      }
+    }
+  }
+
+  if (slug && slug !== 'NO-SESSION') {
+    const collections = ['session_activities', 'globalSettings'];
+    subscriptions = collections.map(x => Meteor.subscribe(x, slug));
+  }
+
   return {
     session: Sessions.findOne({ slug }),
     token: GlobalSettings.findOne('token'),
-    ready: every(subscriptions.map(x => x.ready()), Boolean),
+    ready: every(subscriptions.map(x => x.ready()), Boolean) && slug,
     slug
   };
 })(StudentViewComp);

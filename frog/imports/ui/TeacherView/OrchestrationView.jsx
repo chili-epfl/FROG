@@ -15,6 +15,7 @@ import SessionUtils from './SessionUtils';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import SettingsModal from './SettingsModal';
 import { teacherLogger } from '../../api/logs';
+import { LocalSettings } from '../../api/settings';
 
 const styles = {
   root: {
@@ -26,7 +27,12 @@ const styles = {
   },
   buttonsToBottom: {
     alignSelf: 'flex-end'
-  }
+  },
+  maybeScaled: LocalSettings.scaled
+    ? {
+        zoom: LocalSettings.scaled + '%'
+      }
+    : {}
 };
 
 class OrchestrationViewController extends React.Component<any, {}> {
@@ -73,7 +79,7 @@ class OrchestrationViewController extends React.Component<any, {}> {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.maybeScaled}>
             <Grid container className={classes.subroot}>
               <Grid item xs={12}>
                 {visible ? (

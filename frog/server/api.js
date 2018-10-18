@@ -21,6 +21,64 @@ WebApp.connectHandlers.use(bodyParser.json());
 
 setupH5PRoutes();
 
+const extractParam = (query, param) =>
+  query.split('&').find(x => x.includes(param))
+    ? query
+        .split('&')
+        .find(x => x.includes(param))
+        .split('=')[1]
+    : undefined;
+
+WebApp.connectHandlers.use('/multiFollow', (request, response) => {
+  const root = process.env.ROOT_URL || 'http://localhost:3000/';
+  const url = require('url').parse(request.url);
+  const layout = url.query ? extractParam(url.query, 'layout') : '';
+
+  const scaled = url.scaled
+    ? parseInt(extractParam(url.query, 'scaled'), 10)
+    : false;
+  const follow = url.pathname.substring(1);
+  const scaledStr = scaled ? '&scaled=' + scaled : '';
+  const template = `
+<!DOCTYPE html><html><head>
+    <title>Four pane FROG</title>
+    <style>
+html, body { height: 100%; padding: 0; margin: 0; }
+div { width: 50%; height: ${layout === '2' ? '100%' : '50%'}; float: left; }
+#div1 { background: #DDD; }
+#div2 { background: #AAA; }
+#div3 { background: #777; }
+#div4 { background: #444; }
+iframe { height: 100%; width: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <iframe id='iframe1' 
+     ${
+       layout === '3+1' || layout === '2+1+1'
+         ? `src=${root}teacher/orchestration?debugLogin=${follow}&scaled=true>`
+         : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
+     }
+</iframe>
+    </div>
+    <div id="div2">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+    layout === '2+1+1' ? follow : 'Peter'
+  }${scaledStr}></iframe>
+    </div>
+    ${layout !== '2' &&
+      `
+    <div id="div3">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Anna${scaledStr}></iframe>
+    </div>
+    <div id="div4">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Aliya${scaledStr}></iframe>
+    </div>`}
+</html>`;
+  response.end(template);
+});
+
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
   if (request.method !== 'POST') {
     response.writeHead(403);

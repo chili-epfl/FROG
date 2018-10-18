@@ -16,7 +16,8 @@ import TopBar from './TopBar';
 const styles = {
   subroot: {
     overflow: 'hidden',
-    height: '100%'
+    height: '100%',
+    width: '100%'
   }
 };
 
@@ -52,13 +53,14 @@ const WithTopBar = () => (
   </React.Fragment>
 );
 
-const collections = [
-  'graphs',
-  'sessions',
-  'globalSettings',
-  'externalOperators',
-  'users'
-];
+export default withTracker(() => {
+  const collections = [
+    'graphs',
+    'sessions',
+    'users',
+    'globalSettings',
+    'externalOperators'
+  ];
 
 export default withTracker(() => {
   if (!Meteor.user().role) {
