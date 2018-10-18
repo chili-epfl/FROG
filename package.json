@@ -56,7 +56,10 @@
     "prettier": "^1.14.2",
     "react-test-renderer": "^16.4.2",
     "regenerator-runtime": "^0.12.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "rich-text": "^3.0.1",
+    "ot-json0": "^1.1.0",
+    "quill": "^1.0.0-beta.11"
   },
   "license": "ISC",
   "dependencies": {

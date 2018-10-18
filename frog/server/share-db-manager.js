@@ -4,13 +4,17 @@ import ShareDB from 'sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
+import json0 from'ot-json0';
 import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
-import json from 'ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
+import richText from "rich-text";
 
 declare var Promise: any;
 const server = http.createServer();
+
+json0.type.registerSubtype(richText.type);
+ShareDB.types.register(json0.type);
 
 const dbUrl =
   (Meteor.settings && Meteor.settings.sharedb_dburl) ||

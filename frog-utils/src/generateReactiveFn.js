@@ -82,6 +82,8 @@ export class Doc {
       return { id, liDocument: newLI };
     } else {
       const itempointer = this.doc.connection.get('li', id);
+      console.log('creating doc');
+      console.log(newLI);
       itempointer.create(newLI);
       itempointer.subscribe();
       return id;
@@ -270,6 +272,7 @@ export const inMemoryReactive = (
     const doc = connection.get('coll', uuid());
     doc.subscribe();
     doc.on('load', () => {
+      console.log('inmemeroy doc create')
       doc.create(initial);
       resolve(doc);
     });
