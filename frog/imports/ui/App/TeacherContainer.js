@@ -62,7 +62,6 @@ export default withTracker(() => {
     'externalOperators'
   ];
 
-export default withTracker(() => {
   if (!Meteor.user().role) {
     Meteor.call('make.teacher', Meteor.userId());
   }

@@ -34,9 +34,9 @@ const quizConfig = {
 const srcs = [
   [
     'Quiz',
-    'http://localhost:3000/api/activityType/ac-quiz',
+    'http://localhost:3000/api/activityType/ac-brainstorm',
     {
-      config: quizConfig,
+      config: { allowCreate: true, specificLI: true, liType: 'li-idea' },
       instanceId: 11
     }
   ],
@@ -192,7 +192,8 @@ class App extends Component {
               {(this.state.url || srcs[this.state.example][1] || '').slice(
                 0,
                 100
-              )}...
+              )}
+              ...
             </i>
             <br />
             <PostIframe

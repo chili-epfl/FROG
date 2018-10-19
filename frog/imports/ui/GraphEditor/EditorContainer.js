@@ -7,6 +7,7 @@ import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { removeActivity } from '/imports/api/remoteActivities';
 import { removeGraph } from '/imports/api/remoteGraphs';
@@ -80,6 +81,9 @@ class Editor extends React.Component<Object, StateT> {
   }
 
   render() {
+    if (!this.props.ready) {
+      return <CircularProgress />;
+    }
     const { classes, store } = this.props;
     const show = this.props.store.ui.showPreview;
     if (show && show.activityTypeId) {
@@ -174,8 +178,19 @@ class Editor extends React.Component<Object, StateT> {
   }
 }
 
-const SubscriptionWrapper = withTracker(({ store: { graphId } }) =>
-  Meteor.subscribe('teacher.graph', graphId)
-)(Editor);
+const StyledEditor = withStyles(styles)(Editor);
 
-export default withStyles(styles)(connect(SubscriptionWrapper));
+const SubscriptionWrapper = withTracker(({ graphId }) => {
+  console.log('subscribing', graphId);
+  const subscription = Meteor.subscribe('teacher.graph', graphId);
+  return { ready: subscription.ready() };
+})(StyledEditor);
+
+const RawGraph = ({ store }) =>
+  store ? (
+    <SubscriptionWrapper key={store.graphId} graphId={store.graphId} />
+  ) : (
+    <CircularProgress />
+  );
+
+export default connect(RawGraph);
