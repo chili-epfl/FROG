@@ -9,7 +9,6 @@ import { DashboardData, Activities } from '../imports/api/activities';
 import { DashboardStates } from '../imports/api/cache';
 import { regenerateState } from '../imports/api/mergeLogData';
 import { serverConnection } from './share-db-manager';
-import { Objects } from '../imports/api/objects';
 
 const interval = {};
 const subscriptions = {};
