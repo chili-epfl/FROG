@@ -82,8 +82,6 @@ export class Doc {
       return { id, liDocument: newLI };
     } else {
       const itempointer = this.doc.connection.get('li', id);
-      console.log('creating doc');
-      console.log(newLI);
       itempointer.create(newLI);
       itempointer.subscribe();
       return id;
@@ -126,41 +124,6 @@ export class Doc {
     const binding = new StringBinding(ref, this.doc, path);
     binding.setup();
     return binding;
-  }
-
-  bindRichTextEditor(ref: any, rawpath: rawPathT) {
-    const path = cleanPath(this.path, rawpath);
-
-    ref.setContents(get(this.doc.data, path));
-
-    const opListener = (op, source) => {
-      console.log('received op', op, 'source', source);
-      if (source === ref) return;
-      op.forEach(operation => {
-        ref.updateContents(operation.o);
-      });
-    };
-    const editorListener = (delta, oldDelta, source) => {
-      const op = {
-        p: path,
-        t:'rich-text',
-        o: delta.ops
-      };
-      console.log('on textchange op', op, 'source', source);
-      if (source !== 'user') return;
-
-      this.doc.submitOp([op], {source: ref});
-    };
-
-    this.doc.on('op', opListener);
-    ref.on('text-change', editorListener);
-
-    return {
-      destroy: () => {
-        ref.off('text-change', editorListener);
-        this.doc.removeListener('op', opListener);
-      }
-    };
   }
 
   listPrepend(newVal: any, path: rawPathT) {

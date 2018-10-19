@@ -59,8 +59,6 @@ export const mergeOneInstance = (
             'load',
             Meteor.bindEnvironment(() => {
               try {
-                console.log('creating doc')
-                console.log(dataStructure)
                 doc.create(
                   dataStructure !== undefined ? cloneDeep(dataStructure) : {}
                 );
@@ -90,8 +88,7 @@ export const mergeOneInstance = (
   } else {
     data = dataStructure || {};
   }
-  console.log('creating server doc')
-  console.log(data)
+
   const serverDoc = serverConnection.get(
     'rz',
     docId || activity._id + '/' + grouping
@@ -125,7 +122,6 @@ const mergeData = (
   object: ObjectT & GlobalStructureT,
   group?: string
 ) => {
-  console.log('merge data called')
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
   const activityType = activityTypesObj[activity.activityType];
