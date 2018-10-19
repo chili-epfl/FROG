@@ -97,8 +97,6 @@ export default () => {
       }
     });
   });
-
-  Meteor.publish('dashboard.object', id => Objects.find(id));
 };
 
 export const archiveDashboardState = (activityId: string) => {
