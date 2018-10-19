@@ -1,8 +1,18 @@
 // @flow
 import React, { Component } from 'react';
-import { omit, isEqual } from 'lodash';
-import Quill from 'quill';
+import { get, isEqual } from 'lodash';
+import ReactQuill from 'react-quill';
+import classNames from 'classnames';
+import uuid from 'uuid/v4';
+import 'react-quill/dist/quill.snow.css';
 import { type LogT } from 'frog-utils';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = () => ({
+  hidden: {
+    display: 'none'
+  }
+});
 
 type ReactivePropsT = {
   path: string | string[],
@@ -11,22 +21,70 @@ type ReactivePropsT = {
   readOnly: boolean
 };
 
-export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> {
-  textRef: any;
+const Toolbar = withStyles(styles)(({editorId, hidden, classes}) => (
+    <div className={classNames(hidden && classes.hidden)} id={`toolbar-${editorId}`}>
+      <select className="ql-header" onChange={e => e.persist()}/>
+      <button className="ql-bold" />
+      <button className="ql-italic" />
+      <button className="ql-underline" />
+      <button className="ql-strike" />
+      <button className="ql-script" value="sub"/>
+      <button className="ql-script" value="super"/>
+      <button className="ql-code-block" />
+      <button className="ql-blockquote" />
+      <button className="ql-list" value="ordered"/>
+      <button className="ql-list" value="bullet"/>
+      <button className="ql-indent" value="-1"/>
+      <button className="ql-indent" value="+1"/>
+      <select className="ql-font"/>
+      <select className="ql-color"/>
+      <select className="ql-background"/>
+    </div>
+  )
+);
 
-  binding: any;
+const modules = editorId => ({
+  toolbar: {
+    container: `#toolbar-${editorId}`
+  }
+});
+
+const formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'code-block',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'image',
+  'color',
+  'script',
+  'background'
+];
+
+export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> {
+
+  quillRef: any;
+
+  opListener = (op, source) => {
+    if (source === this.quillRef) return;
+    op.forEach(operation => {
+      if (this.quillRef) {
+        this.quillRef.getEditor().updateContents(operation.o);
+      }
+    });
+  };
 
   update = (props: ReactivePropsT) => {
     this.setState({ path: props.path, dataFn: props.dataFn });
-
-    const editor = new Quill(this.textRef, { readOnly: this.props.readOnly });
-
-    if (this.binding) {
-      this.binding.destroy();
-    }
-    if (!this.props.dataFn.readOnly) {
-      this.binding = props.dataFn.bindRichTextEditor(editor, props.path);
-    }
+    props.dataFn.doc.on('op', this.opListener);
   };
 
   componentDidMount() {
@@ -45,9 +103,11 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
   }
 
   componentWillUnmount() {
-    if (this.binding) {
-      this.binding.destroy();
-    }
+    this.props.dataFn.doc.removeListener('op', this.opListener);
+  }
+
+  componentWillMount() {
+    this.setState({ editorId: uuid()});
   }
 
   log(msg: string, props?: ReactivePropsT) {
@@ -56,15 +116,38 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
       logger({
         type: 'reactivetext.' + msg,
         itemId: JSON.stringify((props || this.props).path),
-        value: this.textRef.value
+        value: this.quillRef.getEditor()
       });
     }
   }
 
+  handleChange = (contents, delta, source) => {
+    const op = {
+      p: ['payload', this.props.path],
+      t:'rich-text',
+      o: delta.ops
+    };
+
+    if (source !== 'user') return;
+
+    this.props.dataFn.doc.submitOp([op], {source: this.quillRef});
+  };
+
+
+
   render() {
-    const rest = omit(this.props, ['logger', 'path', 'dataFn', 'readOnly']);
     return (
-      <div {...rest} ref={ref => (this.textRef = ref)}/>
+      <div>
+        <Toolbar editorId={this.state.editorId} hidden={this.props.readOnly}/>
+        <ReactQuill
+          defaultValue={get(this.props.dataFn.doc.data, `payload.${this.props.path}`)}
+          ref={element => { this.quillRef = element }}
+          readOnly={this.props.readOnly}
+          onChange={this.handleChange}
+          modules={modules(this.state.editorId)}
+          formats={formats}
+        />
+      </div>
     );
   }
 }
