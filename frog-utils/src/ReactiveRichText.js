@@ -75,10 +75,11 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
 
   log(msg: string, props?: ReactivePropsT) {
     const logger = props ? props.logger : this.props.logger;
-    const editor = this.quillRef.getEditor();
-    const unprivilegedEditor = this.quillRef.makeUnprivilegedEditor(editor);
 
     if (logger && !this.props.dataFn.readOnly) {
+      const editor = this.quillRef.getEditor();
+      const unprivilegedEditor = this.quillRef.makeUnprivilegedEditor(editor);
+
       logger({
         type: 'reactivetext.' + msg,
         itemId: JSON.stringify((props || this.props).path),
