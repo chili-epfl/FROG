@@ -13,11 +13,15 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['gainMatrix'],
+  required: ['rounds', 'gainMatrix'],
   properties: {
     title: {
       title: 'What is the title?',
       type: 'string'
+    },
+    rounds: {
+        title: 'Number of rounds',
+        type: 'number'
     },
     gainMatrix: {
         title: 'Gain Matrix',

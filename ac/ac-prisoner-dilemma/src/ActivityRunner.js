@@ -12,11 +12,13 @@ const styles = {
     },
     score: {
         display: 'inline-block',
-        fontSize: '20px',
+        fontSize: '30px',
         width: '20%',
         marginLeft: '15%',
         marginRight: '15%',
-        textAlign: 'center'
+        textAlign: 'center',
+        borderRadius: '10px',
+        lineHeight: '50px'
     },
     imageContainer: {
         marginBottom: '75px',
@@ -46,6 +48,10 @@ const styles = {
     }
 };
 
+const red = '#e07059';
+const yellow = '#eded1e';
+const green = '#8bc34a';
+
 type StyledPropsT = ActivityRunnerPropsT & { classes: Object };
 class PrisonerDilemmaController extends React.Component<StyledPropsT> {
 
@@ -66,7 +72,10 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     renderScoreboard(students) {
 
         return students.map(key => (
-            <span className={this.props.classes.score}>
+            <span
+                id={key}
+                className={this.props.classes.score}
+            >
                 {key} : {this.props.data[key].score} pts
             </span>
         ));
@@ -75,13 +84,16 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     computeScore(student, player, adversary) {
         const scores = this.props.activityData.config.gainMatrix;
 
-        let score = this.props.data[student].score;
-        score += player ?
+        let oldScore = this.props.data[student].score;
+        let newScore = oldScore;
+        newScore += player ?
             (adversary ? scores.cooperateCooperate : scores.cooperateCheat) :
             (adversary ? scores.cheatCooperate : scores.cheatCheat);
 
+        this.flashBackground(student, oldScore, newScore);
+
         this.props.dataFn.objInsert(
-            {score: score},
+            {score: newScore},
             student
         );
     }
@@ -93,15 +105,13 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
             const a = this.props.data.rounds[(round - 1).toString()][studentsKeys[0]];
             const b = this.props.data.rounds[(round - 1).toString()][studentsKeys[1]];
 
-            const leftPlayer = this.computeScore(studentsKeys[0], a, b);
-            const rightPlayer = this.computeScore(studentsKeys[1], b, a);
+            this.computeScore(studentsKeys[0], a, b);
+            this.computeScore(studentsKeys[1], b, a);
 
             this.props.dataFn.objInsert(
                 {},
                 ['rounds', round.toString()]
             );
-
-            return [leftPlayer, rightPlayer];
         }
     }
 
@@ -148,6 +158,17 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
         );
     }
 
+    flashBackground(student, oldScore, newScore) {
+        const color = (newScore === oldScore) ? yellow :
+            (newScore > oldScore ? green : red);
+
+        let root = document.getElementById(student);
+        root.style.background = color;
+        setTimeout(() => {
+            root.style.background = '#fafafa';
+        }, 750);
+    }
+
     clickHandler(r, cooperate) {
         this.props.dataFn.objInsert(
             cooperate,
@@ -181,7 +202,7 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
         this.updateScore(round);
 
         return (
-            <div>
+            <div id="root">
                 <div className={this.props.classes.scoreBoard}>
                     {this.renderScoreboard(students)}
                 </div>
