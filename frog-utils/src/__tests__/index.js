@@ -1,4 +1,4 @@
-import { flattenOne, splitPathObject } from '..';
+import { getRotateable, flattenOne, splitPathObject } from '..';
 
 jest.mock(
   '..',
@@ -36,4 +36,27 @@ test('splitPathObject', () => {
     insertPath: ['a', 'b', 'c', 'd', 'e'],
     insertObject: 0
   });
+});
+
+test('getRotatable', () => {
+  const rot = getRotateable(['a', 'b', 'c'], 1);
+  expect([0, 1, 2, 3, 4, 5, 6].map(x => rot[x])).toEqual([
+    'b',
+    'c',
+    'a',
+    'b',
+    'c',
+    'a',
+    'b'
+  ]);
+  const rot2 = getRotateable(['a', 'b', 'c'], 2);
+  expect([0, 1, 2, 3, 4, 5, 6].map(x => rot2[x])).toEqual([
+    'c',
+    'a',
+    'b',
+    'c',
+    'a',
+    'b',
+    'c'
+  ]);
 });
