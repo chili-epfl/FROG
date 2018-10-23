@@ -19,10 +19,12 @@ const config = {
     },
     mix: {
       type: 'boolean',
-      title: 'Mix previous groups?'
+      title: 'Mix previous groups (groups stay the same, roles rotate)?'
     }
   }
 };
+
+const configUI = { roles: { conditional: 'mix' } };
 
 export default ({
   id: 'op-jigsaw',
@@ -30,5 +32,6 @@ export default ({
   configVersion: 1,
   meta,
   config,
+  configUI,
   outputDefinition: ['group', 'role']
 }: socialOperatorT);
