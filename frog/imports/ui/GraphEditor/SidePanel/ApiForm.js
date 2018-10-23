@@ -2,6 +2,7 @@ import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
 import { observer } from 'mobx-react';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import validateConfig from '/imports/api/validateConfig';
@@ -254,7 +255,7 @@ const ApiForm = observer(
                   activity={this.state.activity}
                   setValid={state.setValid}
                   reload={this.props.reload}
-                  config={this.props.config || {}}
+                  config={this.props.config || this.state.activity.data || {}}
                 />
               </div>
               {!this.props.hideValidator && (
@@ -287,14 +288,25 @@ const ApiForm = observer(
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}
                 onSelect={e => {
+                  const obj =
+                    typeof e.id === 'object'
+                      ? {
+                          activityType: e.id.activity_type,
+                          config: e.id.config
+                        }
+                      : {
+                          activityType: e.id,
+                          config: jsonSchemaDefaults(e.config)
+                        };
+
                   if (this.props.onSelect) {
-                    this.props.onSelect(e.id);
+                    this.props.onSelect(obj.activityType);
                   }
                   this.setState({
                     activity: {
                       _id: '1',
-                      activityType: e.id,
-                      data: {},
+                      activityType: obj.activityType,
+                      data: obj.config,
                       plane: 1,
                       startTime: 0,
                       length: 5
