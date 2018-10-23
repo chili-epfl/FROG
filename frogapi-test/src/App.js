@@ -33,10 +33,15 @@ const quizConfig = {
 
 const srcs = [
   [
-    'Quiz',
-    'http://localhost:3000/api/activityType/ac-quiz',
+    'Brainstorm',
+    'https://icchilisrv3.epfl.ch/api/activityType/ac-brainstorm',
     {
-      config: quizConfig,
+      config: {
+        allowCreate: true,
+        specificLI: true,
+        liType: 'li-image',
+        allowGeneralLI: true
+      },
       instanceId: 11
     }
   ],
@@ -192,12 +197,14 @@ class App extends Component {
               {(this.state.url || srcs[this.state.example][1] || '').slice(
                 0,
                 100
-              )}...
+              )}
+              ...
             </i>
             <br />
             <PostIframe
+              allow="microphone *; camera *"
               width={900}
-              height={800}
+              height={400}
               src={this.state.url || srcs[this.state.example][1]}
               params={{
                 ...srcs[this.state.example][2],
