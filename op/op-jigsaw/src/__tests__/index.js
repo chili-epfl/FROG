@@ -64,17 +64,19 @@ const object5 = {
 
 test('test larger group', () =>
   expect(operator({ roles: 'editor, author, salesman, ceo' }, object5)).toEqual(
-    ('group': {
-      '0': ['1', '2', '3', '4'],
-      '1': ['5', '6', '7', '8'],
-      '2': ['9']
-    }),
-    ('role': {
-      author: ['2', '6'],
-      ceo: ['4', '8'],
-      editor: ['1', '5', '9'],
-      salesman: ['3', '7']
-    })
+    {
+      group: {
+        '0': ['1', '2', '3', '4'],
+        '1': ['5', '6', '7', '8'],
+        '2': ['9']
+      },
+      role: {
+        author: ['2', '6'],
+        ceo: ['4', '8'],
+        editor: ['1', '5', '9'],
+        salesman: ['3', '7']
+      }
+    }
   ));
 
 const object3 = {
