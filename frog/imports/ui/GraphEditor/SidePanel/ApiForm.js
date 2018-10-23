@@ -300,7 +300,7 @@ const ApiForm = observer(
                         };
 
                   if (this.props.onSelect) {
-                    this.props.onSelect(obj.activityType);
+                    this.props.onSelect(e.id);
                   }
                   this.setState({
                     activity: {
