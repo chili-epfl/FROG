@@ -197,7 +197,12 @@ const state = new State();
 const ApiForm = observer(
   class A extends React.Component<
     PropsT,
-    { activity: ActivityDbT, idRemove: Object, deleteOpen: boolean }
+    {
+      activity: ActivityDbT,
+      idRemove: Object,
+      deleteOpen: boolean,
+      whiteList?: string[]
+    }
   > {
     constructor(props) {
       super(props);
@@ -275,6 +280,7 @@ const ApiForm = observer(
                 hideLibrary={this.props.hideLibrary}
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
+                whiteList={this.props.whiteList}
                 store={store}
                 setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}

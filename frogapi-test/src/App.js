@@ -109,9 +109,9 @@ const srcs = [
   ],
   ['Choose activity', 'http://localhost:3000/api/chooseActivity', {}],
   [
-    'Choose activity, with library',
+    'Choose activity, with whiteList',
     'http://localhost:3000/api/chooseActivity',
-    { showLibrary: true }
+    { whiteList: ['ac-quiz', 'ac-chat', 'ac-brainstorm', 'ac-ck-board'] }
   ],
   ['Configure quiz', 'http://localhost:3000/api/config/ac-quiz'],
   [
