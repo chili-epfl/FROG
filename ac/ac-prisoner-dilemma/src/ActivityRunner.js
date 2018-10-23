@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const styles = {
     scoreBoard: {
@@ -58,15 +59,20 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     constructor(props) {
         super(props);
 
-        this.props.dataFn.objInsert(
-            {score: 0},
-            this.props.userInfo.name
-        );
+        // TODO: evaluate whether to remove this check or not
+        if(!this.props.data.length || this.props.data.length < 3) {
+            this.props.dataFn.objInsert({
+                    name: this.props.userInfo.name,
+                    score: 0
+                },
+                this.props.userInfo.id
+            );
 
-        this.props.dataFn.objInsert(
-            {0: {}},
-            'rounds'
-        );
+            this.props.dataFn.objInsert(
+                {0: {}},
+                'rounds'
+            );
+        }
     }
 
     renderScoreboard(students) {
@@ -76,37 +82,48 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
                 id={key}
                 className={this.props.classes.score}
             >
-                {key} : {this.props.data[key].score} pts
+                {this.props.data[key].name} : {this.props.data[key].score} pts
             </span>
         ));
     }
 
-    computeScore(student, player, adversary) {
+    underlineUpdate(id, oldScore, newScore) {
+        const color = (newScore === oldScore) ? yellow :
+            (newScore > oldScore ? green : red);
+
+        let root = document.getElementById(id);
+        root.style.background = color;
+        setTimeout(() => {
+            root.style.background = '#fafafa';
+        }, 750);
+    }
+
+    computeScore(id, player, adversary) {
         const scores = this.props.activityData.config.gainMatrix;
 
-        let oldScore = this.props.data[student].score;
+        let oldScore = this.props.data[id].score;
         let newScore = oldScore;
         newScore += player ?
             (adversary ? scores.cooperateCooperate : scores.cooperateCheat) :
             (adversary ? scores.cheatCooperate : scores.cheatCheat);
 
-        this.flashBackground(student, oldScore, newScore);
+        this.underlineUpdate(id, oldScore, newScore);
 
         this.props.dataFn.objInsert(
-            {score: newScore},
-            student
+            newScore,
+            [id, 'score']
         );
     }
 
     updateScore(round) {
-        const studentsKeys = Object.keys(this.props.data.rounds[(round - 1).toString()]);
-        if (studentsKeys.length === 2) {
+        const keys = Object.keys(this.props.data.rounds[(round - 1).toString()]);
+        if (keys.length === 2) {
 
-            const a = this.props.data.rounds[(round - 1).toString()][studentsKeys[0]];
-            const b = this.props.data.rounds[(round - 1).toString()][studentsKeys[1]];
+            const a = this.props.data.rounds[(round - 1).toString()][keys[0]];
+            const b = this.props.data.rounds[(round - 1).toString()][keys[1]];
 
-            this.computeScore(studentsKeys[0], a, b);
-            this.computeScore(studentsKeys[1], b, a);
+            this.computeScore(keys[0], a, b);
+            this.computeScore(keys[1], b, a);
 
             this.props.dataFn.objInsert(
                 {},
@@ -158,46 +175,41 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
         );
     }
 
-    flashBackground(student, oldScore, newScore) {
-        const color = (newScore === oldScore) ? yellow :
-            (newScore > oldScore ? green : red);
-
-        let root = document.getElementById(student);
-        root.style.background = color;
-        setTimeout(() => {
-            root.style.background = '#fafafa';
-        }, 750);
-    }
-
     clickHandler(r, cooperate) {
         this.props.dataFn.objInsert(
             cooperate,
-            ['rounds', (r - 1).toString(), this.props.userInfo.name]
+            ['rounds', (r - 1).toString(), this.props.userInfo.id]
         );
     };
 
     renderActionButton(label, enabled, round, cooperate) {
         return (
-            <button
+            <Button
+                variant="outlined"
                 className={this.props.classes.button}
                 disabled={enabled}
                 onClick={() => this.clickHandler(round, cooperate)}
             >
                 {label}
-            </button>
+            </Button>
         );
     }
 
     render() {
 
-        if (!('rounds' in this.props.data)) {
+        const students = Object.keys(this.props.data)
+            .filter(k => k !== 'rounds')
+            .sort()
+            .splice(0, 2);
+
+        if (!('rounds' in this.props.data) || students.length < 2) {
             return (<div> Charging ... </div>);
         }
 
         const round = Object.keys(this.props.data['rounds']).length;
-        const enableButtons = this.props.userInfo.name in this.props.data.rounds[(round - 1).toString()];
 
-        const students = Object.keys(this.props.data).filter(k => k !== 'rounds');
+        const disableButtons = students.indexOf(this.props.userInfo.id) < 0 ||
+            this.props.userInfo.id in this.props.data.rounds[(round - 1).toString()];
 
         this.updateScore(round);
 
@@ -212,8 +224,8 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
                 <hr/>
 
                 <div className={this.props.classes.buttonContainer}>
-                    {this.renderActionButton('Cooperate', enableButtons, round, true)}
-                    {this.renderActionButton('Cheat', enableButtons, round, false)}
+                    {this.renderActionButton('Cooperate', disableButtons, round, true)}
+                    {this.renderActionButton('Cheat', disableButtons, round, false)}
                 </div>
             </div>
         );
