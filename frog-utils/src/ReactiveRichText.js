@@ -93,7 +93,9 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
       o: delta.ops
     };
 
-    if (source !== 'user') return;
+    if (source !== 'user') {
+      return;
+    }
 
     this.props.dataFn.doc.submitOp([op], {source: this.quillRef});
   };
