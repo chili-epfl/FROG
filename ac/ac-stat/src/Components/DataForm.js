@@ -179,7 +179,7 @@ class Data extends React.Component<*, *> {
       <Paper className={classes.root}>
         <div className={classes.header}>
           <DatasetSelector {...this.props} />
-          <RefreshDataset {...this.props} />
+          {editable && <RefreshDataset {...this.props} />}
         </div>
         <div className={classes.table}>
           <Table>

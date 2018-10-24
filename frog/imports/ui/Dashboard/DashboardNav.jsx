@@ -80,6 +80,7 @@ const ActivityChoiceMenu = withStyles(styles)(
     </Drawer>
   )
 );
+ActivityChoiceMenu.displayName = 'ActivityChoiceMenu';
 
 const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
   const { activityId, setActivityId, session, activities, classes } = props;
@@ -121,6 +122,7 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
     </div>
   );
 });
+DashboardNav.displayName = 'DashboardNav';
 
 export default withTracker(({ session }) => ({
   activities: Activities.find({

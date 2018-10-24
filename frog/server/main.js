@@ -100,9 +100,9 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
   if (!sessionId) return;
   const slug = Sessions.findOne(sessionId).slug;
   if (!slug) return;
-  const act = Activities.findOne(activityId);
-  if (!act) return;
-  const aT = activityTypesObj[act.activityType];
+  const activity = Activities.findOne(activityId);
+  if (!activity) return;
+  const aT = activityTypesObj[activity.activityType];
   const dashNames = (
     (!names || names === 'all'
       ? aT.dashboards && Object.keys(aT.dashboards)
