@@ -3,6 +3,7 @@ import { type ActivityRunnerT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+// Styles
 
 const styles = {
     buttonContainer: {
@@ -22,10 +23,16 @@ const styles = {
     }
 };
 
+// Props types
+
 type ButtonsPropsT = { id: string, dataFn: Object, disableButtons: boolean, round: number};
 type StyledButtonsPropsT = ButtonsPropsT & { classes: Object };
 
+// Component
+
 const ButtonsController = (props: StyledButtonsPropsT) => {
+
+    // Methods
 
     const clickHandler = (round, cooperate) => {
         props.dataFn.objInsert(
@@ -37,7 +44,7 @@ const ButtonsController = (props: StyledButtonsPropsT) => {
     const renderActionButton = (label, disabled, round, cooperate) => {
         return (
             <Button
-                variant="outlined"
+                variant='outlined'
                 className={props.classes.button}
                 disabled={disabled}
                 onClick={() => clickHandler(round, cooperate)}
@@ -47,6 +54,8 @@ const ButtonsController = (props: StyledButtonsPropsT) => {
         );
     };
 
+    // Rendering
+
     return (
         <div className={props.classes.buttonContainer}>
             {renderActionButton('Cooperate', props.disableButtons, props.round, true)}
@@ -54,6 +63,8 @@ const ButtonsController = (props: StyledButtonsPropsT) => {
         </div>
     );
 };
+
+// Export
 
 const StyledButtons = withStyles(styles)(ButtonsController);
 const Buttons: ActivityRunnerT = (props: ButtonsPropsT) => (

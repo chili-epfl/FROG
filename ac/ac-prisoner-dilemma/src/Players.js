@@ -2,10 +2,12 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
+// Styles
+
 const styles = {
     imageContainer: {
         marginBottom: '75px',
-        marginTop: '75px',
+        marginTop: '50px',
         width: '100%',
     },
     image: {
@@ -16,10 +18,16 @@ const styles = {
     }
 };
 
+// Props types
+
 type PlayersPropsT = { students: Array, round: number, roundsLog: Object };
 type StyledPlayersPropsT = PlayersPropsT & { classes: Object };
 
+// Component
+
 const PlayersController = (props: StyledPlayersPropsT) => {
+
+    // Methods
 
     const selectImage = (player, adversary) => {
         let imagePath = '/clientFiles/ac-prisoner-dilemma/';
@@ -30,6 +38,8 @@ const PlayersController = (props: StyledPlayersPropsT) => {
 
         return imagePath;
     };
+
+    // Rendering
 
     const leftPlayer = props.round < 2 ? true : props.roundsLog[(props.round - 2).toString()][props.students[0]];
     const rightPlayer = props.round < 2 ? true : props.roundsLog[(props.round - 2).toString()][props.students[1]];
@@ -52,6 +62,8 @@ const PlayersController = (props: StyledPlayersPropsT) => {
         </div>
     );
 };
+
+// Export
 
 const StyledPlayers = withStyles(styles)(PlayersController);
 const Players: ActivityRunnerT = (props: PlayersPropsT) => (

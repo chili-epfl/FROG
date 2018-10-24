@@ -8,6 +8,8 @@ import Scoreboard from './Scoreboard';
 import Players from './Players';
 import Buttons from './Buttons';
 
+// Styles
+
 const styles = {
     result: {
         marginTop: '100px',
@@ -18,12 +20,19 @@ const styles = {
     }
 };
 
+// Props types
 type StyledPropsT = ActivityRunnerPropsT & { classes: Object };
+
+// Component
+
 class PrisonerDilemmaController extends React.Component<StyledPropsT> {
+
+    // Constructor
 
     constructor(props) {
         super(props);
 
+        // TODO: use structure in props giving mapping id -> name (where it is?)
         this.props.dataFn.objInsert({
                 name: this.props.userInfo.name,
                 score: 0
@@ -36,6 +45,8 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
             'rounds'
         );
     }
+
+    // Methods
 
     renderGame(students, round, disableButtons) {
         if (!this.props.data.winner) {
@@ -58,7 +69,7 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
                 </div>
             );
         } else {
-
+            // Game finished: show result
             const a = this.props.data[students[0]].score;
             const b = this.props.data[students[1]].score;
 
@@ -74,8 +85,11 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
         }
     }
 
+    // Rendering
+
     render() {
 
+        // Only two students can compete, others are spectator
         const students = Object.keys(this.props.data)
             .filter(k => k !== 'rounds')
             .sort()
@@ -106,6 +120,8 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
         );
     }
 }
+
+// Export
 
 const StyledPrisonerDilemma = withStyles(styles)(PrisonerDilemmaController);
 const PrisonerDilemma: ActivityRunnerT = (props: ActivityRunnerPropsT) => (

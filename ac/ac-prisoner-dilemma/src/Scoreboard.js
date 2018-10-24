@@ -2,15 +2,28 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
+
+// Colors
+
+const baseColor = '#fafafa';
 const red = '#e07059';
 const yellow = '#eded1e';
 const green = '#8bc34a';
+
+// Actions
+const baseAction = '';
+const cooperate = 'Cooperate';
+const cheat = 'Cheat';
+const actionPostfix = '_action';
+
+// Styles
 
 const styles = {
     scoreBoard: {
         marginBottom: '50px',
         marginTop: '50px',
         width: '100%',
+        height: '150px',
     },
     score: {
         display: 'inline-block',
@@ -20,34 +33,55 @@ const styles = {
         marginRight: '15%',
         textAlign: 'center',
         borderRadius: '10px',
-        lineHeight: '50px'
+        lineHeight: '50px',
     }
 };
+
+// Props types
 
 type ScoreboardPropsT = { data: Object, dataFn: Object, config: Object, students: Array, round: number };
 type StyledScoreboardPropsT = ScoreboardPropsT & { classes: Object };
 
+// Component
+
 const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
 
-    const renderScoreboard = () => {
-        return props.students.map(key => (
-            <span
-                id={key}
-                className={props.classes.score}
-            >
-                {props.data[key].name} : {props.data[key].score} pts
-            </span>
-        ));
-    };
+    // Methods
 
-    const underlineUpdate = (id, oldScore, newScore) => {
+    const renderScoreboard = () => props.students.map(key => (
+        <span
+            id={key}
+            className={props.classes.score}
+        >
+            {props.data[key].name} : {props.data[key].score} pts
+        </span>
+    ));
+
+    const renderActions = () => props.students.map(key => (
+        <span
+            id={key + actionPostfix}
+            className={props.classes.score}
+        />
+    ));
+
+    const underlineScore = (id, oldScore, newScore) => {
         const color = (newScore === oldScore) ? yellow :
             (newScore > oldScore ? green : red);
 
         const element = document.getElementById(id);
         element.style.background = color;
         setTimeout(() => {
-            element.style.background = '#fafafa';
+            element.style.background = baseColor;
+        }, 750);
+    };
+
+    const showAction = (id, action) => {
+        const text = action ? cooperate : cheat;
+
+        const element = document.getElementById(id + actionPostfix);
+        element.innerHTML = text;
+        setTimeout(() => {
+            element.innerHTML = baseAction;
         }, 750);
     };
 
@@ -60,7 +94,8 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
             (adversary ? scores.cooperateCooperate : scores.cooperateCheat) :
             (adversary ? scores.cheatCooperate : scores.cheatCheat);
 
-        underlineUpdate(id, oldScore, newScore);
+        underlineScore(id, oldScore, newScore);
+        showAction(id, player);
 
         props.dataFn.objInsert(
             newScore,
@@ -88,16 +123,25 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
         }
     };
 
+    // Rendering
+
     if (!props.data.winner) {
         updateScore();
     }
 
     return (
-        <div className={props.classes.scoreBoard}>
-            {renderScoreboard()}
+        <div  className={props.classes.scoreBoard}>
+            <div>
+                {renderScoreboard()}
+            </div>
+            <div>
+                {renderActions()}
+            </div>
         </div>
     );
 };
+
+// Export
 
 const StyledScoreboard = withStyles(styles)(ScoreboardController);
 const Scoreboard: ActivityRunnerT = (props: ScoreboardPropsT) => (
