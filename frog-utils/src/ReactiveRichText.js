@@ -17,24 +17,26 @@ const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],
   ['blockquote', 'code-block'],
 
-  [{ 'header': 1 }, { 'header': 2 }],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],
-  [{ 'indent': '-1'}, { 'indent': '+1' }],
-  [{ 'direction': 'rtl' }],
+  [{ header: 1 }, { header: 2 }],
+  [{ list: 'ordered' }, { list: 'bullet' }],
+  [{ script: 'sub' }, { script: 'super' }],
+  [{ indent: '-1' }, { indent: '+1' }],
+  [{ direction: 'rtl' }],
 
-  [{ 'size': ['small', false, 'large', 'huge'] }],
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  [{ size: ['small', false, 'large', 'huge'] }],
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-  [{ 'color': [] }, { 'background': [] }],
-  [{ 'font': [] }],
-  [{ 'align': [] }],
+  [{ color: [] }, { background: [] }],
+  [{ font: [] }],
+  [{ align: [] }],
 
   ['clean']
 ];
 
-export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> {
-
+export class ReactiveRichText extends Component<
+  ReactivePropsT,
+  ReactivePropsT
+> {
   quillRef: any;
 
   opListener = (op: Object[], source: string) => {
@@ -60,7 +62,7 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
     if (
       (nextProps.dataFn && nextProps.dataFn.doc.id) !==
-      (this.props.dataFn && this.props.dataFn.doc.id) ||
+        (this.props.dataFn && this.props.dataFn.doc.id) ||
       !isEqual(this.props.path, nextProps.path)
     ) {
       this.update(nextProps);
@@ -89,7 +91,7 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
   handleChange = (contents: string, delta: Object, source: string) => {
     const op = {
       p: ['payload', this.props.path],
-      t:'rich-text',
+      t: 'rich-text',
       o: delta.ops
     };
 
@@ -97,22 +99,29 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
       return;
     }
 
-    this.props.dataFn.doc.submitOp([op], {source: this.quillRef});
+    this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
   render() {
     return (
       <div>
         <ReactQuill
-          defaultValue={get(this.props.dataFn.doc.data, `payload.${this.props.path}`)}
-          ref={element => { this.quillRef = element }}
+          defaultValue={get(
+            this.props.dataFn.doc.data,
+            `payload.${this.props.path}`
+          )}
+          ref={element => {
+            this.quillRef = element;
+          }}
           readOnly={this.props.readOnly}
           onChange={this.handleChange}
           modules={{
-            toolbar: this.props.readOnly ? null : (this.props.toolbarOptions || toolbarOptions)
+            toolbar: this.props.readOnly
+              ? null
+              : this.props.toolbarOptions || toolbarOptions
           }}
         >
-          <div style={this.props.readOnly ? { 'borderStyle': 'hidden' } : {}}/>
+          <div style={this.props.readOnly ? { borderStyle: 'hidden' } : {}} />
         </ReactQuill>
       </div>
     );

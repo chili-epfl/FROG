@@ -8,7 +8,7 @@ import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
 import json from 'ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
-import richText from "rich-text";
+import richText from 'rich-text';
 
 declare var Promise: any;
 const server = http.createServer();

@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import richText from 'rich-text';
-import json0 from'ot-json0';
+import json0 from 'ot-json0';
 
 let socket;
 let _connection;

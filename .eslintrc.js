@@ -75,10 +75,7 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2016,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true
-    }
+    sourceType: 'module'
   },
   env: {
     es6: true,
