@@ -19,15 +19,14 @@ const withNullCheck = ({
   liType,
   data,
   dataFn,
-  open,
   setOpen
 }) => WrappedComponent => {
   // $FlowFixMe
   const WrappedComponentClass = toClass(WrappedComponent);
   // $FlowFixMe
-  class NullChecker extends WrappedComponentClass {
-    shouldComponentUpdate() {
-      return false;
+  class NullChecker extends WrappedComponentClass<*, *> {
+    shouldComponentUpdate(nextProps) {
+      return this.props?.open !== nextProps?.open;
     }
 
     render() {
@@ -43,11 +42,13 @@ const withNullCheck = ({
             onClick={() => {
               setOpen(true);
             }}
-            condition={type === 'thumbView' && clickZoomable && liType.Viewer}
+            condition={
+              type === 'thumbView' && !!clickZoomable && !!liType.Viewer
+            }
           >
             {result}
           </MaybeClickable>
-          {open &&
+          {this.props.open &&
             liType.Viewer && (
               <Dialog
                 maxWidth={false}

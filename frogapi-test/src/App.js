@@ -46,6 +46,13 @@ const srcs = [
     }
   ],
   [
+    'Chat',
+    'http://localhost:3000/api/activityType/ac-chat',
+    {
+      instanceId: 11
+    }
+  ],
+  [
     'Quiz read-only',
     'http://localhost:3000/api/activityType/ac-quiz',
     {
