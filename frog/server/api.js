@@ -295,12 +295,20 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   if (!activityTypesObj[activityTypeId]) {
     response.end('No matching activity type found');
   }
-  const config = safeDecode(
-    request.body,
-    'config',
-    'Config data not valid',
-    response
-  );
+
+  let altConfig = null;
+  if (request.query.config) {
+    try {
+      altConfig = JSON.parse(request.query.config);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  const config =
+    altConfig ||
+    safeDecode(request.body, 'config', 'Config data not valid', response);
+
   InjectData.pushData(request, 'api', {
     callType: 'dashboard',
     clientId: (request.query.clientId || '') + request.body.clientId,
