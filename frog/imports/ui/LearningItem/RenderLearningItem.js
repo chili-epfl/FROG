@@ -25,10 +25,6 @@ const withNullCheck = ({
   const WrappedComponentClass = toClass(WrappedComponent);
   // $FlowFixMe
   class NullChecker extends WrappedComponentClass<*, *> {
-    shouldComponentUpdate(nextProps) {
-      return this.props?.open !== nextProps?.open;
-    }
-
     render() {
       const result = super.render();
 
