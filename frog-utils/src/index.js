@@ -347,3 +347,8 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };
+
+export const getRotateable = (ary: *, toRotate: number): * =>
+  new Proxy(ary, {
+    get: (obj, prop) => obj[(parseInt(prop, 10) + toRotate) % obj.length]
+  });
