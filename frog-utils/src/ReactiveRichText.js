@@ -13,37 +13,34 @@ type ReactivePropsT = {
   toolbarOptions?: Object[]
 };
 
+const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],
+  [{ 'indent': '-1'}, { 'indent': '+1' }],
+  [{ 'direction': 'rtl' }],
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']
+];
+
 export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> {
 
   quillRef: any;
 
-  modules = () => {
-    const toolbarOptions = this.props.toolbarOptions || [
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote', 'code-block'],
-
-      [{ 'header': 1 }, { 'header': 2 }],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'script': 'sub'}, { 'script': 'super' }],
-      [{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ 'direction': 'rtl' }],
-
-      [{ 'size': ['small', false, 'large', 'huge'] }],
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'font': [] }],
-      [{ 'align': [] }],
-
-      ['clean']
-    ];
-    return {
-      toolbar: this.props.readOnly ? null : toolbarOptions
-    }
-  };
-
   opListener = (op, source) => {
-    if (source === this.quillRef) return;
+    if (source === this.quillRef) {
+      return;
+    }
     op.forEach(operation => {
       if (this.quillRef) {
         this.quillRef.getEditor().updateContents(operation.o);
@@ -108,7 +105,9 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
           ref={element => { this.quillRef = element }}
           readOnly={this.props.readOnly}
           onChange={this.handleChange}
-          modules={this.modules()}
+          modules={{
+            toolbar: this.props.readOnly ? null : (this.props.toolbarOptions || toolbarOptions)
+          }}
         >
           <div style={this.props.readOnly ? { 'borderStyle': 'hidden' } : {}}/>
         </ReactQuill>
