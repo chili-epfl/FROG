@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { get, isEqual } from 'lodash';
+import { get, isEqual, last } from 'lodash';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { type LogT } from 'frog-utils';
@@ -42,7 +42,8 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
       return;
     }
     op.forEach(operation => {
-      if (this.quillRef) {
+      const opPath = last(operation.p);
+      if (this.quillRef && opPath === this.props.path) {
         this.quillRef.getEditor().updateContents(operation.o);
       }
     });
