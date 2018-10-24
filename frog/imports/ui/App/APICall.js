@@ -55,6 +55,7 @@ export default ({ data }: { data: Object }) => {
         activityType={data.activityType}
         config={data.config}
         hidePreview
+        noOffset
         hideValidator={!data.showValidator}
         hideLibrary={!data.showLibrary}
         showDelete={data.showDelete}

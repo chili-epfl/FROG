@@ -175,7 +175,8 @@ type PropsT = {
   showDelete?: boolean,
   setActivityTypeId?: string,
   hideLibrary?: boolean,
-  whiteList?: string[]
+  whiteList?: string[],
+  noOffset?: boolean
 };
 
 class State {
@@ -248,11 +249,13 @@ const ApiForm = observer(
 
     render() {
       return (
-        <React.Fragment>
+        <>
           {this.state.activity.activityType ? (
             <div>
               <div style={{ position: 'absolute', right: '0px', top: '0px' }}>
-                {!this.props.hideValidator && <Valid />}
+                {!this.props.hideValidator && (
+                  <Valid noOffset={this.props.noOffset} />
+                )}
                 {this.props.showDelete && (
                   <DeleteButton
                     tooltip="Reset activity"
@@ -296,7 +299,7 @@ const ApiForm = observer(
               </div>
             </div>
           ) : (
-            <React.Fragment>
+            <>
               <ModalDelete
                 modalOpen={this.state.deleteOpen}
                 setModal={x => this.setState({ deleteOpen: x })}
@@ -343,9 +346,9 @@ const ApiForm = observer(
                   });
                 }}
               />
-            </React.Fragment>
+            </>
           )}
-        </React.Fragment>
+        </>
       );
     }
   }
@@ -353,34 +356,48 @@ const ApiForm = observer(
 
 ApiForm.displayName = 'ApiForm';
 
-const Valid = observer(() => (
+const Valid = observer(({ noOffset }) => (
   <ValidButtonRaw
     setShowErrors={state.setShow}
     errorColor={state.valid.length > 0 ? 'red' : 'green'}
-    noOffset
+    noOffset={noOffset}
   />
 ));
 
-const Errors = observer(() => (
-  <React.Fragment>
+Valid.displayName = 'Valid';
+
+const Errors = observer(({ noOffset }) => (
+  <>
     {state.showErrors ? (
       <div
-        style={{
-          position: 'absolute',
-          top: '0px',
-          left: '0px'
-        }}
+        style={
+          noOffset
+            ? {
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                zIndex: 99
+              }
+            : {
+                position: 'absolute',
+                left: '0px',
+                top: '120px',
+                zIndex: 99
+              }
+        }
       >
         <ShowErrorsRaw errors={state.valid} />
       </div>
     ) : null}
-  </React.Fragment>
+  </>
 ));
+
+Errors.displayName = 'Errors';
 
 const Container = (props: PropsT) => (
   <div>
     <ApiForm {...props} />
-    {!props.hideValidator && <Errors />}
+    {!props.hideValidator && <Errors noOffset={props.noOffset} />}
   </div>
 );
 
