@@ -6,7 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import { type LogT } from 'frog-utils';
 
 type ReactivePropsT = {
-  path: string | string[],
+  path: string,
   dataFn: Object,
   logger?: LogT => void,
   readOnly: boolean,
@@ -37,7 +37,7 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
 
   quillRef: any;
 
-  opListener = (op, source) => {
+  opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
       return;
     }
@@ -86,7 +86,7 @@ export class ReactiveRichText extends Component<ReactivePropsT, ReactivePropsT> 
     }
   }
 
-  handleChange = (contents, delta, source) => {
+  handleChange = (contents: string, delta: Object, source: string) => {
     const op = {
       p: ['payload', this.props.path],
       t:'rich-text',
