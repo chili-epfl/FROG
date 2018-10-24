@@ -115,9 +115,16 @@ const srcs = [
   [
     'Choose activity, with whiteList',
     'http://localhost:3000/api/chooseActivity',
-    { whiteList: ['ac-quiz', 'ac-chat', 'ac-brainstorm', 'ac-ck-board'] }
+    {
+      whiteList: ['ac-quiz', 'ac-chat', 'ac-brainstorm', 'ac-ck-board'],
+      showDelete: true
+    }
   ],
-  ['Configure quiz', 'http://localhost:3000/api/config/ac-quiz'],
+  [
+    'Configure quiz',
+    'http://localhost:3000/api/config/ac-quiz',
+    { showDelete: true }
+  ],
   [
     'Configure quiz, with validator',
     'http://localhost:3000/api/config/ac-quiz',
@@ -126,7 +133,7 @@ const srcs = [
   [
     'Configure quiz with pre-loaded data',
     'http://localhost:3000/api/config/ac-quiz',
-    { config: quizConfig }
+    { config: quizConfig, showValidator: true, showDelete: true }
   ]
 ];
 

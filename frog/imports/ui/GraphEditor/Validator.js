@@ -119,17 +119,28 @@ export const ValidButtonRaw = ({
   graphErrorColor,
   setShowErrors,
   errorColor,
-  activityId
+  activityId,
+  noOffset
 }: {
   graphErrorColor?: string,
   setShowErrors: Function,
   errorColor: string,
-  activityId?: string
+  activityId?: string,
+  noOffset?: boolean
 }) => (
   <svg
     width="34px"
     height="34px"
-    style={{ overflow: 'visible', position: 'fixed', top: 60, left: 250 }}
+    style={
+      noOffset
+        ? {}
+        : {
+            overflow: 'visible',
+            position: 'fixed',
+            top: 60,
+            left: 250
+          }
+    }
   >
     <circle
       cx="17"
