@@ -203,16 +203,23 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   if (rawData && activityData) {
     response.end('Cannot provide both activityData and rawData');
   }
-  const config = safeDecode(
-    request.body,
-    'config',
-    'Config data not valid',
-    response
-  );
+
+  let altConfig = null;
+  if (request.query.config) {
+    try {
+      altConfig = JSON.parse(request.query.config);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  const config =
+    altConfig ||
+    safeDecode(request.body, 'config', 'Config data not valid', response);
 
   const docId =
     [
-      request.body.clientId,
+      (request.query.clientId || '') + request.body.clientId,
       activityTypeId,
       request.body.activityId || 'default'
     ].join('-') +
@@ -274,7 +281,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     activityId: request.body.activityId,
     rawInstanceId: request.body.instanceId || 'default',
     activityData,
-    clientId: request.body.clientId,
+    clientId: (request.query.clientId || '') + request.body.clientId,
     rawData,
     readOnly: request.body.readOnly,
     config
@@ -296,7 +303,7 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   );
   InjectData.pushData(request, 'api', {
     callType: 'dashboard',
-    clientId: request.body.clientId,
+    clientId: (request.query.clientId || '') + request.body.clientId,
     activityType: activityTypeId,
     instances: request.body.instances,
     activityId: request.body.activityId || 'default',
