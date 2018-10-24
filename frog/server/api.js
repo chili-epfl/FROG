@@ -298,7 +298,7 @@ WebApp.connectHandlers.use('/api/config', (request, response, next) => {
     callType: 'config',
     activityType: activityTypeId,
     showValidator: request.body.showValidator,
-    showLibrary: request.body.showLibrary,
+    showDelete: request.body.showDelete,
     config
   });
   next();
@@ -332,7 +332,8 @@ WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
     callType: 'config',
     showValidator: request.body.showValidator,
     whiteList: request.body.whiteList,
-    showLibrary: request.body.showLibrary
+    showLibrary: request.body.showLibrary,
+    showDelete: request.body.showDelete
   });
   next();
 });

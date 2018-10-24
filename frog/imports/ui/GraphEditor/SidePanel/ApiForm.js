@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
@@ -12,6 +13,7 @@ import ConfigForm from './ConfigForm';
 import ChooseActivityType from './ActivityPanel/ChooseActivity';
 import ModalDelete from '../RemoteControllers/ModalDelete';
 import Store from '../store/store';
+import DeleteButton from './DeleteButton';
 
 const store = new Store();
 
@@ -169,7 +171,11 @@ type PropsT = {
   onPreview?: Function,
   onConfigChange?: Function,
   hidePreview?: boolean,
-  reload?: string
+  reload?: string,
+  showDelete?: boolean,
+  setActivityTypeId?: string,
+  hideLibrary?: boolean,
+  whiteList?: string[]
 };
 
 class State {
@@ -199,23 +205,24 @@ const ApiForm = observer(
   class A extends React.Component<
     PropsT,
     {
-      activity: ActivityDbT,
+      activity: Object,
       idRemove: Object,
       deleteOpen: boolean,
       whiteList?: string[]
     }
   > {
+    activity: ActivityDbT = {
+      _id: '1',
+      activityType: this.props.activityType,
+      data: this.props.config || {},
+      plane: 1,
+      startTime: 0,
+      length: 5
+    };
+
     constructor(props) {
       super(props);
-      const activity: ActivityDbT = {
-        _id: '1',
-        activityType: this.props.activityType,
-        data: this.props.config || {},
-        plane: 1,
-        startTime: 0,
-        length: 5
-      };
-      this.state = { activity, idRemove: {}, deleteOpen: false };
+      this.state = { activity: this.activity, idRemove: {}, deleteOpen: false };
     }
 
     componentWillReceiveProps = nextprops => {
@@ -244,6 +251,35 @@ const ApiForm = observer(
         <React.Fragment>
           {this.state.activity.activityType ? (
             <div>
+              <div style={{ position: 'absolute', right: '0px', top: '0px' }}>
+                {!this.props.hideValidator && <Valid />}
+                {this.props.showDelete && (
+                  <DeleteButton
+                    tooltip="Reset activity"
+                    msg="Do you really want to remove the activity type, and loose all the configuration data?"
+                    onConfirmation={() => {
+                      window.parent.postMessage(
+                        {
+                          type: 'frog-config',
+                          activityType: undefined
+                        },
+                        '*'
+                      );
+                      this.setState({
+                        activity: {
+                          _id: '1',
+                          data: {},
+                          plane: 1,
+                          startTime: 0,
+                          length: 5
+                        },
+                        idRemove: {},
+                        deleteOpen: false
+                      });
+                    }}
+                  />
+                )}
+              </div>
               <div
                 style={{
                   marginTop: '20px',
@@ -258,13 +294,6 @@ const ApiForm = observer(
                   config={this.props.config || this.state.activity.data || {}}
                 />
               </div>
-              {!this.props.hideValidator && (
-                <div
-                  style={{ position: 'absolute', right: '20px', top: '10px' }}
-                >
-                  <Valid />
-                </div>
-              )}
             </div>
           ) : (
             <React.Fragment>
@@ -328,6 +357,7 @@ const Valid = observer(() => (
   <ValidButtonRaw
     setShowErrors={state.setShow}
     errorColor={state.valid.length > 0 ? 'red' : 'green'}
+    noOffset
   />
 ));
 
@@ -337,8 +367,8 @@ const Errors = observer(() => (
       <div
         style={{
           position: 'absolute',
-          top: '25px',
-          right: '90px'
+          top: '0px',
+          left: '0px'
         }}
       >
         <ShowErrorsRaw errors={state.valid} />

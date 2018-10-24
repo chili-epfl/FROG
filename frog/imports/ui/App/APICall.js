@@ -57,6 +57,7 @@ export default ({ data }: { data: Object }) => {
         hidePreview
         hideValidator={!data.showValidator}
         hideLibrary={!data.showLibrary}
+        showDelete={data.showDelete}
       />
     );
   } else {
