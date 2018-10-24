@@ -282,28 +282,6 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   next();
 });
 
-WebApp.connectHandlers.use('/api/config', (request, response, next) => {
-  const url = require('url').parse(request.url);
-  const activityTypeId = url.pathname.substring(1);
-  if (!activityTypesObj[activityTypeId]) {
-    response.end('No matching activity type found');
-  }
-  const config = safeDecode(
-    request.body,
-    'config',
-    'Config data not valid',
-    response
-  );
-  InjectData.pushData(request, 'api', {
-    callType: 'config',
-    activityType: activityTypeId,
-    showValidator: request.body.showValidator,
-    showDelete: request.body.showDelete,
-    config
-  });
-  next();
-});
-
 WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   const url = require('url').parse(request.url);
   const activityTypeId = url.pathname.substring(1);
@@ -327,13 +305,37 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   next();
 });
 
+WebApp.connectHandlers.use('/api/config', (request, response, next) => {
+  const url = require('url').parse(request.url);
+  const activityTypeId = url.pathname.substring(1);
+  if (!activityTypesObj[activityTypeId]) {
+    response.end('No matching activity type found');
+  }
+  const config = safeDecode(
+    request.body,
+    'config',
+    'Config data not valid',
+    response
+  );
+  InjectData.pushData(request, 'api', {
+    callType: 'config',
+    activityType: activityTypeId,
+    showLibrary: request.body.showLibrary,
+    showValidator: request.body.showValidator,
+    showDelete: request.body.showDelete,
+    whiteList: request.body.whiteList,
+    config
+  });
+  next();
+});
+
 WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'config',
-    showValidator: request.body.showValidator,
-    whiteList: request.body.whiteList,
     showLibrary: request.body.showLibrary,
-    showDelete: request.body.showDelete
+    showValidator: request.body.showValidator,
+    showDelete: request.body.showDelete,
+    whiteList: request.body.whiteList
   });
   next();
 });
