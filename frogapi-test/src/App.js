@@ -107,11 +107,15 @@ const srcs = [
       instanceId: 15
     }
   ],
-  ['Choose activity', 'http://localhost:3000/api/chooseActivity', {}],
   [
-    'Choose activity, with library',
+    'Choose activity',
     'http://localhost:3000/api/chooseActivity',
     { showLibrary: true }
+  ],
+  [
+    'Choose activity, with whiteList',
+    'http://localhost:3000/api/chooseActivity',
+    { whiteList: ['ac-quiz', 'ac-chat', 'ac-brainstorm', 'ac-ck-board'] }
   ],
   ['Configure quiz', 'http://localhost:3000/api/config/ac-quiz'],
   [
@@ -174,6 +178,7 @@ class App extends Component {
               onClick={e => {
                 e.preventDefault();
                 this.setState({
+                  setConfig: undefined,
                   example: i,
                   url: undefined,
                   valid: undefined,
@@ -207,7 +212,7 @@ class App extends Component {
               height={400}
               src={this.state.url || srcs[this.state.example][1]}
               params={{
-                ...srcs[this.state.example][2],
+                ...(this.state.setConfig || srcs[this.state.example][2]),
                 clientId: this.state.uuid
               }}
             />
@@ -221,20 +226,23 @@ class App extends Component {
                 <b>Valid?</b>:{' '}
                 {this.state.valid ? (
                   <a
-                    href={`http://localhost:3000/api/activityType/${
-                      this.state.aT
-                    }?config=${encodeURIComponent(
-                      JSON.stringify(this.state.config)
-                    )}&userid=330&username=Petrovsky`}
+                    href="#"
                     onClick={e => {
                       e.preventDefault();
                       this.setState({
+                        setConfig: {
+                          config: this.state.config,
+                          instanceId: 11
+                        },
+                        url:
+                          'http://localhost:3000/api/activityType/' +
+                          this.state.aT,
+                        valid: undefined,
                         errors: undefined,
-                        url: `http://localhost:3000/api/activityType/${
-                          this.state.aT
-                        }?config=${encodeURIComponent(
-                          JSON.stringify(this.state.config)
-                        )}&userid=330&username=Petrovsky`
+                        config: undefined,
+                        logs: [],
+                        activityType: undefined,
+                        data: undefined
                       });
                     }}
                   >

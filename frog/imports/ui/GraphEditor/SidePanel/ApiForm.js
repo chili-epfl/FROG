@@ -2,6 +2,7 @@ import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
 import { observer } from 'mobx-react';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import validateConfig from '/imports/api/validateConfig';
@@ -197,7 +198,12 @@ const state = new State();
 const ApiForm = observer(
   class A extends React.Component<
     PropsT,
-    { activity: ActivityDbT, idRemove: Object, deleteOpen: boolean }
+    {
+      activity: ActivityDbT,
+      idRemove: Object,
+      deleteOpen: boolean,
+      whiteList?: string[]
+    }
   > {
     constructor(props) {
       super(props);
@@ -249,7 +255,7 @@ const ApiForm = observer(
                   activity={this.state.activity}
                   setValid={state.setValid}
                   reload={this.props.reload}
-                  config={this.props.config || {}}
+                  config={this.props.config || this.state.activity.data || {}}
                 />
               </div>
               {!this.props.hideValidator && (
@@ -275,20 +281,32 @@ const ApiForm = observer(
                 hideLibrary={this.props.hideLibrary}
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
+                whiteList={this.props.whiteList}
                 store={store}
                 setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}
                 onSelect={e => {
+                  const obj =
+                    typeof e.id === 'object'
+                      ? {
+                          activityType: e.id.activity_type,
+                          config: e.id.config
+                        }
+                      : {
+                          activityType: e.id,
+                          config: jsonSchemaDefaults(e.config)
+                        };
+
                   if (this.props.onSelect) {
                     this.props.onSelect(e.id);
                   }
                   this.setState({
                     activity: {
                       _id: '1',
-                      activityType: e.id,
-                      data: {},
+                      activityType: obj.activityType,
+                      data: obj.config,
                       plane: 1,
                       startTime: 0,
                       length: 5

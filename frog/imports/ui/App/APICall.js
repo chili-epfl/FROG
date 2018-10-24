@@ -51,6 +51,7 @@ export default ({ data }: { data: Object }) => {
     }
     return (
       <ApiForm
+        whiteList={data.whiteList}
         activityType={data.activityType}
         config={data.config}
         hidePreview

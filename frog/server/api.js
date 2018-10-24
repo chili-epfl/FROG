@@ -331,6 +331,7 @@ WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'config',
     showValidator: request.body.showValidator,
+    whiteList: request.body.whiteList,
     showLibrary: request.body.showLibrary
   });
   next();
