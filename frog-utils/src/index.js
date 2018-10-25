@@ -36,6 +36,7 @@ export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
+export { ReactiveRichText } from './ReactiveRichText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
