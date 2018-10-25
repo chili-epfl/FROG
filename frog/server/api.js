@@ -57,7 +57,7 @@ iframe { height: 100%; width: 100%; }
       <iframe id='iframe1' 
      ${
        layout === '3+1' || layout === '2+1+1'
-         ? `src=${root}teacher/orchestration?debugLogin=${follow}&scaled=true>`
+         ? `src=${root}/teacher/orchestration?debugLogin=${follow}&scaled=true>`
          : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
      }
 </iframe>
