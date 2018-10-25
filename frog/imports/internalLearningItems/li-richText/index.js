@@ -4,21 +4,19 @@ import { type LearningItemT, ReactiveRichText } from 'frog-utils';
 export const FlexViewer = ({ dataFn }) => (
   <div>
     <ReactiveRichText path="text" readOnly dataFn={dataFn} />
-    <ReactiveRichText path="text2" readOnly dataFn={dataFn} />
   </div>
 );
 
 export const Editor = ({ dataFn }) => (
   <div>
     <ReactiveRichText path="text" dataFn={dataFn} readOnly={false} />
-    <ReactiveRichText path="text2" dataFn={dataFn} readOnly={false} />
   </div>
 );
 
 export default ({
   name: 'Rich text',
   id: 'li-richText',
-  dataStructure: { text: '', text2: '' },
+  dataStructure: { text: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor
