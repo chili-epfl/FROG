@@ -3,12 +3,10 @@ import React, { Component } from 'react';
 import { get, isEqual, last } from 'lodash';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { type LogT } from 'frog-utils';
 
 type ReactivePropsT = {
   path: string,
   dataFn: Object,
-  logger?: LogT => void,
   readOnly: boolean,
   toolbarOptions?: Object[]
 };
@@ -61,21 +59,6 @@ export class ReactiveRichText extends Component<
 
   componentWillUnmount() {
     this.props.dataFn.doc.removeListener('op', this.opListener);
-  }
-
-  log(msg: string, props?: ReactivePropsT) {
-    const logger = props ? props.logger : this.props.logger;
-
-    if (logger && !this.props.dataFn.readOnly) {
-      const editor = this.quillRef.getEditor();
-      const unprivilegedEditor = this.quillRef.makeUnprivilegedEditor(editor);
-
-      logger({
-        type: 'reactivetext.' + msg,
-        itemId: JSON.stringify((props || this.props).path),
-        value: unprivilegedEditor.getText()
-      });
-    }
   }
 
   handleChange = (contents: string, delta: Object, source: string) => {
