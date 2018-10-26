@@ -75,6 +75,9 @@ export class Doc {
     const properPayload =
       // $FlowFixMe
       payload || new this.LearningItemFn().getEmptyDataStructure(liType);
+    if (!properPayload) {
+      return false;
+    }
     const newLI = {
       liType,
       payload: properPayload,
