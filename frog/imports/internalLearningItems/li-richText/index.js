@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { type LearningItemT, ReactiveRichText } from 'frog-utils';
 
-export const FlexViewer = ({ dataFn }) => (
+export const FlexViewer = ({ data, dataFn }) => (
   <div>
-    <ReactiveRichText path="text" readOnly dataFn={dataFn} />
+    <ReactiveRichText data={data} path="text" readOnly dataFn={dataFn} />
   </div>
 );
 
