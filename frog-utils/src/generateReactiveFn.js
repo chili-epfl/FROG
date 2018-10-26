@@ -61,6 +61,10 @@ export class Doc {
     this.LearningItemFn = LearningItem;
   }
 
+  getMergedPath(path: rawPathT): * {
+    return cleanPath(this.path, path);
+  }
+
   createLearningItem(
     liType: string,
     payload?: Object,

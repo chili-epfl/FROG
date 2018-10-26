@@ -9,7 +9,7 @@ export const FlexViewer = ({ dataFn }) => (
 
 export const Editor = ({ dataFn }) => (
   <div>
-    <ReactiveRichText path="text" dataFn={dataFn} readOnly={false} />
+    <ReactiveRichText path="text" dataFn={dataFn} />
   </div>
 );
 
