@@ -57,6 +57,9 @@ export class ReactiveRichText extends Component<
     }
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
   componentWillUnmount() {
     this.props.dataFn.doc.removeListener('op', this.opListener);
   }
