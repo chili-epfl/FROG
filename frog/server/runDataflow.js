@@ -140,7 +140,7 @@ const runDataflow = (
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
   } else if (type === 'activity') {
-    mergeData(nodeId, object);
+    mergeData(nodeId, object, undefined, sessionId);
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
   }
 };

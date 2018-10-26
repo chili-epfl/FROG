@@ -25,7 +25,6 @@ class LearningItem extends React.Component<
   state = { reload: '' };
 
   getEmptyDataStructure = (liType: string): any =>
-    !learningItemTypesObj[liType].Creator &&
     learningItemTypesObj[liType].dataStructure;
 
   shouldComponentUpdate(nextProps: Object, nextState: Object) {

@@ -32,6 +32,7 @@ export class Doc {
   path: rawPathElement[];
   sessionId: string;
   uploadFn: Function;
+  LIConnection: any;
 
   constructor(
     doc: any,
@@ -42,7 +43,8 @@ export class Doc {
     LearningItem: LearningItemComponentT,
     backend: any,
     stream?: Function,
-    sessionId?: string
+    sessionId?: string,
+    LIConnection: any
   ) {
     this.stream = stream;
     this.backend = backend;
@@ -51,6 +53,7 @@ export class Doc {
     this.doc = doc;
     this.path = path || [];
     this.sessionId = sessionId || '';
+    this.LIConnection = LIConnection;
     this.uploadFn = (file, name) => uploadFile(file, name, this.sessionId);
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
@@ -88,7 +91,10 @@ export class Doc {
     if (immutable) {
       return { id, liDocument: newLI };
     } else {
-      const itempointer = this.doc.connection.get('li', id);
+      const itempointer = (this.LIConnection || this.doc.connection).get(
+        'li',
+        id
+      );
       itempointer.create(newLI);
       itempointer.subscribe();
       return id;
@@ -246,7 +252,8 @@ export const generateReactiveFn = (
   updateFn?: Function,
   backend?: any,
   stream?: Function,
-  sessionId?: string
+  sessionId?: string,
+  LIconnection?: any
 ): Object => {
   if (doc) {
     return new Doc(
@@ -258,7 +265,8 @@ export const generateReactiveFn = (
       LearningItem,
       backend,
       stream,
-      sessionId
+      sessionId,
+      LIconnection
     );
   } else {
     throw 'Cannot create dataFn without sharedb doc';
