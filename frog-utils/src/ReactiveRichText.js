@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 type ReactivePropsT = {
   path: string,
   dataFn: Object,
-  readOnly: boolean,
+  readOnly?: boolean,
   toolbarOptions?: Object[]
 };
 
@@ -23,9 +23,10 @@ const toolbarOptions = [
 
 export class ReactiveRichText extends Component<
   ReactivePropsT,
-  ReactivePropsT
+  { path: ?((string | number)[]) }
 > {
   quillRef: any;
+  state = { path: undefined };
 
   opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
@@ -41,6 +42,7 @@ export class ReactiveRichText extends Component<
 
   update = (props: ReactivePropsT) => {
     props.dataFn.doc.on('op', this.opListener);
+    this.setState({ path: props.dataFn.getMergedPath(props.path) });
   };
 
   componentDidMount() {
@@ -66,7 +68,7 @@ export class ReactiveRichText extends Component<
 
   handleChange = (contents: string, delta: Object, source: string) => {
     const op = {
-      p: ['payload', this.props.path],
+      p: this.state.path,
       t: 'rich-text',
       o: delta.ops
     };
@@ -84,7 +86,7 @@ export class ReactiveRichText extends Component<
         <ReactQuill
           defaultValue={get(
             this.props.dataFn.doc.data,
-            `payload.${this.props.path}`
+            (this.state.path || []).join('.')
           )}
           ref={element => {
             this.quillRef = element;

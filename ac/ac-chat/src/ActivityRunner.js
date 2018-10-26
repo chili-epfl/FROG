@@ -6,7 +6,8 @@ import {
   type ActivityRunnerPropsT,
   type ActivityRunnerT,
   uuid,
-  values
+  values,
+  ReactiveRichText
 } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -124,6 +125,7 @@ class ChatController extends React.Component<StyledPropsT> {
         </div>
 
         <div className={classes.inputContainer}>
+          <ReactiveRichText path="reactive" dataFn={dataFn} />
           <TextInput
             callbackFn={e => {
               const id = uuid();
