@@ -42,11 +42,14 @@ export class ReactiveRichText extends Component<
 
   update = (props: ReactivePropsT) => {
     props.dataFn.doc.on('op', this.opListener);
-    this.setState({ path: props.dataFn.getMergedPath(props.path) });
   };
 
   componentDidMount() {
     this.update(this.props);
+  }
+
+  componentWillMount() {
+    this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -86,7 +89,7 @@ export class ReactiveRichText extends Component<
         <ReactQuill
           defaultValue={get(
             this.props.dataFn.doc.data,
-            (this.state.path || []).join('.')
+            this.state.path.join('.')
           )}
           ref={element => {
             this.quillRef = element;
