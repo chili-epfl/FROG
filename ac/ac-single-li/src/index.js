@@ -96,4 +96,4 @@ export default ({
   dashboards: { progress: ProgressDashboard },
   dataStructure,
   mergeFunction
- jjjj}: ActivityPackageT);
+}: ActivityPackageT);

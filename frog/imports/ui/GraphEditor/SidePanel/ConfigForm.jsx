@@ -14,7 +14,7 @@ import {
   SelectTargetActivityWidget,
   addSocialFormSchema,
   SelectLITypeWidget,
-  SelectLIEditorTypeWidget
+  SelectLITypeEditorWidget
 } from './FormUtils';
 
 type ConfigFormPropsT = {

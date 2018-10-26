@@ -70,13 +70,13 @@ export class Doc {
     payload?: Object,
     meta?: Object,
     immutable: boolean = false
-  ): string | Object {
+  ): ?(string | Object) {
     const id = uuid();
     const properPayload =
       // $FlowFixMe
       payload || new this.LearningItemFn().getEmptyDataStructure(liType);
     if (!properPayload) {
-      return false;
+      return null;
     }
     const newLI = {
       liType,
