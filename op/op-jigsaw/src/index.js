@@ -24,7 +24,7 @@ const config = {
   }
 };
 
-const configUI = { roles: { conditional: 'mix' } };
+const configUI = { roles: { conditional: formData => !formData.mix } };
 
 export default ({
   id: 'op-jigsaw',
