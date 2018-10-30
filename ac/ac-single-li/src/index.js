@@ -26,7 +26,7 @@ const config = {
     liTypeEditor: {
       title: 'Learning Item Type (Editable)',
       type: 'learningItemTypeEditor',
-      default: 'li-textarea'
+      default: 'li-textArea'
     },
     noSubmit: {
       title: 'No submit button, directly edit',

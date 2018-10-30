@@ -93,7 +93,7 @@ export class ReactiveRichText extends Component<
             this.props.data
               ? { payload: this.props.data }
               : this.props.dataFn.doc.data,
-            this.state.path.join('.')
+            (this.state.path || []).join('.')
           )}
           ref={element => {
             this.quillRef = element;
