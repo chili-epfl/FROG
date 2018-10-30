@@ -7,6 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 type ReactivePropsT = {
   path: string,
   dataFn: Object,
+  data?: Object,
   readOnly?: boolean,
   toolbarOptions?: Object[]
 };
@@ -63,7 +64,7 @@ export class ReactiveRichText extends Component<
   }
 
   shouldComponentUpdate() {
-    return false;
+    return !!this.props.readOnly;
   }
 
   componentWillUnmount() {
@@ -89,8 +90,10 @@ export class ReactiveRichText extends Component<
       <div>
         <ReactQuill
           defaultValue={get(
-            this.props.dataFn.doc.data,
-            this.state.path.join('.')
+            this.props.data
+              ? { payload: this.props.data }
+              : this.props.dataFn.doc.data,
+            (this.state.path || []).join('.')
           )}
           ref={element => {
             this.quillRef = element;

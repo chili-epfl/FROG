@@ -33,7 +33,8 @@ export const mergeOneInstance = (
   structure: structureDefT,
   object: Object,
   providedInstanceActivityData?: any,
-  docId?: string
+  docId?: string,
+  sessionId: string
 ) => {
   let data;
   if (mergeFunction) {
@@ -72,10 +73,33 @@ export const mergeOneInstance = (
                 );
               }
 
-              const dataFn = generateReactiveFn(doc, LearningItem);
+              const meta: {
+                createdInActivity: string,
+                createdByInstance?: Object,
+                sessionId: string
+              } = {
+                createdInActivity: activity._id,
+                sessionId
+              };
+              const groupingKey = activity.groupingKey;
+              if (groupingKey) {
+                meta.createdByInstance = { [groupingKey]: grouping };
+              }
+
+              const dataFn = generateReactiveFn(
+                doc,
+                LearningItem,
+                meta,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                serverConnection
+              );
               // merging in config with incoming product
               if (mergeFunction) {
-                mergeFunction(instanceActivityData, dataFn, doc.data);
+                mergeFunction(instanceActivityData, dataFn, doc.data, activity);
               }
               const docdata = doc.data;
               doc.destroy();
@@ -96,7 +120,6 @@ export const mergeOneInstance = (
   try {
     serverDoc.create(data, undefined, undefined, err => {
       if (err) {
-        // eslint-disable-next-line no-console
         console.error(
           Date.now(),
           'Creating ShareDB document',
@@ -106,7 +129,6 @@ export const mergeOneInstance = (
       }
     });
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(
       Date.now(),
       'Catch: Creating ShareDB document for ',
@@ -120,7 +142,8 @@ export const mergeOneInstance = (
 const mergeData = (
   activityId: string,
   object: ObjectT & GlobalStructureT,
-  group?: string
+  group?: string,
+  sessionId: string
 ) => {
   const { activityData } = object;
   const activity = Activities.findOne(activityId);
@@ -143,7 +166,10 @@ const mergeData = (
       mergeFunction,
       activityData,
       structure,
-      object
+      object,
+      undefined,
+      undefined,
+      sessionId
     )
   );
   Promise.await(Promise.all(asyncCreates));
@@ -176,6 +202,6 @@ export const ensureReactive = (sessionId: string, studentId: string) => {
         }
       });
     }
-    mergeData(ac._id, object, studentId);
+    mergeData(ac._id, object, studentId, sessionId);
   });
 };
