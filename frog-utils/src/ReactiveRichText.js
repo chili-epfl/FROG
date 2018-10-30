@@ -46,7 +46,6 @@ export class ReactiveRichText extends Component<
   };
 
   componentDidMount() {
-    console.log('didmount');
     this.update(this.props);
   }
 
@@ -87,7 +86,6 @@ export class ReactiveRichText extends Component<
   };
 
   render() {
-    console.log('render', this.props.data);
     return (
       <div>
         <ReactQuill

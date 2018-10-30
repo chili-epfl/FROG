@@ -15,8 +15,6 @@ const meta = {
 };
 
 const config = {
-  description:
-    'If you choose "Directly edit" (default), only LI types which have an empty data structure (such as text, rich text and spreadsheet) will be available. The LI will immediately be instantiated, and collaborative editing can begin right away. If a group does not type anything, this will result in an empty LI as output. If "No submit button" is turned off, all types that can be created are available, but in this case, students in a group first have to click Submit before they can collaboratively see/edit a Learning Item. If the activity closes before students clicked Submit, their edits are not sent as outputs from the activity.',
   type: 'object',
   properties: {
     title: { type: 'string', title: 'Title' },
