@@ -99,7 +99,7 @@ class ActivityRunner extends React.Component<
           {header}
           <dataFn.LearningItem
             type="create"
-            liType={conf.liType || conf.liTypeEditor}
+            liType={conf.nosubmit ? conf.liTypeEditor : conf.liType}
             onCreate={li => {
               dataFn.objInsert(li, 'li');
               this.props.logger({ type: 'progress', value: 1 });
