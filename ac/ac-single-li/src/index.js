@@ -7,6 +7,7 @@ import {
   ProgressDashboard,
   values
 } from 'frog-utils';
+import upgradeFunctions from './upgradeFunctions';
 
 const meta = {
   name: 'Add/edit single LI',
@@ -85,7 +86,7 @@ const dataStructure = {};
 export default ({
   id: 'ac-single-li',
   type: 'react-component',
-  configVersion: 1,
+  configVersion: 2,
   meta,
   config,
   configUI,
@@ -93,5 +94,6 @@ export default ({
   formatProduct,
   dashboards: { progress: ProgressDashboard },
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  upgradeFunctions
 }: ActivityPackageT);
