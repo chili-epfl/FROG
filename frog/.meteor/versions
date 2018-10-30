@@ -76,6 +76,7 @@ practicalmeteor:mocha@2.4.5_6
 practicalmeteor:mocha-core@1.0.1
 practicalmeteor:sinon@1.14.1_2
 promise@0.11.1
+qualia:one@0.1.0
 random@1.1.0
 rate-limit@1.0.9
 react-meteor-data@0.2.16
