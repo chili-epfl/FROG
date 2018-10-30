@@ -355,6 +355,28 @@ WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
   next();
 });
 
+WebApp.connectHandlers.use('/api/submitLog', (request, response) => {
+  let logmsg;
+  try {
+    if (request.query.msg) {
+      logmsg = JSON.parse(request.query.msg);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  if (!logmsg) {
+    logmsg = request.body.msg;
+  }
+  if (!logmsg) {
+    response.writeHead(422);
+    response.end();
+    return;
+  }
+  Meteor.call('merge.log', logmsg);
+  response.writeHead(200);
+  response.end();
+});
+
 const allowLocalUpload = !Meteor.settings.Minio;
 
 WebApp.connectHandlers.use('/file', (req, res) => {

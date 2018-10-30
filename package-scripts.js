@@ -55,7 +55,10 @@ module.exports = {
         'Killing Node, cleaning all files and running initial setup'
       )
     },
-    server: fromRoot('cd frog && meteor', 'Starting Meteor'),
+    server: fromRoot(
+      'QUALIA_ONE_BUNDLE_TYPE=modern cd frog && meteor',
+      'Starting Meteor'
+    ),
     test: {
       default: fromRoot(
         `nps -s flow.quiet eslint jest`,
