@@ -7,7 +7,6 @@ import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { removeActivity } from '/imports/api/remoteActivities';
 import { removeGraph } from '/imports/api/remoteGraphs';
