@@ -40,7 +40,6 @@ export default class Connection extends Elem {
     id: ?string
   ) {
     super();
-    console.error(sourceObj, targetObj);
     extendObservable(this, {
       sourceObj,
       targetObj,

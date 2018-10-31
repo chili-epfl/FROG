@@ -236,7 +236,6 @@ export default class Store {
 
         this.ui.selected = null;
         this.history = [];
-        this.addHistory();
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
