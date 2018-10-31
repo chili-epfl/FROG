@@ -36,6 +36,7 @@ export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
+export { ReactiveRichText } from './ReactiveRichText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
@@ -347,3 +348,8 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };
+
+export const getRotateable = (ary: *, toRotate: number): * =>
+  new Proxy(ary, {
+    get: (obj, prop) => obj[(parseInt(prop, 10) + toRotate) % obj.length]
+  });

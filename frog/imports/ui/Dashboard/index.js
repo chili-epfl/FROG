@@ -86,7 +86,6 @@ export const DashboardComp = withTracker(props => {
       props.name,
       props.config
     );
-    (connection || Meteor).subscribe('dashboard.object', props.activity._id);
     const state =
       dashboardCollection &&
       dashboardCollection.findOne(props.activity._id + '-' + props.name);
@@ -113,26 +112,20 @@ export const DashboardReactiveWrapper = withTracker(props => {
   );
   const session = Sessions.findOne(sessionId);
   const object = Objects.findOne(activity._id);
+  if (!subscription.ready() || !object) {
+    return { ready: false };
+  }
   const instances = object && doGetInstances(activity, object).groups;
-  const userList = Meteor.users.find({ joinedSessions: session.slug }).fetch();
   const dashboardData = DashboardData.find({}).fetch();
-  const users = userList.reduce(
-    (acc, u) => ({ ...acc, [u._id]: u.username }),
-    {}
-  );
+  const users = object.globalStructure.students;
   return {
-    ready:
-      subscription.ready() &&
-      session &&
-      activity &&
-      object &&
-      userList &&
-      users,
+    ready: subscription.ready() && session && activity && object,
     instances,
     object,
     activity,
     dashboardData,
-    session
+    session,
+    users
   };
 })(MultiWrapper);
 

@@ -37,7 +37,8 @@ type PropsT = {
   locallyChanged?: boolean,
   changesLoaded?: Function,
   setActivityTypeId?: Function,
-  hideLibrary?: boolean
+  hideLibrary?: boolean,
+  whiteList?: string[]
 };
 
 const styles = {
@@ -174,9 +175,13 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
   };
 
   render() {
-    const activityTypesFiltered = this.props.onlyHasPreview
-      ? activityTypes.filter(x => x.meta.exampleData !== undefined)
+    const whiteList = this.props.whiteList;
+    const types = whiteList
+      ? activityTypes.filter(x => whiteList.includes(x.id))
       : activityTypes;
+    const activityTypesFiltered = this.props.onlyHasPreview
+      ? types.filter(x => x.meta.exampleData !== undefined)
+      : types;
 
     const select = this.props.onSelect
       ? this.props.onSelect

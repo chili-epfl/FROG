@@ -19,15 +19,6 @@ class ActivityRunner extends React.Component<
 > {
   state = { editing: false };
 
-  constructor(props) {
-    super(props);
-    const { activityData, data, dataFn } = this.props;
-    if (activityData.config.noSubmit && !data.li) {
-      const newLI = dataFn.createLearningItem(activityData.config.liType);
-      dataFn.objInsert({ li: newLI });
-    }
-  }
-
   componentDidMount = () => {
     const { logger, activityData } = this.props;
     if (!activityData.config.noSubmit) {
@@ -108,7 +99,7 @@ class ActivityRunner extends React.Component<
           {header}
           <dataFn.LearningItem
             type="create"
-            liType={conf.liType}
+            liType={conf.nosubmit ? conf.liTypeEditor : conf.liType}
             onCreate={li => {
               dataFn.objInsert(li, 'li');
               this.props.logger({ type: 'progress', value: 1 });
