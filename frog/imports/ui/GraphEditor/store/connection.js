@@ -7,6 +7,7 @@ import { drawPath } from '../utils/path';
 import Elem from './elemClass';
 import Activity from './activity';
 import Operator from './operator';
+import { store } from './index';
 
 const getType = item => {
   if (item instanceof Activity) {
@@ -20,22 +21,50 @@ const getType = item => {
 };
 
 type ConnectableT = Activity | Operator;
+type ConnectableObj = {
+  type: 'activity' | 'operator' | 'connection',
+  id: string
+};
 
 export default class Connection extends Elem {
   pathScaled: string;
   path: string;
+  sourceObj: ConnectableObj;
+  targetObj: ConnectableObj;
   source: ConnectableT;
   target: ConnectableT;
 
-  constructor(source: ConnectableT, target: ConnectableT, id: ?string) {
+  constructor(
+    sourceObj: ConnectableObj,
+    targetObj: ConnectableObj,
+    id: ?string
+  ) {
     super();
-
+    console.error(sourceObj, targetObj);
     extendObservable(this, {
-      source,
-      target,
+      sourceObj,
+      targetObj,
       id: id || cuid(),
       klass: 'connection',
 
+      get source(): ?ConnectableT {
+        if (this.sourceObj.type === 'activity') {
+          return store.activityStore.all.find(x => x.id === this.sourceObj.id);
+        }
+        if (this.sourceObj.type === 'operator') {
+          return store.operatorStore.all.find(x => x.id === this.sourceObj.id);
+        }
+        return undefined;
+      },
+      get target(): ?ConnectableT {
+        if (this.targetObj.type === 'activity') {
+          return store.activityStore.all.find(x => x.id === this.targetObj.id);
+        }
+        if (this.targetObj.type === 'operator') {
+          return store.operatorStore.all.find(x => x.id === this.targetObj.id);
+        }
+        return undefined;
+      },
       get path(): string {
         return (
           this.source &&

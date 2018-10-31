@@ -59,6 +59,7 @@ type StateT = {
   idRemove: Object
 };
 
+@connect
 class Editor extends React.Component<Object, StateT> {
   constructor(props) {
     super(props);
@@ -81,9 +82,6 @@ class Editor extends React.Component<Object, StateT> {
   }
 
   render() {
-    if (!this.props.ready) {
-      return <CircularProgress />;
-    }
     const { classes, store } = this.props;
     const show = this.props.store.ui.showPreview;
     if (show && show.activityTypeId) {
@@ -181,16 +179,12 @@ class Editor extends React.Component<Object, StateT> {
 const StyledEditor = withStyles(styles)(Editor);
 
 const SubscriptionWrapper = withTracker(({ graphId }) => {
-  console.log('subscribing', graphId);
   const subscription = Meteor.subscribe('teacher.graph', graphId);
   return { ready: subscription.ready() };
 })(StyledEditor);
 
-const RawGraph = ({ store }) =>
-  store ? (
-    <SubscriptionWrapper key={store.graphId} graphId={store.graphId} />
-  ) : (
-    <CircularProgress />
-  );
+const RawGraph = ({ store }) => (
+  <SubscriptionWrapper key={store.graphId} graphId={store.graphId} />
+);
 
 export default connect(RawGraph);

@@ -68,8 +68,18 @@ export default class OperatorStore {
           const newOp = new Operator(time, y, type);
           this.all.push(newOp);
           selected.remove(false);
-          store.connectionStore.all.push(new Connection(source, newOp));
-          store.connectionStore.all.push(new Connection(newOp, target));
+          store.connectionStore.all.push(
+            new Connection(
+              { type: source.klass, id: source.id },
+              { type: 'operator', id: newOp.id }
+            )
+          );
+          store.connectionStore.all.push(
+            new Connection(
+              { type: 'operator', id: newOp.id },
+              { type: target.klass, id: target.id }
+            )
+          );
         } else if (store.state.mode === 'normal') {
           store.state = { mode: 'placingOperator', operatorType: type };
         }
