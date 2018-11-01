@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { get } from 'lodash';
-import { type LearningItemT, ReactiveRichText } from 'frog-utils';
+import { get, set } from 'lodash';
+import { type LearningItemT, ReactiveRichText, shortenRichText } from 'frog-utils';
 
 const path = 'text';
 
-export const FlexViewer = ({ data, dataFn, search }) => {
+export const FlexViewer = ({ data, dataFn, search, type }) => {
+  const shouldShorten = type === 'thumbView';
+
   if (search) {
-    const editorContent = get(dataFn.doc.data, dataFn.getMergedPath(path));
+    const editorContent = get(data, path);
     const textContent = editorContent.ops.map(op => {
       if (typeof op.insert === 'string') {
         return op.insert;
@@ -16,6 +18,10 @@ export const FlexViewer = ({ data, dataFn, search }) => {
       return null;
     }
   }
+  if (shouldShorten) {
+    set(data, path, shortenRichText(get(data, path), 150));
+  }
+
   return (
     <div>
       <ReactiveRichText data={data} path={path} readOnly dataFn={dataFn} />

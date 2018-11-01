@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { get, isEqual, last } from 'lodash';
+import { get, isEqual, first, last } from 'lodash';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -33,24 +33,29 @@ export class ReactiveRichText extends Component<
     if (source === this.quillRef) {
       return;
     }
-    op.forEach(operation => {
-      const opPath = last(operation.p);
-      if (this.quillRef && opPath === this.props.path) {
-        this.quillRef.getEditor().updateContents(operation.o);
-      }
-    });
+    const opPath = last(first(op).p);
+    if (this.quillRef && opPath === this.props.path) {
+      this.quillRef.getEditor().setContents(this.getDocumentContent(this.props))
+    }
   };
 
   update = (props: ReactivePropsT) => {
     props.dataFn.doc.on('op', this.opListener);
   };
 
+  getDocumentContent = (props: ReactivePropsT) => get(
+    props.data
+      ? { payload: props.data }
+      : props.dataFn.doc.data,
+    (this.state.path || []).join('.')
+  );
+
   componentDidMount() {
     this.update(this.props);
   }
 
   componentWillMount() {
-    this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
+    this.props.dataFn && this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -89,12 +94,7 @@ export class ReactiveRichText extends Component<
     return (
       <div>
         <ReactQuill
-          defaultValue={get(
-            this.props.data
-              ? { payload: this.props.data }
-              : this.props.dataFn.doc.data,
-            (this.state.path || []).join('.')
-          )}
+          defaultValue={this.getDocumentContent(this.props)}
           ref={element => {
             this.quillRef = element;
           }}
