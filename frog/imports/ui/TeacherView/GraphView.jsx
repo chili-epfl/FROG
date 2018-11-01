@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
 import { Provider } from 'mobx-react';
 import { isEqual } from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
