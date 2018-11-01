@@ -49,7 +49,12 @@ export default class ConnectionStore {
           .concat(store.operatorStore.all)
           .find(x => x.over);
         if (target && state.draggingFrom.id !== target.id) {
-          this.all.push(new Connection(state.draggingFrom, target));
+          this.all.push(
+            new Connection(
+              { type: state.draggingFrom.klass, id: state.draggingFrom.id },
+              { type: target.klass, id: target.id }
+            )
+          );
           target.wasMoved = true;
           store.addHistory();
         }
@@ -59,13 +64,7 @@ export default class ConnectionStore {
 
       mongoAdd: action((x: MongoConnectionT) => {
         if (!store.findId({ type: 'connection', id: x._id })) {
-          this.all.push(
-            new Connection(
-              store.findId(x.source),
-              store.findId(x.target),
-              x._id
-            )
-          );
+          this.all.push(new Connection(x.source, x.target, x._id));
           store.refreshValidate();
         }
       }),

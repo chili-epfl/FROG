@@ -232,27 +232,10 @@ export default class Store {
           { reactive: false }
         )
           .fetch()
-          .map(x => {
-            const source = this.findId(x.source);
-            const target = this.findId(x.target);
-            if (
-              source instanceof Connection ||
-              target instanceof Connection ||
-              !source ||
-              !target
-            ) {
-              console.error(
-                'Cannot find connection source/target, or source/target is a connection'
-              );
-              return undefined;
-            }
-            return new Connection(source, target, x._id);
-          })
-          .filter(x => !!x);
+          .map(x => new Connection(x.source, x.target, x._id));
 
         this.ui.selected = null;
         this.history = [];
-        this.addHistory();
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
@@ -344,22 +327,7 @@ export default class Store {
             )
         );
         this.connectionStore.all = connections
-          .map(x => {
-            const source = this.findId(x.source);
-            const target = this.findId(x.target);
-            if (
-              source instanceof Connection ||
-              target instanceof Connection ||
-              !source ||
-              !target
-            ) {
-              console.error(
-                'Cannot find connection source/target, or source/target is a connection'
-              );
-              return undefined;
-            }
-            return new Connection(source, target, x._id);
-          })
+          .map(x => new Connection(x.source, x.target, x._id))
           .filter(x => !!x);
 
         mergeGraph(this.objects);
