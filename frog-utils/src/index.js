@@ -176,7 +176,8 @@ export const shorten = (text: string, length: number): string => {
   return `${t.slice(0, length - 3)}...`;
 };
 
-export const shortenRichText = (data: Object, length: number): string => {
+export const shortenRichText = (dataRaw: Object, length: number): Object => {
+  const data = cloneDeep(dataRaw);
   const ops = data.ops;
   let contentLength = 0;
   let cutOffIndex = -1;

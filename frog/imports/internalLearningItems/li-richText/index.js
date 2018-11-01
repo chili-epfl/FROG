@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { get, set } from 'lodash';
-import {
-  type LearningItemT,
-  ReactiveRichText,
-  shortenRichText
-} from 'frog-utils';
+import { type LearningItemT, ReactiveRichText } from 'frog-utils';
 
 const path = 'text';
 
-export const FlexViewer = ({ data, dataFn, search, type }) => {
+export const FlexViewer = ({ isPlayback, data, dataFn, search, type }) => {
   const shouldShorten = type === 'thumbView';
 
   if (search) {
@@ -28,13 +24,15 @@ export const FlexViewer = ({ data, dataFn, search, type }) => {
       return null;
     }
   }
-  if (shouldShorten) {
-    set(data, path, shortenRichText(get(data, path), 150));
-  }
-
   return (
     <div>
-      <ReactiveRichText data={data} path={path} readOnly dataFn={dataFn} />
+      <ReactiveRichText
+        data={isPlayback ? data : undefined}
+        shorten={shouldShorten && 150}
+        path={path}
+        readOnly
+        dataFn={dataFn}
+      />
     </div>
   );
 };

@@ -14,6 +14,7 @@ const MaybeClickable = ({ condition, children, onClick }) =>
 const withNullCheck = ({
   render,
   renderArgs,
+  isPlayback,
   type,
   clickZoomable,
   liType,
@@ -55,7 +56,9 @@ const withNullCheck = ({
               >
                 <liType.Viewer
                   type="view"
+                  isPlayback={isPlayback}
                   data={data.payload}
+                  dataFn={dataFn}
                   LearningItem={dataFn && dataFn.LearningItem}
                 />
               </Dialog>
@@ -82,7 +85,14 @@ class RenderLearningItem extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = { open: false };
-    const { data, dataFn, render, type = 'view', clickZoomable } = props;
+    const {
+      data,
+      dataFn,
+      render,
+      type = 'view',
+      clickZoomable,
+      isPlayback
+    } = props;
     const liType = learningItemTypesObj[data.liType];
     let LIComponent;
     if (!liType) {
@@ -113,9 +123,11 @@ class RenderLearningItem extends React.Component<any, any> {
           data,
           editable: liType.Editor,
           zoomable: liType.Viewer,
-          liType: liType.id
+          liType: liType.id,
+          isPlayback: props.isPlayback
         },
         dataFn,
+        isPlayback,
         data,
         clickZoomable,
         liType,

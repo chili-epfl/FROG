@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { get, isEqual, first, last } from 'lodash';
 import ReactQuill from 'react-quill';
+import { shortenRichText } from './index';
+
 import 'react-quill/dist/quill.snow.css';
 
 type ReactivePropsT = {
@@ -9,7 +11,8 @@ type ReactivePropsT = {
   dataFn: Object,
   data?: Object,
   readOnly?: boolean,
-  toolbarOptions?: Object[]
+  toolbarOptions?: Object[],
+  shorten?: number
 };
 
 const toolbarOptions = [
@@ -43,13 +46,16 @@ export class ReactiveRichText extends Component<
     props.dataFn.doc.on('op', this.opListener);
   };
 
-  getDocumentContent = () =>
-    get(
+  getDocumentContent = () => {
+    const raw = get(
       this.props.data
         ? { payload: this.props.data }
         : this.props.dataFn.doc.data,
       (this.state.path || []).join('.')
     );
+    console.log(this.props.shorten, raw);
+    return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
+  };
 
   componentDidMount() {
     this.update(this.props);
@@ -69,8 +75,11 @@ export class ReactiveRichText extends Component<
     }
   }
 
-  shouldComponentUpdate() {
-    return !!this.props.readOnly;
+  shouldComponentUpdate(nextProps: Object) {
+    return (
+      this.props.shorten !== nextProps.shorten ||
+      (this.props.readOnly || nextProps.readOnly)
+    );
   }
 
   componentWillUnmount() {
@@ -78,17 +87,20 @@ export class ReactiveRichText extends Component<
   }
 
   handleChange = (contents: string, delta: Object, source: string) => {
-    const op = {
-      p: this.state.path,
-      t: 'rich-text',
-      o: delta.ops
-    };
+    if (!this.props.readOnly) {
+      const op = {
+        p: this.state.path,
+        t: 'rich-text',
+        o: delta.ops
+      };
 
-    if (source !== 'user') {
-      return;
+      if (source !== 'user') {
+        return;
+      }
+
+      console.log('op!', op);
+      this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
     }
-
-    this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
   render() {
