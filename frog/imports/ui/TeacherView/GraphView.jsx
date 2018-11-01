@@ -74,13 +74,4 @@ const StyledConnectedEditor = withStyles(styles)(props => (
   </Provider>
 ));
 
-const SubscriptionWrapper = withTracker(({ session }) => {
-  const subscription = Meteor.subscribe('teacher.graph', session.graphId);
-  return { ready: subscription.ready() };
-})(StyledConnectedEditor);
-
-const RawGraph = ({ session }: { session: Object }) => (
-  <SubscriptionWrapper key={session._id} session={session} />
-);
-
-export default RawGraph;
+export default StyledConnectedEditor;

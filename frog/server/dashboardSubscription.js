@@ -82,6 +82,7 @@ export default () => {
     this.added('dashboard', dashId, { data: newState });
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
+      setTimeout(() => updateAndSend(dashId, prepDataForDisplayFn, act), 500);
       interval[dashId] = setInterval(
         () => updateAndSend(dashId, prepDataForDisplayFn, act),
         5000

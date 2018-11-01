@@ -57,7 +57,6 @@ export default withTracker(() => {
   const collections = [
     'graphs',
     'sessions',
-    'users',
     'globalSettings',
     'externalOperators'
   ];
