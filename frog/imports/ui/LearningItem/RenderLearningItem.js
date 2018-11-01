@@ -123,8 +123,7 @@ class RenderLearningItem extends React.Component<any, any> {
           data,
           editable: liType.Editor,
           zoomable: liType.Viewer,
-          liType: liType.id,
-          isPlayback: props.isPlayback
+          liType: liType.id
         },
         dataFn,
         isPlayback,
@@ -146,11 +145,12 @@ class RenderLearningItem extends React.Component<any, any> {
   }
 
   render() {
-    const { type, search, data, dataFn } = this.props;
+    const { type, search, data, dataFn, isPlayback } = this.props;
     const Comp = this.Comp;
     return Comp ? (
       <Comp
         data={data.payload}
+        isPlayback={isPlayback}
         dataFn={dataFn && dataFn.specialize('payload')}
         LearningItem={dataFn && dataFn.LearningItem}
         search={search && search.toLowerCase()}

@@ -53,12 +53,13 @@ export class ReactiveRichText extends Component<
         : this.props.dataFn.doc.data,
       (this.state.path || []).join('.')
     );
-    console.log(this.props.shorten, raw);
     return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
   };
 
   componentDidMount() {
-    this.update(this.props);
+    if (!this.props.data) {
+      this.update(this.props);
+    }
   }
 
   componentWillMount() {
@@ -78,12 +79,14 @@ export class ReactiveRichText extends Component<
   shouldComponentUpdate(nextProps: Object) {
     return (
       this.props.shorten !== nextProps.shorten ||
-      (this.props.readOnly || nextProps.readOnly)
+      !!(this.props.readOnly || nextProps.readOnly)
     );
   }
 
   componentWillUnmount() {
-    this.props.dataFn.doc.removeListener('op', this.opListener);
+    if (!this.props.data) {
+      this.props.dataFn.doc.removeListener('op', this.opListener);
+    }
   }
 
   handleChange = (contents: string, delta: Object, source: string) => {
@@ -98,16 +101,16 @@ export class ReactiveRichText extends Component<
         return;
       }
 
-      console.log('op!', op);
       this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
     }
   };
 
   render() {
+    const defaultValue = this.getDocumentContent();
     return (
       <div>
         <ReactQuill
-          defaultValue={this.getDocumentContent()}
+          defaultValue={defaultValue}
           ref={element => {
             this.quillRef = element;
           }}

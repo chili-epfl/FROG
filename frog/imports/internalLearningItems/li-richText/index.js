@@ -37,6 +37,8 @@ export const FlexViewer = ({ isPlayback, data, dataFn, search, type }) => {
   );
 };
 
+FlexViewer.displayName = 'FlexViewer';
+
 export const Editor = ({ dataFn }) => (
   <div>
     <ReactiveRichText path={path} dataFn={dataFn} />
