@@ -35,7 +35,7 @@ export class ReactiveRichText extends Component<
     }
     const opPath = last(first(op).p);
     if (this.quillRef && opPath === this.props.path) {
-      this.quillRef.getEditor().setContents(this.getDocumentContent(this.props))
+      this.quillRef.getEditor().setContents(this.getDocumentContent());
     }
   };
 
@@ -43,19 +43,20 @@ export class ReactiveRichText extends Component<
     props.dataFn.doc.on('op', this.opListener);
   };
 
-  getDocumentContent = (props: ReactivePropsT) => get(
-    props.data
-      ? { payload: props.data }
-      : props.dataFn.doc.data,
-    (this.state.path || []).join('.')
-  );
+  getDocumentContent = () =>
+    get(
+      this.props.data
+        ? { payload: this.props.data }
+        : this.props.dataFn.doc.data,
+      (this.state.path || []).join('.')
+    );
 
   componentDidMount() {
     this.update(this.props);
   }
 
   componentWillMount() {
-    this.props.dataFn && this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
+    this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -94,7 +95,7 @@ export class ReactiveRichText extends Component<
     return (
       <div>
         <ReactQuill
-          defaultValue={this.getDocumentContent(this.props)}
+          defaultValue={this.getDocumentContent()}
           ref={element => {
             this.quillRef = element;
           }}

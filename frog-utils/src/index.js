@@ -184,9 +184,9 @@ export const shortenRichText = (data: Object, length: number): string => {
 
   ops.forEach((op, index) => {
     if (typeof op.insert === 'string') {
-      contentLength += op.insert.length
+      contentLength += op.insert.length;
     } else {
-      contentLength += 1
+      contentLength += 1;
     }
 
     if (cutOffIndex < 0 && contentLength > length - 3) {
@@ -201,22 +201,13 @@ export const shortenRichText = (data: Object, length: number): string => {
     const trimmedOps = ops.slice(0, cutOffIndex);
     if (typeof ops[cutOffIndex].insert === 'string') {
       const edgeOp = ops[cutOffIndex];
-      edgeOp.insert = edgeOp.insert.slice(0, edgeOp.insert.length - cutOffLength);
+      edgeOp.insert = edgeOp.insert.slice(
+        0,
+        edgeOp.insert.length - cutOffLength
+      );
       trimmedOps.push(edgeOp);
     }
     trimmedOps.push({ insert: '...' });
-    // contentLength = 0;
-    // trimmedOps.forEach((op) => {
-    //   if (typeof op.insert === 'string') {
-    //     contentLength += op.insert.length
-    //   } else {
-    //     contentLength += 1
-    //   }
-    // });
-    // console.log(contentLength);
-    // console.log(ops[cutOffIndex])
-    // console.log(cutOffLength)
-
     return { ops: trimmedOps };
   }
 };

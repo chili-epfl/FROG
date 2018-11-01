@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { get, set } from 'lodash';
-import { type LearningItemT, ReactiveRichText, shortenRichText } from 'frog-utils';
+import {
+  type LearningItemT,
+  ReactiveRichText,
+  shortenRichText
+} from 'frog-utils';
 
 const path = 'text';
 
@@ -13,8 +17,14 @@ export const FlexViewer = ({ data, dataFn, search, type }) => {
       if (typeof op.insert === 'string') {
         return op.insert;
       }
+      return '';
     });
-    if (!textContent.join('').toLowerCase().includes(search)) {
+    if (
+      !textContent
+        .join('')
+        .toLowerCase()
+        .includes(search)
+    ) {
       return null;
     }
   }
@@ -26,7 +36,7 @@ export const FlexViewer = ({ data, dataFn, search, type }) => {
     <div>
       <ReactiveRichText data={data} path={path} readOnly dataFn={dataFn} />
     </div>
-  )
+  );
 };
 
 export const Editor = ({ dataFn }) => (
