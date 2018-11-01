@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
-import { shuffle } from 'lodash';
+import { shuffle, isString, filter } from 'lodash';
 
 export const isBrowser = (() => {
   try {
@@ -178,17 +178,13 @@ export const shorten = (text: string, length: number): string => {
 
 export const shortenRichText = (dataRaw: Object, length: number): Object => {
   const data = cloneDeep(dataRaw);
-  const ops = data.ops;
+  const ops = filter(data.ops, op => isString(op.insert));
   let contentLength = 0;
   let cutOffIndex = -1;
   let cutOffLength = 0;
 
   ops.forEach((op, index) => {
-    if (typeof op.insert === 'string') {
-      contentLength += op.insert.length;
-    } else {
-      contentLength += 1;
-    }
+    contentLength += op.insert.length;
 
     if (cutOffIndex < 0 && contentLength > length - 3) {
       cutOffIndex = index;
@@ -197,17 +193,17 @@ export const shortenRichText = (dataRaw: Object, length: number): Object => {
   });
 
   if (contentLength <= length) {
-    return data;
+    return { ops };
   } else {
     const trimmedOps = ops.slice(0, cutOffIndex);
-    if (typeof ops[cutOffIndex].insert === 'string') {
-      const edgeOp = ops[cutOffIndex];
-      edgeOp.insert = edgeOp.insert.slice(
-        0,
-        edgeOp.insert.length - cutOffLength
-      );
-      trimmedOps.push(edgeOp);
-    }
+
+    const edgeOp = ops[cutOffIndex];
+    edgeOp.insert = edgeOp.insert.slice(
+      0,
+      edgeOp.insert.length - cutOffLength
+    );
+    trimmedOps.push(edgeOp);
+
     trimmedOps.push({ insert: '...' });
     return { ops: trimmedOps };
   }
