@@ -36,9 +36,17 @@ export class ReactiveRichText extends Component<
     if (source === this.quillRef) {
       return;
     }
-    const opPath = last(first(op).p);
-    if (this.quillRef && opPath === this.props.path) {
-      this.quillRef.getEditor().setContents(this.getDocumentContent());
+    if (this.quillRef) {
+      if (this.props.shorten) {
+        this.quillRef.getEditor().setContents(this.getDocumentContent());
+      } else {
+        op.forEach(operation => {
+          const opPath = last(operation.p);
+          if (opPath === this.props.path) {
+            this.quillRef.getEditor().updateContents(operation.o);
+          }
+        });
+      }
     }
   };
 
