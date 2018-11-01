@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
 import { Provider } from 'mobx-react';
 import { isEqual } from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
@@ -74,13 +72,4 @@ const StyledConnectedEditor = withStyles(styles)(props => (
   </Provider>
 ));
 
-const SubscriptionWrapper = withTracker(({ session }) => {
-  const subscription = Meteor.subscribe('teacher.graph', session.graphId);
-  return { ready: subscription.ready() };
-})(StyledConnectedEditor);
-
-const RawGraph = ({ session }: { session: Object }) => (
-  <SubscriptionWrapper key={session._id} session={session} />
-);
-
-export default RawGraph;
+export default StyledConnectedEditor;
