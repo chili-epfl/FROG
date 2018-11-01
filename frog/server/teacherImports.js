@@ -48,6 +48,13 @@ export default function() {
     ];
   });
 
+  Meteor.publish('session.students', slug =>
+    Meteor.users.find(
+      { joinedSessions: slug },
+      { fields: { username: 1, joinedSessions: 1, role: 1 } }
+    )
+  );
+
   teacherPublish('activities', Activities);
   teacherPublish('operators', Operators);
   teacherPublish('externalOperators', ExternalOperators);
@@ -56,9 +63,6 @@ export default function() {
   teacherPublish('uploadList', UploadList);
   teacherPublishOwn('graphs', Graphs, this.userId);
   teacherPublishOwn('sessions', Sessions, this.userId);
-  teacherPublish('users', Meteor.users, {
-    fields: { username: 1, joinedSessions: 1, role: 1 }
-  });
 }
 
 Meteor.methods({

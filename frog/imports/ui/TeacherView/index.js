@@ -37,6 +37,7 @@ const TeacherViewRunner = withRouter(
         });
       }
     }
+
     if (!session) {
       session = user.profile && Sessions.findOne(user.profile.controlSession);
     }
@@ -44,6 +45,10 @@ const TeacherViewRunner = withRouter(
       history.push(
         '/teacher/orchestration/' + session.slug + LocalSettings.UrlCoda
       );
+    }
+    if (session) {
+      Meteor.subscribe('teacher.graph', session.graphId);
+      Meteor.subscribe('session.students', session.slug);
     }
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();

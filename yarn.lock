@@ -1849,6 +1849,13 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+ansi-styles@~3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.0.0.tgz#5404e93a544c4fec7f048262977bebfe3155e0c1"
+  integrity sha1-VATpOlRMT+x/BIJil3vr/jFV4ME=
+  dependencies:
+    color-convert "^1.0.0"
+
 ansicolors@~0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/ansicolors/-/ansicolors-0.2.1.tgz#be089599097b74a5c9c4a84a0cdbcdb62bd87aef"
@@ -1938,6 +1945,11 @@ array-bounds@^1.0.0, array-bounds@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/array-bounds/-/array-bounds-1.0.1.tgz#da11356b4e18e075a4f0c86e1f179a67b7d7ea31"
   integrity sha512-8wdW3ZGk6UjMPJx/glyEt0sLzzwAE1bhToPsO1W2pbpR2gULyxe3BjSiuJFheP50T/GgODVPz2fuMUmIywt8cQ==
+
+array-differ@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/array-differ/-/array-differ-1.0.0.tgz#eff52e3758249d33be402b8bb8e564bb2b5d4031"
+  integrity sha1-7/UuN1gknTO+QCuLuOVkuytdQDE=
 
 array-equal@^1.0.0:
   version "1.0.0"
@@ -2883,6 +2895,13 @@ binary-search-bounds@^2.0.0, binary-search-bounds@^2.0.3, binary-search-bounds@^
   resolved "https://registry.yarnpkg.com/binary-search-bounds/-/binary-search-bounds-2.0.4.tgz#eea0e4081da93baa851c7d851a7e636c3d51307f"
   integrity sha512-2hg5kgdKql5ClF2ErBcSx0U5bnl5hgS4v7wMnLFodyR47yMtj2w+UAZB+0CiqyHct2q543i7Bi4/aMIegorCCg==
 
+binary-split@~1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/binary-split/-/binary-split-1.0.5.tgz#e1ec5645b65d7de6b1a73352d1165b57c6fb14f6"
+  integrity sha512-AQ5fcBrUU5hoIafkEvNKqxT+2xbqlSqAXef6IdCQr5wpHu9E7NGM6rTAlYJYbtxvAvjfx8nJkBy6rNlbPPI+Pw==
+  dependencies:
+    through2 "^2.0.3"
+
 binary@~0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/binary/-/binary-0.3.0.tgz#9f60553bc5ce8c3386f3b553cff47462adecaa79"
@@ -3726,7 +3745,7 @@ color-alpha@^1.0.2:
   dependencies:
     color-parse "^1.2.0"
 
-color-convert@^1.9.0:
+color-convert@^1.0.0, color-convert@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
   integrity sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==
@@ -5731,6 +5750,17 @@ fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+
+fastlint@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fastlint/-/fastlint-1.1.0.tgz#21acda335b4533734c3ee8c39897aa99b5923a9e"
+  integrity sha1-IazaM1tFM3NMPujDmJeqmbWSOp4=
+  dependencies:
+    ansi-styles "~3.0.0"
+    binary-split "~1.0.3"
+    miniq "~1.0.1"
+    multimatch "~2.1.0"
+    subarg "~1.0.0"
 
 fb-watchman@^2.0.0:
   version "2.0.0"
@@ -9149,6 +9179,11 @@ meteor-node-stubs@^0.4.1:
     util "^0.10.3"
     vm-browserify "0.0.4"
 
+microee@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/microee/-/microee-0.0.6.tgz#a12bdb0103681e8b126a9b071eba4c467c78fffe"
+  integrity sha1-oSvbAQNoHosSapsHHrpMRnx4//4=
+
 micromatch@^2.1.5, micromatch@^2.3.11:
   version "2.3.11"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-2.3.11.tgz#86677c97d1720b363431d04d0d15293bd38c1565"
@@ -9256,7 +9291,7 @@ minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
   integrity sha1-9sAMHAsIIkblxNmd+4x8CDsrWCo=
 
-"minimatch@2 || 3", minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4:
+"minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
@@ -9310,6 +9345,14 @@ minipass@^2.2.1, minipass@^2.2.4:
   dependencies:
     safe-buffer "^5.1.1"
     yallist "^3.0.0"
+
+miniq@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/miniq/-/miniq-1.0.1.tgz#855ed29ad319456f08785a1b4f06bbbdd9a4f2c1"
+  integrity sha1-hV7SmtMZRW8IeFobTwa7vdmk8sE=
+  dependencies:
+    microee "0.0.6"
+    ondone "~1.0.0"
 
 minizlib@^1.1.0:
   version "1.1.0"
@@ -9420,6 +9463,16 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
+
+multimatch@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/multimatch/-/multimatch-2.1.0.tgz#9c7906a22fb4c02919e2f5f75161b4cdbd4b2a2b"
+  integrity sha1-nHkGoi+0wCkZ4vX3UWG0zb1LKis=
+  dependencies:
+    array-differ "^1.0.0"
+    array-union "^1.0.1"
+    arrify "^1.0.0"
+    minimatch "^3.0.0"
 
 mumath@^3.3.4:
   version "3.3.4"
@@ -9956,6 +10009,11 @@ once@~1.3.0:
   integrity sha1-suJhVXzkwxTsgwTz+oJmPkKXyiA=
   dependencies:
     wrappy "1"
+
+ondone@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ondone/-/ondone-1.0.0.tgz#fb208316d7ac2951bdcc696a7d864bf21af7a008"
+  integrity sha1-+yCDFtesKVG9zGlqfYZL8hr3oAg=
 
 onetime@^2.0.0:
   version "2.0.1"
@@ -13324,6 +13382,13 @@ stylis@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.0.tgz#016fa239663d77f868fef5b67cf201c4b7c701e1"
   integrity sha512-pP7yXN6dwMzAR29Q0mBrabPCe0/mNO1MSr93bhay+hcZondvMMTpeGyd8nbhYJdyperNT2DRxONQuUGcJr5iPw==
+
+subarg@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/subarg/-/subarg-1.0.0.tgz#f62cf17581e996b48fc965699f54c06ae268b8d2"
+  integrity sha1-9izxdYHplrSPyWVpn1TAauJouNI=
+  dependencies:
+    minimist "^1.1.0"
 
 supercluster@^2.3.0:
   version "2.3.0"
