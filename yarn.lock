@@ -1471,6 +1471,19 @@
   resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
   integrity sha1-2X0dZTs+c3xoTNUyS6zsLo8kYxE=
 
+"@houshuang/react-quill@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@houshuang/react-quill/-/react-quill-1.3.1.tgz#ecf8f9ae10308cfad6f089b8230b2e6bfba604c2"
+  integrity sha512-uwEnmVSKlgUHykUQAhuz4dvGVdf8APzXIBk+PTYr1TeWgct0z3y6kYNhVqcSlVQGYA5LXODQzEXD1eqiCak0Ag==
+  dependencies:
+    "@types/quill" "*"
+    "@types/react" "*"
+    create-react-class "^15.6.0"
+    lodash "^4.17.4"
+    prop-types "^15.5.10"
+    quill "^1.2.6"
+    react-dom-factories "^1.0.0"
+
 "@houshuang/react-tweet@1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@houshuang/react-tweet/-/react-tweet-1.7.1.tgz#a66eb25162df3b6d539318521d6d2afa1d59127f"
@@ -11499,19 +11512,6 @@ react-prop-types@^0.4.0:
   integrity sha1-+ZsL+0AGkpya8gUefBQUpcdbk9A=
   dependencies:
     warning "^3.0.0"
-
-react-quill@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-quill/-/react-quill-1.3.1.tgz#9fd2003f20a0f3bb6c9e55631add7658f5f967a4"
-  integrity sha1-n9IAPyCg87tsnlVjGt12WPX5Z6Q=
-  dependencies:
-    "@types/quill" "*"
-    "@types/react" "*"
-    create-react-class "^15.6.0"
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-    quill "^1.2.6"
-    react-dom-factories "^1.0.0"
 
 react-resize-aware@^2.7.1:
   version "2.7.1"

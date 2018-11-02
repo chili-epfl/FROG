@@ -85,6 +85,7 @@ class LearningItemWithSlider extends React.Component<
           id={this.props.id}
           render={this.props.render}
           dataFn={this.props.dataFn}
+          isPlayback
           data={this.state.revisions[this.state.currentRev]}
         />
       </div>

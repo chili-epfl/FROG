@@ -1,15 +1,18 @@
 // @flow
+import '@houshuang/react-quill/dist/quill.snow.css';
+
 import React, { Component } from 'react';
 import { get, isEqual, last } from 'lodash';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from '@houshuang/react-quill';
+import { shortenRichText } from './index';
 
 type ReactivePropsT = {
   path: string,
   dataFn: Object,
   data?: Object,
   readOnly?: boolean,
-  toolbarOptions?: Object[]
+  toolbarOptions?: Object[],
+  shorten?: number
 };
 
 const toolbarOptions = [
@@ -33,20 +36,38 @@ export class ReactiveRichText extends Component<
     if (source === this.quillRef) {
       return;
     }
-    op.forEach(operation => {
-      const opPath = last(operation.p);
-      if (this.quillRef && opPath === this.props.path) {
-        this.quillRef.getEditor().updateContents(operation.o);
+    if (this.quillRef) {
+      if (this.props.shorten) {
+        this.quillRef.getEditor().setContents(this.getDocumentContent());
+      } else {
+        op.forEach(operation => {
+          const opPath = last(operation.p);
+          if (opPath === this.props.path) {
+            this.quillRef.getEditor().updateContents(operation.o);
+          }
+        });
       }
-    });
+    }
   };
 
   update = (props: ReactivePropsT) => {
     props.dataFn.doc.on('op', this.opListener);
   };
 
+  getDocumentContent = () => {
+    const raw = get(
+      this.props.data
+        ? { payload: this.props.data }
+        : this.props.dataFn.doc.data,
+      (this.state.path || []).join('.')
+    );
+    return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
+  };
+
   componentDidMount() {
-    this.update(this.props);
+    if (!this.props.data) {
+      this.update(this.props);
+    }
   }
 
   componentWillMount() {
@@ -63,38 +84,41 @@ export class ReactiveRichText extends Component<
     }
   }
 
-  shouldComponentUpdate() {
-    return !!this.props.readOnly;
+  shouldComponentUpdate(nextProps: Object) {
+    return (
+      this.props.shorten !== nextProps.shorten ||
+      !!(this.props.readOnly || nextProps.readOnly)
+    );
   }
 
   componentWillUnmount() {
-    this.props.dataFn.doc.removeListener('op', this.opListener);
+    if (!this.props.data) {
+      this.props.dataFn.doc.removeListener('op', this.opListener);
+    }
   }
 
   handleChange = (contents: string, delta: Object, source: string) => {
-    const op = {
-      p: this.state.path,
-      t: 'rich-text',
-      o: delta.ops
-    };
+    if (!this.props.readOnly) {
+      const op = {
+        p: this.state.path,
+        t: 'rich-text',
+        o: delta.ops
+      };
 
-    if (source !== 'user') {
-      return;
+      if (source !== 'user') {
+        return;
+      }
+
+      this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
     }
-
-    this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
   render() {
+    const defaultValue = this.getDocumentContent();
     return (
       <div>
         <ReactQuill
-          defaultValue={get(
-            this.props.data
-              ? { payload: this.props.data }
-              : this.props.dataFn.doc.data,
-            (this.state.path || []).join('.')
-          )}
+          defaultValue={defaultValue}
           ref={element => {
             this.quillRef = element;
           }}
