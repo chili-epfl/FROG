@@ -1,10 +1,10 @@
 // @flow
+import '@houshuang/react-quill/dist/quill.snow.css';
+
 import React, { Component } from 'react';
 import { get, isEqual, last } from 'lodash';
 import ReactQuill from '@houshuang/react-quill';
 import { shortenRichText } from './index';
-
-import '@houshuang/react-quill/dist/quill.snow.css';
 
 type ReactivePropsT = {
   path: string,
