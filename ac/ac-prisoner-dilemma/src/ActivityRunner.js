@@ -17,10 +17,15 @@ const styles = {
         lineHeight: '45px',
         textAlign: 'center',
         width: '100%',
+    },
+    waiting: {
+        textAlign: 'center',
+        width: '100%',
     }
 };
 
 // Props types
+
 type StyledPropsT = ActivityRunnerPropsT & { classes: Object };
 
 // Component
@@ -32,17 +37,11 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     constructor(props) {
         super(props);
 
-        // TODO: use structure in props giving mapping id -> name (where it is?)
         this.props.dataFn.objInsert({
                 name: this.props.userInfo.name,
                 score: 0
             },
-            this.props.userInfo.id
-        );
-
-        this.props.dataFn.objInsert(
-            {0: {}},
-            'rounds'
+            ["students", this.props.userInfo.id]
         );
     }
 
@@ -50,6 +49,11 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
 
     renderGame(students, round, disableButtons) {
         if (!this.props.data.winner) {
+
+            const waiting = (students.indexOf(this.props.userInfo.id) > -1 && disableButtons) ?
+                <div className={this.props.classes.waiting}> Waiting for the other player... </div> :
+                <div/>;
+
             return (
                 <div>
                     <Players
@@ -66,16 +70,17 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
                         disableButtons={disableButtons}
                         round={round}
                     />
+                    {waiting}
                 </div>
             );
         } else {
             // Game finished: show result
-            const a = this.props.data[students[0]].score;
-            const b = this.props.data[students[1]].score;
+            const a = this.props.data.students[students[0]].score;
+            const b = this.props.data.students[students[1]].score;
 
             const text = (a === b) ? "Tie!" : ((a > b) ?
-                this.props.data[students[0]].name + " won!" :
-                this.props.data[students[1]].name + " won!");
+                this.props.data.students[students[0]].name + " won!" :
+                this.props.data.students[students[1]].name + " won!");
 
             return (
                 <div className={this.props.classes.result}>
@@ -90,14 +95,13 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     render() {
 
         // Only two students can compete, others are spectator
-        const students = Object.keys(this.props.data)
-            .filter(k => k !== 'rounds')
+        const students = Object.keys(this.props.data.students)
             .sort()
             .splice(0, 2);
 
         // Not enough students yet: wait
         if (!('rounds' in this.props.data) || students.length < 2) {
-            return (<div> Charging ... </div>);
+            return (<div className={this.props.classes.waiting}> Waiting for the other player... </div>);
         }
 
         const round = Object.keys(this.props.data['rounds']).length;

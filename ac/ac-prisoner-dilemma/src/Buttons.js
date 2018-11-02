@@ -7,11 +7,12 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
     buttonContainer: {
-        marginBottom: '50px',
-        marginTop: '50px',
+        marginBottom: "5px",
+        marginTop: '25px',
         marginLeft: '25%',
         marginRight: '25%',
         width: '50%',
+        height: '20%',
     },
     button: {
         fontSize: '20px',

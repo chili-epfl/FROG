@@ -6,9 +6,10 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     imageContainer: {
-        marginBottom: '75px',
+        marginBottom: '50px',
         marginTop: '50px',
         width: '100%',
+        height: '40%',
     },
     image: {
         display: 'inline-block',

@@ -50,7 +50,12 @@ const config = {
 };
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = {};
+const dataStructure = {
+    students: {},
+    rounds: {
+        0: {}
+    }
+};
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
 const mergeFunction = (object, dataFn) => {};
@@ -61,7 +66,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboard: null,  //TODO dashboradS
+  dashboard: null,  //TODO dashboradS {default: DashboardComponent}
   dataStructure,
   mergeFunction
 }: ActivityPackageT);

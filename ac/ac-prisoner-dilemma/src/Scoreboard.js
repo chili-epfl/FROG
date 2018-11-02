@@ -20,8 +20,8 @@ const actionPostfix = '_action';
 
 const styles = {
     scoreBoard: {
-        marginBottom: '50px',
-        marginTop: '50px',
+        marginBottom: '25px',
+        marginTop: '25px',
         width: '100%',
         height: '150px',
     },
@@ -53,7 +53,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
             id={key}
             className={props.classes.score}
         >
-            {props.data[key].name} : {props.data[key].score} pts
+            {props.data.students[key].name} : {props.data.students[key].score} pts
         </span>
     ));
 
@@ -88,7 +88,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
     const computeScore = (id, player, adversary) => {
         const scores = props.config.gainMatrix;
 
-        const oldScore = props.data[id].score;
+        const oldScore = props.data.students[id].score;
         let newScore = oldScore;
         newScore += player ?
             (adversary ? scores.cooperateCooperate : scores.cooperateCheat) :
@@ -99,7 +99,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
 
         props.dataFn.objInsert(
             newScore,
-            [id, 'score']
+            ["students", id, 'score']
         );
     };
 
