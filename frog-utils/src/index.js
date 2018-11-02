@@ -209,8 +209,12 @@ export const shorten = (text: string, length: number): string => {
   return `${t.slice(0, length - 3)}...`;
 };
 
-export const shortenRichText = (dataRaw: Object, length: number): Object => {
+export const shortenRichText = (
+  dataRaw: { ops: Object[] },
+  length: number
+): Object => {
   const data = cloneDeep(dataRaw);
+  // $FlowFixMe somehow it thinks cloneDeep always returns an array
   const ops = filter(data.ops, op => isString(op.insert));
   let contentLength = 0;
   let cutOffIndex = -1;
