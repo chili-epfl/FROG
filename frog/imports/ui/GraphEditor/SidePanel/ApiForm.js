@@ -1,7 +1,9 @@
+// @flow
 import * as React from 'react';
 import { hideConditional, type ActivityDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
 import { observer } from 'mobx-react';
+import jsonSchemaDefaults from 'json-schema-defaults';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import validateConfig from '/imports/api/validateConfig';
@@ -11,6 +13,7 @@ import ConfigForm from './ConfigForm';
 import ChooseActivityType from './ActivityPanel/ChooseActivity';
 import ModalDelete from '../RemoteControllers/ModalDelete';
 import Store from '../store/store';
+import DeleteButton from './DeleteButton';
 
 const store = new Store();
 
@@ -168,7 +171,12 @@ type PropsT = {
   onPreview?: Function,
   onConfigChange?: Function,
   hidePreview?: boolean,
-  reload?: string
+  reload?: string,
+  showDelete?: boolean,
+  setActivityTypeId?: string,
+  hideLibrary?: boolean,
+  whiteList?: string[],
+  noOffset?: boolean
 };
 
 class State {
@@ -197,19 +205,25 @@ const state = new State();
 const ApiForm = observer(
   class A extends React.Component<
     PropsT,
-    { activity: ActivityDbT, idRemove: Object, deleteOpen: boolean }
+    {
+      activity: Object,
+      idRemove: Object,
+      deleteOpen: boolean,
+      whiteList?: string[]
+    }
   > {
+    activity: ActivityDbT = {
+      _id: '1',
+      activityType: this.props.activityType,
+      data: this.props.config || {},
+      plane: 1,
+      startTime: 0,
+      length: 5
+    };
+
     constructor(props) {
       super(props);
-      const activity: ActivityDbT = {
-        _id: '1',
-        activityType: this.props.activityType,
-        data: this.props.config || {},
-        plane: 1,
-        startTime: 0,
-        length: 5
-      };
-      this.state = { activity, idRemove: {}, deleteOpen: false };
+      this.state = { activity: this.activity, idRemove: {}, deleteOpen: false };
     }
 
     componentWillReceiveProps = nextprops => {
@@ -235,9 +249,40 @@ const ApiForm = observer(
 
     render() {
       return (
-        <React.Fragment>
+        <>
           {this.state.activity.activityType ? (
             <div>
+              <div style={{ position: 'absolute', right: '0px', top: '0px' }}>
+                {!this.props.hideValidator && (
+                  <Valid noOffset={this.props.noOffset} />
+                )}
+                {this.props.showDelete && (
+                  <DeleteButton
+                    tooltip="Reset activity"
+                    msg="Do you really want to remove the activity type, and loose all the configuration data?"
+                    onConfirmation={() => {
+                      window.parent.postMessage(
+                        {
+                          type: 'frog-config',
+                          activityType: undefined
+                        },
+                        '*'
+                      );
+                      this.setState({
+                        activity: {
+                          _id: '1',
+                          data: {},
+                          plane: 1,
+                          startTime: 0,
+                          length: 5
+                        },
+                        idRemove: {},
+                        deleteOpen: false
+                      });
+                    }}
+                  />
+                )}
+              </div>
               <div
                 style={{
                   marginTop: '20px',
@@ -249,19 +294,12 @@ const ApiForm = observer(
                   activity={this.state.activity}
                   setValid={state.setValid}
                   reload={this.props.reload}
-                  config={this.props.config || {}}
+                  config={this.props.config || this.state.activity.data || {}}
                 />
               </div>
-              {!this.props.hideValidator && (
-                <div
-                  style={{ position: 'absolute', right: '20px', top: '10px' }}
-                >
-                  <Valid />
-                </div>
-              )}
             </div>
           ) : (
-            <React.Fragment>
+            <>
               <ModalDelete
                 modalOpen={this.state.deleteOpen}
                 setModal={x => this.setState({ deleteOpen: x })}
@@ -275,20 +313,32 @@ const ApiForm = observer(
                 hideLibrary={this.props.hideLibrary}
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
+                whiteList={this.props.whiteList}
                 store={store}
                 setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}
                 hidePreview={this.props.hidePreview}
                 onPreview={this.props.onPreview}
                 onSelect={e => {
+                  const obj =
+                    typeof e.id === 'object'
+                      ? {
+                          activityType: e.id.activity_type,
+                          config: e.id.config
+                        }
+                      : {
+                          activityType: e.id,
+                          config: jsonSchemaDefaults(e.config)
+                        };
+
                   if (this.props.onSelect) {
                     this.props.onSelect(e.id);
                   }
                   this.setState({
                     activity: {
                       _id: '1',
-                      activityType: e.id,
-                      data: {},
+                      activityType: obj.activityType,
+                      data: obj.config,
                       plane: 1,
                       startTime: 0,
                       length: 5
@@ -296,9 +346,9 @@ const ApiForm = observer(
                   });
                 }}
               />
-            </React.Fragment>
+            </>
           )}
-        </React.Fragment>
+        </>
       );
     }
   }
@@ -306,33 +356,48 @@ const ApiForm = observer(
 
 ApiForm.displayName = 'ApiForm';
 
-const Valid = observer(() => (
+const Valid = observer(({ noOffset }) => (
   <ValidButtonRaw
     setShowErrors={state.setShow}
     errorColor={state.valid.length > 0 ? 'red' : 'green'}
+    noOffset={noOffset}
   />
 ));
 
-const Errors = observer(() => (
-  <React.Fragment>
+Valid.displayName = 'Valid';
+
+const Errors = observer(({ noOffset }) => (
+  <>
     {state.showErrors ? (
       <div
-        style={{
-          position: 'absolute',
-          top: '25px',
-          right: '90px'
-        }}
+        style={
+          noOffset
+            ? {
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                zIndex: 99
+              }
+            : {
+                position: 'absolute',
+                left: '0px',
+                top: '120px',
+                zIndex: 99
+              }
+        }
       >
         <ShowErrorsRaw errors={state.valid} />
       </div>
     ) : null}
-  </React.Fragment>
+  </>
 ));
+
+Errors.displayName = 'Errors';
 
 const Container = (props: PropsT) => (
   <div>
     <ApiForm {...props} />
-    {!props.hideValidator && <Errors />}
+    {!props.hideValidator && <Errors noOffset={props.noOffset} />}
   </div>
 );
 

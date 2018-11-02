@@ -14,22 +14,18 @@ const MaybeClickable = ({ condition, children, onClick }) =>
 const withNullCheck = ({
   render,
   renderArgs,
+  isPlayback,
   type,
   clickZoomable,
   liType,
   data,
   dataFn,
-  open,
   setOpen
 }) => WrappedComponent => {
   // $FlowFixMe
   const WrappedComponentClass = toClass(WrappedComponent);
   // $FlowFixMe
-  class NullChecker extends WrappedComponentClass {
-    shouldComponentUpdate() {
-      return false;
-    }
-
+  class NullChecker extends WrappedComponentClass<*, *> {
     render() {
       const result = super.render();
 
@@ -43,11 +39,13 @@ const withNullCheck = ({
             onClick={() => {
               setOpen(true);
             }}
-            condition={type === 'thumbView' && clickZoomable && liType.Viewer}
+            condition={
+              type === 'thumbView' && !!clickZoomable && !!liType.Viewer
+            }
           >
             {result}
           </MaybeClickable>
-          {open &&
+          {this.props.open &&
             liType.Viewer && (
               <Dialog
                 maxWidth={false}
@@ -58,7 +56,9 @@ const withNullCheck = ({
               >
                 <liType.Viewer
                   type="view"
+                  isPlayback={isPlayback}
                   data={data.payload}
+                  dataFn={dataFn}
                   LearningItem={dataFn && dataFn.LearningItem}
                 />
               </Dialog>
@@ -85,7 +85,14 @@ class RenderLearningItem extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = { open: false };
-    const { data, dataFn, render, type = 'view', clickZoomable } = props;
+    const {
+      data,
+      dataFn,
+      render,
+      type = 'view',
+      clickZoomable,
+      isPlayback
+    } = props;
     const liType = learningItemTypesObj[data.liType];
     let LIComponent;
     if (!liType) {
@@ -119,6 +126,7 @@ class RenderLearningItem extends React.Component<any, any> {
           liType: liType.id
         },
         dataFn,
+        isPlayback,
         data,
         clickZoomable,
         liType,
@@ -137,11 +145,12 @@ class RenderLearningItem extends React.Component<any, any> {
   }
 
   render() {
-    const { type, search, data, dataFn } = this.props;
+    const { type, search, data, dataFn, isPlayback } = this.props;
     const Comp = this.Comp;
     return Comp ? (
       <Comp
         data={data.payload}
+        isPlayback={isPlayback}
         dataFn={dataFn && dataFn.specialize('payload')}
         LearningItem={dataFn && dataFn.LearningItem}
         search={search && search.toLowerCase()}

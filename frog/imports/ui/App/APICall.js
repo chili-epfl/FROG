@@ -37,6 +37,7 @@ export default ({ data }: { data: Object }) => {
           globalStructure: { students: {}, studentIds: [] }
         }}
         instances={[]}
+        ready
       />
     );
   }
@@ -50,11 +51,14 @@ export default ({ data }: { data: Object }) => {
     }
     return (
       <ApiForm
+        whiteList={data.whiteList}
         activityType={data.activityType}
         config={data.config}
         hidePreview
+        noOffset
         hideValidator={!data.showValidator}
         hideLibrary={!data.showLibrary}
+        showDelete={data.showDelete}
       />
     );
   } else {

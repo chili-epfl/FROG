@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
-import { shuffle } from 'lodash';
+import { shuffle, isString, filter, split } from 'lodash';
 
 export const isBrowser = (() => {
   try {
@@ -36,6 +36,7 @@ export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
+export { ReactiveRichText } from './ReactiveRichText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
@@ -165,6 +166,39 @@ export const HighlightSearchText = ({
   );
 };
 
+export const highlightTargetRichText = (content: Object, target: string) => {
+  const processedOps = [];
+  content.ops.forEach(op => {
+    if (isString(op.insert)) {
+      const pieces = split(op.insert, new RegExp(target, 'i'));
+
+      if (pieces.length > 1) {
+        let targetIdxPtr = 0;
+        pieces.forEach((piece, index) => {
+          processedOps.push({ ...op, insert: piece });
+          targetIdxPtr += piece.length;
+
+          if (index !== pieces.length - 1) {
+            processedOps.push({
+              insert: op.insert.substring(
+                targetIdxPtr,
+                targetIdxPtr + target.length
+              ),
+              attributes: Object.assign({}, op.attributes, {
+                background: '#ffff00'
+              })
+            });
+            targetIdxPtr += target.length;
+          }
+        });
+        return;
+      }
+    }
+    processedOps.push(op);
+  });
+  return { ops: processedOps };
+};
+
 export const booleanize = (bool: string): boolean => bool === 'true';
 
 export const shorten = (text: string, length: number): string => {
@@ -173,6 +207,40 @@ export const shorten = (text: string, length: number): string => {
     return t;
   }
   return `${t.slice(0, length - 3)}...`;
+};
+
+export const shortenRichText = (
+  dataRaw: { ops: Object[] },
+  length: number
+): Object => {
+  const data = cloneDeep(dataRaw);
+  // $FlowFixMe somehow it thinks cloneDeep always returns an array
+  const ops = filter(data.ops, op => isString(op.insert));
+  let contentLength = 0;
+  let cutOffIndex = -1;
+  let cutOffLength = 0;
+
+  ops.forEach((op, index) => {
+    contentLength += op.insert.length;
+
+    if (cutOffIndex < 0 && contentLength > length - 3) {
+      cutOffIndex = index;
+      cutOffLength = contentLength - (length - 3);
+    }
+  });
+
+  if (contentLength <= length) {
+    return { ops };
+  } else {
+    const trimmedOps = ops.slice(0, cutOffIndex);
+
+    const edgeOp = ops[cutOffIndex];
+    edgeOp.insert = edgeOp.insert.slice(0, edgeOp.insert.length - cutOffLength);
+    trimmedOps.push(edgeOp);
+
+    trimmedOps.push({ insert: '...' });
+    return { ops: trimmedOps };
+  }
 };
 
 // checks that some of the values in an object are not empty
@@ -347,3 +415,8 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };
+
+export const getRotateable = (ary: *, toRotate: number): * =>
+  new Proxy(ary, {
+    get: (obj, prop) => obj[(parseInt(prop, 10) + toRotate) % obj.length]
+  });

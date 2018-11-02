@@ -9,7 +9,6 @@ import { DashboardData, Activities } from '../imports/api/activities';
 import { DashboardStates } from '../imports/api/cache';
 import { regenerateState } from '../imports/api/mergeLogData';
 import { serverConnection } from './share-db-manager';
-import { Objects } from '../imports/api/objects';
 
 const interval = {};
 const subscriptions = {};
@@ -83,6 +82,7 @@ export default () => {
     this.added('dashboard', dashId, { data: newState });
     oldInput[dashId] = cloneDeep(DashboardStates[dashId]);
     if (!interval[dashId]) {
+      setTimeout(() => updateAndSend(dashId, prepDataForDisplayFn, act), 500);
       interval[dashId] = setInterval(
         () => updateAndSend(dashId, prepDataForDisplayFn, act),
         5000
@@ -97,8 +97,6 @@ export default () => {
       }
     });
   });
-
-  Meteor.publish('dashboard.object', id => Objects.find(id));
 };
 
 export const archiveDashboardState = (activityId: string) => {

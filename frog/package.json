@@ -69,6 +69,7 @@
     "reconnectingwebsocket": "^1.0.0",
     "regression": "2.0.1",
     "request": "^2.88.0",
+    "rich-text": "^3.1.0",
     "rws": "^0.0.1",
     "save-svg-as-png": "1.4.6",
     "sharedb": "^1.0.0-beta.9",

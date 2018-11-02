@@ -1,0 +1,17 @@
+{
+  "name": "ac-set",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nps"
+  },
+  "dependencies": {
+    "frog-utils": "^1.0.0",
+    "@material-ui/core": "^3.0.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "nps": "5.9.3"
+  }
+}

@@ -9,7 +9,7 @@ export default {
   exampleData: [
     {
       title: '1 trace 1 axis',
-      config: { title: 'Graph1', plotTypes: ['plot', 'histogram', 'box'] },
+      config: { title: 'Graph1', plotTypes: ['dots', 'histogram', 'box'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -81,7 +81,7 @@ export default {
           '11-novembre',
           '12-décembre'
         ];
-        const genders = ['male', 'femelle'];
+        const genders = ['male', 'female'];
         return new Array(150).fill().map(_ => ({
           trace: 'dataset1',
           x: shuffle(months)[0],

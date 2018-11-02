@@ -27,6 +27,9 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   const LITypePaths = paths.filter(
     x => get(schema, [...x, 'type']) === 'learningItemType'
   );
+  const LITypeEditorPaths = paths.filter(
+    x => get(schema, [...x, 'type']) === 'learningItemTypeEditor'
+  );
   const rtePaths = paths.filter(x => get(schema, [...x, 'type']) === 'rte');
 
   [
@@ -35,7 +38,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...sourceActivityPaths,
     ...socialPaths,
     ...rtePaths,
-    ...LITypePaths
+    ...LITypePaths,
+    ...LITypeEditorPaths
   ].forEach(x => set(newSchema, [...x, 'type'], 'string'));
 
   delete newSchema.properties.component;
@@ -48,6 +52,11 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   const LIMerges = LITypePaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
       'ui:widget': 'learningItemTypeWidget'
+    })
+  );
+  const LIEditorMerges = LITypeEditorPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'learningItemTypeEditorWidget'
     })
   );
   const anyActivityMerges = anyActivityPaths.map(x =>
@@ -100,7 +109,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...sourceActivityMerges,
     ...targetActivityMerges,
     ...rteMerges,
-    ...LIMerges
+    ...LIMerges,
+    ...LIEditorMerges
   );
   return { uiSchema: newUiSchema, schema: newSchema };
 };

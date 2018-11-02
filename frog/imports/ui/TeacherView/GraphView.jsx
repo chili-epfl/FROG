@@ -7,11 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';
-import { store } from '../GraphEditor/store';
+import { store as globalStore, connect } from '../GraphEditor/store';
 
 type GraphViewPropsT = {
   session: Object,
-  classes: Object
+  classes: Object,
+  store: Object
 };
 
 const styles = {
@@ -23,10 +24,10 @@ const styles = {
 
 class GraphViewController extends React.Component<GraphViewPropsT, {}> {
   initStore = (session: any) => {
-    store.setBrowserHistory(null);
-    store.setId(session.graphId, true);
-    store.setSession(session);
-    store.session.setTimes(session);
+    this.props.store.setBrowserHistory(null);
+    this.props.store.setId(session.graphId, true);
+    this.props.store.setSession(session);
+    this.props.store.session.setTimes(session);
   };
 
   componentWillMount() {
@@ -36,35 +37,39 @@ class GraphViewController extends React.Component<GraphViewPropsT, {}> {
   componentWillReceiveProps(nextProps: { session: Object }) {
     if (!isEqual(nextProps.session, this.props.session)) {
       this.initStore(nextProps.session);
-      if (store.session) {
-        store.session.setTimes(nextProps.session);
+      if (this.props.store.session) {
+        this.props.store.session.setTimes(nextProps.session);
       }
     }
   }
 
   componentDidMount() {
-    window.addEventListener('resize', store.ui.updateWindow);
-    store.ui.updateWindow();
+    window.addEventListener('resize', this.props.store.ui.updateWindow);
+    this.props.store.ui.updateWindow();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', store.ui.updateWindow);
-    store.session.close();
+    window.removeEventListener('resize', this.props.store.ui.updateWindow);
+    this.props.store.session.close();
   }
 
   render() {
     const { classes } = this.props;
     return (
-      <Provider store={store}>
-        <div className={classes.graphInSession}>
-          <ShowInfo />
-          <Graph scaled hasTimescale isSession />
-        </div>
-      </Provider>
+      <div className={classes.graphInSession}>
+        <ShowInfo />
+        <Graph scaled hasTimescale isSession />
+      </div>
     );
   }
 }
 
-const GraphView = GraphViewController;
+const GraphView = connect(GraphViewController);
 
-export default withStyles(styles)(GraphView);
+const StyledConnectedEditor = withStyles(styles)(props => (
+  <Provider store={globalStore}>
+    <GraphView {...props} />
+  </Provider>
+));
+
+export default StyledConnectedEditor;

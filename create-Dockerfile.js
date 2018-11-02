@@ -29,7 +29,7 @@ COPY package.json yarn.lock .yarnrc babel.config.js ./
 COPY package-lock.json package-lock.json.orig
 COPY yarn.lock yarn.lock.orig
 COPY __mocks__ ./__mocks__
-COPY *.sh package-scripts.js ./
+COPY *.sh linkFiles.js package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
 ${acopCP}
 COPY frog/package.json frog/

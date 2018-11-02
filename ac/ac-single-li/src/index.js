@@ -7,6 +7,7 @@ import {
   ProgressDashboard,
   values
 } from 'frog-utils';
+import upgradeFunctions from './upgradeFunctions';
 
 const meta = {
   name: 'Add/edit single LI',
@@ -23,12 +24,21 @@ const config = {
       title: 'Learning Item Type',
       type: 'learningItemType'
     },
+    liTypeEditor: {
+      title: 'Learning Item Type (Editable)',
+      type: 'learningItemTypeEditor',
+      default: 'li-textArea'
+    },
+    noSubmit: {
+      title: 'No submit button, directly edit',
+      type: 'boolean',
+      default: true
+    },
     allowEditing: {
       title: 'Allow editing after submission',
       default: true,
       type: 'boolean'
-    },
-    noSubmit: { title: 'No submit button', type: 'boolean' }
+    }
   }
 };
 
@@ -39,14 +49,34 @@ const formatProduct = (_, product) => {
 
 const configUI = {
   instructions: { 'ui:widget': 'textarea' },
-  noSubmit: { conditional: formData => !isEmpty(formData.liType) }
+  allowEditing: { conditional: formData => !formData.noSubmit },
+  liTypeEditor: { conditional: 'noSubmit' },
+  liType: { conditional: formData => !formData.noSubmit }
 };
 
+const validateConfig = [
+  formData =>
+    formData.noSubmit && isEmpty(formData.liTypeEditor)
+      ? {
+          err:
+            'You need to choose a specific Learning Item type to allow for direct editing'
+        }
+      : null
+];
+
 const mergeFunction = (obj: Object, dataFn: Object) => {
-  if (!isEmpty(obj?.data) && isObject(obj?.data)) {
+  let empty = true;
+  if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
     if (li) {
       dataFn.objInsert({ li });
+      empty = false;
+    }
+  }
+  if (empty && obj.config.noSubmit && obj.config.liTypeEditor) {
+    const newLI = dataFn.createLearningItem(obj.config.liTypeEditor);
+    if (newLI) {
+      dataFn.objInsert({ li: newLI });
     }
   }
 };
@@ -56,12 +86,14 @@ const dataStructure = {};
 export default ({
   id: 'ac-single-li',
   type: 'react-component',
-  configVersion: 1,
+  configVersion: 2,
   meta,
   config,
   configUI,
+  validateConfig,
   formatProduct,
   dashboards: { progress: ProgressDashboard },
   dataStructure,
-  mergeFunction
+  mergeFunction,
+  upgradeFunctions
 }: ActivityPackageT);
