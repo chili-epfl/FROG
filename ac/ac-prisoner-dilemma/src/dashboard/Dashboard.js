@@ -10,18 +10,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// Black cell
-
-const CustomTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
-
 // Styles
 
 const styles = (theme) => ({
@@ -46,12 +34,14 @@ const styles = (theme) => ({
 
 const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
 
-    const totalRounds = activity.data.rounds;
+    // Helpers
 
     const createRow = (id, name, score, rounds) => {
+        const totalRounds = activity.data.rounds;
+
+        // Build list of actions
         const actions = [];
         for (let i = 0; i < totalRounds; i++) {
-
             const element = rounds[i] !== undefined && rounds[i][id] !== undefined ?
                 (rounds[i][id] ? "Cooperate" : "Cheat" ) :
                 "";
@@ -61,32 +51,45 @@ const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
         return {id, name, score, actions}
     };
 
-    const games = Object.keys(reactive);
+    const formatData = () => {
+        const games = Object.keys(reactive);
 
-    const formattedData = games.map(game => {
-        const students = Object.keys(reactive[game]["students"])
-            .sort()
-            .splice(0, 2);
+        // Format the data as a list of list of row, each list of row represent a game
+        return games.map(game => {
+            // Get "active" students
+            const students = Object.keys(reactive[game]["students"])
+                .sort()
+                .splice(0, 2);
 
-        return students.map(student => createRow(
-            student,
-            reactive[game]["students"][student].name,
-            reactive[game]["students"][student].score,
-            reactive[game].rounds
-        ))
-    });
+            // Create game rows
+            return students.map(student => createRow(
+                student,
+                reactive[game]["students"][student].name,
+                reactive[game]["students"][student].score,
+                reactive[game].rounds
+            ))
+        });
+    };
 
+    const computeStatistics = (data) => {
+        const scores = [];
+        data.forEach(game => {
+            scores.push(game[0].score);
+            scores.push(game[1].score);
+        });
 
-    const scores = [];
-    formattedData.forEach(game => {
-        scores.push(game[0].score);
-        scores.push(game[1].score);
-    });
+        // Compute statistic
+        const max = Math.max.apply(null, scores);
+        const min = Math.min.apply(null, scores);
+        const avg = scores.reduce((a, b) => a + b) / scores.length;
 
-    const max = Math.max.apply(null, scores);
-    const min = Math.min.apply(null, scores);
-    const avg = scores.reduce((a, b) => a + b) / scores.length;
-    const stats = {avg, min, max};
+        return {avg, min, max};
+    };
+
+    // Format data
+
+    const formattedData = formatData();
+    const stats = computeStatistics(formattedData);
 
     return {stats, formattedData};
 };
@@ -96,7 +99,9 @@ const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
 const Viewer = withStyles(styles)(
     ({ state, classes }: { state: Array, classes: Object }) => {
 
-        const renderStats = () => (
+        // Methods
+
+        const renderStatistics = () => (
             <Paper className={classes.root} >
                 <Table className={classes.table} >
                     <TableBody>
@@ -110,7 +115,7 @@ const Viewer = withStyles(styles)(
             </Paper>
         );
 
-        const renderGame = (rows) => (
+        const renderGameTable = (rows) => (
             <Paper className={classes.root} >
                 <Table className={classes.table} >
                     <TableBody>
@@ -118,7 +123,6 @@ const Viewer = withStyles(styles)(
                             <TableRow key={row.id} >
                                 <TableCell component="th" scope="row" className={classes.cell}>{row.name}</TableCell>
                                 <TableCell className={classes.cell}>{row.score}</TableCell>
-
                                 {row.actions.map(cell => <TableCell className={classes.cell}>{cell}</TableCell>)}
                             </TableRow>
                         ))}
@@ -127,10 +131,12 @@ const Viewer = withStyles(styles)(
             </Paper>
         );
 
+        // Render
+
         return (
             <div>
-                {renderStats()}
-                {state.formattedData.map(game => renderGame(game))}
+                {renderStatistics()}
+                {state.formattedData.map(game => renderGameTable(game))}
             </div>
         );
 });
