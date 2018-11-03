@@ -1,6 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
+import dashboards from './dashboard';
 
 const meta = {
   name: 'Prisoner dilemma',
@@ -66,7 +67,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboard: null,  //TODO dashboradS {default: DashboardComponent}
+  dashboards,  //TODO dashboradS {default: DashboardComponent}
   dataStructure,
   mergeFunction
 }: ActivityPackageT);
