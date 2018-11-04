@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { ReactiveText, type ActivityRunnerT, flattenOne } from 'frog-utils';
+import { type ActivityRunnerT, flattenOne } from 'frog-utils';
 import 'react-datasheet/lib/react-datasheet.css';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
@@ -57,21 +57,26 @@ const RemoveButton = ({ onClick }) => (
 class DataEditor extends React.Component<*, *> {
   _input: any;
 
+  handleChange = e => {
+    this.props.onChange(e.target.value);
+  };
+
   componentDidMount() {
     this._input.focus();
   }
 
   render() {
+    const { value, onKeyDown } = this.props;
     return (
-      <ReactiveText
-        type="textinput"
-        innerRef={input => {
+      <input
+        ref={input => {
           this._input = input;
         }}
         className="data-editor"
         style={{ height: '100%', width: '100%', fontSize: '20px' }}
-        dataFn={this.props.dataFn}
-        path={[this.props.row, this.props.col, 'value']}
+        value={value}
+        onChange={this.handleChange}
+        onKeyDown={onKeyDown}
       />
     );
   }
@@ -155,7 +160,6 @@ class ActivityRunner extends React.Component<*, *> {
       this.cellUpdate(cell, value, col, row);
     });
   };
-  shouldComponentUpdate = () => false;
 
   render() {
     const data = this.props.readOnly
@@ -210,9 +214,7 @@ class ActivityRunner extends React.Component<*, *> {
               )
             }
             dataRenderer={cell => cell.expr}
-            dataEditor={props => (
-              <DataEditor {...props} dataFn={this.props.dataFn} />
-            )}
+            dataEditor={DataEditor}
             cellRenderer={props => (
               <td
                 className={props.className}
@@ -221,7 +223,7 @@ class ActivityRunner extends React.Component<*, *> {
                 onDoubleClick={props.onDoubleClick}
                 style={{
                   width:
-                    props.col === 0 || data[1][props.col]?.value === 'Items'
+                    props.col === 0 || data[1][props.column]?.value === 'Items'
                       ? '40px'
                       : (config.rowWidth || '80') + 'px',
                   height: '30px'
