@@ -66,15 +66,21 @@ const config = {
 };
 
 const mergeFunction = (object, dataFn) =>
-  values(object)
+  console.log(
+    values(object.data || {}),
+    values(object.data || {}).filter(
+      x => x?.li?.liDocument?.liType === 'li-wordSelect'
+    )
+  ) ||
+  values(object.data || {})
     .filter(x => x?.li?.liDocument?.liType === 'li-wordSelect')
     .forEach(x => {
       const li = x.li.liDocument.payload;
       dataFn.objInsert(
         {
-          color: li.payload.color
+          color: li.color
         },
-        ['highlighted', li.payload.word]
+        ['highlighted', li.word]
       );
     });
 
