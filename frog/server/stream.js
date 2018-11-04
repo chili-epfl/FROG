@@ -21,7 +21,7 @@ Meteor.methods({
       }
       const toSend = {
         data: { '1': { ...value, id: '1' } },
-        config: {}
+        config: target.data
       };
 
       if (SharedbCache[docId]) {
