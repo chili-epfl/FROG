@@ -7,7 +7,8 @@ type ReactivePropsT = {
   path: string | string[],
   dataFn: Object,
   type: 'textarea' | 'textinput',
-  logger?: LogT => void
+  logger?: LogT => void,
+  innerRef?: (*) => void
 };
 
 export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
@@ -58,7 +59,7 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
   }
 
   render() {
-    const rest = omit(this.props, ['logger', 'path', 'dataFn']);
+    const rest = omit(this.props, ['innerRef', 'logger', 'path', 'dataFn']);
     if (this.props.dataFn.readOnly) {
       rest.value = get(this.props.dataFn.doc.data, this.props.path);
       rest.readOnly = true;
@@ -67,7 +68,12 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
     return this.props.type === 'textarea' ? (
       <div className="bootstrap">
         <textarea
-          ref={ref => (this.textRef = ref)}
+          ref={ref => {
+            this.textRef = ref;
+            if (this.props.innerRef) {
+              this.props.innerRef(ref);
+            }
+          }}
           className="form-control"
           defaultValue=""
           {...rest}
@@ -80,7 +86,12 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
         <input
           type="text"
           className="form-control"
-          ref={ref => (this.textRef = ref)}
+          ref={ref => {
+            this.textRef = ref;
+            if (this.props.innerRef) {
+              this.props.innerRef(ref);
+            }
+          }}
           defaultValue=""
           {...rest}
           onBlur={() => this.log('blur')}

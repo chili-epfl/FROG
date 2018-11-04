@@ -3,9 +3,7 @@ import * as React from 'react';
 import { type LearningItemT } from 'frog-utils';
 
 const ThumbViewer = ({ data }) => (
-  <div
-    style={{ fontSize: '2em', color: data.color, backgroundColor: '#000000' }}
-  >
+  <div style={{ fontSize: '1em', backgroundColor: data.color }}>
     {data.word}
   </div>
 );

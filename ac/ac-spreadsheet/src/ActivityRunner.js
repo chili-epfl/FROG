@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, flattenOne } from 'frog-utils';
+import { ReactiveText, type ActivityRunnerT, flattenOne } from 'frog-utils';
 import 'react-datasheet/lib/react-datasheet.css';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
@@ -57,26 +57,21 @@ const RemoveButton = ({ onClick }) => (
 class DataEditor extends React.Component<*, *> {
   _input: any;
 
-  handleChange = e => {
-    this.props.onChange(e.target.value);
-  };
-
   componentDidMount() {
     this._input.focus();
   }
 
   render() {
-    const { value, onKeyDown } = this.props;
     return (
-      <input
-        ref={input => {
+      <ReactiveText
+        type="textinput"
+        innerRef={input => {
           this._input = input;
         }}
         className="data-editor"
         style={{ height: '100%', width: '100%', fontSize: '20px' }}
-        value={value}
-        onChange={this.handleChange}
-        onKeyDown={onKeyDown}
+        dataFn={this.props.dataFn}
+        path={[this.props.row, this.props.col, 'value']}
       />
     );
   }
@@ -160,11 +155,14 @@ class ActivityRunner extends React.Component<*, *> {
       this.cellUpdate(cell, value, col, row);
     });
   };
+  shouldComponentUpdate = () => false;
 
   render() {
     const data = this.props.readOnly
       ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
       : this.props.data;
+    const LearningItem = this.props.dataFn.LearningItem;
+    const config = this.props.activityData.config;
     return (
       <div
         style={{
@@ -202,16 +200,32 @@ class ActivityRunner extends React.Component<*, *> {
           </Dialog>
           <Datasheet
             data={data}
-            valueRenderer={cell => cell.value}
+            valueRenderer={cell =>
+              cell.value?.li ? (
+                <div style={{ margin: '10px' }}>
+                  <LearningItem type="thumbView" id={cell.value.li} />
+                </div>
+              ) : (
+                cell.value
+              )
+            }
             dataRenderer={cell => cell.expr}
-            dataEditor={DataEditor}
+            dataEditor={props => (
+              <DataEditor {...props} dataFn={this.props.dataFn} />
+            )}
             cellRenderer={props => (
               <td
                 className={props.className}
                 onMouseDown={props.onMouseDown}
                 onMouseOver={props.onMouseOver}
                 onDoubleClick={props.onDoubleClick}
-                style={{ width: '40px', height: '30px' }}
+                style={{
+                  width:
+                    props.col === 0 || data[1][props.col]?.value === 'Items'
+                      ? '40px'
+                      : (config.rowWidth || '80') + 'px',
+                  height: '30px'
+                }}
               >
                 {props.children}
               </td>
