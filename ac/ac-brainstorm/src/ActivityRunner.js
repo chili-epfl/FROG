@@ -174,7 +174,7 @@ const IdeaListRaw = ({
   <div>
     <List className="item">
       <FlipMove duration={750} easing="ease-out">
-        {orderBy(values(data), x => [x.score, x.id], ['desc']).map(x => (
+        {orderBy(values(data), x => parseInt(x.score, 10), ['desc']).map(x => (
           <div
             key={x.id}
             style={{

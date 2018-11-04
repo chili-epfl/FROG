@@ -1,7 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, flattenOne } from 'frog-utils';
+import {
+  uuid,
+  type ActivityRunnerT,
+  flattenOne,
+  ReactiveText
+} from 'frog-utils';
 import 'react-datasheet/lib/react-datasheet.css';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
@@ -13,6 +18,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+const numberRegex = new RegExp(/^-?\d*\.?,?\d+$/);
+
+let IsEditing = false;
 
 const getLetter = index =>
   index < 26
@@ -57,26 +66,25 @@ const RemoveButton = ({ onClick }) => (
 class DataEditor extends React.Component<*, *> {
   _input: any;
 
-  handleChange = e => {
-    this.props.onChange(e.target.value);
-  };
-
   componentDidMount() {
-    this._input.focus();
+    IsEditing = true;
+  }
+
+  componentWillUnmount() {
+    IsEditing = false;
+    this.props.parent.forceUpdate();
   }
 
   render() {
-    const { value, onKeyDown } = this.props;
     return (
-      <input
-        ref={input => {
-          this._input = input;
-        }}
+      <ReactiveText
+        type="textinput"
+        focus
         className="data-editor"
         style={{ height: '100%', width: '100%', fontSize: '20px' }}
-        value={value}
-        onChange={this.handleChange}
-        onKeyDown={onKeyDown}
+        onKeyDown={this.props.onKeyDown}
+        dataFn={this.props.dataFn}
+        path={[this.props.row, this.props.col, 'value']}
       />
     );
   }
@@ -87,6 +95,8 @@ class ActivityRunner extends React.Component<*, *> {
     modalOpen: false,
     deleting: ''
   };
+
+  shouldComponentUpdate = () => !IsEditing;
 
   validateExp(trailKeys, expr) {
     let valid = true;
@@ -214,7 +224,9 @@ class ActivityRunner extends React.Component<*, *> {
               )
             }
             dataRenderer={cell => cell.expr}
-            dataEditor={DataEditor}
+            dataEditor={props => (
+              <DataEditor {...props} parent={this} dataFn={this.props.dataFn} />
+            )}
             cellRenderer={props => (
               <td
                 className={props.className}
@@ -223,10 +235,13 @@ class ActivityRunner extends React.Component<*, *> {
                 onDoubleClick={props.onDoubleClick}
                 style={{
                   width:
-                    props.col === 0 || data[1][props.column]?.value === 'Items'
+                    props.col === 0 || data[1][props.col]?.value === 'Items'
                       ? '40px'
                       : (config.rowWidth || '80') + 'px',
-                  height: '30px'
+                  height: '30px',
+                  textAlign: numberRegex.test(data[props.row][props.col].value)
+                    ? 'right'
+                    : 'left'
                 }}
               >
                 {props.children}
