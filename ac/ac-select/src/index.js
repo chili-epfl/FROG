@@ -66,12 +66,6 @@ const config = {
 };
 
 const mergeFunction = (object, dataFn) =>
-  console.log(
-    values(object.data || {}),
-    values(object.data || {}).filter(
-      x => x?.li?.liDocument?.liType === 'li-wordSelect'
-    )
-  ) ||
   values(object.data || {})
     .filter(x => x?.li?.liDocument?.liType === 'li-wordSelect')
     .forEach(x => {
