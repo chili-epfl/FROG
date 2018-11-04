@@ -90,7 +90,7 @@ const mergeFunction = (
     let newIndex;
     if (!colIdxBool) {
       newIndex = data.length;
-      const newRow = generateOneRow(configData.columns, data.length);
+      const newRow = generateOneRow(configData.columns || 4, data.length);
       dataFn.listAppend(newRow);
     }
     const colIdx = colIdxBool || newIndex;
