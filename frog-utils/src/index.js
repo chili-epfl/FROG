@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
-import { shuffle, isString, filter, split } from 'lodash';
+import { shuffle, isString, filter, split, isEqual } from 'lodash';
 
 export const isBrowser = (() => {
   try {
@@ -374,6 +374,9 @@ export const cloneDeep = (o: any) => {
   }
   return newO;
 };
+
+export const isEqualLI = (li1: Object, li2: Object): boolean =>
+  typeof li1.li === 'string' ? li1.li === li2.li : isEqual(li1.li, li2.li);
 
 export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (
