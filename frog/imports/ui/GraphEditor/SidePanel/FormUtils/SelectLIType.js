@@ -5,15 +5,18 @@ import { values } from 'lodash';
 import { FormControl } from 'react-bootstrap';
 import { learningItemTypesObj } from '/imports/activityTypes';
 
-const SelectLIType = ({ onChange, value = '' }: any) => (
+export const SelectLITypeWidget = ({ onChange, value = '', editor }: any) => (
   <span>
     <FormControl
       onChange={e => onChange(e.target.value)}
       componentClass="select"
       value={value}
     >
-      {['', ...values(learningItemTypesObj)]
-        .filter(x => x.Creator || x.Editor)
+      <option value="" key="Choose">
+        Choose a Learning Item Type
+      </option>
+      {values(learningItemTypesObj)
+        .filter(x => (x.Creator || x.Editor) && (!editor || x.dataStructure))
         .map(x => (
           <option value={x.id || ''} key={x.id || 'choose'}>
             {x === '' ? 'Choose a Learning Item Type' : x.name}
@@ -23,4 +26,6 @@ const SelectLIType = ({ onChange, value = '' }: any) => (
   </span>
 );
 
-export default SelectLIType;
+export const SelectLITypeEditorWidget = (props: *) => (
+  <SelectLITypeWidget {...props} editor />
+);

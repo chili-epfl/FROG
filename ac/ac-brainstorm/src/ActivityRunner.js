@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
-import { sortBy } from 'lodash';
+import { orderBy } from 'lodash';
 
 const styles = theme => ({
   badge: {
@@ -48,6 +48,30 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
+const AddingLI = ({ LearningItem, config }) => (
+  <>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '500px' }}>
+        {config.specificLI && (
+          <LearningItem
+            liType={config.liType || 'li-idea'}
+            type="create"
+            meta={{ score: 0, students: {} }}
+            autoInsert
+          />
+        )}
+      </div>
+      {config.allowGeneralLI && (
+        <LearningItem
+          type="create"
+          meta={{ score: 0, students: {} }}
+          autoInsert
+        />
+      )}
+    </div>
+  </>
+);
+
 const Idea = ({
   children,
   delFn,
@@ -57,7 +81,8 @@ const Idea = ({
   editFn,
   zoomable,
   editable,
-  zoomFn
+  zoomFn,
+  config
 }) => (
   <ListItem>
     {children}
@@ -70,56 +95,62 @@ const Idea = ({
         top: '5px'
       }}
     >
-      <div style={{ flexDirection: 'row' }}>
-        <A onClick={() => vote(meta.id, -1)}>
-          <ThumbDownIcon
-            style={{
-              color: chooseColor(meta.students[userInfo.id], false),
-              marginRight: '10px'
-            }}
-          />
-        </A>
-        <A onClick={() => vote(meta.id, 1)}>
-          <ThumbUpIcon
-            style={{
-              color: chooseColor(meta.students[userInfo.id], true),
-              marginRight: '10px'
-            }}
-          />
-        </A>
-      </div>
-      <div style={{ flexDirection: 'row' }}>
-        <font size={4}>
-          <A onClick={() => delFn(meta)}>
-            <DeleteIcon
+      {config.allowVoting && (
+        <div style={{ flexDirection: 'row' }}>
+          <A onClick={() => vote(meta.id, -1)}>
+            <ThumbDownIcon
               style={{
-                float: 'right',
-                color: 'grey',
+                color: chooseColor(meta.students[userInfo.id], false),
                 marginRight: '10px'
               }}
             />
           </A>
-          {editable && (
-            <A onClick={() => editFn(meta.id)}>
-              <PencilIcon
+          <A onClick={() => vote(meta.id, 1)}>
+            <ThumbUpIcon
+              style={{
+                color: chooseColor(meta.students[userInfo.id], true),
+                marginRight: '10px'
+              }}
+            />
+          </A>
+        </div>
+      )}
+      <div style={{ flexDirection: 'row' }}>
+        <font size={4}>
+          {config.allowDelete && (
+            <A onClick={() => delFn(meta)}>
+              <DeleteIcon
                 style={{
                   float: 'right',
+                  color: 'grey',
                   marginRight: '10px'
                 }}
               />
             </A>
           )}
-          {zoomable && (
-            <A onClick={() => zoomFn(meta.id)}>
-              <ZoomInIcon
-                glyph="zoom-in"
-                style={{
-                  float: 'right',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
-          )}
+          {editable &&
+            config.allowEdit && (
+              <A onClick={() => editFn(meta.id)}>
+                <PencilIcon
+                  style={{
+                    float: 'right',
+                    marginRight: '10px'
+                  }}
+                />
+              </A>
+            )}
+          {zoomable &&
+            !config.expandItems && (
+              <A onClick={() => zoomFn(meta.id)}>
+                <ZoomInIcon
+                  glyph="zoom-in"
+                  style={{
+                    float: 'right',
+                    marginRight: '10px'
+                  }}
+                />
+              </A>
+            )}
         </font>
       </div>
     </div>
@@ -137,12 +168,13 @@ const IdeaListRaw = ({
   setZoom,
   LearningItem,
   history,
+  config,
   classes
 }) => (
   <div>
     <List className="item">
       <FlipMove duration={750} easing="ease-out">
-        {sortBy(values(data), x => [-x.score, x.id]).map(x => (
+        {orderBy(values(data), x => parseInt(x.score, 10), ['desc']).map(x => (
           <div
             key={x.id || x.li}
             style={{
@@ -165,12 +197,15 @@ const IdeaListRaw = ({
                       ? history
                         ? 'history'
                         : 'view'
-                      : 'thumbView'
+                      : config.expandItems
+                        ? 'view'
+                        : 'thumbView'
                 }
                 render={({ zoomable, editable, children }) => (
                   <Idea
                     zoomable={zoomable || history}
                     editable={editable}
+                    config={config}
                     meta={x}
                     vote={vote}
                     delFn={item => dataFn.objDel(item, item.id)}
@@ -202,7 +237,7 @@ const IdeaList = compose(
   withState('zoom', 'setZoom', undefined)
 )(withStyles(styles)(IdeaListRaw));
 
-const ActivityRunner = ({
+const ListComponent = ({
   userInfo,
   logger,
   activityData,
@@ -236,15 +271,15 @@ const ActivityRunner = ({
     }
   };
 
-  const formBoolean = activityData.config.formBoolean;
   const LearningItem = dataFn.LearningItem;
   const slider = activityData.config.zoomShowsHistory;
   return (
-    <React.Fragment>
+    <>
       <div style={{ width: '80%' }}>
         <ListContainer>
           <p>{activityData.config.text}</p>
           <IdeaList
+            config={activityData.config}
             data={data}
             vote={vote}
             dataFn={dataFn}
@@ -254,27 +289,20 @@ const ActivityRunner = ({
           />
         </ListContainer>
       </div>
-      {formBoolean && (
-        <React.Fragment>
-          <div style={{ display: 'flex' }}>
-            <div style={{ width: '500px' }}>
-              <LearningItem
-                liType="li-idea"
-                type="create"
-                meta={{ score: 0, students: {} }}
-                autoInsert
-              />
-            </div>
-            <LearningItem
-              type="create"
-              meta={{ score: 0, students: {} }}
-              autoInsert
-            />
-          </div>
-        </React.Fragment>
-      )}
-    </React.Fragment>
+    </>
   );
 };
+
+const ActivityRunner = (props: ActivityRunnerPropsT) => (
+  <div>
+    <ListComponent {...props} />
+    {props.activityData.config.allowCreate && (
+      <AddingLI
+        LearningItem={props.dataFn.LearningItem}
+        config={props.activityData.config}
+      />
+    )}
+  </div>
+);
 
 export default ActivityRunner;

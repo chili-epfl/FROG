@@ -8,9 +8,13 @@ import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
 import json from 'ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
+import richText from 'rich-text';
 
 declare var Promise: any;
 const server = http.createServer();
+
+json.type.registerSubtype(richText.type);
+ShareDB.types.register(json.type);
 
 const dbUrl =
   (Meteor.settings && Meteor.settings.sharedb_dburl) ||

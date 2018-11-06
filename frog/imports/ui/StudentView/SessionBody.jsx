@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Accounts } from 'meteor/accounts-base';
 import { getInitialState, withDragDropContext } from 'frog-utils';
 import { compose, toClass } from 'recompose';
+import { withRouter } from 'react-router';
 
 import { Activities } from '../../api/activities';
 import { logLogin } from '../../api/logs';
@@ -26,7 +27,8 @@ const styles = {
     display: 'flex',
     flexGrow: 1,
     height: '100%',
-    width: '100%'
+    width: '100%',
+    overflow: 'auto'
   },
   toolbar: {
     minHeight: 48,
@@ -67,7 +69,7 @@ const ActivityContainer = ({ activities, sessionId }) => {
   }
 };
 
-const StudentView = ({ activities, session, classes }) => (
+const StudentView = withRouter(({ activities, session, classes, history }) => (
   <div className={classes.root}>
     <div className={classes.navbar}>
       <AppBar>
@@ -96,6 +98,7 @@ const StudentView = ({ activities, session, classes }) => (
             className={classes.button}
             color="inherit"
             onClick={() => {
+              history.push('/' + session.slug);
               Meteor.logout();
               Accounts._unstoreLoginToken();
               window.notReady();
@@ -128,7 +131,7 @@ const StudentView = ({ activities, session, classes }) => (
       })()}
     </div>
   </div>
-);
+));
 
 const StyledStudentView = withStyles(styles)(StudentView);
 

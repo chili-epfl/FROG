@@ -2,6 +2,11 @@ import ShareDB from 'sharedb';
 import { uuid } from '..';
 import { generateReactiveFn } from '../generateReactiveFn';
 
+jest.mock(
+  '..',
+  () => require.requireActual('../../../__mocks__/frog-utils').default
+);
+
 const share = new ShareDB();
 const connection = share.connect();
 

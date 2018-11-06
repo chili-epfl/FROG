@@ -98,7 +98,18 @@ export const addActivity = (
   if (id)
     updateOneActivityMongo(id, {
       $set: omitBy(
-        { activityType, parentId, data, groupingKey, configVersion },
+        {
+          activityType,
+          parentId,
+          data,
+          groupingKey,
+          ...(activityType
+            ? {
+                configVersion:
+                  configVersion || activityTypesObj[activityType].configVersion
+              }
+            : {})
+        },
         isNil
       )
     });
@@ -106,7 +117,12 @@ export const addActivity = (
     insertActivityMongo({
       _id: uuid(),
       parentId,
-      configVersion,
+      ...(activityType
+        ? {
+            configVersion:
+              configVersion || activityTypesObj[activityType].configVersion
+          }
+        : {}),
       activityType,
       data,
       groupingKey,

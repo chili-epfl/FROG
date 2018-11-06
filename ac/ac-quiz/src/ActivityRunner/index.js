@@ -28,24 +28,26 @@ const styles = () => ({
   }
 });
 
-const Completed = ({ dataFn }) => (
-  <React.Fragment>
+const Completed = ({ back }) => (
+  <>
     <h1>Completed!</h1>
-    <Button
-      color="primary"
-      onClick={() => dataFn.objInsert(false, ['completed'])}
-    >
+    <Button color="primary" onClick={back}>
       Go back
     </Button>
-  </React.Fragment>
+  </>
 );
 
-export default withStyles(styles)(
-  ({ classes, ...props }: ActivityRunnerPropsT & { classes: Object }) => {
-    const { activityData, data } = props;
-    const {
-      config: { title, guidelines }
-    } = activityData;
+class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT & { classes: Object }
+> {
+  componentDidMount() {
+    this.props.logger({ type: 'progress', value: 0 });
+  }
+
+  render() {
+    const { classes, ...propsNoClasses } = this.props;
+    const { activityData, data, dataFn } = propsNoClasses;
+    const { title, guidelines } = activityData.config;
     return (
       <div className={classes.main}>
         {title && title !== '' && <h1>{title}</h1>}
@@ -56,9 +58,15 @@ export default withStyles(styles)(
             </div>
           )}
         <div className={classes.container}>
-          {data.completed ? <Completed {...props} /> : <Quiz {...props} />}
+          {data.completed ? (
+            <Completed back={() => dataFn.objInsert(false, ['completed'])} />
+          ) : (
+            <Quiz {...propsNoClasses} />
+          )}
         </div>
       </div>
     );
   }
-);
+}
+
+export default withStyles(styles)(ActivityRunner);

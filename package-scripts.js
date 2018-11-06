@@ -55,7 +55,10 @@ module.exports = {
         'Killing Node, cleaning all files and running initial setup'
       )
     },
-    server: fromRoot('cd frog && meteor', 'Starting Meteor'),
+    server: fromRoot(
+      'QUALIA_ONE_BUNDLE_TYPE=modern cd frog && meteor',
+      'Starting Meteor'
+    ),
     test: {
       default: fromRoot(
         `nps -s flow.quiet eslint jest`,
@@ -68,11 +71,11 @@ module.exports = {
     },
     eslint: {
       default: fromRoot(
-        'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx',
         'Running ESLint'
       ),
       fix: fromRoot(
-        'eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx',
         'Running ESLint in Fix mode'
       )
     },

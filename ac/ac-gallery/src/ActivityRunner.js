@@ -111,7 +111,11 @@ class ActivityRunner extends Component<
             setIndex,
             logger,
             showCategories,
-            LearningItem: dataFn.LearningItem
+            expand: activityData.config.expand,
+            LearningItem: dataFn.LearningItem,
+            canSearch: activityData.config.canSearch,
+            searchCollab: activityData.config.searchCollab,
+            canBookmark: activityData.config.canBookmark
           }}
           canVote={activityData.config.canVote}
         />

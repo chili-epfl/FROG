@@ -14,6 +14,7 @@ import { Activities } from '../../api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardReactiveWrapper } from './index';
 import LIDashboard from './LIDashboard';
+import { teacherLogger } from '../../api/logs';
 
 const drawerWidth = 220;
 
@@ -79,6 +80,7 @@ const ActivityChoiceMenu = withStyles(styles)(
     </Drawer>
   )
 );
+ActivityChoiceMenu.displayName = 'ActivityChoiceMenu';
 
 const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
   const { activityId, setActivityId, session, activities, classes } = props;
@@ -100,12 +102,14 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
       <div className={classes.appFrame}>
         <ActivityChoiceMenu
           activities={[{ title: 'Blank screen', _id: 'blank' }, ...acWithDash]}
-          setActivityId={setActivityId}
+          setActivityId={id => {
+            teacherLogger(session._id, 'teacher.switchDashboardActivity', id);
+            setActivityId(id);
+          }}
           activityId={aId}
         />
         <main className={classes.content}>
           {activityId === 'LI' && <LIDashboard sessionId={session._id} />}
-
           {activityToDash &&
             (activityToDash === 'blank' ? null : (
               <DashboardReactiveWrapper
@@ -118,6 +122,7 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
     </div>
   );
 });
+DashboardNav.displayName = 'DashboardNav';
 
 export default withTracker(({ session }) => ({
   activities: Activities.find({

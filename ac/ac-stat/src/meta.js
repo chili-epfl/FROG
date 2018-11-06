@@ -1,4 +1,5 @@
 // @flow
+import { shuffle } from 'lodash';
 
 export default {
   name: 'Statistical intuition',
@@ -8,7 +9,7 @@ export default {
   exampleData: [
     {
       title: '1 trace 1 axis',
-      config: { title: 'Graph1', plotType: 'all' },
+      config: { title: 'Graph1', plotTypes: ['dots', 'histogram', 'box'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -24,7 +25,7 @@ export default {
     },
     {
       title: '1 trace 2 axis',
-      config: { title: 'Graph2', plotType: 'all' },
+      config: { title: 'Graph2', plotTypes: ['dots', 'box', 'histogram'] },
       data: [
         { trace: 'dataset1', size: 1.5, sex: 'F' },
         { trace: 'dataset1', size: 1.54, sex: 'F' },
@@ -40,7 +41,7 @@ export default {
     },
     {
       title: '2 trace 1 axis',
-      config: { title: 'Graph3', plotType: 'all' },
+      config: { title: 'Graph3', plotTypes: ['dots', 'box', 'histogram'] },
       data: [
         { trace: 'dataset1', size: 1.8 },
         { trace: 'dataset1', size: 1.6 },
@@ -60,8 +61,41 @@ export default {
       ]
     },
     {
+      title: 'male/female birth months',
+      config: {
+        plotTypes: ['histogram'],
+        sortData: true
+      },
+      data: ((): Array<{ trace: string, x: string, y: string }> => {
+        const months = [
+          '01-janvier',
+          '02-février',
+          '03-mars',
+          '04-avril',
+          '05-mai',
+          '06-juin',
+          '07-juillet',
+          '08-août',
+          '09-septembre',
+          '10-octobre',
+          '11-novembre',
+          '12-décembre'
+        ];
+        const genders = ['male', 'female'];
+        return new Array(150).fill().map(_ => ({
+          trace: 'dataset1',
+          x: shuffle(months)[0],
+          y: shuffle(genders)[0]
+        }));
+      })()
+    },
+    {
       title: 'official data',
-      config: { title: 'Graph3', plotType: 'all', editable: true },
+      config: {
+        title: 'Graph3',
+        plotTypes: ['dots', 'box', 'histogram'],
+        editable: true
+      },
       data: [
         { trace: 'dataset1', x: 100.127591586473 },
         { trace: 'dataset2', x: 142.200326908982 },

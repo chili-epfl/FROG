@@ -61,7 +61,7 @@ const Quiz = ({
   const [q, qIdx] = questions[index];
 
   return (
-    <React.Fragment>
+    <>
       {config.showOne && (
         <Question {...{ ...props, question: q, index, questionIndex: qIdx }} />
       )}
@@ -82,7 +82,7 @@ const Quiz = ({
         hasAnswered={isAnswered(data.form[qIdx], config.questions[qIdx])}
         canSubmit={canSubmit}
       />
-    </React.Fragment>
+    </>
   );
 };
 

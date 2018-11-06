@@ -42,10 +42,11 @@ const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Ro
   ','
 );
 
-export const getUserId = (name: string) =>
+export const getUserId = (name: string): string =>
   'uid_' + name.toLowerCase().replace(/\s+/, '');
 
-const groupName = idx => 'group' + (1 + Math.floor(idx / 2));
+export const groupName = (idx: number): string =>
+  'group' + (1 + Math.floor(idx / 2));
 
 export default withStyles(styles)((props: Object) => {
   const {
@@ -224,9 +225,10 @@ export default withStyles(styles)((props: Object) => {
               disableTouchRipple
               color="primary"
               className={
-                ex.type === 'deeplink'
+                'example ' +
+                (ex.type === 'deeplink'
                   ? classes.exampleButtonDeeplink
-                  : classes.exampleButton
+                  : classes.exampleButton)
               }
               onClick={() => {
                 if (modal) {

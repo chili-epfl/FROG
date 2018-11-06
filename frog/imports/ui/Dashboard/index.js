@@ -27,7 +27,8 @@ type DashboardCompPropsT = {
   name: string,
   state?: any,
   ready: boolean,
-  config?: Object
+  config?: Object,
+  object: Object
 };
 
 const RawDashboardComp = ({
@@ -36,7 +37,8 @@ const RawDashboardComp = ({
   instances,
   name,
   state,
-  ready
+  ready,
+  object
 }: DashboardCompPropsT) => {
   if (!ready && !state) {
     return <CircularProgress />;
@@ -55,6 +57,7 @@ const RawDashboardComp = ({
         users,
         activity,
         instances,
+        object,
         LearningItem: dataFn.LearningItem
       }}
     />
@@ -100,43 +103,48 @@ export const DashboardComp = withTracker(props => {
 })(RawDashboardComp);
 
 export const DashboardReactiveWrapper = withTracker(props => {
-  const { activity, sessionId } = props;
+  const { activity, names, sessionId } = props;
+  const subscription = Meteor.subscribe(
+    'dashboard.data',
+    sessionId,
+    activity._id,
+    names
+  );
   const session = Sessions.findOne(sessionId);
   const object = Objects.findOne(activity._id);
-  const instances = doGetInstances(activity, object).groups;
-  const userList = Meteor.users.find({ joinedSessions: session.slug }).fetch();
+  if (!subscription.ready() || !object) {
+    return { ready: false };
+  }
+  const instances = object && doGetInstances(activity, object).groups;
   const dashboardData = DashboardData.find({}).fetch();
-  const users = userList.reduce(
-    (acc, u) => ({ ...acc, [u._id]: u.username }),
-    {}
-  );
-  return { users, instances, activity, dashboardData };
+  const users = object.globalStructure.students;
+  return {
+    ready: subscription.ready() && session && activity && object,
+    instances,
+    object,
+    activity,
+    dashboardData,
+    session,
+    users
+  };
 })(MultiWrapper);
+
+DashboardReactiveWrapper.displayName = 'DashboardReactiveWrapper';
 
 export class DashboardSubscriptionWrapper extends React.Component<
   {
-    activityId: string,
-    sessionId: string,
-    names?: string[]
+    activityId: string
   },
-  { ready: boolean, activity: any, dashboardData: any }
+  { activity: any }
 > {
   subscription: any;
-
   constructor() {
     super();
-    this.state = { ready: false, activity: null, dashboardData: false };
+    this.state = { activity: null };
   }
 
   componentDidMount() {
-    const { sessionId, activityId, names } = this.props;
-    this.subscription = Meteor.subscribe(
-      'dashboard.data',
-      sessionId,
-      activityId,
-      names,
-      { onReady: () => this.setState({ ready: true }) }
-    );
+    const { activityId } = this.props;
     Meteor.call('get.activity.for.dashboard', activityId, (err, value) => {
       if (!err) {
         this.setState({
@@ -146,14 +154,9 @@ export class DashboardSubscriptionWrapper extends React.Component<
     });
   }
 
-  componentWillUnmount() {
-    this.subscription.stop();
-  }
-
   render() {
-    const { ready, activity } = this.state;
+    const { activity } = this.state;
     return (
-      ready &&
       activity && (
         <DashboardReactiveWrapper activity={activity} {...this.props} />
       )

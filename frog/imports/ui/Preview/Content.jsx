@@ -153,14 +153,24 @@ const ContentController = ({
       return <h1>No preview available for this activity type</h1>;
     }
     const docId = DocId(activityType.id, instance);
+    const formatProduct = activityType.formatProduct;
+
+    const transform = formatProduct
+      ? x => formatProduct(config || {}, x, instance, name)
+      : undefined;
+
     const ActivityToRun = ReactiveHOC(
       docId,
       connection,
       false,
       undefined,
       undefined,
-      backend
+      backend,
+      undefined,
+      undefined,
+      transform
     )(showData ? ShowInfo : RunComp);
+
     const logger = createLogger(
       'preview',
       instance,
@@ -172,7 +182,7 @@ const ContentController = ({
     );
     logger({ type: 'activityDidMount' });
     return (
-      <div style={{ width: '100%', height: '100%', overflow: 'overlay' }}>
+      <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
         <ActivityToRun
           activityType={activityType.id}
           key={reloadActivity}

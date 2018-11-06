@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { throttle, isEmpty } from 'lodash';
 import { Paper } from '@material-ui/core';
-import { Meteor } from 'meteor/meteor';
 import {
   cloneDeep,
   Inspector,
@@ -117,30 +116,20 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const data = (exampleData && exampleData[0].config) || {};
 
     const dash = dashboards && dashboards[this.state.example];
-    if (
-      !dash ||
-      !dash.exampleLogs ||
-      dash.exampleLogs[this.state.idx].type === 'state'
-    ) {
+    const dashExample = dash?.exampleLogs?.[this.state.idx];
+    if (!dashExample || dashExample.type === 'state') {
       return;
     }
 
     this.setActivityObj(dashboards, data);
 
-    Meteor.call(
-      'get.example.logs',
-      props.activityType.id,
-      this.state.example,
-      this.state.idx,
-      (err, result) => {
-        if (err || result === false) {
-          console.warn(
-            'Error getting example logs',
-            props.activityType.id,
-            this.state.example,
-            err
-          );
-        }
+    fetch(dashExample.path)
+      .then(response => response.text())
+      .then(rawResult => {
+        const result = rawResult
+          .trim()
+          .split('\n')
+          .map(x => JSON.parse(x));
 
         this.activityDbObject.actualStartingTime = new Date(
           result[0].timestamp
@@ -157,8 +146,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             () => this.displaySubset(result.length - 1, undefined, true)
           );
         }
-      }
-    );
+      })
+      .catch(err =>
+        console.warn(
+          'Error getting example logs',
+          props.activityType.id,
+          this.state.example,
+          err
+        )
+      );
   };
 
   componentWillUnmount = () => (this.isUnmounted = true);
@@ -406,13 +402,21 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             />
           </React.Fragment>
         )}
-        <Paper>
+        <Paper style={{ height: 'calc(100vh - 250px)' }}>
           {this.props.showLogs ? (
             <Inspector data={this.state.logs} />
           ) : (
             <Viewer
               users={users}
               activity={this.activityDbObject}
+              object={{
+                activityData: {
+                  structure: 'all',
+                  payload: { all: { data: {}, config: {} } }
+                },
+                socialStructure: {},
+                globalStructure: { students: {}, studentIds: [] }
+              }}
               instances={instances}
               config={this.activityDbObject.data}
               state={this.state.data}

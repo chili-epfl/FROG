@@ -125,6 +125,9 @@ const runDataflow = (
   if (type === 'operator') {
     const doc = serverConnection.get('li', 'bookmark');
     const dataFn = generateReactiveFn(doc, LearningItem);
+    console.info(
+      `Running operator ${node.title} (${node.operatorType}) - ${node._id}`
+    );
     const operatorFunction = operatorTypesObj[node.operatorType].external
       ? remote(node.operatorType)
       : operators[node.operatorType];
@@ -150,7 +153,7 @@ const runDataflow = (
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
   } else if (type === 'activity') {
-    mergeData(nodeId, object);
+    mergeData(nodeId, object, undefined, sessionId);
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
   }
 };

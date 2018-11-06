@@ -9,6 +9,7 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj, activityRunners } from '../../activityTypes';
 import { createLogger } from '../../api/logs';
 import { Objects } from '../../api/objects';
+import { LocalSettings } from '../../api/settings';
 import { Sessions } from '../../api/sessions';
 import ReactiveHOC from './ReactiveHOC';
 
@@ -69,23 +70,35 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     Meteor.userId() !== Sessions.findOne(sessionId)?.ownerId;
 
   const Torun = (
-    <RunActivity
-      key={reactiveId}
-      activityTypeId={activity.activityType}
-      {...{
-        reactiveId,
-        logger,
-        stream,
-        activityData,
-        groupingValue,
-        sessionId,
-        readOnly
-      }}
-      activityId={activity._id}
-      username={Meteor.user().username}
-      userid={Meteor.userId()}
-      groupingKey={activity.groupingKey}
-    />
+    <div
+      style={
+        LocalSettings.scaled
+          ? {
+              height: '100%',
+              width: '100%',
+              zoom: LocalSettings.scaled + '%'
+            }
+          : { height: '100%', width: '100%' }
+      }
+    >
+      <RunActivity
+        key={reactiveId}
+        activityTypeId={activity.activityType}
+        {...{
+          reactiveId,
+          logger,
+          stream,
+          activityData,
+          groupingValue,
+          sessionId,
+          readOnly
+        }}
+        activityId={activity._id}
+        username={Meteor.user().username}
+        userid={Meteor.userId()}
+        groupingKey={activity.groupingKey}
+      />
+    </div>
   );
 
   if (single) {
@@ -93,7 +106,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   } else {
     return (
       <MosaicWindow
-        toolbarControls={[<div />]}
+        toolbarControls={[<div key={1} />]}
         draggable={false}
         key={activity._id}
         path={path}
@@ -156,7 +169,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
 
     const RunComp = activityRunners[activityType.id];
     RunComp.displayName = activityType.id;
-    const formatProduct = activityType.formatProduct;
+    const formatProduct = LocalSettings.api
+      ? activityType.formatProduct
+      : undefined;
     const transform = formatProduct
       ? x =>
           formatProduct(

@@ -158,7 +158,7 @@ export const importAct = (id, activityId, callback, onSelect) => {
       );
       if (onSelect) onSelect({ id: e[0] });
       if (callback) {
-        callback();
+        callback(e[0]);
       }
     });
 };

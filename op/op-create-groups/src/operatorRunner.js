@@ -15,6 +15,14 @@ const operator = (configData, object) => {
   const { globalStructure } = object;
 
   const ids = shuffle(globalStructure.studentIds);
+  const newGrouping =
+    configData.grouping && configData.grouping.length > 0
+      ? configData.grouping
+      : 'group';
+
+  if (ids.length === 0) {
+    return { [newGrouping]: {} };
+  }
   let struct: string[][];
   if (configData.groupnumber) {
     let globalnum = configData.globalnum;
@@ -24,7 +32,7 @@ const operator = (configData, object) => {
     struct = splitArray(ids, globalnum);
   } else {
     if (ids && configData.groupsize >= ids.length) {
-      return { group: { '1': ids } };
+      return { [newGrouping]: { '1': ids } };
     }
 
     struct = chunk(ids, configData.groupsize);
@@ -39,11 +47,6 @@ const operator = (configData, object) => {
       }
     }
   }
-  const newGrouping =
-    configData.grouping && configData.grouping.length > 0
-      ? configData.grouping
-      : 'group';
-
   const result = {
     [newGrouping]: struct.reduce(
       (acc, k, i) => ({ ...acc, [i + 1 + '']: compact(k) }),

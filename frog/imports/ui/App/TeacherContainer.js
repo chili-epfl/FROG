@@ -16,7 +16,8 @@ import TopBar from './TopBar';
 const styles = {
   subroot: {
     overflow: 'hidden',
-    height: '100%'
+    height: '100%',
+    width: '100%'
   }
 };
 
@@ -54,16 +55,9 @@ const WithTopBar = () => (
 
 export default withTracker(() => {
   const collections = [
-    'activities',
-    'connections',
     'graphs',
-    'objects',
-    'operators',
-    'users',
-    'products',
     'sessions',
     'globalSettings',
-    'dashboardData',
     'externalOperators'
   ];
 

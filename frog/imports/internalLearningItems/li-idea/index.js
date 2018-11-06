@@ -4,7 +4,11 @@ import Form from 'react-jsonschema-form';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { type LearningItemT, ReactiveText } from 'frog-utils';
+import {
+  type LearningItemT,
+  ReactiveText,
+  HighlightSearchText
+} from 'frog-utils';
 
 const styles = () => ({
   button: {
@@ -16,19 +20,30 @@ const styles = () => ({
   }
 });
 
-const ThumbViewer = ({ data }) => (
-  <div>
-    <b>{data.title}</b>
-    <br />
-    {data.content.split('\n').map((line, i) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <React.Fragment key={i}>
-        {line}
-        <br />
-      </React.Fragment>
-    ))}
-  </div>
-);
+const ThumbViewer = ({ data, search }) => {
+  if (
+    search &&
+    !data.title.toLowerCase().includes(search) &&
+    !data.content.toLowerCase().includes(search)
+  ) {
+    return null;
+  }
+  return (
+    <div>
+      <b>
+        <HighlightSearchText haystack={data.title} needle={search} />
+      </b>
+      <br />
+      {data.content.split('\n').map((line, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <React.Fragment key={i}>
+          <HighlightSearchText haystack={line} needle={search} />
+          <br />
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
 
 const Editor = withStyles(styles)(({ dataFn, classes }) => (
   <div className={classes.editorContainer}>

@@ -9,7 +9,8 @@ import {
   values,
   type LogT,
   type ActivityPackageT,
-  type ActivityDbT
+  type ActivityDbT,
+  focusRole
 } from 'frog-utils';
 
 import { connection } from './Preview';
@@ -19,6 +20,7 @@ import { activityTypesObj } from '../../activityTypes';
 import { DashboardStates } from '../../api/cache';
 import { ShowInfoDash } from './ShowInfo';
 import { generateDataFn } from './Content';
+import { groupName } from './Controls';
 
 export const DocumentCache = {};
 export const Logs: Object[] = [];
@@ -124,6 +126,7 @@ class PreviewDash extends React.Component<
     activity: ActivityDbT,
     instances: Object,
     users: Object,
+    object: Object,
     showData: boolean
   },
   { state: any }
@@ -216,6 +219,7 @@ class PreviewDash extends React.Component<
         />
       ) : (
         <Viewer
+          object={this.props.object}
           state={this.state.state}
           activity={this.props.activity}
           instances={uniq(this.props.instances)}
@@ -249,11 +253,31 @@ export const DashPreviewWrapper = withState('ready', 'setReady', false)(
       undefined,
       plane
     );
+    const studentGroups = {};
+    Object.keys(users).forEach((x, i) => {
+      studentGroups[x] = { group: groupName(i) };
+    });
+    const socStruct = focusRole(studentGroups);
+    const object = {
+      activityData: {
+        structure: 'all',
+        payload: { all: { data: {}, config: {} } }
+      },
+      socialStructure: socStruct,
+      globalStructure: { students: users, studentIds: Object.keys(users) }
+    };
     return ready ? (
-      <DashMultiWrapper activity={activity} instances={instances} users={users}>
+      <DashMultiWrapper
+        ready
+        object={object}
+        activity={activity}
+        instances={instances}
+        users={users}
+      >
         {e => (
           <PreviewDash
             showData={showData}
+            object={object}
             key={activityType.id + e}
             name={e}
             activity={activity}

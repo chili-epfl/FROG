@@ -21,6 +21,64 @@ WebApp.connectHandlers.use(bodyParser.json());
 
 setupH5PRoutes();
 
+const extractParam = (query, param) =>
+  query.split('&').find(x => x.includes(param))
+    ? query
+        .split('&')
+        .find(x => x.includes(param))
+        .split('=')[1]
+    : undefined;
+
+WebApp.connectHandlers.use('/multiFollow', (request, response) => {
+  const root = process.env.ROOT_URL || 'http://localhost:3000/';
+  const url = require('url').parse(request.url);
+  const layout = url.query ? extractParam(url.query, 'layout') : '';
+
+  const scaled = url.scaled
+    ? parseInt(extractParam(url.query, 'scaled'), 10)
+    : false;
+  const follow = url.pathname.substring(1);
+  const scaledStr = scaled ? '&scaled=' + scaled : '';
+  const template = `
+<!DOCTYPE html><html><head>
+    <title>Four pane FROG</title>
+    <style>
+html, body { height: 100%; padding: 0; margin: 0; }
+div { width: 50%; height: ${layout === '2' ? '100%' : '50%'}; float: left; }
+#div1 { background: #DDD; }
+#div2 { background: #AAA; }
+#div3 { background: #777; }
+#div4 { background: #444; }
+iframe { height: 100%; width: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <iframe id='iframe1' 
+     ${
+       layout === '3+1' || layout === '2+1+1'
+         ? `src=${root}teacher/orchestration?debugLogin=${follow}&scaled=true>`
+         : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
+     }
+</iframe>
+    </div>
+    <div id="div2">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+    layout === '2+1+1' ? follow : 'Peter'
+  }${scaledStr}></iframe>
+    </div>
+    ${layout !== '2' &&
+      `
+    <div id="div3">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Anna${scaledStr}></iframe>
+    </div>
+    <div id="div4">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Aliya${scaledStr}></iframe>
+    </div>`}
+</html>`;
+  response.end(template);
+});
+
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
   if (request.method !== 'POST') {
     response.writeHead(403);
@@ -145,16 +203,23 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   if (rawData && activityData) {
     response.end('Cannot provide both activityData and rawData');
   }
-  const config = safeDecode(
-    request.body,
-    'config',
-    'Config data not valid',
-    response
-  );
+
+  let altConfig = null;
+  if (request.query.config) {
+    try {
+      altConfig = JSON.parse(request.query.config);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  const config =
+    altConfig ||
+    safeDecode(request.body, 'config', 'Config data not valid', response);
 
   const docId =
     [
-      request.body.clientId,
+      (request.query.clientId || '') + request.body.clientId,
       activityTypeId,
       request.body.activityId || 'default'
     ].join('-') +
@@ -216,9 +281,40 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     activityId: request.body.activityId,
     rawInstanceId: request.body.instanceId || 'default',
     activityData,
-    clientId: request.body.clientId,
+    clientId: (request.query.clientId || '') + request.body.clientId,
     rawData,
     readOnly: request.body.readOnly,
+    config
+  });
+  next();
+});
+
+WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
+  const url = require('url').parse(request.url);
+  const activityTypeId = url.pathname.substring(1);
+  if (!activityTypesObj[activityTypeId]) {
+    response.end('No matching activity type found');
+  }
+
+  let altConfig = null;
+  if (request.query.config) {
+    try {
+      altConfig = JSON.parse(request.query.config);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  const config =
+    altConfig ||
+    safeDecode(request.body, 'config', 'Config data not valid', response);
+
+  InjectData.pushData(request, 'api', {
+    callType: 'dashboard',
+    clientId: (request.query.clientId || '') + request.body.clientId,
+    activityType: activityTypeId,
+    instances: request.body.instances,
+    activityId: request.body.activityId || 'default',
     config
   });
   next();
@@ -239,31 +335,10 @@ WebApp.connectHandlers.use('/api/config', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'config',
     activityType: activityTypeId,
-    showValidator: request.body.showValidator,
     showLibrary: request.body.showLibrary,
-    config
-  });
-  next();
-});
-
-WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
-  const url = require('url').parse(request.url);
-  const activityTypeId = url.pathname.substring(1);
-  if (!activityTypesObj[activityTypeId]) {
-    response.end('No matching activity type found');
-  }
-  const config = safeDecode(
-    request.body,
-    'config',
-    'Config data not valid',
-    response
-  );
-  InjectData.pushData(request, 'api', {
-    callType: 'dashboard',
-    clientId: request.body.clientId,
-    activityType: activityTypeId,
-    instances: request.body.instances,
-    activityId: request.body.activityId || 'default',
+    showValidator: request.body.showValidator,
+    showDelete: request.body.showDelete,
+    whiteList: request.body.whiteList,
     config
   });
   next();
@@ -272,10 +347,34 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
 WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'config',
+    showLibrary: request.body.showLibrary,
     showValidator: request.body.showValidator,
-    showLibrary: request.body.showLibrary
+    showDelete: request.body.showDelete,
+    whiteList: request.body.whiteList
   });
   next();
+});
+
+WebApp.connectHandlers.use('/api/submitLog', (request, response) => {
+  let logmsg;
+  try {
+    if (request.query.msg) {
+      logmsg = JSON.parse(request.query.msg);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  if (!logmsg) {
+    logmsg = request.body.msg;
+  }
+  if (!logmsg) {
+    response.writeHead(422);
+    response.end();
+    return;
+  }
+  Meteor.call('merge.log', logmsg);
+  response.writeHead(200);
+  response.end();
 });
 
 const allowLocalUpload = !Meteor.settings.Minio;

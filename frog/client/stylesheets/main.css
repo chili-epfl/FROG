@@ -6,7 +6,6 @@ body,
 #render-target,
 #app {
   font-family: Roboto, sans-serif;
-  overflow: hidden;
   height: 100%;
   width: 100%;
 }

@@ -19,6 +19,7 @@ import {
 import { Operators, findOperatorsMongo } from '/imports/api/operators';
 import { LibraryStates } from '/imports/api/cache';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
+import { LocalSettings } from '/imports/api/settings';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';
@@ -94,7 +95,7 @@ export default class Store {
   _graphDuration: number;
   graphDuration: number;
   readOnly: boolean;
-  changeDuration: number => void;
+  changeDuration: (number, ?boolean) => void;
   addHistory: () => void;
   refreshValidate: () => void;
   session: Session;
@@ -141,7 +142,7 @@ export default class Store {
         }
       ),
 
-      changeDuration: action((duration: number) => {
+      changeDuration: action((duration: number, dbIsCorrect?: boolean) => {
         if (duration && duration >= 30 && duration <= 1200) {
           const oldPanTime = this.ui.panTime;
           // changes the scale on duration change
@@ -151,9 +152,11 @@ export default class Store {
           this._graphDuration = duration;
           const needPanDelta = timeToPx(oldPanTime - this.ui.panTime, 1);
           this.ui.panDelta(needPanDelta);
-          Graphs.update(this.graphId, {
-            $set: { duration: this._graphDuration }
-          });
+          if (!dbIsCorrect) {
+            Graphs.update(this.graphId, {
+              $set: { duration: this._graphDuration }
+            });
+          }
         }
       }),
 
@@ -178,10 +181,9 @@ export default class Store {
           this.browserHistory &&
           this.browserHistory.location.pathname !== desiredUrl
         ) {
-          this.browserHistory.push(desiredUrl);
+          this.browserHistory.push(desiredUrl + LocalSettings.UrlCoda);
         }
         setCurrentGraph(id);
-        // if has a parent => load its metadatas (to know if he can delete the graph)    const parentId = Graphs.findOne(props.store.graphId).parentId
         const parentId = Graphs.findOne(id).parentId;
         if (parentId && !LibraryStates.graphList.find(x => x.uuid === parentId))
           loadGraphMetaData(parentId);
@@ -191,7 +193,7 @@ export default class Store {
         this.readOnly = readOnly;
         this.graphId = id;
 
-        this.changeDuration(graph ? graph.duration || 60 : 60);
+        this.changeDuration(graph ? graph.duration || 60 : 60, true);
         this.activityStore.all = findActivitiesMongo(
           { graphId: id },
           { reactive: false }
@@ -231,27 +233,10 @@ export default class Store {
           { reactive: false }
         )
           .fetch()
-          .map(x => {
-            const source = this.findId(x.source);
-            const target = this.findId(x.target);
-            if (
-              source instanceof Connection ||
-              target instanceof Connection ||
-              !source ||
-              !target
-            ) {
-              console.error(
-                'Cannot find connection source/target, or source/target is a connection'
-              );
-              return undefined;
-            }
-            return new Connection(source, target, x._id);
-          })
-          .filter(x => !!x);
+          .map(x => new Connection(x.source, x.target, x._id));
 
         this.ui.selected = null;
         this.history = [];
-        this.addHistory();
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
@@ -299,12 +284,15 @@ export default class Store {
         this.graphErrors = sortBy(validData.errors, 'severity');
         this.valid = validData;
 
-        Graphs.update(this.graphId, {
-          $set: {
-            broken:
-              this.graphErrors.filter(x => x.severity === 'error').length > 0
-          }
-        });
+        const broken =
+          this.graphErrors.filter(x => x.severity === 'error').length > 0;
+        if (Graphs.findOne(this.graphId).broken !== broken) {
+          Graphs.update(this.graphId, {
+            $set: {
+              broken
+            }
+          });
+        }
       }),
 
       undo: action(() => {
@@ -343,22 +331,7 @@ export default class Store {
             )
         );
         this.connectionStore.all = connections
-          .map(x => {
-            const source = this.findId(x.source);
-            const target = this.findId(x.target);
-            if (
-              source instanceof Connection ||
-              target instanceof Connection ||
-              !source ||
-              !target
-            ) {
-              console.error(
-                'Cannot find connection source/target, or source/target is a connection'
-              );
-              return undefined;
-            }
-            return new Connection(source, target, x._id);
-          })
+          .map(x => new Connection(x.source, x.target, x._id))
           .filter(x => !!x);
 
         mergeGraph(this.objects);

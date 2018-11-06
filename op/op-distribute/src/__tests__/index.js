@@ -63,18 +63,3 @@ test('Distribute 2 to each student, overlap', () => {
     structure: 'individual'
   });
 });
-
-const object2 = {
-  globalStructure: { studentIds: ['1', '2', '3', '4', '5'] },
-  socialStructure: socStruct,
-  activityData: {
-    structure: 'all',
-    payload: { all: { data: { text: 'aa' } } }
-  }
-};
-
-test('Refuses to sort an object', () => {
-  expect(() =>
-    operator({ maxitems: 2, overlap: true, individual: true }, object2)
-  ).toThrow();
-});

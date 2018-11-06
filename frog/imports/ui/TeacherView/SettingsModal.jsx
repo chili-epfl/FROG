@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
 import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -39,8 +38,6 @@ const updateSession = (settings, session) => {
   }
 };
 
-const Transition = props => <Slide direction="up" {...props} />;
-
 class SettingsModal extends React.Component {
   state = {
     settings: this.props.session.settings
@@ -49,7 +46,7 @@ class SettingsModal extends React.Component {
   render() {
     const { onClose, classes } = this.props;
     return (
-      <Dialog open onClose={onClose} transition={Transition}>
+      <Dialog className={classes.maybeZoom} open onClose={onClose}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton color="inherit" onClick={onClose} aria-label="Close">
@@ -78,10 +75,6 @@ class SettingsModal extends React.Component {
               }}
               onSubmit={({ formData: f }) => {
                 updateSession(f, this.props.session);
-                this.formData = {
-                  ...this.formData,
-                  studentlist: cleanStudentList(this.formData.studentlist)
-                };
               }}
               schema={{
                 type: 'object',
@@ -107,8 +100,7 @@ class SettingsModal extends React.Component {
                   },
                   studentlist: {
                     type: 'string',
-                    title:
-                      'Optionally provide a list of student names (one name per line)'
+                    title: `Optionally provide a list of student names (one name per line) (these students won't be auto-joined to the session until you perform a session restart`
                   }
                 }
               }}

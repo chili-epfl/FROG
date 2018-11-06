@@ -8,15 +8,18 @@ import { withRouter } from 'react-router';
 import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
-import { GlobalSettings } from '../../api/globalSettings';
+import { GlobalSettings, LocalSettings } from '../../api/settings';
 import { Activities } from '../../api/activities';
 import { Graphs } from '../../api/graphs';
 import { Sessions } from '../../api/sessions';
 
 const TeacherView = props => (
   <>
-    <OrchestrationView {...props} />
-    {!props.session && <SessionList {...props} />}
+    {props.session ? (
+      <OrchestrationView {...props} />
+    ) : (
+      <SessionList {...props} />
+    )}
   </>
 );
 
@@ -34,11 +37,18 @@ const TeacherViewRunner = withRouter(
         });
       }
     }
+
     if (!session) {
       session = user.profile && Sessions.findOne(user.profile.controlSession);
     }
     if (session && session.slug !== match.params.slug) {
-      history.push('/teacher/orchestration/' + session.slug);
+      history.push(
+        '/teacher/orchestration/' + session.slug + LocalSettings.UrlCoda
+      );
+    }
+    if (session) {
+      Meteor.subscribe('teacher.graph', session.graphId);
+      Meteor.subscribe('session.students', session.slug);
     }
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();

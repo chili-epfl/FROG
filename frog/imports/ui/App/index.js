@@ -8,6 +8,7 @@ import * as React from 'react';
 import Modal from 'react-modal';
 import Loadable from 'react-loadable';
 import path from 'path';
+import queryString from 'query-string';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -23,6 +24,7 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
+import { LocalSettings } from '../../api/settings';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -42,26 +44,15 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
   } else {
-    if (storeInSession) {
-      sessionStorage.setItem(
-        'frog.sessionToken',
-        JSON.stringify({
-          token: response.token,
-          id: response.id,
-          expires: response.tokenExpires
-        })
+    if (!storeInSession) {
+      Accounts.makeClientLoggedIn(
+        response.id,
+        response.token,
+        response.tokenExpires
       );
+    } else {
+      Meteor.connection.setUserId(response.id);
     }
-    Accounts.makeClientLoggedIn(
-      response.id,
-      response.token,
-      response.tokenExpires
-    );
-    Accounts._storeLoginToken(
-      response.id,
-      response.token,
-      response.tokenExpires
-    );
 
     Meteor.subscribe('userData', { onReady: () => setState('ready') });
   }
@@ -77,7 +68,8 @@ const FROGRouter = withRouter(
         | 'error'
         | 'waiting'
         | 'studentlist'
-        | 'nostudentlist',
+        | 'nostudentlist'
+        | 'tooLate',
       settings?: Object
     }
   > {
@@ -93,11 +85,8 @@ const FROGRouter = withRouter(
       }
     }
 
-    componentWillMount() {
-      this.update();
-    }
-
     componentDidMount() {
+      this.update();
       Modal.setAppElement('#render-target');
       window.notReady = this.notReady;
     }
@@ -145,6 +134,7 @@ const FROGRouter = withRouter(
       Accounts.loginWithToken(token, err => {
         if (err) {
           Accounts._unstoreLoginToken();
+          sessionStorage.removeItem('frog.sessionToken');
           this.setState({ mode: 'waiting' });
         } else {
           Meteor.subscribe('userData', {
@@ -153,7 +143,7 @@ const FROGRouter = withRouter(
             }
           });
           if (slug) {
-            this.props.history.push('/' + slug);
+            this.props.history.push('/' + slug + LocalSettings.UrlCoda);
           }
         }
       });
@@ -174,20 +164,58 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        const hasLogin = query.login;
+        const username =
+          query.login ||
+          query.researchLogin ||
+          query.debugLogin ||
+          query.followLogin;
+        if (query.scaled) {
+          LocalSettings.scaled = parseInt(query.scaled, 10) || 50;
+        }
 
         if (this.state.mode !== 'loggingIn') {
-          const username = query.login;
-          if (username) {
-            this.login({ username, token: query.token, loginQuery: true });
+          if (query.researchLogin) {
+            LocalSettings.researchLogin = query.researchLogin;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                researchLogin: query.researchLogin
+              });
+          } else if (query.debugLogin) {
+            LocalSettings.debugLogin = true;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                debugLogin: query.debugLogin
+              });
+          } else if (query.followLogin && query.follow) {
+            LocalSettings.follow = query.follow;
+            LocalSettings.UrlCoda =
+              '?' +
+              queryString.stringify({
+                scaled: LocalSettings.scaled,
+                follow: query.follow,
+                followLogin: query.followLogin
+              });
           }
-          if (!hasLogin && this.state.mode !== 'ready') {
-            const sessionLogin = sessionStorage.getItem('frog.sessionToken');
-            if (sessionLogin) {
-              this.tokenLogin(JSON.parse(sessionLogin).token);
-            } else if (Accounts._storedLoginToken()) {
-              this.tokenLogin(Accounts._storedLoginToken());
-            } else if (this.props.match.params.slug) {
+
+          if (username) {
+            this.login({
+              username,
+              token: query.token,
+              loginQuery:
+                query.debugLogin || query.researchLogin || query.followLogin
+            });
+          }
+          if (!username && this.state.mode !== 'ready') {
+            if (!query.reset) {
+              if (Accounts._storedLoginToken()) {
+                return this.tokenLogin(Accounts._storedLoginToken());
+              }
+            }
+            if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
@@ -195,6 +223,8 @@ const FROGRouter = withRouter(
                 (err, result) => {
                   if (err || result === -1) {
                     this.setState({ mode: 'nostudentlist' });
+                  } else if (result === 'tooLate') {
+                    this.setState({ mode: 'tooLate' });
                   } else {
                     this.setState({ settings: result, mode: 'studentlist' });
                   }
@@ -207,6 +237,9 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      if (this.state.mode === 'tooLate') {
+        return <h1>Too late to join this session</h1>;
+      }
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
         return <Redirect to={this.props.location.pathname} />;
@@ -219,14 +252,18 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
-              render={() => (
-                <h3>
-                  Welcome to FROG. You are logged in as {Meteor.user().username}
-                  . If you want to access the teacher view, go to{' '}
-                  <Link to="/teacher">/teacher</Link>, otherwise go to the /SLUG
-                  of the session you are a student of
-                </h3>
-              )}
+              render={() =>
+                LocalSettings.follow ? (
+                  <StudentView />
+                ) : (
+                  <h3>
+                    Welcome to FROG. You are logged in as{' '}
+                    {Meteor.user().username}. If you want to access the teacher
+                    view, go to <Link to="/teacher">/teacher</Link>, otherwise
+                    go to the /SLUG of the session you are a student of
+                  </h3>
+                )
+              }
             />
           </Switch>
         );

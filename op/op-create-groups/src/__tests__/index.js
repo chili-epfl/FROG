@@ -90,3 +90,17 @@ test('Works with large numbers, 5', () =>
       '5': ['1', '10', '11']
     }
   }));
+
+test('test empty', () =>
+  expect(
+    operator(
+      { groupsize: 4, strategy: 'minimum' },
+      {
+        socialStructure: {},
+        globalStructure: {
+          studentIds: [],
+          students: {}
+        }
+      }
+    )
+  ).toEqual({ group: {} }));

@@ -24,24 +24,26 @@ const ImageEditor = props => (
 export default ({
   name: 'image',
   id: 'li-image',
-  Viewer: ({ data }: { data: any }) => (
-    <ImageReload
-      style={{
-        margin: '10px',
-        transform: 'rotate(' + (data.rotation || 0) + 'deg)'
-      }}
-      src={data.url}
-    />
-  ),
-  ThumbViewer: ({ data }: { data: any }) => (
-    <ImageReload
-      style={{
-        margin: '10px',
-        transform: 'rotate(' + (data.rotation || 0) + 'deg)'
-      }}
-      src={data.thumburl}
-    />
-  ),
+  Viewer: ({ data, search }: { data: any, search?: string }) =>
+    search ? null : (
+      <ImageReload
+        style={{
+          margin: '10px',
+          transform: 'rotate(' + (data.rotation || 0) + 'deg)'
+        }}
+        src={data.url}
+      />
+    ),
+  ThumbViewer: ({ data, search }: { data: any, search?: string }) =>
+    search ? null : (
+      <ImageReload
+        style={{
+          margin: '10px',
+          transform: 'rotate(' + (data.rotation || 0) + 'deg)'
+        }}
+        src={data.thumburl}
+      />
+    ),
   Creator: (props: any) => (
     <Creator {...props} fileTypes="image/jpeg, image/png" />
   ),
