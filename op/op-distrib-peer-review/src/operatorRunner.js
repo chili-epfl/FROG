@@ -5,19 +5,16 @@ import { shuffle } from 'lodash';
 
 const createLI = (dataFn, item, litype, from) => {
   const id = uuid();
-  console.log('create li payload');
   const li = dataFn.createLearningItem('li-peerReview', {
     reviewItem: item.data,
     reviewComponentLIType: litype,
     reviewId: undefined,
     from
   });
-  console.log('done', li);
   return { [id]: { id, li } };
 };
 
 const operator = (configData, { activityData }, dataFn) => {
-  console.log(dataFn);
   if (activityData.structure !== 'individual') {
     console.error('Cannot work with data that is not individually structured');
     throw new Error();

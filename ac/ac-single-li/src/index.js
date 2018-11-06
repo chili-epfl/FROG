@@ -38,8 +38,7 @@ const config = {
       title: 'Allow editing after submission',
       default: true,
       type: 'boolean'
-    },
-    noSubmit: { title: 'No submit button', type: 'boolean' }
+    }
   }
 };
 
@@ -78,15 +77,6 @@ const mergeFunction = (obj: Object, dataFn: Object) => {
     const newLI = dataFn.createLearningItem(obj.config.liTypeEditor);
     if (newLI) {
       dataFn.objInsert({ li: newLI });
-    }
-  }
-};
-
-const mergeFunction = (obj: Object, dataFn: Object) => {
-  if (!isEmpty(obj?.data) && isObject(obj?.data)) {
-    const li = values(obj.data)?.[0]?.li;
-    if (li) {
-      dataFn.objInsert({ li });
     }
   }
 };
