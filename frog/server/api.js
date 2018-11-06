@@ -226,10 +226,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
       '/' +
       request.body.instanceId || 'default';
 
-  if (
-    !InstanceDone[docId] &&
-    !(request.body.readOnly && request.body.rawData)
-  ) {
+  if (!InstanceDone[docId] && !(request.body && request.body.rawData)) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
 
@@ -255,7 +252,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
             } else {
               mergeOneInstance(
                 null,
-                null,
+                { _id: docId, data: config || {} },
                 initData,
                 aT.mergeFunction,
                 null,
@@ -283,7 +280,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     activityData,
     clientId: (request.query.clientId || '') + request.body.clientId,
     rawData,
-    readOnly: request.body.readOnly,
+    readOnly: request.body.readOnly || request.query.readOnly,
     config
   });
   next();
