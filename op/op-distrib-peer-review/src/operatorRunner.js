@@ -11,7 +11,7 @@ const createLI = (dataFn, item, litype, from) => {
     reviewId: undefined,
     from
   });
-  return { [id]: { id, li } };
+  return { [id]: { id, li, from } };
 };
 
 const operator = (configData, { activityData }, dataFn) => {

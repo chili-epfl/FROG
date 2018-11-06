@@ -8,7 +8,6 @@ class Editor extends React.Component<
   constructor(props) {
     super(props);
     const { dataFn, data } = props;
-    console.log(dataFn.doc.data, data);
     let newReviewId;
     if (!data.reviewId) {
       newReviewId = dataFn.createLearningItem('li-textArea', { text: '' });
