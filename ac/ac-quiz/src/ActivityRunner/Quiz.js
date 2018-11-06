@@ -33,12 +33,6 @@ const Quiz = ({
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
 
-  questions.forEach(([_, questionIndex]) => {
-    if (!data.form[questionIndex]) {
-      dataFn.objInsert({ text: '' }, ['form', questionIndex]);
-    }
-  });
-
   const canSubmit =
     config.allowSkip ||
     config.questions.reduce(

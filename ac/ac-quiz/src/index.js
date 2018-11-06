@@ -8,11 +8,14 @@ import upgradeFunctions from './upgradeFunctions';
 import dashboards from './Dashboard';
 import { exportData, formatProduct } from './utils';
 
-const dataStructure = {
+const dataStructure = formData => ({
   justification: '',
-  form: {},
+  form: formData.questions.reduce((acc, _, questionIndex) => {
+    acc[questionIndex] = { text: '' };
+    return acc;
+  }, {}),
   coordinates: { x: 0, y: 0, valid: false }
-};
+});
 
 export default ({
   id: 'ac-quiz',

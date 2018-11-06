@@ -34,7 +34,7 @@ const quizConfig = {
 const srcs = [
   [
     'Brainstorm',
-    'https://icchilisrv3.epfl.ch/api/activityType/ac-brainstorm',
+    'http://localhost:3000/api/activityType/ac-brainstorm',
     {
       config: {
         allowCreate: true,
@@ -53,11 +53,19 @@ const srcs = [
     }
   ],
   [
+    'Quiz',
+    'http://localhost:3000/api/activityType/ac-quiz',
+    {
+      config: quizConfig,
+      instanceId: 12
+    }
+  ],
+  [
     'Quiz read-only',
     'http://localhost:3000/api/activityType/ac-quiz',
     {
       config: quizConfig,
-      instanceId: 11,
+      instanceId: 12,
       readOnly: true
     }
   ],
