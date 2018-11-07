@@ -30,7 +30,10 @@ const extractParam = (query, param) =>
     : undefined;
 
 WebApp.connectHandlers.use('/multiFollow', (request, response) => {
-  const root = process.env.ROOT_URL || 'http://localhost:3000';
+  let root = process.env.ROOT_URL || 'http://localhost:3000/';
+  // ensure that the root url ends with a "/"
+  root = root.slice(-1) === '/' ? root : root + '/';
+
   const url = require('url').parse(request.url);
   const layout = url.query ? extractParam(url.query, 'layout') : '';
 
@@ -57,7 +60,7 @@ iframe { height: 100%; width: 100%; }
       <iframe id='iframe1' 
      ${
        layout === '3+1' || layout === '2+1+1'
-         ? `src=${root}/teacher/orchestration?debugLogin=${follow}&scaled=true>`
+         ? `src=${root}teacher/orchestration?debugLogin=${follow}&scaled=true>`
          : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
      }
 </iframe>
