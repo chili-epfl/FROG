@@ -2,7 +2,7 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 import { get, set, invoke, isEqual, last } from 'lodash';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText } from './index';
@@ -42,23 +42,23 @@ const formats = [
 ];
 
 // Some global variable that would set the id to be inserted on blot creation
-let learningItemId = "cjo8vmolz00003g6knq01k85s";
+let learningItemId = '2';
 
-const LearningItemContainer = ({dataFn, id}) => (
-    <dataFn.LearningItem
-      type="edit"
-      id={id}
-    />
-  );
+const LearningItemContainer = ({ dataFn, id }) => (
+  <dataFn.LearningItem type="edit" id={id} />
+);
 
 const registerBlot = dataFn => {
-  const Embed = Quill.import("blots/block/embed");
+  const Embed = Quill.import('blots/block/embed');
 
   class LearningItemBlot extends Embed {
     static create(value) {
       const node = super.create(value);
-      node.setAttribute("contenteditable", false);
-      ReactDOM.render(<LearningItemContainer dataFn={dataFn} id={value} />, node);
+      node.setAttribute('contenteditable', false);
+      ReactDOM.render(
+        <LearningItemContainer dataFn={dataFn} id={value} />,
+        node
+      );
       return node;
     }
   }
@@ -162,18 +162,21 @@ export class ReactiveRichText extends Component<
     this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
-
   handleClickEmbed = () => {
     const editor = invoke(this.quillRef, 'getEditor');
     if (editor) {
       const range = editor.getSelection();
       if (range) {
-        const delta = editor.insertEmbed(range.index, "learning-item", learningItemId);
+        const delta = editor.insertEmbed(
+          range.index,
+          'learning-item',
+          learningItemId
+        );
 
         // Quill doesn't include the passed value in the delta. So doing it manually
         delta.ops.forEach(op => {
-          if(get(op, 'insert.learning-item')) {
-            set(op, 'insert.learning-item', learningItemId)
+          if (get(op, 'insert.learning-item')) {
+            set(op, 'insert.learning-item', learningItemId);
           }
         });
         this.submitOperation(delta);
@@ -181,7 +184,7 @@ export class ReactiveRichText extends Component<
 
       // setting a different id for demo purpose so that the second click would
       // add a different li
-      learningItemId = "cjo92tost0000rv6wqfndlgub";
+      learningItemId = '1';
     }
   };
 

@@ -5,8 +5,10 @@ import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
 import { getDisplayName } from 'frog-utils';
 import { toClass } from 'recompose';
+import { DraggableCore } from 'react-draggable';
 
 import { learningItemTypesObj } from '../../activityTypes';
+import { listore } from './store';
 
 const MaybeClickable = ({ condition, children, onClick }) =>
   condition ? <span onClick={onClick}>{children}</span> : children;
@@ -20,12 +22,15 @@ const withNullCheck = ({
   liType,
   data,
   dataFn,
-  setOpen
+  setOpen,
+  id,
+  disableDragging
 }) => WrappedComponent => {
   // $FlowFixMe
   const WrappedComponentClass = toClass(WrappedComponent);
   // $FlowFixMe
   class NullChecker extends WrappedComponentClass<*, *> {
+    state = { dragging: false };
     render() {
       const result = super.render();
 
@@ -35,16 +40,35 @@ const withNullCheck = ({
 
       const Comp = (
         <>
-          <MaybeClickable
-            onClick={() => {
-              setOpen(true);
+          <DraggableCore
+            disabled={type === 'edit' || type === 'history' || disableDragging}
+            offsetParent={document.body}
+            onStart={e => e.preventDefault()}
+            onDrag={(e, d) => {
+              listore.setXY(d.x, d.y);
+              listore.setDraggedItem(id, e.shiftKey);
+              this.setState({ dragging: true });
             }}
-            condition={
-              type === 'thumbView' && !!clickZoomable && !!liType.Viewer
-            }
+            onStop={() => {
+              listore.stopDragging();
+              this.setState({ dragging: false });
+              return false;
+            }}
           >
-            {result}
-          </MaybeClickable>
+            <div style={{ zIndex: this.state.dragging ? 99 : 'auto' }}>
+              {' '}
+              <MaybeClickable
+                onClick={() => {
+                  setOpen(true);
+                }}
+                condition={
+                  type === 'thumbView' && !!clickZoomable && !!liType.Viewer
+                }
+              >
+                {result}
+              </MaybeClickable>
+            </div>
+          </DraggableCore>
           {this.props.open &&
             liType.Viewer && (
               <Dialog
@@ -91,7 +115,9 @@ class RenderLearningItem extends React.Component<any, any> {
       render,
       type = 'view',
       clickZoomable,
-      isPlayback
+      id,
+      isPlayback,
+      disableDragging
     } = props;
     const liType = learningItemTypesObj[data.liType];
     let LIComponent;
@@ -130,7 +156,9 @@ class RenderLearningItem extends React.Component<any, any> {
         data,
         clickZoomable,
         liType,
+        disableDragging,
         type,
+        id,
         open: this.state.open,
         setOpen: e => this.setState({ open: e })
       })(LIComponent);
