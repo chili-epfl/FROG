@@ -1,6 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
+import defaultDashboard from './dashboard';
 
 const meta = {
   name: 'Cellulo test activity',
@@ -14,8 +15,8 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
-    title: {
-      title: 'What is the title?',
+    uniqueId: {
+      title: 'Unique ID for use with submitLog',
       type: 'string'
     }
   }
@@ -24,16 +25,12 @@ const config = {
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {};
 
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
-
 export default ({
   id: 'ac-cellulo',
   type: 'react-component',
   configVersion: 1,
   meta,
   config,
-  dashboard: null,
-  dataStructure,
-  mergeFunction
+  dashboards: { default: defaultDashboard },
+  dataStructure
 }: ActivityPackageT);

@@ -12,6 +12,7 @@ import urlPkg from 'url';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
+import { UniqueIds } from '/imports/api/activities';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
@@ -372,6 +373,17 @@ WebApp.connectHandlers.use('/api/submitLog', (request, response) => {
     response.end();
     return;
   }
+  console.info('Received logmsg ', logmsg);
+  if (logmsg.uniqueId) {
+    const unique = UniqueIds.findOne(logmsg.uniqueId);
+    if (!unique) {
+      response.writeHead(422);
+      response.end();
+      return;
+    }
+    logmsg.activityId = unique.activityId;
+  }
+  console.log(logmsg.uniqueId, logmsg);
   Meteor.call('merge.log', logmsg);
   response.writeHead(200);
   response.end();

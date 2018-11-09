@@ -3,8 +3,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { type ActivityDbT } from 'frog-utils';
+import { omit } from 'lodash';
 
-import { Activities } from './activities';
+import { Activities, UniqueIds } from './activities';
 import {
   Sessions,
   updateSessionState,
@@ -93,6 +94,17 @@ export const runSessionFn = (sessionId: string) => {
         }
       });
     }
+    const uniqueIds = Activities.find({
+      graphId: session.graphId,
+      'data.uniqueId': { $exists: true }
+    });
+    uniqueIds.forEach(act =>
+      UniqueIds.update(
+        act.data.uniqueId,
+        { activityId: act._id },
+        { upsert: true }
+      )
+    );
   }
 };
 

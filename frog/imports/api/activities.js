@@ -12,6 +12,7 @@ import {
 import { activityTypesObj } from '/imports/activityTypes';
 
 export const Activities = new Mongo.Collection('activities');
+export const UniqueIds = new Mongo.Collection('unique_ids');
 export const Connections = new Mongo.Collection('connections');
 export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
