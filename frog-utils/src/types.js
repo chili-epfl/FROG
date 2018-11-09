@@ -341,6 +341,7 @@ export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
 export type LearningItemT<T> = {
   name: string,
   id: string,
+  canDropLI?: boolean,
   dataStructure?: T,
   Editor?: React.ComponentType<{
     data: T,

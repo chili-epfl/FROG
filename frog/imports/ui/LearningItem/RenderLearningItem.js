@@ -3,136 +3,71 @@
 import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
+import { Provider } from 'mobx-react';
 import { getDisplayName } from 'frog-utils';
 import { toClass } from 'recompose';
 import { DraggableCore } from 'react-draggable';
+import InsertLink from '@material-ui/icons/InsertLink';
+import NoteAdd from '@material-ui/icons/NoteAdd';
 
 import { learningItemTypesObj } from '../../activityTypes';
-import { listore } from './store';
+import { connect, listore } from './store';
 
 const MaybeClickable = ({ condition, children, onClick }) =>
   condition ? <span onClick={onClick}>{children}</span> : children;
 
-const withNullCheck = ({
-  render,
-  renderArgs,
-  isPlayback,
-  type,
-  clickZoomable,
-  liType,
-  data,
-  dataFn,
-  setOpen,
-  id,
-  disableDragging
-}) => WrappedComponent => {
-  // $FlowFixMe
-  const WrappedComponentClass = toClass(WrappedComponent);
-  // $FlowFixMe
-  class NullChecker extends WrappedComponentClass<*, *> {
-    state = { dragging: false };
-    render() {
-      const result = super.render();
+const DragIconRaw = ({ store }) =>
+  store.dragState && (
+    <div
+      style={{
+        position: 'fixed',
+        zIndex: 99,
+        top: store.coords[1],
+        left: store.coords[0],
+        pointerEvents: 'none'
+      }}
+    >
+      {store.dragState.shiftKey ? (
+        <NoteAdd style={{ fontSize: 36 }} />
+      ) : (
+        <InsertLink style={{ fontSize: 36 }} />
+      )}
+    </div>
+  );
 
-      if (!result) {
-        return null;
-      }
+const DragIcon = connect(DragIconRaw);
 
-      const Comp = (
-        <>
-          <DraggableCore
-            disabled={type === 'edit' || type === 'history' || disableDragging}
-            offsetParent={document.body}
-            onStart={e => e.preventDefault()}
-            onDrag={(e, d) => {
-              listore.setXY(d.x, d.y);
-              listore.setDraggedItem(id, e.shiftKey);
-              this.setState({ dragging: true });
-            }}
-            onStop={() => {
-              listore.stopDragging();
-              this.setState({ dragging: false });
-              return false;
-            }}
-          >
-            <div style={{ zIndex: this.state.dragging ? 99 : 'auto' }}>
-              {' '}
-              <MaybeClickable
-                onClick={() => {
-                  setOpen(true);
-                }}
-                condition={
-                  type === 'thumbView' && !!clickZoomable && !!liType.Viewer
-                }
-              >
-                {result}
-              </MaybeClickable>
-            </div>
-          </DraggableCore>
-          {this.props.open &&
-            liType.Viewer && (
-              <Dialog
-                maxWidth={false}
-                open
-                onClose={() => {
-                  setOpen(false);
-                }}
-              >
-                <liType.Viewer
-                  type="view"
-                  isPlayback={isPlayback}
-                  data={data.payload}
-                  dataFn={dataFn}
-                  LearningItem={dataFn && dataFn.LearningItem}
-                />
-              </Dialog>
-            )}
-        </>
-      );
-      if (render) {
-        return render({ ...renderArgs, children: Comp });
-      } else {
-        return Comp;
-      }
-    }
-  }
-
-  NullChecker.displayName = `withNullCheck(${getDisplayName(
-    WrappedComponent
-  )})`;
-  return NullChecker;
-};
+const WrappedDragIcon = props => (
+  <Provider store={listore}>
+    <DragIcon {...props} />
+  </Provider>
+);
 
 class RenderLearningItem extends React.Component<any, any> {
   Comp: any;
+  ref: any;
+  mounted: boolean;
+  componentDidMount = () => (this.mounted = true);
+  componentWillUnmount = () => (this.mounted = false);
 
   constructor(props: any) {
     super(props);
-    this.state = { open: false };
-    const {
-      data,
-      dataFn,
-      render,
-      type = 'view',
-      clickZoomable,
-      id,
-      isPlayback,
-      disableDragging
-    } = props;
+    this.ref = React.createRef();
+    this.state = { selected: false, open: false };
+    const { data, type = 'view' } = props;
     const liType = learningItemTypesObj[data.liType];
-    let LIComponent;
     if (!liType) {
       this.Comp = () => <h3>Oops ! Incorrect LI-type</h3>;
     }
     if (type === 'view' && liType.Viewer) {
-      LIComponent = liType.Viewer;
+      this.Comp = liType.Viewer;
     } else if (
       (type === 'view' || type === 'thumbView') &&
       liType.ThumbViewer
     ) {
-      LIComponent = liType.ThumbViewer;
+      this.Comp = liType.ThumbViewer;
     } else if (type === 'edit' && liType.Editor) {
-      LIComponent = liType.Editor;
+      this.Comp = liType.Editor;
     } else {
       this.Comp = () => (
         <b>
@@ -140,28 +75,6 @@ class RenderLearningItem extends React.Component<any, any> {
           component type {type}
         </b>
       );
-    }
-    if (!this.Comp && LIComponent) {
-      this.Comp = withNullCheck({
-        render,
-        renderArgs: {
-          dataFn,
-          data,
-          editable: liType.Editor,
-          zoomable: liType.Viewer,
-          liType: liType.id
-        },
-        dataFn,
-        isPlayback,
-        data,
-        clickZoomable,
-        liType,
-        disableDragging,
-        type,
-        id,
-        open: this.state.open,
-        setOpen: e => this.setState({ open: e })
-      })(LIComponent);
     }
   }
 
@@ -172,23 +85,85 @@ class RenderLearningItem extends React.Component<any, any> {
     );
   }
 
+  onDrop = (e: *) => {
+    if (this.ref?.current) {
+      this.ref.current.onDrop(e.item);
+    }
+  };
+
   render() {
-    const { type, search, data, dataFn, isPlayback } = this.props;
-    const Comp = this.Comp;
-    return Comp ? (
-      <Comp
-        data={data.payload}
-        isPlayback={isPlayback}
-        dataFn={dataFn && dataFn.specialize('payload')}
-        LearningItem={dataFn && dataFn.LearningItem}
-        search={search && search.toLowerCase()}
-        open={this.state.open}
-        type={type}
-        setOpen={e => this.setState({ open: e })}
-      />
-    ) : (
-      <h4>Error</h4>
+    const {
+      render,
+      disableDragging,
+      type,
+      data,
+      dataFn,
+      isPlayback,
+      id
+    } = this.props;
+    const liType = learningItemTypesObj[data.liType];
+    const LIComp = this.Comp;
+    const Comp = (
+      <>
+        <DraggableCore
+          disabled={type === 'edit' || type === 'history' || disableDragging}
+          offsetParent={document.body}
+          onStart={e => e.preventDefault()}
+          onDrag={(e, d) => {
+            listore.setXY(d.x, d.y);
+            listore.setDraggedItem(id, e.shiftKey);
+            this.setState({ dragging: true });
+          }}
+          onStop={() => {
+            listore.stopDragging();
+            this.setState({ dragging: false });
+            return false;
+          }}
+        >
+          <div style={{ zIndex: this.state.dragging ? 99 : 'auto' }}>
+            <div
+              onMouseOver={() => {
+                if (this.mounted && listore.dragState && liType.canDropLI) {
+                  this.setState({ selected: true });
+                  listore.setOverCB(this.onDrop);
+                }
+              }}
+              onMouseLeave={() => {
+                if (this.mounted && liType.canDropLI) {
+                  this.setState({ selected: false });
+                  listore.setOverCB(null);
+                }
+              }}
+            >
+              <LIComp
+                data={data.payload}
+                isPlayback={isPlayback}
+                dataFn={dataFn && dataFn.specialize('payload')}
+                LearningItem={dataFn && dataFn.LearningItem}
+                ref={liType.canDropLI ? this.ref : undefined}
+                open={this.state.open}
+                type={type}
+                setOpen={e => this.setState({ open: e })}
+              />
+            </div>
+          </div>
+        </DraggableCore>
+        <WrappedDragIcon />
+      </>
     );
+
+    if (render) {
+      return render({
+        dataFn,
+        data,
+        editable: liType.Editor,
+        zoomable: liType.Viewer,
+        liType: liType.id,
+        children: Comp
+      });
+    } else {
+      return Comp;
+    }
   }
 }
 

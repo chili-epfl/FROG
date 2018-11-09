@@ -41,9 +41,6 @@ const formats = [
   'learning-item'
 ];
 
-// Some global variable that would set the id to be inserted on blot creation
-let learningItemId = '2';
-
 const LearningItemContainer = ({ dataFn, id }) => (
   <dataFn.LearningItem type="edit" id={id} />
 );
@@ -162,29 +159,22 @@ export class ReactiveRichText extends Component<
     this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
-  handleClickEmbed = () => {
+  onDrop = e => {
+    console.log(e);
     const editor = invoke(this.quillRef, 'getEditor');
+    console.log(editor);
     if (editor) {
-      const range = editor.getSelection();
-      if (range) {
-        const delta = editor.insertEmbed(
-          range.index,
-          'learning-item',
-          learningItemId
-        );
+      const range = editor.getSelection() || 0;
+      console.log(range);
+      const delta = editor.insertEmbed(range.index, 'learning-item', e);
 
-        // Quill doesn't include the passed value in the delta. So doing it manually
-        delta.ops.forEach(op => {
-          if (get(op, 'insert.learning-item')) {
-            set(op, 'insert.learning-item', learningItemId);
-          }
-        });
-        this.submitOperation(delta);
-      }
-
-      // setting a different id for demo purpose so that the second click would
-      // add a different li
-      learningItemId = '1';
+      // Quill doesn't include the passed value in the delta. So doing it manually
+      delta.ops.forEach(op => {
+        if (get(op, 'insert.learning-item')) {
+          set(op, 'insert.learning-item', e);
+        }
+      });
+      this.submitOperation(delta);
     }
   };
 
@@ -208,7 +198,6 @@ export class ReactiveRichText extends Component<
         >
           <div style={this.props.readOnly ? { borderStyle: 'hidden' } : {}} />
         </ReactQuill>
-        <button onClick={this.handleClickEmbed}>Embed component</button>
       </div>
     );
   }
