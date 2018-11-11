@@ -79,7 +79,12 @@ export class Editor extends React.Component<*, *> {
     const { dataFn } = this.props;
     return (
       <div>
-        <ReactiveRichText ref={this.ref} path={path} dataFn={dataFn} />
+        <ReactiveRichText
+          userId={this.props.userId}
+          ref={this.ref}
+          path={path}
+          dataFn={dataFn}
+        />
       </div>
     );
   }

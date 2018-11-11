@@ -21,6 +21,10 @@ export const ReactJsonView = isBrowser
   ? require('react-json-view').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
+export const ReactiveRichText = isBrowser
+  ? require('./ReactiveRichText').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export {
   hideConditional,
   calculateHides,
@@ -36,7 +40,6 @@ export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
-export { ReactiveRichText } from './ReactiveRichText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
