@@ -146,6 +146,9 @@ export class DashboardSubscriptionWrapper extends React.Component<
   componentDidMount() {
     const { activityId } = this.props;
     Meteor.call('get.activity.for.dashboard', activityId, (err, value) => {
+      if (err) {
+        console.error('Error getting activity for dashboard', activityId, err);
+      }
       if (!err) {
         this.setState({
           activity: value.activity
