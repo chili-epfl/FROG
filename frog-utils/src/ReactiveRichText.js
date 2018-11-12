@@ -6,13 +6,8 @@ import ReactDOM from 'react-dom';
 import { get, set, invoke, isEqual, last } from 'lodash';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText } from './index';
-import Delta from 'quill-delta';
 
-const Parchment = Quill.import('parchment');
-const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author');
-Quill.register(AuthorClass);
-
-function hashCode(str) {
+function hashCode(str = '') {
   let hash = 0;
   for (var i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -37,6 +32,7 @@ class Authorship {
     if (!this.options.authorId) {
       return;
     }
+    const Delta = Quill.import('delta');
 
     // For IME keyboards detection. If IME keyboards, only add author attribute
     // on `compositionend` where actual character appears (like in Chinese Pinyin keyboards)
@@ -53,20 +49,15 @@ class Authorship {
         authorDeltaToApply = null;
       }
     });
-    /*this.quill.scroll.domNode.addEventListener('input', function (event) {
-      console.log(event.isComposing, 'event.isComposing')
-    });
-    this.quill.scroll.domNode.addEventListener('compositionupdate', function () {
-      
-    });*/
 
     this.quill.on(
       Quill.events.EDITOR_CHANGE,
       (eventName, delta, oldDelta, source) => {
-        if (eventName == Quill.events.TEXT_CHANGE && source == 'user') {
-          let authorDelta = new Delta();
-          let authorFormat = { author: this.options.authorId }; // bug is here how to apply Attributor class to delta?
-          //let authorFormat = {underline: true};
+        console.log('author on', eventName, delta, oldDelta, source)
+        if (eventName === Quill.events.TEXT_CHANGE && source === 'user') {
+          const authorDelta = new Delta();
+          const authorFormat = { author: this.options.authorId }; // bug is here how to apply Attributor class to delta?
+
           delta.ops.forEach(op => {
             if (op.delete) {
               return;
@@ -99,8 +90,8 @@ class Authorship {
           authorDeltaToApply = authorDelta; // copy it to apply later at `conpositionend` for IME keyboards
           if (!compositionstart) {
             // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
-
-            this.quill.updateContents(authorDelta, Quill.sources.SILENT);
+            console.log('updating contents')
+            this.quill.updateContents(authorDelta, 'custom-source');
           }
         }
       }
@@ -108,17 +99,17 @@ class Authorship {
     this.addAuthor(this.options.authorId, this.options.color);
 
     // for authorship color on/off toolbar item
-    let toolbar = this.quill.getModule('toolbar');
-    if (toolbar) {
-      toolbar.addHandler('authorship-toggle', function() {});
-      let customButton = document.querySelector('button.ql-authorship-toggle');
-
-      let authorshipObj = this;
-      customButton.addEventListener('click', function() {
-        // toggle on/off authorship colors
-        authorshipObj.enable(!authorshipObj.isEnabled);
-      });
-    }
+    // let toolbar = this.quill.getModule('toolbar');
+    // if (toolbar) {
+    //   toolbar.addHandler('authorship-toggle', function() {});
+    //   let customButton = document.querySelector('button.ql-authorship-toggle');
+    //
+    //   let authorshipObj = this;
+    //   customButton.addEventListener('click', function() {
+    //     // toggle on/off authorship colors
+    //     authorshipObj.enable(!authorshipObj.isEnabled);
+    //   });
+    // }
 
     // // to delete the other author background style.
     quill.clipboard.addMatcher('span', function(node, delta) {
@@ -197,8 +188,7 @@ const formats = [
   'image',
   'video',
   'learning-item',
-  'author',
-  'authorship'
+  'author'
 ];
 
 const LearningItemContainer = ({ dataFn, id }) => (
@@ -245,6 +235,8 @@ class ReactiveRichText extends Component<
   state = { path: undefined };
 
   opListener = (op: Object[], source: string) => {
+    console.log('received op', op)
+    console.log(source, this.quillRef)
     if (source === this.quillRef) {
       return;
     }
@@ -255,6 +247,7 @@ class ReactiveRichText extends Component<
         op.forEach(operation => {
           const opPath = last(operation.p);
           if (opPath === this.props.path) {
+            console.log('editor update contents')
             this.quillRef.getEditor().updateContents(operation.o);
           }
         });
@@ -285,6 +278,13 @@ class ReactiveRichText extends Component<
   componentWillMount() {
     this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
     registerBlot(this.props.dataFn);
+    const Parchment = Quill.import('parchment');
+    const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
+      scope: Parchment.Scope.INLINE
+    });
+    Parchment.register(AuthorClass);
+    Quill.register(AuthorClass, true);
+    Quill.register('modules/authorship', Authorship);
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -312,7 +312,8 @@ class ReactiveRichText extends Component<
 
   handleChange = (contents: string, delta: Object, source: string) => {
     if (!this.props.readOnly) {
-      if (source !== 'user') {
+      console.log('inhandle change. source ', source);
+      if (source !== 'custom-source' && source !== 'user') {
         return;
       }
       this.submitOperation(delta);
@@ -330,12 +331,12 @@ class ReactiveRichText extends Component<
   };
 
   onDrop = e => {
-    console.log(e);
+    // console.log(e);
     const editor = invoke(this.quillRef, 'getEditor');
-    console.log(editor);
+    // console.log(editor);
     if (editor) {
       const range = editor.getSelection() || 0;
-      console.log(range);
+      // console.log(range);
       const delta = editor.insertEmbed(range.index, 'learning-item', e);
 
       // Quill doesn't include the passed value in the delta. So doing it manually
@@ -378,6 +379,5 @@ class ReactiveRichText extends Component<
   }
 }
 
-Quill.register('modules/authorship', Authorship);
 window.q = Quill;
 export default ReactiveRichText;
