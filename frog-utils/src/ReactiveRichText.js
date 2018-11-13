@@ -128,7 +128,7 @@ class ReactiveRichText extends Component<
         this.quillRef.getEditor().setContents(this.getDocumentContent());
       } else {
         op.forEach(operation => {
-          operation.o.forEach(o => {
+          operation.o && operation.o.forEach(o => {
             const author = get(o, 'attributes.author');
             if (author) {
               this.addAuthor(author)
