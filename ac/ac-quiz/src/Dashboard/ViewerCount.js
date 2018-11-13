@@ -1,13 +1,8 @@
 // @flow
 /* eslint-disable react/no-array-index-key */
 import * as React from 'react';
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryLabel,
-  VictoryAxis,
-  VictoryTheme
-} from 'victory';
+import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
+
 import { HTML } from 'frog-utils';
 
 import Typography from '@material-ui/core/Typography';
@@ -25,10 +20,17 @@ const styles = () => ({
     padding: '4px'
   },
   question: {
-    width: '50%',
-    height: '50%',
+    width: '100%',
+    flex: '0 0 auto',
+    padding: '8px',
+    marginBottom: '8px',
+    overflow: 'auto'
+  },
+  header: {
+    backgroundColor: '#ddd',
+    borderBottom: '2px solid black',
     padding: '4px',
-    marginBottom: '8px'
+    marginBottom: '4px'
   }
 });
 
@@ -47,37 +49,31 @@ const TextQ = withStyles(styles)(({ question, answers, classes }) => (
 
 const Question = withStyles(styles)(({ question, answers, classes }) => (
   <Paper className={classes.question}>
-    <Typography align="center" variant="button" gutterBottom>
+    <div className={classes.header}>
+      <b>Question:</b>
       <HTML html={question} />
-    </Typography>
+    </div>
+    {answers
+      .map((a, idx) => (
+        <HTML
+          key={a.x || idx}
+          html={'<b>Choice ' + (answers.length - idx) + ' :</b>' + a.x}
+        />
+      ))
+      .reverse()}
     <VictoryChart
       height={150}
       theme={VictoryTheme.material}
-      style={{
-        tickLabels: { fontSize: 10 }
-      }}
-      padding={{ top: 0, left: 200, right: 10, bottom: 30 }}
+      padding={{ top: 0, left: 75, right: 10, bottom: 30 }}
       domainPadding={20}
     >
-      <VictoryAxis
-        style={{ tickLabels: { fontSize: 7 } }}
-        tickLabelComponent={<VictoryLabel />}
-      />
-      <VictoryAxis
-        dependentAxis
-        style={{ tickLabels: { fontSize: 7 } }}
-        tickLabelComponent={<VictoryLabel />}
-      />
       <VictoryBar
         horizontal
         domain={{ x: [0, Math.max(5, ...answers.map(ans => ans.y))] }}
-        data={answers}
-        style={{
-          data: {
-            fillOpacity: 1,
-            strokeWidth: 1
-          }
-        }}
+        data={answers.map((a, idx) => ({
+          y: a.y,
+          x: 'Choice ' + (answers.length - idx)
+        }))}
       />
     </VictoryChart>
   </Paper>
@@ -89,7 +85,7 @@ const Viewer = withStyles(styles)(
       {state.result.map(([k, v, idx]) => (
         <Question key={idx} question={k} answers={v} />
       ))}
-      {state.questionTexts.map((k, idx) => (
+      {state.questionTexts.filter(k => !!k).map((k, idx) => (
         <TextQ key={idx} question={state.questions[idx].question} answers={k} />
       ))}
     </div>
