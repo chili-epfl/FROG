@@ -273,8 +273,9 @@ class ReactiveRichText extends Component<
         if (op.delete) {
           return;
         }
-        if (op.insert || (op.retain && op.attributes)) {
-          // Add authorship to insert/format
+        // if (op.insert || (op.retain && op.attributes)) {
+        if (op.insert) {
+          // Add authorship to only inserts
           op.attributes = op.attributes || {};
 
           // Bug fix for Chinese keyboards which show Pinyin first before Chinese text, and also other keyboards like Tamil
