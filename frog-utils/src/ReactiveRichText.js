@@ -339,7 +339,7 @@ class ReactiveRichText extends Component<
     const defaultValue = this.getDocumentContent();
     return (
       <div>
-        <Toolbar id={this.props.userId} readOnly={this.props.readOnly}/>
+        <Toolbar id={`${this.props.userId}-${this.props.path}`} readOnly={this.props.readOnly}/>
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
@@ -350,7 +350,7 @@ class ReactiveRichText extends Component<
           formats={formats}
           modules={{
             toolbar: {
-                container: `#toolbar-${this.props.userId}`,
+                container: `#toolbar-${this.props.userId}-${this.props.path}`,
                 handlers: {
                   "toggleAuthorship": this.toggleAuthorship
                 }
