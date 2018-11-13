@@ -20,8 +20,8 @@ function pickColor(str) {
   return `hsl(${hashCode(str) % 360}, 100%, 80%)`;
 }
 
-const Toolbar = ({ readOnly }) => (
-  <div id="toolbar" style={{display: readOnly ? 'none' : 'block'}}>
+const Toolbar = ({ id, readOnly }) => (
+  <div id={`toolbar-${id}`} style={{display: readOnly ? 'none' : 'block'}}>
     <button className="ql-bold" />
     <button className="ql-italic" />
     <button className="ql-underline" />
@@ -175,7 +175,7 @@ class ReactiveRichText extends Component<
 
     this.addAuthor(this.props.userId);
     const content = this.getDocumentContent();
-    content.ops.forEach(op => {
+    content.ops && content.ops.forEach(op => {
       const author = get(op, 'attributes.author');
       if (author) {
         this.addAuthor(author);
@@ -196,6 +196,7 @@ class ReactiveRichText extends Component<
     if (!this.props.data) {
       this.update(this.props);
       this.initializeAuthorship();
+      this.toggleAuthorship();
     }
   }
 
@@ -338,7 +339,7 @@ class ReactiveRichText extends Component<
     const defaultValue = this.getDocumentContent();
     return (
       <div>
-        <Toolbar readOnly={this.props.readOnly}/>
+        <Toolbar id={this.props.userId} readOnly={this.props.readOnly}/>
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
@@ -349,7 +350,7 @@ class ReactiveRichText extends Component<
           formats={formats}
           modules={{
             toolbar: {
-                container: "#toolbar",
+                container: `#toolbar-${this.props.userId}`,
                 handlers: {
                   "toggleAuthorship": this.toggleAuthorship
                 }
