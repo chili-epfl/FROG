@@ -196,7 +196,9 @@ class ReactiveRichText extends Component<
     if (!this.props.data) {
       this.update(this.props);
       this.initializeAuthorship();
-      this.toggleAuthorship();
+      if (!this.props.readOnly) {
+        this.toggleAuthorship();
+      }
     }
   }
 
