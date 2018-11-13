@@ -9,7 +9,8 @@ import { shortenRichText } from './index';
 
 function hashCode(str = '') {
   let hash = 0;
-  for (var i = 0; i < str.length; i++) {
+  let i = 0;
+  for (; i < str.length; i += 1) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
   return hash;
@@ -19,161 +20,36 @@ function pickColor(str) {
   return `hsl(${hashCode(str) % 360}, 100%, 80%)`;
 }
 
-class Authorship {
-  constructor(quill, options) {
-    this.quill = quill;
-    this.options = options;
-    this.isEnabled;
+const Toolbar = ({ readOnly }) => (
+  <div id="toolbar" style={{display: readOnly ? 'none' : 'block'}}>
+    <button className="ql-bold" />
+    <button className="ql-italic" />
+    <button className="ql-underline" />
+    <button className="ql-strike" />
 
-    if (this.options.enabled) {
-      this.enable();
-      this.isEnabled = true;
-    }
-    if (!this.options.authorId) {
-      return;
-    }
-    const Delta = Quill.import('delta');
+    <button className="ql-blockquote" />
+    <button className="ql-code-block" />
 
-    // For IME keyboards detection. If IME keyboards, only add author attribute
-    // on `compositionend` where actual character appears (like in Chinese Pinyin keyboards)
-    let compositionstart = false;
-    let authorDeltaToApply = null;
-    this.quill.scroll.domNode.addEventListener('compositionstart', function() {
-      compositionstart = true;
-      authorDeltaToApply = null;
-    });
-    this.quill.scroll.domNode.addEventListener('compositionend', function() {
-      compositionstart = false;
-      if (authorDeltaToApply) {
-        quill.updateContents(authorDeltaToApply, Quill.sources.SILENT);
-        authorDeltaToApply = null;
-      }
-    });
+    <select className="ql-header" defaultValue="" onChange={e => e.persist()}>
+      <option value="1" />
+      <option value="2" />
+      <option defaultValue />
+    </select>
 
-    this.quill.on(
-      Quill.events.EDITOR_CHANGE,
-      (eventName, delta, oldDelta, source) => {
-        console.log('author on', eventName, delta, oldDelta, source)
-        if (eventName === Quill.events.TEXT_CHANGE && source === 'user') {
-          const authorDelta = new Delta();
-          const authorFormat = { author: this.options.authorId }; // bug is here how to apply Attributor class to delta?
+    <button className="ql-list" value="ordered" />
+    <button className="ql-list" value="bullet" />
 
-          delta.ops.forEach(op => {
-            if (op.delete) {
-              return;
-            }
-            if (op.insert || (op.retain && op.attributes)) {
-              // Add authorship to insert/format
-              op.attributes = op.attributes || {};
+    <button className="ql-link" />
+    <button className="ql-image" />
+    <button className="ql-video" />
 
-              // Bug fix for Chinese keyboards which show Pinyin first before Chinese text, and also other keyboards like Tamil
-              if (
-                op.attributes.author &&
-                op.attributes.author === this.options.authorId
-              ) {
-                return;
-              }
-              // End bug fix
-              op.attributes.author = this.options.authorId;
-              // Apply authorship to our own editor
-              authorDelta.retain(
-                op.retain || op.insert.length || 1,
-                authorFormat
-              );
-            } else {
-              authorDelta.retain(op.retain);
-            }
-          });
+    <button className="ql-toggleAuthorship">
+      <AuthorshipToggleBtn />
+    </button>
+  </div>
+);
 
-          // if IME keyboard (e.g. CH Pinyin), only update the delta with author attribute
-          // on `compositionend`. If non-IME keyboard (e.g. English) there will be no `compositionstart`
-          authorDeltaToApply = authorDelta; // copy it to apply later at `conpositionend` for IME keyboards
-          if (!compositionstart) {
-            // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
-            console.log('updating contents')
-            this.quill.updateContents(authorDelta, 'custom-source');
-          }
-        }
-      }
-    );
-    this.addAuthor(this.options.authorId, this.options.color);
-
-    // for authorship color on/off toolbar item
-    // let toolbar = this.quill.getModule('toolbar');
-    // if (toolbar) {
-    //   toolbar.addHandler('authorship-toggle', function() {});
-    //   let customButton = document.querySelector('button.ql-authorship-toggle');
-    //
-    //   let authorshipObj = this;
-    //   customButton.addEventListener('click', function() {
-    //     // toggle on/off authorship colors
-    //     authorshipObj.enable(!authorshipObj.isEnabled);
-    //   });
-    // }
-
-    // // to delete the other author background style.
-    quill.clipboard.addMatcher('span', function(node, delta) {
-      delta.ops.forEach(function(op) {
-        op.attributes['background'] && delete op.attributes['background'];
-      });
-      return delta;
-    });
-  }
-
-  enable(enabled = true) {
-    this.quill.root.classList.toggle('ql-authorship', enabled);
-    this.isEnabled = enabled;
-  }
-
-  disable() {
-    this.enable(false);
-    this.isEnabled = false;
-  }
-
-  addAuthor(id, color) {
-    let css =
-      '.ql-authorship .ql-author-' +
-      id +
-      ' { ' +
-      'background-color:' +
-      color +
-      '; }\n';
-    this.addStyle(css);
-  }
-
-  addStyle(css) {
-    if (!this.styleElement) {
-      this.styleElement = document.createElement('style');
-      this.styleElement.type = 'text/css';
-      this.styleElement.classList.add('ql-authorship-style'); // in case for some manipulation
-      this.styleElement.classList.add(
-        'ql-authorship-style-' + this.options.authorId
-      ); // in case for some manipulation
-      document.documentElement
-        .getElementsByTagName('head')[0]
-        .appendChild(this.styleElement);
-    }
-
-    this.styleElement.innerHTML = css; // bug fix
-    // this.styleElement.sheet.insertRule(css, 0);
-  }
-}
-
-Authorship.DEFAULTS = {
-  authorId: null,
-  color: 'transparent',
-  enabled: false
-};
-
-const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],
-  ['blockquote', 'code-block'],
-  ['authorship-toggle'],
-  [{ header: 1 }, { header: 2 }],
-  [{ list: 'ordered' }, { list: 'bullet' }],
-
-  ['link', 'image', 'video']
-];
+const AuthorshipToggleBtn = () => <span>AU</span>;
 
 const formats = [
   'bold',
@@ -217,12 +93,20 @@ const registerBlot = dataFn => {
   Quill.register('formats/learning-item', LearningItemBlot);
 };
 
+const registerAuthorClass = () => {
+  const Parchment = Quill.import('parchment');
+  const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
+    scope: Parchment.Scope.INLINE
+  });
+  Parchment.register(AuthorClass);
+  Quill.register(AuthorClass, true);
+};
+
 type ReactivePropsT = {
   path: string,
   dataFn: Object,
   data?: Object,
   readOnly?: boolean,
-  toolbarOptions?: Object[],
   shorten?: number,
   userId: string
 };
@@ -233,10 +117,9 @@ class ReactiveRichText extends Component<
 > {
   quillRef: any;
   state = { path: undefined };
+  styleElements: {};
 
   opListener = (op: Object[], source: string) => {
-    console.log('received op', op)
-    console.log(source, this.quillRef)
     if (source === this.quillRef) {
       return;
     }
@@ -245,9 +128,14 @@ class ReactiveRichText extends Component<
         this.quillRef.getEditor().setContents(this.getDocumentContent());
       } else {
         op.forEach(operation => {
+          operation.o.forEach(o => {
+            const author = get(o, 'attributes.author');
+            if (author) {
+              this.addAuthor(author)
+            }
+          });
           const opPath = last(operation.p);
           if (opPath === this.props.path) {
-            console.log('editor update contents')
             this.quillRef.getEditor().updateContents(operation.o);
           }
         });
@@ -269,22 +157,52 @@ class ReactiveRichText extends Component<
     return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
   };
 
+  initializeAuthorship = () => {
+    const editor = this.quillRef.getEditor();
+    this.compositionstart = false;
+    this.authorDeltaToApply = null;
+    editor.scroll.domNode.addEventListener('compositionstart', () => {
+      this.compositionstart = true;
+      this.authorDeltaToApply = null;
+    });
+    editor.scroll.domNode.addEventListener('compositionend', () => {
+      this.compositionstart = false;
+      if (this.authorDeltaToApply) {
+        editor.updateContents(this.authorDeltaToApply, Quill.sources.SILENT);
+        this.authorDeltaToApply = null;
+      }
+    });
+
+    this.addAuthor(this.props.userId);
+    const content = this.getDocumentContent();
+    content.ops.forEach(op => {
+      const author = get(op, 'attributes.author');
+      if (author) {
+        this.addAuthor(author);
+      }
+    })
+  };
+
+
+  toggleAuthorship = () => {
+    const editor = invoke(this.quillRef, 'getEditor');
+    if (editor) {
+      editor.root.classList.toggle('ql-authorship');
+    }
+  };
+
+
   componentDidMount() {
     if (!this.props.data) {
       this.update(this.props);
+      this.initializeAuthorship();
     }
   }
 
   componentWillMount() {
     this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
     registerBlot(this.props.dataFn);
-    const Parchment = Quill.import('parchment');
-    const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
-      scope: Parchment.Scope.INLINE
-    });
-    Parchment.register(AuthorClass);
-    Quill.register(AuthorClass, true);
-    Quill.register('modules/authorship', Authorship);
+    registerAuthorClass();
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -310,12 +228,82 @@ class ReactiveRichText extends Component<
     }
   }
 
+  addAuthor(id) {
+    const color = pickColor(id);
+    const css =
+      '.ql-authorship .ql-author-' +
+      id +
+      ' { ' +
+      'background-color:' +
+      color +
+      '; }\n';
+
+    const styleElements = this.styleElements || {};
+    if (!get(styleElements, id)) {
+      styleElements[id] = document.createElement('style');
+      styleElements[id].type = 'text/css';
+      styleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
+      styleElements[id].classList.add(
+        'ql-authorship-style-' + id
+      ); // in case for some manipulation
+      styleElements[id].innerHTML = css;
+      document.documentElement
+        .getElementsByTagName('head')[0]
+        .appendChild(styleElements[id]);
+
+    }
+    this.styleElement = styleElements;
+  }
+
+
   handleChange = (contents: string, delta: Object, source: string) => {
     if (!this.props.readOnly) {
-      console.log('inhandle change. source ', source);
-      if (source !== 'custom-source' && source !== 'user') {
+      if (source !== 'user') {
         return;
       }
+      const editor = this.quillRef.getEditor();
+
+      const Delta = Quill.import('delta');
+
+      const authorDelta = new Delta();
+      const authorFormat = { author: this.props.userId };
+
+      delta.ops.forEach(op => {
+        if (op.delete) {
+          return;
+        }
+        if (op.insert || (op.retain && op.attributes)) {
+          // Add authorship to insert/format
+          op.attributes = op.attributes || {};
+
+          // Bug fix for Chinese keyboards which show Pinyin first before Chinese text, and also other keyboards like Tamil
+          if (
+            op.attributes.author &&
+            op.attributes.author === this.props.userId
+          ) {
+            return;
+          }
+          // End bug fix
+
+          op.attributes.author = this.props.userId;
+          // Apply authorship to our own editor
+          authorDelta.retain(
+            op.retain || op.insert.length || 1,
+            authorFormat
+          );
+        } else {
+          authorDelta.retain(op.retain);
+        }
+      });
+
+      // if IME keyboard (e.g. CH Pinyin), only update the delta with author attribute
+      // on `compositionend`. If non-IME keyboard (e.g. English) there will be no `compositionstart`
+      this.authorDeltaToApply = authorDelta; // copy it to apply later at `conpositionend` for IME keyboards
+      if (!this.compositionstart) {
+        // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
+        editor.updateContents(authorDelta, Quill.sources.SILENT);
+      }
+
       this.submitOperation(delta);
     }
   };
@@ -331,12 +319,9 @@ class ReactiveRichText extends Component<
   };
 
   onDrop = e => {
-    // console.log(e);
     const editor = invoke(this.quillRef, 'getEditor');
-    // console.log(editor);
     if (editor) {
       const range = editor.getSelection() || 0;
-      // console.log(range);
       const delta = editor.insertEmbed(range.index, 'learning-item', e);
 
       // Quill doesn't include the passed value in the delta. So doing it manually
@@ -353,6 +338,7 @@ class ReactiveRichText extends Component<
     const defaultValue = this.getDocumentContent();
     return (
       <div>
+        <Toolbar readOnly={this.props.readOnly}/>
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
@@ -362,14 +348,12 @@ class ReactiveRichText extends Component<
           onChange={this.handleChange}
           formats={formats}
           modules={{
-            toolbar: this.props.readOnly
-              ? null
-              : this.props.toolbarOptions || toolbarOptions,
-            authorship: {
-              enabled: true,
-              authorId: this.props.userId,
-              color: pickColor(this.props.userId)
-            }
+            toolbar: {
+                container: "#toolbar",
+                handlers: {
+                  "toggleAuthorship": this.toggleAuthorship
+                }
+              }
           }}
         >
           <div style={this.props.readOnly ? { borderStyle: 'hidden' } : {}} />
