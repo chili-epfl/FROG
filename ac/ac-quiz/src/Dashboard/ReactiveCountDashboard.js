@@ -17,20 +17,22 @@ const reactiveToDisplay = (reactive: any, activity: ActivityDbT) => {
   const questionTexts = questions.map(() => []);
   values(reactive).forEach(instanceData =>
     entries(instanceData.form || {}).forEach(([qIdx, answer]) => {
+      if (answer && answer.text) {
+        questionTexts[qIdx].push(answer.text);
+      }
       entries(answer || {}).forEach(([aIdx, aValue]) => {
         if (aValue === true) {
           questionStats[qIdx][aIdx].y += 1;
-        }
-        if (answer && answer.text) {
-          questionTexts[qIdx].push(answer.text);
         }
       });
     })
   );
 
-  const result = questionStats
-    .map((v, k) => [questions[k].question, reverse(v), k])
-    .filter(([_, v]) => v && v.length > 0);
+  const result = questionStats.map((v, k) => [
+    questions[k].question,
+    reverse(v),
+    k
+  ]);
   return { result, questionTexts, questions };
 };
 
