@@ -77,9 +77,10 @@ const registerBlot = dataFn => {
   class LearningItemBlot extends Embed {
     static create(value) {
       const node = super.create(value);
+      const {authorId, liId} = value;
       node.setAttribute('contenteditable', false);
       ReactDOM.render(
-        <LearningItemContainer dataFn={dataFn} id={value} />,
+        <div className={`ql-author-${authorId}`}><LearningItemContainer dataFn={dataFn} id={liId} /></div>,
         node
       );
       return node;
@@ -232,6 +233,9 @@ class ReactiveRichText extends Component<
   }
 
   addAuthor(id) {
+    if (!id) {
+      return;
+    }
     const color = pickColor(id);
     const css =
       '.ql-authorship .ql-author-' +
@@ -255,7 +259,7 @@ class ReactiveRichText extends Component<
         .appendChild(styleElements[id]);
 
     }
-    this.styleElement = styleElements;
+    this.styleElements = styleElements;
   }
 
 
@@ -326,12 +330,16 @@ class ReactiveRichText extends Component<
     const editor = invoke(this.quillRef, 'getEditor');
     if (editor) {
       const range = editor.getSelection() || 0;
-      const delta = editor.insertEmbed(range.index, 'learning-item', e);
+      const params = {
+        liId: e,
+        authorId: this.props.userId
+      };
+      const delta = editor.insertEmbed(range.index, 'learning-item', params);
 
       // Quill doesn't include the passed value in the delta. So doing it manually
       delta.ops.forEach(op => {
         if (get(op, 'insert.learning-item')) {
-          set(op, 'insert.learning-item', e);
+          set(op, 'insert.learning-item', params);
         }
       });
       this.submitOperation(delta);
