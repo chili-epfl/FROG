@@ -43,7 +43,7 @@ const styles = () => ({
 
 const Question = withStyles(styles)(({ texts, question, answers, classes }) => {
   const separateAnswers = !answers.every(
-    ans => ans.x?.length < 25 && !ans.x.includes('$')
+    ans => ans.x?.length < 20 && !ans.x.includes('$')
   );
   return (
     <Paper className={classes.question}>
