@@ -22,6 +22,7 @@ const styles = () => ({
     backgroundColor: '#bbb',
     height: '100%',
     width: '100%',
+    maxWidth: '900px',
     overflow: 'auto',
     padding: '4px'
   },
