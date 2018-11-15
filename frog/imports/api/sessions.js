@@ -30,7 +30,7 @@ export const restartSession = (session: Object) => {
 };
 
 Meteor.methods({
-  'sessions.restart': session => {
+  'sessions.restart': function(session) {
     if (Meteor.isServer) {
       const graphId = session && session.graphId;
       if (!graphId) {
@@ -50,7 +50,7 @@ Meteor.methods({
       Sessions.update(session._id, {
         $set: { slug: session.slug + '-old-' + nextNum }
       });
-      Meteor.users.update(Meteor.userId(), {
+      Meteor.users.update(this.userId, {
         $unset: { 'profile.controlSession': '' }
       });
       const newSessionId = addSessionFn(graphId, session.slug);
@@ -59,6 +59,9 @@ Meteor.methods({
           $set: { settings: session.settings }
         });
       }
+      Meteor.users.update(this.userId, {
+        $set: { 'profile.controlSession': newSessionId }
+      });
       runSessionFn(newSessionId);
     }
   },
