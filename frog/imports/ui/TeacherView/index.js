@@ -29,7 +29,10 @@ const TeacherViewRunner = withRouter(
     let session;
     if (match?.params?.slug) {
       session = Sessions.findOne({
-        slug: match.params.slug.trim().toUpperCase()
+        slug: match.params.slug
+          .trim()
+          .toUpperCase()
+          .replace('OLD', 'old')
       });
       if (session) {
         Meteor.users.findOne(user._id, {
