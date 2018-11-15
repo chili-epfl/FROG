@@ -708,6 +708,7 @@ const words = {
 
 export default {
   name: 'Brainstorm',
+  supportsLearningItems: true,
   shortDesc:
     'Display text items, and vote up/down. Optionally students can add new items',
   description:

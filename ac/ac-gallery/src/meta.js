@@ -34,6 +34,7 @@ export const meta = {
   shortDesc: 'Display learning items',
   description:
     'Display a list of learning items, possibly categorised, option to allow upload and voting',
+  supportsLearningItems: true,
   exampleData: [
     {
       title: 'Simple view',
