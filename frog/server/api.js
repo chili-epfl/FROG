@@ -355,6 +355,23 @@ WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
   next();
 });
 
+WebApp.connectHandlers.use('/api/learningitem', (request, response, next) => {
+  const url = require('url').parse(request.url);
+  const LI = url.pathname.substring(1);
+  if (!LI) {
+    response.writeHead(422);
+    response.end();
+    return;
+  }
+  const type = request.query.type || request.body.type || 'dashboard';
+  InjectData.pushData(request, 'api', {
+    callType: 'learningItem',
+    learningItem: LI,
+    type
+  });
+  next();
+});
+
 WebApp.connectHandlers.use('/api/submitLog', (request, response) => {
   let logmsg;
   try {
