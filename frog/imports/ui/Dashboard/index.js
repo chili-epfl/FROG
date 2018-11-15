@@ -16,6 +16,7 @@ import { activityTypesObj } from '../../activityTypes';
 import MultiWrapper from './MultiWrapper';
 import { connection as conn } from '../App/connection';
 import LearningItem from '../LearningItem';
+import LIDashboard from './LIDashboard';
 
 let connection = null;
 let dashboardCollection = null;
@@ -40,6 +41,9 @@ const RawDashboardComp = ({
   ready,
   object
 }: DashboardCompPropsT) => {
+  if (name === 'Learning Items') {
+    return <LIDashboard activityId={activity._id} />;
+  }
   if (!ready && !state) {
     return <CircularProgress />;
   }
@@ -65,6 +69,9 @@ const RawDashboardComp = ({
 };
 
 export const DashboardComp = withTracker(props => {
+  if (props.name === 'Learning Items') {
+    return {};
+  }
   if (props.data) {
     return { ready: true, state: props.data };
   }
