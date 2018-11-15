@@ -66,9 +66,12 @@ class Dashboard extends React.Component<any, any> {
   };
 
   componentDidMount() {
+    const query = this.props.sessionId
+      ? { sessionId: this.props.sessionId, draft: { $ne: true } }
+      : { _id: this.props.id };
     const subscription = connection.createSubscribeQuery(
       'li',
-      { sessionId: this.props.sessionId, draft: { $ne: true } },
+      query,
       {},
       (err, results) =>
         this.setState({ results: results.map(x => ({ ...x.data, id: x.id })) })
@@ -90,40 +93,49 @@ class Dashboard extends React.Component<any, any> {
         JSON.stringify(x.payload).includes(this.state.search.trim())
       );
     }
-    const graphId = Sessions.findOne(this.props.sessionId).graphId;
+    const graphId =
+      this.props.sessionId && Sessions.findOne(this.props.sessionId).graphId;
     return (
       <div style={{ height: '900px' }}>
-        <div>
-          <MyMenu
-            title={this.state.filterTitle || 'All activities'}
-            choices={[
-              {
-                title: 'All activities',
-                key: 'all',
-                onClick: () =>
-                  this.setState({ filter: undefined, filterTitle: undefined })
-              },
-              ...Activities.find({ graphId })
-                .fetch()
-                .map(x => ({
-                  title: x.title,
-                  key: x._id,
+        {this.props.sessionId && (
+          <div>
+            <MyMenu
+              title={this.state.filterTitle || 'All activities'}
+              choices={[
+                {
+                  title: 'All activities',
+                  key: 'all',
                   onClick: () =>
-                    this.setState({ filter: x._id, filterTitle: x.title })
-                }))
-            ]}
-          />
-          <TextField
-            id="name"
-            label="Search"
-            onChange={e => this.setState({ search: e.target.value })}
-            margin="normal"
-          />
-        </div>
+                    this.setState({
+                      filter: undefined,
+                      filterTitle: undefined
+                    })
+                },
+                ...Activities.find({ graphId })
+                  .fetch()
+                  .map(x => ({
+                    title: x.title,
+                    key: x._id,
+                    onClick: () =>
+                      this.setState({ filter: x._id, filterTitle: x.title })
+                  }))
+              ]}
+            />
+            <TextField
+              id="name"
+              label="Search"
+              onChange={e => this.setState({ search: e.target.value })}
+              margin="normal"
+            />
+          </div>
+        )}
         {res.map(x => (
           <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
             <ImageBox key={x.id} onClick={() => this.setState({ zoom: x.id })}>
-              <LearningItem type="thumbView" id={x.id} />
+              <LearningItem
+                type={this.props.sessionId ? 'thumbView' : 'view'}
+                id={x.id}
+              />
             </ImageBox>
           </Tooltip>
         ))}
