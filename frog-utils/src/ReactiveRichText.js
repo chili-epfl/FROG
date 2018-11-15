@@ -17,11 +17,11 @@ function hashCode(str = '') {
 }
 
 function pickColor(str) {
-  return `hsl(${hashCode(str) % 360}, 100%, 80%)`;
+  return `hsl(${hashCode(str) % 360}, 100%, 30%)`;
 }
 
 const Toolbar = ({ id, readOnly }) => (
-  <div id={`toolbar-${id}`} style={{display: readOnly ? 'none' : 'block'}}>
+  <div id={`toolbar-${id}`} style={{ display: readOnly ? 'none' : 'block' }}>
     <button className="ql-bold" />
     <button className="ql-italic" />
     <button className="ql-underline" />
@@ -77,10 +77,12 @@ const registerBlot = dataFn => {
   class LearningItemBlot extends Embed {
     static create(value) {
       const node = super.create(value);
-      const {authorId, liId} = value;
+      const { authorId, liId } = value;
       node.setAttribute('contenteditable', false);
       ReactDOM.render(
-        <div className={`ql-author-${authorId}`}><LearningItemContainer dataFn={dataFn} id={liId} /></div>,
+        <div className={`ql-author-${authorId}`}>
+          <LearningItemContainer dataFn={dataFn} id={liId} />
+        </div>,
         node
       );
       return node;
@@ -129,12 +131,13 @@ class ReactiveRichText extends Component<
         this.quillRef.getEditor().setContents(this.getDocumentContent());
       } else {
         op.forEach(operation => {
-          operation.o && operation.o.forEach(o => {
-            const author = get(o, 'attributes.author');
-            if (author) {
-              this.addAuthor(author)
-            }
-          });
+          operation.o &&
+            operation.o.forEach(o => {
+              const author = get(o, 'attributes.author');
+              if (author) {
+                this.addAuthor(author);
+              }
+            });
           const opPath = last(operation.p);
           if (opPath === this.props.path) {
             this.quillRef.getEditor().updateContents(operation.o);
@@ -176,14 +179,14 @@ class ReactiveRichText extends Component<
 
     this.addAuthor(this.props.userId);
     const content = this.getDocumentContent();
-    content.ops && content.ops.forEach(op => {
-      const author = get(op, 'attributes.author');
-      if (author) {
-        this.addAuthor(author);
-      }
-    })
+    content.ops &&
+      content.ops.forEach(op => {
+        const author = get(op, 'attributes.author');
+        if (author) {
+          this.addAuthor(author);
+        }
+      });
   };
-
 
   toggleAuthorship = () => {
     const editor = invoke(this.quillRef, 'getEditor');
@@ -191,7 +194,6 @@ class ReactiveRichText extends Component<
       editor.root.classList.toggle('ql-authorship');
     }
   };
-
 
   componentDidMount() {
     if (!this.props.data) {
@@ -238,30 +240,21 @@ class ReactiveRichText extends Component<
     }
     const color = pickColor(id);
     const css =
-      '.ql-authorship .ql-author-' +
-      id +
-      ' { ' +
-      'background-color:' +
-      color +
-      '; }\n';
+      '.ql-authorship .ql-author-' + id + ' { ' + 'color:' + color + '; }\n';
 
     const styleElements = this.styleElements || {};
     if (!get(styleElements, id)) {
       styleElements[id] = document.createElement('style');
       styleElements[id].type = 'text/css';
       styleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
-      styleElements[id].classList.add(
-        'ql-authorship-style-' + id
-      ); // in case for some manipulation
+      styleElements[id].classList.add('ql-authorship-style-' + id); // in case for some manipulation
       styleElements[id].innerHTML = css;
       document.documentElement
         .getElementsByTagName('head')[0]
         .appendChild(styleElements[id]);
-
     }
     this.styleElements = styleElements;
   }
-
 
   handleChange = (contents: string, delta: Object, source: string) => {
     if (!this.props.readOnly) {
@@ -295,10 +288,7 @@ class ReactiveRichText extends Component<
 
           op.attributes.author = this.props.userId;
           // Apply authorship to our own editor
-          authorDelta.retain(
-            op.retain || op.insert.length || 1,
-            authorFormat
-          );
+          authorDelta.retain(op.retain || op.insert.length || 1, authorFormat);
         } else {
           authorDelta.retain(op.retain);
         }
@@ -350,7 +340,10 @@ class ReactiveRichText extends Component<
     const defaultValue = this.getDocumentContent();
     return (
       <div>
-        <Toolbar id={`${this.props.userId}-${this.props.path}`} readOnly={this.props.readOnly}/>
+        <Toolbar
+          id={`${this.props.userId}-${this.props.path}`}
+          readOnly={this.props.readOnly}
+        />
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
@@ -361,11 +354,11 @@ class ReactiveRichText extends Component<
           formats={formats}
           modules={{
             toolbar: {
-                container: `#toolbar-${this.props.userId}-${this.props.path}`,
-                handlers: {
-                  "toggleAuthorship": this.toggleAuthorship
-                }
+              container: `#toolbar-${this.props.userId}-${this.props.path}`,
+              handlers: {
+                toggleAuthorship: this.toggleAuthorship
               }
+            }
           }}
         >
           <div style={this.props.readOnly ? { borderStyle: 'hidden' } : {}} />
