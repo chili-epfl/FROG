@@ -129,6 +129,7 @@ class ReactiveRichText extends Component<
         this.quillRef.getEditor().setContents(this.getDocumentContent());
       } else {
         op.forEach(operation => {
+          console.log(operation)
           operation.o && operation.o.forEach(o => {
             const author = get(o, 'attributes.author');
             if (author) {
@@ -268,6 +269,8 @@ class ReactiveRichText extends Component<
       if (source !== 'user') {
         return;
       }
+      console.log('processing ', delta)
+
       const editor = this.quillRef.getEditor();
 
       const Delta = Quill.import('delta');
@@ -311,7 +314,7 @@ class ReactiveRichText extends Component<
         // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
         editor.updateContents(authorDelta, Quill.sources.SILENT);
       }
-
+      console.log('submitting ', delta)
       this.submitOperation(delta);
     }
   };
