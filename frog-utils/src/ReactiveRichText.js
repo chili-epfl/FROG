@@ -51,6 +51,8 @@ const Toolbar = ({ id, readOnly }) => (
 
 const AuthorshipToggleBtn = () => <span>AU</span>;
 
+const authorStyleElements = {};
+
 const formats = [
   'bold',
   'italic',
@@ -241,18 +243,16 @@ class ReactiveRichText extends Component<
     const css =
       `.ql-authorship .ql-author-${id} { color: ${color}; }\n`;
 
-    const styleElements = this.styleElements || {};
-    if (!get(styleElements, id)) {
-      styleElements[id] = document.createElement('style');
-      styleElements[id].type = 'text/css';
-      styleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
-      styleElements[id].classList.add(`ql-authorship-style-${id}`); // in case for some manipulation
-      styleElements[id].innerHTML = css;
+    if (!get(authorStyleElements, id)) {
+      authorStyleElements[id] = document.createElement('style');
+      authorStyleElements[id].type = 'text/css';
+      authorStyleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
+      authorStyleElements[id].classList.add(`ql-authorship-style-${id}`); // in case for some manipulation
+      authorStyleElements[id].innerHTML = css;
       document.documentElement
         .getElementsByTagName('head')[0]
-        .appendChild(styleElements[id]);
+        .appendChild(authorStyleElements[id]);
     }
-    this.styleElements = styleElements;
   }
 
   handleChange = (contents: string, delta: Object, source: string) => {
