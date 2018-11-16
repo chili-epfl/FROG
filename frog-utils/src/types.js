@@ -135,6 +135,7 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
+    supportsLearningItems?: boolean,
     exampleData?: {
       title: string,
       config?: Object,

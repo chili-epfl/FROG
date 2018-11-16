@@ -156,15 +156,20 @@ class ImageList extends React.Component<*, *> {
               <Switcher
                 className={classes.margin}
                 onlyShow={this.state.onlyBookmarked}
-                toggleFn={() =>
-                  this.setState({ onlyBookmarked: !this.state.onlyBookmarked })
-                }
+                toggleFn={() => {
+                  this.setState({ onlyBookmarked: !this.state.onlyBookmarked });
+                  logger({
+                    type: 'setOnlyStarred',
+                    value: (!this.state.onlyBookmarked).toString()
+                  });
+                }}
               />
               <Button
                 variant="outlined"
-                onClick={() =>
-                  this.setState({ bookmarks: {}, onlyBookmarked: false })
-                }
+                onClick={() => {
+                  this.setState({ bookmarks: {}, onlyBookmarked: false });
+                  logger({ type: 'clearAllStars' });
+                }}
               >
                 Clear all stars
               </Button>

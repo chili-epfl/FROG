@@ -2,16 +2,33 @@
 
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
-import { uuid } from 'frog-utils';
+import { uuid, generateReactiveFn } from 'frog-utils';
 
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { createLogger } from '../../api/logs';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { LocalSettings } from '../../api/settings';
+import { connection } from './connection';
+import LearningItem from '../LearningItem';
+import LIDashboard from '../Dashboard/LIDashboard';
 
 export default ({ data }: { data: Object }) => {
   LocalSettings.api = true;
+  if (data.callType === 'learningItem') {
+    const doc = connection.get('li', uuid());
+    const dataFn = generateReactiveFn(doc, LearningItem);
+    const LI = dataFn.LearningItem;
+    return (
+      <div style={{ margin: '20px' }}>
+        {data.type === 'dashboard' ? (
+          <LIDashboard id={data.learningItem} />
+        ) : (
+          <LI id={data.learningItem} type={data.type} />
+        )}
+      </div>
+    );
+  }
   if (data.callType === 'dashboard') {
     return (
       <DashMultiWrapper
