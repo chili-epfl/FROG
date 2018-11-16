@@ -135,7 +135,6 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
-    supportsLearningItems?: boolean,
     exampleData?: {
       title: string,
       config?: Object,
@@ -342,7 +341,6 @@ export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
 export type LearningItemT<T> = {
   name: string,
   id: string,
-  canDropLI?: boolean,
   dataStructure?: T,
   Editor?: React.ComponentType<{
     data: T,

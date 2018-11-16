@@ -58,16 +58,12 @@ class MyMenu extends React.Component<any, any> {
 }
 
 class Dashboard extends React.Component<any, any> {
-  constructor(props: *) {
-    super(props);
-
-    this.state = {
-      results: [],
-      search: '',
-      filter: props.activityId,
-      filterTitle: undefined
-    };
-  }
+  state = {
+    results: [],
+    search: '',
+    filter: undefined,
+    filterTitle: undefined
+  };
 
   componentDidMount() {
     const query = this.props.sessionId
