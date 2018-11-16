@@ -337,30 +337,32 @@ class ReactiveRichText extends Component<
 
   render() {
     const defaultValue = this.getDocumentContent();
+    const props = this.props;
+    const toolbarId = `${get(props, 'userId')}-${get(props, 'path')}-${get(props, 'dataFn.doc.id')}`;
     return (
       <div>
         <Toolbar
-          id={`${this.props.userId}-${this.props.path}`}
-          readOnly={this.props.readOnly}
+          id={toolbarId}
+          readOnly={get(props, 'readOnly')}
         />
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
             this.quillRef = element;
           }}
-          readOnly={this.props.readOnly}
+          readOnly={get(props, 'readOnly')}
           onChange={this.handleChange}
           formats={formats}
           modules={{
             toolbar: {
-              container: `#toolbar-${this.props.userId}-${this.props.path}`,
+              container: `#toolbar-${toolbarId}`,
               handlers: {
                 toggleAuthorship: this.toggleAuthorship
               }
             }
           }}
         >
-          <div style={this.props.readOnly ? { borderStyle: 'hidden' } : {}} />
+          <div style={props.readOnly ? { borderStyle: 'hidden' } : {}} />
         </ReactQuill>
       </div>
     );
