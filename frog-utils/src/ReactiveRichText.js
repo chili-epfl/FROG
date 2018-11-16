@@ -3,7 +3,7 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { get, set, invoke, isEqual, last } from 'lodash';
+import { get, set, invoke, isEqual, last, forEach } from 'lodash';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText } from './index';
 
@@ -130,7 +130,8 @@ class ReactiveRichText extends Component<
       } else {
         op.forEach(operation => {
           console.log(operation)
-          operation.o && operation.o.forEach(o => {
+          const operations = get(operation, 'o.ops') || get(operation, 'o');
+          forEach(operations, o => {
             const author = get(o, 'attributes.author');
             if (author) {
               this.addAuthor(author)
