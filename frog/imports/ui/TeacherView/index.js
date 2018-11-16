@@ -44,7 +44,13 @@ const TeacherViewRunner = withRouter(
     if (!session) {
       session = user.profile && Sessions.findOne(user.profile.controlSession);
     }
-    if (session && session.slug !== match.params.slug) {
+    if (
+      session &&
+      (!match.params.slug ||
+        (session.slug !== match.params.slug &&
+          !session.slug.includes('-old-') &&
+          !match.params.slug.includes('-old')))
+    ) {
       history.push(
         '/teacher/orchestration/' + session.slug + LocalSettings.UrlCoda
       );
