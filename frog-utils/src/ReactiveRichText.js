@@ -179,13 +179,12 @@ class ReactiveRichText extends Component<
 
     this.addAuthor(this.props.userId);
     const content = this.getDocumentContent();
-    content.ops &&
-      content.ops.forEach(op => {
-        const author = get(op, 'attributes.author');
-        if (author) {
-          this.addAuthor(author);
-        }
-      });
+    forEach(content.ops, op => {
+      const author = get(op, 'attributes.author');
+      if (author) {
+        this.addAuthor(author);
+      }
+    });
   };
 
   toggleAuthorship = () => {
@@ -240,14 +239,14 @@ class ReactiveRichText extends Component<
     }
     const color = pickColor(id);
     const css =
-      '.ql-authorship .ql-author-' + id + ' { ' + 'color:' + color + '; }\n';
+      `.ql-authorship .ql-author-${id} { color: ${color}; }\n`;
 
     const styleElements = this.styleElements || {};
     if (!get(styleElements, id)) {
       styleElements[id] = document.createElement('style');
       styleElements[id].type = 'text/css';
       styleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
-      styleElements[id].classList.add('ql-authorship-style-' + id); // in case for some manipulation
+      styleElements[id].classList.add(`ql-authorship-style-${id}`); // in case for some manipulation
       styleElements[id].innerHTML = css;
       document.documentElement
         .getElementsByTagName('head')[0]
