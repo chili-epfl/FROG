@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { get, set, invoke, isEqual, last, forEach } from 'lodash';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
-import { shortenRichText } from './index';
+import { shortenRichText, uuid } from './index';
 
 function hashCode(str = '') {
   let hash = 0;
@@ -337,10 +337,7 @@ class ReactiveRichText extends Component<
   render() {
     const defaultValue = this.getDocumentContent();
     const props = this.props;
-    const toolbarId = `${get(props, 'userId')}-${get(props, 'path')}-${get(
-      props,
-      'dataFn.doc.id'
-    )}`;
+    const toolbarId = uuid();
     return (
       <div>
         <Toolbar id={toolbarId} readOnly={get(props, 'readOnly')} />
