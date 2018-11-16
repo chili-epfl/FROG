@@ -131,6 +131,9 @@ const MultiWrapper = (props: {
   if (isEmpty(dashNames)) {
     return null;
   }
+  if (aT.meta?.supportsLearningItems) {
+    dashNames.unshift('Learning Items');
+  }
 
   return (
     <DashboardSelector

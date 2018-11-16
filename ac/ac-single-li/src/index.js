@@ -12,7 +12,8 @@ import upgradeFunctions from './upgradeFunctions';
 const meta = {
   name: 'Add/edit single LI',
   shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available'
+  description: 'New activity, no description available',
+  supportsLearningItems: true
 };
 
 const config = {
