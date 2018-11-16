@@ -11,7 +11,7 @@ function hashCode(str = '') {
   let hash = 0;
   let i = 0;
   for (; i < str.length; i += 1) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line no-bitwise
   }
   return hash;
 }
@@ -137,7 +137,7 @@ class ReactiveRichText extends Component<
           forEach(operations, o => {
             const author = get(o, 'attributes.author');
             if (author) {
-              this.addAuthor(author)
+              this.addAuthor(author);
             }
           });
           const opPath = last(operation.p);
@@ -240,8 +240,7 @@ class ReactiveRichText extends Component<
       return;
     }
     const color = pickColor(id);
-    const css =
-      `.ql-authorship .ql-author-${id} { color: ${color}; }\n`;
+    const css = `.ql-authorship .ql-author-${id} { color: ${color}; }\n`;
 
     if (!get(authorStyleElements, id)) {
       authorStyleElements[id] = document.createElement('style');
@@ -338,13 +337,13 @@ class ReactiveRichText extends Component<
   render() {
     const defaultValue = this.getDocumentContent();
     const props = this.props;
-    const toolbarId = `${get(props, 'userId')}-${get(props, 'path')}-${get(props, 'dataFn.doc.id')}`;
+    const toolbarId = `${get(props, 'userId')}-${get(props, 'path')}-${get(
+      props,
+      'dataFn.doc.id'
+    )}`;
     return (
       <div>
-        <Toolbar
-          id={toolbarId}
-          readOnly={get(props, 'readOnly')}
-        />
+        <Toolbar id={toolbarId} readOnly={get(props, 'readOnly')} />
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
