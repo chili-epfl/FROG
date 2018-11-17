@@ -58,7 +58,7 @@ class LearningItem extends React.Component<
               props.dataFn.doc.connection,
               undefined,
               'li',
-              this.props.dataFn.meta,
+              undefined,
               props.dataFn.backend
             )(RenderLearningItem)
           : newprops => (

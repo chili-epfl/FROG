@@ -6,15 +6,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import { Provider } from 'mobx-react';
-import { isEqual, omit } from 'lodash';
-import InsertLink from '@material-ui/icons/InsertLink';
-import NoteAdd from '@material-ui/icons/NoteAdd';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddCircle from '@material-ui/icons/AddCircle';
 import { type LearningItemT, values } from 'frog-utils';
 
-import { connect, listore } from './store';
 import { learningItemTypesObj } from '../../activityTypes';
 import LearningItem from './index';
 
@@ -28,81 +23,13 @@ const styles = theme => ({
   }
 });
 
-class ButtonRaw extends React.Component<*, *> {
-  state = { selected: false };
-  mounted: boolean;
-  componentDidMount = () => (this.mounted = true);
-  componentWillUnmount = () => (this.mounted = false);
-  render() {
-    const { anchorEl, callback, handleClick, classes } = this.props;
-    return (
-      <div
-        onMouseOver={() => {
-          if (this.mounted && this.props.store.dragState) {
-            this.setState({ selected: true });
-            this.props.store.setOverCB(callback);
-          }
-        }}
-        onMouseLeave={() => {
-          if (this.mounted) {
-            this.setState({ selected: false });
-            this.props.store.setOverCB(null);
-          }
-        }}
-      >
-        <Button
-          className={classes.button}
-          variant="fab"
-          aria-owns={anchorEl ? 'simple-menu' : null}
-          aria-haspopup="true"
-          onClick={handleClick}
-          color={this.state.selected ? 'secondary' : 'primary'}
-        >
-          <AddCircle style={{ color: 'white' }} />
-        </Button>
-      </div>
-    );
-  }
-}
-const DragIconRaw = ({ store }) =>
-  store.dragState && (
-    <div
-      style={{
-        position: 'fixed',
-        zIndex: 99,
-        top: store.coords[1],
-        left: store.coords[0],
-        pointerEvents: 'none'
-      }}
-    >
-      {store.dragState.shiftKey ? (
-        <NoteAdd style={{ fontSize: 36 }} />
-      ) : (
-        <InsertLink style={{ fontSize: 36 }} />
-      )}
-    </div>
-  );
-const DragIcon = connect(DragIconRaw);
-const WrappedDragIcon = props => (
-  <Provider store={listore}>
-    <DragIcon {...props} />
-  </Provider>
-);
-const AddButton = connect(ButtonRaw);
-const WrappedAddButton = props => (
-  <Provider store={listore}>
-    <AddButton {...props} />
-  </Provider>
-);
-
 class LearningItemChooser extends React.Component<
   { classes: Object, onCreate: Function, dataFn: Object },
-  { anchorEl: any, open?: LearningItemT<any>, selected: boolean }
+  { anchorEl: any, open?: LearningItemT<any> }
 > {
   state = {
     anchorEl: null,
-    open: undefined,
-    selected: false
+    open: undefined
   };
 
   handleClick = (event: any) => {
@@ -113,30 +40,21 @@ class LearningItemChooser extends React.Component<
     this.setState({ anchorEl: null });
   };
 
-  callback = e => {
-    this.props.onCreate(e.item);
-  };
-
-  shouldComponentUpdate(nextProps: any, nextState: Object) {
-    return (
-      !isEqual(
-        omit(nextProps, ['dataFn', 'classes', 'onCreate']),
-        omit(this.props, ['dataFn', 'classes', 'onCreate'])
-      ) || !isEqual(nextState, this.state)
-    );
-  }
-
   render() {
     const { anchorEl } = this.state;
 
     return (
-      <>
-        <WrappedAddButton
-          anchorEl={this.state.anchorEl}
-          handleClick={this.handleClick}
-          classes={this.props.classes}
-          callback={this.callback}
-        />
+      <div>
+        <Button
+          className={this.props.classes.button}
+          variant="fab"
+          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-haspopup="true"
+          onClick={this.handleClick}
+          color="primary"
+        >
+          <AddCircle style={{ color: 'white' }} />
+        </Button>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -180,8 +98,7 @@ class LearningItemChooser extends React.Component<
             </div>
           </Dialog>
         )}
-        <WrappedDragIcon />
-      </>
+      </div>
     );
   }
 }
