@@ -308,7 +308,7 @@ class ReactiveRichText extends Component<
     }
   };
 
-  submitOperation = (delta: {ops: Array<{}>}) => {
+  submitOperation = (delta: { ops: Array<{}> }) => {
     const op = {
       p: this.state.path,
       t: 'rich-text',
@@ -326,7 +326,11 @@ class ReactiveRichText extends Component<
         liId: e,
         authorId: this.props.userId
       };
-      const delta = editor.insertEmbed(get(range, 'index') || 0, 'learning-item', params);
+      const delta = editor.insertEmbed(
+        get(range, 'index') || 0,
+        'learning-item',
+        params
+      );
 
       // Quill doesn't include the passed value in the delta. So doing it manually
       delta.ops.forEach(op => {
