@@ -31,6 +31,7 @@ const meta = {
   name: 'Add/edit single LI',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
+  supportsLearningItems: true,
   exampleData: [
     {
       title: 'Rich Text with Learning Items',

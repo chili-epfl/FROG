@@ -21,6 +21,7 @@ import { DashboardStates } from '../../api/cache';
 import { ShowInfoDash } from './ShowInfo';
 import { generateDataFn } from './Content';
 import { groupName } from './Controls';
+import LIDashboard from '../Dashboard/LIDashboard';
 
 export const DocumentCache = {};
 export const Logs: Object[] = [];
@@ -202,6 +203,9 @@ class PreviewDash extends React.Component<
   };
 
   render = () => {
+    if (this.props.name === 'Learning Items') {
+      return <LIDashboard activityId={this.props.activity._id} />;
+    }
     if (!this.aT) {
       return <p>Chose an activity type</p>;
     }
