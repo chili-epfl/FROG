@@ -149,6 +149,7 @@ class RenderLearningItem extends React.Component<any, any> {
     const Comp = this.Comp;
     return Comp ? (
       <Comp
+        userId={dataFn.meta?.createdByUser}
         data={data.payload}
         isPlayback={isPlayback}
         dataFn={dataFn && dataFn.specialize('payload')}

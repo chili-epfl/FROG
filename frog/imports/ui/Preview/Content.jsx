@@ -164,7 +164,7 @@ const ContentController = ({
       connection,
       false,
       undefined,
-      undefined,
+      { createdByUser: getUserId(name) },
       backend,
       undefined,
       undefined,
