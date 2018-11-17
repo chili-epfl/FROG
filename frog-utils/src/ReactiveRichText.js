@@ -327,7 +327,7 @@ class ReactiveRichText extends Component<
         authorId: this.props.userId
       };
       const delta = editor.insertEmbed(
-        get(range, 'index') || 0,
+        get(range, 'index') || editor.getLength() - 1,
         'learning-item',
         params
       );
