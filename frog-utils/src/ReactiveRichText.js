@@ -210,6 +210,7 @@ class ReactiveRichText extends Component<
     this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
     registerBlot(this.props.dataFn);
     registerAuthorClass();
+    this.toolbarId = uuid();
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -337,10 +338,11 @@ class ReactiveRichText extends Component<
   render() {
     const defaultValue = this.getDocumentContent();
     const props = this.props;
-    const toolbarId = uuid();
     return (
       <div>
-        <Toolbar id={toolbarId} readOnly={get(props, 'readOnly')} />
+        {!get(props, 'readOnly') && (
+          <Toolbar id={this.toolbarId} readOnly={get(props, 'readOnly')} />
+        )}
         <ReactQuill
           defaultValue={defaultValue}
           ref={element => {
@@ -350,12 +352,14 @@ class ReactiveRichText extends Component<
           onChange={this.handleChange}
           formats={formats}
           modules={{
-            toolbar: {
-              container: `#toolbar-${toolbarId}`,
-              handlers: {
-                toggleAuthorship: this.toggleAuthorship
-              }
-            }
+            toolbar: get(props, 'readOnly')
+              ? null
+              : {
+                  container: `#toolbar-${this.toolbarId}`,
+                  handlers: {
+                    toggleAuthorship: this.toggleAuthorship
+                  }
+                }
           }}
         >
           <div style={props.readOnly ? { borderStyle: 'hidden' } : {}} />
