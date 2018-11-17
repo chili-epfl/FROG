@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
 import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
 import { Provider } from 'mobx-react';
@@ -103,6 +104,7 @@ class RenderLearningItem extends React.Component<any, any> {
     } = this.props;
     const liType = learningItemTypesObj[data.liType];
     const LIComp = this.Comp;
+    LIComp.displayName = liType.id + '-' + type;
     const Comp = (
       <>
         <DraggableCore
@@ -136,6 +138,7 @@ class RenderLearningItem extends React.Component<any, any> {
               }}
             >
               <LIComp
+                userId={dataFn.meta?.createdByUser}
                 data={data.payload}
                 isPlayback={isPlayback}
                 dataFn={dataFn && dataFn.specialize('payload')}
