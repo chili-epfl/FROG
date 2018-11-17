@@ -121,8 +121,11 @@ class ReactiveRichText extends Component<
   { path: ?((string | number)[]) }
 > {
   quillRef: any;
-  state = { path: undefined };
+  compositionStart: boolean;
+  authorDeltaToApply: any;
+  toolbarId: string;
   styleElements: {};
+  state = { path: undefined };
 
   opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
@@ -165,14 +168,14 @@ class ReactiveRichText extends Component<
 
   initializeAuthorship = () => {
     const editor = this.quillRef.getEditor();
-    this.compositionstart = false;
+    this.compositionStart = false;
     this.authorDeltaToApply = null;
     editor.scroll.domNode.addEventListener('compositionstart', () => {
-      this.compositionstart = true;
+      this.compositionStart = true;
       this.authorDeltaToApply = null;
     });
     editor.scroll.domNode.addEventListener('compositionend', () => {
-      this.compositionstart = false;
+      this.compositionStart = false;
       if (this.authorDeltaToApply) {
         editor.updateContents(this.authorDeltaToApply, Quill.sources.SILENT);
         this.authorDeltaToApply = null;
@@ -236,7 +239,7 @@ class ReactiveRichText extends Component<
     }
   }
 
-  addAuthor(id) {
+  addAuthor(id: string) {
     if (!id) {
       return;
     }
@@ -249,7 +252,7 @@ class ReactiveRichText extends Component<
       authorStyleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
       authorStyleElements[id].classList.add(`ql-authorship-style-${id}`); // in case for some manipulation
       authorStyleElements[id].innerHTML = css;
-      document.documentElement
+      document.documentElement // $FlowFixMe
         .getElementsByTagName('head')[0]
         .appendChild(authorStyleElements[id]);
     }
@@ -295,9 +298,9 @@ class ReactiveRichText extends Component<
       });
 
       // if IME keyboard (e.g. CH Pinyin), only update the delta with author attribute
-      // on `compositionend`. If non-IME keyboard (e.g. English) there will be no `compositionstart`
+      // on `compositionend`. If non-IME keyboard (e.g. English) there will be no `compositionStart`
       this.authorDeltaToApply = authorDelta; // copy it to apply later at `conpositionend` for IME keyboards
-      if (!this.compositionstart) {
+      if (!this.compositionStart) {
         // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
         editor.updateContents(authorDelta, Quill.sources.SILENT);
       }
@@ -305,7 +308,7 @@ class ReactiveRichText extends Component<
     }
   };
 
-  submitOperation = delta => {
+  submitOperation = (delta: {ops: Array<{}>}) => {
     const op = {
       p: this.state.path,
       t: 'rich-text',
@@ -315,15 +318,15 @@ class ReactiveRichText extends Component<
     this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
-  onDrop = e => {
+  onDrop = (e: string) => {
     const editor = invoke(this.quillRef, 'getEditor');
     if (editor) {
-      const range = editor.getSelection() || 0;
+      const range = editor.getSelection();
       const params = {
         liId: e,
         authorId: this.props.userId
       };
-      const delta = editor.insertEmbed(range.index, 'learning-item', params);
+      const delta = editor.insertEmbed(get(range, 'index') || 0, 'learning-item', params);
 
       // Quill doesn't include the passed value in the delta. So doing it manually
       delta.ops.forEach(op => {
