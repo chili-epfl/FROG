@@ -376,5 +376,4 @@ class ReactiveRichText extends Component<
   }
 }
 
-window.q = Quill;
 export default ReactiveRichText;
