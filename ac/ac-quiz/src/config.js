@@ -50,6 +50,11 @@ export const config = {
             title: 'Ask for a text answer',
             default: false
           },
+          value: {
+            type: 'boolean',
+            title: 'Ask for a numerical answer',
+            default: false
+          },
           answers: {
             type: 'array',
             title: 'Choices',

@@ -10,7 +10,25 @@ const meta = {
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    primary: {
+      type: 'number',
+      title: 'Index of quiz question for the primary data (index starts at 0)'
+    },
+    secondary: {
+      type: 'number',
+      title:
+        'Index of quiz question for the secondary data (can be left empty, must be categorical)'
+    },
+    filterMin: {
+      type: 'number',
+      title: 'Filter values less than (can be left empty)'
+    },
+    filterMax: {
+      type: 'number',
+      title: 'Filter values more than (can be left empty)'
+    }
+  }
 };
 
 export default ({
