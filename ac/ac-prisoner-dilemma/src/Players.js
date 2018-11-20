@@ -28,37 +28,18 @@ type StyledPlayersPropsT = PlayersPropsT & { classes: Object };
 
 const PlayersController = (props: StyledPlayersPropsT) => {
 
-    // Methods
-
-    const selectImage = (player, adversary) => {
-        let imagePath = '/clientFiles/ac-prisoner-dilemma/';
-
-        imagePath += player ?
-            (adversary ? 'happy.png' : 'sad.png') :
-            (adversary ? 'cheat.png' : 'zero.png');
-
-        return imagePath;
-    };
-
     // Rendering
 
     const leftPlayer = props.round < 2 ? true : props.roundsLog[(props.round - 2).toString()][props.students[0]];
     const rightPlayer = props.round < 2 ? true : props.roundsLog[(props.round - 2).toString()][props.students[1]];
 
-    const imageLeft = selectImage(leftPlayer, rightPlayer);
-    const imageRight = selectImage(rightPlayer, leftPlayer);
-
     return (
         <div className={props.classes.imageContainer}>
             <img
+                id='players_image'
                 alt=''
                 className={props.classes.image}
-                src={imageLeft}
-            />
-            <img
-                alt=''
-                className={props.classes.image}
-                src={imageRight}
+                src='/clientFiles/ac-prisoner-dilemma/idle,png' //TODO verify it works
             />
         </div>
     );

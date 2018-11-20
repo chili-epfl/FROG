@@ -72,7 +72,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
         element.style.background = color;
         setTimeout(() => {
             element.style.background = baseColor;
-        }, 750);
+        }, 1000);
     };
 
     const showAction = (id, action) => {
@@ -82,7 +82,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
         element.innerHTML = text;
         setTimeout(() => {
             element.innerHTML = baseAction;
-        }, 750);
+        }, 1000);
     };
 
     const computeScore = (id, player, adversary) => {
@@ -112,6 +112,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
 
             computeScore(keys[0], a, b);
             computeScore(keys[1], b, a);
+            updateImage(player, adversary);
 
             const path = props.config.rounds === props.round ?
                 'winner' : ['rounds', props.round.toString()];
@@ -121,6 +122,20 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
                 path
             );
         }
+    };
+
+    const updateImage = (left, rigth) => {
+        let imagePath = '/clientFiles/ac-prisoner-dilemma/';
+
+        imagePath += left ?
+            (adversary ? 'win_win.png' : 'lose_win.png') :
+            (adversary ? 'win_lose.png' : 'lose_lose.png');
+
+        const element = document.getElementById('players_image');
+        element.src = imagePath;
+        setTimeout(() => {
+            element.src = imagePath + 'idle.png';
+        }, 1000);
     };
 
     // Rendering
