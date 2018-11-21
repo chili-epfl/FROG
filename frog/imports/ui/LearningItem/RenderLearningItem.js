@@ -138,7 +138,7 @@ class RenderLearningItem extends React.Component<any, any> {
               }}
             >
               <LIComp
-                userId={dataFn.meta?.createdByUser}
+                userId={dataFn?.meta?.createdByUser}
                 data={data.payload}
                 isPlayback={isPlayback}
                 dataFn={dataFn && dataFn.specialize('payload')}
