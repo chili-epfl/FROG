@@ -14,7 +14,7 @@ const meta = {
 
 const config = {
   type: 'object',
-  required: ['rounds', 'gainMatrix'],
+  required: ['rounds'],
   properties: {
     title: {
       title: 'What is the title?',
@@ -23,29 +23,6 @@ const config = {
     rounds: {
         title: 'Number of rounds',
         type: 'number'
-    },
-    gainMatrix: {
-        title: 'Gain Matrix',
-        type: 'object',
-        required: ['cooperateCooperate', 'cheatCheat', 'cooperateCheat', 'cheatCooperate'],
-        properties: {
-            cooperateCooperate: {
-                title: 'Score if both players cooperate',
-                type: 'number'
-            },
-            cheatCheat: {
-                title: 'Score if both players cheat',
-                type: 'number'
-            },
-            cooperateCheat: {
-                title: 'Score if player cooperates and adversary cheats',
-                type: 'number'
-            },
-            cheatCooperate: {
-                title: 'Score if player cheats and adversary cooperates',
-                type: 'number'
-            }
-        }
     }
   }
 };
@@ -55,7 +32,8 @@ const dataStructure = {
     students: {},
     rounds: {
         0: {}
-    }
+    },
+    phase: 0
 };
 
 // receives incoming data, and merges it with the reactive data using dataFn.*

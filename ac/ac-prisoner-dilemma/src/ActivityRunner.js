@@ -12,7 +12,7 @@ import Buttons from './Buttons';
 
 const styles = {
     result: {
-        marginTop: '100px',
+        marginTop: '50px',
         fontSize: '50px',
         lineHeight: '45px',
         textAlign: 'center',
@@ -48,7 +48,7 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     // Methods
 
     renderGame(students, round, disableButtons) {
-        if (!this.props.data.winner) {
+        if (this.props.data.phase !== 2) {
 
             const waiting = (students.indexOf(this.props.userInfo.id) > -1 && disableButtons) ?
                 <div className={this.props.classes.waiting}> Waiting for the other player... </div> :

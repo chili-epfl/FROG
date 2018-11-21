@@ -6,16 +6,14 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     imageContainer: {
-        marginBottom: '50px',
-        marginTop: '50px',
         width: '100%',
-        height: '40%',
+        height: '30%',
     },
     image: {
         display: 'inline-block',
         marginLeft: '15%',
         marginRight: '15%',
-        width: '20%',
+        width: '70%',
     }
 };
 
@@ -28,18 +26,13 @@ type StyledPlayersPropsT = PlayersPropsT & { classes: Object };
 
 const PlayersController = (props: StyledPlayersPropsT) => {
 
-    // Rendering
-
-    const leftPlayer = props.round < 2 ? true : props.roundsLog[(props.round - 2).toString()][props.students[0]];
-    const rightPlayer = props.round < 2 ? true : props.roundsLog[(props.round - 2).toString()][props.students[1]];
-
     return (
         <div className={props.classes.imageContainer}>
             <img
                 id='players_image'
                 alt=''
                 className={props.classes.image}
-                src='/clientFiles/ac-prisoner-dilemma/idle,png' //TODO verify it works
+                src='/clientFiles/ac-prisoner-dilemma/idle.png' //TODO verify it works
             />
         </div>
     );

@@ -20,10 +20,9 @@ const actionPostfix = '_action';
 
 const styles = {
     scoreBoard: {
-        marginBottom: '25px',
-        marginTop: '25px',
+        // marginBottom: '25px',
         width: '100%',
-        height: '150px',
+        height: '75px',
     },
     score: {
         display: 'inline-block',
@@ -31,6 +30,7 @@ const styles = {
         width: '20%',
         marginLeft: '15%',
         marginRight: '15%',
+        marginTop: '15px',
         textAlign: 'center',
         borderRadius: '10px',
         lineHeight: '50px',
@@ -72,7 +72,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
         element.style.background = color;
         setTimeout(() => {
             element.style.background = baseColor;
-        }, 1000);
+        }, 1500);
     };
 
     const showAction = (id, action) => {
@@ -82,17 +82,16 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
         element.innerHTML = text;
         setTimeout(() => {
             element.innerHTML = baseAction;
-        }, 1000);
+        }, 1500);
     };
 
     const computeScore = (id, player, adversary) => {
-        const scores = props.config.gainMatrix;
 
         const oldScore = props.data.students[id].score;
         let newScore = oldScore;
         newScore += player ?
-            (adversary ? scores.cooperateCooperate : scores.cooperateCheat) :
-            (adversary ? scores.cheatCooperate : scores.cheatCheat);
+            (adversary ? 2 : -1) :
+            (adversary ? 3 : 0);
 
         underlineScore(id, oldScore, newScore);
         showAction(id, player);
@@ -112,35 +111,42 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
 
             computeScore(keys[0], a, b);
             computeScore(keys[1], b, a);
-            updateImage(player, adversary);
+            updateImage(a, b);
 
-            const path = props.config.rounds === props.round ?
-                'winner' : ['rounds', props.round.toString()];
+            if (props.config.rounds !== props.round) {
+                props.dataFn.objInsert(
+                    {},
+                    ['rounds', props.round.toString()]
+                );
+            } else {
+                // No more rounds but wait to show winner
+                props.dataFn.objInsert(1, 'phase');
 
-            props.dataFn.objInsert(
-                {},
-                path
-            );
+                setTimeout(() => {
+                    // Show winner
+                    props.dataFn.objInsert(2, 'phase');
+                }, 1500)
+            }
         }
     };
 
-    const updateImage = (left, rigth) => {
-        let imagePath = '/clientFiles/ac-prisoner-dilemma/';
+    const updateImage = (left, right) => {
+        const basePath = '/clientFiles/ac-prisoner-dilemma/';
 
-        imagePath += left ?
-            (adversary ? 'win_win.png' : 'lose_win.png') :
-            (adversary ? 'win_lose.png' : 'lose_lose.png');
+        const imagePath = left ?
+            (right ? 'win_win.png' : 'lose_win.png') :
+            (right ? 'win_lose.png' : 'lose_lose.png');
 
         const element = document.getElementById('players_image');
-        element.src = imagePath;
+        element.src = basePath + imagePath;
         setTimeout(() => {
-            element.src = imagePath + 'idle.png';
-        }, 1000);
+            element.src = basePath + 'idle.png';
+        }, 1500);
     };
 
     // Rendering
 
-    if (!props.data.winner) {
+    if (props.data.phase === 0) {
         updateScore();
     }
 
