@@ -21,23 +21,23 @@ const config = {
       type: 'string'
     },
     rounds: {
-        title: 'Number of rounds',
-        type: 'number'
+      title: 'Number of rounds',
+      type: 'number'
     }
   }
 };
 
 // default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {
-    students: {},
-    rounds: {
-        0: {}
-    },
-    phase: 0
+  students: {},
+  rounds: {
+    '0': {}
+  },
+  phase: 0
 };
 
 // receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = (object, dataFn) => {};
+const mergeFunction = () => {};
 
 export default ({
   id: 'ac-prisoner-dilemma',
@@ -45,7 +45,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboards,  //TODO dashboradS {default: DashboardComponent}
+  dashboards, // TODO dashboradS {default: DashboardComponent}
   dataStructure,
   mergeFunction
 }: ActivityPackageT);
