@@ -4,9 +4,10 @@ import { type ActivityPackageT } from 'frog-utils';
 import dashboards from './dashboard';
 
 const meta = {
-  name: 'Prisoner dilemma',
-  shortDesc: 'Prisoner dilemma component',
-  description: 'New activity, no description available',
+  name: "Prisoner's dilemma",
+  shortDesc: "Two player prisoner's dilemma",
+  description:
+    'Uses the "standard" gain matrix, while the number of rounds can be customized. Additional group members will be spectators.',
   exampleData: [
     { title: 'Case with no data', config: { title: 'No data' }, data: {} }
   ]
