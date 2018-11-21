@@ -135,6 +135,7 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
+    supportsLearningItems?: boolean,
     exampleData?: {
       title: string,
       config?: Object,
@@ -342,6 +343,7 @@ export type LearningItemT<T> = {
   name: string,
   id: string,
   dataStructure?: T,
+  canDropLI?: boolean,
   Editor?: React.ComponentType<{
     data: T,
     dataFn: Doc,

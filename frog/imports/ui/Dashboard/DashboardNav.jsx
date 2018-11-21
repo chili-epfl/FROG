@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withState } from 'recompose';
+import { orderBy } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -101,7 +102,10 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
     <div className={classes.root}>
       <div className={classes.appFrame}>
         <ActivityChoiceMenu
-          activities={[{ title: 'Blank screen', _id: 'blank' }, ...acWithDash]}
+          activities={[
+            { title: 'Blank screen', _id: 'blank' },
+            ...orderBy(acWithDash, 'startTime')
+          ]}
           setActivityId={id => {
             teacherLogger(session._id, 'teacher.switchDashboardActivity', id);
             setActivityId(id);

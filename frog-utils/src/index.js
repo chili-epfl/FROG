@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
-import { shuffle, isString, filter, split } from 'lodash';
+import { shuffle, isString, filter, split, isEqual } from 'lodash';
 
 export const isBrowser = (() => {
   try {
@@ -21,6 +21,10 @@ export const ReactJsonView = isBrowser
   ? require('react-json-view').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
+export const ReactiveRichText = isBrowser
+  ? require('./ReactiveRichText').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export {
   hideConditional,
   calculateHides,
@@ -36,7 +40,6 @@ export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
 export { ReactiveText } from './ReactiveText';
-export { ReactiveRichText } from './ReactiveRichText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
@@ -374,6 +377,9 @@ export const cloneDeep = (o: any) => {
   }
   return newO;
 };
+
+export const isEqualLI = (li1: Object, li2: Object): boolean =>
+  typeof li1.li === 'string' ? li1.li === li2.li : isEqual(li1.li, li2.li);
 
 export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (

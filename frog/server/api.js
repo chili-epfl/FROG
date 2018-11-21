@@ -30,7 +30,10 @@ const extractParam = (query, param) =>
     : undefined;
 
 WebApp.connectHandlers.use('/multiFollow', (request, response) => {
-  const root = process.env.ROOT_URL || 'http://localhost:3000/';
+  let root = process.env.ROOT_URL || 'http://localhost:3000';
+  if (root.slice(-1) === '/') {
+    root = root.slice(0, -1);
+  }
   const url = require('url').parse(request.url);
   const layout = url.query ? extractParam(url.query, 'layout') : '';
 
@@ -226,10 +229,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
       '/' +
       request.body.instanceId || 'default';
 
-  if (
-    !InstanceDone[docId] &&
-    !(request.body.readOnly && request.body.rawData)
-  ) {
+  if (!InstanceDone[docId] && !(request.body && request.body.rawData)) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
 
@@ -255,7 +255,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
             } else {
               mergeOneInstance(
                 null,
-                null,
+                { _id: docId, data: config || {} },
                 initData,
                 aT.mergeFunction,
                 null,
@@ -283,7 +283,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     activityData,
     clientId: (request.query.clientId || '') + request.body.clientId,
     rawData,
-    readOnly: request.body.readOnly,
+    readOnly: request.body.readOnly || request.query.readOnly,
     config
   });
   next();
@@ -351,6 +351,23 @@ WebApp.connectHandlers.use('/api/chooseActivity', (request, response, next) => {
     showValidator: request.body.showValidator,
     showDelete: request.body.showDelete,
     whiteList: request.body.whiteList
+  });
+  next();
+});
+
+WebApp.connectHandlers.use('/api/learningitem', (request, response, next) => {
+  const url = require('url').parse(request.url);
+  const LI = url.pathname.substring(1);
+  if (!LI) {
+    response.writeHead(422);
+    response.end();
+    return;
+  }
+  const type = request.query.type || request.body.type || 'dashboard';
+  InjectData.pushData(request, 'api', {
+    callType: 'learningItem',
+    learningItem: LI,
+    type
   });
   next();
 });
