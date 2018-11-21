@@ -45,7 +45,7 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboards, // TODO dashboradS {default: DashboardComponent}
+  dashboards,
   dataStructure,
   mergeFunction
 }: ActivityPackageT);
