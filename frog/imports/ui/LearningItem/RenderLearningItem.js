@@ -97,7 +97,6 @@ class RenderLearningItem extends React.Component<any, any> {
       render,
       disableDragging,
       type,
-      search,
       data,
       dataFn,
       isPlayback,
@@ -139,12 +138,11 @@ class RenderLearningItem extends React.Component<any, any> {
               }}
             >
               <LIComp
-                userId={dataFn.meta?.createdByUser}
+                userId={dataFn?.meta?.createdByUser}
                 data={data.payload}
                 isPlayback={isPlayback}
                 dataFn={dataFn && dataFn.specialize('payload')}
                 LearningItem={dataFn && dataFn.LearningItem}
-                search={search && search.toLowerCase()}
                 ref={liType.canDropLI ? this.ref : undefined}
                 open={this.state.open}
                 type={type}
