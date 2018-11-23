@@ -7,8 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Scoreboard from './Scoreboard';
 import Buttons from './Buttons';
 
-// Styles
-
 const styles = {
   result: {
     marginTop: '50px',
@@ -22,26 +20,20 @@ const styles = {
     width: '100%'
   },
   imageContainer: {
-      width: '100%',
-      height: '30%',
+    width: '100%',
+    height: '30%'
   },
   image: {
-      display: 'inline-block',
-      marginLeft: '15%',
-      marginRight: '15%',
-      width: '70%',
+    display: 'inline-block',
+    marginLeft: '15%',
+    marginRight: '15%',
+    width: '70%'
   }
 };
 
-// Props types
-
 type StyledPropsT = ActivityRunnerPropsT & { classes: Object };
 
-// Component
-
 class PrisonerDilemmaController extends React.Component<StyledPropsT> {
-  // Constructor
-
   constructor(props) {
     super(props);
 
@@ -53,8 +45,6 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
       ['students', this.props.userInfo.id]
     );
   }
-
-  // Methods
 
   renderGame(students, round, disableButtons) {
     if (this.props.data.phase !== 2) {
@@ -70,14 +60,14 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
 
       return (
         <div>
-            <div className={this.props.classes.imageContainer}>
-                <img
-                    id='players_image'
-                    alt=''
-                    className={this.props.classes.image}
-                    src='/clientFiles/ac-prisoner-dilemma/idle.png'
-                />
-            </div>
+          <div className={this.props.classes.imageContainer}>
+            <img
+              id="players_image"
+              alt=""
+              className={this.props.classes.image}
+              src="/clientFiles/ac-prisoner-dilemma/idle.png"
+            />
+          </div>
 
           <hr />
 
@@ -105,8 +95,6 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
       return <div className={this.props.classes.result}>{text}</div>;
     }
   }
-
-  // Rendering
 
   render() {
     // Only two students can compete, others are spectator
@@ -145,8 +133,6 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     );
   }
 }
-
-// Export
 
 const StyledPrisonerDilemma = withStyles(styles)(PrisonerDilemmaController);
 const PrisonerDilemma: ActivityRunnerT = (props: ActivityRunnerPropsT) => (
