@@ -4,27 +4,46 @@ import { type productOperatorRunnerT, wrapUnitAll, values } from 'frog-utils';
 
 const operator = (config, object) => {
   const { payload } = object.activityData;
-  const { primary, secondary, filterMin, filterMax } = config;
 
-  const dataset = [];
-  values(payload)
-    .filter(x => x.data?.form)
-    .forEach(instanceData => {
+  const datasets = [];
+  values(payload).forEach(instanceData => {
+    config.datasets.forEach((datasetConfig, idx) => {
+      const {
+        primary,
+        primaryType,
+        secondary,
+        secondaryType,
+        filterMin,
+        filterMax,
+        name
+      } = datasetConfig;
+      const trace = name || 'dataset ' + idx;
       // builds dataset with only the first two answers
-      const { form } = instanceData.data;
+      const { form, answers } = instanceData.data;
       let x;
-      x = Number(form[primary].value);
-      if (x && filterMin !== undefined && x < filterMin) x = undefined;
-      if (x && filterMax !== undefined && x > filterMax) x = undefined;
+      if (primaryType === 'numerical' && form) {
+        x = Number(form[primary].value);
+        if (x && filterMin !== undefined && x < filterMin) x = undefined;
+        if (x && filterMax !== undefined && x > filterMax) x = undefined;
+      } else if (primaryType === 'categorical' && answers) {
+        x = answers[primary];
+      }
 
       let y;
-      if (secondary !== undefined) y = instanceData.data.answers[secondary];
+      if (secondary !== undefined) {
+        if (secondaryType === 'numerical' && form) {
+          y = Number(form[secondary].value);
+        } else if (secondaryType === 'categorical' && answers) {
+          y = answers[secondary];
+        }
+      }
 
-      if (x && y) dataset.push({ trace: 'dataset', x, y });
-      else if (x) dataset.push({ trace: 'dataset', x });
+      if (x && y) datasets.push({ trace, x, y });
+      else if (x) datasets.push({ trace, x });
     });
+  });
 
-  return wrapUnitAll(dataset);
+  return wrapUnitAll(datasets);
 };
 
 export default (operator: productOperatorRunnerT);

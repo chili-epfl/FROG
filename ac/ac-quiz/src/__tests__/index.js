@@ -10,6 +10,7 @@ test('all correct formatProduct', () => {
     coordinates: { x: 0, y: 0 },
     correctCount: 2,
     correctQs: [true, true],
+    form: { '0': { '0': true }, '1': { '1': true } },
     maxCorrect: 2,
     msg:
       'Your partner answered the questions as follows: A or B? A.  C or D? D.',
@@ -26,6 +27,7 @@ test('not all correct formatProduct', () => {
     coordinates: { x: 0, y: 0 },
     correctCount: 0,
     correctQs: [false, false],
+    form: { '1': { '0': true }, completed: true },
     maxCorrect: 2,
     msg: 'Your partner answered the questions as follows: C or D? C.',
     questions: ['A or B?', 'C or D?']
@@ -38,11 +40,13 @@ test('no answers', () => {
   ).toEqual({
     answers: [undefined, undefined],
     answersIndex: [-1, -1],
+    coordinates: { x: 0, y: 0 },
     correctCount: 0,
     correctQs: [false, false],
+    form: {},
     maxCorrect: 2,
-    questions: ['A or B?', 'C or D?'],
-    coordinates: { x: 0, y: 0 }
+    msg: undefined,
+    questions: ['A or B?', 'C or D?']
   });
 });
 
