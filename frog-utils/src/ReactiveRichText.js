@@ -3,9 +3,47 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { get, set, invoke, isEqual, last, forEach } from 'lodash';
+import { get, set, invoke, isEqual, last, forEach, findIndex } from 'lodash';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
+
+const Embed = Quill.import('blots/block/embed');
+class LearningItemBlot extends Embed {
+  static create(value) {
+    this.data = value;
+    const node = super.create(value);
+    const { authorId, liId, li } = value;
+    node.setAttribute('contenteditable', false);
+    ReactDOM.render(
+      <div className={`ql-author-${authorId}`}>
+        <LearningItemContainer li={li} id={liId} />
+      </div>,
+      node
+    );
+    return node;
+  }
+
+  static value() {
+    return this.data;
+  }
+
+  static length() {
+    return 1;
+  }
+
+  position() {
+    const allBlots = get(this.parent, 'domNode.childNodes');
+    const thisIndex = [].indexOf.call(allBlots, this.domNode);
+    const offset = findIndex(allBlots, blot => blot.className !== 'ql-learning-item', thisIndex);
+    return [this.parent.domNode, offset]
+  };
+}
+
+LearningItemBlot.blotName = 'learning-item';
+LearningItemBlot.tagName = 'div';
+LearningItemBlot.className = 'ql-learning-item';
+
+Quill.register('formats/learning-item', LearningItemBlot);
 
 function hashCode(str = '') {
   let hash = 0;
@@ -69,34 +107,9 @@ const formats = [
   'author'
 ];
 
-const LearningItemContainer = ({ dataFn, id }) => (
-  <dataFn.LearningItem type="view" id={id} />
+const LearningItemContainer = ({ li: LearningItem, id }) => (
+  <LearningItem type="view" id={id} />
 );
-
-const registerBlot = dataFn => {
-  const Embed = Quill.import('blots/block/embed');
-
-  class LearningItemBlot extends Embed {
-    static create(value) {
-      const node = super.create(value);
-      const { authorId, liId } = value;
-      node.setAttribute('contenteditable', false);
-      ReactDOM.render(
-        <div className={`ql-author-${authorId}`}>
-          <LearningItemContainer dataFn={dataFn} id={liId} />
-        </div>,
-        node
-      );
-      return node;
-    }
-  }
-
-  LearningItemBlot.blotName = 'learning-item';
-  LearningItemBlot.tagName = 'div';
-  LearningItemBlot.className = 'ql-learning-item';
-
-  Quill.register('formats/learning-item', LearningItemBlot);
-};
 
 const registerAuthorClass = () => {
   const Parchment = Quill.import('parchment');
@@ -211,7 +224,6 @@ class ReactiveRichText extends Component<
 
   componentWillMount() {
     this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
-    registerBlot(this.props.dataFn);
     registerAuthorClass();
     this.toolbarId = uuid();
   }
@@ -320,16 +332,23 @@ class ReactiveRichText extends Component<
 
   onDrop = (e: string) => {
     const editor = invoke(this.quillRef, 'getEditor');
+
     if (editor) {
-      const range = editor.getSelection();
+      const index = get(editor, 'selection.savedRange.index');
+      const insertPosition = index || editor.getLength() - 1;
+
+      const { LearningItem } = this.props.dataFn;
       const params = {
         liId: e,
-        authorId: this.props.userId
+        authorId: this.props.userId,
+        li: LearningItem
       };
+
       const delta = editor.insertEmbed(
-        get(range, 'index') || editor.getLength() - 1,
+        insertPosition,
         'learning-item',
-        params
+        params,
+        'api'
       );
 
       // Quill doesn't include the passed value in the delta. So doing it manually
