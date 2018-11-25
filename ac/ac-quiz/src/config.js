@@ -100,6 +100,7 @@ export const configUI = {
   hasAnswers: { conditional: 'advancedConfig' },
   'questions.multiple': { conditional: 'advancedConfig' },
   'questions.text': { conditional: 'advancedConfig' },
+  'questions.value': { conditional: 'advancedConfig' },
   'questions.answers.x': { conditional: 'argueWeighting' },
   'questions.answers.y': { conditional: 'argueWeighting' },
   'questions.answers.isCorrect': { conditional: 'hasAnswers' }
