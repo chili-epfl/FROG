@@ -4,6 +4,7 @@ import React from 'react';
 import { HTML, ReactiveText } from 'frog-utils';
 
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -99,6 +100,23 @@ const Justify = withStyles(styles)(props => {
   );
 });
 
+const Value = withStyles(styles)(props => {
+  const { value, dataFn, questionIndex, classes } = props;
+  return (
+    <TextField
+      label="Answer with a numerical value"
+      value={value}
+      onChange={e =>
+        dataFn.objInsert(e.target.value, ['form', questionIndex, 'value'])
+      }
+      className={classes.textField}
+      type="number"
+      margin="normal"
+      variant="outlined"
+    />
+  );
+});
+
 export default withStyles(styles)(
   ({
     question,
@@ -115,7 +133,7 @@ export default withStyles(styles)(
       return <CircularProgress />;
     }
 
-    const { multiple, text } = question;
+    const { multiple, text, value } = question;
 
     const answersWithIndex = (question.answers || []).map((x, y) => [x, y]);
     const answers = ['answers', 'both'].includes(activityData.config.shuffle)
@@ -123,7 +141,10 @@ export default withStyles(styles)(
       : answersWithIndex;
 
     const hasChoices = answers && answers.length > 0;
-    const questionData = data.form[questionIndex] || { text: '' };
+    const questionData = data.form[questionIndex] || {
+      text: '',
+      value: undefined
+    };
 
     const onChange = idx => {
       if (multiple) {
@@ -174,6 +195,13 @@ export default withStyles(styles)(
           !multiple && (
             <Select answers={answers} data={questionData} onChange={onChange} />
           )}
+        {value && (
+          <Value
+            value={questionData.value}
+            dataFn={dataFn}
+            questionIndex={questionIndex}
+          />
+        )}
         {text &&
           questionData.text !== undefined && (
             <Justify

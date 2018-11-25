@@ -50,6 +50,11 @@ export const config = {
             title: 'Ask for a text answer',
             default: false
           },
+          value: {
+            type: 'boolean',
+            title: 'Ask for a numerical answer',
+            default: false
+          },
           answers: {
             type: 'array',
             title: 'Choices',
@@ -95,6 +100,7 @@ export const configUI = {
   hasAnswers: { conditional: 'advancedConfig' },
   'questions.multiple': { conditional: 'advancedConfig' },
   'questions.text': { conditional: 'advancedConfig' },
+  'questions.value': { conditional: 'advancedConfig' },
   'questions.answers.x': { conditional: 'argueWeighting' },
   'questions.answers.y': { conditional: 'argueWeighting' },
   'questions.answers.isCorrect': { conditional: 'hasAnswers' }
