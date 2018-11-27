@@ -103,7 +103,7 @@ const ScoreboardController = (props: StyledScoreboardPropsT) =>  {
     };
 
     const updateScore = () => {
-        const keys = Object.keys(props.data.rounds[(props.round - 1).toString()]);
+        const keys = Object.keys(props.data.rounds[(props.round - 1).toString()]).sort();
         if (keys.length === 2) {
 
             const a = props.data.rounds[(props.round - 1).toString()][keys[0]];
