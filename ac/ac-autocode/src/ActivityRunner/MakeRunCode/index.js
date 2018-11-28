@@ -6,7 +6,7 @@ import javascript from './Javascript';
 const makeRunCode = (language: string) => {
   switch (language) {
     case 'python':
-      return python();
+      return python;
     case 'javascript':
     default:
       return javascript();
