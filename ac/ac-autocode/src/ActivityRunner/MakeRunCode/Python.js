@@ -1,6 +1,6 @@
 // @flow
-import Sk from '../../dist/skulpt.min';
-import SkStdLib from '../../dist/skulpt-stdlib';
+import '../../lib/skulpt.min';
+import '../../lib/skulpt-stdlib';
 
 const builtinRead = (x: string) => {
   if (
