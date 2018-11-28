@@ -1,9 +1,9 @@
 // @flow
 
 import importAll from 'import-all.macro';
-import Loadable from 'react-loadable';
 import { keyBy } from 'lodash';
 import {
+  Loadable,
   type ActivityPackageT,
   entries,
   values,
@@ -33,14 +33,18 @@ const activityRunnersRaw = importAll.deferred(
   '../node_modules/ac-*/src/ActivityRunner?(.js)'
 );
 export const activityRunnersExt = entries(activityRunnersRaw).reduce(
-  (acc, [k, v]) => ({
-    ...acc,
-    [k.split('/')[2]]: Loadable({
-      loader: v,
-      loading: () => null,
-      serverSideRequirePath: k
-    })
-  }),
+  (acc, [k, v]) => {
+    const ac = k.split('/')[2];
+    return {
+      ...acc,
+      [ac]: Loadable({
+        loader: v,
+        loading: () => null,
+        serverSideRequirePath: k,
+        componentDescription: ac
+      })
+    };
+  },
   {}
 );
 
@@ -49,14 +53,18 @@ const activityRunnersRawInternal = importAll.deferred(
 );
 
 export const activityRunners = entries(activityRunnersRawInternal).reduce(
-  (acc, [k, v]) => ({
-    ...acc,
-    [k.split('/')[2]]: Loadable({
-      loader: v,
-      loading: () => null,
-      serverSideRequirePath: k
-    })
-  }),
+  (acc, [k, v]) => {
+    const ac = k.split('/')[2];
+    return {
+      ...acc,
+      [ac]: Loadable({
+        loader: v,
+        loading: () => null,
+        serverSideRequirePath: k,
+        componentDescription: ac
+      })
+    };
+  },
   activityRunnersExt
 );
 
