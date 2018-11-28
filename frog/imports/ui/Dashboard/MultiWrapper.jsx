@@ -110,7 +110,8 @@ const MultiWrapper = (props: {
   dashboardData?: Object,
   session?: Object,
   object: Object,
-  ready?: boolean
+  ready?: boolean,
+  config?: Object
 }) => {
   const {
     dashboardData,
@@ -127,7 +128,24 @@ const MultiWrapper = (props: {
     return <CircularProgress />;
   }
   const aT = activityTypesObj[activity.activityType];
-  const dashNames = names || Object.keys(aT.dashboards || {});
+  const aTDash = aT.dashboards;
+  if (!aTDash || (isEmpty(aTDash) && !names)) {
+    return null;
+  }
+
+  const dashNames =
+    names ||
+    Object.keys(aTDash).filter(name => {
+      const cond = aTDash[name].displayCondition;
+      if (!cond) {
+        return true;
+      }
+      if (typeof cond === 'string') {
+        return !!activity.data[cond];
+      }
+      return cond(activity.data);
+    });
+
   if (isEmpty(dashNames)) {
     return null;
   }

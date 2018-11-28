@@ -167,6 +167,7 @@ export type ActivityPackageT = {
 };
 
 export type DashboardT = {
+  displayCondition?: string | ((obj: Object) => boolean),
   Viewer: React.ComponentType<DashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
