@@ -12,6 +12,7 @@ import Undo from '@material-ui/icons/Undo';
 import Add from '@material-ui/icons/Add';
 import FileCopy from '@material-ui/icons/FileCopy';
 import Delete from '@material-ui/icons/Delete';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import ImportExport from '@material-ui/icons/ImportExport';
 import Image from '@material-ui/icons/Image';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -149,7 +150,9 @@ class GraphActionMenu extends React.Component<*, *> {
     } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    const parentId = Graphs.findOne(graphId)?.parentId;
+    const graph = Graphs.findOne(graphId);
+    const parentId = graph?.parentId;
+    const sessionId = graph?.sessionId;
     return (
       <div className={classes.root}>
         <IconButton
@@ -194,6 +197,20 @@ class GraphActionMenu extends React.Component<*, *> {
             <Delete className={classes.leftIcon} aria-hidden="true" />
             Delete Current Graph
           </MenuItem>
+          {sessionId && (
+            <MenuItem
+              onClick={() => {
+                this.handleClose();
+                Graphs.update(graph._id, {
+                  $set: { name: graph.name.replace(/^#+/, '') },
+                  $unset: { sessionId: '' }
+                });
+              }}
+            >
+              <ExitToApp className={classes.leftIcon} aria-hidden="true" />
+              Make Top Level Graph
+            </MenuItem>
+          )}
           <MenuItem
             onClick={() => {
               importGraph();
