@@ -202,7 +202,7 @@ class GraphActionMenu extends React.Component<*, *> {
               onClick={() => {
                 this.handleClose();
                 Graphs.update(graph._id, {
-                  name: graph.name.replace(/^#+/, ''),
+                  $set: { name: graph.name.replace(/^#+/, '') },
                   $unset: { sessionId: '' }
                 });
               }}
