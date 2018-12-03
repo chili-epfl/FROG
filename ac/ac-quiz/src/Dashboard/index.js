@@ -13,6 +13,6 @@ export default {
   counts: ReactiveCountDashboard,
   progress: ProgressDashboard,
   leaderboard: LeaderBoard,
-  coordinates: CoordinatesDashboard,
+  coordinates: { ...CoordinatesDashboard, displayCondition: 'argueWeighting' },
   justification: JustificationDashboard
 };

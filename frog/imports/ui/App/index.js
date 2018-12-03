@@ -6,7 +6,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
-import Loadable from 'react-loadable';
+import { Loadable } from 'frog-utils';
 import path from 'path';
 import queryString from 'query-string';
 import {
@@ -29,12 +29,14 @@ import { LocalSettings } from '../../api/settings';
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
-  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+  serverSideRequirePath: path.resolve(__dirname, './TeacherContainer'),
+  componentDescription: 'Teacher container'
 });
 const APICall = Loadable({
   loader: () => import('./APICall'),
   loading: () => null,
-  serverSideRequirePath: path.resolve(__dirname, './APICall')
+  serverSideRequirePath: path.resolve(__dirname, './APICall'),
+  componentDescription: 'API Call'
 });
 
 Accounts._autoLoginEnabled = false;
