@@ -4,8 +4,18 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { get, set, invoke, isEqual, last, forEach, findIndex } from 'lodash';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
+
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+});
 
 const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
@@ -15,8 +25,9 @@ class LearningItemBlot extends Embed {
     const { authorId, liId, li } = value;
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
-      <div className={`ql-author-${authorId}`}>
+      <div>
         <LearningItemContainer li={li} id={liId} />
+        <div className={`ql-author-${authorId}`} style={{height: '3px'}}/>
       </div>,
       node
     );
@@ -48,6 +59,12 @@ LearningItemBlot.tagName = 'div';
 LearningItemBlot.className = 'ql-learning-item';
 
 Quill.register('formats/learning-item', LearningItemBlot);
+
+const LearningItemContainer = withStyles(styles)(({ li: LearningItem, id , classes}) => (
+  <Paper className={classes.root} elevation={10} square>
+    <LearningItem type="view" id={id} />
+  </Paper>
+));
 
 function hashCode(str = '') {
   let hash = 0;
@@ -110,10 +127,6 @@ const formats = [
   'learning-item',
   'author'
 ];
-
-const LearningItemContainer = ({ li: LearningItem, id }) => (
-  <LearningItem type="view" id={id} />
-);
 
 const registerAuthorClass = () => {
   const Parchment = Quill.import('parchment');
@@ -260,7 +273,8 @@ class ReactiveRichText extends Component<
       return;
     }
     const color = pickColor(id);
-    const css = `.ql-authorship .ql-author-${id} { color: ${color}; }\n`;
+    const css = `.ql-authorship .ql-author-${id} { color: ${color}; }
+    .ql-authorship div.ql-author-${id} {background-color: ${color}}`;
 
     if (!get(authorStyleElements, id)) {
       authorStyleElements[id] = document.createElement('style');
