@@ -34,9 +34,13 @@ class LearningItemBlot extends Embed {
   position() {
     const allBlots = get(this.parent, 'domNode.childNodes');
     const thisIndex = [].indexOf.call(allBlots, this.domNode);
-    const offset = findIndex(allBlots, blot => blot.className !== 'ql-learning-item', thisIndex);
-    return [this.parent.domNode, offset]
-  };
+    const offset = findIndex(
+      allBlots,
+      blot => blot.className !== 'ql-learning-item',
+      thisIndex
+    );
+    return [this.parent.domNode, offset];
+  }
 }
 
 LearningItemBlot.blotName = 'learning-item';
@@ -364,6 +368,14 @@ class ReactiveRichText extends Component<
   render() {
     const defaultValue = this.getDocumentContent();
     const props = this.props;
+    const scrollContainerClass = 'scroll-container';
+    const editorStyle = props.readOnly
+      ? { borderStyle: 'hidden' }
+      : {
+          maxHeight: '250px',
+          minHeight: '100%',
+          overflowY: 'auto'
+        };
     return (
       <div>
         {!get(props, 'readOnly') && (
@@ -387,8 +399,9 @@ class ReactiveRichText extends Component<
                   }
                 }
           }}
+          scrollingContainer={`.${scrollContainerClass}`}
         >
-          <div style={props.readOnly ? { borderStyle: 'hidden' } : {}} />
+          <div className={scrollContainerClass} style={editorStyle} />
         </ReactQuill>
       </div>
     );
