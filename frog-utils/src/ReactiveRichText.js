@@ -3,18 +3,19 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { get, set, invoke, isEqual, last, forEach, findIndex } from 'lodash';
+import { get, invoke, isEqual, last, forEach, findIndex } from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
+import { generateReactiveFn } from './generateReactiveFn';
 
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-  },
+    paddingBottom: theme.spacing.unit * 2
+  }
 });
 
 const Embed = Quill.import('blots/block/embed');
@@ -22,12 +23,15 @@ class LearningItemBlot extends Embed {
   static create(value) {
     this.data = value;
     const node = super.create(value);
-    const { authorId, liId, li } = value;
+    const { authorId, liId } = value;
+
+    const doc = window.connection.get('li', liId);
+    const { LearningItem } = generateReactiveFn(doc, window.LearningItem);
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
       <div>
-        <LearningItemContainer li={li} id={liId} />
-        <div className={`ql-author-${authorId}`} style={{height: '3px'}}/>
+        <LearningItemContainer li={LearningItem} id={liId} />
+        <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
       </div>,
       node
     );
@@ -60,11 +64,13 @@ LearningItemBlot.className = 'ql-learning-item';
 
 Quill.register('formats/learning-item', LearningItemBlot);
 
-const LearningItemContainer = withStyles(styles)(({ li: LearningItem, id , classes}) => (
-  <Paper className={classes.root} elevation={10} square>
-    <LearningItem type="view" id={id} />
-  </Paper>
-));
+const LearningItemContainer = withStyles(styles)(
+  ({ li: LearningItem, id, classes }) => (
+    <Paper className={classes.root} elevation={10} square>
+      <LearningItem type="view" id={id} />
+    </Paper>
+  )
+);
 
 function hashCode(str = '') {
   let hash = 0;
@@ -196,21 +202,31 @@ class ReactiveRichText extends Component<
     return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
   };
 
+  compositionStartHandler = () => {
+    this.compositionStart = true;
+    this.authorDeltaToApply = null;
+  };
+
+  compositionEndHandler = editor => () => {
+    this.compositionStart = false;
+    if (this.authorDeltaToApply) {
+      editor.updateContents(this.authorDeltaToApply, Quill.sources.SILENT);
+      this.authorDeltaToApply = null;
+    }
+  };
+
   initializeAuthorship = () => {
     const editor = this.quillRef.getEditor();
     this.compositionStart = false;
     this.authorDeltaToApply = null;
-    editor.scroll.domNode.addEventListener('compositionstart', () => {
-      this.compositionStart = true;
-      this.authorDeltaToApply = null;
-    });
-    editor.scroll.domNode.addEventListener('compositionend', () => {
-      this.compositionStart = false;
-      if (this.authorDeltaToApply) {
-        editor.updateContents(this.authorDeltaToApply, Quill.sources.SILENT);
-        this.authorDeltaToApply = null;
-      }
-    });
+    editor.scroll.domNode.addEventListener(
+      'compositionstart',
+      this.compositionStartHandler
+    );
+    editor.scroll.domNode.addEventListener(
+      'compositionend',
+      this.compositionEndHandler(editor)
+    );
 
     this.addAuthor(this.props.userId);
     const content = this.getDocumentContent();
@@ -265,6 +281,17 @@ class ReactiveRichText extends Component<
   componentWillUnmount() {
     if (!this.props.data) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
+      const editor = this.quillRef.getEditor();
+      if (editor) {
+        editor.scroll.domNode.removeEventListener(
+          'compositionstart',
+          this.compositionStartHandler
+        );
+        editor.scroll.domNode.removeEventListener(
+          'compositionend',
+          this.compositionEndHandler(editor)
+        );
+      }
     }
   }
 
@@ -355,11 +382,9 @@ class ReactiveRichText extends Component<
       const index = get(editor, 'selection.savedRange.index');
       const insertPosition = index || editor.getLength() - 1;
 
-      const { LearningItem } = this.props.dataFn;
       const params = {
         liId: e,
-        authorId: this.props.userId,
-        li: LearningItem
+        authorId: this.props.userId
       };
 
       const delta = editor.insertEmbed(
@@ -369,12 +394,6 @@ class ReactiveRichText extends Component<
         'api'
       );
 
-      // Quill doesn't include the passed value in the delta. So doing it manually
-      delta.ops.forEach(op => {
-        if (get(op, 'insert.learning-item')) {
-          set(op, 'insert.learning-item', params);
-        }
-      });
       this.submitOperation(delta);
     }
   };

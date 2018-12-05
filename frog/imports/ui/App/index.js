@@ -25,6 +25,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '../../api/settings';
+import LearningItem from '../LearningItem';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -40,6 +41,7 @@ const APICall = Loadable({
 Accounts._autoLoginEnabled = false;
 Accounts._initLocalStorage();
 
+window.LearningItem = LearningItem;
 const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
