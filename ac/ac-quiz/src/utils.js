@@ -94,7 +94,9 @@ export const formatProduct = (
       // For questions with multiple selection it will keep only one option
       const answers = config.questions.map((q, qIndex) => {
         if (!form[qIndex]) return undefined;
-        const aIndex = Object.keys(form[qIndex]).find(k => form[qIndex][k]);
+        const aIndex = Object.keys(form[qIndex]).find(
+          k => form[qIndex][k] && k !== 'text' && k !== 'value'
+        );
         return aIndex !== undefined && aIndex !== 'text'
           ? q.answers[aIndex].choice
           : undefined;
@@ -138,7 +140,8 @@ export const formatProduct = (
         correctCount,
         maxCorrect,
         coordinates,
-        msg
+        msg,
+        form
       };
     }
   } catch (e) {

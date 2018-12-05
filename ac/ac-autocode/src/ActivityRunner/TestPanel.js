@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { withState } from 'recompose';
+import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 
 import Test from './Test';
 
@@ -53,7 +55,7 @@ const Feedback = ({ inputDesc, expected, received, error, stdout }) => (
 
 const TestList = ({ tests, ...props }) => (
   <ButtonList>
-    <Debug key="debug" {...props} />
+    <DebugStyled key="debug" {...props} />
     {tests &&
       tests.map((test, index) => (
         <Test key={index} test={test} index={index} {...props} /> // eslint-disable-line
@@ -61,7 +63,14 @@ const TestList = ({ tests, ...props }) => (
   </ButtonList>
 );
 
-const Debug = ({ data, runCode, setFeedback, logger, handleError }) => {
+const Debug = ({
+  data,
+  runCode,
+  setFeedback,
+  logger,
+  handleError,
+  classes
+}) => {
   const debug = () => {
     const stdout = [];
     runCode(data.code, out => stdout.push(out), () => {}).then(
@@ -87,11 +96,21 @@ const Debug = ({ data, runCode, setFeedback, logger, handleError }) => {
     );
   };
   return (
-    <button className="btn btn-primary" onClick={debug}>
+    <Button
+      disableRipple
+      disableFocusRipple
+      variant="contained"
+      classes={classes}
+      onClick={debug}
+    >
       RUN
-    </button>
+    </Button>
   );
 };
+
+const styles = { root: { margin: '5px' } };
+
+const DebugStyled = withStyles(styles)(Debug);
 
 const TestPanel = (props: Object) => [
   <TestList key="tests" {...props} />,
