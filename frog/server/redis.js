@@ -21,10 +21,18 @@ const loop = (err, result) => {
     console.error('Incoming redis log message error', err);
   }
   if (result[0] === 'frog.logs') {
-    const msg = JSON.parse(result[1]);
-    mergeLog(msg[0], msg[1], msg[2], false, true);
+    try {
+      const msg = JSON.parse(result[1]);
+      mergeLog(msg[0], msg[1], msg[2], false, true);
+    } catch (e) {
+      console.error('Parsing/merging Redis log', result[1], e);
+    }
   } else if (result[0] === 'frog.archive') {
-    archiveDashboardState(result[1]);
+    try {
+      archiveDashboardState(result[1]);
+    } catch (e) {
+      console.error('Archive dashboard state', result[1], e);
+    }
   }
   client.blpop('frog.logs', 'frog.archive', 0, Meteor.bindEnvironment(loop));
 };

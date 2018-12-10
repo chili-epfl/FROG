@@ -35,8 +35,8 @@ const styles = theme => ({
     padding: '4px',
     height: '100px'
   },
-  check: { height: '35px', alignItems: 'flex-start' },
-  text: { lineHeight: '1', alignItems: 'flex-start' }
+  check: { height: '35px' },
+  text: { alignItems: 'center' }
 });
 
 const Header = withStyles(styles)(({ question, index, classes }) => (
@@ -60,7 +60,7 @@ const CheckBox = withStyles(styles)(({ classes, answers, data, onChange }) => (
             value={idx.toString()}
           />
         }
-        label={<HTML className={classes.text} html={choice} />}
+        label={<HTML html={choice} />}
       />
     ))}
   </FormControl>
@@ -80,7 +80,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
           value={idx.toString()}
           classes={{ root: classes.text }}
           control={<Radio classes={{ root: classes.check }} />}
-          label={<HTML className={classes.text} html={choice} />}
+          label={<HTML html={choice} />}
         />
       ))}
     </RadioGroup>

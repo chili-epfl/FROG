@@ -31,7 +31,7 @@ export const reactiveWrapper = (act: any, dashboard: any) => (
   _: any,
   __: any
 ): any => {
-  if (!activityQuery[act._id].ready) {
+  if (!activityQuery[act._id]?.ready) {
     return null;
   }
   const data = (activityQuery[act._id].results || []).reduce(
@@ -112,6 +112,13 @@ export default () => {
 export const archiveDashboardState = (activityId: string) => {
   if (!Meteor.settings.sendLogsToExternalDashboardServer) {
     const act = Activities.findOne(activityId);
+    if (!act) {
+      console.error(
+        'archiveDashboardState error, missing activity',
+        activityId
+      );
+      return;
+    }
     const aT = activityTypesObj[act.activityType];
     if (aT.dashboards) {
       Object.keys(aT.dashboards).forEach(name => {
