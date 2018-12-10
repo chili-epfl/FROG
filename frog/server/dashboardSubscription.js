@@ -112,6 +112,13 @@ export default () => {
 export const archiveDashboardState = (activityId: string) => {
   if (!Meteor.settings.sendLogsToExternalDashboardServer) {
     const act = Activities.findOne(activityId);
+    if (!act) {
+      console.error(
+        'archiveDashboardState error, missing activity',
+        activityId
+      );
+      return;
+    }
     const aT = activityTypesObj[act.activityType];
     if (aT.dashboards) {
       Object.keys(aT.dashboards).forEach(name => {

@@ -69,12 +69,15 @@ export const mergeLog = (
 ) => {
   const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
   logs.forEach(eachLog => {
+    console.log(eachLog);
     const log = { ...logExtra, ...eachLog, timestamp: new Date() };
     try {
       if (!dontWriteDB) {
+        console.log('insertDb');
         Logs.insert(log);
       }
       if (!onlyWriteDB && log.activityType && log.activityId) {
+        console.log('process1');
         const aT = activityTypesObj[log.activityType];
         if (aT.dashboards) {
           if (!activityCache[log.activityId] && !suppliedActivity) {

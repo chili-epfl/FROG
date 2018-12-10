@@ -181,9 +181,7 @@ class Data extends React.Component<*, *> {
           <DatasetSelector {...this.props} />
           {editable && <RefreshDataset {...this.props} />}
         </div>
-        <div className={classes.header}>
-          Dataset size: {sortedData.values.length} lines
-        </div>
+        <div className={classes.header}>n: {sortedData.values.length}</div>
         <div className={classes.table}>
           <Table>
             <TableHeader
