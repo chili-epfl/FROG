@@ -65,8 +65,6 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
-  console.log(logger, 'logger');
-  window.logger = logger;
   const readOnly =
     activity.participationMode === 'readonly' &&
     Meteor.userId() !== Sessions.findOne(sessionId)?.ownerId;

@@ -31,7 +31,7 @@ export const reactiveWrapper = (act: any, dashboard: any) => (
   _: any,
   __: any
 ): any => {
-  if (!activityQuery[act._id].ready) {
+  if (!activityQuery[act._id]?.ready) {
     return null;
   }
   const data = (activityQuery[act._id].results || []).reduce(
