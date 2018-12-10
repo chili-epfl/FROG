@@ -151,7 +151,7 @@ const displayEntry = e => {
   const between = (a, mini, maxi) => a > mini && a < maxi;
   if (Number.isNaN(x)) {
     return e;
-  } else if (x === 0 || between(x, 0.1, 1000) || between(x, -1000, -0.1)) {
+  } else if (x === 0 || between(x, 0.1, 10000) || between(x, -10000, -0.1)) {
     return Number.isInteger(x) ? x : x.toFixed(2);
   } else {
     return x.toExponential(2);
