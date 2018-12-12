@@ -1,10 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import {
+  type ActivityRunnerT,
+  unicodeLetter,
+  notUnicodeLetter
+} from 'frog-utils';
+
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
-import { unicodeLetter, notUnicodeLetter } from 'frog-utils';
 
 const TextToColor = text => {
   const c = Number(
@@ -33,8 +37,7 @@ const unicodeWordRegexpEnd = new RegExp(
   `${notUnicodeLetter}(${unicodeLetter}+)$`,
   'ui'
 );
-
-const unicodeWordRegexpBegEnd = new RegExp(`^(${unicodeLetter}+)$`, 'gui');
+const unicodeWordRegexpBegEnd = new RegExp(`^(${unicodeLetter}+)$`, 'ui');
 
 const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
   const selectPenColor = color =>
@@ -55,7 +58,7 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
         sStr.match(unicodeWordRegexpEnd) ||
         sStr.match(unicodeWordRegexp);
 
-      const selectedRaw = (sel && sel[1]) || sel[0];
+      const selectedRaw = sel && sel[1];
       if (!selectedRaw) {
         return;
       }
