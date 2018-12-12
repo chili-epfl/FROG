@@ -4,6 +4,7 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
+import { unicodeLetter, notUnicodeLetter } from 'frog-utils';
 
 const TextToColor = text => {
   const c = Number(
@@ -20,6 +21,21 @@ const TextToColor = text => {
   return 'rgb(' + obj.r + ',' + obj.g + ',' + obj.b + ')';
 };
 
+const unicodeWordRegexp = new RegExp(
+  `${notUnicodeLetter}(${unicodeLetter}+)${notUnicodeLetter}`,
+  'ui'
+);
+const unicodeWordRegexpBeg = new RegExp(
+  `^(${unicodeLetter}+)${notUnicodeLetter}`,
+  'ui'
+);
+const unicodeWordRegexpEnd = new RegExp(
+  `${notUnicodeLetter}(${unicodeLetter}+)$`,
+  'ui'
+);
+
+const unicodeWordRegexpBegEnd = new RegExp(`^(${unicodeLetter}+)$`, 'gui');
+
 const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
@@ -30,8 +46,20 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      const selected = s.toString().toLowerCase();
+      const sStr = s.toString();
       s.modify('move', 'forward', 'character'); // clear selection
+
+      const sel =
+        sStr.match(unicodeWordRegexpBegEnd) ||
+        sStr.match(unicodeWordRegexpBeg) ||
+        sStr.match(unicodeWordRegexpEnd) ||
+        sStr.match(unicodeWordRegexp);
+
+      const selectedRaw = (sel && sel[1]) || sel[0];
+      if (!selectedRaw) {
+        return;
+      }
+      const selected = selectedRaw.toLowerCase().trim();
 
       if (data['highlighted'][selected] === undefined) {
         dataFn.objInsert(
