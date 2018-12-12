@@ -20,22 +20,18 @@ const TextToColor = text => {
   return 'rgb(' + obj.r + ',' + obj.g + ',' + obj.b + ')';
 };
 
-// the actual component that the student sees
 const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
 
-  const onClick = () => {
+  const onClick = e => {
+    e.preventDefault();
     const s = window.getSelection();
     if (s.isCollapsed) {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      const sel = s.toString().match(/(?!'.*')\b[\w']+\b/g);
-      if (!sel) {
-        return;
-      }
-      const selected = sel[0].toLowerCase().trim();
+      const selected = s.toString().toLowerCase();
       s.modify('move', 'forward', 'character'); // clear selection
 
       if (data['highlighted'][selected] === undefined) {
@@ -69,7 +65,8 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           margin: '20px',
           fontSize: '1.5em',
           lineHeight: '150%',
-          fontFamily: 'serif'
+          fontFamily: 'serif',
+          whiteSpace: 'pre-line'
         }}
       >
         <Highlighter
@@ -84,26 +81,14 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           unhighlightStyle={{ fontSize: 'xx-large', cursor: 'help' }}
         />
         <br />
-        {activityData.config.text &&
-          activityData.config.text.split('\n\n').map((sub, i) => {
-            const k = sub + i;
-            return (
-              <p key={k}>
-                {sub.split('\n').map((sub2, index) => {
-                  const k2 = sub2 + index;
-                  return (
-                    <Highlighter
-                      key={k2}
-                      searchWords={data['highlighted']}
-                      highlightStyle={{ cursor: 'help' }}
-                      unhighlightStyle={{ cursor: 'help' }}
-                      textToHighlight={sub2}
-                    />
-                  );
-                })}
-              </p>
-            );
-          })}
+        {activityData.config.text && (
+          <Highlighter
+            searchWords={data['highlighted']}
+            highlightStyle={{ cursor: 'help' }}
+            unhighlightStyle={{ cursor: 'help' }}
+            textToHighlight={activityData.config.text}
+          />
+        )}
       </div>
     </>
   );

@@ -8,6 +8,7 @@ module.exports = {
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-import-meta',
     '@babel/plugin-proposal-json-strings',
+    '@babel/plugin-proposal-unicode-property-regex',
     [
       'captains-log',
       {

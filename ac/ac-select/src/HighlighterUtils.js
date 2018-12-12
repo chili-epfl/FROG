@@ -48,11 +48,11 @@ const defaultFindChunks = ({ searchWords, textToHighlight }) =>
   searchWords
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const regex = new RegExp('\\b(' + searchWord + ')\\b', 'gi');
-      let match = regex.exec(textToHighlight);
+      const regex = new RegExp('[^\\p{L}](' + searchWord + ')[^\\p{L}]', 'gui');
+      let match = regex.exec(':' + textToHighlight + ':');
       while (match) {
         const start = match.index;
-        const end = regex.lastIndex;
+        const end = regex.lastIndex - 2;
         // We do not return zero-length matches
         if (end > start) {
           chunks.push({ start, end });
@@ -62,7 +62,7 @@ const defaultFindChunks = ({ searchWords, textToHighlight }) =>
         if (match.index === regex.lastIndex) {
           regex.lastIndex += 1;
         }
-        match = regex.exec(textToHighlight);
+        match = regex.exec(':' + textToHighlight);
       }
       return chunks;
     }, []);
