@@ -24,8 +24,7 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
 
-  const onClick = e => {
-    e.preventDefault();
+  const onClick = () => {
     const s = window.getSelection();
     if (s.isCollapsed) {
       s.modify('move', 'forward', 'character');
@@ -66,7 +65,7 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           fontSize: '1.5em',
           lineHeight: '150%',
           fontFamily: 'serif',
-          whiteSpace: 'pre-line'
+          whiteSpace: 'pre-wrap'
         }}
       >
         <Highlighter
