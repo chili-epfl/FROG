@@ -9,24 +9,11 @@ module.exports = {
     '@babel/plugin-syntax-import-meta',
     '@babel/plugin-proposal-json-strings',
     [
-      '@babel/plugin-proposal-unicode-property-regex',
-      { useUnicodeFlag: false }
-    ],
-    [
       'captains-log',
       {
         methods: ['debug', 'error', 'exception', 'log', 'warn']
       }
     ]
   ],
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        forceAllTransforms: true,
-        include: ['@babel/plugin-proposal-unicode-property-regex']
-      }
-    ],
-    '@babel/preset-react'
-  ]
+  presets: ['@babel/preset-env', '@babel/preset-react']
 };

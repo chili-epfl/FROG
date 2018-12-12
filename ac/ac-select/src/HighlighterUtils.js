@@ -1,4 +1,5 @@
 import { notUnicodeLetter } from 'frog-utils';
+
 const RegexpCache = {};
 
 const wordRegexp = (word: string): RegExp => {
@@ -77,7 +78,7 @@ const defaultFindChunks = ({ searchWords, textToHighlight }) =>
         if (match.index === regex.lastIndex) {
           regex.lastIndex += 1;
         }
-        match = regex.exec(':' + textToHighlight);
+        match = regex.exec(':' + textToHighlight + ':');
       }
       return chunks;
     }, []);
