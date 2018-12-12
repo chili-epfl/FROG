@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { withState, compose } from 'recompose';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
+import { withState, compose } from 'recompose';
 
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
@@ -17,6 +16,17 @@ const styles = () => ({
   },
   head: {
     fontSize: 'large'
+  },
+  text: {
+    height: '100%',
+    overflow: 'scroll',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '20px',
+    fontSize: '1.5em',
+    lineHeight: '150%',
+    fontFamily: 'serif',
+    whiteSpace: 'pre-wrap'
   }
 });
 
@@ -26,7 +36,6 @@ const ViewerStyleless = ({
   currentColor,
   setCurrentColor,
   mode,
-  setMode,
   classes
 }) => {
   const selectPenColor = color => setCurrentColor(color);
@@ -65,14 +74,6 @@ const ViewerStyleless = ({
       )}
       {mode === 'ranking' ? (
         <>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setMode('text')}
-            style={{ width: '200px' }}
-          >
-            See text
-          </Button>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -98,46 +99,27 @@ const ViewerStyleless = ({
         </>
       ) : (
         <>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setMode('ranking')}
-            style={{ width: '200px' }}
-          >
-            See word ranking
-          </Button>
-
-          <Highlighter
-            {...{ searchWords }}
-            textToHighlight={activity.data ? activity.data.title || '' : ''}
-            highlightStyle={{
-              backgroundColor: currentColor,
-              fontSize: 'xx-large'
-            }}
-            unhighlightStyle={{ fontSize: 'xx-large' }}
-          />
-          <br />
-          {activity.data.text &&
-            activity.data.text.split('\n\n').map((sub, i) => {
-              const k = sub + i;
-              return (
-                <p key={k}>
-                  {sub.split('\n').map((sub2, index) => {
-                    const k2 = sub2 + index;
-                    return (
-                      <Highlighter
-                        key={k2}
-                        {...{ searchWords }}
-                        highlightStyle={{
-                          backgroundColor: currentColor
-                        }}
-                        textToHighlight={sub2}
-                      />
-                    );
-                  })}
-                </p>
-              );
-            })}
+          <div className={classes.text}>
+            <Highlighter
+              {...{ searchWords }}
+              textToHighlight={activity.data ? activity.data.title || '' : ''}
+              highlightStyle={{
+                backgroundColor: currentColor,
+                fontSize: 'xx-large'
+              }}
+              unhighlightStyle={{ fontSize: 'xx-large' }}
+            />
+            <br />
+            {activity.data.text && (
+              <Highlighter
+                {...{ searchWords }}
+                highlightStyle={{
+                  backgroundColor: currentColor
+                }}
+                textToHighlight={activity.data.text}
+              />
+            )}
+          </div>
         </>
       )}
     </div>
@@ -163,17 +145,22 @@ const reactiveToDisplay = (reactive: any) => {
   return state;
 };
 
+const Viewer = compose(
+  withStyles(styles),
+  withState('currentColor', 'setCurrentColor', '#FFFFFF')
+)(ViewerStyleless);
+
 const initData = {};
 
-const dashboardText = {
-  Viewer: withStyles(styles)(
-    compose(
-      withState('mode', 'setMode', 'ranking'),
-      withState('currentColor', 'setCurrentColor', '#FFFFFF')
-    )(ViewerStyleless)
-  ),
-  reactiveToDisplay,
-  initData
+export default {
+  wordRank: {
+    reactiveToDisplay,
+    initData,
+    Viewer: props => <Viewer mode="ranking" {...props} />
+  },
+  text: {
+    reactiveToDisplay,
+    initData,
+    Viewer
+  }
 };
-
-export default dashboardText;

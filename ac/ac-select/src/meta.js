@@ -14,6 +14,99 @@ export default {
       activityData: {}
     },
     {
+      title: 'German',
+      config: {
+        title: 'Die Freuden (Goethe)',
+        text: `Die Freuden
+Es flattert um die Quelle
+Die wechselnde Libelle,
+Mich freut sie lange schon;
+Bald dunkel und bald helle,
+Wie der Chamäleon,
+Bald rot, bald blau,
+Bald blau, bald grün;
+O dass ich in der Nähe
+Doch ihre Farben sähe!
+
+Sie schwirrt und schwebet, rastet nie!
+Doch still, sie setzt sich an die Weiden.
+Da hab ich sie! Da hab ich sie!
+Und nun betracht ich sie genau,
+Und seh ein traurig dunkles Blau -
+So geht es dir, Zergliedrer deiner Freuden!`
+      },
+      activityData: {}
+    },
+    {
+      title: 'Russian',
+      config: {
+        title: 'Бесы (Пушкин)',
+        text: `Мчатся тучи, вьются тучи;
+Невидимкою луна
+Освещает снег летучий;
+Мутно небо, ночь мутна.
+Еду, еду в чистом поле;
+Колокольчик дин-дин-дин...
+Страшно, страшно поневоле
+Средь неведомых равнин!
+
+«Эй, пошел, ямщик!..» — «Нет мочи:
+Коням, барин, тяжело;
+Вьюга мне слипает очи;
+Все дороги занесло;
+Хоть убей, следа не видно;
+Сбились мы. Что делать нам!
+В поле бес нас водит, видно,
+Да кружит по сторонам.
+
+Посмотри: вон, вон играет,
+Дует, плюет на меня;
+Вон — теперь в овраг толкает
+Одичалого коня;
+Там верстою небывалой
+Он торчал передо мной;
+Там сверкнул он искрой малой
+И пропал во тьме пустой».
+
+Мчатся тучи, вьются тучи;
+Невидимкою луна
+Освещает снег летучий;
+Мутно небо, ночь мутна.
+Сил нам нет кружиться доле;
+Колокольчик вдруг умолк;
+Кони стали... «Что там в поле?» —
+«Кто их знает? пень иль волк?»
+
+Вьюга злится, вьюга плачет;
+Кони чуткие храпят;
+Вот уж он далече скачет;
+Лишь глаза во мгле горят;
+Кони снова понеслися;
+Колокольчик дин-дин-дин...
+Вижу: духи собралися
+Средь белеющих равнин.
+
+Бесконечны, безобразны,
+В мутной месяца игре
+Закружились бесы разны,
+Будто листья в ноябре...
+Сколько их! куда их гонят?
+Что так жалобно поют?
+Домового ли хоронят,
+Ведьму ль замуж выдают?
+
+Мчатся тучи, вьются тучи;
+Невидимкою луна
+Освещает снег летучий;
+Мутно небо, ночь мутна.
+Мчатся бесы рой за роем
+В беспредельной вышине,
+Визгом жалобным и воем
+Надрывая сердце мне...
+`
+      }
+    },
+    {
       title: 'Where is the love (Black Eyed Peas)',
       config: {
         title: 'Where is the love (Black Eyed Peas)',
@@ -692,69 +785,6 @@ Lack of understanding leading us away from unity`
             }
           },
           score: 1
-        },
-        cjmu6v2jm0036b2iyelwm6mxk: {
-          id: 'cjmu6v2jm0036b2iyelwm6mxk',
-          li: {
-            id: 'cjmu6v2jl0027b2iyighae2ws',
-            liDocument: {
-              liType: 'li-hypothesis',
-              createdAt: '2018-10-04T06:17:21.825Z',
-              createdBy: 'op-hypothesis',
-              username: 'Westerdale',
-              payload: {
-                rows: [
-                  {
-                    username: 'Westerdale',
-                    displayName: 'Westerdale',
-                    text:
-                      "This. We need to research and study successful social movements in order to enact the change needed - while focusing on increasing engagement and participation. It takes work, cooperation and support. I just read this article today, and it's been on my mind all day: https://www.washingtonpost.com/news/answer-sheet/wp/2017/10/19/educator-schools-shouldnt-merely-allow-students-to-protest-they-should-support-them/?utm_term=.56d5520ee3e4 ",
-                    date: 'Fri Oct 20 2017',
-                    quotation:
-                      'social movements around the world can learn from each other',
-                    article:
-                      'How Young Activists Deploy Digital Tools for Social Change',
-                    articleLink:
-                      'https://hyp.is/YjwozrU1EeeWBGPzfOTWgA/educatorinnovator.org/how-young-activists-deploy-digital-tools-for-social-change/',
-                    id: 'YjwozrU1EeeWBGPzfOTWgA',
-                    updated: '2017-10-20T01:24:14.286980+00:00',
-                    timestampLink:
-                      'https://hypothes.is/a/YjwozrU1EeeWBGPzfOTWgA'
-                  },
-                  {
-                    username: 'onewheeljoe',
-                    displayName: 'onewheeljoe',
-                    text:
-                      "I agree that this article would make for another great discussion. I'm interested in discussing this f2f with you, Westerdale, and interested colleagues. ",
-                    date: 'Sat Nov 04 2017',
-                    article: false,
-                    articleLink:
-                      'https://hyp.is/YjwozrU1EeeWBGPzfOTWgA/educatorinnovator.org/how-young-activists-deploy-digital-tools-for-social-change/',
-                    lastRef: 'YjwozrU1EeeWBGPzfOTWgA',
-                    id: '6I2x5sFpEeeuLMvkiVCbRw',
-                    updated: '2017-11-04T14:10:27.530279+00:00',
-                    timestampLink:
-                      'https://hypothes.is/a/6I2x5sFpEeeuLMvkiVCbRw'
-                  },
-                  {
-                    username: 'remikalir',
-                    displayName: 'remikalir',
-                    text:
-                      'This is a great resource, thanks for sharing! Is this something we might also collaboratively read and annotate as part of the Marginal Syllabus? If you or others are interested, we can annotate and tag with "marginalsyllabus" and the article will be added as a complementary text to this year\'s syllabus.',
-                    date: 'Fri Oct 20 2017',
-                    article: false,
-                    articleLink:
-                      'https://hyp.is/YjwozrU1EeeWBGPzfOTWgA/educatorinnovator.org/how-young-activists-deploy-digital-tools-for-social-change/',
-                    lastRef: 'YjwozrU1EeeWBGPzfOTWgA',
-                    id: 'lq7eaLWTEeeL8VNybn_KbA',
-                    updated: '2017-10-20T12:38:34.872939+00:00',
-                    timestampLink:
-                      'https://hypothes.is/a/lq7eaLWTEeeL8VNybn_KbA'
-                  }
-                ]
-              }
-            }
-          }
         }
       }
     }
