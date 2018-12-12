@@ -1,3 +1,19 @@
+import { notUnicodeLetter } from 'frog-utils';
+
+const RegexpCache = {};
+
+const wordRegexp = (word: string): RegExp => {
+  if (RegexpCache[word]) {
+    return RegexpCache[word];
+  }
+  const newRe = new RegExp(
+    `${notUnicodeLetter}(${word})${notUnicodeLetter}`,
+    'gui'
+  );
+  RegexpCache[word] = newRe;
+  return newRe;
+};
+
 export const findAll = ({
   autoEscape,
   caseSensitive = false,
@@ -48,11 +64,11 @@ const defaultFindChunks = ({ searchWords, textToHighlight }) =>
   searchWords
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const regex = new RegExp('\\b(' + searchWord + ')\\b', 'gi');
-      let match = regex.exec(textToHighlight);
+      const regex = wordRegexp(searchWord);
+      let match = regex.exec(':' + textToHighlight + ':');
       while (match) {
         const start = match.index;
-        const end = regex.lastIndex;
+        const end = regex.lastIndex - 2;
         // We do not return zero-length matches
         if (end > start) {
           chunks.push({ start, end });
@@ -62,11 +78,10 @@ const defaultFindChunks = ({ searchWords, textToHighlight }) =>
         if (match.index === regex.lastIndex) {
           regex.lastIndex += 1;
         }
-        match = regex.exec(textToHighlight);
+        match = regex.exec(':' + textToHighlight + ':');
       }
       return chunks;
     }, []);
-
 export { defaultFindChunks as findChunks };
 
 export const fillInChunks = ({ chunksToHighlight, totalLength }) => {

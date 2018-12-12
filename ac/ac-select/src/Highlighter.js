@@ -75,7 +75,7 @@ export default ({
               ? Object.assign({}, highlightStyle, activeStyle)
               : highlightStyle;
           const word = searchWords[text.toLowerCase()];
-          return (
+          return word ? (
             <Tooltip
               title={word && word.vote ? word.vote.toString() : ''}
               key={chunk.start + chunk.end}
@@ -84,7 +84,7 @@ export default ({
                 className={highlightClassNames}
                 style={{
                   ...highlightStyles,
-                  backgroundColor: word.color,
+                  backgroundColor: word?.color,
                   filter:
                     'brightness(' +
                     (100 - (word.vote ? word.vote - 1 : 0) * 10) +
@@ -94,6 +94,8 @@ export default ({
                 {text}
               </HighlightTag>
             </Tooltip>
+          ) : (
+            <span>NO MATCH [{text.toLowerCase()}]</span>
           );
         } else {
           return (

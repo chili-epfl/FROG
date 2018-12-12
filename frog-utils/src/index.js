@@ -62,6 +62,7 @@ export {
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
+export { unicodeLetter, notUnicodeLetter } from './unicodeRegexpEscapes';
 export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';

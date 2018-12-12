@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT, uuid, values } from 'frog-utils';
 
-import dashboardText from './DashboardText';
+import dashboards from './dashboards';
 import liType from './liType';
 import meta from './meta';
 
@@ -101,6 +101,6 @@ export default ({
   configUI,
   mergeFunction,
   formatProduct,
-  dashboards: { Dashboard: dashboardText },
+  dashboards,
   LearningItems: [liType]
 }: ActivityPackageT);
