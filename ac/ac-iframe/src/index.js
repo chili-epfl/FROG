@@ -1,6 +1,8 @@
 // @flow
 
-export const meta = {
+import { uuid } from 'frog-utils';
+
+const meta = {
   name: 'Embedded website',
   shortDesc: 'Embedding an external website in an iFrame',
   description:
@@ -12,17 +14,44 @@ export const meta = {
         url: 'http://reganmian.net'
       },
       activityData: {}
+    },
+    {
+      title: 'Piratepad',
+      config: {
+        url: 'http://piratepad.net/p/{}'
+      },
+      activityData: {}
+    },
+    {
+      title: 'Jitsi Meeting',
+      config: {
+        url: 'http://piratepad.net/p/{}'
+      },
+      activityData: {}
     }
   ]
 };
 
-export const config = {
+const config = {
   type: 'object',
   properties: {
     url: {
       type: 'string',
-      title: 'URL of website'
+      title: 'URL of website (use {} to insert a unique ID per instance)'
+    },
+    trusted: {
+      type: 'boolean',
+      title:
+        'Trusted site, allow microphone, camera, geolocation, midi, encrypted-media'
     }
+  }
+};
+
+const dataStructure = {};
+
+const mergeFunction = ({ config: data }: Object, dataFn: *) => {
+  if (data.url && data.url.includes('{}')) {
+    dataFn.objInsert(uuid(), 'uuid');
   }
 };
 
@@ -31,5 +60,7 @@ export default {
   type: 'react-component',
   configVersion: 1,
   config,
-  meta
+  meta,
+  mergeFunction,
+  dataStructure
 };
