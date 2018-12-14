@@ -25,7 +25,7 @@ const meta = {
     {
       title: 'Jitsi Meeting',
       config: {
-        url: 'http://piratepad.net/p/{}'
+        url: 'https://meet.jit.si/{}'
       },
       activityData: {}
     }
