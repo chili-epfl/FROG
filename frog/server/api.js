@@ -339,7 +339,7 @@ WebApp.connectHandlers.use('/file', (req, res) => {
 WebApp.connectHandlers.use('/', (req, res, next) => {
   if (Meteor.settings.headlessOnly && !req.headers._injectPayload) {
     res.writeHead(403);
-    res.end('This server only supports API requests');
+    return res.end('This server only supports API requests');
   }
   return next();
 });
