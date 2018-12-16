@@ -305,8 +305,8 @@ class ReactiveRichText extends Component<
     if (!get(authorStyleElements, id)) {
       authorStyleElements[id] = document.createElement('style');
       authorStyleElements[id].type = 'text/css';
-      authorStyleElements[id].classList.add('ql-authorship-style'); // in case for some manipulation
-      authorStyleElements[id].classList.add(`ql-authorship-style-${id}`); // in case for some manipulation
+      authorStyleElements[id].classList.add('ql-authorship-style');
+      authorStyleElements[id].classList.add(`ql-authorship-style-${id}`);
       authorStyleElements[id].innerHTML = css;
       document.documentElement // $FlowFixMe
         .getElementsByTagName('head')[0]
@@ -320,7 +320,7 @@ class ReactiveRichText extends Component<
         return;
       }
 
-      // On initial editor load with default value set, react-quill triggers onChange for LiBlots setting source as user.
+      // On initial editor load with default value set, react-quill triggers onChange for Lis setting source as user.
       // This check avoids such triggers being sent to ShareDB preventing duplicate LIs appearing in the editor.
       const isOpLiInsert = findIndex(delta.ops, op => get(op, 'insert[learning-item]')) >= 0;
       if (isOpLiInsert) {
@@ -398,7 +398,7 @@ class ReactiveRichText extends Component<
         insertPosition,
         'learning-item',
         params,
-        'api'
+        Quill.sources.USER
       );
 
       this.submitOperation(delta);
