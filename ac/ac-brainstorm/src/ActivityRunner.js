@@ -74,7 +74,7 @@ const Idea = ({
   zoomFn,
   config
 }) => (
-  <Card style={{ minWidth: 400 }}>
+  <Card style={{ minWidth: 400, margin: 5 }}>
     <CardContent>{children}</CardContent>
     <CardActions>
       {config.allowVoting && (
