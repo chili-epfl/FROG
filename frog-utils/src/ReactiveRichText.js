@@ -3,12 +3,14 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { get, invoke, isEqual, last, forEach, findIndex } from 'lodash';
+import { get, invoke, isEqual, last, forEach, findIndex, head } from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
 import { generateReactiveFn } from './generateReactiveFn';
+
+const Delta = Quill.import('delta');
 
 const styles = theme => ({
   root: {
@@ -21,7 +23,6 @@ const styles = theme => ({
 const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
   static create(value) {
-    this.data = value;
     const node = super.create(value);
     const { authorId, liId } = value;
 
@@ -29,7 +30,7 @@ class LearningItemBlot extends Embed {
     const { LearningItem } = generateReactiveFn(doc, window.LearningItem);
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
-      <div>
+      <div data-liid={liId} data-authorid={authorId}>
         <LearningItemContainer li={LearningItem} id={liId} />
         <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
       </div>,
@@ -38,8 +39,14 @@ class LearningItemBlot extends Embed {
     return node;
   }
 
-  static value() {
-    return this.data;
+  static value(node) {
+    const child = head(node.childNodes);
+    if (child) {
+      const liId = get(child.dataset, 'liid');
+      const authorId = get(child.dataset, 'authorid');
+      return {authorId, liId};
+    }
+    return {};
   }
 
   static length() {
@@ -71,6 +78,13 @@ const LearningItemContainer = withStyles(styles)(
     </Paper>
   )
 );
+
+const Parchment = Quill.import('parchment');
+const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
+  scope: Parchment.Scope.INLINE
+});
+Parchment.register(AuthorClass);
+Quill.register(AuthorClass, true);
 
 function hashCode(str = '') {
   let hash = 0;
@@ -134,15 +148,6 @@ const formats = [
   'author'
 ];
 
-const registerAuthorClass = () => {
-  const Parchment = Quill.import('parchment');
-  const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
-    scope: Parchment.Scope.INLINE
-  });
-  Parchment.register(AuthorClass);
-  Quill.register(AuthorClass, true);
-};
-
 type ReactivePropsT = {
   path: string,
   dataFn: Object,
@@ -159,9 +164,9 @@ class ReactiveRichText extends Component<
   quillRef: any;
   compositionStart: boolean;
   authorDeltaToApply: any;
-  toolbarId: string;
+  toolbarId: string = uuid();
   styleElements: {};
-  state = { path: undefined };
+  state = { path: this.props.dataFn.getMergedPath(this.props.path) };
 
   opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
@@ -255,12 +260,6 @@ class ReactiveRichText extends Component<
     }
   }
 
-  componentWillMount() {
-    this.setState({ path: this.props.dataFn.getMergedPath(this.props.path) });
-    registerAuthorClass();
-    this.toolbarId = uuid();
-  }
-
   componentWillReceiveProps(nextProps: ReactivePropsT) {
     if (
       (nextProps.dataFn && nextProps.dataFn.doc.id) !==
@@ -321,10 +320,21 @@ class ReactiveRichText extends Component<
         return;
       }
 
-      const editor = this.quillRef.getEditor();
+      // On initial editor load with default value set, react-quill triggers onChange for LiBlots setting source as user.
+      // This check avoids such triggers being sent to ShareDB preventing duplicate LIs appearing in the editor.
+      const isOpLiInsert = findIndex(delta.ops, op => get(op, 'insert[learning-item]')) >= 0;
+      if (isOpLiInsert) {
+        return;
+      }
 
-      const Delta = Quill.import('delta');
+      this.submitOperation(delta);
+    }
+  };
 
+  submitOperation = (delta: { ops: Array<{}> }) => {
+    const editor = this.quillRef?.getEditor();
+
+    if (editor) {
       const authorDelta = new Delta();
       const authorFormat = { author: this.props.userId };
 
@@ -361,11 +371,8 @@ class ReactiveRichText extends Component<
         // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
         editor.updateContents(authorDelta, Quill.sources.SILENT);
       }
-      this.submitOperation(delta);
     }
-  };
 
-  submitOperation = (delta: { ops: Array<{}> }) => {
     const op = {
       p: this.state.path,
       t: 'rich-text',
