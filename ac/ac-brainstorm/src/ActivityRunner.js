@@ -24,7 +24,6 @@ const styles = () => ({
   }
 });
 
-
 const red = '#AA0000';
 const blue = '#0000FF';
 const grey = '#A0A0A0';
@@ -75,12 +74,10 @@ const Idea = ({
   zoomFn,
   config
 }) => (
-  <Card style={{minWidth: 400}}>
-    <CardContent>
-      {children}
-    </CardContent>
+  <Card style={{ minWidth: 400 }}>
+    <CardContent>{children}</CardContent>
     <CardActions>
-    {config.allowVoting && (
+      {config.allowVoting && (
         <div>
           <A onClick={() => vote(meta.id, -1)}>
             <ThumbDownIcon
@@ -113,29 +110,27 @@ const Idea = ({
               />
             </A>
           )}
-          {editable &&
-            config.allowEdit && (
-              <A onClick={() => editFn(meta.id)}>
-                <PencilIcon
-                  style={{
-                    float: 'right',
-                    marginRight: '10px'
-                  }}
-                />
-              </A>
-            )}
-          {zoomable &&
-            !config.expandItems && (
-              <A onClick={() => zoomFn(meta.id)}>
-                <ZoomInIcon
-                  glyph="zoom-in"
-                  style={{
-                    float: 'right',
-                    marginRight: '10px'
-                  }}
-                />
-              </A>
-            )}
+          {editable && config.allowEdit && (
+            <A onClick={() => editFn(meta.id)}>
+              <PencilIcon
+                style={{
+                  float: 'right',
+                  marginRight: '10px'
+                }}
+              />
+            </A>
+          )}
+          {zoomable && !config.expandItems && (
+            <A onClick={() => zoomFn(meta.id)}>
+              <ZoomInIcon
+                glyph="zoom-in"
+                style={{
+                  float: 'right',
+                  marginRight: '10px'
+                }}
+              />
+            </A>
+          )}
         </font>
       </div>
     </CardActions>
@@ -179,12 +174,12 @@ const IdeaListRaw = ({
                   edit === x.id
                     ? 'edit'
                     : zoom === x.id
-                      ? history
-                        ? 'history'
-                        : 'view'
-                      : config.expandItems
-                        ? 'view'
-                        : 'thumbView'
+                    ? history
+                      ? 'history'
+                      : 'view'
+                    : config.expandItems
+                    ? 'view'
+                    : 'thumbView'
                 }
                 render={({ zoomable, editable, children }) => (
                   <Idea
