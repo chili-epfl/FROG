@@ -256,7 +256,7 @@ const ListComponent = ({
   return (
     <>
       <div style={{ width: '80%' }}>
-        <Grid container>
+        <Grid container direction="row">
           <p>{activityData.config.text}</p>
           <IdeaList
             config={activityData.config}
