@@ -85,3 +85,6 @@ fabric.properties
 .idea/watcherTasks.xml
 
 frog/public/clientFiles
+# VSCode
+.vscode
+**/.vscode

@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { values, A, type ActivityRunnerPropsT } from 'frog-utils';
-import styled from 'styled-components';
+import { values, A, ActivityRunnerPropsT } from 'frog-utils';
 import FlipMove from '@houshuang/react-flip-move';
 import Badge from '@material-ui/core/Badge';
+import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import Card from '@material-ui/core/Card';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import PencilIcon from '@material-ui/icons/Edit';
@@ -15,24 +15,15 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
+import { CardContent, CardActions } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = () => ({
   badge: {
-    border: `2px solid ${
-      theme.palette.type === 'light'
-        ? theme.palette.grey[200]
-        : theme.palette.grey[900]
-    }`,
-    backgroundColor: 'gray',
     right: '1px',
     top: '1px'
   }
 });
 
-const ListContainer = styled.div`
-  padding: 2%;
-  width: 100%;
-`;
 
 const red = '#AA0000';
 const blue = '#0000FF';
@@ -84,19 +75,13 @@ const Idea = ({
   zoomFn,
   config
 }) => (
-  <ListItem>
-    {children}
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'absolute',
-        right: '25px',
-        top: '5px'
-      }}
-    >
-      {config.allowVoting && (
-        <div style={{ flexDirection: 'row' }}>
+  <Card style={{minWidth: 400}}>
+    <CardContent>
+      {children}
+    </CardContent>
+    <CardActions>
+    {config.allowVoting && (
+        <div>
           <A onClick={() => vote(meta.id, -1)}>
             <ThumbDownIcon
               style={{
@@ -115,7 +100,7 @@ const Idea = ({
           </A>
         </div>
       )}
-      <div style={{ flexDirection: 'row' }}>
+      <div>
         <font size={4}>
           {config.allowDelete && (
             <A onClick={() => delFn(meta)}>
@@ -153,8 +138,8 @@ const Idea = ({
             )}
         </font>
       </div>
-    </div>
-  </ListItem>
+    </CardActions>
+  </Card>
 );
 
 const IdeaListRaw = ({
@@ -276,7 +261,7 @@ const ListComponent = ({
   return (
     <>
       <div style={{ width: '80%' }}>
-        <ListContainer>
+        <Grid container>
           <p>{activityData.config.text}</p>
           <IdeaList
             config={activityData.config}
@@ -287,7 +272,7 @@ const ListComponent = ({
             LearningItem={LearningItem}
             history={slider}
           />
-        </ListContainer>
+        </Grid>
       </div>
     </>
   );
