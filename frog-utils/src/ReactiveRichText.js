@@ -8,7 +8,6 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
-import { generateReactiveFn } from './generateReactiveFn';
 
 const Delta = Quill.import('delta');
 
@@ -20,19 +19,37 @@ const styles = theme => ({
   }
 });
 
+const LIComponentRaw = ({ id, authorId, classes }) => {
+  const LearningItem = window.reactiveRichTextdatafn.LearningItem;
+  return (
+    <>
+      <LearningItem
+        type="view"
+        id={id}
+        render={({ children }) => (
+          <Paper className={classes.root} elevation={10} square>
+            {children}
+          </Paper>
+        )}
+      />
+      <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
+    </>
+  );
+};
+
+const LIComponent = withStyles(styles)(LIComponentRaw);
+
 const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
   static create(value) {
     const node = super.create(value);
     const { authorId, liId } = value;
+    console.log(liId);
 
-    const doc = window.connection.get('li', liId);
-    const { LearningItem } = generateReactiveFn(doc, window.LearningItem);
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
       <div data-liid={liId} data-authorid={authorId}>
-        <LearningItemContainer li={LearningItem} id={liId} />
-        <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
+        <LIComponent id={JSON.parse(liId)} type="view" authorId={authorId} />
       </div>,
       node
     );
@@ -44,7 +61,7 @@ class LearningItemBlot extends Embed {
     if (child) {
       const liId = get(child.dataset, 'liid');
       const authorId = get(child.dataset, 'authorid');
-      return {authorId, liId};
+      return { authorId, liId };
     }
     return {};
   }
@@ -70,14 +87,6 @@ LearningItemBlot.tagName = 'div';
 LearningItemBlot.className = 'ql-learning-item';
 
 Quill.register('formats/learning-item', LearningItemBlot);
-
-const LearningItemContainer = withStyles(styles)(
-  ({ li: LearningItem, id, classes }) => (
-    <Paper className={classes.root} elevation={10} square>
-      <LearningItem type="view" id={id} />
-    </Paper>
-  )
-);
 
 const Parchment = Quill.import('parchment');
 const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
@@ -167,6 +176,11 @@ class ReactiveRichText extends Component<
   toolbarId: string = uuid();
   styleElements: {};
   state = { path: this.props.dataFn.getMergedPath(this.props.path) };
+
+  constructor(props) {
+    super(props);
+    window.reactiveRichTextdatafn = props.dataFn;
+  }
 
   opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
@@ -322,7 +336,8 @@ class ReactiveRichText extends Component<
 
       // On initial editor load with default value set, react-quill triggers onChange for LiBlots setting source as user.
       // This check avoids such triggers being sent to ShareDB preventing duplicate LIs appearing in the editor.
-      const isOpLiInsert = findIndex(delta.ops, op => get(op, 'insert[learning-item]')) >= 0;
+      const isOpLiInsert =
+        findIndex(delta.ops, op => get(op, 'insert[learning-item]')) >= 0;
       if (isOpLiInsert) {
         return;
       }
@@ -390,10 +405,11 @@ class ReactiveRichText extends Component<
       const insertPosition = index || editor.getLength() - 1;
 
       const params = {
-        liId: e,
+        liId: JSON.stringify(e),
         authorId: this.props.userId
       };
 
+      console.log(e);
       const delta = editor.insertEmbed(
         insertPosition,
         'learning-item',
@@ -401,6 +417,7 @@ class ReactiveRichText extends Component<
         'api'
       );
 
+      console.log(delta);
       this.submitOperation(delta);
     }
   };
