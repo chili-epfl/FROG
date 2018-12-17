@@ -39,7 +39,7 @@ const chooseColor = (vote, isUp) => {
 };
 
 const AddingLI = ({ LearningItem, config }) => (
-  <Card style={{margin: 5, padding: 5}} raised>
+  <Card style={{ margin: 5, padding: 5 }} raised>
     <CardContent>
       <div style={{ width: '500px' }}>
         {config.specificLI && (
@@ -53,7 +53,7 @@ const AddingLI = ({ LearningItem, config }) => (
       </div>
     </CardContent>
     <CardActions>
-    {config.allowGeneralLI && (
+      {config.allowGeneralLI && (
         <LearningItem
           type="create"
           meta={{ score: 0, students: {} }}
