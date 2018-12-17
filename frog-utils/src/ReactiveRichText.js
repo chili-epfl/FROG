@@ -251,6 +251,13 @@ class ReactiveRichText extends Component<
   };
 
   componentDidMount() {
+    const editor = invoke(this.quillRef, 'getEditor');
+    if (editor) {
+      setTimeout(() => {
+        editor.on('text-change', this.handleChange);
+      }, 1000);
+    }
+
     if (!this.props.data) {
       this.update(this.props);
       this.initializeAuthorship();
@@ -314,16 +321,9 @@ class ReactiveRichText extends Component<
     }
   }
 
-  handleChange = (contents: string, delta: Object, source: string) => {
+  handleChange = (delta: Object, oldContents: Object, source: string) => {
     if (!this.props.readOnly) {
       if (source !== 'user') {
-        return;
-      }
-
-      // On initial editor load with default value set, react-quill triggers onChange for Lis setting source as user.
-      // This check avoids such triggers being sent to ShareDB preventing duplicate LIs appearing in the editor.
-      const isOpLiInsert = findIndex(delta.ops, op => get(op, 'insert[learning-item]')) >= 0;
-      if (isOpLiInsert) {
         return;
       }
 
@@ -394,14 +394,12 @@ class ReactiveRichText extends Component<
         authorId: this.props.userId
       };
 
-      const delta = editor.insertEmbed(
+      editor.insertEmbed(
         insertPosition,
         'learning-item',
         params,
         Quill.sources.USER
       );
-
-      this.submitOperation(delta);
     }
   };
 
@@ -427,7 +425,6 @@ class ReactiveRichText extends Component<
             this.quillRef = element;
           }}
           readOnly={get(props, 'readOnly')}
-          onChange={this.handleChange}
           formats={formats}
           modules={{
             toolbar: get(props, 'readOnly')
