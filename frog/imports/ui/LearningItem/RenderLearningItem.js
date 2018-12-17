@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import Dialog from '@material-ui/core/Dialog';
 import { omit, isEqual } from 'lodash';
+import { toJS } from 'mobx';
 import { Provider } from 'mobx-react';
 import { getDisplayName } from 'frog-utils';
 import { toClass } from 'recompose';
@@ -88,7 +89,7 @@ class RenderLearningItem extends React.Component<any, any> {
 
   onDrop = (e: *) => {
     if (this.ref?.current) {
-      this.ref.current.onDrop(e.item);
+      this.ref.current.onDrop(toJS(e.item));
     }
   };
 
