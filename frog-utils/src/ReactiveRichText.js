@@ -3,12 +3,11 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { get, invoke, isEqual, last, forEach, findIndex, head } from 'lodash';
+import { get, invoke, isEqual, last, forEach, findIndex, head, isUndefined } from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
-import { generateReactiveFn } from './generateReactiveFn';
 
 const Delta = Quill.import('delta');
 
@@ -20,19 +19,38 @@ const styles = theme => ({
   }
 });
 
+let reactiveRichTextDataFn;
+
+const LIComponentRaw = ({ id, authorId, classes }) => {
+  const LearningItem = reactiveRichTextDataFn.LearningItem;
+  return (
+    <>
+      <LearningItem
+        type="view"
+        id={id}
+        render={({ children }) => (
+          <Paper className={classes.root} elevation={10} square>
+            {children}
+          </Paper>
+        )}
+      />
+      <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
+    </>
+  );
+};
+
+const LIComponent = withStyles(styles)(LIComponentRaw);
+
 const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
   static create(value) {
     const node = super.create(value);
     const { authorId, liId } = value;
 
-    const doc = window.connection.get('li', liId);
-    const { LearningItem } = generateReactiveFn(doc, window.LearningItem);
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
       <div data-liid={liId} data-authorid={authorId}>
-        <LearningItemContainer li={LearningItem} id={liId} />
-        <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
+        <LIComponent id={JSON.parse(liId)} authorId={authorId} />
       </div>,
       node
     );
@@ -44,7 +62,7 @@ class LearningItemBlot extends Embed {
     if (child) {
       const liId = get(child.dataset, 'liid');
       const authorId = get(child.dataset, 'authorid');
-      return {authorId, liId};
+      return { authorId, liId };
     }
     return {};
   }
@@ -61,7 +79,7 @@ class LearningItemBlot extends Embed {
       blot => blot.className !== 'ql-learning-item',
       thisIndex
     );
-    return [this.parent.domNode, offset];
+    return [this.parent.domNode, offset >= 0 ? offset : allBlots.length - 1];
   }
 }
 
@@ -70,14 +88,6 @@ LearningItemBlot.tagName = 'div';
 LearningItemBlot.className = 'ql-learning-item';
 
 Quill.register('formats/learning-item', LearningItemBlot);
-
-const LearningItemContainer = withStyles(styles)(
-  ({ li: LearningItem, id, classes }) => (
-    <Paper className={classes.root} elevation={10} square>
-      <LearningItem type="view" id={id} />
-    </Paper>
-  )
-);
 
 const Parchment = Quill.import('parchment');
 const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
@@ -167,6 +177,11 @@ class ReactiveRichText extends Component<
   toolbarId: string = uuid();
   styleElements: {};
   state = { path: this.props.dataFn.getMergedPath(this.props.path) };
+
+  constructor(props) {
+    super(props);
+    reactiveRichTextDataFn = props.dataFn;
+  }
 
   opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
@@ -387,12 +402,18 @@ class ReactiveRichText extends Component<
 
     if (editor) {
       const index = get(editor, 'selection.savedRange.index');
-      const insertPosition = index || editor.getLength() - 1;
+      let insertPosition = isUndefined(index) ? editor.getLength() - 1 : index;
 
       const params = {
-        liId: e,
+        liId: JSON.stringify(e),
         authorId: this.props.userId
       };
+
+      const prevPosition = Math.max(0, insertPosition - 1);
+      if (index === 0 || editor.getText(prevPosition, 1) !== '\n') {
+        editor.insertText(insertPosition, '\n', Quill.sources.USER);
+        insertPosition += 1;
+      }
 
       editor.insertEmbed(
         insertPosition,
@@ -400,6 +421,9 @@ class ReactiveRichText extends Component<
         params,
         Quill.sources.USER
       );
+
+      editor.insertText(insertPosition + 1, '\n', Quill.sources.USER);
+      editor.setSelection(insertPosition + 2, 0 , Quill.sources.USER);
     }
   };
 
