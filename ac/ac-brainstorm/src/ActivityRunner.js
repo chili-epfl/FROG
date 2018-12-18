@@ -79,69 +79,51 @@ class Idea extends React.Component {
     const {vote, meta, editFn, delFn, zoomable, config, editable, children, userInfo} = this.props;
     if(this.state.focus)
       return (<Card raised onMouseOut={this.handleChange}>
-        <CardContent>{children}</CardContent>
-        <CardActions>
+        <CardContent style={{
+        minWidth: '80%'
+      }}>
+        <div style={{position: 'absolute', zIndex: 2, minWidth: '108px', display: 'flex', flexDirection: 'row', right: 0}}>
           {config.allowVoting && (
             <div>
-              <A onClick={() => vote(meta.id, -1)}>
-                <ThumbDownIcon
-                  style={{
-                    color: chooseColor(meta.students[userInfo.id], false),
-                    marginRight: '10px'
-                  }}
-                />
-              </A>
-              <A onClick={() => vote(meta.id, 1)}>
-                <ThumbUpIcon
-                  style={{
-                    color: chooseColor(meta.students[userInfo.id], true),
-                    marginRight: '10px'
-                  }}
-                />
-              </A>
+              <Button size="small" onClick={() => vote(meta.id, -1)}>
+                <ThumbDownIcon fontSize="small" />
+              </Button>
+              <Button size="small" onClick={() => vote(meta.id, 1)}>
+                <ThumbUpIcon fontSize="small" />
+              </Button>
             </div>
           )}
           <div>
             <font size={4}>
               {config.allowDelete && (
-                <A onClick={() => delFn(meta)}>
-                  <DeleteIcon
-                    style={{
-                      float: 'right',
-                      color: 'grey',
-                      marginRight: '10px'
-                    }}
-                  />
-                </A>
+                <Button size="small" onClick={() => delFn(meta)}>
+                  <DeleteIcon fontSize="small" />
+                </Button>
               )}
               {editable && config.allowEdit && (
-                <A variant="extendedFab" onClick={() => editFn(meta.id)}>
-                  <PencilIcon
-                    style={{
-                      float: 'right',
-                      marginRight: '10px'
-                    }}
-                  />
-                </A>
+                <Button size="small" onClick={() => editFn(meta.id)}>
+                  <PencilIcon fontSize="small" />
+                </Button>
               )}
               {zoomable && !config.expandItems && (
-                <A onClick={() => zoomFn(meta.id)}>
+                <Button size="small" onClick={() => zoomFn(meta.id)}>
                   <ZoomInIcon
                     glyph="zoom-in"
-                    style={{
-                      float: 'right',
-                      marginRight: '10px'
-                    }}
+                    fontSize="small"
                   />
-                </A>
+                </Button>
               )}
             </font>
           </div>
-          </CardActions>
+          </div>
+          {children}
+          </CardContent>
       </Card>);
       else
        return (<Card onMouseOver={this.handleChange}>
-        <CardContent>{children}</CardContent>
+        <CardContent style={{
+        minWidth: '80%'
+      }}>{children}</CardContent>
        </Card>);
   }
 }
