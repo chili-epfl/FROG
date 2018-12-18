@@ -6,6 +6,7 @@ import {
   unicodeLetter,
   notUnicodeLetter
 } from 'frog-utils';
+import { times, compact, isEmpty } from 'lodash';
 
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
@@ -40,6 +41,14 @@ const unicodeWordRegexpEnd = new RegExp(
 const unicodeWordRegexpBegEnd = new RegExp(`^(${unicodeLetter}+)$`, 'ui');
 
 const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
+  const wordPhrases =
+    activityData.config.wordPhrases &&
+    compact(
+      activityData.config.wordPhrases.map(x => x && x.trim().toLowerCase())
+    );
+  const wordPhrasesRegExp =
+    !isEmpty(wordPhrases) && new RegExp(wordPhrases.join('|'), 'gui');
+
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
 
@@ -49,16 +58,39 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      const sStr = s.toString();
+      let sStr = s
+        .toString()
+        .trim()
+        .toLowerCase();
+      let c = -1;
+      if (wordPhrases && !isEmpty(wordPhrases)) {
+        do {
+          c += 1;
+          const wF = wordPhrases[c];
+          if (wF.includes(sStr)) {
+            const words = wF.split(' ');
+            const idx = words.indexOf(sStr);
+            times(idx + 1, () => s.modify('move', 'backward', 'word'));
+            times(words.length, () => s.modify('extend', 'forward', 'word'));
+
+            sStr = s
+              .toString()
+              .trim()
+              .toLowerCase();
+            times(idx, () => s.modify('move', 'forward', 'word'));
+          }
+        } while (c < wordPhrases.length - 1 && sStr !== wordPhrases[c]);
+      }
       s.modify('move', 'forward', 'character'); // clear selection
 
       const sel =
+        (wordPhrasesRegExp && sStr.match(wordPhrasesRegExp)) ||
         sStr.match(unicodeWordRegexpBegEnd) ||
         sStr.match(unicodeWordRegexpBeg) ||
         sStr.match(unicodeWordRegexpEnd) ||
         sStr.match(unicodeWordRegexp);
 
-      const selectedRaw = sel && sel[1];
+      const selectedRaw = sel && (sel[1] || sel[0]);
       if (!selectedRaw) {
         return;
       }

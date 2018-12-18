@@ -54,6 +54,11 @@ const config = {
       type: 'string',
       title: 'Text'
     },
+    wordPhrases: {
+      title: 'Multi-words expression to treat as a single unit',
+      type: 'array',
+      items: { type: 'string' }
+    },
     multi: {
       type: 'boolean',
       title: 'Color each highlighted word differently'

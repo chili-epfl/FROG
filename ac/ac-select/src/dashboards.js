@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withState, compose } from 'recompose';
+import { memoize } from 'lodash';
 
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
@@ -29,6 +30,17 @@ const styles = () => ({
     whiteSpace: 'pre-wrap'
   }
 });
+
+const lookupCapitalization = (word, text, activityId) => {
+  if (text.includes(word)) {
+    return word;
+  } else return text.match(new RegExp(word, 'gi'))[0];
+};
+
+const lookupCapitalizationMemo = memoize(lookupCapitalization, x => [
+  x.word,
+  x.activityId
+]);
 
 const ViewerStyleless = ({
   state,
@@ -88,7 +100,11 @@ const ViewerStyleless = ({
                 .map(word => (
                   <TableRow key={word[0]}>
                     <TableCell>
-                      {word[0]}
+                      {lookupCapitalizationMemo(
+                        word[0],
+                        activity.data.text,
+                        activity._id
+                      )}
                       <div />
                     </TableCell>
                     <TableCell>{word[1]}</TableCell>
