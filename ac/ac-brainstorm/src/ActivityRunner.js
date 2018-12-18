@@ -15,7 +15,7 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
-import { CardContent, CardActions } from '@material-ui/core';
+import { CardContent, CardActions, Button } from '@material-ui/core';
 
 const styles = () => ({
   badge: {
@@ -64,80 +64,87 @@ const AddingLI = ({ LearningItem, config }) => (
   </Card>
 );
 
-const Idea = ({
-  children,
-  delFn,
-  meta,
-  vote,
-  userInfo,
-  editFn,
-  zoomable,
-  editable,
-  zoomFn,
-  config
-}) => (
-  <Card style={{ minWidth: 400, margin: 5 }}>
-    <CardContent>{children}</CardContent>
-    <CardActions>
-      {config.allowVoting && (
-        <div>
-          <A onClick={() => vote(meta.id, -1)}>
-            <ThumbDownIcon
-              style={{
-                color: chooseColor(meta.students[userInfo.id], false),
-                marginRight: '10px'
-              }}
-            />
-          </A>
-          <A onClick={() => vote(meta.id, 1)}>
-            <ThumbUpIcon
-              style={{
-                color: chooseColor(meta.students[userInfo.id], true),
-                marginRight: '10px'
-              }}
-            />
-          </A>
-        </div>
-      )}
-      <div>
-        <font size={4}>
-          {config.allowDelete && (
-            <A onClick={() => delFn(meta)}>
-              <DeleteIcon
-                style={{
-                  float: 'right',
-                  color: 'grey',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
+class Idea extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      focus: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange () {
+    this.setState(state => ({focus: !state.focus}));
+  };
+  render() {
+    const {vote, meta, editFn, delFn, zoomable, config, editable, children, userInfo} = this.props;
+    if(this.state.focus)
+      return (<Card raised onMouseOut={this.handleChange}>
+        <CardContent>{children}</CardContent>
+        <CardActions>
+          {config.allowVoting && (
+            <div>
+              <A onClick={() => vote(meta.id, -1)}>
+                <ThumbDownIcon
+                  style={{
+                    color: chooseColor(meta.students[userInfo.id], false),
+                    marginRight: '10px'
+                  }}
+                />
+              </A>
+              <A onClick={() => vote(meta.id, 1)}>
+                <ThumbUpIcon
+                  style={{
+                    color: chooseColor(meta.students[userInfo.id], true),
+                    marginRight: '10px'
+                  }}
+                />
+              </A>
+            </div>
           )}
-          {editable && config.allowEdit && (
-            <A onClick={() => editFn(meta.id)}>
-              <PencilIcon
-                style={{
-                  float: 'right',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
-          )}
-          {zoomable && !config.expandItems && (
-            <A onClick={() => zoomFn(meta.id)}>
-              <ZoomInIcon
-                glyph="zoom-in"
-                style={{
-                  float: 'right',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
-          )}
-        </font>
-      </div>
-    </CardActions>
-  </Card>
-);
+          <div>
+            <font size={4}>
+              {config.allowDelete && (
+                <A onClick={() => delFn(meta)}>
+                  <DeleteIcon
+                    style={{
+                      float: 'right',
+                      color: 'grey',
+                      marginRight: '10px'
+                    }}
+                  />
+                </A>
+              )}
+              {editable && config.allowEdit && (
+                <A variant="extendedFab" onClick={() => editFn(meta.id)}>
+                  <PencilIcon
+                    style={{
+                      float: 'right',
+                      marginRight: '10px'
+                    }}
+                  />
+                </A>
+              )}
+              {zoomable && !config.expandItems && (
+                <A onClick={() => zoomFn(meta.id)}>
+                  <ZoomInIcon
+                    glyph="zoom-in"
+                    style={{
+                      float: 'right',
+                      marginRight: '10px'
+                    }}
+                  />
+                </A>
+              )}
+            </font>
+          </div>
+          </CardActions>
+      </Card>);
+      else
+       return (<Card onMouseOver={this.handleChange}>
+        <CardContent>{children}</CardContent>
+       </Card>);
+  }
+}
 
 const IdeaListRaw = ({
   data,
