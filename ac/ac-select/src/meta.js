@@ -33,9 +33,44 @@ Doch still, sie setzt sich an die Weiden.
 Da hab ich sie! Da hab ich sie!
 Und nun betracht ich sie genau,
 Und seh ein traurig dunkles Blau -
-So geht es dir, Zergliedrer deiner Freuden!`
+So geht es dir, Zergliedrer deiner Freuden!`,
+        wordPhrases: ['schwirrt und schwebet', 'traurig dunkles Blau']
       },
       activityData: {}
+    },
+    {
+      title: 'Bhagavad Gita (Hindi, non functional)',
+      config: {
+        title: `प्रथमोऽध्याय: अर्जुनविषाद`,
+        text: `
+ॐ
+श्रीपरमात्मने नमः
+अथ श्रीमद्भगवद्गीता
+प्रथमोऽध्यायः
+
+धृतराष्ट्र उवाच
+
+धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः । 
+मामकाः पाण्डवाश्चैव किमकुर्वत संजय ॥१-१॥
+
+सञ्जय उवाच
+
+दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा ।
+आचार्यमुपसंगम्य राजा वचनमब्रवीत् ॥१-२॥
+
+पश्यैतां पाण्डुपुत्राणामाचार्य महतीं चमूम् ।
+व्यूढां द्रुपदपुत्रेण तव शिष्येण धीमता ॥१-३॥
+
+अत्र शूरा महेष्वासा भीमार्जुनसमा युधि ।
+युयुधानो विराटश्च द्रुपदश्च महारथः ॥१-४॥
+
+धृष्टकेतुश्चेकितानः काशिराजश्च वीर्यवान् ।
+पुरुजित्कुन्तिभोजश्च शैब्यश्च नरपुङ्गवः ॥१-५॥
+
+युधामन्युश्च विक्रान्त उत्तमौजाश्च वीर्यवान् ।
+सौभद्रो द्रौपदेयाश्च सर्व एव महारथाः ॥१-६॥
+    `
+      }
     },
     {
       title: 'Russian',

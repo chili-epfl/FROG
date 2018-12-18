@@ -55,9 +55,9 @@ const config = {
       title: 'Text'
     },
     wordPhrases: {
-      title:
-        'Multi-words expression to treat as a single unit, separated by comma',
-      type: 'string'
+      title: 'Multi-words expression to treat as a single unit',
+      type: 'array',
+      items: { type: 'string' }
     },
     multi: {
       type: 'boolean',

@@ -6,7 +6,7 @@ import {
   unicodeLetter,
   notUnicodeLetter
 } from 'frog-utils';
-import { times } from 'lodash';
+import { times, compact, isEmpty } from 'lodash';
 
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
@@ -43,9 +43,11 @@ const unicodeWordRegexpBegEnd = new RegExp(`^(${unicodeLetter}+)$`, 'ui');
 const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
   const wordPhrases =
     activityData.config.wordPhrases &&
-    activityData.config.wordPhrases.split(',').map(x => x.trim().toLowerCase());
+    compact(
+      activityData.config.wordPhrases.map(x => x && x.trim().toLowerCase())
+    );
   const wordPhrasesRegExp =
-    wordPhrases && new RegExp(wordPhrases.join('|'), 'gui');
+    !isEmpty(wordPhrases) && new RegExp(wordPhrases.join('|'), 'gui');
 
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
@@ -61,7 +63,7 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
         .trim()
         .toLowerCase();
       let c = -1;
-      if (wordPhrases) {
+      if (wordPhrases && !isEmpty(wordPhrases)) {
         do {
           c += 1;
           const wF = wordPhrases[c];
