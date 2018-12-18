@@ -16,6 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
 import { CardContent, CardActions, Button } from '@material-ui/core';
+import Grow from '@material-ui/core/Grow';
 
 const styles = () => ({
   badge: {
@@ -86,11 +87,11 @@ class Idea extends React.Component {
   }
   render() {
     const {vote, meta, editFn, delFn, zoomable, config, editable, children, userInfo} = this.props;
-    if(this.state.focus)
-      return (<Card raised onMouseLeave={this.handleOnBlur}>
+      return (<Card raised onMouseLeave={this.handleOnBlur} onMouseEnter={this.handleOnFocus}>
         <CardContent style={{
         minWidth: '400px'
       }}>
+      <Grow in={this.state.focus}>
         <div style={{position: 'absolute', zIndex: 2, minWidth: '108px', display: 'flex', flexDirection: 'row', bottom: '15px', right: '15px'}}>
           {config.allowVoting && (
             <div>
@@ -125,15 +126,10 @@ class Idea extends React.Component {
             </font>
           </div>
           </div>
+          </Grow>
           {children}
           </CardContent>
       </Card>);
-      else
-       return (<Card onMouseEnter={this.handleOnFocus}>
-        <CardContent style={{
-        minWidth: '400px'
-      }}>{children}</CardContent>
-       </Card>);
   }
 }
 
