@@ -20,7 +20,7 @@ import { CardContent, CardActions, Button } from '@material-ui/core';
 const styles = () => ({
   badge: {
     right: '1px',
-    top: '1px'
+    top: '1px',
   }
 });
 
@@ -70,19 +70,28 @@ class Idea extends React.Component {
     this.state = {
       focus: false,
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
+    this.handleOnBlur = this.handleOnBlur.bind(this);
   }
-  handleChange () {
-    this.setState(state => ({focus: !state.focus}));
+  handleOnFocus () {
+    this.setState(state => ({focus: true}));
+    setTimeout(() => {
+      this.setState(state => ({focus: false}));
+    }, 3000);
   };
+  handleOnBlur () {
+    setTimeout(() => {
+      this.setState(state => ({focus: false}));
+    }, 500);
+  }
   render() {
     const {vote, meta, editFn, delFn, zoomable, config, editable, children, userInfo} = this.props;
     if(this.state.focus)
-      return (<Card raised onMouseOut={this.handleChange}>
+      return (<Card raised onMouseLeave={this.handleOnBlur}>
         <CardContent style={{
-        minWidth: '80%'
+        minWidth: '400px'
       }}>
-        <div style={{position: 'absolute', zIndex: 2, minWidth: '108px', display: 'flex', flexDirection: 'row', right: 0}}>
+        <div style={{position: 'absolute', zIndex: 2, minWidth: '108px', display: 'flex', flexDirection: 'row', bottom: '15px', right: '15px'}}>
           {config.allowVoting && (
             <div>
               <Button size="small" onClick={() => vote(meta.id, -1)}>
@@ -120,9 +129,9 @@ class Idea extends React.Component {
           </CardContent>
       </Card>);
       else
-       return (<Card onMouseOver={this.handleChange}>
+       return (<Card onMouseEnter={this.handleOnFocus}>
         <CardContent style={{
-        minWidth: '80%'
+        minWidth: '400px'
       }}>{children}</CardContent>
        </Card>);
   }
@@ -159,6 +168,7 @@ const IdeaListRaw = ({
               badgeContent={x.score}
               color="primary"
               classes={{ badge: classes.badge }}
+              style={{display: 'block'}}
             >
               <LearningItem
                 type={
