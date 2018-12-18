@@ -21,10 +21,9 @@ import Grow from '@material-ui/core/Grow';
 const styles = () => ({
   badge: {
     right: '1px',
-    top: '1px',
+    top: '1px'
   }
 });
-
 
 const AddingLI = ({ LearningItem, config }) => (
   <Card style={{ margin: 5, padding: 5 }} raised>
@@ -53,70 +52,93 @@ const AddingLI = ({ LearningItem, config }) => (
 );
 
 class Idea extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      focus: false,
+      focus: false
     };
     this.handleOnFocus = this.handleOnFocus.bind(this);
     this.handleOnBlur = this.handleOnBlur.bind(this);
   }
-  handleOnFocus () {
+  handleOnFocus() {
     this.setState(() => ({ focus: true }));
+  }
+  handleOnBlur() {
     setTimeout(() => {
       this.setState(() => ({ focus: false }));
-    }, 3000);
-  };
-  handleOnBlur () {
-    setTimeout(() => {
-      this.setState(() => ({ focus: false }));
-    }, 500);
+    }, 0);
   }
   render() {
-    const {vote, meta, editFn, delFn, zoomable, config, editable, children} = this.props;
-      return (<Card raised onMouseLeave={this.handleOnBlur} onMouseEnter={this.handleOnFocus}>
-        <CardContent style={{
-        minWidth: '400px'
-      }}>
-      <Grow in={this.state.focus}>
-        <div style={{position: 'absolute', zIndex: 2, minWidth: '108px', display: 'flex', flexDirection: 'row', bottom: '15px', right: '15px'}}>
-          {config.allowVoting && (
-            <div>
-              <Button size="small" onClick={() => vote(meta.id, -1)}>
-                <ThumbDownIcon fontSize="small" />
-              </Button>
-              <Button size="small" onClick={() => vote(meta.id, 1)}>
-                <ThumbUpIcon fontSize="small" />
-              </Button>
+    const {
+      vote,
+      meta,
+      editFn,
+      delFn,
+      zoomable,
+      config,
+      editable,
+      children
+    } = this.props;
+    return (
+      <Card
+        raised
+        onMouseLeave={this.handleOnBlur}
+        onMouseEnter={this.handleOnFocus}
+      >
+        <CardContent
+          style={{
+            minWidth: '400px'
+          }}
+        >
+          <Grow in={this.state.focus}>
+            <div
+              style={{
+                position: 'absolute',
+                zIndex: 2,
+                minWidth: '108px',
+                display: 'flex',
+                flexDirection: 'row',
+                bottom: '15px',
+                right: '15px'
+              }}
+            >
+              {config.allowVoting && (
+                <div>
+                  <Button size="small" onClick={() => vote(meta.id, -1)}>
+                    <ThumbDownIcon fontSize="small" />
+                  </Button>
+                  <Button size="small" onClick={() => vote(meta.id, 1)}>
+                    <ThumbUpIcon fontSize="small" />
+                  </Button>
+                </div>
+              )}
+              <div>
+                <font size={4}>
+                  {config.allowDelete && (
+                    <Button size="small" onClick={() => delFn(meta)}>
+                      <DeleteIcon fontSize="small" />
+                    </Button>
+                  )}
+                  {editable &&
+                    config.allowEdit && (
+                      <Button size="small" onClick={() => editFn(meta.id)}>
+                        <PencilIcon fontSize="small" />
+                      </Button>
+                    )}
+                  {zoomable &&
+                    !config.expandItems && (
+                      <Button size="small" onClick={() => zoomFn(meta.id)}>
+                        <ZoomInIcon glyph="zoom-in" fontSize="small" />
+                      </Button>
+                    )}
+                </font>
+              </div>
             </div>
-          )}
-          <div>
-            <font size={4}>
-              {config.allowDelete && (
-                <Button size="small" onClick={() => delFn(meta)}>
-                  <DeleteIcon fontSize="small" />
-                </Button>
-              )}
-              {editable && config.allowEdit && (
-                <Button size="small" onClick={() => editFn(meta.id)}>
-                  <PencilIcon fontSize="small" />
-                </Button>
-              )}
-              {zoomable && !config.expandItems && (
-                <Button size="small" onClick={() => zoomFn(meta.id)}>
-                  <ZoomInIcon
-                    glyph="zoom-in"
-                    fontSize="small"
-                  />
-                </Button>
-              )}
-            </font>
-          </div>
-          </div>
           </Grow>
           {children}
-          </CardContent>
-      </Card>);
+        </CardContent>
+      </Card>
+    );
   }
 }
 
@@ -151,19 +173,19 @@ const IdeaListRaw = ({
               badgeContent={x.score}
               color="primary"
               classes={{ badge: classes.badge }}
-              style={{display: 'block'}}
+              style={{ display: 'block' }}
             >
               <LearningItem
                 type={
                   edit === x.id
                     ? 'edit'
                     : zoom === x.id
-                    ? history
-                      ? 'history'
-                      : 'view'
-                    : config.expandItems
-                    ? 'view'
-                    : 'thumbView'
+                      ? history
+                        ? 'history'
+                        : 'view'
+                      : config.expandItems
+                        ? 'view'
+                        : 'thumbView'
                 }
                 render={({ zoomable, editable, children }) => (
                   <Idea
