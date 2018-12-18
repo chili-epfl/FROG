@@ -6,6 +6,7 @@ import {
   unicodeLetter,
   notUnicodeLetter
 } from 'frog-utils';
+import { times } from 'lodash';
 
 import Highlighter from './Highlighter';
 import ColorSelect from './ColorSelect';
@@ -40,6 +41,13 @@ const unicodeWordRegexpEnd = new RegExp(
 const unicodeWordRegexpBegEnd = new RegExp(`^(${unicodeLetter}+)$`, 'ui');
 
 const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
+  const wordPhrases =
+    activityData.config.wordPhrases &&
+    activityData.config.wordPhrases.split(',').map(x => x.trim().toLowerCase());
+  const wordPhrasesRegExp =
+    wordPhrases && new RegExp(wordPhrases.join('|'), 'gui');
+  console.log(wordPhrasesRegExp);
+
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
 
@@ -49,15 +57,34 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      const sStr = s.toString();
-      s.modify('move', 'forward', 'character'); // clear selection
+      let sStr = s.toString().trim();
+      wordPhrases.forEach(wF => {
+        console.log(wF, sStr);
+        if (wF.includes(sStr)) {
+          console.log('hit');
+          const words = wF.split(' ');
+          const idx = words.findIndex(x => x === sStr);
+
+          console.log(idx);
+          times(idx, () => s.modify('move', 'backward', 'word'));
+          times(words.length - idx - 1, () =>
+            s.modify('extend', 'forward', 'word')
+          );
+
+          sStr = s.toString().trim();
+          console.log(idx + 1, words.length - idx - 1, sStr);
+        }
+      });
+      // s.modify('move', 'forward', 'character'); // clear selection
 
       const sel =
+        (wordPhrasesRegExp && sStr.match(wordPhrasesRegExp)) ||
         sStr.match(unicodeWordRegexpBegEnd) ||
         sStr.match(unicodeWordRegexpBeg) ||
         sStr.match(unicodeWordRegexpEnd) ||
         sStr.match(unicodeWordRegexp);
 
+      console.log(sel);
       const selectedRaw = sel && sel[1];
       if (!selectedRaw) {
         return;
