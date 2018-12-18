@@ -90,7 +90,6 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
         sStr.match(unicodeWordRegexpEnd) ||
         sStr.match(unicodeWordRegexp);
 
-      console.log(sel);
       const selectedRaw = sel && (sel[1] || sel[0]);
       if (!selectedRaw) {
         return;
