@@ -46,7 +46,6 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
     activityData.config.wordPhrases.split(',').map(x => x.trim().toLowerCase());
   const wordPhrasesRegExp =
     wordPhrases && new RegExp(wordPhrases.join('|'), 'gui');
-  console.log(wordPhrasesRegExp);
 
   const selectPenColor = color =>
     dataFn.objReplace(data.currentColor, color, 'currentColor');
@@ -57,25 +56,30 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
       s.modify('move', 'forward', 'character');
       s.modify('move', 'backward', 'word');
       s.modify('extend', 'forward', 'word');
-      let sStr = s.toString().trim();
-      wordPhrases.forEach(wF => {
-        console.log(wF, sStr);
-        if (wF.includes(sStr)) {
-          console.log('hit');
-          const words = wF.split(' ');
-          const idx = words.findIndex(x => x === sStr);
+      let sStr = s
+        .toString()
+        .trim()
+        .toLowerCase();
+      let c = -1;
+      if (wordPhrases) {
+        do {
+          c += 1;
+          const wF = wordPhrases[c];
+          if (wF.includes(sStr)) {
+            const words = wF.split(' ');
+            const idx = words.indexOf(sStr);
+            times(idx + 1, () => s.modify('move', 'backward', 'word'));
+            times(words.length, () => s.modify('extend', 'forward', 'word'));
 
-          console.log(idx);
-          times(idx, () => s.modify('move', 'backward', 'word'));
-          times(words.length - idx - 1, () =>
-            s.modify('extend', 'forward', 'word')
-          );
-
-          sStr = s.toString().trim();
-          console.log(idx + 1, words.length - idx - 1, sStr);
-        }
-      });
-      // s.modify('move', 'forward', 'character'); // clear selection
+            sStr = s
+              .toString()
+              .trim()
+              .toLowerCase();
+            times(idx, () => s.modify('move', 'forward', 'word'));
+          }
+        } while (c < wordPhrases.length - 1 && sStr !== wordPhrases[c]);
+      }
+      s.modify('move', 'forward', 'character'); // clear selection
 
       const sel =
         (wordPhrasesRegExp && sStr.match(wordPhrasesRegExp)) ||
@@ -85,7 +89,7 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
         sStr.match(unicodeWordRegexp);
 
       console.log(sel);
-      const selectedRaw = sel && sel[1];
+      const selectedRaw = sel && (sel[1] || sel[0]);
       if (!selectedRaw) {
         return;
       }
@@ -131,6 +135,7 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           textToHighlight={
             activityData.config ? activityData.config.title || '' : ''
           }
+          wordPhrases={wordPhrases}
           highlightStyle={{
             fontSize: 'xx-large',
             cursor: 'help'

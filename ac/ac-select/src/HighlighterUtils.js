@@ -20,7 +20,8 @@ export const findAll = ({
   findChunks = defaultFindChunks,
   sanitize,
   searchWords,
-  textToHighlight
+  textToHighlight,
+  wordPhrases
 }) =>
   fillInChunks({
     chunksToHighlight: combineChunks({
@@ -29,7 +30,8 @@ export const findAll = ({
         caseSensitive,
         sanitize,
         searchWords,
-        textToHighlight
+        textToHighlight,
+        wordPhrases
       })
     }),
     totalLength: textToHighlight ? textToHighlight.length : 0
@@ -60,7 +62,7 @@ export const combineChunks = ({ chunks }) => {
   return chunksTmp;
 };
 
-const defaultFindChunks = ({ searchWords, textToHighlight }) =>
+const defaultFindChunks = ({ searchWords, textToHighlight, wordPhrases }) =>
   searchWords
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
