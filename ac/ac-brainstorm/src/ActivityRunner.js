@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { values, A, ActivityRunnerPropsT } from 'frog-utils';
+import { values, ActivityRunnerPropsT } from 'frog-utils';
 import FlipMove from '@houshuang/react-flip-move';
 import Badge from '@material-ui/core/Badge';
 import Grid from '@material-ui/core/Grid';
@@ -25,19 +25,6 @@ const styles = () => ({
   }
 });
 
-const red = '#AA0000';
-const blue = '#0000FF';
-const grey = '#A0A0A0';
-const chooseColor = (vote, isUp) => {
-  switch (vote) {
-    case -1:
-      return isUp ? grey : red;
-    case 1:
-      return isUp ? blue : grey;
-    default:
-      return grey;
-  }
-};
 
 const AddingLI = ({ LearningItem, config }) => (
   <Card style={{ margin: 5, padding: 5 }} raised>
@@ -75,18 +62,18 @@ class Idea extends React.Component {
     this.handleOnBlur = this.handleOnBlur.bind(this);
   }
   handleOnFocus () {
-    this.setState(state => ({focus: true}));
+    this.setState(() => ({ focus: true }));
     setTimeout(() => {
-      this.setState(state => ({focus: false}));
+      this.setState(() => ({ focus: false }));
     }, 3000);
   };
   handleOnBlur () {
     setTimeout(() => {
-      this.setState(state => ({focus: false}));
+      this.setState(() => ({ focus: false }));
     }, 500);
   }
   render() {
-    const {vote, meta, editFn, delFn, zoomable, config, editable, children, userInfo} = this.props;
+    const {vote, meta, editFn, delFn, zoomable, config, editable, children} = this.props;
       return (<Card raised onMouseLeave={this.handleOnBlur} onMouseEnter={this.handleOnFocus}>
         <CardContent style={{
         minWidth: '400px'
