@@ -136,7 +136,6 @@ const ActivityRunner = ({ activityData, data, dataFn, logger }) => {
           textToHighlight={
             activityData.config ? activityData.config.title || '' : ''
           }
-          wordPhrases={wordPhrases}
           highlightStyle={{
             fontSize: 'xx-large',
             cursor: 'help'

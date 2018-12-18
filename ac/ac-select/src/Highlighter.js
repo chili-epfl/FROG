@@ -18,16 +18,14 @@ export default ({
   searchWords,
   textToHighlight,
   unhighlightClassName = '',
-  unhighlightStyle,
-  wordPhrases
+  unhighlightStyle
 }: Object) => {
   const chunks = findAll({
     autoEscape: true,
     caseSensitive,
     sanitize,
     searchWords: Object.keys(searchWords),
-    textToHighlight,
-    wordPhrases
+    textToHighlight
   });
   const HighlightTag = 'mark';
   let highlightCount = -1;
