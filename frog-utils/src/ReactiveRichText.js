@@ -5,9 +5,21 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { get, invoke, isEqual, last, forEach, findIndex, head, isUndefined } from 'lodash';
 import Paper from '@material-ui/core/Paper';
+import ZoomIn from '@material-ui/icons/ZoomIn';
+import ZoomOut from '@material-ui/icons/ZoomOut';
+import Save from '@material-ui/icons/Save';
+import Close from '@material-ui/icons/Close';
+import Create from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
+
+const LiTypes = {
+  VIEW: 'view',
+  THUMB: 'thumbView',
+  EDIT: 'edit'
+};
 
 const Delta = Quill.import('delta');
 
@@ -16,28 +28,62 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2
-  }
+  },
+  button: {
+    color: '#AA0000',
+    width: 36,
+    height: 36,
+  },
 });
 
 let reactiveRichTextDataFn;
 
-const LIComponentRaw = ({ id, authorId, classes }) => {
-  const LearningItem = reactiveRichTextDataFn.LearningItem;
-  return (
-    <>
-      <LearningItem
-        type="view"
-        id={id}
-        render={({ children }) => (
-          <Paper className={classes.root} elevation={10} square>
-            {children}
-          </Paper>
-        )}
-      />
-      <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
-    </>
-  );
-};
+class LIComponentRaw extends Component {
+  state = { type: this.props.type };
+
+  handleZoomClick = () => {
+    this.setState({ type: this.state.type === LiTypes.VIEW? LiTypes.THUMB: LiTypes.VIEW })
+  };
+
+  handleEditClick = () => {
+    this.setState({ type: this.state.type === LiTypes.EDIT? LiTypes.THUMB: LiTypes.EDIT })
+  };
+
+  render() {
+    const { id, authorId, classes } = this.props;
+    const LearningItem = reactiveRichTextDataFn.LearningItem;
+    return (
+      <div>
+        <LearningItem
+          type={this.state.type}
+          id={id}
+          render={({ children }) => (
+            <>
+              <Paper className={classes.root} elevation={10} square onMouseEnter={this.handlePopoverOpen}
+                     onMouseLeave={this.handlePopoverClose}>
+                <div>
+                  <IconButton disableRipple className={`${classes.button} li-close-btn`}>
+                    <Close />
+                  </IconButton>
+                  <IconButton disableRipple style={{float: 'right'}}
+                              className={classes.button} onClick={this.handleEditClick}>
+                    {this.state.type === LiTypes.EDIT ? <Save /> : <Create />}
+                  </IconButton>
+                  <IconButton disableRipple style={{float: 'right'}}
+                              className={classes.button} onClick={this.handleZoomClick}>
+                    {this.state.type !== LiTypes.VIEW ? <ZoomIn />: <ZoomOut />}
+                  </IconButton>
+                </div>
+                {children}
+              </Paper>
+            </>
+          )}
+        />
+        <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
+      </div>
+    );
+  }
+}
 
 const LIComponent = withStyles(styles)(LIComponentRaw);
 
@@ -45,26 +91,43 @@ const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
   static create(value) {
     const node = super.create(value);
-    const { authorId, liId } = value;
+    const { authorId, liId, type } = value;
 
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
-      <div data-liid={liId} data-authorid={authorId}>
-        <LIComponent id={JSON.parse(liId)} authorId={authorId} />
+      <div data-liid={liId} data-authorid={authorId} data-litype={type}>
+        <LIComponent id={JSON.parse(liId)} authorId={authorId} type={type}/>
       </div>,
       node
     );
     return node;
   }
 
+  liCloseHandler = () => {
+    this.domNode.parentNode.removeChild(this.domNode);
+    this.detach();
+  };
+
   static value(node) {
     const child = head(node.childNodes);
     if (child) {
       const liId = get(child.dataset, 'liid');
       const authorId = get(child.dataset, 'authorid');
-      return { authorId, liId };
+      const type = get(child.dataset, 'litype');
+      return { authorId, liId, type };
     }
     return {};
+  }
+
+  update(mutations, context) {
+    const closeButton = this.domNode.querySelector('.li-close-btn');
+    if (closeButton) {
+      // Remove any existing handlers so that we wont stack them up
+      closeButton.removeEventListener("click", this.liCloseHandler);
+      closeButton.addEventListener("click", this.liCloseHandler);
+    }
+
+    super.update(mutations, context)
   }
 
   static length() {
@@ -188,8 +251,13 @@ class ReactiveRichText extends Component<
       return;
     }
     if (this.quillRef) {
+      const editor = this.quillRef?.getEditor();
+      if (!editor) {
+        return
+      }
+
       if (this.props.shorten) {
-        this.quillRef.getEditor().setContents(this.getDocumentContent());
+        editor.setContents(this.getDocumentContent());
       } else {
         forEach(op, operation => {
           const operations = get(operation, 'o.ops') || get(operation, 'o');
@@ -201,7 +269,7 @@ class ReactiveRichText extends Component<
           });
           const opPath = last(operation.p);
           if (opPath === this.props.path) {
-            this.quillRef.getEditor().updateContents(operation.o);
+            editor.updateContents(operation.o);
           }
         });
       }
@@ -236,17 +304,20 @@ class ReactiveRichText extends Component<
   };
 
   initializeAuthorship = () => {
-    const editor = this.quillRef.getEditor();
     this.compositionStart = false;
     this.authorDeltaToApply = null;
-    editor.scroll.domNode.addEventListener(
-      'compositionstart',
-      this.compositionStartHandler
-    );
-    editor.scroll.domNode.addEventListener(
-      'compositionend',
-      this.compositionEndHandler(editor)
-    );
+
+    const editor = this.quillRef?.getEditor();
+    if (editor) {
+      editor.scroll.domNode.addEventListener(
+        'compositionstart',
+        this.compositionStartHandler
+      );
+      editor.scroll.domNode.addEventListener(
+        'compositionend',
+        this.compositionEndHandler(editor)
+      );
+    }
 
     this.addAuthor(this.props.userId);
     const content = this.getDocumentContent();
@@ -270,7 +341,7 @@ class ReactiveRichText extends Component<
     if (editor) {
       setTimeout(() => {
         editor.on('text-change', this.handleChange);
-      }, 1000);
+      }, 100);
     }
 
     if (!this.props.data) {
@@ -302,7 +373,7 @@ class ReactiveRichText extends Component<
   componentWillUnmount() {
     if (!this.props.data) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
-      const editor = this.quillRef.getEditor();
+      const editor = this.quillRef?.getEditor();
       if (editor) {
         editor.scroll.domNode.removeEventListener(
           'compositionstart',
@@ -406,7 +477,8 @@ class ReactiveRichText extends Component<
 
       const params = {
         liId: JSON.stringify(e),
-        authorId: this.props.userId
+        authorId: this.props.userId,
+        type: LiTypes.VIEW
       };
 
       const prevPosition = Math.max(0, insertPosition - 1);
