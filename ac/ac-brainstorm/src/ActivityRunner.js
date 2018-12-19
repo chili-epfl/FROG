@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { values, ActivityRunnerPropsT } from 'frog-utils';
+import { values, type ActivityRunnerPropsT } from 'frog-utils';
 import FlipMove from '@houshuang/react-flip-move';
 import Badge from '@material-ui/core/Badge';
 import Grid from '@material-ui/core/Grid';
@@ -64,9 +64,7 @@ class Idea extends React.Component {
     this.setState(() => ({ focus: true }));
   }
   handleOnBlur() {
-    setTimeout(() => {
-      this.setState(() => ({ focus: false }));
-    }, 0);
+    this.setState(() => ({ focus: false }));
   }
   render() {
     const {
@@ -119,18 +117,16 @@ class Idea extends React.Component {
                       <DeleteIcon fontSize="small" />
                     </Button>
                   )}
-                  {editable &&
-                    config.allowEdit && (
-                      <Button size="small" onClick={() => editFn(meta.id)}>
-                        <PencilIcon fontSize="small" />
-                      </Button>
-                    )}
-                  {zoomable &&
-                    !config.expandItems && (
-                      <Button size="small" onClick={() => zoomFn(meta.id)}>
-                        <ZoomInIcon glyph="zoom-in" fontSize="small" />
-                      </Button>
-                    )}
+                  {editable && config.allowEdit && (
+                    <Button size="small" onClick={() => editFn(meta.id)}>
+                      <PencilIcon fontSize="small" />
+                    </Button>
+                  )}
+                  {zoomable && !config.expandItems && (
+                    <Button size="small" onClick={() => zoomFn(meta.id)}>
+                      <ZoomInIcon glyph="zoom-in" fontSize="small" />
+                    </Button>
+                  )}
                 </font>
               </div>
             </div>
@@ -180,12 +176,12 @@ const IdeaListRaw = ({
                   edit === x.id
                     ? 'edit'
                     : zoom === x.id
-                      ? history
-                        ? 'history'
-                        : 'view'
-                      : config.expandItems
-                        ? 'view'
-                        : 'thumbView'
+                    ? history
+                      ? 'history'
+                      : 'view'
+                    : config.expandItems
+                    ? 'view'
+                    : 'thumbView'
                 }
                 render={({ zoomable, editable, children }) => (
                   <Idea
