@@ -91,9 +91,10 @@ class Idea extends React.Component<
       editable,
       children
     } = this.props;
+    const { focus } = this.state;
     return (
       <Card
-        raised
+        raised={focus}
         onMouseLeave={this.handleOnBlur}
         onMouseEnter={this.handleOnFocus}
       >
@@ -102,7 +103,7 @@ class Idea extends React.Component<
             minWidth: '400px'
           }}
         >
-          <Grow in={this.state.focus}>
+          <Grow in={focus}>
             <div
               style={{
                 position: 'absolute',
