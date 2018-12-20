@@ -51,27 +51,41 @@ const AddingLI = ({ LearningItem, config }) => (
   </Card>
 );
 
-class Idea extends React.Component {
+class Idea extends React.Component<
+  {
+    vote: Function,
+    meta: any,
+    editFn: Function,
+    delFn: Function,
+    zoomable: boolean,
+    zoomFn: Function,
+    config: any,
+    editable: boolean,
+    children: any
+  },
+  { focus: boolean }
+> {
   constructor(props) {
     super(props);
-    this.state = {
-      focus: false
-    };
     this.handleOnFocus = this.handleOnFocus.bind(this);
     this.handleOnBlur = this.handleOnBlur.bind(this);
   }
-  handleOnFocus() {
+  state = {
+    focus: false
+  };
+  handleOnFocus = () => {
     this.setState(() => ({ focus: true }));
-  }
-  handleOnBlur() {
+  };
+  handleOnBlur = () => {
     this.setState(() => ({ focus: false }));
-  }
+  };
   render() {
     const {
       vote,
       meta,
       editFn,
       delFn,
+      zoomFn,
       zoomable,
       config,
       editable,
