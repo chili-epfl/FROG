@@ -81,14 +81,14 @@ export class Editor extends React.Component<*, *> {
         <ReactiveRichText
           userId={this.props.userId}
           ref={this.ref}
-          path={'text'}
+          path="text"
           dataFn={dataFn}
         />
         <h2>Second text</h2>
         <ReactiveRichText
           userId={this.props.userId}
           ref={this.ref}
-          path={'text2'}
+          path="text2"
           dataFn={dataFn}
         />
       </div>

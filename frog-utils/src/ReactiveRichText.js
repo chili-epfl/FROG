@@ -47,7 +47,7 @@ const styles = theme => ({
     visibility: 'hidden'
   },
   liContainer: {
-    "&:hover $liTools": {
+    '&:hover $liTools': {
       visibility: 'visible'
     }
   }
@@ -82,7 +82,7 @@ class LIComponentRaw extends Component {
         <LearningItem
           type={this.state.view}
           id={id}
-          render={({ children }) => (
+          render={({ children, liType }) => (
             <div className={classes.liContainer}>
               <Paper
                 className={classes.root}
@@ -98,14 +98,16 @@ class LIComponentRaw extends Component {
                   >
                     <Close />
                   </IconButton>
-                  <IconButton
-                    disableRipple
-                    style={{ float: 'right' }}
-                    className={classes.button}
-                    onClick={this.handleEditClick}
-                  >
-                    {this.state.view === LiTypes.EDIT ? <Save /> : <Create />}
-                  </IconButton>
+                  {liType !== 'li-richText' && (
+                    <IconButton
+                      disableRipple
+                      style={{ float: 'right' }}
+                      className={classes.button}
+                      onClick={this.handleEditClick}
+                    >
+                      {this.state.view === LiTypes.EDIT ? <Save /> : <Create />}
+                    </IconButton>
+                  )}
                   <IconButton
                     disableRipple
                     style={{ float: 'right' }}
