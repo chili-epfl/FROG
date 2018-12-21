@@ -11,7 +11,8 @@ import {
   forEach,
   findIndex,
   head,
-  isUndefined
+  isUndefined,
+  filter
 } from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import ZoomIn from '@material-ui/icons/ZoomIn';
@@ -24,7 +25,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
 
-const LiTypes = {
+const LiViewTypes = {
   VIEW: 'view',
   THUMB: 'thumbView',
   EDIT: 'edit'
@@ -64,13 +65,19 @@ class LIComponentRaw extends Component {
 
   handleZoomClick = () => {
     this.setState({
-      view: this.state.view === LiTypes.VIEW ? LiTypes.THUMB : LiTypes.VIEW
+      view:
+        this.state.view === LiViewTypes.VIEW
+          ? LiViewTypes.THUMB
+          : LiViewTypes.VIEW
     });
   };
 
   handleEditClick = () => {
     this.setState({
-      view: this.state.view === LiTypes.EDIT ? LiTypes.THUMB : LiTypes.EDIT
+      view:
+        this.state.view === LiViewTypes.EDIT
+          ? LiViewTypes.THUMB
+          : LiViewTypes.EDIT
     });
   };
 
@@ -105,7 +112,11 @@ class LIComponentRaw extends Component {
                       className={classes.button}
                       onClick={this.handleEditClick}
                     >
-                      {this.state.view === LiTypes.EDIT ? <Save /> : <Create />}
+                      {this.state.view === LiViewTypes.EDIT ? (
+                        <Save />
+                      ) : (
+                        <Create />
+                      )}
                     </IconButton>
                   )}
                   <IconButton
@@ -113,7 +124,7 @@ class LIComponentRaw extends Component {
                     style={{ float: 'right' }}
                     className={`${classes.button} li-zoom-btn`}
                   >
-                    {this.state.view !== LiTypes.VIEW ? (
+                    {this.state.view !== LiViewTypes.VIEW ? (
                       <ZoomIn />
                     ) : (
                       <ZoomOut />
@@ -137,15 +148,16 @@ const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
   static create(value) {
     const node = super.create(value);
-    const { authorId, liId } = value;
+    const { authorId, liId, view } = value;
+    const initialView = view || LiViewTypes.VIEW;
 
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
-      <div data-liid={liId} data-authorid={authorId} data-liview={LiTypes.VIEW}>
+      <div data-liid={liId} data-authorid={authorId} data-liview={initialView}>
         <LIComponent
           id={JSON.parse(liId)}
           authorId={authorId}
-          liview={LiTypes.VIEW}
+          liview={initialView}
         />
       </div>,
       node
@@ -166,7 +178,7 @@ class LearningItemBlot extends Embed {
   liZoomHandler = () => {
     const { liView: currentView } = this.getLiContent();
     const nextView =
-      currentView === LiTypes.VIEW ? LiTypes.THUMB : LiTypes.VIEW;
+      currentView === LiViewTypes.VIEW ? LiViewTypes.THUMB : LiViewTypes.VIEW;
 
     const offset = this.offset();
     const delta = new Delta();
@@ -288,7 +300,7 @@ function pickColor(str) {
   return `hsl(${hashCode(str) % 360}, 100%, 30%)`;
 }
 
-const Toolbar = ({ id, readOnly }) => (
+const Toolbar = ({ id, readOnly, liTypes }) => (
   <div id={`toolbar-${id}`} style={{ display: readOnly ? 'none' : 'block' }}>
     <button className="ql-bold" />
     <button className="ql-italic" />
@@ -314,12 +326,29 @@ const Toolbar = ({ id, readOnly }) => (
     <button className="ql-toggleAuthorship">
       <AuthorshipToggleBtn />
     </button>
+    <select className="ql-insertLi" onChange={e => e.persist()}>
+      <option value="">Select type...</option>
+      {liTypes.map(type => (
+        <option key={`${type.id}-${id}`} value={type.id}>
+          {type.name}
+        </option>
+      ))}
+    </select>
   </div>
 );
 
 const AuthorshipToggleBtn = () => <span>AU</span>;
 
 const authorStyleElements = {};
+
+// Add styles for LI+ button in toolbar
+const menuItemStyle = document.createElement('style');
+menuItemStyle.type = 'text/css';
+menuItemStyle.innerHTML = `.ql-insertLi .ql-picker-item:before { content: attr(data-label); }
+      .ql-insertLi .ql-picker-label:before { content: 'LI+'; padding-right: 12px; }`;
+document.documentElement // $FlowFixMe
+  .getElementsByTagName('head')[0]
+  .appendChild(menuItemStyle);
 
 const formats = [
   'bold',
@@ -590,7 +619,7 @@ class ReactiveRichText extends Component<
     this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
-  onDrop = (e: string) => {
+  onDrop = (e: string, initialView?: string) => {
     const editor = invoke(this.quillRef, 'getEditor');
 
     if (editor) {
@@ -599,7 +628,8 @@ class ReactiveRichText extends Component<
 
       const params = {
         liId: JSON.stringify(e),
-        authorId: this.props.userId
+        authorId: this.props.userId,
+        view: initialView
       };
 
       const prevPosition = Math.max(0, insertPosition - 1);
@@ -620,6 +650,24 @@ class ReactiveRichText extends Component<
     }
   };
 
+  insertNewLi = type => {
+    if (type) {
+      const newLiId = this.props.dataFn.createLearningItem(type);
+      this.onDrop(newLiId, LiViewTypes.EDIT);
+    }
+  };
+
+  getLiTypeList = () => {
+    const allLiTypes = invoke(this.props, 'dataFn.getLearningTypesObj');
+    return filter(
+      allLiTypes,
+      type =>
+        get(type, 'dataStructure') &&
+        get(type, 'Editor') &&
+        get(type, 'id') !== 'li-richText'
+    );
+  };
+
   render() {
     const defaultValue = this.getDocumentContent();
     const props = this.props;
@@ -634,7 +682,11 @@ class ReactiveRichText extends Component<
     return (
       <div>
         {!get(props, 'readOnly') && (
-          <Toolbar id={this.toolbarId} readOnly={get(props, 'readOnly')} />
+          <Toolbar
+            id={this.toolbarId}
+            readOnly={get(props, 'readOnly')}
+            liTypes={this.getLiTypeList()}
+          />
         )}
         <ReactQuill
           defaultValue={defaultValue}
@@ -649,7 +701,8 @@ class ReactiveRichText extends Component<
               : {
                   container: `#toolbar-${this.toolbarId}`,
                   handlers: {
-                    toggleAuthorship: this.toggleAuthorship
+                    toggleAuthorship: this.toggleAuthorship,
+                    insertLi: this.insertNewLi
                   }
                 }
           }}
