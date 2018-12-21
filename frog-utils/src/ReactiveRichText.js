@@ -153,17 +153,21 @@ class LearningItemBlot extends Embed {
     const initialView = view || LiViewTypes.VIEW;
 
     node.setAttribute('contenteditable', false);
+    LearningItemBlot.renderLItoNode(liId, authorId, initialView, node);
+    return node;
+  }
+
+  static renderLItoNode(liId, authorId, liView, node) {
     ReactDOM.render(
-      <div data-liid={liId} data-authorid={authorId} data-liview={initialView}>
+      <div data-liid={liId} data-authorid={authorId} data-liview={liView}>
         <LIComponent
           id={JSON.parse(liId)}
           authorId={authorId}
-          liView={initialView}
+          liView={liView}
         />
       </div>,
       node
     );
-    return node;
   }
 
   constructor(domNode, value) {
@@ -234,16 +238,7 @@ class LearningItemBlot extends Embed {
       setTimeout(() => {
         const { liId, authorId } = this.getLiContent();
         if (liId && authorId && value) {
-          ReactDOM.render(
-            <div data-liid={liId} data-authorid={authorId} data-liview={value}>
-              <LIComponent
-                id={JSON.parse(liId)}
-                authorId={authorId}
-                liview={value}
-              />
-            </div>,
-            this.domNode
-          );
+          LearningItemBlot.renderLItoNode(liId, authorId, value, this.domNode);
           this.refreshClickHandlers();
         }
       }, 100);
