@@ -46,7 +46,7 @@ const styles = theme => ({
   liTools: {
     visibility: 'hidden'
   },
-  liToolsContainer: {
+  liContainer: {
     "&:hover $liTools": {
       visibility: 'visible'
     }
@@ -83,7 +83,7 @@ class LIComponentRaw extends Component {
           type={this.state.view}
           id={id}
           render={({ children }) => (
-            <div className={classes.liToolsContainer}>
+            <div className={classes.liContainer}>
               <Paper
                 className={classes.root}
                 elevation={10}
