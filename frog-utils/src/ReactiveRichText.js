@@ -39,14 +39,18 @@ const styles = theme => ({
 let reactiveRichTextDataFn;
 
 class LIComponentRaw extends Component {
-  state = { type: this.props.type };
+  state = { view: this.props.liview };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ view: nextProps.liview })
+  }
 
   handleZoomClick = () => {
-    this.setState({ type: this.state.type === LiTypes.VIEW? LiTypes.THUMB: LiTypes.VIEW })
+    this.setState({ view: this.state.view === LiTypes.VIEW? LiTypes.THUMB: LiTypes.VIEW })
   };
 
   handleEditClick = () => {
-    this.setState({ type: this.state.type === LiTypes.EDIT? LiTypes.THUMB: LiTypes.EDIT })
+    this.setState({ view: this.state.view === LiTypes.EDIT? LiTypes.THUMB: LiTypes.EDIT })
   };
 
   render() {
@@ -55,7 +59,7 @@ class LIComponentRaw extends Component {
     return (
       <div>
         <LearningItem
-          type={this.state.type}
+          type={this.state.view}
           id={id}
           render={({ children }) => (
             <>
@@ -67,11 +71,11 @@ class LIComponentRaw extends Component {
                   </IconButton>
                   <IconButton disableRipple style={{float: 'right'}}
                               className={classes.button} onClick={this.handleEditClick}>
-                    {this.state.type === LiTypes.EDIT ? <Save /> : <Create />}
+                    {this.state.view === LiTypes.EDIT ? <Save /> : <Create />}
                   </IconButton>
                   <IconButton disableRipple style={{float: 'right'}}
-                              className={classes.button} onClick={this.handleZoomClick}>
-                    {this.state.type !== LiTypes.VIEW ? <ZoomIn />: <ZoomOut />}
+                              className={`${classes.button} li-zoom-btn`} >
+                    {this.state.view !== LiTypes.VIEW ? <ZoomIn />: <ZoomOut />}
                   </IconButton>
                 </div>
                 {children}
@@ -91,16 +95,21 @@ const Embed = Quill.import('blots/block/embed');
 class LearningItemBlot extends Embed {
   static create(value) {
     const node = super.create(value);
-    const { authorId, liId, type } = value;
+    const { authorId, liId } = value;
 
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
-      <div data-liid={liId} data-authorid={authorId} data-litype={type}>
-        <LIComponent id={JSON.parse(liId)} authorId={authorId} type={type}/>
+      <div data-liid={liId} data-authorid={authorId} data-liview={LiTypes.VIEW}>
+        <LIComponent id={JSON.parse(liId)} authorId={authorId} liview={LiTypes.VIEW}/>
       </div>,
       node
     );
     return node;
+  }
+
+  constructor(domNode, value) {
+    super(domNode, value);
+    this.refreshClickHandlers();
   }
 
   liCloseHandler = () => {
@@ -108,26 +117,75 @@ class LearningItemBlot extends Embed {
     this.detach();
   };
 
+  liZoomHandler = () => {
+    const { liView: currentView } = this.getLiContent();
+    const nextView = currentView === LiTypes.VIEW? LiTypes.THUMB: LiTypes.VIEW;
+
+    const offset = this.offset();
+    const delta = new Delta();
+    delta.retain(offset);
+    delta.retain(1, { 'li-view': nextView });
+    this.parent.emitter.emit('text-change', delta, undefined, 'user')
+  };
+
+  getLiContent = () => {
+    const child = head(this.domNode.childNodes);
+    if (child) {
+      const liId = get(child.dataset, 'liid');
+      const authorId = get(child.dataset, 'authorid');
+      const liView = get(child.dataset, 'liview');
+      return { authorId, liId, liView };
+    }
+    return null;
+  };
+
   static value(node) {
     const child = head(node.childNodes);
     if (child) {
       const liId = get(child.dataset, 'liid');
       const authorId = get(child.dataset, 'authorid');
-      const type = get(child.dataset, 'litype');
-      return { authorId, liId, type };
+      return { authorId, liId };
     }
     return {};
   }
 
-  update(mutations, context) {
+  refreshClickHandlers = () => {
     const closeButton = this.domNode.querySelector('.li-close-btn');
+    const zoomButton = this.domNode.querySelector('.li-zoom-btn');
     if (closeButton) {
       // Remove any existing handlers so that we wont stack them up
       closeButton.removeEventListener("click", this.liCloseHandler);
       closeButton.addEventListener("click", this.liCloseHandler);
     }
+    if (zoomButton) {
+      // Remove any existing handlers so that we wont stack them up
+      zoomButton.removeEventListener("click", this.liZoomHandler);
+      zoomButton.addEventListener("click", this.liZoomHandler);
+    }
+  };
 
+  update(mutations, context) {
+    this.refreshClickHandlers();
     super.update(mutations, context)
+  }
+
+  format(format, value) {
+    if (format === 'li-view') {
+      setTimeout(() => {
+        const {liId, authorId } = this.getLiContent();
+        if (liId && authorId && value) {
+          ReactDOM.render(
+            <div data-liid={liId} data-authorid={authorId} data-liview={value}>
+              <LIComponent id={JSON.parse(liId)} authorId={authorId} liview={value}/>
+            </div>,
+            this.domNode
+          );
+          this.refreshClickHandlers();
+        }
+      }, 100);
+    } else {
+      super.format(format, value);
+    }
   }
 
   static length() {
@@ -158,6 +216,10 @@ const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
 });
 Parchment.register(AuthorClass);
 Quill.register(AuthorClass, true);
+
+const LiViewAttribute = new Parchment.Attributor.Attribute('li-view', 'li-view');
+Parchment.register(LiViewAttribute);
+Quill.register(LiViewAttribute, true);
 
 function hashCode(str = '') {
   let hash = 0;
@@ -218,7 +280,8 @@ const formats = [
   'image',
   'video',
   'learning-item',
-  'author'
+  'author',
+  'li-view'
 ];
 
 type ReactivePropsT = {
@@ -446,7 +509,12 @@ class ReactiveRichText extends Component<
           // Apply authorship to our own editor
           authorDelta.retain(op.retain || op.insert.length || 1, authorFormat);
         } else {
-          authorDelta.retain(op.retain);
+          const liView = get(op, 'attributes.li-view');
+          if (liView) {
+            authorDelta.retain(op.retain, op.attributes);
+          } else {
+            authorDelta.retain(op.retain);
+          }
         }
       });
 
@@ -477,8 +545,7 @@ class ReactiveRichText extends Component<
 
       const params = {
         liId: JSON.stringify(e),
-        authorId: this.props.userId,
-        type: LiTypes.VIEW
+        authorId: this.props.userId
       };
 
       const prevPosition = Math.max(0, insertPosition - 1);
