@@ -3,7 +3,16 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { get, invoke, isEqual, last, forEach, findIndex, head, isUndefined } from 'lodash';
+import {
+  get,
+  invoke,
+  isEqual,
+  last,
+  forEach,
+  findIndex,
+  head,
+  isUndefined
+} from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import ZoomIn from '@material-ui/icons/ZoomIn';
 import ZoomOut from '@material-ui/icons/ZoomOut';
@@ -32,8 +41,8 @@ const styles = theme => ({
   button: {
     color: '#AA0000',
     width: 36,
-    height: 36,
-  },
+    height: 36
+  }
 });
 
 let reactiveRichTextDataFn;
@@ -42,15 +51,19 @@ class LIComponentRaw extends Component {
   state = { view: this.props.liview };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ view: nextProps.liview })
+    this.setState({ view: nextProps.liview });
   }
 
   handleZoomClick = () => {
-    this.setState({ view: this.state.view === LiTypes.VIEW? LiTypes.THUMB: LiTypes.VIEW })
+    this.setState({
+      view: this.state.view === LiTypes.VIEW ? LiTypes.THUMB : LiTypes.VIEW
+    });
   };
 
   handleEditClick = () => {
-    this.setState({ view: this.state.view === LiTypes.EDIT? LiTypes.THUMB: LiTypes.EDIT })
+    this.setState({
+      view: this.state.view === LiTypes.EDIT ? LiTypes.THUMB : LiTypes.EDIT
+    });
   };
 
   render() {
@@ -63,19 +76,38 @@ class LIComponentRaw extends Component {
           id={id}
           render={({ children }) => (
             <>
-              <Paper className={classes.root} elevation={10} square onMouseEnter={this.handlePopoverOpen}
-                     onMouseLeave={this.handlePopoverClose}>
+              <Paper
+                className={classes.root}
+                elevation={10}
+                square
+                onMouseEnter={this.handlePopoverOpen}
+                onMouseLeave={this.handlePopoverClose}
+              >
                 <div>
-                  <IconButton disableRipple className={`${classes.button} li-close-btn`}>
+                  <IconButton
+                    disableRipple
+                    className={`${classes.button} li-close-btn`}
+                  >
                     <Close />
                   </IconButton>
-                  <IconButton disableRipple style={{float: 'right'}}
-                              className={classes.button} onClick={this.handleEditClick}>
+                  <IconButton
+                    disableRipple
+                    style={{ float: 'right' }}
+                    className={classes.button}
+                    onClick={this.handleEditClick}
+                  >
                     {this.state.view === LiTypes.EDIT ? <Save /> : <Create />}
                   </IconButton>
-                  <IconButton disableRipple style={{float: 'right'}}
-                              className={`${classes.button} li-zoom-btn`} >
-                    {this.state.view !== LiTypes.VIEW ? <ZoomIn />: <ZoomOut />}
+                  <IconButton
+                    disableRipple
+                    style={{ float: 'right' }}
+                    className={`${classes.button} li-zoom-btn`}
+                  >
+                    {this.state.view !== LiTypes.VIEW ? (
+                      <ZoomIn />
+                    ) : (
+                      <ZoomOut />
+                    )}
                   </IconButton>
                 </div>
                 {children}
@@ -100,7 +132,11 @@ class LearningItemBlot extends Embed {
     node.setAttribute('contenteditable', false);
     ReactDOM.render(
       <div data-liid={liId} data-authorid={authorId} data-liview={LiTypes.VIEW}>
-        <LIComponent id={JSON.parse(liId)} authorId={authorId} liview={LiTypes.VIEW}/>
+        <LIComponent
+          id={JSON.parse(liId)}
+          authorId={authorId}
+          liview={LiTypes.VIEW}
+        />
       </div>,
       node
     );
@@ -119,13 +155,14 @@ class LearningItemBlot extends Embed {
 
   liZoomHandler = () => {
     const { liView: currentView } = this.getLiContent();
-    const nextView = currentView === LiTypes.VIEW? LiTypes.THUMB: LiTypes.VIEW;
+    const nextView =
+      currentView === LiTypes.VIEW ? LiTypes.THUMB : LiTypes.VIEW;
 
     const offset = this.offset();
     const delta = new Delta();
     delta.retain(offset);
     delta.retain(1, { 'li-view': nextView });
-    this.parent.emitter.emit('text-change', delta, undefined, 'user')
+    this.parent.emitter.emit('text-change', delta, undefined, 'user');
   };
 
   getLiContent = () => {
@@ -154,29 +191,33 @@ class LearningItemBlot extends Embed {
     const zoomButton = this.domNode.querySelector('.li-zoom-btn');
     if (closeButton) {
       // Remove any existing handlers so that we wont stack them up
-      closeButton.removeEventListener("click", this.liCloseHandler);
-      closeButton.addEventListener("click", this.liCloseHandler);
+      closeButton.removeEventListener('click', this.liCloseHandler);
+      closeButton.addEventListener('click', this.liCloseHandler);
     }
     if (zoomButton) {
       // Remove any existing handlers so that we wont stack them up
-      zoomButton.removeEventListener("click", this.liZoomHandler);
-      zoomButton.addEventListener("click", this.liZoomHandler);
+      zoomButton.removeEventListener('click', this.liZoomHandler);
+      zoomButton.addEventListener('click', this.liZoomHandler);
     }
   };
 
   update(mutations, context) {
     this.refreshClickHandlers();
-    super.update(mutations, context)
+    super.update(mutations, context);
   }
 
   format(format, value) {
     if (format === 'li-view') {
       setTimeout(() => {
-        const {liId, authorId } = this.getLiContent();
+        const { liId, authorId } = this.getLiContent();
         if (liId && authorId && value) {
           ReactDOM.render(
             <div data-liid={liId} data-authorid={authorId} data-liview={value}>
-              <LIComponent id={JSON.parse(liId)} authorId={authorId} liview={value}/>
+              <LIComponent
+                id={JSON.parse(liId)}
+                authorId={authorId}
+                liview={value}
+              />
             </div>,
             this.domNode
           );
@@ -217,7 +258,10 @@ const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
 Parchment.register(AuthorClass);
 Quill.register(AuthorClass, true);
 
-const LiViewAttribute = new Parchment.Attributor.Attribute('li-view', 'li-view');
+const LiViewAttribute = new Parchment.Attributor.Attribute(
+  'li-view',
+  'li-view'
+);
 Parchment.register(LiViewAttribute);
 Quill.register(LiViewAttribute, true);
 
@@ -316,7 +360,7 @@ class ReactiveRichText extends Component<
     if (this.quillRef) {
       const editor = this.quillRef?.getEditor();
       if (!editor) {
-        return
+        return;
       }
 
       if (this.props.shorten) {
@@ -562,7 +606,7 @@ class ReactiveRichText extends Component<
       );
 
       editor.insertText(insertPosition + 1, '\n', Quill.sources.USER);
-      editor.setSelection(insertPosition + 2, 0 , Quill.sources.USER);
+      editor.setSelection(insertPosition + 2, 0, Quill.sources.USER);
     }
   };
 
