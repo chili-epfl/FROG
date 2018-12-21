@@ -56,11 +56,18 @@ const styles = theme => ({
 
 let reactiveRichTextDataFn;
 
-class LIComponentRaw extends Component {
-  state = { view: this.props.liview };
+type LIComponentPropsT = {
+  id: string,
+  authorId: string,
+  liView: string,
+  classes: Object
+};
+
+class LIComponentRaw extends Component<LIComponentPropsT, { view: string }> {
+  state = { view: this.props.liView };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ view: nextProps.liview });
+    this.setState({ view: nextProps.liView });
   }
 
   handleZoomClick = () => {
@@ -91,13 +98,7 @@ class LIComponentRaw extends Component {
           id={id}
           render={({ children, liType }) => (
             <div className={classes.liContainer}>
-              <Paper
-                className={classes.root}
-                elevation={10}
-                square
-                onMouseEnter={this.handlePopoverOpen}
-                onMouseLeave={this.handlePopoverClose}
-              >
+              <Paper className={classes.root} elevation={10} square>
                 <div className={classes.liTools}>
                   <IconButton
                     disableRipple
@@ -157,7 +158,7 @@ class LearningItemBlot extends Embed {
         <LIComponent
           id={JSON.parse(liId)}
           authorId={authorId}
-          liview={initialView}
+          liView={initialView}
         />
       </div>,
       node
@@ -195,7 +196,7 @@ class LearningItemBlot extends Embed {
       const liView = get(child.dataset, 'liview');
       return { authorId, liId, liView };
     }
-    return null;
+    return {};
   };
 
   static value(node) {
@@ -387,7 +388,7 @@ class ReactiveRichText extends Component<
   styleElements: {};
   state = { path: this.props.dataFn.getMergedPath(this.props.path) };
 
-  constructor(props) {
+  constructor(props: ReactivePropsT) {
     super(props);
     reactiveRichTextDataFn = props.dataFn;
   }
@@ -397,7 +398,7 @@ class ReactiveRichText extends Component<
       return;
     }
     if (this.quillRef) {
-      const editor = this.quillRef?.getEditor();
+      const editor = invoke(this.quillRef, 'getEditor');
       if (!editor) {
         return;
       }
@@ -441,7 +442,7 @@ class ReactiveRichText extends Component<
     this.authorDeltaToApply = null;
   };
 
-  compositionEndHandler = editor => () => {
+  compositionEndHandler = (editor: Object) => () => {
     this.compositionStart = false;
     if (this.authorDeltaToApply) {
       editor.updateContents(this.authorDeltaToApply, Quill.sources.SILENT);
@@ -453,7 +454,7 @@ class ReactiveRichText extends Component<
     this.compositionStart = false;
     this.authorDeltaToApply = null;
 
-    const editor = this.quillRef?.getEditor();
+    const editor = invoke(this.quillRef, 'getEditor');
     if (editor) {
       editor.scroll.domNode.addEventListener(
         'compositionstart',
@@ -519,7 +520,7 @@ class ReactiveRichText extends Component<
   componentWillUnmount() {
     if (!this.props.data) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
-      const editor = this.quillRef?.getEditor();
+      const editor = invoke(this.quillRef, 'getEditor');
       if (editor) {
         editor.scroll.domNode.removeEventListener(
           'compositionstart',
@@ -563,8 +564,15 @@ class ReactiveRichText extends Component<
     }
   };
 
-  submitOperation = (delta: { ops: Array<{}> }) => {
-    const editor = this.quillRef?.getEditor();
+  submitOperation = (delta: {
+    ops: Array<{
+      delete: number,
+      insert: Object | string,
+      retain: number,
+      attributes: { author?: string, 'li-view'?: string }
+    }>
+  }) => {
+    const editor = invoke(this.quillRef, 'getEditor');
 
     if (editor) {
       const authorDelta = new Delta();
@@ -650,7 +658,7 @@ class ReactiveRichText extends Component<
     }
   };
 
-  insertNewLi = type => {
+  insertNewLi = (type: string) => {
     if (type) {
       const newLiId = this.props.dataFn.createLearningItem(type);
       this.onDrop(newLiId, LiViewTypes.EDIT);
