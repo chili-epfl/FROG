@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT, uuid, values } from 'frog-utils';
 
-import dashboardText from './DashboardText';
+import dashboards from './dashboards';
 import liType from './liType';
 import meta from './meta';
 
@@ -54,6 +54,11 @@ const config = {
       type: 'string',
       title: 'Text'
     },
+    wordPhrases: {
+      title: 'Multi-words expression to treat as a single unit',
+      type: 'array',
+      items: { type: 'string' }
+    },
     multi: {
       type: 'boolean',
       title: 'Color each highlighted word differently'
@@ -101,6 +106,6 @@ export default ({
   configUI,
   mergeFunction,
   formatProduct,
-  dashboards: { Dashboard: dashboardText },
+  dashboards,
   LearningItems: [liType]
 }: ActivityPackageT);

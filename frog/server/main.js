@@ -28,6 +28,7 @@ import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
+import './redis';
 
 console.info('Meteor settings', Meteor.settings);
 

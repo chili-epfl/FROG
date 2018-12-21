@@ -136,10 +136,7 @@ class Dashboard extends React.Component<any, any> {
         {res.map(x => (
           <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
             <ImageBox key={x.id} onClick={() => this.setState({ zoom: x.id })}>
-              <LearningItem
-                type={this.props.sessionId ? 'thumbView' : 'view'}
-                id={x.id}
-              />
+              <LearningItem type="thumbView" id={x.id} />
             </ImageBox>
           </Tooltip>
         ))}
