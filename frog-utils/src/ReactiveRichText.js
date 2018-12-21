@@ -42,6 +42,14 @@ const styles = theme => ({
     color: '#AA0000',
     width: 36,
     height: 36
+  },
+  liTools: {
+    visibility: 'hidden'
+  },
+  liToolsContainer: {
+    "&:hover $liTools": {
+      visibility: 'visible'
+    }
   }
 });
 
@@ -75,7 +83,7 @@ class LIComponentRaw extends Component {
           type={this.state.view}
           id={id}
           render={({ children }) => (
-            <>
+            <div className={classes.liToolsContainer}>
               <Paper
                 className={classes.root}
                 elevation={10}
@@ -83,7 +91,7 @@ class LIComponentRaw extends Component {
                 onMouseEnter={this.handlePopoverOpen}
                 onMouseLeave={this.handlePopoverClose}
               >
-                <div>
+                <div className={classes.liTools}>
                   <IconButton
                     disableRipple
                     className={`${classes.button} li-close-btn`}
@@ -112,7 +120,7 @@ class LIComponentRaw extends Component {
                 </div>
                 {children}
               </Paper>
-            </>
+            </div>
           )}
         />
         <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
