@@ -695,12 +695,11 @@ class ReactiveRichText extends Component<
     const editorStyle = props.readOnly
       ? { borderStyle: 'hidden' }
       : {
-          maxHeight: '250px',
-          minHeight: '100%',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          height: '100%'
         };
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         {!get(props, 'readOnly') && (
           <Toolbar
             id={this.toolbarId}
@@ -715,6 +714,7 @@ class ReactiveRichText extends Component<
           }}
           readOnly={get(props, 'readOnly')}
           formats={formats}
+          style={{ height: '90%' }}
           modules={{
             toolbar: get(props, 'readOnly')
               ? null

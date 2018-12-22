@@ -107,7 +107,7 @@ class RenderLearningItem extends React.Component<any, any> {
     const LIComp = this.Comp;
     LIComp.displayName = liType.id + '-' + type;
     const Comp = (
-      <>
+      <div style={{height: '100%'}}>
         <DraggableCore
           disabled={type === 'edit' || type === 'history' || disableDragging}
           offsetParent={document.body}
@@ -123,7 +123,7 @@ class RenderLearningItem extends React.Component<any, any> {
             return false;
           }}
         >
-          <div style={{ zIndex: this.state.dragging ? 99 : 'auto' }}>
+          <div style={{ zIndex: this.state.dragging ? 99 : 'auto', height: '100%' }}>
             <div
               onMouseOver={() => {
                 if (this.mounted && listore.dragState && liType.canDropLI) {
@@ -137,6 +137,7 @@ class RenderLearningItem extends React.Component<any, any> {
                   listore.setOverCB(null);
                 }
               }}
+              style={{height: '100%'}}
             >
               <LIComp
                 userId={dataFn?.meta?.createdByUser}
@@ -153,7 +154,7 @@ class RenderLearningItem extends React.Component<any, any> {
           </div>
         </DraggableCore>
         <WrappedDragIcon />
-      </>
+      </div>
     );
 
     if (render) {
