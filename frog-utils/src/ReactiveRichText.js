@@ -470,12 +470,52 @@ class ReactiveRichText extends Component<
     });
   };
 
+  turnAuthorshipOn = () => {
+    const editor = invoke(this.quillRef, 'getEditor');
+    if (editor && !editor.root.classList.contains('ql-authorship')) {
+      editor.root.classList.add('ql-authorship');
+    }
+  };
+
+  turnAuthorshipOff = () => {
+    const editor = invoke(this.quillRef, 'getEditor');
+    if (editor && editor.root.classList.contains('ql-authorship')) {
+      editor.root.classList.remove('ql-authorship');
+    }
+  };
+
   toggleAuthorship = () => {
     const editor = invoke(this.quillRef, 'getEditor');
     if (editor) {
       editor.root.classList.toggle('ql-authorship');
     }
   };
+
+  addAuthor(id: string) {
+    if (!id) {
+      return;
+    }
+    const color = pickColor(id);
+    const css = `.ql-authorship .ql-author-${id} { color: ${color}; }
+    .ql-authorship div.ql-author-${id} {background-color: ${color}}`;
+
+    if (!get(authorStyleElements, id)) {
+      authorStyleElements[id] = document.createElement('style');
+      authorStyleElements[id].type = 'text/css';
+      authorStyleElements[id].classList.add('ql-authorship-style');
+      authorStyleElements[id].classList.add(`ql-authorship-style-${id}`);
+      authorStyleElements[id].innerHTML = css;
+      document.documentElement // $FlowFixMe
+        .getElementsByTagName('head')[0]
+        .appendChild(authorStyleElements[id]);
+    }
+
+    if (Object.keys(authorStyleElements).length > 1 && !this.props.readOnly) {
+      this.turnAuthorshipOn();
+    } else {
+      this.turnAuthorshipOff();
+    }
+  }
 
   componentDidMount() {
     const editor = invoke(this.quillRef, 'getEditor');
@@ -488,9 +528,6 @@ class ReactiveRichText extends Component<
     if (!this.props.data) {
       this.update(this.props);
       this.initializeAuthorship();
-      if (!this.props.readOnly) {
-        this.toggleAuthorship();
-      }
     }
   }
 
@@ -525,26 +562,6 @@ class ReactiveRichText extends Component<
           this.compositionEndHandler(editor)
         );
       }
-    }
-  }
-
-  addAuthor(id: string) {
-    if (!id) {
-      return;
-    }
-    const color = pickColor(id);
-    const css = `.ql-authorship .ql-author-${id} { color: ${color}; }
-    .ql-authorship div.ql-author-${id} {background-color: ${color}}`;
-
-    if (!get(authorStyleElements, id)) {
-      authorStyleElements[id] = document.createElement('style');
-      authorStyleElements[id].type = 'text/css';
-      authorStyleElements[id].classList.add('ql-authorship-style');
-      authorStyleElements[id].classList.add(`ql-authorship-style-${id}`);
-      authorStyleElements[id].innerHTML = css;
-      document.documentElement // $FlowFixMe
-        .getElementsByTagName('head')[0]
-        .appendChild(authorStyleElements[id]);
     }
   }
 
