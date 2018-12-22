@@ -56,47 +56,16 @@ const styles = theme => ({
 
 let reactiveRichTextDataFn;
 
-type LIComponentPropsT = {
-  id: string,
-  authorId: string,
-  liView: string,
-  classes: Object
-};
-
-class LIComponentRaw extends Component<LIComponentPropsT, { view: string }> {
-  state = { view: this.props.liView };
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ view: nextProps.liView });
-  }
-
-  handleZoomClick = () => {
-    this.setState({
-      view:
-        this.state.view === LiViewTypes.VIEW
-          ? LiViewTypes.THUMB
-          : LiViewTypes.VIEW
-    });
-  };
-
-  handleEditClick = () => {
-    this.setState({
-      view:
-        this.state.view === LiViewTypes.EDIT
-          ? LiViewTypes.THUMB
-          : LiViewTypes.EDIT
-    });
-  };
-
-  render() {
-    const { id, authorId, classes } = this.props;
-    const LearningItem = reactiveRichTextDataFn.LearningItem;
-    return (
-      <div>
-        <LearningItem
-          type={this.state.view}
-          id={id}
-          render={({ children, liType }) => (
+const LIComponentRaw = ({ id, authorId, classes, liView }) => {
+  const LearningItem = reactiveRichTextDataFn.LearningItem;
+  return (
+    <div>
+      <LearningItem
+        type={liView}
+        id={id}
+        render={({ children, liType, dataFn }) => {
+          const LiTypeObject = dataFn.getLearningTypesObj()[liType];
+          return (
             <div className={classes.liContainer}>
               <Paper className={classes.root} elevation={10} square>
                 <div className={classes.liTools}>
@@ -106,42 +75,42 @@ class LIComponentRaw extends Component<LIComponentPropsT, { view: string }> {
                   >
                     <Close />
                   </IconButton>
-                  {liType !== 'li-richText' && (
+                  {(liType !== 'li-richText' && LiTypeObject.Editor) && (
                     <IconButton
                       disableRipple
                       style={{ float: 'right' }}
-                      className={classes.button}
+                      className={`${classes.button} li-edit-btn`}
                       onClick={this.handleEditClick}
                     >
-                      {this.state.view === LiViewTypes.EDIT ? (
+                      {liView === LiViewTypes.EDIT ? (
                         <Save />
                       ) : (
                         <Create />
                       )}
                     </IconButton>
                   )}
-                  <IconButton
+                  {LiTypeObject.ThumbViewer && LiTypeObject.Viewer && (<IconButton
                     disableRipple
                     style={{ float: 'right' }}
                     className={`${classes.button} li-zoom-btn`}
                   >
-                    {this.state.view !== LiViewTypes.VIEW ? (
+                    {liView !== LiViewTypes.VIEW ? (
                       <ZoomIn />
                     ) : (
                       <ZoomOut />
                     )}
-                  </IconButton>
+                  </IconButton>)}
                 </div>
                 {children}
               </Paper>
             </div>
-          )}
-        />
-        <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
-      </div>
-    );
-  }
-}
+          )
+        }}
+      />
+      <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
+    </div>
+  );
+};
 
 const LIComponent = withStyles(styles)(LIComponentRaw);
 
@@ -192,6 +161,22 @@ class LearningItemBlot extends Embed {
     this.parent.emitter.emit('text-change', delta, undefined, 'user');
   };
 
+  liEditHandler = () => {
+    const { liView: currentView } = this.getLiContent();
+    const nextView =
+      currentView === LiViewTypes.EDIT ? LiViewTypes.THUMB : LiViewTypes.EDIT;
+
+    if (nextView === LiViewTypes.EDIT) {
+      this.format('li-view', LiViewTypes.EDIT);
+    } else if (nextView === LiViewTypes.THUMB) {
+      const offset = this.offset();
+      const delta = new Delta();
+      delta.retain(offset);
+      delta.retain(1, { 'li-view': nextView });
+      this.parent.emitter.emit('text-change', delta, undefined, 'user');
+    }
+  };
+
   getLiContent = () => {
     const child = head(this.domNode.childNodes);
     if (child) {
@@ -216,6 +201,7 @@ class LearningItemBlot extends Embed {
   refreshClickHandlers = () => {
     const closeButton = this.domNode.querySelector('.li-close-btn');
     const zoomButton = this.domNode.querySelector('.li-zoom-btn');
+    const editButton = this.domNode.querySelector('.li-edit-btn');
     if (closeButton) {
       // Remove any existing handlers so that we wont stack them up
       closeButton.removeEventListener('click', this.liCloseHandler);
@@ -225,6 +211,11 @@ class LearningItemBlot extends Embed {
       // Remove any existing handlers so that we wont stack them up
       zoomButton.removeEventListener('click', this.liZoomHandler);
       zoomButton.addEventListener('click', this.liZoomHandler);
+    }
+    if (editButton) {
+      // Remove any existing handlers so that we wont stack them up
+      editButton.removeEventListener('click', this.liEditHandler);
+      editButton.addEventListener('click', this.liEditHandler);
     }
   };
 
