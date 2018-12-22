@@ -683,8 +683,7 @@ class ReactiveRichText extends Component<
     const editorStyle = props.readOnly
       ? { borderStyle: 'hidden' }
       : {
-          maxHeight: '250px',
-          minHeight: '100%',
+          height: '800px',
           overflowY: 'auto'
         };
     return (
