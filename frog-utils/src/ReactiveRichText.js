@@ -64,7 +64,8 @@ const LIComponentRaw = ({ id, authorId, classes, liView }) => {
         type={liView}
         id={id}
         render={({ children, liType, dataFn }) => {
-          const LiTypeObject = dataFn.getLearningTypesObj()[liType];
+          const learningTypesObj = invoke(dataFn, 'getLearningTypesObj');
+          const LiTypeObject = get(learningTypesObj, liType);
           return (
             <div className={classes.liContainer}>
               <Paper className={classes.root} elevation={10} square>
@@ -75,7 +76,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView }) => {
                   >
                     <Close />
                   </IconButton>
-                  {(liType !== 'li-richText' && LiTypeObject.Editor) && (
+                  {(liType !== 'li-richText' && get(LiTypeObject, 'Editor')) && (
                     <IconButton
                       disableRipple
                       style={{ float: 'right' }}
@@ -89,7 +90,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView }) => {
                       )}
                     </IconButton>
                   )}
-                  {LiTypeObject.ThumbViewer && LiTypeObject.Viewer && (<IconButton
+                  {get(LiTypeObject, 'ThumbViewer') && get(LiTypeObject, 'Viewer') && (<IconButton
                     disableRipple
                     style={{ float: 'right' }}
                     className={`${classes.button} li-zoom-btn`}
@@ -336,6 +337,13 @@ menuItemStyle.innerHTML = `.ql-insertLi .ql-picker-item:before { content: attr(d
 document.documentElement // $FlowFixMe
   .getElementsByTagName('head')[0]
   .appendChild(menuItemStyle);
+
+const hypothesisStyleFix = document.createElement('style');
+hypothesisStyleFix.type = 'text/css';
+hypothesisStyleFix.innerHTML = `.ql-editor annotation-viewer-content li::before { content: none; }`;
+document.documentElement // $FlowFixMe
+  .getElementsByTagName('head')[0]
+  .appendChild(hypothesisStyleFix);
 
 const formats = [
   'bold',
