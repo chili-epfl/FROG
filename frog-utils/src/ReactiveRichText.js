@@ -57,7 +57,7 @@ const styles = theme => ({
 
 let reactiveRichTextDataFn;
 
-const LIComponentRaw = ({ id, authorId, classes, liView }) => {
+const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
   const LearningItem = reactiveRichTextDataFn.LearningItem;
   return (
     <div>
@@ -94,7 +94,11 @@ const LIComponentRaw = ({ id, authorId, classes, liView }) => {
                         style={{ float: 'right' }}
                         className={`${classes.button} li-zoom-btn`}
                       >
-                        {liView !== LiViewTypes.VIEW ? <ZoomIn /> : <ZoomOut />}
+                        {liZoomState === LiViewTypes.THUMB ? (
+                          <ZoomIn />
+                        ) : (
+                          <ZoomOut />
+                        )}
                       </IconButton>
                     )}
                 </div>
@@ -119,17 +123,29 @@ class LearningItemBlot extends Embed {
     const initialView = view || LiViewTypes.VIEW;
 
     node.setAttribute('contenteditable', false);
-    LearningItemBlot.renderLItoNode(liId, authorId, initialView, node);
+    LearningItemBlot.renderLItoNode(
+      liId,
+      authorId,
+      initialView,
+      initialView === LiViewTypes.EDIT ? LiViewTypes.VIEW : initialView,
+      node
+    );
     return node;
   }
 
-  static renderLItoNode(liId, authorId, liView, node) {
+  static renderLItoNode(liId, authorId, liView, zoomState, node) {
     ReactDOM.render(
-      <div data-liid={liId} data-authorid={authorId} data-liview={liView}>
+      <div
+        data-li-id={liId}
+        data-author-id={authorId}
+        data-li-view={liView}
+        data-li-zoom-state={zoomState}
+      >
         <LIComponent
           id={JSON.parse(liId)}
           authorId={authorId}
           liView={liView}
+          liZoomState={zoomState}
         />
       </div>,
       node
@@ -147,40 +163,35 @@ class LearningItemBlot extends Embed {
   };
 
   liZoomHandler = () => {
-    const { liView: currentView } = this.getLiContent();
-    const nextView =
-      currentView === LiViewTypes.VIEW ? LiViewTypes.THUMB : LiViewTypes.VIEW;
+    const { zoomState: currentZoomState } = this.getLiContent();
+    const nextZoomState =
+      currentZoomState === LiViewTypes.VIEW
+        ? LiViewTypes.THUMB
+        : LiViewTypes.VIEW;
 
     const offset = this.offset();
     const delta = new Delta();
     delta.retain(offset);
-    delta.retain(1, { 'li-view': nextView });
+    delta.retain(1, { 'li-view': nextZoomState });
     this.parent.emitter.emit('text-change', delta, undefined, 'user');
   };
 
   liEditHandler = () => {
-    const { liView: currentView } = this.getLiContent();
+    const { liView: currentView, zoomState } = this.getLiContent();
     const nextView =
-      currentView === LiViewTypes.EDIT ? LiViewTypes.THUMB : LiViewTypes.EDIT;
+      currentView === LiViewTypes.EDIT ? zoomState : LiViewTypes.EDIT;
 
-    if (nextView === LiViewTypes.EDIT) {
-      this.format('li-view', LiViewTypes.EDIT);
-    } else if (nextView === LiViewTypes.THUMB) {
-      const offset = this.offset();
-      const delta = new Delta();
-      delta.retain(offset);
-      delta.retain(1, { 'li-view': nextView });
-      this.parent.emitter.emit('text-change', delta, undefined, 'user');
-    }
+    this.format('li-view', nextView);
   };
 
   getLiContent = () => {
     const child = head(this.domNode.childNodes);
     if (child) {
-      const liId = get(child.dataset, 'liid');
-      const authorId = get(child.dataset, 'authorid');
-      const liView = get(child.dataset, 'liview');
-      return { authorId, liId, liView };
+      const liId = get(child.dataset, 'liId');
+      const authorId = get(child.dataset, 'authorId');
+      const liView = get(child.dataset, 'liView');
+      const zoomState = get(child.dataset, 'liZoomState');
+      return { authorId, liId, liView, zoomState };
     }
     return {};
   };
@@ -188,8 +199,8 @@ class LearningItemBlot extends Embed {
   static value(node) {
     const child = head(node.childNodes);
     if (child) {
-      const liId = get(child.dataset, 'liid');
-      const authorId = get(child.dataset, 'authorid');
+      const liId = get(child.dataset, 'liId');
+      const authorId = get(child.dataset, 'authorId');
       return { authorId, liId };
     }
     return {};
@@ -224,9 +235,15 @@ class LearningItemBlot extends Embed {
   format(format, value) {
     if (format === 'li-view') {
       setTimeout(() => {
-        const { liId, authorId } = this.getLiContent();
+        const { liId, authorId, zoomState } = this.getLiContent();
         if (liId && authorId && value) {
-          LearningItemBlot.renderLItoNode(liId, authorId, value, this.domNode);
+          LearningItemBlot.renderLItoNode(
+            liId,
+            authorId,
+            value,
+            value === LiViewTypes.EDIT ? zoomState : value,
+            this.domNode
+          );
           this.refreshClickHandlers();
         }
       }, 100);
@@ -568,14 +585,14 @@ class ReactiveRichText extends Component<
 
       for (let i = 0; i < editorLength; i += 1) {
         const [blot] = editor.getLeaf(i);
-        const blotName = blot.statics.blotName;
+        const blotName = get(blot, 'statics.blotName');
 
         if (blotName === 'learning-item') {
           const prevIndex = Math.max(i - 1, 0);
           const nextIndex = Math.min(i + 1, editor.getLength());
           const [prev] = editor.getLeaf(prevIndex);
           const [next] = editor.getLeaf(nextIndex);
-          if (i === 0 || prev.statics.blotName === 'learning-item') {
+          if (i === 0 || get(prev, 'statics.blotName') === 'learning-item') {
             editor.insertText(i, '\n', Quill.sources.USER);
             return;
           } else if (next.statics.blotName === 'learning-item') {
