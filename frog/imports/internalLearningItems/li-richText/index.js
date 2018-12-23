@@ -78,7 +78,7 @@ export class Editor extends React.Component<*, *> {
   render() {
     const { dataFn } = this.props;
     return (
-      <div style={{height: '100%'}}>
+      <div style={{ height: '100%' }}>
         <ReactiveRichText
           userId={this.props.userId}
           ref={this.ref}
