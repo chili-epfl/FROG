@@ -77,36 +77,31 @@ const LIComponentRaw = ({ id, authorId, classes, liView }) => {
                   >
                     <Close />
                   </IconButton>
-                  {(liType !== 'li-richText' && get(LiTypeObject, 'Editor')) && (
-                    <IconButton
-                      disableRipple
-                      style={{ float: 'right' }}
-                      className={`${classes.button} li-edit-btn`}
-                      onClick={this.handleEditClick}
-                    >
-                      {liView === LiViewTypes.EDIT ? (
-                        <Save />
-                      ) : (
-                        <Create />
-                      )}
-                    </IconButton>
-                  )}
-                  {get(LiTypeObject, 'ThumbViewer') && get(LiTypeObject, 'Viewer') && (<IconButton
-                    disableRipple
-                    style={{ float: 'right' }}
-                    className={`${classes.button} li-zoom-btn`}
-                  >
-                    {liView !== LiViewTypes.VIEW ? (
-                      <ZoomIn />
-                    ) : (
-                      <ZoomOut />
+                  {liType !== 'li-richText' &&
+                    get(LiTypeObject, 'Editor') && (
+                      <IconButton
+                        disableRipple
+                        style={{ float: 'right' }}
+                        className={`${classes.button} li-edit-btn`}
+                      >
+                        {liView === LiViewTypes.EDIT ? <Save /> : <Create />}
+                      </IconButton>
                     )}
-                  </IconButton>)}
+                  {get(LiTypeObject, 'ThumbViewer') &&
+                    get(LiTypeObject, 'Viewer') && (
+                      <IconButton
+                        disableRipple
+                        style={{ float: 'right' }}
+                        className={`${classes.button} li-zoom-btn`}
+                      >
+                        {liView !== LiViewTypes.VIEW ? <ZoomIn /> : <ZoomOut />}
+                      </IconButton>
+                    )}
                 </div>
                 {children}
               </Paper>
             </div>
-          )
+          );
         }}
       />
       <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
@@ -578,8 +573,8 @@ class ReactiveRichText extends Component<
         if (blotName === 'learning-item') {
           const prevIndex = Math.max(i - 1, 0);
           const nextIndex = Math.min(i + 1, editor.getLength());
-          const [ prev ] = editor.getLeaf(prevIndex);
-          const [ next ] = editor.getLeaf(nextIndex);
+          const [prev] = editor.getLeaf(prevIndex);
+          const [next] = editor.getLeaf(nextIndex);
           if (i === 0 || prev.statics.blotName === 'learning-item') {
             editor.insertText(i, '\n', Quill.sources.USER);
             return;
@@ -670,7 +665,9 @@ class ReactiveRichText extends Component<
 
     if (editor) {
       const index = get(editor, 'selection.savedRange.index');
-      const insertPosition = isUndefined(index) ? editor.getLength() - 1 : index;
+      const insertPosition = isUndefined(index)
+        ? editor.getLength() - 1
+        : index;
 
       const params = {
         liId: JSON.stringify(e),
