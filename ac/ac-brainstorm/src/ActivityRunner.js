@@ -3,11 +3,14 @@
 import * as React from 'react';
 import { values, type ActivityRunnerPropsT } from 'frog-utils';
 import FlipMove from '@houshuang/react-flip-move';
-import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import Chip from '@material-ui/core/Chip';
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import PencilIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -92,6 +95,7 @@ class Idea extends React.Component<
       children
     } = this.props;
     const { focus } = this.state;
+    const { score } = meta;
     return (
       <Card
         raised={focus}
@@ -100,9 +104,50 @@ class Idea extends React.Component<
       >
         <CardContent
           style={{
-            minWidth: '400px'
+            minWidth: '400px',
+            minHeight: '120px'
           }}
         >
+          <div
+            style={{
+              position: 'absolute',
+              display: 'flex',
+              flexDirection: 'column',
+              top: '5px',
+              right: '5px'
+            }}
+          >
+            {config.allowVoting && (
+              <Button
+                size="small"
+                onClick={() => vote(meta.id, 1)}
+                style={{
+                  minHeight: '13px',
+                  padding: '3px 4px'
+                }}
+              >
+                <KeyboardArrowUp fontSize="small" />
+              </Button>
+            )}
+            <Chip
+              label={score}
+              style={{
+                height: 'unset'
+              }}
+            />
+            {config.allowVoting && (
+              <Button
+                size="small"
+                onClick={() => vote(meta.id, -1)}
+                style={{
+                  minHeight: '13px',
+                  padding: '3px 4px'
+                }}
+              >
+                <KeyboardArrowDown fontSize="small" />
+              </Button>
+            )}
+          </div>
           <Grow in={focus}>
             <div
               style={{
@@ -111,20 +156,10 @@ class Idea extends React.Component<
                 minWidth: '108px',
                 display: 'flex',
                 flexDirection: 'row',
-                bottom: '15px',
-                right: '15px'
+                bottom: '10px',
+                right: '10px'
               }}
             >
-              {config.allowVoting && (
-                <div>
-                  <Button size="small" onClick={() => vote(meta.id, -1)}>
-                    <ThumbDownIcon fontSize="small" />
-                  </Button>
-                  <Button size="small" onClick={() => vote(meta.id, 1)}>
-                    <ThumbUpIcon fontSize="small" />
-                  </Button>
-                </div>
-              )}
               <div>
                 <font size={4}>
                   {config.allowDelete && (
@@ -180,11 +215,10 @@ const IdeaListRaw = ({
               borderRadius: '5px'
             }}
           >
-            <Badge
-              badgeContent={x.score}
-              color="primary"
-              classes={{ badge: classes.badge }}
-              style={{ display: 'block' }}
+            <div
+              style={{
+                position: 'relative'
+              }}
             >
               <LearningItem
                 type={
@@ -221,7 +255,7 @@ const IdeaListRaw = ({
                 )}
                 id={x.li}
               />
-            </Badge>
+            </div>
           </div>
         ))}
       </FlipMove>
