@@ -77,36 +77,31 @@ const LIComponentRaw = ({ id, authorId, classes, liView }) => {
                   >
                     <Close />
                   </IconButton>
-                  {(liType !== 'li-richText' && get(LiTypeObject, 'Editor')) && (
-                    <IconButton
-                      disableRipple
-                      style={{ float: 'right' }}
-                      className={`${classes.button} li-edit-btn`}
-                      onClick={this.handleEditClick}
-                    >
-                      {liView === LiViewTypes.EDIT ? (
-                        <Save />
-                      ) : (
-                        <Create />
-                      )}
-                    </IconButton>
-                  )}
-                  {get(LiTypeObject, 'ThumbViewer') && get(LiTypeObject, 'Viewer') && (<IconButton
-                    disableRipple
-                    style={{ float: 'right' }}
-                    className={`${classes.button} li-zoom-btn`}
-                  >
-                    {liView !== LiViewTypes.VIEW ? (
-                      <ZoomIn />
-                    ) : (
-                      <ZoomOut />
+                  {liType !== 'li-richText' &&
+                    get(LiTypeObject, 'Editor') && (
+                      <IconButton
+                        disableRipple
+                        style={{ float: 'right' }}
+                        className={`${classes.button} li-edit-btn`}
+                      >
+                        {liView === LiViewTypes.EDIT ? <Save /> : <Create />}
+                      </IconButton>
                     )}
-                  </IconButton>)}
+                  {get(LiTypeObject, 'ThumbViewer') &&
+                    get(LiTypeObject, 'Viewer') && (
+                      <IconButton
+                        disableRipple
+                        style={{ float: 'right' }}
+                        className={`${classes.button} li-zoom-btn`}
+                      >
+                        {liView !== LiViewTypes.VIEW ? <ZoomIn /> : <ZoomOut />}
+                      </IconButton>
+                    )}
                 </div>
                 {children}
               </Paper>
             </div>
-          )
+          );
         }}
       />
       <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
@@ -566,13 +561,39 @@ class ReactiveRichText extends Component<
     }
   }
 
+  ensureSpaceAroundLis = () => {
+    const editor = invoke(this.quillRef, 'getEditor');
+    if (editor) {
+      const editorLength = editor.getLength();
+
+      for (let i = 0; i < editorLength; i += 1) {
+        const [blot] = editor.getLeaf(i);
+        const blotName = blot.statics.blotName;
+
+        if (blotName === 'learning-item') {
+          const prevIndex = Math.max(i - 1, 0);
+          const nextIndex = Math.min(i + 1, editor.getLength());
+          const [prev] = editor.getLeaf(prevIndex);
+          const [next] = editor.getLeaf(nextIndex);
+          if (i === 0 || prev.statics.blotName === 'learning-item') {
+            editor.insertText(i, '\n', Quill.sources.USER);
+            return;
+          } else if (next.statics.blotName === 'learning-item') {
+            editor.insertText(nextIndex, '\n', Quill.sources.USER);
+            return;
+          }
+        }
+      }
+    }
+  };
+
   handleChange = (delta: Object, oldContents: Object, source: string) => {
     if (!this.props.readOnly) {
       if (source !== 'user') {
         return;
       }
-
       this.submitOperation(delta);
+      this.ensureSpaceAroundLis();
     }
   };
 
@@ -644,19 +665,15 @@ class ReactiveRichText extends Component<
 
     if (editor) {
       const index = get(editor, 'selection.savedRange.index');
-      let insertPosition = isUndefined(index) ? editor.getLength() - 1 : index;
+      const insertPosition = isUndefined(index)
+        ? editor.getLength() - 1
+        : index;
 
       const params = {
         liId: JSON.stringify(e),
         authorId: this.props.userId,
         view: initialView
       };
-
-      const prevPosition = Math.max(0, insertPosition - 1);
-      if (index === 0 || editor.getText(prevPosition, 1) !== '\n') {
-        editor.insertText(insertPosition, '\n', Quill.sources.USER);
-        insertPosition += 1;
-      }
 
       editor.insertEmbed(
         insertPosition,
@@ -665,8 +682,7 @@ class ReactiveRichText extends Component<
         Quill.sources.USER
       );
 
-      editor.insertText(insertPosition + 1, '\n', Quill.sources.USER);
-      editor.setSelection(insertPosition + 2, 0, Quill.sources.USER);
+      editor.setSelection(insertPosition + 1, 0, Quill.sources.USER);
     }
   };
 
