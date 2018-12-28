@@ -8,15 +8,15 @@ import {
   type socialStructureT
 } from 'frog-utils';
 
-import { Sessions } from '/imports/api/sessions';
+import { Sessions } from 'imports/api/sessions';
 import mergeData from './mergeData';
 import reactiveToProduct from './reactiveToProduct';
-import { operatorTypesObj } from '../imports/operatorTypes';
+import { operatorTypesObj } from '..imports/operatorTypes';
 import operators from './operatorRunners';
-import { Products } from '../imports/api/products';
-import { Activities, Connections } from '../imports/api/activities';
-import { Operators } from '../imports/api/operators';
-import { addObject } from '../imports/api/objects';
+import { Products } from '..imports/api/products';
+import { Activities, Connections } from '..imports/api/activities';
+import { Operators } from '..imports/api/operators';
+import { addObject } from '..imports/api/objects';
 import remote from './runRemoteOperator';
 
 declare var Promise: any;

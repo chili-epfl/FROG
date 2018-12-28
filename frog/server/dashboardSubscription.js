@@ -4,10 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import { set } from 'lodash';
 import { uuid, cloneDeep, values } from 'frog-utils';
 
-import { activityTypesObj } from '../imports/activityTypes';
-import { DashboardData, Activities } from '../imports/api/activities';
-import { DashboardStates } from '../imports/api/cache';
-import { regenerateState } from '../imports/api/mergeLogData';
+import { activityTypesObj } from '..imports/activityTypes';
+import { DashboardData, Activities } from '..imports/api/activities';
+import { DashboardStates } from '..imports/api/cache';
+import { regenerateState } from '..imports/api/mergeLogData';
 import { serverConnection } from './share-db-manager';
 
 const interval = {};

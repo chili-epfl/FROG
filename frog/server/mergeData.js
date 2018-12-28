@@ -10,15 +10,15 @@ import {
   type ActivityDbT,
   type structureDefT
 } from 'frog-utils';
-import { Activities } from '../imports/api/activities';
-import { Objects } from '../imports/api/objects';
-import doGetInstances from '../imports/api/doGetInstances';
-import { Sessions } from '../imports/api/sessions';
-import LearningItem from '../imports/ui/LearningItem';
+import { Activities } from '..imports/api/activities';
+import { Objects } from '..imports/api/objects';
+import doGetInstances from '..imports/api/doGetInstances';
+import { Sessions } from '..imports/api/sessions';
+import LearningItem from '..imports/ui/LearningItem';
 
 import { serverConnection } from './share-db-manager';
-import { activityTypesObj } from '../imports/activityTypes';
-import { createDashboards } from '../imports/api/mergeLogData';
+import { activityTypesObj } from '..imports/activityTypes';
+import { createDashboards } from '..imports/api/mergeLogData';
 
 declare var Promise: any;
 const backend = new ShareDB();

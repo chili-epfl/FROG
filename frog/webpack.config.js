@@ -44,22 +44,6 @@ const clientConfig = {
     rules: [
       babelConfig,
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: [require('autoprefixer')]
-            }
-          },
-          'sass-loader'
-        ]
-      },
-      {
         test: /\.css$/,
         use: ['null-loader']
       }
@@ -73,11 +57,10 @@ const clientConfig = {
     // new BundleAnalyzerPlugin()
   ],
   resolve: {
-    root: path.resolve(__dirname),
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       imports: './imports',
-      imports: './server'
+      server: './server'
     }
   },
   externals: [meteorExternals()],

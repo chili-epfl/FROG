@@ -1,7 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import operators from './operatorRunners';
-import { operatorTypesObj } from '../imports/operatorTypes';
+import { operatorTypesObj } from '..imports/operatorTypes';
 
 declare var Promise: any;
 
