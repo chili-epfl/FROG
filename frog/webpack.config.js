@@ -13,6 +13,16 @@ const babelConfig = {
     loader: 'babel-loader?cacheDirectory=true',
     options: {
       plugins: [
+        [
+          'module-resolver',
+          {
+            root: ['./src'],
+            alias: {
+              '^imports': './imports',
+              '^server': './server'
+            }
+          }
+        ],
         '@babel/plugin-transform-flow-strip-types',
         '@babel/plugin-proposal-optional-chaining',
         ['@babel/plugin-proposal-class-properties', { loose: false }],
@@ -24,6 +34,12 @@ const babelConfig = {
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-syntax-import-meta',
         '@babel/plugin-proposal-json-strings',
+        [
+          '@babel/plugin-transform-modules-commonjs',
+          {
+            allowTopLevelThis: true
+          }
+        ],
         [
           'captains-log',
           {
@@ -59,8 +75,8 @@ const clientConfig = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      imports: './imports',
-      server: './server'
+      '^imports': './imports',
+      '^server': './server'
     }
   },
   externals: [meteorExternals()],
@@ -82,13 +98,13 @@ const serverConfig = {
   },
   target: 'node',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '^imports': './imports',
+      '^server': './server'
+    }
   },
-  externals: [meteorExternals(), nodeExternals()],
-  devServer: {
-    hot: true,
-    stats: 'minimal'
-  }
+  externals: [meteorExternals(), nodeExternals()]
 };
 
 module.exports = [clientConfig, serverConfig];

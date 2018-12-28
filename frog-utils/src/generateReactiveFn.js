@@ -4,7 +4,7 @@ import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 
-import { uploadFile } from '/imports/api/openUploads';
+// import { uploadFile } from '/imports/api/openUploads';
 import { uuid } from './index';
 import type { LearningItemComponentT } from './types';
 
@@ -54,7 +54,7 @@ export class Doc {
     this.path = path || [];
     this.sessionId = sessionId || '';
     this.LIConnection = LIConnection;
-    this.uploadFn = (file, name) => uploadFile(file, name, this.sessionId);
+    this.uploadFn = (file, name) => {}; //uploadFile(file, name, this.sessionId);
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
       : e => {

@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Buffer from 'buffer';
 
 import App from './index';
-throw Error('Help');
 const theme = createMuiTheme({});
 
 global.Buffer = Buffer.Buffer;
