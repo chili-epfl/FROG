@@ -61,8 +61,8 @@ export default function() {
   teacherPublish('dashboardData', DashboardData);
   teacherPublish('connections', Connections);
   teacherPublish('uploadList', UploadList);
-  teacherPublishOwn('graphs', Graphs, this.userId);
-  teacherPublishOwn('sessions', Sessions, this.userId);
+  teacherPublishOwn('graphs', Graphs);
+  teacherPublishOwn('sessions', Sessions);
 }
 
 Meteor.methods({

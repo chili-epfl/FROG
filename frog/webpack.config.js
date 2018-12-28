@@ -118,11 +118,17 @@ const clientConfig = {
     }
   },
   externals: [meteorExternals()],
+  devServer: {
+    hot: true,
+    // logLevel: 'warn',
+    stats: 'minimal'
+  },
   performance: { hints: false }
 };
 
 const serverConfig = {
   entry: ['./server/main.js'],
+  // output: { filename: 'server' },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })],
   mode: 'development',
   module: {
@@ -142,7 +148,15 @@ const serverConfig = {
       '^server': './server'
     }
   },
-  externals: [meteorExternals(), nodeExternals()]
+  devServer: {
+    hot: true,
+    // logLevel: 'warn',
+    stats: 'minimal'
+  },
+  externals: [
+    meteorExternals()
+    // nodeExternals({ whitelist: ['frog-utils', /^ac-/, /^op-/] })
+  ]
 };
 
 module.exports = [clientConfig, serverConfig];
