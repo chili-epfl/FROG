@@ -5,7 +5,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 
-import { Sessions } from 'imports/api/sessions';
+import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
   const alreadyUser = Meteor.users.findOne({ 'services.frog.id': user });

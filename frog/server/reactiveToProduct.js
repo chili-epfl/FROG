@@ -3,11 +3,11 @@
 import { type activityDataT, type ActivityPackageT } from 'frog-utils';
 import { Meteor } from 'meteor/meteor';
 
-import { Activities } from 'imports/api/activities';
-import { activityTypesObj } from 'imports/activityTypes';
-import { Objects } from 'imports/api/objects';
-import doGetInstances from 'imports/api/doGetInstances';
-import { Products } from 'imports/api/products';
+import { Activities } from '../imports/api/activities';
+import { activityTypesObj } from '../imports/activityTypes';
+import { Objects } from '../imports/api/objects';
+import doGetInstances from '../imports/api/doGetInstances';
+import { Products } from '../imports/api/products';
 import { serverConnection } from './share-db-manager';
 
 declare var Promise: any;

@@ -1,9 +1,9 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 
-import { Logs } from 'imports/api/logs';
-import { Sessions } from 'imports/api/sessions';
-import { mergeLog } from 'imports/api/mergeLogData';
+import { Logs } from '../imports/api/logs';
+import { Sessions } from '../imports/api/sessions';
+import { mergeLog } from '../imports/api/mergeLogData';
 import { client } from './redis';
 import { archiveDashboardState } from './dashboardSubscription';
 

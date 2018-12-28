@@ -2,7 +2,7 @@
 import { Mongo } from 'meteor/mongo';
 import { chainUpgrades, uuid } from 'frog-utils';
 
-import { operatorTypesObj } from 'imports/operatorTypes';
+import { operatorTypesObj } from '../operatorTypes';
 
 export const Operators = new Mongo.Collection('operators');
 export const ExternalOperators = new Mongo.Collection('external_operators');

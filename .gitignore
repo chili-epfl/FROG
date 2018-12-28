@@ -1,6 +1,7 @@
 *.DS_Store
 .eslintcache
 frog/node_modules
+frog/dist
 node_modules/
 *.log
 .tern-port
