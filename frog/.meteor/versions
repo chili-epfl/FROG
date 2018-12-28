@@ -3,13 +3,13 @@ accounts-password@1.5.1
 accounts-ui@1.3.1
 accounts-ui-unstyled@1.4.1
 allow-deny@1.1.0
+ardatan:webpack@0.0.5_8
 autoupdate@1.5.0
 babel-compiler@7.2.0
 babel-runtime@1.3.0
 base64@1.0.11
 binary-heap@1.0.11
 blaze@2.3.3
-blaze-html-templates@1.1.2
 blaze-tools@1.0.10
 boilerplate-generator@1.6.0
 caching-compiler@1.2.0
@@ -104,7 +104,6 @@ templating-tools@1.1.2
 tmeasday:check-npm-versions@0.3.2
 tmeasday:test-reporter-helpers@0.2.1
 tracker@1.2.0
-ui@1.0.13
 underscore@1.0.10
 url@1.2.0
 webapp@1.7.0
