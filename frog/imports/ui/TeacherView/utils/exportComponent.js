@@ -7,12 +7,12 @@ import FileSaver from 'file-saver';
 import { cleanEmptyCols, type ActivityDbT, strfTime } from 'frog-utils';
 import { omit } from 'lodash';
 
-import { UploadList, downloadFile } from '/imports/api/openUploads';
-import { Sessions } from '/imports/api/sessions';
-import { Activities } from '/imports/api/activities';
-import { Operators } from '/imports/api/operators';
-import { activityTypesObj } from '/imports/activityTypes';
-import { getActivitySequence } from '/imports/api/graphSequence';
+import { UploadList, downloadFile } from 'imports/api/openUploads';
+import { Sessions } from 'imports/api/sessions';
+import { Activities } from 'imports/api/activities';
+import { Operators } from 'imports/api/operators';
+import { activityTypesObj } from 'imports/activityTypes';
+import { getActivitySequence } from 'imports/api/graphSequence';
 import { graphToString } from '../../GraphEditor/utils/export';
 import downloadLog from './downloadLog';
 import exportGraphPNG from '../../GraphEditor/utils/exportPicture';

@@ -10,8 +10,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 
 import type { operatorPackageT, OperatorDbT } from 'frog-utils';
-import { Operators } from '/imports/api/operators';
-import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
+import { Operators } from 'imports/api/operators';
+import { operatorTypes, operatorTypesObj } from 'imports/operatorTypes';
 import { type StoreProp } from '../../store';
 import ListComponent from '../ListComponent';
 

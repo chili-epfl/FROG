@@ -3,9 +3,9 @@ import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
-import { findActivitiesMongo, Connections } from '/imports/api/activities';
-import { findOperatorsMongo } from '/imports/api/operators';
-import { addGraph, findOneGraphMongo } from '/imports/api/graphs';
+import { findActivitiesMongo, Connections } from 'imports/api/activities';
+import { findOperatorsMongo } from 'imports/api/operators';
+import { addGraph, findOneGraphMongo } from 'imports/api/graphs';
 import { store } from '../store';
 
 const clean = obj => {

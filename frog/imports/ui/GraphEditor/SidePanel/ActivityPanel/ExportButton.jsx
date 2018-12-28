@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { withState } from 'recompose';
 
-import { LibraryStates } from '/imports/api/cache';
-import { loadActivityMetaData } from '/imports/api/remoteActivities';
+import { LibraryStates } from 'imports/api/cache';
+import { loadActivityMetaData } from 'imports/api/remoteActivities';
 
 import Modal from '../../RemoteControllers/ModalExport';
 import { IconButton } from '../index';

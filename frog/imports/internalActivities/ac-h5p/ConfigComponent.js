@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import { uploadFile } from '/imports/api/openUploads';
+import { uploadFile } from 'imports/api/openUploads';
 import { uuid, A } from 'frog-utils';
 
 const onDrop = (file, setConfigData) => {

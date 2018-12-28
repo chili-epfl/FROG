@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Inspector, A } from 'frog-utils';
-import { activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from 'imports/activityTypes';
 import copy from 'copy-to-clipboard';
 import Stringify from 'json-stringify-pretty-compact';
 

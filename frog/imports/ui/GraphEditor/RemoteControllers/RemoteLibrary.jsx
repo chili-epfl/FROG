@@ -4,17 +4,17 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import Search from '@material-ui/icons/Search';
 
-import { LibraryStates } from '/imports/api/cache';
+import { LibraryStates } from 'imports/api/cache';
 import {
   importGraph,
   collectGraphs,
   checkDateGraph
-} from '/imports/api/remoteGraphs';
+} from 'imports/api/remoteGraphs';
 import {
   collectActivities,
   importAct,
   checkDateAct
-} from '/imports/api/remoteActivities';
+} from 'imports/api/remoteActivities';
 import ListComponent from '../SidePanel/ListComponent';
 import { activityTypesObj } from '../../../activityTypes';
 

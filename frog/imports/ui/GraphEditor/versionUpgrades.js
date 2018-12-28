@@ -1,7 +1,7 @@
 // @flow
 
-import { Activities } from '/imports/api/activities';
-import { Graphs } from '/imports/api/graphs';
+import { Activities } from 'imports/api/activities';
+import { Graphs } from 'imports/api/graphs';
 
 export const GraphCurrentVersion = 1;
 

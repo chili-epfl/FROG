@@ -18,8 +18,8 @@ import {
   removeAllUsers,
   updateSessionState,
   restartSession
-} from '/imports/api/sessions';
-import { nextActivity } from '/imports/api/engine';
+} from 'imports/api/sessions';
+import { nextActivity } from 'imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
 import { teacherLogger } from '../../../api/logs';

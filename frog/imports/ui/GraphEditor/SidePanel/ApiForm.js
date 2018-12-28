@@ -5,9 +5,9 @@ import { extendObservable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
-import { activityTypesObj } from '/imports/activityTypes';
-import validateConfig from '/imports/api/validateConfig';
-import { removeActivity } from '/imports/api/remoteActivities';
+import { activityTypesObj } from 'imports/activityTypes';
+import validateConfig from 'imports/api/validateConfig';
+import { removeActivity } from 'imports/api/remoteActivities';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import ConfigForm from './ConfigForm';
 import ChooseActivityType from './ActivityPanel/ChooseActivity';

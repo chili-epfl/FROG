@@ -10,13 +10,13 @@ import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
 import { compact } from 'lodash';
 
-import { activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from 'imports/activityTypes';
 import {
   addActivity,
   removeActivityType,
   setStreamTarget,
   setParticipation
-} from '/imports/api/activities';
+} from 'imports/api/activities';
 
 import { connect } from '../../store';
 import { ErrorList, ValidButton } from '../../Validator';

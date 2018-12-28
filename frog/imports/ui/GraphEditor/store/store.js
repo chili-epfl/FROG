@@ -4,22 +4,22 @@ import { isEmpty, isEqual, sortBy } from 'lodash';
 import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
 
-import valid from '/imports/api/validGraphFn';
+import valid from 'imports/api/validGraphFn';
 import {
   Graphs,
   mergeGraph,
   setCurrentGraph,
   findOneGraphMongo
-} from '/imports/api/graphs';
+} from 'imports/api/graphs';
 import {
   Activities,
   findActivitiesMongo,
   Connections
-} from '/imports/api/activities';
-import { Operators, findOperatorsMongo } from '/imports/api/operators';
-import { LibraryStates } from '/imports/api/cache';
-import { loadGraphMetaData } from '/imports/api/remoteGraphs';
-import { LocalSettings } from '/imports/api/settings';
+} from 'imports/api/activities';
+import { Operators, findOperatorsMongo } from 'imports/api/operators';
+import { LibraryStates } from 'imports/api/cache';
+import { loadGraphMetaData } from 'imports/api/remoteGraphs';
+import { LocalSettings } from 'imports/api/settings';
 
 import ActivityStore from './activityStore';
 import OperatorStore, { type OperatorTypes } from './operatorStore';

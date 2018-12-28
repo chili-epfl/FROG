@@ -2,8 +2,8 @@ import { omitBy, isNil } from 'lodash';
 
 import { uuid, chainUpgrades } from 'frog-utils';
 
-import { activityTypesObj } from '/imports/activityTypes';
-import { Activities, addActivity } from '/imports/api/activities';
+import { activityTypesObj } from 'imports/activityTypes';
+import { Activities, addActivity } from 'imports/api/activities';
 import { LibraryStates } from './cache';
 
 const RemoteServer =

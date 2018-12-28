@@ -9,7 +9,7 @@ import {
   type DashboardDataDbT
 } from 'frog-utils';
 
-import { activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from 'imports/activityTypes';
 
 export const Activities = new Mongo.Collection('activities');
 export const Connections = new Mongo.Collection('connections');

@@ -3,14 +3,14 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from 'react-tooltip';
-import { Graphs } from '/imports/api/graphs';
+import { Graphs } from 'imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
-import { removeActivity } from '/imports/api/remoteActivities';
-import { removeGraph } from '/imports/api/remoteGraphs';
-import { LibraryStates } from '/imports/api/cache';
+import { removeActivity } from 'imports/api/remoteActivities';
+import { removeGraph } from 'imports/api/remoteGraphs';
+import { LibraryStates } from 'imports/api/cache';
 
 import { connect } from './store';
 import Graph from './Graph';
