@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import redis from 'redis';
-import { mergeLog } from '..imports/api/mergeLogData';
+import { mergeLog } from 'imports/api/mergeLogData';
 import { archiveDashboardState } from './dashboardSubscription';
 
 let clientRaw = null;

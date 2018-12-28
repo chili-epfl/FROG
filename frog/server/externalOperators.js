@@ -1,8 +1,8 @@
 // @flow
 import redis from 'redis';
 import { Meteor } from 'meteor/meteor';
-import { operatorTypes, operatorTypesObj } from '..imports/operatorTypes';
-import { ExternalOperators } from '..imports/api/operators';
+import { operatorTypes, operatorTypesObj } from 'imports/operatorTypes';
+import { ExternalOperators } from 'imports/api/operators';
 
 export default () => {
   ExternalOperators.find({})
