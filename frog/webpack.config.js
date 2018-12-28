@@ -118,11 +118,11 @@ const clientConfig = {
     }
   },
   externals: [meteorExternals()],
-  devServer: {
-    hot: true,
-    // logLevel: 'warn',
-    stats: 'minimal'
-  },
+  // devServer: {
+  //   hot: true,
+  //   // logLevel: 'warn',
+  //   stats: 'minimal'
+  // },
   performance: { hints: false }
 };
 
@@ -148,11 +148,11 @@ const serverConfig = {
       '^server': './server'
     }
   },
-  devServer: {
-    hot: true,
-    // logLevel: 'warn',
-    stats: 'minimal'
-  },
+  // devServer: {
+  //   hot: true,
+  //   // logLevel: 'warn',
+  //   stats: 'minimal'
+  // },
   externals: [
     meteorExternals()
     // nodeExternals({ whitelist: ['frog-utils', /^ac-/, /^op-/] })
