@@ -138,7 +138,7 @@ class ActivityRunner extends Component<
           </div>
         )}
         {activityData.config.allowAny && (
-          <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+          <div style={{ position: 'absolute', top: '50px', right: '59px' }}>
             <dataFn.LearningItem
               stream={this.props.stream}
               meta={{
