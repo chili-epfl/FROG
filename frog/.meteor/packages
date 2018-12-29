@@ -4,7 +4,7 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-qualia:one
+#qualia:one
 meteor-base@1.4.0             # Packages every Meteor app needs to have
 mobile-experience@1.0.5       # Packages for a great mobile UX
 mongo@1.5.0                   # The database Meteor supports right now
@@ -19,16 +19,17 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 accounts-ui@1.3.0
 accounts-password@1.5.1
 react-meteor-data
-practicalmeteor:mocha
+#practicalmeteor:mocha
 check@1.3.1
-dispatch:mocha-phantomjs@0.1.9
+#dispatch:mocha-phantomjs@0.1.9
 dynamic-import@0.4.0
 reywood:publish-composite
 standard-minifier-js@2.3.4
 minifier-js@2.3.5
 staringatlights:inject-data
-kadira:dochead
-mizzao:timesync
-mizzao:user-status
+#kadira:dochead
+#mizzao:timesync
+#mizzao:user-status
 underscore
 ardatan:webpack
+ardatan:webpack-dev-middleware

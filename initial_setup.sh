@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ -d "frog/node_modules" ]; then
-  echo "Please run git clean -fdx before running initial_setup.sh"
-  exit 0
-fi
-shopt -s dotglob
+#if [ -d "frog/node_modules" ]; then
+#  echo "Please run git clean -fdx before running initial_setup.sh"
+#  exit 0
+#fi
+#shopt -s dotglob
 
 FROG="`pwd`"
 YARN_VERSION='1.12.1'

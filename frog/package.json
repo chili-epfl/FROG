@@ -93,6 +93,24 @@
     "twit": "^2.2.10",
     "unzipper": "^0.9.1",
     "utf-8-validate": "^5.0.1",
+    "websocket-json-stream": "0.0.3",
+    "ws": "^5.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-syntax-export-default-from": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.2.0",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-root-slash-import": "^1.1.0",
+    "nps": "^5.9.3",
+    "webpack-meteor-externals": "0.0.5",
     "webpack": "^4.28.2",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
@@ -100,14 +118,6 @@
     "webpack-dev-server": "^3.1.13",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-hot-server-middleware": "^0.5.0",
-    "webpack-node-externals": "^1.7.2",
-    "websocket-json-stream": "0.0.3",
-    "ws": "^5.2.1"
-  },
-  "devDependencies": {
-    "babel-plugin-module-resolver": "^3.1.1",
-    "babel-root-slash-import": "^1.1.0",
-    "nps": "^5.9.3",
-    "webpack-meteor-externals": "0.0.5"
+    "webpack-node-externals": "^1.7.2"
   }
 }

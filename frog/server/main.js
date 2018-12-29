@@ -1,12 +1,13 @@
+console.log('hello server')
+
 // @flow
 /* eslint-disable prefer-arrow-func */
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
-
+/*
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { uuid } from 'frog-utils';
-import 'frog-utils';
 import './user_accounts';
 
 import { startShareDB } from './share-db-manager';
@@ -250,3 +251,4 @@ const checkActivity = (session, activityId, operators, connections, userid) => {
     return true;
   }
 };
+*/

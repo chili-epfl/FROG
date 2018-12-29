@@ -6,6 +6,25 @@ const nodeExternals = require('webpack-node-externals');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
+
+  const babelConfig = {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader?cacheDirectory=true',
+      options: {
+        presets: [['@babel/env'], '@babel/react'],
+        plugins: [
+          '@babel/plugin-proposal-class-properties',
+          'styled-components',
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-transform-runtime',
+          // '@babel/plugin-proposal-export-default-from',
+        ],
+      },
+    },
+  }
+
 const babelConfigClient = {
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
@@ -96,12 +115,15 @@ const clientConfig = {
   mode: 'development',
   module: {
     rules: [
-      babelConfigClient,
+      babelConfig,
       {
         test: /\.css$/,
         use: ['null-loader']
       }
     ]
+  },
+  output: {
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -117,13 +139,13 @@ const clientConfig = {
       '^server/(.+)': './server/\\1'
     }
   },
-  externals: [meteorExternals()],
-  // devServer: {
-  //   hot: true,
-  //   // logLevel: 'warn',
-  //   stats: 'minimal'
-  // },
-  performance: { hints: false }
+  externals: [meteorExternals(), /*nodeExternals()*/],
+  devServer: {
+    hot: true,
+    // logLevel: 'warn',
+    // stats: 'minimal'
+  },
+  performance: { hints: false },
 };
 
 const serverConfig = {
@@ -131,9 +153,12 @@ const serverConfig = {
   // output: { filename: 'server' },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })],
   mode: 'development',
+  output: {
+    publicPath: '/'
+  },
   module: {
     rules: [
-      babelConfigServer,
+      babelConfig,
       {
         test: /\.css$/,
         use: ['null-loader']
@@ -148,14 +173,13 @@ const serverConfig = {
       '^server': './server'
     }
   },
-  // devServer: {
-  //   hot: true,
-  //   // logLevel: 'warn',
-  //   stats: 'minimal'
-  // },
+  devServer: {
+    hot: true,
+  },
   externals: [
-    meteorExternals()
-    // nodeExternals({ whitelist: ['frog-utils', /^ac-/, /^op-/] })
+    meteorExternals(),
+    // nodeExternals()
+    nodeExternals({ whitelist: ['frog-utils', /^ac-/, /^op-/] })
   ]
 };
 
