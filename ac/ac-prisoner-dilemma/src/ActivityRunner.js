@@ -7,8 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Scoreboard from './Scoreboard';
 import Buttons from './Buttons';
 
-// Styles
-
 const styles = {
   result: {
     marginTop: '50px',
@@ -33,14 +31,9 @@ const styles = {
   }
 };
 
-// Props types
-
 type StyledPropsT = ActivityRunnerPropsT & { classes: Object };
 
-// Component
-
 class PrisonerDilemmaController extends React.Component<StyledPropsT> {
-  // Constructor
 
   constructor(props) {
     super(props);
@@ -54,67 +47,11 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
     );
   }
 
-  // Methods
-
-  renderGame(students, round, disableButtons) {
-    if (this.props.data.phase !== 2) {
-      const waiting =
-        students.indexOf(this.props.userInfo.id) > -1 && disableButtons ? (
-          <div className={this.props.classes.waiting}>
-            {' '}
-            Waiting for the other player...{' '}
-          </div>
-        ) : (
-          <div />
-        );
-
-      return (
-        <div>
-            <div className={this.props.classes.imageContainer}>
-                <img
-                    id='players_image'
-                    alt=''
-                    className={this.props.classes.image}
-                    src='/clientFiles/ac-prisoner-dilemma/idle.png'
-                />
-            </div>
-
-          <hr />
-
-          <Buttons
-            id={this.props.userInfo.id}
-            dataFn={this.props.dataFn}
-            disableButtons={disableButtons}
-            round={round}
-          />
-          {waiting}
-        </div>
-      );
-    } else {
-      // Game finished: show result
-      const a = this.props.data.students[students[0]].score;
-      const b = this.props.data.students[students[1]].score;
-
-      const text =
-        a === b
-          ? 'Tie!'
-          : a > b
-            ? this.props.data.students[students[0]].name + ' won!'
-            : this.props.data.students[students[1]].name + ' won!';
-
-      return <div className={this.props.classes.result}>{text}</div>;
-    }
-  }
-
-  // Rendering
-
   render() {
-    // Only two students can compete, others are spectator
     const students = Object.keys(this.props.data.students)
       .sort()
       .splice(0, 2);
 
-    // Not enough students yet: wait
     if (!('rounds' in this.props.data) || students.length < 2) {
       return (
         <div className={this.props.classes.waiting}>
@@ -130,6 +67,15 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
       students.indexOf(this.props.userInfo.id) < 0 ||
       this.props.userInfo.id in this.props.data.rounds[(round - 1).toString()];
 
+    const waiting = students.indexOf(this.props.userInfo.id) > -1 && disableButtons ? (
+      <div className={this.props.classes.waiting}>
+          {' '}
+          Waiting for the other player...{' '}
+      </div>
+    ) : (
+      <div />
+    );
+
     return (
       <div>
         <Scoreboard
@@ -140,13 +86,44 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT> {
           round={round}
         />
 
-        {this.renderGame(students, round, disableButtons)}
+        {
+            this.props.data.phase !== 2 ? (
+                <div>
+                    <div className={this.props.classes.imageContainer}>
+                        <img
+                            id='players_image'
+                            alt=''
+                            className={this.props.classes.image}
+                            src='/clientFiles/ac-prisoner-dilemma/idle.png'
+                        />
+                    </div>
+
+                  <hr />
+
+                  <Buttons
+                    id={this.props.userInfo.id}
+                    dataFn={this.props.dataFn}
+                    disableButtons={disableButtons}
+                    round={round}
+                  />
+                  {waiting}
+                </div>
+            ) : (
+                <div className={this.props.classes.result}>
+                    {
+                        this.props.data.students[students[0]].score === this.props.data.students[students[1]].score ?
+                            'Tie!' :
+                            this.props.data.students[students[0]].score > this.props.data.students[students[1]].score ?
+                                this.props.data.students[students[0]].name + ' won!' :
+                                this.props.data.students[students[1]].name + ' won!'
+                    }
+                </div>
+            )
+        }
       </div>
     );
   }
 }
-
-// Export
 
 const StyledPrisonerDilemma = withStyles(styles)(PrisonerDilemmaController);
 const PrisonerDilemma: ActivityRunnerT = (props: ActivityRunnerPropsT) => (
