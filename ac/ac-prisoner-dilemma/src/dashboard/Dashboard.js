@@ -10,8 +10,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// Styles
-
 const styles = (theme) => ({
     root: {
         margin: "20px",
@@ -30,118 +28,85 @@ const styles = (theme) => ({
     },
 });
 
-// Format data
-
 const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
 
-    // Helpers
+    const totalRounds = activity.data.rounds;
+    const games = Object.keys(reactive);
 
-    const createRow = (id, name, score, rounds) => {
-        const totalRounds = activity.data.rounds;
+    const formattedData = games.map(game => {
+        const students = Object.keys(reactive[game]["students"])
+            .sort()
+            .splice(0, 2);
 
-        // Build list of actions
-        const actions = [];
-        for (let i = 0; i < totalRounds; i++) {
-            const element = rounds[i] !== undefined && rounds[i][id] !== undefined ?
-                (rounds[i][id] ? "Cooperate" : "Cheat" ) :
-                "";
-            actions.push(element);
-        }
+        return students.map(student => {
+            const id = student;
+            const name = reactive[game]["students"][student].name;
+            const score = reactive[game]["students"][student].score;
+            const rounds = reactive[game].rounds;
 
-        return {id, name, score, actions}
-    };
+            const actions = [];
+            for (let i = 0; i < totalRounds; i++) {
+                const element = rounds[i] !== undefined && rounds[i][id] !== undefined ?
+                    (rounds[i][id] ? "Cooperate" : "Cheat" ) :
+                    "";
+                actions.push(element);
+            }
 
-    const formatData = () => {
-        const games = Object.keys(reactive);
-
-        // Format the data as a list of list of row, each list of row represent a game
-        return games.map(game => {
-            // Get "active" students
-            const students = Object.keys(reactive[game]["students"])
-                .sort()
-                .splice(0, 2);
-
-            // Create game rows
-            return students.map(student => createRow(
-                student,
-                reactive[game]["students"][student].name,
-                reactive[game]["students"][student].score,
-                reactive[game].rounds
-            ))
+            return {id, name, score, actions}
         });
-    };
+    });
 
-    const computeStatistics = (data) => {
-        const scores = [];
-        data.forEach(game => {
-            scores.push(game[0].score);
-            scores.push(game[1].score);
-        });
+    const scores = [];
+    formattedData.forEach(game => {
+        scores.push(game[0].score);
+        scores.push(game[1].score);
+    });
 
-        // Compute statistic
-        const max = Math.max.apply(null, scores);
-        const min = Math.min.apply(null, scores);
-        const avg = scores.reduce((a, b) => a + b) / scores.length;
-
-        return {avg, min, max};
-    };
-
-    // Format data
-
-    const formattedData = formatData();
-    const stats = computeStatistics(formattedData);
+    const max = Math.max.apply(null, scores);
+    const min = Math.min.apply(null, scores);
+    const avg = scores.reduce((a, b) => a + b) / scores.length;
+    const stats = {avg, min, max};
 
     return {stats, formattedData};
 };
 
-// Viewer
-
 const Viewer = withStyles(styles)(
     ({ state, classes }: { state: Array, classes: Object }) => {
 
-        // Methods
-
-        const renderStatistics = () => (
-            <Paper className={classes.root} >
-                <Table className={classes.table} >
-                    <TableBody>
-                        <TableRow key="stats">
-                            <TableCell component="th" scope="row" className={classes.statsRow}> Average: {state.stats.avg}</TableCell>
-                            <TableCell className={classes.statsRow}> Lowest: {state.stats.min}</TableCell>
-                            <TableCell className={classes.statsRow}> Highest: {state.stats.max}</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </Paper>
-        );
-
-        const renderGameTable = (rows) => (
-            <Paper className={classes.root} >
-                <Table className={classes.table} >
-                    <TableBody>
-                        {rows.map(row => (
-                            <TableRow key={row.id} >
-                                <TableCell component="th" scope="row" className={classes.cell}>{row.name}</TableCell>
-                                <TableCell className={classes.cell}>{row.score}</TableCell>
-                                {row.actions.map(cell => <TableCell className={classes.cell}>{cell}</TableCell>)}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Paper>
-        );
-
-        // Render
-
         return (
             <div>
-                {renderStatistics()}
-                {state.formattedData.map(game => renderGameTable(game))}
+                <Paper className={classes.root} >
+                    <Table className={classes.table} >
+                        <TableBody>
+                            <TableRow key="stats">
+                                <TableCell component="th" scope="row" className={classes.statsRow}> Average: {state.stats.avg}</TableCell>
+                                <TableCell className={classes.statsRow}> Lowest: {state.stats.min}</TableCell>
+                                <TableCell className={classes.statsRow}> Highest: {state.stats.max}</TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </Paper>
+
+                {state.formattedData.map(rows => {
+                    return (
+                        <Paper className={classes.root} >
+                            <Table className={classes.table} >
+                                <TableBody>
+                                    {rows.map(row => (
+                                        <TableRow key={row.id} >
+                                            <TableCell component="th" scope="row" className={classes.cell}>{row.name}</TableCell>
+                                            <TableCell className={classes.cell}>{row.score}</TableCell>
+                                            {row.actions.map(cell => <TableCell className={classes.cell}>{cell}</TableCell>)}
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    );
+                })}
             </div>
         );
 });
-
-// Exports
 
 export default {
     Viewer,
