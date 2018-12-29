@@ -5,8 +5,8 @@ import { extendObservable, action, reaction } from 'mobx';
 
 import { type ActivityDbT } from 'frog-utils';
 
-import { getActivitySequence } from 'imports/api/graphSequence';
-import changelog from 'imports/api/changelog';
+import { getActivitySequence } from '../../../api/graphSequence';
+import changelog from '../../../api/changelog';
 import { between, timeToPx, pxToTime } from '../utils';
 import { store } from './index';
 import Elem from './elemClass';

@@ -10,8 +10,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
-import changelog, { updateChangelogVersion } from 'imports/api/changelog';
 import { withStyles } from '@material-ui/core/styles';
+
+import changelog, { updateChangelogVersion } from '../../api/changelog';
 
 const Transition = props => <Slide direction="up" {...props} />;
 

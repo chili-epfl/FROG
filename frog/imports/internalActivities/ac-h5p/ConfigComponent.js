@@ -2,8 +2,9 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import { uploadFile } from 'imports/api/openUploads';
 import { uuid, A } from 'frog-utils';
+
+import { uploadFile } from '../../api/openUploads';
 
 const onDrop = (file, setConfigData) => {
   const fr = new FileReader();

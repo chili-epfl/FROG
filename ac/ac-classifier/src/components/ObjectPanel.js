@@ -3,8 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { TableView, TreeView, toTableData } from 'frog-utils';
-
 import { getType } from '../ActivityRunner';
 
 const Container = styled.div`
@@ -31,12 +29,6 @@ const components = {
   image: {
     small: ({ obj }) => <ImgPanel src={obj.thumbnail || obj.url} />,
     full: ({ obj }) => <ImgPanel src={obj.url} />
-  },
-  table: {
-    full: ({ obj }) => <TableView initialData={toTableData(obj.data, 10, 5)} />
-  },
-  tree: {
-    full: ({ obj }) => <TreeView data={obj.data} />
   },
   text: {
     full: ({ obj }) => <TextView data={obj} />

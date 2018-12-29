@@ -1,7 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import FileSaver from 'file-saver';
-import { Activities } from 'imports/api/activities';
+import { Activities } from '../../../api/activities';
 
 const userIds = {};
 

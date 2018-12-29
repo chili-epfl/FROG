@@ -6,7 +6,7 @@ import Mousetrap from 'mousetrap';
 import { withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 
-import changelog from 'imports/api/changelog';
+import changelog from '../../api/changelog';
 import { store } from './store';
 import { assignGraph } from '../../api/graphs';
 import EditorContainer from './EditorContainer';

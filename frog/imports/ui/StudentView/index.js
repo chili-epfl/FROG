@@ -8,8 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
 
-import { Sessions } from 'imports/api/sessions';
-import { GlobalSettings, LocalSettings } from 'imports/api/settings';
+import { Sessions } from '../../api/sessions';
+import { GlobalSettings, LocalSettings } from '../../api/settings';
 import SessionBody from './SessionBody';
 
 const once = { already: false };

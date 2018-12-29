@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
-import { activityTypes } from 'imports/activityTypes';
-import { addActivity } from 'imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
 import Divider from '@material-ui/core/Divider';
@@ -14,6 +12,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 import Cloud from '@material-ui/icons/Cloud';
 
+import { activityTypes } from '../../../../activityTypes';
+import { addActivity } from '../../../../api/activities';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';

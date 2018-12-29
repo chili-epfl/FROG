@@ -1,47 +1,20 @@
 const webpack = require('webpack');
-const path = require('path');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const meteorExternals = require('webpack-meteor-externals');
 const nodeExternals = require('webpack-node-externals');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
-
-  const babelConfig = {
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    use: {
-      loader: 'babel-loader?cacheDirectory=true',
-      options: {
-        presets: [['@babel/env'], '@babel/react'],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          'styled-components',
-          '@babel/plugin-proposal-optional-chaining',
-          '@babel/plugin-transform-runtime',
-          // '@babel/plugin-proposal-export-default-from',
-        ],
-      },
-    },
-  }
-
-const babelConfigClient = {
+const babelConfig = {
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
   use: {
     loader: 'babel-loader?cacheDirectory=true',
     options: {
+      presets: [['@babel/env'], '@babel/react'],
       plugins: [
-        [
-          'module-resolver',
-          {
-            root: ['./src'],
-            alias: {
-              '^imports/(.+)': './imports/\\1',
-              '^server/(.+)': './server/\\1'
-            }
-          }
-        ],
+        'macros',
         '@babel/plugin-transform-flow-strip-types',
         '@babel/plugin-proposal-optional-chaining',
         ['@babel/plugin-proposal-class-properties', { loose: false }],
@@ -59,57 +32,11 @@ const babelConfigClient = {
             methods: ['debug', 'error', 'exception', 'log', 'warn']
           }
         ]
-      ],
-      presets: [
-        ['@babel/preset-env', { modules: 'cjs' }],
-        '@babel/preset-react'
       ]
     }
   }
 };
 
-const babelConfigServer = {
-  test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
-  use: {
-    loader: 'babel-loader?cacheDirectory=true',
-    options: {
-      plugins: [
-        [
-          'module-resolver',
-          {
-            root: ['./src'],
-            alias: {
-              '^imports/(.+)': './imports/\\1',
-              '^server/(.+)': './server/\\1'
-            }
-          }
-        ],
-        '@babel/plugin-transform-flow-strip-types',
-        '@babel/plugin-proposal-optional-chaining',
-        ['@babel/plugin-proposal-class-properties', { loose: false }],
-        ['@babel/plugin-proposal-decorators', { legacy: true }],
-        [
-          '@babel/plugin-proposal-nullish-coalescing-operator',
-          { loose: false }
-        ],
-        '@babel/plugin-syntax-dynamic-import',
-        '@babel/plugin-syntax-import-meta',
-        '@babel/plugin-proposal-json-strings',
-        [
-          'captains-log',
-          {
-            methods: ['debug', 'error', 'exception', 'log', 'warn']
-          }
-        ]
-      ],
-      presets: [
-        ['@babel/preset-env', { modules: 'cjs' }],
-        '@babel/preset-react'
-      ]
-    }
-  }
-};
 const clientConfig = {
   entry: './imports/ui/App/entrypoint.jsx',
   mode: 'development',
@@ -118,14 +45,31 @@ const clientConfig = {
       babelConfig,
       {
         test: /\.css$/,
-        use: ['null-loader']
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       }
     ]
+  },
+  node: {
+    fs: 'empty',
+    module: 'empty'
   },
   output: {
     publicPath: '/'
   },
   plugins: [
+    new HardSourceWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './client/main.html'
     }),
@@ -139,20 +83,27 @@ const clientConfig = {
       '^server/(.+)': './server/\\1'
     }
   },
-  externals: [meteorExternals(), /*nodeExternals()*/],
+  externals: [meteorExternals() /*nodeExternals()*/],
   devServer: {
-    hot: true,
+    hot: true
     // logLevel: 'warn',
     // stats: 'minimal'
   },
-  performance: { hints: false },
+  performance: { hints: false }
 };
 
 const serverConfig = {
   entry: ['./server/main.js'],
   // output: { filename: 'server' },
-  plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })],
+  plugins: [
+    new HardSourceWebpackPlugin(),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
+  ],
   mode: 'development',
+  node: {
+    fs: 'empty',
+    module: 'empty'
+  },
   output: {
     publicPath: '/'
   },
@@ -174,7 +125,7 @@ const serverConfig = {
     }
   },
   devServer: {
-    hot: true,
+    hot: true
   },
   externals: [
     meteorExternals(),

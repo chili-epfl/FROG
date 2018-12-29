@@ -1,10 +1,8 @@
-console.log('hello server')
-
 // @flow
 /* eslint-disable prefer-arrow-func */
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
-/*
+
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { uuid } from 'frog-utils';
@@ -32,6 +30,13 @@ import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
 import './redis';
+import './minio';
+import './reactiveToProduct';
+import './runDataflow';
+import './runOperator';
+import './stream';
+import './h5p';
+import './joinSession';
 
 console.info('Meteor settings', Meteor.settings);
 
@@ -251,4 +256,3 @@ const checkActivity = (session, activityId, operators, connections, userid) => {
     return true;
   }
 };
-*/

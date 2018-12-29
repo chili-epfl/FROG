@@ -25,10 +25,9 @@ import {
   assignGraph,
   removeGraph,
   Graphs
-} from 'imports/api/graphs';
-import { loadGraphMetaData } from 'imports/api/remoteGraphs';
-import { LibraryStates } from 'imports/api/cache';
-
+} from '../../../api/graphs';
+import { loadGraphMetaData } from '../../../api/remoteGraphs';
+import { LibraryStates } from '../../../api/cache';
 import { exportGraph, importGraph, duplicateGraph } from '../utils/export';
 import { connect, store } from '../store';
 import exportPicture from '../utils/exportPicture';

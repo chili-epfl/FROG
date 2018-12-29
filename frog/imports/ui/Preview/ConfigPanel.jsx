@@ -18,8 +18,8 @@ import Button from '@material-ui/core/Button';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-loader.
 
-import { LibraryStates } from 'imports/api/cache';
-import { updateActivity } from 'imports/api/remoteActivities';
+import { LibraryStates } from '../../api/cache';
+import { updateActivity } from '../../api/remoteActivities';
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
 import { activityTypesObj } from '../../activityTypes';
