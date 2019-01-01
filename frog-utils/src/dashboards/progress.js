@@ -281,6 +281,15 @@ const exampleLogs = [
       actualClosingTime: '2018-08-22T09:55:59Z'
     },
     instances: 2
+  },
+  {
+    type: 'logs',
+    title: 'Valerie 2018 w2 group 1',
+    path: '/clientFiles/frog-utils/exampleLogs/progress-unil-valerie1-w2.json',
+    activityMerge: {
+      actualStartingTime: '2018-12-10T08:32:25.655Z',
+      actualClosingTime: '2018-12-10T08:34:54.445Z'
+    }
   }
 ];
 

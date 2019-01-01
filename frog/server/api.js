@@ -29,112 +29,6 @@ const extractParam = (query, param) =>
         .split('=')[1]
     : undefined;
 
-WebApp.connectHandlers.use('/multiFollow', (request, response) => {
-  let root = process.env.ROOT_URL || 'http://localhost:3000';
-  if (root.slice(-1) === '/') {
-    root = root.slice(0, -1);
-  }
-  const url = require('url').parse(request.url);
-  const layout = url.query ? extractParam(url.query, 'layout') : '';
-
-  const scaled = url.scaled
-    ? parseInt(extractParam(url.query, 'scaled'), 10)
-    : false;
-  const follow = url.pathname.substring(1);
-  const scaledStr = scaled ? '&scaled=' + scaled : '';
-  const template = `
-<!DOCTYPE html><html><head>
-    <title>Four pane FROG</title>
-    <style>
-html, body { height: 100%; padding: 0; margin: 0; }
-div { width: 50%; height: ${layout === '2' ? '100%' : '50%'}; float: left; }
-#div1 { background: #DDD; }
-#div2 { background: #AAA; }
-#div3 { background: #777; }
-#div4 { background: #444; }
-iframe { height: 100%; width: 100%; }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      <iframe id='iframe1' 
-     ${
-       layout === '3+1' || layout === '2+1+1'
-         ? `src=${root}/teacher/orchestration?debugLogin=${follow}&scaled=true>`
-         : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
-     }
-</iframe>
-    </div>
-    <div id="div2">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
-    layout === '2+1+1' ? follow : 'Peter'
-  }${scaledStr}></iframe>
-    </div>
-    ${layout !== '2' &&
-      `
-    <div id="div3">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Anna${scaledStr}></iframe>
-    </div>
-    <div id="div4">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Aliya${scaledStr}></iframe>
-    </div>`}
-</html>`;
-  response.end(template);
-});
-
-WebApp.connectHandlers.use('/lti', (request, response, next) => {
-  if (request.method !== 'POST') {
-    response.writeHead(403);
-    response.end('LTI sessions must use POST requests');
-    return;
-  }
-  const url = require('url').parse(request.url);
-  const slug = url.pathname.substring(1);
-  const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
-  if (!session) {
-    response.writeHead(404);
-    response.end('This session does not exist');
-    return;
-  } else if (session.settings && session.settings.allowLTI === false) {
-    response.writeHead(403);
-    response.end(
-      'This session does not allow LTI login, check the session settings'
-    );
-    return;
-  }
-  let user;
-  try {
-    user = request.body.lis_person_name_full;
-  } catch (e) {
-    console.error('Error parsing username in lti request', request.body, e);
-    user = uuid();
-  }
-  let id;
-  try {
-    id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
-  } catch (e) {
-    console.error('Error parsing userid in lti request', request.body, e);
-    id = uuid();
-  }
-  try {
-    const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
-      id: user
-    });
-    Meteor.users.update(userId, { $set: { username: user, userid: id } });
-    const stampedLoginToken = Accounts._generateStampedLoginToken();
-    Accounts._insertLoginToken(userId, stampedLoginToken);
-    InjectData.pushData(request, 'login', {
-      token: stampedLoginToken.token,
-      slug
-    });
-    next();
-  } catch (e) {
-    console.error('Error responding to lti request', request.body, e);
-    response.writeHead(400);
-    response.end('Error responding to LTI request');
-  }
-});
-
 WebApp.connectHandlers.use('/api/activityTypes', (request, response) => {
   response.end(
     Stringify(
@@ -438,5 +332,120 @@ WebApp.connectHandlers.use('/file', (req, res) => {
         readStream.once('open', () => readStream.pipe(res));
       }
     });
+  }
+});
+
+// return early if headlessOnly and no API has been called with next()
+WebApp.connectHandlers.use('/', (req, res, next) => {
+  if (Meteor.settings.headlessOnly && !req.headers._injectPayload) {
+    res.writeHead(403);
+    return res.end('This server only supports API requests');
+  }
+  return next();
+});
+
+WebApp.connectHandlers.use('/multiFollow', (request, response) => {
+  let root = process.env.ROOT_URL || 'http://localhost:3000';
+  if (root.slice(-1) === '/') {
+    root = root.slice(0, -1);
+  }
+  const url = require('url').parse(request.url);
+  const layout = url.query ? extractParam(url.query, 'layout') : '';
+
+  const scaled = url.scaled
+    ? parseInt(extractParam(url.query, 'scaled'), 10)
+    : false;
+  const follow = url.pathname.substring(1);
+  const scaledStr = scaled ? '&scaled=' + scaled : '';
+  const template = `
+<!DOCTYPE html><html><head>
+    <title>Four pane FROG</title>
+    <style>
+html, body { height: 100%; padding: 0; margin: 0; }
+div { width: 50%; height: ${layout === '2' ? '100%' : '50%'}; float: left; }
+#div1 { background: #DDD; }
+#div2 { background: #AAA; }
+#div3 { background: #777; }
+#div4 { background: #444; }
+iframe { height: 100%; width: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <iframe id='iframe1' 
+     ${
+       layout === '3+1' || layout === '2+1+1'
+         ? `src=${root}/teacher/orchestration?debugLogin=${follow}&scaled=true>`
+         : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
+     }
+</iframe>
+    </div>
+    <div id="div2">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+    layout === '2+1+1' ? follow : 'Peter'
+  }${scaledStr}></iframe>
+    </div>
+    ${layout !== '2' &&
+      `
+    <div id="div3">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Anna${scaledStr}></iframe>
+    </div>
+    <div id="div4">
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Aliya${scaledStr}></iframe>
+    </div>`}
+</html>`;
+  response.end(template);
+});
+
+WebApp.connectHandlers.use('/lti', (request, response, next) => {
+  if (request.method !== 'POST') {
+    response.writeHead(403);
+    response.end('LTI sessions must use POST requests');
+    return;
+  }
+  const url = require('url').parse(request.url);
+  const slug = url.pathname.substring(1);
+  const session = slug && Sessions.findOne({ slug: slug.toUpperCase() });
+  if (!session) {
+    response.writeHead(404);
+    response.end('This session does not exist');
+    return;
+  } else if (session.settings && session.settings.allowLTI === false) {
+    response.writeHead(403);
+    response.end(
+      'This session does not allow LTI login, check the session settings'
+    );
+    return;
+  }
+  let user;
+  try {
+    user = request.body.lis_person_name_full;
+  } catch (e) {
+    console.error('Error parsing username in lti request', request.body, e);
+    user = uuid();
+  }
+  let id;
+  try {
+    id = JSON.parse(request.body.lis_result_sourcedid).data.userid;
+  } catch (e) {
+    console.error('Error parsing userid in lti request', request.body, e);
+    id = uuid();
+  }
+  try {
+    const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
+      id: user
+    });
+    Meteor.users.update(userId, { $set: { username: user, userid: id } });
+    const stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
+    InjectData.pushData(request, 'login', {
+      token: stampedLoginToken.token,
+      slug
+    });
+    next();
+  } catch (e) {
+    console.error('Error responding to lti request', request.body, e);
+    response.writeHead(400);
+    response.end('Error responding to LTI request');
   }
 });

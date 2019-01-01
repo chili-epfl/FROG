@@ -4,6 +4,29 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle, isString, filter, split, isEqual } from 'lodash';
+import ReactLoadable from 'react-loadable';
+
+export const Loadable = ({
+  loader,
+  componentDescription
+}: {
+  loader: void => Promise<*>,
+  componentDescription: string
+}) =>
+  ReactLoadable({
+    loader,
+    loading(props) {
+      if (props.error) {
+        console.error(props.error);
+        return <div>React Loader error! {componentDescription}</div>;
+      } else if (props.timedOut) {
+        return <div>React Loader Timed Out! {componentDescription}</div>;
+      } else {
+        return null;
+      }
+    },
+    timeout: 10000
+  });
 
 export const isBrowser = (() => {
   try {
@@ -39,6 +62,7 @@ export {
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
+export { unicodeLetter, notUnicodeLetter } from './unicodeRegexpEscapes';
 export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';

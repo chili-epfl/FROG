@@ -1,6 +1,9 @@
 // @flow
 
 import { type productOperatorRunnerT, wrapUnitAll, values } from 'frog-utils';
+import { isNaN } from 'lodash';
+
+const valid = x => x !== undefined && !isNaN(x);
 
 const operator = (config, object) => {
   const { payload } = object.activityData;
@@ -23,14 +26,14 @@ const operator = (config, object) => {
       let x;
       if (primaryType === 'numerical' && form) {
         x = Number(form[primary].value);
-        if (x && filterMin !== undefined && x < filterMin) x = undefined;
-        if (x && filterMax !== undefined && x > filterMax) x = undefined;
+        if (x && filterMin !== undefined && x <= filterMin) x = undefined;
+        if (x && filterMax !== undefined && x >= filterMax) x = undefined;
       } else if (primaryType === 'categorical' && answers) {
         x = answers[primary];
       }
 
       let y;
-      if (secondary !== undefined) {
+      if (valid(secondary)) {
         if (secondaryType === 'numerical' && form) {
           y = Number(form[secondary].value);
         } else if (secondaryType === 'categorical' && answers) {
@@ -38,8 +41,8 @@ const operator = (config, object) => {
         }
       }
 
-      if (x && y) datasets.push({ trace, x, y });
-      else if (x) datasets.push({ trace, x });
+      if (valid(x) && valid(y)) datasets.push({ trace, x, y });
+      else if (valid(x)) datasets.push({ trace, x });
     });
   });
 
