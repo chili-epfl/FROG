@@ -58,15 +58,15 @@ const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
 
     const scores = [];
     formattedData.forEach(game => {
-        if (game[0] !== null && game[1] !== null) {
+        if (game[0] !== undefined && game[1] !== undefined) {
             scores.push(game[0].score);
             scores.push(game[1].score);
         }
     });
 
-    const max = Math.max.apply(null, scores);
-    const min = Math.min.apply(null, scores);
-    const avg = scores.reduce((a, b) => a + b) / scores.length;
+    const max = scores.length > 0 ? Math.max.apply(null, scores) : 0;
+    const min = scores.length > 0 ? Math.min.apply(null, scores): 0;
+    const avg = scores.length > 0 ? scores.reduce((a, b) => a + b) / scores.length : 0;
     const stats = {avg, min, max};
 
     return {stats, formattedData};
