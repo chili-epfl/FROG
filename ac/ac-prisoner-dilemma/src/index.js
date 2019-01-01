@@ -7,10 +7,7 @@ const meta = {
   name: "Prisoner's dilemma",
   shortDesc: "Two player prisoner's dilemma",
   description:
-    'Uses the "standard" gain matrix, while the number of rounds can be customized. Additional group members will be spectators.',
-  exampleData: [
-    { title: 'Case with no data', config: { title: 'No data' }, data: {} }
-  ]
+    'Uses the "standard" gain matrix, while the number of rounds can be customized. Additional group members will be spectators.'
 };
 
 const config = {
@@ -28,7 +25,6 @@ const config = {
   }
 };
 
-// default empty reactive datastructure, typically either an empty object or array
 const dataStructure = {
   students: {},
   rounds: {
@@ -37,9 +33,6 @@ const dataStructure = {
   phase: 0
 };
 
-// receives incoming data, and merges it with the reactive data using dataFn.*
-const mergeFunction = () => {};
-
 export default ({
   id: 'ac-prisoner-dilemma',
   type: 'react-component',
@@ -47,6 +40,5 @@ export default ({
   meta,
   config,
   dashboards,
-  dataStructure,
-  mergeFunction
+  dataStructure
 }: ActivityPackageT);
