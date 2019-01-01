@@ -58,8 +58,10 @@ const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
 
     const scores = [];
     formattedData.forEach(game => {
-        scores.push(game[0].score);
-        scores.push(game[1].score);
+        if (game[0] !== null && game[1] !== null) {
+            scores.push(game[0].score);
+            scores.push(game[1].score);
+        }
     });
 
     const max = Math.max.apply(null, scores);
