@@ -20,7 +20,8 @@ const config = {
     },
     rounds: {
       title: 'Number of rounds',
-      type: 'number'
+      type: 'number',
+      default: 3
     }
   }
 };
