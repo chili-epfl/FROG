@@ -41,6 +41,7 @@ const ButtonsController = (props: StyledButtonsPropsT) => {
 
         return (
           <Button
+            key={action}
             variant="outlined"
             className={props.classes.button}
             disabled={props.disableButtons}
