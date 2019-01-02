@@ -101,7 +101,7 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT, any> {
           ? [3, -1]
           : [0, 0];
 
-      [0, 1].map(i => {
+      [0, 1].forEach(i => {
         this.props.dataFn.objInsert(
           this.props.data.students[students[i]].score + points[i],
           ['students', students[i], 'score']
@@ -159,10 +159,7 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT, any> {
       <div>
         <Scoreboard
           data={this.props.data}
-          dataFn={this.props.dataFn}
-          config={this.props.activityData.config}
           students={students}
-          round={currentRound}
           lId={students[0]}
           rId={students[1]}
           lAction={this.state.action[0]}

@@ -2,13 +2,6 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
-const baseColor = '#fafafa';
-const red = '#e07059';
-const yellow = '#eded1e';
-const green = '#8bc34a';
-const baseAction = '';
-const cooperate = 'Cooperate';
-const cheat = 'Cheat';
 const actionPostfix = '_action';
 
 const styles = {
@@ -31,10 +24,7 @@ const styles = {
 
 type ScoreboardPropsT = {
   data: Object,
-  dataFn: Object,
-  config: Object,
   students: Array,
-  round: number,
   lId: string,
   rId: string,
   lAction: string,

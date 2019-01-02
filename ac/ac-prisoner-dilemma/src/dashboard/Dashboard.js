@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type ActivityDbT, entries, values } from 'frog-utils';
+import { type ActivityDbT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
 import Table from '@material-ui/core/Table';
@@ -44,7 +44,7 @@ const reactiveToDisplay = (reactive: Object, activity: ActivityDbT) => {
       const rounds = reactive[game].rounds;
 
       const actions = [];
-      for (let i = 0; i < totalRounds; i++) {
+      for (let i = 0; i < totalRounds; i += 1) {
         const element =
           rounds[i] !== undefined && rounds[i][id] !== undefined
             ? rounds[i][id]
