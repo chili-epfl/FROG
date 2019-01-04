@@ -16,6 +16,7 @@ import {
   checkDateAct
 } from '/imports/api/remoteActivities';
 import ListComponent from '../SidePanel/ListComponent';
+import { store } from '../store';
 import { activityTypesObj } from '/imports/activityTypes';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
@@ -150,7 +151,7 @@ class Library extends Component<Object, { searchStr: string }> {
                       this.props.onSelect
                     );
                   } else if (libraryType === 'graph') {
-                    importGraph(x.uuid, x.title);
+                    importGraph(store, x.uuid, x.title);
                     this.props.setModal(false);
                   }
                 }}

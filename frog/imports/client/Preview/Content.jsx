@@ -16,7 +16,7 @@ import {
 } from 'frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import LearningItem from '/client/ui/LearningItem';
+import LearningItem from '/imports/client/LearningItem';
 import { activityRunners, activityTypesObj } from '/imports/activityTypes';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';

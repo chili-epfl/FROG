@@ -109,7 +109,7 @@ class StudentLogin extends React.Component<
                       <Button
                         key={studentName}
                         className={classes.studentNameButton}
-                        variant="raised"
+                        variant="contained"
                         color={isSelected ? 'primary' : 'default'}
                         onClick={() => {
                           if (isSelected) {

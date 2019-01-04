@@ -132,11 +132,11 @@ export const sendGraph = (state: Object, props: Object) => {
   });
 };
 
-export const importGraph = (id: string, title: string) => {
+export const importGraph = (store: Object, id: string, title: string) => {
   fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
-      const graphId = doImportGraph(e[0].graph, title);
+      const graphId = doImportGraph(store, e[0].graph, title);
       Graphs.update({ _id: graphId }, { $set: { parentId: id } });
     });
 };

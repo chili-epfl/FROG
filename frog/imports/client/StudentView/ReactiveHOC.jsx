@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
 import { getDisplayName } from 'frog-utils';
 
-import LearningItem from '/client/ui/LearningItem';
+import LearningItem from '/imports/client/LearningItem';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { connection } from '../App/connection';

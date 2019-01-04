@@ -81,7 +81,7 @@ class ParticipantsView extends React.Component<
     );
     return (
       <div style={{ height: 'auto', overflow: 'hidden' }}>
-        <Typography variant="title">Participants online</Typography>
+        <Typography variant="h6">Participants online</Typography>
         {raiseHand && (
           <button style={styles.buttonBoxS} onClick={this.raiseHand}>
             <PanToolIcon

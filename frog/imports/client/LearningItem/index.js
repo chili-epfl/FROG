@@ -1,17 +1,13 @@
 // @flow
 import * as React from 'react';
-import {
-  type LIComponentPropsT,
-  type LearningItemT,
-  uuid,
-  Doc
-} from 'frog-utils';
+import { type LIComponentPropsT, type LearningItemT, uuid } from 'frog-utils';
 import { omit, isEqual } from 'lodash';
+import { Doc } from '/imports/api/generateReactiveFn';
+import { learningItemTypesObj } from '/imports/activityTypes';
 import Button from '@material-ui/core/Button';
 
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import LearningItemChooser from './LearningItemChooser';
-import { learningItemTypesObj } from '/imports/activityTypes';
 import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 

@@ -6,7 +6,6 @@ import { omit } from 'lodash';
 import { findActivitiesMongo, Connections } from '/imports/api/activities';
 import { findOperatorsMongo } from '/imports/api/operators';
 import { addGraph, findOneGraphMongo } from '/imports/api/graphs';
-import { store } from '../store';
 
 const clean = obj => {
   const { graphId, state, hasMergedData, ...ret } = obj; // eslint-disable-line no-unused-vars
@@ -26,7 +25,7 @@ export const graphToString = graphId =>
 const cleanFilename = s =>
   s.replace(/[^a-z0-9_-]/gi, '_').replace(/_{2,}/g, '_');
 
-export const exportGraph = () => {
+export const exportGraph = (store: Object) => {
   const name = findOneGraphMongo(store.graphId).name;
   const blob = new Blob([graphToString(store.graphId)], {
     type: 'text/plain;charset=utf-8'
@@ -38,7 +37,11 @@ export const exportGraph = () => {
 export const duplicateGraph = graphId =>
   doImportGraph({ target: { result: graphToString(graphId) } });
 
-export const doImportGraph = (graphStr: string, title?: string) => {
+export const doImportGraph = (
+  store: Object,
+  graphStr: string,
+  title?: string
+) => {
   try {
     const graph = graphStr.target ? graphStr.target.result : graphStr;
     const graphObj = JSON.parse(graph);

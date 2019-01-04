@@ -92,7 +92,7 @@ const NoResult = ({ classes }) => (
     className={classes.resultContainer}
   >
     <Grid item>
-      <Typography variant="body2">No results found</Typography>
+      <Typography variant="body1">No results found</Typography>
     </Grid>
   </Grid>
 );
@@ -108,7 +108,7 @@ const ChooseActivityTopPanel = connect(
       spacing={8}
     >
       <Grid item xs={12}>
-        <Typography variant="title">Select activity type</Typography>
+        <Typography variant="h6">Select activity type</Typography>
       </Grid>
       <Grid item xs={12}>
         <Grid container justify="center">
@@ -130,7 +130,7 @@ const ChooseActivityTopPanel = connect(
               <Button
                 color="primary"
                 size="small"
-                variant={store.ui.libraryOpen ? 'raised' : null}
+                variant={store.ui.libraryOpen ? 'contained' : null}
                 onClick={onToggle}
               >
                 <Cloud className={classes.cloudIcon} /> Library

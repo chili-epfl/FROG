@@ -18,7 +18,7 @@ import { DashboardStates } from '/imports/api/cache';
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
 
 if (isBrowser) {
-  require('/client/ui/LearningItem/sliderCSS');
+  require('/imports/client/LearningItem/sliderCSS');
 }
 
 const Slider = isBrowser

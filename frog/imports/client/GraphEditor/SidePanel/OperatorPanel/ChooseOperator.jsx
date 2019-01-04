@@ -66,7 +66,7 @@ const NoResult = ({ classes }) => (
     className={classes.resultContainer}
   >
     <Grid item>
-      <Typography variant="body2">No results found</Typography>
+      <Typography variant="body1">No results found</Typography>
     </Grid>
   </Grid>
 );
@@ -76,7 +76,7 @@ const StyledNoResult = withStyles(styles)(NoResult);
 const ChooseOperatorTopPanel = ({ classes, onSearch }) => (
   <Grid container className={classes.topPanel} alignItems="center" spacing={8}>
     <Grid item xs={12}>
-      <Typography variant="title">Select Operator type</Typography>
+      <Typography variant="h6">Select Operator type</Typography>
     </Grid>
     <Grid item xs={12}>
       <div className={classes.searchContainer}>

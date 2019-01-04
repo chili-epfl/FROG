@@ -51,7 +51,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     button: {
       color: green[700],
       onClick: () => throttledNext(session._id),
-      variant: 'raised'
+      variant: 'contained'
     },
     icon: <PlayArrow className={classes.icon} />
   },
@@ -64,7 +64,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     button: {
       color: red[700],
       onClick: () => updateSessionState(session._id, 'STOPPED'),
-      variant: 'raised'
+      variant: 'contained'
     },
     icon: <Stop className={classes.icon} />
   },
@@ -80,7 +80,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
         teacherLogger(session._id, 'teacher.pause-resume');
         updateSessionState(session._id, 'STARTED', TimeSync.serverTime());
       },
-      variant: 'raised'
+      variant: 'contained'
     },
     icon: <PlayArrow className={classes.icon} />
   },
@@ -96,7 +96,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
         teacherLogger(session._id, 'teacher.pause');
         updateSessionState(session._id, 'PAUSED', TimeSync.serverTime());
       },
-      variant: 'raised'
+      variant: 'contained'
     },
     icon: <Pause className={classes.icon} />
   },
@@ -109,7 +109,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
     button: {
       color: blue[700],
       onClick: () => throttledNext(session._id),
-      variant: 'raised'
+      variant: 'contained'
     },
     icon: <SkipNext className={classes.icon} />
   },
@@ -125,7 +125,7 @@ export const OrchestrationButtonsModel = (session, classes) => ({
         lastNext = null;
         restartSession(session);
       },
-      variant: 'raised'
+      variant: 'contained'
     },
     icon: <Refresh className={classes.icon} />
   }

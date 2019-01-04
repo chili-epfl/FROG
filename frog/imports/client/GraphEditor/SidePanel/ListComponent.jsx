@@ -51,7 +51,7 @@ const ListItems = ({
   <ListItem button value={object.id} onClick={onSelect}>
     <Grid container>
       <Grid item xs={12}>
-        <Typography className="listitem" variant="subheading" gutterBottom>
+        <Typography className="listitem" variant="subtitle1" gutterBottom>
           <Highlight text={object.meta.name} searchStr={searchS} />
         </Typography>
       </Grid>

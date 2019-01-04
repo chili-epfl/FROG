@@ -42,7 +42,7 @@ const DashToggle = ({
       placement: 'bottom'
     }}
   >
-    <Button variant="raised" color="primary" onClick={toggleVisible}>
+    <Button variant="contained" color="primary" onClick={toggleVisible}>
       {visible ? 'Graph' : 'Dashboard'}
     </Button>
   </ToolTipComponent>

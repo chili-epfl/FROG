@@ -15,11 +15,11 @@ const styles = {
 
 export const DragAndDropGuidelines = () => (
   <React.Fragment>
-    <Typography variant="title" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       Drag-and-drop interface.
     </Typography>
 
-    <Typography variant="subheading" gutterBottom>
+    <Typography variant="subtitle1" gutterBottom>
       In this interface you will choose the different possible elements of the
       ticket (origin, destination, fare, etc.) using the mouse, dragging them
       onto the appropriate box/field (from, to, fare, bike, etc.).
@@ -29,11 +29,11 @@ export const DragAndDropGuidelines = () => (
 
 export const FormGuidelines = () => (
   <React.Fragment>
-    <Typography variant="title" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       Form interface:
     </Typography>
 
-    <Typography variant="subheading" gutterBottom>
+    <Typography variant="subtitle1" gutterBottom>
       Choose your city, destination, fare and other options from dropdown fields
       in a form.
     </Typography>
@@ -42,11 +42,11 @@ export const FormGuidelines = () => (
 
 export const MapGuidelines = () => (
   <React.Fragment>
-    <Typography variant="title" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       Map interface:
     </Typography>
 
-    <Typography variant="subheading" gutterBottom>
+    <Typography variant="subtitle1" gutterBottom>
       In this interface you choose origin/destination cities from a map. The
       first chosen city is the one you from which you start the travel and the
       second is the destination. Other options are to be chosen from the form
@@ -57,11 +57,11 @@ export const MapGuidelines = () => (
 
 export const CommandGuidelines = () => (
   <React.Fragment>
-    <Typography variant="title" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       Command line interface:
     </Typography>
 
-    <Typography variant="subheading" gutterBottom>
+    <Typography variant="subtitle1" gutterBottom>
       In this interface you write a command in the following format:
     </Typography>
     <pre style={{ color: pink[500], fontWeight: 500 }}>
@@ -69,7 +69,7 @@ export const CommandGuidelines = () => (
         'from [city] to [city] { young|half-fare|standard} {bike} {C1|C2} {one-way|return} '
       }
     </pre>
-    <Typography variant="subheading" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       where cities are obligatory. Optional arguments are{' '}
       {'{ young | half-fare | standard }'} stands for fare, {'{ bike }'} for
       ticket with a bike, {'{ one-way | return }'} for the type of travel and{' '}
@@ -78,7 +78,7 @@ export const CommandGuidelines = () => (
     <pre style={{ color: pink[500], fontWeight: 500 }}>
       from Zurich to Lausanne young C1 one-way
     </pre>
-    <Typography variant="subheading" gutterBottom>
+    <Typography variant="subtitle1" gutterBottom>
       will order a ticket 1st class one-way from Zurich to Lausanne with a
       discount for young people and without bike.
     </Typography>
@@ -88,10 +88,10 @@ export const CommandGuidelines = () => (
 export const StartingGuidelines = () => (
   <Grid container spacing={24}>
     <Grid item style={{ width: '100%' }}>
-      <Typography variant="display2" gutterBottom>
+      <Typography variant="h3" gutterBottom>
         Train Activity
       </Typography>
-      <Typography variant="subheading" gutterBottom>
+      <Typography variant="subtitle1" gutterBottom>
         You are about to see{' '}
         <span style={{ color: pink[500], fontWeight: 500 }}>four</span>{' '}
         different kinds of user interfaces for ordering tickets. They will be

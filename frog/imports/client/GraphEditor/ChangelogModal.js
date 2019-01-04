@@ -55,7 +55,7 @@ class HelpModal extends React.Component<*, *> {
               >
                 <CloseIcon />
               </IconButton>
-              <Typography variant="title" color="inherit">
+              <Typography variant="h6" color="inherit">
                 What is new in FROG
               </Typography>
             </Toolbar>

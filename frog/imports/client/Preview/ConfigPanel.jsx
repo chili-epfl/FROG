@@ -246,7 +246,7 @@ class ConfigPanel extends React.Component<*, *> {
               </IconButton>
             </Grid>
             <Grid item xs={8}>
-              <Typography variant="title">
+              <Typography variant="h6">
                 {activityTypesObj[activityTypeId].meta.name}
               </Typography>
             </Grid>

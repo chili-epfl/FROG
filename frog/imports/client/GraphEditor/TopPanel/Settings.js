@@ -236,7 +236,7 @@ class GraphActionMenu extends React.Component<*, *> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              exportGraph();
+              exportGraph(store);
               this.handleClose();
             }}
           >

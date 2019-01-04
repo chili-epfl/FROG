@@ -35,7 +35,7 @@ const HelpModal = ({ show, hide, classes }: Object) => (
           <IconButton color="inherit" onClick={hide} aria-label="Close">
             <CloseIcon />
           </IconButton>
-          <Typography variant="title" color="inherit">
+          <Typography variant="h6" color="inherit">
             Help for the graph editor
           </Typography>
         </Toolbar>

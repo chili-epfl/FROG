@@ -30,10 +30,10 @@ const SideBarHelperText = ({ classes }) => (
     className={classes.helperContainer}
   >
     <div>
-      <Typography variant="title" align="center" gutterBottom>
+      <Typography variant="h6" align="center" gutterBottom>
         Select an activity or an operator to configure it.
       </Typography>
-      <Typography variant="subheading" align="center">
+      <Typography variant="subtitle1" align="center">
         Press the <kbd>w</kbd> key to toggle the sidebar.
       </Typography>
     </div>
