@@ -14,8 +14,8 @@ import DashboardNav from '../Dashboard/DashboardNav';
 import SessionUtils from './SessionUtils';
 import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import SettingsModal from './SettingsModal';
-import { teacherLogger } from '../../api/logs';
-import { LocalSettings } from '../../api/settings';
+import { teacherLogger } from '/imports/api/logs';
+import { LocalSettings } from '/imports/api/settings';
 
 const styles = {
   root: {

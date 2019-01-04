@@ -1,5 +1,5 @@
 import blue from '@material-ui/core/colors/blue';
-import { LocalSettings } from '../../api/settings';
+import { LocalSettings } from '/imports/api/settings';
 
 const styles = theme => ({
   maybeZoom: LocalSettings.scaled

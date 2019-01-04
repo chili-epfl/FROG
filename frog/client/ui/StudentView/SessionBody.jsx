@@ -16,9 +16,9 @@ import { getInitialState, withDragDropContext } from 'frog-utils';
 import { compose, toClass } from 'recompose';
 import { withRouter } from 'react-router';
 
-import { Activities } from '../../api/activities';
-import { logLogin } from '../../api/logs';
-import { Sessions } from '../../api/sessions';
+import { Activities } from '/imports/api/activities';
+import { logLogin } from '/imports/api/logs';
+import { Sessions } from '/imports/api/sessions';
 import Runner from './Runner';
 import Countdown from './Countdown';
 

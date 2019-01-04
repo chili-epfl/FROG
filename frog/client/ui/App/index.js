@@ -24,7 +24,7 @@ import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
-import { LocalSettings } from '../../api/settings';
+import { LocalSettings } from '/imports/api/settings';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),

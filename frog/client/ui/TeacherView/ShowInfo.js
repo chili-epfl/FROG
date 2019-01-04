@@ -6,8 +6,8 @@ import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 
 import { connect } from '../GraphEditor/store';
-import { Activities } from '../../api/activities';
-import { Operators } from '../../api/operators';
+import { Activities } from '/imports/api/activities';
+import { Operators } from '/imports/api/operators';
 import { downloadExport } from './utils/exportComponent';
 
 class InfoComponent extends React.Component<

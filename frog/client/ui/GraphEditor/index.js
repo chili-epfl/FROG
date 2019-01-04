@@ -8,7 +8,7 @@ import { Meteor } from 'meteor/meteor';
 
 import changelog from '/imports/api/changelog';
 import { store } from './store';
-import { assignGraph } from '../../api/graphs';
+import { assignGraph } from '/imports/api/graphs';
 import EditorContainer from './EditorContainer';
 
 class AppClass extends React.Component<*, *> {

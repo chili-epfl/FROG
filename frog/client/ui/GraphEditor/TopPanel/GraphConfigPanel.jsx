@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { ChangeableText } from 'frog-utils';
 
 import { connect, store } from '../store';
-import { Graphs, renameGraph } from '../../../api/graphs';
+import { Graphs, renameGraph } from '/imports/api/graphs';
 import { ValidButton } from '../Validator';
 
 const Config = ({ graph }) => (

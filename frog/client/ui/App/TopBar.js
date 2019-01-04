@@ -18,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings';
 
 import ChangelogModal from '../GraphEditor/ChangelogModal';
-import { LocalSettings } from '../../api/settings';
+import { LocalSettings } from '/imports/api/settings';
 
 const styles = theme => ({
   root: {

@@ -12,8 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withRouter } from 'react-router';
 
-import { setTeacherSession } from '../../api/sessions';
-import { LocalSettings } from '../../api/settings';
+import { setTeacherSession } from '/imports/api/sessions';
+import { LocalSettings } from '/imports/api/settings';
 import externalStyles from './styles';
 
 import {

@@ -6,7 +6,7 @@ import { Collapse } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 
 import { uuid } from 'frog-utils';
-import { uploadFile } from '../../../api/openUploads';
+import { uploadFile } from '/imports/api/openUploads';
 
 const Header = ({ display, setState }) => (
   <div style={{ display: 'flex', flexDirection: 'row' }}>

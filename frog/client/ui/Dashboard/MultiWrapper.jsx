@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardComp } from './index';
 import { ErrorBoundary } from '../App/ErrorBoundary';
-import { teacherLogger } from '../../api/logs';
+import { teacherLogger } from '/imports/api/logs';
 
 const styles = theme => ({
   root: {

@@ -7,10 +7,10 @@ import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
 import { activityTypesObj, activityRunners } from '../../activityTypes';
-import { createLogger } from '../../api/logs';
-import { Objects } from '../../api/objects';
-import { LocalSettings } from '../../api/settings';
-import { Sessions } from '../../api/sessions';
+import { createLogger } from '/imports/api/logs';
+import { Objects } from '/imports/api/objects';
+import { LocalSettings } from '/imports/api/settings';
+import { Sessions } from '/imports/api/sessions';
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {

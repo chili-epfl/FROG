@@ -11,11 +11,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { Activities } from '../../api/activities';
+import { Activities } from '/imports/api/activities';
 import { activityTypesObj } from '../../activityTypes';
 import { DashboardReactiveWrapper } from './index';
 import LIDashboard from './LIDashboard';
-import { teacherLogger } from '../../api/logs';
+import { teacherLogger } from '/imports/api/logs';
 
 const drawerWidth = 220;
 

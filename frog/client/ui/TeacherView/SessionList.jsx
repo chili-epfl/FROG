@@ -15,7 +15,7 @@ import CompareArrows from '@material-ui/icons/CompareArrows';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import { addSession, setTeacherSession } from '../../api/sessions';
+import { addSession, setTeacherSession } from '/imports/api/sessions';
 
 const styles = theme => ({
   root: {

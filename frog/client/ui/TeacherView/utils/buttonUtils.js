@@ -22,8 +22,8 @@ import {
 import { nextActivity } from '/imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
-import { teacherLogger } from '../../../api/logs';
-import { LocalSettings } from '../../../api/settings';
+import { teacherLogger } from '/imports/api/logs';
+import { LocalSettings } from '/imports/api/settings';
 
 let lastNext = null;
 

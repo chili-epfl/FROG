@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { LocalSettings } from '../../api/settings';
+import { LocalSettings } from '/imports/api/settings';
 import {
   ControlButton,
   OrchestrationButtonsModel

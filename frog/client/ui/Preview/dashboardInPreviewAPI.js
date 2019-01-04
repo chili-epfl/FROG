@@ -14,10 +14,10 @@ import {
 } from 'frog-utils';
 
 import { connection } from './Preview';
-import { mergeLog, createDashboards } from '../../api/mergeLogData';
+import { mergeLog, createDashboards } from '/imports/api/mergeLogData';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { activityTypesObj } from '../../activityTypes';
-import { DashboardStates } from '../../api/cache';
+import { DashboardStates } from '/imports/api/cache';
 import { ShowInfoDash } from './ShowInfo';
 import { generateDataFn } from './Content';
 import { groupName } from './Controls';

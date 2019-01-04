@@ -12,8 +12,8 @@ import {
 } from 'frog-utils';
 import { CircularProgress } from '@material-ui/core/CircularProgress';
 
-import { createDashboards } from '../../api/mergeLogData';
-import { DashboardStates } from '../../api/cache';
+import { createDashboards } from '/imports/api/mergeLogData';
+import { DashboardStates } from '/imports/api/cache';
 
 import { DashboardSelector } from '../Dashboard/MultiWrapper';
 
