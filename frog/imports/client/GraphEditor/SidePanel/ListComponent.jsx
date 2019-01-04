@@ -4,7 +4,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
+import { Fab, IconButton } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -120,8 +120,7 @@ const ListItems = ({
         <Grid item xs={6}>
           {isLibrary
             ? setDelete && (
-                <IconButton
-                  variant="fab"
+                <Fab
                   aria-label="Delete"
                   color="secondary"
                   disabled={Meteor.user().username !== object.owner_id}
@@ -134,7 +133,7 @@ const ListItems = ({
                   }}
                 >
                   <DeleteIcon />
-                </IconButton>
+                </Fab>
               )
             : !showExpanded && (
                 <IconButton

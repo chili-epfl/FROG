@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { type ActivityRunnerPropsT } from 'frog-utils';
+import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
@@ -64,18 +65,17 @@ class ActivityRunner extends React.Component<
                 {!editing &&
                   !conf.noSubmit &&
                   conf.allowEditing && (
-                    <Button
+                    <Fab
                       onClick={() =>
                         editable
                           ? this.setState({ editing: true })
                           : dataFn.objDel(null, 'li')
                       }
-                      variant="fab"
                       color="secondary"
                       aria-label={editable ? 'edit' : 'delete'}
                     >
                       {editable ? <EditIcon /> : <CloseIcon />}
-                    </Button>
+                    </Fab>
                   )}
                 {editing &&
                   !conf.noSubmit && (

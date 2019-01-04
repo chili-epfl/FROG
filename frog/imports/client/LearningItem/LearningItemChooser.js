@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
@@ -45,16 +45,15 @@ class LearningItemChooser extends React.Component<
 
     return (
       <div>
-        <Button
+        <Fab
           className={this.props.classes.button}
-          variant="fab"
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
           color="primary"
         >
           <AddCircle style={{ color: 'white' }} />
-        </Button>
+        </Fab>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}

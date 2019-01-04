@@ -26,7 +26,6 @@ import ShowDashExample from './ShowDashExample';
 import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
-console.log(activityRunners);
 
 const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 

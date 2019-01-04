@@ -4,7 +4,7 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
+import { Fab, Button } from '@material-ui/core';
 
 import { uuid } from 'frog-utils';
 
@@ -145,15 +145,13 @@ export default withStyles(styles)((props: Object) => {
   return (
     <Paper className={classes.root}>
       <div>
-        <Button
-          variant="fab"
-          mini
+        <Fab
           onClick={_dismiss}
           className={classes.closeButton}
           data-tip="Close, and show list of activity types to preview"
         >
           <CloseIcon />
-        </Button>
+        </Fab>
         <Icon
           onClick={() => setShowData(!showData)}
           icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}

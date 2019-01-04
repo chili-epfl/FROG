@@ -6,7 +6,7 @@ import html2canvas from 'html2canvas';
 import Canvas2Buffer from 'canvas-to-buffer';
 import { throttle } from 'lodash';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
-import { Button } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
@@ -62,9 +62,9 @@ class ActivityRunner extends React.Component<*, *> {
       <div>
         <div>
           {this.props.activityData.config.screenshot && (
-            <Button variant="fab" color="primary" onClick={this.screenshot}>
+            <Fab color="primary" onClick={this.screenshot}>
               <AddAPhoto />
-            </Button>
+            </Fab>
           )}
         </div>
         <iframe
