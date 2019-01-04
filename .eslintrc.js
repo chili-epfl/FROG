@@ -15,6 +15,7 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'react/destructuring-assignment': 'off',
     'import/imports-first': ['warn', 'DISABLE-absolute-first'],
     'import/order': ['error', { groups: ['builtin', 'external'] }],
     'jsx-a11y/aria-proptypes': 'off',

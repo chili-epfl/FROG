@@ -66,7 +66,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
             }}
             indicatorColor="primary"
             textColor="primary"
-            scrollable
+            variant="scrollable"
             scrollButtons="auto"
           >
             {dashNames.map(name => (

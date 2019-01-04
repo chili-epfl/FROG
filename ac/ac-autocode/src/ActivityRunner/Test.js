@@ -80,7 +80,7 @@ const Test = ({
             logger({
               type: 'test',
               itemId: index,
-              value: newStatus,
+              value: newStatus === 'primary' ? 'success' : 'danger',
               payload: data.code
             });
             setStatus(newStatus);

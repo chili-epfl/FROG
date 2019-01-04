@@ -75,9 +75,8 @@ const Viewer = (props: Object) => {
               gutter={20}
               style={{ border: { stroke: 'black' } }}
               data={[
-                { name: 'Sucess', symbol: { fill: green } },
-                { name: 'Danger', symbol: { fill: red1 } },
-                { name: 'Error', symbol: { fill: red2 } }
+                { name: 'Success', symbol: { fill: green } },
+                { name: 'Failure', symbol: { fill: red1 } }
               ]}
             />
             <VictoryAxis

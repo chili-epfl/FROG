@@ -22,7 +22,7 @@ const styles = {
   bar1Determinate: {
     backgroundColor: '#8994D1'
   },
-  text: { fontSize: 'xx-large' },
+  text: { fontSize: 'large' },
   container: {
     display: 'flex',
     flexDirection: 'column',
