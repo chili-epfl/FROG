@@ -54,11 +54,6 @@ export {
   calculateSchema,
   defaultConfig
 } from './enhancedFormUtils';
-export {
-  generateReactiveFn,
-  inMemoryReactive,
-  Doc
-} from './generateReactiveFn';
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
