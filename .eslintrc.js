@@ -62,6 +62,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'prefer-destructuring': 'off',
     'prefer-template': 'off',
+    'react/destructuring-assignment': 'off',
     'react/jsx-closing-bracket-location': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-indent': 'off',

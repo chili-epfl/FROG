@@ -57,4 +57,10 @@ const HTML = ({
   return <div dangerouslySetInnerHTML={{ __html: toRender }} />;
 };
 
-export default withState('update', 'setUpdate', '')(HTML);
+const DefaultExport: React.ComponentType<*> = withState(
+  'update',
+  'setUpdate',
+  ''
+)(HTML);
+
+export default DefaultExport;

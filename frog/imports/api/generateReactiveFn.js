@@ -19,17 +19,29 @@ const cleanPath = (
 
 export class Doc {
   doc: any;
+
   path: rawPathElement[];
+
   submitOp: Function;
+
   readOnly: boolean;
+
   updateFn: ?Function;
+
   LearningItemFn: LearningItemComponentT;
+
   meta: Object;
+
   backend: any;
+
   stream: ?Function;
+
   path: rawPathElement[];
+
   sessionId: string;
+
   uploadFn: Function;
+
   LIConnection: any;
 
   constructor(
@@ -238,6 +250,7 @@ export class Doc {
     if (typeof path === 'string' || typeof path === 'number') {
       return data[[path]];
     }
+    // $FlowFixMe
     return path.reduce((acc, x) => acc[[x]], data);
   }
 }

@@ -24,8 +24,9 @@ class LearningItem extends React.Component<
     learningItemTypesObj[liType].dataStructure;
 
   shouldComponentUpdate(nextProps: Object, nextState: Object) {
+    const { reload } = this.state;
     return (
-      nextState.reload !== this.state.reload ||
+      nextState.reload !== reload ||
       !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn'))
     );
   }
@@ -54,10 +55,10 @@ class LearningItem extends React.Component<
               props.dataFn.doc.connection,
               undefined,
               'li',
-              this.props.dataFn.meta,
+              props.dataFn.meta,
               props.dataFn.backend
             )(RenderLearningItem)
-          : newprops => (
+          : (newprops: Object) => (
               <RenderLearningItem data={id.liDocument} {...newprops} />
             );
 
@@ -136,12 +137,13 @@ class LearningItem extends React.Component<
             }
           );
           if (typeof lid === 'string') {
+            const { reload } = this.state;
             return (
               <LearningItem
-                key={this.state.reload}
+                key={reload}
                 id={lid}
                 type="edit"
-                reload={this.state.reload}
+                reload={reload}
                 dataFn={props.dataFn}
                 render={({ dataFn: childDataFn, children }) => (
                   <div style={{ marginLeft: '10px' }}>

@@ -115,59 +115,63 @@ class ConfigPanel extends React.Component<*, *> {
     super(props);
     this.state = { displaySave: false, metadatas: {} };
     if (!props.metadatas) {
-      const metadatas = LibraryStates.activityList.find(
-        x => x.uuid === this.state.metadatas.uuid
+      const { metadatas } = this.state;
+      const _metadatas = LibraryStates.activityList.find(
+        x => x.uuid === metadatas.uuid
       );
-      props.setMetadatas(metadatas);
+      props.setMetadatas(_metadatas);
     }
   }
 
   onConfigChange = (e: any) => {
-    this.props.setDelay(true);
+    const {
+      setDelay,
+      config,
+      setConfig,
+      metadatas,
+      instances,
+      example,
+      setActivityTypeId
+    } = this.props;
+    setDelay(true);
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
     this.timeout = setTimeout(() => {
       if (
-        this.props.metadatas.owner_id === Meteor.user().username &&
-        JSON.stringify(e.config) !== JSON.stringify(this.props.config)
+        metadatas.owner_id === Meteor.user().username &&
+        JSON.stringify(e.config) !== JSON.stringify(config)
       ) {
         this.setState({ displaySave: true });
       }
       if (e.errors && e.errors.length === 0) {
         const aT = activityTypesObj[e.activityType];
-        this.props.setConfig(e.config);
-        initActivityDocuments(
-          this.props.instances,
-          aT,
-          this.props.example,
-          e.config,
-          true
-        );
+        setConfig(e.config);
+        initActivityDocuments(instances, aT, example, e.config, true);
         initDashboardDocuments(aT, true);
       } else {
-        this.props.setConfig({ ...e.config, invalid: true });
+        setConfig({ ...e.config, invalid: true });
       }
-      this.props.setActivityTypeId(e.activityType);
+      setActivityTypeId(e.activityType);
       this.forceUpdate();
-      this.props.setDelay(false);
+      setDelay(false);
     }, 50);
   };
 
-  shouldComponentUpdate = (nextProps: any) =>
-    this.props.activityId !== nextProps.activityId ||
-    this.props.metadatas !== nextProps.metadatas ||
-    !isEqual(nextProps.config, this.props.config);
+  shouldComponentUpdate = (nextProps: any) => {
+    const { activityId, metadatas, config } = this.props;
+    return (
+      activityId !== nextProps.activityId ||
+      metadatas !== nextProps.metadatas ||
+      !isEqual(nextProps.config, config)
+    );
+  };
 
   componentDidUpdate = () => {
     this.setState({ displaySave: false });
-    if (this.props.activityTypeId && this.props.config.invalid === undefined) {
-      check(
-        this.props.activityTypeId,
-        this.props.config,
-        () => {},
-        this.onConfigChange
-      );
+    const { activityTypeId, config } = this.props;
+    if (activityTypeId && config.invalid === undefined) {
+      check(activityTypeId, config, () => {}, this.onConfigChange);
     }
   };
 
@@ -194,7 +198,8 @@ class ConfigPanel extends React.Component<*, *> {
       setReloadAPIform,
       setExample,
       setShowDashExample,
-      setActivityTypeId
+      setActivityTypeId,
+      setMetadatas
     } = this.props;
 
     const exConf = activityType.title
@@ -208,8 +213,8 @@ class ConfigPanel extends React.Component<*, *> {
     const newMetadatas = activityType.uuid
       ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
       : { uuid: '', title: '', description: '', tags: [] };
-    this.props.setMetadatas(newMetadatas);
-    if (showDash && !aTObj.dashboard) {
+    setMetadatas(newMetadatas);
+    if (showDash && !aTObj.dashboards) {
       setShowDash(false);
     }
     setReloadAPIform(uuid());
@@ -232,6 +237,8 @@ class ConfigPanel extends React.Component<*, *> {
       classes
     } = this.props;
 
+    const { displaySave } = this.state;
+
     return (
       <div className={classes.side}>
         {activityTypeId && (
@@ -251,22 +258,21 @@ class ConfigPanel extends React.Component<*, *> {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              {metadatas.uuid &&
-                this.state.displaySave && (
-                  <Button
-                    color="primary"
-                    style={{ left: '-25px' }}
-                    onClick={() => {
-                      updateActivity(metadatas.uuid, {
-                        ...metadatas,
-                        data: { ...config }
-                      });
-                      this.forceUpdate();
-                    }}
-                  >
-                    Save
-                  </Button>
-                )}
+              {metadatas.uuid && displaySave && (
+                <Button
+                  color="primary"
+                  style={{ left: '-25px' }}
+                  onClick={() => {
+                    updateActivity(metadatas.uuid, {
+                      ...metadatas,
+                      data: { ...config }
+                    });
+                    this.forceUpdate();
+                  }}
+                >
+                  Save
+                </Button>
+              )}
               <ExportButton
                 activity={{
                   title: activityTypesObj[activityTypeId].meta.name,
