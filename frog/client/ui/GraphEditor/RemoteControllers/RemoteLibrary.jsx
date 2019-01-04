@@ -16,7 +16,7 @@ import {
   checkDateAct
 } from '/imports/api/remoteActivities';
 import ListComponent from '../SidePanel/ListComponent';
-import { activityTypesObj } from '../../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 
 const filterWithStr = (list: Array<any>, searchStr: string) =>
   list &&

@@ -11,7 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
 import ShowLogs from './ShowLogs';
 import Controls from './Controls';

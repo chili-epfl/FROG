@@ -15,7 +15,7 @@ import {
   Logs
 } from './dashboardInPreviewAPI';
 import { initActivityDocuments } from './Content';
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import { addDefaultExample } from './index';
 
 const styles = () => ({

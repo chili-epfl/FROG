@@ -12,7 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { Activities } from '/imports/api/activities';
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import { DashboardReactiveWrapper } from './index';
 import LIDashboard from './LIDashboard';
 import { teacherLogger } from '/imports/api/logs';

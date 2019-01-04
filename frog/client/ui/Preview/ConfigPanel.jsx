@@ -22,7 +22,7 @@ import { LibraryStates } from '/imports/api/cache';
 import { updateActivity } from '/imports/api/remoteActivities';
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';

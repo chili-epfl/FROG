@@ -5,7 +5,7 @@ import { defaultConfig, uuid } from 'frog-utils';
 import { omit } from 'lodash';
 
 import Preview from './Preview';
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import ErrorWrapper from './ErrorWrapper';
 import { initActivityDocuments } from './Content';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';

@@ -16,7 +16,7 @@ import {
 import { connection } from './Preview';
 import { mergeLog, createDashboards } from '/imports/api/mergeLogData';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
-import { activityTypesObj } from '../../activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import { DashboardStates } from '/imports/api/cache';
 import { ShowInfoDash } from './ShowInfo';
 import { generateDataFn } from './Content';

@@ -5,9 +5,9 @@ import { Meteor } from 'meteor/meteor';
 import { entries } from 'frog-utils';
 import { isEmpty } from 'lodash';
 
-import { activityRunners } from '../../activityTypes';
+import { activityRunners } from '/imports/activityTypes';
 import { generateDataFn } from './Content';
-import { operatorTypesObj } from '../../operatorTypes';
+import { operatorTypesObj } from '/imports/operatorTypes';
 
 type PropsT = { operatorTypeId: string, config: Object, dismiss: Function };
 
