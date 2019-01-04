@@ -276,7 +276,10 @@ export const inMemoryReactive = (
   LearningItem: any,
   backend: any
 ): Promise<{ data: any, dataFn: Doc }> => {
-  const share = new ShareDB();
+  const share = new ShareDB({
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
+  });
   const connection = share.connect();
 
   return new Promise(resolve => {

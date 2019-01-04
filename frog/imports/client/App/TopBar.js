@@ -146,7 +146,7 @@ class TopBarController extends React.Component<
               className={classes.tabs}
               value={this.value}
               onChange={this.handleChange}
-              fullWidth
+              variant="fullWidth"
             >
               {this.routes.map(route => (
                 <Tab

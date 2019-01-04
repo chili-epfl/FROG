@@ -74,7 +74,10 @@ const styles = {
   }
 };
 
-export const backend = new ShareDB();
+export const backend = new ShareDB({
+  disableDocAction: true,
+  disableSpaceDelimitedActions: true
+});
 export const connection = backend.connect();
 window.connection = connection;
 

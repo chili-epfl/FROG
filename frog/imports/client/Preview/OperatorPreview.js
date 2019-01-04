@@ -36,7 +36,12 @@ class OperatorPreview extends React.Component<PropsT, { data: *, error: * }> {
     // $FlowFixMe
     const AT = activityRunners?.['ac-gallery'];
     return AT ? (
-      <Dialog open maxWidth="md" fullWidth onClose={this.props.dismiss}>
+      <Dialog
+        open
+        maxWidth="md"
+        variant="fullWidth"
+        onClose={this.props.dismiss}
+      >
         <DialogTitle>
           Preview of operator{' '}
           {operatorTypesObj[this.props.operatorTypeId].meta.name}

@@ -21,7 +21,10 @@ import { activityTypesObj } from '../imports/activityTypes';
 import { createDashboards } from '../imports/api/mergeLogData';
 
 declare var Promise: any;
-const backend = new ShareDB();
+const backend = new ShareDB({
+  disableDocAction: true,
+  disableSpaceDelimitedActions: true
+});
 const connection = backend.connect();
 
 export const mergeOneInstance = (

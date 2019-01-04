@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import Store from './store';
 
 configure({
-  enforceActions: true
+  enforceActions: 'observed'
 });
 
 export const store = new Store();

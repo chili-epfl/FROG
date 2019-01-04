@@ -32,11 +32,17 @@ if (Meteor.settings.sharedb_redis) {
 
 let backend;
 try {
-  backend = new ShareDB(options);
+  backend = new ShareDB({
+    ...options,
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
+  });
 } catch (e) {
   backend = new ShareDB({
     ...options,
-    db: ShareDBMongo('mongodb://localhost:27017/sharedb')
+    db: ShareDBMongo('mongodb://localhost:27017/sharedb'),
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
   });
 }
 export const serverConnection = backend.connect();
