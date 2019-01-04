@@ -180,7 +180,7 @@ export type DashboardT = {
         activityMerge?: Object,
         instances?: number
       }
-    | { title: string, type: 'state', activityMerge?: Object, state: any }
+    | { type: 'state', title: string, activityMerge?: Object, state: Object }
   )[],
   exampleData?: { title: string, path: string }[]
 };

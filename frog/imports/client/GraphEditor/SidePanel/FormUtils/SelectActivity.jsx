@@ -16,9 +16,9 @@ const SelectActivityWidget = ({
         componentClass="select"
         value={value}
       >
-        {['', ...choices].map(x => (
-          <option value={x.id || ''} key={x.id || 'choose'}>
-            {x === '' ? 'Choose an activity' : x.title}
+        {[{ title: 'Choose an activity', id: '' }, ...choices].map(x => (
+          <option value={x.id} key={x.id === '' ? 'choose' : x.id}>
+            {x.title}
           </option>
         ))}
       </FormControl>

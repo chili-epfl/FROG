@@ -36,12 +36,12 @@ export const isBrowser = (() => {
   }
 })();
 
-export const EnhancedForm = isBrowser
-  ? require('./EnhancedForm.js').default // eslint-disable-line global-require
-  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
-
 export const ReactJsonView = isBrowser
   ? require('react-json-view').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
+export const EnhancedForm = isBrowser
+  ? require('./EnhancedForm.js').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export const ReactiveRichText = isBrowser
@@ -283,7 +283,7 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
 
-export const withVisibility = compose(
+export const withVisibility: Function = compose(
   withState('visible', 'setVisibility', false),
   withHandlers({
     toggleVisibility: ({ setVisibility }) => x => {

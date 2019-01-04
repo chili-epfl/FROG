@@ -13,8 +13,8 @@ import {
 } from 'victory';
 
 const Viewer = (props: Object) => {
-  // props = {users, instances, data, config}
-  const config = props.activity.data;
+  const { users, instances, state, activity } = props;
+  const config = activity.data;
   const testsData = value =>
     config.tests &&
     config.tests.map((test, index) => ({
@@ -49,20 +49,18 @@ const Viewer = (props: Object) => {
     >
       <h1>Dashboard for activity: {config.title}</h1>
       <p>
-        {Object.keys(props.users).length} students have registered to this
-        activity
+        {Object.keys(users).length} students have registered to this activity
       </p>
       <p>
-        There are {Object.keys(props.instances).length} instance(s) of students
-        and {Object.keys(props.state.students).length} of them have started
-        running tests
+        There are {Object.keys(instances).length} instance(s) of students and{' '}
+        {Object.keys(state.students).length} of them have started running tests
       </p>
       {displayTestChart && (
         <div>
           <VictoryChart
             domain={{
               x: [0, config.tests.length],
-              y: [0, Object.keys(props.state.students).length + 1]
+              y: [0, Object.keys(state.students).length + 1]
             }}
             domainPadding={20}
           >
@@ -129,7 +127,7 @@ const mergeLog = (state: any, log: LogDbT) => {
     state.students[log.instanceId] = { [log.itemId]: log.value, debugCount: 0 };
   }
 
-  if (log.itemId === -1) {
+  if (log.itemId === '-1') {
     state.students[log.instanceId].debugCount += 1;
   }
 

@@ -12,14 +12,14 @@ export const SelectLITypeWidget = ({ onChange, value = '', editor }: any) => (
       componentClass="select"
       value={value}
     >
-      <option value="" key="Choose">
+      <option value="" key="choose">
         Choose a Learning Item Type
       </option>
       {values(learningItemTypesObj)
         .filter(x => (x.Creator || x.Editor) && (!editor || x.dataStructure))
-        .map(x => (
-          <option value={x.id || ''} key={x.id || 'choose'}>
-            {x === '' ? 'Choose a Learning Item Type' : x.name}
+        .map(li => (
+          <option value={li.id} key={li.id}>
+            {li.name}
           </option>
         ))}
     </FormControl>

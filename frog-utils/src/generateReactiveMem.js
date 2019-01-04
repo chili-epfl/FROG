@@ -103,6 +103,7 @@ export class MemDoc extends EventEmitter {
     if (typeof path === 'string') {
       return data[[path]];
     }
+    // $FlowFixMe
     return path.reduce((acc, x) => acc[[x]], data);
   }
 

@@ -120,7 +120,7 @@ const SplitDataButton = ({ filter, setFilter, logger }) => (
 );
 
 const GraphStateless = props => {
-  const { config, data, plot, axis, filter, classes } = props;
+  const { config, data, plot, axis, filter, classes, logger, setPlot } = props;
   if (!data || !data.columns || !data.values) return <p>No data</p>;
   const rawData = data.values.map(e => e[0]);
   const plotType = !plot ? config.plotTypes[0] : plot || 'dots';
@@ -130,8 +130,8 @@ const GraphStateless = props => {
       <div className={classes.header}>
         {config.plotTypes?.length > 1 && (
           <PlotTypeSelector
-            logger={props.logger}
-            setPlot={props.setPlot}
+            logger={logger}
+            setPlot={setPlot}
             plotTypes={config.plotTypes}
             plotType={plotType}
           />
@@ -164,8 +164,11 @@ const GraphStateless = props => {
   );
 };
 
+const withPlot: Function = withState('plot', 'setPlot', null);
+const withFilter: Function = withState('filter', 'setFilter', false);
+
 export default compose(
-  withState('plot', 'setPlot', null),
-  withState('filter', 'setFilter', false),
+  withPlot,
+  withFilter,
   withStyles(styles)
 )(GraphStateless);

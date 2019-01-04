@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
@@ -117,4 +117,8 @@ const TestPanel = (props: Object) => [
   <Feedback key="feedback" {...props.feedback} />
 ];
 
-export default withState('feedback', 'setFeedback', {})(TestPanel);
+const ex: React.ComponentType<*> = withState('feedback', 'setFeedback', {})(
+  TestPanel
+);
+
+export default ex;

@@ -45,19 +45,21 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
   }
 
   componentWillReceiveProps(nextProps: PropsT) {
-    if (!isEqual(this.props.dashNames, nextProps.dashNames)) {
+    const { dashNames } = this.props;
+    if (!isEqual(dashNames, nextProps.dashNames)) {
       this.setState({ which: 0 });
     }
   }
 
   render() {
     const { dashNames, onChange, classes, selected, children } = this.props;
+    const { which } = this.state;
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
             classes={{ root: classes.tabs }}
-            value={selected !== undefined ? selected : this.state.which}
+            value={selected !== undefined ? selected : which}
             onChange={(_, x) => {
               if (onChange) {
                 onChange(x);
@@ -82,11 +84,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
         {children && (
           <div className={classes.dash}>
             <ErrorBoundary msg="Dashboard crashed, try reloading">
-              {children(
-                this.state.which > dashNames.length
-                  ? 0
-                  : dashNames[this.state.which]
-              )}
+              {children(which > dashNames.length ? 0 : dashNames[which])}
             </ErrorBoundary>
           </div>
         )}
@@ -110,8 +108,7 @@ const MultiWrapper = (props: {
   dashboardData?: Object,
   session?: Object,
   object: Object,
-  ready?: boolean,
-  config?: Object
+  ready?: boolean
 }) => {
   const {
     dashboardData,
@@ -158,10 +155,11 @@ const MultiWrapper = (props: {
       dashNames={dashNames}
       onChange={id => {
         if (session) {
+          const logTargetId: string = activity._id + '-' + dashNames[id];
           teacherLogger(
             session._id,
             'teacher.switchActivityDashboard',
-            activity._id + '-' + dashNames[id]
+            logTargetId
           );
         }
       }}

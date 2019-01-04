@@ -61,7 +61,9 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       idx: 0,
       play: false
     }: StateT);
-    const aTdashs = this.props.activityType.dashboards;
+    const {
+      activityType: { dashboards: aTdashs }
+    } = this.props;
     if (aTdashs) {
       const example = Object.keys(aTdashs).find(
         x => aTdashs[x] && aTdashs[x].exampleLogs
@@ -137,12 +139,12 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         this.setState({ logs: result });
         if (!this.state.slider[this.state.example]) {
           this.setState(
-            {
+            state => ({
               slider: {
-                ...this.state.slider,
-                [this.state.example]: result.length - 1
+                ...state.slider,
+                [state.example]: result.length - 1
               }
-            },
+            }),
             () => this.displaySubset(result.length - 1, undefined, true)
           );
         }
@@ -188,12 +190,12 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
           this.timeseries[second],
           second === 0
         );
-        this.setState({
+        this.setState(state => ({
           slider: {
-            ...this.state.slider,
-            [this.state.example]: this.logsProcessed
+            ...state.slider,
+            [state.example]: this.logsProcessed
           }
-        });
+        }));
       }
       if (this.timeseries.length > second) {
         window.setTimeout(
@@ -209,35 +211,37 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     suppliedLogs?: LogDbT[],
     restart: boolean = false
   ) => {
-    if (e === 0 && this.state.oldSlider === this.state.logs.length - 1) {
+    const { oldSlider, example, logs } = this.state;
+
+    if (e === 0 && oldSlider === logs.length - 1) {
       // fixes bug which kept resetting the graphs after they were automatically pushed to the end
       return;
     }
-    const aT = this.props.activityType;
-    if (!aT.dashboards || !aT.dashboards[this.state.example]) {
+    const { activityType: aT } = this.props;
+    if (!aT.dashboards || !aT.dashboards[example]) {
       return;
     }
-    const dash = aT.dashboards[this.state.example];
-    const diff = e - this.state.oldSlider;
+    const dash = aT.dashboards[example];
+    const diff = e - oldSlider;
     const func = dash.prepareDataForDisplay;
-    let logs;
+    let _logs;
     createDashboards(
       { activityType: aT.id, _id: 'showExampleLogs' },
       restart || diff < 0
     );
     if (diff > 0 || (suppliedLogs && !restart)) {
-      logs = suppliedLogs || this.state.logs.slice(this.state.oldSlider, e);
+      _logs = suppliedLogs || logs.slice(oldSlider, e);
     } else {
-      logs = this.state.logs.slice(0, e);
+      _logs = logs.slice(0, e);
     }
     this.activityDbObject.actualClosingTime =
       (suppliedLogs && suppliedLogs[suppliedLogs.length - 1].timestamp) ||
-      this.state.logs[e].timestamp;
+      logs[e].timestamp;
 
     const mergeLogFn = dash.mergeLog;
-    logs.forEach(log =>
+    _logs.forEach(log =>
       mergeLogFn(
-        DashboardStates['showExampleLogs-' + this.state.example],
+        DashboardStates['showExampleLogs-' + example],
         log,
         this.activityDbObject
       )
@@ -245,10 +249,10 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
 
     const data = func
       ? func(
-          cloneDeep(DashboardStates['showExampleLogs-' + this.state.example]),
+          cloneDeep(DashboardStates['showExampleLogs-' + example]),
           this.activityDbObject
         )
-      : DashboardStates['showExampleLogs-' + this.state.example];
+      : DashboardStates['showExampleLogs-' + example];
 
     this.setState({ data, oldSlider: e });
   };
@@ -260,8 +264,9 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
   render() {
     const instances = [];
     const users = {};
-    const { logs } = this.state;
-    const aTdashs = this.props.activityType.dashboards;
+    const { logs, example, idx, exampleIdx, slider, data, play } = this.state;
+    const { activityType } = this.props;
+    const aTdashs = activityType.dashboards;
 
     if (!aTdashs) {
       return <p>Activity type has no dashboard</p>;
@@ -270,19 +275,15 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
     const dashNames = Object.keys(aTdashs).filter(
       x => aTdashs[x] && aTdashs[x].exampleLogs
     );
-    const dash = aTdashs[this.state.example];
+    const dash = aTdashs[example];
     if (!dash && !dash.exampleLogs) {
       return <p>The chosen dashboard has no example logs/state</p>;
     }
     const examples = (dash.exampleLogs || []).map(x => x.title);
-    const Viewer = aTdashs[this.state.example].Viewer;
+    const Viewer = aTdashs[example].Viewer;
     if (
-      (aTdashs[this.state.example].exampleLogs?.[this.state.idx].type ===
-        'logs' &&
-        !this.state.logs) ||
-      (aTdashs[this.state.example].exampleLogs?.[this.state.idx].type ===
-        'state' &&
-        !this.state.data)
+      (aTdashs[example].exampleLogs?.[idx].type === 'logs' && !logs) ||
+      (aTdashs[example].exampleLogs?.[idx].type === 'state' && !data)
     ) {
       return <CircularProgress />;
     }
@@ -290,26 +291,27 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
       <div style={{ overflow: 'hidden' }}>
         <div style={{ height: '30px' }}>
           <DashboardSelector
-            selected={this.state.exampleIdx}
+            selected={exampleIdx}
             onChange={x => {
               this.logsProcessed = 0;
               const mydash = aTdashs[dashNames[x]];
-              let data;
-              if (mydash?.exampleLogs?.[x]?.type === 'state') {
-                data = mydash.exampleLogs[x].state;
+              let _data;
+              const exLogs = mydash?.exampleLogs?.[x];
+              if (exLogs && exLogs.type === 'state') {
+                _data = exLogs.state;
               } else if (mydash.prepareDataForDisplay) {
-                data = mydash.prepareDataForDisplay(
+                _data = mydash.prepareDataForDisplay(
                   mydash.initData,
                   this.activityDbObject
                 );
               } else {
-                data = mydash.initData;
+                _data = mydash.initData;
               }
               this.setState(
                 {
-                  slider: { ...this.state.slider, [this.state.example]: 0 },
+                  slider: { ...slider, [example]: 0 },
                   oldSlider: 0,
-                  data,
+                  data: _data,
                   logs: [],
                   idx: 0,
                   exampleIdx: x,
@@ -324,26 +326,27 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         </div>
         <div style={{ height: '30px' }}>
           <DashboardSelector
-            selected={this.state.idx}
+            selected={idx}
             onChange={x => {
               this.logsProcessed = 0;
-              const mydash = aTdashs[this.state.example];
-              let data;
-              if (mydash?.exampleLogs?.[x].type === 'state') {
-                data = mydash.exampleLogs?.[x].state;
+              const mydash = aTdashs[example];
+              let _data;
+              const exLogs = mydash?.exampleLogs?.[x];
+              if (exLogs && exLogs.type === 'state') {
+                _data = exLogs.state;
               } else if (mydash.prepareDataForDisplay) {
-                data = mydash.prepareDataForDisplay(
+                _data = mydash.prepareDataForDisplay(
                   mydash.initData,
                   this.activityDbObject
                 );
               } else {
-                data = mydash.initData;
+                _data = mydash.initData;
               }
               this.setState(
                 {
                   oldSlider: 0,
-                  slider: { ...this.state.slider, [this.state.example]: 0 },
-                  data,
+                  slider: { ...slider, [example]: 0 },
+                  data: _data,
                   logs: [],
                   idx: x,
                   play: false
@@ -354,26 +357,26 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
             dashNames={examples}
           />
         </div>
-        {!isEmpty(this.state.logs) && (
+        {!isEmpty(logs) && (
           <React.Fragment>
             <div style={{ height: '30px' }}>
               <DashboardSelector
                 onChange={x => {
-                  if (this.state.play === x) {
+                  if (play === x) {
                     this.setState({ play: false });
                   } else {
-                    let data;
+                    let _data;
                     if (dash.prepareDataForDisplay) {
-                      data = dash.prepareDataForDisplay(
+                      _data = dash.prepareDataForDisplay(
                         dash.initData,
                         this.activityDbObject
                       );
                     } else {
-                      data = dash.initData;
+                      _data = dash.initData;
                     }
                     this.setState(
                       {
-                        data,
+                        data: _data,
                         oldSlider: 0,
                         play: x
                       },
@@ -385,17 +388,17 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                   }
                 }}
                 dashNames={['1x', '2x', '4x', '8x', '16x', '32x']}
-                selected={this.state.play || 0}
+                selected={play || 0}
               />
             </div>
             <Slider
-              value={this.state.slider[this.state.example] || 0}
+              value={slider[example] || 0}
               min={0}
               max={logs.length - 1}
               onChange={e => {
                 this.setState({
                   play: false,
-                  slider: { ...this.state.slider, [this.state.example]: e }
+                  slider: { ...slider, [example]: e }
                 });
                 this.throttledDisplaySubset(e);
               }}
@@ -404,7 +407,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
         )}
         <Paper style={{ height: 'calc(100vh - 250px)' }}>
           {this.props.showLogs ? (
-            <Inspector data={this.state.logs} />
+            <Inspector data={logs} />
           ) : (
             <Viewer
               users={users}

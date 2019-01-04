@@ -146,19 +146,25 @@ class PreviewDash extends React.Component<
 
   oldState: any = {};
 
-  dashId = this.props.activity._id + '-' + this.props.name;
+  dashId: string;
 
   constructor(props) {
     super(props);
+
+    const { activity, name } = this.props;
+
+    this.dashId = activity._id + '-' + name;
+    this.aT = activityTypesObj[activity.activityType];
+    this.dash = this.aT?.dashboards?.[name];
+
     this.dataFn = generateDataFn();
-    this.aT = activityTypesObj[this.props.activity.activityType];
-    this.dash = this.aT?.dashboards?.[this.props.name];
+
     if (this.dash) {
       if (this.dash.prepareDataForDisplay) {
         this.prepDataFn = this.dash.prepareDataForDisplay;
       } else if (this.dash.reactiveToDisplay) {
         this.prepDataFn = reactiveWrapper(
-          this.props.activity,
+          activity,
           this.dash.reactiveToDisplay
         );
       } else {
@@ -168,8 +174,7 @@ class PreviewDash extends React.Component<
 
     const dashState = DashboardStates[this.dashId];
     this.state = {
-      state:
-        dashState && this.prepDataFn(cloneDeep(dashState), this.props.activity)
+      state: dashState && this.prepDataFn(cloneDeep(dashState), activity)
     };
   }
 
@@ -181,11 +186,12 @@ class PreviewDash extends React.Component<
   };
 
   update = reactive => {
+    const { activity } = this.props;
     if (DashboardStates[this.dashId]) {
       if (reactive || !isEqual(this.oldInput, DashboardStates[this.dashId])) {
         const newState = this.prepDataFn(
           cloneDeep(DashboardStates[this.dashId]),
-          this.props.activity
+          activity
         );
         if (!isEqual(this.oldState, newState)) {
           this.setState({ state: newState });
@@ -203,8 +209,11 @@ class PreviewDash extends React.Component<
   };
 
   render = () => {
-    if (this.props.name === 'Learning Items') {
-      return <LIDashboard activityId={this.props.activity._id} />;
+    const { name, activity, object, instances, users, showData } = this.props;
+    const { state } = this.state;
+
+    if (name === 'Learning Items') {
+      return <LIDashboard activityId={activity._id} />;
     }
     if (!this.aT) {
       return <p>Chose an activity type</p>;
@@ -213,21 +222,19 @@ class PreviewDash extends React.Component<
       return <p>This activity has no dashboard</p>;
     }
     const Viewer = this.dash.Viewer;
-    return this.state.state ? (
-      this.props.showData ? (
+    return state ? (
+      showData ? (
         <ShowInfoDash
           state={DashboardStates[this.dashId]}
-          prepareDataForDisplay={
-            this.dash.prepareDataForDisplay ? this.state.state : null
-          }
+          prepareDataForDisplay={this.dash.prepareDataForDisplay ? state : null}
         />
       ) : (
         <Viewer
-          object={this.props.object}
-          state={this.state.state}
-          activity={this.props.activity}
-          instances={uniq(this.props.instances)}
-          users={this.props.users}
+          object={object}
+          state={state}
+          activity={activity}
+          instances={uniq(instances)}
+          users={users}
           LearningItem={this.dataFn.LearningItem}
         />
       )
@@ -235,63 +242,60 @@ class PreviewDash extends React.Component<
   };
 }
 
-export const DashPreviewWrapper = withState('ready', 'setReady', false)(
-  (props: Object) => {
-    const {
-      instances,
-      users,
-      activityType,
-      config,
-      ready,
-      setReady,
-      showData,
-      plane
-    } = props;
-    if (!ready) {
-      initDashboardDocuments(activityType, false);
-      setReady(true);
-    }
-    const activity = activityDbObject(
-      config,
-      activityType.id,
-      undefined,
-      plane
-    );
-    const studentGroups = {};
-    Object.keys(users).forEach((x, i) => {
-      studentGroups[x] = { group: groupName(i) };
-    });
-    const socStruct = focusRole(studentGroups);
-    const object = {
-      activityData: {
-        structure: 'all',
-        payload: { all: { data: {}, config: {} } }
-      },
-      socialStructure: socStruct,
-      globalStructure: { students: users, studentIds: Object.keys(users) }
-    };
-    return ready ? (
-      <DashMultiWrapper
-        ready
-        object={object}
-        activity={activity}
-        instances={instances}
-        users={users}
-      >
-        {e => (
-          <PreviewDash
-            showData={showData}
-            object={object}
-            key={activityType.id + e}
-            name={e}
-            activity={activity}
-            instances={instances}
-            users={users}
-          />
-        )}
-      </DashMultiWrapper>
-    ) : (
-      <CircularProgress />
-    );
+export const DashPreviewWrapper: React.ComponentType<*> = withState(
+  'ready',
+  'setReady',
+  false
+)((props: Object) => {
+  const {
+    instances,
+    users,
+    activityType,
+    config,
+    ready,
+    setReady,
+    showData,
+    plane
+  } = props;
+  if (!ready) {
+    initDashboardDocuments(activityType, false);
+    setReady(true);
   }
-);
+  const activity = activityDbObject(config, activityType.id, undefined, plane);
+  const studentGroups = {};
+  Object.keys(users).forEach((x, i) => {
+    studentGroups[x] = { group: groupName(i) };
+  });
+  const socStruct = focusRole(studentGroups);
+  const object = {
+    activityData: {
+      structure: 'all',
+      payload: { all: { data: {}, config: {} } }
+    },
+    socialStructure: socStruct,
+    globalStructure: { students: users, studentIds: Object.keys(users) }
+  };
+  return ready ? (
+    <DashMultiWrapper
+      ready
+      object={object}
+      activity={activity}
+      instances={instances}
+      users={users}
+    >
+      {e => (
+        <PreviewDash
+          showData={showData}
+          object={object}
+          key={activityType.id + e}
+          name={e}
+          activity={activity}
+          instances={instances}
+          users={users}
+        />
+      )}
+    </DashMultiWrapper>
+  ) : (
+    <CircularProgress />
+  );
+});

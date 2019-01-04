@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { set } from 'lodash';
-import { uuid, cloneDeep, values } from 'frog-utils';
+import { uuid, cloneDeep, values, type ActivityDbT } from 'frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardData, Activities } from '../imports/api/activities';
@@ -45,7 +45,11 @@ export const reactiveWrapper = (act: any, dashboard: any) => (
   return dashboard.reactiveToDisplay(data, act);
 };
 
-const updateAndSend = (dashId, prepareDataForDisplayFn, activity) => {
+const updateAndSend = (
+  dashId,
+  prepareDataForDisplayFn,
+  activity: ActivityDbT
+) => {
   const dashState = cloneDeep(DashboardStates[dashId]);
   const newState = prepareDataForDisplayFn(dashState, activity);
   values(subscriptions[dashId]).forEach(that => {
@@ -70,14 +74,20 @@ export default () => {
       return;
     }
     const aT = activityTypesObj[activityType];
-    const act = config
-      ? { _id: activityId, data: config }
+    const act: ActivityDbT = config
+      ? {
+          _id: activityId,
+          data: config,
+          activityType: 'none',
+          length: 5,
+          startTime: 0
+        }
       : Activities.findOne(activityId);
     if (DashboardStates[dashId] === undefined) {
       regenerateState(aT, activityId, dashboard);
     }
     set(subscriptions, [dashId, id], this);
-    const aTDash = aT.dashboards[dashboard];
+    const aTDash = (aT.dashboards && aT.dashboards[dashboard]) || {};
     let prepDataForDisplayFn;
     if (aTDash.prepareDataForDisplay) {
       prepDataForDisplayFn = aTDash.prepareDataForDisplay;

@@ -145,6 +145,7 @@ const ContentController = ({
 
   const examples = activityType.meta.exampleData || [];
   const exData = examples[example] && cloneDeep(examples[example]);
+  // $FlowFixMe
   const data = exData && (exData.data ? exData.data : undefined);
   const activityData = { data, config };
 

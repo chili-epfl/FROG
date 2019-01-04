@@ -81,39 +81,35 @@ const RawEditActivity = ({
   setAdvancedOpen,
   reload,
   setReload,
-  modalOpen,
-  setModal,
   activity,
-  refreshActDate,
-  setImportActivityList,
   madeChanges,
-  ...props
+  store
 }) => {
-  const graphActivity = props.store.activityStore.all.find(
+  const graphActivity = store.activityStore.all.find(
     act => act.id === activity._id
   );
-  const outgoingConnections = props.store.connectionStore.all.filter(
+  const outgoingConnections = store.connectionStore.all.filter(
     conn => conn.source.id === activity._id
   );
-  const incomingConnections = props.store.connectionStore.all.filter(
+  const incomingConnections = store.connectionStore.all.filter(
     conn => conn.target.id === activity._id
   );
   const connectedTargetActivities = compact(
     outgoingConnections.map(x =>
-      props.store.activityStore.all.find(act => act.id === x.target.id)
+      store.activityStore.all.find(act => act.id === x.target.id)
     )
   );
   const connectedSourceActivities = compact(
     incomingConnections.map(x =>
-      props.store.activityStore.all.find(act => act.id === x.source.id)
+      store.activityStore.all.find(act => act.id === x.source.id)
     )
   );
 
   // if no grouping key, and incoming social role, automatically assign first one
   if (
     (!activity.groupingKey || activity.groupingKey === '') &&
-    props.store.valid.social[activity._id] &&
-    props.store.valid.social[activity._id].length > 0 &&
+    store.valid.social[activity._id] &&
+    store.valid.social[activity._id].length > 0 &&
     activity.plane === 2
   ) {
     addActivity(
@@ -121,12 +117,12 @@ const RawEditActivity = ({
       null,
       activity._id,
       null,
-      props.store.valid.social[activity._id][0]
+      store.valid.social[activity._id][0]
     );
   }
 
   let errorColor;
-  const errors = props.store.graphErrors.filter(x => x.id === activity._id);
+  const errors = store.graphErrors.filter(x => x.id === activity._id);
   const error = errors.filter(x => x.severity === 'error');
   const warning = errors.filter(x => x.severity === 'warning');
   if (error.length > 0) {
@@ -138,10 +134,11 @@ const RawEditActivity = ({
   }
 
   const activityType = activityTypesObj[activity.activityType];
-  const otherActivityIds = props.store.activityStore.all.filter(
+  const otherActivityIds = store.activityStore.all.filter(
     a => a.id !== activity._id
   );
   return (
+    // $FlowFixMe
     <div className="bootstrap" style={{ height: '100%', overflowY: 'scroll' }}>
       <div
         style={{
@@ -188,7 +185,7 @@ const RawEditActivity = ({
                   icon="glyphicon glyphicon-eye-open"
                   tooltip="Preview"
                   onClick={() => {
-                    props.store.ui.setShowPreview({
+                    store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
                       config: activity.data
                     });
@@ -202,7 +199,7 @@ const RawEditActivity = ({
               msg="Do you really want to remove the activity type, and loose all the configuration data?"
               onConfirmation={() => {
                 removeActivityType(activity._id);
-                props.store.refreshValidate();
+                store.refreshValidate();
               }}
             />
           </FlexView>
@@ -212,7 +209,7 @@ const RawEditActivity = ({
             activity={activity}
             onChange={grp => {
               addActivity(activity.activityType, null, activity._id, null, grp);
-              props.store.refreshValidate();
+              store.refreshValidate();
             }}
           />
         )}
@@ -227,8 +224,8 @@ const RawEditActivity = ({
         key={'conf' + activity._id}
         node={activity}
         nodeType={activityType}
-        valid={props.store.valid}
-        refreshValidate={props.store.refreshValidate}
+        valid={store.valid}
+        refreshValidate={store.refreshValidate}
         connectedActivities={otherActivityIds}
         connectedSourceActivities={connectedSourceActivities}
         connectedTargetActivities={connectedTargetActivities}
@@ -254,7 +251,7 @@ const RawEditActivity = ({
               activity._id,
               null
             );
-            props.store.refreshValidate();
+            store.refreshValidate();
             setReload(uuid());
           }}
         />

@@ -27,6 +27,7 @@ const withNullCheck = ({
   // $FlowFixMe
   class NullChecker extends WrappedComponentClass<*, *> {
     render() {
+      // $FlowFixMe
       const result = super.render();
 
       if (!result) {
@@ -45,24 +46,23 @@ const withNullCheck = ({
           >
             {result}
           </MaybeClickable>
-          {this.props.open &&
-            liType.Viewer && (
-              <Dialog
-                maxWidth={false}
-                open
-                onClose={() => {
-                  setOpen(false);
-                }}
-              >
-                <liType.Viewer
-                  type="view"
-                  isPlayback={isPlayback}
-                  data={data.payload}
-                  dataFn={dataFn}
-                  LearningItem={dataFn && dataFn.LearningItem}
-                />
-              </Dialog>
-            )}
+          {this.props.open && liType.Viewer && (
+            <Dialog
+              maxWidth={false}
+              open
+              onClose={() => {
+                setOpen(false);
+              }}
+            >
+              <liType.Viewer
+                type="view"
+                isPlayback={isPlayback}
+                data={data.payload}
+                dataFn={dataFn}
+                LearningItem={dataFn && dataFn.LearningItem}
+              />
+            </Dialog>
+          )}
         </>
       );
       if (render) {
@@ -116,6 +116,8 @@ class RenderLearningItem extends React.Component<any, any> {
       );
     }
     if (!this.Comp && LIComponent) {
+      const { open } = this.state;
+
       this.Comp = withNullCheck({
         render,
         renderArgs: {
@@ -131,21 +133,24 @@ class RenderLearningItem extends React.Component<any, any> {
         clickZoomable,
         liType,
         type,
-        open: this.state.open,
+        open,
         setOpen: e => this.setState({ open: e })
       })(LIComponent);
     }
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
+    const { open } = this.state;
+
     return (
       !isEqual(omit(nextProps, 'dataFn'), omit(this.props, 'dataFn')) ||
-      nextState.open !== this.state.open
+      nextState.open !== open
     );
   }
 
   render() {
     const { type, search, data, dataFn, isPlayback } = this.props;
+    const { open } = this.state;
     const Comp = this.Comp;
     return Comp ? (
       <Comp
@@ -155,7 +160,7 @@ class RenderLearningItem extends React.Component<any, any> {
         dataFn={dataFn && dataFn.specialize('payload')}
         LearningItem={dataFn && dataFn.LearningItem}
         search={search && search.toLowerCase()}
-        open={this.state.open}
+        open={open}
         type={type}
         setOpen={e => this.setState({ open: e })}
       />
