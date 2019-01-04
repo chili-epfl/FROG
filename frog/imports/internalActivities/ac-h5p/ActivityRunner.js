@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ActivityRunnerPropsT } from 'frog-utils';
-import { H5PIframePrepare } from '/imports/ui/App/h5p';
+import { H5PIframePrepare } from '/client/ui/App/h5p';
 import { get } from 'lodash';
 
 export class ActivityRunner extends React.Component<

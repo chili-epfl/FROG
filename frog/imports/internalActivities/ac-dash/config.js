@@ -2,10 +2,10 @@
 import * as React from 'react';
 import Form from 'react-jsonschema-form';
 import { FormControl } from 'react-bootstrap';
-import { activityTypesObj } from '../../activityTypes';
-import { Activities } from '../../api/activities';
+import { Activities } from '/imports/api/activities';
+import { SelectAnyActivityWidget } from '/client/ui/GraphEditor/SidePanel/FormUtils';
 
-import { SelectAnyActivityWidget } from '../../ui/GraphEditor/SidePanel/FormUtils';
+import { activityTypesObj } from '../../activityTypes';
 
 const SelectDashboard = ({ formContext, onChange, value = '' }: any) => (
   <span>

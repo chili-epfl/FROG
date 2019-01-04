@@ -1,13 +1,13 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { generateReactiveFn } from 'frog-utils';
 
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Activities } from '/imports/api/activities';
 import { activityTypesObj } from '/imports/activityTypes';
+import { SharedbCache } from '/imports/api/cache';
+import LearningItem from '/imports/LearningItem';
 import { serverConnection } from './share-db-manager';
-import { SharedbCache } from '../imports/api/cache';
-import LearningItem from '../imports/ui/LearningItem';
 
 Meteor.methods({
   stream: (activity, instanceId, value) => {

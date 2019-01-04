@@ -5,7 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Buffer from 'buffer';
 
-import App from '../imports/ui/App';
+import App from './ui/App';
 
 const theme = createMuiTheme({});
 

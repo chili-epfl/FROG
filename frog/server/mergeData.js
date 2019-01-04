@@ -2,8 +2,9 @@
 import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import { cloneDeep } from 'lodash';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
+
 import {
-  generateReactiveFn,
   getMergedExtractedUnit,
   type ObjectT,
   type GlobalStructureT,
@@ -14,7 +15,7 @@ import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Sessions } from '../imports/api/sessions';
-import LearningItem from '../imports/ui/LearningItem';
+import LearningItem from '../imports/LearningItem';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
