@@ -6,7 +6,6 @@ import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Activities } from '/imports/api/activities';
 import { activityTypesObj } from '/imports/activityTypes';
 import { SharedbCache } from '/imports/api/cache';
-import LearningItem from '/imports/LearningItem';
 import { serverConnection } from './share-db-manager';
 
 Meteor.methods({
@@ -31,12 +30,12 @@ Meteor.methods({
         const doc = serverConnection.get('rz', docId);
         doc.subscribe();
         if (doc.type) {
-          const dataFn = generateReactiveFn(doc, LearningItem);
+          const dataFn = generateReactiveFn(doc);
           SharedbCache[docId] = [dataFn];
           mergeFunction(toSend, dataFn, dataFn.doc.data, user);
         } else {
           doc.once('load', () => {
-            const dataFn = generateReactiveFn(doc, LearningItem);
+            const dataFn = generateReactiveFn(doc);
             SharedbCache[docId] = [dataFn];
             mergeFunction(toSend, dataFn, dataFn.doc.data, user);
           });

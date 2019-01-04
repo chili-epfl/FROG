@@ -15,6 +15,8 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'import/imports-first': ['warn', 'DISABLE-absolute-first'],
+    'import/order': ['error', { groups: ['builtin', 'external'] }],
     'jsx-a11y/aria-proptypes': 'off',
     'react/jsx-no-target-blank': 'off',
     'flowtype/generic-spacing': 'off',

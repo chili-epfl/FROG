@@ -20,7 +20,7 @@ import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { learningItemTypesObj } from '/imports/activityTypes';
 import { Activities } from '/imports/api/activities';
 import { Sessions } from '/imports/api/sessions';
-import LI from '/imports/LearningItem';
+import LI from '/client/ui/LearningItem';
 import ImageBox from './ImageBox';
 import { connection } from '../App/connection';
 

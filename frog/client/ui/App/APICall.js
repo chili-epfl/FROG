@@ -7,7 +7,7 @@ import { uuid } from 'frog-utils';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { createLogger } from '/imports/api/logs';
 import { LocalSettings } from '/imports/api/settings';
-import LearningItem from '/imports/LearningItem';
+import LearningItem from '/client/ui/LearningItem';
 import DashMultiWrapper from '../Dashboard/MultiWrapper';
 import { RunActivity } from '../StudentView/Runner';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';

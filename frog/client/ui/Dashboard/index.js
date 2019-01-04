@@ -14,7 +14,7 @@ import { Sessions } from '/imports/api/sessions';
 import { Objects } from '/imports/api/objects';
 import { DashboardData } from '/imports/api/activities';
 import { activityTypesObj } from '/imports/activityTypes';
-import LearningItem from '/imports/LearningItem';
+import LearningItem from '/client/ui/LearningItem';
 import { connection as conn } from '../App/connection';
 import MultiWrapper from './MultiWrapper';
 import LIDashboard from './LIDashboard';
