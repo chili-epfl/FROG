@@ -17,7 +17,8 @@ import {
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LearningItem from '/imports/client/LearningItem';
-import { activityRunners, activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
+import { activityRunners } from '/imports/client/activityRunners';
 import ReactiveHOC from '../StudentView/ReactiveHOC';
 import ShowInfo from './ShowInfo';
 import { createLogger, DashPreviewWrapper } from './dashboardInPreviewAPI';
@@ -25,6 +26,7 @@ import ShowDashExample from './ShowDashExample';
 import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
+console.log(activityRunners);
 
 const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
 

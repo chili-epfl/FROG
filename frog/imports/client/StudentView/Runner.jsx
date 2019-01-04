@@ -6,7 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
 import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 
-import { activityTypesObj, activityRunners } from '/imports/activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
+import { activityRunners } from '/imports/client/activityRunners';
 import { createLogger } from '/imports/api/logs';
 import { Objects } from '/imports/api/objects';
 import { LocalSettings } from '/imports/api/settings';

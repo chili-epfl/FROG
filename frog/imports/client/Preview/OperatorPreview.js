@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { entries } from 'frog-utils';
 import { isEmpty } from 'lodash';
 
-import { activityRunners } from '/imports/activityTypes';
+import { activityRunners } from '/imports/client/activityRunners';
 import { generateDataFn } from './Content';
 import { operatorTypesObj } from '/imports/operatorTypes';
 
