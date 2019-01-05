@@ -73,7 +73,7 @@ class LearningItem extends React.Component<
         />
       );
     }
-    if (props.type === 'create' || props.type === 'createLIPayload') {
+    if (props.type === 'create') {
       let onCreate;
       if (props.autoInsert) {
         onCreate = li => {
@@ -106,16 +106,6 @@ class LearningItem extends React.Component<
         }
         return id;
       };
-
-      if (props.type === 'createLIPayload' && props.liType) {
-        if (learningItemTypesObj[props.liType].createPayload) {
-          return learningItemTypesObj[props.liType].createPayload(
-            props.payload,
-            dataFn,
-            createLearningItem
-          );
-        }
-      }
 
       if (props.liType) {
         const liT: LearningItemT<any> = learningItemTypesObj[props.liType];

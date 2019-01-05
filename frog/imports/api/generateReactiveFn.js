@@ -5,6 +5,7 @@ import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 import { uuid, type LearningItemComponentT } from 'frog-utils';
 import { uploadFile } from '/imports/api/openUploads';
+import { learningItemTypesObj } from '/imports/activityTypes';
 
 type rawPathElement = string | number;
 type rawPathT = rawPathElement | rawPathElement[];
@@ -87,7 +88,7 @@ export class Doc {
     const id = uuid();
     const properPayload =
       // $FlowFixMe
-      payload || new this.LearningItemFn().getEmptyDataStructure(liType);
+      payload || learningItemTypesObj[liType].dataStructure;
     if (!properPayload) {
       return null;
     }
@@ -122,15 +123,11 @@ export class Doc {
     autoInsert: boolean,
     meta?: Object
   ) =>
-    // $FlowFixMe
-    new this.LearningItemFn({
-      liType: type,
+    learningItemTypesObj[type].createPayload(
       payload,
-      type: 'createLIPayload',
-      autoInsert,
-      dataFn: this,
-      meta
-    }).render();
+      this,
+      this.createLearningItem
+    );
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
