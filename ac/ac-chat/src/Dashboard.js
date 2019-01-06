@@ -14,8 +14,8 @@ const Viewer = ({ state }: Object) => (
     <WordCloud
       data={state.data}
       fontSizeMapper={word => fontSizeMapper(state.iMax, word)}
-      width="600"
-      height="600"
+      width={600}
+      height={600}
     />
   </div>
 );

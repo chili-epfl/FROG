@@ -82,7 +82,7 @@ class ActivityRunner extends React.Component<
                     <Button
                       onClick={() => this.setState({ editing: false })}
                       color="primary"
-                      variant="raised"
+                      variant="contained"
                       aria-label="save"
                     >
                       Save

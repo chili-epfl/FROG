@@ -153,7 +153,7 @@ class Creator extends React.Component<
           value={this.state.group}
           onChange={e => this.setState({ group: e.target.value })}
           margin="normal"
-          variant="fullWidth"
+          fullWidth
         />
         <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
           {this.state.attachments.map((x, i) => (

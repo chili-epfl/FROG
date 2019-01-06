@@ -157,7 +157,7 @@ const SpecificGuidelineController = ({
       </Grid>
       <Grid item sm={12}>
         <Grid container justify="flex-end">
-          <Button color="primary" variant="raised" onClick={start}>
+          <Button color="primary" variant="contained" onClick={start}>
             {step === 0 ? 'Game on!' : 'Start'}
           </Button>
         </Grid>

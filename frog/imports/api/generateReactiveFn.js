@@ -96,7 +96,7 @@ export class Doc {
       liType,
       payload: properPayload,
       createdAt: new Date(),
-      ...meta,
+      ...(meta || {}),
       ...this.meta
     };
     if (immutable) {
@@ -120,14 +120,32 @@ export class Doc {
   createLIPayload = (
     type: string,
     payload: Object,
-    autoInsert: boolean,
+    autoInsert?: boolean,
     meta?: Object
-  ) =>
-    learningItemTypesObj[type].createPayload(
-      payload,
-      this,
-      this.createLearningItem
-    );
+  ) => {
+    const liType = learningItemTypesObj[type];
+    if (liType.createPayload) {
+      const newDoc = new Doc(
+        this.doc,
+        this.path,
+        this.readOnly,
+        this.updateFn || (_ => {}),
+        meta,
+        this.LearningItemFn,
+        this.backend
+      );
+      liType.createPayload(payload, newDoc, (...props) => {
+        const li = this.createLearningItem(...props);
+        if (autoInsert) {
+          const id = uuid();
+          this.objInsert({ li, id, ...(this.meta || {}) }, id);
+          if (this.stream) {
+            this.stream({ li });
+          }
+        }
+      });
+    }
+  };
 
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);

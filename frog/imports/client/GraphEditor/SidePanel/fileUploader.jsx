@@ -49,16 +49,23 @@ const FileBox = ({ urls, setState }) => {
         textAlign: 'center'
       }}
     >
-      <h3
-        style={{
-          position: 'relative',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          margin: '0 auto'
-        }}
-      >
-        Drop files here
-      </h3>
+      {({ getRootProps, getInputProps }) => (
+        <div {...getRootProps()}>
+          <div style={{ textAlign: 'center' }}>
+            <input {...getInputProps()} />
+            <h3
+              style={{
+                position: 'relative',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                margin: '0 auto'
+              }}
+            >
+              Drop files here
+            </h3>
+          </div>
+        </div>
+      )}
     </Dropzone>
   );
 };

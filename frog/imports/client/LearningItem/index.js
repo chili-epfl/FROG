@@ -139,7 +139,7 @@ class LearningItem extends React.Component<
                   <div style={{ marginLeft: '10px' }}>
                     {children}
                     <Button
-                      variant="raised"
+                      variant="contained"
                       color="primary"
                       onClick={() => {
                         childDataFn.objInsert(false, 'draft');

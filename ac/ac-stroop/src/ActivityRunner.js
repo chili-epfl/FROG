@@ -9,7 +9,7 @@ import { shuffle } from 'lodash';
 
 const styles = {
   button: { width: '90px', margin: 'auto', position: 'absolute' },
-  text: { width: '100%', fontSize: 'xx-large', textAlign: 'center' },
+  text: { width: '100%', fontSize: 'large', textAlign: 'center' },
   guidelines: { width: '100%' },
   main: {
     width: '100%',

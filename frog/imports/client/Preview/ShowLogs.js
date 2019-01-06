@@ -20,7 +20,7 @@ export default ({ logs }) => (
       </thead>
       <tbody>
         {logs.map(x => (
-          <tr key={x._id}>
+          <tr key={x.timestamp}>
             <td>{x.timestamp.toTimeString()}</td>
             <td style={{ width: '50px' }}>{x.userId}</td>
             <td style={{ width: '50px' }}>{x.instanceId}</td>
