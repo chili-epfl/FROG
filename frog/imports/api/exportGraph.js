@@ -34,8 +34,8 @@ export const exportGraph = (store: Object) => {
   FileSaver.saveAs(blob, fname + '.frog', true);
 };
 
-export const duplicateGraph = graphId =>
-  doImportGraph({ target: { result: graphToString(graphId) } });
+export const duplicateGraph = (store, graphId) =>
+  doImportGraph(store, { target: { result: graphToString(graphId) } });
 
 export const doImportGraph = (
   store: Object,
@@ -58,10 +58,10 @@ export const doImportGraph = (
   }
 };
 
-export const importGraph = () => {
+export const importGraph = store => {
   fileDialog({ accept: '.frog' }).then(file => {
     const fr = new FileReader();
-    fr.onloadend = doImportGraph;
+    fr.onloadend = e => doImportGraph(store, e);
     fr.readAsText(file[0]);
   });
 };

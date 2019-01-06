@@ -56,8 +56,7 @@ class Library extends Component<Object, { searchStr: string }> {
       setDelete,
       activityId,
       libraryType,
-      searchStr,
-      store
+      searchStr
     } = this.props;
     const filtered = filterWithStr(
       libraryType === 'activity'

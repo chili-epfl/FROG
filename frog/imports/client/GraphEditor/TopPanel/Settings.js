@@ -185,7 +185,7 @@ class GraphActionMenu extends React.Component<*, *> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              duplicateGraph(graphId);
+              duplicateGraph(store, graphId);
               this.handleClose();
             }}
           >
@@ -217,7 +217,7 @@ class GraphActionMenu extends React.Component<*, *> {
           )}
           <MenuItem
             onClick={() => {
-              importGraph();
+              importGraph(store);
               this.handleClose();
             }}
           >
