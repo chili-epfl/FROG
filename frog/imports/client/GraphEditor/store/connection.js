@@ -28,10 +28,15 @@ type ConnectableObj = {
 
 export default class Connection extends Elem {
   pathScaled: string;
+
   path: string;
+
   sourceObj: ConnectableObj;
+
   targetObj: ConnectableObj;
+
   source: ConnectableT;
+
   target: ConnectableT;
 
   constructor(

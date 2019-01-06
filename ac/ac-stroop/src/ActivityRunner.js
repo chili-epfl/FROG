@@ -414,9 +414,7 @@ const Runner = (props: ActivityRunnerPropsT) => {
   );
 };
 
-export default class ActivityRunner extends React.Component<
-  ActivityRunnerPropsT
-> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
     Mousetrap.reset();
     clearTimeout(delayTimeout);

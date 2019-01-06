@@ -15,6 +15,7 @@ class InfoComponent extends React.Component<
   { product: ?Object, object: ?Object }
 > {
   state = { product: undefined, object: undefined };
+
   inFlight = false;
 
   constructor(props) {

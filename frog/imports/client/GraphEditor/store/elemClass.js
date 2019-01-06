@@ -6,11 +6,17 @@ import Activity from './activity';
 
 export default class Elem {
   selected: boolean;
+
   color: string;
+
   select: () => void;
+
   klass: 'activity' | 'operator' | 'connection';
+
   id: string;
+
   wasMoved: boolean;
+
   remove: boolean => void;
 
   constructor() {

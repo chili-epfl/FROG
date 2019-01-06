@@ -1,6 +1,6 @@
+import fs from 'fs';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
-import fs from 'fs';
 import unzipper from 'unzipper';
 
 export default () => {

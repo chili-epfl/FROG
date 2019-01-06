@@ -146,19 +146,18 @@ class StudentLogin extends React.Component<
                   )}
                 </div>
               )}
-              {settings.secret &&
-                !isEmpty(settings.secretString) && (
-                  <div className={classes.container}>
-                    <h2>Secret token:</h2>
-                    <b>Please enter the token that your teacher gave you:</b>
-                    <br />
-                    <TextInput
-                      focus={false}
-                      onChange={e => this.setState({ secret: e })}
-                    />
-                    <p />
-                  </div>
-                )}
+              {settings.secret && !isEmpty(settings.secretString) && (
+                <div className={classes.container}>
+                  <h2>Secret token:</h2>
+                  <b>Please enter the token that your teacher gave you:</b>
+                  <br />
+                  <TextInput
+                    focus={false}
+                    onChange={e => this.setState({ secret: e })}
+                  />
+                  <p />
+                </div>
+              )}
               <Button
                 onClick={this.login}
                 className={classes.loginButton}

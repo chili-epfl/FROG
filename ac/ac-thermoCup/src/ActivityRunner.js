@@ -11,10 +11,12 @@ import { Fab } from '@material-ui/core';
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
   iframe: any;
+
   constructor(props) {
     super(props);
     this.iframe = React.createRef();
   }
+
   componentDidMount = () => {
     window.addEventListener('message', this.onEvent);
   };

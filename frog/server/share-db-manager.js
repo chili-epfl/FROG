@@ -1,10 +1,10 @@
 // @flow
+import http from 'http';
 import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
-import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
 import json from 'ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';

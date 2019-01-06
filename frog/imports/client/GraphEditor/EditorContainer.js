@@ -162,14 +162,13 @@ class Editor extends React.Component<Object, StateT> {
           show={store.ui.showChangelogModal}
           hide={() => store.ui.setShowChangelogModal(false)}
         />
-        {show &&
-          show.operatorTypeId && (
-            <OperatorPreview
-              operatorTypeId={show.operatorTypeId}
-              config={show.config}
-              dismiss={() => this.props.store.ui.setShowPreview(null)}
-            />
-          )}
+        {show && show.operatorTypeId && (
+          <OperatorPreview
+            operatorTypeId={show.operatorTypeId}
+            config={show.config}
+            dismiss={() => this.props.store.ui.setShowPreview(null)}
+          />
+        )}
       </div>
     );
   }

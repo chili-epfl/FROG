@@ -121,10 +121,15 @@ class ReactiveRichText extends Component<
   { path: ?((string | number)[]) }
 > {
   quillRef: any;
+
   compositionStart: boolean;
+
   authorDeltaToApply: any;
+
   toolbarId: string;
+
   styleElements: {};
+
   state = { path: undefined };
 
   opListener = (op: Object[], source: string) => {

@@ -64,8 +64,8 @@ const VideoProgress = withStyles(styles)(({ state, user, classes }) => {
     state.state === 'pause'
       ? 'barColorYellow'
       : state.state === 'finishPlaying'
-        ? 'barColorRed'
-        : 'barColorBlue';
+      ? 'barColorRed'
+      : 'barColorBlue';
   const progress = Math.round((state.playing || 0) * 1000) / 10;
 
   return (
@@ -85,6 +85,7 @@ const VideoProgress = withStyles(styles)(({ state, user, classes }) => {
 
 class Viewer extends Component<any, Object> {
   interval: any;
+
   unmounted: boolean;
 
   constructor(props: any) {

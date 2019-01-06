@@ -1,5 +1,5 @@
-const rimraf = require('rimraf');
 const fs = require('fs');
+const rimraf = require('rimraf');
 
 rimraf.sync('./frog/public/clientFiles');
 fs.mkdirSync('./frog/public/clientFiles');

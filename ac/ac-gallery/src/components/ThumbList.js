@@ -109,6 +109,7 @@ class SearchField extends React.Component<*, *> {
 
 class ImageList extends React.Component<*, *> {
   state = { filter: '', bookmarks: {}, onlyBookmarked: false };
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !isEqual(nextProps.learningItems, this.props.learningItems) ||

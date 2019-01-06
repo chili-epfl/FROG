@@ -4,12 +4,19 @@ import { extendObservable, action } from 'mobx';
 
 export default class Session {
   id: string;
+
   timeInClass: number;
+
   timeInGraph: number;
+
   startedAt: number;
+
   interval: any;
+
   setTimes: Object => void;
+
   updateTimeInGraph: number => void;
+
   updateTimeInClass: (?number) => void;
 
   constructor(

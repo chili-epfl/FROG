@@ -95,8 +95,8 @@ function predictUserProgress(userStatus, t) {
     userStatus === FINISHED
       ? 1
       : userStatus[0] === 0
-        ? Math.min(userStatus[1], 1)
-        : Math.min((t - userStatus[1]) / userStatus[0], 1);
+      ? Math.min(userStatus[1], 1)
+      : Math.min((t - userStatus[1]) / userStatus[0], 1);
   return userProgress;
 }
 
@@ -142,8 +142,8 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
               hiatusCoefficient(userActivities[lastIndex][0]) *
                 (userActivities[lastIndex][1] - userActivities[0][1])
             )
-            ? linearRegression(userActivities)
-            : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
+          ? linearRegression(userActivities)
+          : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
       sessionStatus[user] = userStatus;
     }
   });

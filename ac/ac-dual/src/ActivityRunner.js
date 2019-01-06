@@ -157,9 +157,7 @@ const Runner = withStyles(styles)((props: ActivityRunnerPropsT) => {
   );
 });
 
-export default class ActivityRunner extends React.Component<
-  ActivityRunnerPropsT
-> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
     Mousetrap.reset();
     if (clearTimeout) {

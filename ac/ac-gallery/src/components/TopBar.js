@@ -40,18 +40,20 @@ const TopBar = ({
             )}
             <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
             <DropdownButton title={category} id="dropdown-basic-0">
-              {categories.filter(x => x !== category).map(y => (
-                <MenuItem
-                  key={y}
-                  eventKey="toto"
-                  onClick={() => {
-                    setZoom(false);
-                    setCategory(y);
-                  }}
-                >
-                  {y}
-                </MenuItem>
-              ))}
+              {categories
+                .filter(x => x !== category)
+                .map(y => (
+                  <MenuItem
+                    key={y}
+                    eventKey="toto"
+                    onClick={() => {
+                      setZoom(false);
+                      setCategory(y);
+                    }}
+                  >
+                    {y}
+                  </MenuItem>
+                ))}
             </DropdownButton>
           </div>
         </Body>

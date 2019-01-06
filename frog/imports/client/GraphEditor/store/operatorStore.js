@@ -12,12 +12,19 @@ export type OperatorTypes = 'product' | 'social' | 'control';
 
 export default class OperatorStore {
   all: Operator[];
+
   mongoAdd: any => void;
+
   mongoChange: (newx: Operator, oldx: { _id: string }) => void;
+
   mongoRemove: ({ _id: string }) => void;
+
   place: OperatorTypes => void;
+
   addOperator: () => void;
+
   history: Array<any>;
+
   furthestOperator: number;
 
   constructor() {

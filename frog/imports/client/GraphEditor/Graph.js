@@ -101,8 +101,9 @@ const Graph = connect(
         <Operators scaled={scaled} transparent />
       </svg>
       {hasPanMap && <PanMap />}
-      {scaled &&
-        scrollEnabled && <ScrollFields width={graphWidth} height={600} />}
+      {scaled && scrollEnabled && (
+        <ScrollFields width={graphWidth} height={600} />
+      )}
       {!hasPanMap && <ErrorList />}
     </svg>
   )

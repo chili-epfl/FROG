@@ -252,22 +252,21 @@ class ActivityRunner extends React.Component<*, *> {
             >
               <AddButton
                 onClick={() => {
-                  data.forEach(
-                    (x, i) =>
-                      i === 0
-                        ? this.props.dataFn.listAppend(
-                            { readOnly: true, value: getLetter(x.length - 1) },
-                            i
-                          )
-                        : this.props.dataFn.listAppend(
-                            {
-                              value: '',
-                              key: getLetter(x.length - 1) + i,
-                              col: x.length,
-                              row: i
-                            },
-                            i
-                          )
+                  data.forEach((x, i) =>
+                    i === 0
+                      ? this.props.dataFn.listAppend(
+                          { readOnly: true, value: getLetter(x.length - 1) },
+                          i
+                        )
+                      : this.props.dataFn.listAppend(
+                          {
+                            value: '',
+                            key: getLetter(x.length - 1) + i,
+                            col: x.length,
+                            row: i
+                          },
+                          i
+                        )
                   );
                 }}
               />

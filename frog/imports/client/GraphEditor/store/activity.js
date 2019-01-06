@@ -12,36 +12,67 @@ import type { BoundsT } from './store';
 
 export default class Activity extends Elem {
   length: number;
+
   startTime: number;
+
   id: string;
+
   over: boolean;
+
   data: Object;
+
   activityType: string;
+
   rawTitle: string;
+
   wasMoved: boolean;
+
   title: string;
+
   bounds: BoundsT;
+
   endTime: number;
+
   plane: number;
+
   update: ($Shape<Activity>) => void;
+
   rename: string => void;
+
   move: (?boolean) => void;
+
   push: number => void;
+
   setStart: number => void;
+
   setLength: number => void;
+
   resize: (?boolean) => void;
+
   state: any;
+
   onLeave: () => void;
+
   onOver: () => void;
+
   setRename: () => void;
+
   title: string;
+
   xScaled: number;
+
   x: number;
+
   screenX: number;
+
   widthScaled: number;
+
   width: number;
+
   y: number;
+
   endTime: number;
+
   object: {
     _id: string,
     title: string,
@@ -49,11 +80,17 @@ export default class Activity extends Elem {
     length: number,
     plane: number
   };
+
   dragPointFromScaled: AnchorT;
+
   dragPointToScaled: AnchorT;
+
   dragPointFrom: AnchorT;
+
   dragPointTo: AnchorT;
+
   bounds: BoundsT;
+
   strokeColor: string;
 
   constructor(

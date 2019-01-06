@@ -38,11 +38,10 @@ export const insertOperatorMongo = (operator: Object) => {
 export const findOperatorsMongo = (query: Object, proj?: Object) =>
   Operators.find(query, proj)
     .fetch()
-    .map(
-      x =>
-        x.operatorType && operatorTypesObj[x.operatorType]
-          ? extractUpgradedOperatorConfig(x)
-          : x
+    .map(x =>
+      x.operatorType && operatorTypesObj[x.operatorType]
+        ? extractUpgradedOperatorConfig(x)
+        : x
     );
 
 export const findOneOperatorMongo = (id: string) => {

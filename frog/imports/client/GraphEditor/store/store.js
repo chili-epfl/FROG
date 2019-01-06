@@ -76,8 +76,11 @@ const getOneId = (coll: Coll, id: string): ?Elem =>
 
 export default class Store {
   browserHistory: any;
+
   url: string;
+
   history: any[];
+
   objects: {
     connections: Elem[],
     activities: Elem[],
@@ -85,25 +88,45 @@ export default class Store {
     graphId: string,
     graphDuration: number
   };
+
   state: StateT;
+
   connectionStore: ConnectionStore;
+
   activityStore: ActivityStore;
+
   operatorStore: OperatorStore;
+
   ui: UI;
+
   overlapAllowed: boolean;
+
   graphId: string;
+
   _graphDuration: number;
+
   graphDuration: number;
+
   readOnly: boolean;
+
   changeDuration: (number, ?boolean) => void;
+
   addHistory: () => void;
+
   refreshValidate: () => void;
+
   session: Session;
+
   graphErrors: Object[];
+
   valid: Object;
+
   setId: (string, ?boolean) => void;
+
   setBrowserHistory: (?Object, ?string) => void;
+
   setSession: any => void;
+
   deleteSelected: (?boolean) => void;
 
   constructor() {

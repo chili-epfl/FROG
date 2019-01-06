@@ -23,8 +23,8 @@ export const calculateBounds = (
     ? endBefore.reduce((pre, cur) => (pre.endTime < cur.endTime ? cur : pre))
     : undefined;
   const rightBoundActivity = startAfter.length
-    ? startAfter.reduce(
-        (pre, cur) => (pre.startTime > cur.startTime ? cur : pre)
+    ? startAfter.reduce((pre, cur) =>
+        pre.startTime > cur.startTime ? cur : pre
       )
     : undefined;
 
@@ -43,29 +43,53 @@ export const calculateBounds = (
 
 export default class ActivityStore {
   all: Activity[];
+
   sizes: Object;
+
   positions: Object;
+
   organizeNextState: string;
+
   activitySequence: any;
+
   setActivitySequence: any => void;
+
   duplicateActivity: () => void;
+
   setOrganizeNextState: any => void;
+
   emptySizes: () => void;
+
   organize: () => void;
+
   resize: () => void;
+
   addActivity: (number, number, boolean) => void;
+
   newActivityAbove: (?number) => void;
+
   swapActivities: (left: Activity, right: Activity) => void;
+
   moveDelete: Activity => void;
+
   startResizing: Activity => void;
+
   movePlane: number => void;
+
   stopMoving: () => void;
+
   stopResizing: () => void;
+
   mongoAdd: (x: Activity) => void;
+
   mongoChange: (any, any) => void;
+
   mongoRemove: ({ _id: string }) => void;
+
   history: Array<Object>;
+
   furthestActivity: number;
+
   activityOffsets: Object;
 
   constructor() {
@@ -114,22 +138,24 @@ export default class ActivityStore {
             expand = 5;
           }
           let index = 0;
-          this.all.sort((x, y) => x.startTime - y.startTime).forEach(act => {
-            if (this.organizeNextState === 'expand') {
-              this.positions[act.id] = act.startTime;
-            }
-            if (act.startTime === last[0] && last[1]) {
-              act.setStart(last[1].startTime);
-              if (last[1].length < act.length) {
-                index += act.length - last[1].length;
+          this.all
+            .sort((x, y) => x.startTime - y.startTime)
+            .forEach(act => {
+              if (this.organizeNextState === 'expand') {
+                this.positions[act.id] = act.startTime;
               }
-            } else {
-              last[0] = act.startTime;
-              last[1] = act;
-              act.setStart(index);
-              index += act.length + expand;
-            }
-          });
+              if (act.startTime === last[0] && last[1]) {
+                act.setStart(last[1].startTime);
+                if (last[1].length < act.length) {
+                  index += act.length - last[1].length;
+                }
+              } else {
+                last[0] = act.startTime;
+                last[1] = act;
+                act.setStart(index);
+                index += act.length + expand;
+              }
+            });
         }
       }),
 

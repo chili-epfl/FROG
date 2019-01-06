@@ -98,8 +98,8 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT, any> {
           ? [2, 2]
           : [-1, 3]
         : right
-          ? [3, -1]
-          : [0, 0];
+        ? [3, -1]
+        : [0, 0];
 
       [0, 1].forEach(i => {
         this.props.dataFn.objInsert(
@@ -203,8 +203,8 @@ class PrisonerDilemmaController extends React.Component<StyledPropsT, any> {
               ? 'Tie!'
               : this.props.data.students[students[0]].score >
                 this.props.data.students[students[1]].score
-                ? this.props.data.students[students[0]].name + ' won!'
-                : this.props.data.students[students[1]].name + ' won!'}
+              ? this.props.data.students[students[0]].name + ' won!'
+              : this.props.data.students[students[1]].name + ' won!'}
           </div>
         )}
       </div>

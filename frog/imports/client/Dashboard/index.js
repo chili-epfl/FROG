@@ -146,6 +146,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
   { activity: any }
 > {
   subscription: any;
+
   constructor() {
     super();
     this.state = { activity: null };

@@ -9,18 +9,31 @@ import type { AnchorT } from '../utils/path';
 
 export default class Operator extends Elem {
   rename: string => void;
+
   onOver: () => void;
+
   onLeave: () => void;
+
   startDragging: ({ shiftKey: boolean }) => void;
+
   onDrag: ({ shiftKey: boolean }, { deltaX: number, deltaY: number }) => void;
+
   moveX: number => void;
+
   push: number => void;
+
   stopDragging: () => void;
+
   update: ($Shape<Operator>) => void;
+
   x: number;
+
   xScaled: number;
+
   coordsScaled: [number, number];
+
   coords: [number, number];
+
   object: {
     _id: string,
     time: number,
@@ -28,18 +41,31 @@ export default class Operator extends Elem {
     type: string,
     title: ?string
   };
+
   dragPointTo: AnchorT;
+
   dragPointToScaled: AnchorT;
+
   dragPointFrom: AnchorT;
+
   dragPointFromScaled: AnchorT;
+
   time: number;
+
   title: string;
+
   over: boolean;
+
   data: Object;
+
   operatorType: string;
+
   y: number;
+
   type: string;
+
   strokeColor: string;
+
   highlighted: boolean;
 
   constructor(

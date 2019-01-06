@@ -84,15 +84,18 @@ class TicketStatus extends React.Component<IntervalPropsT> {
   startTimer = () => {
     const { timeToDisplay } = this.props;
 
-    this.timer = setTimeout(() => {
-      if (this.state.transition) {
-        this.setState({ transition: false });
-        this.stopTimer();
-        this.startTimer();
-      } else {
-        this.props.nextIteration();
-      }
-    }, this.state.transition ? timeToDisplay / 2 : timeToDisplay);
+    this.timer = setTimeout(
+      () => {
+        if (this.state.transition) {
+          this.setState({ transition: false });
+          this.stopTimer();
+          this.startTimer();
+        } else {
+          this.props.nextIteration();
+        }
+      },
+      this.state.transition ? timeToDisplay / 2 : timeToDisplay
+    );
   };
 
   stopTimer = () => {

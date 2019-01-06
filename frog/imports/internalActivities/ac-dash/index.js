@@ -1,7 +1,7 @@
 // @flow
 
-import { type ActivityPackageT, Loadable } from 'frog-utils';
 import path from 'path';
+import { type ActivityPackageT, Loadable } from 'frog-utils';
 
 const ConfigComponent = Loadable({
   loader: () => import('./config.js'),
