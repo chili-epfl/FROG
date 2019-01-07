@@ -1,10 +1,10 @@
 import ShareDB from 'sharedb';
-import { uuid } from '..';
+import { uuid } from 'frog-utils';
 import { generateReactiveFn } from '../generateReactiveFn';
 
 jest.mock(
-  '..',
-  () => require.requireActual('../../../__mocks__/frog-utils').default
+  'frog-utils',
+  () => require.requireActual('../../../../__mocks__/frog-utils').default
 );
 
 const share = new ShareDB();
