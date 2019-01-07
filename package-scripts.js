@@ -88,7 +88,7 @@ module.exports = {
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
     lockfiles: fromRoot(
-      'cmp --silent cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
+      'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
     ),
     help
   },
