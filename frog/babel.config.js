@@ -1,5 +1,6 @@
 module.exports = {
   plugins: [
+    'macros',
     '@babel/plugin-transform-flow-strip-types',
     '@babel/plugin-proposal-optional-chaining',
     ['@babel/plugin-proposal-class-properties', { loose: false }],

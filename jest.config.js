@@ -9,6 +9,6 @@ module.exports = {
   },
   moduleDirectories: ['node_modules'],
   transform: {
-    '^.+\\.jsx?$': '@houshuang/babel-jest'
+    '^.+\\.jsx?$': 'babel-jest'
   }
 };
