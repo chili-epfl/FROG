@@ -84,6 +84,11 @@ class SettingsModal extends React.Component {
                     default: true,
                     title: 'Allow LTI login'
                   },
+                  allowLateLogin: {
+                    type: 'boolean',
+                    title:
+                      'Allow late login (only if you are really sure, could crash FROG for the late students'
+                  },
                   loginByName: {
                     type: 'boolean',
                     title: 'Allow login by name'
