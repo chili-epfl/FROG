@@ -8,7 +8,7 @@ const operator = (configData, object) => {
       return matching.configValue;
     }
     if (configData.provideDefault) {
-      return configData.default;
+      return configData.defaultValue;
     } else {
       return null;
     }
@@ -22,7 +22,17 @@ const operator = (configData, object) => {
     }),
     {}
   );
-  return { structure: { groupingKey: configData.socialAttribute }, payload };
+  return {
+    structure: { groupingKey: configData.socialAttribute },
+    payload: {
+      ...payload,
+      ...(configData.provideDefault
+        ? {
+            default: { config: { [configData.path]: configData.defaultValue } }
+          }
+        : {})
+    }
+  };
 };
 
 export default (operator: socialOperatorRunnerT);

@@ -42,7 +42,8 @@ test('Distribute configs with default', () =>
     payload: {
       '1': { config: { title: 'Hi, welcome' } },
       '2': { config: { title: 'How are you?' } },
-      '3': { config: { title: 'Ni hao' } }
+      '3': { config: { title: 'Ni hao' } },
+      default: { config: { title: 'Ni hao' } }
     },
     structure: { groupingKey: 'group' }
   }));
