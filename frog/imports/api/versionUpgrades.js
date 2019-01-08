@@ -20,18 +20,15 @@ export const GraphIdUpgrades: Object = {
 };
 
 export const GraphObjUpgrades: Object = {
-  '1': graphObj =>
-    console.log(graphObj) || {
-      ...graphObj,
-      graph: {
-        ...graphObj.graph,
-        graphVersion: graphObj.graph.graphversion + 1
-      },
-      activities: graphObj.activities.map(
-        x =>
-          x.activityType === 'ac-image'
-            ? { ...x, activityType: 'ac-gallery' }
-            : x
-      )
-    }
+  '1': graphObj => ({
+    ...graphObj,
+    graph: {
+      ...graphObj.graph,
+      graphVersion: graphObj.graph.graphVersion + 1
+    },
+    activities: graphObj.activities.map(
+      x =>
+        x.activityType === 'ac-image' ? { ...x, activityType: 'ac-gallery' } : x
+    )
+  })
 };
