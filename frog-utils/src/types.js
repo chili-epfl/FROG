@@ -322,14 +322,16 @@ export type LIComponentPropsT =
       type: 'view',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      search?: string
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
       clickZoomable?: boolean,
-      search?: string
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'edit',
