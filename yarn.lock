@@ -887,11 +887,6 @@
   resolved "https://registry.yarnpkg.com/@houshuang/pdfjs-dist/-/pdfjs-dist-1.4.162.tgz#49a1c76e6838c48a084888cf1f885596c41a8672"
   integrity sha512-RFjp6qE1zy9787j0jCMGrjxa6JD+E7qh0w6a47pzfmpZGqe9DpCq3nvIzYcw/mbG3IVq+BMSTMEn3fNCKH8bDg==
 
-"@houshuang/react-flip-move@^2.9.16":
-  version "2.9.16"
-  resolved "https://registry.yarnpkg.com/@houshuang/react-flip-move/-/react-flip-move-2.9.16.tgz#d97d1d653b3e737c684cd5324bacec2e8f246311"
-  integrity sha1-2X0dZTs+c3xoTNUyS6zsLo8kYxE=
-
 "@houshuang/react-quill@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@houshuang/react-quill/-/react-quill-1.3.1.tgz#ecf8f9ae10308cfad6f089b8230b2e6bfba604c2"
@@ -13891,6 +13886,11 @@ react-flexview@^4.0.1:
     lodash.some "^4.6.0"
     prop-types "^15.5.6"
 
+react-flip-move@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-3.0.3.tgz#3065b0b9e622ae73953aba725f8feed8e4643667"
+  integrity sha512-gR2jvjUgIXI7ceFWJkr8owX4vKhV0IJoXIf/Dt7gESFe5OKiSz2H6d10mKTW8fN134NDI16J4HgEgq9pKqJd5A==
+
 react-fontawesome@^1.3.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.6.1.tgz#eddce17e7dc731aa09fd4a186688a61793a16c5c"
@@ -18596,7 +18596,7 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-yarn@^1.12.3:
+yarn@1.12.3, yarn@^1.12.3:
   version "1.12.3"
   resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.12.3.tgz#fb4599bf1f8da01552bcc7e1571dfd4e53788203"
   integrity sha512-8f5rWNDvkhAmCxmn8C0LsNWMxTYVk4VGKiq0sIB6HGZjaZTHsGIH87SUmVDUEd2Wk54bqKoUlbVWgQFCQhRkVw==
