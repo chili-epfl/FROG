@@ -152,15 +152,15 @@ class DragDropController extends React.Component<PropsT, StateT> {
     return (
       <Grid container spacing={16}>
         <Grid item xs={12} sm={12}>
-          <Typography variant="headline" color="secondary" gutterBottom>
+          <Typography variant="h5" color="secondary" gutterBottom>
             Question
           </Typography>
-          <Typography variant="subheading" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom>
             {ticket}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant="title" gutterBottom align="center">
+          <Typography variant="h6" gutterBottom align="center">
             Your Ticket
           </Typography>
           <Grid container spacing={16}>
@@ -182,7 +182,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
               <Grid key={id} item sm={id === 'city' ? 12 : 6}>
                 <Grid container spacing={24}>
                   <Grid item sm={12}>
-                    <Typography variant="title" gutterBottom align="center">
+                    <Typography variant="h6" gutterBottom align="center">
                       {capitalizeFirstLetter(id)}
                     </Typography>
                   </Grid>

@@ -15,6 +15,9 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'react/destructuring-assignment': 'off',
+    'import/imports-first': ['warn', 'DISABLE-absolute-first'],
+    'import/order': ['error', { groups: ['builtin', 'external'] }],
     'jsx-a11y/aria-proptypes': 'off',
     'react/jsx-no-target-blank': 'off',
     'flowtype/generic-spacing': 'off',
@@ -59,6 +62,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'prefer-destructuring': 'off',
     'prefer-template': 'off',
+    'react/destructuring-assignment': 'off',
     'react/jsx-closing-bracket-location': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-indent': 'off',

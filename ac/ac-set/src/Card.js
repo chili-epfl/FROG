@@ -61,10 +61,10 @@ export default ({ value, selected, correct, wrong, onClick, style }) => {
         backgroundColor: selected
           ? '#fafafa'
           : wrong
-            ? '#ff666644'
-            : correct
-              ? '#66ff6644'
-              : '#fafafa',
+          ? '#ff666644'
+          : correct
+          ? '#66ff6644'
+          : '#fafafa',
         ...style
       }}
       onClick={onClick}

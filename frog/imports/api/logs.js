@@ -16,7 +16,11 @@ export const logLogin = (sessionId: string) => {
   });
 };
 
-export const engineLogger = (sessionId: string, type: string, value?: number) =>
+export const engineLogger = (
+  sessionId: string,
+  type: string,
+  value?: number | string
+) =>
   Meteor.call(
     'merge.log',
     ({
@@ -30,7 +34,7 @@ export const engineLogger = (sessionId: string, type: string, value?: number) =>
 export const teacherLogger = (
   sessionId: string,
   type: string,
-  value?: number
+  value?: number | string
 ) => {
   if (!LocalSettings.researchLogin) {
     engineLogger(sessionId, type, value);

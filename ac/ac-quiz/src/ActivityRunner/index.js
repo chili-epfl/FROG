@@ -51,12 +51,11 @@ class ActivityRunner extends React.Component<
     return (
       <div className={classes.main}>
         {title && title !== '' && <h1>{title}</h1>}
-        {guidelines &&
-          guidelines !== '<p><br></p>' && (
-            <div className={classes.container}>
-              <HTML html={guidelines} />
-            </div>
-          )}
+        {guidelines && guidelines !== '<p><br></p>' && (
+          <div className={classes.container}>
+            <HTML html={guidelines} />
+          </div>
+        )}
         <div className={classes.container}>
           {data.completed ? (
             <Completed back={() => dataFn.objInsert(false, ['completed'])} />

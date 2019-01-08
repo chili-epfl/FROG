@@ -26,12 +26,11 @@ export const exportData = (config: Object, { payload }: Object) => {
 export const formatProduct = (config: Object, item: Object) => {
   if (item) {
     const questions = config.questions.map(q => q.question);
-    const answers = config.questions.map(
-      (q, qIndex) =>
-        item[qIndex] !== undefined ? q.answers[item[qIndex]].choice : undefined
+    const answers = config.questions.map((q, qIndex) =>
+      item[qIndex] !== undefined ? q.answers[item[qIndex]].choice : undefined
     );
-    const answersIndex = config.questions.map(
-      (q, qIndex) => (item[qIndex] !== undefined ? item[qIndex] : -1)
+    const answersIndex = config.questions.map((q, qIndex) =>
+      item[qIndex] !== undefined ? item[qIndex] : -1
     );
     const correctQs = config.hasAnswers
       ? config.questions.map(

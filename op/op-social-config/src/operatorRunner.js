@@ -1,5 +1,5 @@
 // @flow
-import { type socialOperatorRunnerT } from 'frog-utils';
+import { type productOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
   const findMatching = attrib => {
@@ -8,7 +8,7 @@ const operator = (configData, object) => {
       return matching.configValue;
     }
     if (configData.provideDefault) {
-      return configData.default;
+      return configData.defaultValue;
     } else {
       return null;
     }
@@ -18,11 +18,24 @@ const operator = (configData, object) => {
   ).reduce(
     (acc, x) => ({
       ...acc,
-      [x]: { config: { [configData.path]: findMatching(x) } }
+      [x]: { config: { [configData.path]: findMatching(x) }, data: null }
     }),
     {}
   );
-  return { structure: { groupingKey: configData.socialAttribute }, payload };
+  return {
+    structure: { groupingKey: configData.socialAttribute },
+    payload: {
+      ...payload,
+      ...(configData.provideDefault
+        ? {
+            default: {
+              config: { [configData.path]: configData.defaultValue },
+              data: null
+            }
+          }
+        : {})
+    }
+  };
 };
 
-export default (operator: socialOperatorRunnerT);
+export default (operator: productOperatorRunnerT);

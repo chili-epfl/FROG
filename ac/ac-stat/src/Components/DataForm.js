@@ -160,6 +160,7 @@ const displayEntry = e => {
 
 class Data extends React.Component<*, *> {
   el: any;
+
   state = {
     selected: [-1, -1],
     cellStr: '',

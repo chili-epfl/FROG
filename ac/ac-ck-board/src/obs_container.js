@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import AspectRatio from 'react-icons/lib/md/aspect-ratio';
+import { MdAspectRatio } from 'react-icons/md';
 import Draggable from 'react-draggable';
 
 const ObservationContainer = ({
@@ -46,7 +46,7 @@ const ObservationContainer = ({
           <div style={{ margin: '15px', maxWidth: '500px' }}>
             <div>
               <span style={{ float: 'right' }} className="noDrag">
-                <AspectRatio onClick={openInfoFn} />
+                <MdAspectRatio onClick={openInfoFn} />
               </span>
             </div>
             {children}

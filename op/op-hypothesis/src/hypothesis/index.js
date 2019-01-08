@@ -42,6 +42,7 @@ class HypothesisThread extends React.Component<
   { expand: boolean }
 > {
   state = { expand: true };
+
   toggleFn = () => this.setState({ expand: !this.state.expand });
 
   render() {

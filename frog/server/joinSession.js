@@ -12,7 +12,11 @@ function sessionJoin(slug: string) {
   if (!session) {
     return { result: 'error', message: 'No such session' };
   }
-  if (session.tooLate && session.ownerId !== this.userId) {
+  if (
+    session.tooLate &&
+    session.ownerId !== this.userId &&
+    !session?.settings?.allowLateLogin
+  ) {
     return {
       result: 'error',
       message: 'Unfortunately it is too late to join this session.'

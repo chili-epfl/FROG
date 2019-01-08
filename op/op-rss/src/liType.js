@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { type LearningItemT, HTML, withVisibility } from 'frog-utils';
-import { Button } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 import Play from '@material-ui/icons/PlayCircleFilled';
 import Stop from '@material-ui/icons/Stop';
 import ReactSound from 'react-sound';
@@ -19,14 +19,13 @@ const Viewer = withVisibility(({ data, visible, toggleVisibility }) => (
     <h2>{data.title} </h2>
     {data.enclosure && (
       <>
-        <Button
+        <Fab
           onClick={toggleVisibility}
-          variant="fab"
           color="primary"
           aria-label={visible ? 'stop' : 'play'}
         >
           {visible ? <Stop /> : <Play />}
-        </Button>
+        </Fab>
         <ReactSound
           url={data.enclosure}
           playStatus={

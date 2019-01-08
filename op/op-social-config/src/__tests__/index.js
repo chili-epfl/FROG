@@ -28,21 +28,25 @@ const object = {
 test('Distribute configs without default', () =>
   expect(operator(configData, object)).toEqual({
     payload: {
-      '1': { config: { title: 'Hi, welcome' } },
-      '2': { config: { title: 'How are you?' } },
-      '3': { config: { title: null } }
+      '1': { config: { title: 'Hi, welcome' }, data: null },
+      '2': { config: { title: 'How are you?' }, data: null },
+      '3': { config: { title: null }, data: null }
     },
     structure: { groupingKey: 'group' }
   }));
 
 test('Distribute configs with default', () =>
   expect(
-    operator({ ...configData, provideDefault: true, default: 'Ni hao' }, object)
+    operator(
+      { ...configData, provideDefault: true, defaultValue: 'Ni hao' },
+      object
+    )
   ).toEqual({
     payload: {
-      '1': { config: { title: 'Hi, welcome' } },
-      '2': { config: { title: 'How are you?' } },
-      '3': { config: { title: 'Ni hao' } }
+      '1': { config: { title: 'Hi, welcome' }, data: null },
+      '2': { config: { title: 'How are you?' }, data: null },
+      '3': { config: { title: 'Ni hao' }, data: null },
+      default: { config: { title: 'Ni hao' }, data: null }
     },
     structure: { groupingKey: 'group' }
   }));

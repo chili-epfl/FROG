@@ -78,6 +78,10 @@ const GraphStateless = ({ config, data, plot, setPlot, classes }) => (
   </div>
 );
 
-export default withState('plot', 'setPlot', 'line')(
-  withStyles(styles)(GraphStateless)
-);
+const DefaultExport: React.ComponentType<*> = withState(
+  'plot',
+  'setPlot',
+  'line'
+)(withStyles(styles)(GraphStateless));
+
+export default DefaultExport;
