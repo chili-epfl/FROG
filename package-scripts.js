@@ -65,7 +65,7 @@ module.exports = {
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
-        `nps -s lockfiles flow.quiet eslint jest`,
+        `nps -s lockfiles flow.quiet eslint.normal jest`,
         'Running LockFiles, Flow, ESLint and Jest'
       )
     },
