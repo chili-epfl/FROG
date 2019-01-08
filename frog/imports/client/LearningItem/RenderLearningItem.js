@@ -46,23 +46,24 @@ const withNullCheck = ({
           >
             {result}
           </MaybeClickable>
-          {this.props.open && liType.Viewer && (
-            <Dialog
-              maxWidth={false}
-              open
-              onClose={() => {
-                setOpen(false);
-              }}
-            >
-              <liType.Viewer
-                type="view"
-                isPlayback={isPlayback}
-                data={data.payload}
-                dataFn={dataFn}
-                LearningItem={dataFn && dataFn.LearningItem}
-              />
-            </Dialog>
-          )}
+          {this.props.open &&
+            liType.Viewer && (
+              <Dialog
+                maxWidth={false}
+                open
+                onClose={() => {
+                  setOpen(false);
+                }}
+              >
+                <liType.Viewer
+                  type="view"
+                  isPlayback={isPlayback}
+                  data={data.payload}
+                  dataFn={dataFn}
+                  LearningItem={dataFn && dataFn.LearningItem}
+                />
+              </Dialog>
+            )}
         </>
       );
       if (render) {
@@ -98,6 +99,7 @@ class RenderLearningItem extends React.Component<any, any> {
     if (!liType) {
       this.Comp = () => <h3>Oops ! Incorrect LI-type</h3>;
     }
+
     if (type === 'view' && liType.Viewer) {
       LIComponent = liType.Viewer;
     } else if (
@@ -152,6 +154,14 @@ class RenderLearningItem extends React.Component<any, any> {
     const { type, search, data, dataFn, isPlayback } = this.props;
     const { open } = this.state;
     const Comp = this.Comp;
+    const liType = learningItemTypesObj[data.liType];
+    if (
+      liType.dataStructure &&
+      this.props.notEmpty &&
+      isEqual(data.payload, liType.dataStructure)
+    ) {
+      return null;
+    }
     return Comp ? (
       <Comp
         userId={dataFn?.meta?.createdByUser}

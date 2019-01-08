@@ -198,6 +198,7 @@ class ImageList extends React.Component<*, *> {
                 key={liObj.key}
                 type={expand ? 'view' : 'thumbView'}
                 id={liObj.li}
+                notEmpty
                 render={props => (
                   <Paper
                     elevation={12}

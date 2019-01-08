@@ -59,13 +59,18 @@ class LearningItem extends React.Component<
               props.dataFn.backend
             )(RenderLearningItem)
           : (newprops: Object) => (
-              <RenderLearningItem data={id.liDocument} {...newprops} />
+              <RenderLearningItem
+                notEmpty={props.notEmpty}
+                data={id.liDocument}
+                {...newprops}
+              />
             );
 
       return (
         <ToRun
           key={typeof props.id === 'string' ? props.id : props.id.liDocument.id}
           render={props.render}
+          notEmpty={props.notEmpty}
           type={props.type}
           id={props.id}
           search={props.search || undefined}
