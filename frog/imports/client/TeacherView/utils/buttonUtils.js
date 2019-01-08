@@ -218,6 +218,14 @@ export const SessionUtilsButtonsModel = (
       text: 'Open 4 students'
     }
   },
+
+  open4morewin: {
+    button: {
+      onClick: () =>
+        window.open(`/multiFollow/${Meteor.user().username}?more=true`, uuid()),
+      text: 'Open 4 more students'
+    }
+  },
   open3plus1win: {
     button: {
       onClick: () =>
