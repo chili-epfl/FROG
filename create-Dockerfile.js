@@ -7,7 +7,7 @@ fs.readdir('./ac', (_, ac) => {
     const acopCP = acop
       .map(dir => `COPY ${dir}/package.json ${dir}/`)
       .join('\n');
-    const template = `FROM node:10.6
+    const template = `FROM node:10-jessie
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
