@@ -61,7 +61,7 @@ module.exports = {
     ),
     test: {
       default: fromRoot(
-        `nps -s flow.quiet eslint jest`,
+        `nps -s flow.quiet eslint.normal jest`,
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
@@ -77,6 +77,10 @@ module.exports = {
       fix: fromRoot(
         'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx',
         'Running ESLint in Fix mode'
+      ),
+      normal: fromRoot(
+        'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'Running ESLint in normal mode'
       )
     },
     flow: {
