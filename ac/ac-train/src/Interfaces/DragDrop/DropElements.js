@@ -55,15 +55,10 @@ class DropElementsController extends Component<PropsT> {
     return connectDropTarget(
       <div>
         <Paper className={classes.paper} elevation={4}>
-          <Typography
-            variant="title"
-            align="center"
-            component="h3"
-            gutterBottom
-          >
+          <Typography variant="h6" align="center" component="h3" gutterBottom>
             {capitalizeFirstLetter(title)}
           </Typography>
-          <Typography variant="subheading" align="center">
+          <Typography variant="subtitle1" align="center">
             {isActive && 'Release to drop'}
             {capitalizeFirstLetter(lastDroppedItem)}
           </Typography>

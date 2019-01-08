@@ -11,7 +11,7 @@ export const meta = {
     {
       title: 'Sample video',
       config: {
-        url: 'https://www.youtube.com/watch?v=RHq6bEgeZD4',
+        url: 'https://www.youtube.com/watch?v=nhyWgN7RJr0',
         playing: true,
         loop: false
       },

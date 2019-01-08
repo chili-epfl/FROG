@@ -23,11 +23,12 @@ import { Operators, findOperatorsMongo } from '../imports/api/operators.js';
 import { Sessions } from '../imports/api/sessions.js';
 import { Products } from '../imports/api/products.js';
 import { Objects } from '../imports/api/objects.js';
-import { GlobalSettings } from '../imports/api/globalSettings.js';
+import { GlobalSettings } from '../imports/api/settings.js';
 import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
+import './redis';
 
 console.info('Meteor settings', Meteor.settings);
 
@@ -92,7 +93,7 @@ Meteor.publish('userData', function() {
     return this.ready();
   }
   return Meteor.users.find(this.userId, {
-    fields: { username: 1, joinedSessions: 1 }
+    fields: { username: 1, joinedSessions: 1, role: 1 }
   });
 });
 
@@ -100,9 +101,9 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
   if (!sessionId) return;
   const slug = Sessions.findOne(sessionId).slug;
   if (!slug) return;
-  const act = Activities.findOne(activityId);
-  if (!act) return;
-  const aT = activityTypesObj[act.activityType];
+  const activity = Activities.findOne(activityId);
+  if (!activity) return;
+  const aT = activityTypesObj[activity.activityType];
   const dashNames = (
     (!names || names === 'all'
       ? aT.dashboards && Object.keys(aT.dashboards)
@@ -116,6 +117,30 @@ Meteor.publish('dashboard.data', function(sessionId, activityId, names) {
   );
   const object = Objects.find(activityId);
   return [users, object, dashData];
+});
+
+Meteor.publishComposite('follow', function(follow) {
+  if (
+    process.env.NODE_ENV === 'production' &&
+    !Meteor.settings.public.friendlyProduction
+  ) {
+    return this.ready();
+  }
+  return {
+    find() {
+      return Meteor.users.find(
+        { username: follow },
+        { fields: { 'profile.controlSession': 1, username: 1 } }
+      );
+    },
+    children: [
+      {
+        find(user) {
+          return Sessions.find(user.profile.controlSession);
+        }
+      }
+    ]
+  };
 });
 
 publishComposite('session_activities', function(slug) {

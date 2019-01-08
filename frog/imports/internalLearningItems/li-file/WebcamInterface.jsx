@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Button, Fab } from '@material-ui/core';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -59,13 +59,9 @@ const WebcamCapture = (props: Object) => {
         style={{ width: '60%', height: '90%', margin: 'auto' }}
         onUserMediaError={e => console.error(e)}
       />
-      <Button
-        variant="fab"
-        color="secondary"
-        onClick={() => takePicture({ ...props, webcam })}
-      >
+      <Fab color="secondary" onClick={() => takePicture({ ...props, webcam })}>
         <PhotoCameraIcon />
-      </Button>
+      </Fab>
     </>
   );
 };

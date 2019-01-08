@@ -11,7 +11,7 @@ import {
   GraphCurrentVersion,
   GraphIdUpgrades,
   GraphObjUpgrades
-} from '../ui/GraphEditor/versionUpgrades';
+} from './versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -72,7 +72,7 @@ export const findOneGraphMongo = (id: string) => {
   } catch (e) {
     console.warn(e);
     // eslint-disable-next-line no-alert
-    window.alert('Upgrade  error: unable to upgrade the graph');
+    window.alert('Upgrade error: unable to upgrade the graph');
     return graph;
   }
 };
@@ -159,9 +159,11 @@ export const mergeGraph = (mergeObj: Object) => {
 };
 
 export const setCurrentGraph = (graphId: string) => {
-  Meteor.users.update(Meteor.userId(), {
-    $set: { 'profile.editingGraph': graphId }
-  });
+  if (Meteor.user()?.profile?.editingGraph !== graphId) {
+    Meteor.users.update(Meteor.userId(), {
+      $set: { 'profile.editingGraph': graphId }
+    });
+  }
 };
 
 export const assignGraph = (wantedId?: string) => {

@@ -39,7 +39,10 @@ const config = {
   }
 };
 
-const configUI = { defaultValue: { conditional: 'provideDefault' } };
+const configUI = {
+  defaultValue: { conditional: 'provideDefault' },
+  matchings: { items: { configValue: { 'ui:widget': 'textarea' } } }
+};
 
 export default ({
   id: 'op-social-config',

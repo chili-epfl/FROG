@@ -1,13 +1,13 @@
 // @flow
 
-import type { ActivityPackageT } from 'frog-utils';
-import Loadable from 'react-loadable';
 import path from 'path';
+import { type ActivityPackageT, Loadable } from 'frog-utils';
 
 const ConfigComponent = Loadable({
   loader: () => import('./config.js'),
   loading: () => null,
-  serverSideRequirePath: path.resolve(__dirname, './config.js')
+  serverSideRequirePath: path.resolve(__dirname, './config.js'),
+  componentDescription: 'configComponent'
 });
 
 export const meta = {

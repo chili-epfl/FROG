@@ -173,27 +173,29 @@ const checkConfigs = (operators, activities) => {
 
 const checkStream = activities => {
   const errors = [];
-  activities.filter(x => x.streamTarget).forEach(act => {
-    const target = activities.find(x => x._id === act.streamTarget);
-    if (target && target.startTime > act.startTime) {
-      errors.push({
-        id: act._id,
-        nodeType: 'activity',
-        err:
-          'Streaming target has a later start time than the streaming source',
-        type: 'streamTargetOpensLate',
-        severity: 'error'
-      });
-    } else if (target && target.startTime + target.length <= act.startTime) {
-      errors.push({
-        id: act._id,
-        nodeType: 'activity',
-        err: 'Streaming target is already closed by the time source opens',
-        type: 'streamTargetAlreadyClosed',
-        severity: 'warning'
-      });
-    }
-  });
+  activities
+    .filter(x => x.streamTarget)
+    .forEach(act => {
+      const target = activities.find(x => x._id === act.streamTarget);
+      if (target && target.startTime > act.startTime) {
+        errors.push({
+          id: act._id,
+          nodeType: 'activity',
+          err:
+            'Streaming target has a later start time than the streaming source',
+          type: 'streamTargetOpensLate',
+          severity: 'error'
+        });
+      } else if (target && target.startTime + target.length <= act.startTime) {
+        errors.push({
+          id: act._id,
+          nodeType: 'activity',
+          err: 'Streaming target is already closed by the time source opens',
+          type: 'streamTargetAlreadyClosed',
+          severity: 'warning'
+        });
+      }
+    });
   return errors;
 };
 

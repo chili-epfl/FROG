@@ -1,7 +1,32 @@
 // @flow
+/* eslint-disable react/no-array-index-key */
+
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
-import { shuffle } from 'lodash';
+import { shuffle, isString, filter, split, isEqual } from 'lodash';
+import ReactLoadable from 'react-loadable';
+
+export const Loadable = ({
+  loader,
+  componentDescription
+}: {
+  loader: void => Promise<*>,
+  componentDescription: string
+}) =>
+  ReactLoadable({
+    loader,
+    loading(props) {
+      if (props.error) {
+        console.error(props.error);
+        return <div>React Loader error! {componentDescription}</div>;
+      } else if (props.timedOut) {
+        return <div>React Loader Timed Out! {componentDescription}</div>;
+      } else {
+        return null;
+      }
+    },
+    timeout: 10000
+  });
 
 export const isBrowser = (() => {
   try {
@@ -11,12 +36,16 @@ export const isBrowser = (() => {
   }
 })();
 
+export const ReactJsonView = isBrowser
+  ? require('react-json-view').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export const EnhancedForm = isBrowser
   ? require('./EnhancedForm.js').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
-export const ReactJsonView = isBrowser
-  ? require('react-json-view').default // eslint-disable-line global-require
+export const ReactiveRichText = isBrowser
+  ? require('./ReactiveRichText').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export {
@@ -25,14 +54,10 @@ export {
   calculateSchema,
   defaultConfig
 } from './enhancedFormUtils';
-export {
-  generateReactiveFn,
-  inMemoryReactive,
-  Doc
-} from './generateReactiveFn';
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
+export { unicodeLetter, notUnicodeLetter } from './unicodeRegexpEscapes';
 export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
@@ -124,6 +149,78 @@ export const currentDate = (): string => {
   return d.toString();
 };
 
+export const highlightSearchHTML = (haystack: string, needle: string) =>
+  !needle
+    ? haystack
+    : haystack.replace(
+        new RegExp(needle, 'gi'),
+        str => `<span style="background-color: #FFFF00">${str}</span>`
+      );
+
+export const HighlightSearchText = ({
+  haystack,
+  needle
+}: {
+  haystack: string,
+  needle?: string
+}) => {
+  if (!needle) {
+    return haystack;
+  }
+  const parts = haystack.split(new RegExp(`(${needle})`, 'gi'));
+  return (
+    <>
+      {parts.map((part, i) => (
+        <span
+          key={i}
+          style={
+            part.toLowerCase() === needle.toLowerCase()
+              ? {
+                  backgroundColor: '#FFFF00'
+                }
+              : {}
+          }
+        >
+          {part}
+        </span>
+      ))}
+    </>
+  );
+};
+
+export const highlightTargetRichText = (content: Object, target: string) => {
+  const processedOps = [];
+  content.ops.forEach(op => {
+    if (isString(op.insert)) {
+      const pieces = split(op.insert, new RegExp(target, 'i'));
+
+      if (pieces.length > 1) {
+        let targetIdxPtr = 0;
+        pieces.forEach((piece, index) => {
+          processedOps.push({ ...op, insert: piece });
+          targetIdxPtr += piece.length;
+
+          if (index !== pieces.length - 1) {
+            processedOps.push({
+              insert: op.insert.substring(
+                targetIdxPtr,
+                targetIdxPtr + target.length
+              ),
+              attributes: Object.assign({}, op.attributes, {
+                background: '#ffff00'
+              })
+            });
+            targetIdxPtr += target.length;
+          }
+        });
+        return;
+      }
+    }
+    processedOps.push(op);
+  });
+  return { ops: processedOps };
+};
+
 export const booleanize = (bool: string): boolean => bool === 'true';
 
 export const shorten = (text: string, length: number): string => {
@@ -132,6 +229,40 @@ export const shorten = (text: string, length: number): string => {
     return t;
   }
   return `${t.slice(0, length - 3)}...`;
+};
+
+export const shortenRichText = (
+  dataRaw: { ops: Object[] },
+  length: number
+): Object => {
+  const data = cloneDeep(dataRaw);
+  // $FlowFixMe somehow it thinks cloneDeep always returns an array
+  const ops = filter(data.ops, op => isString(op.insert));
+  let contentLength = 0;
+  let cutOffIndex = -1;
+  let cutOffLength = 0;
+
+  ops.forEach((op, index) => {
+    contentLength += op.insert.length;
+
+    if (cutOffIndex < 0 && contentLength > length - 3) {
+      cutOffIndex = index;
+      cutOffLength = contentLength - (length - 3);
+    }
+  });
+
+  if (contentLength <= length) {
+    return { ops };
+  } else {
+    const trimmedOps = ops.slice(0, cutOffIndex);
+
+    const edgeOp = ops[cutOffIndex];
+    edgeOp.insert = edgeOp.insert.slice(0, edgeOp.insert.length - cutOffLength);
+    trimmedOps.push(edgeOp);
+
+    trimmedOps.push({ insert: '...' });
+    return { ops: trimmedOps };
+  }
 };
 
 // checks that some of the values in an object are not empty
@@ -152,7 +283,7 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
 
-export const withVisibility = compose(
+export const withVisibility: Function = compose(
   withState('visible', 'setVisibility', false),
   withHandlers({
     toggleVisibility: ({ setVisibility }) => x => {
@@ -266,6 +397,9 @@ export const cloneDeep = (o: any) => {
   return newO;
 };
 
+export const isEqualLI = (li1: Object, li2: Object): boolean =>
+  typeof li1.li === 'string' ? li1.li === li2.li : isEqual(li1.li, li2.li);
+
 export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (
     <ReactJsonView
@@ -306,3 +440,8 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   const keys: string[] = Object.keys(obj);
   return keys.map(key => obj[key]);
 };
+
+export const getRotateable = (ary: *, toRotate: number): * =>
+  new Proxy(ary, {
+    get: (obj, prop) => obj[(parseInt(prop, 10) + toRotate) % obj.length]
+  });

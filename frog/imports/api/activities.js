@@ -72,11 +72,10 @@ export const updateOneActivityMongo = (
 export const findActivitiesMongo = (query: Object, proj?: Object) =>
   Activities.find(query, proj)
     .fetch()
-    .map(
-      x =>
-        x.activityType && activityTypesObj[x.activityType]
-          ? extractUpgradedActivityConfig(x)
-          : x
+    .map(x =>
+      x.activityType && activityTypesObj[x.activityType]
+        ? extractUpgradedActivityConfig(x)
+        : x
     );
 
 export const findOneActivityMongo = (id: string) => {
@@ -98,7 +97,18 @@ export const addActivity = (
   if (id)
     updateOneActivityMongo(id, {
       $set: omitBy(
-        { activityType, parentId, data, groupingKey, configVersion },
+        {
+          activityType,
+          parentId,
+          data,
+          groupingKey,
+          ...(activityType
+            ? {
+                configVersion:
+                  configVersion || activityTypesObj[activityType].configVersion
+              }
+            : {})
+        },
         isNil
       )
     });
@@ -106,7 +116,12 @@ export const addActivity = (
     insertActivityMongo({
       _id: uuid(),
       parentId,
-      configVersion: configVersion || 1,
+      ...(activityType
+        ? {
+            configVersion:
+              configVersion || activityTypesObj[activityType].configVersion
+          }
+        : {}),
       activityType,
       data,
       groupingKey,

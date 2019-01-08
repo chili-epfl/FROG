@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import Mousetrap from 'mousetrap';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 
@@ -15,7 +15,7 @@ type ActivityRunnerStateT = {
   webcamOn: boolean
 };
 
-class ActivityRunner extends Component<
+class ActivityRunner extends React.Component<
   ActivityRunnerPropsT,
   ActivityRunnerStateT
 > {
@@ -23,7 +23,7 @@ class ActivityRunner extends Component<
     [categoryName: string]: string[]
   };
 
-  constructor(props) {
+  constructor(props: ActivityRunnerPropsT) {
     super(props);
     Mousetrap.bind('esc', () => this.setState({ zoomOn: false }));
 
@@ -63,8 +63,8 @@ class ActivityRunner extends Component<
   }
 
   render() {
-    const { activityData, data, dataFn, userInfo, logger } = this.props;
-    const { category } = this.state;
+    const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
+    const { category, index, zoomOn } = this.state;
 
     const minVoteT = activityData.config.minVote || 1;
 
@@ -111,7 +111,11 @@ class ActivityRunner extends Component<
             setIndex,
             logger,
             showCategories,
-            LearningItem: dataFn.LearningItem
+            expand: activityData.config.expand,
+            LearningItem: dataFn.LearningItem,
+            canSearch: activityData.config.canSearch,
+            searchCollab: activityData.config.searchCollab,
+            canBookmark: activityData.config.canBookmark
           }}
           canVote={activityData.config.canVote}
         />
@@ -119,7 +123,7 @@ class ActivityRunner extends Component<
           <div style={{ position: 'absolute', bottom: '10px', width: '800px' }}>
             <dataFn.LearningItem
               liType={activityData.config.liType}
-              stream={this.props.stream}
+              stream={stream}
               meta={{
                 comment: '',
                 votes: {},
@@ -136,7 +140,7 @@ class ActivityRunner extends Component<
         {activityData.config.allowAny && (
           <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
             <dataFn.LearningItem
-              stream={this.props.stream}
+              stream={stream}
               meta={{
                 comment: '',
                 votes: {},
@@ -150,26 +154,25 @@ class ActivityRunner extends Component<
             />
           </div>
         )}
-        {category !== 'categories' &&
-          this.state.zoomOn && (
-            <ZoomView
-              index={this.state.index}
-              commentBox={activityData.config.canComment}
-              commentGuidelines={activityData.config.commentGuidelines}
-              close={() => setZoom(false)}
-              {...{
-                learningItems,
-                LearningItem: dataFn.LearningItem,
-                setIndex,
-                dataFn,
-                logger
-              }}
-            />
-          )}
+        {category !== 'categories' && zoomOn && (
+          <ZoomView
+            index={index}
+            commentBox={activityData.config.canComment}
+            commentGuidelines={activityData.config.commentGuidelines}
+            close={() => setZoom(false)}
+            {...{
+              learningItems,
+              LearningItem: dataFn.LearningItem,
+              setIndex,
+              dataFn,
+              logger
+            }}
+          />
+        )}
       </>
     );
   }
 }
 
 ActivityRunner.displayName = 'ActivityRunner';
-export default (props: ActivityRunnerPropsT) => <ActivityRunner {...props} />;
+export default ActivityRunner;

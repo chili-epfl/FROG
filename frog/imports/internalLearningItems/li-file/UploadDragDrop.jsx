@@ -31,7 +31,7 @@ const UploadDragDrop = ({
   };
   return (
     <Dropzone
-      onDropAccepted={onDrop}
+      onDrop={onDrop}
       accept={fileTypes || undefined}
       style={{
         ...baseStyle,
@@ -58,11 +58,16 @@ const UploadDragDrop = ({
         backgroundSize: '150% 100%'
       }}
     >
-      <div style={{ textAlign: 'center' }}>
-        <p style={{ fontSize: '18px' }}>
-          <CloudUploadIcon /> Drag and drop a file here or click to upload
-        </p>
-      </div>
+      {({ getRootProps, getInputProps }) => (
+        <div {...getRootProps()}>
+          <div style={{ textAlign: 'center' }}>
+            <input {...getInputProps()} />
+            <p style={{ fontSize: '18px' }}>
+              <CloudUploadIcon /> Drag and drop a file here or click to upload
+            </p>
+          </div>
+        </div>
+      )}
     </Dropzone>
   );
 };

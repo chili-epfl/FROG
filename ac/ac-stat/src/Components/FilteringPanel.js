@@ -25,7 +25,7 @@ const styles = () => ({
 const transfo = ['log', 'exp', 'outliers', 'sqrt', 'x100', '+50', '11x-10E[x]'];
 
 const disabledFun = (data, tr) => {
-  if (!data.values) return true;
+  if (!data || !data.values) return true;
   switch (tr) {
     case 'log':
       return data.values.reduce(

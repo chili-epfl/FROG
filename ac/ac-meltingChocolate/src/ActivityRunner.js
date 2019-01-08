@@ -5,15 +5,17 @@ import { type ActivityRunnerT } from 'frog-utils';
 import html2canvas from 'html2canvas';
 import Canvas2Buffer from 'canvas-to-buffer';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
-import { Button } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 
 // the actual component that the student sees
 class ActivityRunner extends React.Component<*, *> {
   iframe: any;
+
   constructor(props) {
     super(props);
     this.iframe = React.createRef();
   }
+
   componentDidMount = () => {
     window.addEventListener('message', this.onEvent);
   };
@@ -50,9 +52,9 @@ class ActivityRunner extends React.Component<*, *> {
       <div>
         <div>
           {this.props.activityData.config.screenshot && (
-            <Button variant="fab" color="primary" onClick={this.screenshot}>
+            <Fab color="primary" onClick={this.screenshot}>
               <AddAPhoto />
-            </Button>
+            </Fab>
           )}
         </div>
         <iframe

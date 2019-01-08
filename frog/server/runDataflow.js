@@ -27,11 +27,10 @@ Meteor.methods({
 });
 
 const runAllConnecting = (connections: Object[], sessionId: string) =>
-  connections.map(
-    connection =>
-      connection.source.type === 'operator'
-        ? runDataflow(connection.source.type, connection.source.id, sessionId)
-        : Promise.await(reactiveToProduct(connection.source.id))
+  connections.map(connection =>
+    connection.source.type === 'operator'
+      ? runDataflow(connection.source.type, connection.source.id, sessionId)
+      : Promise.await(reactiveToProduct(connection.source.id))
   );
 
 // The list of students
@@ -120,6 +119,9 @@ const runDataflow = (
   addObject(nodeId, object);
 
   if (type === 'operator') {
+    console.info(
+      `Running operator ${node.title} (${node.operatorType}) - ${node._id}`
+    );
     const operatorFunction = operatorTypesObj[node.operatorType].external
       ? remote(node.operatorType)
       : operators[node.operatorType];
@@ -137,7 +139,7 @@ const runDataflow = (
       Sessions.update(sessionId, { $set: { tooLate: true } });
     }
   } else if (type === 'activity') {
-    mergeData(nodeId, object);
+    mergeData(nodeId, object, undefined, sessionId);
     nodeTypes[type].update(nodeId, { $set: { state: 'computed' } });
   }
 };

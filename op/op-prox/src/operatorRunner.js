@@ -31,6 +31,9 @@ const operator = (configData: *, object: *) => {
       count += 1;
     }
   });
+  if (result[groupingValue].length === 0) {
+    delete result[groupingValue];
+  }
   return { group: result };
 };
 

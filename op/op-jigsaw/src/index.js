@@ -11,6 +11,7 @@ const meta = {
 
 const config = {
   type: 'object',
+  required: ['roles'],
   properties: {
     roles: {
       type: 'string',
@@ -18,10 +19,12 @@ const config = {
     },
     mix: {
       type: 'boolean',
-      title: 'Mix previous groups?'
+      title: 'Mix previous groups (groups stay the same, roles rotate)?'
     }
   }
 };
+
+const configUI = { roles: { conditional: formData => !formData.mix } };
 
 export default ({
   id: 'op-jigsaw',
@@ -29,5 +32,6 @@ export default ({
   configVersion: 1,
   meta,
   config,
+  configUI,
   outputDefinition: ['group', 'role']
 }: socialOperatorT);

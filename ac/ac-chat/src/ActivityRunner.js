@@ -59,7 +59,7 @@ const styles = {
 
 const Chatmsg = ({ msg, classes, LearningItem }) => (
   <div className={classes.msg}>
-    <Typography variant="body2" gutterBottom color="secondary">
+    <Typography variant="body1" gutterBottom color="secondary">
       {msg.user}
     </Typography>
     {msg.li ? (

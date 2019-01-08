@@ -1,18 +1,22 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, flattenOne } from 'frog-utils';
+import { type ActivityRunnerT, flattenOne, ReactiveText } from 'frog-utils';
 import 'react-datasheet/lib/react-datasheet.css';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
-import { Button } from '@material-ui/core';
+import { Fab, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+const numberRegex = new RegExp(/^-?\d*\.?,?\d+$/);
+
+let IsEditing = false;
 
 const getLetter = index =>
   index < 26
@@ -35,48 +39,45 @@ const removeRow = props =>
   );
 
 const AddButton = ({ onClick }) => (
-  <Button
+  <Fab
     onClick={onClick}
-    variant="fab"
     style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <AddIcon />
-  </Button>
+  </Fab>
 );
 
 const RemoveButton = ({ onClick }) => (
-  <Button
+  <Fab
     onClick={onClick}
-    variant="fab"
     style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <RemoveIcon />
-  </Button>
+  </Fab>
 );
 
 class DataEditor extends React.Component<*, *> {
   _input: any;
 
-  handleChange = e => {
-    this.props.onChange(e.target.value);
-  };
-
   componentDidMount() {
-    this._input.focus();
+    IsEditing = true;
+  }
+
+  componentWillUnmount() {
+    IsEditing = false;
+    this.props.parent.forceUpdate();
   }
 
   render() {
-    const { value, onKeyDown } = this.props;
     return (
-      <input
-        ref={input => {
-          this._input = input;
-        }}
+      <ReactiveText
+        type="textinput"
+        focus
         className="data-editor"
         style={{ height: '100%', width: '100%', fontSize: '20px' }}
-        value={value}
-        onChange={this.handleChange}
-        onKeyDown={onKeyDown}
+        onKeyDown={this.props.onKeyDown}
+        dataFn={this.props.dataFn}
+        path={[this.props.row, this.props.col, 'value']}
       />
     );
   }
@@ -87,6 +88,8 @@ class ActivityRunner extends React.Component<*, *> {
     modalOpen: false,
     deleting: ''
   };
+
+  shouldComponentUpdate = () => !IsEditing;
 
   validateExp(trailKeys, expr) {
     let valid = true;
@@ -165,6 +168,8 @@ class ActivityRunner extends React.Component<*, *> {
     const data = this.props.readOnly
       ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
       : this.props.data;
+    const LearningItem = this.props.dataFn.LearningItem;
+    const config = this.props.activityData.config;
     return (
       <div
         style={{
@@ -202,16 +207,35 @@ class ActivityRunner extends React.Component<*, *> {
           </Dialog>
           <Datasheet
             data={data}
-            valueRenderer={cell => cell.value}
+            valueRenderer={cell =>
+              cell.value?.li ? (
+                <div style={{ margin: '10px' }}>
+                  <LearningItem type="thumbView" id={cell.value.li} />
+                </div>
+              ) : (
+                cell.value
+              )
+            }
             dataRenderer={cell => cell.expr}
-            dataEditor={DataEditor}
+            dataEditor={props => (
+              <DataEditor {...props} parent={this} dataFn={this.props.dataFn} />
+            )}
             cellRenderer={props => (
               <td
                 className={props.className}
                 onMouseDown={props.onMouseDown}
                 onMouseOver={props.onMouseOver}
                 onDoubleClick={props.onDoubleClick}
-                style={{ width: '40px', height: '30px' }}
+                style={{
+                  width:
+                    props.col === 0 || data[1][props.col]?.value === 'Items'
+                      ? '40px'
+                      : (config.rowWidth || '80') + 'px',
+                  height: '30px',
+                  textAlign: numberRegex.test(data[props.row][props.col].value)
+                    ? 'right'
+                    : 'left'
+                }}
               >
                 {props.children}
               </td>
@@ -228,22 +252,21 @@ class ActivityRunner extends React.Component<*, *> {
             >
               <AddButton
                 onClick={() => {
-                  data.forEach(
-                    (x, i) =>
-                      i === 0
-                        ? this.props.dataFn.listAppend(
-                            { readOnly: true, value: getLetter(x.length - 1) },
-                            i
-                          )
-                        : this.props.dataFn.listAppend(
-                            {
-                              value: '',
-                              key: getLetter(x.length - 1) + i,
-                              col: x.length,
-                              row: i
-                            },
-                            i
-                          )
+                  data.forEach((x, i) =>
+                    i === 0
+                      ? this.props.dataFn.listAppend(
+                          { readOnly: true, value: getLetter(x.length - 1) },
+                          i
+                        )
+                      : this.props.dataFn.listAppend(
+                          {
+                            value: '',
+                            key: getLetter(x.length - 1) + i,
+                            col: x.length,
+                            row: i
+                          },
+                          i
+                        )
                   );
                 }}
               />

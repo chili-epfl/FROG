@@ -72,10 +72,10 @@ class Command extends React.Component<PropsT, StateT> {
       <Grid container justify="center">
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="headline" color="secondary" gutterBottom>
+            <Typography variant="h5" color="secondary" gutterBottom>
               Question
             </Typography>
-            <Typography variant="subheading" gutterBottom>
+            <Typography variant="subtitle1" gutterBottom>
               {ticket}
             </Typography>
           </CardContent>

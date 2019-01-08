@@ -55,25 +55,32 @@ module.exports = {
         'Killing Node, cleaning all files and running initial setup'
       )
     },
-    server: fromRoot('cd frog && meteor', 'Starting Meteor'),
+    server: fromRoot(
+      'QUALIA_ONE_BUNDLE_TYPE=modern cd frog && meteor',
+      'Starting Meteor'
+    ),
     test: {
       default: fromRoot(
-        `nps -s flow.quiet eslint jest`,
+        `nps -s flow.quiet eslint.normal jest`,
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
-        `nps -s lockfiles flow.quiet eslint jest`,
+        `nps -s lockfiles flow.quiet eslint.normal jest`,
         'Running LockFiles, Flow, ESLint and Jest'
       )
     },
     eslint: {
       default: fromRoot(
-        'eslint -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx',
         'Running ESLint'
       ),
       fix: fromRoot(
-        'eslint --fix -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx',
         'Running ESLint in Fix mode'
+      ),
+      normal: fromRoot(
+        'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'Running ESLint in normal mode'
       )
     },
     flow: {
@@ -85,7 +92,7 @@ module.exports = {
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
     lockfiles: fromRoot(
-      'cmp --silent package-lock.json package-lock.json.orig && cmp --silent yarn.lock yarn.lock.orig || (echo Error: package-lock.json or yarn.lock is modified after a fresh install; exit 1)'
+      'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
     ),
     help
   },

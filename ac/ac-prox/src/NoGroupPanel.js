@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { shuffle } from 'lodash';
 import { withState, compose } from 'recompose';
 import styled from 'styled-components';
@@ -15,7 +15,7 @@ const Main = styled.div`
   align-items: stretch;
 `;
 
-const NoGroupPanelState = compose(
+const NoGroupPanelState: Function = compose(
   withState('textGrp', 'setText', ''),
   withState('errLog', 'setErr', '')
 );
@@ -80,6 +80,7 @@ const genCodeOfNChar = (n: number) =>
 
 const NewGroupButton = ({ onClickCreate }) => (
   <button
+    type="button"
     className="btn btn-primary"
     onClick={onClickCreate}
     style={{ height: '50px', margin: '5px' }}

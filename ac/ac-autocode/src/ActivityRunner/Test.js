@@ -1,7 +1,20 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { withState } from 'recompose';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import green from '@material-ui/core/colors/green';
+
+const styles = {
+  containedPrimary: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700]
+    }
+  },
+  root: { margin: '5px' }
+};
 
 const Test = ({
   status,
@@ -13,7 +26,8 @@ const Test = ({
   handleError,
   data,
   activityData,
-  logger
+  logger,
+  classes
 }: Object) => {
   let testOutput = [];
   let solutionOutput = [];
@@ -38,13 +52,13 @@ const Test = ({
     for (let i = 0; i < solutionOutput.length; i += 1)
       if (solutionOutput[i] !== studentOutput[i]) {
         return {
-          newStatus: 'danger',
+          newStatus: 'secondary',
           expected: '' + solutionOutput[i],
           received: '' + studentOutput[i]
         };
       }
     return {
-      newStatus: 'success',
+      newStatus: 'primary',
       expected: undefined,
       received: studentOutput
     };
@@ -66,7 +80,7 @@ const Test = ({
             logger({
               type: 'test',
               itemId: index,
-              value: newStatus,
+              value: newStatus === 'primary' ? 'success' : 'danger',
               payload: data.code
             });
             setStatus(newStatus);
@@ -86,7 +100,7 @@ const Test = ({
               value: 'error',
               payload: data.code
             });
-            setStatus('danger');
+            setStatus('secondary');
             const error = handleError(err, lengthLines(preCode));
             setFeedback({ error, inputDesc });
           }
@@ -94,7 +108,7 @@ const Test = ({
       },
       err => {
         // Teacher code error
-        setStatus('warning');
+        setStatus('secondary');
         const error = handleError(err, lengthLines(preCode));
         setFeedback({
           stdout: [
@@ -106,12 +120,27 @@ const Test = ({
       }
     );
   };
-
   return (
-    <button className={'btn btn-' + status} onClick={runTest}>
+    <Button
+      disableRipple
+      disableFocusRipple
+      classes={classes}
+      variant="contained"
+      color={status}
+      onClick={runTest}
+    >
       TEST {index + 1}
-    </button>
+    </Button>
   );
 };
 
-export default withState('status', 'setStatus', 'default')(Test);
+const StyledTest = withStyles(styles)(Test);
+StyledTest.displayName = 'TestButtons';
+
+const DefaultExport: React.ComponentType<*> = withState(
+  'status',
+  'setStatus',
+  undefined
+)(StyledTest);
+
+export default DefaultExport;

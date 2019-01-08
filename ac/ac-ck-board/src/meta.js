@@ -41,6 +41,7 @@ export const meta = {
   name: 'Common Knowledge board',
   mode: 'collab',
   shortDesc: '2D board for placing items',
+  supportsLearningItems: true,
   description:
     'All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.',
   exampleData: [
@@ -61,40 +62,57 @@ export const meta = {
       },
       data: {
         ...data,
-        cjjpgni2v001g6wiuf6qbgax6: {
-          id: 'cjjpgni2v001g6wiuf6qbgax6',
-          votes: {},
-          comment: '',
+        cjmj4j8es008ukwj05d861www: {
+          id: 'cjmj4j8es008ukwj05d861www',
           li: {
-            id: 'cjjpgni2h000c6wiu0xp0ukp5',
+            id: 'cjmj4j8ep0062kwj0tld7kswu',
             liDocument: {
               liType: 'li-hypothesis',
-              createdAt: '2018-07-17T08:53:26.969Z',
+              createdAt: '2018-09-26T12:26:42.385Z',
               createdBy: 'op-hypothesis',
               payload: {
-                content:
-                  "This is a great example of Kohonen's Self-organizing Maps  and the use of the U-Matrix. The authors were very thorough in explaining how it can be used.",
-                title: 'Appendix. Technical demonstration of the SOMprocedure',
-                doc: 'doi:10.1016/j.ejor.2006.06.006'
+                rows: [
+                  {
+                    username: 'Alan Henness',
+                    text:
+                      'Comment submitted, awaiting approval:\n\nYou stated:\n\n"On the 16th June 2017, The Swiss Federal Government issued a press release  [13] ..."\n\nThe document you linked to is a press release by Dachverband Komplementärmedizin, the  Swiss Umbrella Association for Complementary Medicine, not the Swiss Federal Government.\n\n"The Swiss Federal Government acknowledges that complementary medicine meets insurance regulations (Swiss Federal Health Insurance Act 1996) when it comes to effectiveness, guaranteeing high quality and safety."\n\nThe Swiss government stated:\n\n"The remuneration for the services is provisional and limited in time, because it is not necessary to prove that the services of the four complementary medical disciplines are effective, expedient and economic. It has now been shown that this proof for the disciplines is not possible."\n\nhttps://www.admin.ch/gov/de/start/dokumentation/medienmitteilungen.msg-id-61140.html (translation from German to English by Google)',
+                    date: 'Thu Aug 09 2018',
+                    quotation:
+                      '2. Complementary Medicine (including Homeopathy) in Switzerland:\nComplementary medicine in Switzerland is now a mandatory health insurance service: The Swiss Federal Government acknowledges that complementary medicine meets insurance regulations (Swiss Federal Health Insurance Act 1996) when it comes to effectiveness, guaranteeing high quality and safety.\nOn the 16th June 2017, The Swiss Federal Government issued a press release [13] announcing that specific medical services using complementary medicine are to be covered by mandatory health insurance (basic insurance) as of 1st August 2017. The following disciplines of complementary medicine will be fully covered: Classical Homeopathy, Anthroposophical Medicine, Traditional Chinese Medicine and Herbal Medicine, provided they are practised by conventional medical practitioners who have an additional qualification in one of the four disciplines as recognised by the Swiss Medical Association. This implements one of the key demands of the Swiss constitutional referendum held on 17th May 2009.',
+                    article:
+                      'Positive Health Online | Article - The UK Natio...',
+                    articleSite: 'www.positivehealth.com',
+                    id: 'WvGbgptgEeiX8UcEPNLgjw',
+                    updated: '2018-08-08T23:11:17.911170+00:00'
+                  }
+                ]
               }
             }
           }
         },
-        cjjpgni2w001h6wiu2wnhdnmf: {
-          id: 'cjjpgni2w001h6wiu2wnhdnmf',
-          votes: {},
-          comment: '',
+        cjmj4j8es008vkwj0fppeayx5: {
+          id: 'cjmj4j8es008vkwj0fppeayx5',
           li: {
-            id: 'cjjpgni2h000d6wiuekzknfjb',
+            id: 'cjmj4j8ep0063kwj07kte5sbp',
             liDocument: {
               liType: 'li-hypothesis',
-              createdAt: '2018-07-17T08:53:26.969Z',
+              createdAt: '2018-09-26T12:26:42.385Z',
               createdBy: 'op-hypothesis',
               payload: {
-                content: 'Data Structure',
-                title:
-                  'The SOM consisted of 360 neurons on a 24by  15  map  grid,  with  hexagonal  lattice  andGaussian neighborhood  function.',
-                doc: 'doi:10.1016/j.ejor.2006.06.006'
+                rows: [
+                  {
+                    username: 'Alan Henness',
+                    text:
+                      'This is incorrect.\n\nIt was not a Health Technology Assessment and this error by many homeopaths has been corrected by [Dr Felix Gurtner](https://smw.ch/article/doi/smw.2012.13723) of the Federal Office of Public Health FOPH, Health and Accident Insurance Directorate, Bern, Switzerland.',
+                    date: 'Sun Jul 15 2018',
+                    quotation: 'Health Technology Assessment',
+                    article:
+                      "Formal Complaint Against BC's Provincial Health...",
+                    articleSite: 'www.drzimmermann.org',
+                    id: 'i0f0NohOEeicS-9p3iOj4Q',
+                    updated: '2018-07-15T16:45:55.818919+00:00'
+                  }
+                ]
               }
             }
           }

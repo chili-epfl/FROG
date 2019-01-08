@@ -29,10 +29,20 @@ export const config = {
       title: 'Should students comment on Learning Items?',
       type: 'boolean'
     },
+    canSearch: {
+      title: 'Enable filtering/searching Learning Items',
+      type: 'boolean'
+    },
+    canBookmark: {
+      title:
+        'Enable bookmarking (starring) items, and toggle to view only starred items',
+      type: 'boolean'
+    },
     commentGuidelines: {
       title: 'Comment guidelines',
       type: 'string'
     },
+    expand: { title: 'Expand Learning Items', type: 'boolean' },
     hideCategory: {
       title: 'Hide the categories',
       type: 'boolean'

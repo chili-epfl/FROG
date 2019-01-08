@@ -104,17 +104,19 @@ export const getActivityDataFromReactive = (
 };
 
 const ensure = (activityId: string) => {
+  const product = getActivityDataFromReactive(activityId);
   Products.update(
     activityId,
     {
       $set: {
-        activityData: getActivityDataFromReactive(activityId),
+        activityData: product,
         type: 'product'
       }
     },
     { upsert: true }
   );
   Activities.update(activityId, { $set: { state: 'computed' } });
+  return product;
 };
 
 Meteor.methods({ 'reactive.to.product': id => ensure(id) });

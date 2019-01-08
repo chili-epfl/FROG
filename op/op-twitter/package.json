@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react-tweet": "1.7.1",
+    "@houshuang/react-tweet": "1.7.2",
     "twit": "^2.2.10"
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
-const chokidar = require('chokidar');
-const { sync } = require('find-up');
 const { dirname } = require('path');
 const childProcess = require('child_process');
 const fs = require('fs');
+const { sync } = require('find-up');
+const chokidar = require('chokidar');
 
 const dir = dirname(sync('.git'));
 

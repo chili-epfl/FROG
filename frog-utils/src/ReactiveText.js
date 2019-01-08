@@ -7,7 +7,9 @@ type ReactivePropsT = {
   path: string | string[],
   dataFn: Object,
   type: 'textarea' | 'textinput',
-  logger?: LogT => void
+  logger?: LogT => void,
+  focus?: boolean,
+  onKeyDown?: Function
 };
 
 export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
@@ -27,6 +29,9 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
 
   componentDidMount() {
     this.update(this.props);
+    if (this.props.focus) {
+      this.textRef.focus();
+    }
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -58,7 +63,7 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
   }
 
   render() {
-    const rest = omit(this.props, ['logger', 'path', 'dataFn']);
+    const rest = omit(this.props, ['focus', 'logger', 'path', 'dataFn']);
     if (this.props.dataFn.readOnly) {
       rest.value = get(this.props.dataFn.doc.data, this.props.path);
       rest.readOnly = true;
@@ -67,10 +72,13 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
     return this.props.type === 'textarea' ? (
       <div className="bootstrap">
         <textarea
-          ref={ref => (this.textRef = ref)}
+          ref={ref => {
+            this.textRef = ref;
+          }}
           className="form-control"
           defaultValue=""
           {...rest}
+          onKeyDown={this.props.onKeyDown}
           onBlur={() => this.log('blur')}
           onFocus={() => this.log('focus')}
         />
@@ -80,9 +88,12 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
         <input
           type="text"
           className="form-control"
-          ref={ref => (this.textRef = ref)}
+          ref={ref => {
+            this.textRef = ref;
+          }}
           defaultValue=""
           {...rest}
+          onKeyDown={this.props.onKeyDown}
           onBlur={() => this.log('blur')}
           onFocus={() => this.log('focus')}
         />

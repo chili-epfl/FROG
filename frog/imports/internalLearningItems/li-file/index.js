@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import { withState, compose } from 'recompose';
 import getFA from 'font-awesome-filetypes';
@@ -22,46 +23,47 @@ const ImgButton = styled.button`
   flex: 0 1 auto;
 `;
 
-export const Creator = compose(
+export const Creator: React.ComponentType<*> = compose(
   withState('spinner', 'setSpinner', false),
   withState('webcamOn', 'setWebcam', false)
-)(
-  props =>
-    props.spinner ? (
-      <CircularProgress />
-    ) : (
-      <React.Fragment>
-        <UploadBar {...props} />
-        {props.webcamOn && <WebcamInterface {...props} />}
-      </React.Fragment>
-    )
+)(props =>
+  props.spinner ? (
+    <CircularProgress />
+  ) : (
+    <React.Fragment>
+      <UploadBar {...props} />
+      {props.webcamOn && <WebcamInterface {...props} />}
+    </React.Fragment>
+  )
 );
 
 Creator.displayName = 'Creator';
 
-const ThumbViewer = ({ data }: { data: any }) => (
-  <ImgButton>
-    <span>
-      <p className="bootstrap">
-        <i
-          style={{ fontSize: '120px' }}
-          className={'fa ' + getFA(data.ext || '')}
-          aria-hidden="true"
-        />
-      </p>
-      {data.filename}
-    </span>
-  </ImgButton>
-);
+const ThumbViewer = ({ data, search }: { data: any, search?: string }) =>
+  search ? null : (
+    <ImgButton>
+      <span>
+        <p className="bootstrap">
+          <i
+            style={{ fontSize: '120px' }}
+            className={'fa ' + getFA(data.ext || '')}
+            aria-hidden="true"
+          />
+        </p>
+        {data.filename}
+      </span>
+    </ImgButton>
+  );
 
 export default ({
   name: 'file',
   id: 'li-file',
-  Viewer: ({ data }: { data: any }) => (
-    <a href={data.url} download={data.filename}>
-      <h2>Click here to download file {data.filename}</h2>
-    </a>
-  ),
+  Viewer: ({ data, search }: { data: any, search?: string }) =>
+    search ? null : (
+      <a href={data.url} download={data.filename}>
+        <h2>Click here to download file {data.filename}</h2>
+      </a>
+    ),
   ThumbViewer,
   Creator,
   createPayload: (payload, dataFn, createLearningItem) =>

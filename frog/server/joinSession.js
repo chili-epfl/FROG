@@ -12,16 +12,18 @@ function sessionJoin(slug: string) {
   if (!session) {
     return { result: 'error', message: 'No such session' };
   }
-  if (session.tooLate && !session.ownerId === this.userId) {
+  if (
+    session.tooLate &&
+    session.ownerId !== this.userId &&
+    !session?.settings?.allowLateLogin
+  ) {
     return {
       result: 'error',
       message: 'Unfortunately it is too late to join this session.'
     };
   }
-
   Meteor.users.update(this.userId, { $push: { joinedSessions: slug } });
   ensureReactive(session._id, this.userId);
   return { result: 'success' };
 }
-
 Meteor.methods({ 'session.join': sessionJoin });

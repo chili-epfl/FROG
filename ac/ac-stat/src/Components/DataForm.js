@@ -148,17 +148,19 @@ const RefreshDataset = ({
 
 const displayEntry = e => {
   const x = Number(e);
+  const between = (a, mini, maxi) => a > mini && a < maxi;
   if (Number.isNaN(x)) {
     return e;
-  } else if (x >= 1000 || x < 0.1) {
-    return x.toExponential(2);
+  } else if (x === 0 || between(x, 0.1, 10000) || between(x, -10000, -0.1)) {
+    return Number.isInteger(x) ? x : x.toFixed(2);
   } else {
-    return x.toFixed(2);
+    return x.toExponential(2);
   }
 };
 
 class Data extends React.Component<*, *> {
   el: any;
+
   state = {
     selected: [-1, -1],
     cellStr: '',
@@ -174,16 +176,13 @@ class Data extends React.Component<*, *> {
         : [...data.values].sort((a, b) => a[sort] - b[sort]);
     const sortedData = { columns: data.columns, values };
 
-    if (!data || !data.columns) {
-      return <p>no data</p>;
-    }
-
     return (
       <Paper className={classes.root}>
         <div className={classes.header}>
           <DatasetSelector {...this.props} />
-          <RefreshDataset {...this.props} />
+          {editable && <RefreshDataset {...this.props} />}
         </div>
+        <div className={classes.header}>n: {sortedData.values.length}</div>
         <div className={classes.table}>
           <Table>
             <TableHeader

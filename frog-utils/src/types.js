@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import type { Doc } from './generateReactiveFn';
 
 export type ActivityDbT = {|
   _id: string,
@@ -136,6 +135,7 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
+    supportsLearningItems?: boolean,
     exampleData?: {
       title: string,
       config?: Object,
@@ -167,6 +167,7 @@ export type ActivityPackageT = {
 };
 
 export type DashboardT = {
+  displayCondition?: string | ((obj: Object) => boolean),
   Viewer: React.ComponentType<DashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
@@ -180,7 +181,7 @@ export type DashboardT = {
         activityMerge?: Object,
         instances?: number
       }
-    | { title: string, type: 'state', activityMerge?: Object, state: any }
+    | { type: 'state', title: string, activityMerge?: Object, state: Object }
   )[],
   exampleData?: { title: string, path: string }[]
 };
@@ -189,7 +190,8 @@ export type DashboardViewerPropsT = {
   users: { [uid: string]: string },
   activity: ActivityDbT,
   instances: Array<string>,
-  state: any
+  state: any,
+  object: ObjectT & GlobalStructureT
 };
 
 export type productOperatorT = {
@@ -317,17 +319,28 @@ export type LIComponentPropsT =
       meta?: Object,
       payload: Object
     |}
-  | {| type: 'view', id: string | ImmutableLIT, render?: LIRenderT |}
+  | {|
+      type: 'view',
+      id: string | ImmutableLIT,
+      render?: LIRenderT,
+      search?: string,
+      notEmpty?: boolean
+    |}
   | {|
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      clickZoomable?: boolean
+      clickZoomable?: boolean,
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'edit',
       id: string,
-      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+      render?: React.ComponentType<{
+        ...{| dataFn: Object |},
+        ...LIRenderPropsT
+      }>
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
@@ -336,22 +349,27 @@ export type LearningItemT<T> = {
   name: string,
   id: string,
   dataStructure?: T,
+  canDropLI?: boolean,
   Editor?: React.ComponentType<{
     data: T,
-    dataFn: Doc,
-    LearningItem: LearningItemComponentT
+    dataFn: Object,
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Creator?: React.ComponentType<{
     createLearningItem: Function,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   ThumbViewer?: React.ComponentType<{
     data: T,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   Viewer?: React.ComponentType<{
     data: T,
-    LearningItem: LearningItemComponentT
+    LearningItem: LearningItemComponentT,
+    search?: string
   }>,
   createPayload?: Function
 };

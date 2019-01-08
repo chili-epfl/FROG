@@ -13,12 +13,16 @@ const splitArray = (ary, splits) => {
 
 const operator = (configData, object) => {
   const { globalStructure } = object;
+  const ids = shuffle(globalStructure.studentIds);
+
   const newGrouping =
     configData.grouping && configData.grouping.length > 0
       ? configData.grouping
       : 'group';
 
-  const ids = shuffle(globalStructure.studentIds);
+  if (ids.length === 0) {
+    return { [newGrouping]: {} };
+  }
   let struct: string[][];
   if (configData.groupnumber) {
     let globalnum = configData.globalnum;
@@ -28,9 +32,7 @@ const operator = (configData, object) => {
     struct = splitArray(ids, globalnum);
   } else {
     if (ids && configData.groupsize >= ids.length) {
-      return {
-        [newGrouping]: { '1': ids }
-      };
+      return { [newGrouping]: { '1': ids } };
     }
 
     struct = chunk(ids, configData.groupsize);

@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scale2
+spec:
+  parallelism: 300 
+  template:
+    metadata:
+      name: scale
+    spec:
+      containers:
+      - name: scale
+        image: houshuang/scale
+      restartPolicy: Never

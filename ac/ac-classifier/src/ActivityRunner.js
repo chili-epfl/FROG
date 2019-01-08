@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import Mousetrap from 'mousetrap';
 import styled from 'styled-components';
 import { withState } from 'recompose';
@@ -41,13 +41,13 @@ type RunnerStateT = {
   categories: string[]
 };
 
-class Runner extends Component<Object, RunnerStateT> {
+class Runner extends React.Component<Object, RunnerStateT> {
   assignCategory = categoryName => {
-    const { dataFn, setObjectKey } = this.props;
+    const { dataFn, setObjectKey, logger } = this.props;
     const { objectKeyPlus } = this.state;
     if (!objectKeyPlus) return;
     dataFn.objInsert(categoryName, [objectKeyPlus, 'category']);
-    this.props.logger({
+    logger({
       type: 'assign.category',
       itemId: objectKeyPlus,
       value: categoryName
@@ -56,14 +56,14 @@ class Runner extends Component<Object, RunnerStateT> {
   };
 
   assignSelect = () => {
-    const { data, dataFn } = this.props;
+    const { data, dataFn, logger } = this.props;
     const { objectKeyPlus } = this.state;
     if (!objectKeyPlus) return;
     dataFn.objInsert(!data[objectKeyPlus].selected, [
       objectKeyPlus,
       'selected'
     ]);
-    this.props.logger({ type: 'select', itemId: objectKeyPlus });
+    logger({ type: 'select', itemId: objectKeyPlus });
   };
 
   initProps(props) {
@@ -114,12 +114,11 @@ class Runner extends Component<Object, RunnerStateT> {
   }
 
   moveIndex(direction: number) {
-    const index = findIndex(
-      this.state.objects,
-      x => x.key === this.state.objectKeyPlus
-    );
-    if (this.state.objects[index + direction]) {
-      this.props.setObjectKey(this.state.objects[index + direction].key);
+    const { objects, objectKeyPlus } = this.state;
+    const { setObjectKey } = this.props;
+    const index = findIndex(objects, x => x.key === objectKeyPlus);
+    if (objects[index + direction]) {
+      setObjectKey(objects[index + direction].key);
     }
   }
 
@@ -153,4 +152,10 @@ class Runner extends Component<Object, RunnerStateT> {
   }
 }
 
-export default withState('objectKey', 'setObjectKey', null)(Runner);
+const DefaultExport: React.ComponentType<*> = withState(
+  'objectKey',
+  'setObjectKey',
+  null
+)(Runner);
+
+export default DefaultExport;
