@@ -65,8 +65,9 @@ class ActivityRunner extends React.Component<
   render() {
     const { activityData, data, dataFn, userInfo, logger, stream } = this.props;
     const { category, index, zoomOn } = this.state;
+    const config = activityData.config;
 
-    const minVoteT = activityData.config.minVote || 1;
+    const minVoteT = config.minVote || 1;
 
     const learningItems = Object.keys(data)
       .map(key => ({ ...data[key], key }))
@@ -87,16 +88,15 @@ class ActivityRunner extends React.Component<
     const setZoom = (z: boolean) => this.setState({ zoomOn: z });
     const setIndex = (i: number) => this.setState({ index: i });
 
-    const showCategories =
-      category === 'categories' && !activityData.config.hideCategory;
+    const showCategories = category === 'categories' && !config.hideCategory;
 
     return (
       <>
         <TopBar
           categories={[...Object.keys(this.categories)]}
-          canVote={activityData.config.canVote}
-          hideCategory={activityData.config.hideCategory}
-          guidelines={activityData.config.guidelines}
+          canVote={config.canVote}
+          hideCategory={config.hideCategory}
+          guidelines={config.guidelines}
           {...{ setCategory, setZoom, category }}
         />
         <ThumbList
@@ -111,18 +111,18 @@ class ActivityRunner extends React.Component<
             setIndex,
             logger,
             showCategories,
-            expand: activityData.config.expand,
+            expand: config.expand,
             LearningItem: dataFn.LearningItem,
-            canSearch: activityData.config.canSearch,
-            searchCollab: activityData.config.searchCollab,
-            canBookmark: activityData.config.canBookmark
+            canSearch: config.canSearch,
+            searchCollab: config.searchCollab,
+            canBookmark: config.canBookmark
           }}
-          canVote={activityData.config.canVote}
+          canVote={config.canVote}
         />
-        {activityData.config.provideDefault && (
+        {config.provideDefault && (
           <div style={{ position: 'absolute', bottom: '10px', width: '800px' }}>
             <dataFn.LearningItem
-              liType={activityData.config.liType}
+              liType={config.liType}
               stream={stream}
               meta={{
                 comment: '',
@@ -137,7 +137,7 @@ class ActivityRunner extends React.Component<
             />
           </div>
         )}
-        {activityData.config.allowAny && (
+        {config.allowAny && (
           <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
             <dataFn.LearningItem
               stream={stream}
@@ -154,21 +154,24 @@ class ActivityRunner extends React.Component<
             />
           </div>
         )}
-        {category !== 'categories' && zoomOn && (
-          <ZoomView
-            index={index}
-            commentBox={activityData.config.canComment}
-            commentGuidelines={activityData.config.commentGuidelines}
-            close={() => setZoom(false)}
-            {...{
-              learningItems,
-              LearningItem: dataFn.LearningItem,
-              setIndex,
-              dataFn,
-              logger
-            }}
-          />
-        )}
+        {category !== 'categories' &&
+          zoomOn && (
+            <ZoomView
+              key={index}
+              index={index}
+              commentBox={config.canComment}
+              commentGuidelines={config.commentGuidelines}
+              close={() => setZoom(false)}
+              bigZoom={config.bigZoom}
+              {...{
+                learningItems,
+                LearningItem: dataFn.LearningItem,
+                setIndex,
+                dataFn,
+                logger
+              }}
+            />
+          )}
       </>
     );
   }
