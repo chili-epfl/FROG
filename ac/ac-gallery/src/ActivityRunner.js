@@ -154,24 +154,23 @@ class ActivityRunner extends React.Component<
             />
           </div>
         )}
-        {category !== 'categories' &&
-          zoomOn && (
-            <ZoomView
-              key={index}
-              index={index}
-              commentBox={config.canComment}
-              commentGuidelines={config.commentGuidelines}
-              close={() => setZoom(false)}
-              bigZoom={config.bigZoom}
-              {...{
-                learningItems,
-                LearningItem: dataFn.LearningItem,
-                setIndex,
-                dataFn,
-                logger
-              }}
-            />
-          )}
+        {category !== 'categories' && zoomOn && (
+          <ZoomView
+            key={index}
+            index={index}
+            commentBox={config.canComment}
+            commentGuidelines={config.commentGuidelines}
+            close={() => setZoom(false)}
+            bigZoom={config.bigZoom}
+            {...{
+              learningItems,
+              LearningItem: dataFn.LearningItem,
+              setIndex,
+              dataFn,
+              logger
+            }}
+          />
+        )}
       </>
     );
   }

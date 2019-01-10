@@ -15,6 +15,9 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'react/no-unused-prop-types': 'off',
+    'react/no-access-state-in-setstate': 'off',
+    'react/button-has-type': 'off',
     'react/destructuring-assignment': 'off',
     'import/imports-first': ['warn', 'DISABLE-absolute-first'],
     'import/order': ['error', { groups: ['builtin', 'external'] }],
@@ -62,7 +65,6 @@ module.exports = {
     'no-use-before-define': 'off',
     'prefer-destructuring': 'off',
     'prefer-template': 'off',
-    'react/destructuring-assignment': 'off',
     'react/jsx-closing-bracket-location': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-indent': 'off',

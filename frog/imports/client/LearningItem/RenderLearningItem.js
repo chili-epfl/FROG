@@ -46,24 +46,23 @@ const withNullCheck = ({
           >
             {result}
           </MaybeClickable>
-          {this.props.open &&
-            liType.Viewer && (
-              <Dialog
-                maxWidth={false}
-                open
-                onClose={() => {
-                  setOpen(false);
-                }}
-              >
-                <liType.Viewer
-                  type="view"
-                  isPlayback={isPlayback}
-                  data={data.payload}
-                  dataFn={dataFn}
-                  LearningItem={dataFn && dataFn.LearningItem}
-                />
-              </Dialog>
-            )}
+          {this.props.open && liType.Viewer && (
+            <Dialog
+              maxWidth={false}
+              open
+              onClose={() => {
+                setOpen(false);
+              }}
+            >
+              <liType.Viewer
+                type="view"
+                isPlayback={isPlayback}
+                data={data.payload}
+                dataFn={dataFn}
+                LearningItem={dataFn && dataFn.LearningItem}
+              />
+            </Dialog>
+          )}
         </>
       );
       if (render) {
