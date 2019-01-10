@@ -98,11 +98,10 @@ const operator = (configData: {
       const numFetches = Math.ceil(Math.min(limit, e.total) / 200);
       const fetches = new Array(numFetches).fill().map((_, i) =>
         fetch(
-          `https://hypothes.is/api/search?${query}&limit=${(configData.limit &&
-            configData.limit > 0 &&
-            configData.limit < 200 &&
-            configData.limit) ||
-            200}&offset=${i * 200}`,
+          `https://hypothes.is/api/search?${query}&limit=${Math.min(
+            limit - i * 200,
+            200
+          )}&offset=${i * 200}`,
           configData.token && {
             headers: {
               Authorization: 'Bearer ' + configData.token
