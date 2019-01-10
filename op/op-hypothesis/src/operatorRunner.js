@@ -98,7 +98,6 @@ const operator = (configData: {
         MAX_LIMIT
       );
       const numFetches = Math.ceil(Math.min(limit, e.total) / 200);
-      console.log(e.total, limit, numFetches);
       const fetches = new Array(numFetches)
         .fill()
         .map((_, i) =>
