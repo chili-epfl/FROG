@@ -55,11 +55,15 @@ const styles = () => ({
     height: '100%',
     background: '#fff0'
   },
+  liZoomContainer: {
+    maxHeight: '90%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
   liRoot: {
     zIndex: 2,
-    position: 'relative',
-    width: '600px',
-    maxHeight: '600px',
+    width: '100%',
+    maxWidth: '600px',
     display: 'flex',
     flexDirection: 'column'
   },
@@ -230,16 +234,18 @@ const ZoomViewInfoTable = props => (
 const ZoomViewRaw = ({ close, id, classes }: Object) => (
   <div className={classes.zoomViewContainer}>
     <div onClick={close} className={classes.closeZoom} />
-    <LearningItem
-      id={id}
-      type="history"
-      render={props => (
-        <Paper className={classes.liRoot} elevation={8}>
-          <div style={{ flex: 1, overflow: 'auto' }}>{props.children}</div>
-          <ZoomViewInfoTable {...props} />
-        </Paper>
-      )}
-    />
+    <div className={classes.liZoomContainer}>
+      <LearningItem
+        id={id}
+        type="history"
+        render={props => (
+          <Paper className={classes.liRoot} elevation={8}>
+            <div style={{ flex: 1, overflow: 'auto' }}>{props.children}</div>
+            <ZoomViewInfoTable {...props} />
+          </Paper>
+        )}
+      />
+    </div>
   </div>
 );
 
