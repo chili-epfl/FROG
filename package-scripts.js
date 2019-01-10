@@ -1,5 +1,5 @@
-const { sync } = require('find-up');
 const { dirname } = require('path');
+const { sync } = require('find-up');
 
 const help = `echo '
        FROG scripts:
