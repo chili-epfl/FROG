@@ -27,7 +27,7 @@ export const config = {
     limit: {
       default: 20,
       type: 'number',
-      title: 'Max number of items to fetch'
+      title: 'Max number of items to fetch (must be less than 1000)'
     },
     afterDate: {
       type: 'string',
