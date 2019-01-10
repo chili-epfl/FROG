@@ -81,7 +81,7 @@ const operator = (configData: {
     url: configData.url,
     any: configData.search,
     group: configData.group,
-    limit: configData.limit || 0
+    limit: 1
   });
   const url = 'https://hypothes.is/api/search?' + query;
   return fetch(
