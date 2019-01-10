@@ -7,3 +7,5 @@ templates/*
 frogapi-test/**
 frog/packages/*
 **/clientFiles/*
+ac/ac-autocode/src/lib/**
+
