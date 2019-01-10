@@ -8,7 +8,8 @@ const styles = () => ({
   root: {
     height: '100%',
     width: '100%',
-    padding: '20px'
+    padding: '20px',
+    overflow: 'auto'
   },
   image: {
     position: 'relative',
