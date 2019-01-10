@@ -183,14 +183,21 @@ class Dashboard extends React.Component<any, any> {
         )}
         <div className={classes.liList}>
           {res.map(x => (
-            <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
-              <ImageBox
-                key={x.id}
-                onClick={() => this.setState({ zoom: x.id })}
-              >
-                <LearningItem type="thumbView" id={x.id} />
-              </ImageBox>
-            </Tooltip>
+            <LearningItem
+              notEmpty
+              type="thumbView"
+              id={x.id}
+              render={({ children }) => (
+                <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
+                  <ImageBox
+                    key={x.id}
+                    onClick={() => this.setState({ zoom: x.id })}
+                  >
+                    {children}
+                  </ImageBox>
+                </Tooltip>
+              )}
+            />
           ))}
         </div>
         {this.state.zoom && (
