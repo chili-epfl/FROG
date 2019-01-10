@@ -27,7 +27,7 @@ export const config = {
     limit: {
       default: 20,
       type: 'number',
-      title: 'Max number of items to fetch'
+      title: 'Max number of items to fetch (must be less than 1000)'
     },
     afterDate: {
       type: 'string',
@@ -43,7 +43,14 @@ const validateConfig = [
   formData =>
     formData.tag || formData.url || formData.search || formData.group
       ? null
-      : { err: 'You need either tag, URL, group, or search term' }
+      : { err: 'You need either tag, URL, group, or search term' },
+  formData =>
+    formData.limit > 1000
+      ? {
+          err:
+            'The limit cannot be above 1000, because of Hypothes.is API limits'
+        }
+      : null
 ];
 
 export default ({

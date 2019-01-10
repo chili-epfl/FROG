@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Meteor } from 'meteor/meteor';
-import styled from 'styled-components';
 import {
   Paper,
   Tooltip,
@@ -27,6 +26,53 @@ import { connection } from '../App/connection';
 const doc = connection.get('li', 'displayLI');
 const dataFn = generateReactiveFn(doc, LI);
 const LearningItem = dataFn.LearningItem;
+
+const styles = () => ({
+  dashboardContainer: {
+    position: 'relative',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  zoomViewContainer: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: '#2228',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  closeZoom: {
+    position: 'absolute',
+    zIndex: 0,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: '#fff0'
+  },
+  liZoomContainer: {
+    maxHeight: '90%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  liRoot: {
+    zIndex: 2,
+    width: '100%',
+    maxWidth: '600px',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  liList: {
+    flex: 1,
+    position: 'relative',
+    overflow: 'auto'
+  }
+});
 
 class MyMenu extends React.Component<any, any> {
   state = { open: false };
@@ -86,6 +132,8 @@ class Dashboard extends React.Component<any, any> {
   }
 
   render() {
+    const { classes } = this.props;
+
     let res = this.state.results;
     if (this.state.filter) {
       res = this.state.results.filter(
@@ -100,7 +148,7 @@ class Dashboard extends React.Component<any, any> {
     const graphId =
       this.props.sessionId && Sessions.findOne(this.props.sessionId).graphId;
     return (
-      <div style={{ height: '900px' }}>
+      <div className={classes.dashboardContainer}>
         {this.props.sessionId && (
           <div>
             <MyMenu
@@ -133,13 +181,25 @@ class Dashboard extends React.Component<any, any> {
             />
           </div>
         )}
-        {res.map(x => (
-          <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
-            <ImageBox key={x.id} onClick={() => this.setState({ zoom: x.id })}>
-              <LearningItem type="thumbView" id={x.id} />
-            </ImageBox>
-          </Tooltip>
-        ))}
+        <div className={classes.liList}>
+          {res.map(x => (
+            <LearningItem
+              notEmpty
+              type="thumbView"
+              id={x.id}
+              render={({ children }) => (
+                <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
+                  <ImageBox
+                    key={x.id}
+                    onClick={() => this.setState({ zoom: x.id })}
+                  >
+                    {children}
+                  </ImageBox>
+                </Tooltip>
+              )}
+            />
+          ))}
+        </div>
         {this.state.zoom && (
           <ZoomView
             id={this.state.zoom}
@@ -150,79 +210,52 @@ class Dashboard extends React.Component<any, any> {
     );
   }
 }
-// @flow
 
-const zoomstyles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 36,
-    paddingBottom: 16,
-    height: '100%'
-  })
-});
-
-const ZoomContainer = styled.div`
-  position: absolute;
-  top: 10%;
-  z-index: 1;
-  width: 600px;
-  background: rgba(50, 50, 50, 0.8);
-`;
-
-const ZoomViewRaw = ({ close, id, classes }: Object) => (
-  <ZoomContainer>
-    <LearningItem
-      id={id}
-      type="history"
-      render={props => (
-        <Paper className={classes.root} elevation={24}>
-          <div className="bootstrap">
-            <button
-              type="button"
-              onClick={close}
-              className="btn btn-secondary"
-              style={{ position: 'absolute', right: '0px' }}
-            >
-              <span className="glyphicon glyphicon-remove" />
-            </button>
-          </div>
-          <div style={{ layout: 'flex', flexDirection: 'row' }}>
-            <div style={{ marginBottom: '50px' }}>{props.children}</div>
-            <hr />
-            <Table>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Learning Item Type</TableCell>
-                  <TableCell>
-                    {learningItemTypesObj[props.liType].name}
-                  </TableCell>
-                  <TableCell>Created by</TableCell>
-                  <TableCell>
-                    {Meteor.users.findOne(props.data.createdByUser)?.username}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Created by group</TableCell>
-                  <TableCell>
-                    {JSON.stringify(props.data.createdByInstance)}
-                  </TableCell>
-                  <TableCell>Created in activity</TableCell>
-                  <TableCell>
-                    {Activities.findOne(props.data.createdInActivity)?.title}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Created at</TableCell>
-                  <TableCell>{props.data.createdAt || ''}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
-        </Paper>
-      )}
-    />
-  </ZoomContainer>
+const ZoomViewInfoTable = props => (
+  <Table>
+    <TableBody>
+      <TableRow>
+        <TableCell>Learning Item Type</TableCell>
+        <TableCell>{learningItemTypesObj[props.liType].name}</TableCell>
+        <TableCell>Created by</TableCell>
+        <TableCell>
+          {Meteor.users.findOne(props.data.createdByUser)?.username}
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Created by group</TableCell>
+        <TableCell>{JSON.stringify(props.data.createdByInstance)}</TableCell>
+        <TableCell>Created in activity</TableCell>
+        <TableCell>
+          {Activities.findOne(props.data.createdInActivity)?.title}
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Created at</TableCell>
+        <TableCell>{props.data.createdAt || ''}</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
 );
 
-const ZoomView = withStyles(zoomstyles)(ZoomViewRaw);
+const ZoomViewRaw = ({ close, id, classes }: Object) => (
+  <div className={classes.zoomViewContainer}>
+    <div onClick={close} className={classes.closeZoom} />
+    <div className={classes.liZoomContainer}>
+      <LearningItem
+        id={id}
+        type="history"
+        render={props => (
+          <Paper className={classes.liRoot} elevation={8}>
+            <div style={{ flex: 1, overflow: 'auto' }}>{props.children}</div>
+            <ZoomViewInfoTable {...props} />
+          </Paper>
+        )}
+      />
+    </div>
+  </div>
+);
 
-export default Dashboard;
+const ZoomView = withStyles(styles)(ZoomViewRaw);
+
+export default withStyles(styles)(Dashboard);
