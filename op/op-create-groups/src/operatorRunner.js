@@ -1,15 +1,6 @@
 // @flow
-import { shuffle, chunk, compact, range } from 'lodash';
+import { shuffle, chunk, compact } from 'lodash';
 import { type socialOperatorRunnerT } from 'frog-utils';
-
-const splitArray = (ary, splits) => {
-  const grpsize = Math.round(ary.length / splits);
-  const grps = range(1, splits).map(() => ary.splice(-grpsize));
-  if (ary.length > 0) {
-    grps.push(ary);
-  }
-  return grps;
-};
 
 const operator = (configData, object) => {
   const { globalStructure } = object;
@@ -25,11 +16,10 @@ const operator = (configData, object) => {
   }
   let struct: string[][];
   if (configData.groupnumber) {
-    let globalnum = configData.globalnum;
-    if (ids && configData.globalnum >= ids.length) {
-      globalnum = ids.length;
-    }
-    struct = splitArray(ids, globalnum);
+    struct = new Array(configData.globalnum).fill(null).map(() => []);
+    ids.forEach((instanceId, idx) => {
+      struct[idx % configData.globalnum].push(instanceId);
+    });
   } else {
     if (ids && configData.groupsize >= ids.length) {
       return { [newGrouping]: { '1': ids } };
