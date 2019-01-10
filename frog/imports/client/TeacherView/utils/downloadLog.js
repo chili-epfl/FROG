@@ -14,6 +14,10 @@ const activityInfo = (id: string): [string, string, string] => {
     return activities[id];
   }
   const act = Activities.findOne(id);
+
+  if (!act) {
+    return [id, '', ''];
+  }
   activities[id] = [act.title, act.activityType, act.plane];
   return activities[id];
 };
