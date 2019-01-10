@@ -339,7 +339,8 @@ export type LIComponentPropsT =
       render?: React.ComponentType<{
         ...{| dataFn: Object |},
         ...LIRenderPropsT
-      }>
+      }>,
+      notEmpty?: boolean
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;

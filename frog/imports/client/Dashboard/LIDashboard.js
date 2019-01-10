@@ -177,6 +177,7 @@ const ZoomViewRaw = ({ close, id, classes }: Object) => (
         <Paper className={classes.root} elevation={24}>
           <div className="bootstrap">
             <button
+              type="button"
               onClick={close}
               className="btn btn-secondary"
               style={{ position: 'absolute', right: '0px' }}
