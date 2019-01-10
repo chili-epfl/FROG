@@ -84,31 +84,27 @@ const operator = (configData: {
     limit: 1
   });
   const url = 'https://hypothes.is/api/search?' + query;
-  return fetch(
-    url,
-    configData.token && {
-      headers: {
-        Authorization: 'Bearer ' + configData.token
-      }
+  const queryHeaders = configData.token && {
+    headers: {
+      Authorization: 'Bearer ' + configData.token
     }
-  )
+  };
+  return fetch(url, queryHeaders)
     .then(e => e.json())
     .then(e => {
       const limit = parseInt(configData.limit, 10) || 9999;
       const numFetches = Math.ceil(Math.min(limit, e.total) / 200);
-      const fetches = new Array(numFetches).fill().map((_, i) =>
-        fetch(
-          `https://hypothes.is/api/search?${query}&limit=${Math.min(
-            limit - i * 200,
-            200
-          )}&offset=${i * 200}`,
-          configData.token && {
-            headers: {
-              Authorization: 'Bearer ' + configData.token
-            }
-          }
-        ).then(x => x.json())
-      );
+      const fetches = new Array(numFetches)
+        .fill()
+        .map((_, i) =>
+          fetch(
+            `https://hypothes.is/api/search?${query}&limit=${Math.min(
+              limit - i * 200,
+              200
+            )}&offset=${i * 200}`,
+            queryHeaders
+          ).then(x => x.json())
+        );
       return Promise.all(fetches);
     })
     .then(z => mapQuery(flatten(z.map(a => a.rows)), configData));
