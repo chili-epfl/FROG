@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
   get,
-  invoke,
   isEqual,
   last,
   forEach,
@@ -65,7 +64,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
         type={liView}
         id={id}
         render={({ children, liType, dataFn }) => {
-          const learningTypesObj = invoke(dataFn, 'getLearningTypesObj');
+          const learningTypesObj = dataFn.getLearningTypesObj();
           const LiTypeObject = get(learningTypesObj, liType);
           return (
             <div className={classes.liContainer}>
@@ -77,16 +76,15 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
                   >
                     <Close />
                   </IconButton>
-                  {liType !== 'li-richText' &&
-                    get(LiTypeObject, 'Editor') && (
-                      <IconButton
-                        disableRipple
-                        style={{ float: 'right' }}
-                        className={`${classes.button} li-edit-btn`}
-                      >
-                        {liView === LiViewTypes.EDIT ? <Save /> : <Create />}
-                      </IconButton>
-                    )}
+                  {liType !== 'li-richText' && get(LiTypeObject, 'Editor') && (
+                    <IconButton
+                      disableRipple
+                      style={{ float: 'right' }}
+                      className={`${classes.button} li-edit-btn`}
+                    >
+                      {liView === LiViewTypes.EDIT ? <Save /> : <Create />}
+                    </IconButton>
+                  )}
                   {get(LiTypeObject, 'ThumbViewer') &&
                     get(LiTypeObject, 'Viewer') && (
                       <IconButton
@@ -716,7 +714,7 @@ class ReactiveRichText extends Component<
   };
 
   getLiTypeList = () => {
-    const allLiTypes = invoke(this.props, 'dataFn.getLearningTypesObj');
+    const allLiTypes = this.props.dataFn.getLearningTypesObj();
     return filter(
       allLiTypes,
       type =>

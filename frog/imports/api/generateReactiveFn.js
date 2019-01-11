@@ -79,8 +79,7 @@ export class Doc {
     return cleanPath(this.path, path);
   }
 
-  // $FlowFixMe
-  getLearningTypesObj = () => new this.LearningItemFn().getLearningTypesObj();
+  getLearningTypesObj = (): Object => learningItemTypesObj;
 
   createLearningItem(
     liType: string,
