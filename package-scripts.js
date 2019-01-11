@@ -61,7 +61,7 @@ module.exports = {
     ),
     test: {
       default: fromRoot(
-        `nps -s flow.quiet eslint jest`,
+        `nps -s flow.quiet eslint.normal jest`,
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
