@@ -45,8 +45,6 @@ const styles = theme => ({
     height: 36
   },
   liTools: {
-    position: 'absolute',
-    width: '100%',
     visibility: 'hidden'
   },
   liContainer: {
