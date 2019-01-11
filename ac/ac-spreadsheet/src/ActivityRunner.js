@@ -332,4 +332,12 @@ class ActivityRunner extends React.Component<*, *> {
   }
 }
 
-export default (ActivityRunner: ActivityRunnerT);
+const ActivityRunnerSpecialized = ({ data, dataFn, ...rest }) => (
+  <ActivityRunner
+    data={data.sheet}
+    dataFn={dataFn.specialize('sheet')}
+    {...rest}
+  />
+);
+
+export default (ActivityRunnerSpecialized: ActivityRunnerT);
