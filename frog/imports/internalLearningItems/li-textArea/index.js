@@ -15,9 +15,6 @@ const styles = () => ({
 
 export const FlexViewer = withStyles(styles)(({ data, search, type }) => {
   const shouldShorten = type === 'thumbView';
-  if (search && !data.text.toLowerCase().includes(search)) {
-    return null;
-  }
   return (
     <div>
       {(shouldShorten ? shorten(data.text, 150) : data.text)
@@ -51,5 +48,6 @@ export default ({
   dataStructure: { text: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
-  Editor
+  Editor,
+  search: (data, search) => data.text.toLowerCase().includes(search)
 }: LearningItemT<{ title: string, content: string }>);

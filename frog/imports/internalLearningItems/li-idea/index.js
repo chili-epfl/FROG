@@ -21,13 +21,6 @@ const styles = () => ({
 });
 
 const ThumbViewer = ({ data, search }) => {
-  if (
-    search &&
-    !data.title.toLowerCase().includes(search) &&
-    !data.content.toLowerCase().includes(search)
-  ) {
-    return null;
-  }
   return (
     <div>
       <b>
@@ -95,5 +88,8 @@ export default ({
   dataStructure: { title: '', content: '' },
   ThumbViewer,
   Creator,
-  Editor
+  Editor,
+  search: (data, search) =>
+    data.title.toLowerCase().includes(search) ||
+    data.content.toLowerCase().includes(search)
 }: LearningItemT<{ title: string, content: string }>);

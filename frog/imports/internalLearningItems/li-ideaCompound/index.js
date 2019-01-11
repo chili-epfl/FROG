@@ -34,13 +34,6 @@ const ThumbViewer = ({ LearningItem, data, search }) => {
 };
 
 const Viewer = ({ LearningItem, data, search }) => {
-  if (
-    search &&
-    !data.title.toLowerCase().includes(search) &&
-    !data.content.toLowerCase().includes(search)
-  ) {
-    return null;
-  }
   return (
     <div>
       <b>
@@ -97,5 +90,8 @@ export default ({
   ThumbViewer,
   Viewer,
   Editor,
-  dataStructure: { title: '', content: '', attachments: [] }
+  dataStructure: { title: '', content: '', attachments: [] },
+  search: (data, search) =>
+    data.title.toLowerCase().includes(search) ||
+    data.content.toLowerCase().includes(search)
 }: LearningItemT<{ title: string, content: string, attachments: any[] }>);

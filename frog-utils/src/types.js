@@ -371,5 +371,6 @@ export type LearningItemT<T> = {
     LearningItem: LearningItemComponentT,
     search?: string
   }>,
-  createPayload?: Function
+  createPayload?: Function,
+  search?: (data: any, search: string) => boolean
 };

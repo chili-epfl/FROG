@@ -24,13 +24,13 @@ import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 import { shortenRichText, uuid } from './index';
 
+const Delta = Quill.import('delta');
+
 const LiViewTypes = {
   VIEW: 'view',
   THUMB: 'thumbView',
   EDIT: 'edit'
 };
-
-const Delta = Quill.import('delta');
 
 const styles = theme => ({
   root: {
@@ -45,6 +45,8 @@ const styles = theme => ({
     height: 36
   },
   liTools: {
+    position: 'absolute',
+    width: '100%',
     visibility: 'hidden'
   },
   liContainer: {
@@ -64,7 +66,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
         type={liView}
         id={id}
         render={({ children, liType, dataFn }) => {
-          const learningTypesObj = dataFn.getLearningTypesObj();
+          const learningTypesObj = reactiveRichTextDataFn.getLearningTypesObj();
           const LiTypeObject = get(learningTypesObj, liType);
           return (
             <div className={classes.liContainer}>
@@ -408,7 +410,7 @@ class ReactiveRichText extends Component<
       return;
     }
     if (this.quillRef) {
-      const editor = invoke(this.quillRef, 'getEditor');
+      const editor = this.quillRef.getEditor();
       if (!editor) {
         return;
       }
@@ -464,7 +466,7 @@ class ReactiveRichText extends Component<
     this.compositionStart = false;
     this.authorDeltaToApply = null;
 
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
     if (editor) {
       editor.scroll.domNode.addEventListener(
         'compositionstart',
@@ -487,21 +489,21 @@ class ReactiveRichText extends Component<
   };
 
   turnAuthorshipOn = () => {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
     if (editor && !editor.root.classList.contains('ql-authorship')) {
       editor.root.classList.add('ql-authorship');
     }
   };
 
   turnAuthorshipOff = () => {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
     if (editor && editor.root.classList.contains('ql-authorship')) {
       editor.root.classList.remove('ql-authorship');
     }
   };
 
   toggleAuthorship = () => {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
     if (editor) {
       editor.root.classList.toggle('ql-authorship');
     }
@@ -534,7 +536,7 @@ class ReactiveRichText extends Component<
   }
 
   componentDidMount() {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
     if (editor) {
       setTimeout(() => {
         editor.on('text-change', this.handleChange);
@@ -567,7 +569,7 @@ class ReactiveRichText extends Component<
   componentWillUnmount() {
     if (!this.props.data) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
-      const editor = invoke(this.quillRef, 'getEditor');
+      const editor = this.quillRef.getEditor();
       if (editor) {
         editor.scroll.domNode.removeEventListener(
           'compositionstart',
@@ -582,7 +584,7 @@ class ReactiveRichText extends Component<
   }
 
   ensureSpaceAroundLis = () => {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
     if (editor) {
       const editorLength = editor.getLength();
 
@@ -625,7 +627,7 @@ class ReactiveRichText extends Component<
       attributes: { author?: string, 'li-view'?: string }
     }>
   }) => {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
 
     if (editor) {
       const authorDelta = new Delta();
@@ -681,7 +683,7 @@ class ReactiveRichText extends Component<
   };
 
   onDrop = (e: string, initialView?: string) => {
-    const editor = invoke(this.quillRef, 'getEditor');
+    const editor = this.quillRef.getEditor();
 
     if (editor) {
       const index = get(editor, 'selection.savedRange.index');

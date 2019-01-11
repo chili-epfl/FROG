@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { type LearningItemT } from 'frog-utils';
-import { FlexViewer, Editor } from '../li-textArea';
+import { search, FlexViewer, Editor } from '../li-textArea';
 
 export default ({
   name: 'Large text area',
@@ -10,5 +10,6 @@ export default ({
   dataStructure: { text: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
-  Editor: props => <Editor {...props} large />
+  Editor: props => <Editor {...props} large />,
+  search
 }: LearningItemT<{ text: string }>);

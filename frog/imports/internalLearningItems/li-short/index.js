@@ -1,8 +1,10 @@
 import * as React from 'react';
-
 import { withStyles } from '@material-ui/core/styles';
-
-import { type LearningItemT, ReactiveText } from 'frog-utils';
+import {
+  type LearningItemT,
+  ReactiveText,
+  HighlightSearchText
+} from 'frog-utils';
 
 const styles = () => ({
   button: {
@@ -14,9 +16,11 @@ const styles = () => ({
   }
 });
 
-const ThumbViewer = ({ data }) => (
+const ThumbViewer = ({ data, search }) => (
   <div style={{ minWidth: '200px' }}>
-    <b>{data.topic}</b>
+    <b>
+      <HighlightSearchText haystack={data.topic} needle={search} />
+    </b>
   </div>
 );
 
@@ -31,5 +35,6 @@ export default ({
   id: 'li-short',
   dataStructure: { topic: '' },
   ThumbViewer,
-  Editor
+  Editor,
+  search: (data, search) => data.topic.toLowerCase().includes(search)
 }: LearningItemT<{ topic: string, content: string }>);
