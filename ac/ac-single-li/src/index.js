@@ -46,7 +46,7 @@ const config = {
   type: 'object',
   properties: {
     title: { type: 'string', title: 'Title' },
-    instructions: { type: 'string', title: 'Instructions' },
+    instructions: { type: 'rte', title: 'Instructions' },
     liType: {
       title: 'Learning Item Type',
       type: 'learningItemType'

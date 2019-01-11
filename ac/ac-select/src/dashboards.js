@@ -31,7 +31,7 @@ const styles = () => ({
   }
 });
 
-const lookupCapitalization = (word, text, activityId) => {
+const lookupCapitalization = (word, text) => {
   if (text.includes(word)) {
     return word;
   } else return text.match(new RegExp(word, 'gi'))[0];

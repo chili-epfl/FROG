@@ -389,10 +389,15 @@ class ReactiveRichText extends Component<
   { path: ?((string | number)[]) }
 > {
   quillRef: any;
+
   compositionStart: boolean;
+
   authorDeltaToApply: any;
+
   toolbarId: string = uuid();
+
   styleElements: {};
+
   state = { path: this.props.dataFn.getMergedPath(this.props.path) };
 
   constructor(props: ReactivePropsT) {

@@ -29,6 +29,10 @@ export const config = {
       title: 'Should students comment on Learning Items?',
       type: 'boolean'
     },
+    bigZoom: {
+      title: 'Zoom the Learning Item 2x in the modal view',
+      type: 'boolean'
+    },
     canSearch: {
       title: 'Enable filtering/searching Learning Items',
       type: 'boolean'

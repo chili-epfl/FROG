@@ -189,7 +189,7 @@ class Creator extends React.Component<
         <Button
           onClick={() => createLearningItem('li-cs211', this.state)}
           color="primary"
-          variant="raised"
+          variant="contained"
           aria-label="submit"
           disabled={!complete}
         >

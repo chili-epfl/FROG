@@ -7,8 +7,5 @@ module.exports = {
     '^/(.*)$': '<rootDir>/frog/$1',
     '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
   },
-  moduleDirectories: ['node_modules'],
-  transform: {
-    '^.+\\.jsx?$': '@houshuang/babel-jest'
-  }
+  moduleDirectories: ['node_modules']
 };

@@ -109,6 +109,7 @@ class SearchField extends React.Component<*, *> {
 
 class ImageList extends React.Component<*, *> {
   state = { filter: '', bookmarks: {}, onlyBookmarked: false };
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !isEqual(nextProps.learningItems, this.props.learningItems) ||
@@ -197,6 +198,7 @@ class ImageList extends React.Component<*, *> {
                 key={liObj.key}
                 type={expand ? 'view' : 'thumbView'}
                 id={liObj.li}
+                notEmpty
                 render={props => (
                   <Paper
                     elevation={12}

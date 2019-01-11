@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { HTML, type ActivityRunnerPropsT } from 'frog-utils';
+import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
@@ -40,7 +41,7 @@ class ActivityRunner extends React.Component<
         {conf.title && <h1>{conf.title}</h1>}
         {conf.instructions && (
           <p>
-            <b>{conf.instructions}</b>
+            <HTML html={conf.instructions} />
           </p>
         )}
       </>
@@ -64,25 +65,24 @@ class ActivityRunner extends React.Component<
                 {!editing &&
                   !conf.noSubmit &&
                   conf.allowEditing && (
-                    <Button
+                    <Fab
                       onClick={() =>
                         editable
                           ? this.setState({ editing: true })
                           : dataFn.objDel(null, 'li')
                       }
-                      variant="fab"
                       color="secondary"
                       aria-label={editable ? 'edit' : 'delete'}
                     >
                       {editable ? <EditIcon /> : <CloseIcon />}
-                    </Button>
+                    </Fab>
                   )}
                 {editing &&
                   !conf.noSubmit && (
                     <Button
                       onClick={() => this.setState({ editing: false })}
                       color="primary"
-                      variant="raised"
+                      variant="contained"
                       aria-label="save"
                     >
                       Save

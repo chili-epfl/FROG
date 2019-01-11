@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { withState } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -80,7 +80,7 @@ const Test = ({
             logger({
               type: 'test',
               itemId: index,
-              value: newStatus,
+              value: newStatus === 'primary' ? 'success' : 'danger',
               payload: data.code
             });
             setStatus(newStatus);
@@ -137,4 +137,10 @@ const Test = ({
 const StyledTest = withStyles(styles)(Test);
 StyledTest.displayName = 'TestButtons';
 
-export default withState('status', 'setStatus', undefined)(StyledTest);
+const DefaultExport: React.ComponentType<*> = withState(
+  'status',
+  'setStatus',
+  undefined
+)(StyledTest);
+
+export default DefaultExport;

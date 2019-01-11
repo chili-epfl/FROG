@@ -4,7 +4,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { Fab } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
@@ -58,12 +58,9 @@ const Transition = ({ classes }) => (
 const ValidationStatus = ({ isCorrect, classes }) => (
   <React.Fragment>
     <Grid item xs={12} className={classes.center}>
-      <Button
-        variant="fab"
-        className={isCorrect ? classes.success : classes.failure}
-      >
+      <Fab className={isCorrect ? classes.success : classes.failure}>
         {isCorrect ? <Check /> : <Clear />}
-      </Button>
+      </Fab>
     </Grid>
     <Grid>
       <Typography
@@ -87,15 +84,18 @@ class TicketStatus extends React.Component<IntervalPropsT> {
   startTimer = () => {
     const { timeToDisplay } = this.props;
 
-    this.timer = setTimeout(() => {
-      if (this.state.transition) {
-        this.setState({ transition: false });
-        this.stopTimer();
-        this.startTimer();
-      } else {
-        this.props.nextIteration();
-      }
-    }, this.state.transition ? timeToDisplay / 2 : timeToDisplay);
+    this.timer = setTimeout(
+      () => {
+        if (this.state.transition) {
+          this.setState({ transition: false });
+          this.stopTimer();
+          this.startTimer();
+        } else {
+          this.props.nextIteration();
+        }
+      },
+      this.state.transition ? timeToDisplay / 2 : timeToDisplay
+    );
   };
 
   stopTimer = () => {

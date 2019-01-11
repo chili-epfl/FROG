@@ -6,11 +6,11 @@
     "start": "nps"
   },
   "dependencies": {
-    "@material-ui/core": "^3.0.1",
+    "@material-ui/core": "^3.8.1",
     "frog-utils": "^1.0.0",
-    "plotly.js": "^1.39.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "plotly.js": "^1.43.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-plotly.js": "^2.2.0"
   },
   "devDependencies": {

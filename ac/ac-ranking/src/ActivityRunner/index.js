@@ -46,6 +46,7 @@ const Completed = ({ dataFn }) => (
     <h1>Activity completed!</h1>
     <div style={{ width: '100%' }}>
       <button
+        type="button"
         style={{ ...styles.button }}
         onClick={() => dataFn.objInsert(false, ['completed'])}
       >
@@ -61,11 +62,12 @@ const ActivityRunner = props => {
     logger,
     dataFn,
     userInfo,
-    data
+    data,
+    init
   } = props;
   const { answers, justification } = data;
 
-  if (!props.init && !answers[userInfo.id]) {
+  if (!init && !answers[userInfo.id]) {
     props.setInit(true);
     dataFn.objInsert({}, ['answers', userInfo.id]);
     dataFn.objInsert(userInfo.name, ['group', userInfo.id]);
@@ -184,6 +186,7 @@ const ActivityRunner = props => {
                 <p style={{ color: 'red' }}>{alertMessage()}</p>
               ) : null}
               <button
+                type="button"
                 onClick={onSubmit}
                 key="submit"
                 style={{
@@ -202,4 +205,10 @@ const ActivityRunner = props => {
   );
 };
 
-export default withState('init', 'setInit', false)(ActivityRunner);
+const DefaultExport: React.ComponentType<*> = withState(
+  'init',
+  'setInit',
+  false
+)(ActivityRunner);
+
+export default DefaultExport;

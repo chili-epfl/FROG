@@ -25,16 +25,15 @@ const ActivityRunner = props => {
         {!hasOthers && 'alone '}
         in group {groupingValue}.
       </h2>
-      {configData.displayGroup &&
-        hasOthers && (
-          <h3>
-            {'The other group members are: ' +
-              uniq(data)
-                .filter(x => x !== name)
-                .sort()
-                .join(', ')}
-          </h3>
-        )}
+      {configData.displayGroup && hasOthers && (
+        <h3>
+          {'The other group members are: ' +
+            uniq(data)
+              .filter(x => x !== name)
+              .sort()
+              .join(', ')}
+        </h3>
+      )}
     </div>
   );
 };

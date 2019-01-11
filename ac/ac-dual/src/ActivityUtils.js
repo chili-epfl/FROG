@@ -11,7 +11,7 @@ export const styles = {
     margin: '0 5px',
     backgroundColor: '#DFDFDF'
   },
-  text: { fontSize: 'xx-large' },
+  text: { fontSize: 'large' },
   container: {
     display: 'flex',
     flexDirection: 'column',

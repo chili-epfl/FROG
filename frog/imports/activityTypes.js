@@ -3,7 +3,6 @@
 import importAll from 'import-all.macro';
 import { keyBy } from 'lodash';
 import {
-  Loadable,
   type ActivityPackageT,
   entries,
   values,
@@ -28,45 +27,6 @@ export const activityTypesObj: { [at: string]: ActivityPackageT } = entries(
 );
 
 export const activityTypes: ActivityPackageT[] = values(activityTypesObj);
-
-const activityRunnersRaw = importAll.deferred(
-  '../node_modules/ac-*/src/ActivityRunner?(.js)'
-);
-export const activityRunnersExt = entries(activityRunnersRaw).reduce(
-  (acc, [k, v]) => {
-    const ac = k.split('/')[2];
-    return {
-      ...acc,
-      [ac]: Loadable({
-        loader: v,
-        loading: () => null,
-        serverSideRequirePath: k,
-        componentDescription: ac
-      })
-    };
-  },
-  {}
-);
-
-const activityRunnersRawInternal = importAll.deferred(
-  './internalActivities/*/ActivityRunner?(.js)'
-);
-
-export const activityRunners = entries(activityRunnersRawInternal).reduce(
-  (acc, [k, v]) => {
-    const ac = k.split('/')[2];
-    return {
-      ...acc,
-      [ac]: Loadable({
-        loader: v,
-        loading: () => null,
-        serverSideRequirePath: k,
-        componentDescription: ac
-      })
-    };
-  },
-  activityRunnersExt
-);
 
 const internalLIs = importAll.sync('./internalLearningItems/*/index.js');
 

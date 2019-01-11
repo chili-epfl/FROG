@@ -1,14 +1,15 @@
+import fs from 'fs';
+import { resolve as pathResolve, join } from 'path';
+import urlPkg from 'url';
+
 import { uuid } from 'frog-utils';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import Stringify from 'json-stringify-pretty-compact';
-import fs from 'fs';
-import { resolve as pathResolve, join } from 'path';
 import bodyParser from 'body-parser';
 import requestFun from 'request';
-import urlPkg from 'url';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
@@ -351,6 +352,7 @@ WebApp.connectHandlers.use('/multiFollow', (request, response) => {
   }
   const url = require('url').parse(request.url);
   const layout = url.query ? extractParam(url.query, 'layout') : '';
+  const more = url.query ? extractParam(url.query, 'more') : '';
 
   const scaled = url.scaled
     ? parseInt(extractParam(url.query, 'scaled'), 10)
@@ -376,22 +378,28 @@ iframe { height: 100%; width: 100%; }
      ${
        layout === '3+1' || layout === '2+1+1'
          ? `src=${root}/teacher/orchestration?debugLogin=${follow}&scaled=true>`
-         : `src=${root}?follow=${follow}&followLogin=Chen%20Li${scaledStr}>`
+         : `src=${root}?follow=${follow}&followLogin=${
+             more ? 'Alisa' : 'Chen%20Li'
+           }${scaledStr}>`
      }
 </iframe>
     </div>
     <div id="div2">
       <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
-    layout === '2+1+1' ? follow : 'Peter'
+    layout === '2+1+1' ? follow : more ? 'Niels' : 'Peter'
   }${scaledStr}></iframe>
     </div>
     ${layout !== '2' &&
       `
     <div id="div3">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Anna${scaledStr}></iframe>
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+        more ? 'Natasha' : 'Anna'
+      }${scaledStr}></iframe>
     </div>
     <div id="div4">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=Aliya${scaledStr}></iframe>
+      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+        more ? 'Bob' : 'Aliya'
+      }${scaledStr}></iframe>
     </div>`}
 </html>`;
   response.end(template);

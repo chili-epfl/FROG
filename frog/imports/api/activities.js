@@ -72,11 +72,10 @@ export const updateOneActivityMongo = (
 export const findActivitiesMongo = (query: Object, proj?: Object) =>
   Activities.find(query, proj)
     .fetch()
-    .map(
-      x =>
-        x.activityType && activityTypesObj[x.activityType]
-          ? extractUpgradedActivityConfig(x)
-          : x
+    .map(x =>
+      x.activityType && activityTypesObj[x.activityType]
+        ? extractUpgradedActivityConfig(x)
+        : x
     );
 
 export const findOneActivityMongo = (id: string) => {

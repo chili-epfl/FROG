@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import type { Doc } from './generateReactiveFn';
 
 export type ActivityDbT = {|
   _id: string,
@@ -181,7 +180,7 @@ export type DashboardT = {
         activityMerge?: Object,
         instances?: number
       }
-    | { title: string, type: 'state', activityMerge?: Object, state: any }
+    | { type: 'state', title: string, activityMerge?: Object, state: Object }
   )[],
   exampleData?: { title: string, path: string }[]
 };
@@ -323,19 +322,25 @@ export type LIComponentPropsT =
       type: 'view',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      search?: string
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
       clickZoomable?: boolean,
-      search?: string
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'edit',
       id: string,
-      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+      render?: React.ComponentType<{
+        ...{| dataFn: Object |},
+        ...LIRenderPropsT
+      }>,
+      notEmpty?: boolean
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
@@ -347,7 +352,7 @@ export type LearningItemT<T> = {
   canDropLI?: boolean,
   Editor?: React.ComponentType<{
     data: T,
-    dataFn: Doc,
+    dataFn: Object,
     LearningItem: LearningItemComponentT,
     search?: string
   }>,

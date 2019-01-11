@@ -183,18 +183,12 @@ export default withStyles(styles)(
     return (
       <div className={classes.root}>
         <Header question={question.question} index={index} />
-        {hasChoices &&
-          multiple && (
-            <CheckBox
-              answers={answers}
-              data={questionData}
-              onChange={onChange}
-            />
-          )}
-        {hasChoices &&
-          !multiple && (
-            <Select answers={answers} data={questionData} onChange={onChange} />
-          )}
+        {hasChoices && multiple && (
+          <CheckBox answers={answers} data={questionData} onChange={onChange} />
+        )}
+        {hasChoices && !multiple && (
+          <Select answers={answers} data={questionData} onChange={onChange} />
+        )}
         {value && (
           <Value
             value={questionData.value}
@@ -202,14 +196,13 @@ export default withStyles(styles)(
             questionIndex={questionIndex}
           />
         )}
-        {text &&
-          questionData.text !== undefined && (
-            <Justify
-              logger={logProgressAndLog}
-              dataFn={dataFn}
-              questionIndex={questionIndex}
-            />
-          )}
+        {text && questionData.text !== undefined && (
+          <Justify
+            logger={logProgressAndLog}
+            dataFn={dataFn}
+            questionIndex={questionIndex}
+          />
+        )}
       </div>
     );
   }

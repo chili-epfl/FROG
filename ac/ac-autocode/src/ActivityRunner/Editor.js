@@ -30,6 +30,9 @@ export default class Editor extends Component<EditorPropsT> {
   render() {
     return (
       <Ace
+        editorProps={{
+          $blockScrolling: Infinity
+        }}
         id="yourcode"
         style={{ width: '600px', height: '750px' }}
         mode={this.props.activityData.config.language || 'javascript'}

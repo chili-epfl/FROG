@@ -75,14 +75,20 @@ export const extractUnit = (
         );
       }
       const studentAttributes = focusStudent(socialStructure)[attributeValue];
-      if (!studentAttributes) {
-        throw logFirst('Student not in social structure');
+      if (!studentAttributes && !data.payload.default) {
+        throw logFirst(
+          'Student not in social structure and no default value provided'
+        );
       }
       if (
         typeof data.structure === 'object' &&
-        studentAttributes[data.structure.groupingKey] !== undefined
+        (studentAttributes
+          ? studentAttributes[data.structure.groupingKey]
+          : data.payload.default) !== undefined
       ) {
-        const grp = studentAttributes[data.structure.groupingKey];
+        const grp = studentAttributes
+          ? studentAttributes[data.structure.groupingKey]
+          : 'default';
         if (data.payload[grp] !== undefined) {
           return data.payload[grp];
         }

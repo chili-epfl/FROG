@@ -2,8 +2,9 @@
 import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import { cloneDeep } from 'lodash';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
+
 import {
-  generateReactiveFn,
   getMergedExtractedUnit,
   type ObjectT,
   type GlobalStructureT,
@@ -14,14 +15,16 @@ import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Sessions } from '../imports/api/sessions';
-import LearningItem from '../imports/ui/LearningItem';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';
 import { createDashboards } from '../imports/api/mergeLogData';
 
 declare var Promise: any;
-const backend = new ShareDB();
+const backend = new ShareDB({
+  disableDocAction: true,
+  disableSpaceDelimitedActions: true
+});
 const connection = backend.connect();
 
 export const mergeOneInstance = (
@@ -88,7 +91,7 @@ export const mergeOneInstance = (
 
               const dataFn = generateReactiveFn(
                 doc,
-                LearningItem,
+                undefined,
                 meta,
                 undefined,
                 undefined,

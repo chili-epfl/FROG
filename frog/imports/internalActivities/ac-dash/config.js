@@ -5,7 +5,7 @@ import { FormControl } from 'react-bootstrap';
 import { activityTypesObj } from '../../activityTypes';
 import { Activities } from '../../api/activities';
 
-import { SelectAnyActivityWidget } from '../../ui/GraphEditor/SidePanel/FormUtils';
+import { SelectAnyActivityWidget } from '/imports/client/GraphEditor/SidePanel/FormUtils';
 
 const SelectDashboard = ({ formContext, onChange, value = '' }: any) => (
   <span>
