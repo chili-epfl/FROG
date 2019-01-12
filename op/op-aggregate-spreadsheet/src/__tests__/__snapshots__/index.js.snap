@@ -1,5 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Can merge two 1`] = `
+Object {
+  "payload": Object {
+    "all": Object {
+      "config": Object {},
+      "data": Object {
+        "sheet": Array [
+          Array [
+            Object {
+              "readOnly": true,
+              "value": " ",
+            },
+            Object {
+              "readOnly": true,
+              "value": "A",
+            },
+          ],
+          Array [
+            Object {
+              "col": 1,
+              "key": "A2",
+              "readOnly": true,
+              "row": 2,
+              "value": "1",
+            },
+            Object {
+              "col": 2,
+              "key": "B2",
+              "readOnly": true,
+              "row": 2,
+              "value": "Items",
+            },
+          ],
+        ],
+      },
+    },
+  },
+  "structure": "all",
+}
+`;
+
+exports[`Real-world test 1`] = `
+Object {
+  "payload": Object {
+    "all": Object {
+      "config": Object {},
+      "data": Object {
+        "sheet": Array [
+          Array [
+            Object {
+              "readOnly": true,
+              "value": " ",
+            },
+            Object {
+              "readOnly": true,
+              "value": "A",
+            },
+          ],
+          Array [
+            Object {
+              "col": 1,
+              "key": "A2",
+              "readOnly": true,
+              "row": 2,
+              "value": "1",
+            },
+            Object {
+              "col": 2,
+              "key": "B2",
+              "readOnly": true,
+              "row": 2,
+              "value": "Items",
+            },
+          ],
+        ],
+      },
+    },
+  },
+  "structure": "all",
+}
+`;
+
 exports[`Real-world test sheet 1`] = `
 Object {
   "payload": Object {
@@ -35,25 +117,32 @@ Object {
               "key": "A2",
               "readOnly": true,
               "row": 2,
-              "value": "Items",
+              "value": "1",
             },
             Object {
               "col": 2,
               "key": "B2",
               "readOnly": true,
               "row": 2,
-              "value": "Anna",
+              "value": "Items",
             },
             Object {
               "col": 3,
               "key": "C2",
               "readOnly": true,
               "row": 2,
-              "value": "Aliya",
+              "value": "Anna",
             },
             Object {
               "col": 4,
               "key": "D2",
+              "readOnly": true,
+              "row": 2,
+              "value": "Aliya",
+            },
+            Object {
+              "col": 5,
+              "key": "E2",
               "readOnly": true,
               "row": 2,
               "value": "Chen Li",

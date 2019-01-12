@@ -13,13 +13,13 @@ const object = {
 };
 
 test('Can merge two', () => {
-  expect(op({}, object)).toEqual({});
+  expect(op({}, object)).toMatchSnapshot();
 });
 
 test('Real-world test', () => {
-  expect(op({}, obj2)).toEqual({});
+  expect(op({}, obj2)).toMatchSnapshot();
 });
 
-test.only('Real-world test sheet', () => {
+test('Real-world test sheet', () => {
   expect(op({}, obj3)).toMatchSnapshot();
 });
