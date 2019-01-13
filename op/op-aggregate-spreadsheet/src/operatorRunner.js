@@ -37,10 +37,16 @@ const operator = (configData, object) => {
       });
     }
   });
+  const structure = object.activityData.structure;
   const lookupGroups =
-    object.activityData.structure === 'individual'
+    structure === 'individual'
       ? instance => object.globalStructure.students[instance]
-      : instance => instance;
+      : instance =>
+          (structure !== 'individual' && structure !== 'all'
+            ? structure.groupingKey
+            : '') +
+          ' ' +
+          instance;
   const header = [
     alphabet
       .slice(0, groups.length + 2)

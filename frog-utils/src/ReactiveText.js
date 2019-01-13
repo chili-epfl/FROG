@@ -9,7 +9,8 @@ type ReactivePropsT = {
   type: 'textarea' | 'textinput',
   logger?: LogT => void,
   focus?: boolean,
-  onKeyDown?: Function
+  onKeyDown?: Function,
+  style?: Object
 };
 
 export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
@@ -70,7 +71,7 @@ export class ReactiveText extends Component<ReactivePropsT, ReactivePropsT> {
       rest.defaultValue = undefined;
     }
     return this.props.type === 'textarea' ? (
-      <div className="bootstrap">
+      <div className="bootstrap" style={this.props.style}>
         <textarea
           ref={ref => {
             this.textRef = ref;

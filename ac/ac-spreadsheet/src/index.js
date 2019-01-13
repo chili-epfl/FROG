@@ -13,7 +13,11 @@ const config = {
     },
     rows: { title: 'Number of rows?', type: 'number', default: 4 },
     columns: { title: 'Number of columns?', type: 'number', default: 4 },
-    rowWidth: { title: 'Row width', type: 'number' }
+    addRemove: {
+      title: 'Enable adding/removing columns/rows?',
+      type: 'boolean',
+      default: true
+    }
   }
 };
 
