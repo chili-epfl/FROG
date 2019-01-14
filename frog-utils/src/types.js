@@ -90,7 +90,8 @@ export type ActivityRunnerPropsT = {
   userInfo: { id: string, name: string, role: string },
   activityId: string,
   groupingValue: string,
-  sessionId: string
+  sessionId: string,
+  instanceMembers: string[]
 };
 
 export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>;

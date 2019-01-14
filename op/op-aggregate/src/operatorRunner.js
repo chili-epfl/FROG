@@ -12,9 +12,10 @@ const operator = (config = {}, object) => {
     if (config.topN) {
       return [...acc, ...orderBy(items, 'score', 'desc').slice(0, config.topN)];
     } else {
-      return [...acc, ...items];
+      return acc.concat(items);
     }
   }, []);
+
   let finalResult = result;
   if (config.unique) {
     const groups = groupBy(result, x => li2string(x.li));

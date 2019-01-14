@@ -33,6 +33,14 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
   const socStructure = focusStudent(object.socialStructure);
   const studentSoc = socStructure[Meteor.userId()];
+  const instanceMembers =
+    activity.plane === 2
+      ? object.socialStructure[activity.groupingKey][
+          studentSoc[activity.groupingKey]
+        ]
+          .map(x => object.globalStructure?.students[x])
+          .sort()
+      : undefined;
 
   let groupingValue;
   if ([3, 4].includes(activity.plane)) {
@@ -98,6 +106,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
         username={Meteor.user().username}
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
+        instanceMembers={instanceMembers}
       />
     </div>
   );
@@ -132,7 +141,8 @@ type PropsT = {
   readOnly?: boolean,
   sessionId: string,
   activityId: string,
-  rawData?: any
+  rawData?: any,
+  instanceMembers: string[]
 };
 
 export class RunActivity extends React.Component<PropsT, {}> {
@@ -208,6 +218,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
         key={this.props.reactiveId}
         activityData={this.props.activityData}
         activityId={this.props.activityId}
+        instanceMembers={this.props.instanceMembers}
         userInfo={{
           name: this.props.username,
           id: this.props.userid,

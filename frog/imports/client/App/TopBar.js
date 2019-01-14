@@ -111,7 +111,7 @@ class TopBarController extends React.Component<
     { name: 'Graph Editor', to: '/teacher/graph' },
     { name: 'Sessions', to: '/teacher/orchestration' },
     {
-      name: 'Activity Creator',
+      name: 'Activity Preview',
       to: '/teacher/preview'
     }
   ];
