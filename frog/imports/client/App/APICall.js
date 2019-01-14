@@ -83,7 +83,7 @@ export default ({ data }: { data: Object }) => {
         _id: data.activityId,
         activityType: data.activityType
       },
-      data.userId
+      data.userId || 'anonymous'
     );
     const activityData = {
       data: data.activityData,
