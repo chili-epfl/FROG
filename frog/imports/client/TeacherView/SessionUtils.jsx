@@ -151,7 +151,36 @@ const SessionUtils = ({
   return (
     <Grid container alignItems="center">
       <Grid item xs={4} className={classes.textCenter}>
-        <Typography>Current Session: {session.slug}</Typography>
+        <Typography>
+          <b>{session.slug}</b>{' '}
+          {(!session?.settings || session?.settings?.allowLTI) && (
+            <>
+              {' '}
+              -{' '}
+              <a
+                href={`${process.env.ROOT_URL || 'http://localhost:3000'}/lti/${
+                  session.slug
+                }`}
+              >
+                LTI link
+              </a>
+            </>
+          )}
+          {session?.settings?.loginByName && (
+            <>
+              {' '}
+              -{' '}
+              <a
+                href={`${process.env.ROOT_URL || 'http://localhost:3000'}/${
+                  session.slug
+                }`}
+              >
+                {' '}
+                Student login link
+              </a>
+            </>
+          )}
+        </Typography>
       </Grid>
       <Grid item xs={4} className={classes.textCenter}>
         <DashToggle visible={visible} toggleVisible={toggle} />

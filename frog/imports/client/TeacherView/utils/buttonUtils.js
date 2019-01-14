@@ -137,20 +137,6 @@ export const SessionUtilsButtonsModel = (
   token,
   openSettings
 ) => ({
-  current: {
-    tooltip: {
-      id: 'tooltip-top',
-      title: 'Active Session Link',
-      placement: 'bottom'
-    },
-    button: {
-      onClick: () => {},
-      themeColor: 'primary',
-      text: `Current Session: ${session.slug}`,
-      href: `/${session.slug}`
-    },
-    source: 'toolbar'
-  },
   export: {
     button: {
       onClick: () => exportSession(session._id),
