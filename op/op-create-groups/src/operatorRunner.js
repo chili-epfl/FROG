@@ -4,8 +4,8 @@ import { type socialOperatorRunnerT } from 'frog-utils';
 
 const operator = (configData, object) => {
   const { globalStructure } = object;
-
   const ids = shuffle(globalStructure.studentIds);
+
   const newGrouping =
     configData.grouping && configData.grouping.length > 0
       ? configData.grouping
@@ -37,6 +37,7 @@ const operator = (configData, object) => {
       }
     }
   }
+
   const result = {
     [newGrouping]: struct.reduce(
       (acc, k, i) => ({ ...acc, [i + 1 + '']: compact(k) }),
