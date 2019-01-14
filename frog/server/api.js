@@ -267,6 +267,32 @@ WebApp.connectHandlers.use('/api/learningitem', (request, response, next) => {
   next();
 });
 
+WebApp.connectHandlers.use('/api/followNext', (request, response) => {
+  if (request.query?.follow) {
+    const follow = Meteor.users.findOne({ username: request.query.follow });
+    if (follow) {
+      const sessionId = follow.profile?.controlSession;
+      if (sessionId) {
+        Meteor.call('next.activity', sessionId);
+      }
+    }
+  }
+  response.end();
+});
+
+WebApp.connectHandlers.use('/api/followRestart', (request, response) => {
+  if (request.query?.follow) {
+    const follow = Meteor.users.findOne({ username: request.query.follow });
+    if (follow) {
+      const sessionId = follow.profile?.controlSession;
+      if (sessionId) {
+        Meteor.call('sessions.restart', sessionId);
+      }
+    }
+  }
+  response.end();
+});
+
 WebApp.connectHandlers.use('/api/submitLog', (request, response) => {
   let logmsg;
   try {
@@ -363,16 +389,24 @@ WebApp.connectHandlers.use('/multiFollow', (request, response) => {
 <!DOCTYPE html><html><head>
     <title>Four pane FROG</title>
     <style>
-html, body { height: 100%; padding: 0; margin: 0; }
-div { width: 50%; height: ${layout === '2' ? '100%' : '50%'}; float: left; }
+html, body { overflow: none; height: 100%; padding: 0; margin: 0; }
+div { overflow: none; width: 50%; height: ${
+    layout === '2' ? '100%' : '50%'
+  }; float: left; }
 #div1 { background: #DDD; }
 #div2 { background: #AAA; }
 #div3 { background: #777; }
 #div4 { background: #444; }
+.container { height: calc(100vh - 30px); 
+width: 100vw;
+overflow: none;
+}
+.bottom { height: 30px; }
 iframe { height: 100%; width: 100%; }
     </style>
   </head>
   <body>
+    <div class="container">
     <div id="div1">
       <iframe id='iframe1' 
      ${
@@ -401,6 +435,9 @@ iframe { height: 100%; width: 100%; }
         more ? 'Bob' : 'Aliya'
       }${scaledStr}></iframe>
     </div>`}
+    </div class="bottom">
+    <span onClick="fetch('/api/followNext?follow=${follow}')">Next</a>
+    </div>
 </html>`;
   response.end(template);
 });

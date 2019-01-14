@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { values, A, type ActivityRunnerPropsT } from 'frog-utils';
 import styled from 'styled-components';
-import FlipMove from '@houshuang/react-flip-move';
+import FlipMove from 'react-flip-move';
 import Badge from '@material-ui/core/Badge';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

@@ -618,6 +618,101 @@ export default {
           score: 1
         }
       }
+    },
+    {
+      title: 'op-aggregate-spreadsheet',
+      config: {},
+      data: {
+        sheet: [
+          [
+            { readOnly: true, value: ' ' },
+            { readOnly: true, value: 'A' },
+            { readOnly: true, value: 'B' },
+            { readOnly: true, value: 'C' },
+            { readOnly: true, value: 'D' },
+            { readOnly: true, value: 'E' },
+            { readOnly: true, value: 'F' }
+          ],
+          [
+            { readOnly: true, value: 1 },
+            {
+              readOnly: true,
+              value: {
+                li: {
+                  liDocument: {
+                    liType: 'li-wordSelect',
+                    createdAt: '2019-01-11T14:33:05.902Z',
+                    createdByUser: 'jij3jmHH6s2PTyCiF',
+                    createdBy: 'ac-select',
+                    payload: { word: 'any', color: '#FFFF00' }
+                  }
+                }
+              },
+              key: 'A1',
+              col: 1,
+              row: 1
+            },
+            { value: '', key: 'B1', col: 2, row: 1 },
+            { value: 'A2', key: 'C1', col: 3, row: 1 },
+            { value: '', key: 'D1', col: 4, row: 1 },
+            { value: '', key: 'E1', col: 5, row: 1 },
+            { value: 'A', key: 'F1', col: 6, row: 1 },
+            { value: '', key: 'G1', col: 7, row: 1 }
+          ],
+          [
+            { readOnly: true, value: 2 },
+            {
+              readOnly: true,
+              value: {
+                li: {
+                  liDocument: {
+                    liType: 'li-wordSelect',
+                    createdAt: '2019-01-11T14:33:05.902Z',
+                    createdByUser: 'jij3jmHH6s2PTyCiF',
+                    createdBy: 'ac-select',
+                    payload: { word: 'and', color: '#FFFF00' }
+                  }
+                }
+              },
+              key: 'A2',
+              col: 1,
+              row: 2
+            },
+            { value: '', key: 'B2', col: 2, row: 2 },
+            { value: '', key: 'C2', col: 3, row: 2 },
+            { value: '', key: 'D2', col: 4, row: 2 },
+            { value: 'A', key: 'E2', col: 5, row: 2 },
+            { value: 'and', key: 'F2', col: 6, row: 2 },
+            { value: '', key: 'G2', col: 7, row: 2 }
+          ],
+          [
+            { readOnly: true, value: 3 },
+            {
+              readOnly: true,
+              value: {
+                li: {
+                  liDocument: {
+                    liType: 'li-wordSelect',
+                    createdAt: '2019-01-11T14:33:05.902Z',
+                    createdByUser: 'jij3jmHH6s2PTyCiF',
+                    createdBy: 'ac-select',
+                    payload: { word: 'sustainable', color: '#FFFF00' }
+                  }
+                }
+              },
+              key: 'A3',
+              col: 1,
+              row: 3
+            },
+            { value: '', key: 'B3', col: 2, row: 3 },
+            { value: '', key: 'C3', col: 3, row: 3 },
+            { value: '', key: 'D3', col: 4, row: 3 },
+            { value: 'S1', key: 'E3', col: 5, row: 3 },
+            { value: '', key: 'F3', col: 6, row: 3 },
+            { value: '', key: 'G3', col: 7, row: 3 }
+          ]
+        ]
+      }
     }
   ]
 };

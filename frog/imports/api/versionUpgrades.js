@@ -26,9 +26,8 @@ export const GraphObjUpgrades: Object = {
       ...graphObj.graph,
       graphVersion: graphObj.graph.graphVersion + 1
     },
-    activities: graphObj.activities.map(
-      x =>
-        x.activityType === 'ac-image' ? { ...x, activityType: 'ac-gallery' } : x
+    activities: graphObj.activities.map(x =>
+      x.activityType === 'ac-image' ? { ...x, activityType: 'ac-gallery' } : x
     )
   })
 };

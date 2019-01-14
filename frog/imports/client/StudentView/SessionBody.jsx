@@ -22,6 +22,8 @@ import { Sessions } from '/imports/api/sessions';
 import Runner from './Runner';
 import Countdown from './Countdown';
 
+let loggedIn = false;
+
 const styles = {
   root: {
     display: 'flex',
@@ -143,7 +145,10 @@ class SessionBodyController extends React.Component<
   void
 > {
   componentDidMount() {
-    logLogin(this.props.session._id);
+    if (!loggedIn) {
+      loggedIn = true;
+      logLogin(this.props.session._id);
+    }
   }
 
   render() {

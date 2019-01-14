@@ -1,5 +1,5 @@
-const { sync } = require('find-up');
 const { dirname } = require('path');
+const { sync } = require('find-up');
 
 const help = `echo '
        FROG scripts:
@@ -61,25 +61,25 @@ module.exports = {
     ),
     test: {
       default: fromRoot(
-        `nps -s flow.quiet eslint.normal jest`,
+        `nps -s flow.quiet eslint jest`,
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
-        `nps -s lockfiles flow.quiet eslint.normal jest`,
+        `nps -s lockfiles flow.quiet eslint jest`,
         'Running LockFiles, Flow, ESLint and Jest'
       )
     },
     eslint: {
       default: fromRoot(
-        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx',
+        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx"',
         'Running ESLint'
       ),
       fix: fromRoot(
-        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx',
+        'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --fix --cache -c .eslintrc-prettier.js --ext ".js,.jsx"',
         'Running ESLint in Fix mode'
       ),
       normal: fromRoot(
-        'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx .',
+        'eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx ."',
         'Running ESLint in normal mode'
       )
     },

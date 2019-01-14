@@ -62,32 +62,29 @@ class ActivityRunner extends React.Component<
             render={({ editable, children }) => (
               <div>
                 {children}
-                {!editing &&
-                  !conf.noSubmit &&
-                  conf.allowEditing && (
-                    <Fab
-                      onClick={() =>
-                        editable
-                          ? this.setState({ editing: true })
-                          : dataFn.objDel(null, 'li')
-                      }
-                      color="secondary"
-                      aria-label={editable ? 'edit' : 'delete'}
-                    >
-                      {editable ? <EditIcon /> : <CloseIcon />}
-                    </Fab>
-                  )}
-                {editing &&
-                  !conf.noSubmit && (
-                    <Button
-                      onClick={() => this.setState({ editing: false })}
-                      color="primary"
-                      variant="contained"
-                      aria-label="save"
-                    >
-                      Save
-                    </Button>
-                  )}
+                {!editing && !conf.noSubmit && conf.allowEditing && (
+                  <Fab
+                    onClick={() =>
+                      editable
+                        ? this.setState({ editing: true })
+                        : dataFn.objDel(null, 'li')
+                    }
+                    color="secondary"
+                    aria-label={editable ? 'edit' : 'delete'}
+                  >
+                    {editable ? <EditIcon /> : <CloseIcon />}
+                  </Fab>
+                )}
+                {editing && !conf.noSubmit && (
+                  <Button
+                    onClick={() => this.setState({ editing: false })}
+                    color="primary"
+                    variant="contained"
+                    aria-label="save"
+                  >
+                    Save
+                  </Button>
+                )}
               </div>
             )}
           />
