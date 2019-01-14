@@ -34,11 +34,7 @@ export default ({ data }: { data: Object }) => {
     return (
       <DashMultiWrapper
         activity={{
-          _id: [
-            data.clientId,
-            data.activityType,
-            data.activityId || 'default'
-          ].join('-'),
+          _id: data.activityId,
           activityType: data.activityType,
           data: data.config,
           length: 900,
@@ -80,19 +76,14 @@ export default ({ data }: { data: Object }) => {
       />
     );
   } else {
-    const actId = [
-      data.clientId,
-      data.activityType,
-      data.activityId || 'default'
-    ].join('-');
     const logger = createLogger(
       'headless/' + data.clientId,
-      data.rawInstanceId,
+      data.instanceId,
       {
-        _id: actId,
+        _id: data.activityId,
         activityType: data.activityType
       },
-      data.rawInstanceId
+      data.userId
     );
     const activityData = {
       data: data.activityData,
