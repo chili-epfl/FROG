@@ -144,7 +144,7 @@ class ImageList extends React.Component<*, *> {
               logger={this.props.logger}
               classes={classes}
               onChange={e => {
-                this.setState({ filter: e });
+                this.setState({ filter: e.toLowerCase() });
                 this.props.logger({
                   type: e.trim() === '' ? 'resetSearch' : 'search',
                   value: e
