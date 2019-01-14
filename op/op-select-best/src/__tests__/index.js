@@ -1,6 +1,7 @@
 // @flow
 
 import operator from '../operatorRunner';
+
 jest.mock('frog-utils');
 
 const object2 = {

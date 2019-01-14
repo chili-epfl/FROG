@@ -8,7 +8,6 @@ export default ({
   Viewer,
   ThumbViewer: Viewer,
   search: (data, search) =>
-    console.log(data.rows, search) ||
     data.rows.some(
       x =>
         (x.text && x.text.toLowerCase().includes(search)) ||

@@ -13,7 +13,7 @@ const styles = () => ({
   }
 });
 
-export const FlexViewer = withStyles(styles)(({ data, search, type }) => {
+const FlexViewer = withStyles(styles)(({ data, search, type }) => {
   const shouldShorten = type === 'thumbView';
   return (
     <div>
@@ -30,7 +30,7 @@ export const FlexViewer = withStyles(styles)(({ data, search, type }) => {
   );
 });
 
-export const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
+const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
   <div className={classes.editorContainer}>
     <ReactiveText
       style={large ? { height: '600px' } : {}}

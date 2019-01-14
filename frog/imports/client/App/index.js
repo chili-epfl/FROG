@@ -25,7 +25,6 @@ import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
-import LearningItem from '../LearningItem';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
