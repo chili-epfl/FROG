@@ -20,23 +20,21 @@ const styles = () => ({
   }
 });
 
-const ThumbViewer = ({ data, search }) => {
-  return (
-    <div>
-      <b>
-        <HighlightSearchText haystack={data.title} needle={search} />
-      </b>
-      <br />
-      {data.content.split('\n').map((line, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <React.Fragment key={i}>
-          <HighlightSearchText haystack={line} needle={search} />
-          <br />
-        </React.Fragment>
-      ))}
-    </div>
-  );
-};
+const ThumbViewer = ({ data, search }) => (
+  <div>
+    <b>
+      <HighlightSearchText haystack={data.title} needle={search} />
+    </b>
+    <br />
+    {data.content.split('\n').map((line, i) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <React.Fragment key={i}>
+        <HighlightSearchText haystack={line} needle={search} />
+        <br />
+      </React.Fragment>
+    ))}
+  </div>
+);
 
 const Editor = withStyles(styles)(({ dataFn, classes }) => (
   <div className={classes.editorContainer}>

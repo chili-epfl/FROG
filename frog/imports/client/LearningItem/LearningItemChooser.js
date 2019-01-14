@@ -30,9 +30,13 @@ const styles = theme => ({
 
 class ButtonRaw extends React.Component<*, *> {
   state = { selected: false };
+
   mounted: boolean;
+
   componentDidMount = () => (this.mounted = true);
+
   componentWillUnmount = () => (this.mounted = false);
+
   render() {
     const { anchorEl, callback, handleClick, classes } = this.props;
     return (

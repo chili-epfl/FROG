@@ -33,30 +33,28 @@ const ThumbViewer = ({ LearningItem, data, search }) => {
   );
 };
 
-const Viewer = ({ LearningItem, data, search }) => {
-  return (
-    <div>
-      <b>
-        <HighlightSearchText haystack={data.title} needle={search} />
-      </b>
-      <br />
-      {data.content.split('\n').map((line, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <React.Fragment key={i}>
-          <HighlightSearchText haystack={line} needle={search} />
-          <br />
-        </React.Fragment>
-      ))}
-      {data.attachments.length === 1 ? (
-        <LearningItem id={data.attachments[0]} type="view" />
-      ) : (
-        data.attachments.map(x => (
-          <LearningItem clickZoomable key={x} id={x} type="thumbView" />
-        ))
-      )}
-    </div>
-  );
-};
+const Viewer = ({ LearningItem, data, search }) => (
+  <div>
+    <b>
+      <HighlightSearchText haystack={data.title} needle={search} />
+    </b>
+    <br />
+    {data.content.split('\n').map((line, i) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <React.Fragment key={i}>
+        <HighlightSearchText haystack={line} needle={search} />
+        <br />
+      </React.Fragment>
+    ))}
+    {data.attachments.length === 1 ? (
+      <LearningItem id={data.attachments[0]} type="view" />
+    ) : (
+      data.attachments.map(x => (
+        <LearningItem clickZoomable key={x} id={x} type="thumbView" />
+      ))
+    )}
+  </div>
+);
 
 const Editor = ({ data, dataFn, LearningItem }) => (
   <div>

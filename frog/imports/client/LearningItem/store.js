@@ -4,12 +4,19 @@ import { inject, observer } from 'mobx-react';
 
 class LIStore {
   dragState: ?{ item: string | Object, shiftKey: boolean };
+
   setDraggedItem: (item: string | Object, s: boolean) => void;
+
   overCB: ?Function;
+
   setOverCB: (?Function) => void;
+
   stopDragging: () => void;
+
   coords: ?[number, number];
+
   setXY: (x: number, y: number) => void;
+
   constructor() {
     extendObservable(this, {
       dragState: null,
