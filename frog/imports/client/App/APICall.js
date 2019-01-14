@@ -134,6 +134,7 @@ export default ({ data }: { data: Object }) => {
         rawData={data.rawData}
         sessionId={data.activityId}
         activityId={data.activityId}
+        instanceMembers={[]}
         groupingKey="group"
       />
     );
