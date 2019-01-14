@@ -117,13 +117,19 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
 
   const docId =
     [
-      (request.query.clientId || '') + request.body.clientId,
+      request.query.clientId || request.body.clientId || '',
       activityTypeId,
-      request.body.activityId || 'default'
+      request.query.activityId || request.body.activityId || ''
     ].join('-') +
-      '/' +
-      request.body.instanceId || 'default';
-
+    '/' +
+    (request.body.instanceId || request.query.instanceId || 'default');
+  console.log(
+    request.query.instanceId,
+    request.body.instanceId,
+    request.query.instanceId || request.body.instanceId,
+    docId,
+    request.body.instanceId === 'undefined'
+  );
   if (!InstanceDone[docId] && !(request.body && request.body.rawData)) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
@@ -176,7 +182,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     activityId: request.body.activityId,
     rawInstanceId: request.body.instanceId || 'default',
     activityData,
-    clientId: (request.query.clientId || '') + request.body.clientId,
+    clientId: request.query.clientId || request.body.clientId,
     rawData,
     readOnly: request.body.readOnly || request.query.readOnly,
     config
