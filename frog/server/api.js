@@ -372,7 +372,7 @@ WebApp.connectHandlers.use('/', (req, res, next) => {
 });
 
 WebApp.connectHandlers.use('/multiFollow', (request, response) => {
-  let root = process.env.ROOT_URL || 'http://localhost:3000';
+  let root = Meteor.absoluteUrl();
   if (root.slice(-1) === '/') {
     root = root.slice(0, -1);
   }

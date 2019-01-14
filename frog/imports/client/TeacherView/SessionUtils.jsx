@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { Meteor } from 'meteor/meteor';
 
 import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
@@ -157,11 +158,7 @@ const SessionUtils = ({
             <>
               {' '}
               -{' '}
-              <a
-                href={`${process.env.ROOT_URL || 'http://localhost:3000'}/lti/${
-                  session.slug
-                }`}
-              >
+              <a href={`${Meteor.absoluteUrl()}lti/${session.slug}`}>
                 LTI link
               </a>
             </>
@@ -170,11 +167,7 @@ const SessionUtils = ({
             <>
               {' '}
               -{' '}
-              <a
-                href={`${process.env.ROOT_URL || 'http://localhost:3000'}/${
-                  session.slug
-                }`}
-              >
+              <a href={`${Meteor.absoluteUrl()}${session.slug}`}>
                 {' '}
                 Student login link
               </a>
