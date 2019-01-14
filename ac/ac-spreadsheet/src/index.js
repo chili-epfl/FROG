@@ -13,14 +13,18 @@ const config = {
     },
     rows: { title: 'Number of rows?', type: 'number', default: 4 },
     columns: { title: 'Number of columns?', type: 'number', default: 4 },
-    rowWidth: { title: 'Row width', type: 'number' }
+    addRemove: {
+      title: 'Enable adding/removing columns/rows?',
+      type: 'boolean',
+      default: true
+    }
   }
 };
 
 const alphabet = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-const dataStructure = formdata =>
-  Array((formdata.rows || 4) + 1)
+const dataStructure = formdata => ({
+  sheet: Array((formdata.rows || 4) + 1)
     .fill(0)
     .map((_, i) =>
       alphabet.slice(0, (formdata.columns || 4) + 1).map((col, j) => {
@@ -38,7 +42,8 @@ const dataStructure = formdata =>
         }
         return { value: '', key: col + i, col: j, row: i };
       })
-    );
+    )
+});
 
 const generateOneRow = (cols, row) =>
   alphabet.slice(0, cols + 1).map((i, j) => {
@@ -50,12 +55,18 @@ const generateOneRow = (cols, row) =>
 
 const mergeFunction = (
   { data: incoming, config: configData },
-  dataFn,
-  data
+  dataFnRaw,
+  dataRaw
 ) => {
+  if (!incoming) {
+    return;
+  }
+  if (incoming.sheet) {
+    return dataFnRaw.objInsert(incoming.sheet, 'sheet');
+  }
   if (Array.isArray(incoming)) {
     return incoming.forEach(item =>
-      mergeFunction({ data: item, config: configData }, dataFn, data)
+      mergeFunction({ data: item, config: configData }, dataFnRaw, dataRaw)
     );
   }
   if (isEmpty(incoming) || !isObject(incoming)) {
@@ -63,17 +74,20 @@ const mergeFunction = (
   }
   if (isObject(incoming) && !incoming.li && !incoming.trace) {
     return values(incoming).forEach(item =>
-      mergeFunction({ data: item, config: configData }, dataFn, data)
+      mergeFunction({ data: item, config: configData }, dataFnRaw, dataRaw)
     );
   }
 
   if (incoming['1']) {
     return mergeFunction(
       { data: incoming['1'], config: configData },
-      dataFn,
-      data
+      dataFnRaw,
+      dataRaw
     );
   }
+  const data = dataRaw.sheet;
+  const dataFn = dataFnRaw.specialize('sheet');
+
   if (incoming.y || incoming.li) {
     const indexRaw = data[1].findIndex(
       x => x.value === (incoming.trace || 'Items')
