@@ -163,14 +163,6 @@ class MathSheet extends React.Component<*, *> {
   };
 
   render() {
-    if (
-      this.props.search &&
-      !JSON.stringify(this.props.data)
-        .toLowerCase()
-        .includes(this.props.search)
-    ) {
-      return null;
-    }
     const data =
       this.props.type === 'view'
         ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
@@ -349,17 +341,17 @@ export default ({
   id: 'li-spreadsheet',
   //  $FlowFixMe
   Viewer: MathSheet,
-  ThumbViewer: ({ search, data }) =>
-    search &&
-    !JSON.stringify(data)
+  ThumbViewer: () => (
+    <div>
+      <Fab color="primary">
+        <i style={{ fontSize: '2em' }} className="fa fa-table" />
+      </Fab>
+      Spreadsheet
+    </div>
+  ),
+  Editor: MathSheet,
+  search: (data, search) =>
+    JSON.stringify(data)
       .toLowerCase()
-      .includes(search) ? null : (
-      <div>
-        <Fab color="primary">
-          <i style={{ fontSize: '2em' }} className="fa fa-table" />
-        </Fab>
-        Spreadsheet
-      </div>
-    ),
-  Editor: MathSheet
+      .includes(search)
 }: LearningItemT<any>);

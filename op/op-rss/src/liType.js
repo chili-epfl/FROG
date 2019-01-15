@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { type LearningItemT, HTML, withVisibility } from 'frog-utils';
+import {
+  type LearningItemT,
+  HTML,
+  highlightSearchHTML,
+  HighlightSearchText,
+  withVisibility
+} from 'frog-utils';
 import { Fab } from '@material-ui/core';
 import Play from '@material-ui/icons/PlayCircleFilled';
 import Stop from '@material-ui/icons/Stop';
@@ -13,10 +19,12 @@ const ThumbViewer = ({ data }) => (
   </React.Fragment>
 );
 
-const Viewer = withVisibility(({ data, visible, toggleVisibility }) => (
+const Viewer = withVisibility(({ data, visible, toggleVisibility, search }) => (
   <React.Fragment>
     <img alt="rss logo" src="https://i.imgur.com/t3opF7y.png" />
-    <h2>{data.title} </h2>
+    <h2>
+      <HighlightSearchText haystack={data.title} search={search} />
+    </h2>
     {data.enclosure && (
       <>
         <Fab
@@ -42,7 +50,7 @@ const Viewer = withVisibility(({ data, visible, toggleVisibility }) => (
     </i>
     <br />
     <br />
-    <HTML html={data.content} />
+    <HTML html={highlightSearchHTML(data.content, search)} />
   </React.Fragment>
 ));
 
@@ -51,5 +59,8 @@ export default ({
   id: 'li-rss',
   dataStructure: { title: '', content: '' },
   ThumbViewer,
-  Viewer
+  Viewer,
+  search: (data, search) =>
+    data.title.toLowerCase().includes(search) ||
+    data.content.toLowerCase().includes(search)
 }: LearningItemT<{ title: string, content: string }>);

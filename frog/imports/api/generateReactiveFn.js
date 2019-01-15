@@ -79,6 +79,8 @@ export class Doc {
     return cleanPath(this.path, path);
   }
 
+  getLearningTypesObj = (): Object => learningItemTypesObj;
+
   createLearningItem(
     liType: string,
     payload?: Object,

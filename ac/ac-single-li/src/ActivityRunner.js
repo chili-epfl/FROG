@@ -60,7 +60,7 @@ class ActivityRunner extends React.Component<
             id={data.li}
             clickZoomable
             render={({ editable, children }) => (
-              <div>
+              <>
                 {children}
                 {!editing && !conf.noSubmit && conf.allowEditing && (
                   <Fab
@@ -85,7 +85,7 @@ class ActivityRunner extends React.Component<
                     Save
                   </Button>
                 )}
-              </div>
+              </>
             )}
           />
         </div>

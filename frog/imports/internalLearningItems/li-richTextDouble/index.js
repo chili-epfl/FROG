@@ -6,11 +6,9 @@ import {
   highlightTargetRichText
 } from 'frog-utils';
 
-const path = 'text';
-
 export class FlexViewer extends React.Component<*, *> {
   render() {
-    const { isPlayback, data, dataFn, search, type } = this.props;
+    const { isPlayback, path, data, dataFn, search, type } = this.props;
     const shouldShorten = type === 'thumbView';
 
     if (search) {
@@ -78,11 +76,19 @@ export class Editor extends React.Component<*, *> {
   render() {
     const { dataFn } = this.props;
     return (
-      <div style={{ height: '100%' }}>
+      <div>
+        <h2>First text</h2>
         <ReactiveRichText
           userId={this.props.userId}
           ref={this.ref}
-          path={path}
+          path="text"
+          dataFn={dataFn}
+        />
+        <h2>Second text</h2>
+        <ReactiveRichText
+          userId={this.props.userId}
+          ref={this.ref}
+          path="text2"
           dataFn={dataFn}
         />
       </div>
@@ -91,9 +97,9 @@ export class Editor extends React.Component<*, *> {
 }
 
 export default ({
-  name: 'Rich text',
-  id: 'li-richText',
-  dataStructure: { [path]: '' },
+  name: 'Double rich text',
+  id: 'li-doubleRichText',
+  dataStructure: { text: '', text2: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { Meteor } from 'meteor/meteor';
 
 import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
@@ -151,7 +152,28 @@ const SessionUtils = ({
   return (
     <Grid container alignItems="center">
       <Grid item xs={4} className={classes.textCenter}>
-        <Typography>Current Session: {session.slug}</Typography>
+        <Typography>
+          <b>{session.slug}</b>{' '}
+          {(!session?.settings || session?.settings?.allowLTI) && (
+            <>
+              {' '}
+              -{' '}
+              <a href={`${Meteor.absoluteUrl()}lti/${session.slug}`}>
+                LTI link
+              </a>
+            </>
+          )}
+          {session?.settings?.loginByName && (
+            <>
+              {' '}
+              -{' '}
+              <a href={`${Meteor.absoluteUrl()}${session.slug}`}>
+                {' '}
+                Student login link
+              </a>
+            </>
+          )}
+        </Typography>
       </Grid>
       <Grid item xs={4} className={classes.textCenter}>
         <DashToggle visible={visible} toggleVisible={toggle} />

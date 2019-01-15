@@ -115,14 +115,15 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
     altConfig ||
     safeDecode(request.body, 'config', 'Config data not valid', response);
 
-  const docId =
-    [
-      (request.query.clientId || '') + request.body.clientId,
-      activityTypeId,
-      request.body.activityId || 'default'
-    ].join('-') +
-      '/' +
-      request.body.instanceId || 'default';
+  const activityId = [
+    request.query.clientId || request.body.clientId || '',
+    activityTypeId,
+    request.query.activityId || request.body.activityId || ''
+  ].join('-');
+
+  const instance =
+    request.body.instanceId || request.query.instanceId || 'default';
+  const docId = activityId + '/' + instance;
 
   if (!InstanceDone[docId] && !(request.body && request.body.rawData)) {
     InstanceDone[docId] = true;
@@ -149,15 +150,16 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
               resolve();
             } else {
               mergeOneInstance(
-                null,
-                { _id: docId, data: config || {} },
+                instance,
+                { _id: activityId, data: config || {} },
                 initData,
                 aT.mergeFunction,
                 null,
                 null,
                 null,
                 { data: activityData, config: config || {} },
-                docId
+                null,
+                'headless/' + request.query.clientId || request.body.clientId
               );
               resolve();
             }
@@ -170,13 +172,12 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userId: request.body.userId,
+    userId: request.query.userId || request.body.userId,
     userName: request.body.userName,
     instanceId: docId,
-    activityId: request.body.activityId,
-    rawInstanceId: request.body.instanceId || 'default',
+    activityId,
     activityData,
-    clientId: (request.query.clientId || '') + request.body.clientId,
+    clientId: request.query.clientId || request.body.clientId,
     rawData,
     readOnly: request.body.readOnly || request.query.readOnly,
     config
@@ -200,16 +201,22 @@ WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
     }
   }
 
+  const activityId = [
+    request.query.clientId || request.body.clientId || '',
+    activityTypeId,
+    request.query.activityId || request.body.activityId || ''
+  ].join('-');
+
   const config =
     altConfig ||
     safeDecode(request.body, 'config', 'Config data not valid', response);
 
   InjectData.pushData(request, 'api', {
     callType: 'dashboard',
-    clientId: (request.query.clientId || '') + request.body.clientId,
+    clientId: request.query.clientId || request.body.clientId || '',
     activityType: activityTypeId,
     instances: request.body.instances,
-    activityId: request.body.activityId || 'default',
+    activityId,
     config
   });
   next();
@@ -372,7 +379,7 @@ WebApp.connectHandlers.use('/', (req, res, next) => {
 });
 
 WebApp.connectHandlers.use('/multiFollow', (request, response) => {
-  let root = process.env.ROOT_URL || 'http://localhost:3000';
+  let root = Meteor.absoluteUrl();
   if (root.slice(-1) === '/') {
     root = root.slice(0, -1);
   }

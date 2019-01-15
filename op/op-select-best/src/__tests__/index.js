@@ -1,6 +1,7 @@
 // @flow
 
 import operator from '../operatorRunner';
+
 jest.mock('frog-utils');
 
 const object2 = {
@@ -49,7 +50,8 @@ const object2 = {
       a: ['1', '2', '3', '4'],
       b: ['5', '6', '7', '8']
     }
-  }
+  },
+  globalStructure: { studentIds: [], students: {} }
 };
 
 test('deal with whole instance data', () => {
@@ -70,6 +72,7 @@ const activityData = {
   },
   payload: {
     '1': {
+      config: {},
       data: {
         cjmbpp0mm0015hkixocmtmtzl: {
           students: {},
@@ -80,9 +83,11 @@ const activityData = {
       }
     },
     '2': {
+      config: {},
       data: {}
     },
     '3': {
+      config: {},
       data: {
         cjmbpp0mr0016hkixb0254z5l: {
           students: {},
@@ -93,6 +98,7 @@ const activityData = {
       }
     },
     '4': {
+      config: {},
       data: {
         cjmbpp0mt0018hkixceq0z8z5: {
           students: {
@@ -114,9 +120,19 @@ const activityData = {
 };
 
 test('test2', () => {
-  expect(operator({ topN: 1 }, { activityData })).toEqual({
+  expect(
+    operator(
+      { topN: 1 },
+      {
+        activityData,
+        socialStructure: {},
+        globalStructure: { studentIds: [], students: {} }
+      }
+    )
+  ).toEqual({
     payload: {
       '1': {
+        config: {},
         data: {
           cjmbpp0mm0015hkixocmtmtzl: {
             id: 'cjmbpp0mm0015hkixocmtmtzl',
@@ -126,8 +142,9 @@ test('test2', () => {
           }
         }
       },
-      '2': { data: {} },
+      '2': { data: {}, config: {} },
       '3': {
+        config: {},
         data: {
           cjmbpp0mr0016hkixb0254z5l: {
             id: 'cjmbpp0mr0016hkixb0254z5l',
@@ -138,6 +155,7 @@ test('test2', () => {
         }
       },
       '4': {
+        config: {},
         data: {
           cjmbpp0mt0018hkixceq0z8z5: {
             id: 'cjmbpp0mt0018hkixceq0z8z5',

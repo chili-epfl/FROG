@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { isEmpty } from 'lodash';
 
 import {
   type ActivityRunnerPropsT,
@@ -113,7 +114,9 @@ class ChatController extends React.Component<StyledPropsT> {
         {activityData.config.title && (
           <h4 className={classes.header}>{activityData.config.title}</h4>
         )}
-        {instanceMembers && <p>Group members: {instanceMembers.join(', ')}</p>}
+        {instanceMembers && !isEmpty(instanceMembers) && (
+          <p>Group members: {instanceMembers.join(', ')}</p>
+        )}
         <div className={classes.content} ref={node => (this.node = node)}>
           {values(data)
             .sort((x, y) => x.order - y.order)

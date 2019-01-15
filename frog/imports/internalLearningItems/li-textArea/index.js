@@ -13,11 +13,8 @@ const styles = () => ({
   }
 });
 
-export const FlexViewer = withStyles(styles)(({ data, search, type }) => {
+const FlexViewer = withStyles(styles)(({ data, search, type }) => {
   const shouldShorten = type === 'thumbView';
-  if (search && !data.text.toLowerCase().includes(search)) {
-    return null;
-  }
   return (
     <div>
       {(shouldShorten ? shorten(data.text, 150) : data.text)
@@ -33,7 +30,7 @@ export const FlexViewer = withStyles(styles)(({ data, search, type }) => {
   );
 });
 
-export const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
+const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
   <div className={classes.editorContainer}>
     <ReactiveText
       style={large ? { height: '600px' } : {}}
@@ -51,5 +48,6 @@ export default ({
   dataStructure: { text: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
-  Editor
+  Editor,
+  search: (data, search) => data.text.toLowerCase().includes(search)
 }: LearningItemT<{ title: string, content: string }>);
