@@ -28,6 +28,7 @@ import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
+import './redis';
 
 console.info('Meteor settings', Meteor.settings);
 
@@ -186,7 +187,11 @@ publishComposite('session_activities', function(slug) {
               {
                 find(activity) {
                   return Objects.find(activity._id, {
-                    fields: { socialStructure: 1, activityData: 1 }
+                    fields: {
+                      socialStructure: 1,
+                      activityData: 1,
+                      globalStructure: 1
+                    }
                   });
                 }
               }

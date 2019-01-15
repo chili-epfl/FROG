@@ -131,9 +131,7 @@ const RunnerController = props => {
 
 const StyledRunner = withStyles(styles)(RunnerController);
 
-export default class ActivityRunner extends React.Component<
-  ActivityRunnerPropsT
-> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   render() {
     return this.props.data && <StyledRunner {...this.props} />;
   }

@@ -13,6 +13,11 @@ const styles = {
   dialogPaper: {
     margin: '15px',
     minWidth: '30vw'
+  },
+  contained: {
+    transformOrigin: '0 0',
+    marginRight: '50%',
+    transform: 'scale(2)'
   }
 };
 
@@ -26,7 +31,8 @@ const ZoomView = ({
   logger,
   classes,
   commentGuidelines,
-  LearningItem
+  LearningItem,
+  bigZoom
 }: Object) => {
   Mousetrap.bind('left', e => {
     e.preventDefault();
@@ -38,14 +44,14 @@ const ZoomView = ({
   });
 
   return (
-    <Dialog maxWidth="md" open classes={{ paper: classes.dialogPaper }}>
+    <Dialog
+      transitionDuration={0}
+      maxWidth="md"
+      open
+      classes={{ paper: classes.dialogPaper }}
+    >
       <Paper depth={24}>
-        <div style={{ position: 'absolute', right: '0px' }}>
-          <IconButton color="inherit" onClick={close} aria-label="Close">
-            <CloseIcon />
-          </IconButton>
-        </div>
-        <div style={{ margin: '20px' }}>
+        <div className={bigZoom ? classes.contained : ''}>
           <LearningItem id={learningItems[index].li} type="view" />
           {commentBox && (
             <ReactiveText
@@ -79,6 +85,12 @@ const ZoomView = ({
               </div>
             </button>
           )}
+        </div>
+
+        <div style={{ position: 'absolute', right: '0px', top: '0px' }}>
+          <IconButton color="inherit" onClick={close} aria-label="Close">
+            <CloseIcon />
+          </IconButton>
         </div>
       </Paper>
     </Dialog>

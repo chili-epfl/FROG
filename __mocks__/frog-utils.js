@@ -2,7 +2,6 @@ function mockFunctions() {
   const original = require.requireActual('frog-utils');
   return {
     ...original,
-    default: original,
     uuid: (() => {
       let counter = 0;
       return jest.fn(() => {

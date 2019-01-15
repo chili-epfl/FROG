@@ -7,12 +7,10 @@ import {
 } from 'frog-utils';
 
 import ReactiveCountDashboard from './ReactiveCountDashboard';
-import JustificationDashboard from './JustificationDashboard';
 
 export default {
-  counts: ReactiveCountDashboard,
+  answers: ReactiveCountDashboard,
   progress: ProgressDashboard,
   leaderboard: LeaderBoard,
-  coordinates: CoordinatesDashboard,
-  justification: JustificationDashboard
+  coordinates: { ...CoordinatesDashboard, displayCondition: 'argueWeighting' }
 };

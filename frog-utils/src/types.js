@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import type { Doc } from './generateReactiveFn';
 
 export type ActivityDbT = {|
   _id: string,
@@ -91,7 +90,8 @@ export type ActivityRunnerPropsT = {
   userInfo: { id: string, name: string, role: string },
   activityId: string,
   groupingValue: string,
-  sessionId: string
+  sessionId: string,
+  instanceMembers: string[]
 };
 
 export type ActivityRunnerT = React.ComponentType<ActivityRunnerPropsT>;
@@ -135,6 +135,7 @@ export type ActivityPackageT = {
     shortName?: string,
     shortDesc: string,
     description: string,
+    supportsLearningItems?: boolean,
     exampleData?: {
       title: string,
       config?: Object,
@@ -166,6 +167,7 @@ export type ActivityPackageT = {
 };
 
 export type DashboardT = {
+  displayCondition?: string | ((obj: Object) => boolean),
   Viewer: React.ComponentType<DashboardViewerPropsT>,
   mergeLog: (state: any, log: LogDbT, activity: ActivityDbT) => void,
   prepareDataForDisplay?: (state: any, activity: ActivityDbT) => any,
@@ -179,7 +181,7 @@ export type DashboardT = {
         activityMerge?: Object,
         instances?: number
       }
-    | { title: string, type: 'state', activityMerge?: Object, state: any }
+    | { type: 'state', title: string, activityMerge?: Object, state: Object }
   )[],
   exampleData?: { title: string, path: string }[]
 };
@@ -324,19 +326,25 @@ export type LIComponentPropsT =
       type: 'view',
       id: string | ImmutableLIT,
       render?: LIRenderT,
-      search?: string
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'thumbView',
       id: string | ImmutableLIT,
       render?: LIRenderT,
       clickZoomable?: boolean,
-      search?: string
+      search?: string,
+      notEmpty?: boolean
     |}
   | {|
       type: 'edit',
       id: string,
-      render?: React.ComponentType<{ ...{| dataFn: Doc |}, ...LIRenderPropsT }>
+      render?: React.ComponentType<{
+        ...{| dataFn: Object |},
+        ...LIRenderPropsT
+      }>,
+      notEmpty?: boolean
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
@@ -345,9 +353,10 @@ export type LearningItemT<T> = {
   name: string,
   id: string,
   dataStructure?: T,
+  canDropLI?: boolean,
   Editor?: React.ComponentType<{
     data: T,
-    dataFn: Doc,
+    dataFn: Object,
     LearningItem: LearningItemComponentT,
     search?: string
   }>,
@@ -366,5 +375,6 @@ export type LearningItemT<T> = {
     LearningItem: LearningItemComponentT,
     search?: string
   }>,
-  createPayload?: Function
+  createPayload?: Function,
+  search?: (data: any, search: string) => boolean
 };

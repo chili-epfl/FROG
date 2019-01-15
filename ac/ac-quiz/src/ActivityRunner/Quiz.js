@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import seededShuffle from 'seededshuffle';
 import { withState } from 'recompose';
 
@@ -32,12 +32,6 @@ const Quiz = ({
   const questions = ['questions', 'both'].includes(config.shuffle)
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
-
-  questions.forEach(([_, questionIndex]) => {
-    if (!data.form[questionIndex]) {
-      dataFn.objInsert({ text: '' }, ['form', questionIndex]);
-    }
-  });
 
   const canSubmit =
     config.allowSkip ||
@@ -86,4 +80,8 @@ const Quiz = ({
   );
 };
 
-export default withState('index', 'setIndex', 0)(Quiz);
+const DefaultExport: React.ComponentType<*> = withState('index', 'setIndex', 0)(
+  Quiz
+);
+
+export default DefaultExport;

@@ -4,6 +4,29 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { shuffle, isString, filter, split, isEqual } from 'lodash';
+import ReactLoadable from 'react-loadable';
+
+export const Loadable = ({
+  loader,
+  componentDescription
+}: {
+  loader: void => Promise<*>,
+  componentDescription: string
+}) =>
+  ReactLoadable({
+    loader,
+    loading(props) {
+      if (props.error) {
+        console.error(props.error);
+        return <div>React Loader error! {componentDescription}</div>;
+      } else if (props.timedOut) {
+        return <div>React Loader Timed Out! {componentDescription}</div>;
+      } else {
+        return null;
+      }
+    },
+    timeout: 10000
+  });
 
 export const isBrowser = (() => {
   try {
@@ -13,12 +36,16 @@ export const isBrowser = (() => {
   }
 })();
 
+export const ReactJsonView = isBrowser
+  ? require('react-json-view').default // eslint-disable-line global-require
+  : () => <p>Node</p>; // React component to make Flow happy, will never be shown
+
 export const EnhancedForm = isBrowser
   ? require('./EnhancedForm.js').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
-export const ReactJsonView = isBrowser
-  ? require('react-json-view').default // eslint-disable-line global-require
+export const ReactiveRichText = isBrowser
+  ? require('./ReactiveRichText').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export {
@@ -27,16 +54,11 @@ export {
   calculateSchema,
   defaultConfig
 } from './enhancedFormUtils';
-export {
-  generateReactiveFn,
-  inMemoryReactive,
-  Doc
-} from './generateReactiveFn';
 export { MemDoc, pureObjectReactive } from './generateReactiveMem';
 export { Highlight } from './highlightSubstring';
 export { default as HTML } from './renderHTML';
+export { unicodeLetter, notUnicodeLetter } from './unicodeRegexpEscapes';
 export { ReactiveText } from './ReactiveText';
-export { ReactiveRichText } from './ReactiveRichText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
 export { default as colorRange } from './colorRange';
@@ -127,13 +149,20 @@ export const currentDate = (): string => {
   return d.toString();
 };
 
-export const highlightSearchHTML = (haystack: string, needle: string) =>
-  !needle
-    ? haystack
-    : haystack.replace(
-        new RegExp(needle, 'gi'),
-        str => `<span style="background-color: #FFFF00">${str}</span>`
-      );
+// max replace 5 times, to avoid searching for a, and getting hundreds of replacements that need
+// to be highlighted
+export const highlightSearchHTML = (haystack: string, needle: string) => {
+  if (!needle) {
+    return haystack;
+  }
+  let c = 0;
+  return haystack.replace(new RegExp(needle, 'gi'), str => {
+    c += 1;
+    return c > 5
+      ? str
+      : `<span style="background-color: #FFFF00">${str}</span>`;
+  });
+};
 
 export const HighlightSearchText = ({
   haystack,
@@ -261,7 +290,7 @@ export const splitAt = (i: number, xs: Array<any>): Array<Array<any>> => {
 export const zipList = (xs: Array<any>): Array<any> =>
   xs[0].map((_, i) => xs.map(x => x[i]));
 
-export const withVisibility = compose(
+export const withVisibility: Function = compose(
   withState('visible', 'setVisibility', false),
   withHandlers({
     toggleVisibility: ({ setVisibility }) => x => {

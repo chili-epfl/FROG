@@ -8,6 +8,34 @@ export default {
     'Allow the student to see various plots of data chosen by the teacher or the student',
   exampleData: [
     {
+      title: 'Number Formatting',
+      config: { title: 'Graph1', plotTypes: ['dots'] },
+      data: [
+        { trace: 'dataset1', size: 0 },
+        { trace: 'dataset1', size: 1 },
+        { trace: 'dataset1', size: 2 },
+        { trace: 'dataset1', size: 999 },
+        { trace: 'dataset1', size: 1000 },
+        { trace: 'dataset1', size: 1000000 },
+        { trace: 'dataset1', size: 1234567 },
+        { trace: 'dataset1', size: 123456789000 },
+        { trace: 'dataset1', size: 33.33333333333333333333 },
+        { trace: 'dataset1', size: 471938749128374918234.394187394712341 },
+        { trace: 'dataset1', size: 0.0000000000031412304 },
+        { trace: 'dataset1', size: -0 },
+        { trace: 'dataset1', size: -1 },
+        { trace: 'dataset1', size: -2 },
+        { trace: 'dataset1', size: -999 },
+        { trace: 'dataset1', size: -1000 },
+        { trace: 'dataset1', size: -1000000 },
+        { trace: 'dataset1', size: -1234567 },
+        { trace: 'dataset1', size: -123456789000 },
+        { trace: 'dataset1', size: -33.33333333333333333333 },
+        { trace: 'dataset1', size: -471938749128374918234.394187394712341 },
+        { trace: 'dataset1', size: -0.0000000000031412304 }
+      ]
+    },
+    {
       title: '1 trace 1 axis',
       config: { title: 'Graph1', plotTypes: ['dots', 'histogram', 'box'] },
       data: [

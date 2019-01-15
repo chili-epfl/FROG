@@ -11,7 +11,7 @@ import {
   GraphCurrentVersion,
   GraphIdUpgrades,
   GraphObjUpgrades
-} from '../ui/GraphEditor/versionUpgrades';
+} from './versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
 

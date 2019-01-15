@@ -1,10 +1,11 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid, getSlug } from 'frog-utils';
+import { uuid, getSlug, values } from 'frog-utils';
 import { difference } from 'lodash';
 
 import { Activities, Connections } from './activities';
+import { activityTypesObj } from '../activityTypes';
 import { Operators } from './operators';
 import {
   runSessionFn,
@@ -30,7 +31,7 @@ export const restartSession = (session: Object) => {
 };
 
 Meteor.methods({
-  'sessions.restart': session => {
+  'sessions.restart': function(session) {
     if (Meteor.isServer) {
       const graphId = session && session.graphId;
       if (!graphId) {
@@ -50,7 +51,7 @@ Meteor.methods({
       Sessions.update(session._id, {
         $set: { slug: session.slug + '-old-' + nextNum }
       });
-      Meteor.users.update(Meteor.userId(), {
+      Meteor.users.update(this.userId, {
         $unset: { 'profile.controlSession': '' }
       });
       const newSessionId = addSessionFn(graphId, session.slug);
@@ -59,6 +60,9 @@ Meteor.methods({
           $set: { settings: session.settings }
         });
       }
+      Meteor.users.update(this.userId, {
+        $set: { 'profile.controlSession': newSessionId }
+      });
       runSessionFn(newSessionId);
     }
   },
@@ -191,6 +195,15 @@ export const updateOpenActivities = (
     );
     openActivities.forEach(activityId => {
       Meteor.call('dataflow.run', 'activity', activityId, sessionId);
+      const activity = Activities.findOne(activityId);
+      const aT = activityTypesObj[activity.activityType];
+      // if any reactive dashboards, start subscribing to reactive data
+      if (
+        aT.dashboards &&
+        values(aT.dashboards).some(x => x.reactiveToDisplay)
+      ) {
+        Meteor.call('ensure.dashboard.reactive.subscription', activity._id);
+      }
       Activities.update(
         {
           _id: activityId,

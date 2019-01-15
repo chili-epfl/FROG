@@ -42,6 +42,7 @@ class HypothesisThread extends React.Component<
   { expand: boolean }
 > {
   state = { expand: true };
+
   toggleFn = () => this.setState({ expand: !this.state.expand });
 
   render() {
@@ -49,17 +50,6 @@ class HypothesisThread extends React.Component<
     const top = annotations.find(x => !x.lastRef);
     const { type, search } = this.props;
     const shouldShorten = type === 'thumbView';
-    if (search) {
-      if (
-        !annotations.some(
-          x =>
-            (x.text && x.text.toLowerCase().includes(search)) ||
-            (x.quotation && x.quotation.toLowerCase().includes(search))
-        )
-      ) {
-        return null;
-      }
-    }
 
     return (
       <Hypothesis>

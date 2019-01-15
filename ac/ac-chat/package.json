@@ -10,9 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.4.2",
-    "react-d3-cloud": "^0.6.0",
-    "react-dom": "^16.4.2"
+    "react": "^16.7.0",
+    "react-d3-cloud": "^0.7.0",
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "nps": "5.9.3"

@@ -49,7 +49,14 @@ const ConfigComponent = ({
           minWidth: 'fit-content'
         }}
       >
-        <h3>Drop H5P package here / Click to upload</h3>
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()}>
+            <div style={{ textAlign: 'center' }}>
+              <input {...getInputProps()} />
+              <h3>Drop H5P package here / Click to upload</h3>
+            </div>
+          </div>
+        )}
       </Dropzone>
     )}
   </div>

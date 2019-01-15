@@ -30,11 +30,10 @@ Meteor.methods({
 });
 
 const runAllConnecting = (connections: Object[], sessionId: string) =>
-  connections.map(
-    connection =>
-      connection.source.type === 'operator'
-        ? runDataflow(connection.source.type, connection.source.id, sessionId)
-        : Promise.await(reactiveToProduct(connection.source.id))
+  connections.map(connection =>
+    connection.source.type === 'operator'
+      ? runDataflow(connection.source.type, connection.source.id, sessionId)
+      : Promise.await(reactiveToProduct(connection.source.id))
   );
 
 // The list of students

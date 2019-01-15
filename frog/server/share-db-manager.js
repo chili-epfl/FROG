@@ -1,10 +1,10 @@
 // @flow
+import http from 'http';
 import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from 'websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
-import http from 'http';
 import RedisPubsub from 'sharedb-redis-pubsub';
 import json from 'ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -32,11 +32,17 @@ if (Meteor.settings.sharedb_redis) {
 
 let backend;
 try {
-  backend = new ShareDB(options);
+  backend = new ShareDB({
+    ...options,
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
+  });
 } catch (e) {
   backend = new ShareDB({
     ...options,
-    db: ShareDBMongo('mongodb://localhost:27017/sharedb')
+    db: ShareDBMongo('mongodb://localhost:27017/sharedb'),
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
   });
 }
 export const serverConnection = backend.connect();

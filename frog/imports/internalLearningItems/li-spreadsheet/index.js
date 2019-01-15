@@ -5,7 +5,7 @@ import { type LearningItemT, isBrowser, flattenOne } from 'frog-utils';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
-import { Button } from '@material-ui/core';
+import { Fab, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Dialog from '@material-ui/core/Dialog';
@@ -38,23 +38,21 @@ const removeRow = props =>
   );
 
 const AddButton = ({ onClick }) => (
-  <Button
+  <Fab
     onClick={onClick}
-    variant="fab"
     style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <AddIcon />
-  </Button>
+  </Fab>
 );
 
 const RemoveButton = ({ onClick }) => (
-  <Button
+  <Fab
     onClick={onClick}
-    variant="fab"
     style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <RemoveIcon />
-  </Button>
+  </Fab>
 );
 
 class DataEditor extends React.Component<*, *> {
@@ -165,14 +163,6 @@ class MathSheet extends React.Component<*, *> {
   };
 
   render() {
-    if (
-      this.props.search &&
-      !JSON.stringify(this.props.data)
-        .toLowerCase()
-        .includes(this.props.search)
-    ) {
-      return null;
-    }
     const data =
       this.props.type === 'view'
         ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
@@ -252,22 +242,21 @@ class MathSheet extends React.Component<*, *> {
             >
               <AddButton
                 onClick={() => {
-                  data.forEach(
-                    (x, i) =>
-                      i === 0
-                        ? this.props.dataFn.listAppend(
-                            { readOnly: true, value: getLetter(x.length - 1) },
-                            i
-                          )
-                        : this.props.dataFn.listAppend(
-                            {
-                              value: '',
-                              key: getLetter(x.length - 1) + i,
-                              col: x.length,
-                              row: i
-                            },
-                            i
-                          )
+                  data.forEach((x, i) =>
+                    i === 0
+                      ? this.props.dataFn.listAppend(
+                          { readOnly: true, value: getLetter(x.length - 1) },
+                          i
+                        )
+                      : this.props.dataFn.listAppend(
+                          {
+                            value: '',
+                            key: getLetter(x.length - 1) + i,
+                            col: x.length,
+                            row: i
+                          },
+                          i
+                        )
                   );
                 }}
               />
@@ -352,17 +341,17 @@ export default ({
   id: 'li-spreadsheet',
   //  $FlowFixMe
   Viewer: MathSheet,
-  ThumbViewer: ({ search, data }) =>
-    search &&
-    !JSON.stringify(data)
+  ThumbViewer: () => (
+    <div>
+      <Fab color="primary">
+        <i style={{ fontSize: '2em' }} className="fa fa-table" />
+      </Fab>
+      Spreadsheet
+    </div>
+  ),
+  Editor: MathSheet,
+  search: (data, search) =>
+    JSON.stringify(data)
       .toLowerCase()
-      .includes(search) ? null : (
-      <div>
-        <Button variant="fab" color="primary">
-          <i style={{ fontSize: '2em' }} className="fa fa-table" />
-        </Button>
-        Spreadsheet
-      </div>
-    ),
-  Editor: MathSheet
+      .includes(search)
 }: LearningItemT<any>);

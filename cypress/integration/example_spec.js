@@ -11,7 +11,7 @@ describe('Logging in', function() {
   });
   it.only('preview', function() {
     cy.visit('http://localhost:3000/teacher?login=teacher');
-    cy.contains('Activity Creator').click();
+    cy.contains('Activity Preview').click();
     cy.get('.listitem').then(x => {
       x.each(function() {
         if (this.innerText !== 'Dashboard activity') {

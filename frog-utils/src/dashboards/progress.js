@@ -95,8 +95,8 @@ function predictUserProgress(userStatus, t) {
     userStatus === FINISHED
       ? 1
       : userStatus[0] === 0
-        ? Math.min(userStatus[1], 1)
-        : Math.min((t - userStatus[1]) / userStatus[0], 1);
+      ? Math.min(userStatus[1], 1)
+      : Math.min((t - userStatus[1]) / userStatus[0], 1);
   return userProgress;
 }
 
@@ -142,8 +142,8 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
               hiatusCoefficient(userActivities[lastIndex][0]) *
                 (userActivities[lastIndex][1] - userActivities[0][1])
             )
-            ? linearRegression(userActivities)
-            : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
+          ? linearRegression(userActivities)
+          : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
       sessionStatus[user] = userStatus;
     }
   });
@@ -281,6 +281,15 @@ const exampleLogs = [
       actualClosingTime: '2018-08-22T09:55:59Z'
     },
     instances: 2
+  },
+  {
+    type: 'logs',
+    title: 'Valerie 2018 w2 group 1',
+    path: '/clientFiles/frog-utils/exampleLogs/progress-unil-valerie1-w2.json',
+    activityMerge: {
+      actualStartingTime: '2018-12-10T08:32:25.655Z',
+      actualClosingTime: '2018-12-10T08:34:54.445Z'
+    }
   }
 ];
 

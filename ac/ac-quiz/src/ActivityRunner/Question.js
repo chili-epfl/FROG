@@ -4,6 +4,7 @@ import React from 'react';
 import { HTML, ReactiveText } from 'frog-utils';
 
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -34,8 +35,8 @@ const styles = theme => ({
     padding: '4px',
     height: '100px'
   },
-  check: { height: '35px', alignItems: 'flex-start' },
-  text: { lineHeight: '1', alignItems: 'flex-start' }
+  check: { height: '35px' },
+  text: { alignItems: 'center' }
 });
 
 const Header = withStyles(styles)(({ question, index, classes }) => (
@@ -59,7 +60,7 @@ const CheckBox = withStyles(styles)(({ classes, answers, data, onChange }) => (
             value={idx.toString()}
           />
         }
-        label={<HTML className={classes.text} html={choice} />}
+        label={<HTML html={choice} />}
       />
     ))}
   </FormControl>
@@ -79,7 +80,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
           value={idx.toString()}
           classes={{ root: classes.text }}
           control={<Radio classes={{ root: classes.check }} />}
-          label={<HTML className={classes.text} html={choice} />}
+          label={<HTML html={choice} />}
         />
       ))}
     </RadioGroup>
@@ -95,6 +96,23 @@ const Justify = withStyles(styles)(props => {
       logger={logger}
       dataFn={dataFn}
       className={classes.justify}
+    />
+  );
+});
+
+const Value = withStyles(styles)(props => {
+  const { value, dataFn, questionIndex, classes } = props;
+  return (
+    <TextField
+      label="Answer with a numerical value"
+      value={value}
+      onChange={e =>
+        dataFn.objInsert(e.target.value, ['form', questionIndex, 'value'])
+      }
+      className={classes.textField}
+      type="number"
+      margin="normal"
+      variant="outlined"
     />
   );
 });
@@ -115,7 +133,7 @@ export default withStyles(styles)(
       return <CircularProgress />;
     }
 
-    const { multiple, text } = question;
+    const { multiple, text, value } = question;
 
     const answersWithIndex = (question.answers || []).map((x, y) => [x, y]);
     const answers = ['answers', 'both'].includes(activityData.config.shuffle)
@@ -123,7 +141,10 @@ export default withStyles(styles)(
       : answersWithIndex;
 
     const hasChoices = answers && answers.length > 0;
-    const questionData = data.form[questionIndex] || { text: '' };
+    const questionData = data.form[questionIndex] || {
+      text: '',
+      value: undefined
+    };
 
     const onChange = idx => {
       if (multiple) {
@@ -162,26 +183,26 @@ export default withStyles(styles)(
     return (
       <div className={classes.root}>
         <Header question={question.question} index={index} />
-        {hasChoices &&
-          multiple && (
-            <CheckBox
-              answers={answers}
-              data={questionData}
-              onChange={onChange}
-            />
-          )}
-        {hasChoices &&
-          !multiple && (
-            <Select answers={answers} data={questionData} onChange={onChange} />
-          )}
-        {text &&
-          questionData.text !== undefined && (
-            <Justify
-              logger={logProgressAndLog}
-              dataFn={dataFn}
-              questionIndex={questionIndex}
-            />
-          )}
+        {hasChoices && multiple && (
+          <CheckBox answers={answers} data={questionData} onChange={onChange} />
+        )}
+        {hasChoices && !multiple && (
+          <Select answers={answers} data={questionData} onChange={onChange} />
+        )}
+        {value && (
+          <Value
+            value={questionData.value}
+            dataFn={dataFn}
+            questionIndex={questionIndex}
+          />
+        )}
+        {text && questionData.text !== undefined && (
+          <Justify
+            logger={logProgressAndLog}
+            dataFn={dataFn}
+            questionIndex={questionIndex}
+          />
+        )}
       </div>
     );
   }

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import FlipMove from '@houshuang/react-flip-move';
+import FlipMove from 'react-flip-move';
 import { ListGroup } from 'react-bootstrap';
 
 import Answer from './Answer';

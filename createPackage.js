@@ -1,6 +1,6 @@
+const childProcess = require('child_process');
 const fs = require('fs-extra');
 const stringify = require('json-stringify-pretty-compact');
-const childProcess = require('child_process');
 const rimraf = require('rimraf');
 
 if (!process.argv[4]) {

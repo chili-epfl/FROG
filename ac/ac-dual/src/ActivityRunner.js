@@ -22,7 +22,7 @@ const styles = {
   bar1Determinate: {
     backgroundColor: '#8994D1'
   },
-  text: { fontSize: 'xx-large' },
+  text: { fontSize: 'large' },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -157,9 +157,7 @@ const Runner = withStyles(styles)((props: ActivityRunnerPropsT) => {
   );
 });
 
-export default class ActivityRunner extends React.Component<
-  ActivityRunnerPropsT
-> {
+export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
     Mousetrap.reset();
     if (clearTimeout) {

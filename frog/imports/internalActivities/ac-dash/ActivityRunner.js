@@ -3,7 +3,7 @@
 import * as React from 'react';
 import type { ActivityRunnerPropsT } from 'frog-utils';
 
-import { DashboardSubscriptionWrapper } from '/imports/ui/Dashboard';
+import { DashboardSubscriptionWrapper } from '/imports/client/Dashboard';
 
 const ActivityRunner = (props: ActivityRunnerPropsT) => {
   const {

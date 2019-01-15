@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { type ActivityRunnerT, flattenOne, ReactiveText } from 'frog-utils';
-import 'react-datasheet/lib/react-datasheet.css';
+import './react-datasheet.css';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
-import { Button } from '@material-ui/core';
+import { Fab, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Dialog from '@material-ui/core/Dialog';
@@ -39,23 +39,21 @@ const removeRow = props =>
   );
 
 const AddButton = ({ onClick }) => (
-  <Button
+  <Fab
     onClick={onClick}
-    variant="fab"
     style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <AddIcon />
-  </Button>
+  </Fab>
 );
 
 const RemoveButton = ({ onClick }) => (
-  <Button
+  <Fab
     onClick={onClick}
-    variant="fab"
     style={{ width: '35px', height: '30px', backgroundColor: 'white' }}
   >
     <RemoveIcon />
-  </Button>
+  </Fab>
 );
 
 class DataEditor extends React.Component<*, *> {
@@ -73,10 +71,10 @@ class DataEditor extends React.Component<*, *> {
   render() {
     return (
       <ReactiveText
-        type="textinput"
+        type="textarea"
         focus
         className="data-editor"
-        style={{ height: '100%', width: '100%', fontSize: '20px' }}
+        style={{ height: '100%', width: '100%', fontSize: '15px' }}
         onKeyDown={this.props.onKeyDown}
         dataFn={this.props.dataFn}
         path={[this.props.row, this.props.col, 'value']}
@@ -175,7 +173,6 @@ class ActivityRunner extends React.Component<*, *> {
     return (
       <div
         style={{
-          width: '800px',
           fontSize: '1.3em',
           display: 'flex',
           flexDirection: 'column'
@@ -208,6 +205,7 @@ class ActivityRunner extends React.Component<*, *> {
             </DialogActions>
           </Dialog>
           <Datasheet
+            style={{ width: '100%' }}
             data={data}
             valueRenderer={cell =>
               cell.value?.li ? (
@@ -230,9 +228,9 @@ class ActivityRunner extends React.Component<*, *> {
                 onDoubleClick={props.onDoubleClick}
                 style={{
                   width:
-                    props.col === 0 || data[1][props.col]?.value === 'Items'
+                    props.col === 0
                       ? '40px'
-                      : (config.rowWidth || '80') + 'px',
+                      : 100 / (this.props.data[0].length - 1) + '%',
                   height: '30px',
                   textAlign: numberRegex.test(data[props.row][props.col].value)
                     ? 'right'
@@ -244,7 +242,7 @@ class ActivityRunner extends React.Component<*, *> {
             )}
             onCellsChanged={this.onCellsChanged}
           />
-          {!this.props.readOnly && (
+          {!this.props.readOnly && config.addRemove && (
             <div
               style={{
                 flexDirection: 'column',
@@ -254,22 +252,21 @@ class ActivityRunner extends React.Component<*, *> {
             >
               <AddButton
                 onClick={() => {
-                  data.forEach(
-                    (x, i) =>
-                      i === 0
-                        ? this.props.dataFn.listAppend(
-                            { readOnly: true, value: getLetter(x.length - 1) },
-                            i
-                          )
-                        : this.props.dataFn.listAppend(
-                            {
-                              value: '',
-                              key: getLetter(x.length - 1) + i,
-                              col: x.length,
-                              row: i
-                            },
-                            i
-                          )
+                  data.forEach((x, i) =>
+                    i === 0
+                      ? this.props.dataFn.listAppend(
+                          { readOnly: true, value: getLetter(x.length - 1) },
+                          i
+                        )
+                      : this.props.dataFn.listAppend(
+                          {
+                            value: '',
+                            key: getLetter(x.length - 1) + i,
+                            col: x.length,
+                            row: i
+                          },
+                          i
+                        )
                   );
                 }}
               />
@@ -289,7 +286,7 @@ class ActivityRunner extends React.Component<*, *> {
             </div>
           )}
         </div>
-        {!this.props.readOnly && (
+        {!this.props.readOnly && config.addRemove && (
           <div
             style={{
               flexDirection: 'row',
@@ -335,4 +332,12 @@ class ActivityRunner extends React.Component<*, *> {
   }
 }
 
-export default (ActivityRunner: ActivityRunnerT);
+const ActivityRunnerSpecialized = ({ data, dataFn, ...rest }) => (
+  <ActivityRunner
+    data={data.sheet}
+    dataFn={dataFn.specialize('sheet')}
+    {...rest}
+  />
+);
+
+export default (ActivityRunnerSpecialized: ActivityRunnerT);

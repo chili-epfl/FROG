@@ -151,8 +151,8 @@ const displayEntry = e => {
   const between = (a, mini, maxi) => a > mini && a < maxi;
   if (Number.isNaN(x)) {
     return e;
-  } else if (between(x, 0.1, 1000) || between(x, -1000, -0.1)) {
-    return x.toFixed(2);
+  } else if (x === 0 || between(x, 0.1, 10000) || between(x, -10000, -0.1)) {
+    return Number.isInteger(x) ? x : x.toFixed(2);
   } else {
     return x.toExponential(2);
   }
@@ -160,6 +160,7 @@ const displayEntry = e => {
 
 class Data extends React.Component<*, *> {
   el: any;
+
   state = {
     selected: [-1, -1],
     cellStr: '',
@@ -181,6 +182,7 @@ class Data extends React.Component<*, *> {
           <DatasetSelector {...this.props} />
           {editable && <RefreshDataset {...this.props} />}
         </div>
+        <div className={classes.header}>n: {sortedData.values.length}</div>
         <div className={classes.table}>
           <Table>
             <TableHeader

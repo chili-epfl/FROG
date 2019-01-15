@@ -84,13 +84,12 @@ export const Annotation = ({
               <div className="ng-scope ng-isolate-scope">
                 <div className="markdown-body js-markdown-preview has-content">
                   <Markdown>{highlightSearchHTML(text, search)}</Markdown>
-                  {shouldShorten &&
-                    threadLength > 0 && (
-                      <i>
-                        (...
-                        {threadLength} comments...)
-                      </i>
-                    )}
+                  {shouldShorten && threadLength > 0 && (
+                    <i>
+                      (...
+                      {threadLength} comments...)
+                    </i>
+                  )}
                 </div>
               </div>
             </div>

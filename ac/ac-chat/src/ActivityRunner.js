@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { isEmpty } from 'lodash';
 
 import {
   type ActivityRunnerPropsT,
@@ -59,7 +60,7 @@ const styles = {
 
 const Chatmsg = ({ msg, classes, LearningItem }) => (
   <div className={classes.msg}>
-    <Typography variant="body2" gutterBottom color="secondary">
+    <Typography variant="body1" gutterBottom color="secondary">
       {msg.user}
     </Typography>
     {msg.li ? (
@@ -104,12 +105,18 @@ class ChatController extends React.Component<StyledPropsT> {
       dataFn,
       userInfo,
       logger,
-      classes
+      classes,
+      instanceMembers
     } = this.props;
 
     return (
       <div className={classes.root}>
-        <h4 className={classes.header}>{activityData.config.title}</h4>
+        {activityData.config.title && (
+          <h4 className={classes.header}>{activityData.config.title}</h4>
+        )}
+        {instanceMembers && !isEmpty(instanceMembers) && (
+          <p>Group members: {instanceMembers.join(', ')}</p>
+        )}
         <div className={classes.content} ref={node => (this.node = node)}>
           {values(data)
             .sort((x, y) => x.order - y.order)

@@ -9,17 +9,44 @@ import {
 } from 'frog-utils';
 import upgradeFunctions from './upgradeFunctions';
 
+const learningItems = [
+  {
+    id: '1',
+    liType: 'li-idea',
+    payload: { title: 'Hi', content: 'Hello' },
+    createdAt: '2018-05-10T12:02:07.525Z'
+  },
+  {
+    id: '2',
+    liType: 'li-image',
+    payload: {
+      thumburl: 'https://i.imgur.com/ypw3CGOb.jpg',
+      url: 'https://i.imgur.com/ypw3CGO.jpg'
+    },
+    createdAt: '2018-05-10T12:05:08.700Z'
+  }
+];
+
 const meta = {
   name: 'Add/edit single LI',
   shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available'
+  description: 'New activity, no description available',
+  supportsLearningItems: true,
+  exampleData: [
+    {
+      title: 'Rich Text with Learning Items',
+      config: { liTypeEditor: 'li-richText', noSubmit: true, invalid: false },
+      data: undefined,
+      learningItems
+    }
+  ]
 };
 
 const config = {
   type: 'object',
   properties: {
     title: { type: 'string', title: 'Title' },
-    instructions: { type: 'string', title: 'Instructions' },
+    instructions: { type: 'rte', title: 'Instructions' },
     liType: {
       title: 'Learning Item Type',
       type: 'learningItemType'

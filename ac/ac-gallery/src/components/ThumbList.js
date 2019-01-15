@@ -109,6 +109,7 @@ class SearchField extends React.Component<*, *> {
 
 class ImageList extends React.Component<*, *> {
   state = { filter: '', bookmarks: {}, onlyBookmarked: false };
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !isEqual(nextProps.learningItems, this.props.learningItems) ||
@@ -143,7 +144,7 @@ class ImageList extends React.Component<*, *> {
               logger={this.props.logger}
               classes={classes}
               onChange={e => {
-                this.setState({ filter: e });
+                this.setState({ filter: e.toLowerCase() });
                 this.props.logger({
                   type: e.trim() === '' ? 'resetSearch' : 'search',
                   value: e
@@ -156,15 +157,20 @@ class ImageList extends React.Component<*, *> {
               <Switcher
                 className={classes.margin}
                 onlyShow={this.state.onlyBookmarked}
-                toggleFn={() =>
-                  this.setState({ onlyBookmarked: !this.state.onlyBookmarked })
-                }
+                toggleFn={() => {
+                  this.setState({ onlyBookmarked: !this.state.onlyBookmarked });
+                  logger({
+                    type: 'setOnlyStarred',
+                    value: (!this.state.onlyBookmarked).toString()
+                  });
+                }}
               />
               <Button
                 variant="outlined"
-                onClick={() =>
-                  this.setState({ bookmarks: {}, onlyBookmarked: false })
-                }
+                onClick={() => {
+                  this.setState({ bookmarks: {}, onlyBookmarked: false });
+                  logger({ type: 'clearAllStars' });
+                }}
               >
                 Clear all stars
               </Button>
@@ -192,6 +198,7 @@ class ImageList extends React.Component<*, *> {
                 key={liObj.key}
                 type={expand ? 'view' : 'thumbView'}
                 id={liObj.li}
+                notEmpty
                 render={props => (
                   <Paper
                     elevation={12}
