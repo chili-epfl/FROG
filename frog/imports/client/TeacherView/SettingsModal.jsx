@@ -101,7 +101,8 @@ class SettingsModal extends React.Component {
                   specifyName: {
                     type: 'boolean',
                     title:
-                      'Allow students to specify their own name, not already on the list below'
+                      'Allow students to specify their own name, not already on the list below',
+                    default: true
                   },
                   studentlist: {
                     type: 'string',
