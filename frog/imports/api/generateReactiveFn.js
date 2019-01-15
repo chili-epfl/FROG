@@ -283,22 +283,18 @@ export const generateReactiveFn = (
   sessionId?: string,
   LIconnection?: any
 ): Object => {
-  if (doc) {
-    return new Doc(
-      doc,
-      [],
-      !!readOnly,
-      updateFn,
-      meta,
-      LearningItem,
-      backend,
-      stream,
-      sessionId,
-      LIconnection
-    );
-  } else {
-    throw 'Cannot create dataFn without sharedb doc';
-  }
+  return new Doc(
+    doc,
+    [],
+    !!readOnly,
+    updateFn,
+    meta,
+    LearningItem,
+    backend,
+    stream,
+    sessionId,
+    LIconnection
+  );
 };
 
 export const inMemoryReactive = (

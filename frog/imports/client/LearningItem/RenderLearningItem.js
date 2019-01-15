@@ -7,6 +7,7 @@ import { omit, isEqual } from 'lodash';
 import { DraggableCore } from 'react-draggable';
 import InsertLink from '@material-ui/icons/InsertLink';
 import NoteAdd from '@material-ui/icons/NoteAdd';
+import LearningItem from './index';
 
 import { learningItemTypesObj } from '/imports/activityTypes';
 import { connect, listore } from './store';
@@ -103,6 +104,7 @@ class RenderLearningItem extends React.Component<any, any> {
       isPlayback,
       id
     } = this.props;
+    console.log(data);
 
     if (!this.Comp) {
       return '<h2>Error</h2>';

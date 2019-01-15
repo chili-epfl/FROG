@@ -1,37 +1,36 @@
 // @flow
 
 import { type productOperatorRunnerT, uuid } from 'frog-utils';
-import { shuffle } from 'lodash';
 
 const createLI = (dataFn, item, litype, from) => {
   const id = uuid();
-  const li = dataFn.createLearningItem('li-peerReview', {
-    reviewItem: item.data,
-    reviewComponentLIType: litype,
-    reviewId: undefined,
-    from
-  });
+  const reviewLi = dataFn.createLearningItem('li-richText');
+  const li = dataFn.createLearningItem(
+    'li-peerReview',
+    {
+      reviewItem: item.data,
+      reviewComponentLIType: litype,
+      reviewId: reviewLi,
+      from
+    },
+    undefined,
+    true
+  );
   return { [id]: { id, li, from } };
 };
 
 const operator = (configData, { activityData }, dataFn) => {
-  if (activityData.structure !== 'individual') {
-    console.error('Cannot work with data that is not individually structured');
-    throw new Error();
-  }
-  const students = Object.keys(activityData.payload);
-  const shuffled = shuffle(students);
-  const shuffledShifted = [...shuffled];
-  shuffledShifted.push(shuffledShifted.shift());
+  const instances = Object.keys(activityData.payload);
+  const structure = activityData.structure;
   return {
-    structure: 'individual',
-    payload: shuffled.reduce((acc, x, i) => {
+    structure: activityData.structure,
+    payload: instances.reduce((acc, x) => {
       acc[x] = {
         data: createLI(
           dataFn,
-          activityData.payload[shuffledShifted[i]],
+          activityData.payload[x],
           configData.liType || 'li-textArea',
-          shuffledShifted[i]
+          typeof structure === 'object' ? { [structure.groupingKey]: x } : x
         )
       };
       return acc;

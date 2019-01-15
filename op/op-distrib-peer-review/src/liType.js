@@ -5,18 +5,8 @@ class Editor extends React.Component<
   { dataFn: Object, data: any, LearningItem: Function },
   {}
 > {
-  constructor(props) {
-    super(props);
-    const { dataFn, data } = props;
-    let newReviewId;
-    if (!data.reviewId) {
-      newReviewId = dataFn.createLearningItem('li-textArea', { text: '' });
-      dataFn.objInsert(newReviewId, ['reviewId']);
-    }
-  }
-
   render() {
-    const { data, LearningItem } = this.props;
+    const { LearningItem, data } = this.props;
     return (
       <div>
         <div>
@@ -34,12 +24,15 @@ class Editor extends React.Component<
   }
 }
 
-const Viewer = ({ data, LearningItem }) => (
+const Viewer = ({ LearningItem, data }) => (
   <div>
     <div>
-      {values(data.reviewItem).map(x => (
-        <LearningItem type="view" id={x.li} key={x.li} />
-      ))}
+      {values(data.reviewItem).map(
+        x =>
+          console.log(x.li, LearningItem) || (
+            <LearningItem type="view" id={x.li} key={x.li} />
+          )
+      )}
     </div>
     <hr />
     <p>

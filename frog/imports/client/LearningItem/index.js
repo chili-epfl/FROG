@@ -29,6 +29,7 @@ class LearningItem extends React.Component<
   }
 
   render() {
+    console.log(this.props);
     const props = this.props;
     if (props.type === 'history' && typeof props.id === 'string') {
       return (
@@ -59,6 +60,7 @@ class LearningItem extends React.Component<
               <RenderLearningItem
                 notEmpty={props.notEmpty}
                 data={id.liDocument}
+                dataFn={props.dataFn}
                 {...newprops}
               />
             );

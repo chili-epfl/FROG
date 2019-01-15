@@ -1,8 +1,10 @@
 import lodash from 'lodash';
 
 import operator from '../operatorRunner';
+import { generateReactiveFn } from '../../../../frog/imports/api/generateReactiveFn.js';
 
 lodash.shuffle = jest.fn(x => [...x].sort());
+const dataFn = generateReactiveFn();
 
 const object = {
   globalStructure: { studentIds: ['1', '2', '3', '4', '5'] },
@@ -26,64 +28,88 @@ const object = {
 };
 
 test('Distribute', () => {
-  expect(operator({}, object)).toEqual({
+  expect(operator({}, object, dataFn)).toEqual({
     payload: {
       '7qB54hrr4rkWirpvN': {
-        id: {
-          id: 'cjm63y0yn0000muj5aha4buoh',
-          liDocument: {
-            createdAt: '2018-09-17T09:49:12.671Z',
-            createdBy: 'op-distrib-peer-review',
-            liType: 'li-peerReview',
-            payload: {
-              reviewComponentLIType: 'li-textarea',
-              reviewId: undefined,
-              reviewItem: { data: { text: 'hi1' } }
+        data: {
+          cjn1: {
+            from: '7qB54hrr4rkWirpvN',
+            id: 'cjn1',
+            li: {
+              id: 'cjn2',
+              liDocument: {
+                createdAt: '2019-01-15T16:05:31.269Z',
+                liType: 'li-peerReview',
+                payload: {
+                  from: '7qB54hrr4rkWirpvN',
+                  reviewComponentLIType: 'li-textArea',
+                  reviewId: undefined,
+                  reviewItem: { text: 'hi' }
+                }
+              }
             }
           }
         }
       },
       B54hrr4rkWirpvN: {
-        id: {
-          id: 'cjm63y0yn0001muj52fsf0c2h',
-          liDocument: {
-            createdAt: '2018-09-17T09:49:12.671Z',
-            createdBy: 'op-distrib-peer-review',
-            liType: 'li-peerReview',
-            payload: {
-              reviewComponentLIType: 'li-textarea',
-              reviewId: undefined,
-              reviewItem: { data: { text: 'ho' } }
+        data: {
+          cjn5: {
+            from: 'B54hrr4rkWirpvN',
+            id: 'cjn5',
+            li: {
+              id: 'cjn6',
+              liDocument: {
+                createdAt: '2019-01-15T16:05:31.269Z',
+                liType: 'li-peerReview',
+                payload: {
+                  from: 'B54hrr4rkWirpvN',
+                  reviewComponentLIType: 'li-textArea',
+                  reviewId: undefined,
+                  reviewItem: { text: 'hi1' }
+                }
+              }
             }
           }
         }
       },
       BomTyjTqYpoxhnkSs: {
-        id: {
-          id: 'cjm63y0yn0002muj5wtwazh5s',
-          liDocument: {
-            createdAt: '2018-09-17T09:49:12.671Z',
-            createdBy: 'op-distrib-peer-review',
-            liType: 'li-peerReview',
-            payload: {
-              reviewComponentLIType: 'li-textarea',
-              reviewId: undefined,
-              reviewItem: { data: { text: 'ho1' } }
+        data: {
+          cjn3: {
+            from: 'BomTyjTqYpoxhnkSs',
+            id: 'cjn3',
+            li: {
+              id: 'cjn4',
+              liDocument: {
+                createdAt: '2019-01-15T16:05:31.269Z',
+                liType: 'li-peerReview',
+                payload: {
+                  from: 'BomTyjTqYpoxhnkSs',
+                  reviewComponentLIType: 'li-textArea',
+                  reviewId: undefined,
+                  reviewItem: { text: 'ho' }
+                }
+              }
             }
           }
         }
       },
       mTyjTqYpoxhnkSs: {
-        id: {
-          id: 'cjm63y0yn0003muj5i5fgb8p1',
-          liDocument: {
-            createdAt: '2018-09-17T09:49:12.671Z',
-            createdBy: 'op-distrib-peer-review',
-            liType: 'li-peerReview',
-            payload: {
-              reviewComponentLIType: 'li-textarea',
-              reviewId: undefined,
-              reviewItem: { data: { text: 'hi' } }
+        data: {
+          cjn7: {
+            from: 'mTyjTqYpoxhnkSs',
+            id: 'cjn7',
+            li: {
+              id: 'cjn8',
+              liDocument: {
+                createdAt: '2019-01-15T16:05:31.269Z',
+                liType: 'li-peerReview',
+                payload: {
+                  from: 'mTyjTqYpoxhnkSs',
+                  reviewComponentLIType: 'li-textArea',
+                  reviewId: undefined,
+                  reviewItem: { text: 'ho1' }
+                }
+              }
             }
           }
         }

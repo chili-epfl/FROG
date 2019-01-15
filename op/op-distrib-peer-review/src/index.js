@@ -4,8 +4,8 @@ import { type productOperatorT } from 'frog-utils';
 import liType from './liType';
 
 const meta = {
-  name: 'Distribute for peer-review',
-  shortDesc: 'Wraps LI in li-peerReview, and distributes to other students',
+  name: 'Wrap for peer-review',
+  shortDesc: 'Wraps LI in li-peerReview',
   description: ''
 };
 

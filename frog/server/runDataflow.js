@@ -3,13 +3,12 @@
 import { Meteor } from 'meteor/meteor';
 import {
   mergeSocialStructures,
-  generateReactiveFn,
   type ObjectT,
   type GlobalStructureT,
   type socialStructureT
 } from 'frog-utils';
-import LearningItem from '../imports/ui/LearningItem';
 
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
 import { serverConnection } from './share-db-manager';
@@ -123,7 +122,7 @@ const runDataflow = (
 
   if (type === 'operator') {
     const doc = serverConnection.get('li', 'bookmark');
-    const dataFn = generateReactiveFn(doc, LearningItem);
+    const dataFn = generateReactiveFn(doc);
     console.info(
       `Running operator ${node.title} (${node.operatorType}) - ${node._id}`
     );
