@@ -244,7 +244,7 @@ class Idea extends React.Component<
         </Grow>
         <div style={{ width: 'calc(100% - 60px)' }}>
           {children}
-          {showMouseover && <div style={{ height: '20px' }} />}
+          {showMouseover && <div style={{ height: '25px' }} />}
         </div>
       </Card>
     );
