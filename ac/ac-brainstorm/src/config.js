@@ -34,13 +34,11 @@ export const config = {
     },
     allowEdit: {
       type: 'boolean',
-      title: 'Allow editing Learning Items in the list',
-      default: true
+      title: 'Allow editing Learning Items in the list'
     },
     allowDelete: {
       type: 'boolean',
-      title: 'Allow deleting Learning Items in the list',
-      default: true
+      title: 'Allow deleting Learning Items in the list'
     },
     allowZoom: {
       type: 'boolean',
@@ -54,6 +52,7 @@ export const config = {
 
 export const configUI = {
   specificLI: { conditional: 'allowCreate' },
+  allowZoom: { conditional: (formData: Object) => !formData.expandItems },
   liType: {
     conditional: (formData: Object) =>
       formData.allowCreate && formData.specificLI

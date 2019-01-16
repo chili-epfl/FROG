@@ -16,12 +16,7 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
-import {
-  IconButton,
-  CardContent,
-  CardActions,
-  Button
-} from '@material-ui/core';
+import { IconButton, CardContent, CardActions } from '@material-ui/core';
 import Grow from '@material-ui/core/Grow';
 
 const styles = () => ({
@@ -119,7 +114,7 @@ class Idea extends React.Component<
       edit,
       children
     } = this.props;
-    const { focus } = this.state;
+    const { focus } = { focus: true }; //this.state;
     const { score } = meta;
     const showMouseover =
       config.allowDelete ||
@@ -129,127 +124,128 @@ class Idea extends React.Component<
       <Card
         raised={focus}
         onMouseLeave={this.handleOnBlur}
+        onMouseOver={() => {
+          if (!focus) {
+            this.handleOnFocus();
+          }
+        }}
         onMouseEnter={this.handleOnFocus}
+        style={{
+          position: 'relative',
+          minWidth: '400px',
+          padding: '5px',
+          minHeight: (showMouseover ? 40 : 0) + 20 + 'px'
+        }}
       >
-        <CardContent
+        <div
           style={{
-            position: 'relative',
-            minWidth: '400px',
-            minHeight:
-              (config.allowVoting ? 80 : 0) + (showMouseover ? 40 : 0) + 'px'
+            position: 'absolute',
+            display: 'flex',
+            flexDirection: 'row',
+            top: '5px',
+            right: '5px'
           }}
         >
+          {config.allowVoting && (
+            <IconButton
+              disableFocusRipple
+              disableRipple
+              size="small"
+              onClick={() => vote(meta.id, 1)}
+              style={{
+                minHeight: '13px',
+                padding: '3px 4px'
+              }}
+            >
+              <KeyboardArrowUp
+                style={{
+                  color: chooseColor(meta.students[userInfo.id], true)
+                }}
+                fontSize="small"
+              />
+            </IconButton>
+          )}
+          <Chip
+            label={score}
+            style={{
+              height: 'unset'
+            }}
+          />
+          {config.allowVoting && (
+            <IconButton
+              disableFocusRipple
+              disableRipple
+              size="small"
+              onClick={() => vote(meta.id, -1)}
+              style={{
+                minHeight: '13px',
+                padding: '3px 4px'
+              }}
+            >
+              <KeyboardArrowDown
+                style={{
+                  color: chooseColor(meta.students[userInfo.id], false)
+                }}
+                fontSize="small"
+              />
+            </IconButton>
+          )}
+        </div>
+        <Grow in={focus}>
           <div
             style={{
               position: 'absolute',
+              zIndex: 2,
+              minWidth: '108px',
               display: 'flex',
-              flexDirection: 'column',
-              top: '5px',
-              right: '5px'
+              flexDirection: 'row',
+              bottom: '0px',
+              right: '10px'
             }}
           >
-            {config.allowVoting && (
-              <IconButton
-                disableFocusRipple
-                disableRipple
-                size="small"
-                onClick={() => vote(meta.id, 1)}
-                style={{
-                  minHeight: '13px',
-                  padding: '3px 4px'
-                }}
-              >
-                <KeyboardArrowUp
-                  style={{
-                    color: chooseColor(meta.students[userInfo.id], true)
-                  }}
-                  fontSize="small"
-                />
-              </IconButton>
-            )}
-            <Chip
-              label={score}
-              style={{
-                height: 'unset'
-              }}
-            />
-            {config.allowVoting && (
-              <IconButton
-                disableFocusRipple
-                disableRipple
-                size="small"
-                onClick={() => vote(meta.id, -1)}
-                style={{
-                  minHeight: '13px',
-                  padding: '3px 4px'
-                }}
-              >
-                <KeyboardArrowDown
-                  style={{
-                    color: chooseColor(meta.students[userInfo.id], false)
-                  }}
-                  fontSize="small"
-                />
-              </IconButton>
+            {showMouseover && (
+              <div style={{ width: '100%/' }}>
+                <font size={4}>
+                  {config.allowDelete && (
+                    <IconButton size="small" onClick={() => delFn(meta)}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                  {editable && config.allowEdit && (
+                    <IconButton
+                      size="small"
+                      onClick={() => {
+                        editFn(meta.id);
+                        window.setTimeout(() => this.setState({ focus: true }));
+                      }}
+                    >
+                      {edit ? (
+                        <SaveIcon fontSize="small" />
+                      ) : (
+                        <PencilIcon fontSize="small" />
+                      )}
+                    </IconButton>
+                  )}
+                  {zoomable && !config.expandItems && config.allowZoom && (
+                    <IconButton
+                      size="small"
+                      onClick={() => {
+                        zoomFn(meta.id);
+                        window.setTimeout(() => this.setState({ focus: true }));
+                      }}
+                    >
+                      <ZoomInIcon glyph="zoom-in" fontSize="small" />
+                    </IconButton>
+                  )}
+                </font>
+              </div>
             )}
           </div>
-          <Grow in={focus}>
-            <div
-              style={{
-                position: 'absolute',
-                zIndex: 2,
-                minWidth: '108px',
-                display: 'flex',
-                flexDirection: 'row',
-                bottom: '10px',
-                right: '10px'
-              }}
-            >
-              {showMouseover && (
-                <div style={{ width: '100%/' }}>
-                  <font size={4}>
-                    {config.allowDelete && (
-                      <Button size="small" onClick={() => delFn(meta)}>
-                        <DeleteIcon fontSize="small" />
-                      </Button>
-                    )}
-                    {editable && config.allowEdit && (
-                      <Button
-                        size="small"
-                        onClick={() => {
-                          editFn(meta.id);
-                          window.setTimeout(() =>
-                            this.setState({ focus: true })
-                          );
-                        }}
-                      >
-                        {edit ? (
-                          <SaveIcon fontSize="small" />
-                        ) : (
-                          <PencilIcon fontSize="small" />
-                        )}
-                      </Button>
-                    )}
-                    {zoomable && !config.expandItems && config.allowZoom && (
-                      <Button
-                        size="small"
-                        onClick={() => {
-                          zoomFn(meta.id);
-                          window.setTimeout(() =>
-                            this.setState({ focus: true })
-                          );
-                        }}
-                      >
-                        <ZoomInIcon glyph="zoom-in" fontSize="small" />
-                      </Button>
-                    )}
-                  </font>
-                </div>
-              )}
-            </div>
-          </Grow>
-          <div style={{ width: 'calc(100% - 60px)' }}>{children}</div>
-        </CardContent>
+        </Grow>
+        <div style={{ width: 'calc(100% - 60px)' }}>
+          {children}
+          {showMouseover && <div style={{ height: '20px' }} />}
+        </div>
       </Card>
     );
   }
