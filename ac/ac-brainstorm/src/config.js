@@ -7,6 +7,11 @@ export const config = {
       type: 'string',
       title: 'Guidelines'
     },
+    sort: {
+      title: 'Sort items continuously according to votes',
+      type: 'boolean',
+      default: true
+    },
     allowCreate: {
       title: 'Enable adding new Learning Items',
       type: 'boolean',
@@ -35,6 +40,11 @@ export const config = {
     allowDelete: {
       type: 'boolean',
       title: 'Allow deleting Learning Items in the list',
+      default: true
+    },
+    allowZoom: {
+      type: 'boolean',
+      title: 'Allow zooming Learning Items in the list',
       default: true
     },
     expandItems: { type: 'boolean', title: 'View items expanded' },

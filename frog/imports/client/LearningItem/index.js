@@ -29,7 +29,6 @@ class LearningItem extends React.Component<
   }
 
   render() {
-    console.log(this.props);
     const props = this.props;
     if (props.type === 'history' && typeof props.id === 'string') {
       return (

@@ -72,7 +72,9 @@ export class Editor extends React.Component<*, *> {
   }
 
   onDrop(e) {
-    this.ref.current.onDrop(e);
+    if (this?.ref?.current) {
+      this.ref.current.onDrop(e);
+    }
   }
 
   render() {

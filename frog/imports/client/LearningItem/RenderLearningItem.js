@@ -104,7 +104,6 @@ class RenderLearningItem extends React.Component<any, any> {
       isPlayback,
       id
     } = this.props;
-    console.log(data);
 
     if (!this.Comp) {
       return '<h2>Error</h2>';

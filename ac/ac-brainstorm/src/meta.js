@@ -746,7 +746,15 @@ export default {
     },
     {
       title: 'List with word selections',
-      config: {},
+      config: {
+        sort: true,
+        allowCreate: false,
+        allowEdit: false,
+        allowDelete: false,
+        allowZoom: false,
+        allowVoting: true,
+        invalid: false
+      },
       data: words
     }
   ]
