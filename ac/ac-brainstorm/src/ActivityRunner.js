@@ -114,7 +114,7 @@ class Idea extends React.Component<
       edit,
       children
     } = this.props;
-    const { focus } = { focus: true }; //this.state;
+    const { focus } = this.state;
     const { score } = meta;
     const showMouseover =
       config.allowDelete ||
