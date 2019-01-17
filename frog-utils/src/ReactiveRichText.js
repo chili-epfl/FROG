@@ -70,6 +70,8 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
             <div className={classes.liContainer}>
               <Paper className={classes.root} elevation={10} square>
                 <div className={classes.liTools}>
+                  {/* Button click handlers are attached dynamically in LearningItemBlot since they require access */}
+                  {/* to blot instance information, but the LIComponentRaw initialization is done by a static method */}
                   <IconButton
                     disableRipple
                     className={`${classes.button} li-close-btn`}
