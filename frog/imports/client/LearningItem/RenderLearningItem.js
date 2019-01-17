@@ -7,7 +7,6 @@ import { omit, isEqual } from 'lodash';
 import { DraggableCore } from 'react-draggable';
 import InsertLink from '@material-ui/icons/InsertLink';
 import NoteAdd from '@material-ui/icons/NoteAdd';
-import LearningItem from './index';
 
 import { learningItemTypesObj } from '/imports/activityTypes';
 import { connect, listore } from './store';
@@ -79,7 +78,7 @@ class RenderLearningItem extends React.Component<any, any> {
   }
 
   onDrop = (e: *) => {
-    if (this.ref?.current) {
+    if (this.ref?.current && this.ref.current.onDrop) {
       this.ref.current.onDrop(toJS(e.item));
     }
   };
@@ -118,7 +117,15 @@ class RenderLearningItem extends React.Component<any, any> {
     }
 
     if (search) {
-      if (!liType.search || !liType.search(data.payload, search)) {
+      if (
+        !liType.search ||
+        !liType.search(
+          data.payload,
+          search,
+          dataFn.specialize('payload'),
+          isPlayback
+        )
+      ) {
         return null;
       }
     }
@@ -177,7 +184,7 @@ class RenderLearningItem extends React.Component<any, any> {
             </div>
           </div>
         </DraggableCore>
-        <WrappedDragIcon />
+        {!disableDragging && <WrappedDragIcon />}
       </div>
     );
 

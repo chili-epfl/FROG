@@ -327,7 +327,8 @@ export type LIComponentPropsT =
       id: string | ImmutableLIT,
       render?: LIRenderT,
       search?: string,
-      notEmpty?: boolean
+      notEmpty?: boolean,
+      disableDragging?: boolean
     |}
   | {|
       type: 'thumbView',

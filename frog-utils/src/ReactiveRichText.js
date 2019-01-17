@@ -2,6 +2,7 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
+import { highlightTargetRichText } from 'frog-utils';
 import ReactDOM from 'react-dom';
 import { get, set, invoke, isEqual, last, forEach } from 'lodash';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
@@ -113,7 +114,8 @@ type ReactivePropsT = {
   data?: Object,
   readOnly?: boolean,
   shorten?: number,
-  userId: string
+  userId: string,
+  search: string
 };
 
 class ReactiveRichText extends Component<
@@ -162,12 +164,16 @@ class ReactiveRichText extends Component<
   };
 
   getDocumentContent = () => {
-    const raw = get(
+    let raw = get(
       this.props.data
         ? { payload: this.props.data }
         : this.props.dataFn.doc.data,
       (this.state.path || []).join('.')
     );
+
+    if (this.props.search) {
+      raw = highlightTargetRichText(raw, this.props.search);
+    }
     return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
   };
 
@@ -234,7 +240,8 @@ class ReactiveRichText extends Component<
   shouldComponentUpdate(nextProps: Object) {
     return (
       this.props.shorten !== nextProps.shorten ||
-      !!(this.props.readOnly || nextProps.readOnly)
+      !!(this.props.readOnly || nextProps.readOnly) ||
+      this.props.search !== nextProps.search
     );
   }
 

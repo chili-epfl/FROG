@@ -49,8 +49,8 @@ const learningItems = [
     id: '4d',
     liType: 'li-image',
     payload: {
-      url: 'https://i.imgur.com/pfZAxeTb.jpg',
-      thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
+      url: '/clientFiles/ac-brainstorm/cjr0ca7in000h3e6nmkt1r843',
+      thumburl: '/clientFiles/ac-brainstorm/cjr0ca7in000h3e6nmkt1r843thumb'
     },
     createdAt: '2018-05-10T12:05:08.700Z'
   },
@@ -77,10 +77,9 @@ const learningItems = [
     id: '4',
     liType: 'li-image',
     payload: {
-      url: 'https://i.imgur.com/pfZAxeTb.jpg',
-      thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
-    },
-    createdAt: '2018-05-10T12:05:08.700Z'
+      url: '/clientFiles/ac-brainstorm/cjr0ca7in000h3e6nmkt1r843',
+      thumburl: '/clientFiles/ac-brainstorm/cjr0ca7in000h3e6nmkt1r843thumb'
+    }
   },
   {
     id: '5',

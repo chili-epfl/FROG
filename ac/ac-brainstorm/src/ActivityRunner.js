@@ -140,15 +140,65 @@ class Idea extends React.Component<
         <div
           style={{
             position: 'absolute',
+            zIndex: 2,
+            minWidth: '108px',
             display: 'flex',
             flexDirection: 'row',
-            top: '5px',
+            bottom: '0px',
+            right: '10px'
+          }}
+        >
+          {showMouseover && (
+            <div style={{ width: '100%/' }}>
+              <font size={4}>
+                {config.allowDelete && (
+                  <IconButton size="small" onClick={() => delFn(meta)}>
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                )}
+                {editable && config.allowEdit && (
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      editFn(meta.id);
+                      window.setTimeout(() => this.setState({ focus: true }));
+                    }}
+                  >
+                    {edit ? (
+                      <SaveIcon fontSize="small" />
+                    ) : (
+                      <PencilIcon fontSize="small" />
+                    )}
+                  </IconButton>
+                )}
+                {zoomable && !config.expandItems && config.allowZoom && (
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      zoomFn(meta.id);
+                      window.setTimeout(() => this.setState({ focus: true }));
+                    }}
+                  >
+                    <ZoomInIcon glyph="zoom-in" fontSize="small" />
+                  </IconButton>
+                )}
+              </font>
+            </div>
+          )}
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            display: 'flex',
+            flexDirection: 'row',
+            top: '2px',
             right: '5px'
           }}
         >
           {config.allowVoting && (
             <IconButton
-              disableFocusRipple
+              disableTouchRipple
               disableRipple
               size="small"
               onClick={() => vote(meta.id, 1)}
@@ -173,7 +223,7 @@ class Idea extends React.Component<
           />
           {config.allowVoting && (
             <IconButton
-              disableFocusRipple
+              disableTouchRipple
               disableRipple
               size="small"
               onClick={() => vote(meta.id, -1)}
@@ -191,58 +241,7 @@ class Idea extends React.Component<
             </IconButton>
           )}
         </div>
-        <Grow in={focus}>
-          <div
-            style={{
-              position: 'absolute',
-              zIndex: 2,
-              minWidth: '108px',
-              display: 'flex',
-              flexDirection: 'row',
-              bottom: '0px',
-              right: '10px'
-            }}
-          >
-            {showMouseover && (
-              <div style={{ width: '100%/' }}>
-                <font size={4}>
-                  {config.allowDelete && (
-                    <IconButton size="small" onClick={() => delFn(meta)}>
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
-                  )}
-                  {editable && config.allowEdit && (
-                    <IconButton
-                      size="small"
-                      onClick={() => {
-                        editFn(meta.id);
-                        window.setTimeout(() => this.setState({ focus: true }));
-                      }}
-                    >
-                      {edit ? (
-                        <SaveIcon fontSize="small" />
-                      ) : (
-                        <PencilIcon fontSize="small" />
-                      )}
-                    </IconButton>
-                  )}
-                  {zoomable && !config.expandItems && config.allowZoom && (
-                    <IconButton
-                      size="small"
-                      onClick={() => {
-                        zoomFn(meta.id);
-                        window.setTimeout(() => this.setState({ focus: true }));
-                      }}
-                    >
-                      <ZoomInIcon glyph="zoom-in" fontSize="small" />
-                    </IconButton>
-                  )}
-                </font>
-              </div>
-            )}
-          </div>
-        </Grow>
-        <div style={{ width: 'calc(100% - 60px)' }}>
+        <div style={{ width: 'calc(100% - 85px)', overflow: 'hidden' }}>
           {children}
           {showMouseover && <div style={{ height: '25px' }} />}
         </div>
@@ -276,11 +275,12 @@ const IdeaListRaw = ({
             style={{
               display: 'flex',
               flexDirection: 'column',
-              border: '1px solid #DDDDDD',
-              borderRadius: '5px'
+              borderRadius: '5px',
+              padding: '5px'
             }}
           >
             <LearningItem
+              notEmpty
               type={
                 edit === x.id
                   ? 'edit'

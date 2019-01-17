@@ -13,41 +13,6 @@ export class FlexViewer extends React.Component<*, *> {
     const { isPlayback, data, dataFn, search, type } = this.props;
     const shouldShorten = type === 'thumbView';
 
-    if (search) {
-      const editorContent = isPlayback
-        ? get(data, path)
-        : get(dataFn.doc.data, dataFn.getMergedPath(path));
-      const textContent = editorContent.ops.map(op => {
-        if (isString(op.insert)) {
-          return op.insert;
-        }
-        return '';
-      });
-      if (
-        !textContent
-          .join('')
-          .toLowerCase()
-          .includes(search)
-      ) {
-        return null;
-      } else {
-        const highlightedContent = highlightTargetRichText(
-          editorContent,
-          search
-        );
-        return (
-          <div>
-            <ReactiveRichText
-              data={{ [path]: highlightedContent }}
-              shorten={shouldShorten && 150}
-              path={path}
-              readOnly
-              dataFn={dataFn}
-            />
-          </div>
-        );
-      }
-    }
     return (
       <div>
         <ReactiveRichText
@@ -57,6 +22,7 @@ export class FlexViewer extends React.Component<*, *> {
           ref={this.ref}
           readOnly
           dataFn={dataFn}
+          search={search}
         />
       </div>
     );
@@ -72,7 +38,7 @@ export class Editor extends React.Component<*, *> {
   }
 
   onDrop(e) {
-    if (this?.ref?.current) {
+    if (this?.ref?.current?.onDrop) {
       this.ref.current.onDrop(e);
     }
   }
@@ -99,5 +65,20 @@ export default ({
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,
-  canDropLI: true
+  canDropLI: true,
+  search: (data, search, dataFn, isPlayback) => {
+    const editorContent = isPlayback
+      ? get(data, path)
+      : get(dataFn.doc.data, dataFn.getMergedPath(path));
+    const textContent = editorContent.ops.map(op => {
+      if (isString(op.insert)) {
+        return op.insert;
+      }
+      return '';
+    });
+    return textContent
+      .join('')
+      .toLowerCase()
+      .includes(search);
+  }
 }: LearningItemT<{ title: string, content: string }>);
