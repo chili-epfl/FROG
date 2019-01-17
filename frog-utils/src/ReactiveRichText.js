@@ -63,7 +63,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
       <LearningItem
         type={liView}
         id={id}
-        render={({ children, liType, dataFn }) => {
+        render={({ children, liType }) => {
           const learningTypesObj = reactiveRichTextDataFn.getLearningTypesObj();
           const LiTypeObject = get(learningTypesObj, liType);
           return (
