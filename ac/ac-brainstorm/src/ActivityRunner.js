@@ -270,16 +270,9 @@ const IdeaListRaw = ({
           ? orderBy(values(data), x => parseInt(x.score, 10), ['desc'])
           : values(data)
         ).map(x => (
-          <div
-            key={x.id}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: '5px',
-              padding: '5px'
-            }}
-          >
+          <div key={x.id}>
             <LearningItem
+              id={x.li}
               notEmpty
               type={
                 edit === x.id
@@ -293,28 +286,36 @@ const IdeaListRaw = ({
                   : 'thumbView'
               }
               render={({ zoomable, editable, children }) => (
-                <Idea
-                  edit={edit === x.id}
-                  zoomable={zoomable || history}
-                  editable={editable}
-                  config={config}
-                  meta={x}
-                  vote={vote}
-                  userInfo={userInfo}
-                  delFn={item => dataFn.objDel(item, item.id)}
-                  editFn={e => {
-                    setZoom(false);
-                    setEdit(edit === e ? false : e);
-                  }}
-                  zoomFn={e => {
-                    setEdit(false);
-                    setZoom(zoom === e ? false : e);
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '5px',
+                    padding: '5px'
                   }}
                 >
-                  {children}
-                </Idea>
+                  <Idea
+                    edit={edit === x.id}
+                    zoomable={zoomable || history}
+                    editable={editable}
+                    config={config}
+                    meta={x}
+                    vote={vote}
+                    userInfo={userInfo}
+                    delFn={item => dataFn.objDel(item, item.id)}
+                    editFn={e => {
+                      setZoom(false);
+                      setEdit(edit === e ? false : e);
+                    }}
+                    zoomFn={e => {
+                      setEdit(false);
+                      setZoom(zoom === e ? false : e);
+                    }}
+                  >
+                    {children}
+                  </Idea>
+                </div>
               )}
-              id={x.li}
             />
           </div>
         ))}
