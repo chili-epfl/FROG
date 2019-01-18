@@ -250,6 +250,7 @@ export const shortenRichText = (
   let cutOffLength = 0;
 
   ops.forEach((op, index) => {
+    delete op.attributes;
     contentLength += op.insert.length;
 
     if (cutOffIndex < 0 && contentLength > length - 3) {
