@@ -1,12 +1,12 @@
 // @flow
 
-import { shuffle, chunk } from 'lodash';
 import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Strip review content',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc:
+    'Unwrap review items, and return only the reviews (not the item to be reviewed)',
+  description: ''
 };
 
 const config = {

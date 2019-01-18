@@ -5,8 +5,9 @@ import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Return reviews',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc:
+    'Sends reviews back to the group/student who created the original item',
+  description: ''
 };
 
 const config = {
