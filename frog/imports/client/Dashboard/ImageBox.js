@@ -20,7 +20,8 @@ const styles = () => ({
     margin: '5px',
     padding: '0px',
     flex: '0 1 auto',
-    height: '250px'
+    maxHeight: '250px',
+    verticalAlign: 'top'
   },
   image: {
     position: 'relative',
@@ -30,7 +31,8 @@ const styles = () => ({
     width: '100%',
     margin: '5px',
     padding: '0px',
-    flex: '0 1 auto'
+    flex: '0 1 auto',
+    verticalAlign: 'top'
   }
 });
 

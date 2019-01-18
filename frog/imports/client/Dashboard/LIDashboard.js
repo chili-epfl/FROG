@@ -264,23 +264,17 @@ const ZoomViewInfoTable = props => (
         <TableCell>Created at</TableCell>
         <TableCell>{props.data.createdAt || ''}</TableCell>
 
-        <TableCell>Other metadata</TableCell>
+        <TableCell>Raw data</TableCell>
 
         <TableCell
-          data-tip={Stringify(
-            omit(props.data, [
-              'createdInActivity',
-              'createdByInstance',
-              'createdByUser',
-              'createdAt'
-            ])
-          ).replace(/\n/gi, '<br>')}
+          data-tip={Stringify(props.data).replace(/\n/gi, '<br>')}
           style={{ width: '50px' }}
         >
-          Payload
+          Mouse over
         </TableCell>
       </TableRow>
     </TableBody>
+    <ReactTooltip multiline />
   </Table>
 );
 
@@ -333,8 +327,6 @@ class ZoomViewRaw extends React.Component<*, *> {
               )}
             />
           </Paper>
-
-          <ReactTooltip multiline />
         </div>
       </Dialog>
     );
