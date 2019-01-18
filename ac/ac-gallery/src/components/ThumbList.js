@@ -1,15 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { isEqual, debounce } from 'lodash';
+import { isEqual } from 'lodash';
+import { SearchField } from 'frog-utils';
 
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Search from '@material-ui/icons/Search';
 import StarBorder from '@material-ui/icons/StarBorder';
-import Clear from '@material-ui/icons/Clear';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -61,51 +58,6 @@ const Switcher = ({ onlyShow, toggleFn }) => (
     />
   </FormGroup>
 );
-
-class SearchField extends React.Component<*, *> {
-  state = { search: '' };
-
-  updateSearch = debounce(e => {
-    this.props.onChange(e);
-  }, 1000);
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <TextField
-        className={classes.margin}
-        id="search"
-        label="Search"
-        value={this.state.search}
-        onChange={e => {
-          e.persist();
-          this.setState({ search: e.target.value });
-          this.updateSearch(e.target.value);
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <div
-                onClick={() => {
-                  this.props.logger({ type: 'resetSearch' });
-                  this.setState({ search: '' });
-                  this.props.onChange('');
-                }}
-              >
-                <Clear />
-              </div>
-            </InputAdornment>
-          )
-        }}
-      />
-    );
-  }
-}
 
 class ImageList extends React.Component<*, *> {
   state = { filter: '', bookmarks: {}, onlyBookmarked: false };

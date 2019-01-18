@@ -2,19 +2,26 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Meteor } from 'meteor/meteor';
+import { SearchField } from 'frog-utils';
 import {
   Paper,
   Tooltip,
-  TextField,
   Button,
   Menu,
   MenuItem,
   Table,
   TableRow,
   TableCell,
-  TableBody
+  TableBody,
+  Switch,
+  IconButton
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
+import { omit } from 'lodash';
+import Stringify from 'json-stringify-pretty-compact';
+import ReactTooltip from 'react-tooltip';
+import Dialog from '@material-ui/core/Dialog';
 
 import { learningItemTypesObj } from '/imports/activityTypes';
 import { Activities } from '/imports/api/activities';
@@ -35,7 +42,7 @@ const styles = () => ({
     flexDirection: 'column'
   },
   zoomViewContainer: {
-    position: 'absolute',
+    position: 'relative',
     zIndex: 1,
     top: 0,
     left: 0,
@@ -46,6 +53,7 @@ const styles = () => ({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  zoomViewInfo: { position: 'absolute', bottom: '0px' },
   closeZoom: {
     position: 'absolute',
     zIndex: 0,
@@ -56,13 +64,16 @@ const styles = () => ({
     background: '#fff0'
   },
   liZoomContainer: {
-    maxHeight: '90%',
+    maxHeight: 'calc(100% - 200px)',
+    overflow: 'auto',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    position: 'relative'
   },
   liRoot: {
     zIndex: 2,
     width: '100%',
+    height: '100%',
     maxWidth: '600px',
     display: 'flex',
     flexDirection: 'column'
@@ -71,6 +82,10 @@ const styles = () => ({
     flex: 1,
     position: 'relative',
     overflow: 'auto'
+  },
+  paper: {
+    width: '750px',
+    height: '1000px'
   }
 });
 
@@ -80,7 +95,10 @@ class MyMenu extends React.Component<any, any> {
   render() {
     return (
       <React.Fragment>
-        <Button onClick={e => this.setState({ open: e.currentTarget })}>
+        <Button
+          variant="outlined"
+          onClick={e => this.setState({ open: e.currentTarget })}
+        >
           {this.props.title}
         </Button>
         {this.state.open && (
@@ -140,18 +158,19 @@ class Dashboard extends React.Component<any, any> {
         x => x.createdInActivity === this.state.filter
       );
     }
-    if (this.state.search.trim() !== '') {
-      res = res.filter(x =>
-        JSON.stringify(x.payload).includes(this.state.search.trim())
-      );
-    }
     const graphId =
       this.props.sessionId && Sessions.findOne(this.props.sessionId).graphId;
     return (
       <div className={classes.dashboardContainer}>
-        {this.props.sessionId && (
-          <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+        >
+          {this.props.sessionId && (
             <MyMenu
+              style={{ alignSelf: 'flex-start' }}
               title={this.state.filterTitle || 'All activities'}
               choices={[
                 {
@@ -173,24 +192,35 @@ class Dashboard extends React.Component<any, any> {
                   }))
               ]}
             />
-            <TextField
-              id="name"
-              label="Search"
-              onChange={e => this.setState({ search: e.target.value })}
-              margin="normal"
+          )}
+          <div style={{ position: 'absolute', left: '50%' }}>
+            <SearchField
+              classes={{}}
+              onChange={e => {
+                this.setState({ search: e.toLowerCase() });
+              }}
             />
           </div>
-        )}
+          <div style={{ alignSelf: 'flex-end', marginLeft: 'auto' }}>
+            Expand
+            <Switch
+              checked={this.state.expand}
+              onChange={() => this.setState({ expand: !this.state.expand })}
+            />
+          </div>
+        </div>
         <div className={classes.liList}>
           {res.map(x => (
             <LearningItem
               notEmpty
-              type="thumbView"
+              type={this.state.expand ? 'view' : 'thumbView'}
+              search={this.state.search}
+              key={x.id}
               id={x.id}
               render={({ children }) => (
                 <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
                   <ImageBox
-                    key={x.id}
+                    expand={this.state.expand}
                     onClick={() => this.setState({ zoom: x.id })}
                   >
                     {children}
@@ -233,28 +263,83 @@ const ZoomViewInfoTable = props => (
       <TableRow>
         <TableCell>Created at</TableCell>
         <TableCell>{props.data.createdAt || ''}</TableCell>
+
+        <TableCell>Other metadata</TableCell>
+
+        <TableCell
+          data-tip={Stringify(
+            omit(props.data, [
+              'createdInActivity',
+              'createdByInstance',
+              'createdByUser',
+              'createdAt'
+            ])
+          ).replace(/\n/gi, '<br>')}
+          style={{ width: '50px' }}
+        >
+          Payload
+        </TableCell>
       </TableRow>
     </TableBody>
   </Table>
 );
 
-const ZoomViewRaw = ({ close, id, classes }: Object) => (
-  <div className={classes.zoomViewContainer}>
-    <div onClick={close} className={classes.closeZoom} />
-    <div className={classes.liZoomContainer}>
-      <LearningItem
-        id={id}
-        type="history"
-        render={props => (
+class ZoomViewRaw extends React.Component<*, *> {
+  state = { history: false };
+
+  render() {
+    const { close, id, classes } = this.props;
+    return (
+      <Dialog open onClose={close} classes={{ paper: classes.paper }}>
+        <div className={classes.zoomViewContainer}>
+          <div onClick={close} className={classes.closeZoom} />
           <Paper className={classes.liRoot} elevation={8}>
-            <div style={{ flex: 1, overflow: 'auto' }}>{props.children}</div>
-            <ZoomViewInfoTable {...props} />
+            <div style={{ display: 'flex' }}>
+              <div style={{ alignSelf: 'flex-start', marginRight: 'auto' }}>
+                Scrub history
+                <Switch
+                  checked={this.state.history}
+                  onChange={() =>
+                    this.setState({ history: !this.state.history })
+                  }
+                />
+              </div>
+
+              <div style={{ alignSelf: 'flex-end', marginLeft: 'auto' }}>
+                <IconButton color="inherit" onClick={close} aria-label="Close">
+                  <CloseIcon />
+                </IconButton>
+              </div>
+            </div>
+            <LearningItem
+              id={id}
+              type={this.state.history ? 'history' : 'view'}
+              render={props => (
+                <>
+                  <div
+                    style={{ position: 'absolute', top: '15px', left: '50%' }}
+                  >
+                    {learningItemTypesObj[props.data.liType].name}
+                  </div>
+                  <div className={classes.liZoomContainer}>
+                    <Paper style={{ margin: '5px' }} elevation={24}>
+                      {props.children}
+                    </Paper>
+                  </div>
+                  <div className={classes.zoomViewInfo}>
+                    <ZoomViewInfoTable {...props} />
+                  </div>
+                </>
+              )}
+            />
           </Paper>
-        )}
-      />
-    </div>
-  </div>
-);
+
+          <ReactTooltip multiline />
+        </div>
+      </Dialog>
+    );
+  }
+}
 
 const ZoomView = withStyles(styles)(ZoomViewRaw);
 

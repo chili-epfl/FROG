@@ -143,12 +143,13 @@ class Idea extends React.Component<
             zIndex: 2,
             minWidth: '108px',
             display: 'flex',
+            justifyContent: 'flex-end',
             flexDirection: 'row',
             bottom: '0px',
             right: '10px'
           }}
         >
-          {showMouseover && (
+          {showMouseover && focus && (
             <div style={{ width: '100%/' }}>
               <font size={4}>
                 {config.allowDelete && (
@@ -158,6 +159,7 @@ class Idea extends React.Component<
                 )}
                 {editable && config.allowEdit && (
                   <IconButton
+                    style={{ leftMargin: '10px' }}
                     size="small"
                     onClick={() => {
                       editFn(meta.id);
@@ -173,6 +175,7 @@ class Idea extends React.Component<
                 )}
                 {zoomable && !config.expandItems && config.allowZoom && (
                   <IconButton
+                    style={{ leftMargin: '10px' }}
                     size="small"
                     onClick={() => {
                       zoomFn(meta.id);

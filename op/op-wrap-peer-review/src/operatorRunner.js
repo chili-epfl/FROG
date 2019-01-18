@@ -4,7 +4,7 @@ import { type productOperatorRunnerT, uuid } from 'frog-utils';
 
 const createLI = (dataFn, item, litype, from, prompt) => {
   const id = uuid();
-  const reviewLi = dataFn.createLearningItem('li-richText');
+  const reviewLi = dataFn.createLearningItem(litype);
   const li = dataFn.createLearningItem(
     'li-peerReview',
     {
