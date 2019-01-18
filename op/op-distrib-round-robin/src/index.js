@@ -15,7 +15,7 @@ const config = {
 };
 
 export default ({
-  id: 'op-distrib-peer-review',
+  id: 'op-distrib-round-robin',
   type: 'product',
   configVersion: 1,
   config,
