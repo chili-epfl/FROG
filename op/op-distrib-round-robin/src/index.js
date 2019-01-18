@@ -3,8 +3,8 @@
 import type { productOperatorT } from 'frog-utils';
 
 const meta = {
-  name: 'Wrap for peer-review',
-  shortDesc: 'Wraps LI in li-peerReview',
+  name: 'Distribute to other individuals or other groups',
+  shortDesc: 'Round-robin distributes within a single plane',
   description: ''
 };
 
@@ -25,7 +25,7 @@ const validateConfig = [
       ? { err: 'Number of items must be an integer' }
       : null,
   formData =>
-    formData.number < 1 ? { err: 'Number of items must be above 0' } : null
+    formData.count < 1 ? { err: 'Number of items must be above 0' } : null
 ];
 
 export default ({

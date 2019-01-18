@@ -385,7 +385,9 @@ export default class Store {
             graphId: this.graphId
           })),
           graphId: this.graphId,
-          graphDuration: this._graphDuration
+          graphDuration: this._graphDuration,
+          broken:
+            this.graphErrors.filter(x => x.severity === 'error').length > 0
         };
       }
     });

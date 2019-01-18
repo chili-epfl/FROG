@@ -25,9 +25,10 @@ const operator = (configData, { activityData, socialStructure }) => {
     payload: instances.reduce((acc, x, i) => {
       acc[x] = {
         config: {},
-        data:
-          shuffles.map(shuff => activityData.payload[shuff[i]].data) ||
-          merge(shuffles.map(shuff => activityData.payload[shuff[i]].data))
+        data: merge(
+          {},
+          ...shuffles.map(shuff => activityData.payload[shuff[i]].data)
+        )
       };
       return acc;
     }, {})

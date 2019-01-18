@@ -1,8 +1,5 @@
 import operator from '../operatorRunner';
-
-const mockMath = Object.create(global.Math);
-mockMath.random = () => 0.5;
-global.Math = mockMath;
+import { obj, prod } from '../__fixtures__';
 
 const object = {
   globalStructure: { studentIds: ['1', '2', '3', '4', '5'] },
@@ -28,28 +25,10 @@ const object = {
 test('Distribute', () => {
   expect(operator({}, object)).toEqual({
     payload: {
-      aa: {
-        config: {},
-        data: [{ bb: { text: 'hxxi' } }, { cc: { text: 'hxzzxi' } }]
-      },
-      bb: {
-        config: {},
-        data: [{ cc: { text: 'hxzzxi' } }, { dd: { text: 'hzzxxi' } }]
-      },
-      cc: {
-        config: {},
-        data: [
-          { dd: { text: 'hzzxxi' } },
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } }
-        ]
-      },
-      dd: {
-        config: {},
-        data: [
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-          { bb: { text: 'hxxi' } }
-        ]
-      }
+      aa: { config: {}, data: { bb: { text: 'hxxi' } } },
+      bb: { config: {}, data: { cc: { text: 'hxzzxi' } } },
+      cc: { config: {}, data: { dd: { text: 'hzzxxi' } } },
+      dd: { config: {}, data: { aa: { text: 'hi' }, aa1: { text: 'ho' } } }
     },
     structure: 'individual'
   });
@@ -60,25 +39,23 @@ test('Distribute 2', () => {
     payload: {
       aa: {
         config: {},
-        data: [{ bb: { text: 'hxxi' } }, { cc: { text: 'hxzzxi' } }]
+        data: { bb: { text: 'hxxi' }, cc: { text: 'hxzzxi' } }
       },
       bb: {
         config: {},
-        data: [{ cc: { text: 'hxzzxi' } }, { dd: { text: 'hzzxxi' } }]
+        data: { cc: { text: 'hxzzxi' }, dd: { text: 'hzzxxi' } }
       },
       cc: {
         config: {},
-        data: [
-          { dd: { text: 'hzzxxi' } },
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } }
-        ]
+        data: {
+          aa: { text: 'hi' },
+          aa1: { text: 'ho' },
+          dd: { text: 'hzzxxi' }
+        }
       },
       dd: {
         config: {},
-        data: [
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-          { bb: { text: 'hxxi' } }
-        ]
+        data: { aa: { text: 'hi' }, aa1: { text: 'ho' }, bb: { text: 'hxxi' } }
       }
     },
     structure: 'individual'
@@ -87,37 +64,18 @@ test('Distribute 2', () => {
 
 const all = {
   payload: {
-    aa: {
-      config: {},
-      data: [
-        { bb: { text: 'hxxi' } },
-        { cc: { text: 'hxzzxi' } },
-        { dd: { text: 'hzzxxi' } }
-      ]
-    },
+    aa: { config: {}, data: { bb: { text: 'hxxi' }, cc: { text: 'hxzzxi' } } },
     bb: {
       config: {},
-      data: [
-        { cc: { text: 'hxzzxi' } },
-        { dd: { text: 'hzzxxi' } },
-        { aa: { text: 'hi' }, aa1: { text: 'ho' } }
-      ]
+      data: { cc: { text: 'hxzzxi' }, dd: { text: 'hzzxxi' } }
     },
     cc: {
       config: {},
-      data: [
-        { dd: { text: 'hzzxxi' } },
-        { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-        { bb: { text: 'hxxi' } }
-      ]
+      data: { aa: { text: 'hi' }, aa1: { text: 'ho' }, dd: { text: 'hzzxxi' } }
     },
     dd: {
       config: {},
-      data: [
-        { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-        { bb: { text: 'hxxi' } },
-        { cc: { text: 'hxzzxi' } }
-      ]
+      data: { aa: { text: 'hi' }, aa1: { text: 'ho' }, bb: { text: 'hxxi' } }
     }
   },
   structure: 'individual'
@@ -162,10 +120,10 @@ const groupObj = {
 test('Distribute 1 group', () => {
   expect(operator({}, groupObj)).toEqual({
     payload: {
-      g1: { config: {}, data: [{ bb: { text: 'hxxi' } }] },
-      g2: { config: {}, data: [{ cc: { text: 'hxzzxi' } }] },
-      g3: { config: {}, data: [{ dd: { text: 'hzzxxi' } }] },
-      g4: { config: {}, data: [{ aa: { text: 'hi' }, aa1: { text: 'ho' } }] }
+      g1: { config: {}, data: { bb: { text: 'hxxi' } } },
+      g2: { config: {}, data: { cc: { text: 'hxzzxi' } } },
+      g3: { config: {}, data: { dd: { text: 'hzzxxi' } } },
+      g4: { config: {}, data: { aa: { text: 'hi' }, aa1: { text: 'ho' } } }
     },
     structure: { groupingKey: 'group' }
   });
@@ -176,25 +134,23 @@ test('Distribute 2 group', () => {
     payload: {
       g1: {
         config: {},
-        data: [{ bb: { text: 'hxxi' } }, { cc: { text: 'hxzzxi' } }]
+        data: { bb: { text: 'hxxi' }, cc: { text: 'hxzzxi' } }
       },
       g2: {
         config: {},
-        data: [{ cc: { text: 'hxzzxi' } }, { dd: { text: 'hzzxxi' } }]
+        data: { cc: { text: 'hxzzxi' }, dd: { text: 'hzzxxi' } }
       },
       g3: {
         config: {},
-        data: [
-          { dd: { text: 'hzzxxi' } },
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } }
-        ]
+        data: {
+          aa: { text: 'hi' },
+          aa1: { text: 'ho' },
+          dd: { text: 'hzzxxi' }
+        }
       },
       g4: {
         config: {},
-        data: [
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-          { bb: { text: 'hxxi' } }
-        ]
+        data: { aa: { text: 'hi' }, aa1: { text: 'ho' }, bb: { text: 'hxxi' } }
       }
     },
     structure: { groupingKey: 'group' }
@@ -206,37 +162,44 @@ test('Distribute 88 group', () => {
     payload: {
       g1: {
         config: {},
-        data: [
-          { bb: { text: 'hxxi' } },
-          { cc: { text: 'hxzzxi' } },
-          { dd: { text: 'hzzxxi' } }
-        ]
+        data: {
+          bb: { text: 'hxxi' },
+          cc: { text: 'hxzzxi' },
+          dd: { text: 'hzzxxi' }
+        }
       },
       g2: {
         config: {},
-        data: [
-          { cc: { text: 'hxzzxi' } },
-          { dd: { text: 'hzzxxi' } },
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } }
-        ]
+        data: {
+          aa: { text: 'hi' },
+          aa1: { text: 'ho' },
+          cc: { text: 'hxzzxi' },
+          dd: { text: 'hzzxxi' }
+        }
       },
       g3: {
         config: {},
-        data: [
-          { dd: { text: 'hzzxxi' } },
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-          { bb: { text: 'hxxi' } }
-        ]
+        data: {
+          aa: { text: 'hi' },
+          aa1: { text: 'ho' },
+          bb: { text: 'hxxi' },
+          dd: { text: 'hzzxxi' }
+        }
       },
       g4: {
         config: {},
-        data: [
-          { aa: { text: 'hi' }, aa1: { text: 'ho' } },
-          { bb: { text: 'hxxi' } },
-          { cc: { text: 'hxzzxi' } }
-        ]
+        data: {
+          aa: { text: 'hi' },
+          aa1: { text: 'ho' },
+          bb: { text: 'hxxi' },
+          cc: { text: 'hxzzxi' }
+        }
       }
     },
     structure: { groupingKey: 'group' }
   });
+});
+
+test('Distribute 88 real', () => {
+  expect(operator({ count: 88 }, obj)).toEqual(prod);
 });
