@@ -91,7 +91,8 @@ class SettingsModal extends React.Component {
                   },
                   loginByName: {
                     type: 'boolean',
-                    title: 'Allow login by name'
+                    title: 'Allow login by name',
+                    default: true
                   },
                   secret: {
                     type: 'boolean',
@@ -101,7 +102,8 @@ class SettingsModal extends React.Component {
                   specifyName: {
                     type: 'boolean',
                     title:
-                      'Allow students to specify their own name, not already on the list below'
+                      'Allow students to specify their own name, not already on the list below',
+                    default: true
                   },
                   studentlist: {
                     type: 'string',

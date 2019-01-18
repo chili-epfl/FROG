@@ -86,24 +86,25 @@ class StudentLogin extends React.Component<
 
   render() {
     const { settings, classes } = this.props;
+    const studentlist = settings?.studentlist;
     return (
       <>
         <AppBar>
           <Toolbar className={classes.toolbar} />
         </AppBar>
         <div className={classes.mainContent}>
-          {!settings ||
-          settings.loginByName === false ||
-          (!settings.specifyName && isEmpty(settings.studentlist)) ? (
+          {settings?.loginByName === false ||
+          (settings?.specifyName === false &&
+            isEmpty(settings?.studentlist)) ? (
             <h2 className={classes.mustLogin}>
               Must log in to access this session
             </h2>
           ) : (
             <>
-              {settings.studentlist && (
+              {studentlist && (
                 <div className={classes.container}>
                   <h2>Select your name below</h2>
-                  {splitList(settings.studentlist).map(studentName => {
+                  {splitList(studentlist).map(studentName => {
                     const isSelected = this.state.selected === studentName;
                     return (
                       <Button
@@ -125,7 +126,7 @@ class StudentLogin extends React.Component<
                   })}
                 </div>
               )}
-              {settings.specifyName && (
+              {!settings?.specifyName === false && (
                 <div className={classes.container}>
                   <h2>Log in as new user:</h2>
                   {this.state.selected ? (
@@ -146,7 +147,7 @@ class StudentLogin extends React.Component<
                   )}
                 </div>
               )}
-              {settings.secret && !isEmpty(settings.secretString) && (
+              {settings?.secret && !isEmpty(settings?.secretString) && (
                 <div className={classes.container}>
                   <h2>Secret token:</h2>
                   <b>Please enter the token that your teacher gave you:</b>
@@ -163,7 +164,7 @@ class StudentLogin extends React.Component<
                 className={classes.loginButton}
                 disabled={
                   (!this.state.selected && isEmpty(this.state.name)) ||
-                  ((settings.studentlist && settings.studentlist) || '')
+                  (studentlist || '')
                     .split('\n')
                     .map(x => x.toUpperCase())
                     .includes(

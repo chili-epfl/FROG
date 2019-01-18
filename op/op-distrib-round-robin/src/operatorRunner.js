@@ -1,37 +1,33 @@
 // @flow
 
-import { type productOperatorRunnerT, uuid } from 'frog-utils';
+import { type productOperatorRunnerT, getRotateable } from 'frog-utils';
+import { merge, range } from 'lodash';
 
-const createLI = (dataFn, item, litype, from) => {
-  const id = uuid();
-  const reviewLi = dataFn.createLearningItem('li-richText');
-  const li = dataFn.createLearningItem(
-    'li-peerReview',
-    {
-      reviewItem: item.data,
-      reviewComponentLIType: litype,
-      reviewId: reviewLi,
-      from
-    },
-    undefined,
-    true
-  );
-  return { [id]: { id, li, from } };
-};
+const operator = (configData, { activityData, socialStructure }) => {
+  if (activityData.structure === 'all') {
+    console.error('Trying to distribute product from all, returning same');
+    return activityData;
+  }
 
-const operator = (configData, { activityData }, dataFn) => {
-  const instances = Object.keys(activityData.payload);
-  const structure = activityData.structure;
+  let instances;
+  const { structure } = activityData;
+  if (structure === 'individual') {
+    instances = Object.keys(activityData.payload);
+  } else {
+    instances = Object.keys(socialStructure[structure.groupingKey]);
+  }
+  const count = Math.min(configData.count || 1, instances.length - 1);
+
+  const shuffles = range(1, count + 1).map(i => getRotateable(instances, i));
+
   return {
     structure: activityData.structure,
-    payload: instances.reduce((acc, x) => {
+    payload: instances.reduce((acc, x, i) => {
       acc[x] = {
-        data: createLI(
-          dataFn,
-          activityData.payload[x],
-          configData.liType || 'li-textArea',
-          typeof structure === 'object' ? { [structure.groupingKey]: x } : x
-        )
+        config: {},
+        data:
+          shuffles.map(shuff => activityData.payload[shuff[i]].data) ||
+          merge(shuffles.map(shuff => activityData.payload[shuff[i]].data))
       };
       return acc;
     }, {})
