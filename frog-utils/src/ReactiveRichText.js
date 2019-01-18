@@ -154,6 +154,8 @@ class LearningItemBlot extends Embed {
 
   constructor(domNode, value) {
     super(domNode, value);
+    // Make sure the hover handlers are registered correctly in all collaborating
+    // editors for a newly inserted LI
     this.refreshClickHandlers();
   }
 
@@ -169,6 +171,7 @@ class LearningItemBlot extends Embed {
         ? LiViewTypes.THUMB
         : LiViewTypes.VIEW;
 
+    // Emit a delta that represents a 'li-view' formatting of this blot
     const offset = this.offset();
     const delta = new Delta();
     delta.retain(offset);
@@ -196,6 +199,8 @@ class LearningItemBlot extends Embed {
     return {};
   };
 
+  // Called every time a blot is rendered to extract the content values
+  // Eg: undo LI delete, reload existing document etc.
   static value(node) {
     const child = head(node.childNodes);
     if (child) {
@@ -228,12 +233,18 @@ class LearningItemBlot extends Embed {
   };
 
   update(mutations, context) {
+    // Make sure the handlers are registered for all the LIs in existing content
+    // of an editor upon editor load
     this.refreshClickHandlers();
     super.update(mutations, context);
   }
 
   format(format, value) {
     if (format === 'li-view') {
+      // By the time this format() method gets called When an existing blot is
+      // rendered on editor load, the 'this.domNode' property used in
+      // getLiContent() method is not yet initialized. So this waits a while
+      // until it is initialized to run the formatting
       setTimeout(() => {
         const { liId, authorId, zoomState } = this.getLiContent();
         if (liId && authorId && value) {
@@ -256,6 +267,9 @@ class LearningItemBlot extends Embed {
     return 1;
   }
 
+  // Called when attempted to move cursor into the LI blot using cursor keys.
+  // This forcefully places the arrow after the LI to avoid the editor selection
+  // going into an 'undefined' index value
   position() {
     const allBlots = get(this.parent, 'domNode.childNodes');
     const thisIndex = [].indexOf.call(allBlots, this.domNode);
@@ -351,6 +365,7 @@ document.documentElement // $FlowFixMe
   .getElementsByTagName('head')[0]
   .appendChild(menuItemStyle);
 
+// Bug fix for problem with styles in embedded Hypothesis LIs
 const hypothesisStyleFix = document.createElement('style');
 hypothesisStyleFix.type = 'text/css';
 hypothesisStyleFix.innerHTML = `.ql-editor annotation-viewer-content li::before { content: none; }`;
@@ -407,6 +422,7 @@ class ReactiveRichText extends Component<
 
   opListener = (op: Object[], source: string) => {
     if (source === this.quillRef) {
+      // Ignore if the changes are from our own editor
       return;
     }
     if (this.quillRef) {
@@ -416,6 +432,7 @@ class ReactiveRichText extends Component<
       }
 
       if (this.props.shorten) {
+        // getDocumentContent() returns the latest content of the document shortened
         editor.setContents(this.getDocumentContent());
       } else {
         forEach(op, operation => {
@@ -427,6 +444,8 @@ class ReactiveRichText extends Component<
             }
           });
           const opPath = last(operation.p);
+          // Ensures the ops are for exactly this editor in situations where there
+          // are multiple active editors in the page
           if (opPath === this.props.path) {
             editor.updateContents(operation.o);
           }
@@ -528,6 +547,7 @@ class ReactiveRichText extends Component<
         .appendChild(authorStyleElements[id]);
     }
 
+    // Hide author colors if there are no other collaborating users
     if (Object.keys(authorStyleElements).length > 1 && !this.props.readOnly) {
       this.turnAuthorshipOn();
     } else {
@@ -538,6 +558,10 @@ class ReactiveRichText extends Component<
   componentDidMount() {
     const editor = this.quillRef.getEditor();
     if (editor) {
+      // LI blots in existing content always trigger a change with source 'user'
+      // on editor load. This causes the editor to duplicate the LIs in some
+      // situations. So registering onChange handler with a delay to avoid
+      // processing those initial deltas.
       setTimeout(() => {
         editor.on('text-change', this.handleChange);
       }, 100);
@@ -597,10 +621,13 @@ class ReactiveRichText extends Component<
           const nextIndex = Math.min(i + 1, editor.getLength());
           const [prev] = editor.getLeaf(prevIndex);
           const [next] = editor.getLeaf(nextIndex);
+          // The insertText triggers handleChange() and that in turn calls back
+          // ensureSpaceAroundLis() until spaces are ensured around all
+          // LIs in the document
           if (i === 0 || get(prev, 'statics.blotName') === 'learning-item') {
             editor.insertText(i, '\n', Quill.sources.USER);
             return;
-          } else if (next.statics.blotName === 'learning-item') {
+          } else if (get(next, 'statics.blotName') === 'learning-item') {
             editor.insertText(nextIndex, '\n', Quill.sources.USER);
             return;
           }
@@ -637,22 +664,20 @@ class ReactiveRichText extends Component<
         if (op.delete) {
           return;
         }
-        // if (op.insert || (op.retain && op.attributes)) {
+
+        // Add authorship to only inserts
         if (op.insert) {
-          // Add authorship to only inserts
           op.attributes = op.attributes || {};
 
-          // Bug fix for Chinese keyboards which show Pinyin first before Chinese text, and also other keyboards like Tamil
           if (
             op.attributes.author &&
             op.attributes.author === this.props.userId
           ) {
             return;
           }
-          // End bug fix
 
           op.attributes.author = this.props.userId;
-          // Apply authorship to our own editor
+
           authorDelta.retain(op.retain || op.insert.length || 1, authorFormat);
         } else {
           const liView = get(op, 'attributes.li-view');
@@ -686,6 +711,8 @@ class ReactiveRichText extends Component<
     const editor = this.quillRef.getEditor();
 
     if (editor) {
+      // getSelection() method of ReactQuill API returns null since the editor
+      // is not focused during drop.
       const index = get(editor, 'selection.savedRange.index');
       const insertPosition = isUndefined(index)
         ? editor.getLength() - 1
