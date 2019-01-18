@@ -17,7 +17,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
 import { IconButton, CardContent, CardActions } from '@material-ui/core';
-import Grow from '@material-ui/core/Grow';
 
 const styles = () => ({
   badge: {

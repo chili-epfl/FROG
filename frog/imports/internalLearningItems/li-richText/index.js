@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { get, isString } from 'lodash';
-import {
-  type LearningItemT,
-  ReactiveRichText,
-  highlightTargetRichText
-} from 'frog-utils';
+import { type LearningItemT, ReactiveRichText } from 'frog-utils';
 
 const path = 'text';
 

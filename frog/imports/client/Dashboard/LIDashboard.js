@@ -18,7 +18,6 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import { omit } from 'lodash';
 import Stringify from 'json-stringify-pretty-compact';
 import ReactTooltip from 'react-tooltip';
 import Dialog from '@material-ui/core/Dialog';

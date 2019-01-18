@@ -282,8 +282,8 @@ export const generateReactiveFn = (
   stream?: Function,
   sessionId?: string,
   LIconnection?: any
-): Object => {
-  return new Doc(
+): Object =>
+  new Doc(
     doc,
     [],
     !!readOnly,
@@ -295,7 +295,6 @@ export const generateReactiveFn = (
     sessionId,
     LIconnection
   );
-};
 
 export const inMemoryReactive = (
   initial: any,

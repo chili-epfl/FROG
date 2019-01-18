@@ -3,7 +3,7 @@
 import { type productOperatorRunnerT, values, uuid } from 'frog-utils';
 import { isObject } from 'lodash';
 
-const operator = (configData, { activityData }, dataFn) => {
+const operator = (configData, { activityData }) => {
   if (activityData.structure !== 'individual') {
     console.error('Cannot work with data that is not individually structured');
     throw new Error();

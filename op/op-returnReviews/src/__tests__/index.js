@@ -1,4 +1,5 @@
 import pkg from '../operatorRunner';
+
 const object = {
   activityData: {
     structure: 'individual',
