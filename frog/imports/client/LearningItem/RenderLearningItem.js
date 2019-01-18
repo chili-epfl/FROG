@@ -117,7 +117,15 @@ class RenderLearningItem extends React.Component<any, any> {
     }
 
     if (search) {
-      if (!liType.search || !liType.search(data.payload, search)) {
+      if (
+        !liType.search ||
+        !liType.search(
+          data.payload,
+          search,
+          dataFn.specialize('payload'),
+          isPlayback
+        )
+      ) {
         return null;
       }
     }

@@ -2,6 +2,7 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
+import { highlightTargetRichText } from 'frog-utils';
 import ReactDOM from 'react-dom';
 import {
   get,
@@ -387,7 +388,8 @@ const formats = [
   'video',
   'learning-item',
   'author',
-  'li-view'
+  'li-view',
+  'background'
 ];
 
 type ReactivePropsT = {
@@ -396,7 +398,8 @@ type ReactivePropsT = {
   data?: Object,
   readOnly?: boolean,
   shorten?: number,
-  userId: string
+  userId: string,
+  search: string
 };
 
 class ReactiveRichText extends Component<
@@ -459,13 +462,22 @@ class ReactiveRichText extends Component<
   };
 
   getDocumentContent = () => {
-    const raw = get(
+    let raw = get(
       this.props.data
         ? { payload: this.props.data }
         : this.props.dataFn.doc.data,
       (this.state.path || []).join('.')
     );
-    return this.props.shorten ? shortenRichText(raw, this.props.shorten) : raw;
+
+    if (this.props.shorten) {
+      raw = shortenRichText(raw, this.props.shorten);
+    }
+
+    if (this.props.search) {
+      raw = highlightTargetRichText(raw, this.props.search);
+    }
+
+    return raw;
   };
 
   compositionStartHandler = () => {
@@ -586,7 +598,8 @@ class ReactiveRichText extends Component<
   shouldComponentUpdate(nextProps: Object) {
     return (
       this.props.shorten !== nextProps.shorten ||
-      !!(this.props.readOnly || nextProps.readOnly)
+      !!(this.props.readOnly || nextProps.readOnly) ||
+      this.props.search !== nextProps.search
     );
   }
 
