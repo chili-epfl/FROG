@@ -18,6 +18,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import ZoomIn from '@material-ui/icons/ZoomIn';
 import ZoomOut from '@material-ui/icons/ZoomOut';
+import FileCopy from '@material-ui/icons/FileCopy';
 import Save from '@material-ui/icons/Save';
 import Close from '@material-ui/icons/Close';
 import Create from '@material-ui/icons/Create';
@@ -103,6 +104,13 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
                         )}
                       </IconButton>
                     )}
+                  <IconButton
+                    disableRipple
+                    style={{ float: 'right' }}
+                    className={`${classes.button} li-copy-btn`}
+                  >
+                    <FileCopy/>
+                  </IconButton>
                 </div>
                 {children}
               </Paper>
@@ -189,6 +197,17 @@ class LearningItemBlot extends Embed {
     this.format('li-view', nextView);
   };
 
+  liCopyHandler = () => {
+    const offset = this.offset();
+    const index = offset >= 1 ? offset - 1 : 0;
+    const length = 2;
+    this.parent.emitter.emit('selection-change', {index , length});
+    setTimeout(() => {
+      document.execCommand('copy');
+      this.parent.emitter.emit('selection-change', {index: offset , length: 0});
+    }, 1);
+  };
+
   getLiContent = () => {
     const child = head(this.domNode.childNodes);
     if (child) {
@@ -217,6 +236,7 @@ class LearningItemBlot extends Embed {
     const closeButton = this.domNode.querySelector('.li-close-btn');
     const zoomButton = this.domNode.querySelector('.li-zoom-btn');
     const editButton = this.domNode.querySelector('.li-edit-btn');
+    const copyButton = this.domNode.querySelector('.li-copy-btn');
     if (closeButton) {
       // Remove any existing handlers so that we wont stack them up
       closeButton.removeEventListener('click', this.liCloseHandler);
@@ -231,6 +251,11 @@ class LearningItemBlot extends Embed {
       // Remove any existing handlers so that we wont stack them up
       editButton.removeEventListener('click', this.liEditHandler);
       editButton.addEventListener('click', this.liEditHandler);
+    }
+    if (copyButton) {
+      // Remove any existing handlers so that we wont stack them up
+      copyButton.removeEventListener('click', this.liCopyHandler);
+      copyButton.addEventListener('click', this.liCopyHandler);
     }
   };
 
@@ -602,6 +627,7 @@ class ReactiveRichText extends Component<
       // processing those initial deltas.
       setTimeout(() => {
         editor.on('text-change', this.handleChange);
+        editor.on('selection-change', this.handleSelectionChange);
       }, 100);
     }
 
@@ -682,6 +708,13 @@ class ReactiveRichText extends Component<
       }
       this.submitOperation(delta);
       this.ensureSpaceAroundLis();
+    }
+  };
+
+  handleSelectionChange = (range: Object) => {
+    const editor = this.quillRef.getEditor();
+    if (editor) {
+      editor.setSelection(range, Quill.sources.SILENT)
     }
   };
 
