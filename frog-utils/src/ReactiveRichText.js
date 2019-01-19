@@ -227,7 +227,8 @@ class LearningItemBlot extends Embed {
     if (child) {
       const liId = get(child.dataset, 'liId');
       const authorId = get(child.dataset, 'authorId');
-      return { authorId, liId };
+      const view = get(child.dataset, 'liZoomState');
+      return { authorId, liId, view };
     }
     return {};
   }
