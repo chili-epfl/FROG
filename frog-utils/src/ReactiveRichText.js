@@ -12,7 +12,8 @@ import {
   findIndex,
   head,
   isUndefined,
-  filter
+  filter,
+  find
 } from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import ZoomIn from '@material-ui/icons/ZoomIn';
@@ -311,13 +312,17 @@ class QuillClipboard extends Clipboard {
   // Following implements a modified version of the workaround suggested by the
   // original author of Quill.
   onPaste(e) {
-    const scrollTops = e.path.map(element => get(element, 'scrollTop'));
-    super.onPaste(e);
-    setTimeout(() => {
-      e.path.forEach((element, index) => {
-        element.scrollTop = scrollTops[index];
-      });
-    }, 1);
+    const found = find(e.path, element => element.className === 'ql-learning-item');
+    // if found, that means the paste is done inside a LI. So bypass quill processing.
+    if (!found) {
+      const scrollTops = e.path.map(element => get(element, 'scrollTop'));
+      super.onPaste(e);
+      setTimeout(() => {
+        e.path.forEach((element, index) => {
+          element.scrollTop = scrollTops[index];
+        });
+      }, 1);
+    }
   }
 }
 
@@ -783,7 +788,8 @@ class ReactiveRichText extends Component<
       type =>
         get(type, 'dataStructure') &&
         get(type, 'Editor') &&
-        get(type, 'id') !== 'li-richText'
+        get(type, 'id') !== 'li-richText' &&
+        get(type, 'id') !== 'li-doubleRichText'
     );
   };
 
