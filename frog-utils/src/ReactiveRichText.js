@@ -303,6 +303,27 @@ const LiViewAttribute = new Parchment.Attributor.Attribute(
 Parchment.register(LiViewAttribute);
 Quill.register(LiViewAttribute, true);
 
+const Clipboard = Quill.import('modules/clipboard');
+
+class QuillClipboard extends Clipboard {
+  // There is a bug in Quill that causes the container scroll to jump on
+  // content paste. (Refer https://github.com/quilljs/quill/issues/1082)
+  // Following implements a modified version of the workaround suggested by the
+  // original author of Quill.
+  onPaste(e) {
+    const scrollTops = e.path.map(element => get(element, 'scrollTop'));
+    super.onPaste(e);
+    setTimeout(() => {
+      e.path.forEach((element, index) => {
+        element.scrollTop = scrollTops[index];
+      });
+    }, 1);
+  }
+}
+
+Quill.register('modules/clipboard', QuillClipboard, true);
+
+
 function hashCode(str = '') {
   let hash = 0;
   let i = 0;
