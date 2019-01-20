@@ -125,7 +125,7 @@ class StudentLogin extends React.Component<
         </AppBar>
         <div className={classes.mainContent}>
           {settings?.loginByName === false ||
-          (settings?.restrictName && isEmpty(settings?.studentlist)) ? (
+          (settings?.restrictList && isEmpty(settings?.studentlist)) ? (
             <h2 className={classes.mustLogin}>
               The teacher has not enabled direct web login for this session.
             </h2>
@@ -133,7 +133,7 @@ class StudentLogin extends React.Component<
             <>
               {studentlist && (
                 <div className={classes.container}>
-                  {!settings.restrictName &&
+                  {!settings.restrictList &&
                   (settings.tooLate && !settings.allowLateLogin) ? (
                     <h2>
                       Too late for new users to join this session, but existing
