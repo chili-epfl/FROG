@@ -85,8 +85,14 @@ class LogoutMenu extends React.Component<*, *> {
           >
             Show changelog
           </MenuItem>
-          <MenuItem onClick={this.handleClose}>Website</MenuItem>
-          <MenuItem onClick={this.handleClose}>Change password</MenuItem>
+          <MenuItem
+            onClick={() => {
+              window.open('https://froglearning.wordpress.com');
+              this.handleClose;
+            }}
+          >
+            Website
+          </MenuItem>
           <MenuItem
             onClick={() => {
               sessionStorage.removeItem('frog.sessionToken');
