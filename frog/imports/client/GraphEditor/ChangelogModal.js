@@ -45,7 +45,7 @@ class HelpModal extends React.Component<*, *> {
         open={this.props.show}
         onClose={this.props.hide}
         TransitionComponent={Transition}
-        classes={classes}
+        classes={{ paper: classes.paper }}
       >
         <AppBar className={classes.appBar}>
           <Toolbar>

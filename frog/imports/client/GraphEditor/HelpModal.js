@@ -27,7 +27,7 @@ const HelpModal = ({ show, hide, classes }: Object) => (
     open={show}
     onClose={hide}
     TransitionComponent={Transition}
-    classes={classes}
+    classes={{ paper: classes.paper }}
   >
     <AppBar className={classes.appBar}>
       <Toolbar>
