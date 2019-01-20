@@ -31,7 +31,7 @@ const changelog = [
     ]
   },
   {
-    date: new Date('20/01/2019'),
+    date: new Date('01/20/2019'),
     title: 'Clarifying session settings and cleaning up login screen',
     content: [
       `After user feedback, we've somewhat modified the session settings. First of all, we've made direct user login by name the default (it can still be disabled in the settings). We also explicitly show both the LTI link and the direct login link in the session view - if these are enabled. Within the direct login view, adding your own name is now enabled by default.`,

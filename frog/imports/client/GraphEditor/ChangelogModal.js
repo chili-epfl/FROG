@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +18,9 @@ const styles = {
   paper: {
     width: '750px',
     height: '1000px'
-  }
+  },
+  appBar: { position: 'relative' },
+  ul: { paddingBottom: '12px' }
 };
 
 class HelpModal extends React.Component<*, *> {
@@ -30,6 +31,7 @@ class HelpModal extends React.Component<*, *> {
 
   render() {
     const version = Meteor.user()?.profile?.lastVersionChangelog;
+    const { classes } = this.props;
 
     const logs =
       version === changelog.length - 1
@@ -43,32 +45,30 @@ class HelpModal extends React.Component<*, *> {
         open={this.props.show}
         onClose={this.props.hide}
         TransitionComponent={Transition}
-        classes={this.props.classes}
+        classes={classes}
       >
-        <DialogTitle id="scroll-dialog-title">
-          <AppBar>
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                onClick={this.props.hide}
-                aria-label="Close"
-              >
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit">
-                What is new in FROG
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        </DialogTitle>
-        <List style={{ top: '50px' }}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              onClick={this.props.hide}
+              aria-label="Close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit">
+              What is new in FROG
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <List>
           {logs.map(log => (
             <div key={log.date} style={{ padding: '10px' }}>
               <div key={log.date}>
                 <h4>
                   {log.title} ({log.date.toDateString()})
                 </h4>
-                <ul>
+                <ul className={classes.ul}>
                   {log.content.map((y, i) => (
                     <li key={i}>{y}</li>
                   ))}
