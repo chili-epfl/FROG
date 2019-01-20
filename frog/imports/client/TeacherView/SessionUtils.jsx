@@ -163,7 +163,7 @@ const SessionUtils = ({
               </a>
             </>
           )}
-          {session?.settings?.loginByName && (
+          {session?.settings?.loginByName !== false && (
             <>
               {' '}
               -{' '}

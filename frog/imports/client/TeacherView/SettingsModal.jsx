@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './styles';
+import extStyles from './styles';
 import { Sessions } from '/imports/api/sessions';
 
 const cleanStudentList = studentList =>
@@ -38,6 +38,8 @@ const updateSession = (settings, session) => {
   }
 };
 
+const styles = theme => ({ ...extStyles(theme), content: { margin: '15px' } });
+
 class SettingsModal extends React.Component {
   state = {
     settings: this.props.session.settings
@@ -52,11 +54,7 @@ class SettingsModal extends React.Component {
             <IconButton color="inherit" onClick={onClose} aria-label="Close">
               <CloseIcon />
             </IconButton>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
+            <Typography variant="h6" color="inherit" className={classes.flex}>
               Configure Settings
             </Typography>
             <Button color="inherit" onClick={onClose}>
@@ -65,7 +63,7 @@ class SettingsModal extends React.Component {
           </Toolbar>
         </AppBar>
         <List>
-          <div className="bootstrap">
+          <div className={'bootstrap ' + classes.content}>
             <EnhancedForm
               formData={this.state.settings}
               onChange={({ formData: f }) => {
@@ -99,11 +97,9 @@ class SettingsModal extends React.Component {
                     title: 'Require students to provide secret string to log in'
                   },
                   secretString: { type: 'string', title: 'Secret string' },
-                  specifyName: {
+                  restrictList: {
                     type: 'boolean',
-                    title:
-                      'Allow students to specify their own name, not already on the list below',
-                    default: true
+                    title: 'Restrict students to the names already listed below'
                   },
                   studentlist: {
                     type: 'string',
@@ -120,7 +116,7 @@ class SettingsModal extends React.Component {
                   },
                   conditional: 'loginByName'
                 },
-                specifyName: {
+                restrictList: {
                   conditional: 'loginByName'
                 },
                 secret: {

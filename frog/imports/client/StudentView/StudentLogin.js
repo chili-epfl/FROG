@@ -4,8 +4,15 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { isEmpty } from 'lodash';
 import { TextInput } from 'frog-utils';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  IconButton
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Frog from '../App/Frog';
 
 const splitList = (liststr: string) => {
   const list = (liststr || '').split('\n');
@@ -18,15 +25,23 @@ const styles = () => ({
     overflow: 'auto',
     marginLeft: 10
   },
+  frog: { width: '30px', fill: '#87f38b;' },
+  grow: {
+    flexGrow: 1
+  },
   toolbar: {
     minHeight: 48,
     height: 48
   },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
   mainContent: {
     width: '100%',
-    marginTop: 48
+    marginTop: 65
   },
-  mustLogin: { marginTop: '15px' },
+  mustLogin: { margin: '15px' },
   loginButton: { marginLeft: 10 },
   studentNameButton: {
     minWidth: 250,
@@ -38,13 +53,16 @@ type SettingsT = {
   loginByName: boolean,
   secret?: boolean,
   secretString?: string,
-  specifyName: boolean,
-  studentlist?: string
+  restrictList: boolean,
+  studentlist?: string,
+  allowLateLogin?: boolean,
+  tooLate?: boolean
 };
 
 type StudentLoginPropsT = {
   login: Function,
   settings: SettingsT,
+  slug: string,
   classes: Object
 };
 
@@ -85,25 +103,45 @@ class StudentLogin extends React.Component<
   };
 
   render() {
-    const { settings, classes } = this.props;
+    const { settings, slug, classes } = this.props;
     const studentlist = settings?.studentlist;
     return (
-      <>
+      <div className={classes.root}>
         <AppBar>
-          <Toolbar className={classes.toolbar} />
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <div className={classes.frog}>
+                <Frog />
+              </div>
+            </IconButton>{' '}
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Login for session {slug}
+            </Typography>
+          </Toolbar>
         </AppBar>
         <div className={classes.mainContent}>
           {settings?.loginByName === false ||
-          (settings?.specifyName === false &&
-            isEmpty(settings?.studentlist)) ? (
+          (settings?.restrictName && isEmpty(settings?.studentlist)) ? (
             <h2 className={classes.mustLogin}>
-              Must log in to access this session
+              The teacher has not enabled direct web login for this session.
             </h2>
           ) : (
             <>
               {studentlist && (
                 <div className={classes.container}>
-                  <h2>Select your name below</h2>
+                  {!settings.restrictName &&
+                  (settings.tooLate && !settings.allowLateLogin) ? (
+                    <h2>
+                      Too late for new users to join this session, but existing
+                      users can select their name below
+                    </h2>
+                  ) : (
+                    <h2>Select your name below</h2>
+                  )}
                   {splitList(studentlist).map(studentName => {
                     const isSelected = this.state.selected === studentName;
                     return (
@@ -126,27 +164,28 @@ class StudentLogin extends React.Component<
                   })}
                 </div>
               )}
-              {!settings?.specifyName === false && (
-                <div className={classes.container}>
-                  <h2>Log in as new user:</h2>
-                  {this.state.selected ? (
-                    <p>
-                      Cancel the selection above, to be able to specify a new
-                      name
-                    </p>
-                  ) : (
-                    <>
-                      <b>Enter your name to login as a new user</b>
-                      <br />
-                      <TextInput
-                        focus={false}
-                        onChange={e => this.setState({ name: e })}
-                      />
-                      <p />
-                    </>
-                  )}
-                </div>
-              )}
+              {!settings.restrictList &&
+                (!settings.tooLate || settings.allowLateLogin) && (
+                  <div className={classes.container}>
+                    <h2>Log in as new user:</h2>
+                    {this.state.selected ? (
+                      <p>
+                        Cancel the selection above, to be able to specify a new
+                        name
+                      </p>
+                    ) : (
+                      <>
+                        <b>Enter your name to login as a new user</b>
+                        <br />
+                        <TextInput
+                          focus={false}
+                          onChange={e => this.setState({ name: e })}
+                        />
+                        <p />
+                      </>
+                    )}
+                  </div>
+                )}
               {settings?.secret && !isEmpty(settings?.secretString) && (
                 <div className={classes.container}>
                   <h2>Secret token:</h2>
@@ -162,6 +201,8 @@ class StudentLogin extends React.Component<
               <Button
                 onClick={this.login}
                 className={classes.loginButton}
+                variant="contained"
+                color="primary"
                 disabled={
                   (!this.state.selected && isEmpty(this.state.name)) ||
                   (studentlist || '')
@@ -177,7 +218,7 @@ class StudentLogin extends React.Component<
             </>
           )}
         </div>
-      </>
+      </div>
     );
   }
 }
