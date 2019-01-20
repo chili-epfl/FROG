@@ -58,7 +58,9 @@ class LearningItem extends React.Component<
           : (newprops: Object) => (
               <RenderLearningItem
                 notEmpty={props.notEmpty}
+                disableDragging={props.disableDragging}
                 data={id.liDocument}
+                dataFn={props.dataFn}
                 {...newprops}
               />
             );

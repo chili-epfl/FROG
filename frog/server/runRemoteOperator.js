@@ -4,7 +4,11 @@ import redis from 'redis';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 
-export default (operatorType: string) => (data: any, object: any): any =>
+export default (operatorType: string) => (
+  data: any,
+  object: any,
+  _dataFn: any
+): any =>
   new Promise(resolve => {
     const client = redis.createClient();
     client.on('error', e => {

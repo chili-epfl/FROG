@@ -8,8 +8,10 @@ import {
   type socialStructureT
 } from 'frog-utils';
 
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Sessions } from '/imports/api/sessions';
 import mergeData from './mergeData';
+import { serverConnection } from './share-db-manager';
 import reactiveToProduct from './reactiveToProduct';
 import { operatorTypesObj } from '../imports/operatorTypes';
 import operators from './operatorRunners';
@@ -119,13 +121,23 @@ const runDataflow = (
   addObject(nodeId, object);
 
   if (type === 'operator') {
+    const doc = serverConnection.get('li', 'bookmark');
+    const dataFn = generateReactiveFn(doc);
     console.info(
       `Running operator ${node.title} (${node.operatorType}) - ${node._id}`
     );
     const operatorFunction = operatorTypesObj[node.operatorType].external
       ? remote(node.operatorType)
       : operators[node.operatorType];
-    const product = Promise.await(operatorFunction(node.data || {}, object));
+    let product;
+    try {
+      product = Promise.await(
+        operatorFunction(node.data || {}, object, dataFn)
+      );
+    } catch (e) {
+      product = {};
+      console.error(e);
+    }
     const dataType = {
       product: 'activityData',
       social: 'socialStructure',

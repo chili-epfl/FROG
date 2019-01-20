@@ -254,17 +254,20 @@ export type operatorPackageT =
 
 export type productOperatorRunnerT = (
   configData: Object,
-  object: ObjectT & GlobalStructureT
+  object: ObjectT & GlobalStructureT,
+  LearningItem: Function
 ) => activityDataT | Promise<activityDataT>;
 
 export type controlOperatorRunnerT = (
   configData: Object,
-  object: ObjectT & GlobalStructureT
+  object: ObjectT & GlobalStructureT,
+  LearningItem: Function
 ) => ControlStructureT;
 
 export type socialOperatorRunnerT = (
   configData: Object,
-  object: ObjectT & GlobalStructureT
+  object: ObjectT & GlobalStructureT,
+  LearningItem: Function
 ) => socialStructureT;
 
 export type CursorT<T> = {
@@ -308,7 +311,8 @@ export type LIComponentPropsT =
       liType?: string,
       onCreate?: Function,
       autoInsert?: Boolean,
-      meta?: Object
+      meta?: Object,
+      disableDragging?: boolean
     |}
   | {|
       type: 'createLIPayload',
@@ -324,7 +328,8 @@ export type LIComponentPropsT =
       id: string | ImmutableLIT,
       render?: LIRenderT,
       search?: string,
-      notEmpty?: boolean
+      notEmpty?: boolean,
+      disableDragging?: boolean
     |}
   | {|
       type: 'thumbView',
@@ -332,7 +337,8 @@ export type LIComponentPropsT =
       render?: LIRenderT,
       clickZoomable?: boolean,
       search?: string,
-      notEmpty?: boolean
+      notEmpty?: boolean,
+      disableDragging?: boolean
     |}
   | {|
       type: 'edit',
@@ -341,7 +347,8 @@ export type LIComponentPropsT =
         ...{| dataFn: Object |},
         ...LIRenderPropsT
       }>,
-      notEmpty?: boolean
+      notEmpty?: boolean,
+      disableDragging?: boolean
     |};
 
 export type LearningItemComponentT = React.ComponentType<LIComponentPropsT>;
@@ -373,5 +380,10 @@ export type LearningItemT<T> = {
     search?: string
   }>,
   createPayload?: Function,
-  search?: (data: any, search: string) => boolean
+  search?: (
+    data: any,
+    search: string,
+    dataFn: Object,
+    isPlayback?: boolean
+  ) => boolean
 };
