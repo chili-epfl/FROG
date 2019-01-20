@@ -197,14 +197,21 @@ class LearningItemBlot extends Embed {
     this.format('li-view', nextView);
   };
 
-  liCopyHandler = () => {
+  liCopyHandler = (e) => {
+    // Save existing scroll positions
+    const scrollTops = e.path.map(element => get(element, 'scrollTop'));
+
     const offset = this.offset();
     const index = offset >= 1 ? offset - 1 : 0;
     const length = 2;
-    this.parent.emitter.emit('selection-change', {index , length});
+    this.parent.emitter.emit('selection-change', {index , length}, undefined, Quill.sources.SILENT, 'li-copy');
     setTimeout(() => {
       document.execCommand('copy');
-      this.parent.emitter.emit('selection-change', {index: offset , length: 0});
+      this.parent.emitter.emit('selection-change', {index: offset , length: 0}, undefined, Quill.sources.SILENT, 'li-copy');
+      // Restore scroll positions
+      e.path.forEach((element, idx) => {
+        element.scrollTop = scrollTops[idx];
+      });
     }, 1);
   };
 
@@ -341,9 +348,11 @@ class QuillClipboard extends Clipboard {
     const found = find(e.path, element => element.className === 'ql-learning-item');
     // if found, that means the paste is done inside a LI. So bypass quill processing.
     if (!found) {
+      // Save existing scroll positions
       const scrollTops = e.path.map(element => get(element, 'scrollTop'));
       super.onPaste(e);
       setTimeout(() => {
+        // Restore scroll positions
         e.path.forEach((element, index) => {
           element.scrollTop = scrollTops[index];
         });
@@ -630,6 +639,16 @@ class ReactiveRichText extends Component<
         editor.on('text-change', this.handleChange);
         editor.on('selection-change', this.handleSelectionChange);
       }, 100);
+
+      // When any option is clicked from the quill toolbar from a list, the editor
+      // view jumps to top. Following code fixes that.
+      const toolbars = document.querySelectorAll('.ql-toolbar');
+      toolbars.forEach(toolbar => {
+        toolbar.addEventListener('mousedown', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+        });
+      });
     }
 
     if (!this.props.data) {
@@ -712,10 +731,14 @@ class ReactiveRichText extends Component<
     }
   };
 
-  handleSelectionChange = (range: Object) => {
-    const editor = this.quillRef.getEditor();
-    if (editor) {
-      editor.setSelection(range, Quill.sources.SILENT)
+  handleSelectionChange = (range: Object, previousRange: Object, source: string, trigger: string) => {
+    // This handler gets triggered for all selection changes. We only want to
+    // process the event emitted by li copy button.
+    if (trigger === 'li-copy') {
+      const editor = this.quillRef.getEditor();
+      if (editor && range) {
+        editor.setSelection(range, Quill.sources.SILENT)
+      }
     }
   };
 
