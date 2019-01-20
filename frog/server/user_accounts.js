@@ -78,12 +78,9 @@ Meteor.methods({
     }
     const session = Sessions.findOne({ slug: slug.trim().toUpperCase() });
     if (session?.tooLate) {
-      return 'tooLate';
-    }
-    if (session?.settings?.studentlist || session?.settings?.loginByName) {
-      return session.settings;
+      return { tooLate: true, ...(session.settings || {}) };
     } else {
-      return -1;
+      return session.settings || {};
     }
   },
   'create.many': function(slug) {

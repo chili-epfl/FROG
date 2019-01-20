@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import { compact } from 'lodash';
+import { compact, uuid } from 'lodash';
 
 const meta = {
   name: 'Text area',
@@ -83,6 +83,18 @@ export const formatProduct = (
   '1': {
     ...data,
     msg: `${username || 'Anonymous'} wrote ${data.text}`
+  },
+  '2': {
+    id: '2',
+    li: {
+      id: uuid(),
+      liDocument: {
+        liType: 'li-textarea',
+        createdAt: new Date(),
+        createdBy: 'ac-textarea',
+        payload: { text: data.text }
+      }
+    }
   }
 });
 

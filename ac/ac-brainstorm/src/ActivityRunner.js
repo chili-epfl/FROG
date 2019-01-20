@@ -1,42 +1,34 @@
 // @flow
 
 import * as React from 'react';
-import { values, A, type ActivityRunnerPropsT } from 'frog-utils';
-import styled from 'styled-components';
+import { values, type ActivityRunnerPropsT } from 'frog-utils';
 import FlipMove from 'react-flip-move';
-import Badge from '@material-ui/core/Badge';
+import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import Card from '@material-ui/core/Card';
+import Chip from '@material-ui/core/Chip';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import PencilIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
+import { IconButton, CardContent, CardActions } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = () => ({
   badge: {
-    border: `2px solid ${
-      theme.palette.type === 'light'
-        ? theme.palette.grey[200]
-        : theme.palette.grey[900]
-    }`,
-    backgroundColor: 'gray',
     right: '1px',
     top: '1px'
   }
 });
 
-const ListContainer = styled.div`
-  padding: 2%;
-  width: 100%;
-`;
-
 const red = '#AA0000';
 const blue = '#0000FF';
 const grey = '#A0A0A0';
+
 const chooseColor = (vote, isUp) => {
   switch (vote) {
     case -1:
@@ -49,8 +41,8 @@ const chooseColor = (vote, isUp) => {
 };
 
 const AddingLI = ({ LearningItem, config }) => (
-  <>
-    <div style={{ display: 'flex' }}>
+  <Card style={{ margin: 5, padding: 5 }} raised>
+    <CardContent>
       <div style={{ width: '500px' }}>
         {config.specificLI && (
           <LearningItem
@@ -61,6 +53,8 @@ const AddingLI = ({ LearningItem, config }) => (
           />
         )}
       </div>
+    </CardContent>
+    <CardActions>
       {config.allowGeneralLI && (
         <LearningItem
           type="create"
@@ -68,92 +62,195 @@ const AddingLI = ({ LearningItem, config }) => (
           autoInsert
         />
       )}
-    </div>
-  </>
+    </CardActions>
+  </Card>
 );
 
-const Idea = ({
-  children,
-  delFn,
-  meta,
-  vote,
-  userInfo,
-  editFn,
-  zoomable,
-  editable,
-  zoomFn,
-  config
-}) => (
-  <ListItem>
-    {children}
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'absolute',
-        right: '25px',
-        top: '5px'
-      }}
-    >
-      {config.allowVoting && (
-        <div style={{ flexDirection: 'row' }}>
-          <A onClick={() => vote(meta.id, -1)}>
-            <ThumbDownIcon
-              style={{
-                color: chooseColor(meta.students[userInfo.id], false),
-                marginRight: '10px'
-              }}
-            />
-          </A>
-          <A onClick={() => vote(meta.id, 1)}>
-            <ThumbUpIcon
-              style={{
-                color: chooseColor(meta.students[userInfo.id], true),
-                marginRight: '10px'
-              }}
-            />
-          </A>
+class Idea extends React.Component<
+  {
+    vote: Function,
+    meta: any,
+    editFn: Function,
+    delFn: Function,
+    zoomable: boolean,
+    zoomFn: Function,
+    config: any,
+    userInfo: Object,
+    editable: boolean,
+    edit: boolean,
+    children: any
+  },
+  { focus: boolean }
+> {
+  constructor(props) {
+    super(props);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
+    this.handleOnBlur = this.handleOnBlur.bind(this);
+    this.state = {
+      focus: props.edit
+    };
+  }
+
+  handleOnFocus = () => {
+    this.setState(() => ({ focus: true }));
+  };
+
+  handleOnBlur = () => {
+    this.setState(() => ({ focus: false }));
+  };
+
+  render() {
+    const {
+      vote,
+      userInfo,
+      meta,
+      editFn,
+      delFn,
+      zoomFn,
+      zoomable,
+      config,
+      editable,
+      edit,
+      children
+    } = this.props;
+    const { focus } = this.state;
+    const { score } = meta;
+    const showMouseover =
+      config.allowDelete ||
+      (editable && config.allowEdit) ||
+      (zoomable && !config.expandItems && config.allowZoom);
+    return (
+      <Card
+        raised={focus}
+        onMouseLeave={this.handleOnBlur}
+        onMouseOver={() => {
+          if (!focus) {
+            this.handleOnFocus();
+          }
+        }}
+        onMouseEnter={this.handleOnFocus}
+        style={{
+          position: 'relative',
+          minWidth: '400px',
+          padding: '5px',
+          minHeight: (showMouseover ? 40 : 0) + 20 + 'px'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 2,
+            minWidth: '108px',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            flexDirection: 'row',
+            bottom: '0px',
+            right: '10px'
+          }}
+        >
+          {showMouseover && focus && (
+            <div style={{ width: '100%/' }}>
+              <font size={4}>
+                {config.allowDelete && (
+                  <IconButton size="small" onClick={() => delFn(meta)}>
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                )}
+                {editable && config.allowEdit && (
+                  <IconButton
+                    style={{ leftMargin: '10px' }}
+                    size="small"
+                    onClick={() => {
+                      editFn(meta.id);
+                      window.setTimeout(() => this.setState({ focus: true }));
+                    }}
+                  >
+                    {edit ? (
+                      <SaveIcon fontSize="small" />
+                    ) : (
+                      <PencilIcon fontSize="small" />
+                    )}
+                  </IconButton>
+                )}
+                {zoomable && !config.expandItems && config.allowZoom && (
+                  <IconButton
+                    style={{ leftMargin: '10px' }}
+                    size="small"
+                    onClick={() => {
+                      zoomFn(meta.id);
+                      window.setTimeout(() => this.setState({ focus: true }));
+                    }}
+                  >
+                    <ZoomInIcon glyph="zoom-in" fontSize="small" />
+                  </IconButton>
+                )}
+              </font>
+            </div>
+          )}
         </div>
-      )}
-      <div style={{ flexDirection: 'row' }}>
-        <font size={4}>
-          {config.allowDelete && (
-            <A onClick={() => delFn(meta)}>
-              <DeleteIcon
+
+        <div
+          style={{
+            position: 'absolute',
+            display: 'flex',
+            flexDirection: 'row',
+            top: '2px',
+            right: '5px'
+          }}
+        >
+          {config.allowVoting && (
+            <IconButton
+              disableTouchRipple
+              disableRipple
+              size="small"
+              onClick={() => vote(meta.id, 1)}
+              style={{
+                minHeight: '13px',
+                padding: '3px 4px'
+              }}
+            >
+              <KeyboardArrowUp
                 style={{
-                  float: 'right',
-                  color: 'grey',
-                  marginRight: '10px'
+                  color: chooseColor(meta.students[userInfo.id], true)
                 }}
+                fontSize="small"
               />
-            </A>
+            </IconButton>
           )}
-          {editable && config.allowEdit && (
-            <A onClick={() => editFn(meta.id)}>
-              <PencilIcon
+          <Chip
+            label={score}
+            style={{
+              height: 'unset'
+            }}
+          />
+          {config.allowVoting && (
+            <IconButton
+              disableTouchRipple
+              disableRipple
+              size="small"
+              onClick={() => vote(meta.id, -1)}
+              style={{
+                minHeight: '13px',
+                padding: '3px 4px'
+              }}
+            >
+              <KeyboardArrowDown
                 style={{
-                  float: 'right',
-                  marginRight: '10px'
+                  color: chooseColor(meta.students[userInfo.id], false)
                 }}
+                fontSize="small"
               />
-            </A>
+            </IconButton>
           )}
-          {zoomable && !config.expandItems && (
-            <A onClick={() => zoomFn(meta.id)}>
-              <ZoomInIcon
-                glyph="zoom-in"
-                style={{
-                  float: 'right',
-                  marginRight: '10px'
-                }}
-              />
-            </A>
-          )}
-        </font>
-      </div>
-    </div>
-  </ListItem>
-);
+        </div>
+        <div style={{ width: 'calc(100% - 85px)', overflow: 'hidden' }}>
+          {children}
+          {showMouseover && <div style={{ height: '25px' }} />}
+        </div>
+      </Card>
+    );
+  }
+}
 
 const IdeaListRaw = ({
   data,
@@ -166,46 +263,47 @@ const IdeaListRaw = ({
   setZoom,
   LearningItem,
   history,
-  config,
-  classes
+  config
 }) => (
-  <div>
-    <List className="item">
+  <>
+    <List style={{ width: '100%' }}>
       <FlipMove duration={750} easing="ease-out">
-        {orderBy(values(data), x => parseInt(x.score, 10), ['desc']).map(x => (
-          <div
-            key={x.id}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              border: '1px solid #DDDDDD',
-              borderRadius: '5px'
-            }}
-          >
-            <Badge
-              badgeContent={x.score}
-              color="primary"
-              classes={{ badge: classes.badge }}
-            >
-              <LearningItem
-                type={
-                  edit === x.id
-                    ? 'edit'
-                    : zoom === x.id
-                    ? history
-                      ? 'history'
-                      : 'view'
-                    : config.expandItems
-                    ? 'view'
-                    : 'thumbView'
-                }
-                render={({ zoomable, editable, children }) => (
+        {(config.sort
+          ? orderBy(values(data), x => parseInt(x.score, 10), ['desc'])
+          : values(data)
+        ).map(x => (
+          <div key={x.id}>
+            <LearningItem
+              id={x.li}
+              notEmpty
+              type={
+                edit === x.id
+                  ? 'edit'
+                  : zoom === x.id
+                  ? history
+                    ? 'history'
+                    : 'view'
+                  : config.expandItems
+                  ? 'view'
+                  : 'thumbView'
+              }
+              render={({ zoomable, editable, children }) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '5px',
+                    padding: '5px'
+                  }}
+                >
                   <Idea
+                    edit={edit === x.id}
                     zoomable={zoomable || history}
                     editable={editable}
                     config={config}
                     meta={x}
                     vote={vote}
+                    userInfo={userInfo}
                     delFn={item => dataFn.objDel(item, item.id)}
                     editFn={e => {
                       setZoom(false);
@@ -215,19 +313,17 @@ const IdeaListRaw = ({
                       setEdit(false);
                       setZoom(zoom === e ? false : e);
                     }}
-                    userInfo={userInfo}
                   >
                     {children}
                   </Idea>
-                )}
-                id={x.li}
-              />
-            </Badge>
+                </div>
+              )}
+            />
           </div>
         ))}
       </FlipMove>
     </List>
-  </div>
+  </>
 );
 
 const IdeaList = compose(
@@ -273,8 +369,8 @@ const ListComponent = ({
   const slider = activityData.config.zoomShowsHistory;
   return (
     <>
-      <div style={{ width: '80%' }}>
-        <ListContainer>
+      <div style={{ width: '100%' }}>
+        <Grid container direction="row">
           <p>{activityData.config.text}</p>
           <IdeaList
             config={activityData.config}
@@ -285,7 +381,7 @@ const ListComponent = ({
             LearningItem={LearningItem}
             history={slider}
           />
-        </ListContainer>
+        </Grid>
       </div>
     </>
   );

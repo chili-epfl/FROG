@@ -78,7 +78,7 @@ class RenderLearningItem extends React.Component<any, any> {
   }
 
   onDrop = (e: *) => {
-    if (this.ref?.current) {
+    if (this.ref?.current && this.ref.current.onDrop) {
       this.ref.current.onDrop(toJS(e.item));
     }
   };
@@ -115,9 +115,17 @@ class RenderLearningItem extends React.Component<any, any> {
     ) {
       return null;
     }
-
+    const liSearch = liType.search;
     if (search) {
-      if (!liType.search || !liType.search(data.payload, search)) {
+      if (
+        !liSearch ||
+        !liSearch(
+          data.payload,
+          search,
+          dataFn.specialize('payload'),
+          isPlayback
+        )
+      ) {
         return null;
       }
     }
@@ -176,7 +184,7 @@ class RenderLearningItem extends React.Component<any, any> {
             </div>
           </div>
         </DraggableCore>
-        <WrappedDragIcon />
+        {!disableDragging && <WrappedDragIcon />}
       </div>
     );
 

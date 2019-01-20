@@ -11,9 +11,9 @@ const ImageEditor = props => (
     <ToolBar data={props.data} dataFn={props.dataFn} />
     <ImageReload
       style={{
+        maxWidth: '95%',
+        maxHeight: '95%',
         margin: '10px',
-        width: 'fit-content',
-        height: 'fit-content',
         transform: 'rotate(' + (props.data.rotation || 0) + 'deg)'
       }}
       src={props.data.url}
@@ -28,6 +28,8 @@ export default ({
     search ? null : (
       <ImageReload
         style={{
+          maxWidth: '95%',
+          maxHeight: '95%',
           margin: '10px',
           transform: 'rotate(' + (data.rotation || 0) + 'deg)'
         }}

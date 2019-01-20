@@ -3,7 +3,6 @@
 import * as React from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +18,8 @@ const styles = {
   paper: {
     width: '750px',
     height: '1000px'
-  }
+  },
+  appBar: { position: 'relative' }
 };
 
 const HelpModal = ({ show, hide, classes }: Object) => (
@@ -27,20 +27,18 @@ const HelpModal = ({ show, hide, classes }: Object) => (
     open={show}
     onClose={hide}
     TransitionComponent={Transition}
-    classes={classes}
+    classes={{ paper: classes.paper }}
   >
-    <DialogTitle id="scroll-dialog-title">
-      <AppBar>
-        <Toolbar>
-          <IconButton color="inherit" onClick={hide} aria-label="Close">
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            Help for the graph editor
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </DialogTitle>
+    <AppBar className={classes.appBar}>
+      <Toolbar>
+        <IconButton color="inherit" onClick={hide} aria-label="Close">
+          <CloseIcon />
+        </IconButton>
+        <Typography variant="h6" color="inherit">
+          Help for the graph editor
+        </Typography>
+      </Toolbar>
+    </AppBar>
     <List style={{ margin: '10px' }}>
       <h4>
         <a href="https://youtu.be/AN2kBK8qzF4">Video tutorial</a>

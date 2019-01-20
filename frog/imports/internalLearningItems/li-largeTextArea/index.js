@@ -8,8 +8,8 @@ export default ({
   name: 'Large text area',
   id: 'li-largeTextArea',
   dataStructure: { text: '' },
-  ThumbViewer: TextArea.FlexViewer,
-  Viewer: TextArea.FlexViewer,
+  ThumbViewer: TextArea.ThumbViewer,
+  Viewer: props => <TextArea.Viewer {...props} large />,
   Editor: props => <TextArea.Editor {...props} large />,
   search: TextArea.search
 }: LearningItemT<{ text: string }>);
