@@ -194,10 +194,11 @@ Meteor.methods({
     activities,
     operators,
     graphId,
-    graphDuration
+    graphDuration,
+    broken
   }) => {
     if (Graphs.findOne(graphId)) {
-      Graphs.update(graphId, { $set: { duration: graphDuration } });
+      Graphs.update(graphId, { $set: { duration: graphDuration, broken } });
 
       activities.map(({ _id, ...rest }) =>
         Activities.update(_id, { $set: rest }, { upsert: true })

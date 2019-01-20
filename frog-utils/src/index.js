@@ -61,6 +61,7 @@ export { unicodeLetter, notUnicodeLetter } from './unicodeRegexpEscapes';
 export { ReactiveText } from './ReactiveText';
 export { msToString } from './msToString';
 export { default as uuid } from 'cuid';
+export { default as SearchField } from './SearchField';
 export { default as colorRange } from './colorRange';
 export { default as unrollProducts } from './unrollProducts';
 export { default as TimedComponent } from './TimedComponent';

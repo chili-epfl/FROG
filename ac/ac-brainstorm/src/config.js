@@ -7,6 +7,11 @@ export const config = {
       type: 'string',
       title: 'Guidelines'
     },
+    sort: {
+      title: 'Sort items continuously according to votes',
+      type: 'boolean',
+      default: true
+    },
     allowCreate: {
       title: 'Enable adding new Learning Items',
       type: 'boolean',
@@ -29,12 +34,15 @@ export const config = {
     },
     allowEdit: {
       type: 'boolean',
-      title: 'Allow editing Learning Items in the list',
-      default: true
+      title: 'Allow editing Learning Items in the list'
     },
     allowDelete: {
       type: 'boolean',
-      title: 'Allow deleting Learning Items in the list',
+      title: 'Allow deleting Learning Items in the list'
+    },
+    allowZoom: {
+      type: 'boolean',
+      title: 'Allow zooming Learning Items in the list',
       default: true
     },
     expandItems: { type: 'boolean', title: 'View items expanded' },
@@ -44,6 +52,7 @@ export const config = {
 
 export const configUI = {
   specificLI: { conditional: 'allowCreate' },
+  allowZoom: { conditional: (formData: Object) => !formData.expandItems },
   liType: {
     conditional: (formData: Object) =>
       formData.allowCreate && formData.specificLI

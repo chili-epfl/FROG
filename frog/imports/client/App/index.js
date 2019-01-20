@@ -223,13 +223,7 @@ const FROGRouter = withRouter(
                 'frog.session.settings',
                 this.props.match.params.slug,
                 (err, result) => {
-                  if (err || result === -1) {
-                    this.setState({ mode: 'nostudentlist' });
-                  } else if (result === 'tooLate') {
-                    this.setState({ mode: 'tooLate' });
-                  } else {
-                    this.setState({ settings: result, mode: 'studentlist' });
-                  }
+                  this.setState({ settings: result, mode: 'studentlist' });
                 }
               );
             }

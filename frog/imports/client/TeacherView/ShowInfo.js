@@ -4,11 +4,29 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Inspector, A } from 'frog-utils';
 import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
+import copy from 'copy-to-clipboard';
+import Stringify from 'json-stringify-pretty-compact';
 
 import { connect } from '../GraphEditor/store';
 import { Activities } from '/imports/api/activities';
 import { Operators } from '/imports/api/operators';
 import { downloadExport } from './utils/exportComponent';
+
+const CopyButton = ({ data }) => (
+  <A onClick={() => copy(Stringify(data))}>
+    <i className="fa fa-clipboard" data-tip="Copy to clipboard" />
+  </A>
+);
+
+const Data = ({ title, data }) =>
+  data ? (
+    <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
+      <h3>
+        {title} <CopyButton data={data} />
+      </h3>
+      <Inspector data={data} />
+    </div>
+  ) : null;
 
 class InfoComponent extends React.Component<
   any,
@@ -79,18 +97,9 @@ class InfoComponent extends React.Component<
           )}
         </ul>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <div style={{ flexBasis: 0, flexGrow: 1 }}>
-            <h3>Config</h3>
-            {item.data ? <Inspector data={{ data: item.data }} /> : null}
-          </div>
-          <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
-            <h3>Object</h3>
-            {object ? <Inspector data={{ object }} /> : null}
-          </div>
-          <div style={{ flexBasis: 0, flexGrow: 1, marginLeft: '50px' }}>
-            <h3>Product</h3>
-            {product ? <Inspector data={{ product }} /> : null}
-          </div>
+          <Data title="Config" data={item.data} />
+          <Data title="Object" data={object} />
+          <Data title="Product" data={product} />
         </div>
       </Modal>
     );

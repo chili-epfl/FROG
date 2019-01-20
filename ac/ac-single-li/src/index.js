@@ -71,7 +71,7 @@ const config = {
 
 const formatProduct = (_, product) => {
   const id = uuid();
-  return product.li ? { [id]: { id, li: product.li } } : {};
+  return product.li ? { [id]: { id, ...product } } : {};
 };
 
 const configUI = {
@@ -96,7 +96,7 @@ const mergeFunction = (obj: Object, dataFn: Object) => {
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
     if (li) {
-      dataFn.objInsert({ li });
+      dataFn.objInsert(values(obj.data)[0]);
       empty = false;
     }
   }
