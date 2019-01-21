@@ -189,7 +189,7 @@ export default class Operator extends Elem {
         return {
           X: this.x,
           Y: this.y,
-          dX: -150,
+          dX: -75,
           dY: 0
         };
       },
@@ -198,7 +198,7 @@ export default class Operator extends Elem {
         return {
           X: this.xScaled,
           Y: this.y,
-          dX: -150,
+          dX: -75,
           dY: 0
         };
       },
@@ -207,7 +207,7 @@ export default class Operator extends Elem {
         return {
           X: this.x,
           Y: this.y,
-          dX: 150,
+          dX: 75,
           dY: 0
         };
       },
@@ -216,7 +216,7 @@ export default class Operator extends Elem {
         return {
           X: this.xScaled,
           Y: this.y,
-          dX: 150,
+          dX: 75,
           dY: 0
         };
       }

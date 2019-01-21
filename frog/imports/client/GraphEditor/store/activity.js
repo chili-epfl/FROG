@@ -330,7 +330,7 @@ export default class Activity extends Elem {
         return {
           X: this.xScaled + this.widthScaled - 10,
           Y: this.y + 15,
-          dX: 50,
+          dX: 75,
           dY: 0
         };
       },
@@ -339,7 +339,7 @@ export default class Activity extends Elem {
         return {
           X: this.xScaled + 15,
           Y: this.y + 15,
-          dX: -50,
+          dX: -75,
           dY: 0
         };
       },
@@ -348,7 +348,7 @@ export default class Activity extends Elem {
         return {
           X: this.x + this.width - 15,
           Y: this.y + 15,
-          dX: 50,
+          dX: 75,
           dY: 0
         };
       },
@@ -357,7 +357,7 @@ export default class Activity extends Elem {
         return {
           X: this.x + 15,
           Y: this.y + 15,
-          dX: -50,
+          dX: -75,
           dY: 0
         };
       },

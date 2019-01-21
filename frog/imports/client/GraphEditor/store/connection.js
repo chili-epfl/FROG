@@ -3,7 +3,7 @@
 import cuid from 'cuid';
 import { extendObservable } from 'mobx';
 
-import { drawPath } from '../utils/path';
+import { drawPath, getMiddle } from '../utils/path';
 import Elem from './elemClass';
 import Activity from './activity';
 import Operator from './operator';
