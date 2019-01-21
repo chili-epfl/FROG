@@ -651,6 +651,9 @@ class ReactiveRichText extends Component<
       // processing those initial deltas.
       setTimeout(() => {
         editor.on('text-change', this.handleChange);
+        // In case the loaded document had LIs without correct spacing
+        this.ensureSpaceAroundLis();
+
         editor.on('selection-change', this.handleSelectionChange);
       }, 100);
 
@@ -729,6 +732,8 @@ class ReactiveRichText extends Component<
           } else if (get(next, 'statics.blotName') === 'learning-item') {
             editor.insertText(nextIndex, '\n', Quill.sources.USER);
             return;
+          } else if (i === editorLength - 1) {
+            editor.insertText(i + 1, '\n', Quill.sources.USER);
           }
         }
       }
