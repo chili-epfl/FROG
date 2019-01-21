@@ -73,7 +73,12 @@ const Creator = withStyles(styles)(({ createLearningItem, classes }) => (
         }
       }}
     >
-      <Button className={classes.button} type="submit" id="addButton">
+      <Button
+        variant="contained"
+        className={classes.button}
+        type="submit"
+        id="addButton"
+      >
         Add idea
       </Button>
     </Form>

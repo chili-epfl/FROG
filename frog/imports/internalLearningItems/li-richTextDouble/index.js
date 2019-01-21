@@ -102,6 +102,5 @@ export default ({
   dataStructure: { text: '', text2: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
-  Editor,
-  canDropLI: true
+  Editor
 }: LearningItemT<{ title: string, content: string }>);

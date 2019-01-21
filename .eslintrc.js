@@ -15,6 +15,7 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'react/prefer-stateless-function': 'off',
     'class-methods-use-this': 'off',
     'consistent-return': 'off',
     'dot-notation': 'off',
