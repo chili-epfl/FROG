@@ -58,7 +58,6 @@ const Viewer = ({ LearningItem, data, search }) => (
 
 class Editor extends React.Component<*, *> {
   onDrop(e) {
-    console.log(e);
     this.props.dataFn.listAppend(e, 'attachments');
   }
 
