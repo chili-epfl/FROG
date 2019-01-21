@@ -90,7 +90,8 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
                     </IconButton>
                   )}
                   {get(LiTypeObject, 'ThumbViewer') &&
-                    get(LiTypeObject, 'Viewer') && (
+                    get(LiTypeObject, 'Viewer') &&
+                    liView !== LiViewTypes.EDIT && (
                       <IconButton
                         disableRipple
                         style={{ float: 'right' }}
