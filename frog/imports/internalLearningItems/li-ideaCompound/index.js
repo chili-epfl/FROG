@@ -73,7 +73,7 @@ const Editor = ({ data, dataFn, LearningItem }) => (
         <dataFn.LearningItem id={x} type="thumbView" />
       </span>
     ))}
-    <div style={{ position: 'absolute', right: '0px' }}>
+    <div>
       <LearningItem
         type="create"
         onCreate={e => dataFn.listAppend(e, 'attachments')}

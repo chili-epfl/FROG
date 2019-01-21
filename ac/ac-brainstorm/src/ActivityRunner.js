@@ -53,16 +53,17 @@ const AddingLI = ({ LearningItem, config }) => (
           />
         )}
       </div>
-    </CardContent>
-    <CardActions>
+
       {config.allowGeneralLI && (
-        <LearningItem
-          type="create"
-          meta={{ score: 0, students: {} }}
-          autoInsert
-        />
+        <div style={{ position: 'absolute', right: '0px' }}>
+          <LearningItem
+            type="create"
+            meta={{ score: 0, students: {} }}
+            autoInsert
+          />
+        </div>
       )}
-    </CardActions>
+    </CardContent>
   </Card>
 );
 
