@@ -1,5 +1,5 @@
 // @flow
-import { extendObservable, action } from 'mobx';
+import { extendObservable, action, toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
 class LIStore {
@@ -29,8 +29,9 @@ class LIStore {
         this.coords = [x, y];
       }),
       stopDragging: action(() => {
-        if (this.overCB && this.dragState) {
-          this.overCB(this.dragState);
+        const overCB = this.overCB;
+        if (overCB && this.dragState) {
+          overCB(toJS(this.dragState));
         }
         this.dragState = null;
       })

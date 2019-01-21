@@ -3,9 +3,13 @@ import * as React from 'react';
 import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
-import { uuid, type LearningItemComponentT } from 'frog-utils';
+import { uuid, type LearningItemComponentT, isBrowser } from 'frog-utils';
 import { uploadFile } from '/imports/api/openUploads';
 import { learningItemTypesObj } from '/imports/activityTypes';
+
+export const listore = isBrowser
+  ? require('/imports/client/LearningItem/store').listore // eslint-disable-line global-require
+  : () => {};
 
 type rawPathElement = string | number;
 type rawPathT = rawPathElement | rawPathElement[];
@@ -45,6 +49,8 @@ export class Doc {
 
   LIConnection: any;
 
+  listore: Object;
+
   constructor(
     doc: any,
     path?: rawPathElement[],
@@ -73,6 +79,7 @@ export class Doc {
         };
     this.updateFn = updateFn;
     this.LearningItemFn = LearningItem;
+    this.listore = listore;
   }
 
   getMergedPath(path: rawPathT): * {

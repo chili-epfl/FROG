@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { get, isString } from 'lodash';
-import {
-  type LearningItemT,
-  ReactiveRichText
-} from 'frog-utils';
+import { type LearningItemT, ReactiveRichText } from 'frog-utils';
 
 const path = 'text';
 
@@ -18,7 +15,6 @@ export class FlexViewer extends React.Component<*, *> {
           data={isPlayback ? data : undefined}
           shorten={shouldShorten && 150}
           path={path}
-          ref={this.ref}
           readOnly
           dataFn={dataFn}
           search={search}
@@ -31,24 +27,12 @@ export class FlexViewer extends React.Component<*, *> {
 FlexViewer.displayName = 'FlexViewer';
 
 export class Editor extends React.Component<*, *> {
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-  }
-
-  onDrop(e) {
-    if (this?.ref?.current?.onDrop) {
-      this.ref.current.onDrop(e);
-    }
-  }
-
   render() {
     const { dataFn } = this.props;
     return (
       <div style={{ height: '100%' }}>
         <ReactiveRichText
           userId={this.props.userId}
-          ref={this.ref}
           path={path}
           dataFn={dataFn}
         />
@@ -64,7 +48,6 @@ export default ({
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,
-  canDropLI: true,
   search: (data, search, dataFn, isPlayback) => {
     const editorContent = isPlayback
       ? get(data, path)

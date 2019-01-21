@@ -56,31 +56,41 @@ const Viewer = ({ LearningItem, data, search }) => (
   </div>
 );
 
-const Editor = ({ data, dataFn, LearningItem }) => (
-  <div>
-    <div>
-      <b>Title:</b>
-      <br />
-      <ReactiveText type="textinput" path="title" dataFn={dataFn} />
-      <br />
-      <br />
-      <b>Content:</b>
-      <br />
-      <ReactiveText path="content" type="textarea" dataFn={dataFn} />
-    </div>
-    {data.attachments.map((x, i) => (
-      <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
-        <dataFn.LearningItem id={x} type="thumbView" />
-      </span>
-    ))}
-    <div>
-      <LearningItem
-        type="create"
-        onCreate={e => dataFn.listAppend(e, 'attachments')}
-      />
-    </div>
-  </div>
-);
+class Editor extends React.Component<*, *> {
+  onDrop(e) {
+    console.log(e);
+    this.props.dataFn.listAppend(e, 'attachments');
+  }
+
+  render() {
+    const { data, dataFn, LearningItem } = this.props;
+    return (
+      <div>
+        <div>
+          <b>Title:</b>
+          <br />
+          <ReactiveText type="textinput" path="title" dataFn={dataFn} />
+          <br />
+          <br />
+          <b>Content:</b>
+          <br />
+          <ReactiveText path="content" type="textarea" dataFn={dataFn} />
+        </div>
+        {data.attachments.map((x, i) => (
+          <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
+            <dataFn.LearningItem id={x} type="thumbView" />
+          </span>
+        ))}
+        <div>
+          <LearningItem
+            type="create"
+            onCreate={e => dataFn.listAppend(e, 'attachments')}
+          />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default ({
   name: 'Idea with attachments',
@@ -91,5 +101,6 @@ export default ({
   dataStructure: { title: '', content: '', attachments: [] },
   search: (data, search) =>
     data.title.toLowerCase().includes(search) ||
-    data.content.toLowerCase().includes(search)
+    data.content.toLowerCase().includes(search),
+  canDropLI: true
 }: LearningItemT<{ title: string, content: string, attachments: any[] }>);

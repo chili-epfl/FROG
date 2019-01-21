@@ -2,8 +2,8 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
-import { highlightTargetRichText } from 'frog-utils';
 import ReactDOM from 'react-dom';
+import { shortenRichText, uuid, highlightTargetRichText } from 'frog-utils';
 import {
   get,
   isEqual,
@@ -25,7 +25,6 @@ import Create from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
-import { shortenRichText, uuid } from './index';
 
 const Delta = Quill.import('delta');
 
@@ -109,7 +108,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
                     style={{ float: 'right' }}
                     className={`${classes.button} li-copy-btn`}
                   >
-                    <FileCopy/>
+                    <FileCopy />
                   </IconButton>
                 </div>
                 {children}
@@ -197,17 +196,29 @@ class LearningItemBlot extends Embed {
     this.format('li-view', nextView);
   };
 
-  liCopyHandler = (e) => {
+  liCopyHandler = e => {
     // Save existing scroll positions
     const scrollTops = e.path.map(element => get(element, 'scrollTop'));
 
     const offset = this.offset();
     const index = offset >= 1 ? offset - 1 : 0;
     const length = 2;
-    this.parent.emitter.emit('selection-change', {index , length}, undefined, Quill.sources.SILENT, 'li-copy');
+    this.parent.emitter.emit(
+      'selection-change',
+      { index, length },
+      undefined,
+      Quill.sources.SILENT,
+      'li-copy'
+    );
     setTimeout(() => {
       document.execCommand('copy');
-      this.parent.emitter.emit('selection-change', {index: offset , length: 0}, undefined, Quill.sources.SILENT, 'li-copy');
+      this.parent.emitter.emit(
+        'selection-change',
+        { index: offset, length: 0 },
+        undefined,
+        Quill.sources.SILENT,
+        'li-copy'
+      );
       // Restore scroll positions
       e.path.forEach((element, idx) => {
         element.scrollTop = scrollTops[idx];
@@ -345,7 +356,10 @@ class QuillClipboard extends Clipboard {
   // Following implements a modified version of the workaround suggested by the
   // original author of Quill.
   onPaste(e) {
-    const found = find(e.path, element => element.className === 'ql-learning-item');
+    const found = find(
+      e.path,
+      element => element.className === 'ql-learning-item'
+    );
     // if found, that means the paste is done inside a LI. So bypass quill processing.
     if (!found) {
       // Save existing scroll positions
@@ -362,7 +376,6 @@ class QuillClipboard extends Clipboard {
 }
 
 Quill.register('modules/clipboard', QuillClipboard, true);
-
 
 function hashCode(str = '') {
   let hash = 0;
@@ -644,7 +657,7 @@ class ReactiveRichText extends Component<
       // view jumps to top. Following code fixes that.
       const toolbars = document.querySelectorAll('.ql-toolbar');
       toolbars.forEach(toolbar => {
-        toolbar.addEventListener('mousedown', (event) => {
+        toolbar.addEventListener('mousedown', event => {
           event.preventDefault();
           event.stopPropagation();
         });
@@ -731,13 +744,18 @@ class ReactiveRichText extends Component<
     }
   };
 
-  handleSelectionChange = (range: Object, previousRange: Object, source: string, trigger: string) => {
+  handleSelectionChange = (
+    range: Object,
+    previousRange: Object,
+    source: string,
+    trigger: string
+  ) => {
     // This handler gets triggered for all selection changes. We only want to
     // process the event emitted by li copy button.
     if (trigger === 'li-copy') {
       const editor = this.quillRef.getEditor();
       if (editor && range) {
-        editor.setSelection(range, Quill.sources.SILENT)
+        editor.setSelection(range, Quill.sources.SILENT);
       }
     }
   };
@@ -803,10 +821,11 @@ class ReactiveRichText extends Component<
     this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
-  onDrop = (e: string, initialView?: string) => {
+  onDrop = (e: { item: Object | string }, initialView?: string) => {
     const editor = this.quillRef.getEditor();
+    const item = e?.item;
 
-    if (editor) {
+    if (editor && item) {
       // getSelection() method of ReactQuill API returns null since the editor
       // is not focused during drop.
       const index = get(editor, 'selection.savedRange.index');
@@ -815,7 +834,7 @@ class ReactiveRichText extends Component<
         : index;
 
       const params = {
-        liId: JSON.stringify(e),
+        liId: JSON.stringify(item),
         authorId: this.props.userId,
         view: initialView
       };
@@ -861,7 +880,17 @@ class ReactiveRichText extends Component<
           height: '100%'
         };
     return (
-      <div style={{ height: '100%' }}>
+      <div
+        style={{ height: '100%' }}
+        onMouseOver={() => {
+          if (this.props.dataFn.listore.dragState) {
+            this.props.dataFn.listore.setOverCB(this.onDrop);
+          }
+        }}
+        onMouseLeave={() => {
+          this.props.dataFn.listore.setOverCB(null);
+        }}
+      >
         {!get(props, 'readOnly') && (
           <Toolbar
             id={this.toolbarId}

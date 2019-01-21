@@ -55,7 +55,7 @@ const AddingLI = ({ LearningItem, config }) => (
       </div>
 
       {config.allowGeneralLI && (
-        <div style={{ position: 'absolute', right: '0px' }}>
+        <div style={{ float: 'right' }}>
           <LearningItem
             type="create"
             meta={{ score: 0, students: {} }}
