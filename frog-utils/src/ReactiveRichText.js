@@ -363,6 +363,11 @@ class QuillClipboard extends Clipboard {
     );
     // if found, that means the paste is done inside a LI. So bypass quill processing.
     if (!found) {
+      const quill = this.quill;
+      const [range] = quill.selection.getRange();
+      const cursorIndex = get(range, 'index');
+      const editorLength = quill.getLength();
+
       // Save existing scroll positions
       const scrollTops = e.path.map(element => get(element, 'scrollTop'));
       super.onPaste(e);
@@ -371,6 +376,13 @@ class QuillClipboard extends Clipboard {
         e.path.forEach((element, index) => {
           element.scrollTop = scrollTops[index];
         });
+        // If pasted at end of editor, scroll to bottom
+        if (cursorIndex && cursorIndex + 1 === editorLength) {
+          const scrollContainer = find(e.path, element =>
+            element.className.includes('ql-editor')
+          );
+          scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        }
       }, 1);
     }
   }
@@ -747,6 +759,24 @@ class ReactiveRichText extends Component<
       }
       this.submitOperation(delta);
       this.ensureSpaceAroundLis();
+
+      // Quill does not automatically scroll the editor for newlines at the
+      // end of the doc. So doing it manually.
+      const editor = this.quillRef.getEditor();
+      if (editor) {
+        const newlineInsertFound = find(
+          delta.ops,
+          op => get(op, 'insert') === '\n'
+        );
+        const index = get(editor.getSelection(), 'index');
+        if (
+          !isUndefined(index) &&
+          newlineInsertFound &&
+          index + 2 >= editor.getLength()
+        ) {
+          this.scrollToBottom();
+        }
+      }
     }
   };
 
@@ -853,13 +883,26 @@ class ReactiveRichText extends Component<
       );
 
       editor.setSelection(insertPosition + 1, 0, Quill.sources.USER);
+
+      // If LI inserted at end of document, manually scroll to bottom.
+      // +3 >= is due to the newline we might add before the LI to ensure spacing
+      if (insertPosition + 3 >= editor.getLength()) {
+        this.scrollToBottom();
+      }
+    }
+  };
+
+  scrollToBottom = () => {
+    const scrollElement = get(this.quillRef, 'editingArea.firstChild');
+    if (scrollElement) {
+      scrollElement.scrollTop = scrollElement.scrollHeight;
     }
   };
 
   insertNewLi = (type: string) => {
     if (type) {
       const newLiId = this.props.dataFn.createLearningItem(type);
-      this.onDrop(newLiId, LiViewTypes.EDIT);
+      this.onDrop({ item: newLiId }, LiViewTypes.EDIT);
     }
   };
 
