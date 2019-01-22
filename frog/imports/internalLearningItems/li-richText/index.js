@@ -44,7 +44,15 @@ export class Editor extends React.Component<*, *> {
 export default ({
   name: 'Rich text',
   id: 'li-richText',
-  dataStructure: { [path]: '' },
+  dataStructure: {
+    [path]: {
+      ops: [
+        {
+          insert: '\n'.repeat(40)
+        }
+      ]
+    }
+  },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,

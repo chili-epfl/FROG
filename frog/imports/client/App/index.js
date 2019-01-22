@@ -71,7 +71,8 @@ const FROGRouter = withRouter(
         | 'waiting'
         | 'studentlist'
         | 'nostudentlist'
-        | 'tooLate',
+        | 'tooLate'
+        | 'noSession',
       settings?: Object
     }
   > {
@@ -223,7 +224,11 @@ const FROGRouter = withRouter(
                 'frog.session.settings',
                 this.props.match.params.slug,
                 (err, result) => {
-                  this.setState({ settings: result, mode: 'studentlist' });
+                  if (err || result === -1) {
+                    this.setState({ mode: 'noSession' });
+                  } else {
+                    this.setState({ settings: result, mode: 'studentlist' });
+                  }
                 }
               );
             }
@@ -266,6 +271,9 @@ const FROGRouter = withRouter(
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
+      }
+      if (this.state.mode === 'noSession') {
+        return <h1>No such session exists</h1>;
       }
       return this.state.mode === 'studentlist' && this.state.settings ? (
         <StudentLogin
