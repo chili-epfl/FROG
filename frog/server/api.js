@@ -266,7 +266,7 @@ const sendActivityRequest = ({
     callType: 'runActivity',
     activityType: activityTypeId,
     userId,
-    userName: userName,
+    userName,
     instanceId: docId,
     activityId,
     activityData,
