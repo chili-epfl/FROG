@@ -61,6 +61,37 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 
 const InstanceDone = {};
 
+WebApp.connectHandlers.use('', (request, response, next) => {
+  if (request.headers?.host === 'frogwrite.ch') {
+    const url = urlPkg.parse(request.url);
+    const instance = url.pathname.substring(0);
+    const userId = request.query.user || uuid();
+    const userName = request.query.user || 'anonymous';
+    const clientId = 'write';
+    const activityTypeId = 'ac-single-li';
+    const config = { liTypeEditor: 'li-richText', noSubmit: 'true' };
+    const readOnly = false;
+    const activityId = 'write-ac-single-li-write';
+    const docId = activityId + '/' + instance;
+
+    sendActivityRequest({
+      next,
+      userId,
+      userName,
+      docId,
+      clientId,
+      activityTypeId,
+      config,
+      instance,
+      readOnly,
+      activityId,
+      request
+    });
+  } else {
+    next();
+  }
+});
+
 WebApp.connectHandlers.use('/api/proxy', (request, response, next) => {
   try {
     request
@@ -124,8 +155,70 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   const instance =
     request.body.instanceId || request.query.instanceId || 'default';
   const docId = activityId + '/' + instance;
+  const clientId = request.query.clientId || request.body.clientId;
+  const userId = request.query.userId || request.body.userId;
+  const readOnly = request.query.readOnly || request.body.readOnly;
+  const userName = request.query.userName || request.body.userName;
+  sendActivityRequest({
+    next,
+    userId,
+    userName,
+    docId,
+    clientId,
+    rawData,
+    activityTypeId,
+    config,
+    instance,
+    readOnly,
+    activityId,
+    activityData,
+    request
+  });
+});
 
-  if (!InstanceDone[docId] && !(request.body && request.body.rawData)) {
+WebApp.connectHandlers.use('/write/', (request, response, next) => {
+  const url = urlPkg.parse(request.url);
+  const instance = url.pathname.substring(1);
+  const userId = request.query.user || uuid();
+  const userName = request.query.user || 'anonymous';
+  const clientId = 'write';
+  const activityTypeId = 'ac-single-li';
+  const config = { liTypeEditor: 'li-richText', noSubmit: 'true' };
+  const readOnly = false;
+  const activityId = 'write';
+  const docId = activityId + '/' + instance;
+
+  sendActivityRequest({
+    next,
+    userId,
+    userName,
+    docId,
+    clientId,
+    activityTypeId,
+    config,
+    instance,
+    readOnly,
+    activityId,
+    request
+  });
+});
+
+const sendActivityRequest = ({
+  userId,
+  next,
+  docId,
+  clientId,
+  rawData,
+  activityId,
+  activityTypeId,
+  config,
+  instance,
+  readOnly,
+  activityData,
+  userName,
+  request
+}) => {
+  if (!InstanceDone[docId] && !rawData) {
     InstanceDone[docId] = true;
     const aT = activityTypesObj[activityTypeId];
 
@@ -159,7 +252,7 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
                 null,
                 { data: activityData, config: config || {} },
                 null,
-                'headless/' + request.query.clientId || request.body.clientId
+                'headless/' + clientId
               );
               resolve();
             }
@@ -172,18 +265,18 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   InjectData.pushData(request, 'api', {
     callType: 'runActivity',
     activityType: activityTypeId,
-    userId: request.query.userId || request.body.userId,
-    userName: request.body.userName,
+    userId,
+    userName: userName,
     instanceId: docId,
     activityId,
     activityData,
-    clientId: request.query.clientId || request.body.clientId,
+    clientId,
     rawData,
-    readOnly: request.body.readOnly || request.query.readOnly,
+    readOnly,
     config
   });
   next();
-});
+};
 
 WebApp.connectHandlers.use('/api/dashboard/', (request, response, next) => {
   const url = require('url').parse(request.url);

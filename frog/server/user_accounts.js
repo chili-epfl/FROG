@@ -77,7 +77,10 @@ Meteor.methods({
       return -1;
     }
     const session = Sessions.findOne({ slug: slug.trim().toUpperCase() });
-    if (session?.tooLate) {
+    if (!session) {
+      return -1;
+    }
+    if (session.tooLate) {
       return { tooLate: true, ...(session.settings || {}) };
     } else {
       return session.settings || {};
