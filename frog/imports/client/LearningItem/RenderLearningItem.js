@@ -108,10 +108,12 @@ class RenderLearningItem extends React.Component<any, any> {
       return '<h2>Error</h2>';
     }
     const liType = learningItemTypesObj[data.liType];
+    const liEmpty = liType.isEmpty;
     if (
-      liType.dataStructure &&
       this.props.notEmpty &&
-      isEqual(data.payload, liType.dataStructure)
+      (liEmpty
+        ? !liEmpty(data.payload)
+        : liType.dataStructure && isEqual(data.payload, liType.dataStructure))
     ) {
       return null;
     }

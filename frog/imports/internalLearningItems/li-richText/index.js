@@ -56,6 +56,9 @@ export default ({
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,
+  isEmpty: data =>
+    !data?.text?.ops ||
+    data.text.ops.some(x => typeof x !== 'string' || x.trim() !== ''),
   search: (data, search, dataFn, isPlayback) => {
     const editorContent = isPlayback
       ? get(data, path)

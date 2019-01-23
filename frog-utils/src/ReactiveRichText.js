@@ -3,7 +3,12 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { shortenRichText, uuid, highlightTargetRichText } from 'frog-utils';
+import {
+  HighlightSearchText,
+  uuid,
+  highlightTargetRichText,
+  cloneDeep
+} from 'frog-utils';
 import {
   get,
   isEqual,
@@ -549,15 +554,55 @@ class ReactiveRichText extends Component<
   };
 
   getDocumentContent = () => {
-    let raw = get(
-      this.props.data
-        ? { payload: this.props.data }
-        : this.props.dataFn.doc.data,
-      (this.state.path || []).join('.')
+    let raw = cloneDeep(
+      get(
+        this.props.data
+          ? { payload: this.props.data }
+          : this.props.dataFn.doc.data,
+        (this.state.path || []).join('.')
+      )
     );
 
-    if (this.props.shorten) {
-      raw = shortenRichText(raw, this.props.shorten);
+    if (this.props.readOnly) {
+      const ops = cloneDeep(raw.ops);
+      while (true) {
+        const [tail] = ops.slice(-1);
+        if (!tail) {
+          break;
+        }
+        if (typeof tail.insert !== 'string') {
+          break;
+        }
+        if (tail.insert.trim() !== '') {
+          break;
+        }
+        ops.pop();
+      }
+
+      const [tail1] = ops.slice(-1);
+      if (typeof tail1.insert === 'string') {
+        ops[ops.length - 1].insert = tail1.insert.trimEnd() + '\n';
+      }
+
+      while (true) {
+        const [head] = ops.slice(0, 1);
+        if (!head) {
+          break;
+        }
+        if (typeof head.insert !== 'string') {
+          break;
+        }
+        if (head.insert.trim() !== '') {
+          break;
+        }
+        ops.shift();
+      }
+
+      const [head1] = ops.slice(0, 1);
+      if (typeof head1.insert === 'string') {
+        ops[0].insert = head1.insert.trimStart();
+      }
+      raw.ops = ops;
     }
 
     if (this.props.search) {
@@ -655,34 +700,36 @@ class ReactiveRichText extends Component<
   }
 
   componentDidMount() {
-    const editor = this.quillRef.getEditor();
-    if (editor) {
-      // LI blots in existing content always trigger a change with source 'user'
-      // on editor load. This causes the editor to duplicate the LIs in some
-      // situations. So registering onChange handler with a delay to avoid
-      // processing those initial deltas.
-      setTimeout(() => {
-        editor.on('text-change', this.handleChange);
-        // In case the loaded document had LIs without correct spacing
-        this.ensureSpaceAroundLis();
+    if (!this.props.shorten) {
+      const editor = this.quillRef && this.quillRef.getEditor();
+      if (editor) {
+        // LI blots in existing content always trigger a change with source 'user'
+        // on editor load. This causes the editor to duplicate the LIs in some
+        // situations. So registering onChange handler with a delay to avoid
+        // processing those initial deltas.
+        setTimeout(() => {
+          editor.on('text-change', this.handleChange);
+          // In case the loaded document had LIs without correct spacing
+          this.ensureSpaceAroundLis();
 
-        editor.on('selection-change', this.handleSelectionChange);
-      }, 100);
+          editor.on('selection-change', this.handleSelectionChange);
+        }, 100);
 
-      // When any option is clicked from the quill toolbar from a list, the editor
-      // view jumps to top. Following code fixes that.
-      const toolbars = document.querySelectorAll('.ql-toolbar');
-      toolbars.forEach(toolbar => {
-        toolbar.addEventListener('mousedown', event => {
-          event.preventDefault();
-          event.stopPropagation();
+        // When any option is clicked from the quill toolbar from a list, the editor
+        // view jumps to top. Following code fixes that.
+        const toolbars = document.querySelectorAll('.ql-toolbar');
+        toolbars.forEach(toolbar => {
+          toolbar.addEventListener('mousedown', (event: *) => {
+            event.preventDefault();
+            event.stopPropagation();
+          });
         });
-      });
-    }
+      }
 
-    if (!this.props.data) {
-      this.update(this.props);
-      this.initializeAuthorship();
+      if (!this.props.data) {
+        this.update(this.props);
+        this.initializeAuthorship();
+      }
     }
   }
 
@@ -707,22 +754,24 @@ class ReactiveRichText extends Component<
   componentWillUnmount() {
     if (!this.props.data) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
-      const editor = this.quillRef.getEditor();
-      if (editor) {
-        editor.scroll.domNode.removeEventListener(
-          'compositionstart',
-          this.compositionStartHandler
-        );
-        editor.scroll.domNode.removeEventListener(
-          'compositionend',
-          this.compositionEndHandler(editor)
-        );
+      if (!this.props.shorten) {
+        const editor = this.quillRef.getEditor();
+        if (editor) {
+          editor.scroll.domNode.removeEventListener(
+            'compositionstart',
+            this.compositionStartHandler
+          );
+          editor.scroll.domNode.removeEventListener(
+            'compositionend',
+            this.compositionEndHandler(editor)
+          );
+        }
       }
     }
   }
 
   ensureSpaceAroundLis = () => {
-    const editor = this.quillRef.getEditor();
+    const editor = this.quillRef && this.quillRef.getEditor();
     if (editor) {
       const editorLength = editor.getLength();
 
@@ -804,57 +853,64 @@ class ReactiveRichText extends Component<
       attributes: { author?: string, 'li-view'?: string }
     }>
   }) => {
-    const editor = this.quillRef.getEditor();
+    console.log('submitOp');
+    if (!this.props.readOnly) {
+      console.log('submitOp - not readonly');
+      const editor = this.quillRef.getEditor();
 
-    if (editor) {
-      const authorDelta = new Delta();
-      const authorFormat = { author: this.props.userId };
+      if (editor) {
+        const authorDelta = new Delta();
+        const authorFormat = { author: this.props.userId };
 
-      delta.ops.forEach(op => {
-        if (op.delete) {
-          return;
-        }
-
-        // Add authorship to only inserts
-        if (op.insert) {
-          op.attributes = op.attributes || {};
-
-          if (
-            op.attributes.author &&
-            op.attributes.author === this.props.userId
-          ) {
+        delta.ops.forEach(op => {
+          if (op.delete) {
             return;
           }
 
-          op.attributes.author = this.props.userId;
+          // Add authorship to only inserts
+          if (op.insert) {
+            op.attributes = op.attributes || {};
 
-          authorDelta.retain(op.retain || op.insert.length || 1, authorFormat);
-        } else {
-          const liView = get(op, 'attributes.li-view');
-          if (liView) {
-            authorDelta.retain(op.retain, op.attributes);
+            if (
+              op.attributes.author &&
+              op.attributes.author === this.props.userId
+            ) {
+              return;
+            }
+
+            op.attributes.author = this.props.userId;
+
+            authorDelta.retain(
+              op.retain || op.insert.length || 1,
+              authorFormat
+            );
           } else {
-            authorDelta.retain(op.retain);
+            const liView = get(op, 'attributes.li-view');
+            if (liView) {
+              authorDelta.retain(op.retain, op.attributes);
+            } else {
+              authorDelta.retain(op.retain);
+            }
           }
+        });
+
+        // if IME keyboard (e.g. CH Pinyin), only update the delta with author attribute
+        // on `compositionend`. If non-IME keyboard (e.g. English) there will be no `compositionStart`
+        this.authorDeltaToApply = authorDelta; // copy it to apply later at `conpositionend` for IME keyboards
+        if (!this.compositionStart) {
+          // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
+          editor.updateContents(authorDelta, Quill.sources.SILENT);
         }
-      });
-
-      // if IME keyboard (e.g. CH Pinyin), only update the delta with author attribute
-      // on `compositionend`. If non-IME keyboard (e.g. English) there will be no `compositionStart`
-      this.authorDeltaToApply = authorDelta; // copy it to apply later at `conpositionend` for IME keyboards
-      if (!this.compositionStart) {
-        // if non-IME keyboards, else wait for the `compositionend` to fire (see above)
-        editor.updateContents(authorDelta, Quill.sources.SILENT);
       }
+
+      const op = {
+        p: this.state.path,
+        t: 'rich-text',
+        o: delta.ops
+      };
+
+      this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
     }
-
-    const op = {
-      p: this.state.path,
-      t: 'rich-text',
-      o: delta.ops
-    };
-
-    this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
   };
 
   onDrop = (e: { item: Object | string }, initialView?: string) => {
@@ -919,6 +975,31 @@ class ReactiveRichText extends Component<
   };
 
   render() {
+    if (this.props.shorten) {
+      const raw = get(
+        this.props.data
+          ? { payload: this.props.data }
+          : this.props.dataFn.doc.data,
+        (this.state.path || []).join('.')
+      );
+      if (raw) {
+        const contents = raw.ops.reduce((text, op) => {
+          if (typeof op.insert !== 'string') return text + ' ';
+          return text + op.insert;
+        }, '');
+
+        return (
+          <HighlightSearchText
+            haystack={contents}
+            needle={this.props.search}
+            shorten
+          />
+        );
+      } else {
+        return null;
+      }
+    }
+
     const defaultValue = this.getDocumentContent();
     const props = this.props;
     const scrollContainerClass = 'scroll-container';

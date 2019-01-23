@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   type LearningItemT,
   ReactiveText,
-  shorten,
   HighlightSearchText
 } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,17 +15,11 @@ const styles = () => ({
 const FlexViewer = withStyles(styles)(({ data, search, type }) => {
   const shouldShorten = type === 'thumbView';
   return (
-    <div>
-      {(shouldShorten ? shorten(data.text, 150) : data.text)
-        .split('\n')
-        .map((line, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <React.Fragment key={i}>
-            <HighlightSearchText haystack={line} needle={search} />
-            <br />
-          </React.Fragment>
-        ))}
-    </div>
+    <HighlightSearchText
+      haystack={data.text}
+      needle={search}
+      shorten={shouldShorten}
+    />
   );
 });
 
