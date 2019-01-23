@@ -580,27 +580,34 @@ class ReactiveRichText extends Component<
       }
 
       const [tail1] = ops.slice(-1);
-      if (typeof tail1.insert === 'string') {
-        ops[ops.length - 1].insert = tail1.insert.trimEnd() + '\n';
+      if (tail1) {
+        if (typeof tail1.insert === 'string') {
+          ops[ops.length - 1].insert = tail1.insert.trimEnd() + '\n';
+        }
       }
 
       while (true) {
-        const [head] = ops.slice(0, 1);
-        if (!head) {
+        const [hd] = ops.slice(0, 1);
+        if (!hd) {
           break;
         }
-        if (typeof head.insert !== 'string') {
+        if (typeof hd.insert !== 'string') {
           break;
         }
-        if (head.insert.trim() !== '') {
+        if (hd.insert.trim() !== '') {
           break;
         }
         ops.shift();
       }
 
       const [head1] = ops.slice(0, 1);
-      if (typeof head1.insert === 'string') {
-        ops[0].insert = head1.insert.trimStart();
+      if (head1) {
+        if (typeof head1.insert === 'string') {
+          ops[0].insert = head1.insert.trimStart();
+        }
+      }
+      if (ops.length === 0) {
+        ops[0] = { insert: '\n' };
       }
       raw.ops = ops;
     }
