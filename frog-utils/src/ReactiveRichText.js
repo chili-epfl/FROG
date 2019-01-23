@@ -63,8 +63,16 @@ const styles = theme => ({
 
 let reactiveRichTextDataFn;
 
-const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
+const LIComponentRaw = ({
+  id,
+  authorId,
+  classes,
+  liView,
+  liZoomState,
+  controls
+}) => {
   const LearningItem = reactiveRichTextDataFn.LearningItem;
+  const controlsStyle = controls ? {} : { visibility: 'hidden' };
   return (
     <div>
       <LearningItem
@@ -76,7 +84,7 @@ const LIComponentRaw = ({ id, authorId, classes, liView, liZoomState }) => {
           return (
             <div className={classes.liContainer}>
               <Paper className={classes.root} elevation={10} square>
-                <div className={classes.liTools}>
+                <div className={classes.liTools} style={controlsStyle}>
                   {/* Button click handlers are attached dynamically in LearningItemBlot since they require access */}
                   {/* to blot instance information, but the LIComponentRaw initialization is done by a static method */}
                   <IconButton
@@ -143,24 +151,27 @@ class LearningItemBlot extends Embed {
       authorId,
       initialView,
       initialView === LiViewTypes.EDIT ? LiViewTypes.VIEW : initialView,
+      true,
       node
     );
     return node;
   }
 
-  static renderLItoNode(liId, authorId, liView, zoomState, node) {
+  static renderLItoNode(liId, authorId, liView, zoomState, controls, node) {
     ReactDOM.render(
       <div
         data-li-id={liId}
         data-author-id={authorId}
         data-li-view={liView}
         data-li-zoom-state={zoomState}
+        data-li-controls={controls}
       >
         <LIComponent
           id={JSON.parse(liId)}
           authorId={authorId}
           liView={liView}
           liZoomState={zoomState}
+          controls={controls}
         />
       </div>,
       node
@@ -239,7 +250,8 @@ class LearningItemBlot extends Embed {
       const authorId = get(child.dataset, 'authorId');
       const liView = get(child.dataset, 'liView');
       const zoomState = get(child.dataset, 'liZoomState');
-      return { authorId, liId, liView, zoomState };
+      const controlsVisibility = get(child.dataset, 'liControls');
+      return { authorId, liId, liView, zoomState, controlsVisibility };
     }
     return {};
   };
@@ -298,13 +310,34 @@ class LearningItemBlot extends Embed {
       // getLiContent() method is not yet initialized. So this waits a while
       // until it is initialized to run the formatting
       setTimeout(() => {
-        const { liId, authorId, zoomState } = this.getLiContent();
-        if (liId && authorId && value) {
+        const {
+          liId,
+          authorId,
+          zoomState,
+          controlsVisibility
+        } = this.getLiContent();
+        if (liId && authorId && zoomState && value) {
           LearningItemBlot.renderLItoNode(
             liId,
             authorId,
             value,
             value === LiViewTypes.EDIT ? zoomState : value,
+            controlsVisibility,
+            this.domNode
+          );
+          this.refreshClickHandlers();
+        }
+      }, 100);
+    } else if (format === 'li-controls') {
+      setTimeout(() => {
+        const { liId, authorId, liView, zoomState } = this.getLiContent();
+        if (liId && authorId && liView && zoomState) {
+          LearningItemBlot.renderLItoNode(
+            liId,
+            authorId,
+            liView,
+            zoomState,
+            value,
             this.domNode
           );
           this.refreshClickHandlers();
@@ -353,6 +386,13 @@ const LiViewAttribute = new Parchment.Attributor.Attribute(
 );
 Parchment.register(LiViewAttribute);
 Quill.register(LiViewAttribute, true);
+
+const LiControlsAttribute = new Parchment.Attributor.Attribute(
+  'li-controls',
+  'li-controls'
+);
+Parchment.register(LiControlsAttribute);
+Quill.register(LiControlsAttribute, true);
 
 const Clipboard = Quill.import('modules/clipboard');
 
@@ -481,6 +521,7 @@ const formats = [
   'learning-item',
   'author',
   'li-view',
+  'li-controls',
   'background'
 ];
 
@@ -614,6 +655,16 @@ class ReactiveRichText extends Component<
 
     if (this.props.search) {
       raw = highlightTargetRichText(raw, this.props.search);
+    }
+
+    // Modify ops to trigger a li-controls format to ensure they will not be
+    // visible on read only mode
+    if (get(raw, 'ops')) {
+      raw.ops.forEach(op => {
+        if (get(op, 'insert[learning-item]')) {
+          op.attributes['li-controls'] = !this.props.readOnly;
+        }
+      });
     }
 
     return raw;
@@ -860,9 +911,7 @@ class ReactiveRichText extends Component<
       attributes: { author?: string, 'li-view'?: string }
     }>
   }) => {
-    console.log('submitOp');
     if (!this.props.readOnly) {
-      console.log('submitOp - not readonly');
       const editor = this.quillRef.getEditor();
 
       if (editor) {
