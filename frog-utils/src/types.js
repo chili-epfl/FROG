@@ -358,6 +358,7 @@ export type LearningItemT<T> = {
   id: string,
   dataStructure?: T,
   canDropLI?: boolean,
+  isEmpty?: (any, Object) => boolean,
   Editor?: React.ComponentType<{
     data: T,
     dataFn: Object,

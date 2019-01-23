@@ -241,40 +241,42 @@ class Dashboard extends React.Component<any, any> {
 }
 
 const ZoomViewInfoTable = props => (
-  <Table>
-    <TableBody>
-      <TableRow>
-        <TableCell>Learning Item Type</TableCell>
-        <TableCell>{learningItemTypesObj[props.liType].name}</TableCell>
-        <TableCell>Created by</TableCell>
-        <TableCell>
-          {Meteor.users.findOne(props.data.createdByUser)?.username}
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Created by group</TableCell>
-        <TableCell>{JSON.stringify(props.data.createdByInstance)}</TableCell>
-        <TableCell>Created in activity</TableCell>
-        <TableCell>
-          {Activities.findOne(props.data.createdInActivity)?.title}
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Created at</TableCell>
-        <TableCell>{props.data.createdAt || ''}</TableCell>
+  <>
+    <Table>
+      <TableBody>
+        <TableRow>
+          <TableCell>Learning Item Type</TableCell>
+          <TableCell>{learningItemTypesObj[props.liType].name}</TableCell>
+          <TableCell>Created by</TableCell>
+          <TableCell>
+            {Meteor.users.findOne(props.data.createdByUser)?.username}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Created by group</TableCell>
+          <TableCell>{JSON.stringify(props.data.createdByInstance)}</TableCell>
+          <TableCell>Created in activity</TableCell>
+          <TableCell>
+            {Activities.findOne(props.data.createdInActivity)?.title}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Created at</TableCell>
+          <TableCell>{props.data.createdAt || ''}</TableCell>
 
-        <TableCell>Raw data</TableCell>
+          <TableCell>Raw data</TableCell>
 
-        <TableCell
-          data-tip={Stringify(props.data).replace(/\n/gi, '<br>')}
-          style={{ width: '50px' }}
-        >
-          Mouse over
-        </TableCell>
-      </TableRow>
-    </TableBody>
+          <TableCell
+            data-tip={Stringify(props.data).replace(/\n/gi, '<br>')}
+            style={{ width: '50px' }}
+          >
+            Mouse over
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
     <ReactTooltip multiline />
-  </Table>
+  </>
 );
 
 class ZoomViewRaw extends React.Component<*, *> {
