@@ -11,7 +11,9 @@ const operator = (configData, { activityData }) => {
       [z => z.score || ''],
       ['desc']
     );
+    console.log(items);
     const reducedItems = items.slice(0, configData.topN || 1);
+    console.log(reducedItems);
     const res = reducedItems.reduce((acc, y) => {
       const id = y.id || uuid();
       acc[id] = { ...y, id };

@@ -82,7 +82,8 @@ class ImageList extends React.Component<*, *> {
       LearningItem,
       expand,
       canSearch,
-      canBookmark
+      canBookmark,
+      openEdit
     } = this.props;
     const learningItemsFiltered = this.state.onlyBookmarked
       ? learningItems.filter(x => this.state.bookmarks[x.key])
@@ -134,7 +135,7 @@ class ImageList extends React.Component<*, *> {
             const onClick = e => {
               if (canVote && e.shiftKey) {
                 vote(liObj.key, userInfo.id);
-              } else if (!expand) {
+              } else if (!expand && !openEdit) {
                 setIndex(i);
                 setZoom(true);
                 logger({ type: 'zoom', itemId: liObj.key });
@@ -148,7 +149,7 @@ class ImageList extends React.Component<*, *> {
               <LearningItem
                 search={this.state.filter.length > 0 && this.state.filter}
                 key={liObj.key}
-                type={expand ? 'view' : 'thumbView'}
+                type={openEdit ? 'edit' : expand ? 'view' : 'thumbView'}
                 id={liObj.li}
                 notEmpty
                 render={props => (

@@ -15,7 +15,8 @@ const config = {
       title: 'How many items to send to each recipient?',
       type: 'number',
       default: 1
-    }
+    },
+    offset: { title: 'Offset', type: 'number', default: 0 }
   }
 };
 
