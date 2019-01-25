@@ -25,6 +25,7 @@ export const config = {
       title: 'Default Learning Item Type',
       type: 'learningItemType'
     },
+    openEdit: { title: 'Open all items in edit mode', type: 'boolean' },
     canComment: {
       title: 'Should students comment on Learning Items?',
       type: 'boolean'

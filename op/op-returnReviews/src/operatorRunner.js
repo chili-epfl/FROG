@@ -4,20 +4,27 @@ import { type productOperatorRunnerT, values, uuid } from 'frog-utils';
 import { isObject } from 'lodash';
 
 const operator = (configData, { activityData }) => {
-  if (activityData.structure !== 'individual') {
-    console.error('Cannot work with data that is not individually structured');
-    throw new Error();
-  }
+  let structure;
 
   const studentReturns = {};
   values(activityData.payload).forEach(student => {
     if (isObject(student.data)) {
       values(student.data).forEach(item => {
-        if (item.from) {
-          if (!studentReturns[item.from]) {
-            studentReturns[item.from] = [item];
+        const ifrom = item.from || item?.li?.liDocument?.payload?.from;
+
+        if (ifrom) {
+          let from = '';
+          if (typeof ifrom === 'string') {
+            structure = 'individual';
+            from = ifrom;
           } else {
-            studentReturns[item.from].push(item);
+            structure = { groupingKey: Object.keys(ifrom)[0] };
+            from = values(ifrom)[0];
+          }
+          if (!studentReturns[from]) {
+            studentReturns[from] = [item];
+          } else {
+            studentReturns[from].push(item);
           }
         }
       });
@@ -25,13 +32,15 @@ const operator = (configData, { activityData }) => {
   });
 
   return {
-    structure: 'individual',
+    structure,
     payload: Object.keys(studentReturns).reduce((acc, x) => {
       acc[x] = {
         data: studentReturns[x].reduce((acc2, item) => {
           const id = uuid();
-          acc2[id] = { id, ...item };
-          return acc2;
+          return {
+            ...acc2,
+            [id]: { id, li: item.li.liDocument.payload.reviewId }
+          };
         }, {})
       };
       return acc;

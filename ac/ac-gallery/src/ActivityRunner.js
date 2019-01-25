@@ -101,6 +101,7 @@ class ActivityRunner extends React.Component<
         />
         <ThumbList
           {...{
+            openEdit: config.openEdit,
             learningItems,
             categories: this.categories,
             minVoteT,
