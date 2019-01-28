@@ -13,8 +13,7 @@ const mergeFunction = (obj: any, dataFn: any) => {
       const id = uuid();
       dataFn.objInsert(
         {
-          x: Math.random() * 650 + 150,
-          y: -(Math.random() * 850) - 100,
+          coords: [Math.random() * 650 + 150, -(Math.random() * 850) - 100],
           ...x,
           id
         },
@@ -30,7 +29,10 @@ const formatProduct = (_: Object, item: Object) => {
     return { ...item };
   }
   const coordinates = values(item).reduce(
-    (acc, { x, y }) => ({ x: acc.x + x / n, y: acc.y + y / n }),
+    (acc, { coords }) => ({
+      x: acc.x + coords[0] / n,
+      y: acc.y + coords[1] / n
+    }),
     { x: 0, y: 0 }
   );
   return {

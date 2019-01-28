@@ -52,6 +52,46 @@ export const meta = {
       learningItems
     },
     {
+      title: 'Quadrants and one item',
+      config: {
+        quadrants: true,
+        quadrant1: 'Capitalism',
+        quadrant2: 'Socialism',
+        quadrant3: 'Modernism',
+        quadrant4: 'Post-modernism'
+      },
+      data: {
+        cjmj4j8es008ukwj05d861www: {
+          id: 'cjmj4j8es008ukwj05d861www',
+          li: {
+            id: 'cjmj4j8ep0062kwj0tld7kswu',
+            liDocument: {
+              liType: 'li-hypothesis',
+              createdAt: '2018-09-26T12:26:42.385Z',
+              createdBy: 'op-hypothesis',
+              payload: {
+                rows: [
+                  {
+                    username: 'Alan Henness',
+                    text:
+                      'Comment submitted, awaiting approval:\n\nYou stated:\n\n"On the 16th June 2017, The Swiss Federal Government issued a press release  [13] ..."\n\nThe document you linked to is a press release by Dachverband Komplementärmedizin, the  Swiss Umbrella Association for Complementary Medicine, not the Swiss Federal Government.\n\n"',
+                    date: 'Thu Aug 09 2018',
+                    quotation:
+                      '2. Complementary Medicine (including Homeopathy) in Switzerland:\nComplementary medicine in Switzerland is now a mandatory health insurance service: The Swiss Federal Government acknowledges that complementary medicine meets insurance regulations (Swiss Federal Health Insurance Act 1996) when it comes to effectiveness, guaranteeing high quality and safety.\nOn the 16th June 2017, The Swiss Federal Government issued a press release [13] announcing that specific medical services using complementary medicine are to be covered by mandatory health insurance (basic insurance) as of 1st August 2017. The following disciplines of complementary medicine will be fully covered: Classical Homeopathy, Anthroposophical Medicine, Traditional Chinese Medicine and Herbal Medicine, provided they are practised by conventional medical practitioners who have an additional qualification in one of the four disciplines as recognised by the Swiss Medical Association. This implements one of the key demands of the Swiss constitutional referendum held on 17th May 2009.',
+                    article:
+                      'Positive Health Online | Article - The UK Natio...',
+                    articleSite: 'www.positivehealth.com',
+                    id: 'WvGbgptgEeiX8UcEPNLgjw',
+                    updated: '2018-08-08T23:11:17.911170+00:00'
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
       title: 'Quadrants and boxes',
       config: {
         quadrants: true,

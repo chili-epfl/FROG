@@ -172,7 +172,7 @@ export const HighlightSearchText = ({
 }: {
   haystack: string,
   needle?: string,
-  shorten: boolean
+  shorten?: boolean
 }) => {
   let result = haystack;
   if (shorten) {

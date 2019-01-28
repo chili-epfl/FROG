@@ -6,7 +6,7 @@ const ThumbViewer = ({ data }) => (
   <div
     style={{
       textAlign: 'left',
-      fontSize: '1em',
+      fontSize: '2em',
       backgroundColor: data.color === '#FFFF00' ? '#FFFFFF' : data.color,
       color: '#000000'
     }}
