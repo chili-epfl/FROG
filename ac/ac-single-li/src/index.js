@@ -31,15 +31,7 @@ const meta = {
   name: 'Add/edit single LI',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
-  supportsLearningItems: true,
-  exampleData: [
-    {
-      title: 'Rich Text with Learning Items',
-      config: { liTypeEditor: 'li-richText', noSubmit: true, invalid: false },
-      data: undefined,
-      learningItems
-    }
-  ]
+  supportsLearningItems: true
 };
 
 const config = {
@@ -47,15 +39,6 @@ const config = {
   properties: {
     title: { type: 'string', title: 'Title' },
     instructions: { type: 'rte', title: 'Instructions' },
-    liType: {
-      title: 'Learning Item Type',
-      type: 'learningItemType'
-    },
-    liTypeEditor: {
-      title: 'Learning Item Type (Editable)',
-      type: 'learningItemTypeEditor',
-      default: 'li-textArea'
-    },
     noSubmit: {
       title: 'No submit button, directly edit',
       type: 'boolean',
@@ -76,20 +59,8 @@ const formatProduct = (_, product) => {
 
 const configUI = {
   instructions: { 'ui:widget': 'textarea' },
-  allowEditing: { conditional: formData => !formData.noSubmit },
-  liTypeEditor: { conditional: 'noSubmit' },
-  liType: { conditional: formData => !formData.noSubmit }
+  allowEditing: { conditional: formData => !formData.noSubmit }
 };
-
-const validateConfig = [
-  formData =>
-    formData.noSubmit && isEmpty(formData.liTypeEditor)
-      ? {
-          err:
-            'You need to choose a specific Learning Item type to allow for direct editing'
-        }
-      : null
-];
 
 const mergeFunction = (obj: Object, dataFn: Object) => {
   let empty = true;
@@ -100,7 +71,7 @@ const mergeFunction = (obj: Object, dataFn: Object) => {
       empty = false;
     }
   }
-  if (empty && obj.config.noSubmit && obj.config.liTypeEditor) {
+  if (empty && obj.config.liTypeEditor) {
     const newLI = dataFn.createLearningItem(obj.config.liTypeEditor);
     if (newLI) {
       dataFn.objInsert({ li: newLI });
@@ -117,7 +88,6 @@ export default ({
   meta,
   config,
   configUI,
-  validateConfig,
   formatProduct,
   dashboards: { progress: ProgressDashboard },
   dataStructure,

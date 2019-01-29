@@ -22,7 +22,7 @@ import { LibraryStates } from '/imports/api/cache';
 import { updateActivity } from '/imports/api/remoteActivities';
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
-import { activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj, learningItemTypesObj } from '/imports/activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
@@ -201,14 +201,62 @@ class ConfigPanel extends React.Component<*, *> {
       setActivityTypeId,
       setMetadatas
     } = this.props;
-
+    console.log(
+      activityType.slice(0, 3) === 'li-'
+        ? {
+            ...activityTypesObj['ac-single-li'],
+            config: {
+              properties: {
+                ...activityTypesObj['ac-single-li'].config.properties,
+                liTypeEditor: { type: 'string', default: activityType }
+              }
+            }
+          }
+        : activityTypesObj[activityType]
+    );
+    console.log(
+      addDefaultExample(
+        activityType.slice(0, 3) === 'li-'
+          ? {
+              ...activityTypesObj['ac-single-li'],
+              config: {
+                properties: {
+                  ...activityTypesObj['ac-single-li'].config.properties,
+                  liTypeEditor: { type: 'string', default: activityType }
+                }
+              }
+            }
+          : activityTypesObj[activityType]
+      )
+    );
     const exConf = activityType.title
-      ? activityType.config
-      : addDefaultExample(activityTypesObj[activityType])[0].config;
+      ? activityType.slice(0, 3) === 'li-'
+        ? {
+            ...activityTypesObj['ac-single-li'].config,
+            liTypeEditor: { type: 'string', default: activityType }
+          }
+        : activityTypesObj[activityType].config
+      : addDefaultExample(
+          activityType.slice(0, 3) === 'li-'
+            ? {
+                ...activityTypesObj['ac-single-li'],
+                config: {
+                  properties: {
+                    ...activityTypesObj['ac-single-li'].config.properties,
+                    liTypeEditor: { type: 'string', default: activityType }
+                  }
+                }
+              }
+            : activityTypesObj[activityType]
+        )[0].config;
+    console.log(exConf);
     const actTypeId = activityType.title
       ? activityType.activity_type
       : activityType;
-    const aTObj = activityTypesObj[actTypeId];
+    const aTObj =
+      actTypeId.slice(0, 3) === 'li-'
+        ? activityTypesObj['ac-single-li']
+        : activityTypesObj[actTypeId];
     setConfig(exConf);
     const newMetadatas = activityType.uuid
       ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
@@ -254,7 +302,9 @@ class ConfigPanel extends React.Component<*, *> {
             </Grid>
             <Grid item xs={8}>
               <Typography variant="h6">
-                {activityTypesObj[activityTypeId].meta.name}
+                {activityTypeId.slice(0, 3) === 'li-'
+                  ? learningItemTypesObj[activityTypeId].name
+                  : activityTypesObj[activityTypeId].meta.name}
               </Typography>
             </Grid>
             <Grid item xs={2}>
@@ -275,7 +325,10 @@ class ConfigPanel extends React.Component<*, *> {
               )}
               <ExportButton
                 activity={{
-                  title: activityTypesObj[activityTypeId].meta.name,
+                  title:
+                    activityTypeId.slice(0, 3) === 'li-'
+                      ? learningItemTypesObj[activityTypeId].name
+                      : activityTypesObj[activityTypeId].meta.name,
                   data: config,
                   activityType: activityTypeId,
                   metadatas,

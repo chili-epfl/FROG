@@ -61,7 +61,7 @@ const ListItems = ({
             text={
               (object.meta.activityTypeName
                 ? object.meta.activityTypeName + ': '
-                : '') + object.meta.shortDesc
+                : '') + (object.meta.shortDesc || '')
             }
             searchStr={searchS}
           />

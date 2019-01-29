@@ -2,7 +2,11 @@
 import { compact, flatMap } from 'lodash';
 import { hideConditional } from 'frog-utils';
 
-import { activityTypes, activityTypesObj } from '../activityTypes';
+import {
+  activityTypes,
+  activityTypesObj,
+  learningItemTypesObj
+} from '../activityTypes';
 import { operatorTypes, operatorTypesObj } from '../operatorTypes';
 import traceSocial from './traceSocial';
 import checkSocial from './checkSocial';
@@ -50,7 +54,8 @@ export const checkComponent = (
 
     if (
       !activityTypes.map(y => y.id).includes(type) &&
-      !operatorTypes.map(y => y.id).includes(type)
+      !operatorTypes.map(y => y.id).includes(type) &&
+      !Object.keys(learningItemTypesObj).includes(type)
     ) {
       return [
         ...acc,

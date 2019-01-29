@@ -1,7 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
-import { activityTypes } from '/imports/activityTypes';
+import {
+  type ActivityPackageT,
+  type LearningItemT,
+  type ActivityDbT,
+  values
+} from 'frog-utils';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
@@ -14,6 +18,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 import Cloud from '@material-ui/icons/Cloud';
 
+import {
+  activityTypesObj,
+  activityTypes,
+  learningItemTypesObj
+} from '/imports/activityTypes';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 import ListComponent from '../ListComponent';
@@ -33,7 +42,6 @@ type PropsT = {
   activity: ActivityDbT,
   setDelete?: Function,
   setIdRemove?: Function,
-  onlyHasPreview?: boolean,
   locallyChanged?: boolean,
   changesLoaded?: Function,
   setActivityTypeId?: Function,
@@ -176,17 +184,27 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
 
   render() {
     const whiteList = this.props.whiteList;
-    const types = whiteList
-      ? activityTypes.filter(x => whiteList.includes(x.id))
-      : activityTypes;
-    const activityTypesFiltered = this.props.onlyHasPreview
-      ? types.filter(x => x.meta.exampleData !== undefined)
-      : types;
+    const liList = values(learningItemTypesObj)
+      .filter(x => {
+        return (x.dataStructure && x.Editor) || x.Creator;
+      })
+      .map(x => {
+        x.meta = { name: x.name };
+        return x;
+      });
+    const choices = [...activityTypes, ...liList];
+    const activityTypesFiltered = whiteList
+      ? choices.filter(x => whiteList.includes(x.id))
+      : choices;
 
     const select = this.props.onSelect
       ? this.props.onSelect
       : aT => {
-          const defaultConf = jsonSchemaDefaults(aT.config);
+          const defaultConf = jsonSchemaDefaults(
+            aT.id.slice(0, 3) === 'li-'
+              ? activityTypesObj['ac-single-li'].config
+              : aT.config
+          );
           addActivity(aT.id, defaultConf, this.props.activity._id);
           const { store, activity } = this.props;
           if (store) {
@@ -205,8 +223,10 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
       .filter(
         x =>
           x.meta.name.toLowerCase().includes(this.state.searchStr) ||
-          x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
-          x.meta.description.toLowerCase().includes(this.state.searchStr)
+          (x.meta.shortDesc &&
+            x.meta.shortDesc.toLowerCase().includes(this.state.searchStr)) ||
+          (x.meta.description &&
+            x.meta.description.toLowerCase().includes(this.state.searchStr))
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
@@ -248,30 +268,32 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 <StyledNoResult />
               ) : (
                 <List>
-                  {filteredList.map((x: ActivityPackageT) => (
-                    <ListComponent
-                      hasPreview={
-                        !this.props.hidePreview &&
-                        x.meta.exampleData !== undefined
-                      }
-                      onSelect={() => select(x)}
-                      showExpanded={this.state.expanded === x.id}
-                      expand={() => this.setState({ expanded: x.id })}
-                      key={x.id}
-                      onPreview={() => {
-                        if (this.props.onPreview) {
-                          this.props.onPreview(x.id);
-                        } else if (this.props.store) {
-                          this.props.store.ui.setShowPreview({
-                            activityTypeId: x.id
-                          });
+                  {filteredList.map(
+                    (x: ActivityPackageT | LearningItemT<*>) => (
+                      <ListComponent
+                        hasPreview={
+                          !this.props.hidePreview &&
+                          x.meta.exampleData !== undefined
                         }
-                      }}
-                      object={x}
-                      searchS={this.state.searchStr}
-                      eventKey={x.id}
-                    />
-                  ))}
+                        onSelect={() => select(x)}
+                        showExpanded={this.state.expanded === x.id}
+                        expand={() => this.setState({ expanded: x.id })}
+                        key={x.id}
+                        onPreview={() => {
+                          if (this.props.onPreview) {
+                            this.props.onPreview(x.id);
+                          } else if (this.props.store) {
+                            this.props.store.ui.setShowPreview({
+                              activityTypeId: x.id
+                            });
+                          }
+                        }}
+                        object={x}
+                        searchS={this.state.searchStr}
+                        eventKey={x.id}
+                      />
+                    )
+                  )}
                 </List>
               )}
             </Grid>

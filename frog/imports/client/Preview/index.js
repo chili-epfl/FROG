@@ -14,7 +14,17 @@ export const addDefaultExample = (activityType: Object) => [
   {
     title: 'Default config',
     data: undefined,
-    config: defaultConfig(activityType),
+    config: defaultConfig(
+      activityType && activityType.id.slice(0, 3) === 'li-'
+        ? {
+            ...activityTypesObj['ac-single-li'],
+            config: {
+              ...activityTypesObj['ac-single-li'],
+              liTypeEditor: activityType.id
+            }
+          }
+        : activityType
+    ),
     type: undefined
   },
   ...(activityType.meta.exampleData || [])
@@ -55,7 +65,10 @@ class PreviewPage extends React.Component<any, any> {
       if (!this.state.activityTypeId) {
         return null;
       }
-      const activityType = activityTypesObj[this.state.activityTypeId];
+      const activityType =
+        this.state.activityTypeId.slice(0, 3) === 'li-'
+          ? activityTypesObj['ac-single-li']
+          : activityTypesObj[this.state.activityTypeId];
 
       initActivityDocuments(
         this.state.instances,

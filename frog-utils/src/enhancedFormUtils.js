@@ -33,6 +33,7 @@ export const calculateHides = (
 };
 
 export const defaultConfig = (activityType: ActivityPackageT) =>
+  console.log(activityType) ||
   hideConditional(
     jsonSchemaDefaults(activityType.config),
     activityType.config,
