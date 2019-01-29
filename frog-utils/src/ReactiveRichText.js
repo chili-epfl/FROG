@@ -149,6 +149,11 @@ class LearningItemBlot extends Embed {
   }
 
   static renderLItoNode(liId, authorId, liView, zoomState, node) {
+    window.setTimeout(
+      () =>
+        console.log(Quill.find(node.parentNode.parentElement).options.readOnly),
+      1000
+    );
     ReactDOM.render(
       <div
         data-li-id={liId}
@@ -169,6 +174,15 @@ class LearningItemBlot extends Embed {
 
   constructor(domNode, value) {
     super(domNode, value);
+    window.a = domNode;
+    window.q = Quill;
+    window.setTimeout(
+      () =>
+        console.log(
+          Quill.find(domNode.parentNode.parentElement).options.readOnly
+        ),
+      1000
+    );
     // Make sure the hover handlers are registered correctly in all collaborating
     // editors for a newly inserted LI
     this.refreshClickHandlers();
