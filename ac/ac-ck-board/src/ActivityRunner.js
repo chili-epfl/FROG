@@ -27,18 +27,13 @@ class Board extends React.Component<*, *> {
     const setXY = (i, ui) => {
       const x = (ui.x + offsetWidth) * scaleX;
       const y = (ui.y + offsetHeight) * scaleY;
-      console.log([ui.x, ui.y], [x, y]);
-
       dataFn.objInsert([x, y], [i, 'coords']);
     };
 
-    const getQuadrant = props => {
-      let [x, y] = props.coords;
-      if (props.raw) {
-        x = (props.coords[0] + offsetWidth) * scaleX;
-        y = (props.coords[1] + offsetHeight) * scaleY;
-      }
-      console.log('quadrant', props.coords, [x, y]);
+    const getQuadrant = coords => {
+      const x = (coords[0] + offsetWidth) * scaleX;
+      const y = (coords[1] + offsetHeight) * scaleY;
+      console.log(x, y);
       if (x > 660) {
         if (y > 550) {
           return 4;
@@ -61,9 +56,10 @@ class Board extends React.Component<*, *> {
     return (
       <div
         style={{
-          width: width + ' px',
-          height: height + ' px',
-          position: 'relative'
+          maxWidth: width + ' px',
+          maxHeight: height + ' px',
+          position: 'relative',
+          overflow: 'none'
         }}
       >
         {config.allowCreate && (

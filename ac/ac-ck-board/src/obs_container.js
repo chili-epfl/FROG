@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import { MdAspectRatio } from 'react-icons/md';
 import Draggable from 'react-draggable';
 
-const quadrantColors = ['', '#e7ffac', '#fbe4ff', '#dcd3ff', '#ffccf9'];
+const quadrantColors = ['#e7ffac', '#fbe4ff', '#dcd3ff', '#ffccf9'];
 
 class ObservationContainer extends React.Component<*, *> {
   state = { dragXY: null };
@@ -25,60 +25,43 @@ class ObservationContainer extends React.Component<*, *> {
     } = this.props;
 
     const scaling = 1 / ((scaleX + scaleY) / 2) / 1.3;
-    const style = {
-      transform: `scale(${scaling}`,
-      textAlign: 'center',
-      display: 'inline-block'
-    };
 
     return (
-      <Draggable
-        onStart={() => true}
-        onDrag={ui => this.setState({ dragXY: [ui.x, ui.y] })}
-        onEnd={() => this.setState({ dragXY: null })}
-        disabled={!canDrag}
-        position={{
-          x,
-          y
-        }}
-        onStop={setXY}
-        cancel=".nodrag"
-      >
-        <div
-          style={{
-            position: 'absolute',
-            textOverflow: 'ellipsis'
+      <div style={{ transform: `scale(${scaling}` }}>
+        <Draggable
+          onStart={() => true}
+          onDrag={(_, ui) => this.setState({ dragXY: [ui.x, ui.y] })}
+          onEnd={() => this.setState({ dragXY: null })}
+          disabled={!canDrag}
+          position={{
+            x,
+            y
           }}
+          onStop={setXY}
+          cancel=".nodrag"
         >
           <Paper
             elevation={24}
             style={{
+              position: 'absolute',
               background:
                 hasQuadrants &&
-                quadrantColors[
-                  getQuadrant(
-                    this.state.dragXY
-                      ? { raw: true, coords: this.state.dragXY }
-                      : { raw: true, coords: [x, y] }
-                  )
-                ],
+                quadrantColors[getQuadrant(this.state.dragXY || [x, y])],
               height: 'inherit',
               width: 'inherit',
-              ...style
+              display: 'block'
             }}
           >
             <div style={{ margin: '15px', maxWidth: '500px' }}>
-              <div>
-                <span style={{ float: 'right' }} className="noDrag">
-                  <MdAspectRatio onClick={openInfoFn} />
-                </span>
-              </div>
+              <span style={{ float: 'right' }} className="noDrag">
+                <MdAspectRatio onClick={openInfoFn} />
+              </span>
               {children}
               {showUsername && <i>{username}</i>}
             </div>
           </Paper>
-        </div>
-      </Draggable>
+        </Draggable>
+      </div>
     );
   }
 }
