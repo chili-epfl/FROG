@@ -33,7 +33,6 @@ class Board extends React.Component<*, *> {
     const getQuadrant = coords => {
       const x = (coords[0] + offsetWidth) * scaleX;
       const y = (coords[1] + offsetHeight) * scaleY;
-      console.log(x, y);
       if (x > 650) {
         if (y > -450) {
           return 4;
