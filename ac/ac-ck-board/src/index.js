@@ -13,8 +13,7 @@ const mergeFunction = (obj: any, dataFn: any) => {
       const id = uuid();
       dataFn.objInsert(
         {
-          x: Math.random() * 650 + 150,
-          y: -(Math.random() * 850) - 100,
+          coords: [Math.random() * 650 + 150, -(Math.random() * 850) - 100],
           ...x,
           id
         },
@@ -24,13 +23,35 @@ const mergeFunction = (obj: any, dataFn: any) => {
   }
 };
 
-const formatProduct = (_: Object, item: Object) => {
+const getQuadrant = ([x, y]) => {
+  if (x > 650) {
+    if (y > -450) {
+      return 4;
+    } else {
+      return 2;
+    }
+  } else if (y > -450) {
+    return 3;
+  } else {
+    return 1;
+  }
+};
+
+const formatProduct = (configData: Object, item: Object) => {
   const n = values(item).length;
   if (n === 0) {
     return { ...item };
   }
+  if (configData.quadrants) {
+    values(item).forEach(x => {
+      x.quadrant = getQuadrant(x.coords) + '';
+    });
+  }
   const coordinates = values(item).reduce(
-    (acc, { x, y }) => ({ x: acc.x + x / n, y: acc.y + y / n }),
+    (acc, { coords }) => ({
+      x: acc.x + coords[0] / n,
+      y: acc.y + coords[1] / n
+    }),
     { x: 0, y: 0 }
   );
   return {
