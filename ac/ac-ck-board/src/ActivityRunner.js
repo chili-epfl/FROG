@@ -34,13 +34,13 @@ class Board extends React.Component<*, *> {
       const x = (coords[0] + offsetWidth) * scaleX;
       const y = (coords[1] + offsetHeight) * scaleY;
       console.log(x, y);
-      if (x > 660) {
-        if (y > 550) {
+      if (x > 650) {
+        if (y > -450) {
           return 4;
         } else {
           return 2;
         }
-      } else if (y > 550) {
+      } else if (y > -450) {
         return 3;
       } else {
         return 1;
@@ -59,7 +59,7 @@ class Board extends React.Component<*, *> {
           maxWidth: width + ' px',
           maxHeight: height + ' px',
           position: 'relative',
-          overflow: 'none'
+          overflow: 'hidden'
         }}
       >
         {config.allowCreate && (

@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import { MdAspectRatio } from 'react-icons/md';
 import Draggable from 'react-draggable';
 
-const quadrantColors = ['#e7ffac', '#fbe4ff', '#dcd3ff', '#ffccf9'];
+const quadrantColors = ['', '#e7ffac', '#fbe4ff', '#dcd3ff', '#ffccf9'];
 
 class ObservationContainer extends React.Component<*, *> {
   state = { dragXY: null };
@@ -27,22 +27,24 @@ class ObservationContainer extends React.Component<*, *> {
     const scaling = 1 / ((scaleX + scaleY) / 2) / 1.3;
 
     return (
-      <div style={{ transform: `scale(${scaling}` }}>
-        <Draggable
-          onStart={() => true}
-          onDrag={(_, ui) => this.setState({ dragXY: [ui.x, ui.y] })}
-          onEnd={() => this.setState({ dragXY: null })}
-          disabled={!canDrag}
-          position={{
-            x,
-            y
-          }}
-          onStop={setXY}
-          cancel=".nodrag"
-        >
+      <Draggable
+        onStart={() => true}
+        onDrag={(_, ui) => this.setState({ dragXY: [ui.x, ui.y] })}
+        onEnd={() => this.setState({ dragXY: null })}
+        disabled={!canDrag}
+        position={{
+          x,
+          y
+        }}
+        onStop={setXY}
+        cancel=".nodrag"
+      >
+        <div>
           <Paper
             elevation={24}
             style={{
+              transform: `scale(${scaling}`,
+              transformOrigin: '0 0',
               position: 'absolute',
               background:
                 hasQuadrants &&
@@ -60,8 +62,8 @@ class ObservationContainer extends React.Component<*, *> {
               {showUsername && <i>{username}</i>}
             </div>
           </Paper>
-        </Draggable>
-      </div>
+        </div>
+      </Draggable>
     );
   }
 }

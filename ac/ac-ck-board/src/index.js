@@ -23,10 +23,29 @@ const mergeFunction = (obj: any, dataFn: any) => {
   }
 };
 
-const formatProduct = (_: Object, item: Object) => {
+const getQuadrant = ([x, y]) => {
+  if (x > 650) {
+    if (y > -450) {
+      return 4;
+    } else {
+      return 2;
+    }
+  } else if (y > -450) {
+    return 3;
+  } else {
+    return 1;
+  }
+};
+
+const formatProduct = (configData: Object, item: Object) => {
   const n = values(item).length;
   if (n === 0) {
     return { ...item };
+  }
+  if (configData.quadrants) {
+    values(item).forEach(x => {
+      x.quadrant = getQuadrant(x.coords) + '';
+    });
   }
   const coordinates = values(item).reduce(
     (acc, { coords }) => ({

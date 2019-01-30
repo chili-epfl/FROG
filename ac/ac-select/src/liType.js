@@ -8,7 +8,8 @@ const ThumbViewer = ({ data }) => (
       textAlign: 'left',
       fontSize: '2em',
       backgroundColor: data.color === '#FFFF00' ? '#FFFFFF' : data.color,
-      color: '#000000'
+      color: '#000000',
+      margin: '3px'
     }}
   >
     {data.word}
