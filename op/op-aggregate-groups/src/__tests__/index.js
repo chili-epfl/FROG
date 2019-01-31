@@ -1,5 +1,8 @@
 import operator from '../operatorRunner';
-jest.mock('frog-utils');
+
+jest.mock('frog-utils', () =>
+  require.requireActual('../../../../__mocks__/frog-utils')
+);
 
 const object2 = {
   _id: 'cjgccn7m5000ik7j4g5i6uc2i',

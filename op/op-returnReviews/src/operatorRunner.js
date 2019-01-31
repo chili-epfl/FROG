@@ -4,7 +4,7 @@ import { type productOperatorRunnerT, values, uuid } from 'frog-utils';
 import { isObject } from 'lodash';
 
 const operator = (configData, { activityData }) => {
-  let structure;
+  let structure = 'all';
 
   const studentReturns = {};
   values(activityData.payload).forEach(student => {
