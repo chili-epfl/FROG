@@ -35,10 +35,10 @@ const object = {
     }
   }
 };
-jest.describe('tests', () => {
+describe('tests', () => {
   const constantDate = new Date('2018-01-01T12:00:00');
 
-  jest.beforeAll(() => {
+  beforeAll(() => {
     global.Date = class extends Date {
       constructor() {
         super();
