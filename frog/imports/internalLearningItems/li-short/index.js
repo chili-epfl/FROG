@@ -33,7 +33,7 @@ const Editor = withStyles(styles)(({ dataFn, classes }) => (
 export default ({
   name: 'Single Word/Sentence',
   id: 'li-short',
-  dataStructure: { topic: '' },
+  liDataStructure: { topic: '' },
   ThumbViewer,
   Editor,
   search: (data, search) => data.topic.toLowerCase().includes(search)

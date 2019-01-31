@@ -49,7 +49,6 @@ export const initActivityDocuments = (
   refresh: boolean
 ) => {
   const exs = addDefaultExample(activityType);
-  console.log(exs, activityType);
   if (exs[example].learningItems) {
     exs[example].learningItems.forEach(li => {
       const doc = connection.get('li', li.id);

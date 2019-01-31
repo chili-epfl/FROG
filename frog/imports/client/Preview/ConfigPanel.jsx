@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
-import { isEqual } from 'lodash';
+import { isEqual, debounce } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -22,7 +22,7 @@ import { LibraryStates } from '/imports/api/cache';
 import { updateActivity } from '/imports/api/remoteActivities';
 import ApiForm, { check } from '../GraphEditor/SidePanel/ApiForm';
 import { initActivityDocuments } from './Content';
-import { activityTypesObj, learningItemTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
@@ -123,9 +123,8 @@ class ConfigPanel extends React.Component<*, *> {
     }
   }
 
-  onConfigChange = (e: any) => {
+  onConfigChange = debounce((e: any) => {
     const {
-      setDelay,
       config,
       setConfig,
       metadatas,
@@ -133,30 +132,23 @@ class ConfigPanel extends React.Component<*, *> {
       example,
       setActivityTypeId
     } = this.props;
-    setDelay(true);
-    if (this.timeout) {
-      clearTimeout(this.timeout);
+    if (
+      metadatas.owner_id === Meteor.user().username &&
+      JSON.stringify(e.config) !== JSON.stringify(config)
+    ) {
+      this.setState({ displaySave: true });
     }
-    this.timeout = setTimeout(() => {
-      if (
-        metadatas.owner_id === Meteor.user().username &&
-        JSON.stringify(e.config) !== JSON.stringify(config)
-      ) {
-        this.setState({ displaySave: true });
-      }
-      if (e.errors && e.errors.length === 0) {
-        const aT = activityTypesObj[e.activityType];
-        setConfig(e.config);
-        initActivityDocuments(instances, aT, example, e.config, true);
-        initDashboardDocuments(aT, true);
-      } else {
-        setConfig({ ...e.config, invalid: true });
-      }
-      setActivityTypeId(e.activityType);
-      this.forceUpdate();
-      setDelay(false);
-    }, 50);
-  };
+    if (e.errors && e.errors.length === 0) {
+      const aT = activityTypesObj[e.activityType];
+      setConfig(e.config);
+      initActivityDocuments(instances, aT, example, e.config, true);
+      initDashboardDocuments(aT, true);
+    } else {
+      setConfig({ ...e.config, invalid: true });
+    }
+    setActivityTypeId(e.activityType);
+    this.forceUpdate();
+  }, 1000);
 
   shouldComponentUpdate = (nextProps: any) => {
     const { activityId, metadatas, config } = this.props;
@@ -201,62 +193,14 @@ class ConfigPanel extends React.Component<*, *> {
       setActivityTypeId,
       setMetadatas
     } = this.props;
-    console.log(
-      activityType.slice(0, 3) === 'li-'
-        ? {
-            ...activityTypesObj['ac-single-li'],
-            config: {
-              properties: {
-                ...activityTypesObj['ac-single-li'].config.properties,
-                liTypeEditor: { type: 'string', default: activityType }
-              }
-            }
-          }
-        : activityTypesObj[activityType]
-    );
-    console.log(
-      addDefaultExample(
-        activityType.slice(0, 3) === 'li-'
-          ? {
-              ...activityTypesObj['ac-single-li'],
-              config: {
-                properties: {
-                  ...activityTypesObj['ac-single-li'].config.properties,
-                  liTypeEditor: { type: 'string', default: activityType }
-                }
-              }
-            }
-          : activityTypesObj[activityType]
-      )
-    );
+
     const exConf = activityType.title
-      ? activityType.slice(0, 3) === 'li-'
-        ? {
-            ...activityTypesObj['ac-single-li'].config,
-            liTypeEditor: { type: 'string', default: activityType }
-          }
-        : activityTypesObj[activityType].config
-      : addDefaultExample(
-          activityType.slice(0, 3) === 'li-'
-            ? {
-                ...activityTypesObj['ac-single-li'],
-                config: {
-                  properties: {
-                    ...activityTypesObj['ac-single-li'].config.properties,
-                    liTypeEditor: { type: 'string', default: activityType }
-                  }
-                }
-              }
-            : activityTypesObj[activityType]
-        )[0].config;
-    console.log(exConf);
+      ? activityType.config
+      : addDefaultExample(activityTypesObj[activityType])[0].config;
     const actTypeId = activityType.title
       ? activityType.activity_type
       : activityType;
-    const aTObj =
-      actTypeId.slice(0, 3) === 'li-'
-        ? activityTypesObj['ac-single-li']
-        : activityTypesObj[actTypeId];
+    const aTObj = activityTypesObj[actTypeId];
     setConfig(exConf);
     const newMetadatas = activityType.uuid
       ? LibraryStates.activityList.find(x => x.uuid === activityType.uuid)
@@ -302,9 +246,7 @@ class ConfigPanel extends React.Component<*, *> {
             </Grid>
             <Grid item xs={8}>
               <Typography variant="h6">
-                {activityTypeId.slice(0, 3) === 'li-'
-                  ? learningItemTypesObj[activityTypeId].name
-                  : activityTypesObj[activityTypeId].meta.name}
+                {activityTypesObj[activityTypeId].meta.name}
               </Typography>
             </Grid>
             <Grid item xs={2}>
@@ -325,10 +267,7 @@ class ConfigPanel extends React.Component<*, *> {
               )}
               <ExportButton
                 activity={{
-                  title:
-                    activityTypeId.slice(0, 3) === 'li-'
-                      ? learningItemTypesObj[activityTypeId].name
-                      : activityTypesObj[activityTypeId].meta.name,
+                  title: activityTypesObj[activityTypeId].meta.name,
                   data: config,
                   activityType: activityTypeId,
                   metadatas,

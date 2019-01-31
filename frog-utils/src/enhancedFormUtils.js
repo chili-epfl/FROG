@@ -62,6 +62,7 @@ export const calculateSchema = (
   oldHides?: string[] = [],
   oldSchema?: Object
 ): [Object, string[]] => {
+  delete schema.properties.liTypeEditor;
   const hide = calculateHides(formData, schema, UISchema);
   if (!isEqual(hide, oldHides)) {
     const newSchema = cloneDeep(schema);

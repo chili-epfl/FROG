@@ -323,7 +323,7 @@ class MathSheet extends React.Component<*, *> {
 }
 
 export default ({
-  dataStructure: [0, 1, 2, 3, 4].map((row, i) =>
+  liDataStructure: [0, 1, 2, 3, 4].map((row, i) =>
     ['', 'A', 'B', 'C', 'D'].map((col, j) => {
       if (i === 0 && j === 0) {
         return { readOnly: true, value: '                ' };

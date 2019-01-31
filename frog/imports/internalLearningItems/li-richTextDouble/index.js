@@ -99,7 +99,7 @@ export class Editor extends React.Component<*, *> {
 export default ({
   name: 'Double rich text',
   id: 'li-doubleRichText',
-  dataStructure: { text: '', text2: '' },
+  liDataStructure: { text: '', text2: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor

@@ -97,7 +97,7 @@ export class Doc {
     const id = uuid();
     const properPayload =
       // $FlowFixMe
-      payload || learningItemTypesObj[liType].dataStructure;
+      payload || learningItemTypesObj[liType].liDataStructure;
     if (!properPayload) {
       return null;
     }

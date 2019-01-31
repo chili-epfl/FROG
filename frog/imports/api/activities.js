@@ -105,9 +105,7 @@ export const addActivity = (
           ...(activityType
             ? {
                 configVersion:
-                  configVersion || activityType.slice(0, 3) === 'li-'
-                    ? activityTypesObj['ac-single-li'].configVersion
-                    : activityTypesObj[activityType].configVersion
+                  configVersion || activityTypesObj[activityType].configVersion
               }
             : {})
         },
@@ -121,9 +119,7 @@ export const addActivity = (
       ...(activityType
         ? {
             configVersion:
-              configVersion || activityType.slice(0, 3) === 'li-'
-                ? activityTypesObj['ac-single-li'].configVersion
-                : activityTypesObj[activityType].configVersion
+              configVersion || activityTypesObj[activityType].configVersion
           }
         : {}),
       activityType,

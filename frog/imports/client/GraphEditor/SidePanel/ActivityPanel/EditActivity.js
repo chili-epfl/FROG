@@ -10,7 +10,7 @@ import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
 import { compact } from 'lodash';
 
-import { activityTypesObj, learningItemTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import {
   addActivity,
   removeActivityType,
@@ -133,10 +133,7 @@ const RawEditActivity = ({
     errorColor = lightGreen[500];
   }
 
-  const activityType =
-    activity.activityType.slice(0, 3) === 'li-'
-      ? activityTypesObj['ac-single-li']
-      : activityTypesObj[activity.activityType];
+  const activityType = activityTypesObj[activity.activityType];
   const otherActivityIds = store.activityStore.all.filter(
     a => a.id !== activity._id
   );
@@ -164,11 +161,7 @@ const RawEditActivity = ({
             </h3>
             <font size={-3}>
               <i>
-                {`Type: ${
-                  activity.activityType.slice(0, 3) === 'li-'
-                    ? learningItemTypesObj[activity.activityType].name
-                    : activityType.meta.name
-                }
+                {`Type: ${activityType.meta.name}
                          (${activity.activityType})`}
                 <br />
                 {`Starting after ${graphActivity.startTime} min., running for ${

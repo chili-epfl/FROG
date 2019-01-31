@@ -1,12 +1,11 @@
-// @flow
-
 import importAll from 'import-all.macro';
 import { keyBy } from 'lodash';
 import {
   type ActivityPackageT,
   entries,
   values,
-  type LearningItemT
+  type LearningItemT,
+  cloneDeep
 } from 'frog-utils';
 
 import { operatorTypes } from './operatorTypes';
@@ -40,27 +39,37 @@ export const learningItemTypesObj: {
 } = keyBy(
   values(internalLIs)
     .map(x => x.default)
-    .map(x => {
-      x.config = {
-        ...activityTypesObj['ac-single-li'],
-        meta: { name: x.name },
-        config: {
-          properties: {
-            ...activityTypesObj['ac-single-li'].config.properties,
-            liTypeEditor: { type: 'string', default: x.id }
-          }
-        }
-      };
-      return x;
-    })
     .concat(packageLIs),
   'id'
 );
 
-Object.keys(learningItemTypesObj).forEach(li => {
-  activityTypesObj[li] = learningItemTypesObj[li];
+const activityLIs = cloneDeep(learningItemTypesObj);
+Object.keys(activityLIs).forEach(li => {
+  const x = activityLIs[li];
+  if (!(x.Creator || (x.liDataStructure && x.Editor))) {
+    delete activityLIs[li];
+  }
 });
 
-activityTypes.push(...values(learningItemTypesObj));
+Object.values(activityLIs).forEach(x => {
+  x.meta = { name: x.name, shortDesc: '', description: '' };
+  x.mergeFunction = activityTypesObj['ac-single-li'].mergeFunction;
+  x.formatProduct = activityTypesObj['ac-single-li'].formatProduct;
+  x.configUI = activityTypesObj['ac-single-li'].configUI;
+  x.configVersion = 1;
+  x.dataStructure = {};
+  x.config = {
+    type: 'object',
+    properties: {
+      ...activityTypesObj['ac-single-li'].config.properties,
+      liTypeEditor: { type: 'string', default: x.id }
+    }
+  };
+});
 
-console.log(activityTypesObj, activityTypes);
+console.log(activityLIs);
+Object.keys(activityLIs).forEach(li => {
+  activityTypesObj[li] = activityLIs[li];
+});
+
+activityTypes.push(...values(activityLIs));

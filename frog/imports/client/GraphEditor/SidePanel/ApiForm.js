@@ -39,10 +39,7 @@ export const check = (
   setValid?: Function,
   onConfigChange?: Function
 ) => {
-  const aT =
-    activityType.slice(0, 3) === 'li-'
-      ? activityTypesObj['ac-single-li']
-      : activityTypesObj[activityType];
+  const aT = activityTypesObj[activityType];
   const valid = validateConfig(
     'activity',
     '1',
@@ -95,21 +92,12 @@ class Config extends React.Component<
       formData: this.props.config,
       valid: []
     };
-    const activityType =
-      typeof props.activity.activityType === 'object'
-        ? props.activity.activityType.activity_type
-        : props.activity.activityType;
-
     this.aT =
-      activityType.slice(0, 3) === 'li-'
-        ? {
-            ...activityTypesObj['ac-single-li'],
-            config: {
-              ...activityTypesObj['ac-single-li'].config,
-              liTypeEditor: activityType
-            }
-          }
-        : activityTypesObj[activityType];
+      activityTypesObj[
+        typeof props.activity.activityType === 'object'
+          ? props.activity.activityType.activity_type
+          : props.activity.activityType
+      ];
   }
 
   componentDidMount() {
@@ -340,11 +328,7 @@ const ApiForm = observer(
                         }
                       : {
                           activityType: e.id,
-                          config: jsonSchemaDefaults(
-                            e.id.slice(0, 3) === 'li-'
-                              ? activityTypesObj['ac-single-li'].config
-                              : e.config
-                          )
+                          config: jsonSchemaDefaults(e.config)
                         };
 
                   if (this.props.onSelect) {

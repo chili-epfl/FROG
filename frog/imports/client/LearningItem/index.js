@@ -125,7 +125,7 @@ class LearningItem extends React.Component<
         } else {
           const lid = props.dataFn.createLearningItem(
             liT.id,
-            liT.dataStructure,
+            liT.liDataStructure,
             {
               draft: true
             }

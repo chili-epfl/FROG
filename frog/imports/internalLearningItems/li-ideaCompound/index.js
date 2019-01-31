@@ -97,7 +97,7 @@ export default ({
   ThumbViewer,
   Viewer,
   Editor,
-  dataStructure: { title: '', content: '', attachments: [] },
+  liDataStructure: { title: '', content: '', attachments: [] },
   search: (data, search) =>
     data.title.toLowerCase().includes(search) ||
     data.content.toLowerCase().includes(search),

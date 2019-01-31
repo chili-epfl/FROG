@@ -113,7 +113,8 @@ class RenderLearningItem extends React.Component<any, any> {
       this.props.notEmpty &&
       (liEmpty
         ? !liEmpty(data.payload)
-        : liType.dataStructure && isEqual(data.payload, liType.dataStructure))
+        : liType.liDataStructure &&
+          isEqual(data.payload, liType.liDataStructure))
     ) {
       return null;
     }
