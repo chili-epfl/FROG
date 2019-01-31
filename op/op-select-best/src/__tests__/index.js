@@ -1,8 +1,8 @@
-// @flow
-
 import operator from '../operatorRunner';
 
-jest.mock('frog-utils');
+jest.mock('frog-utils', () =>
+  require.requireActual('../../../../__mocks__/frog-utils')
+);
 
 const object2 = {
   _id: 'cjgccn7m5000ik7j4g5i6uc2i',
@@ -57,10 +57,22 @@ const object2 = {
 test('deal with whole instance data', () => {
   expect(operator({ topN: 1 }, object2)).toEqual({
     payload: {
-      '1': { config: {}, data: { '1': { id: 1, msg: 'hello', score: 10 } } },
-      '2': { config: {}, data: { '2': { id: 2, msg: 'hello', score: 1 } } },
-      '3': { config: {}, data: { '3': { id: 3, msg: 'hello', score: 2 } } },
-      '4': { config: {}, data: { '4': { id: 4, msg: 'hello', score: 1 } } }
+      '1': {
+        config: {},
+        data: { cjn1: { id: 'cjn1', msg: 'hello', score: 10 } }
+      },
+      '2': {
+        config: {},
+        data: { cjn2: { id: 'cjn2', msg: 'hello', score: 1 } }
+      },
+      '3': {
+        config: {},
+        data: { cjn3: { id: 'cjn3', msg: 'hello', score: 2 } }
+      },
+      '4': {
+        config: {},
+        data: { cjn4: { id: 'cjn4', msg: 'hello', score: 1 } }
+      }
     },
     structure: { groupingKey: 'group' }
   });
