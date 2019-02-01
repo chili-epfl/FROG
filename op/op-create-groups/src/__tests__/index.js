@@ -22,7 +22,7 @@ test('Create groups maximum', () =>
     group: { '1': ['1', '2'], '2': ['3', '4'], '3': ['5'] }
   }));
 
-test('Create groups individual', () =>
+test('Create groups individual max', () =>
   expect(operator({ strategy: 'maximum', groupsize: 1 }, obj)).toEqual({
     group: { '1': ['1'], '2': ['2'], '3': ['3'], '4': ['4'], '5': ['5'] }
   }));
@@ -30,7 +30,7 @@ test('Create groups individual', () =>
 const obj2 = {
   globalStructure: { studentIds: ['1', '2', '3', '4', '5', '6', '7', '8'] }
 };
-test('Create groups individual', () =>
+test('Create groups individual min', () =>
   expect(operator({ strategy: 'minimum', groupsize: 3 }, obj2)).toEqual({
     group: { '1': ['1', '2', '3', '8'], '2': ['4', '5', '6', '7'] }
   }));

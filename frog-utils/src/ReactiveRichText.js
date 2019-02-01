@@ -860,9 +860,7 @@ class ReactiveRichText extends Component<
       attributes: { author?: string, 'li-view'?: string }
     }>
   }) => {
-    console.log('submitOp');
     if (!this.props.readOnly) {
-      console.log('submitOp - not readonly');
       const editor = this.quillRef.getEditor();
 
       if (editor) {

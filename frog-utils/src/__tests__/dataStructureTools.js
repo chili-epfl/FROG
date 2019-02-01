@@ -49,7 +49,7 @@ test('Units for object all', () => {
   });
 });
 
-test('Units for object all', () => {
+test('Units for object all 2', () => {
   expect(extractUnit(dataAll, 'individual', 'aa')).toEqual({
     data: { text: 'data' },
     config: { text: 'config' }

@@ -69,7 +69,7 @@ const object = {
   }
 };
 
-test.only('P2, 2 objects', () => {
+test('P2, 2 objects', () => {
   expect(pkg({}, objectp2)).toEqual(result2);
 });
 

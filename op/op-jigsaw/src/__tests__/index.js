@@ -139,7 +139,7 @@ const objectMany = {
   socialStructure: {}
 };
 
-test('test mixing larger', () =>
+test('test mixing larger +', () =>
   expect(operator({ roles: 'A,B' }, objectMany)).toEqual({
     group: {
       '0': ['1', '10'],

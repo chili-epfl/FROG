@@ -205,7 +205,6 @@ export const HighlightSearchText = ({
       acc += char;
       i += 1;
     }
-    console.log(i, c);
     result = acc;
   }
 
@@ -315,7 +314,6 @@ export const shortenRichText = (
     trimmedOps.push(edgeOp);
 
     trimmedOps.push({ insert: '...' });
-    console.log(trimmedOps);
     return { ops: trimmedOps };
   }
 };
