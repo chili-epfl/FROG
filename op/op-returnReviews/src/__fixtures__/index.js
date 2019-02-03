@@ -240,70 +240,14 @@ export const objectp2 = {
 
 export const result2 = {
   payload: {
-    '1': {
-      data: {
-        cjr9p77bv002316se9kxwm8w2: {
-          id: 'cjr9p77bv002316se9kxwm8w2',
-          li: 'cjr9p76qg001v16se70e3k8w2'
-        }
-      }
-    },
-    '2': {
-      data: {
-        cjr9p77bv002416ser64nk14d: {
-          id: 'cjr9p77bv002416ser64nk14d',
-          li: 'cjr9p76qi001w16sesqnntrlg'
-        }
-      }
-    },
-    '3': {
-      data: {
-        cjr9p77bv002516se4gijjxbd: {
-          id: 'cjr9p77bv002516se4gijjxbd',
-          li: 'cjr9p76qk001x16se3kkbt0fc'
-        }
-      }
-    },
-    '4': {
-      data: {
-        cjr9p77bv002616seoxhvoc7u: {
-          id: 'cjr9p77bv002616seoxhvoc7u',
-          li: 'cjr9p76ql001y16seb0elgrkj'
-        }
-      }
-    },
-    '5': {
-      data: {
-        cjr9p77bv002716sezhh3s8ud: {
-          id: 'cjr9p77bv002716sezhh3s8ud',
-          li: 'cjr9p76qm001z16seqk7ni9xg'
-        }
-      }
-    },
-    '6': {
-      data: {
-        cjr9p77bv002816secly4xlge: {
-          id: 'cjr9p77bv002816secly4xlge',
-          li: 'cjr9p76qn002016se1apwn4lz'
-        }
-      }
-    },
-    '7': {
-      data: {
-        cjr9p77bv002916se31nf7ffz: {
-          id: 'cjr9p77bv002916se31nf7ffz',
-          li: 'cjr9p76qo002116secyz9lsly'
-        }
-      }
-    },
-    '8': {
-      data: {
-        cjr9p77bv002a16see064oide: {
-          id: 'cjr9p77bv002a16see064oide',
-          li: 'cjr9p76qp002216se4zw0yw2d'
-        }
-      }
-    }
+    '1': { data: { cjn1: { id: 'cjn1', li: 'cjr9p77c2002c16se68owbu0w' } } },
+    '2': { data: { cjn2: { id: 'cjn2', li: 'cjr9p77c3002f16sedsthutxs' } } },
+    '3': { data: { cjn3: { id: 'cjn3', li: 'cjr9p77c3002i16seuv556yf4' } } },
+    '4': { data: { cjn4: { id: 'cjn4', li: 'cjr9p77c3002l16se1zyum0qf' } } },
+    '5': { data: { cjn5: { id: 'cjn5', li: 'cjr9p77c3002o16seujlgf2mi' } } },
+    '6': { data: { cjn6: { id: 'cjn6', li: 'cjr9p77c3002r16seflq13pxg' } } },
+    '7': { data: { cjn7: { id: 'cjn7', li: 'cjr9p77c3002u16seiqi23dns' } } },
+    '8': { data: { cjn8: { id: 'cjn8', li: 'cjr9p77c3002x16seoawaf8re' } } }
   },
   structure: { groupingKey: 'group' }
 };

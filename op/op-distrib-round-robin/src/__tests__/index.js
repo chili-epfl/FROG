@@ -1,6 +1,10 @@
 import operator from '../operatorRunner';
 import { obj, prod } from '../__fixtures__';
 
+jest.mock('frog-utils', () =>
+  require.requireActual('../../../../__mocks__/frog-utils')
+);
+
 const object = {
   globalStructure: { studentIds: ['1', '2', '3', '4', '5'] },
   activityData: {

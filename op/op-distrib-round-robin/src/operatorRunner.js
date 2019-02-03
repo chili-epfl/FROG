@@ -19,9 +19,8 @@ const operator = (configData, { activityData, socialStructure }) => {
   const count = Math.min(configData.count || 1, instances.length - 1);
 
   const shuffles = range(1, count + 1).map(i =>
-    getRotateable(instances, i + configData.offset)
+    getRotateable(instances, i + (configData.offset || 0))
   );
-
   return {
     structure: activityData.structure,
     payload: instances.reduce((acc, x, i) => {
