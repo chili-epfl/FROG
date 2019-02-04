@@ -122,23 +122,23 @@ export const mergeOneInstance = (
   );
   try {
     serverDoc.create(data, undefined, undefined, err => {
-      if (err) {
-        console.error(
-          Date.now(),
-          'Creating ShareDB document',
-          docId || [activity._id + '/' + grouping].join('/'),
-          err
-        );
-      }
+      // if (err) {
+      //   console.error(
+      //     Date.now(),
+      //     'Creating ShareDB document',
+      //     docId || [activity._id + '/' + grouping].join('/'),
+      //     err
+      //   );
+      // }
     });
   } catch (e) {
-    console.error(
-      Date.now(),
-      'Catch: Creating ShareDB document for ',
-      activity._id,
-      grouping,
-      e
-    );
+    // console.error(
+    //   Date.now(),
+    //   'Catch: Creating ShareDB document for ',
+    //   activity._id,
+    //   grouping,
+    //   e
+    // );
   }
 };
 

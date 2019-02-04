@@ -319,7 +319,7 @@ class LearningItemBlot extends Embed {
           );
         }
       }, 100);
-      return
+      return;
     }
 
     if (format === 'li-view') {
@@ -521,13 +521,14 @@ const formats = [
 ];
 
 type ReactivePropsT = {
-  path: string,
+  path?: string,
   dataFn: Object,
   data?: Object,
   readOnly?: boolean,
   shorten?: number,
-  userId: string,
-  search: string
+  userId?: string,
+  search?: string,
+  onChange?: Function
 };
 
 class ReactiveRichText extends Component<
@@ -544,7 +545,9 @@ class ReactiveRichText extends Component<
 
   styleElements: {};
 
-  state = { path: this.props.dataFn.getMergedPath(this.props.path) };
+  state = {
+    path: this.props.dataFn.getMergedPath(this.props.path)
+  };
 
   constructor(props: ReactivePropsT) {
     super(props);
@@ -586,7 +589,9 @@ class ReactiveRichText extends Component<
   };
 
   update = (props: ReactivePropsT) => {
-    props.dataFn.doc.on('op', this.opListener);
+    if (props.dataFn?.doc) {
+      props.dataFn.doc.on('op', this.opListener);
+    }
   };
 
   getDocumentContent = () => {
@@ -896,7 +901,7 @@ class ReactiveRichText extends Component<
       attributes: { author?: string, 'li-view'?: string }
     }>
   }) => {
-    if (!this.props.readOnly) {
+    if (!this.props.readOnly && this.props.dataFn && !this.props.onChange) {
       const editor = this.quillRef.getEditor();
 
       if (editor) {
@@ -1070,7 +1075,7 @@ class ReactiveRichText extends Component<
           />
         )}
         <ReactQuill
-          defaultValue={defaultValue}
+          defaultValue={this.props.data ? this.props.data : defaultValue}
           ref={element => {
             this.quillRef = element;
           }}
@@ -1089,6 +1094,7 @@ class ReactiveRichText extends Component<
                 }
           }}
           scrollingContainer={`.${scrollContainerClass}`}
+          onChange={this.props.onChange && this.props.onChange}
         >
           <div className={scrollContainerClass} style={editorStyle} />
         </ReactQuill>

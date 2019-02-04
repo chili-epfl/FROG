@@ -26,7 +26,12 @@ const OrchestrationCtrlButtons = ({ session, classes }) => {
 
   return (
     <Grid container>
-      <Grid item xs={6} className={classes.textRight}>
+      <Grid item xs={3} className={classes.textRight}>
+        {session.timeInGraph > -1 && (
+          <ControlButton btnModel={buttonsModel.prev} />
+        )}
+      </Grid>
+      <Grid item xs={3} className={classes.textRight}>
         <ControlButton
           btnModel={
             session.timeInGraph === -1 ? buttonsModel.start : buttonsModel.next

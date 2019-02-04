@@ -3,6 +3,7 @@ import * as React from 'react';
 import Stop from '@material-ui/icons/Stop';
 import Pause from '@material-ui/icons/Pause';
 import SkipNext from '@material-ui/icons/SkipNext';
+import Rewind from '@material-ui/icons/FastRewind';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Refresh from '@material-ui/icons/Refresh';
 import blue from '@material-ui/core/colors/blue';
@@ -19,7 +20,7 @@ import {
   updateSessionState,
   restartSession
 } from '/imports/api/sessions';
-import { nextActivity } from '/imports/api/engine';
+import { nextActivity, goBack } from '/imports/api/engine';
 import downloadLog from './downloadLog';
 import { exportSession } from './exportComponent';
 import { teacherLogger } from '/imports/api/logs';
@@ -112,6 +113,27 @@ export const OrchestrationButtonsModel = (session, classes) => ({
       variant: 'contained'
     },
     icon: <SkipNext className={classes.icon} />
+  },
+  prev: {
+    tooltip: {
+      id: 'tooltip-top',
+      title: 'Previous Activity',
+      placement: 'top'
+    },
+    button: {
+      color: red[700],
+      onClick: () => {
+        // eslint-disable-next-line no-alert
+        const response = window.confirm(
+          'Go back one step? Warning, you will loose all data produced since then!'
+        );
+        if (!response) {
+          return;
+        }
+        goBack(session._id);
+      }
+    },
+    icon: <Rewind className={classes.icon} />
   },
   restart: {
     tooltip: {
@@ -253,7 +275,7 @@ export const ControlButton = ({ btnModel }) => {
   return (
     <ToolTipComponent tooltip={tooltip}>
       <Button
-        variant={button.variant || 'flat'}
+        variant={button.variant || 'text'}
         color={button.themeColor || 'default'}
         style={{
           backgroundColor: button.color,
@@ -274,7 +296,7 @@ export const ControlButtonLink = ({ btnModel, classes }) => {
   return (
     <ToolTipComponent tooltip={tooltip}>
       <Button
-        variant={button.variant || 'flat'}
+        variant={button.variant || 'text'}
         color={button.themeColor || 'default'}
         className={classes.controlBtn}
         style={{ backgroundColor: button.color }}

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basic diff 1`] = `
+Object {
+  "payload": Object {
+    "1": Object {
+      "data": Object {
+        "cjn1": Object {
+          "id": "cjn1",
+          "ops": Array [
+            Object {
+              "insert": "h",
+            },
+            Object {
+              "attributes": Object {
+                "background": "#cce8cc",
+                "color": "#003700",
+              },
+              "insert": "ello",
+            },
+            Object {
+              "attributes": Object {
+                "author": "Xg6zatcGuL7NPK6TN",
+                "background": "#e8cccc",
+                "color": "#370000",
+                "strike": true,
+              },
+              "insert": "i",
+            },
+            Object {
+              "insert": " this is ",
+            },
+            Object {
+              "attributes": Object {
+                "author": "Xg6zatcGuL7NPK6TN",
+                "background": "#e8cccc",
+                "color": "#370000",
+                "strike": true,
+              },
+              "insert": "very ",
+            },
+            Object {
+              "insert": "pretty",
+            },
+            Object {
+              "attributes": Object {
+                "background": "#cce8cc",
+                "color": "#003700",
+              },
+              "insert": " interesting",
+            },
+            Object {
+              "insert": "
+",
+            },
+          ],
+        },
+      },
+    },
+  },
+  "structure": Object {
+    "groupingKey": "individual",
+  },
+}
+`;

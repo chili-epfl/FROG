@@ -11,7 +11,7 @@ const meta = {
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: { toDiff: { title: 'Text to diff with', type: 'quill' } }
 };
 
 export default ({
