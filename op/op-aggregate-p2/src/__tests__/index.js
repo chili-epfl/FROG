@@ -139,7 +139,7 @@ const object2 = {
 
 const config2 = { grouping: 'group' };
 
-test('deal with whole instance data', () => {
+test('deal with whole instance data 2', () => {
   expect(operator(config2, object2)).toEqual({
     payload: {
       '1': {

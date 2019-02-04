@@ -88,7 +88,7 @@ class LogoutMenu extends React.Component<*, *> {
           <MenuItem
             onClick={() => {
               window.open('https://froglearning.wordpress.com');
-              this.handleClose;
+              this.handleClose();
             }}
           >
             Website

@@ -194,6 +194,6 @@ const opsocial2 = [
   { _id: 'o1', operatorType: 'op-group-identical', data: { old: 'group' } },
   { _id: 'o2', operatorType: 'op-jigsaw', type: 'social' }
 ];
-test('make sure social attributes required by operators is also tested', () => {
+test('make sure social attributes required by operators is also tested 2', () => {
   expect(getErrs([], opsocial2, connop2)).toEqual([]);
 });

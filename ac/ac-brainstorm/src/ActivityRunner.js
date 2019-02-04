@@ -16,7 +16,7 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { withStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
-import { IconButton, CardContent, CardActions } from '@material-ui/core';
+import { IconButton, CardContent } from '@material-ui/core';
 
 const styles = () => ({
   badge: {
