@@ -11,6 +11,7 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import PencilIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
+import { makeStyles } from '@material-ui/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { orderBy } from 'lodash';
@@ -31,32 +32,42 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const AddingLI = ({ LearningItem, config }) => (
-  <Card style={{ margin: 5, padding: 5 }} raised>
-    <CardContent>
-      <div style={{ width: '500px' }}>
-        {config.specificLI && (
-          <LearningItem
-            liType={config.liType || 'li-idea'}
-            type="create"
-            meta={{ score: 0, students: {} }}
-            autoInsert
-          />
-        )}
-      </div>
+const useStyles = makeStyles({
+  card: { margin: 5, padding: 5 },
+  cardContent: { width: '500px' },
+  addGeneral: { float: 'right' }
+});
 
-      {config.allowGeneralLI && (
-        <div style={{ float: 'right' }}>
-          <LearningItem
-            type="create"
-            meta={{ score: 0, students: {} }}
-            autoInsert
-          />
+const AddingLI = ({ LearningItem, config }) => {
+  const classes = useStyles();
+
+  return (
+    <Card className={classes.card} raised>
+      <CardContent>
+        <div className={classes.cardContent}>
+          {config.specificLI && (
+            <LearningItem
+              liType={config.liType || 'li-idea'}
+              type="create"
+              meta={{ score: 0, students: {} }}
+              autoInsert
+            />
+          )}
         </div>
-      )}
-    </CardContent>
-  </Card>
-);
+
+        {config.allowGeneralLI && (
+          <div className={classes.addGeneral}>
+            <LearningItem
+              type="create"
+              meta={{ score: 0, students: {} }}
+              autoInsert
+            />
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
 
 class Idea extends React.Component<
   {
