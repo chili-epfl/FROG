@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ['flowtype', 'prettier'],
+  plugins: ['flowtype', 'prettier', 'react-hooks'],
   globals: {
     document: true,
     test: true,
@@ -15,6 +15,7 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'react-hooks/rules-of-hooks': 'error',
     'react/prefer-stateless-function': 'off',
     'class-methods-use-this': 'off',
     'consistent-return': 'off',
