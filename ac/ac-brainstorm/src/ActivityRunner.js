@@ -255,6 +255,7 @@ const IdeaList = ({
 }) => {
   const [edit, setEdit] = React.useState();
   const [zoom, setZoom] = React.useState();
+
   return (
     <>
       <List style={{ width: '100%' }}>
