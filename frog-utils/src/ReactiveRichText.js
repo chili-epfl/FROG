@@ -319,7 +319,7 @@ class LearningItemBlot extends Embed {
           );
         }
       }, 100);
-      return
+      return;
     }
 
     if (format === 'li-view') {
