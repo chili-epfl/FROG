@@ -156,6 +156,32 @@ export class Doc {
     }
   };
 
+  duplicateLI = async (li: string) => {
+    const connection = this.LIConnection || this.doc.connection;
+    console.log(li);
+    const newLI = await new Promise(resolve => {
+      const doc = connection.get('li', li);
+      doc.fetch();
+      if (doc.type) {
+        resolve(doc.data);
+      }
+
+      doc.once('load', () => {
+        resolve(doc.data);
+      });
+    });
+
+    const id = uuid();
+    const itempointer = (this.LIConnection || this.doc.connection).get(
+      'li',
+      id
+    );
+    itempointer.create(newLI);
+    itempointer.subscribe();
+    console.log(id);
+    return id;
+  };
+
   bindTextField(ref: any, rawpath: rawPathT) {
     const path = cleanPath(this.path, rawpath);
     if (typeof get(this.doc.data, path) !== 'string') {

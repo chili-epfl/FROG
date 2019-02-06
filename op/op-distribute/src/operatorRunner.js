@@ -1,8 +1,8 @@
 // @flow
 import { shuffle, compact } from 'lodash';
-import { type productOperatorRunnerT } from 'frog-utils';
+import { type productOperatorRunnerT, uuid } from 'frog-utils';
 
-const operator = (configData, object) => {
+const operator = async (configData, object, dataFn) => {
   const { globalStructure, socialStructure, activityData } = object;
   if (activityData.structure !== 'all') {
     throw 'Cannot redistribute already distributed content';
@@ -42,10 +42,39 @@ const operator = (configData, object) => {
     }),
     {}
   );
+
   res = Object.keys(res).reduce(
-    (acc, x) => ({ ...acc, [x]: { data: res[x] } }),
+    (acc, x) => ({
+      ...acc,
+      [x]: {
+        data: res[x].reduce((acc2, item) => {
+          acc2[item.id] = item;
+          return acc2;
+        }, {})
+      }
+    }),
     {}
   );
+
+  if (configData.duplicateLIs) {
+    await Promise.all(
+      Object.keys(res).map(async instance => {
+        await Promise.all(
+          Object.keys(res[instance].data).map(async itemKey => {
+            const item = res[instance].data[itemKey];
+            const newLI = await dataFn.duplicateLI(item.li);
+            const newID = uuid();
+            res[instance].data[newID] = {
+              ...res[instance].data[itemKey],
+              id: newID,
+              li: newLI
+            };
+            delete res[instance].data[itemKey];
+          })
+        );
+      })
+    );
+  }
 
   const structure = configData.individual
     ? 'individual'
