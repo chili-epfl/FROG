@@ -8,9 +8,9 @@
   "dependencies": {
     "@material-ui/core": "^3.8.1",
     "frog-utils": "^1.0.0",
-    "plotly.js": "^1.44.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "plotly.js": "^1.44.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-plotly.js": "^2.2.0"
   },
   "devDependencies": {

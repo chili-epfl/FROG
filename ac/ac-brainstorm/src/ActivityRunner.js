@@ -11,19 +11,11 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import PencilIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
+import { makeStyles } from '@material-ui/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
-import { withStyles } from '@material-ui/core/styles';
-import { withState, compose } from 'recompose';
 import { orderBy } from 'lodash';
 import { IconButton, CardContent } from '@material-ui/core';
-
-const styles = () => ({
-  badge: {
-    right: '1px',
-    top: '1px'
-  }
-});
 
 const red = '#AA0000';
 const blue = '#0000FF';
@@ -40,32 +32,42 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const AddingLI = ({ LearningItem, config }) => (
-  <Card style={{ margin: 5, padding: 5 }} raised>
-    <CardContent>
-      <div style={{ width: '500px' }}>
-        {config.specificLI && (
-          <LearningItem
-            liType={config.liType || 'li-idea'}
-            type="create"
-            meta={{ score: 0, students: {} }}
-            autoInsert
-          />
-        )}
-      </div>
+const useStyles = makeStyles({
+  card: { margin: 5, padding: 5 },
+  cardContent: { width: '500px' },
+  addGeneral: { float: 'right' }
+});
 
-      {config.allowGeneralLI && (
-        <div style={{ float: 'right' }}>
-          <LearningItem
-            type="create"
-            meta={{ score: 0, students: {} }}
-            autoInsert
-          />
+const AddingLI = ({ LearningItem, config }) => {
+  const classes = useStyles();
+
+  return (
+    <Card className={classes.card} raised>
+      <CardContent>
+        <div className={classes.cardContent}>
+          {config.specificLI && (
+            <LearningItem
+              liType={config.liType || 'li-idea'}
+              type="create"
+              meta={{ score: 0, students: {} }}
+              autoInsert
+            />
+          )}
         </div>
-      )}
-    </CardContent>
-  </Card>
-);
+
+        {config.allowGeneralLI && (
+          <div className={classes.addGeneral}>
+            <LearningItem
+              type="create"
+              meta={{ score: 0, students: {} }}
+              autoInsert
+            />
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
 
 class Idea extends React.Component<
   {
@@ -253,84 +255,80 @@ class Idea extends React.Component<
   }
 }
 
-const IdeaListRaw = ({
+const IdeaList = ({
   data,
   dataFn,
   vote,
   userInfo,
-  edit,
-  setEdit,
-  zoom,
-  setZoom,
   LearningItem,
   history,
   config
-}) => (
-  <>
-    <List style={{ width: '100%' }}>
-      <FlipMove duration={750} easing="ease-out">
-        {(config.sort
-          ? orderBy(values(data), x => parseInt(x.score, 10), ['desc'])
-          : values(data)
-        ).map(x => (
-          <div key={x.id}>
-            <LearningItem
-              id={x.li}
-              notEmpty
-              type={
-                edit === x.id
-                  ? 'edit'
-                  : zoom === x.id
-                  ? history
-                    ? 'history'
-                    : 'view'
-                  : config.expandItems
-                  ? 'view'
-                  : 'thumbView'
-              }
-              render={({ zoomable, editable, children }) => (
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    borderRadius: '5px',
-                    padding: '5px'
-                  }}
-                >
-                  <Idea
-                    edit={edit === x.id}
-                    zoomable={zoomable || history}
-                    editable={editable}
-                    config={config}
-                    meta={x}
-                    vote={vote}
-                    userInfo={userInfo}
-                    delFn={item => dataFn.objDel(item, item.id)}
-                    editFn={e => {
-                      setZoom(false);
-                      setEdit(edit === e ? false : e);
-                    }}
-                    zoomFn={e => {
-                      setEdit(false);
-                      setZoom(zoom === e ? false : e);
+}) => {
+  const [edit, setEdit] = React.useState();
+  const [zoom, setZoom] = React.useState();
+
+  return (
+    <>
+      <List style={{ width: '100%' }}>
+        <FlipMove duration={750} easing="ease-out">
+          {(config.sort
+            ? orderBy(values(data), x => parseInt(x.score, 10), ['desc'])
+            : values(data)
+          ).map(x => (
+            <div key={x.id}>
+              <LearningItem
+                id={x.li}
+                notEmpty
+                type={
+                  edit === x.id
+                    ? 'edit'
+                    : zoom === x.id
+                    ? history
+                      ? 'history'
+                      : 'view'
+                    : config.expandItems
+                    ? 'view'
+                    : 'thumbView'
+                }
+                render={({ zoomable, editable, children }) => (
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      borderRadius: '5px',
+                      padding: '5px'
                     }}
                   >
-                    {children}
-                  </Idea>
-                </div>
-              )}
-            />
-          </div>
-        ))}
-      </FlipMove>
-    </List>
-  </>
-);
-
-const IdeaList = compose(
-  withState('edit', 'setEdit', undefined),
-  withState('zoom', 'setZoom', undefined)
-)(withStyles(styles)(IdeaListRaw));
+                    <Idea
+                      edit={edit === x.id}
+                      zoomable={zoomable || history}
+                      editable={editable}
+                      config={config}
+                      meta={x}
+                      vote={vote}
+                      userInfo={userInfo}
+                      delFn={item => dataFn.objDel(item, item.id)}
+                      editFn={e => {
+                        setZoom(false);
+                        setEdit(edit === e ? false : e);
+                      }}
+                      zoomFn={e => {
+                        setEdit(false);
+                        setZoom(zoom === e ? false : e);
+                      }}
+                    >
+                      {children}
+                    </Idea>
+                  </div>
+                )}
+              />
+            </div>
+          ))}
+        </FlipMove>
+      </List>
+    </>
+  );
+};
 
 const ListComponent = ({
   userInfo,
