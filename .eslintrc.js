@@ -15,6 +15,13 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'no-restricted-syntax': [
+      'off',
+      {
+        selector: 'ForOfStatement'
+      }
+    ],
+    'no-prototype-builtins': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react/prefer-stateless-function': 'off',
     'class-methods-use-this': 'off',

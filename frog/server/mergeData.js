@@ -121,7 +121,7 @@ export const mergeOneInstance = (
     docId || activity._id + '/' + grouping
   );
   try {
-    serverDoc.create(data, undefined, undefined, err => {
+    serverDoc.create(data, undefined, undefined, _ => {
       // if (err) {
       //   console.error(
       //     Date.now(),
