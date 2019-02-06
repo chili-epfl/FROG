@@ -178,7 +178,6 @@ export class Doc {
     );
     itempointer.create(newLI);
     itempointer.subscribe();
-    console.log(id);
     return id;
   };
 

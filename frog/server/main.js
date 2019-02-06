@@ -3,7 +3,6 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
 
-require('util').inspect.defaultOptions.depth = null;
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { uuid } from 'frog-utils';
@@ -31,6 +30,7 @@ import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
 import './redis';
 
+require('util').inspect.defaultOptions.depth = null;
 console.info('Meteor settings', Meteor.settings);
 
 dashboardSubscription();
