@@ -689,7 +689,10 @@ class ReactiveRichText extends Component<
       );
     }
 
-    this.addAuthor(this.props.userId);
+    const userId = this.props.userId;
+    if (userId) {
+      this.addAuthor(userId);
+    }
     const content = this.getDocumentContent();
     forEach(content.ops, op => {
       const author = get(op, 'attributes.author');

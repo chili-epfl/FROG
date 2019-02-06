@@ -48,7 +48,7 @@ export default ({
     [path]: {
       ops: [
         {
-          insert: '\n'.repeat(5)
+          insert: '\n'
         }
       ]
     }
