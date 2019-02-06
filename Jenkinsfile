@@ -13,9 +13,7 @@ def abortPreviousRunningBuilds() {
         )
       )
       println("Aborted previous running build #${build.number}")
-    } else {
-      println("Build is not running or is current build, not aborting - #${build.number}")
-    }
+    } 
   }
 }
 pipeline {
