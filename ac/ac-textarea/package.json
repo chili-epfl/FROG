@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "frog-utils": "1.0.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {
