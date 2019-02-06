@@ -7,5 +7,6 @@ module.exports = {
     '^/(.*)$': '<rootDir>/frog/$1',
     '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
   },
-  moduleDirectories: ['node_modules']
+  moduleDirectories: ['node_modules'],
+  setupFiles: ['<rootDir>/node_modules/regenerator-runtime/runtime']
 };
