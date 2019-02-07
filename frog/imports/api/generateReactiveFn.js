@@ -156,18 +156,21 @@ export class Doc {
     }
   };
 
-  duplicateLI = async (li: string) => {
+  duplicateLI = async (li: string, meta?: Object) => {
     const connection = this.LIConnection || this.doc.connection;
-    console.log(li);
-    const newLI = await new Promise(resolve => {
+    const LIData = await new Promise(resolve => {
       const doc = connection.get('li', li);
       doc.fetch();
       if (doc.type) {
-        resolve(doc.data);
+        const data = doc.data;
+        doc.destroy();
+        resolve(data);
       }
 
       doc.once('load', () => {
-        resolve(doc.data);
+        const data = doc.data;
+        doc.destroy();
+        resolve(data);
       });
     });
 
@@ -176,6 +179,12 @@ export class Doc {
       'li',
       id
     );
+    const newLI = {
+      ...LIData,
+      createdAt: new Date(),
+      ...(meta || {}),
+      ...this.meta
+    };
     itempointer.create(newLI);
     itempointer.subscribe();
     return id;

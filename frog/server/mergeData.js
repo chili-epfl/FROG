@@ -27,7 +27,7 @@ const backend = new ShareDB({
 });
 const connection = backend.connect();
 
-export const mergeOneInstance = (
+export const mergeOneInstance = async (
   grouping: string,
   activity: ActivityDbT,
   dataStructure: any,
@@ -61,7 +61,7 @@ export const mergeOneInstance = (
           doc.fetch();
           doc.once(
             'load',
-            Meteor.bindEnvironment(() => {
+            Meteor.bindEnvironment(async () => {
               try {
                 doc.create(
                   dataStructure !== undefined ? cloneDeep(dataStructure) : {}
@@ -102,7 +102,12 @@ export const mergeOneInstance = (
               );
               // merging in config with incoming product
               if (mergeFunction) {
-                mergeFunction(instanceActivityData, dataFn, doc.data, activity);
+                await mergeFunction(
+                  instanceActivityData,
+                  dataFn,
+                  doc.data,
+                  activity
+                );
               }
               const docdata = doc.data;
               doc.destroy();

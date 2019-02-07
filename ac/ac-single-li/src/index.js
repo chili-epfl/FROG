@@ -65,6 +65,10 @@ const config = {
       title: 'Allow editing after submission',
       default: true,
       type: 'boolean'
+    },
+    duplicateLI: {
+      title: 'Create duplicate of incoming Learning Item',
+      type: 'boolean'
     }
   }
 };
@@ -91,13 +95,19 @@ const validateConfig = [
       : null
 ];
 
-const mergeFunction = (obj: Object, dataFn: Object) => {
+const mergeFunction = async (obj: Object, dataFn: Object) => {
   let empty = true;
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
     if (li) {
-      dataFn.objInsert(values(obj.data)[0]);
-      empty = false;
+      if (obj.config.duplicateLI) {
+        const newLI = await dataFn.duplicateLI(li);
+        dataFn.objInsert({ ...values(obj.data)[0], li: newLI });
+        empty = false;
+      } else {
+        dataFn.objInsert(values(obj.data)[0]);
+        empty = false;
+      }
     }
   }
   if (empty && obj.config.noSubmit && obj.config.liTypeEditor) {

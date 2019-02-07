@@ -81,10 +81,7 @@ export default class ConfigForm extends Component<
   }
 
   componentWillUnmount() {
-    if (
-      !isEqual(this.state.formData, this.state.lastChange) &&
-      !this.props.onChange
-    ) {
+    if (!isEqual(this.state.formData, this.state.lastChange)) {
       this.onChangeImmediately(this.state.formData);
     }
   }
