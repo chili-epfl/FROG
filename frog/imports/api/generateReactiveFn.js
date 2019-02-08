@@ -116,7 +116,6 @@ export class Doc {
         id
       );
       itempointer.create(newLI);
-      itempointer.subscribe();
       return id;
     }
   }
@@ -195,7 +194,6 @@ export class Doc {
       ...this.meta
     };
     itempointer.create(newLI);
-    itempointer.subscribe();
     return id;
   };
 
