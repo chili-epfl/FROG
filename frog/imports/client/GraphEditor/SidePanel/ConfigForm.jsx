@@ -36,6 +36,8 @@ export default class ConfigForm extends Component<
   ConfigFormPropsT,
   { formData: Object, id?: string, lastChange: Object }
 > {
+  unmounted: boolean;
+
   constructor(props: ConfigFormPropsT) {
     super(props);
     this.state = {
@@ -81,6 +83,7 @@ export default class ConfigForm extends Component<
   }
 
   componentWillUnmount() {
+    this.unmounted = true;
     if (!isEqual(this.state.formData, this.state.lastChange)) {
       this.onChangeImmediately(this.state.formData);
     }
@@ -92,7 +95,6 @@ export default class ConfigForm extends Component<
     if (this.props.onChange) {
       this.props.onChange(data);
     } else {
-      this.setState({ lastChange: data });
       if (this.props.node.operatorType) {
         addOperator(
           this.props.node.operatorType,
@@ -112,6 +114,9 @@ export default class ConfigForm extends Component<
           this.props.node._id,
           null
         );
+      }
+      if (!this.unmounted) {
+        this.setState({ lastChange: data });
       }
       this.props.refreshValidate();
     }

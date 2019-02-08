@@ -16,12 +16,12 @@ export default class RichText extends React.Component<*, *> {
   render() {
     const {
       onChange,
-      value = JSON.stringify({ ops: { insert: '\n' } })
+      value = JSON.stringify({ ops: [{ insert: '\n' }] })
     } = this.props;
     return (
       <div>
         <ReactiveRichText
-          data={JSON.parse(value)}
+          rawData={JSON.parse(value)}
           onChange={(_, _1, source, editor) => {
             if (source === 'user') {
               onChange(JSON.stringify(editor.getContents()));

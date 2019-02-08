@@ -121,6 +121,8 @@ class MyMenu extends React.Component<any, any> {
 }
 
 class Dashboard extends React.Component<any, any> {
+  subscription: any;
+
   constructor(props: *) {
     super(props);
 
@@ -136,16 +138,22 @@ class Dashboard extends React.Component<any, any> {
     const query = this.props.sessionId
       ? { sessionId: this.props.sessionId, draft: { $ne: true } }
       : { _id: this.props.id };
-    const subscription = connection.createSubscribeQuery(
+    this.subscription = connection.createSubscribeQuery(
       'li',
       query,
       {},
       (err, results) =>
         this.setState({ results: results.map(x => ({ ...x.data, id: x.id })) })
     );
-    subscription.on('changed', e =>
+    this.subscription.on('changed', e =>
       this.setState({ results: e.map(x => ({ ...x.data, id: x.id })) })
     );
+  }
+
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.destroy();
+    }
   }
 
   render() {

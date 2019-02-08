@@ -522,6 +522,7 @@ const formats = [
 
 type ReactivePropsT = {
   path?: string,
+  rawData?: Object,
   dataFn: Object,
   data?: Object,
   readOnly?: boolean,
@@ -777,7 +778,7 @@ class ReactiveRichText extends Component<
         });
       }
 
-      if (!this.props.data) {
+      if (!this.props.data && !this.props.rawData) {
         this.update(this.props);
         this.initializeAuthorship();
       }
@@ -803,7 +804,7 @@ class ReactiveRichText extends Component<
   }
 
   componentWillUnmount() {
-    if (!this.props.data) {
+    if (!this.props.data && !this.props.rawData) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
       if (!this.props.shorten) {
         const editor = this.quillRef.getEditor();
@@ -1078,7 +1079,7 @@ class ReactiveRichText extends Component<
           />
         )}
         <ReactQuill
-          defaultValue={this.props.data ? this.props.data : defaultValue}
+          defaultValue={this.props.rawData || defaultValue}
           ref={element => {
             this.quillRef = element;
           }}
@@ -1097,7 +1098,7 @@ class ReactiveRichText extends Component<
                 }
           }}
           scrollingContainer={`.${scrollContainerClass}`}
-          onChange={this.props.onChange && this.props.onChange}
+          onChange={this.props.onChange}
         >
           <div className={scrollContainerClass} style={editorStyle} />
         </ReactQuill>
