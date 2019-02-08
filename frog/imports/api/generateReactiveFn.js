@@ -156,7 +156,16 @@ export class Doc {
     }
   };
 
-  duplicateLI = async (li: string, meta?: Object) => {
+  duplicateLI = async (li: string | Object, meta?: Object) => {
+    if (typeof li !== 'string') {
+      const liT = learningItemTypesObj[li.liDocument.liType];
+      if (liT.duplicate) {
+        return liT.duplicate(li, this, this.meta);
+      } else {
+        return li;
+      }
+    }
+
     const connection = this.LIConnection || this.doc.connection;
     const LIData = await new Promise(resolve => {
       const doc = connection.get('li', li);

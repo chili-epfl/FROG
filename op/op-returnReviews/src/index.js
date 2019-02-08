@@ -11,7 +11,13 @@ const meta = {
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    unwrap: {
+      title: 'Only send back the review, remove the item to be reviewed',
+      type: 'boolean',
+      default: true
+    }
+  }
 };
 
 export default ({

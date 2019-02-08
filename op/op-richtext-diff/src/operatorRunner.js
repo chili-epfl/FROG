@@ -58,6 +58,7 @@ const operator = async (configData, { activityData }, dataFn) => {
 
           doc.once('load', () => {
             const result = transform(doc.data.payload, toDiff);
+            doc.destroy();
             resolve(result);
           });
         });

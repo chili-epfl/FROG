@@ -39,7 +39,12 @@ const operator = (configData, { activityData }) => {
           const id = uuid();
           return {
             ...acc2,
-            [id]: { id, li: item.li.liDocument.payload.reviewId }
+            [id]: {
+              id,
+              li: configData.unwrap
+                ? item.li.liDocument.payload.reviewId
+                : item.li
+            }
           };
         }, {})
       };
