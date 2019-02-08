@@ -241,6 +241,13 @@ class ActivityRunner extends React.Component<*, *> {
                       ? '40px'
                       : 100 / (this.props.data[0].length - 1) + '%',
                   height: '30px',
+                  backgroundColor:
+                    search &&
+                    ((data[props.row][props.col].value || '') + '')
+                      .toLowerCase()
+                      .includes(search)
+                      ? '#FFFF00'
+                      : undefined,
                   textAlign: numberRegex.test(data[props.row][props.col].value)
                     ? 'right'
                     : 'left'
@@ -340,14 +347,6 @@ class ActivityRunner extends React.Component<*, *> {
     );
   }
 }
-
-const ActivityRunnerSpecialized = ({ data, dataFn, ...rest }) => (
-  <ActivityRunner
-    data={data.sheet}
-    dataFn={dataFn.specialize('sheet')}
-    {...rest}
-  />
-);
 
 export default ({
   dataStructure: [0, 1, 2, 3, 4].map((row, i) =>

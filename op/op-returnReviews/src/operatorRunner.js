@@ -41,9 +41,9 @@ const operator = (configData, { activityData }) => {
             ...acc2,
             [id]: {
               id,
-              li: configData.unwrap
-                ? item.li.liDocument.payload.reviewId
-                : item.li
+              li: configData.includeItem
+                ? item.li
+                : item.li.liDocument.payload.reviewId
             }
           };
         }, {})

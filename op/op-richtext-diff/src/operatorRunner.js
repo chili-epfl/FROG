@@ -48,20 +48,22 @@ const operator = async (configData, { activityData }, dataFn) => {
   for await (const instance of Object.keys(activityData.payload)) {
     const items = await Promise.all(
       Object.values(activityData.payload[instance].data).map(async x => {
-        const val = await new Promise(resolve => {
-          const doc = connection.get('li', x.li);
-          doc.fetch();
-          if (doc.type) {
-            const result = transform(doc.data.payload, toDiff);
-            resolve(result);
-          }
+        const val = x.li.liDocument
+          ? transform(x.li.liDocument.payload, toDiff)
+          : await new Promise(resolve => {
+              const doc = connection.get('li', x.li);
+              doc.fetch();
+              if (doc.type) {
+                const result = transform(doc.data.payload, toDiff);
+                resolve(result);
+              }
 
-          doc.once('load', () => {
-            const result = transform(doc.data.payload, toDiff);
-            doc.destroy();
-            resolve(result);
-          });
-        });
+              doc.once('load', () => {
+                const result = transform(doc.data.payload, toDiff);
+                doc.destroy();
+                resolve(result);
+              });
+            });
         const newLI = dataFn.createLearningItem('li-richText', { text: val });
         return { li: newLI };
       })

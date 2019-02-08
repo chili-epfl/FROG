@@ -1,4 +1,16 @@
+import ShareDB from 'sharedb';
+import { generateReactiveFn } from '../../../../frog/imports/api/generateReactiveFn.js';
 import op from '../operatorRunner';
+
+jest.spyOn(Date, 'now').mockImplementation(() => 1479427200000);
+
+export const backend = new ShareDB({
+  disableDocAction: true,
+  disableSpaceDelimitedActions: true
+});
+export const connection = backend.connect();
+const doc = connection.get('random');
+const dataFn = generateReactiveFn(doc);
 
 const config = {
   toDiff:
@@ -42,5 +54,12 @@ const data = {
 };
 
 test('Basic diff', () => {
-  expect(op(config, data)).toMatchSnapshot();
+  expect(
+    (() =>
+      new Promise(async resolve => {
+        await op(config, data, dataFn);
+        const d = connection.get('random', 'cjn1');
+        d.once('load', () => resolve(d.data));
+      }))()
+  ).resolves.toMatchSnapshot();
 });

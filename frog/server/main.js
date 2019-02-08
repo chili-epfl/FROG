@@ -31,6 +31,7 @@ import initExternalOperators from './externalOperators';
 import './redis';
 
 require('util').inspect.defaultOptions.depth = null;
+
 console.info('Meteor settings', Meteor.settings);
 
 dashboardSubscription();

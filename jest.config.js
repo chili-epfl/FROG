@@ -1,4 +1,5 @@
 /* eslint-disable */
+require("regenerator-runtime/runtime");
 
 module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
@@ -8,5 +9,5 @@ module.exports = {
     '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
   },
   moduleDirectories: ['node_modules'],
-  setupFiles: ['<rootDir>/node_modules/regenerator-runtime/runtime']
+  setupFiles: ['<rootDir>/node_modules/regenerator-runtime/runtime.js']
 };
