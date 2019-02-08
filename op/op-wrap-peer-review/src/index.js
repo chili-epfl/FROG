@@ -17,15 +17,41 @@ const config = {
       type: 'learningItemTypeEditor',
       default: 'li-richText'
     },
-    prompt: { title: 'Prompt', type: 'rte' }
+    prompt: { title: 'Prompt', type: 'rte' },
+    distribute: { title: 'Distribute round-robin fashion', type: 'boolean' },
+    count: {
+      title: 'Max number of items to send to each recipient',
+      type: 'number',
+      default: 1
+    },
+    offset: { title: 'Offset of round-robin distribution', type: 'number' }
   }
 };
+
+const configUI = {
+  count: { conditional: 'distribute' },
+  offset: { conditional: 'distribute' }
+};
+
+const validateConfig = [
+  formData =>
+    !formData.count || Math.round(formData.count) !== formData.count
+      ? { err: 'Count must be a positive integer' }
+      : null,
+  formData =>
+    formData.offset &&
+    (formData.offset < 1 || Math.round(formData.offset) !== formData.offset)
+      ? { err: 'Offset must be a positive integer' }
+      : null
+];
 
 export default ({
   id: 'op-wrap-peer-review',
   type: 'product',
   configVersion: 1,
   config,
+  configUI,
+  validateConfig,
   meta,
   LearningItems: [liType]
 }: productOperatorT);

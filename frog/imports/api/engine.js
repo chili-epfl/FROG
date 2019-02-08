@@ -4,7 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { type ActivityDbT } from 'frog-utils';
 
-import { Activities } from './activities';
+import { Activities, Connections } from './activities';
+import { Products } from './products';
+import { Operators } from './operators';
+import { Objects } from './objects';
 import {
   Sessions,
   updateSessionState,
@@ -12,10 +15,13 @@ import {
   sessionCancelCountDown
 } from './sessions';
 import { engineLogger } from './logs';
-import { calculateNextOpen } from './graphSequence';
+import { calculateNextOpen, getPrevTime } from './graphSequence';
 
 export const nextActivity = (sessionId: string) =>
   Meteor.call('next.activity', sessionId);
+
+export const goBack = (sessionId: string) =>
+  Meteor.call('graph.goBack', sessionId);
 
 export const updateNextOpenActivities = (
   sessionId: string,
@@ -69,6 +75,63 @@ export const runNextActivity = (sessionId: string) => {
   }
 };
 
+const findAllStartTimes = (operator, operators, connections, activities) => {
+  if (!operator) {
+    return [];
+  }
+  return connections
+    .filter(x => x.source.id === operator._id)
+    .flatMap(x =>
+      x.target.type === 'activity'
+        ? activities.find(act => act._id === x.target.id)?.startTime
+        : findAllStartTimes(
+            operators.find(op => op._id === x.target.id),
+            operators,
+            connections,
+            activities
+          )
+    );
+};
+
+export const graphGoBack = (sessionId: string) => {
+  if (Meteor.isServer) {
+    sessionCancelCountDown(sessionId);
+    const session = Sessions.findOne(sessionId);
+    const oldOpen = [...session.openActivities];
+    const activities = Activities.find({ graphId: session.graphId }).fetch();
+    const operators = Operators.find({
+      graphId: session.graphId,
+      state: 'computed'
+    }).fetch();
+    const connections = Connections.find({ graphId: session.graphId }).fetch();
+
+    const [newTimeInGraph, openActivities] = getPrevTime(
+      activities,
+      session.timeInGraph
+    );
+    oldOpen
+      .filter(x => !openActivities.includes(x))
+      .forEach(x =>
+        Activities.update(x, { $unset: { state: '', actualStartTime: '' } })
+      );
+
+    operators.forEach(op => {
+      const starts = findAllStartTimes(op, operators, connections, activities);
+      if (starts.every(start => start >= newTimeInGraph)) {
+        Operators.update(op._id, { $unset: { state: '' } });
+        Products.remove(op._id);
+        Objects.remove(op._id);
+      }
+    });
+
+    const openActivityIds = openActivities.map(x => x._id);
+    updateOpenActivities(sessionId, openActivityIds, newTimeInGraph);
+
+    engineLogger(sessionId, 'teacher.prevActivity', newTimeInGraph);
+    updateNextOpenActivities(sessionId, newTimeInGraph, activities);
+  }
+};
+
 export const runSessionFn = (sessionId: string) => {
   updateSessionState(sessionId, 'READY');
   Sessions.update(sessionId, { $set: { startedAt: Date.now() } });
@@ -97,5 +160,6 @@ export const runSessionFn = (sessionId: string) => {
 };
 
 Meteor.methods({
-  'next.activity': runNextActivity
+  'next.activity': runNextActivity,
+  'graph.goBack': graphGoBack
 });

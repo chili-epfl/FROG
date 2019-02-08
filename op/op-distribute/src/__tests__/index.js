@@ -13,53 +13,47 @@ const object = {
   socialStructure: socStruct,
   activityData: {
     structure: 'all',
-    payload: { all: { data: ['aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg'] } }
+    payload: {
+      all: {
+        data: {
+          aa: { id: 'aa' },
+          bb: { id: 'bb' },
+          cc: { id: 'cc' },
+          dd: { id: 'dd' },
+          ee: { id: 'ee' },
+          ff: { id: 'ff' },
+          gg: { id: 'gg' }
+        }
+      }
+    }
   }
 };
 
 test('Distribute 2 to each group', () =>
   expect(
     operator({ grouping: 'group', maxitems: 2, overlap: false }, { ...object })
-  ).toEqual({
-    payload: { '1': { data: ['gg', 'ee'] }, '2': { data: ['ff', 'dd'] } },
+  ).resolves.toEqual({
+    payload: {
+      '1': { data: { ee: { id: 'ee' }, gg: { id: 'gg' } } },
+      '2': { data: { dd: { id: 'dd' }, ff: { id: 'ff' } } }
+    },
     structure: { groupingKey: 'group' }
   }));
 
 test('Distribute 5 to each group, no overlap', () => {
   expect(
     operator({ grouping: 'group', maxitems: 5, overlap: false }, { ...object })
-  ).toEqual({
-    payload: {
-      '1': { data: ['gg', 'ee', 'cc', 'aa'] },
-      '2': { data: ['ff', 'dd', 'bb'] }
-    },
-    structure: { groupingKey: 'group' }
-  });
+  ).resolves.toMatchSnapshot();
 });
 
 test('Distribute 5 to each group,  overlap', () => {
   expect(
     operator({ grouping: 'group', maxitems: 5, overlap: true }, { ...object })
-  ).toEqual({
-    payload: {
-      '1': { data: ['aa', 'bb', 'cc', 'dd', 'ee'] },
-      '2': { data: ['aa', 'bb', 'cc', 'dd', 'ee'] }
-    },
-    structure: { groupingKey: 'group' }
-  });
+  ).resolves.toMatchSnapshot();
 });
 
 test('Distribute 2 to each student, overlap', () => {
   expect(
     operator({ maxitems: 2, overlap: true, individual: true }, { ...object })
-  ).toEqual({
-    payload: {
-      '1': { data: ['aa', 'bb'] },
-      '2': { data: ['aa', 'bb'] },
-      '3': { data: ['aa', 'bb'] },
-      '4': { data: ['aa', 'bb'] },
-      '5': { data: ['aa', 'bb'] }
-    },
-    structure: 'individual'
-  });
+  ).resolves.toMatchSnapshot();
 });

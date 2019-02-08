@@ -13,6 +13,7 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   const anyActivityPaths = paths.filter(
     x => get(schema, [...x, 'type']) === 'anyActivity'
   );
+  const quillPaths = paths.filter(x => get(schema, [...x, 'type']) === 'quill');
   const targetActivityPaths = paths.filter(
     x => get(schema, [...x, 'type']) === 'targetActivity'
   );
@@ -39,7 +40,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...socialPaths,
     ...rtePaths,
     ...LITypePaths,
-    ...LITypeEditorPaths
+    ...LITypeEditorPaths,
+    ...quillPaths
   ].forEach(x => set(newSchema, [...x, 'type'], 'string'));
 
   delete newSchema.properties.component;
@@ -47,6 +49,11 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   const socialMerges = socialPaths.map(x =>
     set({}, x.filter(y => y !== 'properties'), {
       'ui:widget': 'socialAttributeWidget'
+    })
+  );
+  const quillMerges = quillPaths.map(x =>
+    set({}, x.filter(y => y !== 'properties'), {
+      'ui:widget': 'quillWidget'
     })
   );
   const LIMerges = LITypePaths.map(x =>
@@ -110,7 +117,8 @@ export default (schema: Object, uiSchema: ?Object): Object => {
     ...targetActivityMerges,
     ...rteMerges,
     ...LIMerges,
-    ...LIEditorMerges
+    ...LIEditorMerges,
+    ...quillMerges
   );
   return { uiSchema: newUiSchema, schema: newSchema };
 };
