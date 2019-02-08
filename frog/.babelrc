@@ -34,14 +34,6 @@
   ],
   "env": {
     "test": {
-      "plugins":     [
-      "transform-runtime",
-      {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true
-      }
-    ]},
       "presets": [
         "@babel/preset-env"
       ]
