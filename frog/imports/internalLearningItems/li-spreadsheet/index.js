@@ -1,7 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { isBrowser, flattenOne, ReactiveText } from 'frog-utils';
+import {
+  isBrowser,
+  flattenOne,
+  ReactiveText,
+  type LearningItemT
+} from 'frog-utils';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
