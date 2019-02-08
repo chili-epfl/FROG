@@ -55,14 +55,5 @@ test('Distribute 5 to each group,  overlap', () => {
 test('Distribute 2 to each student, overlap', () => {
   expect(
     operator({ maxitems: 2, overlap: true, individual: true }, { ...object })
-  ).resolves.toEqual({
-    payload: {
-      '1': { data: ['aa', 'bb'] },
-      '2': { data: ['aa', 'bb'] },
-      '3': { data: ['aa', 'bb'] },
-      '4': { data: ['aa', 'bb'] },
-      '5': { data: ['aa', 'bb'] }
-    },
-    structure: 'individual'
-  });
+  ).resolves.toMatchSnapshot();
 });
