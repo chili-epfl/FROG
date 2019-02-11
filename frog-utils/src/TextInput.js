@@ -9,6 +9,7 @@ type TextInputPropsT = {
   onSubmit?: Function,
   onCancel?: Function,
   onFocus?: Function,
+  clearOnEnter?: boolean,
   style?: Object
 };
 
@@ -60,6 +61,9 @@ export class TextInput extends React.Component<
     if (e.keyCode === 13) {
       if (this.props.onSubmit) {
         this.props.onSubmit(this.state.value);
+      }
+      if (this.props.clearOnEnter) {
+        this.setState({ value: '' });
       }
     }
   };
