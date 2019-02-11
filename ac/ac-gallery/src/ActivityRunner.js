@@ -92,6 +92,7 @@ class ActivityRunner extends React.Component<
 
     return (
       <>
+        {config.guidelines}
         <TopBar
           categories={[...Object.keys(this.categories)]}
           canVote={config.canVote}
