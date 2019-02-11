@@ -1,7 +1,7 @@
 // @flow
 
 import { type ActivityPackageT } from 'frog-utils';
-import dashboard from './dashboard';
+import dashboards from './dashboard';
 
 const meta = {
   name: 'Simple chat',
@@ -16,13 +16,13 @@ const config = {
       title: 'Title',
       type: 'string'
     },
-    allowLearningItem: {
-      title: 'Allow adding Learning Items',
+    showMood: {
+      title: 'Show collaboratively editable mood',
       type: 'boolean',
       default: true
     },
-    showMood: {
-      title: 'Show collaboratively editable mood',
+    allowLearningItem: {
+      title: 'Allow adding Learning Items',
       type: 'boolean',
       default: true
     }
@@ -38,6 +38,6 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboard,
+  dashboards,
   dataStructure
 }: ActivityPackageT);

@@ -5,7 +5,7 @@ import { type LogDbT, type DashboardT } from 'frog-utils';
 
 const Viewer = ({ state, users }: Object) => (
   <>
-    <h1>Number of words per user</h1>
+    <h1>Number of characters per user</h1>
     {Object.keys(state).map(u => (
       <li key={u}>
         {users[u]}: {state[u]}
