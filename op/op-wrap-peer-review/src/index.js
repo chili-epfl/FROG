@@ -35,7 +35,8 @@ const configUI = {
 
 const validateConfig = [
   formData =>
-    !formData.count || Math.round(formData.count) !== formData.count
+    formData.count &&
+    (formData.count < 1 || Math.round(formData.count) !== formData.count)
       ? { err: 'Count must be a positive integer' }
       : null,
   formData =>
