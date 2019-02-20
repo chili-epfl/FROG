@@ -4,7 +4,7 @@ import { compact, some } from 'lodash';
 import { entries } from 'frog-utils';
 
 const regex = /(&nbsp;|<([^>]+)>)/gi;
-const stripTags = html => html.replace(regex, '');
+const stripTags = html => (html || '').replace(regex, '');
 
 export const exportData = (config: Object, { payload }: Object) => {
   const csv = Object.keys(payload).map(instanceId => {
