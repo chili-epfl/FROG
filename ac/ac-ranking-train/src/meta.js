@@ -10,7 +10,7 @@ const trainConfig = {
 };
 
 export default {
-  name: 'Ranking Activity',
+  name: 'Ranking Activity for Train Experiment',
   shortDesc: 'Prompt that allows the student to rank a set of answers.',
   description:
     'Students are able to provide a set of rankings for a given prompt.',
