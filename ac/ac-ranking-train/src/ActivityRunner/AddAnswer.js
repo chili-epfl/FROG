@@ -35,11 +35,11 @@ const onClick = props => () => {
   } = props;
   const { answers } = data;
 
-  const newAnswers = answers[userInfo.id] || {};
+  const newAnswers = answers[data.round][userInfo.id] || {};
   newAnswers[title] = rank + 1;
 
   const progress = answers[data.round][userInfo.id]
-    ? nKey(newAnswers) / config.answers.length
+    ? nKey(newAnswers) / (config.answers.length + 1)
     : 0;
 
   const coordinates = getXYFromRanking(newAnswers, config);
