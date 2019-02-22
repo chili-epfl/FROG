@@ -121,7 +121,6 @@ const RunnerController = props => {
   const p = Math.round((iteration / (4 * iterationPerInterface)) * 100);
   return (
     <div className={classes.main}>
-      {' '}
       <LinearProgress
         variant="determinate"
         value={p}

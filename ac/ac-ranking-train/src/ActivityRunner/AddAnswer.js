@@ -38,7 +38,7 @@ const onClick = props => () => {
   const newAnswers = answers[userInfo.id] || {};
   newAnswers[title] = rank + 1;
 
-  const progress = answers[userInfo.id]
+  const progress = answers[data.round][userInfo.id]
     ? nKey(newAnswers) / config.answers.length
     : 0;
 
