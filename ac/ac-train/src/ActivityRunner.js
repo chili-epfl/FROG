@@ -8,6 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { SpecificGuideline } from './Guidelines';
 import Interface from './Interface';
+import mergeLog from './mergeLog';
 
 const styles = {
   main: {
@@ -109,10 +110,19 @@ const RunnerController = props => {
     },
     classes
   } = props;
+  const logger = rawLog => {
+    console.log(rawLog);
+    const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
+    logs.forEach(msg =>
+      mergeLog(props.data, props.dataFn, msg, props.activityData.config)
+    );
+    props.logger(rawLog);
+  };
 
   const p = Math.round((iteration / (4 * iterationPerInterface)) * 100);
   return (
     <div className={classes.main}>
+      {' '}
       <LinearProgress
         variant="determinate"
         value={p}
@@ -123,7 +133,7 @@ const RunnerController = props => {
         }}
       />
       <div className={classes.container}>
-        <Main {...props} />
+        <Main {...{ ...props, logger }} />
       </div>
     </div>
   );

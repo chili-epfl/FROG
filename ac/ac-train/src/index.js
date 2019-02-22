@@ -79,7 +79,14 @@ const dataStructure = {
   step: 0,
   score: 0,
   guidelines: true,
-  iteration: 0
+  iteration: 0,
+  logs: {
+    error: {},
+    time: {},
+    help: {},
+    count: {},
+    sum: {}
+  }
 };
 
 export default ({
