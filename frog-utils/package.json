@@ -25,7 +25,6 @@
     "react-jsonschema-form-extras": "^0.9.35",
     "react-rte": "^0.16.1",
     "recompose": "^0.30.0",
-    "regression": "2.0.1",
     "sharedb": "^1.0.0-beta.18",
     "sharedb-string-binding": "^1.0.0",
     "text-clipper": "^1.2.2",
