@@ -60,7 +60,7 @@ class Actions extends React.Component {
           </Help>
           <Button
             color="primary"
-            variant="raised"
+            variant="contained"
             className={classes.buy}
             onClick={submitAnswer}
           >
