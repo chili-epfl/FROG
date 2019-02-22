@@ -47,9 +47,9 @@ const mergeLog = (data, dataFnRaw, log, config) => {
   if (log.type === 'help' && log.payload) {
     const { whichInterface } = log.payload;
     if (!state['help'][whichInterface]) {
-      dataFn.objInsert(0, 'help', whichInterface);
+      dataFn.objInsert(0, ['help', whichInterface]);
     }
-    dataFn.numIncr(1, 'help', whichInterface);
+    dataFn.numIncr(1, ['help', whichInterface]);
   }
 };
 

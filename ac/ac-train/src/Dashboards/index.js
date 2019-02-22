@@ -19,9 +19,9 @@ import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';
 const styles = {
   flexGrid: {
     display: 'flex',
-    padding: '40px',
     background: '#f5f8fa',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    overflow: 'scroll'
   },
   lg: {
     width: '25%',
@@ -75,6 +75,7 @@ class AllDashboards extends React.Component<DashboardViewerPropsT, StateT> {
       >
         {({ measureRef }) => (
           <div ref={measureRef} style={styles.flexGrid}>
+            <h1>A summary of your performance with buying train tickets</h1>
             <div style={styles[widthStyle]}>
               <MeanPerTryForEachInterface {...this.props} whichDash="error" />
             </div>

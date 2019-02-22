@@ -144,7 +144,7 @@ const ContentController = ({
   const RunComp = activityRunners[activityType.id];
   RunComp.displayName = activityType.id;
 
-  const examples = activityType.meta.exampleData || [];
+  const examples = addDefaultExample(activityType);
   const exData = examples[example] && cloneDeep(examples[example]);
   // $FlowFixMe
   const data = exData && (exData.data ? exData.data : undefined);

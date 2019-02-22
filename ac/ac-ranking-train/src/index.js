@@ -1,5 +1,3 @@
-// @flow
-
 import { type ActivityPackageT } from 'frog-utils';
 import { sortBy } from 'lodash';
 
@@ -8,9 +6,9 @@ import dashboards from './Dashboard';
 import meta from './meta';
 
 const dataStructure = {
-  justification: '',
-  answers: {},
-  group: {}
+  answers: [{}, {}],
+  group: {},
+  round: 0
 };
 
 export const formatProduct = (
@@ -19,17 +17,12 @@ export const formatProduct = (
   instanceId: string
 ) => {
   const userName = data.group[instanceId];
-  const obj = data.answers[instanceId];
+  const obj = data.answers[1][instanceId];
   const choices = sortBy(Object.keys(obj || {}), k => obj[k]).join(', ');
 
   let msg;
   if (userName && choices) {
     msg = `${userName} ranked the interfaces in the following order: ${choices}`;
-    if (data.justification) {
-      msg += `, with the justification "${data.justification}".`;
-    } else {
-      msg += ', with no justification.';
-    }
   } else if (userName) {
     msg = `${userName} has not ranked the interfaces.`;
   } else {

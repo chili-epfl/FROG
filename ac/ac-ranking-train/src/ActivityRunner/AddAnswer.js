@@ -59,7 +59,7 @@ const onClick = props => () => {
       payload: coordinates
     }
   ]);
-  dataFn.objInsert(rank + 1, ['answers', userInfo.id, title]);
+  dataFn.objInsert(rank + 1, ['answers', props.data.round, userInfo.id, title]);
 };
 
 export default (props: Object) => {

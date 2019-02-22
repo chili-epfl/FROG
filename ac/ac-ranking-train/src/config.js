@@ -23,6 +23,10 @@ export const config = {
       type: 'array',
       title: 'Choices',
       items: { type: 'string' }
+    },
+    dashboard: {
+      type: 'boolean',
+      title: 'Show individual data, while re-ranking'
     }
   }
 };

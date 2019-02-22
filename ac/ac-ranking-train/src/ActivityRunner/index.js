@@ -1,12 +1,10 @@
-// @flow
-
 import * as React from 'react';
 import styled from 'styled-components';
 import { HTML } from 'frog-utils';
 import { isEqual } from 'lodash';
-import { withState } from 'recompose';
+import { Grid } from '@material-ui/core';
 
-import Justification from './Justification';
+import Dashboard from '../Dashboards';
 
 import AnswerList from './AnswerList';
 import AddAnswer from './AddAnswer';
@@ -62,15 +60,17 @@ const ActivityRunner = props => {
     logger,
     dataFn,
     userInfo,
-    data,
-    init
+    data
   } = props;
-  const { answers, justification } = data;
 
-  if (!init && !answers[userInfo.id]) {
-    props.setInit(true);
-    dataFn.objInsert({}, ['answers', userInfo.id]);
+  const [init, setInit] = React.useState(false);
+  const { round, answers } = data;
+
+  if (!init && !answers[0][userInfo.id]) {
+    dataFn.objInsert({}, ['answers', 0, userInfo.id]);
+    dataFn.objInsert({}, ['answers', 1, userInfo.id]);
     dataFn.objInsert(userInfo.name, ['group', userInfo.id]);
+    setInit(true);
   }
 
   const listStyles = {
@@ -81,14 +81,13 @@ const ActivityRunner = props => {
   };
 
   const done =
-    answers[userInfo.id] &&
-    nKey(answers[userInfo.id]) === nKey(config.answers) &&
-    (!config.mustJustify || justification.length > 0);
+    answers[round][userInfo.id] &&
+    nKey(answers[round][userInfo.id]) === nKey(config.answers);
 
   const checkAnswers = () => {
-    const users = Object.keys(answers);
+    const users = Object.keys(answers[round]);
     return !users
-      .map(user => isEqual(answers[userInfo.id], answers[user]))
+      .map(user => isEqual(answers[round][userInfo.id], answers[round][user]))
       .includes(false);
   };
 
@@ -103,7 +102,15 @@ const ActivityRunner = props => {
   };
 
   const onSubmit = () => {
-    if (done && checkAnswers()) {
+    if (round === 0) {
+      if (done && checkAnswers()) {
+        dataFn.objInsert(false, ['alert']);
+        dataFn.objInsert(1, ['round']);
+        logger([{ type: 'progress', value: 0.5 }]);
+      } else {
+        dataFn.objInsert(true, ['alert']);
+      }
+    } else if (done && checkAnswers()) {
       dataFn.objInsert(false, ['alert']);
       dataFn.objInsert(true, ['completed']);
       logger([{ type: 'progress', value: 1 }]);
@@ -113,102 +120,114 @@ const ActivityRunner = props => {
   };
 
   return (
-    <div className="bootstrap">
-      <Container>
-        {data.completed ? (
-          <Completed {...props} />
-        ) : (
-          <ListContainer>
-            <div>
-              <HTML html={config.guidelines} />
-            </div>
-            <hr style={{ height: '5px' }} />
-            <div>
-              <HTML html={config.title} />
-            </div>
-            <div style={{ width: '100%' }}>
-              <div>
-                <table style={{ width: '100%' }}>
-                  <tbody>
-                    <tr>
-                      {Object.keys(answers).map(member => (
-                        <th key={member} style={{ ...listStyles.list }}>
-                          <p style={{ fontWeight: 'normal' }}>
-                            {data.group[member] + "'s List"}
-                          </p>
-                          <AnswerList
-                            {...props}
-                            answers={answers[member]}
-                            userID={member}
-                            uiID={userInfo.id}
-                          />
-                        </th>
-                      ))}
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            {nKey(answers[userInfo.id] || {}) < config.answers.length && (
-              <React.Fragment>
-                <hr style={{ height: '5px' }} />
-                <div>
+    <>
+      <Grid style={{ height: '100%' }} container spacing={24}>
+        {round === 1 && !data.completed && (
+          <Grid style={{ height: '100%' }} item xs={6}>
+            <Dashboard
+              dashboard={props.activityData.config.dashboard}
+              state={props.activityData?.data?.logs}
+            />
+          </Grid>
+        )}
+        <Grid item xs={round === 1 && !data.completed ? 6 : 12}>
+          <div className="bootstrap">
+            <Container>
+              {data.completed ? (
+                <Completed {...props} />
+              ) : (
+                <ListContainer>
+                  <div>
+                    <HTML html={config.guidelines} />
+                  </div>
+                  <hr style={{ height: '5px' }} />
+                  <div>
+                    <HTML html={config.title} />
+                  </div>
                   <div style={{ width: '100%' }}>
-                    <p>
-                      At rank {nKey(answers[userInfo.id] || {}) + 1}, add item:
-                    </p>
-                    <div
-                      style={{
-                        position: 'relative',
-                        width: '100%',
-                        display: 'block'
-                      }}
-                    >
-                      {(config.answers || [])
-                        .filter(ans => !(answers[userInfo.id] || {})[ans])
-                        .map(ans => (
-                          <AddAnswer
-                            {...props}
-                            title={ans}
-                            rank={nKey(answers[userInfo.id] || {})}
-                            key={ans}
-                          />
-                        ))}
+                    <div>
+                      <table style={{ width: '100%' }}>
+                        <tbody>
+                          <tr>
+                            {Object.keys(answers[round]).map(member => (
+                              <th key={member} style={{ ...listStyles.list }}>
+                                <p style={{ fontWeight: 'normal' }}>
+                                  {data.group[member] + "'s List"}
+                                </p>
+                                <AnswerList
+                                  {...props}
+                                  answers={answers[round][member]}
+                                  userID={member}
+                                  uiID={userInfo.id}
+                                />
+                              </th>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                </div>
-              </React.Fragment>
-            )}
-            <hr style={{ height: '5px' }} />
-            {config.justify && <Justification {...props} key="justification" />}
-            <div>
-              {data.alert ? (
-                <p style={{ color: 'red' }}>{alertMessage()}</p>
-              ) : null}
-              <button
-                type="button"
-                onClick={onSubmit}
-                key="submit"
-                style={{
-                  ...styles.button,
-                  backgroundColor: !done || !checkAnswers() ? grey : blue,
-                  marginLeft: '0px'
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          </ListContainer>
-        )}
-      </Container>
-    </div>
+                  {nKey(answers[round][userInfo.id] || {}) <
+                    config.answers.length && (
+                    <React.Fragment>
+                      <hr style={{ height: '5px' }} />
+                      <div>
+                        <div style={{ width: '100%' }}>
+                          <p>
+                            At rank{' '}
+                            {nKey(answers[round][userInfo.id] || {}) + 1}, add
+                            item:
+                          </p>
+                          <div
+                            style={{
+                              position: 'relative',
+                              width: '100%',
+                              display: 'block'
+                            }}
+                          >
+                            {(config.answers || [])
+                              .filter(
+                                ans => !(answers[round][userInfo.id] || {})[ans]
+                              )
+                              .map(ans => (
+                                <AddAnswer
+                                  {...props}
+                                  title={ans}
+                                  rank={nKey(answers[round][userInfo.id] || {})}
+                                  key={ans}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  )}
+                  <hr style={{ height: '5px' }} />
+                  <div>
+                    {data.alert ? (
+                      <p style={{ color: 'red' }}>{alertMessage()}</p>
+                    ) : null}
+                    <button
+                      type="button"
+                      onClick={onSubmit}
+                      key="submit"
+                      style={{
+                        ...styles.button,
+                        backgroundColor: !done || !checkAnswers() ? grey : blue,
+                        marginLeft: '0px'
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </ListContainer>
+              )}
+            </Container>
+          </div>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
-const DefaultExport: React.ComponentType<*> = withState(
-  'init',
-  'setInit',
-  false
-)(ActivityRunner);
-
-export default DefaultExport;
+export default ActivityRunner;

@@ -23,7 +23,7 @@ const changeRank = (props, incr) => {
   } = props;
   const { answers } = data;
 
-  const ans = answers[userInfo.id];
+  const ans = answers[data.round][userInfo.id];
 
   if (
     !(ans[answer] === 1 && incr < 0) &&
@@ -35,16 +35,20 @@ const changeRank = (props, incr) => {
     newAnswers[switchID] -= incr;
 
     const coordinates = getXYFromRanking(newAnswers, config);
-    dataFn.objInsert(coordinates, 'coordinates');
+    if (props.data.round === 1) {
+      dataFn.objInsert(coordinates, 'coordinates');
+    }
     logger([
       {
         type: 'listOrder',
         itemId: answer,
-        value: JSON.stringify(newAnswers)
+        value: JSON.stringify(newAnswers),
+        payload: { round: props.data.round }
       },
       {
         type: 'coordinates',
-        payload: coordinates
+        payload: coordinates,
+        round: props.data.round
       }
     ]);
     dataFn.objInsert(newAnswers, ['answers', userInfo.id]);

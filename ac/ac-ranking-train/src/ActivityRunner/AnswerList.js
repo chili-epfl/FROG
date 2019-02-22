@@ -10,7 +10,7 @@ export default (props: Object) => {
   const { data, userID } = props;
   const { answers } = data;
 
-  const memAnswers = answers[userID];
+  const memAnswers = answers[data.round][userID];
 
   return (
     <div>
