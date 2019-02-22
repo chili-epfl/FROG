@@ -52,7 +52,7 @@ const onClick = props => () => {
     },
     {
       type: 'progress',
-      value: config.mustJustify ? progress / 2 : progress
+      value: progress / 2 + data.round * 0.5
     },
     {
       type: 'coordinates',

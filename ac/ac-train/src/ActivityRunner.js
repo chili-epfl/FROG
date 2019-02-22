@@ -111,7 +111,6 @@ const RunnerController = props => {
     classes
   } = props;
   const logger = rawLog => {
-    console.log(rawLog);
     const logs = Array.isArray(rawLog) ? rawLog : [rawLog];
     logs.forEach(msg =>
       mergeLog(props.data, props.dataFn, msg, props.activityData.config)
