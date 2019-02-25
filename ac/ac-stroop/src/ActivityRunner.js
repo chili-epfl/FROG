@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 import { type ActivityRunnerPropsT, TimedComponent } from 'frog-utils';
-import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
 import { shuffle } from 'lodash';
+import { Button, LinearProgress } from '@material-ui/core';
 
 const styles = {
   button: { width: '90px', margin: 'auto', position: 'absolute' },
@@ -256,15 +256,17 @@ const Form = withState('language', 'setLanguage', null)(
       <div style={styles.text}>Choose your language</div>
       <div style={styles.commands}>
         <Button
+          variant="contained"
           style={{ ...styles.button, left: 0 }}
-          bsStyle={language === 'fr' ? 'success' : 'default'}
+          color={language === 'fr' ? 'primary' : undefined}
           onClick={() => setLanguage('fr')}
         >
           Français
         </Button>
         <Button
+          variant="contained"
           style={{ ...styles.button, right: 0 }}
-          bsStyle={language === 'en' ? 'success' : 'default'}
+          color={language === 'en' ? 'primary' : undefined}
           onClick={() => setLanguage('en')}
         >
           English
@@ -273,6 +275,7 @@ const Form = withState('language', 'setLanguage', null)(
       {language !== null && (
         <div style={{ ...styles.commands, width: '100px' }}>
           <Button
+            variant="contained"
             style={{ ...styles.button, width: '100%' }}
             onClick={() => onSubmit(language)}
             bsStyle="primary"
@@ -289,7 +292,11 @@ const Guidelines = ({ start, guidelines, lang }) => (
   <React.Fragment>
     <div style={styles.guidelines}>{guidelines}</div>
     <div style={{ ...styles.commands, width: '120px' }}>
-      <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
+      <Button
+        variant="contained"
+        style={{ ...styles.button, width: '100%' }}
+        onClick={start}
+      >
         {texts[lang].start}
       </Button>
     </div>
@@ -356,10 +363,18 @@ const Question = props => {
         <span style={{ color: colorFill }}>{colorName}</span>
       </div>
       <div style={styles.commands}>
-        <Button style={{ ...styles.button, left: 0 }} onClick={onClick(true)}>
+        <Button
+          variant="contained"
+          style={{ ...styles.button, left: 0 }}
+          onClick={onClick(true)}
+        >
           {texts[lang].yes}
         </Button>
-        <Button style={{ ...styles.button, right: 0 }} onClick={onClick(false)}>
+        <Button
+          variant="contained"
+          style={{ ...styles.button, right: 0 }}
+          onClick={onClick(false)}
+        >
           {texts[lang].no}
         </Button>
       </div>
@@ -406,7 +421,7 @@ const Runner = (props: ActivityRunnerPropsT) => {
   const p = Math.round((data.progress / maxQuestions) * 100);
   return (
     <div style={styles.main}>
-      <ProgressBar now={p} label={`${p}%`} />
+      <LinearProgress variant="determinate" value={p} />
       <div style={styles.container}>
         <Main {...props} />
       </div>
