@@ -4,13 +4,13 @@ import * as React from 'react';
 import { type ActivityRunnerPropsT, TimedComponent } from 'frog-utils';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
-import { shuffle } from 'lodash';
 import { Button, LinearProgress } from '@material-ui/core';
+import hardcodedList from './hardcodedList';
 
 const styles = {
   button: { width: '90px', margin: 'auto', position: 'absolute' },
   text: { width: '100%', fontSize: 'large', textAlign: 'center' },
-  guidelines: { width: '100%' },
+  guidelines: { width: '100%', fontSize: 'large' },
   main: {
     width: '100%',
     height: '100%',
@@ -36,180 +36,6 @@ const styles = {
     position: 'relative'
   }
 };
-
-// const randIndex = max => Math.round(max * Math.random() - 0.5);
-//
-// // returns an index different than `toAvoid`
-// const notIndex = (max, toAvoid) => (1 + toAvoid + randIndex(max - 1)) % max;
-
-// const generateExample = (objects, colors, colorsFill) => {
-//   const N = objects.length;
-//
-//   const isConsistent = Math.random() < 0.5;
-//   const isCorrect = Math.random() < 0.5;
-//
-//   const objectIndex = randIndex(N);
-//   const colorIndex = isCorrect ? objectIndex : notIndex(N, objectIndex);
-//   const colorFillIndex = isConsistent ? colorIndex : notIndex(N, colorIndex);
-//
-//   const objectName = objects[objectIndex];
-//   const colorName = colors[colorIndex];
-//   const colorFill = colorsFill[colorFillIndex];
-//
-//   const startTime = Date.now();
-//
-//   return {
-//     isConsistent,
-//     isCorrect,
-//     objectName,
-//     colorName,
-//     colorFill,
-//     startTime
-//   };
-// };
-
-const hardcodedList = shuffle([
-  {
-    isConsistent: false,
-    isCorrect: true,
-    fr: { objectName: 'citron', colorName: 'jaune' },
-    en: { objectName: 'lemons', colorName: 'yellow' },
-    colorFill: 'red'
-  },
-  {
-    isConsistent: false,
-    isCorrect: false,
-    fr: { objectName: 'bois', colorName: 'jaune' },
-    en: { objectName: 'wood', colorName: 'yellow' },
-    colorFill: 'red'
-  },
-  {
-    isConsistent: true,
-    isCorrect: true,
-    fr: { objectName: 'sang', colorName: 'rouge' },
-    en: { objectName: 'blood', colorName: 'red' },
-    colorFill: 'red'
-  },
-  {
-    isConsistent: true,
-    isCorrect: false,
-    fr: { objectName: 'gazon', colorName: 'rouge' },
-    en: { objectName: 'grass', colorName: 'red' },
-    colorFill: 'red'
-  },
-  {
-    isConsistent: true,
-    isCorrect: true,
-    fr: { objectName: 'citron', colorName: 'jaune' },
-    en: { objectName: 'lemons', colorName: 'yellow' },
-    colorFill: 'yellow'
-  },
-  {
-    isConsistent: true,
-    isCorrect: false,
-    fr: { objectName: 'sang', colorName: 'jaune' },
-    en: { objectName: 'blood', colorName: 'yellow' },
-    colorFill: 'yellow'
-  },
-  {
-    isConsistent: false,
-    isCorrect: true,
-    fr: { objectName: 'sang', colorName: 'rouge' },
-    en: { objectName: 'blood', colorName: 'red' },
-    colorFill: 'yellow'
-  },
-  {
-    isConsistent: false,
-    isCorrect: false,
-    fr: { objectName: 'ciel', colorName: 'rouge' },
-    en: { objectName: 'the sky', colorName: 'red' },
-    colorFill: 'yellow'
-  },
-  {
-    isConsistent: true,
-    isCorrect: true,
-    fr: { objectName: 'ciel', colorName: 'bleu' },
-    en: { objectName: 'the sky', colorName: 'blue' },
-    colorFill: 'blue'
-  },
-  {
-    isConsistent: true,
-    isCorrect: false,
-    fr: { objectName: 'bois', colorName: 'bleu' },
-    en: { objectName: 'wood', colorName: 'blue' },
-    colorFill: 'blue'
-  },
-  {
-    isConsistent: false,
-    isCorrect: false,
-    fr: { objectName: 'sang', colorName: 'vert' },
-    en: { objectName: 'blood', colorName: 'green' },
-    colorFill: 'blue'
-  },
-  {
-    isConsistent: false,
-    isCorrect: true,
-    fr: { objectName: 'gazon', colorName: 'vert' },
-    en: { objectName: 'grass', colorName: 'green' },
-    colorFill: 'blue'
-  },
-  {
-    isConsistent: true,
-    isCorrect: false,
-    fr: { objectName: 'ciel', colorName: 'vert' },
-    en: { objectName: 'the sky', colorName: 'green' },
-    colorFill: 'green'
-  },
-  {
-    isConsistent: true,
-    isCorrect: true,
-    fr: { objectName: 'gazon', colorName: 'vert' },
-    en: { objectName: 'grass', colorName: 'green' },
-    colorFill: 'green'
-  },
-  {
-    isConsistent: false,
-    isCorrect: true,
-    fr: { objectName: 'bois', colorName: 'marron' },
-    en: { objectName: 'wood', colorName: 'brown' },
-    colorFill: 'green'
-  },
-  {
-    isConsistent: false,
-    isCorrect: false,
-    fr: { objectName: 'gazon', colorName: 'marron' },
-    en: { objectName: 'grass', colorName: 'brown' },
-    colorFill: 'green'
-  },
-  {
-    isConsistent: true,
-    isCorrect: false,
-    fr: { objectName: 'citron', colorName: 'marron' },
-    en: { objectName: 'lemons', colorName: 'brown' },
-    colorFill: 'brown'
-  },
-  {
-    isConsistent: true,
-    isCorrect: true,
-    fr: { objectName: 'bois', colorName: 'marron' },
-    en: { objectName: 'wood', colorName: 'brown' },
-    colorFill: 'brown'
-  },
-  {
-    isConsistent: false,
-    isCorrect: true,
-    fr: { objectName: 'ciel', colorName: 'bleu' },
-    en: { objectName: 'the sky', colorName: 'blue' },
-    colorFill: 'brown'
-  },
-  {
-    isConsistent: false,
-    isCorrect: false,
-    fr: { objectName: 'citron', colorName: 'bleu' },
-    en: { objectName: 'lemons', colorName: 'blue' },
-    colorFill: 'brown'
-  }
-]);
 
 const generateExample = (progress, lang) => {
   const ex = hardcodedList[progress % hardcodedList.length];
@@ -289,7 +115,7 @@ const Form = withState('language', 'setLanguage', null)(
 );
 
 const Guidelines = ({ start, guidelines, lang }) => (
-  <React.Fragment>
+  <>
     <div style={styles.guidelines}>{guidelines}</div>
     <div style={{ ...styles.commands, width: '120px' }}>
       <Button
@@ -300,7 +126,7 @@ const Guidelines = ({ start, guidelines, lang }) => (
         {texts[lang].start}
       </Button>
     </div>
-  </React.Fragment>
+  </>
 );
 
 const CountDownTimer = TimedComponent(({ timeNow, length, start }) => {
@@ -312,10 +138,10 @@ const Delay = ({ next, delay, lang }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
   return (
-    <React.Fragment>
+    <>
       <div style={styles.text}>{texts[lang].wait}</div>
       <CountDownTimer start={Date.now()} length={delay} />
-    </React.Fragment>
+    </>
   );
 };
 
@@ -396,7 +222,7 @@ const Main = withState('question', 'setQuestion', null)(props => {
       logger([
         {
           type: 'progress',
-          value: data.progress / activityData.config.questions.length
+          value: data.progress / hardcodedList.length
         }
       ]);
     };
