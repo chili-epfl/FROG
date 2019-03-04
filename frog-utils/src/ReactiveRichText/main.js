@@ -2,7 +2,6 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {
   HighlightSearchText,
   uuid,
@@ -14,58 +13,28 @@ import {
   isEqual,
   last,
   forEach,
-  findIndex,
-  head,
   isUndefined,
   filter,
   find
 } from 'lodash';
-import Paper from '@material-ui/core/Paper';
-import ZoomIn from '@material-ui/icons/ZoomIn';
-import ZoomOut from '@material-ui/icons/ZoomOut';
-import FileCopy from '@material-ui/icons/FileCopy';
-import Save from '@material-ui/icons/Save';
-import Close from '@material-ui/icons/Close';
-import Create from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 
+import { LiViewTypes, formats } from './constants';
 import LearningItemBlot from './LearningItemBlot';
+import CustomQuillClipboard from './CustomQuillClipboard';
+
 let reactiveRichTextDataFn;
+
+LearningItemBlot.blotName = 'learning-item';
+LearningItemBlot.tagName = 'div';
+LearningItemBlot.className = 'ql-learning-item';
 Quill.register('formats/learning-item', LearningItemBlot);
 
+Quill.register('modules/clipboard', CustomQuillClipboard, true);
+
 const Delta = Quill.import('delta');
-
-const LiViewTypes = {
-  VIEW: 'view',
-  THUMB: 'thumbView',
-  EDIT: 'edit'
-};
-
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    overflow: 'auto'
-  },
-  button: {
-    color: '#AA0000',
-    width: 36,
-    height: 36
-  },
-  liTools: {
-    visibility: 'hidden'
-  },
-  liContainer: {
-    '&:hover $liTools': {
-      visibility: 'visible'
-    }
-  }
-});
-
 const Parchment = Quill.import('parchment');
+
 const AuthorClass = new Parchment.Attributor.Class('author', 'ql-author', {
   scope: Parchment.Scope.INLINE
 });
@@ -78,47 +47,6 @@ const LiViewAttribute = new Parchment.Attributor.Attribute(
 );
 Parchment.register(LiViewAttribute);
 Quill.register(LiViewAttribute, true);
-
-const Clipboard = Quill.import('modules/clipboard');
-
-class QuillClipboard extends Clipboard {
-  // There is a bug in Quill that causes the container scroll to jump on
-  // content paste. (Refer https://github.com/quilljs/quill/issues/1082)
-  // Following implements a modified version of the workaround suggested by the
-  // original author of Quill.
-  onPaste(e) {
-    const found = find(
-      e.path,
-      element => element.className === 'ql-learning-item'
-    );
-    // if found, that means the paste is done inside a LI. So bypass quill processing.
-    if (!found) {
-      const quill = this.quill;
-      const [range] = quill.selection.getRange();
-      const cursorIndex = get(range, 'index');
-      const editorLength = quill.getLength();
-
-      // Save existing scroll positions
-      const scrollTops = e.path.map(element => get(element, 'scrollTop'));
-      super.onPaste(e);
-      setTimeout(() => {
-        // Restore scroll positions
-        e.path.forEach((element, index) => {
-          element.scrollTop = scrollTops[index];
-        });
-        // If pasted at end of editor, scroll to bottom
-        if (cursorIndex && cursorIndex + 1 === editorLength) {
-          const scrollContainer = find(e.path, element =>
-            element.className.includes('ql-editor')
-          );
-          scrollContainer.scrollTop = scrollContainer.scrollHeight;
-        }
-      }, 1);
-    }
-  }
-}
-
-Quill.register('modules/clipboard', QuillClipboard, true);
 
 function hashCode(str = '') {
   let hash = 0;
@@ -190,24 +118,6 @@ hypothesisStyleFix.innerHTML = `.ql-editor annotation-viewer-content li::before 
 document.documentElement // $FlowFixMe
   .getElementsByTagName('head')[0]
   .appendChild(hypothesisStyleFix);
-
-const formats = [
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'code-block',
-  'header',
-  'list',
-  'link',
-  'image',
-  'video',
-  'learning-item',
-  'author',
-  'li-view',
-  'background'
-];
 
 type ReactivePropsT = {
   path?: string,

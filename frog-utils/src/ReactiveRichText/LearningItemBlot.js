@@ -1,143 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  HighlightSearchText,
-  uuid,
-  highlightTargetRichText,
-  cloneDeep
-} from 'frog-utils';
-import {
   get,
-  isEqual,
-  last,
-  forEach,
   findIndex,
   head,
-  isUndefined,
-  filter,
-  find
 } from 'lodash';
-import Paper from '@material-ui/core/Paper';
-import ZoomIn from '@material-ui/icons/ZoomIn';
-import ZoomOut from '@material-ui/icons/ZoomOut';
-import FileCopy from '@material-ui/icons/FileCopy';
-import Save from '@material-ui/icons/Save';
-import Close from '@material-ui/icons/Close';
-import Create from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import ReactQuill, { Quill } from '@houshuang/react-quill';
+import { Quill } from '@houshuang/react-quill';
 
-import { reactiveRichTextDataFn } from './ReactiveRichText';
-console.log(reactiveRichTextDataFn);
+import { LiViewTypes } from './constants';
+import LIComponent from './LIComponent';
 
 const Embed = Quill.import('blots/block/embed');
-
-const LiViewTypes = {
-  VIEW: 'view',
-  THUMB: 'thumbView',
-  EDIT: 'edit'
-};
-
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    overflow: 'auto'
-  },
-  button: {
-    color: '#AA0000',
-    width: 36,
-    height: 36
-  },
-  liTools: {
-    visibility: 'hidden'
-  },
-  liContainer: {
-    '&:hover $liTools': {
-      visibility: 'visible'
-    }
-  }
-});
-
-const LIComponentRaw = ({
-  id,
-  authorId,
-  classes,
-  liView,
-  liZoomState,
-  controls
-}) => {
-  const learningTypesObj = reactiveRichTextDataFn.getLearningTypesObj();
-  console.log(learningTypesObj);
-  const LearningItem = reactiveRichTextDataFn.LearningItem;
-  console.log(LearningItem);
-  const controlsStyle = controls ? {} : { visibility: 'hidden' };
-  return (
-    <div>
-      <LearningItem
-        type={liView}
-        id={id}
-        render={({ children, liType }) => {
-          const LiTypeObject = get(learningTypesObj, liType);
-          return (
-            <div className={classes.liContainer}>
-              <Paper className={classes.root} elevation={10} square>
-                <div className={classes.liTools} style={controlsStyle}>
-                  {/* Button click handlers are attached dynamically in LearningItemBlot since they require access */}
-                  {/* to blot instance information, but the LIComponentRaw initialization is done by a static method */}
-                  <IconButton
-                    disableRipple
-                    className={`${classes.button} li-close-btn`}
-                  >
-                    <Close />
-                  </IconButton>
-                  {liType !== 'li-richText' && get(LiTypeObject, 'Editor') && (
-                    <IconButton
-                      disableRipple
-                      style={{ float: 'right' }}
-                      className={`${classes.button} li-edit-btn`}
-                    >
-                      {liView === LiViewTypes.EDIT ? <Save /> : <Create />}
-                    </IconButton>
-                  )}
-                  {get(LiTypeObject, 'ThumbViewer') &&
-                    get(LiTypeObject, 'Viewer') &&
-                    liView !== LiViewTypes.EDIT && (
-                      <IconButton
-                        disableRipple
-                        style={{ float: 'right' }}
-                        className={`${classes.button} li-zoom-btn`}
-                      >
-                        {liZoomState === LiViewTypes.THUMB ? (
-                          <ZoomIn />
-                        ) : (
-                          <ZoomOut />
-                        )}
-                      </IconButton>
-                    )}
-                  <IconButton
-                    disableRipple
-                    style={{ float: 'right' }}
-                    className={`${classes.button} li-copy-btn`}
-                  >
-                    <FileCopy />
-                  </IconButton>
-                </div>
-                {children}
-              </Paper>
-            </div>
-          );
-        }}
-      />
-      <div className={`ql-author-${authorId}`} style={{ height: '3px' }} />
-    </div>
-  );
-};
-
-const LIComponent = withStyles(styles)(LIComponentRaw);
-
 
 class LearningItemBlot extends Embed {
   static create(value) {
@@ -372,12 +245,5 @@ class LearningItemBlot extends Embed {
     return [this.parent.domNode, offset >= 0 ? offset : allBlots.length - 1];
   }
 }
-
-LearningItemBlot.blotName = 'learning-item';
-LearningItemBlot.tagName = 'div';
-LearningItemBlot.className = 'ql-learning-item';
-
-// If I register it here it then works, but is undefined when I export/import it in the ReactiveRichText.js file
-// Quill.register('formats/learning-item', LearningItemBlot);
 
 export default LearningItemBlot;

@@ -45,7 +45,7 @@ export const EnhancedForm = isBrowser
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export const ReactiveRichText = isBrowser
-  ? require('./ReactiveRichText').default // eslint-disable-line global-require
+  ? require('./ReactiveRichText/main').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 // export const LearningItemBlot = isBrowser
