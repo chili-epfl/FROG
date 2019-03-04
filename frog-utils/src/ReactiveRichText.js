@@ -7,8 +7,7 @@ import {
   HighlightSearchText,
   uuid,
   highlightTargetRichText,
-  cloneDeep,
-  LearningItemBlot
+  cloneDeep
 } from 'frog-utils';
 import {
   get,
@@ -32,6 +31,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 
+import LearningItemBlot from './LearningItemBlot';
+let reactiveRichTextDataFn;
 Quill.register('formats/learning-item', LearningItemBlot);
 
 const Delta = Quill.import('delta');
@@ -241,7 +242,6 @@ class ReactiveRichText extends Component<
   constructor(props: ReactivePropsT) {
     super(props);
     reactiveRichTextDataFn = props.dataFn;
-    window.reactiveRichTextDataFn = reactiveRichTextDataFn;
     console.log(reactiveRichTextDataFn);
   }
 
@@ -798,4 +798,5 @@ class ReactiveRichText extends Component<
 }
 
 window.q = Quill;
+export { reactiveRichTextDataFn };
 export default ReactiveRichText;

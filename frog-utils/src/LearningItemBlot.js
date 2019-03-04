@@ -28,6 +28,9 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
 
+import { reactiveRichTextDataFn } from './ReactiveRichText';
+console.log(reactiveRichTextDataFn);
+
 const Embed = Quill.import('blots/block/embed');
 
 const LiViewTypes = {
@@ -66,9 +69,9 @@ const LIComponentRaw = ({
   liZoomState,
   controls
 }) => {
-  const learningTypesObj = window.reactiveRichTextDataFn.getLearningTypesObj();
+  const learningTypesObj = reactiveRichTextDataFn.getLearningTypesObj();
   console.log(learningTypesObj);
-  const LearningItem = window.reactiveRichTextDataFn.LearningItem;
+  const LearningItem = reactiveRichTextDataFn.LearningItem;
   console.log(LearningItem);
   const controlsStyle = controls ? {} : { visibility: 'hidden' };
   return (
@@ -374,7 +377,7 @@ LearningItemBlot.blotName = 'learning-item';
 LearningItemBlot.tagName = 'div';
 LearningItemBlot.className = 'ql-learning-item';
 
-// If I register it here it then works, but is undefined why I export/import it in the ReactiveRichText.js file
+// If I register it here it then works, but is undefined when I export/import it in the ReactiveRichText.js file
 // Quill.register('formats/learning-item', LearningItemBlot);
 
 export default LearningItemBlot;
