@@ -147,15 +147,17 @@ class ChatController extends React.Component<StyledPropsT> {
               this.scrollToBottom();
             }}
           />
-          <dataFn.LearningItem
-            type="create"
-            dataFn={dataFn}
-            meta={{
-              user: userInfo.name,
-              order: Object.keys(data).length + 1
-            }}
-            autoInsert
-          />
+          {activityData.config.allowAddingLIs && (
+            <dataFn.LearningItem
+              type="create"
+              dataFn={dataFn}
+              meta={{
+                user: userInfo.name,
+                order: Object.keys(data).length + 1
+              }}
+              autoInsert
+            />
+          )}
         </div>
       </div>
     );

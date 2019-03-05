@@ -1131,6 +1131,11 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
+"@teamwork/websocket-json-stream@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@teamwork/websocket-json-stream/-/websocket-json-stream-1.1.1.tgz#be521fc8a64d9bec04d59f62625d8de5dabf1008"
+  integrity sha512-M97fkpjEFeKlm8l+mBPTHm99v91hikKF88x7Hv6DFwV4tg0AEjKvhCII0eZlE3SenDfkXqdUooqhrBZzsNH06A==
+
 "@types/dom4@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/dom4/-/dom4-2.0.1.tgz#506d5781b9bcab81bd9a878b198aec7dee2a6033"
@@ -17846,11 +17851,6 @@ websocket-extensions@>=0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
   integrity sha512-nqHUnMXmBzT0w570r2JpJxfiSD1IzoI+HGVdd3aZ0yNi3ngvQ4jv1dtHt5VGxfI2yj5yqImPhOK4vmIh2xMbGg==
-
-websocket-json-stream@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/websocket-json-stream/-/websocket-json-stream-0.0.3.tgz#e66eb7f90861425b1f7c0d699c64cb6aacc517f8"
-  integrity sha1-5m63+QhhQlsffA1pnGTLaqzFF/g=
 
 wgs84@0.0.0:
   version "0.0.0"

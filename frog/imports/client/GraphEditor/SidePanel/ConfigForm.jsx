@@ -85,7 +85,7 @@ export default class ConfigForm extends Component<
   componentWillUnmount() {
     this.unmounted = true;
     if (!isEqual(this.state.formData, this.state.lastChange)) {
-      this.onChangeImmediately(this.state.formData);
+      this.onChangeImmediately({ formData: this.state.formData });
     }
   }
 
@@ -116,7 +116,7 @@ export default class ConfigForm extends Component<
         );
       }
       if (!this.unmounted) {
-        this.setState({ lastChange: data });
+        this.setState({ lastChange: data.formData });
       }
       this.props.refreshValidate();
     }
@@ -154,7 +154,7 @@ export default class ConfigForm extends Component<
         groupingKey: node.groupingKey
       },
       onChange: data => {
-        this.setState({ formData: data });
+        this.setState({ formData: data.formData });
         this.onChange(data);
       }
     };
