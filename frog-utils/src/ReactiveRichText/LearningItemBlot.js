@@ -1,19 +1,18 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  get,
-  findIndex,
-  head,
-} from 'lodash';
+import { get, findIndex, head } from 'lodash';
 import { Quill } from '@houshuang/react-quill';
 
 import { LiViewTypes } from './constants';
 import LIComponent from './LIComponent';
 
 const Embed = Quill.import('blots/block/embed');
+const Delta = Quill.import('delta');
 
 class LearningItemBlot extends Embed {
-  static create(value) {
+  static create(value: Object) {
     const node = super.create(value);
     const { authorId, liId, view } = value;
     const initialView = view || LiViewTypes.VIEW;
@@ -30,7 +29,14 @@ class LearningItemBlot extends Embed {
     return node;
   }
 
-  static renderLItoNode(liId, authorId, liView, zoomState, controls, node) {
+  static renderLItoNode(
+    liId: string,
+    authorId: string,
+    liView: string,
+    zoomState: string,
+    controls: any,
+    node: any
+  ) {
     ReactDOM.render(
       <div
         data-li-id={liId}
@@ -51,7 +57,7 @@ class LearningItemBlot extends Embed {
     );
   }
 
-  constructor(domNode, value) {
+  constructor(domNode: any, value: Object) {
     super(domNode, value);
     // Make sure the hover handlers are registered correctly in all collaborating
     // editors for a newly inserted LI
@@ -86,7 +92,7 @@ class LearningItemBlot extends Embed {
     this.format('li-view', nextView);
   };
 
-  liCopyHandler = e => {
+  liCopyHandler = (e: any) => {
     // Save existing scroll positions
     const scrollTops = e.path.map(element => get(element, 'scrollTop'));
 
@@ -131,7 +137,7 @@ class LearningItemBlot extends Embed {
 
   // Called every time a blot is rendered to extract the content values
   // Eg: undo LI delete, reload existing document etc.
-  static value(node) {
+  static value(node: any) {
     const child = head(node.childNodes);
     if (child) {
       const liId = get(child.dataset, 'liId');
@@ -169,14 +175,14 @@ class LearningItemBlot extends Embed {
     }
   };
 
-  update(mutations, context) {
+  update(mutations: any, context: any) {
     // Make sure the handlers are registered for all the LIs in existing content
     // of an editor upon editor load
     this.refreshClickHandlers();
     super.update(mutations, context);
   }
 
-  format(format, value) {
+  format(format: string, value: Object) {
     const quill = Quill.find(this.domNode.parentNode.parentElement);
     if (quill.options.readOnly) {
       setTimeout(() => {

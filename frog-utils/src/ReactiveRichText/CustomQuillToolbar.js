@@ -11,7 +11,6 @@ document.documentElement // $FlowFixMe
   .getElementsByTagName('head')[0]
   .appendChild(menuItemStyle);
 
-
 const CustomQuillToolbar = ({ id, readOnly, liTypes }) => (
   <div id={`toolbar-${id}`} style={{ display: readOnly ? 'none' : 'block' }}>
     <button className="ql-bold" />

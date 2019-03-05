@@ -1,3 +1,5 @@
+// @flow
+
 const LiViewTypes = {
   VIEW: 'view',
   THUMB: 'thumbView',

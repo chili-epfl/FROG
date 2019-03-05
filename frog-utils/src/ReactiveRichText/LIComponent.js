@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { get } from 'lodash';
 import Paper from '@material-ui/core/Paper';
@@ -42,7 +44,6 @@ hypothesisStyleFix.innerHTML = `.ql-editor annotation-viewer-content li::before 
 document.documentElement // $FlowFixMe
   .getElementsByTagName('head')[0]
   .appendChild(hypothesisStyleFix);
-
 
 const LIComponentRaw = ({
   id,

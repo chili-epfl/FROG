@@ -9,15 +9,7 @@ import {
   highlightTargetRichText,
   cloneDeep
 } from 'frog-utils';
-import {
-  get,
-  isEqual,
-  last,
-  forEach,
-  isUndefined,
-  filter,
-  find
-} from 'lodash';
+import { get, isEqual, last, forEach, isUndefined, filter, find } from 'lodash';
 
 import { LiViewTypes, formats } from './constants';
 import LearningItemBlot from './LearningItemBlot';
@@ -25,7 +17,18 @@ import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
 
-let reactiveRichTextDataFn;
+// The below placeholder object is used to pass the parameters from the 'dataFn' prop
+// from the main component to other ones. Generic definition to understand the structure
+// and satisfy Flow's requirements
+/* eslint-disable import/no-mutable-exports */
+let reactiveRichTextDataFn = {
+  getLearningTypesObj: () => {
+    throw new Error('Should never be uninitialized');
+  },
+  LearningItem: () => {
+    throw new Error('Should never be uninitialized');
+  }
+};
 
 LearningItemBlot.blotName = 'learning-item';
 LearningItemBlot.tagName = 'div';

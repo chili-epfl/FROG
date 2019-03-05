@@ -1,4 +1,7 @@
+// @flow
+
 import { Quill } from '@houshuang/react-quill';
+import { get, find } from 'lodash';
 
 const Clipboard = Quill.import('modules/clipboard');
 
@@ -7,7 +10,7 @@ class CustomQuillClipboard extends Clipboard {
   // content paste. (Refer https://github.com/quilljs/quill/issues/1082)
   // Following implements a modified version of the workaround suggested by the
   // original author of Quill.
-  onPaste(e) {
+  onPaste(e: any) {
     const found = find(
       e.path,
       element => element.className === 'ql-learning-item'
