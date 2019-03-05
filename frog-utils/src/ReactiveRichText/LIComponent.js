@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  get,
-} from 'lodash';
+import { get } from 'lodash';
 import Paper from '@material-ui/core/Paper';
 import ZoomIn from '@material-ui/icons/ZoomIn';
 import ZoomOut from '@material-ui/icons/ZoomOut';
@@ -36,6 +34,15 @@ const styles = theme => ({
     }
   }
 });
+
+// Bug fix for problem with styles in embedded Hypothesis LIs
+const hypothesisStyleFix = document.createElement('style');
+hypothesisStyleFix.type = 'text/css';
+hypothesisStyleFix.innerHTML = `.ql-editor annotation-viewer-content li::before { content: none; }`;
+document.documentElement // $FlowFixMe
+  .getElementsByTagName('head')[0]
+  .appendChild(hypothesisStyleFix);
+
 
 const LIComponentRaw = ({
   id,

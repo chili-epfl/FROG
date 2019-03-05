@@ -14,9 +14,8 @@ const Embed = Quill.import('blots/block/embed');
 
 class LearningItemBlot extends Embed {
   static create(value) {
-    console.log(value);
     const node = super.create(value);
-    const { authorId, liId, view, LearningItem } = value;
+    const { authorId, liId, view } = value;
     const initialView = view || LiViewTypes.VIEW;
 
     node.setAttribute('contenteditable', false);
@@ -26,13 +25,12 @@ class LearningItemBlot extends Embed {
       initialView,
       initialView === LiViewTypes.EDIT ? LiViewTypes.VIEW : initialView,
       true,
-      LearningItem,
       node
     );
     return node;
   }
 
-  static renderLItoNode(liId, authorId, liView, zoomState, controls, LearningItem, node) {
+  static renderLItoNode(liId, authorId, liView, zoomState, controls, node) {
     ReactDOM.render(
       <div
         data-li-id={liId}
@@ -47,7 +45,6 @@ class LearningItemBlot extends Embed {
           liView={liView}
           liZoomState={zoomState}
           controls={controls}
-          LearningItem={LearningItem}
         />
       </div>,
       node

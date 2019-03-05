@@ -2,6 +2,7 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
+import ReactQuill, { Quill } from '@houshuang/react-quill';
 import {
   HighlightSearchText,
   uuid,
@@ -17,11 +18,12 @@ import {
   filter,
   find
 } from 'lodash';
-import ReactQuill, { Quill } from '@houshuang/react-quill';
 
 import { LiViewTypes, formats } from './constants';
 import LearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
+import CustomQuillToolbar from './CustomQuillToolbar';
+import { pickColor } from './helpers';
 
 let reactiveRichTextDataFn;
 
@@ -48,76 +50,7 @@ const LiViewAttribute = new Parchment.Attributor.Attribute(
 Parchment.register(LiViewAttribute);
 Quill.register(LiViewAttribute, true);
 
-function hashCode(str = '') {
-  let hash = 0;
-  let i = 0;
-  for (; i < str.length; i += 1) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line no-bitwise
-  }
-  return hash;
-}
-
-function pickColor(str) {
-  return `hsl(${hashCode(str) % 360}, 100%, 30%)`;
-}
-
-const Toolbar = ({ id, readOnly, liTypes }) => (
-  <div id={`toolbar-${id}`} style={{ display: readOnly ? 'none' : 'block' }}>
-    <button className="ql-bold" />
-    <button className="ql-italic" />
-    <button className="ql-underline" />
-    <button className="ql-strike" />
-
-    <button className="ql-blockquote" />
-    <button className="ql-code-block" />
-
-    <select className="ql-header" defaultValue="" onChange={e => e.persist()}>
-      <option value="1" />
-      <option value="2" />
-      <option defaultValue />
-    </select>
-
-    <button className="ql-list" value="ordered" />
-    <button className="ql-list" value="bullet" />
-
-    <button className="ql-link" />
-    <button className="ql-image" />
-    <button className="ql-video" />
-
-    <button className="ql-toggleAuthorship">
-      <AuthorshipToggleBtn />
-    </button>
-    <select className="ql-insertLi" onChange={e => e.persist()}>
-      <option value="">Select type...</option>
-      {liTypes.map(type => (
-        <option key={`${type.id}-${id}`} value={type.id}>
-          {type.name}
-        </option>
-      ))}
-    </select>
-  </div>
-);
-
-const AuthorshipToggleBtn = () => <span>AU</span>;
-
 const authorStyleElements = {};
-
-// Add styles for LI+ button in toolbar
-const menuItemStyle = document.createElement('style');
-menuItemStyle.type = 'text/css';
-menuItemStyle.innerHTML = `.ql-insertLi .ql-picker-item:before { content: attr(data-label); }
-      .ql-insertLi .ql-picker-label:before { content: 'LI+'; padding-right: 12px; }`;
-document.documentElement // $FlowFixMe
-  .getElementsByTagName('head')[0]
-  .appendChild(menuItemStyle);
-
-// Bug fix for problem with styles in embedded Hypothesis LIs
-const hypothesisStyleFix = document.createElement('style');
-hypothesisStyleFix.type = 'text/css';
-hypothesisStyleFix.innerHTML = `.ql-editor annotation-viewer-content li::before { content: none; }`;
-document.documentElement // $FlowFixMe
-  .getElementsByTagName('head')[0]
-  .appendChild(hypothesisStyleFix);
 
 type ReactivePropsT = {
   path?: string,
@@ -152,7 +85,6 @@ class ReactiveRichText extends Component<
   constructor(props: ReactivePropsT) {
     super(props);
     reactiveRichTextDataFn = props.dataFn;
-    console.log(reactiveRichTextDataFn);
   }
 
   opListener = (op: Object[], source: string) => {
@@ -672,7 +604,7 @@ class ReactiveRichText extends Component<
         }}
       >
         {!get(props, 'readOnly') && (
-          <Toolbar
+          <CustomQuillToolbar
             id={this.toolbarId}
             readOnly={get(props, 'readOnly')}
             liTypes={this.getLiTypeList()}
