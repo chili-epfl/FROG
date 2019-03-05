@@ -1,6 +1,6 @@
-import React from 'react';
+// @flow
 
-const AuthorshipToggleBtn = () => <span>AU</span>;
+import React, { Component } from 'react';
 
 // Add styles for LI+ button in toolbar
 const menuItemStyle = document.createElement('style');
@@ -11,41 +11,61 @@ document.documentElement // $FlowFixMe
   .getElementsByTagName('head')[0]
   .appendChild(menuItemStyle);
 
-const CustomQuillToolbar = ({ id, readOnly, liTypes }) => (
-  <div id={`toolbar-${id}`} style={{ display: readOnly ? 'none' : 'block' }}>
-    <button className="ql-bold" />
-    <button className="ql-italic" />
-    <button className="ql-underline" />
-    <button className="ql-strike" />
+type CustomQuillToolbarPropsT = {
+  id: string,
+  readOnly: Object,
+  liTypes: Object
+};
 
-    <button className="ql-blockquote" />
-    <button className="ql-code-block" />
+class CustomQuillToolbar extends Component<CustomQuillToolbarPropsT> {
+  render() {
+    const { id, readOnly, liTypes } = this.props;
+    const AuthorshipToggleBtn = () => <span>AU</span>;
 
-    <select className="ql-header" defaultValue="" onChange={e => e.persist()}>
-      <option value="1" />
-      <option value="2" />
-      <option defaultValue />
-    </select>
+    return (
+      <div
+        id={`toolbar-${id}`}
+        style={{ display: readOnly ? 'none' : 'block' }}
+      >
+        <button className="ql-bold" />
+        <button className="ql-italic" />
+        <button className="ql-underline" />
+        <button className="ql-strike" />
 
-    <button className="ql-list" value="ordered" />
-    <button className="ql-list" value="bullet" />
+        <button className="ql-blockquote" />
+        <button className="ql-code-block" />
 
-    <button className="ql-link" />
-    <button className="ql-image" />
-    <button className="ql-video" />
+        <select
+          className="ql-header"
+          defaultValue=""
+          onChange={e => e.persist()}
+        >
+          <option value="1" />
+          <option value="2" />
+          <option defaultValue />
+        </select>
 
-    <button className="ql-toggleAuthorship">
-      <AuthorshipToggleBtn />
-    </button>
-    <select className="ql-insertLi" onChange={e => e.persist()}>
-      <option value="">Select type...</option>
-      {liTypes.map(type => (
-        <option key={`${type.id}-${id}`} value={type.id}>
-          {type.name}
-        </option>
-      ))}
-    </select>
-  </div>
-);
+        <button className="ql-list" value="ordered" />
+        <button className="ql-list" value="bullet" />
+
+        <button className="ql-link" />
+        <button className="ql-image" />
+        <button className="ql-video" />
+
+        <button className="ql-toggleAuthorship">
+          <AuthorshipToggleBtn />
+        </button>
+        <select className="ql-insertLi" onChange={e => e.persist()}>
+          <option value="">Select type...</option>
+          {liTypes.map(type => (
+            <option key={`${type.id}-${id}`} value={type.id}>
+              {type.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  }
+}
 
 export default CustomQuillToolbar;
