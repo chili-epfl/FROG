@@ -79,7 +79,7 @@ module.exports = {
         'Running ESLint in Fix mode'
       ),
       normal: fromRoot(
-        'eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx ."',
+        'eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
         'Running ESLint in normal mode'
       )
     },

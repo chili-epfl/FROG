@@ -92,9 +92,11 @@ export class Doc {
     liType: string,
     payload?: Object,
     meta?: Object,
-    immutable: boolean = false
+    immutable: boolean = false,
+    collection?: string = 'li',
+    predefinedId?: string
   ): ?(string | Object) {
-    const id = uuid();
+    const id = predefinedId || uuid();
     const properPayload =
       // $FlowFixMe
       payload || learningItemTypesObj[liType].dataStructure;
@@ -112,7 +114,7 @@ export class Doc {
       return { id, liDocument: newLI };
     } else {
       const itempointer = (this.LIConnection || this.doc.connection).get(
-        'li',
+        collection,
         id
       );
       itempointer.create(newLI);
