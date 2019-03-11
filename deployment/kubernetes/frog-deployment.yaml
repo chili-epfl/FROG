@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frog-test-deployment
+  labels:
+    app: frog
+    env-type: test
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frog
+      tier: backend
+      env-type: test
+
+  # POD declaration
+  template:
+    metadata:
+      labels:
+        app: frog
+        tier: backend
+        env-type: test
+
+    spec:
+      containers:
+        - name: frog-2
+          image: arasmumcuyan/frog:test
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: frog-cm
+
+      # TODO: maybe find a better to set regred instead of command line
+      imagePullSecrets:
+        - name: regcred
+
+---
+######## Service Configuration ########
+######## Open an external port to outside of the cluster, type=NodePort ##########
+kind: Service
+apiVersion: v1
+metadata:
+  name: frog-test-service
+spec:
+  selector: # for pods     
+    app: frog
+    env-type: test
+  
+  type: NodePort # external port 
+  ports:
+  - port: 3000   # port of service will be listening from Node (will be sent to service on behalf of end-user)
+    targetPort: 3000   # port of pod is listening which service wiil forward
+    protocol: TCP
+
+# after this, minikube will assign random port to this Service, to make it accessible from outside 

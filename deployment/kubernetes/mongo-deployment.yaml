@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-test-deployment
+  labels:
+    env-type: test
+
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: mongodb
+      tier: database 
+      env-type: test
+
+  # POD declaration
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        tier: database
+        env-type: test
+
+    spec:
+      containers:
+        - name: mongodb
+          image: bitnami/mongodb
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+
+      imagePullSecrets:
+        - name : regcred
+
+---
+######## Service Configuration ########
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo-test-service
+spec:
+  selector:                  
+    app: mongodb
+    env-type: test
+  
+  type: ClusterIP # internal i
+  ports:
+  - port: 27017   # port service is listening
+    targetPort: 27017   # port pod is listening which service wiil forward

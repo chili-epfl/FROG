@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-test-deployment
+  labels:
+    app: redis
+    env-type: test
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      tier: database
+      env-type: test
+
+  template:
+    metadata:
+      labels:
+        app: redis
+        tier: backend
+        env-type: test
+
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+---
+######## Service Configuration ########
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-test-service
+spec:
+  selector:                  
+    app: redis
+    env-type: test
+  
+  type: ClusterIP # internal i
+  ports:
+  - port: 6379   # port service is listening
+    targetPort: 6379   # port pod is listening which service wiil forward

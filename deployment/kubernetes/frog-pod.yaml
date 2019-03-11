@@ -1,0 +1,50 @@
+apiVersion: "v1"
+kind: Pod
+metadata:
+  name: frog-test-pod
+  labels:
+    app: frog
+    tier: backend
+    environment: test
+
+spec:
+  containers:
+  - name: frog-2
+    image: arasmumcuyan/frog:test
+    imagePullPolicy: IfNotPresent
+    # command: [ "/bin/sh", "-c", "env" ]
+    # env:
+    # - name: MONGO_URL
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: frog-cm
+    #       key: MONGO_URL
+
+    envFrom:
+      - configMapRef:
+          name: frog-cm
+
+  #     volumeMounts:
+  #     - mountPath: /home/chili/frog-configs
+  #       name: frog-configs-vol
+      
+  # volumes:
+  # - name: frog-configs-vol
+  #   configMap:
+  #     name: frog-cm
+  #     items:
+  #       - key: frog-settings.properties
+  #         path: frog.configs
+      # env:
+      # - name: MONGO_URL
+      #   valueFrom:
+      #     configMapKeyRef:
+      #       name: frog-cm
+      #       key: MONGO_URL
+
+
+  imagePullSecrets:
+    - name: regcred
+
+
+

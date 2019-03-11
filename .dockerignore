@@ -1,1 +1,4 @@
 **/node_modules/*
+babel.config.js
+frog/.meteor/local/**
+Dockerfile
