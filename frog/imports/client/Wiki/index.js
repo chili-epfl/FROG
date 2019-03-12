@@ -5,43 +5,100 @@ import * as React from 'react';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
+import { getAllLearningItems } from './helpers';
 
-const doc = connection.get('li', 1);
+const doc = connection.get('li');
+console.log(connection);
 const dataFn = generateReactiveFn(doc, LI);
+console.log(dataFn);
 const LearningItem = dataFn.LearningItem;
 
-export default ({
+type WikiCompPropsT = { 
   match: {
-    params: { wikiId, pageId }
+    params: {
+      wikiId: string,
+      pageId: ?string,
+    }
   }
-}: {
-  match: { params: { wikiId?: string, pageId?: string } }
-}) => {
-  return (
-    <h1>
-      Welcome to wiki {wikiId},{' '}
-      {pageId ? (
+};
+
+class WikiComp extends React.Component<WikiCompPropsT> {
+  constructor(props) {
+    super(props);
+    console.log(props);
+    this.wikiId = this.props.match.params.wikiId;
+    this.state = {
+      learningItems: [],
+    };
+  }
+
+  componentDidMount() {
+    getAllLearningItems(this.wikiId)
+    .then((learningItems) => {
+      this.setState({
+        learningItems: learningItems,
+      });
+    });
+  }
+
+  createLI = () => {
+    const meta = {
+      wikiId: this.wikiId,
+    };
+
+    const newLI = dataFn.createLearningItem(
+      'li-richText',
+      undefined,
+      meta,
+      undefined,
+      undefined,
+      undefined
+    );
+    console.log(newLI);
+    
+    this.setState(prevState => ({
+      learningItems: [...prevState.learningItems, newLI]
+    }));
+  }
+
+  deleteLI = () => {
+    const id = this.state.learningItems[0];
+    console.log(id);
+    throw new Error('NOT IMPLEMENTED');
+  }
+
+  render() {
+    const { wikiId, pageId } = this.props.match.params;
+
+    console.log(this.state.learningItems);
+
+    const learningItems = this.state.learningItems.map((id) => {
+      return (
+        <div key={id}>
+          <LearningItem type="edit" id={id} />
+        </div>
+      );
+    });
+
+    return (
+      <div>
+        <h1>Wiki: {wikiId}, page: {pageId}</h1>
         <div>
-          you chose page {pageId}
-          <LearningItem type="edit" id={pageId} />
-          <a
-            onClick={() => {
-              dataFn.createLearningItem(
-                'li-richText',
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                pageId
-              );
-            }}
-          >
+          {learningItems}
+        </div>
+        <div>
+          <a onClick={this.createLI}>
             Create learning item
           </a>
         </div>
-      ) : (
-        `you didn't choose a page`
-      )}
-    </h1>
-  );
-};
+        <div>
+          <a onClick={this.deleteLI}>
+            Delete first LI
+          </a>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default WikiComp;
