@@ -1,3 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frog-cm
+  labels:
+    app: frog
+data:
+  METEOR_SETTINGS: |
+    {
+      "sendLogsToExternalDashboardServer": true,
+      "public": {
+          "friendlyProduction": true
+      },
+      "sharedb_dburl": "mongodb://mongo-test-service:27017",
+      "sharedb_redis": "redis-test-service:6379",
+      "logserverRedis" : "redis://redis-test-service:6379",
+      "externalOperatorRedis": "redis://redis-test-service:6379",
+      "token": "9f8sd0f98sdfj3j4jFFFF111",
+      "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]}
+    }
+
+  ROOT_URL: http://localhost
+  MONGO_URL: mongodb://mongo-test-service:27017/meteor
+  PORT: "3000"
+
+--- 
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +53,8 @@ spec:
       containers:
         - name: frog-2
           image: arasmumcuyan/frog:test
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["node", "main.js"]
           ports:
             - containerPort: 3000
           envFrom:

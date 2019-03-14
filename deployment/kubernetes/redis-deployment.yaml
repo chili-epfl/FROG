@@ -18,14 +18,15 @@ spec:
     metadata:
       labels:
         app: redis
-        tier: backend
+        tier: database
         env-type: test
 
     spec:
       containers:
         - name: redis
           image: redis
-          imagePullPolicy: IfNotPresent
+          # command: ["redis-server", "--bind", "redis", "--port", "6379"]
+          imagePullPolicy: Always
           ports:
             - containerPort: 6379
               protocol: TCP
