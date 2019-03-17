@@ -36,4 +36,4 @@ spec:
       - path: /dashboard
         backend:
           serviceName: frog-dashboard-service
-          servicePort: 3002 # port number dashboard service is listening 
+          servicePort: 3000 # port number dashboard service is listening 

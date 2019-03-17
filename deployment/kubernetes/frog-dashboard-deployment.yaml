@@ -19,7 +19,7 @@ data:
 
   ROOT_URL: http://minikube
   MONGO_URL: mongodb://mongo-test-service:27017/meteor
-  # PORT: "3000"
+  PORT: "3000"
 
 --- 
 
@@ -54,7 +54,7 @@ spec:
           imagePullPolicy: Always
           command: ["node", "main.js"]
           ports:
-            - containerPort: 3002
+            - containerPort: 3000
           envFrom:
             - configMapRef:
                 name: frog-dash-cm
@@ -76,5 +76,5 @@ spec:
   
   type: ClusterIP # external port 
   ports:
-  - port: 3002   # port of service will be listening from Node (will be sent to service on behalf of end-user)
-    targetPort: 3002   # port of pod is listening which service wiil forward
+  - port: 3000   # port of service will be listening from Node (will be sent to service on behalf of end-user)
+    targetPort: 3000   # port of pod is listening which service wiil forward
