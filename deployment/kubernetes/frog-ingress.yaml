@@ -3,9 +3,19 @@ kind: Ingress
 metadata:
   name: frog-ingress
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    # nginx.ingress.kubernetes.io/configuration-snippet: |
+    #   proxy_set_header    Host              $host;
+    #   proxy_set_header    Upgrade           $http_upgrade;
+    #   proxy_set_header    Connection        $connection_upgrade;
+    #   proxy_set_header    X-Real-IP         $remote_addr;
+    #   proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+    #   proxy_set_header    X-Forwarded-Proto $scheme;
+    #   proxy_set_header    X-Forwarded-Port  $proxy_x_forwarded_port;
+
 spec:
   # backend:
   #   serviceName: default-http-backend
@@ -26,4 +36,4 @@ spec:
       - path: /dashboard
         backend:
           serviceName: frog-dashboard-service
-          servicePort: 5000 # port number dashboard service is listening 
+          servicePort: 3002 # port number dashboard service is listening 

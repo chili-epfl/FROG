@@ -17,9 +17,9 @@ data:
       "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]} 
     }
 
-  ROOT_URL: http://minikube:5000
+  ROOT_URL: http://minikube
   MONGO_URL: mongodb://mongo-test-service:27017/meteor
-  PORT: "3000"
+  # PORT: "3000"
 
 --- 
 
@@ -54,7 +54,7 @@ spec:
           imagePullPolicy: Always
           command: ["node", "main.js"]
           ports:
-            - containerPort: 5000
+            - containerPort: 3002
           envFrom:
             - configMapRef:
                 name: frog-dash-cm
@@ -71,10 +71,10 @@ metadata:
   name: frog-dashboard-service
 spec:
   selector: # for pods     
-    app: frog
+    app: frog-dash
     env-type: test
   
   type: ClusterIP # external port 
   ports:
-  - port: 5000   # port of service will be listening from Node (will be sent to service on behalf of end-user)
-    targetPort: 5000   # port of pod is listening which service wiil forward
+  - port: 3002   # port of service will be listening from Node (will be sent to service on behalf of end-user)
+    targetPort: 3002   # port of pod is listening which service wiil forward
