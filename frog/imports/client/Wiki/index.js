@@ -13,11 +13,11 @@ const dataFn = generateReactiveFn(doc, LI);
 console.log(dataFn);
 const LearningItem = dataFn.LearningItem;
 
-type WikiCompPropsT = { 
+type WikiCompPropsT = {
   match: {
     params: {
       wikiId: string,
-      pageId: ?string,
+      pageId: ?string
     }
   }
 };
@@ -28,22 +28,21 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     console.log(props);
     this.wikiId = this.props.match.params.wikiId;
     this.state = {
-      learningItems: [],
+      learningItems: []
     };
   }
 
   componentDidMount() {
-    getAllLearningItems(this.wikiId)
-    .then((learningItems) => {
+    getAllLearningItems(this.wikiId).then(learningItems => {
       this.setState({
-        learningItems: learningItems,
+        learningItems: learningItems
       });
     });
   }
 
   createLI = () => {
     const meta = {
-      wikiId: this.wikiId,
+      wikiId: this.wikiId
     };
 
     const newLI = dataFn.createLearningItem(
@@ -55,24 +54,24 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       undefined
     );
     console.log(newLI);
-    
+
     this.setState(prevState => ({
       learningItems: [...prevState.learningItems, newLI]
     }));
-  }
+  };
 
   deleteLI = () => {
     const id = this.state.learningItems[0];
     console.log(id);
     throw new Error('NOT IMPLEMENTED');
-  }
+  };
 
   render() {
     const { wikiId, pageId } = this.props.match.params;
 
     console.log(this.state.learningItems);
 
-    const learningItems = this.state.learningItems.map((id) => {
+    const learningItems = this.state.learningItems.map(id => {
       return (
         <div key={id}>
           <LearningItem type="edit" id={id} />
@@ -82,19 +81,15 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
     return (
       <div>
-        <h1>Wiki: {wikiId}, page: {pageId}</h1>
+        <h1>
+          Wiki: {wikiId}, page: {pageId}
+        </h1>
+        <div>{learningItems}</div>
         <div>
-          {learningItems}
+          <a onClick={this.createLI}>Create learning item</a>
         </div>
         <div>
-          <a onClick={this.createLI}>
-            Create learning item
-          </a>
-        </div>
-        <div>
-          <a onClick={this.deleteLI}>
-            Delete first LI
-          </a>
+          <a onClick={this.deleteLI}>Delete first LI</a>
         </div>
       </div>
     );
