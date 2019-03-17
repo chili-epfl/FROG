@@ -17,7 +17,7 @@ data:
       "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]} 
     }
 
-  ROOT_URL: http://localhost
+  ROOT_URL: http://minikube:5000
   MONGO_URL: mongodb://mongo-test-service:27017/meteor
   PORT: "3000"
 
@@ -54,7 +54,7 @@ spec:
           imagePullPolicy: Always
           command: ["node", "main.js"]
           ports:
-            - containerPort: 3000
+            - containerPort: 5000
           envFrom:
             - configMapRef:
                 name: frog-dash-cm
@@ -62,3 +62,19 @@ spec:
       # TODO: maybe find a better to set regred instead of command line
       imagePullSecrets:
         - name: regcred
+---
+######## Service Configuration ########
+######## Open an external port to outside of the cluster, type=NodePort ##########
+kind: Service
+apiVersion: v1
+metadata:
+  name: frog-dashboard-service
+spec:
+  selector: # for pods     
+    app: frog
+    env-type: test
+  
+  type: ClusterIP # external port 
+  ports:
+  - port: 5000   # port of service will be listening from Node (will be sent to service on behalf of end-user)
+    targetPort: 5000   # port of pod is listening which service wiil forward

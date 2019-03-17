@@ -71,11 +71,6 @@ USER $USERNAME
 WORKDIR $APP_BUNDLE_DIR/bundle
 CMD ["sleep", "36000"]
 
-# TODO: put the entrypoint script in WORKDIR
-# mv $BUILD_SCRIPTS_DIR/entrypoint.sh $APP_BUNDLE_DIR/bundle/entrypoint.sh
-# chown $USERNAME $APP_BUNDLE_DIR/bundle/entrypoint.sh
-
-
 # start the app
 # ENTRYPOINT ["./entrypoint.sh"]
 # CMD ["node", "main.js"]

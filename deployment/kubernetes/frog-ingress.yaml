@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frog-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+spec:
+  # backend:
+  #   serviceName: default-http-backend
+  #   servicePort: 80
+  rules:
+  - host: minikube
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frog-app-service
+          servicePort: 3000 # port number service is listening 
+      - path: /sharedb
+        backend:
+          serviceName: frog-sharedb-service
+          servicePort: 3002 # port number service is listening 
+
+      - path: /dashboard
+        backend:
+          serviceName: frog-dashboard-service
+          servicePort: 5000 # port number dashboard service is listening 
