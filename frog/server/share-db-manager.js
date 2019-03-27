@@ -3,7 +3,7 @@ import http from 'http';
 import { Meteor } from 'meteor/meteor';
 import ShareDB from 'sharedb';
 import WebSocket from 'ws';
-import WebsocketJSONStream from 'websocket-json-stream';
+import WebsocketJSONStream from '@teamwork/websocket-json-stream';
 import ShareDBMongo from 'sharedb-mongo';
 import RedisPubsub from 'sharedb-redis-pubsub';
 import json from 'ot-json0';
@@ -52,7 +52,16 @@ export const startShareDB = () => {
     const wserver = new WebSocket.Server({ server });
     wserver.on('connection', ws => {
       ws.on('error', () => null);
-      backend.listen(new WebsocketJSONStream(ws));
+      const stream = new WebsocketJSONStream(ws);
+      stream.on('error', error => {
+        if (error.message.startsWith('WebSocket is not open')) {
+          // No point reporting this error, as it happens often and is harmless.
+          return;
+        }
+        console.error('Websocket error', error);
+      });
+
+      backend.listen(stream);
     });
     // eslint-disable-next-line no-console
     console.info('Running shareDB server');

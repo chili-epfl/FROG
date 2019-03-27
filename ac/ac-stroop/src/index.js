@@ -63,7 +63,6 @@ const config = {
   required: ['fr', 'en'],
   properties: {
     fr: {
-      required: ['objects', 'colors'],
       type: 'object',
       title: 'French',
       properties: {
@@ -75,20 +74,11 @@ const config = {
             "Une phrase va apparaître a l'écran. Presse O (ou bien utilise " +
             "le bouton 'Oui') si la pharse est vraie, ou bien N (ou bien le " +
             "bouton 'non') si la phrase est fausse."
-        },
-        objects: {
-          title: 'Semantic objects for sentences',
-          type: 'string'
-        },
-        colors: {
-          title: 'Color of previous objects (in same order)',
-          type: 'string'
         }
       }
     },
     en: {
       type: 'object',
-      required: ['objects', 'colors'],
       title: 'English',
       properties: {
         guidelines: {
@@ -98,14 +88,6 @@ const config = {
             'A sentence will appear on the screen. Type Y (or use the Yes button' +
             ") if the sentence's meaning is correct, or N (or the No button) " +
             'if it is not. The sentences make use of basic colors.'
-        },
-        objects: {
-          title: 'Semantic objects for sentences',
-          type: 'string'
-        },
-        colors: {
-          title: 'Color of previous objects (in same order)',
-          type: 'string'
         }
       }
     },

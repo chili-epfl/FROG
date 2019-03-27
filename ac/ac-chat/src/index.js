@@ -92,6 +92,7 @@ const config = {
       type: 'string',
       title: 'Title'
     },
+    allowAddingLIs: { type: 'boolean', title: 'Allow adding any LIs' },
     hasRobotPrompt: {
       type: 'boolean',
       title: 'Insert robot prompt at beginning of chat'
