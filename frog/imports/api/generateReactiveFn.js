@@ -116,7 +116,6 @@ export class Doc {
         id
       );
       itempointer.create(newLI);
-      itempointer.subscribe();
       return id;
     }
   }
@@ -154,6 +153,48 @@ export class Doc {
         }
       });
     }
+  };
+
+  duplicateLI = async (li: string | Object, meta?: Object) => {
+    if (typeof li !== 'string') {
+      const liT = learningItemTypesObj[li.liDocument.liType];
+      if (liT.duplicate) {
+        return liT.duplicate(li, this, this.meta);
+      } else {
+        return li;
+      }
+    }
+
+    const connection = this.LIConnection || this.doc.connection;
+    const LIData = await new Promise(resolve => {
+      const doc = connection.get('li', li);
+      doc.fetch();
+      if (doc.type) {
+        const data = doc.data;
+        doc.destroy();
+        resolve(data);
+      }
+
+      doc.once('load', () => {
+        const data = doc.data;
+        doc.destroy();
+        resolve(data);
+      });
+    });
+
+    const id = uuid();
+    const itempointer = (this.LIConnection || this.doc.connection).get(
+      'li',
+      id
+    );
+    const newLI = {
+      ...LIData,
+      createdAt: new Date(),
+      ...(meta || {}),
+      ...this.meta
+    };
+    itempointer.create(newLI);
+    return id;
   };
 
   bindTextField(ref: any, rawpath: rawPathT) {

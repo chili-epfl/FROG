@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { EnhancedForm } from 'frog-utils';
-import { isEqual } from 'lodash';
+import { isEqual, debounce } from 'lodash';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { Operators, addOperator } from '/imports/api/operators';
@@ -14,7 +14,8 @@ import {
   SelectTargetActivityWidget,
   addSocialFormSchema,
   SelectLITypeWidget,
-  SelectLITypeEditorWidget
+  SelectLITypeEditorWidget,
+  QuillWidget
 } from './FormUtils';
 
 type ConfigFormPropsT = {
@@ -33,11 +34,16 @@ type ConfigFormPropsT = {
 
 export default class ConfigForm extends Component<
   ConfigFormPropsT,
-  { formData: Object, id?: string }
+  { formData: Object, id?: string, lastChange: Object }
 > {
+  unmounted: boolean;
+
   constructor(props: ConfigFormPropsT) {
     super(props);
-    this.state = { formData: this.props.node.data };
+    this.state = {
+      formData: this.props.node.data,
+      lastChange: this.props.node.data
+    };
   }
 
   componentWillReceiveProps(nextProps: ConfigFormPropsT) {
@@ -76,6 +82,46 @@ export default class ConfigForm extends Component<
     }
   }
 
+  componentWillUnmount() {
+    this.unmounted = true;
+    if (!isEqual(this.state.formData, this.state.lastChange)) {
+      this.onChangeImmediately({ formData: this.state.formData });
+    }
+  }
+
+  onChange = debounce(data => this.onChangeImmediately(data), 1000);
+
+  onChangeImmediately = (data: *) => {
+    if (this.props.onChange) {
+      this.props.onChange(data);
+    } else {
+      if (this.props.node.operatorType) {
+        addOperator(
+          this.props.node.operatorType,
+          {
+            component: this.props.data && this.props.data.component,
+            ...data.formData
+          },
+          this.props.node._id
+        );
+      } else {
+        addActivity(
+          this.props.node.activityType,
+          {
+            component: this.props.data && this.props.data.component,
+            ...data.formData
+          },
+          this.props.node._id,
+          null
+        );
+      }
+      if (!this.unmounted) {
+        this.setState({ lastChange: data.formData });
+      }
+      this.props.refreshValidate();
+    }
+  };
+
   render() {
     const {
       node,
@@ -83,8 +129,7 @@ export default class ConfigForm extends Component<
       valid,
       connectedActivities,
       connectedSourceActivities,
-      connectedTargetActivities,
-      refreshValidate
+      connectedTargetActivities
     } = this.props;
     const props = {
       formData: this.state.formData,
@@ -96,7 +141,8 @@ export default class ConfigForm extends Component<
         targetActivityWidget: SelectTargetActivityWidget,
         sourceActivityWidget: SelectSourceActivityWidget,
         learningItemTypeWidget: SelectLITypeWidget,
-        learningItemTypeEditorWidget: SelectLITypeEditorWidget
+        learningItemTypeEditorWidget: SelectLITypeEditorWidget,
+        quillWidget: QuillWidget
       },
       reload: this.props.reload,
       id: node._id,
@@ -107,31 +153,10 @@ export default class ConfigForm extends Component<
         connectedTargetActivities,
         groupingKey: node.groupingKey
       },
-      onChange:
-        this.props.onChange ||
-        (data => {
-          if (node.operatorType) {
-            addOperator(
-              node.operatorType,
-              {
-                component: this.props.data && this.props.data.component,
-                ...data.formData
-              },
-              node._id
-            );
-          } else {
-            addActivity(
-              node.activityType,
-              {
-                component: this.props.data && this.props.data.component,
-                ...data.formData
-              },
-              node._id,
-              null
-            );
-          }
-          refreshValidate();
-        })
+      onChange: data => {
+        this.setState({ formData: data.formData });
+        this.onChange(data);
+      }
     };
 
     const nodeConfig = this.props.nodeType.config;

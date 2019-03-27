@@ -235,14 +235,14 @@ const sendActivityRequest = ({
         }
         doc.once(
           'load',
-          Meteor.bindEnvironment(() => {
+          Meteor.bindEnvironment(async () => {
             if (doc.type) {
               resolve();
             } else if (rawData) {
               doc.create(rawData);
               resolve();
             } else {
-              mergeOneInstance(
+              await mergeOneInstance(
                 instance,
                 { _id: activityId, data: config || {} },
                 initData,

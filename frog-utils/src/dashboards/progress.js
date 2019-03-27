@@ -1,9 +1,7 @@
 // @flow
-/* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type LogDbT, type ActivityDbT } from 'frog-utils';
-import regression from 'regression';
+import { type LogDbT, type ActivityDbT, values } from 'frog-utils';
 import {
   VictoryChart,
   VictoryLine,
@@ -11,11 +9,19 @@ import {
   VictoryLegend,
   VictoryAxis
 } from 'victory';
-import { entries } from 'lodash';
 
 const Viewer = (props: Object) => {
   const { state, activity } = props;
   const nowLine = [{ x: state.now, y: 0 }, { x: state.now, y: 1 }];
+  const toVictoryFormat = (data, isPred) =>
+    (data || []).map((y, i) => {
+      const _x = isPred
+        ? state.now + i * WINDOW
+        : Math.min(state.now, i * WINDOW);
+      const _y = y / Math.max(1, state.users);
+      return { x: _x, y: _y };
+    });
+
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
       <VictoryChart style={{ height: '100%' }} theme={VictoryTheme.material}>
@@ -32,24 +38,22 @@ const Viewer = (props: Object) => {
         />
         <VictoryLine
           style={{ data: { stroke: '#f25959', strokeDasharray: '5,5' } }}
-          data={state.prediction}
+          data={toVictoryFormat(state.comppred, true)}
         />
         <VictoryLine
           style={{ data: { stroke: '#5454f7', strokeDasharray: '5,5' } }}
-          data={state.progpred}
+          data={toVictoryFormat(state.progpred, true)}
         />
         <VictoryLine
           style={{ data: { stroke: '#b20e0e' } }}
-          data={state.completion}
+          data={toVictoryFormat(state.completion, false)}
         />
         <VictoryLine
           style={{ data: { stroke: '#0000ff' } }}
-          data={state.progress}
+          data={toVictoryFormat(state.progress, false)}
         />
         <VictoryLine
-          style={{
-            data: { stroke: 'grey', strokeWidth: 2 }
-          }}
+          style={{ data: { stroke: 'grey', strokeWidth: 2 } }}
           data={nowLine}
         />
         <VictoryAxis
@@ -72,49 +76,8 @@ const Viewer = (props: Object) => {
   );
 };
 
-const FINISHED = 'finished';
-const UPDATE_THRESHOLD = 10;
-const HIATUS_THRESHOLD = 90;
-const PREDICT_THRESHOLD = 150;
-const MAX_NUM_INTERVAL = 100;
-
-function linearRegression(activities) {
-  const userResult = regression.linear(activities);
-  return userResult.equation;
-}
-
-function registerUserProgress(userActivities, t) {
-  const stateBeforeT = userActivities.filter(value => value[1] <= t);
-  const userProgress =
-    stateBeforeT.length === 0 ? 0 : stateBeforeT[stateBeforeT.length - 1][0];
-  return userProgress;
-}
-
-function predictUserProgress(userStatus, t) {
-  const userProgress =
-    userStatus === FINISHED
-      ? 1
-      : userStatus[0] === 0
-      ? Math.min(userStatus[1], 1)
-      : Math.min((t - userStatus[1]) / userStatus[0], 1);
-  return userProgress;
-}
-
-function assembleCurve(progress) {
-  const curves =
-    progress.length === 0
-      ? [0, 0]
-      : [
-          progress.filter(value => value === 1).length / progress.length,
-          progress.reduce((a, b) => a + b, 0) / progress.length
-        ];
-  return curves;
-}
-
-const parse = curve =>
-  entries(curve).map(([k, v]) => ({ x: parseInt(k, 10), y: v }));
-
-const hiatusCoefficient = progress => Math.exp(1 - 2 * progress);
+const WINDOW = 10;
+const PREDICT_LENGTH = 300;
 
 // calculate predicted time for each student
 const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
@@ -124,82 +87,44 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const currentMaxTime = activity.actualStartingTime
     ? (currentTime - new Date(activity.actualStartingTime)) / 1000
     : state.maxTime;
-  const sessionStatus = {};
 
-  Object.keys(state.user).forEach(user => {
-    const userActivities = state.user[user];
-    if (userActivities[0][0] !== 0) {
-      userActivities.unshift([0, 0]);
-    }
-    const lastIndex = userActivities.length - 1;
-    if (lastIndex >= 1) {
-      const userStatus =
-        userActivities[lastIndex][0] === 1
-          ? FINISHED
-          : currentMaxTime - userActivities[lastIndex][1] <
-            Math.max(
-              HIATUS_THRESHOLD,
-              hiatusCoefficient(userActivities[lastIndex][0]) *
-                (userActivities[lastIndex][1] - userActivities[0][1])
-            )
-          ? linearRegression(userActivities)
-          : [0, userActivities[lastIndex][0]]; // student in hiatus stops working, returns final progress
-      sessionStatus[user] = userStatus;
-    }
+  const lengthObserved = 1 + Math.ceil(currentMaxTime / WINDOW);
+  const lengthPrediction = Math.ceil(PREDICT_LENGTH / WINDOW);
+
+  const progress: number[] = new Array(lengthObserved).fill(0);
+  const completion: number[] = new Array(lengthObserved).fill(0);
+  const comppred: number[] = new Array(lengthPrediction).fill(0);
+  const progpred: number[] = new Array(lengthPrediction).fill(0);
+
+  values(state.user).forEach(data => {
+    if (!data) return;
+
+    // Compute OBSERVED data
+    progress.forEach((_, timeWindow) => {
+      const d = data.filter(([___, t]) => t < timeWindow * WINDOW);
+      const [p] = d.length > 0 ? d[d.length - 1] : [0];
+      progress[timeWindow] += p;
+      completion[timeWindow] += p < 1 ? 0 : 1;
+    });
+
+    // Compute PREDICTED data
+    const [__, startTime] = data[0];
+    const [latestP, ___] = data[data.length - 1];
+    const _progressRate = latestP / Math.max(1, currentMaxTime - startTime);
+    const progressRate = Math.max(Math.min(_progressRate, 1 / 30), 1 / 3600);
+    progpred.forEach((_, timeWindow) => {
+      const _p = latestP + timeWindow * WINDOW * progressRate;
+      const p = Math.min(1, _p);
+      progpred[timeWindow] += p;
+      comppred[timeWindow] += p < 1 ? 0 : 1;
+    });
   });
-
-  const progressCurve = {};
-  const completionCurve = {};
-  const predictedProgressCurve = {};
-  const predictedCompletionCurve = {};
-  const T_MAX = currentMaxTime + PREDICT_THRESHOLD;
-  const UPDATE_INTERVAL = Math.max(
-    UPDATE_THRESHOLD,
-    Math.ceil(T_MAX / MAX_NUM_INTERVAL)
-  );
-
-  for (let t = 0; t <= T_MAX; t += UPDATE_INTERVAL) {
-    const progress = [];
-    if (t <= currentMaxTime) {
-      // visualize actual data
-      Object.keys(sessionStatus).forEach(user => {
-        const userProgress = registerUserProgress(state.user[user], t);
-        progress.push(userProgress);
-      });
-      const [comp, prog] = assembleCurve(progress);
-      completionCurve[t] = comp;
-      predictedCompletionCurve[t] = comp;
-      progressCurve[t] = prog;
-      predictedProgressCurve[t] = prog;
-    } else {
-      // predict future data
-      Object.keys(sessionStatus).forEach(user => {
-        const userProgress = predictUserProgress(sessionStatus[user], t);
-        progress.push(userProgress);
-      });
-      const [comp, prog] = assembleCurve(progress);
-      predictedCompletionCurve[t] = comp;
-      predictedProgressCurve[t] = prog;
-    }
-  }
-
-  // interpolate at maxTime
-  const progress = [];
-  Object.keys(sessionStatus).forEach(user => {
-    const userProgress = registerUserProgress(state.user[user], currentMaxTime);
-    progress.push(userProgress);
-  });
-  const [comp, prog] = assembleCurve(progress);
-  completionCurve[currentMaxTime] = comp;
-  progressCurve[currentMaxTime] = prog;
-  predictedProgressCurve[currentMaxTime] = progressCurve[currentMaxTime];
-  predictedCompletionCurve[currentMaxTime] = completionCurve[currentMaxTime];
 
   return {
-    prediction: parse(predictedCompletionCurve),
-    completion: parse(completionCurve),
-    progpred: parse(predictedProgressCurve),
-    progress: parse(progressCurve),
+    comppred,
+    completion,
+    progpred,
+    progress,
     now: currentMaxTime,
     users: Object.keys(state.user).length
   };

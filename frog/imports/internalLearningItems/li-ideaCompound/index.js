@@ -4,57 +4,32 @@ import * as React from 'react';
 import {
   type LearningItemT,
   ReactiveText,
+  ReactiveRichText,
   HighlightSearchText
 } from 'frog-utils';
+import { get, isString } from 'lodash';
 
-const ThumbViewer = ({ LearningItem, data, search }) => {
-  if (
-    search &&
-    !data.title.toLowerCase().includes(search) &&
-    !data.content.toLowerCase().includes(search)
-  ) {
-    return null;
-  }
+const FlexViewer = ({ LearningItem, data, search, dataFn, type }) => {
+  const shouldShorten = type === 'thumbView';
+
   return (
     <div>
       <HighlightSearchText haystack={data.title} needle={search} />
       <br />
-      {data.content.split('\n').map((line, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <React.Fragment key={i}>
-          <HighlightSearchText haystack={line} needle={search} />
-          <br />
-        </React.Fragment>
-      ))}
+      <ReactiveRichText
+        readOnly
+        path="contents"
+        data={data}
+        dataFn={dataFn}
+        search={search}
+        shorten={shouldShorten ? 150 : undefined}
+      />
       {data.attachments.map(x => (
         <LearningItem key={x} id={x} type="thumbView" />
       ))}
     </div>
   );
 };
-
-const Viewer = ({ LearningItem, data, search }) => (
-  <div>
-    <b>
-      <HighlightSearchText haystack={data.title} needle={search} />
-    </b>
-    <br />
-    {data.content.split('\n').map((line, i) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <React.Fragment key={i}>
-        <HighlightSearchText haystack={line} needle={search} />
-        <br />
-      </React.Fragment>
-    ))}
-    {data.attachments.length === 1 ? (
-      <LearningItem id={data.attachments[0]} type="view" />
-    ) : (
-      data.attachments.map(x => (
-        <LearningItem clickZoomable key={x} id={x} type="thumbView" />
-      ))
-    )}
-  </div>
-);
 
 class Editor extends React.Component<*, *> {
   onDrop(e) {
@@ -73,7 +48,7 @@ class Editor extends React.Component<*, *> {
           <br />
           <b>Content:</b>
           <br />
-          <ReactiveText path="content" type="textarea" dataFn={dataFn} />
+          <ReactiveRichText path="contents" dataFn={dataFn} />
         </div>
         {data.attachments.map((x, i) => (
           <span key={x} onClick={() => dataFn.listDel(x, ['attachments', i])}>
@@ -83,6 +58,7 @@ class Editor extends React.Component<*, *> {
         <div>
           <LearningItem
             type="create"
+            liType="li-image"
             onCreate={e => dataFn.listAppend(e, 'attachments')}
           />
         </div>
@@ -94,12 +70,36 @@ class Editor extends React.Component<*, *> {
 export default ({
   name: 'Idea with attachments',
   id: 'li-ideaCompound',
-  ThumbViewer,
-  Viewer,
+  ThumbViewer: FlexViewer,
+  Viewer: FlexViewer,
   Editor,
-  liDataStructure: { title: '', content: '', attachments: [] },
-  search: (data, search) =>
-    data.title.toLowerCase().includes(search) ||
-    data.content.toLowerCase().includes(search),
-  canDropLI: true
-}: LearningItemT<{ title: string, content: string, attachments: any[] }>);
+  dataStructure: {
+    title: '',
+    attachments: [],
+    contents: {
+      ops: [
+        {
+          insert: '\n'
+        }
+      ]
+    }
+  },
+  canDropLI: true,
+  search: (data, search, dataFn, isPlayback) => {
+    const editorContent = isPlayback
+      ? get(data, 'content')
+      : get(dataFn.doc.data, dataFn.getMergedPath('content'));
+    const textContent = editorContent.ops.map(op => {
+      if (isString(op.insert)) {
+        return op.insert;
+      }
+      return '';
+    });
+    return (
+      textContent
+        .join('')
+        .toLowerCase()
+        .includes(search) || data.title.toLowerCase().includes(search)
+    );
+  }
+}: LearningItemT<*>);

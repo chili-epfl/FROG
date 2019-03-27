@@ -12,7 +12,7 @@ test('Test activity with no type defined => unvalid', () => {
 });
 
 test('Test activity with type defined => valid', () => {
-  expect(resultToIds(g2).length).toEqual(0);
+  expect(resultToIds(g2)).toHaveLength(0);
 });
 
 test('Test operator with no type defined => unvalid', () => {
@@ -20,7 +20,7 @@ test('Test operator with no type defined => unvalid', () => {
 });
 
 test('Test operator with type defined => valid', () => {
-  expect(resultToIds(g4).length).toEqual(0);
+  expect(resultToIds(g4)).toHaveLength(0);
 });
 
 test('Test group activity without social operator => unvalid', () => {
@@ -31,7 +31,7 @@ test('Test group activity without social operator => unvalid', () => {
 });
 
 test('Test group activity with social operator => valid', () => {
-  expect(resultToIds(g6).length).toEqual(0);
+  expect(resultToIds(g6)).toHaveLength(0);
 });
 
 test('Test group activity with product operator => unvalid', () => {

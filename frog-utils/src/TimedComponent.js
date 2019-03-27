@@ -13,7 +13,7 @@ type PropsT = {
 };
 
 type StateT = {
-  timeNow: number,
+  timeNow: Date,
   props: Object
 };
 

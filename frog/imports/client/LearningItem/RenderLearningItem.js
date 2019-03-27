@@ -139,7 +139,14 @@ class RenderLearningItem extends React.Component<any, any> {
         <DraggableCore
           disabled={type === 'edit' || type === 'history' || disableDragging}
           offsetParent={document.body}
-          onStart={e => e.preventDefault()}
+          onStart={e => {
+            if (e.shiftKey) {
+              e.preventDefault();
+              return true;
+            } else {
+              return false;
+            }
+          }}
           onDrag={(e, d) => {
             listore.setXY(d.x, d.y);
             listore.setDraggedItem(id, e.shiftKey);

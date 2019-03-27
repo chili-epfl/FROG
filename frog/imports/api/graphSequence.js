@@ -3,6 +3,7 @@
 import { type ActivityDbT } from 'frog-utils';
 import { Graphs } from './graphs';
 import { Sessions } from './sessions';
+import 'core-js/fn/array/flat-map';
 
 export const calculateNextOpen = (
   timeInGraph: number,
@@ -65,4 +66,25 @@ export const getActivitySequence = (
     timeInGraph = nt;
   }
   return activitySeq;
+};
+
+export const getPrevTime = (
+  activities: ActivityDbT[],
+  prevTime: number
+): [number, ActivityDbT[]] => {
+  let timeInGraph = -1;
+  let oldAct = [];
+  while (true) {
+    const [nt, open, final] = calculateNextOpen(timeInGraph, activities);
+    if (nt === prevTime) {
+      return [timeInGraph, oldAct];
+    }
+    // eslint-disable-next-line no-loop-func
+    if (final) {
+      break;
+    }
+    oldAct = open;
+    timeInGraph = nt;
+  }
+  return [0, []];
 };

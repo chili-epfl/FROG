@@ -27,6 +27,11 @@ const config = {
     overlap: {
       type: 'boolean',
       title: 'Allow multiple groups receiving the same item?'
+    },
+    duplicateLIs: {
+      type: 'boolean',
+      title:
+        'Duplicate Learning Items instead of letting multiple groups see the same Learning Items'
     }
   }
 };

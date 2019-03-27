@@ -2,11 +2,15 @@
   "name": "ac-prisoner-dilemma",
   "version": "1.0.0",
   "main": "src/index.js",
-  "scripts": {"start": "nps"},
+  "scripts": {
+    "start": "nps"
+  },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
-  "devDependencies": {"nps": "5.9.3"}
+  "devDependencies": {
+    "nps": "5.9.3"
+  }
 }

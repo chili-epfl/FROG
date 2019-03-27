@@ -45,7 +45,7 @@ export const EnhancedForm = isBrowser
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export const ReactiveRichText = isBrowser
-  ? require('./ReactiveRichText').default // eslint-disable-line global-require
+  ? require('./ReactiveRichText/main').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
 
 export {
@@ -172,7 +172,7 @@ export const HighlightSearchText = ({
 }: {
   haystack: string,
   needle?: string,
-  shorten: boolean
+  shorten?: boolean
 }) => {
   let result = haystack;
   if (shorten) {
@@ -205,7 +205,6 @@ export const HighlightSearchText = ({
       acc += char;
       i += 1;
     }
-    console.log(i, c);
     result = acc;
   }
 
@@ -315,7 +314,6 @@ export const shortenRichText = (
     trimmedOps.push(edgeOp);
 
     trimmedOps.push({ insert: '...' });
-    console.log(trimmedOps);
     return { ops: trimmedOps };
   }
 };

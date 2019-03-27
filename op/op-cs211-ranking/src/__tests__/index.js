@@ -1,5 +1,6 @@
 import { object } from '../__fixtures__/object';
 import { object2 } from '../__fixtures__/object2';
+import { config3, object3 } from '../__fixtures__/object3';
 import operator from '../operatorRunner';
 
 const config = {
@@ -20,4 +21,8 @@ const config2 = {
 
 test('works twice', () => {
   expect(operator(config2, object2)).toMatchSnapshot();
+});
+
+test.only('works twice', () => {
+  expect(operator(config3, object3)).toEqual();
 });

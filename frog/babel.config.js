@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = api => ({
   plugins: [
     'macros',
     '@babel/plugin-transform-flow-strip-types',
@@ -9,6 +9,17 @@ module.exports = {
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-import-meta',
     '@babel/plugin-proposal-json-strings',
+    ...(api.env('test')
+      ? [
+          [
+            '@babel/plugin-transform-runtime',
+            {
+              helpers: false,
+              regenerator: true
+            }
+          ]
+        ]
+      : []),
     [
       'captains-log',
       {
@@ -17,4 +28,4 @@ module.exports = {
     ]
   ],
   presets: ['@babel/preset-env', '@babel/preset-react']
-};
+});

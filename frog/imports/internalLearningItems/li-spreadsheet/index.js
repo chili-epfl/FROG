@@ -1,7 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { type LearningItemT, isBrowser, flattenOne } from 'frog-utils';
+import {
+  isBrowser,
+  flattenOne,
+  ReactiveText,
+  type LearningItemT
+} from 'frog-utils';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';
@@ -14,8 +19,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 if (isBrowser) {
-  require('./css.js');
+  require('./react-datasheet.css');
 }
+
+const numberRegex = new RegExp(/^-?\d*\.?,?\d+$/);
+
+let IsEditing = false;
 
 const getLetter = index =>
   index < 26
@@ -58,36 +67,37 @@ const RemoveButton = ({ onClick }) => (
 class DataEditor extends React.Component<*, *> {
   _input: any;
 
-  handleChange = e => {
-    this.props.onChange(e.target.value);
-  };
-
   componentDidMount() {
-    this._input.focus();
+    IsEditing = true;
+  }
+
+  componentWillUnmount() {
+    IsEditing = false;
+    this.props.parent.forceUpdate();
   }
 
   render() {
-    const { value, onKeyDown } = this.props;
     return (
-      <input
-        ref={input => {
-          this._input = input;
-        }}
+      <ReactiveText
+        type="textarea"
+        focus
         className="data-editor"
-        style={{ height: '100%', width: '100%', fontSize: '20px' }}
-        value={value}
-        onChange={this.handleChange}
-        onKeyDown={onKeyDown}
+        style={{ height: '100%', width: '100%', fontSize: '15px' }}
+        onKeyDown={this.props.onKeyDown}
+        dataFn={this.props.dataFn}
+        path={[this.props.row, this.props.col, 'value']}
       />
     );
   }
 }
 
-class MathSheet extends React.Component<*, *> {
+class ActivityRunner extends React.Component<*, *> {
   state = {
     modalOpen: false,
     deleting: ''
   };
+
+  shouldComponentUpdate = () => !IsEditing;
 
   validateExp(trailKeys, expr) {
     let valid = true;
@@ -168,10 +178,10 @@ class MathSheet extends React.Component<*, *> {
         ? this.props.data.map(x => x.map(y => ({ ...y, readOnly: true })))
         : this.props.data;
     const search = this.props.search;
+    const LearningItem = this.props.dataFn.LearningItem;
     return (
       <div
         style={{
-          width: '800px',
           fontSize: '1.3em',
           display: 'flex',
           flexDirection: 'column'
@@ -181,7 +191,6 @@ class MathSheet extends React.Component<*, *> {
           <Dialog open={this.state.modalOpen}>
             <DialogTitle>Warning</DialogTitle>
             <DialogContent>
-              {' '}
               You are about to delete a non-empty cell
             </DialogContent>
             <DialogActions>
@@ -205,10 +214,21 @@ class MathSheet extends React.Component<*, *> {
             </DialogActions>
           </Dialog>
           <Datasheet
+            style={{ width: '100%' }}
             data={data}
-            valueRenderer={cell => cell.value}
+            valueRenderer={cell =>
+              cell.value?.li ? (
+                <div style={{ margin: '10px' }}>
+                  <LearningItem type="thumbView" id={cell.value.li} />
+                </div>
+              ) : (
+                cell.value
+              )
+            }
             dataRenderer={cell => cell.expr}
-            dataEditor={DataEditor}
+            dataEditor={props => (
+              <DataEditor {...props} parent={this} dataFn={this.props.dataFn} />
+            )}
             cellRenderer={props => (
               <td
                 className={props.className}
@@ -216,7 +236,10 @@ class MathSheet extends React.Component<*, *> {
                 onMouseOver={props.onMouseOver}
                 onDoubleClick={props.onDoubleClick}
                 style={{
-                  width: '40px',
+                  width:
+                    props.col === 0
+                      ? '40px'
+                      : 100 / (this.props.data[0].length - 1) + '%',
                   height: '30px',
                   backgroundColor:
                     search &&
@@ -224,7 +247,10 @@ class MathSheet extends React.Component<*, *> {
                       .toLowerCase()
                       .includes(search)
                       ? '#FFFF00'
-                      : undefined
+                      : undefined,
+                  textAlign: numberRegex.test(data[props.row][props.col].value)
+                    ? 'right'
+                    : 'left'
                 }}
               >
                 {props.children}
@@ -232,7 +258,7 @@ class MathSheet extends React.Component<*, *> {
             )}
             onCellsChanged={this.onCellsChanged}
           />
-          {!this.props.readOnly && (
+          {this.props.type !== 'view' && (
             <div
               style={{
                 flexDirection: 'column',
@@ -276,7 +302,7 @@ class MathSheet extends React.Component<*, *> {
             </div>
           )}
         </div>
-        {!this.props.readOnly && (
+        {this.props.type !== 'view' && (
           <div
             style={{
               flexDirection: 'row',
@@ -340,7 +366,7 @@ export default ({
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
   //  $FlowFixMe
-  Viewer: MathSheet,
+  Viewer: ActivityRunner,
   ThumbViewer: () => (
     <div>
       <Fab color="primary">
@@ -349,7 +375,7 @@ export default ({
       Spreadsheet
     </div>
   ),
-  Editor: MathSheet,
+  Editor: ActivityRunner,
   search: (data, search) =>
     JSON.stringify(data)
       .toLowerCase()

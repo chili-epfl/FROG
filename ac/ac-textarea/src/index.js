@@ -1,7 +1,7 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
-import { compact, uuid } from 'lodash';
+import { type ActivityPackageT, uuid } from 'frog-utils';
+import { compact } from 'lodash';
 
 const meta = {
   name: 'Text area',

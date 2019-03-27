@@ -75,7 +75,7 @@ const config1 = {
   }
 };
 
-test('test obligatory field', () => {
+test('test obligatory field 2', () => {
   expect(valid('1', {}, config1)).toEqual([
     {
       err: "Field 'Group formation strategy' required",

@@ -11,7 +11,12 @@ const meta = {
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    includeItem: {
+      title: 'Include item to be reviewed',
+      type: 'boolean'
+    }
+  }
 };
 
 export default ({

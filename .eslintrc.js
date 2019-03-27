@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ['flowtype', 'prettier'],
+  plugins: ['flowtype', 'prettier', 'react-hooks'],
   globals: {
     document: true,
     test: true,
@@ -15,6 +15,15 @@ module.exports = {
     Meteor: true
   },
   rules: {
+    'no-restricted-syntax': [
+      'off',
+      {
+        selector: 'ForOfStatement'
+      }
+    ],
+    'no-plusplus': 'off',
+    'no-prototype-builtins': 'off',
+    'react-hooks/rules-of-hooks': 'error',
     'react/prefer-stateless-function': 'off',
     'class-methods-use-this': 'off',
     'consistent-return': 'off',
@@ -98,5 +107,21 @@ module.exports = {
     'plugin:flowtype/recommended',
     'prettier',
     'prettier/react'
+  ],
+  overrides: [
+    {
+      files: ['**/__tests__/*.js'],
+      env: {
+        jest: true // now **/*.test.js files' env has both es6 *and* jest
+      },
+      plugins: ['jest'],
+      rules: {
+        'jest/no-disabled-tests': 'warn',
+        'jest/no-focused-tests': 'error',
+        'jest/no-identical-title': 'error',
+        'jest/prefer-to-have-length': 'warn',
+        'jest/valid-expect': 'error'
+      }
+    }
   ]
 };

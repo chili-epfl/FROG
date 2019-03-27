@@ -149,7 +149,12 @@ export type ActivityPackageT = {
   configUI?: Object,
   dataStructure?: any,
   validateConfig?: validateConfigFnT[],
-  mergeFunction?: (dataUnitStructT, Object, any, ?Object) => void,
+  mergeFunction?: (
+    dataUnitStructT,
+    Object,
+    any,
+    ?Object
+  ) => void | Promise<void>,
   dashboards?: { [name: string]: DashboardT },
   exportData?: (config: Object, product: activityDataT) => string,
   formatProduct?: (
