@@ -25,7 +25,7 @@ const db = ShareDBMongo(dbUrl);
 let options = { db };
 if (Meteor.settings.sharedb_redis) {
   const redis = new RedisPubsub({
-    url: 'redis://' + Meteor.settings.sharedb_redis
+    url: Meteor.settings.sharedb_redis
   });
   options = { ...options, pubsub: redis };
 }

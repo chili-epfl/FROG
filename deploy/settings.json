@@ -6,7 +6,7 @@
     "friendlyProduction": true
   },
   "sharedb_dburl": "mongodb://127.0.0.1:27017",
-  "sharedb_redis": "127.0.0.1:6379",
+  "sharedb_redis": "redis://127.0.0.1:6379",
   "token": "9f8sd0f98sdfj3j4jFFFF111",
   "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]}
 }
