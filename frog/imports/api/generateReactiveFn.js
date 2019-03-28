@@ -168,31 +168,37 @@ export class Doc {
     const connection = this.LIConnection || this.doc.connection;
     const LIData = await new Promise(resolve => {
       const doc = connection.get('li', li);
+      console.log('getting li', li)
       doc.fetch();
       if (doc.type) {
+        console.log('type', doc.data );
         const data = doc.data;
         doc.destroy();
         resolve(data);
       }
 
       doc.once('load', () => {
+        console.log('load', doc.data, doc);
         const data = doc.data;
         doc.destroy();
         resolve(data);
       });
     });
+    console.log(LIData);
 
     const id = uuid();
     const itempointer = (this.LIConnection || this.doc.connection).get(
       'li',
       id
     );
+    console.log(LIData, id);
     const newLI = {
       ...LIData,
       createdAt: new Date(),
       ...(meta || {}),
       ...this.meta
     };
+    console.log(newLI);
     itempointer.create(newLI);
     return id;
   };

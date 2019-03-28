@@ -52,7 +52,12 @@ Object.keys(activityLIs).forEach(li => {
 });
 
 Object.values(activityLIs).forEach(x => {
-  x.meta = { name: x.name, shortDesc: '', description: '' };
+  x.meta = {
+    name: x.name,
+    shortDesc: '',
+    description: '',
+    supportsLearningItems: true
+  };
   x.mergeFunction = activityTypesObj['ac-single-li'].mergeFunction;
   x.formatProduct = activityTypesObj['ac-single-li'].formatProduct;
   x.configUI = activityTypesObj['ac-single-li'].configUI;
@@ -67,7 +72,6 @@ Object.values(activityLIs).forEach(x => {
   };
 });
 
-console.log(activityLIs);
 Object.keys(activityLIs).forEach(li => {
   activityTypesObj[li] = activityLIs[li];
 });

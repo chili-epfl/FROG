@@ -9,26 +9,8 @@ import {
 } from 'frog-utils';
 import upgradeFunctions from './upgradeFunctions';
 
-const learningItems = [
-  {
-    id: '1',
-    liType: 'li-idea',
-    payload: { title: 'Hi', content: 'Hello' },
-    createdAt: '2018-05-10T12:02:07.525Z'
-  },
-  {
-    id: '2',
-    liType: 'li-image',
-    payload: {
-      thumburl: 'https://i.imgur.com/ypw3CGOb.jpg',
-      url: 'https://i.imgur.com/ypw3CGO.jpg'
-    },
-    createdAt: '2018-05-10T12:05:08.700Z'
-  }
-];
-
 const meta = {
-  name: 'Add/edit single LI',
+  name: 'Add/edit single Learning Item',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
   supportsLearningItems: true
@@ -39,11 +21,6 @@ const config = {
   properties: {
     title: { type: 'string', title: 'Title' },
     instructions: { type: 'rte', title: 'Instructions' },
-    noSubmit: {
-      title: 'No submit button, directly edit',
-      type: 'boolean',
-      default: true
-    },
     allowEditing: {
       title: 'Allow editing after submission',
       default: true,
@@ -51,6 +28,10 @@ const config = {
     },
     duplicateLI: {
       title: 'Create duplicate of incoming Learning Item',
+      type: 'boolean'
+    },
+    openIncomingInEdit: {
+      title: 'Open incoming Learning Item in edit-mode',
       type: 'boolean'
     }
   }

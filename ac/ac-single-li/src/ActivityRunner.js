@@ -18,7 +18,7 @@ class ActivityRunner extends React.Component<
   ActivityRunnerPropsT,
   { editing: boolean }
 > {
-  state = { editing: false };
+  state = { editing: this.props.activityData.config.openIncomingInEdit };
 
   componentDidMount = () => {
     const { logger, activityData } = this.props;

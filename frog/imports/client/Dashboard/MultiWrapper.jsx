@@ -126,13 +126,16 @@ const MultiWrapper = (props: {
   }
   const aT = activityTypesObj[activity.activityType];
   const aTDash = aT.dashboards;
-  if (!aTDash || (isEmpty(aTDash) && !names)) {
+  if (
+    !aT.meta.supportsLearningItems &&
+    (!aTDash || (isEmpty(aTDash) && !names))
+  ) {
     return null;
   }
 
   const dashNames =
     names ||
-    Object.keys(aTDash).filter(name => {
+    Object.keys(aTDash || {}).filter(name => {
       const cond = aTDash[name].displayCondition;
       if (!cond) {
         return true;
@@ -142,12 +145,11 @@ const MultiWrapper = (props: {
       }
       return cond(activity.data);
     });
-
-  if (isEmpty(dashNames)) {
-    return null;
-  }
   if (aT.meta?.supportsLearningItems) {
     dashNames.unshift('Learning Items');
+  }
+  if (isEmpty(dashNames)) {
+    return null;
   }
 
   return (
