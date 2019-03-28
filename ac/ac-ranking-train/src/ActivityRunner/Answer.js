@@ -51,7 +51,7 @@ const changeRank = (props, incr) => {
         round: props.data.round
       }
     ]);
-    dataFn.objInsert(newAnswers, ['answers', userInfo.id]);
+    dataFn.objInsert(newAnswers, ['answers', data.round, userInfo.id]);
   }
 };
 

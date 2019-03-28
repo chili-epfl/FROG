@@ -57,7 +57,9 @@ const Quiz = ({
   return (
     <>
       {config.showOne && (
-        <Question {...{ ...props, question: q, index, questionIndex: qIdx }} />
+        <Question
+          {...{ ...props, key: qIdx, question: q, index, questionIndex: qIdx }}
+        />
       )}
       {!config.showOne &&
         questions.map(([question, questionIndex], i) => (

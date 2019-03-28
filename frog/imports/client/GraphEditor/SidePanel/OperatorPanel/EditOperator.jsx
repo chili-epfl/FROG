@@ -120,7 +120,11 @@ export default ({
     outgoingConnections.map(x => activities.find(act => act.id === x.target.id))
   );
   const connectedSourceActivities = compact(
-    incomingConnections.map(x => activities.find(act => act.id === x.source.id))
+    incomingConnections.map(
+      x =>
+        activities.find(act => act.id === x.source.id) ||
+        all.find(act => act.id === x.source.id)
+    )
   );
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>

@@ -7,8 +7,6 @@ import { getXYFromRanking } from '../Dashboard';
 
 const blue = '#337ab7';
 
-const nKey = x => Object.keys(x).length;
-
 const styles = {
   button: {
     width: 'auto',
@@ -38,9 +36,15 @@ const onClick = props => () => {
   const newAnswers = answers[userInfo.id] || {};
   newAnswers[title] = rank + 1;
 
-  const progress = answers[userInfo.id]
-    ? nKey(newAnswers) / config.answers.length
-    : 0;
+  const answerCount = Object.keys(answers).reduce(
+    (acc, x) => acc + Object.keys(answers[x]).length,
+    0
+  );
+  let progress = 0;
+  if (answerCount > 0) {
+    progress =
+      answerCount / (config.answers.length * Object.keys(answers).length);
+  }
 
   const coordinates = getXYFromRanking(newAnswers, config);
   dataFn.objInsert(coordinates, 'coordinates');

@@ -8,7 +8,9 @@ if (
   Meteor.settings.sendLogsToExternalDashboardServer ||
   Meteor.settings.dashboardServer
 ) {
-  clientRaw = redis.createClient();
+  clientRaw = redis.createClient(
+    Meteor.settings.logserverRedis || 'redis://127.0.0.1:6379'
+  );
   clientRaw.on('error', e => {
     console.error('Redis error', e);
   });

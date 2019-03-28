@@ -30,7 +30,7 @@ export const formatProduct = (
       'Uh Oh !! The student assigned to work with you has not completed the previous activity. If he still does not participate, you could discuss with your fellow student sitting next to you.';
   }
 
-  return { ...data, msg };
+  return { ...data, msg, answers: data.answers[1] };
 };
 
 export default ({

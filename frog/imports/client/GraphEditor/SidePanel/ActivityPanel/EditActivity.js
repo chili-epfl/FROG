@@ -100,8 +100,10 @@ const RawEditActivity = ({
     )
   );
   const connectedSourceActivities = compact(
-    incomingConnections.map(x =>
-      store.activityStore.all.find(act => act.id === x.source.id)
+    incomingConnections.map(
+      x =>
+        store.activityStore.all.find(act => act.id === x.source.id) ||
+        store.operatorStore.all.find(act => act.id === x.source.id)
     )
   );
 

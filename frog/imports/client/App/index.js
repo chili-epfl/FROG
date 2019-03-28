@@ -41,7 +41,11 @@ const APICall = Loadable({
 });
 
 Accounts._autoLoginEnabled = false;
-Accounts._initLocalStorage();
+try {
+  Accounts._initLocalStorage();
+} catch (e) {
+  console.error('Initializing local storage', e);
+}
 
 const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
@@ -215,8 +219,14 @@ const FROGRouter = withRouter(
           }
           if (!username && this.state.mode !== 'ready') {
             if (!query.reset) {
-              if (Accounts._storedLoginToken()) {
-                return this.tokenLogin(Accounts._storedLoginToken());
+              let storedLoginToken;
+              try {
+                storedLoginToken = Accounts._storedLoginToken();
+              } catch (e) {
+                console.error('Getting stored login token', e);
+              }
+              if (storedLoginToken) {
+                return this.tokenLogin(storedLoginToken);
               }
             }
             if (
