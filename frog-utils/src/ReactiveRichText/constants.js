@@ -21,7 +21,16 @@ const formats = [
   'learning-item',
   'author',
   'li-view',
-  'background'
+  'background',
+  'wiki-link'
 ];
 
-export { LiViewTypes, formats };
+const Keys = {
+  TAB: 9,
+  ENTER: 13,
+  ESCAPE: 27,
+  UP: 38,
+  DOWN: 40,
+};
+
+export { LiViewTypes, formats, Keys };

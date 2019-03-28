@@ -216,6 +216,18 @@ export class Doc {
     return binding;
   }
 
+  getWikiPagesDataSubscription = (wikiId) => {
+    const connection = this.LIConnection || this.doc.connection;
+    
+    const query = {
+      liType: 'li-richText', 
+      wikiId,
+      deleted: false
+    }
+
+    return connection.createSubscribeQuery('li', query);
+  };
+
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }

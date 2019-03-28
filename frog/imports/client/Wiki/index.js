@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import { parseDocResults, mapPagesToLIs, parseSearch } from './helpers';
+import { parseDocResults } from './helpers';
 
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
@@ -24,16 +24,14 @@ type WikiCompPropsT = {
 class WikiComp extends React.Component<WikiCompPropsT> {
   constructor(props) {
     super(props);
-    console.log(props);
     this.dataSubscription = null;
     this.needToCreateNewPageLI = false;
     this.wikiId = this.props.match.params.wikiId;
     const pageTitle = this.props.match.params.pageTitle ? this.props.match.params.pageTitle.toLowerCase() : 'home';
-    console.log(pageTitle);
 
     this.state = {
       pages: [],
-      pageTitle: pageTitle,
+      pageTitle,
       initialLoad: true,
       editing: true,
       data: [],
@@ -55,7 +53,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       null, 
       (err, results) => {
         if (err) {
-          reject(err);
+          throw err;
         } else {
           this.processResults(results);
         }
@@ -65,7 +63,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     this.dataSubscription.on('changed', results => this.processResults(results));
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.pageTitle !== this.props.match.params.pageTitle) {
       const newPageTitle = this.props.match.params.pageTitle;
 
@@ -81,9 +79,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   }
 
   processResults = (results) => {
-    console.log(results);
     const pages = parseDocResults(results);
-    console.log(pages);
 
     if (!pages[this.state.pageTitle]) {
       this.createNewPageLI(this.state.pageTitle);
@@ -92,16 +88,15 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
     this.setState({
       data: results,
-      pages: pages,
+      pages,
     });
   }
 
   createNewPageLI = (pageTitle) => {
-    pageTitle = pageTitle.toLowerCase();
-    console.log(pageTitle);
+    const pageTitleLower = pageTitle.toLowerCase();
     const meta = {
       wikiId: this.wikiId,
-      title: pageTitle,
+      title: pageTitleLower,
       deleted: false,
     };
 
@@ -168,12 +163,10 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       )
     });
 
-    console.log(pagesLinks);
-
     const newPageListItem = (
       <li>
         <input
-          placeholder={"New LI Title"}
+          placeholder="New LI Title"
           value={this.state.newTitle}
           onChange={(e) => { 
             this.setState({ newTitle: e.target.value });
@@ -183,6 +176,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
         {errorDiv}
       </li>
     )
+    
 
     const pageDiv = (() => {
       const pageObj = this.state.pages[this.state.pageTitle];
@@ -192,9 +186,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       const type = this.state.editing ? 'edit' : 'view';
 
       return (
-        <div>
-          <LearningItem type={type} id={pageId} />
-        </div>
+        <LearningItem type={type} id={pageId} />
       )
     })();
 
@@ -202,21 +194,20 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     const containerDivStyle = {
       display: 'table',
       minHeight: '100vh',
-      width: '100%'
+      width: '100%',
     }
 
 
     const pagesLinksDivStyle = {
       display: 'table-cell',
       width: '250px',
-      height: '100%',
       backgroundColor: 'lightgrey',
       padding: '5px',
     }
 
     const contentDivStyle = {
       display: 'table-cell',
-      padding: '10px',
+      padding: '5px',
     }
 
     return (

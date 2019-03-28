@@ -17,6 +17,12 @@ import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
 
+import WikiLinkModule from './WikiLink/WikiLinkModule';
+import WikiLinkBlot from './WikiLink/WikiLinkBlot';
+
+Quill.register('modules/wikiLink', WikiLinkModule);
+Quill.register('formats/wiki-link', WikiLinkBlot);
+
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
 // and satisfy Flow's requirements
@@ -82,12 +88,16 @@ class ReactiveRichText extends Component<
   styleElements: {};
 
   state = {
-    path: this.props.dataFn.getMergedPath(this.props.path)
+    path: this.props.dataFn.getMergedPath(this.props.path),
+    wikiPages: [],
   };
 
   constructor(props: ReactivePropsT) {
     super(props);
+    console.log(props);
     reactiveRichTextDataFn = props.dataFn;
+
+    this.wikiId = null;
   }
 
   opListener = (op: Object[], source: string) => {
@@ -318,6 +328,27 @@ class ReactiveRichText extends Component<
         this.initializeAuthorship();
       }
     }
+
+    if (this.props.dataFn.doc.data.wikiId) {
+      this.wikiId = this.props.dataFn.doc.data.wikiId;
+      this.wikiPagesDataSubscription = this.props.dataFn.getWikiPagesDataSubscription(this.wikiId);
+      this.wikiPagesDataSubscription.on('ready', () => this.processWikiPagesResults(this.wikiPagesDataSubscription.results));
+      this.wikiPagesDataSubscription.on('changed', results => this.processWikiPagesResults(results));
+    }
+  }
+
+  processWikiPagesResults = (results) => {
+    const wikiPages = results.map(doc => {
+      return {
+        wikiId: doc.data.wikiId,
+        pageTitle: doc.data.title,
+        Link: this.props.dataFn.Link,
+      }
+    });
+    console.log(wikiPages);
+    this.setState({
+      wikiPages,
+    });
   }
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
@@ -591,7 +622,7 @@ class ReactiveRichText extends Component<
     const editorStyle = props.readOnly
       ? { borderStyle: 'hidden' }
       : {
-          overflowY: 'auto',
+          overflowY: 'visble',
           height: '100%'
         };
     return (
@@ -630,7 +661,29 @@ class ReactiveRichText extends Component<
                     toggleAuthorship: this.toggleAuthorship,
                     insertLi: this.insertNewLi
                   }
+                },
+            wikiLink: {
+              allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+              mentionDenotationChars: ["@", "#"],
+              source: (searchTerm, renderList, mentionChar) => {
+                const values = this.state.wikiPages;
+    
+                if (searchTerm.length === 0) {
+                  renderList(values, searchTerm);
+                } else {
+                  const matches = [];
+                  for (const valueObj of values) {
+                    const text = valueObj.pageTitle.toLowerCase();
+                    const searchLower = searchTerm.toLowerCase();
+                    if (text.indexOf(searchLower) > -1) {
+                      matches.push(valueObj);
+                    }
+                  }
+                    
+                  renderList(matches, searchTerm);
                 }
+              },
+            },
           }}
           scrollingContainer={`.${scrollContainerClass}`}
           onChange={this.props.onChange}
