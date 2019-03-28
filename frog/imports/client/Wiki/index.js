@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
@@ -24,6 +25,7 @@ type WikiCompPropsT = {
 class WikiComp extends React.Component<WikiCompPropsT> {
   constructor(props) {
     super(props);
+    window.frog_gotoLink = (url) => props.history.push(url)
     this.dataSubscription = null;
     this.needToCreateNewPageLI = false;
     this.wikiId = this.props.match.params.wikiId;
@@ -248,4 +250,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   }
 }
 
-export default WikiComp;
+const Wiki = withRouter(WikiComp);
+Wiki.displayName ='Wiki'
+
+export default Wiki
