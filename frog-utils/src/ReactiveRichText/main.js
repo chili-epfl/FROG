@@ -342,10 +342,8 @@ class ReactiveRichText extends Component<
       return {
         wikiId: doc.data.wikiId,
         pageTitle: doc.data.title,
-        Link: this.props.dataFn.Link,
       }
     });
-    console.log(wikiPages);
     this.setState({
       wikiPages,
     });

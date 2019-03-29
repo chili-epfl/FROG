@@ -220,7 +220,6 @@ export class Doc {
     const connection = this.LIConnection || this.doc.connection;
     
     const query = {
-      liType: 'li-richText', 
       wikiId,
       deleted: false
     }
