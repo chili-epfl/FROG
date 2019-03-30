@@ -8,6 +8,7 @@ import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
 import { parseDocResults } from './helpers';
+import { addNewWikiPage, invalidateWikiPage, changeWikiPageTitle } from '/imports/api/wikiDocAPI';
 
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
@@ -27,7 +28,12 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     super(props);
     window.frog_gotoLink = (url) => props.history.push(url)
     this.dataSubscription = null;
+    
     this.wikiId = this.props.match.params.wikiId;
+    if (!this.wikiId) throw new Error('Empty wikiId field');
+    this.wikiDoc = connection.get('wiki', this.wikiId);
+    this.wikiDoc.on('create', this.subscribeToPagesData);
+
     const pageTitle = this.props.match.params.pageTitle ? this.props.match.params.pageTitle.toLowerCase() : null;
 
     this.state = {
@@ -44,15 +50,10 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   }
 
   componentDidMount() {
-    const query = {
-      wikiId: this.wikiId,
-      deleted: false
-    }
-
-    this.dataSubscription = connection.createSubscribeQuery('li', query);
-    this.dataSubscription.on('ready', () => this.processResults(this.dataSubscription.results));
-    this.dataSubscription.on('changed', results => this.processResults(results));
-    this.dataSubscription.on('error', err => console.error(err));
+    this.wikiDoc.subscribe((err) => {
+      if (err) throw err;
+      this.loadWikiDoc()
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -71,6 +72,29 @@ class WikiComp extends React.Component<WikiCompPropsT> {
         pageTitleString: newPageTitle
       });
     }
+  }
+
+  loadWikiDoc = () => {
+    console.log(this.wikiDoc);
+    
+    if (!this.wikiDoc.data) {
+      this.wikiDoc.create({pages: {}});
+    }
+    else {
+      this.subscribeToPagesData();
+    }
+  }
+
+  subscribeToPagesData = () => {
+    const query = {
+      wikiId: this.wikiId,
+      deleted: false
+    }
+
+    this.dataSubscription = connection.createSubscribeQuery('li', query);
+    this.dataSubscription.on('ready', () => this.processResults(this.dataSubscription.results));
+    this.dataSubscription.on('changed', results => this.processResults(results));
+    this.dataSubscription.on('error', err => { throw err });
   }
 
   processResults = (results) => {
@@ -95,14 +119,15 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     });
   }
 
-  createNewPageLI = (pageTitle) => {
+  createNewPageLI = (pageTitleRaw) => {
+    const pageTitle = pageTitleRaw.toLowerCase();
     const meta = {
       wikiId: this.wikiId,
-      title: pageTitle.toLowerCase(),
+      title: pageTitle,
       deleted: false,
     };
 
-    return dataFn.createLearningItem(
+    const newId = dataFn.createLearningItem(
       'li-richText',
       undefined,
       meta,
@@ -110,6 +135,8 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       undefined,
       undefined
     );
+
+    addNewWikiPage(this.wikiDoc, newId, pageTitle);
   }
 
   createLI = () => {
@@ -139,6 +166,8 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     const LIdoc = connection.get('li', pageId);
     const LIdataFn = generateReactiveFn(LIdoc, LI);
     LIdataFn.objReplace(false, true, 'deleted');
+
+    invalidateWikiPage(this.wikiDoc, pageId);
   };
 
   handleEditingTitle = () => {
@@ -151,7 +180,9 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     const newPageTitle = this.state.pageTitleString;
     const LIdoc = connection.get('li', this.state.pageId);
     const LIdataFn = generateReactiveFn(LIdoc, LI);
-    LIdataFn.objReplace(null, newPageTitle , 'title');
+    LIdataFn.objReplace(this.state.pageTitle, newPageTitle , 'title');
+
+    changeWikiPageTitle(this.wikiDoc, this.state.pageId, this.state.pageTitle, newPageTitle);
     
     const query = {
       wikiId: this.wikiId,

@@ -217,14 +217,14 @@ export class Doc {
   }
 
   getWikiPagesDataSubscription = (wikiId) => {
-    const connection = this.LIConnection || this.doc.connection;
-    
-    const query = {
-      wikiId,
-      deleted: false
-    }
-
-    return connection.createSubscribeQuery('li', query);
+    const share = new ShareDB({
+      disableDocAction: true,
+      disableSpaceDelimitedActions: true
+    });
+    const connection = share.connect();
+    const wikiConnection = connection.get('wiki', wikiId);
+    console.log(wikiConnection);
+    return wikiConnection;
   };
 
   listPrepend(newVal: any, path: rawPathT) {

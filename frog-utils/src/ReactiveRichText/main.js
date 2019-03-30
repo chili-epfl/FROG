@@ -331,19 +331,29 @@ class ReactiveRichText extends Component<
 
     if (this.props.dataFn.doc.data.wikiId) {
       this.wikiId = this.props.dataFn.doc.data.wikiId;
-      this.wikiPagesDataSubscription = this.props.dataFn.getWikiPagesDataSubscription(this.wikiId);
-      this.wikiPagesDataSubscription.on('ready', () => this.processWikiPagesResults(this.wikiPagesDataSubscription.results));
-      this.wikiPagesDataSubscription.on('changed', results => this.processWikiPagesResults(results));
+      this.wikiDoc = this.props.dataFn.getWikiPagesDataSubscription(this.wikiId);
+      this.wikiDoc.subscribe((err) => this.processWikiPagesResults());
+      // this.wikiDoc.on('load', this.processWikiPagesResults);
+      // this.wikiDoc.on('op', this.processWikiPagesResults);
     }
   }
 
-  processWikiPagesResults = (results) => {
-    const wikiPages = results.map(doc => {
+  processWikiPagesResults = () => {
+    console.log(this.wikiDoc);
+    if (!this.wikiDoc.data) return;
+    
+    const pagesRaw = this.wikiDoc.data.pages;
+    console.log(pagesRaw);
+    const wikiPages = Object.keys(pagesRaw).forEach(pageId => {
+      const pageObj = pagesRaw[pageId];
       return {
-        wikiId: doc.data.wikiId,
-        pageTitle: doc.data.title,
+        id: pageId,
+        title: pageObj.title,
+        valid: pageObj.valid,
+        created: pageObj.created,
       }
     });
+    
     this.setState({
       wikiPages,
     });
@@ -665,13 +675,14 @@ class ReactiveRichText extends Component<
               mentionDenotationChars: ["@", "#"],
               source: (searchTerm, renderList, mentionChar) => {
                 const values = this.state.wikiPages;
+                console.log(values);
     
                 if (searchTerm.length === 0) {
                   renderList(values, searchTerm);
                 } else {
                   const matches = [];
                   for (const valueObj of values) {
-                    const text = valueObj.pageTitle.toLowerCase();
+                    const text = valueObj.title.toLowerCase();
                     const searchLower = searchTerm.toLowerCase();
                     if (text.indexOf(searchLower) > -1) {
                       matches.push(valueObj);
