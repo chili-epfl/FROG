@@ -7,7 +7,8 @@ import {
   HighlightSearchText,
   uuid,
   highlightTargetRichText,
-  cloneDeep
+  cloneDeep,
+  WikiContext
 } from 'frog-utils';
 import { get, isEqual, last, forEach, isUndefined, filter, find } from 'lodash';
 
@@ -89,7 +90,7 @@ class ReactiveRichText extends Component<
 
   state = {
     path: this.props.dataFn.getMergedPath(this.props.path),
-    wikiPages: [],
+    wikiPages: []
   };
 
   constructor(props: ReactivePropsT) {
@@ -331,8 +332,10 @@ class ReactiveRichText extends Component<
 
     if (this.props.dataFn.doc.data.wikiId) {
       this.wikiId = this.props.dataFn.doc.data.wikiId;
-      this.wikiDoc = this.props.dataFn.getWikiPagesDataSubscription(this.wikiId);
-      this.wikiDoc.subscribe((err) => this.processWikiPagesResults());
+      this.wikiDoc = this.props.dataFn.getWikiPagesDataSubscription(
+        this.wikiId
+      );
+      this.wikiDoc.subscribe(err => this.processWikiPagesResults());
       // this.wikiDoc.on('load', this.processWikiPagesResults);
       // this.wikiDoc.on('op', this.processWikiPagesResults);
     }
@@ -341,7 +344,7 @@ class ReactiveRichText extends Component<
   processWikiPagesResults = () => {
     console.log(this.wikiDoc);
     if (!this.wikiDoc.data) return;
-    
+
     const pagesRaw = this.wikiDoc.data.pages;
     console.log(pagesRaw);
     const wikiPages = Object.keys(pagesRaw).forEach(pageId => {
@@ -350,14 +353,14 @@ class ReactiveRichText extends Component<
         id: pageId,
         title: pageObj.title,
         valid: pageObj.valid,
-        created: pageObj.created,
-      }
+        created: pageObj.created
+      };
     });
-    
+
     this.setState({
-      wikiPages,
+      wikiPages
     });
-  }
+  };
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
     if (
@@ -634,72 +637,76 @@ class ReactiveRichText extends Component<
           height: '100%'
         };
     return (
-      <div
-        style={{ height: '100%' }}
-        onMouseOver={() => {
-          if (this.props.dataFn.listore.dragState) {
-            this.props.dataFn.listore.setOverCB(this.onDrop);
-          }
-        }}
-        onMouseLeave={() => {
-          this.props.dataFn.listore.setOverCB(null);
-        }}
-      >
-        {!get(props, 'readOnly') && (
-          <CustomQuillToolbar
-            id={this.toolbarId}
-            readOnly={get(props, 'readOnly')}
-            liTypes={this.getLiTypeList()}
-          />
-        )}
-        <ReactQuill
-          defaultValue={this.props.rawData || defaultValue}
-          ref={element => {
-            this.quillRef = element;
-          }}
-          readOnly={get(props, 'readOnly')}
-          formats={formats}
-          style={{ height: '90%' }}
-          modules={{
-            toolbar: get(props, 'readOnly')
-              ? null
-              : {
-                  container: `#toolbar-${this.toolbarId}`,
-                  handlers: {
-                    toggleAuthorship: this.toggleAuthorship,
-                    insertLi: this.insertNewLi
-                  }
-                },
-            wikiLink: {
-              allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
-              mentionDenotationChars: ["@", "#"],
-              source: (searchTerm, renderList, mentionChar) => {
-                const values = this.state.wikiPages;
-                console.log(values);
-    
-                if (searchTerm.length === 0) {
-                  renderList(values, searchTerm);
-                } else {
-                  const matches = [];
-                  for (const valueObj of values) {
-                    const text = valueObj.title.toLowerCase();
-                    const searchLower = searchTerm.toLowerCase();
-                    if (text.indexOf(searchLower) > -1) {
-                      matches.push(valueObj);
+      <WikiContext.Consumer>
+        {wikiContext => console.log(wikiContext.getWikiPages()) || (
+          <div
+            style={{ height: '100%' }}
+            onMouseOver={() => {
+              if (this.props.dataFn.listore.dragState) {
+                this.props.dataFn.listore.setOverCB(this.onDrop);
+              }
+            }}
+            onMouseLeave={() => {
+              this.props.dataFn.listore.setOverCB(null);
+            }}
+          >
+            {!get(props, 'readOnly') && (
+              <CustomQuillToolbar
+                id={this.toolbarId}
+                readOnly={get(props, 'readOnly')}
+                liTypes={this.getLiTypeList()}
+              />
+            )}
+            <ReactQuill
+              defaultValue={this.props.rawData || defaultValue}
+              ref={element => {
+                this.quillRef = element;
+              }}
+              readOnly={get(props, 'readOnly')}
+              formats={formats}
+              style={{ height: '90%' }}
+              modules={{
+                toolbar: get(props, 'readOnly')
+                  ? null
+                  : {
+                      container: `#toolbar-${this.toolbarId}`,
+                      handlers: {
+                        toggleAuthorship: this.toggleAuthorship,
+                        insertLi: this.insertNewLi
+                      }
+                    },
+                wikiLink: {
+                  allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                  mentionDenotationChars: ['@', '#'],
+                  source: (searchTerm, renderList, mentionChar) => {
+                    const values = wikiContext.getWikiPages()
+                    console.log(values);
+
+                    if (searchTerm.length === 0) {
+                      renderList(values, searchTerm);
+                    } else {
+                      const matches = [];
+                      for (const valueObj of values) {
+                        const text = valueObj.title.toLowerCase();
+                        const searchLower = searchTerm.toLowerCase();
+                        if (text.indexOf(searchLower) > -1) {
+                          matches.push(valueObj);
+                        }
+                      }
+
+                      renderList(matches, searchTerm);
                     }
                   }
-                    
-                  renderList(matches, searchTerm);
                 }
-              },
-            },
-          }}
-          scrollingContainer={`.${scrollContainerClass}`}
-          onChange={this.props.onChange}
-        >
-          <div className={scrollContainerClass} style={editorStyle} />
-        </ReactQuill>
-      </div>
+              }}
+              scrollingContainer={`.${scrollContainerClass}`}
+              onChange={this.props.onChange}
+            >
+              <div className={scrollContainerClass} style={editorStyle} />
+            </ReactQuill>
+          </div>
+        )}
+      </WikiContext.Consumer>
     );
   }
 }
