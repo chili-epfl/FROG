@@ -99,8 +99,39 @@ export class Editor extends React.Component<*, *> {
 export default ({
   name: 'Double rich text',
   id: 'li-doubleRichText',
-  dataStructure: { text: '', text2: '' },
-  ThumbViewer: FlexViewer,
-  Viewer: FlexViewer,
+  dataStructure: {
+    text: {
+      ops: [
+        {
+          insert: '\n'
+        }
+      ]
+    },
+    text2: {
+      ops: [
+        {
+          insert: '\n'
+        }
+      ]
+    }
+  },
+  ThumbViewer: e => (
+    <>
+      <b>First text</b> <br />
+      <FlexViewer {...e} path="text" />
+      <br />
+      <b>Second text</b>
+      <br />
+      <FlexViewer {...e} path="text2" />
+    </>
+  ),
+  Viewer: e => (
+    <>
+      <h2>First text</h2>
+      <FlexViewer {...e} path="text" />
+      <h2>Second text</h2>
+      <FlexViewer {...e} path="text2" />
+    </>
+  ),
   Editor
 }: LearningItemT<{ title: string, content: string }>);

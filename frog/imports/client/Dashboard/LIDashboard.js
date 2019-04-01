@@ -135,7 +135,9 @@ class Dashboard extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const query = this.props.sessionId
+    const query = this.props.wikiId
+      ? { wikiId: this.props.wikiId, deleted: { $ne: true } }
+      : this.props.sessionId
       ? { sessionId: this.props.sessionId, draft: { $ne: true } }
       : { _id: this.props.id };
     this.subscription = connection.createSubscribeQuery(
@@ -224,15 +226,16 @@ class Dashboard extends React.Component<any, any> {
               search={this.state.search}
               key={x.id}
               id={x.id}
-              render={({ children }) => (
-                <Tooltip key={x.id} id={'tooltip' + x.id} title="Hi">
+              render={({ children, dataFn: dfn }) => (
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                  {console.log(dfn.doc.data) || dfn.doc.data?.title}
                   <ImageBox
                     expand={this.state.expand}
-                    onClick={() => this.setState({ zoom: x.id })}
+                    onClick={() => this.props.onClick ? this.props.onClick(dfn.doc.data.title) : this.setState({ zoom: x.id })}
                   >
                     {children}
                   </ImageBox>
-                </Tooltip>
+                </div>
               )}
             />
           ))}

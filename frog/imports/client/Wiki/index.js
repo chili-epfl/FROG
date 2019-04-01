@@ -3,11 +3,20 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { WikiContext } from 'frog-utils'
+import { WikiContext, values } from 'frog-utils';
+import LIDashboard from '../Dashboard/LIDashboard';
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  FormHelperText
+} from '@material-ui/core';
 
+import Dialog from '@material-ui/core/Dialog';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
+import { learningItemTypesObj } from '/imports/activityTypes';
 import { parseDocResults } from './helpers';
 import {
   addNewWikiPage,
@@ -28,6 +37,10 @@ type WikiCompPropsT = {
   }
 };
 
+const editableLIs = values(learningItemTypesObj).filter(
+  x => (x.Editor && x.dataStructure) || x.Creator
+);
+
 class WikiComp extends React.Component<WikiCompPropsT> {
   constructor(props) {
     super(props);
@@ -45,14 +58,17 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
     this.state = {
       pages: [],
+      dashboardOpen: props?.history?.location?.search === '?dashboard=true',
       pageId: null,
       pageTitle,
       pageTitleString: pageTitle,
-      editing: true,
+      mode: 'view',
       editingTitle: false,
       data: [],
+      liType: 'li-richText',
       newTitle: '',
-      error: null
+      error: null,
+      wikiContext: { getWikiPages: this.getWikiPages }
     };
   }
 
@@ -77,6 +93,10 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
       this.setState({
         pageId,
+        mode: 'view',
+        liType: 'li-richText',
+        dashboardOpen:
+          prevProps?.history?.location?.search === '?dashboard=true',
         pageTitle: newPageTitle,
         pageTitleString: newPageTitle
       });
@@ -84,8 +104,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   }
 
   loadWikiDoc = () => {
-    console.log(this.wikiDoc);
-
     if (!this.wikiDoc.data) {
       this.wikiDoc.create({ pages: {} });
     } else {
@@ -96,7 +114,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   subscribeToPagesData = () => {
     const query = {
       wikiId: this.wikiId,
-      deleted: false
+      deleted: { $ne: true }
     };
 
     this.dataSubscription = connection.createSubscribeQuery('li', query);
@@ -112,8 +130,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   };
 
   processResults = results => {
-    console.log(results);
-
     const pages = parseDocResults(results);
     const pageTitle =
       this.state.pageTitle ||
@@ -136,24 +152,36 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     });
   };
 
-  createNewPageLI = pageTitleRaw => {
+  createNewPageLI = (pageTitleRaw, liType) => {
     const pageTitle = pageTitleRaw.toLowerCase();
     const meta = {
       wikiId: this.wikiId,
-      title: pageTitle,
-      deleted: false
+      title: pageTitle
     };
 
-    const newId = dataFn.createLearningItem(
-      'li-richText',
-      undefined,
-      meta,
-      undefined,
-      undefined,
-      undefined
-    );
+    if (learningItemTypesObj[liType || 'li-richText'].Creator) {
+      this.setState({
+        openCreator: {
+          type: liType,
+          title: pageTitle,
+          callback: e => {
+            addNewWikiPage(this.wikiDoc, e, pageTitle);
+            this.setState({ openCreator: false });
+          }
+        }
+      });
+    } else {
+      const newId = dataFn.createLearningItem(
+        liType || 'li-richText',
+        undefined,
+        meta,
+        undefined,
+        undefined,
+        undefined
+      );
 
-    addNewWikiPage(this.wikiDoc, newId, pageTitle);
+      addNewWikiPage(this.wikiDoc, newId, pageTitle);
+    }
   };
 
   createLI = () => {
@@ -170,7 +198,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       return;
     }
 
-    this.createNewPageLI(this.state.newTitle);
+    this.createNewPageLI(this.state.newTitle, this.state.liType);
 
     this.setState({
       newTitle: '',
@@ -207,7 +235,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
     const query = {
       wikiId: this.wikiId,
-      deleted: false
+      deleted: { $ne: true }
     };
 
     connection.createFetchQuery('li', query, null, (err, results) => {
@@ -227,9 +255,19 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     });
   };
 
-  getWikiPages=()=> {
-    return this.state.pages;
-  }
+  getWikiPages = () => {
+    return (
+      this.state &&
+      values(this.state.pages).map(x => {
+        return {
+          wikiId: this.wikiId,
+          pageTitle: x.title,
+          liId: x.id,
+          title: x.title
+        };
+      })
+    );
+  };
 
   render() {
     if (!this.state.pageId || !this.state.pageTitle) return null;
@@ -251,7 +289,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
             fontWeight: 'bold'
           }
         : {};
-
       return (
         <li key={doc.id} style={style}>
           <Link to={link}>{doc.title}</Link>
@@ -263,21 +300,40 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     });
 
     const newPageListItem = (
-      <li>
-        <input
-          placeholder="New LI Title"
-          value={this.state.newTitle}
-          onChange={e => {
-            this.setState({ newTitle: e.target.value });
-          }}
-        />
-        <button onClick={this.createLI}>+</button>
-        {errorDiv}
-      </li>
+      <>
+        <br />
+        <li>
+          <input
+            placeholder="New LI Title"
+            value={this.state.newTitle}
+            onChange={e => {
+              this.setState({ newTitle: e.target.value });
+            }}
+          />
+          <button onClick={this.createLI}>+</button>
+          <br />
+          <FormControl>
+            <Select
+              value={this.state.liType}
+              onChange={e => this.setState({ liType: e.target.value })}
+              displayEmpty
+              name="age"
+            >
+              {editableLIs.map(x => (
+                <MenuItem key={x.id} value={x.id}>
+                  {x.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>Learning Item type</FormHelperText>
+          </FormControl>
+          {errorDiv}
+        </li>
+      </>
     );
 
     const pageDiv = (() => {
-      const type = this.state.editing ? 'edit' : 'view';
+      const type = this.state.mode;
 
       return <LearningItem type={type} id={this.state.pageId} />;
     })();
@@ -330,38 +386,98 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
     return (
       <div>
-        <WikiContext.Provider value={{getWikiPages: this.getWikiPages}}>
+        <WikiContext.Provider value={this.state.wikiContext}>
           <div style={containerDivStyle}>
             <div style={pagesLinksDivStyle}>
               <h2>Wiki: {this.wikiId}</h2>
               <ul>
+                {this.state.dashboardOpen ? (
+                  <button
+                    onClick={() => {
+                      this.props.history.push(
+                        `/wiki/${this.wikiId}/${this.state.pageTitle}`
+                      );
+                      this.setState({ dashboardOpen: false });
+                    }}
+                  >
+                    Close dashboard
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      this.props.history.push(
+                        `/wiki/${this.wikiId}/${
+                          this.state.pageTitle
+                        }?dashboard=true`
+                      );
+                      this.setState({ dashboardOpen: true });
+                    }}
+                  >
+                    Open dashboard
+                  </button>
+                )}
                 {pagesLinks}
                 {newPageListItem}
               </ul>
             </div>
             <div style={contentDivStyle}>
-              {titleDiv}
-              <div>
-                <button
-                  disabled={!this.state.editing}
-                  onClick={() => {
-                    this.setState({ editing: false });
+              {this.state.dashboardOpen ? (
+                <LIDashboard
+                  wikiId={this.wikiId}
+                  onClick={page => {
+                    this.props.history.push(`/wiki/${this.wikiId}/${page}`);
+                    this.setState({ dashboardOpen: false });
                   }}
-                >
-                  View
-                </button>
-                <button
-                  disabled={this.state.editing}
-                  onClick={() => {
-                    this.setState({ editing: true });
-                  }}
-                >
-                  Edit
-                </button>
-              </div>
-              {pageDiv}
+                />
+              ) : (
+                <>
+                  {titleDiv}
+                  <div>
+                    {this.state.mode === 'view' ? (
+                      <>
+                        <button
+                          onClick={() => {
+                            this.setState({ mode: 'edit' });
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.setState({ mode: 'history' });
+                          }}
+                        >
+                          Show History
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          this.setState({ mode: 'view' });
+                        }}
+                      >
+                        Close
+                      </button>
+                    )}
+                  </div>
+                  {pageDiv}
+                </>
+              )}
             </div>
           </div>
+          {this.state.openCreator && (
+            <Dialog open onClose={() => this.setState({ openCreator: false })}>
+              <LearningItem
+                type="create"
+                meta={{
+                  wikiId: this.wikiId,
+                  title: this.state.openCreator.title
+                }}
+                liType={this.state.openCreator.type}
+                onCreate={this.state.openCreator.callback}
+              />
+            </Dialog>
+          )}
         </WikiContext.Provider>
       </div>
     );

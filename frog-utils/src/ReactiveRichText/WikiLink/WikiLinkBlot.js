@@ -6,7 +6,6 @@ const Embed = Quill.import('blots/embed');
 
 class WikiLinkBlot extends Embed {
   static create(data) {
-    console.log('creating blot', data);
     const node = super.create();
     const link = '/wiki/' + data.wikiId + '/' + data.pageTitle;
     const linkElement = document.createElement('a');

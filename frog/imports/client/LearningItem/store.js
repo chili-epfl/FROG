@@ -20,6 +20,7 @@ class LIStore {
   constructor() {
     extendObservable(this, {
       dragState: null,
+      openCreator: null,
       coords: null,
       setDraggedItem: action(
         (item, shiftKey) => (this.dragState = { item, shiftKey })

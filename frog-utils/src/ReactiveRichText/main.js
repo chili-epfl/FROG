@@ -11,6 +11,7 @@ import {
   WikiContext
 } from 'frog-utils';
 import { get, isEqual, last, forEach, isUndefined, filter, find } from 'lodash';
+import Dialog from '@material-ui/core/Dialog';
 
 import { LiViewTypes, formats } from './constants';
 import LearningItemBlot from './LearningItemBlot';
@@ -22,6 +23,7 @@ import WikiLinkModule from './WikiLink/WikiLinkModule';
 import WikiLinkBlot from './WikiLink/WikiLinkBlot';
 
 Quill.register('modules/wikiLink', WikiLinkModule);
+Quill.register('modules/wikiEmbed', WikiLinkModule);
 Quill.register('formats/wiki-link', WikiLinkBlot);
 
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
@@ -90,15 +92,13 @@ class ReactiveRichText extends Component<
 
   state = {
     path: this.props.dataFn.getMergedPath(this.props.path),
-    wikiPages: []
+    wikiPages: [],
+    openCreator: null
   };
 
   constructor(props: ReactivePropsT) {
     super(props);
-    console.log(props);
     reactiveRichTextDataFn = props.dataFn;
-
-    this.wikiId = null;
   }
 
   opListener = (op: Object[], source: string) => {
@@ -153,6 +153,9 @@ class ReactiveRichText extends Component<
 
     if (this.props.readOnly) {
       const ops = cloneDeep(raw.ops);
+      if (!ops) {
+        return '';
+      }
       while (true) {
         const [tail] = ops.slice(-1);
         if (!tail) {
@@ -329,38 +332,7 @@ class ReactiveRichText extends Component<
         this.initializeAuthorship();
       }
     }
-
-    if (this.props.dataFn.doc.data.wikiId) {
-      this.wikiId = this.props.dataFn.doc.data.wikiId;
-      this.wikiDoc = this.props.dataFn.getWikiPagesDataSubscription(
-        this.wikiId
-      );
-      this.wikiDoc.subscribe(err => this.processWikiPagesResults());
-      // this.wikiDoc.on('load', this.processWikiPagesResults);
-      // this.wikiDoc.on('op', this.processWikiPagesResults);
-    }
   }
-
-  processWikiPagesResults = () => {
-    console.log(this.wikiDoc);
-    if (!this.wikiDoc.data) return;
-
-    const pagesRaw = this.wikiDoc.data.pages;
-    console.log(pagesRaw);
-    const wikiPages = Object.keys(pagesRaw).forEach(pageId => {
-      const pageObj = pagesRaw[pageId];
-      return {
-        id: pageId,
-        title: pageObj.title,
-        valid: pageObj.valid,
-        created: pageObj.created
-      };
-    });
-
-    this.setState({
-      wikiPages
-    });
-  };
 
   componentWillReceiveProps(nextProps: ReactivePropsT) {
     if (
@@ -372,11 +344,12 @@ class ReactiveRichText extends Component<
     }
   }
 
-  shouldComponentUpdate(nextProps: Object) {
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
     return (
       this.props.shorten !== nextProps.shorten ||
       !!(this.props.readOnly || nextProps.readOnly) ||
-      this.props.search !== nextProps.search
+      this.props.search !== nextProps.search ||
+      this.state.openCreator !== nextState.openCreator
     );
   }
 
@@ -628,6 +601,7 @@ class ReactiveRichText extends Component<
     }
 
     const defaultValue = this.getDocumentContent();
+    const LearningItem = this.props.dataFn.LearningItem;
     const props = this.props;
     const scrollContainerClass = 'scroll-container';
     const editorStyle = props.readOnly
@@ -638,7 +612,7 @@ class ReactiveRichText extends Component<
         };
     return (
       <WikiContext.Consumer>
-        {wikiContext => console.log(wikiContext.getWikiPages()) || (
+        {wikiContext => (
           <div
             style={{ height: '100%' }}
             onMouseOver={() => {
@@ -672,23 +646,53 @@ class ReactiveRichText extends Component<
                       container: `#toolbar-${this.toolbarId}`,
                       handlers: {
                         toggleAuthorship: this.toggleAuthorship,
-                        insertLi: this.insertNewLi
+                        table: ()=>this.insertNewLi('li-spreadsheet'),
+                        insertLi: this.insertNewLi,
+                        image: () =>
+                          this.setState({
+                            openCreator: { liType: 'li-image' }
+                          }),
+                        video: () =>
+                          this.setState({ openCreator: { liType: 'li-embed' } })
                       }
                     },
                 wikiLink: {
                   allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
-                  mentionDenotationChars: ['@', '#'],
+                  mentionDenotationChars: ['@'],
                   source: (searchTerm, renderList, mentionChar) => {
-                    const values = wikiContext.getWikiPages()
-                    console.log(values);
+                    const values = wikiContext.getWikiPages();
 
                     if (searchTerm.length === 0) {
                       renderList(values, searchTerm);
                     } else {
                       const matches = [];
                       for (const valueObj of values) {
-                        const text = valueObj.title.toLowerCase();
-                        const searchLower = searchTerm.toLowerCase();
+                        console.log(valueObj);
+                        const text = (valueObj.title || '').toLowerCase();
+                        const searchLower = (searchTerm || '').toLowerCase();
+                        if (text.indexOf(searchLower) > -1) {
+                          matches.push(valueObj);
+                        }
+                      }
+
+                      renderList(matches, searchTerm);
+                    }
+                  }
+                },
+                wikiEmbed: {
+                  allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                  mentionDenotationChars: ['#'],
+                  type: 'embed',
+                  source: (searchTerm, renderList, mentionChar) => {
+                    const values = wikiContext.getWikiPages();
+
+                    if (searchTerm.length === 0) {
+                      renderList(values, searchTerm);
+                    } else {
+                      const matches = [];
+                      for (const valueObj of values) {
+                        const text = (valueObj.title || '').toLowerCase();
+                        const searchLower = (searchTerm || '').toLowerCase();
                         if (text.indexOf(searchLower) > -1) {
                           matches.push(valueObj);
                         }
@@ -704,6 +708,25 @@ class ReactiveRichText extends Component<
             >
               <div className={scrollContainerClass} style={editorStyle} />
             </ReactQuill>
+            {(console.log(this.state.openCreator) ||
+              this.state.openCreator) && (
+              <>
+                <h1>Hello</h1>
+                <Dialog
+                  open
+                  onClose={() => this.setState({ openCreator: false })}
+                >
+                  <LearningItem
+                    type="create"
+                    liType={this.state.openCreator.liType}
+                    onCreate={item => {
+                      this.setState({ openCreator: false });
+                      this.onDrop({item});
+                    }}
+                  />
+                </Dialog>
+              </>
+            )}
           </div>
         )}
       </WikiContext.Consumer>

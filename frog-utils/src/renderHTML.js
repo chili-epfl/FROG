@@ -3,20 +3,9 @@
 import * as React from 'react';
 import { renderToString } from 'katex';
 import { withState } from 'recompose';
-import { uuid } from 'frog-utils';
+import { uuid, getEmbedlyCache, EmbedlyCache } from './index';
 import 'katex/dist/katex.min.css';
 import clip from 'text-clipper';
-
-const Cache = {};
-
-const getCache = (item: string, setUpdate) => {
-  fetch('//noembed.com/embed?url=' + item.replace(/(<([^>]+)>)/gi, ''))
-    .then(x => x.json())
-    .then(x => {
-      Cache[item] = x.html;
-      setUpdate(uuid());
-    });
-};
 
 const HTML = ({
   html,
@@ -38,10 +27,13 @@ const HTML = ({
     });
     toRender = toRender.replace(/\[\[(.*?)\]\]/gi, hit => {
       const a = hit.slice(2, hit.length - 2);
-      if (Cache[a]) {
-        return Cache[a];
+      if (EmbedlyCache[a]) {
+        return EmbedlyCache[a];
       } else {
-        window.setTimeout(getCache(a, setUpdate), 0);
+        window.setTimeout(
+          () => getEmbedlyCache(a).then(() => setUpdate(uuid())),
+          0
+        );
         return '...';
       }
     });
