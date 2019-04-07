@@ -56,7 +56,8 @@ Object.values(activityLIs).forEach(x => {
     name: x.name,
     shortDesc: '',
     description: '',
-    supportsLearningItems: true
+    supportsLearningItems: true,
+    category: 'Single Learning Items'
   };
   x.mergeFunction = activityTypesObj['ac-single-li'].mergeFunction;
   x.formatProduct = activityTypesObj['ac-single-li'].formatProduct;

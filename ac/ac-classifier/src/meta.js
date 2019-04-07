@@ -7,6 +7,7 @@ export default {
   shortDesc: 'Quickly display images to classify',
   description:
     'Show to the student images one after the other and the student has to choose what category is the most appropriated one',
+  category: 'Deprecated core tools',
   exampleData: [
     {
       title: 'Classify images',

@@ -7,6 +7,7 @@ const meta = {
   shortDesc: 'Embedding an external website in an iFrame',
   description:
     'Takes a URL and displays the corresponding website embedded in an iFrame. Not all websites allow embedding.',
+  category: 'Core tools',
   exampleData: [
     {
       title: "Stian's blog",

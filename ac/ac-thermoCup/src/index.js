@@ -6,6 +6,7 @@ const meta = {
   name: 'Simulate thermo cup',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
+  category: 'Simulations',
   exampleData: [
     {
       title: 'Styrofoam, warm, cold',

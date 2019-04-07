@@ -35,6 +35,7 @@ export const meta = {
   description:
     'Display a list of learning items, possibly categorised, option to allow upload and voting',
   supportsLearningItems: true,
+  category: 'Core tools',
   exampleData: [
     {
       title: 'Simple view',

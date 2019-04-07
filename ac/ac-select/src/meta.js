@@ -3,6 +3,7 @@ export default {
   shortDesc: 'Reading a text and selecting some words in the text',
   description:
     'Allow the student to select words that are highlighted int the text displayed.',
+  category: 'Discipline-specific',
   exampleData: [
     {
       title: 'Lorem Ipsum',

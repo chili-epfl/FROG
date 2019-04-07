@@ -52,7 +52,15 @@ const ListItems = ({
     <Grid container>
       <Grid item xs={12}>
         <Typography className="listitem" variant="subtitle1" gutterBottom>
-          <Highlight text={object.meta.name} searchStr={searchS} />
+          <Highlight
+            text={
+              object.meta.name +
+              ' (' +
+              (object.meta.category || 'No category') +
+              ')'
+            }
+            searchStr={searchS}
+          />
         </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -61,7 +69,7 @@ const ListItems = ({
             text={
               (object.meta.activityTypeName
                 ? object.meta.activityTypeName + ': '
-                : '') + (object.meta.shortDesc || '')
+                : '') + (object.meta.shortDesc || ' - ')
             }
             searchStr={searchS}
           />

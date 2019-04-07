@@ -5,7 +5,8 @@ import { type ActivityPackageT } from 'frog-utils';
 const meta = {
   name: 'Melting chocolate simulation',
   shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available'
+  description: 'New activity, no description available',
+  category: 'Simulations'
 };
 
 const config = {

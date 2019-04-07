@@ -7,6 +7,7 @@ export const meta = {
   shortDesc: 'Reading a text',
   description:
     'Display a given rich text, can be taken from config, or operators, or both.',
+  category: 'Core tools',
   exampleData: [
     {
       title: 'Sample text',
