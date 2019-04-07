@@ -1,0 +1,52 @@
+generateReactiveFn - 
+	uploadFile (api/openUploads)
+	learningItemTypesObj (activityTypes)
+	client/LearningItem/store
+
+ReactiveHOC
+	LearningItem
+	generateReactiveFn
+	ErrorBoundary
+	connection (could be passed in, is already optional)
+
+StudentView/Runner
+	Meteor
+	withTracker
+	activityTypesObj
+	activityRunners
+	createLogger
+	Objects
+	LocalSettings
+	Sessions
+
+Preview
+	Content
+		generateReactiveFn
+		LearningItem
+		activityTypesObj
+		activityRunners
+		ReactiveHOC
+	
+	ConfigPanel
+		Meteor
+		LibraryStates
+		updateActivity
+		ApiForm
+		activityTypesObj
+		ExportButton (GraphEditor/SidePanel/ActivityPanel)
+
+	dashboardInPreview
+		mergeLogData
+		activityTypes
+		DashboardStates (api/cache)
+		Dashboard/LIDashboard
+
+	operatorPreview
+
+	Preview
+		activityTypes
+		logs
+	
+	
+
+
