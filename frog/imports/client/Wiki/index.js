@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { WikiContext, values } from 'frog-utils';
+import setIn from 'lodash/fp/set';
 import LIDashboard from '../Dashboard/LIDashboard';
 import {
   FormControl,
@@ -44,7 +45,6 @@ const editableLIs = values(learningItemTypesObj).filter(
 class WikiComp extends React.Component<WikiCompPropsT> {
   constructor(props) {
     super(props);
-    window.frog_gotoLink = url => props.history.push(url);
 
     this.wikiId = this.props.match.params.wikiId;
     if (!this.wikiId) throw new Error('Empty wikiId field');
@@ -56,7 +56,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     const searchAttributes = parseSearch(props.history.location.search);
 
     this.state = {
-      pages: [],
+      pages: {},
       dashboardOpen: searchAttributes.dashboard === 'true',
       pageId: null,
       pageTitle,
@@ -71,11 +71,36 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     };
   }
 
+  WikiLink = ({ title }) => {
+    const link = '/wiki/' + this.wikiId + '/' + title;
+    const linkFn = e => {
+      e.preventDefault();
+      this.props.history.push(link);
+    };
+    return (
+      <div
+        style={{
+          color: this.state.pages[title]?.valid ? '#000000' : '#ff0000',
+          textDecoration: 'underline'
+        }}
+      >
+        <span onClick={linkFn}>{title}</span>
+      </div>
+    );
+  };
+
   componentDidMount() {
+    window.frog_WikiLink = this.WikiLink;
     this.wikiDoc = connection.get('wiki', this.wikiId);
-    this.wikiDoc.on('create', () => { this.loadWikiDoc() });
-    this.wikiDoc.on('op', () => { this.loadWikiDoc() });
-    this.wikiDoc.on('error', err => { throw err });
+    this.wikiDoc.on('create', () => {
+      this.loadWikiDoc();
+    });
+    this.wikiDoc.on('op', () => {
+      this.loadWikiDoc();
+    });
+    this.wikiDoc.on('error', err => {
+      throw err;
+    });
     this.wikiDoc.subscribe(err => {
       if (err) throw err;
       this.loadWikiDoc();
@@ -87,7 +112,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       const emptyDocValues = {
         wikiId: this.wikiId,
         pages: {}
-      }
+      };
       this.wikiDoc.create(emptyDocValues);
       return;
     }
@@ -205,6 +230,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     LIdataFn.objReplace(false, true, 'deleted');
 
     invalidateWikiPage(this.wikiDoc, pageId);
+    this.setState(setIn(['pages', this.pageId, 'valid'], false, this.state));
   };
 
   handleEditingTitle = () => {
@@ -257,7 +283,9 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       </div>
     ) : null;
 
-    const validPages = values(this.state.pages).filter(pageObj => pageObj.valid);
+    const validPages = values(this.state.pages).filter(
+      pageObj => pageObj.valid
+    );
 
     const pagesLinks = validPages.map(pageObj => {
       const pageId = pageObj.id;
