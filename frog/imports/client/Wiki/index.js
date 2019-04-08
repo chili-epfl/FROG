@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { WikiContext, values } from 'frog-utils';
-import setIn from 'lodash/fp/set';
 import LIDashboard from '../Dashboard/LIDashboard';
 import {
   FormControl,
@@ -230,7 +229,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     LIdataFn.objReplace(false, true, 'deleted');
 
     invalidateWikiPage(this.wikiDoc, pageId);
-    this.setState(setIn(['pages', this.pageId, 'valid'], false, this.state));
   };
 
   handleEditingTitle = () => {
