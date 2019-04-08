@@ -1,26 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Quill } from '@houshuang/react-quill';
+import { WikiContext } from 'frog-utils';
 
 const Embed = Quill.import('blots/embed');
 
 class WikiLinkBlot extends Embed {
   static create(data) {
+    
     const node = super.create();
-    const link = '/wiki/' + data.wikiId + '/' + data.pageTitle;
-    const linkElement = document.createElement('a');
-    linkElement.href = link;
-    linkElement.innerHTML = data.pageTitle;
-    linkElement.onclick = e => {
+    const link = '/wiki/' + data.wikiId + '/' + data.title;
+    // const linkElement = document.createElement('a');
+    // linkElement.href = link;
+    // linkElement.innerHTML = data.title;
+    // linkElement.onclick = e => {
+    //   e.preventDefault();
+    //   window.frog_gotoLink(link);
+    // };
+    // node.appendChild(linkElement);
+
+    const linkFn = (e, wikiContext) => {
+      console.log(wikiContext);
       e.preventDefault();
       window.frog_gotoLink(link);
-    };
-    node.appendChild(linkElement);
+    }
 
-    // ReactDOM.render(
-    //   // (<Link to={link}>{data.pageTitle}</Link>),
-    //   node
-    // );
+    ReactDOM.render((
+      <WikiContext.Consumer>
+        {wikiContext => (
+          <a href={link} onClick={(e) => linkFn(e, wikiContext)}>{data.title}</a>
+        )}
+      </WikiContext.Consumer>
+      ),
+      node
+    );
 
     return this.setDataValues(node, data);
   }

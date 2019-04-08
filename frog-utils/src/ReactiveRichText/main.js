@@ -667,7 +667,6 @@ class ReactiveRichText extends Component<
                     } else {
                       const matches = [];
                       for (const valueObj of values) {
-                        console.log(valueObj);
                         const text = (valueObj.title || '').toLowerCase();
                         const searchLower = (searchTerm || '').toLowerCase();
                         if (text.indexOf(searchLower) > -1) {
@@ -708,8 +707,7 @@ class ReactiveRichText extends Component<
             >
               <div className={scrollContainerClass} style={editorStyle} />
             </ReactQuill>
-            {(console.log(this.state.openCreator) ||
-              this.state.openCreator) && (
+            {this.state.openCreator && (
               <>
                 <h1>Hello</h1>
                 <Dialog

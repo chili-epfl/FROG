@@ -2,6 +2,7 @@ const addNewWikiPage = (wikiDoc, pageId, pageTitle) => {
   const op = {
     p: ['pages', pageId],
     oi: {
+      id: pageId,
       valid: true,
       created: true,
       title: pageTitle

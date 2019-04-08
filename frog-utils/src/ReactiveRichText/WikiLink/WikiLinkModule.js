@@ -196,7 +196,6 @@ class WikiLinkModule {
   }
 
   insertItem(data) {
-    console.log(data, this);
     if (data === null) {
       return;
     }

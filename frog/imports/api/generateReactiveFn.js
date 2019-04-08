@@ -216,17 +216,6 @@ export class Doc {
     return binding;
   }
 
-  getWikiPagesDataSubscription = (wikiId) => {
-    const share = new ShareDB({
-      disableDocAction: true,
-      disableSpaceDelimitedActions: true
-    });
-    const connection = share.connect();
-    const wikiConnection = connection.get('wiki', wikiId);
-    console.log(wikiConnection);
-    return wikiConnection;
-  };
-
   listPrepend(newVal: any, path: rawPathT) {
     this.submitOp({ p: [...cleanPath(this.path, path), 0], li: newVal });
   }

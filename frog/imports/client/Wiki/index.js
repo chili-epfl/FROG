@@ -17,7 +17,7 @@ import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
 import { learningItemTypesObj } from '/imports/activityTypes';
-import { parseDocResults } from './helpers';
+import { parseDocResults, parseSearch } from './helpers';
 import {
   addNewWikiPage,
   invalidateWikiPage,
@@ -45,20 +45,19 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   constructor(props) {
     super(props);
     window.frog_gotoLink = url => props.history.push(url);
-    this.dataSubscription = null;
 
     this.wikiId = this.props.match.params.wikiId;
     if (!this.wikiId) throw new Error('Empty wikiId field');
-    this.wikiDoc = connection.get('wiki', this.wikiId);
-    this.wikiDoc.on('create', this.subscribeToPagesData);
 
     const pageTitle = this.props.match.params.pageTitle
       ? this.props.match.params.pageTitle.toLowerCase()
       : null;
 
+    const searchAttributes = parseSearch(props.history.location.search);
+
     this.state = {
       pages: [],
-      dashboardOpen: props?.history?.location?.search === '?dashboard=true',
+      dashboardOpen: searchAttributes.dashboard === 'true',
       pageId: null,
       pageTitle,
       pageTitleString: pageTitle,
@@ -73,11 +72,57 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   }
 
   componentDidMount() {
+    this.wikiDoc = connection.get('wiki', this.wikiId);
+    this.wikiDoc.on('create', () => { this.loadWikiDoc() });
+    this.wikiDoc.on('op', () => { this.loadWikiDoc() });
+    this.wikiDoc.on('error', err => { throw err });
     this.wikiDoc.subscribe(err => {
       if (err) throw err;
       this.loadWikiDoc();
     });
   }
+
+  loadWikiDoc = () => {
+    if (!this.wikiDoc.data) {
+      const emptyDocValues = {
+        wikiId: this.wikiId,
+        pages: {}
+      }
+      this.wikiDoc.create(emptyDocValues);
+      return;
+    }
+
+    const pages = parseDocResults(this.wikiDoc.data);
+    const pageTitle =
+      this.state.pageTitle ||
+      (Object.keys(pages).length > 0 && Object.keys(pages)[0]) ||
+      'unnamed';
+
+    if (!pages[pageTitle]) {
+      this.createNewPageLI(pageTitle);
+      return;
+    }
+
+    const pageId = pages[pageTitle].id;
+    this.setState({
+      pages,
+      pageId,
+      pageTitle,
+      pageTitleString: pageTitle
+    });
+  };
+
+  getWikiPages = () => {
+    return values(this.state.pages).map(x => {
+      return {
+        wikiId: this.wikiId,
+        liId: x.id,
+        title: x.title,
+        created: x.created,
+        valid: x.valid
+      };
+    });
+  };
 
   componentDidUpdate(prevProps) {
     if (
@@ -95,77 +140,25 @@ class WikiComp extends React.Component<WikiCompPropsT> {
         pageId,
         mode: 'view',
         liType: 'li-richText',
-        dashboardOpen:
-          prevProps?.history?.location?.search === '?dashboard=true',
+        dashboardOpen: false,
         pageTitle: newPageTitle,
         pageTitleString: newPageTitle
       });
     }
   }
 
-  loadWikiDoc = () => {
-    if (!this.wikiDoc.data) {
-      this.wikiDoc.create({ pages: {} });
-    } else {
-      this.subscribeToPagesData();
-    }
-  };
-
-  subscribeToPagesData = () => {
-    const query = {
-      wikiId: this.wikiId,
-      deleted: { $ne: true }
-    };
-
-    this.dataSubscription = connection.createSubscribeQuery('li', query);
-    this.dataSubscription.on('ready', () =>
-      this.processResults(this.dataSubscription.results)
-    );
-    this.dataSubscription.on('changed', results =>
-      this.processResults(results)
-    );
-    this.dataSubscription.on('error', err => {
-      throw err;
-    });
-  };
-
-  processResults = results => {
-    const pages = parseDocResults(results);
-    const pageTitle =
-      this.state.pageTitle ||
-      (Object.keys(pages).length > 0 && Object.keys(pages)[0]) ||
-      'unnamed';
-
-    if (!pages[pageTitle]) {
-      this.createNewPageLI(pageTitle);
-      return;
-    }
-
-    const pageId = pages[pageTitle].id;
-
-    this.setState({
-      data: results,
-      pages,
-      pageId,
-      pageTitle,
-      pageTitleString: pageTitle
-    });
-  };
-
   createNewPageLI = (pageTitleRaw, liType) => {
     const pageTitle = pageTitleRaw.toLowerCase();
     const meta = {
-      wikiId: this.wikiId,
-      title: pageTitle
+      wikiId: this.wikiId
     };
 
     if (learningItemTypesObj[liType || 'li-richText'].Creator) {
       this.setState({
         openCreator: {
           type: liType,
-          title: pageTitle,
-          callback: e => {
-            addNewWikiPage(this.wikiDoc, e, pageTitle);
+          callback: newId => {
+            addNewWikiPage(this.wikiDoc, newId, pageTitle);
             this.setState({ openCreator: false });
           }
         }
@@ -255,20 +248,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     });
   };
 
-  getWikiPages = () => {
-    return (
-      this.state &&
-      values(this.state.pages).map(x => {
-        return {
-          wikiId: this.wikiId,
-          pageTitle: x.title,
-          liId: x.id,
-          title: x.title
-        };
-      })
-    );
-  };
-
   render() {
     if (!this.state.pageId || !this.state.pageTitle) return null;
 
@@ -278,22 +257,25 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       </div>
     ) : null;
 
-    const pagesLinks = Object.keys(this.state.pages).map(pageTitle => {
-      const doc = this.state.pages[pageTitle];
+    const validPages = values(this.state.pages).filter(pageObj => pageObj.valid);
+
+    const pagesLinks = validPages.map(pageObj => {
+      const pageId = pageObj.id;
+      const pageTitle = pageObj.title;
 
       const link = '/wiki/' + this.wikiId + '/' + pageTitle;
 
-      const currentPageBool = doc.id === this.state.pageId;
+      const currentPageBool = pageId === this.state.pageId;
       const style = currentPageBool
         ? {
             fontWeight: 'bold'
           }
         : {};
       return (
-        <li key={doc.id} style={style}>
-          <Link to={link}>{doc.title}</Link>
+        <li key={pageId} style={style}>
+          <Link to={link}>{pageTitle}</Link>
           {currentPageBool ? null : (
-            <button onClick={() => this.deleteLI(doc.id)}>X</button>
+            <button onClick={() => this.deleteLI(pageId)}>X</button>
           )}
         </li>
       );
@@ -413,7 +395,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
                       this.setState({ dashboardOpen: true });
                     }}
                   >
-                    Open dashboard
+                    Open Dashboard
                   </button>
                 )}
                 {pagesLinks}

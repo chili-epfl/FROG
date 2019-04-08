@@ -1,20 +1,20 @@
 // @flow
 
 const parseDocResults = function(results) {
+  const pagesData = results.pages;
   const pages = {};
-  for (let doc of results) {
-    const pageTitle = doc.data.title;
-    pages[pageTitle] = {
-      id: doc.id,
-      title: pageTitle,
-    }
+
+  // eslint-disable-next-line guard-for-in
+  for (const pageId in pagesData) {
+    const pageObj = pagesData[pageId];
+    pages[pageObj.title] = pageObj;
   }
 
   return pages;
 }
 
-const parseSearch = function(search, learningItems) {
-  if (search === '') return null;
+const parseSearch = function(search) {
+  if (search === '') return {};
 
   const cleanedSearch = decodeURI(search.substring(1));
   const parameters = cleanedSearch.split('&');
