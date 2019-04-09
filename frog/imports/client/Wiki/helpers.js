@@ -11,20 +11,48 @@ const parseDocResults = function(results) {
   }
 
   return pages;
-}
+};
 
 const parseSearch = function(search) {
   if (search === '') return {};
 
   const cleanedSearch = decodeURI(search.substring(1));
   const parameters = cleanedSearch.split('&');
-  const attributes = {}
+  const attributes = {};
   for (let param of parameters) {
     param = param.split('=');
     attributes[param[0]] = param[1];
   }
 
   return attributes;
-}
+};
 
-export { parseDocResults, parseSearch }
+const parsePageObjForReactiveRichText = (wikiId, pageObj) => ({
+  wikiId,
+  id: pageObj.id,
+  liId: pageObj.id,
+  title: pageObj.title,
+  created: pageObj.created,
+  valid: pageObj.valid
+});
+
+const getPageTitle = (pages, statePageTitle) => {
+  if (statePageTitle) return statePageTitle;
+
+  if (Object.keys(pages).length > 0) {
+    // eslint-disable-next-line guard-for-in
+    for (const pageTitle in pages) {
+      const pageObj = pages[pageTitle];
+      if (pageObj.valid) return pageObj.title;
+    }
+  }
+
+  return 'unnamed';
+};
+
+export {
+  parseDocResults,
+  parseSearch,
+  parsePageObjForReactiveRichText,
+  getPageTitle
+};

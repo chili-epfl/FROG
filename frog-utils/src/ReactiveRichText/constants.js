@@ -30,7 +30,7 @@ const Keys = {
   ENTER: 13,
   ESCAPE: 27,
   UP: 38,
-  DOWN: 40,
+  DOWN: 40
 };
 
 export { LiViewTypes, formats, Keys };

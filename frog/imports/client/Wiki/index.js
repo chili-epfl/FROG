@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { WikiContext, values } from 'frog-utils';
-import LIDashboard from '../Dashboard/LIDashboard';
 import {
   FormControl,
   Select,
@@ -18,17 +17,27 @@ import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
 import { learningItemTypesObj } from '/imports/activityTypes';
-import { parseDocResults, parseSearch } from './helpers';
+import {
+  parseDocResults,
+  parseSearch,
+  parsePageObjForReactiveRichText,
+  getPageTitle
+} from './helpers';
 import {
   addNewWikiPage,
   invalidateWikiPage,
   changeWikiPageTitle
 } from '/imports/api/wikiDocAPI';
 import { wikistore } from './store';
+import LIDashboard from '../Dashboard/LIDashboard';
 
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
 const LearningItem = dataFn.LearningItem;
+
+const editableLIs = values(learningItemTypesObj).filter(
+  x => (x.Editor && x.dataStructure) || x.Creator
+);
 
 type WikiCompPropsT = {
   match: {
@@ -39,14 +48,11 @@ type WikiCompPropsT = {
   }
 };
 
-const editableLIs = values(learningItemTypesObj).filter(
-  x => (x.Editor && x.dataStructure) || x.Creator
-);
-
 class WikiComp extends React.Component<WikiCompPropsT> {
   constructor(props) {
     super(props);
 
+    this.initialLoad = true;
     this.wikiId = this.props.match.params.wikiId;
     if (!this.wikiId) throw new Error('Empty wikiId field');
 
@@ -67,25 +73,36 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       liType: 'li-richText',
       newTitle: '',
       error: null,
-      wikiContext: { getWikiPages: this.getWikiPages }
+      wikiContext: {
+        getWikiPages: this.getWikiPages,
+        getOnlyValidWikiPages: this.getOnlyValidWikiPages
+      }
     };
   }
 
-  WikiLink = observer(({ title }) => {
-    const link = '/wiki/' + this.wikiId + '/' + title;
+  WikiLink = observer(({ id }) => {
+    const pageObj = wikistore.pages[id];
+    const pageTitle = pageObj.title;
+    const style = {
+      color: 'red',
+      textDecoration: 'underline'
+    };
+
+    if (!pageObj.valid) return <span style={style}>{pageTitle}</span>;
+
+    const link = '/wiki/' + this.wikiId + '/' + pageTitle;
     const linkFn = e => {
       e.preventDefault();
       this.props.history.push(link);
     };
+
+    style.color = 'blue';
+    style.cursor = 'pointer';
+
     return (
-      <div
-        style={{
-          color: wikistore.pages[title]?.valid ? '#000000' : '#ff0000',
-          textDecoration: 'underline'
-        }}
-      >
-        <span onClick={linkFn}>{title}</span>
-      </div>
+      <span onClick={linkFn} style={style}>
+        {pageTitle}
+      </span>
     );
   });
 
@@ -117,19 +134,22 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       return;
     }
 
-    const pages = parseDocResults(this.wikiDoc.data);
-    const pageTitle =
-      this.state.pageTitle ||
-      (Object.keys(pages).length > 0 && Object.keys(pages)[0]) ||
-      'unnamed';
+    const parsedPages = parseDocResults(this.wikiDoc.data);
+    wikistore.setPages(this.wikiDoc.data.pages);
 
-    if (!pages[pageTitle]) {
-      this.createNewPageLI(pageTitle);
+    const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+
+    if (!parsedPages[pageTitle]) {
+      if (this.initialLoad) {
+        this.initialLoad = false;
+        this.createNewPageLI(pageTitle);
+      }
       return;
     }
+    this.initialLoad = false;
 
-    const pageId = pages[pageTitle].id;
-    wikistore.setPages(pages)
+    const pageId = parsedPages[pageTitle].id;
+
     this.setState({
       pageId,
       pageTitle,
@@ -138,28 +158,29 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   };
 
   getWikiPages = () => {
-    return values(wikistore.pages).map(x => {
-      return {
-        wikiId: this.wikiId,
-        liId: x.id,
-        title: x.title,
-        created: x.created,
-        valid: x.valid
-      };
-    });
+    return values(wikistore.pages).map(pageObj =>
+      parsePageObjForReactiveRichText(this.wikiId, pageObj)
+    );
+  };
+
+  getOnlyValidWikiPages = () => {
+    return values(wikistore.pages)
+      .filter(x => x.valid)
+      .map(pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj));
   };
 
   componentDidUpdate(prevProps) {
     if (
       prevProps.match.params.pageTitle !== this.props.match.params.pageTitle
     ) {
+      const pages = parseDocResults(this.wikiDoc.data);
       const newPageTitle = this.props.match.params.pageTitle;
-      if (!wikistore.pages[newPageTitle]) {
+      if (!pages[newPageTitle]) {
         this.createNewPageLI(newPageTitle);
         return;
       }
 
-      const pageId = wikistore.pages[newPageTitle].id;
+      const pageId = pages[newPageTitle].id;
 
       this.setState({
         pageId,
@@ -204,12 +225,13 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
   createLI = () => {
     const newTitle = this.state.newTitle;
+    const parsedPages = parseDocResults(this.wikiDoc.data.pages);
     if (newTitle === '') {
       this.setState({
         error: 'Title cannot be empty'
       });
       return;
-    } else if (wikistore.pages[newTitle]) {
+    } else if (parsedPages[newTitle]) {
       this.setState({
         error: 'Title already used'
       });
@@ -240,9 +262,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
   saveNewPageTitle = () => {
     const newPageTitle = this.state.pageTitleString;
-    const LIdoc = connection.get('li', this.state.pageId);
-    const LIdataFn = generateReactiveFn(LIdoc, LI);
-    LIdataFn.objReplace(this.state.pageTitle, newPageTitle, 'title');
 
     changeWikiPageTitle(
       this.wikiDoc,
@@ -251,26 +270,16 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       newPageTitle
     );
 
-    const query = {
-      wikiId: this.wikiId,
-      deleted: { $ne: true }
-    };
-
-    connection.createFetchQuery('li', query, null, (err, results) => {
-      if (err) throw err;
-      const pages = parseDocResults(results);
-      wikistore.setPages(pages)
-      this.setState(
-        {
-          pageTitle: newPageTitle,
-          editingTitle: false
-        },
-        () => {
-          const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
-          this.props.history.replace(link);
-        }
-      );
-    });
+    this.setState(
+      {
+        pageTitle: newPageTitle,
+        editingTitle: false
+      },
+      () => {
+        const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
+        this.props.history.replace(link);
+      }
+    );
   };
 
   render() {
@@ -282,9 +291,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       </div>
     ) : null;
 
-    const validPages = values(wikistore.pages).filter(pageObj => pageObj.valid);
-
-    const pagesLinks = validPages.map(pageObj => {
+    const pagesLinks = this.getOnlyValidWikiPages().map(pageObj => {
       const pageId = pageObj.id;
       const pageTitle = pageObj.title;
 

@@ -8,7 +8,7 @@ class WikiLinkBlot extends Embed {
   static create(data) {
     const node = super.create();
     const WikiLink = window.frog_WikiLink;
-    ReactDOM.render(<WikiLink title={data.title} />, node);
+    ReactDOM.render(<WikiLink id={data.id} />, node);
 
     return this.setDataValues(node, data);
   }

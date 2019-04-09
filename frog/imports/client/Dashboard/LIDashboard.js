@@ -227,11 +227,15 @@ class Dashboard extends React.Component<any, any> {
               key={x.id}
               id={x.id}
               render={({ children, dataFn: dfn }) => (
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                   {console.log(dfn.doc.data) || dfn.doc.data?.title}
                   <ImageBox
                     expand={this.state.expand}
-                    onClick={() => this.props.onClick ? this.props.onClick(dfn.doc.data.title) : this.setState({ zoom: x.id })}
+                    onClick={() =>
+                      this.props.onClick
+                        ? this.props.onClick(dfn.doc.data.title)
+                        : this.setState({ zoom: x.id })
+                    }
                   >
                     {children}
                   </ImageBox>

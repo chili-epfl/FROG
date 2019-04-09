@@ -61,7 +61,6 @@ class LearningItemBlot extends Embed {
     super(domNode, value);
     // Make sure the hover handlers are registered correctly in all collaborating
     // editors for a newly inserted LI
-    console.log('constructor');
     this.refreshClickHandlers();
   }
 
@@ -86,11 +85,9 @@ class LearningItemBlot extends Embed {
   };
 
   liEditHandler = () => {
-    console.log('liedit');
     const { liView: currentView, zoomState } = this.getLiContent();
     const nextView =
       currentView === LiViewTypes.EDIT ? zoomState : LiViewTypes.EDIT;
-console.log(currentView, zoomState)
     this.format('li-view', nextView);
   };
 
@@ -151,7 +148,6 @@ console.log(currentView, zoomState)
   }
 
   refreshClickHandlers = () => {
-    console.log('refresh');
     const closeButton = this.domNode.querySelector('.li-close-btn');
     const zoomButton = this.domNode.querySelector('.li-zoom-btn');
     const editButton = this.domNode.querySelector('.li-edit-btn');
@@ -181,13 +177,11 @@ console.log(currentView, zoomState)
   update(mutations: any, context: any) {
     // Make sure the handlers are registered for all the LIs in existing content
     // of an editor upon editor load
-    console.log('update');
     this.refreshClickHandlers();
     super.update(mutations, context);
   }
 
   format(format: string, value: Object) {
-  console.log('format', format, value)
     const quill = Quill.find(this.domNode.parentNode.parentElement);
     if (quill.options.readOnly) {
       setTimeout(() => {
@@ -211,7 +205,6 @@ console.log(currentView, zoomState)
       // rendered on editor load, the 'this.domNode' property used in
       // getLiContent() method is not yet initialized. So this waits a while
       // until it is initialized to run the formatting
-      console.log('format liview');
       setTimeout(() => {
         const {
           liId,
@@ -219,11 +212,10 @@ console.log(currentView, zoomState)
           zoomState,
           controlsVisibility
         } = this.getLiContent();
-        console.log(this.getLiContent())
-        if (liId &&  zoomState && value) {
+        if (liId && zoomState && value) {
           LearningItemBlot.renderLItoNode(
             liId,
-            authorId||'anonymous',
+            authorId || 'anonymous',
             value,
             value === LiViewTypes.EDIT ? zoomState : value,
             controlsVisibility,

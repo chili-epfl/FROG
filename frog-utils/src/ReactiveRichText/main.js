@@ -646,7 +646,7 @@ class ReactiveRichText extends Component<
                       container: `#toolbar-${this.toolbarId}`,
                       handlers: {
                         toggleAuthorship: this.toggleAuthorship,
-                        table: ()=>this.insertNewLi('li-spreadsheet'),
+                        table: () => this.insertNewLi('li-spreadsheet'),
                         insertLi: this.insertNewLi,
                         image: () =>
                           this.setState({
@@ -660,7 +660,7 @@ class ReactiveRichText extends Component<
                   allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                   mentionDenotationChars: ['@'],
                   source: (searchTerm, renderList, mentionChar) => {
-                    const values = wikiContext.getWikiPages();
+                    const values = wikiContext.getOnlyValidWikiPages();
 
                     if (searchTerm.length === 0) {
                       renderList(values, searchTerm);
@@ -683,7 +683,7 @@ class ReactiveRichText extends Component<
                   mentionDenotationChars: ['#'],
                   type: 'embed',
                   source: (searchTerm, renderList, mentionChar) => {
-                    const values = wikiContext.getWikiPages();
+                    const values = wikiContext.getOnlyValidWikiPages();
 
                     if (searchTerm.length === 0) {
                       renderList(values, searchTerm);
@@ -719,7 +719,7 @@ class ReactiveRichText extends Component<
                     liType={this.state.openCreator.liType}
                     onCreate={item => {
                       this.setState({ openCreator: false });
-                      this.onDrop({item});
+                      this.onDrop({ item });
                     }}
                   />
                 </Dialog>
