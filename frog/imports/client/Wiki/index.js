@@ -11,6 +11,7 @@ import {
   MenuItem,
   FormHelperText
 } from '@material-ui/core';
+import { observer } from 'mobx-react';
 
 import Dialog from '@material-ui/core/Dialog';
 import { connection } from '../App/connection';
@@ -23,6 +24,7 @@ import {
   invalidateWikiPage,
   changeWikiPageTitle
 } from '/imports/api/wikiDocAPI';
+import { wikistore } from './store';
 
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
@@ -55,7 +57,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     const searchAttributes = parseSearch(props.history.location.search);
 
     this.state = {
-      pages: {},
       dashboardOpen: searchAttributes.dashboard === 'true',
       pageId: null,
       pageTitle,
@@ -70,7 +71,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     };
   }
 
-  WikiLink = ({ title }) => {
+  WikiLink = observer(({ title }) => {
     const link = '/wiki/' + this.wikiId + '/' + title;
     const linkFn = e => {
       e.preventDefault();
@@ -79,14 +80,14 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     return (
       <div
         style={{
-          color: this.state.pages[title]?.valid ? '#000000' : '#ff0000',
+          color: wikistore.pages[title]?.valid ? '#000000' : '#ff0000',
           textDecoration: 'underline'
         }}
       >
         <span onClick={linkFn}>{title}</span>
       </div>
     );
-  };
+  });
 
   componentDidMount() {
     window.frog_WikiLink = this.WikiLink;
@@ -128,8 +129,8 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     }
 
     const pageId = pages[pageTitle].id;
+    wikistore.setPages(pages)
     this.setState({
-      pages,
       pageId,
       pageTitle,
       pageTitleString: pageTitle
@@ -137,7 +138,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   };
 
   getWikiPages = () => {
-    return values(this.state.pages).map(x => {
+    return values(wikistore.pages).map(x => {
       return {
         wikiId: this.wikiId,
         liId: x.id,
@@ -153,12 +154,12 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       prevProps.match.params.pageTitle !== this.props.match.params.pageTitle
     ) {
       const newPageTitle = this.props.match.params.pageTitle;
-      if (!this.state.pages[newPageTitle]) {
+      if (!wikistore.pages[newPageTitle]) {
         this.createNewPageLI(newPageTitle);
         return;
       }
 
-      const pageId = this.state.pages[newPageTitle].id;
+      const pageId = wikistore.pages[newPageTitle].id;
 
       this.setState({
         pageId,
@@ -208,7 +209,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
         error: 'Title cannot be empty'
       });
       return;
-    } else if (this.state.pages[newTitle]) {
+    } else if (wikistore.pages[newTitle]) {
       this.setState({
         error: 'Title already used'
       });
@@ -224,9 +225,9 @@ class WikiComp extends React.Component<WikiCompPropsT> {
   };
 
   deleteLI = pageId => {
-    const LIdoc = connection.get('li', pageId);
-    const LIdataFn = generateReactiveFn(LIdoc, LI);
-    LIdataFn.objReplace(false, true, 'deleted');
+    // const LIdoc = connection.get('li', pageId);
+    // const LIdataFn = generateReactiveFn(LIdoc, LI);
+    // LIdataFn.objReplace(false, true, 'deleted');
 
     invalidateWikiPage(this.wikiDoc, pageId);
   };
@@ -258,9 +259,9 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     connection.createFetchQuery('li', query, null, (err, results) => {
       if (err) throw err;
       const pages = parseDocResults(results);
+      wikistore.setPages(pages)
       this.setState(
         {
-          pages,
           pageTitle: newPageTitle,
           editingTitle: false
         },
@@ -281,9 +282,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       </div>
     ) : null;
 
-    const validPages = values(this.state.pages).filter(
-      pageObj => pageObj.valid
-    );
+    const validPages = values(wikistore.pages).filter(pageObj => pageObj.valid);
 
     const pagesLinks = validPages.map(pageObj => {
       const pageId = pageObj.id;
