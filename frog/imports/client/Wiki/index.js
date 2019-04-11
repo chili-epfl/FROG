@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { WikiContext, values } from 'frog-utils';
+import { WikiContext, values, A, uuid } from 'frog-utils';
 import {
   FormControl,
   Select,
@@ -16,7 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import { learningItemTypesObj } from '/imports/activityTypes';
+import { learningItemTypesObj, activityTypesObj } from '/imports/activityTypes';
 import {
   parseDocResults,
   parseSearch,
@@ -30,6 +30,7 @@ import {
 } from '/imports/api/wikiDocAPI';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
+import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
@@ -79,6 +80,32 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       }
     };
   }
+
+  createActivityPage = (item, config) => {
+    const id = uuid();
+    const doc = connection.get('rz', id + '/all');
+    console.log(
+      item,
+      config,
+      item.activityType,
+      activityTypesObj[item.activityType].dataStructure
+    );
+    doc.create(activityTypesObj[item.activityType].dataStructure);
+    const payload = {
+      acType: item.activityType,
+      activityData: { config },
+      rz: id + '/all',
+      title: this.state.newTitle,
+      activityTypeTitle: activityTypesObj[item.activityType].meta.name
+    };
+
+    const newId = dataFn.createLearningItem('li-activity', payload, {
+      title: this.state.newTitle
+    });
+
+    addNewWikiPage(this.wikiDoc, newId, this.state.newTitle);
+    this.setState({ openApiform: false });
+  };
 
   WikiLink = observer(({ id }) => {
     const pageObj = wikistore.pages[id];
@@ -342,6 +369,13 @@ class WikiComp extends React.Component<WikiCompPropsT> {
             <FormHelperText>Learning Item type</FormHelperText>
           </FormControl>
           {errorDiv}
+          <A
+            onClick={() =>
+              this.setState({ openApiform: !this.state.openApiform })
+            }
+          >
+            Use FROG activity type
+          </A>
         </li>
       </>
     );
@@ -349,7 +383,11 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     const pageDiv = (() => {
       const type = this.state.mode;
 
-      return <LearningItem type={type} id={this.state.pageId} />;
+      return (
+        <div style={{ height: 'calc(100vh - 100px)' }}>
+          <LearningItem type={type} id={this.state.pageId} />
+        </div>
+      );
     })();
 
     const containerDivStyle = {
@@ -367,7 +405,8 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
     const contentDivStyle = {
       display: 'table-cell',
-      padding: '5px'
+      padding: '5px',
+      height: '100%'
     };
 
     const titleDiv = (() => {
@@ -435,7 +474,14 @@ class WikiComp extends React.Component<WikiCompPropsT> {
               </ul>
             </div>
             <div style={contentDivStyle}>
-              {this.state.dashboardOpen ? (
+              {this.state.openApiform ? (
+                <ApiForm
+                  noOffset
+                  showDelete
+                  showSubmit
+                  onSubmit={this.createActivityPage}
+                />
+              ) : this.state.dashboardOpen ? (
                 <LIDashboard
                   wikiId={this.wikiId}
                   onClick={page => {

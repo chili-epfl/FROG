@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { EnhancedForm } from 'frog-utils';
+import { EnhancedForm,A } from 'frog-utils';
 import { isEqual, debounce } from 'lodash';
 
 import { Activities, addActivity } from '/imports/api/activities';
@@ -162,6 +162,11 @@ export default class ConfigForm extends Component<
     const nodeConfig = this.props.nodeType.config;
     return nodeConfig && ![{}, undefined].includes(nodeConfig.properties) ? (
       <div className="bootstrap" style={{ padding: '0 10px' }}>
+        {this.props.showSubmit && (
+          <A onClick={() => this.props.onSubmit(this.props.node, this.state.formData)}>
+            Add wiki page based on this activity type and config
+          </A>
+        )}
         <EnhancedForm
           showErrorList={false}
           noHtml5Validate

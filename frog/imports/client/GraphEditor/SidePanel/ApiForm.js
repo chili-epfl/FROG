@@ -119,6 +119,8 @@ class Config extends React.Component<
       >
         <div>
           <ConfigForm
+            showSubmit={this.props.showSubmit}
+            onSubmit={this.props.onSubmit}
             node={this.props.activity}
             data={this.props.config}
             reload={this.props.reload}
@@ -246,7 +248,6 @@ const ApiForm = observer(
         });
       }
     };
-
     render() {
       return (
         <>
@@ -295,6 +296,8 @@ const ApiForm = observer(
                   setValid={state.setValid}
                   reload={this.props.reload}
                   config={this.props.config || this.state.activity.data || {}}
+                  showSubmit={this.props.showSubmit} 
+                  onSubmit={this.props.onSubmit}
                 />
               </div>
             </div>
