@@ -221,6 +221,11 @@ class WikiLinkModule {
         Quill.sources.USER
       );
     } else {
+      if (!data.id) {
+        const newId = data.createPage(data.title);
+        data.id = newId;
+        data.liId = newId;
+      }
       this.quill.insertEmbed(
         this.mentionCharPos,
         'wiki-link',

@@ -27,7 +27,7 @@ import {
   addNewWikiPage,
   invalidateWikiPage,
   changeWikiPageTitle
-} from '/imports/api/wikiDocAPI';
+} from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 
@@ -74,30 +74,43 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       newTitle: '',
       error: null,
       wikiContext: {
+        getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
-        getOnlyValidWikiPages: this.getOnlyValidWikiPages
+        getOnlyValidWikiPages: this.getOnlyValidWikiPages,
+        createPage: this.createNewPageLI
       }
     };
   }
 
-  WikiLink = observer(({ id }) => {
-    const pageObj = wikistore.pages[id];
-    const pageTitle = pageObj.title;
+  WikiLink = observer(({ data }) => {
+    const pageObj = data.id ? wikistore.pages[data.id] : null;
+    const pageTitle = pageObj ? pageObj.title : data.title;
     const style = {
-      color: 'red',
-      textDecoration: 'underline'
+      textDecoration: 'underline',
+      cursor: 'pointer'
     };
-
-    if (!pageObj.valid) return <span style={style}>{pageTitle}</span>;
-
     const link = '/wiki/' + this.wikiId + '/' + pageTitle;
     const linkFn = e => {
       e.preventDefault();
       this.props.history.push(link);
     };
 
+    if (!data.id) {
+      style.color = 'green';
+      return (
+        <span onClick={linkFn} style={style}>
+          {pageTitle}
+        </span>
+      )
+    }
+
+    if (!pageObj.valid) {
+      style.color = 'red';
+      style.cursor = 'not-allowed';
+      return <span style={style}>{pageTitle}</span>;
+    }
+
     style.color = 'blue';
-    style.cursor = 'pointer';
 
     return (
       <span onClick={linkFn} style={style}>
@@ -157,6 +170,10 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     });
   };
 
+  getWikiId = () => {
+    return this.wikiId;
+  }
+
   getWikiPages = () => {
     return values(wikistore.pages).map(pageObj =>
       parsePageObjForReactiveRichText(this.wikiId, pageObj)
@@ -176,7 +193,14 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       const pages = parseDocResults(this.wikiDoc.data);
       const newPageTitle = this.props.match.params.pageTitle;
       if (!pages[newPageTitle]) {
-        this.createNewPageLI(newPageTitle);
+        this.setState({
+          pageId: null,
+          pageTitle: newPageTitle,
+          pageTitleString: newPageTitle,
+        }, () => {
+          this.createNewPageLI(newPageTitle);
+        });
+        
         return;
       }
 
@@ -220,6 +244,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       );
 
       addNewWikiPage(this.wikiDoc, newId, pageTitle);
+      return newId;
     }
   };
 
@@ -346,12 +371,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       </>
     );
 
-    const pageDiv = (() => {
-      const type = this.state.mode;
-
-      return <LearningItem type={type} id={this.state.pageId} />;
-    })();
-
     const containerDivStyle = {
       display: 'table',
       minHeight: '100vh',
@@ -474,7 +493,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
                       </button>
                     )}
                   </div>
-                  {pageDiv}
+                  <LearningItem type={this.state.mode} id={this.state.pageId} />
                 </>
               )}
             </div>

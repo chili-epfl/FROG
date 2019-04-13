@@ -674,6 +674,16 @@ class ReactiveRichText extends Component<
                         }
                       }
 
+                      if (matches.length === 0) {
+                        matches.push({
+                          wikiId: wikiContext.getWikiId(),
+                          title: searchTerm,
+                          created: true,
+                          valid: true,
+                          createPage: wikiContext.createPage
+                        });
+                      }
+
                       renderList(matches, searchTerm);
                     }
                   }
