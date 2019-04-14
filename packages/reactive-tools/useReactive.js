@@ -42,7 +42,7 @@ export const useReactive = (connection, collection, docId, userid) => {
     doc.current = connection.get(collection, docId);
     doc.current.setMaxListeners(3000);
 
-    doc.requestReplyPresence = true;
+    doc.current.requestReplyPresence = true;
     doc.current.subscribe();
 
     interval.current = window.setInterval(() => {
