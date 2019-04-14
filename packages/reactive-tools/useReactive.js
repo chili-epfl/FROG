@@ -26,7 +26,7 @@ export const useReactive = (connection, collection, docId, userid) => {
           });
           presenceSent.current = true;
         }
-        doc.requestReplyPresence = false;
+        doc.current.requestReplyPresence = false;
 
         setData(cloneDeep(doc.current.data));
 
