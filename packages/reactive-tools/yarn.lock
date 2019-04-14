@@ -401,6 +401,13 @@ semver@^5.4.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.0.tgz#790a7cf6fea5459bac96110b29b60412dc8ff96b"
   integrity sha512-Ya52jSX2u7QKghxeoFGpLwCtGlt7j0oY9DYb5apt9nPlJ42ID+ulTXESnt/qAQcoSERyZ5sl3LDIOw0nAn/5DA==
 
+sharedb-string-binding@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sharedb-string-binding/-/sharedb-string-binding-1.0.0.tgz#0770e36cdcf2c608844dddf8f0a38be42564b102"
+  integrity sha1-B3DjbNzyxgiETd348KOL5CVksQI=
+  dependencies:
+    text-diff-binding "^1.0.0"
+
 source-map-explorer@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/source-map-explorer/-/source-map-explorer-1.8.0.tgz#61cb8ffaff65d10ae2e6b60228fc625f523c41ff"
@@ -434,6 +441,11 @@ temp@^0.9.0:
   integrity sha512-YfUhPQCJoNQE5N+FJQcdPz63O3x3sdT4Xju69Gj4iZe0lBKOtnAMi0SLj9xKhGkcGhsxThvTJ/usxtFPo438zQ==
   dependencies:
     rimraf "~2.6.2"
+
+text-diff-binding@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/text-diff-binding/-/text-diff-binding-1.1.0.tgz#3e0adfcb7aee19c16e3afd3e7b7d897998e42a27"
+  integrity sha1-Pgrfy3ruGcFuOv0+e32JeZjkKic=
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

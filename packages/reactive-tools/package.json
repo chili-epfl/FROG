@@ -17,6 +17,7 @@
     "source-map-explorer": "^1.8.0"
   },
   "dependencies": {
-    "react": "^16.8.6"
+    "react": "^16.8.6",
+    "sharedb-string-binding": "^1.0.0"
   }
 }
