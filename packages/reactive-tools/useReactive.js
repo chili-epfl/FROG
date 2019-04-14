@@ -1,15 +1,14 @@
 import * as React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 
-import getDisplayName from './getDisplayName';
 import { generateReactiveFn } from './generateReactiveFn';
 
-export const useReactive = (connection, collection, docId) => {
-  const [ready, setReady] = React.useState(false);
+export const useReactive = (connection, collection, docId, userid) => {
   const [data, setData] = React.useState(null);
   const [dataFn, setDataFn] = React.useState(null);
   const [timeout, setTimeout] = React.useState(false);
   const doc = React.useRef();
+  const presenceSent = React.useRef(false);
   const interval = React.useRef();
   const intervalCount = React.useRef();
   let unmounted = false;
@@ -20,6 +19,15 @@ export const useReactive = (connection, collection, docId) => {
         setDataFn(generateReactiveFn(doc.current));
       }
       if (doc.current.data !== null) {
+        if (presenceSent.current === null && userid) {
+          // set presence when data has been loaded
+          doc.current.submitPresence({
+            u: userid
+          });
+          presenceSent.current = true;
+        }
+        doc.requestReplyPresence = false;
+
         setData(cloneDeep(doc.current.data));
 
         if (interval.current) {
@@ -29,9 +37,12 @@ export const useReactive = (connection, collection, docId) => {
       }
     }
   };
+
   React.useEffect(() => {
     doc.current = connection.get(collection, docId);
     doc.current.setMaxListeners(3000);
+
+    doc.requestReplyPresence = true;
     doc.current.subscribe();
 
     interval.current = window.setInterval(() => {
