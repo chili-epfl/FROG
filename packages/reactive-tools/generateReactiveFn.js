@@ -1,6 +1,6 @@
 // @flow
 import StringBinding from 'sharedb-string-binding';
-import { get } from 'lodash';
+import get from 'lodash/get';
 import uuid from 'cuid';
 
 type rawPathElement = string | number;
@@ -45,13 +45,14 @@ export class Doc {
     meta: Object = {},
     backend: any,
     stream?: Function,
-    sessionId?: string,
+    sessionId?: string
   ) {
     this.stream = stream;
     this.backend = backend;
     this.meta = meta;
     this.readOnly = !!readOnly;
     this.doc = doc;
+    this.listore = {};
     this.path = path || [];
     this.sessionId = sessionId || '';
     this.submitOp = readOnly
@@ -64,6 +65,10 @@ export class Doc {
 
   getMergedPath(path: rawPathT): * {
     return cleanPath(this.path, path);
+  }
+
+  getLearningTypesObj() {
+    return {};
   }
 
   bindTextField(ref: any, rawpath: rawPathT) {
@@ -181,16 +186,6 @@ export const generateReactiveFn = (
   updateFn?: Function,
   backend?: any,
   stream?: Function,
-  sessionId?: string,
+  sessionId?: string
 ): Object =>
-  new Doc(
-    doc,
-    [],
-    !!readOnly,
-    updateFn,
-    meta,
-    backend,
-    stream,
-    sessionId,
-  );
-
+  new Doc(doc, [], !!readOnly, updateFn, meta, backend, stream, sessionId);

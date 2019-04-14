@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 import getDisplayName from './getDisplayName';
 import { generateReactiveFn } from './generateReactiveFn';
@@ -65,6 +64,6 @@ export const useReactive = (connection, collection, docId) => {
         interval.current = undefined;
       }
     };
-  },[]);
+  }, []);
   return [data, dataFn, timeout];
 };

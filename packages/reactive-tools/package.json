@@ -1,15 +1,21 @@
 {
-  "name": "reactive-tools",
+  "name": "@chilifrog/reactive-tools",
   "version": "1.0.0",
   "description": "",
-  "main": "ErrorBoundary.js",
+  "main": "./lib/index.js",
+  "source": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "microbundle",
+    "view-source-map": "source-map-explorer --html dist/index.js dist/index.map > source.html && open source.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.4.3"
+    "@babel/core": "^7.4.3",
+    "source-map-explorer": "^1.8.0"
+  },
+  "dependencies": {
+    "react": "^16.8.6"
   }
 }
