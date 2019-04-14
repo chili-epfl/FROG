@@ -19,14 +19,18 @@ export const useReactive = (connection, collection, docId, userid) => {
         setDataFn(generateReactiveFn(doc.current));
       }
       if (doc.current.data !== null) {
-        if (presenceSent.current === null && userid) {
+        if (!presenceSent.current && userid) {
           // set presence when data has been loaded
-          doc.current.submitPresence({
-            u: userid
-          });
-          presenceSent.current = true;
+          doc.current.submitPresence(
+            {
+              u: userid
+            },
+            () => {
+              presenceSent.current = true;
+              doc.current.requestReplyPresence = false;
+            }
+          );
         }
-        doc.current.requestReplyPresence = false;
 
         setData(cloneDeep(doc.current.data));
 

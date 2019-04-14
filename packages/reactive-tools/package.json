@@ -1,8 +1,9 @@
 {
   "name": "@chilifrog/reactive-tools",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "homepage": "https://github.com/chili-epfl/FROG",
   "description": "",
+  "files": "./lib/*",
   "main": "./lib/index.js",
   "source": "./index.js",
   "scripts": {
