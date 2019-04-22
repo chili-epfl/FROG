@@ -58,7 +58,7 @@ export class Doc {
     this.submitOp = readOnly
       ? () => updateFn && updateFn()
       : e => {
-          doc.submitOp(e);
+          console.log('submitdoc', e) ||doc.submitOp(e);
         };
     this.updateFn = updateFn;
   }

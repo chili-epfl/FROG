@@ -1,84 +1,170 @@
-import * as React from 'react';
-import cloneDeep from 'lodash/cloneDeep';
+import React, { Component } from 'react';
+import '../../highlight';
+import QuillCursors from '@minervaproject/quill-cursors';
+import ReactQuill, { Quill } from 'react-quill';
+import { get, last, forEach, debounce } from 'lodash';
+import 'react-quill/dist/quill.snow.css';
 
-import { generateReactiveFn } from './generateReactiveFn';
+import '../../css/quill.css';
+import { getColor } from '../../color';
 
-export const useReactive = (connection, collection, docId, userid) => {
-  const [data, setData] = React.useState(null);
-  const [dataFn, setDataFn] = React.useState(null);
-  const [timeout, setTimeout] = React.useState(false);
-  const doc = React.useRef();
-  const presenceSent = React.useRef(false);
-  const interval = React.useRef();
-  const intervalCount = React.useRef();
-  let unmounted = false;
+console.log(Quill);
+Quill.register('modules/cursor', QuillCursors);
 
-  const update = () => {
-    if (!unmounted) {
-      if (!dataFn) {
-        setDataFn(generateReactiveFn(doc.current));
+class RichEditorField extends Component {
+  _storeRef = (ref) => (this._editor = ref);
+
+  update = () => this._editor.getEditor().setContents(this.props.data);
+
+  updateCursor = (range) =>
+    this.props.doc.submitPresence({
+      p: [this.props.uuid],
+      t: 'rich-text',
+      s: {
+        u: this.props.currentUser.userId,
+        c: 0,
+        s: [[range.index, range.index + range.length]],
+      },
+    });
+
+  setUpCursors = () => {
+    const editor = this._editor.getEditor();
+    console.log(editor);
+    const cursors = editor.getModule('cursors');
+    console.log(cursors);
+
+    const debouncedUpdate = debounce(this.updateCursor, 500);
+
+    editor.on('selection-change', (range, oldRange, source) => {
+      if (range) {
+        if (source === 'user') {
+          this.updateCursor(range);
+        } else {
+          debouncedUpdate(range);
+        }
       }
-      if (doc.current.data !== null) {
-        if (!presenceSent.current && userid) {
-          // set presence when data has been loaded
-          doc.current.submitPresence(
-            {
-              u: userid
-            },
-            () => {
-              presenceSent.current = true;
-              doc.current.requestReplyPresence = false;
+    });
+
+    this.props.doc.on('presence', (srcList, submitted) => {
+      srcList.forEach((src) => {
+        const presence = this.props.doc.presence[src];
+        if (!presence || !presence.p) {
+          return;
+        }
+
+        if (presence.p[0] !== this.uuid) {
+          cursors.removeCursor(presence.s.u);
+          return;
+        }
+
+        if (presence.s.u) {
+          const userId = presence.s.u;
+          if (
+            userId !== this.props.currentUser.userId &&
+            presence.s.s &&
+            presence.s.s.length > 0
+          ) {
+            // TODO: Can QuillCursors support multiple selections?
+            const sel = presence.s.s[0];
+
+            // Use Math.abs because the sharedb presence type
+            // supports reverse selections, but I don't think
+            // Quill Cursors does.
+            var len = Math.abs(sel[1] - sel[0]);
+            var min = Math.min(sel[0], sel[1]);
+
+            cursors.createCursor(userId, userId, getColor(userId));
+            cursors.moveCursor(userId, { index: min, length: len });
+            if (submitted) {
+              cursors.flashCursor(userId);
             }
-          );
+          }
         }
+      });
+    });
+  };
 
-        setData(cloneDeep(doc.current.data));
+  componentDidMount() {
+    this.update();
+    const { doc } = this.props;
+    doc.on('op', this.onOp);
+    this.setUpCursors();
+  }
 
-        if (interval.current) {
-          window.clearInterval(interval.current);
-          interval.current = undefined;
-        }
+  onOp = (op, source) => {
+    if (source === this._editor) {
+      return;
+    }
+
+    if (this._editor) {
+      const editor = this._editor.getEditor();
+      if (!editor) {
+        return;
       }
+
+      forEach(op, (operation) => {
+        const operations = get(operation, 'o.ops') || get(operation, 'o');
+        const opPath = last(operation.p);
+        // Ensures the ops are for exactly this editor in situations where there
+        // are multiple active editors in the page
+        if (opPath === this.props.uuid) {
+          editor.updateContents(operation.o);
+        }
+      });
     }
   };
 
-  React.useEffect(() => {
-    doc.current = connection.get(collection, docId);
-    doc.current.setMaxListeners(3000);
-
-    doc.current.requestReplyPresence = true;
-    doc.current.subscribe();
-
-    interval.current = window.setInterval(() => {
-      intervalCount.current += 1;
-      if (intervalCount.current > 10) {
-        setTimeout(true);
-        window.clearInterval(interval.current);
-        interval.current = null;
-      } else {
-        update();
-      }
-    }, 1000);
-
-    if (doc.current.type) {
-      update();
-    } else {
-      doc.current.once('load', () => {
-        update();
-      });
+  handleOnChange = (content, delta, source, editor) => {
+    if (source === 'user') {
+      const op = [
+        {
+          p: [this.props.uuid],
+          t: 'rich-text',
+          o: delta.ops,
+        },
+      ];
+      this.props.doc.submitOp(op, { source: this._editor });
     }
-    doc.current.on('op', () => {
-      update();
-    });
-    return () => {
-      doc.current.removeListener('op', update);
-      doc.current.removeListener('load', update);
-      unmounted = true;
-      if (interval.current) {
-        window.clearInterval(interval.current);
-        interval.current = undefined;
-      }
+  };
+
+  render() {
+    const { height } = this.props;
+
+    const toolbarOptions = [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'link', 'blockquote', 'code-block'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+        { color: [] },
+      ],
+    ];
+
+    const modules = {
+      cursors: true,
+      syntax: true,
+      toolbar: toolbarOptions,
     };
-  }, []);
-  return [data, dataFn, timeout];
+
+    const className = `rich-text secondary-font font-size-inherit background-light-blue rounded line-height-3 ${height}`;
+
+    return (
+      <ReactQuill
+        className={className}
+        ref={this._storeRef}
+        onChange={this.handleOnChange}
+        modules={modules}
+      />
+    );
+  }
+}
+
+RichEditorField.defaultProps = {
+  modules: {},
+  height: 'medium',
 };
+
+export default RichEditorField;
+
