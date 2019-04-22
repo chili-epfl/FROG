@@ -13,6 +13,10 @@ import {
 import { observer } from 'mobx-react';
 
 import Dialog from '@material-ui/core/Dialog';
+import Edit from '@material-ui/icons/Edit';
+import Check from '@material-ui/icons/Check';
+import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
+import Dashboard from '@material-ui/icons/Dashboard';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
@@ -30,6 +34,7 @@ import {
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
+
 
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
@@ -94,15 +99,6 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       e.preventDefault();
       this.props.history.push(link);
     };
-
-    if (!data.id) {
-      style.color = 'green';
-      return (
-        <span onClick={linkFn} style={style}>
-          {pageTitle}
-        </span>
-      )
-    }
 
     if (!pageObj.valid) {
       style.color = 'red';
@@ -389,33 +385,76 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       padding: '5px'
     };
 
-    const titleDiv = (() => {
-      const titleDisplay = this.state.editingTitle ? (
-        <div>
-          <input
-            placeholder="New Title"
-            value={this.state.pageTitleString}
-            onChange={e => {
-              this.setState({ pageTitleString: e.target.value });
-            }}
-          />
-          <button onClick={() => this.saveNewPageTitle(this.state.pageId)}>
-            Save
-          </button>
+    const iconButtonStyle = {
+      width: '24px'
+    };
+    const titleDivStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      height: '40px',
+      fontSize: '24px',
+      marginBottom: '12px'
+    }
+
+    const titleDiv = this.state.editingTitle ? (
+      <div style={titleDivStyle}>
+        <input
+          placeholder="New Title"
+          value={this.state.pageTitleString}
+          onChange={e => {
+            this.setState({ pageTitleString: e.target.value });
+          }}
+        />
+        <Check 
+          style={iconButtonStyle}
+          onClick={() => this.saveNewPageTitle(this.state.pageId)} 
+        />
+      </div>
+    ) : (
+      <div style={titleDivStyle}>
+        <span>{this.state.pageTitle}</span>
+        <Edit 
+          style={iconButtonStyle}
+          onClick={this.handleEditingTitle} 
+        />
+      </div>
+    );
+
+    const dashboardToggleStyle = {
+      display: 'inline-flex',
+      alignItems: 'center',
+      height: '30px',
+      fontSize: '14px',
+      cursor: 'pointer'
+    }
+
+    const dashboardToggle = (
+      <div>
+        <div
+          style={dashboardToggleStyle}
+          onClick={() => {
+            if (this.state.dashboardOpen) {
+              this.setState({ dashboardOpen: false });
+            }
+          }}
+        >
+          <ChromeReaderMode />
+          <span>Document</span>
         </div>
-      ) : (
-        <h1>{this.state.pageTitle}</h1>
-      );
-      const editButton = this.state.editingTitle ? null : (
-        <button onClick={this.handleEditingTitle}>Edit Title</button>
-      );
-      return (
-        <div>
-          {titleDisplay}
-          {editButton}
+        <hr style={{display: 'inline-block', width: '1px', height: '20px', margin: '0 5px'}} />
+        <div
+          style={dashboardToggleStyle}
+          onClick={() => {
+            if (!this.state.dashboardOpen) {
+              this.setState({ dashboardOpen: true });
+            }
+          }}
+        >
+          <Dashboard />
+          <span>Dashboard</span>
         </div>
-      );
-    })();
+      </div>
+    )
 
     return (
       <div>
@@ -423,32 +462,8 @@ class WikiComp extends React.Component<WikiCompPropsT> {
           <div style={containerDivStyle}>
             <div style={pagesLinksDivStyle}>
               <h2>Wiki: {this.wikiId}</h2>
+              {dashboardToggle}
               <ul>
-                {this.state.dashboardOpen ? (
-                  <button
-                    onClick={() => {
-                      this.props.history.push(
-                        `/wiki/${this.wikiId}/${this.state.pageTitle}`
-                      );
-                      this.setState({ dashboardOpen: false });
-                    }}
-                  >
-                    Close dashboard
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      this.props.history.push(
-                        `/wiki/${this.wikiId}/${
-                          this.state.pageTitle
-                        }?dashboard=true`
-                      );
-                      this.setState({ dashboardOpen: true });
-                    }}
-                  >
-                    Open Dashboard
-                  </button>
-                )}
                 {pagesLinks}
                 {newPageListItem}
               </ul>
