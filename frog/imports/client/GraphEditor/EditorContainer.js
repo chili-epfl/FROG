@@ -9,6 +9,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 import { removeActivity } from '/imports/api/remoteActivities';
+import { storeTemplateData } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
 
@@ -89,6 +90,8 @@ class Editor extends React.Component<Object, StateT> {
           modal
           activityTypeId={show.activityTypeId}
           config={show.config}
+          template={show.template}
+          storeTemplateFn={data => storeTemplateData(show.activityId, data)}
           dismiss={() => store.ui.setShowPreview(false)}
         />
       );
