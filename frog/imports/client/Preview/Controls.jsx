@@ -5,9 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import { Fab, Button } from '@material-ui/core';
-import { connection } from './Preview';
-
 import { uuid } from 'frog-utils';
+import { connection } from './Preview';
 
 import Icon from './Icon';
 import {

@@ -1,4 +1,5 @@
 // @flow
+//
 
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
@@ -18,11 +19,11 @@ import Controls from './Controls';
 import Content from './Content';
 import ConfigPanel from './ConfigPanel';
 
-export let backend = new ShareDB({
+export let backend = new ShareDB({ // eslint-disable-line import/no-mutable-exports
   disableDocAction: true,
   disableSpaceDelimitedActions: true
 });
-export let connection = backend.connect();
+export let connection = backend.connect(); // eslint-disable-line import/no-mutable-exports
 
 export const restartBackend = () => {
   backend = new ShareDB({

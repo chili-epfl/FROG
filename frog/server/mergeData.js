@@ -66,7 +66,10 @@ export const mergeOneInstance = async (
     activity.template.duplicate &&
     activity.template.lis
   ) {
-    newDataStructure = duplicateLIs(activity.template.rz, activity.template.lis);
+    newDataStructure = duplicateLIs(
+      activity.template.rz,
+      activity.template.lis
+    );
   }
   if (mergeFunction) {
     const instanceActivityData =
