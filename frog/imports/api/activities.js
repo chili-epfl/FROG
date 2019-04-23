@@ -171,20 +171,6 @@ export const duplicateActivity = (actId: string) => {
 export const importConnection = (params: Object) =>
   Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
 
-export const copyActivityIntoGraphActivity = (
-  graphActivityId: string,
-  fromActivityId: string
-) => {
-  const fromActivity = Activities.findOne(fromActivityId);
-  Activities.update(graphActivityId, {
-    $set: {
-      data: fromActivity.data,
-      activityType: fromActivity.activityType,
-      parentId: fromActivityId
-    }
-  });
-};
-
 export const flushActivities = () => Meteor.call('activities.flush');
 
 Meteor.methods({

@@ -104,7 +104,8 @@ export const addGraph = (graphObj?: Object): string => {
       graphId,
       actualStartingTime: undefined,
       actualClosingTime: undefined,
-      state: undefined
+      state: undefined,
+      templateRZCloned: undefined
     };
   });
 
