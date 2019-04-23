@@ -271,6 +271,7 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
+    title: { title: 'Title', type: 'string' },
     allowCreate: { title: 'Enable adding new Learning Items', type: 'boolean' },
     onlySpecificLI: {
       title: 'Only allow specific Learning Item Type',

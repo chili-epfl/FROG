@@ -135,7 +135,13 @@ export const addActivity = (
 
 export const removeActivityType = (id: string) => {
   Activities.update(id, {
-    $unset: { activityType: null, data: null, configVersion: null }
+    $unset: {
+      template: null,
+      templateRZCloned: null,
+      activityType: null,
+      data: null,
+      configVersion: null
+    }
   });
 };
 
