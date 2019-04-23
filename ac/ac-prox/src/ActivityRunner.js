@@ -5,9 +5,11 @@ import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import HasNoGroupPanel from './NoGroupPanel';
 import HasGroupPanel from './GroupPanel';
+import SmallClass from './SmallClass';
 
 export default (props: ActivityRunnerPropsT) => {
   const {
+    activityData: { config },
     data,
     userInfo: { id }
   } = props;
@@ -15,7 +17,15 @@ export default (props: ActivityRunnerPropsT) => {
 
   return (
     <div className="bootstrap" style={{ margin: '5%' }}>
-      {hasGroup ? <HasGroupPanel {...props} /> : <HasNoGroupPanel {...props} />}
+      {config.largeClass ? (
+        hasGroup ? (
+          <HasGroupPanel {...props} />
+        ) : (
+          <HasNoGroupPanel {...props} />
+        )
+      ) : (
+        <SmallClass {...props} />
+      )}
     </div>
   );
 };
