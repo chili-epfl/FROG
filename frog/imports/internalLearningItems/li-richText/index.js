@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { get, isString } from 'lodash';
 import { type LearningItemT, ReactiveRichText } from 'frog-utils';
+import { ReactiveRichText } from from '@chilifrog/reactive-rich-text'
 
 const path = 'text';
 

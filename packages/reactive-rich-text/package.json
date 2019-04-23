@@ -1,0 +1,53 @@
+{
+  "name": "@chilifrog/reactive-rich-text",
+  "version": "0.1.0",
+  "main": "dist/main.esm.js",
+  "source": "src/main.js",
+  "scripts": {
+    "start": "cd example; node server & parcel index.html",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "@chilifrog/reactive-tools": "1.0.8",
+    "@chilifrog/sharedb": "^3.0.1",
+    "@chilifrog/sharedb-mongo": "3.0.0",
+    "@houshuang/react-quill": "^1.3.1",
+    "@material-ui/core": "^3.0.0",
+    "@material-ui/icons": "^3.0.2",
+    "@minervaproject/ot-json0": "^1.1.0",
+    "@minervaproject/quill-cursors": "^2.1.0",
+    "@minervaproject/rich-text": "^3.1.0",
+    "@teamwork/websocket-json-stream": "^2.0.0",
+    "cuid": "^2.1.6",
+    "json-stable-stringify": "^1.0.1",
+    "lodash": "^4.17.11",
+    "microbundle": "^0.11.0",
+    "mongodb": "^3.1.0",
+    "quill": "^1.3.6",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "reconnectingwebsocket": "^1.0.0",
+    "ws": "^6.2.1"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-proposal-json-strings": "^7.2.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-syntax-import-meta": "^7.2.0",
+    "@babel/plugin-transform-flow-strip-types": "^7.4.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-captains-log": "^1.2.0",
+    "babel-plugin-macros": "^2.5.1",
+    "rollup-plugin-babel": "^4.3.2"
+  }
+}
