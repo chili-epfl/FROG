@@ -18,6 +18,20 @@ import Controls from './Controls';
 import Content from './Content';
 import ConfigPanel from './ConfigPanel';
 
+export let backend = new ShareDB({
+  disableDocAction: true,
+  disableSpaceDelimitedActions: true
+});
+export let connection = backend.connect();
+
+export const restartBackend = () => {
+  backend = new ShareDB({
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
+  });
+  connection = backend.connect();
+};
+
 const styles = {
   main: {
     display: 'flex',
@@ -73,13 +87,6 @@ const styles = {
     padding: '10px'
   }
 };
-
-export const backend = new ShareDB({
-  disableDocAction: true,
-  disableSpaceDelimitedActions: true
-});
-export const connection = backend.connect();
-window.connection = connection;
 
 const StatelessPreview = (props: Object) => {
   const {

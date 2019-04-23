@@ -46,6 +46,10 @@ export const insertActivityMongo = (activity: Object) => {
   }
 };
 
+export const storeTemplateData = (id: string, data: Object) => {
+  return Activities.update(id, { $set: { template: data } });
+};
+
 export const updateOneActivityMongo = (
   id: string,
   update: Object,

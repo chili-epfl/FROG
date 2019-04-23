@@ -8,14 +8,15 @@ import { yellow, red, lightGreen } from '@material-ui/core/colors';
 import copy from 'copy-to-clipboard';
 import { withState, compose } from 'recompose';
 import { ChangeableText, A, uuid } from 'frog-utils';
-import { compact } from 'lodash';
+import { compact, isEmpty } from 'lodash';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import {
   addActivity,
   removeActivityType,
   setStreamTarget,
-  setParticipation
+  setParticipation,
+  storeTemplateData
 } from '/imports/api/activities';
 
 import { connect } from '../../store';
@@ -170,6 +171,49 @@ const RawEditActivity = ({
                   graphActivity.length
                 } min.`}
               </i>
+              {activity.template && !isEmpty(activity.template) && (
+                <>
+                  <br />
+                  Activity has data template.{' '}
+                  <A
+                    onClick={() => {
+                      store.ui.setShowPreview({
+                        activityTypeId: activity.activityType,
+                        activityId: activity._id,
+                        config: activity.data,
+                        template: activity.template
+                      });
+                    }}
+                  >
+                    Show
+                  </A>{' '}
+                  -{' '}
+                  {!isEmpty(activity.template.lis) && (
+                    <>
+                      <A
+                        onClick={() => {
+                          storeTemplateData(activity._id, {
+                            ...activity.template,
+                            duplicate: !activity.template.duplicate
+                          });
+                        }}
+                      >
+                        {activity.template.duplicate
+                          ? 'Duplicate LIs'
+                          : 'LIs are shared'}
+                      </A>{' '}
+                      (click to toggle) -
+                    </>
+                  )}
+                  <A
+                    onClick={() => {
+                      storeTemplateData(activity._id, {});
+                    }}
+                  >
+                    Remove
+                  </A>
+                </>
+              )}
             </font>
           </FlexView>
           <FlexView
@@ -189,7 +233,9 @@ const RawEditActivity = ({
                   onClick={() => {
                     store.ui.setShowPreview({
                       activityTypeId: activity.activityType,
-                      config: activity.data
+                      activityId: activity._id,
+                      config: activity.data,
+                      template: activity.template
                     });
                   }}
                 />
