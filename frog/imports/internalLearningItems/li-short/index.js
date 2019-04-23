@@ -17,7 +17,7 @@ const styles = () => ({
 });
 
 const ThumbViewer = ({ data, search }) => (
-  <div style={{ minWidth: '200px' }}>
+  <div style={{ fontSize: '2em', minWidth: '200px' }}>
     <b>
       <HighlightSearchText haystack={data.topic} needle={search} />
     </b>
