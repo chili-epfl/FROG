@@ -11,7 +11,7 @@ const RedisPubsub = require('sharedb-redis-pubsub');
 
 const dbUrl =
   (process.env && process.env.FROG_MONGOURL) || 'mongodb://localhost:27017';
-const db = shareDBMongo(dbUrl + '/sle');
+const db = shareDBMongo(dbUrl + '/sharedb');
 
 const server = http.createServer();
 
