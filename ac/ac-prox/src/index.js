@@ -11,10 +11,15 @@ const meta = {
     'Gives the possibility for students to make their own group if followed by the prox operator'
 };
 
-const config = {};
+const config = {
+  type: 'object',
+  properties: {
+    largeClass: { title: 'Support very large class', type: 'boolean' }
+  }
+};
 
 // default empty reactive datastructure, typically either an empty object or array
-const dataStructure = { students: {}, groups: {} };
+const dataStructure = { students: {}, groups: {}, studentInfo: {} };
 
 export default ({
   id: 'ac-prox',

@@ -46,6 +46,10 @@ export const insertActivityMongo = (activity: Object) => {
   }
 };
 
+export const storeTemplateData = (id: string, data: Object) => {
+  return Activities.update(id, { $set: { template: data } });
+};
+
 export const updateOneActivityMongo = (
   id: string,
   update: Object,
@@ -131,7 +135,13 @@ export const addActivity = (
 
 export const removeActivityType = (id: string) => {
   Activities.update(id, {
-    $unset: { activityType: null, data: null, configVersion: null }
+    $unset: {
+      template: null,
+      templateRZCloned: null,
+      activityType: null,
+      data: null,
+      configVersion: null
+    }
   });
 };
 

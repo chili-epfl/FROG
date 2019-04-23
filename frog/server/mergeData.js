@@ -9,7 +9,8 @@ import {
   type ObjectT,
   type GlobalStructureT,
   type ActivityDbT,
-  type structureDefT
+  type structureDefT,
+  uuid
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
@@ -27,6 +28,25 @@ const backend = new ShareDB({
 });
 const connection = backend.connect();
 
+const duplicateLIs = (rz, lis) => {
+  const mapping = {};
+  Object.keys(lis).forEach(li => {
+    const id = uuid();
+    const doc = serverConnection.get('li', id);
+    doc.create(lis[li]);
+    mapping[li] = id;
+  });
+
+  const RZstring = JSON.stringify(rz);
+  const newRZ = JSON.parse(
+    Object.keys(mapping).reduce(
+      (acc, mapp) => acc.replace(mapp, mapping[mapp]),
+      RZstring
+    )
+  );
+  return newRZ;
+};
+
 export const mergeOneInstance = async (
   grouping: string,
   activity: ActivityDbT,
@@ -40,6 +60,17 @@ export const mergeOneInstance = async (
   sessionId: string
 ) => {
   let data;
+  let newDataStructure = dataStructure;
+  if (
+    activity.template &&
+    activity.template.duplicate &&
+    activity.template.lis
+  ) {
+    newDataStructure = duplicateLIs(
+      activity.template.rz,
+      activity.template.lis
+    );
+  }
   if (mergeFunction) {
     const instanceActivityData =
       providedInstanceActivityData !== undefined // allows it to be null and still picked up
@@ -64,7 +95,9 @@ export const mergeOneInstance = async (
             Meteor.bindEnvironment(async () => {
               try {
                 doc.create(
-                  dataStructure !== undefined ? cloneDeep(dataStructure) : {}
+                  newDataStructure !== undefined
+                    ? cloneDeep(newDataStructure)
+                    : {}
                 );
               } catch (e) {
                 // eslint-disable-next-line no-console
@@ -118,7 +151,7 @@ export const mergeOneInstance = async (
       );
     }
   } else {
-    data = dataStructure || {};
+    data = newDataStructure || {};
   }
 
   const serverDoc = serverConnection.get(
@@ -162,10 +195,22 @@ const mergeData = (
 
   const mergeFunction = activityType.mergeFunction;
 
-  const initData =
+  let initData =
     typeof activityType.dataStructure === 'function'
       ? activityType.dataStructure(activity.data)
       : activityType.dataStructure;
+
+  if (activity.template && !activity.template.duplicate) {
+    let newRZ;
+    if (activity.templateRZCloned) {
+      newRZ = activity.templateRZCloned;
+    } else {
+      newRZ = duplicateLIs(activity.template.rz, activity.template.lis);
+      Activities.update(activityId, { $set: { templateRZCloned: newRZ } });
+    }
+    initData = newRZ;
+  }
+
   const asyncCreates = createGroups.map(grouping =>
     mergeOneInstance(
       grouping,

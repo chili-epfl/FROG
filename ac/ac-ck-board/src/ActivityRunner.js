@@ -134,7 +134,20 @@ class Board extends React.Component<*, *> {
 }
 
 export default (props: ActivityRunnerPropsT) => (
-  <ResizeAware style={{ position: 'relative', height: '100%', width: '100%' }}>
-    <Board {...props} />
-  </ResizeAware>
+  <>
+    {props.activityData.config.title && (
+      <h2 style={{ marginBlockEnd: '0px', marginBlockStart: '0px' }}>
+        {props.activityData.config.title}
+      </h2>
+    )}
+    <ResizeAware
+      style={{
+        position: 'relative',
+        height: props.activityData.config.title ? 'calc(100% - 20px)' : '100%',
+        width: '95%'
+      }}
+    >
+      <Board {...props} />
+    </ResizeAware>
+  </>
 );
