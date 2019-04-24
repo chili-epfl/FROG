@@ -2,7 +2,7 @@
 
 import importAll from 'import-all.macro';
 import { Loadable, entries, values } from 'frog-utils';
-import { learningItemTypesObj } from '../activityTypes';
+import {keyBy} from 'lodash'
 
 const activityRunnersRaw = importAll.deferred(
   '../../node_modules/ac-*/src/ActivityRunner?(.js)'
@@ -42,6 +42,11 @@ export const activityRunners = entries(activityRunnersRawInternal).reduce(
   },
   activityRunnersExt
 );
+const internalLIs = importAll.sync('./internalLearningItems/*/index.js');
+
+const learningItemTypesObj: {
+  [name: string]: LearningItemT<any>
+} = keyBy(values(internalLIs).map(x => x.default), 'id');
 
 Object.keys(learningItemTypesObj).forEach(li => {
   activityRunners[li] = activityRunners['ac-single-li'];

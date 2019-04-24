@@ -11,6 +11,7 @@ import {
   FormHelperText
 } from '@material-ui/core';
 import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
 import Dialog from '@material-ui/core/Dialog';
 import Edit from '@material-ui/icons/Edit';
@@ -113,8 +114,8 @@ class WikiComp extends React.Component<WikiCompPropsT> {
     this.setState({ openApiform: false });
   };
 
-  WikiLink = observer(({ id }) => {
-    const pageObj = wikistore.pages[id];
+  WikiLink = observer(({ data }) => {
+    const pageObj = wikistore.pages[data.id];
     const pageTitle = pageObj.title;
     const style = {
       textDecoration: 'underline',
