@@ -7,7 +7,8 @@ import dashboards from './Dashboard';
 export const meta = {
   name: 'H5P activity',
   shortDesc: 'Upload a fully configured H5P activity',
-  description: 'Displays H5P activity, and logs xAPI statements'
+  description: 'Displays H5P activity, and logs xAPI statements',
+  category: 'Deprecated core tools'
 };
 
 export default ({

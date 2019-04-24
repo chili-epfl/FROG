@@ -6,7 +6,8 @@ import dashboards from './dashboard';
 const meta = {
   name: 'Simple chat',
   shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available'
+  description: 'New activity, no description available',
+  category: 'Deprecated core tools'
 };
 
 const config = {

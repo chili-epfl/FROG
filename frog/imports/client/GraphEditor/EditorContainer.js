@@ -91,7 +91,10 @@ class Editor extends React.Component<Object, StateT> {
           activityTypeId={show.activityTypeId}
           config={show.config}
           template={show.template}
-          storeTemplateFn={data => storeTemplateData(show.activityId, data)}
+          storeTemplateFn={data => {
+            storeTemplateData(show.activityId, data);
+            window.alert('Template stored/updated');
+          }}
           dismiss={() => store.ui.setShowPreview(false)}
         />
       );

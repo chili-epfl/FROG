@@ -2,6 +2,7 @@ export default {
   name: 'Spreadsheet',
   shortDesc: 'Spreadsheet/table',
   description: 'Supports some calculations',
+  category: 'Deprecated core tools',
   exampleData: [
     {
       title: 'log 100 points and linear',

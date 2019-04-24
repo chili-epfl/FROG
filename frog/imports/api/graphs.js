@@ -50,7 +50,7 @@ export const upgradeGraphMongo = (query: Object, proj?: Object) => {
           x.graphVersion || 1,
           GraphCurrentVersion
         )({
-          graphId: x.graphId
+          graphId: x._id
         });
       } catch (e) {
         console.warn(e);

@@ -7,6 +7,7 @@ const meta = {
   name: 'Dual Activity',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
+  category: 'Hyper-specific',
   exampleData: [
     {
       title: 'Quick',

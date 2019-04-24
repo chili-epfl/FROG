@@ -1,7 +1,8 @@
 // @flow
 
 import importAll from 'import-all.macro';
-import { Loadable, entries } from 'frog-utils';
+import { Loadable, entries, values } from 'frog-utils';
+import { learningItemTypesObj } from '../activityTypes';
 
 const activityRunnersRaw = importAll.deferred(
   '../../node_modules/ac-*/src/ActivityRunner?(.js)'
@@ -41,3 +42,7 @@ export const activityRunners = entries(activityRunnersRawInternal).reduce(
   },
   activityRunnersExt
 );
+
+Object.keys(learningItemTypesObj).forEach(li => {
+  activityRunners[li] = activityRunners['ac-single-li'];
+});

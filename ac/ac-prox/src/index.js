@@ -8,7 +8,8 @@ const meta = {
   type: 'react-component',
   shortDesc: 'Manually create group',
   description:
-    'Gives the possibility for students to make their own group if followed by the prox operator'
+    'Gives the possibility for students to make their own group if followed by the prox operator',
+  category: 'Core tools'
 };
 
 const config = {

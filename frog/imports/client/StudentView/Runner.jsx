@@ -54,7 +54,11 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
-  let title = '(' + groupingStr + groupingValue + ')';
+  let title =
+    '(' +
+    groupingStr +
+    (isTeacher && activity.plane === 2 ? '' : groupingValue) +
+    ')';
   if (activity.plane === 1) {
     title = `(individual/${Meteor.user().username})`;
   }

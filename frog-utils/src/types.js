@@ -354,6 +354,7 @@ export type LIComponentPropsT =
         ...LIRenderPropsT
       }>,
       notEmpty?: boolean,
+      fallback?: 'view' | 'thumbView',
       disableDragging?: boolean
     |};
 

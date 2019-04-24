@@ -221,6 +221,7 @@ export default {
   shortDesc: 'Filling a MCQ form (quiz)',
   description:
     'Display a multiple-choice questions form. Can also be used for questionnaires.',
+  category: 'Core tools',
   exampleData: [
     {
       config: statQuizConfig,

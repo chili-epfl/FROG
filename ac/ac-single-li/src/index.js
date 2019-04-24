@@ -9,37 +9,12 @@ import {
 } from 'frog-utils';
 import upgradeFunctions from './upgradeFunctions';
 
-const learningItems = [
-  {
-    id: '1',
-    liType: 'li-idea',
-    payload: { title: 'Hi', content: 'Hello' },
-    createdAt: '2018-05-10T12:02:07.525Z'
-  },
-  {
-    id: '2',
-    liType: 'li-image',
-    payload: {
-      thumburl: 'https://i.imgur.com/ypw3CGOb.jpg',
-      url: 'https://i.imgur.com/ypw3CGO.jpg'
-    },
-    createdAt: '2018-05-10T12:05:08.700Z'
-  }
-];
-
 const meta = {
-  name: 'Add/edit single LI',
+  name: 'Add/edit single Learning Item',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
-  supportsLearningItems: true,
-  exampleData: [
-    {
-      title: 'Rich Text with Learning Items',
-      config: { liTypeEditor: 'li-richText', noSubmit: true, invalid: false },
-      data: undefined,
-      learningItems
-    }
-  ]
+  category: 'Individual Learning Items',
+  supportsLearningItems: true
 };
 
 const config = {
@@ -47,20 +22,6 @@ const config = {
   properties: {
     title: { type: 'string', title: 'Title' },
     instructions: { type: 'rte', title: 'Instructions' },
-    liType: {
-      title: 'Learning Item Type',
-      type: 'learningItemType'
-    },
-    liTypeEditor: {
-      title: 'Learning Item Type (Editable)',
-      type: 'learningItemTypeEditor',
-      default: 'li-textArea'
-    },
-    noSubmit: {
-      title: 'No submit button, directly edit',
-      type: 'boolean',
-      default: true
-    },
     allowEditing: {
       title: 'Allow editing after submission',
       default: true,
@@ -68,6 +29,10 @@ const config = {
     },
     duplicateLI: {
       title: 'Create duplicate of incoming Learning Item',
+      type: 'boolean'
+    },
+    openIncomingInEdit: {
+      title: 'Open incoming Learning Item in edit-mode',
       type: 'boolean'
     }
   }
@@ -80,22 +45,12 @@ const formatProduct = (_, product) => {
 
 const configUI = {
   instructions: { 'ui:widget': 'textarea' },
-  allowEditing: { conditional: formData => !formData.noSubmit },
-  liTypeEditor: { conditional: 'noSubmit' },
-  liType: { conditional: formData => !formData.noSubmit }
+  allowEditing: {
+    conditional: formData => formData.submit || !formData.liTypeEditor
+  },
 };
 
-const validateConfig = [
-  formData =>
-    formData.noSubmit && isEmpty(formData.liTypeEditor)
-      ? {
-          err:
-            'You need to choose a specific Learning Item type to allow for direct editing'
-        }
-      : null
-];
-
-const mergeFunction = async (obj: Object, dataFn: Object) => {
+const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
   let empty = true;
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
@@ -110,7 +65,7 @@ const mergeFunction = async (obj: Object, dataFn: Object) => {
       }
     }
   }
-  if (empty && obj.config.noSubmit && obj.config.liTypeEditor) {
+  if (empty && obj.config.liTypeEditor && !data.li) {
     const newLI = dataFn.createLearningItem(obj.config.liTypeEditor);
     if (newLI) {
       dataFn.objInsert({ li: newLI });
@@ -127,7 +82,6 @@ export default ({
   meta,
   config,
   configUI,
-  validateConfig,
   formatProduct,
   dashboards: { progress: ProgressDashboard },
   dataStructure,

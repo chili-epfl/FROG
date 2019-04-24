@@ -2,6 +2,7 @@
 import * as React from 'react';
 import ResizeAware from 'react-resize-aware';
 import { type ActivityRunnerPropsT, values } from 'frog-utils';
+import { Paper } from '@material-ui/core';
 
 import ObservationContainer from './obs_container';
 import ObservationDetail from './obs_detail';
@@ -67,22 +68,25 @@ class Board extends React.Component<*, *> {
               zIndex: 9,
               position: 'absolute',
               right: '0px',
-              top: '0px'
+              top: '0px',
+              margin: '10px'
             }}
           >
-            <LearningItem
-              type="create"
-              autoInsert
-              liType={config.onlySpecificLI && config.liType}
-              meta={{
-                coords: [
-                  Math.random() * 650 + 150,
-                  -(Math.random() * 800) - 100
-                ],
-                userid: userInfo.id,
-                username: userInfo.name
-              }}
-            />
+            <Paper>
+              <LearningItem
+                type="create"
+                autoInsert
+                liType={config.onlySpecificLI && config.liType}
+                meta={{
+                  coords: [
+                    Math.random() * 650 + 150,
+                    -(Math.random() * 800) - 100
+                  ],
+                  userid: userInfo.id,
+                  username: userInfo.name
+                }}
+              />
+            </Paper>
           </div>
         )}
         {config.image && (
@@ -104,23 +108,39 @@ class Board extends React.Component<*, *> {
             .filter(x => x.li)
             .map(y => (
               <div key={y.id}>
-                <ObservationContainer
-                  hasQuadrants={config.quadrants}
-                  setXY={(_, ui) => setXY(y.id, ui)}
-                  openInfoFn={() => this.setState({ info: y.li })}
-                  scaleY={scaleY}
-                  scaleX={scaleX}
-                  getQuadrant={getQuadrant}
-                  x={y.coords[0] / scaleX - offsetWidth}
-                  y={y.coords[1] / scaleY - offsetHeight}
-                  canDrag={
-                    y.userid === userInfo.id ? canDragOwn : canDragOthers
-                  }
-                  username={y.username}
-                  showUsername={config.showUsername}
-                >
-                  <LearningItem disableDragging type="thumbView" id={y.li} />
-                </ObservationContainer>
+                <LearningItem
+                  disableDragging
+                  type="thumbView"
+                  id={y.li}
+                  render={({ zoomable, children }) => (
+                    <ObservationContainer
+                      hasQuadrants={config.quadrants}
+                      setXY={(_, ui) => setXY(y.id, ui)}
+                      openInfoFn={() => this.setState({ info: y.li })}
+                      allowDelete={config.allowDelete}
+                      deleteFn={() => {
+                        if (
+                          window.confirm('Do you want to delete this item?')
+                        ) {
+                          dataFn.objDel(null, [y.id]);
+                        }
+                      }}
+                      scaleY={scaleY}
+                      scaleX={scaleX}
+                      getQuadrant={getQuadrant}
+                      x={y.coords[0] / scaleX - offsetWidth}
+                      y={y.coords[1] / scaleY - offsetHeight}
+                      canDrag={
+                        y.userid === userInfo.id ? canDragOwn : canDragOthers
+                      }
+                      username={y.username}
+                      showUsername={config.showUsername}
+                      canZoom={zoomable}
+                    >
+                      {children}
+                    </ObservationContainer>
+                  )}
+                />
               </div>
             ))}
         {this.state.info && (
