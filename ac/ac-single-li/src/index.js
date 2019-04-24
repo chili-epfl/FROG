@@ -45,10 +45,12 @@ const formatProduct = (_, product) => {
 
 const configUI = {
   instructions: { 'ui:widget': 'textarea' },
-  allowEditing: { conditional: formData => !formData.noSubmit }
+  allowEditing: {
+    conditional: formData => formData.submit || !formData.liTypeEditor
+  },
 };
 
-const mergeFunction = async (obj: Object, dataFn: Object,data: Object) => {
+const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
   let empty = true;
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;

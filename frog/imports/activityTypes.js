@@ -71,6 +71,7 @@ Object.values(activityLIs).forEach(x => {
         activityTypesObj['ac-single-li'].config.properties,
         'duplicateLI'
       ),
+      submit: { title: 'Have a submit button', type: 'boolean' },
       liTypeEditor: { type: 'string', default: x.id },
       openIncomingInEdit: { type: 'boolean', default: true }
     }

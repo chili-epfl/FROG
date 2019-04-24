@@ -22,7 +22,7 @@ class ActivityRunner extends React.Component<
 
   componentDidMount = () => {
     const { logger, activityData } = this.props;
-    if (!activityData.config.noSubmit) {
+    if (activityData.config.submit) {
       logger({ type: 'progress', value: 0 });
     }
   };
@@ -39,43 +39,32 @@ class ActivityRunner extends React.Component<
     const header = (
       <>
         {conf.title && <h1>{conf.title}</h1>}
-        {conf.instructions && (
-          <p>
-            <HTML html={conf.instructions} />
-          </p>
-        )}
+        {conf.instructions && <HTML html={conf.instructions} />}
       </>
     );
-
-    if (conf.noSubmit && !data.li) {
-      return <CircularProgress />;
-    }
 
     if (data.li) {
       return (
         <div style={style}>
           {header}
           <dataFn.LearningItem
-            type={this.state.editing || conf.noSubmit ? 'edit' : 'view'}
+            type={this.state.editing || !conf.submit ? 'edit' : 'view'}
             id={data.li}
             clickZoomable
-            render={({ editable, children }) => (
+            fallback="view"
+            render={({ editable, children, hasCreator }) => (
               <>
                 {children}
-                {!editing && !conf.noSubmit && conf.allowEditing && (
+                {!editing && conf.submit && conf.allowEditing && (
                   <Fab
-                    onClick={() =>
-                      editable
-                        ? this.setState({ editing: true })
-                        : dataFn.objDel(null, 'li')
-                    }
+                    onClick={() => this.setState({ editing: true })}
                     color="secondary"
-                    aria-label={editable ? 'edit' : 'delete'}
+                    aria-label="edit"
                   >
-                    {editable ? <EditIcon /> : <CloseIcon />}
+                    <EditIcon /> :
                   </Fab>
                 )}
-                {editing && !conf.noSubmit && (
+                {editing && conf.submit && editable && (
                   <Button
                     onClick={() => this.setState({ editing: false })}
                     color="primary"
@@ -84,6 +73,19 @@ class ActivityRunner extends React.Component<
                   >
                     Save
                   </Button>
+                )}
+                {hasCreator && (
+                  <Fab
+                    onClick={() => {
+                      dataFn.objDel(null, 'li');
+                      this.setState({ editing: true });
+                    }}
+                    color="secondary"
+                    aria-label="delete"
+                    style={{ float: 'right' }}
+                  >
+                    <CloseIcon />
+                  </Fab>
                 )}
               </>
             )}

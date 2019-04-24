@@ -279,6 +279,7 @@ export const config = {
       type: 'boolean'
     },
     liType: { title: 'Learning Item type', type: 'learningItemType' },
+    allowDelete: { title: 'Enable deleting Learning Items', type: 'boolean' },
     studentEditOwn: {
       title: 'Only let students move their own items',
       type: 'boolean'

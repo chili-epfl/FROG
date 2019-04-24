@@ -10,7 +10,8 @@ type TextInputPropsT = {
   onCancel?: Function,
   onFocus?: Function,
   clearOnEnter?: boolean,
-  style?: Object
+  style?: Object,
+  noBlur?: boolean
 };
 
 export class TextInput extends React.Component<
@@ -78,7 +79,7 @@ export class TextInput extends React.Component<
         value={this.state.value}
         ref={input => (this.textInput = input)}
         onSubmit={this.onSubmit}
-        onBlur={this.onSubmit}
+        onBlur={!this.props.noBlur ? this.onSubmit : undefined}
         style={this.props.style}
       />
     );

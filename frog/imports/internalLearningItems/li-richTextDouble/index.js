@@ -8,53 +8,29 @@ import {
 
 export class FlexViewer extends React.Component<*, *> {
   render() {
-    const { isPlayback, path, data, dataFn, search, type } = this.props;
+    const { isPlayback, data, dataFn, search, type } = this.props;
     const shouldShorten = type === 'thumbView';
 
-    if (search) {
-      const editorContent = isPlayback
-        ? get(data, path)
-        : get(dataFn.doc.data, dataFn.getMergedPath(path));
-      const textContent = editorContent.ops.map(op => {
-        if (isString(op.insert)) {
-          return op.insert;
-        }
-        return '';
-      });
-      if (
-        !textContent
-          .join('')
-          .toLowerCase()
-          .includes(search)
-      ) {
-        return null;
-      } else {
-        const highlightedContent = highlightTargetRichText(
-          editorContent,
-          search
-        );
-        return (
-          <div>
-            <ReactiveRichText
-              data={{ [path]: highlightedContent }}
-              shorten={shouldShorten && 150}
-              path={path}
-              readOnly
-              dataFn={dataFn}
-            />
-          </div>
-        );
-      }
-    }
     return (
       <div>
+        <h2>First text</h2>
         <ReactiveRichText
           data={isPlayback ? data : undefined}
           shorten={shouldShorten && 150}
-          path={path}
+          path="text"
+          readOnly
+          dataFn={dataFn}
+          search={search}
+        />
+        <h2>Second text</h2>
+        <ReactiveRichText
+          data={isPlayback ? data : undefined}
+          shorten={shouldShorten && 150}
+          path="text2"
           ref={this.ref}
           readOnly
           dataFn={dataFn}
+          search={search}
         />
       </div>
     );
@@ -99,7 +75,22 @@ export class Editor extends React.Component<*, *> {
 export default ({
   name: 'Double rich text',
   id: 'li-doubleRichText',
-  liDataStructure: { text: '', text2: '' },
+  liDataStructure: {
+    text: {
+      ops: [
+        {
+          insert: '\n'
+        }
+      ]
+    },
+    text2: {
+      ops: [
+        {
+          insert: '\n'
+        }
+      ]
+    }
+  },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor

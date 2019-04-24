@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import {
   type LearningItemT,
+  TextInput,
   ReactiveText,
   HighlightSearchText
 } from 'frog-utils';
@@ -30,11 +32,46 @@ const Editor = withStyles(styles)(({ dataFn, classes }) => (
   </div>
 ));
 
+const Creator = withStyles(styles)(({ createLearningItem }) => {
+  const [content, setContent] = React.useState('');
+  const onSubmit = () => {
+    if (content.trim().length > 0) {
+      createLearningItem('li-short', { topic: content.trim() });
+      setContent('');
+    }
+  };
+
+  return (
+    <div style={{ padding: '10px' }}>
+      <div style={{ fontSize: '1.5em' }}>
+        <TextInput
+          noBlur
+          value={content}
+          onChange={e => setContent(e)}
+          onSubmit={onSubmit}
+          focus
+        />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button
+          style={{ marginTop: '10px' }}
+          variant="contained"
+          color="primary"
+          onClick={onSubmit}
+        >
+          Add
+        </Button>
+      </div>
+    </div>
+  );
+});
+
 export default ({
   name: 'Single Word/Sentence',
   id: 'li-short',
   liDataStructure: { topic: '' },
   ThumbViewer,
   Editor,
+  Creator,
   search: (data, search) => data.topic.toLowerCase().includes(search)
 }: LearningItemT<{ topic: string, content: string }>);
