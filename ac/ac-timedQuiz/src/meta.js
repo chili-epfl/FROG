@@ -152,6 +152,7 @@ export default {
   name: 'Timed Quiz',
   shortDesc: 'Provide limited time to answer each question.',
   description: 'Provide limited time to answer each question.',
+  category: 'Deprecated core tools',
   exampleData: [
     {
       config: genealogyConfig,

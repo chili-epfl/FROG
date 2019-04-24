@@ -6,6 +6,7 @@ export default {
   shortDesc: 'Allow the student to see various plots of some data',
   description:
     'Allow the student to see various plots of data chosen by the teacher or the student',
+  category: 'Discipline-specific',
   exampleData: [
     {
       title: 'Number Formatting',

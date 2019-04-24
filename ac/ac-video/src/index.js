@@ -7,6 +7,7 @@ export const meta = {
   shortDesc: 'Video player',
   description:
     'Video player configurable with URL, and some settings (autoplay etc).',
+  category: 'Core tools',
   exampleData: [
     {
       title: 'Sample video',

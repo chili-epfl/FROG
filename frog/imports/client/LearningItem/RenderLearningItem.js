@@ -52,20 +52,24 @@ class RenderLearningItem extends React.Component<any, any> {
     super(props);
     this.ref = React.createRef();
     this.state = { open: false };
-    const { data, type = 'view' } = props;
+    const { data, type = 'view', fallback } = props;
     const liType = learningItemTypesObj[data.liType];
     if (!liType) {
       this.Comp = () => <h3>Oops ! Incorrect LI-type</h3>;
     }
+    let checkedType = type;
+    if (type === 'edit' && !liType.Editor && fallback) {
+      checkedType = fallback;
+    }
 
-    if (type === 'view' && liType.Viewer) {
+    if (checkedType === 'view' && liType.Viewer) {
       this.Comp = liType.Viewer;
     } else if (
-      (type === 'view' || type === 'thumbView') &&
+      (checkedType === 'view' || checkedType === 'thumbView') &&
       liType.ThumbViewer
     ) {
       this.Comp = liType.ThumbViewer;
-    } else if (type === 'edit' && liType.Editor) {
+    } else if (checkedType === 'edit' && liType.Editor) {
       this.Comp = liType.Editor;
     } else {
       this.Comp = () => (
@@ -113,7 +117,8 @@ class RenderLearningItem extends React.Component<any, any> {
       this.props.notEmpty &&
       (liEmpty
         ? !liEmpty(data.payload)
-        : liType.dataStructure && isEqual(data.payload, liType.dataStructure))
+        : liType.liDataStructure &&
+          isEqual(data.payload, liType.liDataStructure))
     ) {
       return null;
     }
@@ -202,8 +207,9 @@ class RenderLearningItem extends React.Component<any, any> {
         children: CompProps,
         dataFn,
         data,
-        editable: liType.Editor,
-        zoomable: liType.Viewer,
+        editable: !!liType.Editor,
+        hasCreator: !!liType.Creator,
+        zoomable: !!liType.Viewer,
         liType: liType.id
       });
     } else {

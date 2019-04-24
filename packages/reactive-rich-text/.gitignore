@@ -1,0 +1,4 @@
+dist
+example/.cache
+.cache
+example/dist

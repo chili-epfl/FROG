@@ -7,6 +7,7 @@ const meta = {
   name: 'Presentation',
   shortDesc: 'Present PDFs',
   description: '',
+  category: 'Core tools',
   exampleData: []
 };
 

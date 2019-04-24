@@ -712,6 +712,7 @@ export default {
     'Display text items, and vote up/down. Optionally students can add new items',
   description:
     'This activity features a list of items with title and content. Items have a score attached, and are ordered by score. Students can vote up or down, and optionally add new items.',
+  category: 'Core tools',
   exampleData: [
     {
       title: 'List with some items, students not able to add',

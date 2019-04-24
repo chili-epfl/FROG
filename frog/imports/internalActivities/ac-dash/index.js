@@ -15,6 +15,7 @@ export const meta = {
   shortDesc: 'Show a dashboard from a previous activity',
   description:
     'Show a dashboard from a previous activity. This is often useful for debriefing',
+  category: 'Core tools',
   preview: false
 };
 

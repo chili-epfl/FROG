@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { MdAspectRatio } from 'react-icons/md';
+import { MdAspectRatio, MdDelete } from 'react-icons/md';
 import Draggable from 'react-draggable';
 
 const quadrantColors = ['', '#e7ffac', '#fbe4ff', '#dcd3ff', '#ffccf9'];
@@ -21,7 +21,10 @@ class ObservationContainer extends React.Component<*, *> {
       username,
       showUsername,
       hasQuadrants,
-      getQuadrant
+      getQuadrant,
+      canZoom,
+      allowDelete,
+      deleteFn
     } = this.props;
 
     const scaling = 1 / ((scaleX + scaleY) / 2) / 1.3;
@@ -55,9 +58,19 @@ class ObservationContainer extends React.Component<*, *> {
             }}
           >
             <div style={{ margin: '15px', maxWidth: '500px' }}>
-              <span style={{ float: 'right' }} className="noDrag">
-                <MdAspectRatio onClick={openInfoFn} />
-              </span>
+              {canZoom && (
+                <span style={{ float: 'right' }} className="nodrag">
+                  <MdAspectRatio onClick={openInfoFn} />
+                </span>
+              )}
+              {allowDelete && (
+                <span
+                  style={{ float: 'right', fontSize: '2em' }}
+                  className="nodrag"
+                >
+                  <MdDelete onClick={deleteFn} />
+                </span>
+              )}
               {children}
               {showUsername && <i>{username}</i>}
             </div>

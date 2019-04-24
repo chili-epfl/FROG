@@ -7,6 +7,7 @@ const meta = {
   shortName: 'Display social',
   shortDesc: 'Display the social attribute chosen',
   description: '',
+  category: 'Core tools',
   exampleData: [
     {
       title: 'Basic case',

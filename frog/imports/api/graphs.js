@@ -50,7 +50,7 @@ export const upgradeGraphMongo = (query: Object, proj?: Object) => {
           x.graphVersion || 1,
           GraphCurrentVersion
         )({
-          graphId: x.graphId
+          graphId: x._id
         });
       } catch (e) {
         console.warn(e);
@@ -104,7 +104,8 @@ export const addGraph = (graphObj?: Object): string => {
       graphId,
       actualStartingTime: undefined,
       actualClosingTime: undefined,
-      state: undefined
+      state: undefined,
+      templateRZCloned: undefined
     };
   });
 
@@ -197,6 +198,7 @@ Meteor.methods({
     graphDuration,
     broken
   }) => {
+    console.log('graph merge', broken)
     if (Graphs.findOne(graphId)) {
       Graphs.update(graphId, { $set: { duration: graphDuration, broken } });
 

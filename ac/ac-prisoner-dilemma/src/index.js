@@ -7,7 +7,8 @@ const meta = {
   name: "Prisoner's dilemma",
   shortDesc: "Two player prisoner's dilemma",
   description:
-    'Uses the "standard" gain matrix, while the number of rounds can be customized. Additional group members will be spectators.'
+    'Uses the "standard" gain matrix, while the number of rounds can be customized. Additional group members will be spectators.',
+  category: 'Simulations'
 };
 
 const config = {

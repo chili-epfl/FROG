@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
-import { isEqual } from 'lodash';
+import { isEqual, debounce } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -123,9 +123,8 @@ class ConfigPanel extends React.Component<*, *> {
     }
   }
 
-  onConfigChange = (e: any) => {
+  onConfigChange = debounce((e: any) => {
     const {
-      setDelay,
       config,
       setConfig,
       metadatas,
@@ -133,30 +132,23 @@ class ConfigPanel extends React.Component<*, *> {
       example,
       setActivityTypeId
     } = this.props;
-    setDelay(true);
-    if (this.timeout) {
-      clearTimeout(this.timeout);
+    if (
+      metadatas.owner_id === Meteor.user().username &&
+      JSON.stringify(e.config) !== JSON.stringify(config)
+    ) {
+      this.setState({ displaySave: true });
     }
-    this.timeout = setTimeout(() => {
-      if (
-        metadatas.owner_id === Meteor.user().username &&
-        JSON.stringify(e.config) !== JSON.stringify(config)
-      ) {
-        this.setState({ displaySave: true });
-      }
-      if (e.errors && e.errors.length === 0) {
-        const aT = activityTypesObj[e.activityType];
-        setConfig(e.config);
-        initActivityDocuments(instances, aT, example, e.config, true);
-        initDashboardDocuments(aT, true);
-      } else {
-        setConfig({ ...e.config, invalid: true });
-      }
-      setActivityTypeId(e.activityType);
-      this.forceUpdate();
-      setDelay(false);
-    }, 50);
-  };
+    if (e.errors && e.errors.length === 0) {
+      const aT = activityTypesObj[e.activityType];
+      setConfig(e.config);
+      initActivityDocuments(instances, aT, example, e.config, true);
+      initDashboardDocuments(aT, true);
+    } else {
+      setConfig({ ...e.config, invalid: true });
+    }
+    setActivityTypeId(e.activityType);
+    this.forceUpdate();
+  }, 1000);
 
   shouldComponentUpdate = (nextProps: any) => {
     const { activityId, metadatas, config } = this.props;

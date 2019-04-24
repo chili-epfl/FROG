@@ -7,6 +7,7 @@ const meta = {
   name: 'Text area',
   shortDesc: 'Students can edit new or existing text',
   description: 'Can also show configurable prompt',
+  category: 'Deprecated core tools',
   exampleData: [
     {
       title: 'Case with title and prompt',

@@ -15,6 +15,7 @@ export default {
   shortDesc: 'Prompt that allows the student to rank a set of answers.',
   description:
     'Students are able to provide a set of rankings for a given prompt.',
+  category: 'Hyper-specific',
   exampleData: [
     {
       title: 'Train Interface with data',

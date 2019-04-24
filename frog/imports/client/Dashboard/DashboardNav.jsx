@@ -89,7 +89,9 @@ const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
   const acWithDash = activities
     .filter(ac => {
       const dash = activityTypesObj[ac.activityType].dashboards;
-      return !!dash;
+      return (
+        !!dash || activityTypesObj[ac.activityType].meta.supportsLearningItems
+      );
     })
     .map(ac => ({ ...ac, open: openActivities.includes(ac._id) }));
   const openAcWithDashIds = acWithDash

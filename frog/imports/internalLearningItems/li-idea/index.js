@@ -88,7 +88,7 @@ const Creator = withStyles(styles)(({ createLearningItem, classes }) => (
 export default ({
   name: 'Idea',
   id: 'li-idea',
-  dataStructure: { title: '', content: '' },
+  liDataStructure: { title: '', content: '' },
   ThumbViewer,
   Creator,
   Editor,

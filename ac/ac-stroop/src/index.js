@@ -8,6 +8,7 @@ const meta = {
   name: 'Stroop Effect',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
+  category: 'Hyper-specific',
   exampleData: [
     {
       title: 'Example with 5 objects',

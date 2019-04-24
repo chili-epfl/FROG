@@ -58,6 +58,7 @@ class LearningItem extends React.Component<
           : (newprops: Object) => (
               <RenderLearningItem
                 notEmpty={props.notEmpty}
+                fallback={props.fallback}
                 disableDragging={props.disableDragging}
                 data={id.liDocument}
                 dataFn={props.dataFn}
@@ -126,7 +127,7 @@ class LearningItem extends React.Component<
         } else {
           const lid = props.dataFn.createLearningItem(
             liT.id,
-            liT.dataStructure,
+            liT.liDataStructure,
             {
               draft: true
             }
@@ -141,9 +142,10 @@ class LearningItem extends React.Component<
                 reload={reload}
                 dataFn={props.dataFn}
                 render={({ dataFn: childDataFn, children }) => (
-                  <div style={{ marginLeft: '10px' }}>
+                  <div style={{ padding: '10px' }}>
                     {children}
                     <Button
+                      style={{ marginTop: '10px' }}
                       variant="contained"
                       color="primary"
                       onClick={() => {

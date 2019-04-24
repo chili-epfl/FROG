@@ -19,6 +19,7 @@ const meta = {
   name: 'Train Activity',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
+  category: 'Hyper-specific',
   exampleData: [
     {
       title: 'Slow',

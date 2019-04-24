@@ -46,6 +46,10 @@ export const insertActivityMongo = (activity: Object) => {
   }
 };
 
+export const storeTemplateData = (id: string, data: Object) => {
+  return Activities.update(id, { $set: { template: data } });
+};
+
 export const updateOneActivityMongo = (
   id: string,
   update: Object,
@@ -131,7 +135,13 @@ export const addActivity = (
 
 export const removeActivityType = (id: string) => {
   Activities.update(id, {
-    $unset: { activityType: null, data: null, configVersion: null }
+    $unset: {
+      template: null,
+      templateRZCloned: null,
+      activityType: null,
+      data: null,
+      configVersion: null
+    }
   });
 };
 
@@ -160,20 +170,6 @@ export const duplicateActivity = (actId: string) => {
 
 export const importConnection = (params: Object) =>
   Connections.insert({ ...params, createdAt: new Date(), _id: params._id });
-
-export const copyActivityIntoGraphActivity = (
-  graphActivityId: string,
-  fromActivityId: string
-) => {
-  const fromActivity = Activities.findOne(fromActivityId);
-  Activities.update(graphActivityId, {
-    $set: {
-      data: fromActivity.data,
-      activityType: fromActivity.activityType,
-      parentId: fromActivityId
-    }
-  });
-};
 
 export const flushActivities = () => Meteor.call('activities.flush');
 

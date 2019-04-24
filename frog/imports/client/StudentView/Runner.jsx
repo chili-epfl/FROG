@@ -31,10 +31,12 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   if (!object) {
     return null;
   }
+  const isTeacher = Meteor.userId() === Sessions.findOne(sessionId)?.ownerId;
+
   const socStructure = focusStudent(object.socialStructure);
   const studentSoc = socStructure[Meteor.userId()];
   const instanceMembers =
-    activity.plane === 2
+    !isTeacher && activity.plane === 2
       ? object.socialStructure[activity.groupingKey][
           studentSoc[activity.groupingKey]
         ]
@@ -45,27 +47,41 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   let groupingValue;
   if ([3, 4].includes(activity.plane)) {
     groupingValue = 'all';
-  } else if (activity.plane === 2) {
+  } else if (activity.plane === 2 && !isTeacher) {
     groupingValue = studentSoc[activity.groupingKey];
   } else {
     groupingValue = Meteor.userId();
   }
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
-  let title = '(' + groupingStr + groupingValue + ')';
+  let title =
+    '(' +
+    groupingStr +
+    (isTeacher && activity.plane === 2 ? '' : groupingValue) +
+    ')';
   if (activity.plane === 1) {
     title = `(individual/${Meteor.user().username})`;
   }
 
   const config = activity.data;
 
+  // if teacher is previewing p1/p2 activity, grab data from first instance
   const activityStructure = getStructure(activity);
+  if (
+    groupingValue !== 'all' &&
+    isTeacher &&
+    object.globalStructure.studentIds.length === 0
+  ) {
+    return <h1>Cannot preview activity when no students are in session</h1>;
+  }
 
   const activityData = getMergedExtractedUnit(
     config,
     object.activityData,
     activityStructure,
-    groupingValue,
+    groupingValue !== 'all' && isTeacher
+      ? Object.keys(object.activityData.payload)[0]
+      : groupingValue,
     object.socialStructure
   );
 
@@ -74,9 +90,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   };
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
-  const readOnly =
-    activity.participationMode === 'readonly' &&
-    Meteor.userId() !== Sessions.findOne(sessionId)?.ownerId;
+  const readOnly = activity.participationMode === 'readonly' && !isTeacher;
 
   const Torun = (
     <div

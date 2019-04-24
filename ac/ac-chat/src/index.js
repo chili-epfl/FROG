@@ -27,6 +27,7 @@ const meta = {
   shortDesc: 'Chat component',
   description: 'Persistent text chat',
   supportsLearningItems: true,
+  category: 'Core tools',
   exampleData: [
     {
       title: 'Chat with some messages',

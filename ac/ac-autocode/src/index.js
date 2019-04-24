@@ -20,7 +20,7 @@ const meta = {
   shortDesc: 'Autograded code snippets',
   description:
     'Students upload code which is tested against teacher-designed tests',
-  // examples of config
+  category: 'Discipline-specific',
   exampleData: [exampleConfig0, exampleConfig1, exampleConfig2, exampleConfig3]
 };
 

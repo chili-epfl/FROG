@@ -7,6 +7,7 @@ const meta = {
   shortDesc: 'Example of inductive learning',
   description:
     'Example of inductive learning. Discover the rule of SET by looking at examples',
+  category: 'Discipline-specific',
   exampleData: []
 };
 

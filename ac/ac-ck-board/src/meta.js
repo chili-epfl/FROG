@@ -41,6 +41,7 @@ export const meta = {
   name: 'Common Knowledge board',
   mode: 'collab',
   shortDesc: '2D board for placing items',
+  category: 'Core tools',
   supportsLearningItems: true,
   description:
     'All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.',
@@ -271,12 +272,14 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
+    title: { title: 'Title', type: 'string' },
     allowCreate: { title: 'Enable adding new Learning Items', type: 'boolean' },
     onlySpecificLI: {
       title: 'Only allow specific Learning Item Type',
       type: 'boolean'
     },
     liType: { title: 'Learning Item type', type: 'learningItemType' },
+    allowDelete: { title: 'Enable deleting Learning Items', type: 'boolean' },
     studentEditOwn: {
       title: 'Only let students move their own items',
       type: 'boolean'
