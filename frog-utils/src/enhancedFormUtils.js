@@ -33,7 +33,6 @@ export const calculateHides = (
 };
 
 export const defaultConfig = (activityType: ActivityPackageT) =>
-  console.log(activityType) ||
   hideConditional(
     jsonSchemaDefaults(activityType.config),
     activityType.config,
@@ -63,6 +62,9 @@ export const calculateSchema = (
   oldSchema?: Object
 ): [Object, string[]] => {
   delete schema.properties.liTypeEditor;
+  if (schema.properties.openIncomingInEdit?.default) {
+    delete schema.properties.openIncomingInEdit;
+  }
   const hide = calculateHides(formData, schema, UISchema);
   if (!isEqual(hide, oldHides)) {
     const newSchema = cloneDeep(schema);

@@ -1,5 +1,5 @@
 import importAll from 'import-all.macro';
-import { keyBy } from 'lodash';
+import { keyBy, omit } from 'lodash';
 import {
   type ActivityPackageT,
   entries,
@@ -67,8 +67,12 @@ Object.values(activityLIs).forEach(x => {
   x.config = {
     type: 'object',
     properties: {
-      ...activityTypesObj['ac-single-li'].config.properties,
-      liTypeEditor: { type: 'string', default: x.id }
+      ...omit(
+        activityTypesObj['ac-single-li'].config.properties,
+        'duplicateLI'
+      ),
+      liTypeEditor: { type: 'string', default: x.id },
+      openIncomingInEdit: { type: 'boolean', default: true }
     }
   };
 });
