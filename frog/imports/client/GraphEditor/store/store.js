@@ -309,10 +309,12 @@ export default class Store {
 
         const broken =
           this.graphErrors.filter(x => x.severity === 'error').length > 0;
+        console.log('store/store', broken, Graphs.findOne(this.graphId).broken);
         if (
           Graphs.findOne(this.graphId) &&
           Graphs.findOne(this.graphId).broken !== broken
         ) {
+          console.log('store/store updating');
           Graphs.update(this.graphId, {
             $set: {
               broken

@@ -198,6 +198,7 @@ Meteor.methods({
     graphDuration,
     broken
   }) => {
+    console.log('graph merge', broken)
     if (Graphs.findOne(graphId)) {
       Graphs.update(graphId, { $set: { duration: graphDuration, broken } });
 

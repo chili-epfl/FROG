@@ -57,7 +57,8 @@ export const mergeOneInstance = async (
   object: Object,
   providedInstanceActivityData?: any,
   docId?: string,
-  sessionId: string
+  sessionId: string,
+  onBehalfOf?: string
 ) => {
   let data;
   let newDataStructure = dataStructure;
@@ -79,7 +80,7 @@ export const mergeOneInstance = async (
             activity.data,
             activityData,
             structure,
-            grouping,
+            onBehalfOf || grouping,
             object.socialStructure
           );
     if (instanceActivityData) {
@@ -227,9 +228,29 @@ const mergeData = (
   );
   Promise.await(Promise.all(asyncCreates));
 
-  // only create dashboard on initial merge, not when called by individuals joining late
+  // only create dashboard on initial merge, not when called by individuals joining late - also create teacher preview instance
   if (!group) {
     createDashboards(activity);
+
+    if (createGroups[0]) {
+      const session = Sessions.findOne(sessionId);
+      const owner = session.ownerId;
+      Promise.await(
+        mergeOneInstance(
+          owner,
+          activity,
+          initData,
+          mergeFunction,
+          activityData,
+          structure,
+          object,
+          undefined,
+          undefined,
+          sessionId,
+          createGroups[0]
+        )
+      );
+    }
   }
 };
 
@@ -237,6 +258,10 @@ export default mergeData;
 
 export const ensureReactive = (sessionId: string, studentId: string) => {
   const session = Sessions.findOne(sessionId);
+  // teacher already has collection, and should not be added to student list
+  if (session.ownerId === studentId) {
+    return;
+  }
   const activities = session.openActivities
     ? Activities.find({
         _id: { $in: session.openActivities },
