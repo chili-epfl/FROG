@@ -13,7 +13,8 @@ export type ActivityDbT = {|
   activityType: string,
   actualStartingTime?: Date,
   actualClosingTime?: Date,
-  parentId?: string
+  parentId?: string,
+  template?: { rz: Object, lis?: Object, duplicate?: boolean }
 |};
 
 export type DashboardDataDbT = {|

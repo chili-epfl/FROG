@@ -1,4 +1,5 @@
 // @flow
+//
 
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
@@ -17,6 +18,20 @@ import ShowLogs from './ShowLogs';
 import Controls from './Controls';
 import Content from './Content';
 import ConfigPanel from './ConfigPanel';
+
+export let backend = new ShareDB({ // eslint-disable-line import/no-mutable-exports
+  disableDocAction: true,
+  disableSpaceDelimitedActions: true
+});
+export let connection = backend.connect(); // eslint-disable-line import/no-mutable-exports
+
+export const restartBackend = () => {
+  backend = new ShareDB({
+    disableDocAction: true,
+    disableSpaceDelimitedActions: true
+  });
+  connection = backend.connect();
+};
 
 const styles = {
   main: {
@@ -73,13 +88,6 @@ const styles = {
     padding: '10px'
   }
 };
-
-export const backend = new ShareDB({
-  disableDocAction: true,
-  disableSpaceDelimitedActions: true
-});
-export const connection = backend.connect();
-window.connection = connection;
 
 const StatelessPreview = (props: Object) => {
   const {

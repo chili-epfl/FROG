@@ -9,7 +9,8 @@ import {
   type ObjectT,
   type GlobalStructureT,
   type ActivityDbT,
-  type structureDefT
+  type structureDefT,
+  uuid
 } from 'frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
@@ -27,6 +28,25 @@ const backend = new ShareDB({
 });
 const connection = backend.connect();
 
+const duplicateLIs = (rz, lis) => {
+  const mapping = {};
+  Object.keys(lis).forEach(li => {
+    const id = uuid();
+    const doc = serverConnection.get('li', id);
+    doc.create(lis[li]);
+    mapping[li] = id;
+  });
+
+  const RZstring = JSON.stringify(rz);
+  const newRZ = JSON.parse(
+    Object.keys(mapping).reduce(
+      (acc, mapp) => acc.replace(mapp, mapping[mapp]),
+      RZstring
+    )
+  );
+  return newRZ;
+};
+
 export const mergeOneInstance = async (
   grouping: string,
   activity: ActivityDbT,
@@ -37,9 +57,21 @@ export const mergeOneInstance = async (
   object: Object,
   providedInstanceActivityData?: any,
   docId?: string,
-  sessionId: string
+  sessionId: string,
+  onBehalfOf?: string
 ) => {
   let data;
+  let newDataStructure = dataStructure;
+  if (
+    activity.template &&
+    activity.template.duplicate &&
+    activity.template.lis
+  ) {
+    newDataStructure = duplicateLIs(
+      activity.template.rz,
+      activity.template.lis
+    );
+  }
   if (mergeFunction) {
     const instanceActivityData =
       providedInstanceActivityData !== undefined // allows it to be null and still picked up
@@ -48,7 +80,7 @@ export const mergeOneInstance = async (
             activity.data,
             activityData,
             structure,
-            grouping,
+            onBehalfOf || grouping,
             object.socialStructure
           );
     if (instanceActivityData) {
@@ -64,7 +96,9 @@ export const mergeOneInstance = async (
             Meteor.bindEnvironment(async () => {
               try {
                 doc.create(
-                  dataStructure !== undefined ? cloneDeep(dataStructure) : {}
+                  newDataStructure !== undefined
+                    ? cloneDeep(newDataStructure)
+                    : {}
                 );
               } catch (e) {
                 // eslint-disable-next-line no-console
@@ -118,7 +152,7 @@ export const mergeOneInstance = async (
       );
     }
   } else {
-    data = dataStructure || {};
+    data = newDataStructure || {};
   }
 
   const serverDoc = serverConnection.get(
@@ -162,10 +196,22 @@ const mergeData = (
 
   const mergeFunction = activityType.mergeFunction;
 
-  const initData =
+  let initData =
     typeof activityType.dataStructure === 'function'
       ? activityType.dataStructure(activity.data)
       : activityType.dataStructure;
+
+  if (activity.template && !activity.template.duplicate) {
+    let newRZ;
+    if (activity.templateRZCloned) {
+      newRZ = activity.templateRZCloned;
+    } else {
+      newRZ = duplicateLIs(activity.template.rz, activity.template.lis);
+      Activities.update(activityId, { $set: { templateRZCloned: newRZ } });
+    }
+    initData = newRZ;
+  }
+
   const asyncCreates = createGroups.map(grouping =>
     mergeOneInstance(
       grouping,
@@ -182,9 +228,29 @@ const mergeData = (
   );
   Promise.await(Promise.all(asyncCreates));
 
-  // only create dashboard on initial merge, not when called by individuals joining late
+  // only create dashboard on initial merge, not when called by individuals joining late - also create teacher preview instance
   if (!group) {
     createDashboards(activity);
+
+    if (createGroups[0]) {
+      const session = Sessions.findOne(sessionId);
+      const owner = session.ownerId;
+      Promise.await(
+        mergeOneInstance(
+          owner,
+          activity,
+          initData,
+          mergeFunction,
+          activityData,
+          structure,
+          object,
+          undefined,
+          undefined,
+          sessionId,
+          createGroups[0]
+        )
+      );
+    }
   }
 };
 
@@ -192,6 +258,10 @@ export default mergeData;
 
 export const ensureReactive = (sessionId: string, studentId: string) => {
   const session = Sessions.findOne(sessionId);
+  // teacher already has collection, and should not be added to student list
+  if (session.ownerId === studentId) {
+    return;
+  }
   const activities = session.openActivities
     ? Activities.find({
         _id: { $in: session.openActivities },

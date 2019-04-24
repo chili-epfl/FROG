@@ -8,7 +8,7 @@ import { findOperatorsMongo } from '/imports/api/operators';
 import { addGraph, findOneGraphMongo } from '/imports/api/graphs';
 
 const clean = obj => {
-  const { graphId, state, hasMergedData, ...ret } = obj; // eslint-disable-line no-unused-vars
+  const { graphId, state, templateRZCloned, hasMergedData, ...ret } = obj; // eslint-disable-line no-unused-vars
   return ret;
 };
 

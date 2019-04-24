@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import { defaultConfig, uuid } from 'frog-utils';
-import { omit } from 'lodash';
+import { isEmpty, omit } from 'lodash';
 
-import Preview from './Preview';
+import Preview, { connection, restartBackend } from './Preview';
 import { activityTypesObj } from '/imports/activityTypes';
 import ErrorWrapper from './ErrorWrapper';
-import { initActivityDocuments } from './Content';
+import { initActivityDocuments, DocId } from './Content';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 
 export const addDefaultExample = (activityType: Object) => [
@@ -43,6 +43,8 @@ class PreviewPage extends React.Component<any, any> {
 
   constructor(props: Object) {
     super(props);
+
+    restartBackend();
     if (this.props.modal) {
       this.state = {
         ...defaultState,
@@ -92,6 +94,20 @@ class PreviewPage extends React.Component<any, any> {
         this.state = defaultState;
       }
     }
+
+    if (this.props.template && !isEmpty(this.props.template)) {
+      const doc = connection.get(
+        'rz',
+        DocId(this.state.activityTypeId, this.state.instances[0])
+      );
+      doc.create(this.props.template.rz);
+      if (this.props.template.lis) {
+        Object.keys(this.props.template.lis).forEach(li => {
+          const d = connection.get('li', li);
+          d.create(this.props.template.lis[li]);
+        });
+      }
+    }
     this.setStates = {
       setDelay: delay => this.setState({ delay }),
       setExample: example => this.setState({ example }),
@@ -122,7 +138,13 @@ class PreviewPage extends React.Component<any, any> {
         JSON.stringify(omit(this.state, 'modal'))
       );
     }
-    return <Preview {...{ ...this.state, ...this.setStates }} />;
+    return (
+      <Preview
+        storeTemplateFn={this.props.storeTemplateFn}
+        template={this.props.template}
+        {...{ ...this.state, ...this.setStates }}
+      />
+    );
   }
 }
 

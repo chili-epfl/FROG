@@ -27,7 +27,8 @@ import { connection, backend } from './Preview';
 import { addDefaultExample } from './index';
 import { getUserId } from './Controls';
 
-const DocId = (acId, instance) => 'preview-' + acId + '/' + instance;
+export const DocId = (acId: string, instance: string) =>
+  'preview-' + acId + '/' + instance;
 
 export const generateDataFn = () => {
   const doc = connection.get('li', uuid());
