@@ -35,13 +35,12 @@ import {
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 
-
 const genericDoc = connection.get('li');
 const dataFn = generateReactiveFn(genericDoc, LI);
 const LearningItem = dataFn.LearningItem;
 
 const editableLIs = values(learningItemTypesObj).filter(
-  x => (x.Editor && x.dataStructure) || x.Creator
+  x => (x.Editor && x.liDataStructure) || x.Creator
 );
 
 type WikiCompPropsT = {
@@ -168,7 +167,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
 
   getWikiId = () => {
     return this.wikiId;
-  }
+  };
 
   getWikiPages = () => {
     return values(wikistore.pages).map(pageObj =>
@@ -189,19 +188,24 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       const pages = parseDocResults(this.wikiDoc.data);
       const newPageTitle = this.props.match.params.pageTitle;
       if (!pages[newPageTitle]) {
-        this.setState({
-          pageId: null,
-          pageTitle: newPageTitle,
-          pageTitleString: newPageTitle,
-        }, () => {
-          this.createNewPageLI(newPageTitle);
-        });
-        
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState(
+          {
+            pageId: null,
+            pageTitle: newPageTitle,
+            pageTitleString: newPageTitle
+          },
+          () => {
+            this.createNewPageLI(newPageTitle);
+          }
+        );
+
         return;
       }
 
       const pageId = pages[newPageTitle].id;
 
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         pageId,
         mode: 'view',
@@ -352,7 +356,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
               value={this.state.liType}
               onChange={e => this.setState({ liType: e.target.value })}
               displayEmpty
-              name="age"
+              name="liType"
             >
               {editableLIs.map(x => (
                 <MenuItem key={x.id} value={x.id}>
@@ -394,7 +398,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       height: '40px',
       fontSize: '24px',
       marginBottom: '12px'
-    }
+    };
 
     const titleDiv = this.state.editingTitle ? (
       <div style={titleDivStyle}>
@@ -405,18 +409,15 @@ class WikiComp extends React.Component<WikiCompPropsT> {
             this.setState({ pageTitleString: e.target.value });
           }}
         />
-        <Check 
+        <Check
           style={iconButtonStyle}
-          onClick={() => this.saveNewPageTitle(this.state.pageId)} 
+          onClick={() => this.saveNewPageTitle(this.state.pageId)}
         />
       </div>
     ) : (
       <div style={titleDivStyle}>
         <span>{this.state.pageTitle}</span>
-        <Edit 
-          style={iconButtonStyle}
-          onClick={this.handleEditingTitle} 
-        />
+        <Edit style={iconButtonStyle} onClick={this.handleEditingTitle} />
       </div>
     );
 
@@ -426,7 +427,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
       height: '30px',
       fontSize: '14px',
       cursor: 'pointer'
-    }
+    };
 
     const dashboardToggle = (
       <div>
@@ -441,7 +442,14 @@ class WikiComp extends React.Component<WikiCompPropsT> {
           <ChromeReaderMode />
           <span>Document</span>
         </div>
-        <hr style={{display: 'inline-block', width: '1px', height: '20px', margin: '0 5px'}} />
+        <hr
+          style={{
+            display: 'inline-block',
+            width: '1px',
+            height: '20px',
+            margin: '0 5px'
+          }}
+        />
         <div
           style={dashboardToggleStyle}
           onClick={() => {
@@ -454,7 +462,7 @@ class WikiComp extends React.Component<WikiCompPropsT> {
           <span>Dashboard</span>
         </div>
       </div>
-    )
+    );
 
     return (
       <div>

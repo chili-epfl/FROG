@@ -506,7 +506,6 @@ export const EmbedlyCache = {};
 export const getEmbedlyCache = (item: string) =>
   new Promise(resolve => {
     if (EmbedlyCache[item]) {
-      console.log('in cache');
       resolve(EmbedlyCache[item]);
     }
     fetch('//noembed.com/embed?url=' + item.replace(/(<([^>]+)>)/gi, ''))

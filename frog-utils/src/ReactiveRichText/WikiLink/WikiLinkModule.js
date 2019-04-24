@@ -15,7 +15,7 @@ class WikiLinkModule {
 
     this.options = {
       source: null,
-      renderItem(item, searchTerm) {
+      renderItem(item) {
         return `${item.title}`;
       },
       onSelect(item, insertItem) {

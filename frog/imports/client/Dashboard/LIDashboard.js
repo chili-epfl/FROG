@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 import { SearchField } from 'frog-utils';
 import {
   Paper,
-  Tooltip,
   Button,
   Menu,
   MenuItem,
@@ -228,7 +227,7 @@ class Dashboard extends React.Component<any, any> {
               id={x.id}
               render={({ children, dataFn: dfn }) => (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  {console.log(dfn.doc.data) || dfn.doc.data?.title}
+                  {dfn.doc.data?.title}
                   <ImageBox
                     expand={this.state.expand}
                     onClick={() =>

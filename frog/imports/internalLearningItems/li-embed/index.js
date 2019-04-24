@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type LearningItemT, TextInput, getEmbedlyCache } from 'frog-utils';
+import { TextInput, getEmbedlyCache } from 'frog-utils';
 import { throttle } from 'lodash';
 
 class Creator extends React.Component<*, *> {
@@ -13,9 +13,9 @@ class Creator extends React.Component<*, *> {
   onKeyDown = e => {
     const str = (e || '').trim();
     if (str.length > 0) {
-      getEmbedlyCache(str).then(e => {
-        if (e) {
-          this.setState({ embed: e });
+      getEmbedlyCache(str).then(emb => {
+        if (emb) {
+          this.setState({ embed: emb });
         }
       });
     }
@@ -24,7 +24,6 @@ class Creator extends React.Component<*, *> {
   onKeyDownThrottled = throttle(this.onKeyDown, 500);
 
   render() {
-    const { dataFn, LearningItem } = this.props;
     const { embed } = this.state;
     return (
       <>

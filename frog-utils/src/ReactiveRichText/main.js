@@ -659,7 +659,7 @@ class ReactiveRichText extends Component<
                 wikiLink: {
                   allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                   mentionDenotationChars: ['@'],
-                  source: (searchTerm, renderList, mentionChar) => {
+                  source: (searchTerm, renderList) => {
                     const values = wikiContext.getOnlyValidWikiPages();
 
                     if (searchTerm.length === 0) {
@@ -692,7 +692,7 @@ class ReactiveRichText extends Component<
                   allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                   mentionDenotationChars: ['#'],
                   type: 'embed',
-                  source: (searchTerm, renderList, mentionChar) => {
+                  source: (searchTerm, renderList) => {
                     const values = wikiContext.getOnlyValidWikiPages();
 
                     if (searchTerm.length === 0) {

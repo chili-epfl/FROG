@@ -1,5 +1,4 @@
-import { extendObservable, action, toJS } from 'mobx';
-import { inject, observer } from 'mobx-react';
+import { extendObservable, action } from 'mobx';
 
 class WikiStore {
   constructor() {

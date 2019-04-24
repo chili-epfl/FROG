@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { renderToString } from 'katex';
 import { withState } from 'recompose';
+import clip from 'text-clipper';
 import { uuid, getEmbedlyCache, EmbedlyCache } from './index';
 import 'katex/dist/katex.min.css';
-import clip from 'text-clipper';
 
 const HTML = ({
   html,
