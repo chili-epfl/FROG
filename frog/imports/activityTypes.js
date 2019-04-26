@@ -34,6 +34,7 @@ const packageLIs = [...activityTypes, ...operatorTypes].reduce(
   []
 );
 
+console.log(internalLIs,packageLIs)
 export const learningItemTypesObj: {
   [name: string]: LearningItemT<any>
 } = keyBy(
