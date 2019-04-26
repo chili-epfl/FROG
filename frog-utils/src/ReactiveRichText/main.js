@@ -154,7 +154,7 @@ class ReactiveRichText extends Component<
     if (this.props.readOnly) {
       const ops = cloneDeep(raw.ops);
       if (!ops) {
-        return '';
+        return raw;
       }
       while (true) {
         const [tail] = ops.slice(-1);

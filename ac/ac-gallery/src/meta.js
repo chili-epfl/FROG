@@ -31,7 +31,7 @@ const learningItems = [
     liType: 'li-activity',
     payload: {
       acType: 'ac-gallery',
-      activityData: {config: {}},
+      activityData: { config: {} },
       rz: 'cjubre3ju0002n9sejo26vv0w/all',
       title: 'Twitter'
     }

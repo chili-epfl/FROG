@@ -1,6 +1,6 @@
 // @flow
 
-const parseDocResults = function(results) {
+const parseDocResults = function(results: Object) {
   const pagesData = results.pages;
   const pages = {};
 
@@ -13,7 +13,7 @@ const parseDocResults = function(results) {
   return pages;
 };
 
-const parseSearch = function(search) {
+const parseSearch = function(search: string) {
   if (search === '') return {};
 
   const cleanedSearch = decodeURI(search.substring(1));
@@ -27,7 +27,7 @@ const parseSearch = function(search) {
   return attributes;
 };
 
-const parsePageObjForReactiveRichText = (wikiId, pageObj) => ({
+const parsePageObjForReactiveRichText = (wikiId: string, pageObj: Object) => ({
   wikiId,
   id: pageObj.id,
   liId: pageObj.id,
@@ -36,7 +36,7 @@ const parsePageObjForReactiveRichText = (wikiId, pageObj) => ({
   valid: pageObj.valid
 });
 
-const getPageTitle = (pages, statePageTitle) => {
+const getPageTitle = (pages: Object, statePageTitle: ?string) => {
   if (statePageTitle) return statePageTitle;
 
   if (Object.keys(pages).length > 0) {
@@ -47,7 +47,7 @@ const getPageTitle = (pages, statePageTitle) => {
     }
   }
 
-  return 'unnamed';
+  return null;
 };
 
 export {

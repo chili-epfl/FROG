@@ -6,18 +6,18 @@ import { Fab, Button } from '@material-ui/core';
 import { isBrowser } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 
+import {
+  type LearningItemT,
+  ReactiveText,
+  HighlightSearchText
+} from 'frog-utils';
+
 let activityRunners = {};
 let ReactiveHOC = () => undefined;
 if (isBrowser) {
   activityRunners = require('/imports/client/activityRunners').activityRunners;
   ReactiveHOC = require('/imports/client/StudentView/ReactiveHOC').default;
 }
-
-import {
-  type LearningItemT,
-  ReactiveText,
-  HighlightSearchText
-} from 'frog-utils';
 
 const styles = () => ({
   button: {

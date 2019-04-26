@@ -9,7 +9,7 @@ import Stringify from 'json-stringify-pretty-compact';
 import { LearningItem } from '/imports/client/LearningItem';
 import { activityTypesObj } from '/imports/activityTypes';
 
-import { addNewWikiPage } from '/imports/api/wikiDocAPI';
+import { addNewWikiPage } from '../Wiki/wikiDocHelpers';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connect } from '../GraphEditor/store';

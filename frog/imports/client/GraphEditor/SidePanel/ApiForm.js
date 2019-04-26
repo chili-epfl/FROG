@@ -248,6 +248,7 @@ const ApiForm = observer(
         });
       }
     };
+
     render() {
       return (
         <>
@@ -296,7 +297,7 @@ const ApiForm = observer(
                   setValid={state.setValid}
                   reload={this.props.reload}
                   config={this.props.config || this.state.activity.data || {}}
-                  showSubmit={this.props.showSubmit} 
+                  showSubmit={this.props.showSubmit}
                   onSubmit={this.props.onSubmit}
                 />
               </div>
