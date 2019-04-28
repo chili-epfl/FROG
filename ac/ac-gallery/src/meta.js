@@ -25,16 +25,6 @@ const learningItems = [
       thumburl: 'https://i.imgur.com/pfZAxeTb.jpg'
     },
     createdAt: '2018-05-10T12:05:08.700Z'
-  },
-  {
-    id: '5',
-    liType: 'li-activity',
-    payload: {
-      acType: 'ac-gallery',
-      activityData: { config: {} },
-      rz: 'cjubre3ju0002n9sejo26vv0w/all',
-      title: 'Twitter'
-    }
   }
 ];
 
@@ -57,8 +47,7 @@ export const meta = {
         a1: { id: 'a1', li: '1' },
         a2: { id: 'a2', li: '2' },
         a3: { id: 'a3', li: '3' },
-        a4: { id: 'a4', li: '4' },
-        a5: { id: 'a5', li: '5' }
+        a4: { id: 'a4', li: '4' }
       }
     },
     {

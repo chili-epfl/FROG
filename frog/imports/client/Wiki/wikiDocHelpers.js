@@ -12,7 +12,7 @@ const addNewWikiPage = (wikiDoc, pageId, pageTitle) => {
   wikiDoc.submitOp(op);
 };
 
-const invalidateWikiPage = (wikiDoc, pageId) => {
+const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   const op = {
     p: ['pages', pageId, 'valid'],
     od: true,
@@ -20,6 +20,9 @@ const invalidateWikiPage = (wikiDoc, pageId) => {
   };
 
   wikiDoc.submitOp(op);
+  if (cb) {
+    cb();
+  }
 };
 
 const changeWikiPageTitle = (wikiDoc, pageId, oldPageTitle, newPageTitle) => {

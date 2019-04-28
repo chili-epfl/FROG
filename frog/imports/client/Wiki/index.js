@@ -58,30 +58,33 @@ class WikiComp extends Component<WikiCompPropsT> {
 
   wikiId: ?string = null;
 
-  state = {
-    dashboardOpen: false,
-    pageId: null,
-    pageTitle: this.props.match.params.pageTitle ? this.props.match.params.pageTitle.toLowerCase() : null,
-    pageTitleString: this.props.match.params.pageTitle ? this.props.match.params.pageTitle.toLowerCase() : null,
-    mode: 'document',
-    docMode: 'view',
-    editingTitle: false,
-    data: [],
-    liType: 'li-richText',
-    newTitle: '',
-    error: null,
-    wikiContext: {
-      getWikiId: this.getWikiId,
-      getWikiPages: this.getWikiPages,
-      getOnlyValidWikiPages: this.getOnlyValidWikiPages,
-      createPage: this.createNewPageLI
-    },
-    openCreator: false,
-    showTitleEditButton: false
-  };
-
   constructor(props) {
     super(props);
+    this.state = {
+      dashboardOpen: false,
+      pageId: null,
+      pageTitle: this.props.match.params.pageTitle
+        ? this.props.match.params.pageTitle.toLowerCase()
+        : null,
+      pageTitleString: this.props.match.params.pageTitle
+        ? this.props.match.params.pageTitle.toLowerCase()
+        : null,
+      mode: 'document',
+      docMode: 'view',
+      editingTitle: false,
+      data: [],
+      liType: 'li-richText',
+      newTitle: '',
+      error: null,
+      openCreator: false,
+      showTitleEditButton: false,
+      wikiContext: {
+        getWikiId: this.getWikiId,
+        getWikiPages: this.getWikiPages,
+        getOnlyValidWikiPages: this.getOnlyValidWikiPages,
+        createPage: this.createNewPageLI
+      }
+    };
 
     this.wikiId = this.props.match.params.wikiId;
     if (!this.wikiId) throw new Error('Empty wikiId field');
@@ -173,16 +176,18 @@ class WikiComp extends Component<WikiCompPropsT> {
     if (pageTitle != null) {
       const pageId = parsedPages[pageTitle].id;
 
-      this.setState({
-        pageId,
-        pageTitle,
-        pageTitleString: pageTitle
-      }, () => {
-        const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-        this.props.history.replace(link);
-      });
-    }
-    else {
+      this.setState(
+        {
+          pageId,
+          pageTitle,
+          pageTitleString: pageTitle
+        },
+        () => {
+          const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+          this.props.history.replace(link);
+        }
+      );
+    } else {
       this.createNewPageLI('unnamed');
     }
   };
@@ -205,8 +210,8 @@ class WikiComp extends Component<WikiCompPropsT> {
 
   componentDidUpdate(prevProps) {
     if (
-      (prevProps.match.params.pageTitle !== this.props.match.params.pageTitle) &&
-      (this.wikiDoc != null)
+      prevProps.match.params.pageTitle !== this.props.match.params.pageTitle &&
+      this.wikiDoc != null
     ) {
       console.log(this.props.match.params);
       const pages = parseDocResults(this.wikiDoc.data);
@@ -298,11 +303,13 @@ class WikiComp extends Component<WikiCompPropsT> {
   };
 
   deleteLI = (pageId: string) => {
+    console.log('deleting', pageId);
     const parsedPages = parseDocResults(this.wikiDoc.data);
     const newPageTitle = getPageTitle(parsedPages, null, pageId);
+    console.log(newPageTitle);
     const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
     this.props.history.replace(link);
-    invalidateWikiPage(this.wikiDoc, pageId);
+    invalidateWikiPage(this.wikiDoc, pageId, this.loadWikiDoc);
   };
 
   handleEditingTitle = () => {
@@ -341,7 +348,7 @@ class WikiComp extends Component<WikiCompPropsT> {
         <p style={{ color: 'red' }}>Error: {this.state.error}</p>
       </div>
     ) : null;
-    
+
     const validPages = this.getOnlyValidWikiPages();
     const pagesLinks = validPages.map(pageObj => {
       const pageId = pageObj.id;
@@ -357,15 +364,19 @@ class WikiComp extends Component<WikiCompPropsT> {
             cursor: 'pointer'
           }
         : {
-          cursor: 'pointer'
-        };
+            cursor: 'pointer'
+          };
       return (
-        <li key={pageId} style={{fontSize: '14px'}}>
-            <span onClick={e=> {e.preventDefault();
-      this.props.history.push(link)}} style={style}>{pageTitle}</span>
-          {(!currentPageBool || validPages.length===1)  ? null : (
-            <Delete onClick={() => this.deleteLI(pageId)} />
-          )}
+        <li key={pageId} style={{ fontSize: '14px' }}>
+          <span
+            onClick={e => {
+              e.preventDefault();
+              this.props.history.push(link);
+            }}
+            style={style}
+          >
+            {pageTitle}
+          </span>
         </li>
       );
     });
@@ -433,7 +444,7 @@ class WikiComp extends Component<WikiCompPropsT> {
       width: '100%',
       alignItems: 'center',
       height: '40px',
-      fontSize: '30px',
+      fontSize: '30px'
     };
 
     const titleDiv = this.state.editingTitle ? (
@@ -445,22 +456,24 @@ class WikiComp extends Component<WikiCompPropsT> {
             this.setState({ pageTitleString: e.target.value });
           }}
         />
-        <Check
-          onClick={() => this.saveNewPageTitle(this.state.pageId)}
-        />
+        <Check onClick={() => this.saveNewPageTitle(this.state.pageId)} />
       </div>
     ) : (
-      <div 
+      <div
         style={titleDivStyle}
-        onMouseEnter={() => { this.setState({showTitleEditButton: true})}}
-        onMouseLeave={() => { this.setState({showTitleEditButton: false})}}
+        onMouseEnter={() => {
+          this.setState({ showTitleEditButton: true });
+        }}
+        onMouseLeave={() => {
+          this.setState({ showTitleEditButton: false });
+        }}
       >
         <span>{this.state.pageTitle}</span>
-        {this.state.showTitleEditButton &&
-        <Edit onClick={this.handleEditingTitle} />}
+        {this.state.showTitleEditButton && (
+          <Edit onClick={this.handleEditingTitle} />
+        )}
       </div>
     );
-
 
     const sideNavBar = (
       <div style={sideNavBarStyle}>
@@ -469,14 +482,14 @@ class WikiComp extends Component<WikiCompPropsT> {
           {pagesLinks}
           {newPageListItem}
         </ul>
-      </div> 
-    )
-    
+      </div>
+    );
+
     const topNavBarStyle = {
       display: 'flex',
       widht: '100%',
       backgroundColor: 'lightgrey'
-    }
+    };
 
     const topNavBarLeftItemStyle = {
       display: 'inline-flex',
@@ -514,11 +527,18 @@ class WikiComp extends Component<WikiCompPropsT> {
 
     const iconButtonStyle = {
       marginRight: '5px'
-    }
+    };
 
-    const pageItemColor = (this.state.mode==='document' && this.state.docMode==='view') ? 'secondary' : 'primary';
-    const historyItemColor = (this.state.mode==='document' && this.state.docMode==='history') ? 'secondary' : 'primary';
-    const dashboardItemColor = (this.state.mode==='dashboard') ? 'secondary' : 'primary';
+    const pageItemColor =
+      this.state.mode === 'document' && this.state.docMode === 'view'
+        ? 'secondary'
+        : 'primary';
+    const historyItemColor =
+      this.state.mode === 'document' && this.state.docMode === 'history'
+        ? 'secondary'
+        : 'primary';
+    const dashboardItemColor =
+      this.state.mode === 'dashboard' ? 'secondary' : 'primary';
 
     const topNavBar = (
       <div style={topNavBarStyle}>
@@ -529,7 +549,7 @@ class WikiComp extends Component<WikiCompPropsT> {
           }}
         >
           <ChromeReaderMode style={iconButtonStyle} color={pageItemColor} />
-          <span stlye={{color:pageItemColor}}>Page</span>
+          <span stlye={{ color: pageItemColor }}>Page</span>
         </div>
         <div
           style={topNavBarCenterItemStyle}
@@ -538,7 +558,7 @@ class WikiComp extends Component<WikiCompPropsT> {
           }}
         >
           <History style={iconButtonStyle} color={historyItemColor} />
-          <span stlye={{color:historyItemColor}}>History</span>
+          <span stlye={{ color: historyItemColor }}>History</span>
         </div>
         <div
           style={topNavBarRightItemStyle}
@@ -546,24 +566,39 @@ class WikiComp extends Component<WikiCompPropsT> {
             this.setState({ mode: 'dashboard' });
           }}
         >
+          <div style={{ marginRight: '40px' }}>
+            {this.state.pageId && (
+              <Delete onClick={() => this.deleteLI(this.state.pageId)} />
+            )}
+            Delete page{' '}
+          </div>
           <Dashboard style={iconButtonStyle} color={dashboardItemColor} />
-          <span stlye={{color:dashboardItemColor}}>Dashboard</span>
+          <span style={{ color: dashboardItemColor }}>Dashboard</span>
         </div>
       </div>
-    )
+    );
 
     const docModeButton = (() => {
-      if (this.state.docMode==='history') return null;
-      if (this.state.docMode==='view') return (
-        <button onClick={() => { this.setState({docMode: 'edit'})}}>
-          Edit
-        </button>
-      )
+      if (this.state.docMode === 'history') return null;
+      if (this.state.docMode === 'view')
+        return (
+          <button
+            onClick={() => {
+              this.setState({ docMode: 'edit' });
+            }}
+          >
+            Edit
+          </button>
+        );
       return (
-        <button onClick={() => { this.setState({docMode: 'view'})}}>
+        <button
+          onClick={() => {
+            this.setState({ docMode: 'view' });
+          }}
+        >
           Finish
         </button>
-      )
+      );
     })();
 
     return (
@@ -573,7 +608,7 @@ class WikiComp extends Component<WikiCompPropsT> {
             {sideNavBar}
             <div style={contentDivStyle}>
               {topNavBar}
-              {this.state.mode==='api' && (
+              {this.state.mode === 'api' && (
                 <ApiForm
                   noOffset
                   showDelete
@@ -581,7 +616,7 @@ class WikiComp extends Component<WikiCompPropsT> {
                   onSubmit={this.createActivityPage}
                 />
               )}
-              {this.state.mode==='dashboard' && (
+              {this.state.mode === 'dashboard' && (
                 <LIDashboard
                   wikiId={this.wikiId}
                   onClick={page => {
@@ -590,11 +625,14 @@ class WikiComp extends Component<WikiCompPropsT> {
                   }}
                 />
               )}
-              {this.state.mode==='document' && (
+              {this.state.mode === 'document' && (
                 <>
                   {titleDiv}
                   {docModeButton}
-                  <LearningItem type={this.state.docMode} id={this.state.pageId} />
+                  <LearningItem
+                    type={this.state.docMode}
+                    id={this.state.pageId}
+                  />
                 </>
               )}
             </div>
