@@ -20,7 +20,7 @@ if (Meteor.isClient) {
   json0.type.registerSubtype(richText.type);
   sharedbClient.types.register(json0.type);
 
-  socket = new ReconnectingWebSocket(shareDbUrl, null, {
+  socket = new ReconnectingWebSocket(shareDbUrl+'?'+Meteor.userId(), null, {
     minConnectionDelay: 1
   });
   _connection = new sharedbClient.Connection(socket);

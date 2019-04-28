@@ -1,11 +1,12 @@
-const addNewWikiPage = (wikiDoc, pageId, pageTitle) => {
+const addNewWikiPage = (wikiDoc, pageId, pageTitle, liType = 'li-richText') => {
   const op = {
     p: ['pages', pageId],
     oi: {
       id: pageId,
       valid: true,
       created: true,
-      title: pageTitle
+      title: pageTitle,
+      liType
     }
   };
 

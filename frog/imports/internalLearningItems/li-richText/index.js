@@ -10,7 +10,7 @@ export class FlexViewer extends React.Component<*, *> {
     const shouldShorten = type === 'thumbView';
 
     return (
-      <div>
+      <div style={{height: '100%'}}>
         <ReactiveRichText
           data={isPlayback ? data : undefined}
           shorten={shouldShorten && 150}

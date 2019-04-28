@@ -31,7 +31,7 @@ const styles = () => ({
 
 const Viewer = ({ data, type }) => {
   const activityType = activityTypesObj[data.acType];
-  const ActivityToRun = ReactiveHOC(data.rz, undefined, type === 'view')(
+  const ActivityToRun = ReactiveHOC(data.rz, undefined)(
     activityRunners[data.acType]
   );
 
