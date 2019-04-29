@@ -142,9 +142,7 @@ const ContentController = ({
     return <p>The config is invalid</p>;
   }
 
-  console.log(activityRunners)
   const RunComp = activityRunners[activityType.id];
-  console.log(activityType.id)
   RunComp.displayName = activityType.id;
 
   const examples = addDefaultExample(activityType);

@@ -183,21 +183,16 @@ class WikiComp extends Component<WikiCompPropsT> {
     if (pageTitle != null) {
       const pageId = parsedPages[pageTitle].id;
 
-      this.setState(
-        {
-          pageId,
-          pageTitle,
-          pageTitleString: pageTitle,
-          pageLiType: parsedPages[pageTitle].liType,
-          docMode:
-            parsedPages[pageTitle].liType === 'li-activity'
-              ? 'edit'
-              : this.state.docMode
-        },
-        () => {
-          const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-        }
-      );
+      this.setState({
+        pageId,
+        pageTitle,
+        pageTitleString: pageTitle,
+        pageLiType: parsedPages[pageTitle].liType,
+        docMode:
+          parsedPages[pageTitle].liType === 'li-activity'
+            ? 'edit'
+            : this.state.docMode
+      });
     } else {
       this.createNewPageLI('Home');
     }
@@ -308,7 +303,6 @@ class WikiComp extends Component<WikiCompPropsT> {
       });
       return;
     }
-    console.log(parsedPages, parsedPages[newTitle], newTitle);
 
     if (this.state.mode === 'api') {
       this.createActivityPage();

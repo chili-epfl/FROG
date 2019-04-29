@@ -108,7 +108,10 @@ class ReactiveRichText extends Component<
   constructor(props: ReactivePropsT) {
     super(props);
     reactiveRichTextDataFn = props.dataFn;
-    this.debouncedInsertNewLi = debounce(this.insertNewLi, 100, { leading: true,trailing:false });
+    this.debouncedInsertNewLi = debounce(this.insertNewLi, 100, {
+      leading: true,
+      trailing: false
+    });
   }
 
   opListener = (op: Object[], source: string) => {
@@ -524,7 +527,6 @@ class ReactiveRichText extends Component<
   };
 
   onDrop = (e: { item: Object | string }, initialView?: string) => {
-    console.log('onDrop', e);
     const editor = this.quillRef.getEditor();
     const item = e?.item;
 
@@ -568,7 +570,6 @@ class ReactiveRichText extends Component<
   };
 
   insertNewLi = (type: string) => {
-    console.log('insertnewli', type);
     if (type) {
       const newLiId = this.props.dataFn.createLearningItem(type);
       this.onDrop({ item: newLiId }, LiViewTypes.EDIT);
@@ -659,7 +660,8 @@ class ReactiveRichText extends Component<
                       container: `#toolbar-${this.toolbarId}`,
                       handlers: {
                         toggleAuthorship: this.toggleAuthorship,
-                        table: () => this.debouncedInsertNewLi('li-spreadsheet'),
+                        table: () =>
+                          this.debouncedInsertNewLi('li-spreadsheet'),
                         insertLi: this.insertNewLi,
                         image: () =>
                           this.setState({

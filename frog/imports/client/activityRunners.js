@@ -47,7 +47,9 @@ export const activityRunners = entries(activityRunnersRawInternal).reduce(
   activityRunnersExt
 );
 
-const operatorPackagesRaw = importAll.sync('../../node_modules/op-*/src/index.js');
+const operatorPackagesRaw = importAll.sync(
+  '../../node_modules/op-*/src/index.js'
+);
 
 export const operatorTypesObj = entries(operatorPackagesRaw).reduce(
   (acc, [k, v]) => ({ ...acc, [k.split('/')[3]]: v.default }),

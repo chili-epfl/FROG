@@ -1,8 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
-import { A } from 'frog-utils';
-import { type productOperatorRunnerT, cloneDeep, uuid } from 'frog-utils';
+import React from 'react';
 import { isEmpty, omit } from 'lodash';
 import Delta from 'quill-delta';
 
@@ -45,7 +43,6 @@ const transform = (item, toDiff) => {
     }
   }
   const adjusted = fromDiff.compose(diff);
-  console.log(diff, adjusted);
   return adjusted;
 };
 
@@ -63,8 +60,8 @@ const Revisions = ({ doc }) => {
   React.useEffect(() => {
     const fetch = async () => {
       const result = await new Promise(resolve =>
-        Meteor.call('sharedb.get.revisionList', 'li', doc, (err, result) =>
-          resolve(result)
+        Meteor.call('sharedb.get.revisionList', 'li', doc, (err, res) =>
+          resolve(res)
         )
       );
       setRevisions(result);
@@ -73,7 +70,6 @@ const Revisions = ({ doc }) => {
   }, []);
 
   return (
-    console.log(diffFrom, revisions[diffFrom]) || (
       <div>
         {revisions.map((x, i) => (
           <li key={i}>

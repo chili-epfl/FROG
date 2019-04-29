@@ -1,16 +1,8 @@
 import * as React from 'react';
-import Form from 'react-jsonschema-form';
 
-import { withStyles } from '@material-ui/core/styles';
-import { Fab, Button } from '@material-ui/core';
-import { isBrowser } from 'frog-utils';
+import { Fab } from '@material-ui/core';
 import { activityTypesObj } from '/imports/activityTypes';
-
-import {
-  type LearningItemT,
-  ReactiveText,
-  HighlightSearchText
-} from 'frog-utils';
+import { type LearningItemT, isBrowser } from 'frog-utils';
 
 let activityRunners = {};
 let ReactiveHOC = () => undefined;
@@ -19,17 +11,7 @@ if (isBrowser) {
   ReactiveHOC = require('/imports/client/StudentView/ReactiveHOC').default;
 }
 
-const styles = () => ({
-  button: {
-    float: 'right'
-  },
-  editorContainer: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-});
-
-const Viewer = ({ data, type }) => {
+const Viewer = ({ data }) => {
   const activityType = activityTypesObj[data.acType];
   const ActivityToRun = ReactiveHOC(data.rz, undefined)(
     activityRunners[data.acType]

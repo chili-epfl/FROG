@@ -123,7 +123,6 @@ const sharedbGetRevisionList = (coll, id) =>
           }
 
           let ts = res[0].m.ts;
-          let c = 0;
           const milestoneOpsIndices = [];
           let contributors = {};
           let last = res.shift().create.data;
@@ -138,17 +137,13 @@ const sharedbGetRevisionList = (coll, id) =>
                   contributors: Object.keys(contributors).map(
                     x => Meteor.users.findOne(x).username
                   ),
-                  c,
                   time: op.m.ts
                 });
-                c = 0;
                 contributors = {};
               }
               ts = op.m.ts;
-              c += 1;
             })
           );
-          console.log(milestoneOpsIndices);
           resolve(milestoneOpsIndices);
         })
       )

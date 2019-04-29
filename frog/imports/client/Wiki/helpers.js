@@ -36,8 +36,13 @@ const parsePageObjForReactiveRichText = (wikiId: string, pageObj: Object) => ({
   valid: pageObj.valid
 });
 
-const getPageTitle = (pages: Object, statePageTitle: ?string, deletedPageId: ?string) => {
-  if (statePageTitle && pages[statePageTitle] && pages[statePageTitle].valid) return statePageTitle;
+const getPageTitle = (
+  pages: Object,
+  statePageTitle: ?string,
+  deletedPageId: ?string
+) => {
+  if (statePageTitle && pages[statePageTitle] && pages[statePageTitle].valid)
+    return statePageTitle;
 
   if (Object.keys(pages).length > 0) {
     // eslint-disable-next-line guard-for-in
