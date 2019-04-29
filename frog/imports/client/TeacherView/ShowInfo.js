@@ -6,7 +6,12 @@ import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 import copy from 'copy-to-clipboard';
 import Stringify from 'json-stringify-pretty-compact';
+import { LearningItem } from '/imports/client/LearningItem';
+import { activityTypesObj } from '/imports/activityTypes';
 
+import { addNewWikiPage } from '../Wiki/wikiDocHelpers';
+import { connection } from '../App/connection';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connect } from '../GraphEditor/store';
 import { Activities } from '/imports/api/activities';
 import { Operators } from '/imports/api/operators';
@@ -66,6 +71,35 @@ class InfoComponent extends React.Component<
     }
   }
 
+  exportWiki(item, object) {
+    const whereTo = window.prompt(
+      'Where should this be exported to? Wiki and page separated by slash'
+    );
+    if (!whereTo) {
+      return;
+    }
+    const [wiki, page] = whereTo.split('/').map(x => x.trim());
+    const genericDoc = connection.get('li');
+    const dataFn = generateReactiveFn(genericDoc, LearningItem);
+    const payload = {
+      acType: item.activityType,
+      activityData: { config: item.data },
+      rz: item._id + '/all',
+      title: item.title,
+      activityTypeTitle: activityTypesObj[item.activityType].meta.name
+    };
+
+    const newId = dataFn.createLearningItem('li-activity', payload, {
+      title: page
+    });
+    const wikiDoc = connection.get('wiki', wiki);
+    wikiDoc.subscribe(err => {
+      if (err) throw err;
+
+      addNewWikiPage(wikiDoc, newId, page);
+    });
+  }
+
   render() {
     const { showInfo, cancelInfo, item } = this.props;
     const product = this.state?.product;
@@ -84,6 +118,13 @@ class InfoComponent extends React.Component<
           <li>type: {item.activityType || item.operatorType}</li>
           <li>id: {item._id}</li>
           <li>State: {item.state}</li>
+
+          <li>
+            <A onClick={() => this.exportWiki(item, object)}>
+              Export to wiki page
+            </A>
+          </li>
+
           {product && (
             <li>
               <A

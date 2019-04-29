@@ -498,3 +498,20 @@ export const getRotateable = (ary: *, toRotate: number): * =>
   new Proxy(ary, {
     get: (obj, prop) => obj[(parseInt(prop, 10) + toRotate) % obj.length]
   });
+
+export const WikiContext = React.createContext([]);
+
+export const EmbedlyCache = {};
+
+export const getEmbedlyCache = (item: string) =>
+  new Promise(resolve => {
+    if (EmbedlyCache[item]) {
+      resolve(EmbedlyCache[item]);
+    }
+    fetch('//noembed.com/embed?url=' + item.replace(/(<([^>]+)>)/gi, ''))
+      .then(x => x.json())
+      .then(x => {
+        EmbedlyCache[item] = x.html;
+        resolve(x.html);
+      });
+  });

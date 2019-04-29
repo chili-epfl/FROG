@@ -51,6 +51,19 @@ class CustomQuillToolbar extends Component<CustomQuillToolbarPropsT> {
         <button className="ql-link" />
         <button className="ql-image" />
         <button className="ql-video" />
+        <button className="ql-table">
+          <svg viewBox="0 0 18 18">
+            <rect className="ql-stroke" height="12" width="12" x="3" y="3" />
+            <rect className="ql-fill" height="2" width="3" x="5" y="5" />
+            <rect className="ql-fill" height="2" width="4" x="9" y="5" />
+            <g className="ql-fill ql-transparent">
+              <rect height="2" width="3" x="5" y="8" />
+              <rect height="2" width="4" x="9" y="8" />
+              <rect height="2" width="3" x="5" y="11" />
+              <rect height="2" width="4" x="9" y="11" />
+            </g>
+          </svg>
+        </button>
 
         <button className="ql-toggleAuthorship">
           <AuthorshipToggleBtn />

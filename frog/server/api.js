@@ -63,34 +63,42 @@ const InstanceDone = {};
 
 WebApp.connectHandlers.use('', (request, response, next) => {
   if (request.headers?.host === 'frogwrite.ch') {
-    const url = urlPkg.parse(request.url);
-    const instance = url.pathname.substring(0);
-    const userId = request.query.user || uuid();
-    const userName = request.query.user || 'anonymous';
-    const clientId = 'write';
-    const activityTypeId = 'ac-single-li';
-    const config = { liTypeEditor: 'li-richText', noSubmit: 'true' };
-    const readOnly = false;
-    const activityId = 'write-ac-single-li-write';
-    const docId = activityId + '/' + instance;
-
-    sendActivityRequest({
-      next,
-      userId,
-      userName,
-      docId,
-      clientId,
-      activityTypeId,
-      config,
-      instance,
-      readOnly,
-      activityId,
-      request
-    });
+    return frogwrite(request, response, next);
   } else {
     next();
   }
 });
+
+WebApp.connectHandlers.use('/frogwrite', (request, response, next) =>
+  frogwrite(request, response, next)
+);
+
+const frogwrite = (request, response, next) => {
+  const url = urlPkg.parse(request.url);
+  const instance = url.pathname.substring(0);
+  const userId = request.query.user || uuid();
+  const userName = request.query.user || 'anonymous';
+  const clientId = 'write';
+  const activityTypeId = 'ac-single-li';
+  const config = { liTypeEditor: 'li-richText', noSubmit: 'true' };
+  const readOnly = false;
+  const activityId = 'write-ac-single-li-write';
+  const docId = activityId + '/' + instance;
+
+  sendActivityRequest({
+    next,
+    userId,
+    userName,
+    docId,
+    clientId,
+    activityTypeId,
+    config,
+    instance,
+    readOnly,
+    activityId,
+    request
+  });
+};
 
 WebApp.connectHandlers.use('/api/proxy', (request, response, next) => {
   try {

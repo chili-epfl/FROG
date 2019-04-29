@@ -25,6 +25,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
+import Wiki from '../Wiki';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -228,7 +229,10 @@ const FROGRouter = withRouter(
                 return this.tokenLogin(storedLoginToken);
               }
             }
-            if (this.props.match.params.slug) {
+            if (
+              this.props.match.params.slug &&
+              this.props.match.params.slug.slice(0, 4) !== 'wiki'
+            ) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
@@ -259,6 +263,8 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'ready' && Meteor.user()) {
         return (
           <Switch>
+            <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
+            <Route path="/wiki/:wikiId" component={Wiki} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />

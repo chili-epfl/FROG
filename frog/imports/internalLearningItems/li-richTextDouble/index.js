@@ -1,10 +1,5 @@
 import * as React from 'react';
-import { get, isString } from 'lodash';
-import {
-  type LearningItemT,
-  ReactiveRichText,
-  highlightTargetRichText
-} from 'frog-utils';
+import { ReactiveRichText } from 'frog-utils';
 
 export class FlexViewer extends React.Component<*, *> {
   render() {

@@ -50,9 +50,21 @@ export const serverConnection = backend.connect();
 export const startShareDB = () => {
   if (!Meteor.settings.dont_start_sharedb) {
     const wserver = new WebSocket.Server({ server });
-    wserver.on('connection', ws => {
+    wserver.on('connection', (ws, req) => {
+      const userId = req.url.split('?')[1];
       ws.on('error', () => null);
       const stream = new WebsocketJSONStream(ws);
+
+      backend.use('connect', (request, next) => {
+        Object.assign(request.agent.custom, { userId });
+        next();
+      });
+
+      backend.use('submit', (request, next) => {
+        request.op.m.userId = request.agent.custom.userId;
+        next();
+      });
+
       stream.on('error', error => {
         if (error.message.startsWith('WebSocket is not open')) {
           // No point reporting this error, as it happens often and is harmless.
@@ -75,27 +87,70 @@ export const startShareDB = () => {
   }
 };
 
+const sharedbGetRevisions = (coll, id) =>
+  new Promise(resolve =>
+    backend.db.getOps(coll, id, 0, null, { metadata: true }, (err, res) => {
+      if (err || isEmpty(res)) {
+        resolve([]);
+        return;
+      }
+      const beg = res.shift().create.data;
+      const revisions = res.reduce(
+        (acc, x) => {
+          const result = json.type.apply(cloneDeep(acc[acc.length - 1]), x.op);
+          acc.push(result);
+          return acc;
+        },
+        [beg]
+      );
+      resolve(revisions);
+    })
+  ).catch(e => console.error(e));
+
+const sharedbGetRevisionList = (coll, id) =>
+  new Promise(resolve =>
+    Meteor.bindEnvironment(
+      backend.db.getOps(
+        coll,
+        id,
+        0,
+        null,
+        { metadata: true },
+        Meteor.bindEnvironment((err, res) => {
+          if (err || isEmpty(res)) {
+            resolve([]);
+            return;
+          }
+
+          let ts = res[0].m.ts;
+          const milestoneOpsIndices = [];
+          let contributors = {};
+          let last = res.shift().create.data;
+          res.forEach(
+            Meteor.bindEnvironment((op, i) => {
+              last = json.type.apply(cloneDeep(last), op.op);
+              const tsDiff = op.m.ts - ts;
+              contributors[op.m.userId] = true;
+              if (tsDiff > 30000 || i === res.length - 1) {
+                milestoneOpsIndices.push({
+                  data: cloneDeep(last),
+                  contributors: Object.keys(contributors).map(
+                    x => Meteor.users.findOne(x).username
+                  ),
+                  time: op.m.ts
+                });
+                contributors = {};
+              }
+              ts = op.m.ts;
+            })
+          );
+          resolve(milestoneOpsIndices);
+        })
+      )
+    )
+  ).catch(e => console.error(e));
+
 Meteor.methods({
-  'sharedb.get.revisions': (coll, id) =>
-    new Promise(resolve =>
-      backend.db.getOps(coll, id, 0, null, {}, (err, res) => {
-        if (err || isEmpty(res)) {
-          resolve([]);
-          return;
-        }
-        const beg = res.shift().create.data;
-        const revisions = res.reduce(
-          (acc, x) => {
-            const result = json.type.apply(
-              cloneDeep(acc[acc.length - 1]),
-              x.op
-            );
-            acc.push(result);
-            return acc;
-          },
-          [beg]
-        );
-        resolve(revisions);
-      })
-    ).catch(e => console.error(e))
+  'sharedb.get.revisions': sharedbGetRevisions,
+  'sharedb.get.revisionList': sharedbGetRevisionList
 });

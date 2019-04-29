@@ -2,7 +2,11 @@
 
 import importAll from 'import-all.macro';
 import { Loadable, entries, values } from 'frog-utils';
-import { learningItemTypesObj } from '../activityTypes';
+import { keyBy } from 'lodash';
+
+// we're duplicating a lot of logic here from ../activityTypes and ../operatorTypes, because
+// there was an issue with circular imports leading to import { activityTypesObj } from '../activityTypes'
+// to be undefinedGkkkkkkkkkkkk
 
 const activityRunnersRaw = importAll.deferred(
   '../../node_modules/ac-*/src/ActivityRunner?(.js)'
@@ -41,6 +45,49 @@ export const activityRunners = entries(activityRunnersRawInternal).reduce(
     };
   },
   activityRunnersExt
+);
+
+const operatorPackagesRaw = importAll.sync(
+  '../../node_modules/op-*/src/index.js'
+);
+
+export const operatorTypesObj = entries(operatorPackagesRaw).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[3]]: v.default }),
+  {}
+);
+export const operatorTypes: operatorPackageT[] = values(operatorTypesObj);
+
+const packagesRaw = importAll.sync('../../node_modules/ac-*/src/index.js');
+export const activityTypesExt = entries(packagesRaw).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[3]]: v.default }),
+  {}
+);
+
+const internal = importAll.sync('../internalActivities/*/index.js');
+
+export const activityTypesObj: { [at: string]: ActivityPackageT } = entries(
+  internal
+).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
+  activityTypesExt
+);
+
+export const activityTypes: ActivityPackageT[] = values(activityTypesObj);
+
+const internalLIs = importAll.sync('../internalLearningItems/*/index.js');
+
+const packageLIs = [...activityTypes, ...operatorTypes].reduce(
+  (acc, x) => acc.concat(x.LearningItems || []),
+  []
+);
+
+export const learningItemTypesObj: {
+  [name: string]: LearningItemT<any>
+} = keyBy(
+  values(internalLIs)
+    .map(x => x.default)
+    .concat(packageLIs),
+  'id'
 );
 
 Object.keys(learningItemTypesObj).forEach(li => {

@@ -7,15 +7,34 @@ import {
   HighlightSearchText,
   uuid,
   highlightTargetRichText,
-  cloneDeep
+  cloneDeep,
+  WikiContext
 } from 'frog-utils';
-import { get, isEqual, last, forEach, isUndefined, filter, find } from 'lodash';
+import {
+  isEmpty,
+  get,
+  isEqual,
+  last,
+  forEach,
+  isUndefined,
+  filter,
+  find,
+  debounce
+} from 'lodash';
+import Dialog from '@material-ui/core/Dialog';
 
 import { LiViewTypes, formats } from './constants';
 import LearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
+
+import WikiLinkModule from './WikiLink/WikiLinkModule';
+import WikiLinkBlot from './WikiLink/WikiLinkBlot';
+
+Quill.register('modules/wikiLink', WikiLinkModule);
+Quill.register('modules/wikiEmbed', WikiLinkModule);
+Quill.register('formats/wiki-link', WikiLinkBlot);
 
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
@@ -82,12 +101,17 @@ class ReactiveRichText extends Component<
   styleElements: {};
 
   state = {
-    path: this.props.dataFn.getMergedPath(this.props.path)
+    path: this.props.dataFn.getMergedPath(this.props.path),
+    openCreator: null
   };
 
   constructor(props: ReactivePropsT) {
     super(props);
     reactiveRichTextDataFn = props.dataFn;
+    this.debouncedInsertNewLi = debounce(this.insertNewLi, 100, {
+      leading: true,
+      trailing: false
+    });
   }
 
   opListener = (op: Object[], source: string) => {
@@ -142,6 +166,9 @@ class ReactiveRichText extends Component<
 
     if (this.props.readOnly) {
       const ops = cloneDeep(raw.ops);
+      if (!ops) {
+        return raw;
+      }
       while (true) {
         const [tail] = ops.slice(-1);
         if (!tail) {
@@ -294,10 +321,10 @@ class ReactiveRichText extends Component<
         // on editor load. This causes the editor to duplicate the LIs in some
         // situations. So registering onChange handler with a delay to avoid
         // processing those initial deltas.
+        this.ensureSpaceAroundLis();
         setTimeout(() => {
           editor.on('text-change', this.handleChange);
           // In case the loaded document had LIs without correct spacing
-          this.ensureSpaceAroundLis();
 
           editor.on('selection-change', this.handleSelectionChange);
         }, 100);
@@ -330,11 +357,12 @@ class ReactiveRichText extends Component<
     }
   }
 
-  shouldComponentUpdate(nextProps: Object) {
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
     return (
       this.props.shorten !== nextProps.shorten ||
       !!(this.props.readOnly || nextProps.readOnly) ||
-      this.props.search !== nextProps.search
+      this.props.search !== nextProps.search ||
+      this.state.openCreator !== nextState.openCreator
     );
   }
 
@@ -523,6 +551,7 @@ class ReactiveRichText extends Component<
         Quill.sources.USER
       );
 
+      this.ensureSpaceAroundLis();
       editor.setSelection(insertPosition + 1, 0, Quill.sources.USER);
 
       // If LI inserted at end of document, manually scroll to bottom.
@@ -586,58 +615,151 @@ class ReactiveRichText extends Component<
     }
 
     const defaultValue = this.getDocumentContent();
+    const LearningItem = this.props.dataFn.LearningItem;
     const props = this.props;
     const scrollContainerClass = 'scroll-container';
     const editorStyle = props.readOnly
       ? { borderStyle: 'hidden' }
       : {
-          overflowY: 'auto',
+          overflowY: 'visible',
           height: '100%'
         };
     return (
-      <div
-        style={{ height: '100%' }}
-        onMouseOver={() => {
-          if (this.props.dataFn.listore.dragState) {
-            this.props.dataFn.listore.setOverCB(this.onDrop);
-          }
-        }}
-        onMouseLeave={() => {
-          this.props.dataFn.listore.setOverCB(null);
-        }}
-      >
-        {!get(props, 'readOnly') && (
-          <CustomQuillToolbar
-            id={this.toolbarId}
-            readOnly={get(props, 'readOnly')}
-            liTypes={this.getLiTypeList()}
-          />
+      <WikiContext.Consumer>
+        {wikiContext => (
+          <div
+            style={{ height: '100%' }}
+            onMouseOver={() => {
+              if (this.props.dataFn.listore.dragState) {
+                this.props.dataFn.listore.setOverCB(this.onDrop);
+              }
+            }}
+            onMouseLeave={() => {
+              this.props.dataFn.listore.setOverCB(null);
+            }}
+          >
+            {!get(props, 'readOnly') && (
+              <CustomQuillToolbar
+                id={this.toolbarId}
+                readOnly={get(props, 'readOnly')}
+                liTypes={this.getLiTypeList()}
+              />
+            )}
+            <ReactQuill
+              defaultValue={this.props.rawData || defaultValue}
+              ref={element => {
+                this.quillRef = element;
+              }}
+              readOnly={get(props, 'readOnly')}
+              formats={formats}
+              style={{ height: '90%' }}
+              modules={{
+                toolbar: get(props, 'readOnly')
+                  ? null
+                  : {
+                      container: `#toolbar-${this.toolbarId}`,
+                      handlers: {
+                        toggleAuthorship: this.toggleAuthorship,
+                        table: () =>
+                          this.debouncedInsertNewLi('li-spreadsheet'),
+                        insertLi: this.insertNewLi,
+                        image: () =>
+                          this.setState({
+                            openCreator: { liType: 'li-image' }
+                          }),
+                        video: () =>
+                          this.setState({ openCreator: { liType: 'li-embed' } })
+                      }
+                    },
+                wikiLink: isEmpty(wikiContext)
+                  ? null
+                  : {
+                      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                      mentionDenotationChars: ['@'],
+                      source: (searchTerm, renderList) => {
+                        const values = wikiContext.getOnlyValidWikiPages();
+
+                        if (searchTerm.length === 0) {
+                          renderList(values, searchTerm);
+                        } else {
+                          const matches = [];
+                          for (const valueObj of values) {
+                            const text = (valueObj.title || '').toLowerCase();
+                            const searchLower = (
+                              searchTerm || ''
+                            ).toLowerCase();
+                            if (text.indexOf(searchLower) > -1) {
+                              matches.push(valueObj);
+                            }
+                          }
+
+                          if (matches.length === 0) {
+                            matches.push({
+                              wikiId: wikiContext.getWikiId(),
+                              title: searchTerm,
+                              created: true,
+                              valid: true,
+                              createPage: wikiContext.createPage
+                            });
+                          }
+
+                          renderList(matches, searchTerm);
+                        }
+                      }
+                    },
+                wikiEmbed: isEmpty(wikiContext)
+                  ? null
+                  : {
+                      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                      mentionDenotationChars: ['#'],
+                      type: 'embed',
+                      source: (searchTerm, renderList) => {
+                        const values = wikiContext.getOnlyValidWikiPages();
+
+                        if (searchTerm.length === 0) {
+                          renderList(values, searchTerm);
+                        } else {
+                          const matches = [];
+                          for (const valueObj of values) {
+                            const text = (valueObj.title || '').toLowerCase();
+                            const searchLower = (
+                              searchTerm || ''
+                            ).toLowerCase();
+                            if (text.indexOf(searchLower) > -1) {
+                              matches.push(valueObj);
+                            }
+                          }
+
+                          renderList(matches, searchTerm);
+                        }
+                      }
+                    }
+              }}
+              scrollingContainer={`.${scrollContainerClass}`}
+              onChange={this.props.onChange}
+            >
+              <div className={scrollContainerClass} style={editorStyle} />
+            </ReactQuill>
+            {this.state.openCreator && (
+              <>
+                <Dialog
+                  open
+                  onClose={() => this.setState({ openCreator: false })}
+                >
+                  <LearningItem
+                    type="create"
+                    liType={this.state.openCreator.liType}
+                    onCreate={item => {
+                      this.setState({ openCreator: false });
+                      this.onDrop({ item });
+                    }}
+                  />
+                </Dialog>
+              </>
+            )}
+          </div>
         )}
-        <ReactQuill
-          defaultValue={this.props.rawData || defaultValue}
-          ref={element => {
-            this.quillRef = element;
-          }}
-          readOnly={get(props, 'readOnly')}
-          formats={formats}
-          style={{ height: '90%' }}
-          modules={{
-            toolbar: get(props, 'readOnly')
-              ? null
-              : {
-                  container: `#toolbar-${this.toolbarId}`,
-                  handlers: {
-                    toggleAuthorship: this.toggleAuthorship,
-                    insertLi: this.insertNewLi
-                  }
-                }
-          }}
-          scrollingContainer={`.${scrollContainerClass}`}
-          onChange={this.props.onChange}
-        >
-          <div className={scrollContainerClass} style={editorStyle} />
-        </ReactQuill>
-      </div>
+      </WikiContext.Consumer>
     );
   }
 }

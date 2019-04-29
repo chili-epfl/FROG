@@ -88,7 +88,6 @@ class LearningItemBlot extends Embed {
     const { liView: currentView, zoomState } = this.getLiContent();
     const nextView =
       currentView === LiViewTypes.EDIT ? zoomState : LiViewTypes.EDIT;
-
     this.format('li-view', nextView);
   };
 
@@ -213,10 +212,10 @@ class LearningItemBlot extends Embed {
           zoomState,
           controlsVisibility
         } = this.getLiContent();
-        if (liId && authorId && zoomState && value) {
+        if (liId && zoomState && value) {
           LearningItemBlot.renderLItoNode(
             liId,
-            authorId,
+            authorId || 'anonymous',
             value,
             value === LiViewTypes.EDIT ? zoomState : value,
             controlsVisibility,
