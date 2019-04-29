@@ -70,80 +70,79 @@ const Revisions = ({ doc }) => {
   }, []);
 
   return (
-      <div>
-        {revisions.map((x, i) => (
-          <li key={i}>
-            {toDate(x.time)} -
-            <input
-              type="checkbox"
-              checked={diffFrom === i}
-              onChange={() => {
-                setDiffFrom(i);
-              }}
-            />
-            {'  '}
-            <input
-              type="checkbox"
-              checked={diffTo === i}
-              onChange={() => {
-                setDiffTo(i);
-              }}
-            />{' '}
-            -{x.contributors.join(', ')}
-          </li>
-        ))}
-        <hr />
-        <>
-          <div style={{ height: '400px' }}>
-            <div style={{ float: 'left', width: '50%' }}>
-              {diffFrom !== undefined && (
-                <RenderLearningItem
-                  type="view"
-                  dataFn={dataFn}
-                  key={diffFrom + 'from'}
-                  id={doc}
-                  isPlayback
-                  data={revisions[diffFrom].data}
-                />
-              )}
-            </div>
-            <div style={{ float: 'right', width: '50%' }}>
-              {diffTo !== undefined && (
-                <RenderLearningItem
-                  type="view"
-                  dataFn={dataFn}
-                  key={diffTo + 'to'}
-                  id={doc}
-                  isPlayback
-                  data={revisions[diffTo].data}
-                />
-              )}
-            </div>
-          </div>
-          {diffTo !== undefined && diffFrom !== undefined && (
-            <>
-              <hr />
+    <div>
+      {revisions.map((x, i) => (
+        <li key={i}>
+          {toDate(x.time)} -
+          <input
+            type="checkbox"
+            checked={diffFrom === i}
+            onChange={() => {
+              setDiffFrom(i);
+            }}
+          />
+          {'  '}
+          <input
+            type="checkbox"
+            checked={diffTo === i}
+            onChange={() => {
+              setDiffTo(i);
+            }}
+          />{' '}
+          -{x.contributors.join(', ')}
+        </li>
+      ))}
+      <hr />
+      <>
+        <div style={{ height: '400px' }}>
+          <div style={{ float: 'left', width: '50%' }}>
+            {diffFrom !== undefined && (
               <RenderLearningItem
                 type="view"
                 dataFn={dataFn}
-                key={diffTo + diffFrom + 'fromTo'}
+                key={diffFrom + 'from'}
                 id={doc}
                 isPlayback
-                data={{
-                  ...revisions[diffFrom].data,
-                  payload: {
-                    text: transform(
-                      revisions[diffFrom].data.payload,
-                      revisions[diffTo].data.payload
-                    )
-                  }
-                }}
+                data={revisions[diffFrom].data}
               />
-            </>
-          )}
-        </>
-      </div>
-    )
+            )}
+          </div>
+          <div style={{ float: 'right', width: '50%' }}>
+            {diffTo !== undefined && (
+              <RenderLearningItem
+                type="view"
+                dataFn={dataFn}
+                key={diffTo + 'to'}
+                id={doc}
+                isPlayback
+                data={revisions[diffTo].data}
+              />
+            )}
+          </div>
+        </div>
+        {diffTo !== undefined && diffFrom !== undefined && (
+          <>
+            <hr />
+            <RenderLearningItem
+              type="view"
+              dataFn={dataFn}
+              key={diffTo + diffFrom + 'fromTo'}
+              id={doc}
+              isPlayback
+              data={{
+                ...revisions[diffFrom].data,
+                payload: {
+                  text: transform(
+                    revisions[diffFrom].data.payload,
+                    revisions[diffTo].data.payload
+                  )
+                }
+              }}
+            />
+          </>
+        )}
+      </>
+    </div>
   );
 };
 
