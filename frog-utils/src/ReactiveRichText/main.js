@@ -88,7 +88,10 @@ type ReactivePropsT = {
 
 class ReactiveRichText extends Component<
   ReactivePropsT,
-  { path: ?((string | number)[]) }
+  {
+    path: ?((string | number)[]),
+    openCreator: ?Object
+  }
 > {
   quillRef: any;
 
@@ -744,13 +747,13 @@ class ReactiveRichText extends Component<
               <>
                 <Dialog
                   open
-                  onClose={() => this.setState({ openCreator: false })}
+                  onClose={() => this.setState({ openCreator: null })}
                 >
                   <LearningItem
                     type="create"
                     liType={this.state.openCreator.liType}
                     onCreate={item => {
-                      this.setState({ openCreator: false });
+                      this.setState({ openCreator: null });
                       this.onDrop({ item });
                     }}
                   />

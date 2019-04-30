@@ -53,16 +53,38 @@ type WikiCompPropsT = {
       wikiId: string,
       pageTitle: ?string
     }
-  }
+  },
+  history: Object
 };
 
-class WikiComp extends Component<WikiCompPropsT> {
-  wikiDoc: ?Object = null;
+type WikiCompStateT = {
+  dashboardOpen: boolean,
+  pageId: ?string,
+  pageTitle: ?string,
+  pageTitleString: ?string,
+  mode: string,
+  docMode: string,
+  editingTitle: boolean,
+  liType: string,
+  newTitle: string,
+  error: ?string,
+  openCreator: ?Object,
+  showTitleEditButton: boolean,
+  wikiContext: Object,
+  pageLiType: ?string
+};
 
-  wikiId: ?string = null;
+class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
+  wikiDoc: Object = {};
+
+  wikiId: string = this.props.match.params.wikiId;
+
+  config: Object = {};
 
   constructor(props) {
     super(props);
+    if (!this.wikiId) throw new Error('Empty wikiId field');
+
     this.state = {
       dashboardOpen: false,
       pageId: null,
@@ -81,6 +103,7 @@ class WikiComp extends Component<WikiCompPropsT> {
       error: null,
       openCreator: false,
       showTitleEditButton: false,
+      pageLiType: null,
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
@@ -88,9 +111,6 @@ class WikiComp extends Component<WikiCompPropsT> {
         createPage: this.createNewPageLI
       }
     };
-
-    this.wikiId = this.props.match.params.wikiId;
-    if (!this.wikiId) throw new Error('Empty wikiId field');
   }
 
   createActivityPage = () => {
@@ -167,7 +187,6 @@ class WikiComp extends Component<WikiCompPropsT> {
   }
 
   loadWikiDoc = () => {
-    if (!this.wikiDoc) throw new Error('wikiDoc should not be null!');
     if (!this.wikiDoc.data) {
       const emptyDocValues = {
         wikiId: this.wikiId,
@@ -243,8 +262,8 @@ class WikiComp extends Component<WikiCompPropsT> {
       }
 
       const pageId = pages[newPageTitle].id;
-      // eslint-disable-next-line react/no-did-update-set-state
 
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         pageId,
         mode: 'document',
@@ -318,9 +337,13 @@ class WikiComp extends Component<WikiCompPropsT> {
     });
   };
 
-  deleteLI = (pageId: string) => {
+  deleteLI = (pageId: ?string) => {
+    if (!pageId) throw new Error('Missing pageId for deletion');
+
     const parsedPages = parseDocResults(this.wikiDoc.data);
     const newPageTitle = getPageTitle(parsedPages, null, pageId);
+    if (!newPageTitle) throw new Error('Missing new page title');
+
     const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
     this.props.history.replace(link);
     invalidateWikiPage(this.wikiDoc, pageId, this.loadWikiDoc);
@@ -334,6 +357,7 @@ class WikiComp extends Component<WikiCompPropsT> {
 
   saveNewPageTitle = () => {
     const newPageTitle = this.state.pageTitleString;
+    if (!newPageTitle) throw new Error('Cannot save empty new page title');
 
     changeWikiPageTitle(
       this.wikiDoc,
@@ -473,7 +497,7 @@ class WikiComp extends Component<WikiCompPropsT> {
             this.setState({ pageTitleString: e.target.value });
           }}
         />
-        <Check onClick={() => this.saveNewPageTitle(this.state.pageId)} />
+        <Check onClick={() => this.saveNewPageTitle()} />
       </div>
     ) : (
       <div
@@ -509,99 +533,90 @@ class WikiComp extends Component<WikiCompPropsT> {
       backgroundColor: 'lightgrey'
     };
 
-    const topNavBarLeftItemStyle = {
-      display: 'inline-flex',
-      width: '30%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '30px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      padding: '20px 0'
-    };
+    const topNavBarItemWidth = validPages.length > 1 ? '20%' : '25%';
 
-    const topNavBarCenterItemStyle = {
+    const topNavBarItemStyle = {
       display: 'inline-flex',
-      width: '30%',
-      margin: '0 10%',
+      width: topNavBarItemWidth,
       alignItems: 'center',
       justifyContent: 'center',
       height: '30px',
       fontSize: '14px',
       cursor: 'pointer',
-      padding: '20px 0'
-    };
-
-    const topNavBarRightItemStyle = {
-      display: 'inline-flex',
-      width: '30%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '30px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      padding: '20px 0'
+      padding: '22px 0'
     };
 
     const iconButtonStyle = {
       marginRight: '5px'
     };
 
-    const pageItemColor =
-      this.state.mode === 'document' && this.state.docMode === 'view'
-        ? 'secondary'
-        : 'primary';
-    const historyItemColor =
-      this.state.mode === 'document' && this.state.docMode === 'history'
-        ? 'secondary'
-        : 'primary';
-    const dashboardItemColor =
-      this.state.mode === 'dashboard' ? 'secondary' : 'primary';
+    const itemColors = {
+      document: 'primary',
+      history: 'primary',
+      revisions: 'primary',
+      delete: 'primary',
+      dashboard: 'primary'
+    };
+    const activeItem = (() => {
+      const { mode, docMode } = this.state;
+      if (mode === 'document' && docMode === 'view') return 'document';
+      if (mode === 'document' && docMode === 'history') return 'history';
+      return mode;
+    })();
+    itemColors[activeItem] = 'secondary';
 
     const topNavBar = (
       <div style={topNavBarStyle}>
         <div
-          style={topNavBarLeftItemStyle}
+          style={topNavBarItemStyle}
           onClick={() => {
             this.setState({ mode: 'document', docMode: 'view' });
           }}
         >
-          <ChromeReaderMode style={iconButtonStyle} color={pageItemColor} />
-          <span stlye={{ color: pageItemColor }}>Page</span>
+          <ChromeReaderMode
+            style={iconButtonStyle}
+            color={itemColors['document']}
+          />
+          <span stlye={{ color: itemColors['document'] }}>Page</span>
         </div>
         <div
-          style={topNavBarCenterItemStyle}
+          style={topNavBarItemStyle}
           onClick={() => {
             this.setState({ mode: 'document', docMode: 'history' });
           }}
         >
-          <History style={iconButtonStyle} color={historyItemColor} />
-          <span style={{ color: historyItemColor }}>History</span>
+          <History style={iconButtonStyle} color={itemColors['history']} />
+          <span style={{ color: itemColors['history'] }}>History</span>
         </div>
         <div
-          style={topNavBarCenterItemStyle}
+          style={topNavBarItemStyle}
           onClick={() => {
-            this.setState({ mode: 'revisions' });
+            this.setState({ mode: 'revisions', docMode: 'view' });
           }}
         >
-          <History style={iconButtonStyle} color={historyItemColor} />
-          <span style={{ color: historyItemColor }}>Revisions</span>
+          <History style={iconButtonStyle} color={itemColors['revisions']} />
+          <span style={{ color: itemColors['revisions'] }}>Revisions</span>
         </div>
         <div
-          style={topNavBarRightItemStyle}
+          style={topNavBarItemStyle}
           onClick={() => {
-            this.setState({ mode: 'dashboard' });
+            this.setState({ mode: 'dashboard', docMode: 'view' });
           }}
         >
-          <div style={{ marginRight: '40px' }}>
-            {this.state.pageId && (
-              <Delete onClick={() => this.deleteLI(this.state.pageId)} />
-            )}
-            Delete page{' '}
+          <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
+          <span style={{ color: itemColors['dashboard'] }}>Dashboard</span>
+        </div>
+        {validPages.length > 1 ? (
+          <div
+            style={topNavBarItemStyle}
+            onClick={() => {
+              this.deleteLI(this.state.pageId);
+            }}
+          >
+            <Delete style={iconButtonStyle} color={itemColors['delete']} />
+            <span style={{ color: itemColors['delete'] }}>Delete Page</span>
           </div>
-          <Dashboard style={iconButtonStyle} color={dashboardItemColor} />
-          <span style={{ color: dashboardItemColor }}>Dashboard</span>
-        </div>
+        ) : null}
       </div>
     );
 
