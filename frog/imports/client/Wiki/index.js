@@ -467,7 +467,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const containerDivStyle = {
       display: 'flex',
-      height: '100vh',
+      minHeight: '100vh',
       width: '100%'
     };
 
@@ -480,7 +480,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const contentDivStyle = {
       flex: 'auto',
-      height: '100vh',
+      minHeight: '100vh',
       width: 'calc(100vw - 250px)'
     };
 
@@ -678,7 +678,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 />
               )}
               {this.state.mode === 'document' && (
-                <Paper style={{ height: 'calc(100% - 100px)' }}>
+                <Paper>
                   {titleDiv}
                   {docModeButton}
                   <LearningItem
