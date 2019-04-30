@@ -3,6 +3,7 @@ import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 
 import { uuid } from 'frog-utils';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
@@ -19,6 +20,7 @@ import setupH5PRoutes from './h5p';
 
 WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
 WebApp.connectHandlers.use(bodyParser.json());
+WebApp.connectHandlers.use(bodyParser.text());
 
 setupH5PRoutes();
 
@@ -549,6 +551,55 @@ iframe { height: 100%; width: 100%; }
 </html>`;
   response.end(template);
 });
+
+WebApp.connectHandlers.use(
+  '/api/wikiSubmit',
+  async (request, response, next) => {
+    const { wiki, page, id } = request.query;
+    const { body } = request;
+    console.log(wiki, page, id, body);
+    if (!wiki || !body || !page) {
+      response.end(
+        'Require wiki and body request parameters, and body payload with text content type'
+      );
+    }
+    const genericDoc = serverConnection.get('li');
+    const dataFn = generateReactiveFn(genericDoc);
+    const newId = dataFn.createLearningItem(
+      'li-richText',
+      body,
+      {
+        wikiId: wiki
+      },
+      undefined,
+      undefined,
+      id
+    );
+
+    console.log(newId);
+    const op = {
+      p: ['pages', newId],
+      oi: {
+        id: newId,
+        valid: true,
+        created: true,
+        title: page,
+        liType: 'li-richText'
+      }
+    };
+
+    const wikiDoc = serverConnection.get('wiki', wiki);
+    await new Promise(resolve => {
+      wikiDoc.subscribe(() => {
+        wikiDoc.submitOp(op);
+        resolve();
+      });
+    });
+
+    response.writeHead(200);
+    response.end();
+  }
+);
 
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
   if (request.method !== 'POST') {
