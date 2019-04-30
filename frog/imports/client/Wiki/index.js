@@ -75,9 +75,9 @@ type WikiCompStateT = {
 };
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
-  wikiDoc: Object = {};
-
   wikiId: string = this.props.match.params.wikiId;
+  
+  wikiDoc: Object = {};
 
   config: Object = {};
 

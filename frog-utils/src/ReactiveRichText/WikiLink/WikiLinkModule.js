@@ -226,6 +226,9 @@ class WikiLinkModule {
         data.id = newId;
         data.liId = newId;
       }
+
+      delete data['createPage'];
+      
       this.quill.insertEmbed(
         this.mentionCharPos,
         'wiki-link',
