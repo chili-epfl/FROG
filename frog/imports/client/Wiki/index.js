@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { orderBy } from 'lodash';
+import { Meteor } from 'meteor/meteor';
 
 import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
@@ -40,7 +41,9 @@ import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import Revisions from './Revisions';
 
 const genericDoc = connection.get('li');
-export const dataFn = generateReactiveFn(genericDoc, LI);
+export const dataFn = generateReactiveFn(genericDoc, LI, {
+  createdByUser: Meteor.userId()
+});
 const LearningItem = dataFn.LearningItem;
 
 const editableLIs = values(learningItemTypesObj).filter(
