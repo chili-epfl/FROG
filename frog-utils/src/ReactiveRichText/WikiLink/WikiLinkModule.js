@@ -228,7 +228,7 @@ class WikiLinkModule {
       }
 
       delete data['createPage'];
-      
+
       this.quill.insertEmbed(
         this.mentionCharPos,
         'wiki-link',

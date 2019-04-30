@@ -76,7 +76,7 @@ type WikiCompStateT = {
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   wikiId: string = this.props.match.params.wikiId;
-  
+
   wikiDoc: Object = {};
 
   config: Object = {};
@@ -328,13 +328,17 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     } else {
       this.createNewPageLI(this.state.newTitle, this.state.liType);
     }
-    const link = '/wiki/' + this.wikiId + '/' + this.state.newTitle;
-    this.props.history.push(link);
 
-    this.setState({
-      newTitle: '',
-      error: null
-    });
+    this.setState(
+      {
+        newTitle: '',
+        error: null
+      },
+      () => {
+        const link = '/wiki/' + this.wikiId + '/' + newTitle;
+        this.props.history.push(link);
+      }
+    );
   };
 
   deleteLI = (pageId: ?string) => {
