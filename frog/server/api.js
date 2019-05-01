@@ -18,9 +18,7 @@ import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
 
-WebApp.connectHandlers.use(
-  bodyParser.urlencoded({ extended: true })
-);
+WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
 WebApp.connectHandlers.use(bodyParser.json({ limit: 50000000000 }));
 WebApp.connectHandlers.use(bodyParser.text({ limit: '50mb' }));
 

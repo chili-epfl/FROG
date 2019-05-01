@@ -478,9 +478,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const sideNavBarStyle = {
       width: '250px',
-      height: '100vh',
       backgroundColor: 'lightgrey',
-      overflow: 'scroll',
+      overflowX: 'hidden',
+      overflowY: 'auto',
       padding: '10px',
       borderRight: '1px grey solid'
     };
@@ -680,7 +680,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 <LIDashboard
                   wikiId={this.wikiId}
                   onClick={id => {
-                    console.log(id, toJS(wikistore.pages[id]));
                     const page = toJS(wikistore.pages[id].title);
                     this.props.history.push(`/wiki/${this.wikiId}/${page}`);
                     this.setState({ mode: 'document', docMode: 'view' });
@@ -691,7 +690,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 <Paper
                   elevation={24}
                   style={{
-                    height: '100%',
                     backgroundColor:
                       this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
                   }}

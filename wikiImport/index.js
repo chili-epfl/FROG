@@ -1,9 +1,9 @@
 require('util').inspect.defaultOptions.depth = null;
+const fs = require('fs');
 const fetch = require('node-fetch');
 const cuid = require('cuid');
-const fs = require('fs');
 
-const wiki = 'researchr'
+const wiki = 'researchr';
 
 const sleep = waitTimeInMs =>
   new Promise(resolve => setTimeout(resolve, waitTimeInMs));
@@ -23,7 +23,7 @@ const getLink = (rawtitle, create) => {
   }
 };
 
-const postWiki = ( page, content) => {
+const postWiki = (page, content) => {
   fetch(
     `https://icchilisrv3.epfl.ch/api/wikiSubmit?wiki=${wiki}&id=${getLink(
       page
@@ -141,11 +141,8 @@ const titlecase = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 const processFile = name => {
   const contents = fs.readFileSync('./pages/' + name, 'utf-8');
   const title = name.slice(0, -4);
-  console.log(name); //,convertLink(contents));
-  postWiki(
-    titlecase(title.replace(/_/g, ' ')),
-    convertLink(contents)
-  );
+  console.log(name); // ,convertLink(contents));
+  postWiki(titlecase(title.replace(/_/g, ' ')), convertLink(contents));
 };
 
 // pre-process to store IDs
