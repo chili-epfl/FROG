@@ -111,6 +111,8 @@ export const DashboardComp = withTracker(props => {
 })(RawDashboardComp);
 
 export const DashboardReactiveWrapper = withTracker(props => {
+console.log('withtracker')
+console.log(MultiWrapper)
   const { activity, names, sessionId } = props;
   const subscription = Meteor.subscribe(
     'dashboard.data',
@@ -118,14 +120,30 @@ export const DashboardReactiveWrapper = withTracker(props => {
     activity._id,
     names
   );
+    console.log('1')
   const session = Sessions.findOne(sessionId);
+    console.log('2')
   const object = Objects.findOne(activity._id);
+    console.log('3')
   if (!subscription.ready() || !object) {
+    console.log('notready')
     return { ready: false };
   }
+    console.log('4')
   const instances = object && doGetInstances(activity, object).groups;
+    console.log('5')
   const dashboardData = DashboardData.find({}).fetch();
+    console.log('6')
   const users = object.globalStructure.students;
+  console.log( {
+    ready: subscription.ready() && session && activity && object,
+    instances,
+    object,
+    activity,
+    dashboardData,
+    session,
+    users
+  });
   return {
     ready: subscription.ready() && session && activity && object,
     instances,

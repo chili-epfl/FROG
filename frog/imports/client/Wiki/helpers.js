@@ -7,7 +7,7 @@ const parseDocResults = function(results: Object) {
   // eslint-disable-next-line guard-for-in
   for (const pageId in pagesData) {
     const pageObj = pagesData[pageId];
-    pages[pageObj.title] = pageObj;
+    pages[pageObj.title.toLowerCase()] = pageObj;
   }
 
   return pages;
@@ -41,13 +41,13 @@ const getPageTitle = (
   statePageTitle: ?string,
   deletedPageId: ?string
 ) => {
-  if (statePageTitle && pages[statePageTitle] && pages[statePageTitle].valid)
+  if (statePageTitle && pages[statePageTitle.toLowerCase()] && pages[statePageTitle.toLowerCase()].valid)
     return statePageTitle;
 
   if (Object.keys(pages).length > 0) {
     // eslint-disable-next-line guard-for-in
     for (const pageTitle in pages) {
-      const pageObj = pages[pageTitle];
+      const pageObj = pages[pageTitle.toLowerCase()];
       if (pageObj.valid && pageObj.id !== deletedPageId) return pageObj.title;
     }
   }

@@ -134,11 +134,12 @@ class Dashboard extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const query = this.props.wikiId
-      ? { wikiId: this.props.wikiId, deleted: { $ne: true } }
-      : this.props.sessionId
-      ? { sessionId: this.props.sessionId, draft: { $ne: true } }
-      : { _id: this.props.id };
+    const query = { wikiId: 'researchx', deleted: { $ne: true } };
+    // const query = this.props.wikiId
+    //   ? { wikiId: this.props.wikiId, deleted: { $ne: true } }
+    //   : this.props.sessionId
+    //   ? { sessionId: this.props.sessionId, draft: { $ne: true } }
+    //   : { _id: this.props.id };
     this.subscription = connection.createSubscribeQuery(
       'li',
       query,
@@ -232,7 +233,7 @@ class Dashboard extends React.Component<any, any> {
                     expand={this.state.expand}
                     onClick={() =>
                       this.props.onClick
-                        ? this.props.onClick(dfn.doc.data.title)
+                        ? this.props.onClick(dfn.doc.id)
                         : this.setState({ zoom: x.id })
                     }
                   >
