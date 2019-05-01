@@ -10,6 +10,7 @@ import {
   FormHelperText
 } from '@material-ui/core';
 import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 import { orderBy } from 'lodash';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -88,12 +89,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.state = {
       dashboardOpen: false,
       pageId: null,
-      pageTitle: this.props.match.params.pageTitle
-        ? this.props.match.params.pageTitle.toLowerCase()
-        : null,
-      pageTitleString: this.props.match.params.pageTitle
-        ? this.props.match.params.pageTitle.toLowerCase()
-        : null,
+      pageTitle: this.props.match.params.pageTitle || null,
+      pageTitleString: this.props.match.params.pageTitle || null,
       mode: 'document',
       docMode: 'view',
       editingTitle: false,
@@ -141,12 +138,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   WikiLink = observer(({ data }) => {
     const pageObj = wikistore.pages[data.id];
-    const pageTitle = pageObj.title;
     const style = {
       textDecoration: 'underline',
       cursor: 'pointer',
       color: 'black'
     };
+    if (!pageObj) {
+      return <span style={style}>INVALID LINK</span>;
+    }
+    const pageTitle = pageObj.title;
     const link = '/wiki/' + this.wikiId + '/' + pageTitle;
     const linkFn = e => {
       e.preventDefault();
@@ -163,7 +163,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     return (
       <span onClick={linkFn} style={style}>
-        {pageTitle}
+        <b>{pageTitle}</b>
       </span>
     );
   });
@@ -200,15 +200,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     wikistore.setPages(this.wikiDoc.data.pages);
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
     if (pageTitle != null) {
-      const pageId = parsedPages[pageTitle].id;
+      const pageId = parsedPages[pageTitle.toLowerCase()].id;
 
       this.setState({
         pageId,
         pageTitle,
         pageTitleString: pageTitle,
-        pageLiType: parsedPages[pageTitle].liType,
+        pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
         docMode:
-          parsedPages[pageTitle].liType === 'li-activity'
+          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity'
             ? 'edit'
             : this.state.docMode
       });
@@ -242,16 +242,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       const newPageTitle = this.props.match.params.pageTitle;
       if (!newPageTitle) return;
 
-      if (!pages[newPageTitle]) {
+      if (!pages[newPageTitle.toLowerCase()]) {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState(
           {
             pageId: null,
             pageTitle: newPageTitle,
             pageTitleString: newPageTitle,
-            pageLiType: pages[newPageTitle].liType,
+            pageLiType: pages[newPageTitle.toLowerCase()].liType,
             docMode:
-              pages[newPageTitle].liType === 'li-activity' ? 'edit' : 'view'
+              pages[newPageTitle.toLowerCase()].liType === 'li-activity'
+                ? 'edit'
+                : 'view'
           },
           () => {
             this.createNewPageLI(newPageTitle);
@@ -261,7 +263,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         return;
       }
 
-      const pageId = pages[newPageTitle].id;
+      const pageId = pages[newPageTitle.toLowerCase()].id;
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
@@ -270,15 +272,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         liType: 'li-richText',
         pageTitle: newPageTitle,
         pageTitleString: newPageTitle,
-        docMode: pages[newPageTitle].liType === 'li-activity' ? 'edit' : 'view',
-        pageLiType: pages[newPageTitle].liType
+        docMode:
+          pages[newPageTitle.toLowerCase()].liType === 'li-activity'
+            ? 'edit'
+            : 'view',
+        pageLiType: pages[newPageTitle.toLowerCase()].liType
       });
     }
   }
 
   createNewPageLI = (pageTitleRaw: string, liType: ?string) => {
     if (!pageTitleRaw) throw new Error('Empty pageTitleRaw');
-    const pageTitle = pageTitleRaw.toLowerCase();
+    const pageTitle = pageTitleRaw;
     const meta = {
       wikiId: this.wikiId
     };
@@ -473,7 +478,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const sideNavBarStyle = {
       width: '250px',
+      height: '100vh',
       backgroundColor: 'lightgrey',
+      overflow: 'scroll',
       padding: '10px',
       borderRight: '1px grey solid'
     };
@@ -662,6 +669,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 <ApiForm
                   noOffset
                   showDelete
+                  activityType="ac-quiz"
                   onConfigChange={e => (this.config = e)}
                 />
               )}
@@ -671,14 +679,23 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               {this.state.mode === 'dashboard' && (
                 <LIDashboard
                   wikiId={this.wikiId}
-                  onClick={page => {
+                  onClick={id => {
+                    console.log(id, toJS(wikistore.pages[id]));
+                    const page = toJS(wikistore.pages[id].title);
                     this.props.history.push(`/wiki/${this.wikiId}/${page}`);
                     this.setState({ mode: 'document', docMode: 'view' });
                   }}
                 />
               )}
               {this.state.mode === 'document' && (
-                <Paper>
+                <Paper
+                  elevation={24}
+                  style={{
+                    height: '100%',
+                    backgroundColor:
+                      this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
+                  }}
+                >
                   {titleDiv}
                   {docModeButton}
                   <LearningItem
