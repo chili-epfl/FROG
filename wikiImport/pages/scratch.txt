@@ -1,0 +1,40 @@
+h1. Scratch
+
+Links
+  * [[AERA schedule]]
+
+Other ideas
+  * Design a conference information system that assumes everyone has their own laptop. 
+    * Easily select which session you are in (easily see which are starting right now, where your friends are etc)
+    * See abstract, citation, slides, links to full papers, etc
+    * Take collaborative notes with your friends or with everyone
+    * etc
+  * Thinking about note taking in general, collaborative note taking
+    * the value of typing notes yourself for learning, vs the value of having more complete notes
+      * completeness - completely representing the information from the speaker vs additional info, thoughts, analysis
+      * value of having access to information from the speaker
+        * slides
+        * full paper
+      * for learning - providing PPTs to students
+  * Check out Sente
+    * download
+    * can I publish bibliography online
+      * export to Mendeley/Zotero
+      * automatic? sync?
+    * can I easily import metadata from PDFs, online sites etc? Zotero?
+    * can I create a template to export article template to DokuWiki? 
+
+Other todo
+  * Check out paper by student who won SRL prize
+
+Academic productivity
+  * go back to books on productivity (GTD, Twyla Tharp, Now habit, stuff on managing energy) and write up notes
+  * blog about it, linking to notes
+    * 1h30 schedule, written up the day before - clean room, no e-mail reliance, etc.
+    * GTD, writing up all the clear steps to be done (similar in Now habit)
+    * ways of getting going from Twyla Tharp
+    * buddhism, meditation
+    * nature, walks, exercise
+    * separating research and writing
+    * note taking [[Affordances of different individual systems]]
+    * "parking lot" for ideas

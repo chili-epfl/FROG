@@ -1,0 +1,4 @@
+h2. B.M. McLaren's publications
+
+| scheuer2010automated | Scheuer, O., McLaren, B. M., Loll, F., & Pinkwart, N.Automated Analysis and Feedback Techniques to Support and Teach Argumentation: A Survey. Educational Technologies for Teaching Argumentation Skills, Bentham Science Publishers. Disponible sur Internet:< http://www. activemath. org/pubs/Scheueretal-AnalysisFeedbackArgumentationSurvey-2010. pdf.|
+| degroot2007computer | De Groot, R., Drachman, R., Hever, R., Schwarz, B. B., Hoppe, U., Harrer, A., De Laat, M., Wegerif, R., McLaren, B. M., & Baurens, B. (2007). Computer supported moderation of e-discussions: the ARGUNAUT approach. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|

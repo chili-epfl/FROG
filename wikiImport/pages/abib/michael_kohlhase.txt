@@ -1,0 +1,3 @@
+h2. Michael Kohlhase's publications
+
+| [@kohlhase2001omdoc:] | Kohlhase, M. (2001). {OMDoc:} Towards an Internet Standard for the Administration, Distribution, and Teaching of Mathematical Knowledge. Lecture Notes in Computer Science (Vol. 1930). Springer.|

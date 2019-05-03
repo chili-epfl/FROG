@@ -1,0 +1,3 @@
+h2. D. Traum's publications
+
+| [[..:ref:dillenbourg2006sharing]] | Dillenbourg, P., & Traum, D. (2006). Sharing solutions: Persistence and grounding in multimodal collaborative problem solving. Journal of the Learning sciences. Routledge.|[[skimx://dillenbourg2006sharing|PDF]]|

@@ -1,0 +1,86 @@
+h2. Highlights (36%)
+
+CCK08 [[skimx://mackness2010ideals#1|p. 1]]
+
+This paper explores the perspectives of some of the participants on their learning experiences in the course, in relation to the characteristics of connectivism outlined by Downes, i.e. autonomy, diversity, openness and connectedness/interactivity. The findings are based on an online survey which was emailed to all active participants and email interview data from self-selected interviewees. [[skimx://mackness2010ideals#1|p. 1]]
+
+The research found that autonomy, diversity, openness and connectedness/interactivity are indeed characteristics of a MOOC, but that they present paradoxes which are difficult to resolve in an online course. The more autonomous, diverse and open the course, and the more connected the learners, the more the potential for their learning to be limited by the lack of structure, support and moderation normally associated with an online course, and the more they seek to engage in traditional groups as opposed to an open network. These responses constrain the possibility of having the positive experiences of autonomy, diversity, openness and connectedness/interactivity normally expected of an online network. The research suggests that the question of whether a large open online network can be fused with a course has yet to be resolved. [[skimx://mackness2010ideals#1|p. 1]]
+
+Downes (2007a, 2008, 2009b) has suggested that the key characteristics of an online course using connectivist principles are autonomy, diversity, openness, and connectedness and interactivity. ‘Autonomy’ allows learners maximum choice of where, when, how, with whom and even what to learn. ‘Diversity’ ensures that learners are from a sufficiently diverse population to avoid group-think and ‘echo-chambers’ (McRae, 2006). They engage in diverse readings, discussions and environments. ‘Openness’ accommodates all levels of engagement, with no barriers between ‘in’ and ‘out’. It helps to ensure the free flow of information through the network, and encourages a culture of sharing and a focus on knowledge creation. ‘Connectedness’ and interactivity is what makes all this possible. Knowledge emerges as a result of connections. [[skimx://mackness2010ideals#2|p. 2]]
+
+CCK08 was designed to enable participants not only to engage with the theory of connectivism, but also to experience the principles of connectivism in practice (autonomy, diversity, openness and connectedness/interactivity). [[skimx://mackness2010ideals#2|p. 2]]
+
+A variety of course sites were established by the course leaders, including Moodle forums, Ustream, Elluminate and a wiki, but participants also set up their own learning spaces, such as blogs, wikis, Ning, Facebook, Google and Diigo groups, and Second Life. [[skimx://mackness2010ideals#3|p. 3]]
+
+The course attracted a diverse group of participants from around the world and whilst English was the dominant language, some participants established non-English speaking groups, such as Spanish, and the course syllabus was translated into five different languages. [[skimx://mackness2010ideals#3|p. 3]]
+
+It was expected that, knowledge would be emergent in the network and become a resource for the network as a whole as well as for the credit-bearing course. [[skimx://mackness2010ideals#3|p. 3]]
+
+Data was collected in two stages using a mixed methods approach. CCK08 participants were first surveyed about their preferences for communicating in blogs and forums. Analysis of the survey responses then informed email interview questions which further explored participants’ learning experiences. [[skimx://mackness2010ideals#3|p. 3]]
+
+The forums and blogs were searched for email addresses and organised into four groups according to level of activity on the course. [[skimx://mackness2010ideals#3|p. 3]]
+
+Autonomy [[skimx://mackness2010ideals#4|p. 4]]
+
+Autonomy was equated to flexibility and control over learning and exemplified by the participants’ choices of how, and how much, to engage with the course. [[skimx://mackness2010ideals#4|p. 4]]
+
+Thanks to the learner autonomy I thought would be provided in the course, I started following the course. If it would have been a more rigid structure, I would not have done so (due to time/work schedule reasons). [[skimx://mackness2010ideals#4|p. 4]]
+
+However learners new to the environment and concepts lacked confidence and preferred structure, guidance and even intervention to autonomy. [[skimx://mackness2010ideals#4|p. 4]]
+
+I felt like some guidance would have helped. Freedom is great, but this course was all over the place. [[skimx://mackness2010ideals#4|p. 4]]
+
+It was also found that autonomy was equated with lack of assessment and that learner autonomy can be difficult for the course instructors. [[skimx://mackness2010ideals#4|p. 4]]
+
+Diversity [[skimx://mackness2010ideals#4|p. 4]]
+
+This was ensured by the large numbers enrolled on CCK08 from all over the world. Different nationalities, cultures, ages and backgrounds were very much in evidence on the course. Diversity was also reflected in the learning preferences, individual needs and choices expressed by interview respondents. [[skimx://mackness2010ideals#4|p. 4]]
+
+Openness [[skimx://mackness2010ideals#4|p. 4]]
+
+implicit assumption in the course was that participants would be willing or ready to give and receive information, knowledge, opinions and ideas; in other words to share freely. ‘Openness’ within the Open Source (OS) community is usually interpreted similarly: i.e. ‘free’, as in beer; ‘free’ as in liberty, or speech; and there is an additional sense of ‘free’ as in transparent, and therefore shared. [[skimx://mackness2010ideals#5|p. 5]]
+
+In CCK08 active participation and interaction was only sustained by a small percentage (14%) of the total number of participants. The remaining 86% had probably either dropped out of the course or were ‘lurking’. There are at least two possible explanations: i) they were getting a free ride (free as in ‘beer’), or ii) they were demonstrating ‘novice’ behaviour; many novices ‘lurk’ until they feel confident enough to expose their views in ‘public’ forums. [[skimx://mackness2010ideals#5|p. 5]]
+
+Connectedness and interactivity [[skimx://mackness2010ideals#5|p. 5]]
+
+I don't consider either 'making connections' or 'theoretical conceptual framework' to be the essence of connectivism. As I have stated many times, knowledge is pattern recognition; learning is becoming able to recognize patterns. (CI) [[skimx://mackness2010ideals#5|p. 5]]
+
+In other words, connectivity is not an end, but a means: this shifts the gist of learning theory away from connectivity per se to pattern recognition. [[skimx://mackness2010ideals#5|p. 5]]
+
+The expertise divide is critical in all online learning and can effectively undermine openness, connectedness and interactivity, e.g. ‘The reason I stopped is because I cannot understand the issues being discussed anymore’ The more open the course, the more this becomes a dilemma for the course designers. [[skimx://mackness2010ideals#6|p. 6]]
+
+Discussion [[skimx://mackness2010ideals#6|p. 6]]
+
+The question that has arisen as a result of this research is: To what extent were autonomy, diversity, openness and connectedness/interactivity a reality for participants in the CCK08 MOOC and how much they were affected by the course design? The research suggests that whilst these characteristics were affirmed in the network, they were all problematic to some extent and subject to limitations. [[skimx://mackness2010ideals#6|p. 6]]
+
+However, as the findings have shown, not all CCK08 participants wanted the level of autonomy offered. [[skimx://mackness2010ideals#6|p. 6]]
+
+In addition, the degree to which they could experience autonomy was affected by levels of fluency in English, the ‘expertise divide’, assessment for credit participants, personal learning styles, personal sense of identity and the power exerted, either implicitly or explicitly, by instructors through their communications, status and reputation, or by participants themselves, particularly those who engaged in ‘trolling’ behaviour (as described by Don [[skimx://mackness2010ideals#6|p. 6]]
+
+Downes (2007b) disfavours groups which, he thinks, encourage members to conform. In effect he argues in favour of open networks of autonomous learners in which members receive timely information and can make their voices heard [[skimx://mackness2010ideals#6|p. 6]]
+
+In addition, the freedom to self-organise and choose where and with whom to interact led to participants establishing small groups and communities where they could interact with like minded people, safe in their comfort zones and ‘echo chambers’ (Gilbert, et al., 2009). One participant wrote, ‘I ended up keeping up with 4-10 persons’. It would seem therefore that autonomy is, paradoxically, jeopardised in the absence of constraints (Cilliers, 2005, and Snowden & Boone, 2007). [[skimx://mackness2010ideals#6|p. 6]]
+
+Diversity was also problematic in that the autonomous independence expected of learners in CCK08 meant that there was little support for the hugely diverse group of participants, some of whom did not necessarily have all the skills or disposition needed to learn successfully, or to become autonomous learners in a MOOC. Darken and Sibert (1996) have written of the need to support wayfinding in large online networks. Salmon (2004) writes of the need to support initial online socialisation as a foundation for collaborative knowledge creation and of the need for effective moderation of online courses, but CCK08 was designed on the principles of an open network, with minimum instructor intervention. The complex diversity and minimal moderation were difficult to reconcile. [[skimx://mackness2010ideals#6|p. 6]]
+
+In addition, open courses thrive on interconnectedness, transparency and sharing, but sharing for many people requires trust, and the more connectedness there is, the more time-consuming and hazardous it may be to build trust. This suggests that in a MOOC diversity needs to be managed, which paradoxically, adds another layer of constraint on autonomy. [[skimx://mackness2010ideals#7|p. 7]]
+
+In addition the word ‘course’, bringing with it traditional expectations of structure, support and moderation from instructors, confused some participants. CCK08 was in fact an open network, requiring autonomous learning, with minimum facilitation, rather than an open course. ‘Openness’, in the sense of open communication and free sharing, can therefore be compromised by lack of clarity about the purpose and nature of the course, lack of moderation in the discussion forums, which would be expected on a traditional course, and the constraints (already discussed in relation to autonomy and diversity) under which participants worked. The more open the course, the more potential for barriers to emerge. [[skimx://mackness2010ideals#7|p. 7]]
+
+In CCK08, technology was a requirement for connectivity but was not sufficient for connectedness (in the added sense of ‘engagement’). Connectedness in a network is complex and subject to many enablers and disablers for personal and conceptual engagement. It may be true that all learning begins with a connection, but connectivity itself is not a sufficient condition for connectedness or interactivity. [[skimx://mackness2010ideals#7|p. 7]]
+
+The key features of a complex, open course, rich in emergence, are that it is not defined by what must happen, but rather by what must not happen – the boundaries of openness (Cilliers, 2005; Snowden & Boone, 2007). [[skimx://mackness2010ideals#7|p. 7]]
+
+This inverts the traditional curriculum design process. This is unresolved in connectivism as it is currently conceived. [[skimx://mackness2010ideals#7|p. 7]]
+
+The larger question of whether a MOOC can successfully fuse a course and a network is even more difficult to resolve. [[skimx://mackness2010ideals#8|p. 8]]
+
+Buss, S. (2008). Personal Autonomy. http://plato.stanford.edu/entries/personal-autonomy/ [viewed 07-08-2009] Cilliers, P. (2005). Complexity, Deconstruction and Relativism. Theory, Culture & Society, 22 (5), 255-267 Cooksey, R. (2005). I Walk the Open Road: Toward an Open Source Philosophy. Unpublished Masters Thesis. http://opensource.mit.edu/papers/cooksey.pdf [viewed 07-08-2009] [[skimx://mackness2010ideals#8|p. 8]]
+
+Darken, R.P. & Sibert, J.L. (1996). Navigating Large Virtual Spaces. Int. J. of Human-Computer Interaction, 8 (1), 49-72 Donath, J. S. (1999). Identity and deception in the virtual community. In: Kollock, P. & Smith, M. A. (Eds.) Communities in Cyberspace. (pp. 29-59). London: Routledge. http://smg.media.mit.edu/papers/Donath/IdentityDeception/IdentityDeception.pdf [viewed 07-08-2009] Downes, S. (2005). An Introduction to Connective Knowledge. http://www.downes.ca/cgibin/page.cgi?post=33034 [viewed 31-01-2010] Downes, S. (2006). Autonomy. http://halfanhour.blogspot.com/search?q=autonomy [viewed 07-08-2009] Downes, S. (2007a). What connectivism is. http://halfanhour.blogspot.com/2007/02/what-connectivism-is.html [viewed 07-08-2009] Downes, S. (2007b). Groups vs Networks: The class struggle continues. http://www.downes.ca/post/42521 [viewed 31-10-2009] Downes, S. (2008). Connectivism: A Theory of Personal Learning http://www.slideshare.net/Downes/connectivism-a-theory-of-personal-learning [viewed 31-01-2010] Downes, S. (2009a). Access 20ER: The CCK08 Solution. http://halfanhour.blogspot.com/2009/02/access2oercck08-solution.html [viewed 31-10-2009] Downes, S. (2009b). Connectivism Dynamics in Communities. http://halfanhour.blogspot.com/2009/02/connectivist-dynamics-in-communities.html [viewed 07-08-2009] [[skimx://mackness2010ideals#8|p. 8]]
+
+Gilbert, E., Bergstrom, T. & Karahalios, K. (2009). Blogs Are Echo Chambers: Blogs Are Echo Chambers. http://social.cs.uiuc.edu/papers/pdfs/hicss09-echo-gilbert.pdf [viewed 07-08-2009] Guldberg, K. & Mackness, J. (2009). Foundations of Communities of Practice: enablers and barriers to participation. J. Computer Assisted Learning. (in press) Hirst, T. (2009). Non-Linear Uncourses – Time for Linked Ed? http://ouseful.wordpress.com/2009/01/30/non-linear-uncourses-time-for-linked-ed/ [viewed 07-08-2009] Mak, S.F.J., Williams, R. and Mackness, J. (2009) Blogs and Forums as Communication and Learning Tools in a MOOC. Networked Learning Conference, 2010. McRae, P. (2006). Echoing Voices - Emerging Challenges for Educational Practice on the Internet. In: Reeves, T. & Yamashita, S. (Eds.), Proceedings of World Conference on E-Learning in Corporate, Government, Healthcare, and Higher Education 2006 (pp. 2622-2629). Chesapeake, VA: AACE. Salmon, G. (2004). E-Moderating. The key to teaching and learning online. RoutledgeFalmer Siemens, G. (2004). Connectivism: A learning theory for the digital age. elearnspace. http://www.elearnspace.org/Articles/connectivism.htm [viewed 07-08-2009] Siemens, G. (2006). Knowing knowledge. KnowingKnowledge.com Electronic book. www.knowingknowledge.com. [viewed 31-01-2010] [[skimx://mackness2010ideals#8|p. 8]]
+
+Siemens, G. (2008). What is the unique idea in Connectivism. http://www.connectivism.ca/?p=116 [viewed 31- 10-2009] Siemens, G. (2009a). What is Connectivism? Week 1: CCK09. http://docs.google.com/Doc?id=anw8wkk6fjc_14gpbqc2dt [viewed 12-02-2010] Siemens, G. (2009b). Continuing attempt to destabilise courses. http://ltc.umanitoba.ca/connectivism/?p=194 [viewed 07-08-2009] Siemens, G. (2009c). Different Social Networks, 30.07.09. http://www.elearnspace.org/blog/2009/07/30/different-social-networks/#respond [viewed 07-08-2009] Snowden, D. J. & Boone, M. E. (2007). A Leader's Framework for Decision Making. Harvard Business Review, 85(11), 68-76 University of Manitoba (2008). Connectivism and Connective Knowledge. http://ltc.umanitoba.ca/connectivism/ [viewed 07-08-2009] [[skimx://mackness2010ideals#9|p. 9]]
+

@@ -1,0 +1,3 @@
+h2. David Wiley's publications
+
+| [@duval2010guest] | Duval, E., & Wiley, D. (2010). Guest Editorial: Open Educational Resources. {IEEE} Transactions on Learning Technologies, 3(2), 83--84. doi:10.1109/TLT.2010.11|

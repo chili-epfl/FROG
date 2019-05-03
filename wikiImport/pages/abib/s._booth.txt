@@ -1,0 +1,3 @@
+h2. S. Booth's publications
+
+| booth2003opening | Booth, S., & Hulten, M. (2003). Opening dimensions of variation: An empirical study of learning in a web-based discussion. Instructional Science. Springer.|[[skimx://booth2003opening|PDF]]|

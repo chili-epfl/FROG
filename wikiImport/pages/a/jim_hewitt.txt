@@ -1,0 +1,7 @@
+h1. Jim Hewitt
+
+Professor at OISE, creator of [[Knowledge eCommons]]
+
+  * [[http://innovations.oise.utoronto.ca/~jhewitt/homepage/Welcome.html|Homepage]]
+
+{{page>abib:Jim Hewitt}}

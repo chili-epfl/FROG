@@ -1,0 +1,80 @@
+h1. Productive Failure
+//Keynote by [[:a:Manu Kapur]]//
+
+h2. The case for failure
+  * Cognitive strain and disfluency (fonts harder to read, higher cognitive load, paying more attention, less likely to be tricked up by problems etc)
+  * Theory of constructive failure (Clifford, 1978, 1984)
+  * Desirable difficulties (Schmidt & Bjork, 1992)
+  * Impasse-driven learning (VanLehn et al, 2003) (explanation shouldn't come before a learner is stuck)
+  * Assistance dilemma (Koedinger et al, 2008) (cognitive tutors)
+  * Preparation for future learning; Inventing to prepare for learning (Schwartz & Bransford, 1999; Schwartz & Martin, 2004) (classroom-based research)
+
+h2. What is productive failure
+
+Understand what students know about a novel concept that they have not been taught.
+
+Opportunities to activate and differentiate prior and intuitive knowledge
+  * generate
+  * explore
+  * critique
+  * refine
+representations and solution methods (RSMs) for solving complex problems.
+
+This leads to failure, but may be locus of deep learning, provided soe form of structure follow subsequently. 
+
+h2. Designing for produtive failure
+//Kapur & Bielaczyc, 2012//
+  * generation & exploration
+    * complex problems
+    * collaboration
+    * affective support for persistence
+  * consolidation & knowledge assembly
+    * consolidation
+      * well-structured problem solving
+      * instruction
+      * feedback
+      * explanation
+      * etc
+
+**Delay of structure** (not **if** you should provide structure, but **when**)
+
+h2. Core mechanisms
+  * activation and differentiation of prior knowledge
+  * attention to critical conceptual features
+  * ownership - want to see the canonical solution
+  * becoming flexible and adaptive
+  * "feel like mathematicians"
+
+h2. Key findings
+  * Marginal gains of providing cognitive support for productive failure groups during generation phase was not significant
+  * Teachers consistently underestimate students' ability to generate RSMs
+  * Students strikingly dissimilar on general and math abilities strikingly similar in terms of generative capacity
+  * How much they produce significantly correlated with learning gains
+  * Teachers - stressed and stretched to work with students' ideas - but they themselves understood the math better
+
+h2. Vicarious failure?
+  * We can learn from our own failures, can we learn from other people's failure? Vicarious failure
+  * Empirically, you get effect from direct teaching, but even more from having students generate their own failures
+
+h2. Cognitive load theory
+  * controlled experiments almost uniformly indicate that when dealing with **novel** information, learners should be explicitly shown what to do and how to do it (Kirschner et al 2006)
+  * **Cognitive Load**: un-guided or minimally-guided instruction increases working memory load that interferes with schema formation
+  * Compared some version of worked example or strong instructional guidance condition with a pure problem-solving or discovery conditions. Conclusion: little efficacy in letting learners solve novel problems
+
+Better to compare this with letting students **first** solve novel problems on their own, **then** some form of structure.
+
+h3. Solution found in cognitive-load theory itself
+"Any instructional theory that ignores the limits of working memory when dealing with novel information or **ignores the disappearance of those limits when dealing with familiar information** is unlikely to be effective" (Krischner et al, 2006, p 77).
+
+The key is **what is novel information**.
+
+h3. Novelty defined
+  * canonical: students don't have the canonical formulation in long-term memory (LTM), therefore concept is novel
+  * non-canconical: students may not have the canonical formulation, but may have some prior or intuitive ways of thinking about the concept in LTM
+
+If so, could we not design tasks and activity structures to activate this knowledge in the LTM?
+
+By activating and working with these priors in the long-term memory, leverage the "expandable" aspects of working memory capacity?
+
+h2. Conclusion
+Productive success and productive failure are all good - but we don't want unproductive success. And certainly not unproductive failure!

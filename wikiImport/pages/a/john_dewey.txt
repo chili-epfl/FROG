@@ -1,0 +1,9 @@
+h1. John Dewey
+
+h2. Research
+
+h2. Links
+  * [[http://www.siuc.edu/~deweyctr/|Dewey Centre at Southern Illinois University Carbondale]]
+  * [[wikipedia>John Dewey|Wikipedia article]]
+
+{{page>abib:John Dewey}}

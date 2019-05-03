@@ -1,0 +1,34 @@
+h1. How digital concept maps about the collaborators’ knowledge and information influence computer-supported collaborative problem solving
+
+<ifauth !@admin>|Engelmann, T., & Hesse, F. W. (2010). How digital concept maps about the collaborators’ knowledge and information influence computer-supported collaborative problem solving. International Journal of Computer-Supported Collaborative Learning, 1--21. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://engelmann2010digital|BibDesk]]  | Engelmann, T., & Hesse, F. W. (2010). How digital concept maps about the collaborators’ knowledge and information influence computer-supported collaborative problem solving. International Journal of Computer-Supported Collaborative Learning, 1--21. Springer. |
+^ [[skimx://engelmann2010digital|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:engelmann2010digital?do=edit&vecdo=print\'><frame src=\'/wiki/clip:engelmann2010digital?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{engelmann2010digital,
+  author = {Engelmann, T. and Hesse, Friedrich W.},
+  date-added = {2011-06-04 07:41:07 +0800},
+  date-modified = {2011-06-16 17:39:55 +0800},
+  journal = {International Journal of Computer-Supported Collaborative Learning},
+  pages = {1--21},
+  publisher = {Springer},
+  read = {1},
+  title = {How digital concept maps about the collaborators’ knowledge and information influence computer-supported collaborative problem solving},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhlbmdlbG1hbm4yMDEwZGlnaXRhbC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaNGky9b/nlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zfeAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBlbmdlbG1hbm4yMDEwZGlnaXRhbC5wZGYAAA4AMgAYAGUAbgBnAGUAbABtAGEAbgBuADIAMAAxADAAZABpAGcAaQB0AGEAbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9lbmdlbG1hbm4yMDEwZGlnaXRhbC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svZW5nZWxtYW5uMjAxMGRpZ2l0YWwucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:engelmann2010digital}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:engelmann2010digital}}
+
+{{page>kindle:engelmann2010digital}}
+
+{{page>skimg:engelmann2010digital}}

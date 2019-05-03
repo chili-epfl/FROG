@@ -1,0 +1,3 @@
+h2. F. Loll's publications
+
+| scheuer2010automated | Scheuer, O., McLaren, B., Loll, F., & Pinkwart, N. (2010). Automated Analysis and Feedback Techniques to Support and Teach Argumentation: A Survey. Educational Technologies for Teaching Argumentation Skills, Bentham Science Publishers. Disponible sur Internet:< http://www. activemath. org/pubs/Scheueretal-AnalysisFeedbackArgumentationSurvey-2010. pdf.|[[skimx://scheuer2010automated|PDF]]|

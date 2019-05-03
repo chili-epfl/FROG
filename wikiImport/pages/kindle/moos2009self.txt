@@ -1,0 +1,12 @@
+h1. Kindle highlights
+
+The field of SRL research consists of many camps and perspectives that sometimes focus on different constructs (Azevedo 2009; Boekaerts et al. 2000;Schunk& Zimmerman 2008; Zimmerman & Schunk 2001). However, these perspectives share four common assumptions that provide the foundations for all SRL models (Pintrich 2000). **(loc: 46-50)**
+
+In order to achieve this balance of content comprehension and effective navigation within hypermedia, learners must deploy several monitoring processes, an important aspect of metacognition. In particular, students need to monitor: (1) Their emerging understanding (i.e. judgment of learning [JOL1]; Azevedo et al. 2004a; Azevedo et al. 2005; and feeling of knowing [FOK1]; Moos & Azevedo 2006, 2008a,b); (2) the relevancy of the information in the environment (i.e. content evaluation; Azevedo et al. 2004b); and (3) their progress towards the learning goal (Azevedo et al. 2005, Azevedo & Witherspoon 2009). **(loc: 82-89)**
+
+1 Our operational definitions of FOK and JOL represent adaptations of the way these terms have been used to examine metacognitive judgments in laboratory tasks (see Metcalfe & Dunlosky 2008 for a recent review). **(loc: 93-95)**
+
+learners who have limited understanding of the conceptual structure of the domain have little to guide their interaction with hypermedia, which explains why learners with lower prior domain knowledge have more difficulty navigating in this environment (Shapiro 2004). Similarly, Moos and Azevedo (2008a) found that learners with higher prior domain knowledge tended to use more monitoring processes than learners with lower prior domain knowledge. **(loc: 127-31)**
+
+In order to measure participants ’ prior domain knowledge and learning outcomes,an established pretest and posttest was used. The pretest and posttest, which are identical2, have been extensively used in previous research (see Azevedo et al. 2006, 2007, 2008; Greene et al. 2008; Moos & Azevedo 2006, 2008a, b) and are based on Chi and colleagues’ research (Chi 2000, 2005; Chi et al. 1994). The pretest and posttest are comprised of a mental model essay, which measures conceptual knowledge. Conceptual knowledge is defined as understanding interrelationships between definitions, properties of concepts, and facts, which include declarative and procedural knowledge (Chi 2000, 2005; Graesser et al. 2005; Markman & Gentner 2000). **(loc: 177-88)**
+

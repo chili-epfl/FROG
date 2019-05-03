@@ -1,0 +1,29 @@
+h1. CSCW (Computer-Supported Collaborative Work)
+
+Related to [[CSCL]] (Computer-Supported Collaborative Learning) and [[HCI]].
+
+Content: A group of applications, called CSCW, exists between traditional information systems automating work routines and personal information processing. CSCW systems are aimed at supporting interpersonal communication, coordination and collaboration. The associated field of research focuses on studying user support problems in collaborative work and the changing modes and practices of collaboration. One of the central problem areas in CSCW is to better understand technologically – both materially and digitally – mediated collaborative work. Furthermore, it foregrounds the question of how to integrate studies of work and CSCW application design in more meaningful ways. [[http://staff.cs.utu.fi/courses/CSCW/|CSCW]]
+----
+- conceives cooperative work as one of the three modalities of work on the side of individual work and services. [[http://staff.cs.utu.fi/courses/CSCW/|CSCW]]
+----
+Computer Supported Cooperative Work: The Journal of Collaborative Computing [[http://www.enolagaia.com/UMUArchive/CSCWLitGuide.html|CSCW and Groupware: Literature Guide]]
+----
+[Core Literature on CSCW and Groupware] [Secondary Literature] 
+
+[Proceedings of the Annual CSCW Conferences] [Other Relevant Literature] [[http://www.enolagaia.com/UMUArchive/CSCWLitGuide.html|CSCW and Groupware: Literature Guide]]
+----
+  * [[http://www.springerlink.com/content/0925-9724|Computer Supported Cooperative Work (CSCW) - SpringerLink]]
+
+----
+Aims
+
+
+Computer Supported Cooperative Work studies the design, implementation and use of systems that help people working together. CSCW is an interdisciplinary research area; in order to support effective collaboration, some insight is needed in how people really work together. [[https://osiris.utwente.nl/student/OnderwijsCatalogusSelect.do?selectie=cursus&cursus=192340070&collegejaar=2011&aanvangsblok=1B&taal=en|OSIRIS - Course offerings 192340070 2011]]
+----
+  * [[http://en.wikipedia.org/wiki/Computer-supported_collaboration|Computer-supported collaboration - Wikipedia, the free encyclopedia]]
+----
+[[group remembering]]
+----
+  * [[http://www.atwebo.com/projects/CSCW.htm|CSCW - large amount of links]]
+  * [[http://www.enolagaia.com/UMUArchive/CSCWGuide.html|CSCW and Groupware: Guide to Internet Resources]]
+  * [[http://en.wikipedia.org/wiki/Computer-supported_cooperative_work|Computer-supported cooperative work - Wikipedia, the free encyclopedia]]

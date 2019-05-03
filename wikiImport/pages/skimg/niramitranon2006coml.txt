@@ -1,0 +1,14 @@
+h2. Images
+
+{{skim:niramitranon2006coml0.png}}
+
+[[skimx://niramitranon2006coml#2
+|p. 2
+]]<html><hr></html>
+
+{{skim:niramitranon2006coml1.png}}
+
+[[skimx://niramitranon2006coml#3
+|p. 3
+]]<html><hr></html>
+

@@ -1,0 +1,8 @@
+h2. Y. Dimitriadis's publications
+
+| [[..:ref:roschelle2007ink]] | Roschelle, J., Tatar, D., Chaudbury, Sr., Dimitriadis, Y., Patton, C., & DiGiano, C. (2007). Ink, improvisation, and interactive engagement: Learning with tablets. Computer. IEEE.|
+| retalis2006eliciting | Retalis, S., Georgiakakis, P., & Dimitriadis, Y. (2006). Eliciting design patterns for e-learning systems. Computer Science Education. Routledge.|
+| hernandez2006collage | Hernández-Leo, D., Villasclaras-Fernández, E. D., Asensio-Pérez, J. I., Dimitriadis, Y., Ruiz-Requies, I., Rubia-Avi, B., & Jorrín-Abellán, I. (2006). COLLAGE: A collaborative Learning Design editor based on patterns. JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY. Citeseer.|
+| dimitrakopoulou2006state | Dimitrakocoulou, A., Petrou, A., Marcos, J. A., Kollias, V., Jermann, P., Harrer, A., Dimitriadis, Y., Bollen, L., & Martínez, A. (2006). State of the art of interaction analysis for Metacognitive Support \& Diagnosis.|
+| dimitriadis2007socially | Dimitriadis, Y., Asensio-Pérez, J. I., Hernández-Leo, D., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|
+| martinez2011interaction | Martínez-Monés, A., Harrer, A., & Dimitriadis, Y. (2011). An interaction-aware design process for the integration of interaction analysis into mainstream CSCL practices. Analyzing Interactions in CSCL. Springer.|

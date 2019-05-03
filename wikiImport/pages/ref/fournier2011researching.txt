@@ -1,0 +1,34 @@
+h1. Researching the design and development of a Personal Learning Environment: Research on super-users
+
+<ifauth !@admin>|FournierHélène, & Kop, R. (2011). Researching the design and development of a Personal Learning Environment: Research on super-users. PLE Citylab Conference.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://fournier2011researching|BibDesk]]  | FournierHélène, & Kop, R. (2011). Researching the design and development of a Personal Learning Environment: Research on super-users. PLE Citylab Conference. |
+^ [[skimx://fournier2011researching|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:fournier2011researching?do=edit&vecdo=print\'><frame src=\'/wiki/clip:fournier2011researching?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @conference{fournier2011researching,
+  author = {Fournier, Hélène and Kop, Rita},
+  booktitle = {PLE Citylab Conference},
+  date-added = {2012-01-10 17:24:12 +0000},
+  date-modified = {2012-04-08 16:28:14 +0000},
+  keywords = {1mooc},
+  read = {1},
+  title = {Researching the design and development of a Personal Learning Environment: Research on super-users},
+  year = {2011},
+  annote = {conference slides: http://www.slideshare.net/Ritakop/fournier-kop-barcelona-research-ple-2010-07072010-2 conference paper: http://pleconference.citilab.eu/cas/wp-content/uploads/2010/06/ple2010_submission_88.pdf	 },
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZwAAAAAAZwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhtmb3VybmllcjIwMTFyZXNlYXJjaGluZy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGacPiy9cA7lBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zkuAAAAAQAMANrWUgAXPTEAAZ9eAAIAOlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBmb3VybmllcjIwMTFyZXNlYXJjaGluZy5wZGYADgA4ABsAZgBvAHUAcgBuAGkAZQByADIAMAAxADEAcgBlAHMAZQBhAHIAYwBoAGkAbgBnAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC9Vc2Vycy9TdGlhbi9iaWJkZXNrL2ZvdXJuaWVyMjAxMXJlc2VhcmNoaW5nLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QKS4uLy4uL2JpYmRlc2svZm91cm5pZXIyMDExcmVzZWFyY2hpbmcucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkACQgJHAlACWwJfAm0CdAJ9AqkCrgKxAr4CwwAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALV}
+}
+
+</hidden>
+
+{{page>notes:fournier2011researching}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:fournier2011researching}}
+
+{{page>kindle:fournier2011researching}}
+
+{{page>skimg:fournier2011researching}}

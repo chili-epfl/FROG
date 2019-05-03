@@ -1,0 +1,32 @@
+h2. Images
+
+{{skim:buckinghamshum1994argumentation0.png}}
+
+[[skimx://buckinghamshum1994argumentation#4|p. 4]]
+----
+
+{{skim:buckinghamshum1994argumentation1.png}}
+
+[[skimx://buckinghamshum1994argumentation#17|p. 17]]
+----
+
+{{skim:buckinghamshum1994argumentation2.png}}
+
+[[skimx://buckinghamshum1994argumentation#27|p. 27]]
+----
+
+{{skim:buckinghamshum1994argumentation3.png}}
+
+[[skimx://buckinghamshum1994argumentation#33|p. 33]]
+----
+
+{{skim:buckinghamshum1994argumentation4.png}}
+
+[[skimx://buckinghamshum1994argumentation#36|p. 36]]
+----
+
+{{skim:buckinghamshum1994argumentation5.png}}
+
+[[skimx://buckinghamshum1994argumentation#39|p. 39]]
+----
+

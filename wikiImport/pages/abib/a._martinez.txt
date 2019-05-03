@@ -1,0 +1,4 @@
+h2. A. Martínez's publications
+
+| :ref:soller2005mirroring | Soller, A., Martínez, A., Jermann, P., & Muehlenbrock, M. (2005). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. International Journal of Artificial Intelligence in Education. IOS Press.|
+| :ref:soller2005mirroring | Soller, A., Martínez, A., Jermann, P., & Muehlenbrock, M. (2005). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. International Journal of Artificial Intelligence in Education. IOS Press.|

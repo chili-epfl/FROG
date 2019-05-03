@@ -1,0 +1,3 @@
+h2. Regina Jucks's publications
+
+| [@runde2007scripting] | Runde, A., Bromme, R., & Jucks, R. (2007). Scripting in {Net-Based} Medical Consultation: The Impact of External Representations on Giving Advice and Explanations. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 57--72). Boston, {MA}: Springer {US}. |

@@ -1,0 +1,36 @@
+h1. Transforming Learning in Science Classrooms: A Blended Knowledge Community Approach
+<html><a href='https://tspace.library.utoronto.ca/bitstream/1807/32780/3/Najafi_Hedieh_201206_PhD_Thesis.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'https://tspace.library.utoronto.ca/bitstream/1807/32780/3/Najafi_Hedieh_201206_PhD_Thesis.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Najafi, H. (2012). Transforming Learning in Science Classrooms: A Blended Knowledge Community Approach (PhD thesis). Retrieved from https://tspace.library.utoronto.ca/bitstream/1807/32780/3/Najafi_Hedieh_201206_PhD_Thesis.pdf|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://najafi2012transforming|BibDesk]]  | Najafi, H. (2012). Transforming Learning in Science Classrooms: A Blended Knowledge Community Approach (PhD thesis). Retrieved from https://tspace.library.utoronto.ca/bitstream/1807/32780/3/Najafi_Hedieh_201206_PhD_Thesis.pdf |
+^ [[skimx://najafi2012transforming|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:najafi2012transforming?do=edit&vecdo=print\'><frame src=\'/wiki/clip:najafi2012transforming?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @phdthesis{najafi2012transforming,
+  author = {Najafi, H.},
+  date-added = {2013-01-29 02:19:27 +0000},
+  date-modified = {2013-11-12 15:27:34 +0000},
+  date-read = {2013-11-12 10:27:34 -0500},
+  keywords = {0encore},
+  oa-url = {https://tspace.library.utoronto.ca/bitstream/1807/32780/3/Najafi_Hedieh_201206_PhD_Thesis.pdf},
+  read = {1},
+  school = {University of Toronto},
+  title = {Transforming Learning in Science Classrooms: A Blended Knowledge Community Approach},
+  url = {https://tspace.library.utoronto.ca/bitstream/1807/32780/3/Najafi_Hedieh_201206_PhD_Thesis.pdf},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QRi4uLy4uL0JpYmRlc2svYmFrL25hamFmaTIwMTJ0cmFuc2Zvcm1pbmctMjAxMy0xMS0xMiAxMDoyNzoyMCAtMDUwMC5wZGbSFwsYGVdOUy5kYXRhTxEB9AAAAAAB9AACAAAHU1NESG9tZQAAAAAAAAAAAAAAAAAAAAAAAAAAyXlP2EgrAAAOrs3ZH25hamFmaTIwMTJ0cmFuc2Zvcm0jRUFFRjZCNy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6u9rfOnXwUUERGIAAAAAAAAgADAAAJIAAAAAAAAAAAAAAAAAAAAANiYWsAABAACAAAyXmWKAAAABEACAAAzp3CZAAAAAEAEA6uzdkA2tZSABc9MQABn14AAgBDU1NESG9tZTpVc2VyczoAU3RpYW46AEJpYmRlc2s6AGJhazoAbmFqYWZpMjAxMnRyYW5zZm9ybSNFQUVGNkI3LnBkZgAADgBqADQAbgBhAGoAYQBmAGkAMgAwADEAMgB0AHIAYQBuAHMAZgBvAHIAbQBpAG4AZwAtADIAMAAxADMALQAxADEALQAxADIAIAAxADAALwAyADcALwAyADAAIAAtADAANQAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIATFVzZXJzL1N0aWFuL0JpYmRlc2svYmFrL25hamFmaTIwMTJ0cmFuc2Zvcm1pbmctMjAxMy0xMS0xMiAxMDoyNzoyMCAtMDUwMC5wZGYAEwABLwAAFQACAAz//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDXANwA5ALcAt4C4wLuAvcDBQMJAxADGQMeAysDLgNAA0MDSAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAANK}
+}
+
+</hidden>
+
+{{page>notes:najafi2012transforming}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:najafi2012transforming}}
+
+{{page>kindle:najafi2012transforming}}
+
+{{page>skimg:najafi2012transforming}}

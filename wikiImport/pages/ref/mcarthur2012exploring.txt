@@ -1,0 +1,37 @@
+h1. Exploring the relationship between student-instructor interaction on Twitter and student perceptions of teacher behaviors
+<html><a href='http://www.isetl.org/ijtlhe/pdf/IJTLHE1223.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.isetl.org/ijtlhe/pdf/IJTLHE1223.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|McArthur, J. A., & Bostedo-Conway, K. (2012). Exploring the relationship between student-instructor interaction on Twitter and student perceptions of teacher behaviors. International Journal of Teaching and Learning in Higher Education, 24(3), 286--292.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://mcarthur2012exploring|BibDesk]]  | McArthur, J. A., & Bostedo-Conway, K. (2012). Exploring the relationship between student-instructor interaction on Twitter and student perceptions of teacher behaviors. International Journal of Teaching and Learning in Higher Education, 24(3), 286--292. |
+^ [[skimx://mcarthur2012exploring|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:mcarthur2012exploring?do=edit&vecdo=print\'><frame src=\'/wiki/clip:mcarthur2012exploring?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{mcarthur2012exploring,
+  author = {McArthur, John A and Bostedo-Conway, Kristen},
+  date-added = {2013-10-16 20:51:49 +0000},
+  date-modified = {2013-10-16 20:52:47 +0000},
+  journal = {International Journal of Teaching and Learning in Higher Education},
+  keywords = {ctl1926},
+  number = {3},
+  oa-url = {http://www.isetl.org/ijtlhe/pdf/IJTLHE1223.pdf},
+  pages = {286--292},
+  publisher = {International Society for Exploring Teaching and Learning},
+  title = {Exploring the relationship between student-instructor interaction on Twitter and student perceptions of teacher behaviors},
+  volume = {24},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QJy4uLy4uL0JpYmRlc2svbWNhcnRodXIyMDEyZXhwbG9yaW5nLnBkZtIXCxgZV05TLmRhdGFPEQGUAAAAAAGUAAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lIZbWNhcnRodXIyMDEyZXhwbG9yaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnsDcs6EdJNQREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAzoSs0wAAAAEADADa1lIAFz0xAAGfXgACADhTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAbWNhcnRodXIyMDEyZXhwbG9yaW5nLnBkZgAOADQAGQBtAGMAYQByAHQAaAB1AHIAMgAwADEAMgBlAHgAcABsAG8AcgBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAtVXNlcnMvU3RpYW4vQmliZGVzay9tY2FydGh1cjIwMTJleHBsb3JpbmcucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALgAvQDFAl0CXwJkAm8CeAKGAooCkQKaAp8CrAKvAsECxALJAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:mcarthur2012exploring}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:mcarthur2012exploring}}
+
+{{page>kindle:mcarthur2012exploring}}
+
+{{page>skimg:mcarthur2012exploring}}

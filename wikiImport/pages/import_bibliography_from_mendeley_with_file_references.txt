@@ -1,0 +1,12 @@
+h1. Import bibliography from Mendeley with file references
+
+Mendeley is really good at importing PDFs and recognizing citations. It's a great way of getting a lot of PDFs properly tagged and into Bibdesk quickly. However, the natively exported bibtex file will not let Bibdesk recognize the PDF links, because it uses the field "file", instead of "local-url", and the formatting of the field is a bit different from what Bibdesk expects.
+
+This command will use Ruby to convert from Mendeley format to Bibdesk format:
+<code>ruby -pe 'gsub("file = {:", "local-url = {/").gsub(":pdf}", "}")' < input.bib > output.bib</code>
+
+(it's also a good example of how you can write a simple command line filter yourself. I chose Ruby instead of sed, because Ruby let's me choose between doing simple text replacements, or regexps. In this case, I only need text replacement, and that let's me avoid having to escape all the control characters).
+
+Once you have converted it, you will probably want to open it in Bibdesk with temporary citekeys, generate new cite keys (Ctrl+K), autofile all the PDFs (Ctrl+Alt K), and drag them over to your main bibliography (if you prefer to keep one master-bibliography). And check for duplicates, of course.
+
+{{tag>tips}}

@@ -1,0 +1,29 @@
+h1. Chrome autolinking
+
+See [[Hacks]] for info about pre-requisites and source code.
+
+A few years ago, [[http://daringfireball.net/|John Gruber]] created a little script, in the form of a service, which could automatically look up the text you had selected in Google, and paste in  a link to the top hit. When you blog or edit wikis, you often want to link to something like the University of Toronto, or Boing Boing, which would be the first hit on Google, but yet you have to <key>Alt-Tab</key>, search, copy and paste etc. This script made it much faster. 
+
+I wanted to do something similar, but I extended it in two ways. First, I took the idea of a menu from the [[Bibdesk|Bibdesk Google Scholar script]]. You simply select some text, type <key>C-A-cmd-g</key>, and a menu is shown with the four best choices (sometimes you might want a choice). You then type <key>C-A-Cmd-1</key>...<key>4</key> to choose the right link, and it is automatically inserted. Second, I use AppleScript to ask Chrome which page I am on right now, and intelligently format the link as a wikilink, a rich text link (for my blog and other rich text editors), or as a pure A HREF link. 
+
+I can also add a few words that need to be in the search, but should not be part of the link, if for example I want to link to Engineers without Borders in Canada, I can type <code>Engineers without Borders|Canada</code>and the link text will just be Engineers without Borders. Sometimes I might want to search for something completely different than the link text. I did that on this wiki page, I used <code>older projects on my blog[tools and hacks reganmian</code> to insert a link.
+
+The two relevant scripts are **imfeelinglucky.rb** and **imfeelinglucky-y.rb**. You need a keyboard shortcut program, and create shortcuts for Ctrl+Alt+Cmd G for searching, and Ctrl+Alt+Cmd 1...4, which launch<code>ruby <path>/imfeelinglucky-y.rb <number></code>
+
+The RTF links were the trickiest ones. <code>pbpaste -Prefer rtf</code> is supposed to print what's on the pasteboard right now in RTF, so that I could inspect an example, but it only prints plain text. I currently use this snippet <code rtf>text = %q|{\rtf1{\field{\*\fldinst{HYPERLINK "URL"}}{\fldrslt TEXT}}}|</code>to generate the RTF, which works, but generates a line shift before and after. Any ideas on how to improve this would be very welcome!
+
+h2. Google AJAX/json
+In the [[Bibdesk]] script, I manually parse Google Scholar, which is quite annoying. In this case, I found out about a great json API for Google searches (not sure if they have one for Google Scholar as well). I use the one-line json parser found [[http://rubyforge.org/snippet/detail.php?type=snippet&id=29|here]]
+<code ruby>def json_parse(json)
+  null=nil
+  return  eval(json.gsub(/(["'])\s*:\s*(['"0-9tfn\[{])/){"#{$1}=>#{$2}"})
+end</code>
+and after that, the relevant section of my script is as clean and easy as
+<code ruby>json_parse(a)["responseData"]["results"].each do |item|
+  c += 1
+  file << "#{item["unescapedUrl"]}\n"
+  out << "#{c}: #{item["titleNoFormatting"]}\n\t#{item["unescapedUrl"]}\n"
+end</code>
+It only returns 4 hits per page, which is fine for me, and you could easily request the next page if you wanted to show more hits. 
+
+I am very glad to find this script, because it was my impression that Google had gone away from providing these kinds of pure APIs to programmers.

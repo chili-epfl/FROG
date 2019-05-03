@@ -1,0 +1,184 @@
+h1. Constructivism
+
+[[http://leighblackall.blogspot.com/2011/05/summary-of-chet-bowers-false-promises.html|Leigh's summary]] of [@bowers2005false]
+ 
+h2. Jennifer's discussion
+([[http://jenniferclaro.wordpress.com/2011/05/11/ode-to-piaget/|blog post]])
+h3. Two kinds
+  * cognitive constructivism ([[:a:Jean Piaget]])
+    * two processes:
+      * assimilation (absorption of new information and experiences by one's existing cognitive structures - new knowledge "fits" existing structures, so no need for modification of those structures)
+      * accommodation (when knowledge doesn't "fit" existing structures, structures are changed to accommodate new information)
+    * lead to equilibrium, until there is "cognitive conflict" again
+    * focus on individual as "cognizing subject"
+  * social constructivism (a:Lev Vygotsky)
+    * world has primacy over individual
+    * society as bearer of cultural heritage without which development of the mind is impossible
+  * order of learning
+    * Piaget: construction within individual, then tests knowledge for viability by interacting with others
+    * Vygotsky: reverse, learning in social context, then internalized
+
+h2. To read
+  * The False Promises of Constructivist Learning by [[a:C. A. Bowers]]
+
+h2. Kinds
+(this list from [@dougiamas1998journey])
+  * trivial/personal constructivism
+    * [[a:Jean Piaget]]
+    * "Knowledge is actively constructed by the learner, not passively received from the environment."
+    * focus on prior knowledge
+  * radical constructivism
+    * [[a:Ernst von Glasersfeld]]
+    * "Coming to know is a process of dynamic adaptation towards viable interpretations of experience. The knower does not necessarily construct knowledge of a "real" world."
+    * does not deny an objective reality, but says we have no way of knowing it
+    * truth replaced with viability
+    * "So how can people with different world views communicate? From a radical constructivist perspective, communication need not involve identically shared meanings between participants. It is sufficient for their meanings to be compatible (Hardy and Taylor, 1997). If neither of the parties does anything completely unexpected to the other, then their illusions of identically shared meaning are maintained (von Glasersfeld, 1990)"
+    * focus still on individual learner as constructor, not on group learning
+  * social constructivism
+    * the social world of the learner (including and beyond the classroom)
+    * people trace their ideas back to [[a:Lev Vygotsky]]
+    * dialectic, acquisition, participation [@salomon1998individual]:
+      * Individual learning can be less or more socially-mediated learning.
+      * Individuals can participate in the learning of a collective, sometimes with what is learned distributed throughout the collective more than in the mind of any one individual.
+      * Individuals and social aspects of learning in both of these senses, can interact over time to strengthen one another in a 'reciprocal spiral relationship'.
+    * teaching strategies (@wood1995reflections)
+      * teaching in contexts that might be personally meaningful to students
+      * negotiating taken-as-shared meanings with students
+      * class discussion
+      * small-group collaboration
+      * valuing meaningful activity over correct answers
+  * cultural constructivism 
+    * "wider context of cultural influences, including custom, religion, biology, tools and language"
+    * "For example, the format of books can affect learning, by promoting views about the organisation, accessibility and status of the information they contain."
+    * impact of tools we use
+      * "@salomon1998individual identify two effects of tools on the learning mind. Firstly, they redistribute the cognitive load of a task between people and the tool while being used. For example, a label can save long explanations, and using a telephone can change the nature of a conversation. Secondly, the use of a tool can affect the mind beyond actual use, by changing skills, perspectives and ways of representing the world. For example, computers carry an entire philosophy of knowledge construction, symbol manipulation, design and exploration, which, if used in schools, can subversively promote changes in curricula, assessment, and other changes in teaching and learning."
+  * critical constructivism
+    * "a social epistemology that addresses the socio-cultural context of knowledge construction and serves as a referent for cultural reform"
+    * critical theory of [[a:Jürgen Habermas]]
+    * the promotion of communicative ethics, that is, conditions for establishing dialogue oriented towards achieving mutual understanding (@taylor1998constructivism)
+      * a primary concern for maintaining empathetic, caring and trusting relationships
+      * a commitment to dialogue that aims to achieve reciprocal understanding of goals, interests and standards
+      * concern for and critical awareness of the often-invisible rules of the classroom, including social and cultural myths
+  * constructionism
+    * [[a:Seymour Papert]]
+    * "constructivism occurs especially well when the learner is engaged in constructing something for others to see"
+    * "learning as `building knowledge structures' irrespective of the circumstances of the learning"
+    * "this happens especially felicitously in a context where the learner is consciously engaged in constructing a public entity, whether it's a sandcastle on the beach or a theory of the universe"
+      * artefacts?
+
+
+h2. People
+  * [[a:Jean Piaget]], "inventor" of constructivism?
+  * [[a:Ernst von Glasersfeld]], inventor of [[radical constructivism]]
+
+
+----
+Perkins (1992) pointed out the origins of the constructivism:
+
+
+"Constructivism has multiple roots in psychology and philosophy of this century: the developmental perspective of Jean Piaget, the emergence of cognitive psychology under the guidance of such figures as Jerome Bruner and Ulric Neisser, the constructivist perspective of philosophers such as Nelson Goodman." [[http://www.personal.psu.edu/wxh139/construct.htm|Constructivism [http://www.personal.psu.edu/]]]
+----
+Constructivism is an epistemological belief about what "knowing" is and how one "come to know." Contructivists believe in individual interpretations of the reality, i.e. the knower and the known are interactive and inseparable.
+
+Constructivism rejects the notions that
+
+
+Knowledge is an identifiable entity with absolute truth value
+
+Meaning can be passed on to learners via symbols or transmission
+
+Learners can incorporate exact copies of teacher's understanding for their own use
+
+The whole concepts can be broken into discrete sub-skills, and that concepts can be taught out of context.
+
+Constructivism, with focus on social nature of cognition, suggests an approach that
+
+
+Gives learners the opportunity for concrete, contextually meaningful experience through which they can search for patterns, raise their own questions, and construct their own models.
+
+Faciliates a community of learners to engage in activity, discourse, and reflection
+
+Encourages students to take on more ownership of the ideas, and to pursue autonomy, mutual reciprocity of social relations, and empowerment to be the goals.
+
+Who are primary contributors? 
+
+Perkins (1992) pointed out the origins of the constructivism:
+
+
+"Constructivism has multiple roots in psychology and philosophy of this century: the developmental perspective of Jean Piaget, the emergence of cognitive psychology under the guidance of such figures as Jerome Bruner and Ulric Neisser, the constructivist perspective of philosophers such as Nelson Goodman."
+
+
+This knowledge base will discuss particular the major influence from the field of cognitive science, i.e. the work of Piaget and Bruner, as well as from the work of socio-historical psychologists, such as Vygotsky.
+
+
+Piaget (Also see Cognitivism)
+
+Piaget's theory is fundamental to cognitivism and to constructivism. His central idea is that "knowledge proceeds neither solely from the experience of objects nor from an innate programming performed in the subject but from successive constructions." (Fosnot, 1996). Piaget (1985) proposed that the mechanism of learning is the process of equilibration, in which cognitive structure assimilates and accommodates to generate new possibilities when it is disturbed based on human's self-organizing tendency.
+
+
+Lev Vygotsky
+
+Vygotsky's sociohistorical development psychology focuses on the dialectic between the individual and society, and the effect of social interaction, language, and culture on learning. To Vygosky (1978), learning is a continual movement from the current intellectual level to a higher level which more closely approximates the learner's potential. This movement occurs in the so-called "zone of proximal development" as a result of social interaction. Thus, an understanding of human thinking depends in turn on an understanding of the mechanism of social experience; the force of the cognitive process deriving from the social interaction is emphasized. Also, the role of the adult and the learners' peers as they conversed, questioned, explained, and negotiated meaning is emphasized.
+
+
+Vygostky's Sociohistorical Learning Theory or Sociocultural theory
+
+
+Vygotsky was disappointed with the overwhelming control of environment over human behavior that is represented in behaviorism. Vygotsky (1978) objected to any tendency to equate human beings with animals on the basis of innate reflexes and conditional reflexes. He recognized the higher psychological functions of humans, especially the distinguishing mental process of signification by which humans assign meanings to arbitrary stimuli and with which human learning is determined by the social and historical context. He believed that human development and learning occur through their interactions with the environment and the other people in it.
+
+
+Three themes that form the core of Vygotsky's theoretical framework: (Wertsch, 1992)
+
+
+A reliance on a genetic or developmental method:
+
+Vygotsky (1978) recognized two basic processes operating continuously at every level of human activity: internalization and externalization. Vygotsky proposed that even though every complex mental function is first an interaction between people, it subsequently becomes a process within individuals. It is the transition from the external operation to internal development which undergoes qualitative changes. This transformation involves the mastery of external means of thinking and learning to use symbols to control and regulate one's thinking.
+
+
+The claim that higher mental processes in the individual have their origin in social processes.
+
+The concept of Zone of Proximal Development: to Vygosky, learning is a continual movement from the current intellectual level to a higher level which more closely approximates the learner's potential. This movement occurs in the so-called "zone of proximal development" as a result of social interaction. The zone of proximal development is the distance between the actual independent development level and the potential development level under the guidance of or in collaboration with peers (Vygotsky, 1978). Vygotsky believes that human mental activity is a particular case of social experience. Thus, an understanding of human thinking depends in turn on an understanding of the mechanism of social experience; the force of the cognitive process deriving from the social interaction is emphasized.
+
+
+Mediation: the claim is that mental processes can be understood only if we understand the tools and signs that mediate them. Changing a stimulus situation in the process of responding to it establish mediation, e.g. the gesture of pointing could not have been established as a sign without the reaction of the other person. This also implies that any higher mental function necessarily goes through an external stage in its development because it is initially a social function.
+
+Implications to learning and instruction:
+
+
+Learning in authentic context:
+
+The conception of mediation gives the emphasis to the interaction between individuals and the historical and cultural development. Situate learners in an authentic context, in which learners construct via dialectical relations among people acting, the contexts of their activity, and the activity itself.
+
+
+Providing Scaffolding: Learning takes place in the social interaction with older, more learned members of the society: learning occurs when individual is prompted to move past current levels of performance and develop new abilities. Thus, provide external support from the instructor, peers, experts, artifacts or tools as the learners construct knowledge.
+
+Bruner
+
+A major theme of Bruner's construction theory is that learning is an active process in which learners construct new ideas or concepts based upon their current/past knowledge. The learner selects and transforms information, constructs hypotheses, and makes decisions, relying on a cognitive structure, e.g. schema and mental models, to do so. The interconnection of the new experience with the prior knowledge results in the reorganization of the cognitive structure, which creates meaning and allows the individual to "go beyond the information given".
+
+
+According to TIP's (Theory Into Practice database) abstract of Bruner's theory, the principles of instruction based on Bruner include:
+
+
+Readiness: Instruction must be concerned with the experiences and contexts that make the student willing and able to learn
+
+Spiral organization: Instruction must be structured so that it can be easily grasped by the student
+
+Going beyond the information given: Instruction should be designed to facilitate extrapolation and or fill in the gaps
+
+Bruner's Constructive Learning
+
+
+Bruner (1986) claims that constructivism began with Kant's concepts of a priori knowledge, which focuses on the importance of prior knowledge (what we know) to what we perceive from out interactions with the environment. Jonassen (1991) described Kant's ideas of individual construction of reality: " Kant believed in the external, physical world (noumena), but we know it only through our sensation (phenomena) - how the world appears to us." [[http://www.personal.psu.edu/wxh139/construct.htm|Constructivism [http://www.personal.psu.edu/]]]
+----
+"Scientific observation has established that education is not what the teacher gives; education is a natural process spontaneously carried out by the human individual, and is acquired not by listening to words but by experiences upon the environment. The task of the teacher becomes that of preparing a series of motives of cultural activity, spread over a specially prepared environment, and then refraining from obtrusive interference. Human teachers can only help the great work that is being done, as servants help the master. Doing so, they will be witnesses to the unfolding of the human soul and to the rising of a New Man who will not be a victim of events, but will have the clarity of vision to direct and shape the future of human society.[6]" [[http://en.wikipedia.org/wiki/Constructivism_(learning_theory)|Constructivism (learning theory) - Wikipedia, the free encyclopedia [http://en.wikipedia.org/]]]
+----
+The type of learner is self-directed, creative, and innovative. The purpose in education is to become creative and innovative through analysis, conceptualizations, and synthesis of prior experience to create new knowledge. The educator’s role is to mentor the learner during heuristic problem solving of ill-defined problems by enabling quested learning that may modify existing knowledge and allow for creation of new knowledge. The learning goal is the highest order of learning: heuristic problem solving, metacognitive knowledge, creativity, and originality.[10] [[http://en.wikipedia.org/wiki/Constructivism_(learning_theory)|Constructivism (learning theory) - Wikipedia, the free encyclopedia [http://en.wikipedia.org/]]]
+----
+Communicative: applications that are used to share ideas, information and creations
+
+Social networks
+
+Blogs
+
+Podcasts [[:Ref:Abedin2011online]]

@@ -1,0 +1,36 @@
+h1. Computer-supported cooperative work: History and focus
+
+<ifauth !@admin>|Grudin, J. (1994). Computer-supported cooperative work: History and focus. Computer, 27(5), 19–26. IEEE.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://grudin1994computer-supported|BibDesk]]  | Grudin, J. (1994). Computer-supported cooperative work: History and focus. Computer, 27(5), 19–26. IEEE. |
+^ [[skimx://grudin1994computer-supported|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:grudin1994computer-supported?do=edit&vecdo=print\'><frame src=\'/wiki/clip:grudin1994computer-supported?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{grudin1994computer-supported,
+  author = {Grudin, J.},
+  date-added = {2012-05-20 20:39:23 +0000},
+  date-modified = {2012-05-20 20:39:53 +0000},
+  journal = {Computer},
+  keywords = {cscw},
+  number = {5},
+  pages = {19–26},
+  publisher = {IEEE},
+  title = {Computer-supported cooperative work: History and focus},
+  volume = {27},
+  year = {1994},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAa4AAAAAAa4AAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh9ncnVkaW4xOTk0Y29tcHV0ZXItIzZDNEEzRjcucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGxKP3y97O0QAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL3wcRAAAAAQAMANrWUgAXPTEAAZ9eAAIAPlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBncnVkaW4xOTk0Y29tcHV0ZXItIzZDNEEzRjcucGRmAA4AQgAgAGcAcgB1AGQAaQBuADEAOQA5ADQAYwBvAG0AcAB1AHQAZQByAC0AcwB1AHAAcABvAHIAdABlAGQALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIANFVzZXJzL1N0aWFuL2JpYmRlc2svZ3J1ZGluMTk5NGNvbXB1dGVyLXN1cHBvcnRlZC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QLi4uLy4uL2JpYmRlc2svZ3J1ZGluMTk5NGNvbXB1dGVyLXN1cHBvcnRlZC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACUgJUAlkCYgJtAnECfwKGAo8CwALFAsgC1QLaAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAuw=}
+}
+
+</hidden>
+
+{{page>notes:grudin1994computer-supported}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:grudin1994computer-supported}}
+
+{{page>kindle:grudin1994computer-supported}}
+
+{{page>skimg:grudin1994computer-supported}}

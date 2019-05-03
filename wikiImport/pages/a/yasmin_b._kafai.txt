@@ -1,0 +1,19 @@
+h1. Yasmin B. Kafai
+{{ pages:a_yasmin_b._kafai1.png}}
+
+At Penn School of Education - editor of [[Journal of the Learning Sciences]]
+
+h2. Research interests
+As a learning scientist, Dr. Kafai examines technology designs and cultures through the lens of constructionist theory. Her early work, published in Minds in Play: Computer Game Design as a Context for Children’s Learning (1995), set the foundation for programmatic initiatives on games and learning in the United States and Europe. Her recent book edition of Beyond Barbie and Mortal Kombat: New Perspectives on Gender and Gaming (2008) presented new developments in gender and gaming.
+
+Dr. Kafai’s recent collaborations with colleagues from the MIT Media Laboratory have resulted in the design and study of the media-rich programming environment Scratch (scratch.mit.edu) for Computer Clubhouses, a worldwide network of community technology centers. Dr. Kafai is currently investigating how media arts design and programming can become part of curricular activities in school and in after-school programs.
+
+With support of the National Science Foundation and now the MacArthur Foundation, Dr. Kafai is studying daily life and learning opportunities in Whyville.net, a virtual world that is home to over 3.3 million players ages 8-16 years. An upcoming special issue edited for Games & Culture will present findings on collaborative play, representations of race, cheating practices, economic interactions, and involvement in virtual epidemics. Current investigations focus on tweens’ gender play, romantic relationships, and transgressive practices.
+
+  * Paper at [[:CSCL11:]] about computer-supported collective learning, large networks etc
+
+
+h2. Links
+  * [[http://www.gse.upenn.edu/faculty/kafai|Homepage]]
+
+{{page>abib:Yasmin B. Kafai}}

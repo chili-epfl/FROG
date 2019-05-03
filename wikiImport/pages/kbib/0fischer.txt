@@ -1,0 +1,44 @@
+h2. Publications with keyword "0fischer"
+
+| [@beatty2005transforming] | Beatty, I. D. (2005). Transforming student learning with classroom communication systems. Arxiv preprint physics/0508129. |
+| [@rose2008analyzing] | Wang{Yi-Chia}, Cui, Y., Arguello, J., Stegmann, K., Weinberger, A., Fischer, F., & RoséCarolin Penstein. (2008). Analyzing collaborative learning processes automatically: Exploiting the advances of computational linguistics in computer-supported collaborative learning. International Journal of {Computer-Supported} Collaborative Learning, 3(3), 237--271. doi:10.1007/s11412-007-9034-0|
+| [@bergstrom2011encouraging] | Bergstrom, T., Harris, A., & Karahalios, K. (2011). Encouraging initiative in the classroom with anonymous feedback. Human-Computer Interaction–INTERACT 2011, 627–642. |
+| [@fischer2012toward] | Fischer, F., Kollar, I., Stegmann, K., & Wecker, C. (2012). Toward a Script Theory of Guidance in Computer-Supported Collaborative Learning. Educational Technologist, 48(1), 56-66.|
+| [@buskespromoting] | Buskes, G., Shen, B., & Shallcross, D. Promoting student engagement in lectures through a trial use of response clickers. In Proceedings of the 21st Annual Conference for the Australasian Association for Engineering Education (290). |
+| [@vandegrift2002promoting] | VanDeGrift, T., Wolfman, S. A., Yasuhara, K., & Anderson, R. J. (2002). Promoting interaction in large classes with a computer-mediated feedback system. Computer Science Department and Microsoft Research, University of Washington, Seattle, WA, 98195. |
+| [@pelton2005helping] | Pelton, T., & Francis Pelton, L. (2005). Helping students learn with classroom response systems. In Society for Information Technology & Teacher Education International Conference (Vol. 2005, 1554–1559).|
+| [@tutty2005experiences] | Tutty, J., White, B., & Pascoe, R. (2005). Experiences from a wireless-enabled tablet classroom. In Proceedings of the 7th Australasian conference on Computing education-Volume 42 (165–172). |
+| [@kollar2006collaboration] | Kollar, I., Fischer, F., & Hesse, F. W. (2006). Collaboration scripts--a conceptual analysis. Educational Psychology Review, 18(2), 159--185.|
+| [@bergstrom2007seeing] | Bergstrom, T., & Karahalios, K. (2007). Seeing more: Visualizing audio cues. Human-Computer Interaction–INTERACT 2007, 29–42. |
+| [@kollar2007internal] | Kollar, I., Fischer, F., & Slotta, J. D. (2007). Internal and external scripts in computer-supported collaborative inquiry learning. Learning and Instruction, 17(6), 708–721.|
+| [@debourgh2008classroom] | DeBourgh, G. A. (2008). Use of classroom “clickers” to promote acquisition of advanced reasoning skills. Nurse Education in Practice, 8(2), 76-87. doi:10.1016/j.nepr.2007.02.002|
+| [@kaviani2008encouraging] | Kaviani, N., Finke, M., & Lea, R. (2008). Encouraging crowd interaction with large displays using handheld devices. Computing Systems, 1–3. |
+| [@dill2008clickers] | Dill, E. (2008). Do clickers improve library instruction? Lock in your answers now. The Journal of Academic Librarianship, 34(6), 527-529. doi:10.1016/j.acalib.2008.09.004|
+| [@jones2009clickers] | Jones, S., Henderson, D., & Sealover, P. (2009). “Clickers” in the classroom. Teaching and Learning in Nursing, 4(1), 2–5.|
+| [@sticklen2009engagement] | Sticklen, J., Urban-Lurain, M., & Briedis, D. (2009). Engagement of millennial students using web-based screen movies to replace traditional lecture in lecture/lab courses. In Frontiers in Education Conference, 2009. FIE’09. 39th IEEE (1–5). |
+| [@weerts2009clicker] | Weerts, S. E., Miller, D., & Altice, A. (2009). “Clicker” Technology Promotes Interactivity in an Undergraduate Nutrition Course. Journal of Nutrition Education and Behavior, 41(3), 227-228. doi:10.1016/j.jneb.2008.08.006|
+| [@boatright-horowitz2009useful] | Boatright-Horowitz, S. L. (2009). Useful Pedagogies or Financial Hardships? Interactive Response Technology (Clickers) in the Large College Classroom. International Journal of Teaching and Learning in Higher Education, 21(3), 295–298. |
+| [@lantz2010clickers] | Lantz, M. E. (2010). The use of “Clickers” in the classroom: Teaching innovation or merely an amusing novelty?. Computers in Human Behavior, 26(4), 556-561. doi:10.1016/j.chb.2010.02.014|
+| [@beavers2010some] | Beavers, S. (2010). Some Days, Things Just’Click’in the Classroom: Clicker Technology in the Introductory Us Politics Classroom. In Western Political Science Association 2010 Annual Meeting Paper.|
+| [@mareno2010audience] | Mareno, N., Bremner, M., & Emerson, C. (2010). The use of audience response systems in nursing education: best practice guidelines. International journal of nursing education scholarship, 7(1).|
+| [@grez2010student] | Grez, D., Valcke, & Berings. (2010). Student response system and learning oral presentation skills. Procedia - Social and Behavioral Sciences, 2(2), 1786-1789. doi:10.1016/j.sbspro.2010.03.985|
+| [@patterson2010evidence] | Patterson, B., Kilpatrick, J., & Woebkenberg, E. (2010). Evidence for teaching practice: The impact of clickers in a large classroom environment. Nurse Education Today, 30(7), 603-607. doi:10.1016/j.nedt.2009.12.008|
+| [@morton2010epistemic] | Morton, A. (2010). Epistemic Emotions’. The Oxford handbook of philosophy of emotion, 385--399.|
+| [@pence2010using] | Pence, L. E., Greene, E., & Pence, H. E. (2010). Using a Google Jockey To Enhance Classroom Discussion. Journal of Chemical Education, 87(3), 254–255.|
+| [@buhay2010effectiveness] | Buhay, D., Best, L. A., & McGuire, K. (2010). The Effectiveness of Library Instruction: Do Student Response Systems (Clickers) Enhance Learning?. The Canadian Journal for the Scholarship of Teaching and Learning, 1(1), 5.|
+| [@kollar2010peer] | Kollar, I., & Fischer, F. (2010). Peer assessment as collaborative learning: A cognitive perspective. Learning and Instruction, 20(4), 344–348. |
+| [@keogh2010clickers] | Keogh, P., & Wang, Z. (2010). Clickers in instruction: one campus, multiple perspectives. Library Hi Tech, 28(1), 8-21. doi:10.1108/07378831011026661|
+| [@tong2011using] | Tong, V. C. H. (2011). Using asynchronous electronic surveys to help in-class revision: A case study. British Journal of Educational Technology, 43(3), 465–473.|
+| [@brown2011teaching] | Brown, P. (2011). Teaching the Millennial Students. In Proceedings from the American Society of Business and Behavioral Sciences annual conference. Las Vegas. |
+| [@degagne2011impact] | De Gagne, J. C. (2011). The impact of clickers in nursing education: A review of literature. Nurse Education Today, 31(8), e34-e40. doi:10.1016/j.nedt.2010.12.007|
+| [@smith2011audience] | Smith, L. A., Shon, H., & Santiago, R. (2011). Audience Response Systems: Using “Clickers” to Enhance BSW Education. Journal of Technology in Human Services, 29(2), 120–132.|
+| [@najeralopez2011evaluacin] | Nájera LópezA., Villalba Montoya, J. M., Arribas Garde, E., Gallego Rico, S., Beléndez VázquezA., Francés MonllorJ., Pablo DávilaF., & others. (2011). Evaluación entre pares (peer evaluation) usando clickers. |
+| [@carnaghan2011using] | Carnaghan, C., Edmonds, T. P., Lechner, T. A., & Olds, P. R. (2011). Using student response systems in the accounting classroom: Strengths, strategies and limitations. Journal of Accounting Education, 29(4), 265-283. doi:10.1016/j.jaccedu.2012.05.002|
+| [@demaio2012click] | DeMaio, D. N., & Oakes, C. E. (2012). Click Your Way to Student Engagement. Radiologic Technology, 83(6), 615–617.|
+| [@harris2012large] | Harris, A. (2012). Large lectures are hard: an exploration in meaningful social visualizations for large group communication.|
+| [@dow2012shepherding] | Dow, S., Kulkarni, A., Klemmer, S., & Hartmann, B. (2012). Shepherding the crowd yields better work. In Proceedings of the ACM 2012 conference on Computer Supported Cooperative Work (1013–1022). |
+| [@du2012augmenting] | Du, H., Rosson, M. B., & Carroll, J. M. (2012). Augmenting classroom participation through public digital backchannels. In Proceedings of the 17th ACM international conference on Supporting group work (155--164).|
+| [@carroll2012classconversations] | Carroll, J. M., Du, H., Jiang, H., & Rosson, M. B. (2012). ClassConversations: Keeping The Learning Conversation Going. Bulletin of the IEEE Technical Committee on Learning Technology, 14(4), 39. |
+| [@welch2012effectiveness] | Welch, S. (2012). Effectiveness of clickers as a pedagogical tool in improving nursing student’s examination performance. Teaching and Learning in Nursing, 7(4), 133-139. doi:10.1016/j.teln.2012.06.004|
+| [@fifer2012student] | Fifer, P. (2012). Student perception of clicker usage in nursing education. Teaching and Learning in Nursing, 7(1), 6-9. doi:10.1016/j.teln.2011.07.005|
+| [@harry2012setting] | Harry, D., Gordon, E., & Schmandt, C. (2012). Setting the Stage for Interaction: A Tablet Application to Augment Group Discussion in a Seminar Class. |

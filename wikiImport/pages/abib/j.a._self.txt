@@ -1,0 +1,3 @@
+h2. J.A. Self's publications
+
+| dillenbourg1992computational | Dillenbourg, P., & Self, J. A. (1992). A computational approach to socially distributed cognition. European Journal of Psychology of Education. Springer.|[[skimx://dillenbourg1992computational|PDF]]|

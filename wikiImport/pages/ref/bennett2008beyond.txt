@@ -1,0 +1,30 @@
+h1. Beyond Monet: The artful science of instructional integration
+
+<ifauth !@admin>|Bennett, B., & Rolheiser, C. (2008). Beyond Monet: The artful science of instructional integration. Bookation.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bennett2008beyond|BibDesk]]  | Bennett, B., & Rolheiser, C. (2008). Beyond Monet: The artful science of instructional integration. Bookation. |
+^ [[skimx://bennett2008beyond|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bennett2008beyond?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bennett2008beyond?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{bennett2008beyond,
+  author = {Bennett, Barrie and Rolheiser, Carol},
+  date-added = {2011-06-09 14:57:30 +0800},
+  date-modified = {2011-06-17 17:45:44 +0800},
+  publisher = {Bookation},
+  title = {Beyond Monet: The artful science of instructional integration},
+  year = {2008}
+}
+
+</hidden>
+
+{{page>notes:bennett2008beyond}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bennett2008beyond}}
+
+{{page>kindle:bennett2008beyond}}
+
+{{page>skimg:bennett2008beyond}}

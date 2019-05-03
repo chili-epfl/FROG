@@ -1,0 +1,3 @@
+h2. J. Kimmerle's publications
+
+| cress2008systemic | Cress, U., & Kimmerle, J. (2008). A systemic and cognitive view on collaborative knowledge building with wikis. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://cress2008systemic|PDF]]|

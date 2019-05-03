@@ -1,0 +1,33 @@
+h1. Supporting Learners’ Self-Organization: an Exploratory Study
+<html><a href='' onClick="trackOutboundLink(this, 'PDFs refpage', ''); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>| (2010). Supporting Learners’ Self-Organization: an Exploratory Study. In Intelligent Tutoring Systems (123--133). Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://moguel2010supporting|BibDesk]]  |  (2010). Supporting Learners’ Self-Organization: an Exploratory Study. In Intelligent Tutoring Systems (123--133). Springer. |
+^ [[skimx://moguel2010supporting|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:moguel2010supporting?do=edit&vecdo=print\'><frame src=\'/wiki/clip:moguel2010supporting?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{moguel2010supporting,
+  author = {Moguel, Patrice and Tchounikine, Pierre and Tricot, André},
+  booktitle = {Intelligent Tutoring Systems},
+  date-added = {2014-03-20 01:17:11 +0000},
+  date-modified = {2014-03-20 01:17:11 +0000},
+  organization = {Springer},
+  pages = {123--133},
+  title = {Supporting Learners’ Self-Organization: an Exploratory Study},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QRC4uLy4uL0JpYmRlc2svYmFrL21vZ3VlbDIwMTBzdXBwb3J0aW5nLTIwMTQtMDMtMjEgMDU6MzI6MjUgLTA0MDAucGRm0hcLGBlXTlMuZGF0YU8RAe4AAAAAAe4AAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAADq7N2R9tb2d1ZWwyMDEwc3VwcG9ydGkjMTAzNDM0QzcucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQNDTHz0+5zwAAAAAAAAAAAAIAAwAACSAAAAAAAAAAAAAAAAAAAAADYmFrAAAQAAgAAMl5ligAAAARAAgAAM9P8g8AAAABABAOrs3ZANrWUgAXPTEAAZ9eAAIAQ1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiYWs6AG1vZ3VlbDIwMTBzdXBwb3J0aSMxMDM0MzRDNy5wZGYAAA4AZgAyAG0AbwBnAHUAZQBsADIAMAAxADAAcwB1AHAAcABvAHIAdABpAG4AZwAtADIAMAAxADQALQAwADMALQAyADEAIAAwADUALwAzADIALwAyADUAIAAtADAANAAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIASlVzZXJzL1N0aWFuL0JpYmRlc2svYmFrL21vZ3VlbDIwMTBzdXBwb3J0aW5nLTIwMTQtMDMtMjEgMDU6MzI6MjUgLTA0MDAucGRmABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A1QDaAOIC1ALWAtsC5gLvAv0DAQMIAxEDFgMjAyYDOAM7A0AAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADQg==}
+}
+
+</hidden>
+
+{{page>notes:moguel2010supporting}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:moguel2010supporting}}
+
+{{page>kindle:moguel2010supporting}}
+
+{{page>skimg:moguel2010supporting}}

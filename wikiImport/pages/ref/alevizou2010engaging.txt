@@ -1,0 +1,37 @@
+h1. Engaging with open education
+<html><a href='http://www.wikisym.org/ws2010/tiki-download_wiki_attachment.php?attId=46&page=Proceedings&download=y' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.wikisym.org/ws2010/tiki-download_wiki_attachment.php?attId=46&page=Proceedings&download=y'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Alevizou, P., & Forte, A. (2010). Engaging with open education. Proceedings of the 6th International Symposium on Wikis and Open Collaboration.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://alevizou2010engaging|BibDesk]]  | Alevizou, P., & Forte, A. (2010). Engaging with open education. Proceedings of the 6th International Symposium on Wikis and Open Collaboration. |
+^ [[skimx://alevizou2010engaging|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:alevizou2010engaging?do=edit&vecdo=print\'><frame src=\'/wiki/clip:alevizou2010engaging?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{alevizou2010engaging,
+  author = {Alevizou, Panagiota and Forte, Andrea},
+  booktitle = {Proceedings of the 6th International Symposium on Wikis and Open Collaboration},
+  date-added = {2012-04-07 02:55:52 +0000},
+  date-modified = {2013-01-14 20:47:10 +0000},
+  date-read = {2012-04-07 16:09:33 -0400},
+  keywords = {1p2pu},
+  oa-url = {http://www.wikisym.org/ws2010/tiki-download_wiki_attachment.php?attId=46&page=Proceedings&download=y},
+  organization = {ACM},
+  pages = {30},
+  read = {1},
+  title = {Engaging with open education},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhhbGV2aXpvdTIwMTBlbmdhZ2luZy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFHndly6Uk/1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLpV0/AAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhbGV2aXpvdTIwMTBlbmdhZ2luZy5wZGYAAA4AMgAYAGEAbABlAHYAaQB6AG8AdQAyADAAMQAwAGUAbgBnAGEAZwBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9hbGV2aXpvdTIwMTBlbmdhZ2luZy5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svYWxldml6b3UyMDEwZW5nYWdpbmcucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:alevizou2010engaging}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:alevizou2010engaging}}
+
+{{page>kindle:alevizou2010engaging}}
+
+{{page>skimg:alevizou2010engaging}}

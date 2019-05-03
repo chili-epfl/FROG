@@ -1,0 +1,3 @@
+h2. Publications in Journal of Digital information
+
+| selvin2006supporting | Selvin, A. M. (2006). Supporting collaborative analysis and design with hypertext functionality. Journal of Digital information, 1(4).|[[skimx://selvin2006supporting|PDF]]|

@@ -1,0 +1,7 @@
+h2. Murat Perit Cakir's publications
+
+| [@stahl2006shared] | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & MühlpfordtMartin. (2006). Shared referencing of mathematical objects in online chat. In Proceedings of the 7th international conference on Learning sciences (716--722).|
+| [@cakir2006shared] | Cakir, M. P., Sarmiento, J., & Stahl, G. (2006). Shared deictic referencing in online mathematics discourse. In Ethnography in Education annual conference. |
+| [@zemel2007disembodied] | Zemel, A., Shumar, W., & Cakir, M. P. (2007). The disembodied act: Copresence and indexical symmetry in computer-mediated communication. In Proceedings of the 8th iternational conference on Computer supported collaborative learning (811--813).|
+| [@cakir2009joint] | Cakir, M. P., Zemel, A., & Stahl, G. (2009). The joint organization of interaction within a multimodal CSCL medium. International Journal of Computer-Supported Collaborative Learning, 4(2), 115--149. |
+| [@cakir2009organization] | Cakir, M. P. (2009). The Organization of Graphical, Narrative and Symbolic Interactions. Studying Virtual Math Teams, 99--140. |

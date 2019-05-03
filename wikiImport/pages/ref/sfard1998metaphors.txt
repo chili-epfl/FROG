@@ -1,0 +1,36 @@
+h1. On Two Metaphors for Learning and the Dangers of Choosing Just One
+
+<ifauth !@admin>|Sfard, A. (1998). On Two Metaphors for Learning and the Dangers of Choosing Just One. Educational Researcher, 27(2). doi: 10.3102/0013189X027002004.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://sfard1998metaphors|BibDesk]]  | Sfard, A. (1998). On Two Metaphors for Learning and the Dangers of Choosing Just One. Educational Researcher, 27(2). doi: 10.3102/0013189X027002004. |
+^ [[skimx://sfard1998metaphors|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:sfard1998metaphors?do=edit&vecdo=print\'><frame src=\'/wiki/clip:sfard1998metaphors?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{sfard1998metaphors,
+  author = {Sfard, Anna},
+  date-added = {2011-06-17 10:21:45 +0800},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  doi = {10.3102/0013189X027002004},
+  journal = {Educational Researcher},
+  notes = {1},
+  number = {2},
+  read = {1},
+  title = {On Two Metaphors for Learning and the Dangers of Choosing Just One},
+  volume = {27},
+  year = {1998},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYgAAAAAAYgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhZzZmFyZDE5OThtZXRhcGhvcnMucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcfVy9dI0FBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14EQAAAAAQAMANrWUgAXPTEAAZ9eAAIANVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzZmFyZDE5OThtZXRhcGhvcnMucGRmAAAOAC4AFgBzAGYAYQByAGQAMQA5ADkAOABtAGUAdABhAHAAaABvAHIAcwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAqVXNlcnMvU3RpYW4vYmliZGVzay9zZmFyZDE5OThtZXRhcGhvcnMucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECQuLi8uLi9iaWJkZXNrL3NmYXJkMTk5OG1ldGFwaG9ycy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACLAIuAjMCPAJHAksCWQJgAmkCkAKVApgCpQKqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:sfard1998metaphors}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:sfard1998metaphors}}
+
+{{page>kindle:sfard1998metaphors}}
+
+{{page>skimg:sfard1998metaphors}}

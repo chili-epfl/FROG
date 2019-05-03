@@ -1,0 +1,17 @@
+h2. Jianwei Zhang's publications
+
+| [@gan2010early] | Gan, Y., Scardamalia, M., Hong, H. Y., & Zhang, J. (2010). Early Development of Graphical Literacy through Knowledge Building. Canadian Journal of Learning and Technology/La revue canadienne de lapprentissage et de la technologie, 36(1).|
+| [@zhang1994representations] | Zhang, J., & Norman, D. A. (1994). Representations in distributed cognitive tasks* 1. Cognitive science, 18(1), 87--122.|
+| [@zhang2001research] | Zhang, J., Li, F., Duan, C., & Wu, G. (2001). Research on self-efficacy of distance learning and its influence to learners' attainments. In Proceedings of the international conference on computers in education/schoolnet (1510--1517).|
+| [@zhang2007socio-cognitive] | Zhang, J., Scardamalia, M., Lamon, M., Messina, R., & Reeve, R. (2007). Socio-cognitive dynamics of knowledge building in the work of 9-and 10-year-olds. Educational Technology Research and Development, 55(2), 117–145.|
+| [@gan2007making] | Gan, Y., Scardamalia, M., Hong, H. Y., & Zhang, J. (2007). Making thinking visible: Growth in graphical literacy, Grades 3 to 4. In Proceedings of the 8th iternational conference on Computer supported collaborative learning (209--211).|
+| [@zhang2008constantly] | Zhang, J., Hong, H. Y., Teo, C. L., Scardamalia, M., & Morley, E. (2008). Constantly going deeper: Knowledge building innovation in an elementary professional community. In annual conference of American Educational Research Association (AERA), New York.|
+| [@zhang2008examining] | Zhang, J., & Chan, C. K. K. (2008). Examining the growth of community knowledge in an online space. In The Knowledge Building Workshop at the International Conference on Computers in Education (ICCE), Taipei, Taiwan.|
+| [@zhang2009comments] | Zhang, J. (2009). Comments on Greenhow, Robelia, and Hughes: toward a creative social web for learners and teachers. Educational Researcher, 38(4), 274.|
+| [@zhang2009designs] | Zhang, J., Scardamalia, M., Reeve, R., & Messina, R. (2009). Designs for collective cognitive responsibility in knowledge-building communities. Journal of the Learning Sciences, 18(1), 7–44.|
+| [@hong2009towards] | Hong, H. Y., Zhang, J., Teo, C., & Scardamalia, M. (2009). Towards design-based knowledge-building practices in teaching. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1 (257--261).|
+| [@hong2010knowledge] | Hong, H. Y., Scardamalia, M., & Zhang, J. (2010). Knowledge Society Network: Toward a dynamic, sustained network for building knowledge. Canadian Journal of Learning and Technology/La revue canadienne de l’apprentissage et de la technologie, 36(1).|
+| [@sun2010knowledge] | Sun, Y., Zhang, J., & Scardamalia, M. (2010). Knowledge building and vocabulary growth over two years, Grades 3 and 4. Instructional Science, 38(2), 147--171.|
+| [@zhang2010technology] | Zhang, J. (2010). Technology-supported learning innovation in cultural contexts. Educational Technology Research and Development, 58(2), 229--243.|
+| [@sun2010developing] | Sun, Y., Zhang, J., & Scardamalia, M. (2010). Developing deep understanding and literacy while addressing a gender-based literacy gap. Canadian Journal of Learning and Technology/La revue canadienne de lapprentissage et de la technologie, 36(1).|
+| [@zhang2011sustaining] | Zhang, J., Hong, H. Y., Scardamalia, M., Teo, C. L., & Morley, E. A. (2011). Sustaining knowledge building as a principle-based innovation at an elementary school. The Journal of the Learning Sciences, 20(2), 262--307.|

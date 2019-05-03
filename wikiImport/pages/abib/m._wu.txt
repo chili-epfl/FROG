@@ -1,0 +1,4 @@
+h2. M. Wu's publications
+
+| shen2009collaborative | Shen, C., Ryall, K., Forlines, C., Esenther, A., Vernier, F. D., Everitt, K., Wu, M., Wigdor, D., Morris, M. R., HancocK, M., & others. (2009). Collaborative Tabletop Research and Evaluation. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|
+| dai2003primeclimb | Dai, J., Wu, M., Cohen, J., & Klawe, M. (2003). Primeclimb: designing to facilitate mediated collaborative inquiry. Designing for change in networked learning environments: proceedings of the International Conference on Computer Support for Collaborative Learning 2003.|

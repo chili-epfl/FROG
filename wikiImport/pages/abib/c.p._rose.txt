@@ -1,0 +1,4 @@
+h2. C.P. Rosé's publications
+
+| :ref:gergle2007modeling | Gergle, D., Rosé, C. P., & Kraut, R. E. (2007). Modeling the impact of shared visual information on collaborative reference. Proceedings of the SIGCHI conference on Human factors in computing systems.|
+| :ref:gergle2007modeling | Gergle, D., Rosé, C. P., & Kraut, R. E. (2007). Modeling the impact of shared visual information on collaborative reference. Proceedings of the SIGCHI conference on Human factors in computing systems.|

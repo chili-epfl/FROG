@@ -1,0 +1,9 @@
+h1. James D. Slotta
+{{ pages:a_james_d._slotta01.png}}
+
+h2. Research
+
+h2. Links
+  * [[http://encorelab.org/|Homepage]]
+  
+{{page>abib:James D. Slotta}}

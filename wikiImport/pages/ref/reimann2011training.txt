@@ -1,0 +1,34 @@
+h1. Training Concept
+
+<ifauth !@admin>|Reimann, P., Sircar, R., Giorgini, F., Meissl-Egghart, G., Kickmeier-Rust, M., Kossowski, M., Utz, W., & Halb, W. (2011). Training Concept. NEXT-TELL.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://reimann2011training|BibDesk]]  | Reimann, P., Sircar, R., Giorgini, F., Meissl-Egghart, G., Kickmeier-Rust, M., Kossowski, M., Utz, W., & Halb, W. (2011). Training Concept. NEXT-TELL. |
+^ [[skimx://reimann2011training|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:reimann2011training?do=edit&vecdo=print\'><frame src=\'/wiki/clip:reimann2011training?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{reimann2011training,
+  author = {Reimann, Peter and Sircar, Rena and Giorgini, Fabrizio and Meissl-Egghart, Gerhilde and Kickmeier-Rust, Michael and Kossowski, Michal and Utz, Wilfrid and Halb, Wolfgang},
+  date = {June 2011},
+  date-added = {2011-11-21 01:54:09 +0000},
+  date-modified = {2011-11-24 16:51:24 +0000},
+  keywords = {NEXT-TELL},
+  publisher = {NEXT-TELL},
+  read = {1},
+  title = {Training Concept},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdyZWltYW5uMjAxMXRyYWluaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcMGy9dH4VBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14AhAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgByZWltYW5uMjAxMXRyYWluaW5nLnBkZgAOADAAFwByAGUAaQBtAGEAbgBuADIAMAAxADEAdAByAGEAaQBuAGkAbgBnAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL3JlaW1hbm4yMDExdHJhaW5pbmcucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9yZWltYW5uMjAxMXRyYWluaW5nLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:reimann2011training}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:reimann2011training}}
+
+{{page>kindle:reimann2011training}}
+
+{{page>skimg:reimann2011training}}

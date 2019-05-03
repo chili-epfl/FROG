@@ -1,0 +1,7 @@
+h2. Images
+
+{{skim:strijbos2004we0.png}}
+
+[[skimx://strijbos2004we#12|p. 12]]
+----
+

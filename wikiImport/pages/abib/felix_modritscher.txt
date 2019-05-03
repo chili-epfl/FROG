@@ -1,0 +1,4 @@
+h2. Felix Mödritscher's publications
+
+| [@modritscher2009model] | MödritscherFelix, & Petrushyna, Z. (2009). Model and Methodology for {PLE-Based} Collaboration in Learning Ecologies. |
+| [@modritscher2010strategies] | MödritscherFelix, Wild, Fridolin, & Petrushyna, Z. (2010). Strategies and Facilities for Activity Pattern Sharing. |

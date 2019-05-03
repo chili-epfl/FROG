@@ -1,0 +1,3 @@
+h2. J. Cohen's publications
+
+| dai2003primeclimb | Dai, J., Wu, M., Cohen, J., & Klawe, M. (2003). Primeclimb: designing to facilitate mediated collaborative inquiry. Designing for change in networked learning environments: proceedings of the International Conference on Computer Support for Collaborative Learning 2003.|[[skimx://dai2003primeclimb|PDF]]|

@@ -1,0 +1,78 @@
+====== Using Pedagogical Agents to Support the Formation of Synthetic Communities of Practice ======
+
+//Baker College, Flint MI//
+
+  * Use of APA and conversational agents to support formation of CoP when there are insufficient humans 
+
+**CoP**
+  * KM tool for various enterprises
+    * preserve knowledge
+    * distribute
+    * integrate and teach new practitioners
+    * solve hard problems by maintaining state-of-the-art
+    * usually long term social structures, not always
+  * three structural elements (Wenger, McDermott and Snyder 2002)
+    * domain
+    * community
+    * practice
+
+**CoP formation possibilities**
+  * Face-to-face
+    * classmates
+    * project group members
+    * can last for duration of a program
+  * synchronous online
+    * project group members
+    * study group members
+    * can last for duration of program, but not likely
+  * asynchronous online
+    * online discussion postings
+      * disconnected by time
+    * usually only lasts for duration of a class
+
+**Synthetic CoP**
+  * membership
+    * one or more students
+    * conversational agents
+    * pedagogical agents
+  * structure
+    * scaffolded by agents with fixed or varying roles
+  * duration
+    * possible career
+    * transcends program boundaries
+    * life long learning, not going to turn off access
+  * tasks, responsibilities
+    * legitimate peripheral participation
+    * progression towards greater integration in community
+
+More than fancy intelligent tutoring, more than virtual social network
+
+Instructor is a "tacit" member of community, can continue to upgrade agent knowledge, integrate new practices from the field, etc.
+
+**Community coordinator**
+  * tasks
+    * issue identification in the domain
+    * event planning and facilitation
+    * linkage of community members
+    * development of community members
+    * managing relationship between community and organization
+    * build practice
+    * monitor and assess community health
+  * agent coordinator is not appropriate for all tasks
+    * so they cheat
+    * split responsibilities between human and agent
+      * human 
+        * domain issue identification
+
+**Target SCoP on Baker Island (SL)**
+  * MA in information systems management
+  * Practice
+    * methodologies, tools, techniques for solving problems with information technology
+    * system analysis and design
+      * knowledge acquisition and structuring
+      * knowledge modeling and abstraction
+      * requirement specification
+      * system design
+      * system development
+    * student can talk to these different "people" about their professional practice
+  * System OSS SourceForge, using Artificial Intelligence Markup Language

@@ -1,0 +1,9 @@
+h2. Anna De Liddo's publications
+
+| [@liddo2008knowledge] | Liddo, A. D., & Buckingham Shum, S. (2008, July). Knowledge media tools for capturing deliberation in participatory spatial planning. Conference Item. |
+| [@buckinghamshum2010collective] | Buckingham Shum, S., & Liddo, A. D. (2010). Collective intelligence for {OER} sustainability. Conference Item. |
+| [@liddo2010cohere] | Liddo, A. D., & Buckingham Shum, S. (2010, February). Cohere: A prototype for contested collective intelligence. Conference Item. |
+| [@liddo2010capturing] | Liddo, A. D., & Buckingham Shum, S. (2010, July). Capturing and representing deliberation in participatory planning practices. Conference Item. |
+| [@deliddo2012contested] | De Liddo, A., SándorÁgnes, & Buckingham Shum, S. (2012). Contested Collective Intelligence: Rationale, Technologies, and a Human-Machine Annotation Study. Computer Supported Cooperative Work (CSCW), 1--32.|
+| [@quinto2010debate] | Quinto, I., Buckingham Shum, S., Liddo, A. D., & Iandoli, L. (2010). A debate dashboard to enhance on-line knowledge sharing. Conference Item. |
+| [@liddo2011discourse-centric] | Liddo, A. D., Buckingham Shum, S., Quinto, I., Bachler, M., & Cannavacciuolo, L. (2011). Discourse-centric learning analytics. Conference Item. |

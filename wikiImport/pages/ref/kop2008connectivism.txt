@@ -1,0 +1,37 @@
+h1. Connectivism: Learning theory of the future or vestige of the past?
+
+<ifauth !@admin>|Kop, R., & Hill, A. (2008). Connectivism: Learning theory of the future or vestige of the past?. The International Review of Research in Open and Distance Learning, 9(3), Article–9.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kop2008connectivism|BibDesk]]  | Kop, R., & Hill, A. (2008). Connectivism: Learning theory of the future or vestige of the past?. The International Review of Research in Open and Distance Learning, 9(3), Article–9. |
+^ [[skimx://kop2008connectivism|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kop2008connectivism?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kop2008connectivism?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{kop2008connectivism,
+  author = {Kop, R. and Hill, A.},
+  date-added = {2012-03-11 11:47:44 +0000},
+  date-modified = {2012-04-08 16:28:14 +0000},
+  date-read = {2012-04-02 15:12:08 -0400},
+  journal = {The International Review of Research in Open and Distance Learning},
+  keywords = {1mooc},
+  number = {3},
+  pages = {Article–9},
+  read = {1},
+  title = {Connectivism: Learning theory of the future or vestige of the past?},
+  volume = {9},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdrb3AyMDA4Y29ubmVjdGl2aXNtLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKX2y9dFYlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL132iAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrb3AyMDA4Y29ubmVjdGl2aXNtLnBkZgAOADAAFwBrAG8AcAAyADAAMAA4AGMAbwBuAG4AZQBjAHQAaQB2AGkAcwBtAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2tvcDIwMDhjb25uZWN0aXZpc20ucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9rb3AyMDA4Y29ubmVjdGl2aXNtLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:kop2008connectivism}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kop2008connectivism}}
+
+{{page>kindle:kop2008connectivism}}
+
+{{page>skimg:kop2008connectivism}}

@@ -1,0 +1,3 @@
+h2. E. Armour-Thomas's publications
+
+| [[..:ref:artz1992development]] | Artz, A. F., & Armour-Thomas, E. (1992). Development of a cognitive-metacognitive framework for protocol analysis of mathematical problem solving in small groups. Cognition and instruction. Routledge.|[[skimx://artz1992development|PDF]]|

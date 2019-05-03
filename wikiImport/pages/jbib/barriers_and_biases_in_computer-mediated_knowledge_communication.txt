@@ -1,0 +1,8 @@
+h2. Publications in Barriers and biases in computer-mediated knowledge communication
+
+| [@dillenbourg2005designing] | Dillenbourg, P. (2005). Designing biases that augment socio-cognitive interactions. Barriers and biases in computer-mediated knowledge communication, 243--264.|
+| [@fischer2005knowledge] | Fischer, G., & Ostwald, J. (2005). Knowledge communication in design communities. Barriers and biases in computer-mediated knowledge communication, 213--242.|
+| [@kirschner2005enhancing] | Kirschner, P. A., & Kreijns, K. (2005). Enhancing sociability of computer-supported collaborative learning environments. Barriers and biases in computer-mediated knowledge communication, 169--191.|
+| [@pfister2005support] | PfisterHans-Rüdiger. (2005). How to support synchronous net-based learning discourses: Principles and perspectives. Barriers and biases in computer-mediated knowledge communication, 39--57.|
+| [@weinberger2005facilitating] | Weinberger, A., Reiserer, M., Ertl, B., Fischer, F., & Mandl, H. (2005). Facilitating collaborative knowledge construction in computer-mediated learning environments with cooperation scripts. Barriers and biases in computer-mediated knowledge communication, 15--37.|
+| [@bromme2005barriers] | Bromme, R., Hesse, F. W., & Spada, H. (2005). Barriers, biases and opportunities of communication and cooperation with computers: Introduction and overview. Barriers and biases in computer-mediated knowledge communication, 1--14. |

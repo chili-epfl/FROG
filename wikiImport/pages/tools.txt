@@ -1,0 +1,3 @@
+h1. Tools
+
+I have used Ack for a very long time to search through code files, recently I discovered the silver searcher. [[http://samsaffron.com/archive/2013/05/03/eliminating-my-trivial-inconveniences|Eliminating my trivial inconveniences building Discourse]]

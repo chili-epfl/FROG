@@ -1,0 +1,3 @@
+h2. Publications in European Journal of Operational Research
+
+| mackenzie2006wisdom | Mackenzie, A., Pidd, M., Rooksby, J., Sommerville, I., Warren, I., & Westcombe, M. (2006). Wisdom, decision support and paradigms of decision making. European Journal of Operational Research, 170(1), 156--171. Elsevier.|[[skimx://mackenzie2006wisdom|PDF]]|

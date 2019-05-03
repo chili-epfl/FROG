@@ -1,0 +1,8 @@
+h2. Clare Brett's publications
+
+| [@scardamalia1992educational] | Scardamalia, M., Bereiter, C., Brett, C., Burtis, J., Calhoun, C., & Lea, N. S. (1992). Educational applications of a networked communal database. Interactive Learning Environments, 2(1), 45–71.|
+| [@lamon1993beliefs] | Lamon, M., Chan, C., Scardamalia, M., Burtis, J., & Brett, C. (1993). Beliefs about learning and constructive processes in reading: Effects of a computer supported intentional learning environment. In annual meeting of the American Educational Research Association {(Atlanta,} Ga.|
+| [@hewitt1995schools] | Hewitt, J., Brett, C., Scardamalia, M., Frecker, K., & Webb, J. (1995). Schools for thought: Transforming classrooms into learning communities. In Symposium 29.57 y Poster Session (Vol. 31).|
+| [@hewitt2006using] | Hewitt, J., Peters, V. L., & Brett, C. (2006). Using Wiki Technologies as an Adjunct to Computer Conferencing in a Graduate Teacher Education Course. TECHNOLOGY AND TEACHER EDUCATION ANNUAL, 4, 2240.|
+| [@fujita2008rethinking] | Fujita, N., & Brett, C. (2008). Rethinking analysis of progressive discourse in online learning: an activity theory perspective. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 1 (248--256).|
+| [@qiu2012online] | Qiu, M., Hewitt, J., & Brett, C. (2012). Online class size, note reading, note writing and collaborative discourse. International Journal of Computer-Supported Collaborative Learning, 7(3), 423-442. doi:10.1007/s11412-012-9151-2|

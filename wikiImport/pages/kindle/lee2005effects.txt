@@ -1,0 +1,8 @@
+h1. Kindle highlights
+
+Web-based environments, however, offer learners relatively few chances to solve problems through face-to-face interactions compared to traditional classrooms, thereby making it difficult for learners to develop a shared understanding for particular mutual task performances. Therefore, academic efforts are needed to overcome this limitation. As one such effort, this study suggests the use of Collaborative Representation Supporting Tool (CRST), which is newly developed to support learners in constructing their shared knowledge structures collaboratively. **(loc: 7-11)**
+
+The Web, as a recently emerging communication medium, has become a dominant means for empowering people to perform their work well in a variety of fields in our society. In particular, web-based instruction has also become a type of instructional delivery system for improving human learning. When **(loc: 16-18)**
+
+::stian haklev:: **(loc:  18)**
+

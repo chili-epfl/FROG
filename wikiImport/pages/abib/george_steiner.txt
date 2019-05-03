@@ -1,0 +1,3 @@
+h2. George Steiner's publications
+
+| [@steiner1975after] | Steiner, G. (1975). After Babel: Aspects of language and translation. Oxford University Press.|

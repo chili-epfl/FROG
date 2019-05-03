@@ -1,0 +1,3 @@
+h2. Magdalena Ortiz's publications
+
+| [@ortiz2003formalizing] | Ortiz, M., Ayala, G., & Osorio, M. (2003). Formalizing the Learner Model for CSCL Environments. In Proceedings of the 4th Mexican International Conference on Computer Science, ENC '03 (151--). Washington, DC, USA: IEEE Computer Society. |

@@ -1,0 +1,32 @@
+h1. The Tinderbox Way
+
+<ifauth !@admin>|Bernstein, M. (2007). The Tinderbox Way. Inc. Eastgate Systems.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bernstein2007tinderbox|BibDesk]]  | Bernstein, M. (2007). The Tinderbox Way. Inc. Eastgate Systems. |
+^ [[skimx://bernstein2007tinderbox|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bernstein2007tinderbox?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bernstein2007tinderbox?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{bernstein2007tinderbox,
+  author = {Bernstein, Mark},
+  date-added = {2011-04-29 23:56:02 -0400},
+  date-modified = {2011-06-09 08:30:00 +0800},
+  isbn = {1884511465},
+  publisher = {Eastgate Systems, Inc., USA},
+  read = {1},
+  title = {The Tinderbox Way},
+  year = {2007}
+}
+
+</hidden>
+
+{{page>notes:bernstein2007tinderbox}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bernstein2007tinderbox}}
+
+{{page>kindle:bernstein2007tinderbox}}
+
+{{page>skimg:bernstein2007tinderbox}}

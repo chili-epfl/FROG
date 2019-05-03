@@ -1,0 +1,3 @@
+h2. Bj Hicks's publications
+
+| [@hicks2008organizing] | Hicks, B., Dong, A., Palmer, R., & Mcalpine, H. C. (2008). Organizing and managing personal electronic files: A mechanical engineer’s perspective. ACM Transactions on Information Systems (TOIS), 26(4), 23.|

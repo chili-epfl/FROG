@@ -1,0 +1,130 @@
+h2. Highlights (70%)
+
+Abstract. This paper describes a new theory of peer-to-peer learning and teaching that we call paragogy. Paragogy's principles were developed by adapting the Knowles's principles of andragogy to peer-based learning contexts. Paragogy addresses the challenge of peer-producing a useful and supportive context for self-directed learning. The concept of paragogy can inform the design and application of learning analytics to enhance both individual and organization learning. In particular, we consider the role of learner proles for goal-setting and self-monitoring, and the further role of analytics in designing enhanced peer tutoring systems. [[skimx://corneli2011paragogy#1|p. 1]]
+
+Jonathan Grudin identied several problems for computer supported collaborative work (CSCW), which apply a fortiori in computer supported collaborative learning (CSCL) [1]. The current paper tackles similar problems, from a human and social perspective, in which both individual and organizational learning are front and center. Grudin's thematic problems are: (1) The disparity between the people who do the work to create and support the application, and the people who get the benet; (2) The breakdown of intuitive decision-making whenever intuition comes from a dierent context; and (3) the ultimate diculty of evaluating CSCW applications, precisely because they involve complex social dynamics. [[skimx://corneli2011paragogy#1|p. 1]]
+
+In the peer-based context, Problem 1 is somewhat mitigated, but by no means completely gone. Specializations tend to develop within every group. Power laws appear to distribute work between a core of dedicated users or contributors and a peripheral long tail of persons who are less involved. [[skimx://corneli2011paragogy#1|p. 1]]
+
+::Is this related to lurkers who benefit but do not contribute socially?:: [[skimx://corneli2011paragogy#1|p. 1]]
+
+peerbased learning itself can more accurately be thought of as new-old (see Eisen [2]). Eisen's peer-based learning principles of voluntary involvement, trust, mutuality, authenticity, non-hierarchical status, and duration and intensity leading to closeness, [2] are ways to describe fundamentally human situations (and quite nice-sounding ones at that). Perhaps these features are not as prevalent as they should be in our educational cultures; still the fact remains that it is not peerbased learning that is new, but many of the technologies that can support it (we count analytical methods and pedagogies among these). [[skimx://corneli2011paragogy#2|p. 2]]
+
+our new theory of the social dynamics of peerbased education [[skimx://corneli2011paragogy#2|p. 2]]
+
+Paragogy: a theory of peer-based teaching and learning [[skimx://corneli2011paragogy#2|p. 2]]
+
+The theory of paragogy was developed in the context of two online courses that we ran at Peer 2 Peer University (P2PU) in Autumn of 2010. One of the courses was called DIY Math, and it was designed to build independent study and peer-support skills for mathematics learners at all levels.1 The other course was called Collaborative Lesson Planning, and it was built around the question Can publishing and collaboratively building lesson plans online make them better?2 The rst course (which was facilitated by the rst author of the current paper) was not a resounding success as a course, but we learned a lot from it anyway, especially in a rich discussion about how it could be improved that took place in the second course (which was facilitated by the second author). [[skimx://corneli2011paragogy#2|p. 2]]
+
+The key outcome was an outline of an analytical framework that applies to peer-to-peer or peer-based teaching-and-learning-between-equals. The diculties with DIY Math pointed to possible improvements at the organizational level, such as developing a P2PU-wide social contract, or only running courses when sucient commitments had been anted up. In light of this, Corneli's post-mortem analysis of DIY Math suggested that the concept of pedagogy is [[skimx://corneli2011paragogy#2|p. 2]]
+
+not sucient in the peer-based learning context; he then introduced the etymologically more appropriate term, paragogy.3 He subsequently ve paragogical principles (Section 2.1), which were then improved and rened through a peer mentoring process in the Collaborative Lesson Planning course. [[skimx://corneli2011paragogy#3|p. 3]]
+
+The fact that paragwgh ́ is an existing word in Greek, meaning generation or production, should not dissuade us from this new usage in English. Indeed, here we are precisely concerned with the activities that generate learning. And, vice versa, in the situated learning and communities of practice point of view, learning was shown to be an inevitable aspect of all productive practices [3]. [[skimx://corneli2011paragogy#3|p. 3]]
+
+In any case, paragogy will be dened here in contradistinction to another neologism, andragogy, the teaching of adults, coined in [4], cf. [5], [6]. We found Blondy's Evaluation and Application of Andragogical Assumptions to the Adult Online Learning Environment [7] to be quite useful. In succinct form, Knowles's ve principles of andragogy [[skimx://corneli2011paragogy#3|p. 3]]
+
+::I wonder how much of the value of paeragogy is in the specific ideas/concepts/frameworks it provides, and how much is simply giving us a "fresh term" to congregate around, freeing us from the baggage of pedagogy and andragogy, catalyzing excitement about new possibilities in teaching and learning?:: [[skimx://corneli2011paragogy#3|p. 3]]
+
+::Interesting - the five principles are based directly on Knowles' five principles. Didn't pick up on that the first time I read this.:: [[skimx://corneli2011paragogy#3|p. 3]]
+
+Each of these principles adjusts one of Knowles's ve principles to the peer-based learning context, often by turning the original by 90°. This is not because we particularly disagree with Knowles about how to teach (see Section 2.2), but because paragogy deals with a very dierent challenge, that of analyzing and co-creating the educational environment as a whole. [[skimx://corneli2011paragogy#3|p. 3]]
+
+1. Context as a decentered center. For learning design in a peer-to-peer context, understanding the learner's self-concept in particular, whether they see themselves as self-directed or not may be less important than understanding the concept of `shared context in motion'. (See Section 2.3.) [[skimx://corneli2011paragogy#3|p. 3]]
+
+2. Meta-learning as a font of knowledge. We all have a lot to learn about learning. [[skimx://corneli2011paragogy#3|p. 3]]
+
+3. Peers are equals, but dierent. The learner mustn't seek only to conrm what they already know, and must therefor confront and make sense of dierence as part of the learning experience. [[skimx://corneli2011paragogy#3|p. 3]]
+
+4. Learning is distributed and nonlinear. Side-tracking is OK, but dissipation isn't likely to work. Part of paragogy is learning how to nd one's way around a given social eld. [[skimx://corneli2011paragogy#3|p. 3]]
+
+5. Realize the dream, then wake up! Paragogy is the art of fullling motivations when this is possible, and then going on to the next thing. [[skimx://corneli2011paragogy#4|p. 4]]
+
+Blondy [7] points out both uses and challenges to each of Knowles principles of andragogy. For example, Cheren stated that while learners may express a desire to be self-directed in their learning, most lack the required understanding of learning necessary to be self-directed and thus need guidance and encouragement in the learning process. [[skimx://corneli2011paragogy#4|p. 4]]
+
+he most important initial condition in andragogy seems to be that an adult educator or facilitator is part of the picture. In a peer-based setting, that may not be the case: we can easily nd examples of learning environments where there is no teacher in the classroom; where, for example, the task of facilitation is shared among all participants or even encoded in the learning materials or supportive technologies. Not that one way is more desirable than another: we simply mean to highlight the fact that the most basic features of a given learning environment will inuence everything else. [[skimx://corneli2011paragogy#4|p. 4]]
+
+it seems to us that a move to the more horizontal regime of paragogy can often occur within andragogy, e.g. when inviting participants to interact; and vice versa, a move to a more vertical regime of andragogy is possible within paragogy. For example, the second author fruitfully encouraged participation in his course via personal emails to those participants who had temporarily gone quiet. [[skimx://corneli2011paragogy#4|p. 4]]
+
+::Positing a range between andragogy and paragogy - interesting since other writers posited a range between pedagogy and andragogy, with andragogy as the "enlightened" position… So is it a continuum with three points? Pedagogy, andragogy, paragogy? (Where does connectivism fit in? :)):: [[skimx://corneli2011paragogy#4|p. 4]]
+
+In short, we agree with Blondy when she writes Andragogy should be used as a starting point for approaching the adult online learning environment. We recommend paragogy as an additional starting point that sits on another dimension. [[skimx://corneli2011paragogy#4|p. 4]]
+
+shared context in motion [[skimx://corneli2011paragogy#4|p. 4]]
+
+The philosophical foundations of this notion, originally developed by Kitaro Nishida, and summarized in English by Masao Abe [8], describe the way in which events and objects arise from their larger contexts. In other words, the idea of basho (shared context in motion) can help us think about how a context constrains or supports dierent types of (inter-)actions, and also about how we (re-)shape the contexts we nd ourselves in. [[skimx://corneli2011paragogy#4|p. 4]]
+
+Nonaka and Toyama take this idea and apply it to knowledge creation. They suggest that knowledge is created as people interact over time in a shared context, in a process that can be broken up into repeated phases they call Socialisation, Externalisation, Combination, and Internalisation (SECI) [9]. In simple terms, any given phase can be understood in terms of what I do, what we do, how we do it, and what it's all about. [[skimx://corneli2011paragogy#4|p. 4]]
+
+::I think this is fruitful - from bouchard2001experiential:: [[skimx://corneli2011paragogy#4|p. 4]]
+
+Instead of simply saying so-and-so lacks the required understanding of learning, so I need to help them, a paragogue would also look for contextual features of the learning environment that are blocking self-directed learning. These may include features that block the ability of learners to make adjustments to the environment on their own behalf, or which limit their ability to ask for help. [[skimx://corneli2011paragogy#5|p. 5]]
+
+::New concept of "paragogue" - is this someone involved in independent peer-learning, or is it some "trainer/facilitator" supporting peer-based learning?:: [[skimx://corneli2011paragogy#5|p. 5]]
+
+Phillip Schmidt writes: Upon closer inspection of commons-based peer production communities, we nd learning at their core [10]. [[skimx://corneli2011paragogy#5|p. 5]]
+
+in the conclusion to Education and Mind in the Knowledge Age, Carl Bereiter writes: [[skimx://corneli2011paragogy#5|p. 5]]
+
+Schools are places where knowledge creation can go on, but where it does not have to be market driven or competitive. [...] Knowledge creation in schools is the creation of knowledge by students for their own use. [...] To the extent that knowledge created in schools has value beyond the classroom where it was created, it enters into a barter economy. [11] [[skimx://corneli2011paragogy#5|p. 5]]
+
+Context as a decentered center. The idea that internal motivation is in conict with goal-directedness (from Tennant [12], cited in Blondy) seems somewhat dubious if we consider the reciprocal eect of environment on character development described by Benkler and Nissenbaum [13]. [[skimx://corneli2011paragogy#5|p. 5]]
+
+Meta-learning as a font of knowledge. Continuing this idea, gaining skills, employability, or a good reputation, seems to be a straightforward self-oriented way to enhance one's quality of life. But in fact, even these motivations come from somewhere. In a proper analytics of a learning or production landscape, we ought to ask: what learning? and why this learning? [[skimx://corneli2011paragogy#5|p. 5]]
+
+Peers are equals, but dierent. Benkler describes three necessary features for peer production: (1) the potential objects of peer production must be modular; (2) the modules must be small in size (noting that heterogeneous granularity will allow people with dierent levels of motivation to collaborate by contributing smaller or larger grained contributions); (3) the integration mechanism must run at a fairly low cost (either through automation or enforced social norms). [[skimx://corneli2011paragogy#5|p. 5]]
+
+There are parallels in paragogy. The choice to work in a small closed group (as described in e.g. [14]) versus the choice to work as a group embedded within a larger commons (as described in e.g. [15]4) has to do with the question: how much dierence do you want to confront while engaging with the learning process? [[skimx://corneli2011paragogy#5|p. 5]]
+
+http://tiny.cc/wikisymteach [[skimx://corneli2011paragogy#5|p. 5]]
+
+::This is interesting - the concept of shared context, and parallels to granularism in Benkler's work (although was any of it ever done empirically or was it just his "gut feeling" based on some early commons-projects?):: [[skimx://corneli2011paragogy#5|p. 5]]
+
+Learning is distributed and nonlinear. The view of uid social contexts advanced by Engeström [3] as a move beyond the traditional communities of practice view is quite compatible with the most famous peer production virtue, freedom (cf. [13]), which is what allows people to function in a distributed and nonlinear fashion relative to a learning or production ecosystem. Star and Griesemer [16], on whom Wenger drew heavily as he was developing the idea of community of practice [17], describe their view as ecological. One key dierence between Star/Wegner on the one hand and Engeström on the other has to do with the nature of boundaries. In the community of practice view, boundary objects exist to eect translations or initiations. In Engeström's view, attention is drawn to boundaries that remain in ux (via an ongoing process of co-conguration) or which are blurred (e.g. by a blurring of consumer and producer roles). A closely related idea from Engeström is that sociality revolves around concrete shared objects, as opposed to e.g. abstract connections between people (cf. [19]). Combining this with the idea of basho, we come to the at once intuitive and powerful idea of a context or environment as the largest shared object. An environment that is co-created by its inhabitants is likely to be a particularly meaningful and valued place. [[skimx://corneli2011paragogy#6|p. 6]]
+
+Realize the dream, then wake up! Blurred boundaries make it dicult to pinpoint a universally-applicable denition of success. However, as Schmidt points out, measurable things like code commits can be used to make reasonably objective evaluations about participation in open source software projects [10], and we can expect to nd other similar measurables related to modular contributions to other types of commons-based peer produced artifacts [18]. It is may be in some ways more challenging to measure the (equally necessary) contributions to integration and coordination. [[skimx://corneli2011paragogy#6|p. 6]]
+
+Paragogy and Learning Analytics [[skimx://corneli2011paragogy#6|p. 6]]
+
+Bereiter emphasizes developing a context that includes functional help for thinkers and learners, as opposed to applications of recieved wisdom about thinking or learning. He feels that thinking aloud research shows promise as a way to see just how people actually think ([11], p. 348). Paragogy suggests a broader view on thinking aloud: instead of traditional didactics, in a peer-based context, speech ows in a network, and thinking is done in an inherently social way. [[skimx://corneli2011paragogy#7|p. 7]]
+
+LA could be used to pair up weaker students with more advanced ones, or to help learners with overlapping interests nd each other in the crowd. Threshold values could be set to indicate when a student might be allowed or asked to move from a mentored to mentoring role. Measurements can also be made of how well students work with their peers, or how much they have individually contributed to the learning environment. [[skimx://corneli2011paragogy#7|p. 7]]
+
+::This is happening to a large extent in the work on challenges and badges.:: [[skimx://corneli2011paragogy#7|p. 7]]
+
+::Attention metadata - hard to capture with high degree of precision, and easily gameable if it becomes high or even medium stakes...:: [[skimx://corneli2011paragogy#8|p. 8]]
+
+Students can then share that step however small, and once achieved, can chose another one along the way. These patterns can be studied to nd LA that will show a learner their percentage towards e.g. uency in Japanese. [[skimx://corneli2011paragogy#8|p. 8]]
+
+Realize the dream, then wake up! We feel this is the key to combining LA and paragogy: a student should explicitly spell-out their motivations/goals and then keep track of their progress towards reaching them. [[skimx://corneli2011paragogy#8|p. 8]]
+
+To think highlight here one possible large-scale application, we can imagine creating paragogical accreditation standards for learners, along the lines of those used for businesses by the Better Business Bureau.8 This could come from a system to that would keep track of the kinds of courses people might like to take; and furthermore, courses could require people to ante up a certain level of commitment before the course would run. The degree to which people follow through on their commitments over time would determine their credibility rating. [[skimx://corneli2011paragogy#8|p. 8]]
+
+::This is the idea of longevity within the community, rather than just longevity within the course - if your actions in a course has a consequence for your future standing and opportunities in a community you care about, it might influence your actions (positively). We don't seem to be there yet with P2PU… with badges and federated learner profiles, it might not have to be constrained to P2PU. But do we offer something "valuable enough" to compel people to "line up" - especially autonomous individuals like self-learners? And might this exclude certain learners? Linked to "coercive grading":: [[skimx://corneli2011paragogy#8|p. 8]]
+
+The ideas from Section 4 will be further developed in an extensive case study by the rst author on commons based peer-production in mathematics, cf. [22]. [[skimx://corneli2011paragogy#9|p. 9]]
+
+We encourage the research community to test our ideas in practice of various forms. Some ideas for paragogical design include: 1. Establish a group consensus for expectations/goals/social contract of the course and how each of them should be evaluated at its conclusion. 2. Have learners designate learning goals that they then commit to stick with. 3. Formalize a process for assisting peers (e.g. responding to questions, giving feedback on publicly posted work). 4. Develop explicit pathways for learner feedback to translate into changes to the learning environment. [[skimx://corneli2011paragogy#9|p. 9]]
+
+References [[skimx://corneli2011paragogy#9|p. 9]]
+
+1. Jonathan Grudin: Why CSCW applications fail: problems in the design and evaluation of organizational interfaces. Proceedings of the 1988 ACM conference on Computer-supported cooperative work, pp. 8593 (1988). [[skimx://corneli2011paragogy#9|p. 9]]
+
+2. Mary-Jane Eisen: Peer-Based Learning: A New-Old Alternative to Professional Development. Adult Learning, 12(1) pp. 910 (2001). [[skimx://corneli2011paragogy#9|p. 9]]
+
+3. Y. Engeström: From communities of practice to mycorrhizae, in H. Hughes, N. Jewson, & L. Unwin (Eds.), Communities of practice: Critical perspectives. London: Routledge (2007). (http://www.open.ac.uk/cetl-workspace/cetlcontent/ documents/476902341f33c.pdf) [[skimx://corneli2011paragogy#9|p. 9]]
+
+7. Laurie C. Blondy: Evaluation and Application of Andragogical Assumptions to the Adult Online Learning Environment, in Journal of Interactive Online Learning, 6(2) (2007) (http://www.ncolr.org/jiol/issues/getfile.cfm?volID= 6&IssueID=20&ArticleID=104) [[skimx://corneli2011paragogy#10|p. 10]]
+
+9. I. Nonaka, R. Toyama, N. Konno: SECI, Ba and Leadership: a Unied Model of Dynamic Knowledge Creation. Long Range Planning, 33(1), pp. 534 (2000). [[skimx://corneli2011paragogy#10|p. 10]]
+
+16. SusanLeighStarandJamesR.Griesemer:InstitutionalEcology,'Translations'and Boundary Objects: Amateurs and Professionals in Berkeley's Museum of Vertebrate Zoology, 1907-39. Social Studies of Science, 19(3) (1989), pp. 387-420. [[skimx://corneli2011paragogy#10|p. 10]]
+
+17. E. Wenger: Toward a theory of cultural transparency: Elements of a social discourse of the visible and the invisible. PhD Dissertation in Information and Computer Science, University of California, Irvine (1990). (http://www.ewenger.com/ pub/pubEWdissertation.doc) [[skimx://corneli2011paragogy#10|p. 10]]
+
+18. Y. Benkler: Common wisdom: Peer production of educational materials. Center for Open and Sustainable Learning at Utah State University, (2005). (http://www. benkler.org/Common_Wisdom.pdf) [[skimx://corneli2011paragogy#10|p. 10]]
+
+19. Jyri Engeström: Why some social network services work and others don't Or: the case for object-centered sociality, published online at http://bit.ly/engestrom. [[skimx://corneli2011paragogy#10|p. 10]]
+
+22. Joseph Corneli: Crowdsourcing a Personalized Learning Environment for Mathematics, Knowledge Media Institute, Technical Report, (http://metameso.org/ ~joe/docs/probation-report-final.pdf) [[skimx://corneli2011paragogy#10|p. 10]]
+

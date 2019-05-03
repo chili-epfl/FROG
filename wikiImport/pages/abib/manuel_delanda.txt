@@ -1,0 +1,3 @@
+h2. Manuel DeLanda's publications
+
+| [@delanda2006philosophy] | {DeLanda}Manuel. (2006). A New Philosophy of Society: Assemblage Theory and Social Complexity. Continuum.|

@@ -1,0 +1,12 @@
+h1. Pattern language in education
+see also [[pedagogical patterns]]
+
+  * [[Yishay Mor]] has relevant [[http://www.ioe.ac.uk/staff/LKLB_35.html|publications]]
+  * [[http://patternlanguagenetwork.myxwiki.org/xwiki/bin/view/Main/|The Pattern Language Network]]
+  * [[http://www.practicalpatternsbook.org/book|Practical design patterns for teaching and learning with technology]] (book)
+  * [[http://fdp.edsw.usyd.edu.au/users/48|Kashmira Dave]] works on it at [[CoCo]]
+  * Goodyear, P & Retalis, S. (2010). Technology-enhanced learning: design patterns and pattern languages. Rotterdam: Sense Publishers. 
+  * Lot's of interesting projects at [[http://www.lkl.ac.uk/|London Knowledge Lab]]
+
+h2. Publications
+  * Literature review on design patterns and games, with a lot of relevant references[(:ref:mor2006literature)]

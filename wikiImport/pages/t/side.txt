@@ -1,0 +1,9 @@
+h1. SIDE
+
+{{pages:t_side01.png}}
+
+
+Tool developed by [[:a:Carolyn Penstein Rose]] as a GUI around machine learning algorithms.
+
+h2. Links
+  * [[:cscl11:Leveraging tool support for the analysis of computer-mediated activities]] - workshop at CSCL 2011

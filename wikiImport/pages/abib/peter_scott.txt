@@ -1,0 +1,4 @@
+h2. Peter Scott's publications
+
+| [@okada2008fostering] | Okada, A., Tomadaki, E., Buckingham Shum, S., & Scott, P. (2008, June). Fostering Open Sensemaking Communities by Combining Knowledge Maps and Videoconferencing. Journal Article. |
+| [@duval2010editorial] | Duval, E., Ullmann, T. D., Wild, F., Lindstaedt, S., & Scott, P. Editorial: Research 2.0 for TEL - Four Challenges. In .|

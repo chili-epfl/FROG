@@ -1,0 +1,6 @@
+h2. Lasse Lipponen's publications
+
+| [@paavola2004models] | Paavola, S., Lipponen, L., & Hakkarainen, K. (2004). Models of Innovative Knowledge Communities and Three Metaphors of Learning. Review of Educational Research, 74(4), 557-576.|
+| [@paavola2002epistemological] | Paavola, S., Lipponen, L., & Hakkarainen, K. (2002). Epistemological foundations for CSCL: A comparison of three models of innovative knowledge communities. In Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community (24--32).|
+| [@lipponen2004practices] | Lipponen, L., Hakkarainen, K., & Paavola, S. (2004). Practices and orientations of CSCL. What we know about CSCL, 31--50.|
+| [@laat2007investigating] | Laat, M., Lally, V., Lipponen, L., & Simons, R.-J. (2007). Investigating patterns of interaction in networked learning and computer-supported collaborative learning: A role for Social Network Analysis. International Journal of Computer-Supported Collaborative Learning, 2(1), 87-103. doi:10.1007/s11412-007-9006-4|

@@ -1,0 +1,514 @@
+h2. Highlights
+
+Towards Productive Multivocality in the Analysis of Collaborative Learning [[skimx://none2011cscl#42|p. 42]]
+
+The Learning Sciences are too diverse (theoretically and methodologically) for unification to be possible or desirable, but learning scientists would benefit from boundary objects (Star & Griesemer, 1989) that form the basis for dialogue between theoretical and methodological traditions applied to the analysis of learning in and through interaction. The question at hand is what constitutes effective boundary objects and how they may be leveraged. [[skimx://none2011cscl#42|p. 42]]
+
+Boundary objects “have different meanings in [[skimx://none2011cscl#43|p. 43]]
+
+different worlds but their structure is common enough to more than one world to make them recognizable, a means of translation” (Star & Griesemer, 1989, p. 393). [[skimx://none2011cscl#44|p. 44]]
+
+Yet we wanted to explore further how shared frameworks (e.g., Suthers, Dwyer, Medina, & Vatrapu, 2010) and shared analytic software tools (e.g., Tatiana; Dyke, Lund, & Girardot, 2009) could serve as or produce appropriate boundary objects. [[skimx://none2011cscl#44|p. 44]]
+
+The third analyst, Stefan Trausan-Matu, defined pivotal moments in collaboration by detecting changes in the degree of inter-animation of voices as illustrated by collaborative and differential utterances. Collaborative utterances illustrate a convergence pattern and correspond for example to the collective display of understanding already mentioned (Shirouzu’s first pivotal moment and Chiu’s fifth breakpoint). An example of ￼ [[skimx://none2011cscl#44|p. 44]]
+
+a differential utterance is when an explanation given by one learner is perceived as incomplete, thus inciting a second learner to add to it. In the polyphonic view, this exemplifies a type of “dissonance” between the two learners that is remedied by the second learner’s addition. Trausan-Matu used a polyphonic model of group interaction where a conversation contains different longitudinal threads (or “voices”) composed of utterances, each of them having independence, but achieving a joint discourse (Trausan-Matu & Rebedea, 2009) [[skimx://none2011cscl#45|p. 45]]
+
+Chiu, M. M. (2008). Micro-creativity during group problem solving: Evaluations, wrong ideas, justifications, and rudeness. In P. A. Kirschner, F. Prins, V. Jonker & G. Kanselaar (Eds.), International Perspectives in the Learning Sciences: Cre8ing a Learning World: Proc. 8th International Conference on the Learning Sciences (ICLS 2008). Utrecht: International Society of the Learning Sciences [[skimx://none2011cscl#49|p. 49]]
+
+Latour, B. (1990). Drawing things together. In M. Lynch & S. Woolgar (Eds.), Representation in Scientific Practice (pp. 19-68). Cambridge, MA: MIT Press. [[skimx://none2011cscl#49|p. 49]]
+
+Lund, K. (2011). Analytical frameworks for group interactions in CSCL systems. In S. Puntambekar, G. Erkens & C. E. Hmelo-Silver (Eds.), Analyzing Collaborative Interactions in CSCL: Methods, Approaches and Issues (pp. 391-411). New York: Springer. [[skimx://none2011cscl#49|p. 49]]
+
+Ochs, E. (1979). Transcription as theory. In E. Ochs & B. B. Schieffelin (Eds.), Developmental Pragmatics (pp. 43-72). New York: Academic Press. [[skimx://none2011cscl#49|p. 49]]
+
+Shirouzu, H., & Miyake, N. (2002). Learning by collaborating revisited: Individualistic vs. convergent understanding. Proceedings of the 24th Annual Conference of the Cognitive Science Society. USA. [[skimx://none2011cscl#49|p. 49]]
+
+Star, S. L., & Griesemer, J. R. (1989). Institutional Ecology, 'Translations' and Boundary Objects: Amateurs and Professionals in Berkeley's Museum of Vertebrate Zoology. Social Studies of Science, 19(3), 387-420. [[skimx://none2011cscl#49|p. 49]]
+
+Trausan-Matu, S., & Rebedea, T. (2009). Polyphonic inter-animation of voices in VMT. In G. Stahl (Ed.), Studying Virtual Math Teams (pp. 451-473). Boston, MA: Springer US. [[skimx://none2011cscl#49|p. 49]]
+
+Augmented Reality Games: Place-based Digital Learning [[skimx://none2011cscl#50|p. 50]]
+
+Collaboration as Scaffolding: Learning Together with Dynamic, Interactive Scientific Visualizations and Computer Models [[skimx://none2011cscl#56|p. 56]]
+
+various forms of collaboration, including co-construction, critique, discussion forums, knowledge distribution, and peer instruction in technology- enhanced learning environments. [[skimx://none2011cscl#56|p. 56]]
+
+Idea Manager, an innovative tool to help students construct coherent explanations of complex scientific phenomena. [[skimx://none2011cscl#58|p. 58]]
+
+provides a space in which student partners can record their developing ideas; and tools to promote their critical selection of evidence, strategic organization of information, and construction of coherent, evidence-based explanations. Customizable annotation, tagging, and flagging features prompt students to justify their interactions with the visualizations, to articulate their interpretations of the outcomes, and to make explicit connections between the evidence gathered and different possible explanations for the seasons. Finally, activities with the Idea Manager are designed such that students must negotiate all decisions with partners. Thus, they provide multiple opportunities for students to collaboratively build upon their own and others’ ideas toward more normative understandings. [[skimx://none2011cscl#58|p. 58]]
+
+Learning Evolution through Collaborative Critique-focused Concept Mapping Beat A. Schwendimann, [[skimx://none2011cscl#59|p. 59]]
+
+This study investigates how student dyads learn from an inquiry-based evolution curriculum by either co-constructing concept maps or co-critiquing concept maps. Traditionally, students generate concept maps from scratch, which can be time-consuming and challenging, especially for students with low prior knowledge (Schwendimann, 2008). As an alternative, students receive pre-made concept maps that include commonly found alternative ideas. Concept maps in both treatment groups (generation and critique) consisted of the same concepts and had a drawing area divided into the domain-specific areas of genotype and phenotype to make connections within and across areas explicit. Students had to generate their own criteria to critique the maps and negotiate with their partner on how to revise the map. Pretest and posttest essay items were scored using a five- level knowledge integration rubric (Linn, Lee, Tinker, Husic & Chiu, 2006). Concept maps were scored on a propositional level using the knowledge integration concept map rubric (Schwendimann, 2008) and on a network level. [[skimx://none2011cscl#59|p. 59]]
+
+Findings suggest that collaborative concept map critique activities can be a beneficial alternative to generating concept maps, in particular for students with low pretest knowledge. [[skimx://none2011cscl#59|p. 59]]
+
+Molecular Workbench software (http://mw.concord.org), [[skimx://none2011cscl#59|p. 59]]
+
+iMVT (Modeling and Visualization Technology Integrated inquiry-based Science Learning approach) that applies to science learning in general (Zhang, Ye, Foong, & Chia, 2010). [[skimx://none2011cscl#60|p. 60]]
+
+Clark, D. B., D’Angelo, C. M., & Menekse, M. (2009). Initial structuring of online discussions to improve learning and argumentation: Incorporating students' own explanations as seed comments versus an augmented-preset approach to seeding discussions. Journal of Science Education and Technology, 18(4), 321-333. [[skimx://none2011cscl#63|p. 63]]
+
+Contextualizing the Changing Face of Scaffolding Research: Are We Driving Pedagogical Theory Development or Avoiding it? [[skimx://none2011cscl#64|p. 64]]
+
+history (Li & Lim, 2008) [[skimx://none2011cscl#64|p. 64]]
+
+also explored the potential for scaffolding to be used to support the development of affect and higher order thinking, such as metacognition (Aleven, et. al., 2004; Harris et al, 2009). [[skimx://none2011cscl#64|p. 64]]
+
+scaffolding of collaboration between learners has also been studied (see for example, Guzdial et al.,1996); Zurita & Nussbaum, 2004). [[skimx://none2011cscl#64|p. 64]]
+
+Computer-supported scripts directly influence the collaborative dialogue, instead of training students prior to the actual collaboration (Schwarz, Asterhan, & Gil, 2009). For example, students are provided with carefully designed scripts to engage in processes such as argumentative knowledge construction (e.g., Weinberger, Stegmaan, Fischer, & Mandl, 2007; Weinberger, Stegmann, & Fischer, 2005), grounding (Schoonenboom, 2008), and so forth in online CSCL environments. Furthermore, Wecker and Fischer (2007) have examined fading the structure by adapting and gradually reducing the specificity of prompts according to the contributions of individual participants, in combination with distributed monitoring and feedback by partners during collaboration. [[skimx://none2011cscl#64|p. 64]]
+
+Reiser (2004), for example, draws a distinction between software scaffolding approaches that aim to structure the learner’s task and those approaches that shape the learner’s performance and ‘problematize’ the task. He envisions the two approaches — structuring and problematizing — working together to scaffold learners. Quintana and colleagues have developed a Scaffolding Design Framework for science inquiry (Quintana et al, 2004; Quintana & Fishman, 2006). The focus is upon the provision of scaffolding support for science inquiry activities and is based upon some key scaffolding processes for science inquiry, it does not however address the problem of fading. [[skimx://none2011cscl#65|p. 65]]
+
+the importance of looking at the context of a learner’s interactions (Wood, Underwood & Avis, 1999). [[skimx://none2011cscl#65|p. 65]]
+
+Little work has explicitly attempted to model a learner’s wider context and the role of technology. Some work within the open learner modelling community has considered lifelong learner modelling (Kay 2009), [[skimx://none2011cscl#66|p. 66]]
+
+Laurillard's conversational framework can be used more broadly with other age groups and settings [[skimx://none2011cscl#67|p. 67]]
+
+Some researchers propose that we look at the ways in which different communities have used the scaffolding concept in order to further develop its theoretical foundations (Davis & Miyake, 2004). Others suggest that we need to look back at the origins of scaffolding and, in particular, to Vygotsky’s conception of learning (Pea, 2004; Puntambekar & Hübscher, 2005). There is a growing body of opinion that fading is a fundamental and intrinsic component of scaffolding (Pea, 2004; Lahore, 2005; Puntambekar & Hübscher, 2005), and that a line needs to be drawn between scaffolding with fading and scaffolding without fading. And suggestions about the benefits and challenges of casting our scaffolding net wider. Puntambekar & Kolodner (2005) for example use the term ‘distributed scaffolding’ and draw our attention to the increased complexity that occurs when scaffolding is distributed and also to the potential for distributed scaffolding to offer learners more scaffolding opportunities. Tabak (2004) also explores complex settings and distributed scaffolding and offers a vision of ‘synergistic scaffolding’, through which learners can take advantage of different types of support provided by different means in an integrated manner, in order to solve complex problems. [[skimx://none2011cscl#67|p. 67]]
+
+she (Puntambekar & Kolodner, 2005), introduced the term distributed scaffolding to refer to the variety of support provided in the complex environment of a classroom. [[skimx://none2011cscl#68|p. 68]]
+
+. Her research found that multiple forms of support—distributed across available tools, activities, and agents in the classroom and integrated in ways that admit redundancy—enhance the learning and performance of a wide variety of students. In a complex classroom environment, it can be difficult to align all the affordances in such a way that every student can recognize and take advantage of all of them. When support is distributed and integrated and takes multiple forms, it is more likely that students will notice and take advantage of the environment’s and activity’s affordances. [[skimx://none2011cscl#68|p. 68]]
+
+Ecology of Resources approach (Luckin, 2010) to stimulate discussion of scaffolding across multiple technologies, people and places. [[skimx://none2011cscl#68|p. 68]]
+
+(Looi, Chen & Ng, 2010; Chen, Looi & Wen, 2011). [[skimx://none2011cscl#68|p. 68]]
+
+They can scaffold vocabulary learning by “channelling and focusing” (Pea, 2004). [[skimx://none2011cscl#69|p. 69]]
+
+expertise reversal effect (Kalyuga, Ayres, Chandler, & Sweller, 2003) [[skimx://none2011cscl#69|p. 69]]
+
+When equipped with graphic organizers to help students plan and organize their problem solving, a general technology tool like GS is transformed from a general tool for enabling seamless interactions to a scaffolded software tool integrated with pedagogical design for supporting specific learning, by problematizing important disciplinary content. The distributed nature of the scaffolding is reflected in the support that is distributed across the GS tool, the graphic organizers, the artefacts created, and the different levels of interaction at the individual, intra-group and inter-group levels. [[skimx://none2011cscl#69|p. 69]]
+
+Aleven, V., McLaren, B. M., Roll, I. & Koedinger, K. R. (2004). Toward tutoring help seeking — Applying cognitive modeling to meta-cognitive skills. Lecture Notes in Computer Science 3220 (pp. 227-39). Berlin: Springer-Verlag, [[skimx://none2011cscl#69|p. 69]]
+
+Azevedo, R., Moos, D.C., Winters, F.W., Greene, J.A., Cromley, J.G., Olson, E.D. & Godbole-Chaudhuri, P. (2005). Why is externally-regulated learning more effective than self-regulated learning with hypermedia? In: Looi, C-K. McCalla, G. Bredeweg, B. & Breuker, J. (eds.) Artificial Intelligence in Education: Supporting Learning through intelligent and socially informed Technology (pp. 41-48). Amsterdam, Netherlands: IOS Press, [[skimx://none2011cscl#69|p. 69]]
+
+Brown, J. S. (1990). Toward a new Epistemology for Learning. In: Frasson C. & Gauthier G. (eds.) Intelligent Tutoring Systems: At the Crossroads of Artificial Intelligence and Education (pp. 262-286). Norwood: Ablex. [[skimx://none2011cscl#69|p. 69]]
+
+Butler, K. A. & Lumpe, A. (2008). Student use of scaffolding software: Relationships with motivation and conceptual understanding. Journal of Science Education and Technology, 17, 427-36 [[skimx://none2011cscl#69|p. 69]]
+
+Chen, N., Wei, C-W., Wu, K-T. & Uden, L (1992). Effects of high level prompts and peer assessment on online learners’ reflection levels. Computers & Education, 52(2), 283-91. [[skimx://none2011cscl#69|p. 69]]
+
+Conole, G., Littlejohn, A., Falconer, I. & Jeffery, A. (2005). The LADIE lit review. [Online] Available at http://www.elframework.org/refmodels/ladie/ouputs/ LADIE%20lit%20review%20v15.doc [Accessed 12 August, 2008] [[skimx://none2011cscl#69|p. 69]]
+
+Davis, E. A., & Miyake, N. (2004). Explorations of scaffolding in classroom systems. Journal of Learning Sciences, 13(3), 265-72. [[skimx://none2011cscl#69|p. 69]]
+
+Fitzpatrick, G. (2003). The Locales Framework: Understanding and Designing for Wicked Problems. The Netherlands: Kluwer Academic Publishers. [[skimx://none2011cscl#69|p. 69]]
+
+Ge, X. & Land, S. (2004). A conceptual framework for scaffolding ill-structured problem-solving process using question prompts and peer interaction. Educational Technology Research and Development, 52, (2), 5- 22. [[skimx://none2011cscl#70|p. 70]]
+
+Guzdial, M., Kolodner, J., Hmelo, C., Narayanan, H., Carlson, D., Rappin, N., Hubscher, R., Turns, J. and Newstetter, W. (1996). Computer support for learning through complex problem solving. Communications of the ACM, 39(4), 43-45. [[skimx://none2011cscl#70|p. 70]]
+
+Harris, A. Bonnett, V., Luckin, R., Yuill, N. & Avramides, K. (2009). Scaffolding effective help-seeking behaviour in mastery and performance oriented learners. In: Dimitrova, V. Mizoguchi, R., du Boulay. & Graesser, A. (eds). Artificial Intelligence in Education. (pp. 425-32). Amsterdam, Netherlands: IOS Press,. [[skimx://none2011cscl#70|p. 70]]
+
+Holmes, J. (2005). Designing agents to support learning by explaining. Computers and Education, 48(4), 523- 47. [[skimx://none2011cscl#70|p. 70]]
+
+Kalyuga, S. Ayres, P., Chandler, P. & Sweller, J. (2003). The expertise reversal effect. Educational Psychologist, 38(1),23–31. [[skimx://none2011cscl#70|p. 70]]
+
+Kay, J. (2009). 'Lifelong Learner Modelling for Lifelong Personalized Pervasive Learning', IEEE Transactions on Learning Technologies, 1(4),215–228. [[skimx://none2011cscl#70|p. 70]]
+
+Kerckhove, D. D. & Tursi, A. (2009). The Life of Space. Architectural Design 79 (1), 48-53. [[skimx://none2011cscl#70|p. 70]]
+
+Koedinger, K. R., Anderson, J. R., Hadley, W. H. & Mark, M. A. (1997). Intelligent tutoring goes to school in the big city. International Journal of Artificial Intelligence in Education, 8, 30-43 [[skimx://none2011cscl#70|p. 70]]
+
+Lajoie, S. (2005). Extending the scaffolding metaphor, Instructional Science, 33, (5-6), 541-557. [[skimx://none2011cscl#70|p. 70]]
+
+Li, D. & Lim, C. (2008). Scaffolding online historical inquiry tasks: A case study of two secondary school classrooms. Computers and Education, 50(4), 1394-1410 [[skimx://none2011cscl#70|p. 70]]
+
+Li, S., Zhang, B.H., Looi, C.K. and Chen, W. (submitted for publication). Understanding Mobile Learning from the Perspective of Self-Regulated Learning. [[skimx://none2011cscl#70|p. 70]]
+
+Looi, C.K., P. Seow, B.H. Zhang, H.J. So, W. Chen and L.H. Wong, (2010). Leveraging mobile technology for sustainable seamless learning: A research agenda. Br. J. Educational Technology, 41, 154-169. [[skimx://none2011cscl#70|p. 70]]
+
+Looi, C. K., Chen, W., & Ng, F.-K. (2010). Collaborative activities enabled by GS (GS): An exploratory study of learning effectiveness. Computers & Education, 54(1), 14-26. [[skimx://none2011cscl#70|p. 70]]
+
+Oh, S. & Jonassen, D. (2007). Scaffolding online argumentation during problem solving. Journal of Computer Assisted Learning, 23(2), 95-110. [[skimx://none2011cscl#70|p. 70]]
+
+Pea, R.D. (2004). The social and technological dimensions of scaffolding and related theoretical concepts for learning, education, and human activity. Journal of the Learning Sciences, 13, 423-51. [[skimx://none2011cscl#70|p. 70]]
+
+Puntambekar, S., & Kolodner, J. L. (2005). Toward implementing distributed scaffolding: Helping students learn science by design. Journal of Research in Science Teaching, 42(2), 185-217. [[skimx://none2011cscl#71|p. 71]]
+
+Gil, J., Schwarz, B. B., & Asterhan C. S. C. (2007). Intuitive moderation styles and beliefs of teachers in CSCL- based argumentation. In C. A. Chinn, G. Erkens, & S. Puntambekar (Eds), Mice, Minds, and Society: The 2007 Computer Supported Collaborative Learning (CSCL) Conference (pp. 219-229). New Brunswick, NJ: ISLS. [[skimx://none2011cscl#71|p. 71]]
+
+Sharples, M., Taylor, J., Vavoula, G. (2007). A Theory of Learning for the Mobile Age, in Andrews, R. & Haythornthwaite, C. (eds.) The Sage Handbook of E-learning Research (pp. 221–247). London: Sage. [[skimx://none2011cscl#71|p. 71]]
+
+Tabak, I. (2004). Synergy: A complement to emerging patterns. Journal of the Learning Sciences, 13(3), 305- 35. [[skimx://none2011cscl#71|p. 71]]
+
+Tuckman, B. (2007). The effect of motivational scaffolding on procrastinators' distance learning outcomes. Computers and Education, 49(2), 414-22. [[skimx://none2011cscl#71|p. 71]]
+
+Wecker, C. & Fischer, F. (2007). Fading scripts in computer-supported collaborative learning: The role of distributed monitoring. In C. Chinn, G. Erkens & S. Puntambekar (Eds.), Mice, Minds, and Society: Computer Supported Collaborative Learning 2007 (pp. 763--771). ISLS. [[skimx://none2011cscl#71|p. 71]]
+
+Weinberger, A., Stegmann, K., & Fischer, F. (2005). Computer-supported collaborative learning in higher education: Scripts for argumentative knowledge construction in distributed groups. In T. Koschmann, D. Suthers, & T. W. Chan (Eds.), Computer Supported Collaborative Learning 2005: The Next 10 Years! ( pp. 717-726) Mahwah, NJ: Erlbaum. [[skimx://none2011cscl#71|p. 71]]
+
+Weinberger, A., Stegmann, K., Fischer, F., & Mandl, H. (2007). Scripting argumentative knowledge construction in computer-supported learning environments. In F. Fischer, H. Mandl, J. Haake, & I. Kollar (Eds.), Scripting computer-supported communication of knowledge- cognitive, computational and educational perspectives (pp. 191-211). New York, NY: Springer. [[skimx://none2011cscl#71|p. 71]]
+
+Wood, D. J., Bruner, J. S. & Ross, G. (1976). The Role of Tutoring in Problem Solving. Journal of Child Psychology and Psychiatry, 17(2), 89-100. [[skimx://none2011cscl#71|p. 71]]
+
+Wood, D., Underwood, J. & Avis, P. (1999) Integrated learning Systems in the Classroom. Computers and Education, 33 (2/3), 91-108. [[skimx://none2011cscl#71|p. 71]]
+
+Wood, H.A. & Wood, D. (1999) Help seeking, learning and contingent tutoring. Computers and Education, 33, 2–3, 153-69. [[skimx://none2011cscl#71|p. 71]]
+
+Facilitating Knowledge Building with CSCL: An Empirical Study Authors: Kedong Li & Shaoming Chai, South China Normal University [[skimx://none2011cscl#72|p. 72]]
+
+Semantic Organization of Online Discussions for Active Collaborative Learning Author: Yanyan Li, Beijing Normal University [[skimx://none2011cscl#76|p. 76]]
+
+Researchers argue that learners' discussion comprises a series of phases, in terms of collaborative knowledge building: information sharing and comparing, concept exploring and discovering, and negotiation of meaning and construction of knowledge. Nevertheless, most research has show that learners' discussion transcripts actually fall primarily into the first phase of information sharing and comparing, so herein we classify the messages types into Question, Opinion, Suggestion, Recommendation, Request and Citing. [[skimx://none2011cscl#76|p. 76]]
+
+The normal way to analyze the discussion transcripts corpus is to use SNA to count the reply-to relationship between learners, which results in a one-mode network. By adding the topics to which the messages belong, the one-mode network can be transformed into bi-partite network. Additionally, this allows the community to define the knowledge map to express the domain knowledge. By building the semantic mapping from the topics in bi-partite network to concepts in KM, a theme-centered network can be constructed to indicate the persons gathered around one concept. In this way, the theme-centered network denotes the potential interests of the persons, and by adding the reply-to relationship, a special interest group (SIG) can be formed with respect to each concept in the KM. After discovering special interest groups within discussion forums, the next step is to compute criteria for SIG membership, including participation, mutuality and activity. Once a learner becomes a member of a special interest group, he will be informed of other learning companions to enhance the in-depth communication and learning, and any new, emerging information related to the SIG will be proactively pushed to him as well. [[skimx://none2011cscl#76|p. 76]]
+
+classifying the discussion messages according to theme and identifying their types (using a tool called VINCA) [[skimx://none2011cscl#77|p. 77]]
+
+A Principle-based Approach to Knowledge Building: Processes, Challenges, and Implications [[skimx://none2011cscl#80|p. 80]]
+
+Collaborative and inquiry-based learning programs vary in the degree of prescription and specification along a continuum from procedure- to principle-based approaches. [[skimx://none2011cscl#80|p. 80]]
+
+nalyze the enactment of Knowledge Building [[skimx://none2011cscl#80|p. 80]]
+
+(Barron & Darling-Hammond, 2008) [[skimx://none2011cscl#80|p. 80]]
+
+(Collins, 1996) [[skimx://none2011cscl#80|p. 80]]
+
+At the procedure-based end innovations are translated into school practice through specification of procedures to be faithfully implemented. Principles are not made explicit but must be inferred from procedures that typically involve carefully sequenced activities and curriculum material and pre-established steps, scripts, and prompts. Collaborative inquiry is accordingly structured through setting up fixed small-groups that deal with assigned sub-topics and tasks following provided procedures, scripts, and templates (see Zhang, Scadamalia, Reeve, & Messina, 2009). At the principle-based end principles are made explicit and presented as pedagogical design parameters with teachers and students engaged as designers and innovators to continually invent and improve principle-based practice through analysis of principles, examples, and results in their contexts. At the midpoint is a principle-based procedure approach in which principles are made explicit and best practices are conveyed through pre-established activities and procedures that translate these principles into effective action. Differences among these approaches on the procedure- to principle-based continuum have triggered ongoing debates and dialogues in the learning sciences (Brown & Campione, 1996; Scardamalia & Bereiter, 2007) that relate to several specific areas of inquiry, including prescriptive, structured versus adaptive, open instructional design (Schwartz, Lin, Brophy, & Bransford, 1999), scripted versus adaptive collaboration (Dillenbourg, 2002; Zhang, in press; Zhang et al., 2009), fidelity and adaptation of curriculum implementation (Brown & Edelson, 2001; Barab & Luehmann, 2003), adoption and transformation of inquiry-based practices in international and cultural contexts (Chan, 2008; Zhang, 2010), and specification of learning design in design- based research (Dede, 2004). [[skimx://none2011cscl#80|p. 80]]
+
+Brown and Campione (1994) used activity structures such as jigsaw, crosstalk, and benchmark lessons to establish Fostering Communities of Learners classrooms [[skimx://none2011cscl#81|p. 81]]
+
+They noted an important advantage of their approach: “The repetitive, indeed, ritualistic nature of these activities is an essential aspect of the classroom, for it enables children to make the transition from one participation structure...to another quickly and effortlessly.” (p. 236) They also wrote about “lethal mutations” created by the fact that implementers often focus on surface features rather than the underlying principles, thus the procedures themselves became rituals that impede innovativeness (Brown & Campione, 1996). [[skimx://none2011cscl#81|p. 81]]
+
+Barron, B., Darling-Hammond, L. (2008). How can we teach for meaningful learning? In L. Darling-Hammond, B. Barron, D. Pearson, A. H. Schoenfeld, E. Stage, et al. (Eds.), Powerful learning (pp. 11-70). San Francisco: Jossey-Bass. [[skimx://none2011cscl#84|p. 84]]
+
+Brown, A. L., & Campione, J. (1996). Psychological theory and the design of innovative learning environments: On procedures, principles, and systems. In L. Schauble & R. Glaser (Eds.), Innovations in learning: New environments for education (pp. 289-325). Mahwah, NJ: Erlbaum. [[skimx://none2011cscl#84|p. 84]]
+
+Brown, A. L., & Campione, J. C. (1994). Guided discovery in a community of learners. In K. McGilly (Ed.), Classroom lessons: Integrating theory and practice (pp. 201-228). Cambridge: MIT Press. [[skimx://none2011cscl#84|p. 84]]
+
+Brown, M., & Edelson, D. C. (2001, April). Teaching by design: Curriculum design as a lens on instructional practice. Paper presented at the Annual meeting of the American Educational Research Association, Seattle, WA. [[skimx://none2011cscl#84|p. 84]]
+
+Collins, A. (1996). Design issues for learning environments. In S. Vosniadou, E. De Court, R. Glaser, & H. Mandl (Eds.), International perspectives on the design of technology-supported learning environments (pp. 347-361). Mahwah, NY: Erlbaum. [[skimx://none2011cscl#84|p. 84]]
+
+Csikszentmihalyi, M. (1999). Implications of a systems perspective for the study of creativity. In R.J. Sternberg (Ed.), Handbook of creativity (pp. 313-335). Cambridge, UK: Cambridge University Press. [[skimx://none2011cscl#84|p. 84]]
+
+Dede, C. (2004). If design-based research is the answer, what is the question? A commentary on Collins, Joseph, and Bielaczyc; diSassa and Cobb; and Fishman, Marx, Blumenthal, Krajcik, and Soloway in the JLS special issue on design-based research. Journal of the Learning Sciences, 13, 105-114. [[skimx://none2011cscl#84|p. 84]]
+
+Kolodner, J.L., Camp, P.J., Crismond D., Fasse, B., Gray, J., Holbrook, J., Puntembakar, S., Ryan, M. (2003). Problem-based learning meets case-based reasoning in the middle-school science classroom: Putting Learning by DesignTM into practice. Journal of the Learning Sciences, 12(4), 495 - 548. [[skimx://none2011cscl#84|p. 84]]
+
+Sawyer, R.K. (2007). Group genius: The creative power of collaboration. New York: Basic Books. [[skimx://none2011cscl#85|p. 85]]
+
+Scardamalia, M., Bransford, J., Kozma, R., & Quellmalz, E. (2010). New assessments and environments for knowledge building. Assessment and Learning of 21st Century Skills. Paper posted to http://www.atc21s.org/home/ [[skimx://none2011cscl#85|p. 85]]
+
+Schwartz, D., Lin, X., Brophy, S., & Bransford, J. (1999). Torward the development of flexibly adaptive instructional designs. In C. Reigeluth (Ed.), Instructional design theories and models Vol. II (pp. 183– 213). Mahwah, NJ: Lawrence Erlbaum Associates. [[skimx://none2011cscl#85|p. 85]]
+
+Zhang, J. (in press). Designing adaptive collaboration structures for advancing the community’s knowledge. In D.Y. Dai (Ed.), Design research on learning and thinking in educational settings: Enhancing intellectual growth and functioning. Philadelphia, PA: Routeledge. [[skimx://none2011cscl#85|p. 85]]
+
+Zhang, J., Hong, H.-Y., Scardamalia, M., Toe, C., & Morley, E. (2011). Sustaining knowledge building as a principle-based innovation at an elementary school. Journal of the Learning Sciences, 20, 262–307. (Online available at http://tccl.rit.albany.edu/papers/Zhang_2011JLS.pdf ) [[skimx://none2011cscl#85|p. 85]]
+
+Fostering Conceptual Change with Technology: Asian Perspectives [[skimx://none2011cscl#86|p. 86]]
+
+Li (2006) described the development of MindNet, a computer-supported collaborative concept mapping system, which aims to facilitate conceptual change. [[skimx://none2011cscl#88|p. 88]]
+
+Anderson, R. C., Nguyen-Jahiel, K., McNurlen, B., Archodidou, A., Kim, S. Y., Reznitskaya, A., Tillmanns, M., & Gilbert, L. [2001]. The snowball phenomenon: Spread of ways of talking and ways of thinking across groups of children. Cognition and Instruction, 19(1), 1-46. [[skimx://none2011cscl#90|p. 90]]
+
+Clark, A. M., Anderson, R. C., Kuo, L. J., Kim, I. H., Archodidou, A., & Nguyen-Jahiel, K. [2003]. Collaborative reasoning: Expanding ways for children to talk and think in school. Educational Psychology Review, 15(2), 181-198. [[skimx://none2011cscl#90|p. 90]]
+
+Gijlers, H., Saab, N., Van Joolingen, W. R., & Van Hout-Wolters, B. H. A. M. (2009). Interaction between tool and talk: How instruction and tools support consensus building in collaborative inquiry-learning environments. Journal of Computer Assisted Learning, 25, 242-267. [[skimx://none2011cscl#90|p. 90]]
+
+Greeno, J. G.,&van de Sande, C. (2007). Perspectival understanding of conceptions and conceptual growth in interaction. Educational Psychologis,42(1), 9–23. [[skimx://none2011cscl#90|p. 90]]
+
+Lee, E. Y. C., Chan, C. K. K., & van Aalst, J. (2006). Student assessing their own collaborative knowledge building. International Journal of Computer-Supported Collaborative Learning, 1, 277–307. [[skimx://none2011cscl#90|p. 90]]
+
+Li, S.C. (2006). A constructivist approach to designing computer supported concept-mapping environment. International Journal of Instructional Media, 33(2), 153-164. [[skimx://none2011cscl#90|p. 90]]
+
+van Aalst, J. (2009). Distinguishing knowledge sharing, construction, and creation discourses. International Journal of Computer-Supported Collaborative Learning, 4, 259-288. [[skimx://none2011cscl#91|p. 91]]
+
+Van der Linden J.L., Erkens G., Schmidt H. & Renshaw P. (2000) Collaborative learning. In New Learning (eds P.R.J. Simons, J.L.v.d. Linden & T. Duffy), pp. 33–48. Kluwer, Dordrecht, The Netherlands. [[skimx://none2011cscl#91|p. 91]]
+
+Yeh, K. H., She, H.C. (2010). Online synchronous scientific argumentation learning: Nurturing students' argumentation ability and conceptual change in science context. Computers & Education, 55, 586-602. [[skimx://none2011cscl#91|p. 91]]
+
+MUPEMURE: Towards a Model of Computer-supported Collaborative Learning with Multiple Representations [[skimx://none2011cscl#92|p. 92]]
+
+How Do Co-Learners Build a Collaborative Concept Map Using Visualizations of Their Either Similar or Complementary Prior Knowledge? Gaëlle Molinari, Mirweis Sangin, Marc-Antoine Nüssli, & Pierre Dillenbourg [[skimx://none2011cscl#96|p. 96]]
+
+In the present contribution, we report an exploratory analysis of how co-learners with either similar or complementary prior knowledge use and articulate their personal knowledge maps in a collaborative concept- mapping task. Concept mapping is a technique that can be used for the visualization of knowledge in both individual and collaborative learning settings. [[skimx://none2011cscl#96|p. 96]]
+
+While building the collaborative map, peers were provided with visualizations (in the form of personal concept maps) of both their own- and their partner’s prior knowledge. Personal knowledge maps were constructed by learners themselves after the reading of a text (on the neuron) in a first individual learning phase. Two eye-trackers were used to record peers’ eye movements during the course of collaboration. The aim was to investigate how co-learners distributed their visual attention across the three concept maps (collaborative map, own- and partner’s personal maps). In particular, the question concerned the extent to which peers visually referred to their partner’s map while interacting together (visual transactivity). Action transactivity was also analyzed as being the degree to which co-learners manipulated their partner’s contributions in the collaborative map. [[skimx://none2011cscl#97|p. 97]]
+
+Buder, J., & Bodemer, D. (2008). Supporting controversial CSCL discussions with augmented group awareness tools. International Journal of Computer-Supported Collaborative Learning, 3, 123-139. [[skimx://none2011cscl#99|p. 99]]
+
+Horton, P. B., McConny, A. A., Gallo, M., Woods, A. L., & Hamelin, D. (1993). An investigation of the effectiveness of concept mapping as an instructional tool. Science Education, 77(1), 95-111. [[skimx://none2011cscl#99|p. 99]]
+
+Lund, K., Molinari, G., Séjourné, A., & Baker, M. (2007). How do argumentation diagrams compare when student pairs use them as a means for debate or as a tool for representing debate? International Journal of Computer-Supported Collaborative Learning, 2(2-3), 273-295. [[skimx://none2011cscl#99|p. 99]]
+
+Rummel, N., & Spada, H. (2005). Learning to Collaborate: An Instructional Approach to Promoting Collaborative Problem Solving in Computer-Mediated Settings. Journal of the Learning Sciences, 14(2), 201-241. [[skimx://none2011cscl#99|p. 99]]
+
+Rummel, N. & Westermann, K. (2010). A Matter of Where and When: Providing Collaboration Support and Delaying Content-Related Support. Paper presented at the Annual Conference of the American Educational Research Association (AERA) 2010. Denver, Colorado, USA. [[skimx://none2011cscl#99|p. 99]]
+
+Schnotz, W., & Kürschner, C. (2008). External and internal representations in the acquisition and use of knowledge: visualization effects on mental model construction. Instructional Science, 36, 175-190. [[skimx://none2011cscl#99|p. 99]]
+
+van Bruggen, J., Kirschner, P., & Jochems, W. (2002). External representation of argumentation in CSCL and the management of cognitive load. Learning and Instruction, 12(1), 121-138. [[skimx://none2011cscl#99|p. 99]]
+
+Weinberger, A., Stegmann, K., & Fischer, F. (2007). Knowledge convergence in collaborative learning: Concepts and assessment. Learning and Instruction, 17(4), 416-426. [[skimx://none2011cscl#99|p. 99]]
+
+CSCL and Innovation: in Classrooms, with Teachers, among School Leaders, in Schools of Education [[skimx://none2011cscl#100|p. 100]]
+
+Towards the goals of supporting GS-based teaching and learning innovation, we envisaged nine principles for RCKI in the design of lessons, and worked with teachers to co-design lesson plans and apply these principles (Looi, Chen & Ng, 2010). [[skimx://none2011cscl#102|p. 102]]
+
+researchers in Spain observed that teacher lesson designs, despite being high-level and often implicit in nature (i.e. not exhaustively specified on paper), followed a limited set of atomic design patterns when analyzed (Prieto et al., 2010). [[skimx://none2011cscl#104|p. 104]]
+
+Universal Design for Learning (Howard, 2004) [[skimx://none2011cscl#106|p. 106]]
+
+Dillenbourg, P. and Jermann,P. Technology for Classroom Orchestration. In M. S. Khine and I. M. Saleh, editors, New Science of Learning, pages 525-552. Springer Science+Business Media, New York, 2010. [[skimx://none2011cscl#107|p. 107]]
+
+Farrell, M. P. (2001). Collaborative circles: Friendship dynamics and creative work. Chicago: University of Chicago Press. [[skimx://none2011cscl#107|p. 107]]
+
+Howard, K. L. (2004). Universal design for learning: Meeting the needs of all students. Learning and Leading with Technology, 31, 26-29. [[skimx://none2011cscl#107|p. 107]]
+
+John-Steiner, V. (2000). Creative collaboration. New York: Oxford. [[skimx://none2011cscl#107|p. 107]]
+
+O'Connor, C., & Michaels, S. (2007). When is dialogue "dialogic"? Human Development, 50, 275-285. [[skimx://none2011cscl#107|p. 107]]
+
+Prieto, L. P., Villagrá-Sobrino, S., Dimitriadis, Y., Jorrín-Abellán, I. M., Martínez-Monés, A., Anguita-Martínez, R. (2010). Recurrent routines in the classroom madness: pushing patterns past the design phase. In: Proceedings of the 7th International Conference on Networked Learning (NLC2010). pp. 499-507. [[skimx://none2011cscl#107|p. 107]]
+
+Sawyer, R.K. (2006). Educating for innovation. Thinking Skills and Creativity, 1(1), 41-48. [[skimx://none2011cscl#107|p. 107]]
+
+Embedding CSCL in Classrooms: Conceptual and Methodological Challenges of Research on New Learning Spaces [[skimx://none2011cscl#108|p. 108]]
+
+Recent advances in CSCL have emphasized technology frameworks where learning content is added and refined by users dynamically during learning activities, with some learning objects gaining content and definition only through patterns of access and use by students. Such content has been referred to as “Emerging Learning Objects,” and often include a versioning system (i.e., to allow all student changes to be tracked) as well as powerful data mining performed by intelligent software agents (e.g. Slotta & Aleahmad, 2009). [[skimx://none2011cscl#110|p. 110]]
+
+Schank, R. E. (1999). Dynamic memory revisited. Cambridge, UK: Cambridge University Press. [[skimx://none2011cscl#115|p. 115]]
+
+Slotta, J. D. (2010). Evolving the classrooms of the future: The interplay of pedagogy, technology and community. In Mäkitalo-Siegl, K., Kaplan, F., Zottmann, J. & Fischer, F. (Eds.). Classroom of the Future: Orchestrating collaborative spaces (pp. 215-242). Rotterdam: Sense. [[skimx://none2011cscl#115|p. 115]]
+
+Slotta, J. D., & Aleahmad, T. (2009). WISE technology lessons: Moving from a local proprietary system to a global open source framework. Research and Practice in Technology Enhanced Learning, 4(2), 169– 189. [[skimx://none2011cscl#115|p. 115]]
+
+Strengthening the Conceptual Foundations of Knowledge Building Theory and Pedagogy [[skimx://none2011cscl#116|p. 116]]
+
+Outside of education, the concept of knowledge creation has taken shape referring to the same process (Nonaka & Takeuchi, 1995). In fact, “knowledge building” and “knowledge creation” may be treated as equivalent terms (Paavola & Hakkarainen, 2005). [[skimx://none2011cscl#116|p. 116]]
+
+In an educational context, however, it becomes important to establish in what sense students may be thought to create new knowledge (Bereiter & Scardamalia, 2010) [[skimx://none2011cscl#116|p. 116]]
+
+Among the ideas featured in this symposium are “epistemic mediation,” “group cognition,” “improvable ideas,” and a distinction between “belief mode” and “design mode.” [[skimx://none2011cscl#116|p. 116]]
+
+The Role of Epistemic Mediation in Knowledge Building (Hakkarainen, Ritella, & Seitamaa-Hakkarainen) [[skimx://none2011cscl#116|p. 116]]
+
+The evolutionary history of human cognition appears to involve cultural invention of epistemic technologies, such as writing, that radically collectivize cognitive processes traditionally thought of as taking place within the human mind—resulting in what we here discuss as epistemic mediation. By epistemic mediation, we refer to a process of deliberately re-mediating personal or collective inquiry by creating shareable epistemic artifacts, such [[skimx://none2011cscl#116|p. 116]]
+
+as texts, graphs, and models. It involves efforts of crystallizing, integrating, and synthesizing one’s view at the edge of knowledge and understanding and using the resulting knowledge artifacts as a stepping stone for reaching a higher-level understanding at subsequent cycles of inquiry. [[skimx://none2011cscl#117|p. 117]]
+
+The advancement of knowledge-creating inquiry appears to depend on a sustained struggle to crystallize evolving understanding in a growing network of epistemic artifacts. These artifacts, in turn, provide implicit or explicit hints and guidelines regarding promising directions of advancement and ways of going beyond the existing epistemic horizon. From an evolutionary perspective the present tremendous expansion of the Information and Communication Technologies (ICTs) is a continuation of the same process of epistemic mediation that took place at the advent of modern civilization and changed the architecture of human cognition as radically as earlier leaps in biological evolution (Donald, 2001). [[skimx://none2011cscl#117|p. 117]]
+
+The principal vehicle of epistemic mediation is writing that allows externalization, objectification, and materialization of the processes of thinking and reasoning for shareable epistemic artifacts in interaction with which subsequent inquiry takes place. As Brockmeyer and Olson (2009) argued, writing is not just recording of thought but constitutes its own system that has significant social, intellectual, and cultural consequences. This system relies on material-symbolic practices that enable creation of new kinds of epistemic objects, such as questions and theories, with which we can be in interaction. In order to elicit pursuit of novelty, knowledge- building inquiry has to capitalize on extended cognitive circuits that break boundaries between minds, bodies, artifacts and environments (Clark, 2008). In order to cultivate capacities of pursuing challenging inquiries, students have to be intellectually socialized to expand and augment their cognitive resources by deliberately working at external memory fields and writing for creating knowledge. As a social practice, writing is mediated by literate genres, i.e., socially and culturally recognizable, ritualized, and repeated production of typified epistemic artifacts in human collectives (Bazerman, 1988; 2004; Prior, 1998). Beyond genres of reporting textbook knowledge, the participants of technology-mediated learning have to learn to master academic writing focused on using writing as a tool of extending their thinking and deliberately generating new ideas and working theories. Epistemic mediation appears both to require and assist formation of a specific kind of identity as a prospective builder and creator of knowledge. [[skimx://none2011cscl#117|p. 117]]
+
+Objects of knowledge appear to have the capacity to unfold infinitely. They are more like open drawers filled with folders extending infinitely into the depth of a dark closet. Since epistemic objects are always in the process of being materially defined, they continually acquire new properties and change the ones they have. But this also means that objects of knowledge can never be fully attained, that they are, if you wish, never quite themselves. (Knorr-Cetina, 2001, p. 181). [[skimx://none2011cscl#117|p. 117]]
+
+Technology-mediated learning environments and corresponding practices provide valuable resources for knowledge-creating inquiry in terms of assisting in building on, synthesizing, and rising above epistemic artifacts created. It appears that CSCL environments are children of hybridization in terms of providing material technology for sustained working with shared digital (but materially embodied) artifacts. Such knowledgeware technologies and associated practices of knowledge building allow working with distributed epistemic artifacts, and, thereby, elicit collectivization of inquiry and learning. Integrating CSCL technologies as instruments of one’s activity is a developmental process in its own right; cultivation of innovative inquiry practices within a learning community is not possible without sustained iterative and expansive efforts at creating an adequate chronotope. Hence, technology enhances learning only through transformed social practices. [[skimx://none2011cscl#117|p. 117]]
+
+Understanding Knowledge Building as a Small-group Cognitive Process (Stahl) [[skimx://none2011cscl#117|p. 117]]
+
+The move from the individual to the group level of description as foundational entails an important philosophical step: from cognitivism to post-cognitivism (Stahl, 2011). Although the literature on small groups and on post-cognitivist phenomena provides illuminating studies of the pivotal role of small groups, it does not account for this level of description theoretically. In the final analysis it is almost always based on either a psychological view of individuals or a sociological view of rules, etc., at the community level. None of the studies has a foundational conception of small groups as a distinct level. They confuse talk at the group level and at the social level, and they lack a developed account of the relationships between individual, group and community. [[skimx://none2011cscl#118|p. 118]]
+
+If we take group phenomena seriously as “first-class objects,” then we can study: interpersonal trains of thought, shared understandings of diagrams, joint problem conceptualizations, common references, coordination of problem-solving efforts, planning, deducing, designing, describing, problem solving, explaining, defining, generalizing, representing, remembering and reflecting as a group. [[skimx://none2011cscl#118|p. 118]]
+
+Improvable Ideas: The Foundation of Knowledge Building (Scardamalia & Bereiter) [[skimx://none2011cscl#118|p. 118]]
+
+It goes almost without saying that idea improvement, insofar as it involves movement from simpler to more complex ideas, is necessarily a self-organizing process. Self-organization is the only viable explanation of how growth in conceptual complexity is achieved (Molenaar, 1986). This is true even when the more complex concept is supposedly conveyed by a lecture or a text: grasping it requires constructive activity on the part of the learner that is equivalent to theory building (Popper & Eccles, 1977, p. 461). But when, as in knowledge building, the students are agents of their own production of more complex conceptual structures, the demands put on a sustained self-organizing process are likely to be greater. The greatest challenge for knowledge- building technology, accordingly, is to support a self-organizing process in the realm of ideas. This is something beyond supporting self-organization at the social level (which the new social media seem to be accomplishing to amazing effect) or self-organization in the planning and conduct of projects (which is the province of project management software and educational adaptations of it). [[skimx://none2011cscl#119|p. 119]]
+
+The approach we are advocating in designing next-generation knowledge-building software is to treat ideas rather than people or actions as the units in a self-organizing system. Social networks evolve and projects and processes evolve. All of these warrant feedback systems to support their evolution. But it is the evolution of ideas that occupies center stage and that these other kinds of evolution subserve. Thus we want to build idea network analysis, comparable to social network analysis; nearest-neighbor searches that identify neighboring ideas, even if they are located in different parts of a database; and ways for students’ judgments of promisingness and importance and for their metacognitive awareness to feed into the process of idea evolution. Knowledge-building dialogue is key, for advances in community knowledge are not merely supported by dialogue but actually take place in it (Tsoukas, 2009). Among other well-known advantages of having discourse carried out online is the fact that it produces something semantic analysis tools can work on and hopefully provide feedback of a kind that will enhance the self-organizing processes of conceptual evolution. [[skimx://none2011cscl#119|p. 119]]
+
+These proposals are in line with a current trend to design self-organizing networks (Rycroft, 2003), whether Internet-based or not. They are at the opposite pole from threaded discourse, which seems almost to have been designed to thwart self-organization—or, at its worst, to thwart organization of any kind. They also stand in contrast to clickers and related kinds of response technology, which can be used in a variety of educationally beneficial ways but which keep the teacher in control of the information flow. Whether idea- centered knowledge-building technology can take advantage of FaceBook and Twitter kinds of technology is a challenge yet to be explored. The challenge may be framed as “sustained creative work with ideas meets short attention span.” [[skimx://none2011cscl#119|p. 119]]
+
+“Design Mode” As the Essential Mode of Thought in Knowledge Building (Bereiter & Scardamalia) [[skimx://none2011cscl#120|p. 120]]
+
+Bazerman, C. (1988). Shaping written knowledge: The genre and activity of the experimental article in science. Madison: University of Wisconsin Press. [[skimx://none2011cscl#120|p. 120]]
+
+Bazerman, C. (2004). Intertextuality: How text rely on other texts. In C. Bazerman & P. Prior (Eds.), What writing does and how it does it: An introduction to analyzing text and textual practices (pp. 83-122). Mahwah, NJ: Lawrence Erlbaum Associates. [[skimx://none2011cscl#120|p. 120]]
+
+Brockmeier, J. & Olson, D. R. (2009). The literacy episteme: From Innis to Derrida. In D. R. Olson & N. Torrance (Eds.), The Cambridge handbook of literacy (pp. 3-21). Cambridge, MA: Cambridge University Press. [[skimx://none2011cscl#120|p. 120]]
+
+Clark, A. (2008). Supersizing the mind: Embodiment, action, and cognitive extension. New York: Oxford University Press [[skimx://none2011cscl#121|p. 121]]
+
+Donald. M. (2001). A mind so rare: The evolution of human consciousness. New York: Norton. [[skimx://none2011cscl#121|p. 121]]
+
+Knorr-Cetina, K. (2001) Objectual practices. In T. Schatzki, Knorr-Cetina, K., & Von Savigny, E. (Eds.) The practice turn in contemporary theory (pp. 175-188). London: Routledge. [[skimx://none2011cscl#121|p. 121]]
+
+Molenaar, P. C. M. (1986). On the impossibility of acquiring more powerful structures: A neglected alternative. Human Development, 29, 245-251. [[skimx://none2011cscl#121|p. 121]]
+
+Paavola, S. & Hakkarainen, K. (2005). The knowledge creation metaphor – an emergent epistemological approach to learning. Science & Education, 14(6), 535-557. [[skimx://none2011cscl#121|p. 121]]
+
+Prior, P. (2006). A sociocultural theory of writing. In C. A. MacArthur, S. Graham, & J. Fitzgerald (Eds.), Handbook of writing research (pp. 54-66). New York: The Guildford Press. [[skimx://none2011cscl#121|p. 121]]
+
+Rycroft, R. (2003). Self-organizing innovation networks: Implications for globalization. Washington, DC: George Washington Center for the Study of Globalization. [[skimx://none2011cscl#121|p. 121]]
+
+Tsoukas, H. (2009). A dialogical approach to the creation of new knowledge in organizations. Organization Science, 20, 941-957. [[skimx://none2011cscl#121|p. 121]]
+
+Integrated Tool Support for Learning through Knowledge Creation [[skimx://none2011cscl#122|p. 122]]
+
+In this symposium we discuss pedagogical design involving technology that aims to support and foster learning through object-bound collaboration. [[skimx://none2011cscl#122|p. 122]]
+
+The KPE environment (http://www.knowledgepractices.info) is an integrated, modular open source software. It is designed to enable various visual views on the collaboration process and the related knowledge practices. [[skimx://none2011cscl#122|p. 122]]
+
+learning through development of knowledge objects (e.g., designs, software applications, research reports). [[skimx://none2011cscl#122|p. 122]]
+
+Activities supported by the integrated tools are, for example, co-construction of knowledge, collaborative and iterative writing, conceptual modeling, and reflection of knowledge practices (Lakkala et al., 2009). [[skimx://none2011cscl#122|p. 122]]
+
+In current work practices, multi-professional collaboration is typically organized around long-term efforts for developing shared, tangible knowledge objects such as products, models, articles, or practices (Paavola & Hakkarainen, 2005). [[skimx://none2011cscl#122|p. 122]]
+
+The EU-funded project “Knowledge Practices Laboratory” (KP-Lab) is a response to the described challenge. [[skimx://none2011cscl#122|p. 122]]
+
+The theoretical claim underlying the knowledge creation perspective is that new meaning and understanding of the domain arises through the externalization of knowledge and collaboratively creating knowledge objects that emerge and become transformed over time. In the knowledge creation approach an explicit theoretical account of the social interaction is included, which was not theoretically accounted for in the knowledge building approach (Ludvigsen, 2009). The mediated nature of human activity (see Vygotsky, 1978) is acknowledged in the knowledge creation approach particularly by emphasizing multiple types of technology- mediation; including support for pragmatic, social, epistemic, and reflective types of activities (Lakkala et al., 2009; Paavola & Hakkarainen, 2005; Rabardel & Bourmaud 2003). In this context, technology plays an important role as a mediating element, since it enhances the social interaction between participants and (shared) knowledge objects, and the development of innovative knowledge practices. [[skimx://none2011cscl#123|p. 123]]
+
+The added value of KPE is in the integration of various functionalities to build a multipurpose and flexible collaborative virtual environment, which is designed to support complex activities, both at the epistemic and procedural levels. In KPE, individual and collective shared (work) spaces can be created, e.g., by a project team, students attending a class or members of a multifunctional development team in an organization. Different visualizations are possible: a view of the process, a view of the content, a community view, an alternative process view, and a tailored view. Within these views KPE focuses on supporting the sustained activities around shared objects through offering flexible tools for: a) joint elaboration, versioning and visual organization of content; b) object-bound commenting and chatting; c) use of semantics in content specific searching, conceptual modelling, tagging, and explicating relationships between various knowledge items; d) awareness of other users’ participation and status in knowledge creation processed supported by KPE, and e) management and organization of the groups’ practices (see images in Figure 1). KPE also provides analytic tools for automatic analysis of collaborative work and development of shared objects. The analytic tools offer possibilities for students, teachers, and researchers to visualize and reflect on the knowledge creation processes and provide reference points for practice transformation. [[skimx://none2011cscl#123|p. 123]]
+
+Iterative Co-construction of Knowledge Objects by Student Teachers [[skimx://none2011cscl#123|p. 123]]
+
+Hutchins, E. (1999). Cognitive Artifacts. In R. A. Wilson & F. C. Keil, (Eds), The MIT Encyclopedia of the Cognitive Sciences. Cambridge, MA: The MIT Press. [[skimx://none2011cscl#128|p. 128]]
+
+Lakkala, M., Paavola, S., Kosonen, K., Muukkonen, H., Bauters, M., & Markkanen, H. (2009). Main functionalities of the Knowledge Practices Environment (KPE) affording knowledge creation practices in education. In C. O’Malley, D. Suthers, P. Reimann, & A. Dimitracopoulou (Eds.), Computer Supported Collaborative Learning Practices: CSCL2009 Conference Proceedings (pp. 297-306). International Society of the Learning Sciences. [[skimx://none2011cscl#128|p. 128]]
+
+Ludvigsen, S., R. (2009). Sociogenesis and cognition: The struggle between social and cognitive activities. In B. Schwarz, T. Dreyfus, & R. Hershkowitz (Eds.), Transformation of Knowledge through Classroom Interaction. Routledge. [[skimx://none2011cscl#128|p. 128]]
+
+Ludvigsen, S. & Mørch (2010). Computer-Supported Collaborative Learning: Basic Concepts, Multiple Perspectives, and Emerging Trends, In E.Baker, P. Peterson & B. McGaw, Encyclopedia of Education, 3rd Edition. Elsevier. [[skimx://none2011cscl#128|p. 128]]
+
+Knorr-Cetina, K. (1999). Epistemic cultures: How the sciences make knowledge. Cambridge: Harvard Univ. Press. [[skimx://none2011cscl#128|p. 128]]
+
+Knuuttila, T. (2005). Models as epistemic artefacts: Toward a non-representationalist account of scientific representation. PhD-Thesis. University of Helsinki, Helsinki, Finland. [[skimx://none2011cscl#128|p. 128]]
+
+Miettinen, R., & Virkkunen, J. (2005). Epistemic objects, artefacts, and organizational change. Organization, 12(3), 437-456. [[skimx://none2011cscl#129|p. 129]]
+
+Omicini, A., & Ossowski, S. (2004). Coordination and Collaboration Activities in Cooperative Information Systems. International Journal of Cooperative Information Systems, 1, 1-7. [[skimx://none2011cscl#129|p. 129]]
+
+How Can Current Approaches to the Transfer of Technology-Based Collaboration Scripts for Research and Practice Be Integrated? [[skimx://none2011cscl#130|p. 130]]
+
+Baker, M., & Lund, K. (1997). Promoting reflective interactions in a CSCL environment. Journal of Computer Assisted Learning, 13(3), 175-193. ￼￼ [[skimx://none2011cscl#135|p. 135]]
+
+Dillenbourg, P. & Hong, F. (2008). The mechanics of CSCL macro scripts. International Journal of Computer- Supported Collaborative Learning, 3(1), 5-23. [[skimx://none2011cscl#136|p. 136]]
+
+Kollar, I., Fischer, F. & Slotta, J. D. (2007). Internal and external scripts in computer-supported collaborative inquiry learning. Learning and Instruction, 17(6), 708-721. [[skimx://none2011cscl#136|p. 136]]
+
+Stegmann, K., Weinberger, A., & Fischer, F. (2007). Facilitating argumentative knowledge construction with computer-supported collaboration scripts. International Journal of Computer-Supported Collaborative Learning, 2(4), 421-447. [[skimx://none2011cscl#136|p. 136]]
+
+Weinberger, A., Kollar, I., Dimitriadis, Y., Mäkitalo-Siegl, K., & Fischer, F. (2009). Computer-supported collaboration scripts: Perspectives from educational psychology and computer science. In N. Balacheff, S. Ludvigsen, T. de Jong, A. Lazonder & S. Barnes (Eds.), Technology-Enhanced Learning: Principles and products (pp. 155-174) Amsterdam, the Netherlands:Springer. [[skimx://none2011cscl#137|p. 137]]
+
+Enhancing the Social and Cognitive Benefits of Digital Tools and Media [[skimx://none2011cscl#139|p. 139]]
+
+We occasionally see sustained idea development in blogs, but this is usually because the blogger has chosen to use the medium as a thinker’s notebook. Typically such blog entries are monologues, sometimes with comments from others, sometimes not. [[skimx://none2011cscl#139|p. 139]]
+
+The Teacher’s Role in Developing the Socio-cognitive Infrastructure for Progressive Collaborative Inquiry (Viilo, Seitamaa-Hakkarainen, & Hakkarainen) F [[skimx://none2011cscl#140|p. 140]]
+
+In addition to a technological infrastructure and a suitable social infrastructure, progressive collaborative inquiry requires an epistemic infrastructure, within which knowledge is treated as something that can be shared and jointly developed by participants, and a cognitive infrastructure of knowledge practices— ways of working with knowledge and ideas and their embodiments in various media objects. Hakkarainen and colleagues have developed a pedagogical model of progressive-inquiry (PI) learning model (Hakkarainen, 2003; 2004), inspired by Scardamalia and Bereiter’s (2006) knowledge-building framework. The PI model is a tool that assists teachers in engaging their students in expert-like creative knowledge practices. The idea is that the teachers should guide students themselves to assume responsibility for all aspects of inquiry, such as goal- setting, questioning, explaining, and evaluating; they must guide students’ process of inquiry by their own example. The model consists of several elements that constitute essential aspects of a cyclic process of solving problems and advancing local, collective knowledge. Shared expertise means that the participants of knowledge creating inquiry are not isolated individuals but a classroom learning community that pursues joint investigation by sharing all elements of progressive inquiry. Construction of working theories guides the participants to stretch their knowledge and understanding for creating shared epistemic artifacts for supporting subsequent inquiry efforts. By critically evaluating their advancement, individuals, teams, and the whole inquiry community are able to focus their subsequent inquiry efforts toward promising directions. The question-driven process of inquiry provides heuristic guidance in the search for new information for directions and sources not determined by the teachers or initially anticipated by the participants. The process of inquiry starts with initially very general, unspecified and “fuzzy” questions and tentative working theories; advancement of inquiry entails that the participants focus on improving their ideas by generating more specific questions and searching for new information for directing further investigations (Hakkarainen & Sintonen, 2002). [[skimx://none2011cscl#140|p. 140]]
+
+Causal Explanation: A Way to Achieve Greater Cognitive Benefits from Knowledge Media (Resendes, Chuy, Chen, Bereiter, & Scardamalia) [[skimx://none2011cscl#142|p. 142]]
+
+Explanatory coherence can include both “hot” and “cool” cognition (Thagard, 2006) [[skimx://none2011cscl#142|p. 142]]
+
+Generic Improvements in Communication Technology to Enhance Socio-cognitive Gains (Chuy, Chen, Resendes, van Aalst, Chan, Scardamalia, & Bereiter) [[skimx://none2011cscl#143|p. 143]]
+
+Drawing on wide-ranging research on technologically supported knowledge building (most recently consolidated in a special issue of the Canadian Journal of Learning and Technology), we here discuss generic improvements in technology that could enhance socio-cognitive benefits. [[skimx://none2011cscl#143|p. 143]]
+
+Generic improvements would include the following: • Easy ways to reference other participants’ ideas. With traditional threaded discourse technology, this can only be done by attaching a comment to a specific post. (Often even this facility is lacking, so that a respondent has to copy and paste part of the message being referred to. Continued discussion means further copying and pasting, to the point where the exchange becomes virtually unreadable.) Integrative knowledge building requires being able to reference several items, including different people’s contributions as well as outside information sources, and to build on those. • Ability to draw ideas together into a higher level of idea organization. • Ability to use different media in representing ideas without segregating them into different applications; e.g., being able to incorporate a simulation into a verbal explanation. • Rich and abundant feedback and visualization mechanisms that enable a variety of “metacognitive views” (Brown & Campione, 1996) on an unfolding discourse. [[skimx://none2011cscl#143|p. 143]]
+
+Advancing the Design of Knowledge-building Software (Chen, Resendes, Chuy, Bielaczyc, Hong, Scardamalia, & Bereiter) [[skimx://none2011cscl#143|p. 143]]
+
+(a) supports for capturing the key ideas in notes and flexibly characterizing them; (b) scaffolds to raise the discourse to increasingly high levels, (c) visualizations to focus attention on a subset of notes with a specific goal for advancing collective work, and (d) concurrent evaluation that can become part of an ongoing knowledge-building process. [[skimx://none2011cscl#144|p. 144]]
+
+Up to this time, a simple set of theory-building scaffolds has carried the main burden of partially structuring knowledge-building discourse (“My theory...,” “I need to understand...,” “A better theory...,” etc.). The current effort is to provide more complex scaffolding based on a model of “good moves” in problem-solving dialogue. For example, one set of scaffolds will promote a metacognitive view of the dialogue’s progress. Students might use the following scaffolds to analyze their progress: “An idea that represents our point of greatest progress,” “A misconception hampering progress...,” “We haven’t followed through with....” Note the emphasis on how “we” are doing, in contrast to the more individualistic emphasis of the original scaffolds. [[skimx://none2011cscl#144|p. 144]]
+
+In our experience the form of visualization users have found most helpful is one that filters out all notes other than those that meet a small number of criteria so that the visualization dramatically lowers the amount of information to be processed. [[skimx://none2011cscl#144|p. 144]]
+
+Thagard, P. (1989). Explanatory coherence. Behavioral and Brain Sciences, 12, 435-467. Thagard, P. (2006). Evaluating explanations in law, science, and everyday Life. Current Directions in Psychological Science, 15(3), 141-145. Thagard, P. & Kunda, Z. (1998). Making sense of people: Coherence mechanisms. In S. J. Read & L. C. Miller (Eds.), Connectionist models of social reasoning and social behavior (pp. 3-26). Hillsdale, NJ: Erlbaum. [[skimx://none2011cscl#145|p. 145]]
+
+Getting Started and Sustaining Knowledge Building [[skimx://none2011cscl#150|p. 150]]
+
+Collaborative Virtual Worlds and Productive Failure: Design Research with Multi-disciplinary Pedagogical, Technical and Graphics, and Learning Research Teams [[skimx://none2011cscl#153|p. 153]]
+
+Orchestrating Collaborative Science Curriculum across Formal and Informal Contexts [[skimx://none2011cscl#170|p. 170]]
+
+Borgman, C., Abelson, H., Dirks, L., & Johnson, R. (2008). Fostering learning in the networked world: The cyberlearning opportunity and challenge. National Science Foundation Task Force on Cyberlearning, [[skimx://none2011cscl#173|p. 173]]
+
+Buckingham, D. (2007). Beyond technology: Children's learning in the age of digital culture Polity Press. [[skimx://none2011cscl#173|p. 173]]
+
+Disessa, A. (2000). Changing minds: Computers, learning, and literacy. Cambridge, MA: The MIT Press. [[skimx://none2011cscl#173|p. 173]]
+
+Soloway, E., Grant, W., Tinker, R., Roschelle, J., Mills, M., Resnick, M., et al. (1999). Their hands. Communications of the ACM, 42(8), 21-27. [[skimx://none2011cscl#174|p. 174]]
+
+Ullrich, C., Borau, K., Luo, H., & Tan, X. (2008). Why web 2.0 is good for learning and for research : Principles and prototypes. International Conference on World Wide Web, 705-714. [[skimx://none2011cscl#174|p. 174]]
+
+Bold, M. (2006). Use of wikis in graduate course work. Journal of Interactive Learning Research, 17(1), 5-14. [[skimx://none2011cscl#176|p. 176]]
+
+Chu, S. (2008). TWiki for knowledge building and management. Online Information Review, 32(6), 745-758. [[skimx://none2011cscl#176|p. 176]]
+
+Da Lio, E., Fraboni, L. L., & Leo, T. (2005). TWiki-based facilitation in a newly formed academic community of practice. Paper presented at the 2005 international symposium on Wikis. [[skimx://none2011cscl#176|p. 176]]
+
+Parker, K. R., & Chao, J. T. (2007). Wiki as a teaching tool. Interdisciplinary Journal of Knowledge and Learning Objects, 3, 57-72. [[skimx://none2011cscl#176|p. 176]]
+
+Trialogical Learning Supported by Knowledge Practices Environment [[skimx://none2011cscl#177|p. 177]]
+
+Designing Visual Tools to Scaffold the Process of Learning How to Learn Together [[skimx://none2011cscl#189|p. 189]]
+
+This interactive event will be presented by a group of researchers who contribute to the R&D Project Metafora - Learning to learn together: A visual language for social orchestration of educational activities - http://www.metafora-project.org [[skimx://none2011cscl#189|p. 189]]
+
+The Metafora environment will offer a space for collaborative planning and collaborative problem solving where students will gather and discuss their plans, findings and emerge with an agreed solution, using in the process software tools to support planning, discussion, microworld for inquiry based learning , as well as other "domain tools" such as simulations. [[skimx://none2011cscl#189|p. 189]]
+
+The use of a specially-designed visual language will permit the students to communicate with one another in planning their learning and also to be precise in that planning and in enacting the planned activities. [[skimx://none2011cscl#189|p. 189]]
+
+Teacher as Co-designer in Developing Technology that Supports Liberal Studies Learning [[skimx://none2011cscl#191|p. 191]]
+
+Automated Data Analysis to Support Teacher’s Knowledge Building Practice [[skimx://none2011cscl#195|p. 195]]
+
+Law, N., Yuen, J., Wong, W., & Leng, J. (2011). Understanding learners ’ knowledge building trajectory through visualizations of multiple automated analyses. In S. Puntambekar, G. Erkens, & C. E. Hmelo- Silver (Eds.), Analyzing interactions in CSCL: Methods, issues and approaches. NY: Springer. [[skimx://none2011cscl#196|p. 196]]
+
+Fischer, F., & Mandl, H. (2005). Knowledge convergence in computer-supported collaborative learning: The role of external representation tools. Journal of the Learning Sciences, 14(3), 405-441. [[skimx://none2011cscl#201|p. 201]]
+
+Lund, K., Molinari, G., Séjourné, A., & Baker, M. (2007). How do argumentation diagrams compare when student pairs use them as a means for debate or as a tool for representing debate? International Journal of Computer-Supported Collaborative Learning, 2(2-3), 273-295. [[skimx://none2011cscl#201|p. 201]]
+
+Rau, M. A., Aleven, V., & Rummel, N. (2009). Intelligent Tutoring Systems with Multiple Representations and Self-Explanation Prompts Support Learning of Fractions. In V. Dimitrova, R. Mizoguchi, & B. du Boulay (Eds.), Proceedings of the 14th International Conference on Artificial Intelligence in Education (pp. 441-448). Amsterdam, the Netherlands: IOS Press. [[skimx://none2011cscl#201|p. 201]]
+
+Sweller, J. & Chandler, P. (1994). Why some material is difficult to learn. Cognition and Instruction, 12(3), 185–233. [[skimx://none2011cscl#201|p. 201]]
+
+Knowledge Building International Project: Designs for Deep Understanding [[skimx://none2011cscl#205|p. 205]]
+
+Conole, G., and K. Fill (2005). A learning design toolkit to create pedagogically effective learning activities. Journal of Interactive Media in Education, http://wwwjime.open.ac.uk/2005/08/. [[skimx://none2011cscl#210|p. 210]]
+
+Introduction to Social Network Analysis Theory and Its Application to CSCL [[skimx://none2011cscl#222|p. 222]]
+
+How to Integrate CSCL in Classroom Life: Orchestration [[skimx://none2011cscl#226|p. 226]]
+
+Connecting Levels of Learning in Networked Communities [[skimx://none2011cscl#227|p. 227]]
+
+Discussing and Synthesizing Three Positions in Computer- supported Inquiry Learning from a Design Perspective: Mobile Collaboratories, Emerging Learning Objects, and Personal Inquiry [[skimx://none2011cscl#229|p. 229]]
+
+Cress, U., Barquero, B., Schwan, S., & Hesse, F. W. (2007). Improving quality and quantity of contributions: Two models for promoting knowledge exchange with shared databases. Computers & Education, 49(2), 423-440. [[skimx://none2011cscl#285|p. 285]]
+
+Cress, U., & Kimmerle, J. (2008). A systemic and cognitive view on collaborative knowledge building with wikis. International Journal of Computer-Supported Collaborative Learning, 3, 105-122. [[skimx://none2011cscl#285|p. 285]]
+
+Forte, A., & Bruckman, A. (2006). From Wikipedia to the classroom: exploring online publication and learning. International Conference of the Learning Sciences (Bloomington, IN). 182-188. [[skimx://none2011cscl#285|p. 285]]
+
+Kimmerle, J., Moskaliuk, J., Harrer, A., & Cress, U. (2010). Visualizing co-evolution of individual and collective knowledge. Information, Communication and Society, 13(8), 1099-1121. [[skimx://none2011cscl#285|p. 285]]
+
+Wellman, B. (1997). An Electronic Group is Virtually a Social Network. In S. Kiesler (Eds.), Culture of the Internet (pp. 179-205). Mahwah, NJ: Lawrence Erlbaum. [[skimx://none2011cscl#285|p. 285]]
+
+Ainsworth S.E, 1999, « A functional taxonomy of multiple representations. Computers and Education », 33 (2/3), 131-152. [[skimx://none2011cscl#314|p. 314]]
+
+Angeles, M., Zarate, V. (2007). Interaction Analysis in Collaborative Modeling of Graphical Representations, 15th International Conference of Computers in Educaation, IOS Press, Hiroshima, Japan. [[skimx://none2011cscl#314|p. 314]]
+
+Baker, M. J. (2009) Argumentative interactions and the social construction of knowledge. In N.M. Mirza & N.- N. Perret-Clermont (Eds.) Argumentation and Education. Theoretical Foundations and Practices, pp. 127-144. Berlin: Springer Verlag. [[skimx://none2011cscl#314|p. 314]]
+
+Baker, M., Andriessen, J., Lund, K., van Amelsvoort, M. & Quignard, M. (2007). Rainbow: A framework for analyzing computer-mediated pedagogical debates. ijcscl 2 (2-3). [[skimx://none2011cscl#314|p. 314]]
+
+Détienne, F., Burkhardt, J-M., Hébert, A-M., & Perron, L. (2008) Assessing the quality of collaboration in design : bridging cognitive ergonomics and CSCL approaches. Workshop « CSCW and Human Factors », CSCW’2008, November 9, San Diego, USA. [[skimx://none2011cscl#314|p. 314]]
+
+Mühlenbrock, M. (2001). Action-based collaboration analysis for group learning. Doctoral Dissertation. University of Duisburg, Germany. [[skimx://none2011cscl#314|p. 314]]
+
+Bloom, B. (1984). "The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to- One Tutoring." Educational Researcher 13(6): 4-16. [[skimx://none2011cscl#340|p. 340]]
+
+Dede, C. and S. Barab (2009). "Emerging Technologies for Learning Science: A Time of Rapid Advances." Journal of Science Education and Technology 18(4): 301-304. [[skimx://none2011cscl#340|p. 340]]
+
+Fischer, G. and E. Scharff (1998). "Learning technologies in support of self-directed learning." Learning 98: 4. [[skimx://none2011cscl#340|p. 340]]
+
+Hamilton, E. and M. Jago (2010). Towards a Theory of Personalized Learning Communities. Designs for Learning Environments of the Future e. (M. Jacobson & R. Reimann, Springer Press. [[skimx://none2011cscl#340|p. 340]]
+
+Martinez, M. (2001). "Key design considerations for personalized learning on the web." Educational Technology & Society 4(1): 26-40. [[skimx://none2011cscl#340|p. 340]]
+
+Shen, R., F. Yang, et al. (2006). An Open Learning Model for Web-based Learning Architecture. Web-Based Learning: Theory, Research and Practice. H. O'Neill and R. Perez. Mahwah, NJ, Lawrence Erlbaum. [[skimx://none2011cscl#340|p. 340]]
+

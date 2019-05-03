@@ -1,0 +1,12 @@
+h1. Christopher Hoadley
+{{ pages:a_christopher_hoadley1.png}}
+At NUY Steinhardt School of Education
+
+h2. Research
+  * use of technology for learning in the developing world (India)
+  * design research
+
+h2. Links
+  * [[http://steinhardt.nyu.edu/faculty_bios/view/Christopher_Hoadley|Homepage]]
+
+{{page>abib:Christopher Hoadley}}

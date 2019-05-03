@@ -1,0 +1,39 @@
+h1. ‘Peer learning’as pedagogic discourse for research education
+<html><a href='http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Boud, D., & Lee, A. (2005). ‘Peer learning’as pedagogic discourse for research education. Studies in Higher Education, 30(5), 501--516. Retrieved from http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://boud2005peer|BibDesk]]  | Boud, D., & Lee, A. (2005). ‘Peer learning’as pedagogic discourse for research education. Studies in Higher Education, 30(5), 501--516. Retrieved from http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf. |
+^ [[skimx://boud2005peer|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:boud2005peer?do=edit&vecdo=print\'><frame src=\'/wiki/clip:boud2005peer?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{boud2005peer,
+  author = {Boud, D. and Lee, A.},
+  date-added = {2012-04-10 19:38:33 +0000},
+  date-modified = {2012-08-19 15:43:11 +0000},
+  date-read = {2012-05-10 19:14:21 -0400},
+  journal = {Studies in Higher Education},
+  number = {5},
+  oa-url = {http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf},
+  pages = {501--516},
+  read = {1},
+  title = {{‘Peer} learning’as pedagogic discourse for research education},
+  url = {http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf},
+  volume = {30},
+  year = {2005},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXAAAAAAAXAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhBib3VkMjAwNXBlZXIucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGVh0Fy6o4e1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLqnC7AAAAAQAMANrWUgAXPTEAAZ9eAAIAL1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VkMjAwNXBlZXIucGRmAAAOACIAEABiAG8AdQBkADIAMAAwADUAcABlAGUAcgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAkVXNlcnMvU3RpYW4vYmliZGVzay9ib3VkMjAwNXBlZXIucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEB4uLi8uLi9iaWJkZXNrL2JvdWQyMDA1cGVlci5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACFAIWAhsCJAIvAjMCQQJIAlECcgJ3AnoChwKMAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAp4=},
+  bdsk-url-1 = {http://manainkblog.typepad.com/faultlines/files/BoudLee2005.pdf}
+}
+
+</hidden>
+
+{{page>notes:boud2005peer}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:boud2005peer}}
+
+{{page>kindle:boud2005peer}}
+
+{{page>skimg:boud2005peer}}

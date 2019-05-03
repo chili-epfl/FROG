@@ -1,0 +1,6 @@
+h2. J. Burtis's publications
+
+| :ref:chan1997knowledge | Chan, C., Burtis, J., & Bereiter, C. (1997). {Knowledge building as a mediator of conflict in conceptual change}. Cognition and Instruction. Routledge.|
+| :ref:lamon1993beliefs | Lamon, M., Chan, C., Scardamalia, M., Burtis, J., & Brett, C. (1993). Beliefs about learning and constructive processes in reading: Effects of a computer supported intentional learning environment. annual meeting of the American Educational Research Association {(Atlanta,} Ga.|
+| :ref:chan1997knowledge | Chan, C., Burtis, J., & Bereiter, C. (1997). {Knowledge building as a mediator of conflict in conceptual change}. Cognition and Instruction. Routledge.|
+| :ref:lamon1993beliefs | Lamon, M., Chan, C., Scardamalia, M., Burtis, J., & Brett, C. (1993). Beliefs about learning and constructive processes in reading: Effects of a computer supported intentional learning environment. annual meeting of the American Educational Research Association {(Atlanta,} Ga.|

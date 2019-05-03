@@ -1,0 +1,40 @@
+h1. Theoretical, conceptual, methodological, and instructional issues in research on metacognition and self-regulated learning: A discussion
+
+<ifauth !@admin>|Azevedo, R. (2009). Theoretical, conceptual, methodological, and instructional issues in research on metacognition and self-regulated learning: A discussion. Metacognition and Learning, 4(1), 87--95. doi: 10.1007/s11409-009-9035-7.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://azevedo2009theoretical|BibDesk]]  | Azevedo, R. (2009). Theoretical, conceptual, methodological, and instructional issues in research on metacognition and self-regulated learning: A discussion. Metacognition and Learning, 4(1), 87--95. doi: 10.1007/s11409-009-9035-7. |
+^ [[skimx://azevedo2009theoretical|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:azevedo2009theoretical?do=edit&vecdo=print\'><frame src=\'/wiki/clip:azevedo2009theoretical?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{azevedo2009theoretical,
+  author = {Azevedo, Roger},
+  date-added = {2011-04-22 13:27:01 -0400},
+  date-modified = {2012-02-03 08:17:49 +0000},
+  doi = {10.1007/s11409-009-9035-7},
+  issn = {1556-1623},
+  journal = {Metacognition and Learning},
+  keywords = {self-regulated learning},
+  number = {1},
+  pages = {87--95},
+  read = {1},
+  title = {Theoretical, conceptual, methodological, and instructional issues in research on metacognition and self-regulated learning: A discussion},
+  url = {http://www.springerlink.com/content/5257hm23003316g0/fulltext.pdf},
+  volume = {4},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhphemV2ZWRvMjAwOXRoZW9yZXRpY2FsLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2sreygG3aAAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKAe+oAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhemV2ZWRvMjAwOXRoZW9yZXRpY2FsLnBkZgAADgA2ABoAYQB6AGUAdgBlAGQAbwAyADAAMAA5AHQAaABlAG8AcgBlAHQAaQBjAGEAbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9hemV2ZWRvMjAwOXRoZW9yZXRpY2FsLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9hemV2ZWRvMjAwOXRoZW9yZXRpY2FsLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==},
+  bdsk-url-1 = {http://dx.doi.org/10.1007/s11409-009-9035-7}
+}
+
+</hidden>
+
+{{page>notes:azevedo2009theoretical}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:azevedo2009theoretical}}
+
+{{page>kindle:azevedo2009theoretical}}
+
+{{page>skimg:azevedo2009theoretical}}

@@ -1,0 +1,48 @@
+h2. Publications with keyword "1mooc"
+
+| [@kop2008connectivism] | Kop, R., & Hill, A. (2008). Connectivism: Learning theory of the future or vestige of the past?. The International Review of Research in Open and Distance Learning, 9(3), Article–9.|
+| [@fini2009technological] | Fini, A. (2009). The technological dimension of a massive open online course: The case of the CCK08 course tools. The International Review of Research in Open and Distance Learning, 10(5), Article--10.|
+| [@mackness2010ideals] | Mackness, J., Mak, S. F. J., & Williams, R. (2010). The ideals and reality of participating in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
+| [@kop2010design] | Kop, R. (2010). The Design and Development of a Personal Learning Environment: Researching the Learning Experience. In European Distance and E-learning Network Annual Conference 2010, June 2010, Valencia, Spain.|
+| [@mcauley2010mooc] | McAuley, A., Stewart, B., Siemens, G., & Cormier, D. (2010). The MOOC Model for Digital Practice.|
+| [@mak2010blogs] | Mak, S. F. J., Williams, R., & Mackness, J. (2010). Blogs and forums as communication and learning tools in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
+| [@couros2010developing] | Couros, A. (2010). Developing personal learning networks for open and social learning. Emerging Technologies in Distance Education, 109–128. |
+| [@kop2010networked] | Kop, R. (2010). Networked Connectivity and Adult Learning: Social Media, the Knowledgeable Other and Distance Education (PhD thesis). |
+| [@bell2010network] | Bell, F. (2010). Network theories for technology-enabled learning and social change: Connectivism and actor network theory. In Networked Learning Conference 2010: Seventh International Conference on Networked Learning. |
+| [@kop2011cloud] | Kop, R., & Carroll, F. (2011). Cloud Computing and Creativity: Learning on a Massive Open Online Course. European Journal of Open, Distance and E-Learning, Special Issue on Creativity and OER.|
+| [@fournier2011researching] | FournierHélène, & Kop, R. (2011). Researching the design and development of a Personal Learning Environment: Research on super-users. In PLE Citylab Conference.|
+| [@fournier2011value] | FournierHélène, Kop, R., & Sitlia, H. (2011). The Value of Learning Analytics to Networked Learning on a Personal Learning Environment. In 1st International Conference on Learning analytics and Knowledge 2011, Banff, February 27-March 1st, 2011.|
+| [@dewaard2011using] | de Waard, I., Abajian, S., Gallagher, M. S., Hogue, R., Keskin, N., Koutropoulos, A., & Rodriguez, O. C. (2011). Using mLearning and MOOCs to understand chaos, emergence, and complexity in education. The International Review of Research in Open and Distance Learning, 12(7), 94--115.|
+| [@kop2011pedagogy] | Kop, R., FournierHélène, & Mak, S. F. J. (2011). A pedagogy of abundance or a pedagogy to support human beings? Participant support on massive open online courses. The International Review of Research in Open and Distance Learning, 12(7), 74--93.|
+| [@kop2011challenges] | Kop, R. (2011). The challenges to connectivist learning on open online networks: Learning experiences during a massive open online course. The International Review of Research in Open and Distance Learning, 12(3), 19--38.|
+| [@kop2011dimensions] | Kop, R., & FournierHélène. (2011). New Dimensions to Self-directed Learning in an Open Networked Learning Environment. International Journal of Self-Directed Learning, 7(2), 1-18.|
+| [@webbneed] | Webb, A. The need for rhizomatics heuristics.|
+| [@altamiranocarmonahacia] | Altamirano Carmona, E., Becerra Correa, N., & Nava Casarrubias, A. Hacia una educación conectivista. |
+| [@couros2003open] | Couros, A. (2003). Open Source Communities of Practice and the Introduction of Technological Innovation. |
+| [@amorim2005deleuze] | Amorim, A. C., & Ryan, C. (2005). Deleuze, action research and rhizomatic growth. Educational Action Research, 13(4), 581–594.|
+| [@masters2007spiral] | Masters, K., & Gibbs, T. (2007). The Spiral Curriculum: implications for online learning. BMC medical education, 7(1), 52. |
+| [@cormier2008rhizomatic] | Cormier, D. (2008). Rhizomatic Education: Community as Curriculum. Innovate: Journal of Online Education, 4, 6.|
+| [@downes2008places] | Downes, S. (2008). Places to go: Connectivism & connective knowledge. Innovate Online, 5(1).|
+| [@cormier2009open] | Cormier, D. (2009). Open Educational Resources: the implications for educational development. Debate: Implications for Educational Developers, 10, 5.|
+| [@darrow2009connectivism] | Darrow, S. (2009). Connectivism Learning Theory: Instructional Tools for College Courses (PhD thesis). |
+| [@bell2009connectivism] | Bell, F. (2009). Connectivism: a network theory for teaching and learning in a connected world. Educational Developments, The Magazine of the Staff and Educational Development Association, 10(3). |
+| [@mota2009e-learning] | Mota, J. C. (2009). Da Web 2.0 ao e-learning 2.0: Aprender na rede (Master's thesis). |
+| [@attwell2010pedagogic] | Attwell, G., & Hughes, J. (2010). Pedagogic approaches to using technology for learning: literature review. |
+| [@heydenrych2010revisiting] | Heydenrych, J. F., & Prinsloo, P. (2010). Revisiting the five generations of distance education: Quo vadis?. |
+| [@lealfonseca2010open] | Leal Fonseca, D. E. (2010). Open online courses in Colombia: Report of an educational and technological experiment. |
+| [@anderson2010theories] | Anderson, T. (2010). Theories for learning with emerging technologies. Emerging Technologies in Distance Education, 23–40. |
+| [@veletsianos2010definition] | Veletsianos, G. (2010). A definition of emerging technologies for education. Emerging technologies in distance education, 3–22. |
+| [@bell2010connectivism] | Bell, F. (2010). Connectivism: Its place in theory-informed research and innovation in technology-enabled learning. The International Review of Research in Open and Distance Learning, 12(3), 98–118. |
+| [@downes2010technology] | Downes, S., & others. (2010). New technology supporting informal learning. Journal of emerging technologies in web intelligence, 2(1), 27–33.|
+| [@masters2011brief] | Masters, K. (2011). A Brief Guide To Understanding MOOCs. The Internet Journal of Medical Education, 1(2). |
+| [@couros2011networked] | Couros, A. (2011). Why networked learning matters. |
+| [@ravenscroft2011dialogue] | Ravenscroft, A. (2011). Dialogue and connectivism: A new approach to understanding and promoting dialogue-rich networked learning. The International Review of Research in Open and Distance Learning, 12(3), 139–160.|
+| [@attwell2011future] | Attwell, G. (2011). The Future Learning Environments. Interdisciplinary Approaches to Technology-enhanced Learning-Interdisziplinäre Zugänge Zum Technologiegestützen Lernen, 75.|
+| [@lealfonseca2011educamp] | Leal Fonseca, D. E. (2011). EduCamp Colombia: Social networked learning for teacher training. The International Review of Research in Open and Distance Learning, 12(3), 60–79. |
+| [@veletsianos2011networked] | Veletsianos, G., & Kimmons, R. (2011). Networked participatory scholarship: Emergent techno-cultural pressures toward open and digital scholarship in online networks. Computers \& Education.|
+| [@kop2011facilitating] | Kop, R., & FournierHélène. (2011). Facilitating Quality Learning in a Personal Learning Environment through Educational Research. In online session at the Canadian Institute of Distance Education Research. |
+| [@naughton2011delimiting] | Naughton, C. F., Roder, J., & Smeed, J. E. (2011). Delimiting the prospect of openness: An examination of initial student approaches to e-learning. The International Review of Research in Open and Distance Learning, 12(2), 103–121. |
+| [@dabbagh2011personal] | Dabbagh, N., & Kitsantas, A. (2011). Personal Learning Environments, social media, and self-regulated learning: A natural formula for connecting formal and informal learning. The Internet and Higher Education.|
+| [@tschofen2012connectivism] | Tschofen, C., & Mackness, J. (2012). Connectivism and dimensions of individual experience. The International Review of Research in Open and Distance Learning, 13(1). |
+| [@veletsianos2012online] | Veletsianos, G., & Navarrete, C. (2012). Online social networks as formal learning environments: Learner experiences and activities. The International Review of Research in Open and Distance Learning, 13(1). |
+| [@carson2012massive] | Carson, S., & Schmidt, J. P. (2012). The Massive Open Online Professor. Academic Matters, (May).|

@@ -1,0 +1,3 @@
+h2. G. Gweon's publications
+
+| gweon2011framework | Gweon, G., Jun, S., Lee, J., Finger, S., & Rosé, C. P. (2011). A framework for assessment of student project groups on-line and off-line. Analyzing Interactions in CSCL. Springer.|[[skimx://gweon2011framework|PDF]]|

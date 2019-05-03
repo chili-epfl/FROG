@@ -1,0 +1,41 @@
+h1. Supporting orchestration of CSCL scenarios in web-based Distributed Learning Environments
+<ifauth !@admin>|Prieto, Luis P. and Asensio-Pérez, Juan I. and Muñoz-Cristóbal, Juan A. and Jorrín-Abellán, Iván M. and Dimitriadis, Yannis and Gómez-Sánchez, Eduardo (2014). Supporting orchestration of CSCL scenarios in web-based Distributed Learning Environments. Computers & Education, 73(0), 9 - 25. doi:http://dx.doi.org/10.1016/j.compedu.2013.12.008|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://prieto2014supporting|BibDesk]]  |Prieto, Luis P. and Asensio-Pérez, Juan I. and Muñoz-Cristóbal, Juan A. and Jorrín-Abellán, Iván M. and Dimitriadis, Yannis and Gómez-Sánchez, Eduardo  (2014). Supporting orchestration of CSCL scenarios in web-based Distributed Learning Environments. Computers & Education, 73(0), 9 - 25. doi:http://dx.doi.org/10.1016/j.compedu.2013.12.008 |
+^ [[skimx://prieto2014supporting|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:prieto2014supporting?do=edit&vecdo=print\'><frame src=\'/wiki/clip:prieto2014supporting?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{prieto2014supporting,
+  author = {Prieto, Luis P. and Asensio-Pérez, Juan I. and Muñoz-Cristóbal, Juan A. and Jorrín-Abellán, Iván M. and Dimitriadis, Yannis and Gómez-Sánchez, Eduardo},
+  date-added = {2014-03-20 00:56:47 +0000},
+  date-modified = {2014-03-20 13:12:05 +0000},
+  date-read = {2014-03-20 09:12:05 -0400},
+  doi = {http://dx.doi.org/10.1016/j.compedu.2013.12.008},
+  issn = {0360-1315},
+  journal = {Computers & Education},
+  keywords = {Evaluation of \{CAL\} systems},
+  number = {0},
+  pages = {9 - 25},
+  read = {1},
+  title = {Supporting orchestration of CSCL scenarios in web-based Distributed Learning Environments},
+  url = {http://www.sciencedirect.com/science/article/pii/S0360131513003321},
+  volume = {73},
+  year = {2014},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QRC4uLy4uL0JpYmRlc2svYmFrL3ByaWV0bzIwMTRzdXBwb3J0aW5nLTIwMTQtMDMtMjAgMDg6NTE6NDYgLTA0MDAucGRm0hcLGBlXTlMuZGF0YU8RAe4AAAAAAe4AAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAADq7N2R9wcmlldG8yMDE0c3VwcG9ydGkjMTAzNDIzMkEucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQNCMqz0+09AAAAAAAAAAAAAIAAwAACSAAAAAAAAAAAAAAAAAAAAADYmFrAAAQAAgAAMl5ligAAAARAAgAAM9P7TQAAAABABAOrs3ZANrWUgAXPTEAAZ9eAAIAQ1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiYWs6AHByaWV0bzIwMTRzdXBwb3J0aSMxMDM0MjMyQS5wZGYAAA4AZgAyAHAAcgBpAGUAdABvADIAMAAxADQAcwB1AHAAcABvAHIAdABpAG4AZwAtADIAMAAxADQALQAwADMALQAyADAAIAAwADgALwA1ADEALwA0ADYAIAAtADAANAAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIASlVzZXJzL1N0aWFuL0JpYmRlc2svYmFrL3ByaWV0bzIwMTRzdXBwb3J0aW5nLTIwMTQtMDMtMjAgMDg6NTE6NDYgLTA0MDAucGRmABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A1QDaAOIC1ALWAtsC5gLvAv0DAQMIAxEDFgMjAyYDOAM7A0AAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADQg==},
+  bdsk-url-1 = {http://www.sciencedirect.com/science/article/pii/S0360131513003321},
+  bdsk-url-2 = {http://dx.doi.org/10.1016/j.compedu.2013.12.008}
+}
+
+</hidden>
+
+{{page>notes:prieto2014supporting}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:prieto2014supporting}}
+
+{{page>kindle:prieto2014supporting}}
+
+{{page>skimg:prieto2014supporting}}

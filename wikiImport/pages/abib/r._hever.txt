@@ -1,0 +1,3 @@
+h2. R. Hever's publications
+
+| degroot2007computer | De Groot, R., Drachman, R., Hever, R., Schwarz, B. B., Hoppe, H. U., Harrer, A., De Laat, M., Wegerif, R., McLaren, B., & Baurens, B. (2007). Computer supported moderation of e-discussions: the ARGUNAUT approach. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|[[skimx://degroot2007computer|PDF]]|

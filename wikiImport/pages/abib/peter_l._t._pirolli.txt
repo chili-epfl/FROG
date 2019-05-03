@@ -1,0 +1,3 @@
+h2. Peter L. T. Pirolli's publications
+
+| [@pirolli2007information] | Pirolli, P. L. T. (2007). Information Foraging Theory: Adaptive Interaction with Information. Oxford Series in {Human-Technology} Interaction. Oxford University Press.|

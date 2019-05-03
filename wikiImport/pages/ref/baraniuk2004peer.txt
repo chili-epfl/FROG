@@ -1,0 +1,31 @@
+h1. Peer to Peer Collaboration with Connexions
+
+<ifauth !@admin>|Baraniuk, R., Henry, G., & Hendricks, B. (2004). Peer to Peer Collaboration with Connexions. EDUCAUSE 2004 Annual Conference. Denver, Colorado.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://baraniuk2004peer|BibDesk]]  | Baraniuk, R., Henry, G., & Hendricks, B. (2004). Peer to Peer Collaboration with Connexions. EDUCAUSE 2004 Annual Conference. Denver, Colorado. |
+^ [[skimx://baraniuk2004peer|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:baraniuk2004peer?do=edit&vecdo=print\'><frame src=\'/wiki/clip:baraniuk2004peer?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{baraniuk2004peer,
+  author = {Baraniuk, Richard and Henry, G. and Hendricks, B.},
+  booktitle = {{EDUCAUSE} 2004 Annual Conference. Denver, Colorado},
+  date-added = {2011-04-24 10:13:31 -0400},
+  date-modified = {2011-06-12 07:32:43 +0800},
+  keywords = {OER/open ed},
+  title = {Peer to Peer Collaboration with Connexions},
+  year = {2004}
+}
+
+</hidden>
+
+{{page>notes:baraniuk2004peer}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:baraniuk2004peer}}
+
+{{page>kindle:baraniuk2004peer}}
+
+{{page>skimg:baraniuk2004peer}}

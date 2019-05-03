@@ -1,0 +1,34 @@
+h1. Visualization of Knowledge Spaces to Enable Concurrent, Embedded and Transformative Input to Knowledge Building Processes
+
+<ifauth !@admin>|Teplovs, C. (2010). Visualization of Knowledge Spaces to Enable Concurrent, Embedded and Transformative Input to Knowledge Building Processes.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://teplovs2010visualization|BibDesk]]  | Teplovs, C. (2010). Visualization of Knowledge Spaces to Enable Concurrent, Embedded and Transformative Input to Knowledge Building Processes. |
+^ [[skimx://teplovs2010visualization|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:teplovs2010visualization?do=edit&vecdo=print\'><frame src=\'/wiki/clip:teplovs2010visualization?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @phdthesis{teplovs2010visualization,
+  author = {Teplovs, Christopher},
+  date-added = {2011-04-30 09:03:39 -0400},
+  date-modified = {2011-06-09 08:29:59 +0800},
+  read = {1},
+  school = {University of Toronto},
+  title = {Visualization of Knowledge Spaces to Enable Concurrent, Embedded and Transformative Input to Knowledge Building Processes},
+  year = {2010},
+  abstract = {This thesis focuses on the creation of a systems architecture to help inform development of next generation knowledge-building environments. The architectural model consists of three components: an infrastructure layer, a discourse layer, and a visualization layer. The Knowledge Space Visualizer (KSV), which defines the top visualization layer, is a prototypic system for showing reconstructed representations of discourse-based artifacts and facilitating assessment in light of patterns of interactivity of participants and their ideas. The KSV uses Latent Semantic Analysis to extend techniques from Social Network Analysis, making it possible to infer relationships among note contents. Thus idea networks can be studied in conjunction with social networks in online discourse. Further, benchmark corpora can be used to determine knowledge advances, and systems of interactivity leading to them. Results can then provide feedback to students and teachers to support them in obtaining continually higher level achievements. In addition to visual representations, the KSV provides quantitative network metrics such as degree and density. Data drawn from 9- and 10-year-old students working on a six-week unit on optics were used to illustrate some of the functionality of the KSV. Three studies show ways in which new visualizations can be used: (a) to highlight relationships among notes, (b) as a way of tracking the development of discourse over time, and (c) as an assessment tool. Implications for the design of knowledge building environments, assessment tools, and design-based research are discussed. },
+  annote = {http://hdl.handle.net/1807/24893},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaAAAAAAAaAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhx0ZXBsb3ZzMjAxMHZpc3VhbGl6YXRpb24ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdd9Gy9dK41BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14MjAAAAAQAMANrWUgAXPTEAAZ9eAAIAO1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB0ZXBsb3ZzMjAxMHZpc3VhbGl6YXRpb24ucGRmAAAOADoAHAB0AGUAcABsAG8AdgBzADIAMAAxADAAdgBpAHMAdQBhAGwAaQB6AGEAdABpAG8AbgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAwVXNlcnMvU3RpYW4vYmliZGVzay90ZXBsb3ZzMjAxMHZpc3VhbGl6YXRpb24ucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECouLi8uLi9iaWJkZXNrL3RlcGxvdnMyMDEwdmlzdWFsaXphdGlvbi5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACRAJGAksCVAJfAmMCcQJ4AoECrgKzArYCwwLIAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAto=}
+}
+
+</hidden>
+
+{{page>notes:teplovs2010visualization}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:teplovs2010visualization}}
+
+{{page>kindle:teplovs2010visualization}}
+
+{{page>skimg:teplovs2010visualization}}

@@ -1,0 +1,16 @@
+h2. Ravi Vatrapu's publications
+
+| [@suthers2007conceptual] | Suthers, D. D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2007). {Conceptual representations enhance knowledge construction in asynchronous collaboration}. Proceedings of the 8th iternational conference on Computer supported collaborative learning - CSCL'07, 2007, 705--714. doi:10.3115/1599600.1599729|
+| [@suthers2010framework] | Suthers, D. D., Dwyer, N., Medina, R., & Vatrapu, R. (2010). A framework for conceptualizing, representing, and analyzing distributed interaction. International Journal of Computer-Supported Collaborative Learning, 5(1), 5-42. |
+| [@bull2011methods] | Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL. |
+| [@johnson2011student] | Johnson, M., Vatrapu, R., Bull, S., Teplovs, C., & Reimann, P. (2011). Student Model Tools R1. NEXT-TELL.|
+| [@suthers2005representational] | Suthers, D. D., Vatrapu, R., Joseph, S., Dwyer, N., & Medina, R. (2005). {Representational Effects in Asynchronous Collaboration : A Research Paradigm and Initial Analysis Department of Information and Computer Sciences University of Hawai ` i at Manoa}. Electronics, (1).|
+| [@suthers2006representational] | Suthers, D. D., Vatrapu, R., Joseph, S., Dwyer, N., & Medina, R. (2006). Representational effects in asynchronous collaboration: A research paradigm and initial analysis. In System Sciences, 2006. HICSS'06. Proceedings of the 39th Annual Hawaii International Conference on (Vol. 1, 3b--3b).|
+| [@suthers2006analysis] | Suthers, D. D., Dwyer, N., Medina, R., & Vatrapu, R. (2006). {Analysis of Meaning Making in Online Learning}. In ICCE.|
+| [@suthers2007information] | Suthers, D. D., Medina, R., Vatrapu, R., & Dwyer, N. (2007). {Information Sharing is Incongruous with Collaborative Convergence : The Case for Interaction Prior Results on Convergence and Integration}. Learning, 2007, 714--716.|
+| [@suthers2007ainformation] | Suthers, D. D., Vatrapu, R., Medina, R., & Dwyer, N. (2007). Information Sharing and Interaction in Collaborative Convergence. In Proceeding of the 2007 conference on Supporting Learning Flow through Integrative Technologies (167--174).|
+| [@suthers2007abstract] | Suthers, D. D., Dwyer, N., Vatrapu, R., & Medina, R. (2007). An abstract transcript notation for analyzing interactional construction of meaning in online learning. In System Sciences, 2007. HICSS 2007. 40th Annual Hawaii International Conference on (4--4).|
+| [@suthers2008beyond] | Suthers, D. D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2008). {Beyond threaded discussion: Representational guidance in asynchronous collaborative learning environments}. Computers \& Education, 50(4), 1103--1127. doi:10.1016/j.compedu.2006.10.007|
+| [@suthers2009collabreps:] | Suthers, D. D., Dwyer, N., & Vatrapu, R. (2009). CollabReps: A Research Prototype for Studying Representational Guidance in Computer Supported Intercultural Collaboration.|
+| [@medina2009representational] | Medina, R., Suthers, D. D., & Vatrapu, R. (2009). Representational practices in VMT. Studying virtual math teams, 185--205.|
+| [@nardi2011comparative] | Nardi, B., Vatrapu, R., & Clemmensen, T. (2011). Comparative informatics. interactions, 18(2), 28--33. doi:http://doi.acm.org/10.1145/1925820.1925828|

@@ -1,0 +1,5 @@
+h2. Charles Jeffrey Danoff's publications
+
+| [@corneli2011paragogy] | Corneli, J., & Danoff, C. J. (2011). Paragogy: Synergizing individual and organizational learning. In 1st International Conference on Learning Analytics and Knowledge. |
+| [@corneli2011aparagogy] | Corneli, J., & Danoff, C. J. (2011). Paragogy. In Proceedings of the 6th Open Knowledge Conference, Berlin, Germany. |
+| [@corneli2012paragogy] | Corneli, J., & Danoff, C. J. (2012). Paragogy Book.|

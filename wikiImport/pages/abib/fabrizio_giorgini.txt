@@ -1,0 +1,4 @@
+h2. Fabrizio Giorgini's publications
+
+| [@hofmair2011methods] | Hofmair, P., Utz, W., Giorgini, F., Johnson, M., Clark, W., & Halb, W. (2011). Methods and Specifications for Activity Capturing Tools V1. NEXT-TELL.|
+| [@reimann2011training] | Reimann, P., Sircar, R., Giorgini, F., Meissl-Egghart, G., Kickmeier-Rust, M., Kossowski, M., Utz, W., & Halb, W. (2011). Training Concept. NEXT-TELL.|

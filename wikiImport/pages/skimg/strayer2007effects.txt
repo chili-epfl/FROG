@@ -1,0 +1,27 @@
+h2. Images
+
+{{skim:strayer2007effects0.png}}
+
+[[skimx://strayer2007effects#15|p. 15]]
+----
+
+{{skim:strayer2007effects1.png}}
+
+[[skimx://strayer2007effects#29|p. 29]]
+----
+
+{{skim:strayer2007effects2.png}}
+
+[[skimx://strayer2007effects#62|p. 62]]
+----
+
+{{skim:strayer2007effects3.png}}
+
+[[skimx://strayer2007effects#208|p. 208]]
+----
+
+{{skim:strayer2007effects4.png}}
+
+[[skimx://strayer2007effects#239|p. 239]]
+----
+

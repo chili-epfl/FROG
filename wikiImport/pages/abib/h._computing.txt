@@ -1,0 +1,4 @@
+h2. H. Computing's publications
+
+| :ref:bosveld2005visual | Bosveld-de Smet, Lm., & Computing, H. (2005). On Visual Representations in Instructional and Research Environments: Facilitating and Misleading Effects. Manuscript Rijksuniversiteit Groningen.|
+| :ref:bosveld2005visual | Bosveld-de Smet, Lm., & Computing, H. (2005). On Visual Representations in Instructional and Research Environments: Facilitating and Misleading Effects. Manuscript Rijksuniversiteit Groningen.|

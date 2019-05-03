@@ -1,0 +1,3 @@
+h2. M. McPherson's publications
+
+| nunes2007designers | Nunes, M., & McPherson, M. (2007). Why Designers cannot be Agnostic about Pedagogy: The Influence of Constructivist Thinking in Design of e-Learning for HE. Evolution of teaching and learning paradigms in intelligent environment. Springer.|[[skimx://nunes2007designers|PDF]]|

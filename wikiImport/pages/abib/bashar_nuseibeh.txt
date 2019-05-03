@@ -1,0 +1,3 @@
+h2. Bashar Nuseibeh's publications
+
+| [@buckinghamshum2006hypermedia] | Buckingham Shum, S., Selvin, A. M., Sierhuis, M., Conklin, J., Haley, C. B., & Nuseibeh, B. (2006). Hypermedia support for argumentation-based rationale: 15 years on from {gIBIS} and {QOC}. In A. Dutoit, R. McCall, I. Mistrik & B. Paech (Eds.), Rationale Management in Software Engineering (111-132). Book Chapter, Springer Verlag. |

@@ -1,0 +1,3 @@
+h2. Effie Law's publications
+
+| [@chatterjee2009functional] | Chatterjee, A., Law, E., & Verbert, K. (2009). Functional requirements analysis and specification; {Non-Functional} requirements analysis and specification. |

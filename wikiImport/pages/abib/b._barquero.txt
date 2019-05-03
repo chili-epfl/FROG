@@ -1,0 +1,3 @@
+h2. B. Barquero's publications
+
+| cress2005social | Cress, U., Barquero, B., Buder, J., & Hesse, F. W. (2005). Social dilemma in knowledge communication via shared databases. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|[[skimx://cress2005social|PDF]]|

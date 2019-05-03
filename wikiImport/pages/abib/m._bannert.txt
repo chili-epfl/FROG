@@ -1,0 +1,3 @@
+h2. M. Bannert's publications
+
+| schnotz2003construction | Schnotz, W., & Bannert, M. (2003). Construction and interference in learning from multiple representation. Learning and instruction. Elsevier.|[[skimx://schnotz2003construction|PDF]]|

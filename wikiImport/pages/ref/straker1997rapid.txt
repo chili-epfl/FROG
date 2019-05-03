@@ -1,0 +1,30 @@
+h1. Rapid problem-solving with Post-it Notes
+
+<ifauth !@admin>|Straker, D. (1997). Rapid problem-solving with Post-it Notes. Gower.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://straker1997rapid|BibDesk]]  | Straker, D. (1997). Rapid problem-solving with Post-it Notes. Gower. |
+^ [[skimx://straker1997rapid|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:straker1997rapid?do=edit&vecdo=print\'><frame src=\'/wiki/clip:straker1997rapid?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{straker1997rapid,
+  author = {Straker, D.},
+  date-added = {2011-06-09 14:06:32 +0800},
+  date-modified = {2011-06-09 14:06:32 +0800},
+  publisher = {Gower},
+  title = {Rapid problem-solving with Post-it Notes},
+  year = {1997}
+}
+
+</hidden>
+
+{{page>notes:straker1997rapid}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:straker1997rapid}}
+
+{{page>kindle:straker1997rapid}}
+
+{{page>skimg:straker1997rapid}}

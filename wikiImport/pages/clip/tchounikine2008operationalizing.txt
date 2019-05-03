@@ -1,0 +1,110 @@
+h2. Highlights (10%)
+
+present SPAIRD, a model that we propose as a means to conceptualize the relations between scripts and technological settings used to operationalize them. This model describes four points of view on the script (structural model, implementation-oriented model, studentoriented models and platform specification) and the underlying design rationale (learning hypothesis, pedagogic principle and design decisions). [[skimx://tchounikine2008operationalizing#1|p. 1]]
+
+Our work is related to the operationalization of CSCL macro-scripts. We refer to CSCL macro-script operationalization as the process of going from an abstract and technologically independent description of the script to the effective setting the students will be presented with, i.e. the precise description of the tasks, groups, constraints to be respected, and technological setting to be used. [[skimx://tchounikine2008operationalizing#2|p. 2]]
+
+This model, called SPAIRD (for Script-PlAtform Indirect Rational Design), helps in conceptualizing the relations between the script and the technological setting by dissociating four points of view on the script (structural model, implementationoriented model, student-oriented models and technological setting specification) and making designers make explicit the underlying design rationale (learning hypothesis, pedagogic principle, design decisions). [[skimx://tchounikine2008operationalizing#3|p. 3]]
+
+Strijbos et al. (2004) propose a methodology for interaction design based on six steps and five critical elements (learning objectives, task type, level of pre-structuring, group size and computer-support). [[skimx://tchounikine2008operationalizing#3|p. 3]]
+
+The Concept-Grid script (Dillenbourg 2002) is a subclass of the Jigsaw family of scripts, [[skimx://tchounikine2008operationalizing#5|p. 5]]
+
+The key task is to write five lines that relate or discriminate between two juxtaposed concepts: if Concept-A has been defined by Student-A and Concept-B by Student-B, writing the Concept-A/Concept-B link requires Student-A to explain Concept-A to Student-B and vice versa. [[skimx://tchounikine2008operationalizing#5|p. 5]]
+
+The Crossing-Analyses script aims at triggering interactions among pairs (elaborating on content, explaining ideas and concepts, asking thought-provoking questions, constructing arguments, resolving conceptual discrepancies) by asking groups Gi to elaborate an analysis Ai, reorganize groups differently, and then ask a group Gj to elaborate on Ai (and vice versa). [[skimx://tchounikine2008operationalizing#6|p. 6]]
+
+The RSC script (Betbeder and Tchounikine 2003) is an example of a large-grained instance of the Crossing-Analyses script. RSC is based on three phases (Research–Structure–Confront) which can be repeated several times, the output of a phase being the input of the next: (1) each student has to freely research on the Internet some information on a given topic and become familiar with it, e.g., ergonomics; (2) each student has to structure and/or use the data he/she has recovered according to a task, e.g., elaborate a grid of ergonomic principles in order to analyze educational Websites; (3) the individuals are grouped and have to elaborate a collective construction from the individual productions, e.g., confront the individual grids and collectively construct an analysis of some Websites. [[skimx://tchounikine2008operationalizing#6|p. 6]]
+
+works on macro-scripts can be put into relation (as being from similar level/ matters-of-concern, although of slightly different objectives) with works related to identifying and/or using for design collaboration patterns as defined in Wasson and Morch (2000), i.e., recurrent sequences of interaction among members of a team that satisfy established criteria for collaborative behaviour (Wasson and Morch 2000; DiGiano et al. 2002). As micro-scripts of course also require taking into account some operationalization technological dimensions, some aspects of this work may also be of interest with respect to micro-scripts. [[skimx://tchounikine2008operationalizing#7|p. 7]]
+
+Students are asked to use the technology that has been designed to support them and, in general, do so. Interviews however revealed that this was to a certain extent linked to the fact they wanted (or acknowledged that they were supposed) to “play the game,” and used this technology as part of the didactical contract. Some groups organize themselves in a way which is coherent with the proposed technology and, as using the technology is not a problem and is a demand from the teachers, they do so.
+
+* Anchored Note, page 13
+Didactically contract, thing that was missing
+
+from p2pu [[skimx://tchounikine2008operationalizing#13|p. 13]]
+
+Following the ergonomic distinction between the notions of task (the prescribed work) and activity (what people actually do), Goodyear (2001) emphasizes [[skimx://tchounikine2008operationalizing#13|p. 13]]
+
+the fact that teachers [[skimx://tchounikine2008operationalizing#13|p. 13]]
+
+set tasks and students interpret the specifications of the task, their subsequent activity being a more or less rational response to the task. Activity is related to the task but also to other dimensions (e.g., students’ effective motivations or perception that is developed by the students of the task to be achieved and the provided technological setting) that evolve in time, and are interrelated within systemic relations. The activity that will emerge from the confrontation of the students with the task and the technological setting is subject to different contingences that may render it unpredictable in its details. The unpredictability of usage is partially explained by the concept of affordance. [[skimx://tchounikine2008operationalizing#14|p. 14]]
+
+e McGrenere and Ho 2000 for a comprehensive compared analysis of the affordance notion different definitions, and Jones et al. 2006 for a CSCL point of view). [[skimx://tchounikine2008operationalizing#14|p. 14]]
+
+(Rabardel 2003) help in understanding that students take advantage of the means that seem best adapted to them in the context of their activity. Within this perspective, designers create artifacts on the basis of how they imagine their future use. An artifact only becomes an instrument for its user, in the context of his activity, by the fact it allows this user to achieve the tasks he considers, and in the way he considers them: it is the user that gives the status of instrument to the artifact. [[skimx://tchounikine2008operationalizing#14|p. 14]]
+
+In the Computer-Supported Collaborative Work field, organization is defined as the metalevel [[skimx://tchounikine2008operationalizing#15|p. 15]]
+
+activity that aims at maintaining a more or less stable pattern of cooperative [[skimx://tchounikine2008operationalizing#15|p. 15]]
+
+arrangement between people engaged in a collaborative work, which requires the elaboration of an artifactual and/or psychological instrument crystallizing the cooperative activity motives and means (Schmidt 1990).
+
+* Anchored Note, page 16
+Right now no explicit micro scaffolding of work in sig or design group. Something that could be tested experimentally. Group awareness, coordination tools, etc [[skimx://tchounikine2008operationalizing#16|p. 16]]
+
+From the point of view of collaboration, macro-scripts witness the tension between instructional [[skimx://tchounikine2008operationalizing#17|p. 17]]
+
+design and socio-cultural approaches (Dillenbourg and Tchounikine 2007). The same kind of tension appears at the level of how technology can be used to participate [[skimx://tchounikine2008operationalizing#17|p. 17]]
+
+Within CSCL macro-scripts, indirect design captures the idea that defining the script and the technological setting features and properties must be thought of as means to influence student activity, and this activity (and the impact of the design issues) must be taken into consideration as it happens, and not as it was predicted by designers. [[skimx://tchounikine2008operationalizing#18|p. 18]]
+
+Macro-scripts are first described at an abstract and technology-independent level. They are based on explicit pedagogic principles that define (more or less precisely) foundations, principles and constraints for instantiating the script in a given setting, and make the according design decisions (defining the pre and post activities, the groups’ composition, the tuning of the different phases, the way the script is presented to students, etc.) from which the design decisions related to the technological setting.
+
+* Anchored Note, page 19
+Think abt the impact of the specific tech used, etherpad etc
+
+* Anchored Note, page 20
+We never use tech for workflow mgmt. [[skimx://tchounikine2008operationalizing#19|p. 19]]
+
+Hernández-Leo et al. (2006) describe how the notions underlying the general educational modeling language IMS-LD (IMS-LD 2003) can be used to model CSCL script structure, and LDL (Ferraris et al. 2007) is presented as an alternative to LD for collaborative settings. [[skimx://tchounikine2008operationalizing#22|p. 22]]
+
+Informal representations may be sufficient is some cases, for example when the script is orchestrated by the teacher. Conversely, when the computer-system is meant to run some of these issues, the modeling must go into detail, and a modeling language that is associated with an operational semantics is required. The language proposed in Miao et al. (2005) is an example of an operational language that allows representing implementation models (in fact, representing the structural models and the implementation model at the same time). Another example is proposed in (Haake and Pfister 2007). Such languages propose advanced constructions to model the <activity> notion as denoted in [[skimx://tchounikine2008operationalizing#23|p. 23]]
+
+Unified Modeling Language UML (UML [[skimx://tchounikine2008operationalizing#24|p. 24]]
+
+For instance, for the Jigsaw family scripts, it could be formulated: “the learning situation involves n students S1 ... Sn; the n students have to achieve Task T; T requires some knowledge that none of the Si students master; each Si student has some knowledge that is useful to achieve T; the knowledge mastered by the n students together allows the achievement of the task T.” The same learning hypotheses can underline different scripts corresponding to different pedagogic principles, and the same pedagogic principles can themselves be turned into different subclasses or script abstract schemas (e.g., Concept-Grid is but a subclass of Jigsaw) that can themselves be turned into different instantiated scripts (Kobbe et al. 2007). [[skimx://tchounikine2008operationalizing#26|p. 26]]
+
+In order to turn these concepts into effective scripts, a set of design decisions must be made and documented [[skimx://tchounikine2008operationalizing#26|p. 26]]
+
+At a general level, SPAIRD helps in outlining issues to be dissociated and documented. For instance, general pedagogic principles and design decisions should be disentangled. These design decisions should be as far as possible dissociated into intrinsic constraints and extrinsic constraints. Any pedagogic issues that are addressed opportunistically as a second objective, e.g., learning to work in groups, could be related to extrinsic constraints. Pedagogic principles, intrinsic constraints and extrinsic constraints should be represented at an abstract level, dissociating abstract principles and context-related knowledge. All the decisions underlying the structural model, implementation model, platform specification and student-oriented models should be made explicit, i.e., documented and justified. The structural model and implementation model elaboration should carefully dissociate the script issues that correspond to “what” (structural model related issues) and “how” (implementation model, and then student-oriented models or platform specification issues). When considering script/platform coherence issues, SPAIRD helps in outlining what issues relate one to the other. For instance, pedagogic principles must be coherent with the learning hypotheses. The intrinsic and extrinsic constraints must be coherent with the pedagogic principles (and thus with the learning hypotheses). The structural model, implementation model, platform specification, student oriented models, script and platform presentation and platform actual properties (which includes the script dynamics presentation and the platform tools and interface) must be kept coherent with intrinsic and extrinsic constraints, and with each other. The platform tools and interface should not impose issues that are or could contradict the structural model, implementation model or student-oriented models. The script dynamics presentation should be updated in real time in order to maintain coherence with the actual interaction pattern. [[skimx://tchounikine2008operationalizing#27|p. 27]]
+
+When considering script enactment, SPAIRD helps by providing notions that allow going further than a simple comparison of the actual interaction pattern with “the script” as a broad notion. For instance, the actual interaction pattern can be analyzed according to different dimensions, such as the script structural model (e.g., phases and tasks), the expected behavior (as denoted by the implementation model and student-oriented models) or the expected use of the platform (platform specification, platform actual properties). [[skimx://tchounikine2008operationalizing#28|p. 28]]
+
+This analysis can take into consideration the rationale that underlies these issues (learning hypotheses, pedagogic principles, intrinsic and extrinsic constraints). This allows, for instance, studying to what extent, and why, whether the fact that things went coherently or [[skimx://tchounikine2008operationalizing#28|p. 28]]
+
+differently from the script is positive, negative or neutral with respect to the design rationale. Hypotheses related to the actual interaction pattern can be stated, for instance the influence of different issues (script and platform presentation, script dynamics presentation or platform tools and interface) on students’ global perception and the actual interaction pattern. For example, recurrent students’ global perceptions that do not [[skimx://tchounikine2008operationalizing#29|p. 29]]
+
+originate from any design decisions should be made explicit, analyzed and questioned. [[skimx://tchounikine2008operationalizing#29|p. 29]]
+
+As a first example, in the Collage–Gridcole approach, teachers are presented with a pattern-based authoring tool that facilitates script modeling. From this description, a platform is generated in the form of an interface to grid services (i.e., services provided by web services) that correspond to the tools required by the script (Hernandez-Leo et al. 2006; [[skimx://tchounikine2008operationalizing#30|p. 30]]
+
+Bote-Lorenzo et al. 2004). [[skimx://tchounikine2008operationalizing#30|p. 30]]
+
+As another example, the Bricolage approach allows the description of scripts using a graphical description, this description being then used to automatically adapt the code of an existing platform on the basis of a connection between (1) the model of the script and (2) the architectural model of the used platform (Caron et al. 2005). [[skimx://tchounikine2008operationalizing#30|p. 30]]
+
+This allows running the [[skimx://tchounikine2008operationalizing#31|p. 31]]
+
+script with a LD-compliant engine (cf. infra), such as CopperCore (CopperCore 2007). [[skimx://tchounikine2008operationalizing#31|p. 31]]
+
+Another example of such an approach is the LAMS platform (LAMS 2007) that provides teachers with a graphical editor allowing them to define (very simple) scripts by connecting predefined tools, and then generating from this description a specific interface for the students. [[skimx://tchounikine2008operationalizing#31|p. 31]]
+
+An analysis of different modeling languages that can be used to represent such issues (finite automata, statecharts, activity diagrams, Petri nets, BPEL4WS, IMS-LD and Mot+) is proposed in Harrer and Malzahn (2006). [[skimx://tchounikine2008operationalizing#31|p. 31]]
+
+Differently, Miao et al. (2005) propose a language that allows a detailed specification of the script, mixing in an operational way what we have dissociated as the structural and implementation models. Based on the computer-science UML formalism (UML 2006), this language is complete enough to model complex structures (e.g., sequencing activities with conditions and loops or managing complex distributions of roles), and is associated with authoring tools. [[skimx://tchounikine2008operationalizing#31|p. 31]]
+
+As another example of adopting a precise definition in order to target operational constructions, Haake and Pfister (2007) propose to describe scripts (roles, possible sequences of actions, etc.) as a finite state automaton, a formalism that allows complex control structures. [[skimx://tchounikine2008operationalizing#31|p. 31]]
+
+Fig. 3 A model-based flexible script-engine approach [[skimx://tchounikine2008operationalizing#37|p. 37]]
+
+From the perspective of accumulating knowledge, design-rationale approaches can be used in order to systematically identify, make explicit and keep track of design decisions (see Moran and Carroll (1996) for a reference book on design-rational approaches). For example, the QOC formalism (Question–Options–Criteria) helps in guiding and documenting a decision process by proposing a list of questions to be answered, together with possible options and selection criteria. Within this perspective, works such as SPAIRD or the conceptual model of scripts presented in Kobbe et al. (2007) help in making explicit and formulating questions related to script operationalization (e.g., “What are the options with respect to group formation, and the pertinent selection criteria?”). [[skimx://tchounikine2008operationalizing#39|p. 39]]
+
+Strijbos et al. (2004) identified six steps for designing computer-supported group-based learning (defining the learning objective, the expected interaction, the task, the structure, the group size and how computer support can be best used) and, for every step, a set of key issues to be questioned. Dillenbourg and Jermann (2007) suggest building script repositories containing abstract models of scripts, structured and indexed according to different issues such as pedagogic principles, script families or structural or implementation characteristics. [[skimx://tchounikine2008operationalizing#39|p. 39]]
+
+Other works attempt to accumulate and share knowledge as patterns, providing teachers and designers with comprehensive and structured design ideas, both ready to use (and/or adapt) and coupled with research evidence (Goodyear 2004; DiGiano et al. 2002; Hernandez Leo et al. 2004 [[skimx://tchounikine2008operationalizing#39|p. 39]]
+
+Research in knowledge engineering such as the KADS methodology (Wielinga et al. 1992) have powerfully demonstrated how libraries of generic models (in KADS, problemsolving models) could be constructed by mixing reverse engineering (i.e., analyzing a posteriori existing systems), abstraction and generalization processes, and how such libraries are powerful help for system designers [[skimx://tchounikine2008operationalizing#39|p. 39]]
+
+References [[skimx://tchounikine2008operationalizing#39|p. 39]]
+

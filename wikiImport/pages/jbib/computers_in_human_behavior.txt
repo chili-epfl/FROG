@@ -1,0 +1,19 @@
+h2. Publications in Computers in Human Behavior
+
+| [@asterhan2010assessing] | Asterhan, C. S. C. (2010). Assessing e-moderation behavior from synchronous discussion protocols with a multi-dimensional methodology. Computers in Human Behavior. |
+| [@hadwin2010innovative] | Hadwin, A. F., Oshige, M., Gress, C. L. Z., & Winne, P. H. (2010). Innovative ways for using {gStudy} to orchestrate and research social aspects of self-regulated learning. Computers in Human Behavior, 26(5), 794--805. doi:10.1016/j.chb.2007.06.007|
+| [@vandrie2005effects] | van Drie, J., van Boxtel, C., Jaspers, J., & Kanselaar, G. (2005). Effects of representational guidance on domain specific reasoning in CSCL. Computers in Human Behavior, 21(4), 575--602.|
+| [@vanamelsvoort2008students] | van Amelsvoort, M., Andriessen, J., & Kanselaar, G. (2008). How students structure and relate argumentative knowledge when learning together with diagrams. Computers in Human Behavior, 24(3), 1293--1313.|
+| [@lu2010collaborative] | Lu, J., Chiu, M. M., & Law, N. (2010). Collaborative argumentation and justifications: A statistical discourse analysis of online discussions. Computers in Human Behavior.|
+| [@spada2010scripts] | Spada, H. (2010). Of scripts, roles, positions, and models. Computers in Human Behavior, 26(4), 547--550.|
+| [@strijbos2010emerging] | Strijbos, J.-W., & Weinberger, A. (2010). Emerging and scripted roles in computer-supported collaborative learning. Computers in Human Behavior, 26(4), 491--494.|
+| [@knowlton2010computer-based] | Knowlton, D. S., & Simms, J. (2010). Computer-based instruction and generative strategies: Conceptual framework & illustrative example. Computers in Human Behavior, 26(5), 996--1003. doi:10.1016/j.chb.2010.02.013|
+| [@janssen2010group] | Janssen, J., Erkens, G., & Kirschner, P. A. (2010). Group awareness tools: It's what you do with it that matters. Computers in Human Behavior.|
+| [@lantz2010clickers] | Lantz, M. E. (2010). The use of “Clickers” in the classroom: Teaching innovation or merely an amusing novelty?. Computers in Human Behavior, 26(4), 556-561. doi:10.1016/j.chb.2010.02.014|
+| [@hoadley2010roles] | Hoadley, C. M. (2010). Roles, design, and the nature of CSCL. Computers in Human Behavior, 26(4), 551--555.|
+| [@morris2010designing] | Morris, R., Hadwin, A. F., Gress, C. L. Z., Miller, M., Fior, M., Church, H., & Winne, P. H. (2010). Designing roles, scripts, and prompts to support {CSCL} in {gStudy}. Computers in Human Behavior, 26(5), 815--824. doi:10.1016/j.chb.2008.12.001|
+| [@winne2010learning] | Winne, P. H., Hadwin, A. F., & Gress, C. (2010). The learning kit project: Software tools for supporting and researching regulation of collaborative learning. Computers in Human Behavior, 26(5), 787--793. doi:10.1016/j.chb.2007.09.009|
+| [@kumar2010assessing] | Kumar, V. S., Gress, C. L. Z., Hadwin, A. F., & Winne, P. H. (2010). Assessing process in {CSCL:} An ontological approach. Computers in Human Behavior, 26(5), 825--834. doi:10.1016/j.chb.2007.07.004|
+| [@gress2010measurement] | Gress, C. L. Z., Fior, M., Hadwin, A. F., & Winne, P. H. (2010). Measurement and assessment in computer-supported collaborative learning. Computers in Human Behavior, 26(5), 806--814. doi:10.1016/j.chb.2007.05.012|
+| [@gress2010advancing] | Gress, C. L. Z., & Hadwin, A. F. (2010). Advancing educational research on collaboration through the use of {gStudy} computer-supported collaborative learning {(CSCL)} tools: Introduction to special issue. Computers in Human Behavior, 26(5), 785--786. doi:10.1016/j.chb.2008.12.003|
+| [@sangin2011facilitating] | Sangin, M., MolinariGaëlle, NüssliMarc-Antoine, & Dillenbourg, P. (2011). Facilitating peer knowledge modeling: Effects of a knowledge awareness tool on collaborative learning outcomes and processes. Computers in Human Behavior, 27(3), 1059 - 1067. doi:DOI: 10.1016/j.chb.2010.05.032|

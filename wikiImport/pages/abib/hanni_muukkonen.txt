@@ -1,0 +1,5 @@
+h2. Hanni Muukkonen's publications
+
+| [@lakkala2005patterns] | Lakkala, M., Muukkonen, H., & Hakkarainen, K. (2005). Patterns of scaffolding in computer-mediated collaborative inquiry. Mentoring \& Tutoring: Partnership in Learning, 13(2), 281--300.|
+| [@lakkala2008designing] | Lakkala, M., Muukkonen, H., Paavola, S., & Hakkarainen, K. (2008). Designing pedagogical infrastructures in university courses for technology-enhanced collaborative inquiry. Research and Practice in Technology Enhanced Learning, 3(1).|
+| [@muukkonen2009exploring] | Muukkonen, H., & Lakkala, M. (2009). Exploring metaskills of knowledge-creating inquiry in higher education. International Journal of Computer-Supported Collaborative Learning, 4(2), 187-211. doi:10.1007/s11412-009-9063-y|

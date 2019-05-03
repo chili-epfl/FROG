@@ -1,0 +1,11 @@
+h1. Etherpad
+
+  * [[http://dtherpad.com/schema|EtherPad: schema]]
+
+----
+
+  * [[http://appolo85.wordpress.com/2010/03/22/first-steps-understanding-etherpad/|First Steps -Understanding Etherpad | Appolo85's Blog]]
+
+----
+
+  * [[http://doc.etherpad.org/CunUJwhhOH|Etherpad Docs: first steps-understanding Etherpad]]

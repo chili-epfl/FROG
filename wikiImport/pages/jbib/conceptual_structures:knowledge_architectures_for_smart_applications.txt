@@ -1,0 +1,3 @@
+h2. Publications in Conceptual Structures: Knowledge Architectures for Smart Applications
+
+| buckinghamshum2007hypermedia | Buckingham Shum, S. (2007). Hypermedia discourse: Contesting networks of ideas and arguments. Conceptual Structures: Knowledge Architectures for Smart Applications, 29--44. Springer.|[[skimx://buckinghamshum2007hypermedia|PDF]]|

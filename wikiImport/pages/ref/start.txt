@@ -1,0 +1,5 @@
+h1. Publications
+
+{{pagequery>@ref: *;sort=a;title;group;cols=3;nostart}}
+
+~~NOCACHE~~

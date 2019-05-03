@@ -1,0 +1,3 @@
+h2. T. White's publications
+
+| white2011distributed | White, T., & Pea, R. (2011). Distributed by Design: On the Promises and Pitfalls of Collaborative Learning with Multiple Representations. Journal of the Learning Sciences. Routledge.|[[skimx://white2011distributed|PDF]]|

@@ -1,0 +1,36 @@
+h1. What we know about CSCL:... and what we do not (but need to) know about CSCL
+
+<ifauth !@admin>|Strijbos, J.-W., Kirschner, P. A., & Martens, R. L. (2004). What we know about CSCL:... and what we do not (but need to) know about CSCL. What we know about CSCL and implementing it in higher education.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://strijbos2004we|BibDesk]]  | Strijbos, J.-W., Kirschner, P. A., & Martens, R. L. (2004). What we know about CSCL:... and what we do not (but need to) know about CSCL. What we know about CSCL and implementing it in higher education. |
+^ [[skimx://strijbos2004we|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:strijbos2004we?do=edit&vecdo=print\'><frame src=\'/wiki/clip:strijbos2004we?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{strijbos2004we,
+  author = {Strijbos, Jan-Willem and Kirschner, Paul A. and Martens, R.L.},
+  booktitle = {What we know about CSCL and implementing it in higher education},
+  date-added = {2011-06-06 16:04:42 +0800},
+  date-modified = {2012-04-09 01:04:26 +0000},
+  keywords = {CSCL-theory},
+  notes = {0},
+  organization = {Kluwer Academic Publishers},
+  pages = {245--259},
+  read = {0},
+  title = {What we know about CSCL:... and what we do not (but need to) know about CSCL},
+  year = {2004},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJzdHJpamJvczIwMDR3ZS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABCMYgyhICPFBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKEjp8AAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdHJpamJvczIwMDR3ZS5wZGYAAA4AJgASAHMAdAByAGkAagBiAG8AcwAyADAAMAA0AHcAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vYmliZGVzay9zdHJpamJvczIwMDR3ZS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIC4uLy4uL2JpYmRlc2svc3RyaWpib3MyMDA0d2UucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhwCHgIjAiwCNwI7AkkCUAJZAnwCgQKEApEClgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo}
+}
+
+</hidden>
+
+{{page>notes:strijbos2004we}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:strijbos2004we}}
+
+{{page>kindle:strijbos2004we}}
+
+{{page>skimg:strijbos2004we}}

@@ -1,0 +1,38 @@
+h1. Reconsidering group cognition: From conceptual confusion to a boundary area between cognitive and socio-cultural perspectives?
+<html><a href='http://igitur-archive.library.uu.nl/ivlos/2007-0507-201709/akkerman%20-%20reconsidering%20group%20cognition.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://igitur-archive.library.uu.nl/ivlos/2007-0507-201709/akkerman%20-%20reconsidering%20group%20cognition.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Akkerman, S., Bossche, P. van den, Admiraal, W., Gijselaers, W., Segers, M., Simons, R. J., & Kirschner, P. A. (2007). Reconsidering group cognition: From conceptual confusion to a boundary area between cognitive and socio-cultural perspectives?. Educational research review, 2(1), 39--63. Elsevier. Retrieved from http://igitur-archive.library.uu.nl/ivlos/2007-0507-201709/akkerman%20-%20reconsidering%20group%20cognition.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://akkerman2007reconsidering|BibDesk]]  | Akkerman, S., Bossche, P. van den, Admiraal, W., Gijselaers, W., Segers, M., Simons, R. J., & Kirschner, P. A. (2007). Reconsidering group cognition: From conceptual confusion to a boundary area between cognitive and socio-cultural perspectives?. Educational research review, 2(1), 39--63. Elsevier. Retrieved from http://igitur-archive.library.uu.nl/ivlos/2007-0507-201709/akkerman%20-%20reconsidering%20group%20cognition.pdf. |
+^ [[skimx://akkerman2007reconsidering|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:akkerman2007reconsidering?do=edit&vecdo=print\'><frame src=\'/wiki/clip:akkerman2007reconsidering?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{akkerman2007reconsidering,
+  author = {Akkerman, S. and van den Bossche, P. and Admiraal, W. and Gijselaers, W. and Segers, M. and Simons, R.J. and Kirschner, Paul A.},
+  date-added = {2011-06-17 10:01:06 +0800},
+  date-modified = {2012-08-19 15:40:05 +0000},
+  journal = {Educational research review},
+  number = {1},
+  oa-url = {http://igitur-archive.library.uu.nl/ivlos/2007-0507-201709/akkerman%20-%20reconsidering%20group%20cognition.pdf},
+  pages = {39--63},
+  publisher = {Elsevier},
+  read = {1},
+  title = {Reconsidering group cognition: From conceptual confusion to a boundary area between cognitive and socio-cultural perspectives?},
+  url = {http://igitur-archive.library.uu.nl/ivlos/2007-0507-201709/akkerman%20-%20reconsidering%20group%20cognition.pdf},
+  volume = {2},
+  year = {2007},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaQAAAAAAaQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh1ha2tlcm1hbjIwMDdyZWNvbnNpZGVyaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2sqPyiAtq1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKIGXrAAAAAQAMANrWUgAXPTEAAZ9eAAIAPFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBha2tlcm1hbjIwMDdyZWNvbnNpZGVyaW5nLnBkZgAOADwAHQBhAGsAawBlAHIAbQBhAG4AMgAwADAANwByAGUAYwBvAG4AcwBpAGQAZQByAGkAbgBnAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASADFVc2Vycy9TdGlhbi9iaWJkZXNrL2Fra2VybWFuMjAwN3JlY29uc2lkZXJpbmcucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxArLi4vLi4vYmliZGVzay9ha2tlcm1hbjIwMDdyZWNvbnNpZGVyaW5nLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAJIAkoCTwJYAmMCZwJ1AnwChQKzArgCuwLIAs0AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC3w==}
+}
+
+</hidden>
+
+{{page>notes:akkerman2007reconsidering}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:akkerman2007reconsidering}}
+
+{{page>kindle:akkerman2007reconsidering}}
+
+{{page>skimg:akkerman2007reconsidering}}

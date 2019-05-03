@@ -1,0 +1,4 @@
+h2. E.J. Kwon's publications
+
+| hickeydesigning | Hickey, D. T., Kwon, E. J., & Filsecker, M. (2009). Designing Assessments, Assessing Designs, and Motivating Engagement in Immersive Educational Videogames.|[[skimx://hickeydesigning|PDF]]|
+| barab2007situationally | Barab, S., Zuiker, S., Warren, S., Hickey, D. T., Ingram-Goble, A., Kwon, E. J., Kouper, I., & Herring, S. C. (2007). Situationally embodied curriculum: Relating formalisms and contexts. Science Education. Citeseer.|[[skimx://barab2007situationally|PDF]]|

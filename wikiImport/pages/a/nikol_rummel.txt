@@ -1,0 +1,11 @@
+h1. Nikol Rummel
+{{ pages:a_nikol_rummel1.png}}
+
+Institute of Psychology, Albert-Ludwigs University in Freiburg (PhD in psychology)
+
+Co-chair of CSCL community committee of ISLS
+
+h2. Links
+  * [[http://www.psychologie.uni-freiburg.de/Members/rummel|Homepage]]
+
+{{page>abib:Nikol Rummel}}

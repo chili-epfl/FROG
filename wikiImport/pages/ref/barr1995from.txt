@@ -1,0 +1,31 @@
+h1. From Teaching to Learning
+
+<ifauth !@admin>|Barr, R. B., & Tagg, J. (1995). From Teaching to Learning.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://barr1995from|BibDesk]]  | Barr, R. B., & Tagg, J. (1995). From Teaching to Learning. |
+^ [[skimx://barr1995from|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:barr1995from?do=edit&vecdo=print\'><frame src=\'/wiki/clip:barr1995from?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{barr1995from,
+  author = {Barr, Robert B and Tagg, John},
+  date-added = {2013-03-07 01:15:56 +0000},
+  date-modified = {2013-03-08 13:41:42 +0000},
+  keywords = {0sotl},
+  title = {From Teaching to Learning},
+  year = {1995},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QHi4uLy4uL0JpYmRlc2svYmFycjE5OTVmcm9tLnBkZtIXCxgZV05TLmRhdGFPEQFwAAAAAAFwAAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lIQYmFycjE5OTVmcm9tLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADEqZmc1dUzVQREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAzV2ZhQAAAAEADADa1lIAFz0xAAGfXgACAC9TU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAYmFycjE5OTVmcm9tLnBkZgAADgAiABAAYgBhAHIAcgAxADkAOQA1AGYAcgBvAG0ALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIAJFVzZXJzL1N0aWFuL0JpYmRlc2svYmFycjE5OTVmcm9tLnBkZgATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAK8AtAC8AjACMgI3AkICSwJZAl0CZAJtAnICfwKCApQClwKcAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAp4=}
+}
+
+</hidden>
+
+{{page>notes:barr1995from}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:barr1995from}}
+
+{{page>kindle:barr1995from}}
+
+{{page>skimg:barr1995from}}

@@ -1,0 +1,22 @@
+h1. Key issues
+//Interesting look at "massive non-open online course", 12,000 students at OU. Illustrates OU development and delivery model (although this was first fully online course). 450 tutors, huge support machine - compared to MOOC or AI-course. Very different course cohort though (for many, first taste of academia after a very long time)//
+
+h2. Course
+A level one course, T171, You, Your Computer and the Net
+
+Piloted with 850 students (1999), scaled up to 12,000 (2000). 600 tutors. Development and structure of course in Weller (2000).
+
+First undergraduate course with internet as sole delivery medium at OU.
+
+h3. Demographics
+First experience of higher ed or distance ed for most students, who are returning after a break of many years. 
+
+h3. Tutors
+600 tutors recruited at local centres around UK. Hard to find people with the right qualifications. Traditionally meet in person before course start, but because of number of people, did online training for them. Traditionally one large conference for coordination, but in this case, hierarchy of conferences. 
+
+h3. Quality
+Staff tutors "virtually visited" tutor group conferences. 
+
+h3. Other findings
+h4. Size of conferences
+Students were divided into smaller conferences, but some were very interested in communicating with everyone in the course, and students subverted some fora not meant for this purpose. Exhilaration with being able to connect to so many, but number of messages can reduce level of engagement, deep thinking. 

@@ -1,0 +1,22 @@
+h2. Images
+
+{{skim:buckinghamshum2010software0.png}}
+
+[[skimx://buckinghamshum2010software#10|p. 10]]
+----
+
+{{skim:buckinghamshum2010software1.png}}
+
+[[skimx://buckinghamshum2010software#11|p. 11]]
+----
+
+{{skim:buckinghamshum2010software2.png}}
+
+[[skimx://buckinghamshum2010software#11|p. 11]]
+----
+
+{{skim:buckinghamshum2010software3.png}}
+
+[[skimx://buckinghamshum2010software#11|p. 11]]
+----
+

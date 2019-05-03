@@ -1,0 +1,47 @@
+h1. Wang keynote
+[[http://www.idlslab.net]]
+
+h2. Mobile and ubiquitous learning
+
+h3. U-computing
+  * computing with natural interfaces
+  * context-aware computing
+    * automated capture and access to live experience
+    * everyday computing
+    * able to sense personal behaviour in the real world
+      * ease burden for students for findng leanring materials
+      * support adaptive learning
+      * guide learen in the real world
+      * judge learner's behaviour in real world
+      * hint student before something is going really wrong
+      * (for example capture the experience of doing an experiment - like [[mixables_kyle_bowens|Kyle Bowen's DoubleTake]]
+
+**Context-aware U-learning environment**
+
+PDA + RFID reader, students study trees, butterflies, etc. 
+QR code. 
+
+h3. Most important ed-tech journals
+Educational Technology & Society
+Computers & Education
+British Journal of Educational Technology
+Innovations in Education and Teaching International
+Education Technology Research & Development
+Journal of Computer Assisted Learning
+
+(number of u-learning journals increase year for year, mostly for science, math and language -- from 2006-2010 Taiwan had the most articles about m/u-learning, half written by author)
+
+h3. Uses
+  * As a guide around a museum, instead of sending the students out without any purpose. 
+  * Training of nurses, put lots of RFID tags on the body of a kid, see if the nurse checks the right locations
+  * Help learning how to analyze crystals in a laboratory (did you locate the crystal correctly, etc)
+  * Help students appreciate culture and art, as opposed to big guided tours where students get bored and create trouble
+    * help them read the classical characters, find online info, read stories about the history
+  * Ecological investigations (1500 students each year)
+
+h3. Research/findings
+  * Lot's of data collection, pre- and post-tests, satisfaction etc. Very successful.
+  * Advantage: immediate feedback.
+  * Very large difference in how long it takes to train lab technicians, very large savings with u-learning.
+
+

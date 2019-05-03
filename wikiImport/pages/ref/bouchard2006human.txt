@@ -1,0 +1,34 @@
+h1. Human capital and the knowledge economy
+
+<ifauth !@admin>|Bouchard, P. (2006). Human capital and the knowledge economy. Contexts of adult education: Canadian perspectives, 164–172.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bouchard2006human|BibDesk]]  | Bouchard, P. (2006). Human capital and the knowledge economy. Contexts of adult education: Canadian perspectives, 164–172. |
+^ [[skimx://bouchard2006human|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bouchard2006human?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bouchard2006human?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bouchard2006human,
+  author = {Bouchard, Paul},
+  date-added = {2012-04-04 18:29:25 +0000},
+  date-modified = {2012-04-05 01:09:49 +0000},
+  date-read = {2012-04-04 21:09:49 -0400},
+  journal = {Contexts of adult education: Canadian perspectives},
+  pages = {164–172},
+  read = {1},
+  title = {Human capital and the knowledge economy},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVib3VjaGFyZDIwMDZodW1hbi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6jty9bvqVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yfpAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VjaGFyZDIwMDZodW1hbi5wZGYADgAsABUAYgBvAHUAYwBoAGEAcgBkADIAMAAwADYAaAB1AG0AYQBuAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2JvdWNoYXJkMjAwNmh1bWFuLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svYm91Y2hhcmQyMDA2aHVtYW4ucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:bouchard2006human}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bouchard2006human}}
+
+{{page>kindle:bouchard2006human}}
+
+{{page>skimg:bouchard2006human}}

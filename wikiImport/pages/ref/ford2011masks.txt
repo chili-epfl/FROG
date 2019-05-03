@@ -1,0 +1,32 @@
+h1. Masks
+
+<ifauth !@admin>|Ford, H., Smolen, A., Carver, B., & Mulligan, D. (2011). Masks.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://ford2011masks|BibDesk]]  | Ford, H., Smolen, A., Carver, B., & Mulligan, D. (2011). Masks. |
+^ [[skimx://ford2011masks|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:ford2011masks?do=edit&vecdo=print\'><frame src=\'/wiki/clip:ford2011masks?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{ford2011masks,
+  author = {Ford, Heather and Smolen, A. and Carver, B. and Mulligan, D.},
+  date-added = {2011-07-02 17:13:10 +0000},
+  date-modified = {2012-04-08 16:28:19 +0000},
+  keywords = {1p2pu},
+  read = {1},
+  title = {Masks},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXQAAAAAAXQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhFmb3JkMjAxMW1hc2tzLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGacNdy9cA7FBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zksAAAAAQAMANrWUgAXPTEAAZ9eAAIAMFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBmb3JkMjAxMW1hc2tzLnBkZgAOACQAEQBmAG8AcgBkADIAMAAxADEAbQBhAHMAawBzAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACVVc2Vycy9TdGlhbi9iaWJkZXNrL2ZvcmQyMDExbWFza3MucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAfLi4vLi4vYmliZGVzay9mb3JkMjAxMW1hc2tzLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIYAhoCHwIoAjMCNwJFAkwCVQJ3AnwCfwKMApEAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACow==}
+}
+
+</hidden>
+
+{{page>notes:ford2011masks}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:ford2011masks}}
+
+{{page>kindle:ford2011masks}}
+
+{{page>skimg:ford2011masks}}

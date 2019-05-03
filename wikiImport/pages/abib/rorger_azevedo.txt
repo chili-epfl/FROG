@@ -1,0 +1,3 @@
+h2. Rorger Azevedo's publications
+
+| [@azevedo2004can] | Azevedo, R., Winters, F. I., & Moos, D. C. (2004). Can students collaboratively use hypermedia to learn science? The dynamics of self-and other-regulatory processes in an ecology classroom. Journal of Educational Computing Research, 31(3), 215--245. |

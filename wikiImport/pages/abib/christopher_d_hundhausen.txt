@@ -1,0 +1,4 @@
+h2. Christopher D Hundhausen's publications
+
+| [@suthers2002roles] | Suthers, D. D., Girardeau, L. E., & Hundhausen, C. D. (2002). {The Roles of Representations in Online Collaborations}. Design, 1--14.|
+| [@suthers2002comparing] | Suthers, D. D., Hundhausen, C. D., & Girardeau, L. (2002). {Comparing the Roles of Representations in Face to Face and Online Collaborations Laboratory for Interactive Learning Technologies Department of Information and Computer Sciences University of Hawai ` i at Manoa 1 : Introduction}. Interface, 1--5.|

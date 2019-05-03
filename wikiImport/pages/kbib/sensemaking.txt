@@ -1,0 +1,13 @@
+h2. Publications with keyword "sensemaking"
+
+| [@buckinghamshum2003roots] | Buckingham Shum, S. (2003). The roots of computer supported argument visualization. In  (3--24). London, UK: Springer-Verlag. |
+| [@buckinghamshum2010towards] | Buckingham Shum, S., & Ferguson, R. (2010). Towards a social learning space for open educational resources. Conference Item. |
+| [@liddo2010capturing] | Liddo, A. D., & Buckingham Shum, S. (2010, July). Capturing and representing deliberation in participatory planning practices. Conference Item. |
+| [@buckinghamshum2010collective] | Buckingham Shum, S., & Liddo, A. D. (2010). Collective intelligence for {OER} sustainability. Conference Item. |
+| [@buckinghamshum2010software] | Buckingham Shum, S., Sierhuis, M., Park, J., & Brown, M. (2010). Software agents in support of human argument mapping. Book Chapter. |
+| [@liddo2010cohere] | Liddo, A. D., & Buckingham Shum, S. (2010, February). Cohere: A prototype for contested collective intelligence. Conference Item. |
+| [@selvin2010practice] | Selvin, A. M., Buckingham Shum, S., & Aakhus, M. (2010). The practice level in participatory design rationale: studying practitioner moves and choices. Journal Article. |
+| [@quinto2010debate] | Quinto, I., Buckingham Shum, S., Liddo, A. D., & Iandoli, L. (2010). A debate dashboard to enhance on-line knowledge sharing. Conference Item. |
+| [@liddo2011discourse-centric] | Liddo, A. D., Buckingham Shum, S., Quinto, I., Bachler, M., & Cannavacciuolo, L. (2011). Discourse-centric learning analytics. Conference Item. |
+| [@selvin2011making] | Selvin, A. M. (2011). Making Representations Matter: Understanding Practitioner Experience in Participatory Sensemaking (PhD thesis).|
+| [@brown2012mapping] | Brown, M., Downie, A., & Buckingham Shum, S. (2012). Mapping the Matrix: Using Compendium as a Tool for Recording the Analytic Group. Group Analysis, 45(1), 99–115.|

@@ -1,0 +1,3 @@
+h2. Meng Yew Tee's publications
+
+| [@tee2010sharing] | Tee, M. Y., & Karney, D. (2010). Sharing and cultivating tacit knowledge in an online learning environment. International Journal of Computer-Supported Collaborative Learning, 5(4), 385-413. doi:10.1007/s11412-010-9095-3|

@@ -1,0 +1,10 @@
+h2. Amy Soller's publications
+
+| [@soller2001supporting] | Soller, A. (2001). Supporting social interaction in an intelligent collaborative learning system. International Journal of Artificial Intelligence in Education (IJAIED), 12, 40--62.|
+| [@soller2001comprehensive] | Soller, A. (2001). Comprehensive Exam.|
+| [@jermann2001mirroring] | Jermann, P., Soller, A., & MühlenbrockM. (2001). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. In Proceedings of the first European conference on computer-supported collaborative learning (324--331).|
+| [@soller2002computational] | Soller, A. (2002). Computational analysis of knowledge sharing in collaborative distance learning (PhD thesis).|
+| [@soller2005mirroring] | Soller, A., Jermann, P., MühlenbrockM., & MartínezAlejandra. (2005). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. International Journal of Artificial Intelligence in Education, 15(4), 261--290.|
+| [@soller2007modeling] | Soller, A., & Lesgold, A. (2007). Modeling the process of collaborative learning. In H. U. Hoppe, H. Ogata & A. Soller (Eds.), The Role of Technology in {CSCL} (63--86). Boston, {MA}: Springer {US}. |
+| [@soller2007design] | Soller, A., Ogata, H., & Hesse, F. (2007). Design, modeling, and analysis of collaborative learning. In H. U. Hoppe, H. Ogata & A. Soller (Eds.), The Role of Technology in {CSCL} (13--20). Boston, {MA}: Springer {US}. |
+| [@soller2007collaborative] | Soller, A., & Lesgold, A. (2007). Collaborative tools in educational practice. The Role of Technology in CSCL, 117--120.|

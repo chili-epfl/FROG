@@ -1,0 +1,17 @@
+h2. Images
+
+{{skim:durning2011situativity0.png}}
+
+[[skimx://durning2011situativity#3|p. 3]]
+----
+
+{{skim:durning2011situativity1.png}}
+
+[[skimx://durning2011situativity#7|p. 7]]
+----
+
+{{skim:durning2011situativity2.png}}
+
+[[skimx://durning2011situativity#7|p. 7]]
+----
+

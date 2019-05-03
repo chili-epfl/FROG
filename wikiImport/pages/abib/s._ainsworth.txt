@@ -1,0 +1,4 @@
+h2. S. Ainsworth's publications
+
+| ainsworth2002using | Ainsworth, S., & Van Labeke, N. (2002). Using a multi-representational design framework to develop and evaluate a dynamic simulation environment. international workshop on dynamic visualizations and learning, Tubingen, Germany.||
+| ainsworth2003effects | Ainsworth, S., & Th Loizou, A. (2003). The effects of self-explaining when learning with text or diagrams. Cognitive Science. Elsevier.|[[skimx://ainsworth2003effects|PDF]]|

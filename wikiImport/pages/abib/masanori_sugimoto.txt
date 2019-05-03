@@ -1,0 +1,4 @@
+h2. Masanori Sugimoto's publications
+
+| [@fischer2006supporting] | Fischer, G., & Sugimoto, M. (2006). Supporting self-directed learners and learning communities with sociotechnical environments. Research and Practice in Technology Enhanced Learning, 1(1).|
+| [@sugimoto2009design] | Sugimoto, M. (2009). Design of Systems for Supporting Collaborative Learning Augmented with Physical Artefacts. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning, 1--20.|

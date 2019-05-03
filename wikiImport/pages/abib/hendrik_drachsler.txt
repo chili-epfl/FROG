@@ -1,0 +1,3 @@
+h2. Hendrik Drachsler's publications
+
+| [@drachsler2009navigation] | Drachsler, H. (2009). Navigation Support for Learners in Informal Learning Networks (PhD thesis). |

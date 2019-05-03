@@ -1,0 +1,3 @@
+h2. Ben Ruby's publications
+
+| [@buckinghamshum2006memetic] | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., de Roure, D., Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Conference Item. |

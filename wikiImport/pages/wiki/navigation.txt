@@ -1,0 +1,17 @@
+  * [[:About this wiki]] [[http://reganmian.net/wiki/feed.xml|{{:wiki:RSS_16.png|}}]]
+  * **[[:Researchr:]]**
+  * **[[http://reganmian.net/blog|Blog]]**
+  * [[:Comps]]
+  * [[:All pages]]
+  * [[:Lectures]] / [[:Conferences]]
+  * [[:a:start|Authors]] (<html><a href="ruby://newauthor">new</a></html>) ([[:abib:start|pubs]])
+  * [[:Ideas]]
+<html><hr></html>
+  * [[:bib:Bibliography]]
+  * [[:abib:start|By author]]
+  * [[:kbib:start|By keyword]]
+  * [[:bib:Needs key ideas]]
+
+<html><hr></html>
+**Recently created pages**
+{{changes>type=create&render=list}}

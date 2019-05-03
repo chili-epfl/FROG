@@ -1,0 +1,40 @@
+h1. Situativity theory: A perspective on how participants and the environment can interact: AMEE Guide no. 52
+<html><a href='http://s3.stronglifts.com/stronglifts-5x5-report.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://s3.stronglifts.com/stronglifts-5x5-report.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Durning, S. J., & Artino, A. R. (2011). Situativity theory: A perspective on how participants and the environment can interact: AMEE Guide no. 52. Medical Teacher, 33(3), 188–199. Informa Healthcare. Retrieved from http://s3.stronglifts.com/stronglifts-5x5-report.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://durning2011situativity|BibDesk]]  | Durning, S. J., & Artino, A. R. (2011). Situativity theory: A perspective on how participants and the environment can interact: AMEE Guide no. 52. Medical Teacher, 33(3), 188–199. Informa Healthcare. Retrieved from http://s3.stronglifts.com/stronglifts-5x5-report.pdf. |
+^ [[skimx://durning2011situativity|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:durning2011situativity?do=edit&vecdo=print\'><frame src=\'/wiki/clip:durning2011situativity?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{durning2011situativity,
+  author = {Durning, S. J. and Artino, A. R.},
+  date-added = {2012-06-06 20:37:02 +0000},
+  date-modified = {2012-11-27 19:09:07 +0000},
+  date-read = {2012-06-08 20:03:01 -0400},
+  journal = {Medical Teacher},
+  keywords = {0really_today},
+  number = {3},
+  oa-url = {http://s3.stronglifts.com/stronglifts-5x5-report.pdf},
+  pages = {188–199},
+  publisher = {Informa Healthcare},
+  read = {1},
+  title = {Situativity theory: A perspective on how participants and the environment can interact: AMEE Guide no. 52},
+  url = {http://s3.stronglifts.com/stronglifts-5x5-report.pdf},
+  volume = {33},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhpkdXJuaW5nMjAxMXNpdHVhdGl2aXR5LnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHxHBey/U1mlBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL9W3aAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBkdXJuaW5nMjAxMXNpdHVhdGl2aXR5LnBkZgAADgA2ABoAZAB1AHIAbgBpAG4AZwAyADAAMQAxAHMAaQB0AHUAYQB0AGkAdgBpAHQAeQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9kdXJuaW5nMjAxMXNpdHVhdGl2aXR5LnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9kdXJuaW5nMjAxMXNpdHVhdGl2aXR5LnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:durning2011situativity}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:durning2011situativity}}
+
+{{page>kindle:durning2011situativity}}
+
+{{page>skimg:durning2011situativity}}

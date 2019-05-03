@@ -1,0 +1,3 @@
+h2. Sofia Angeletou's publications
+
+| [@angeletou2008semantic] | Angeletou, S. (2008). Semantic Enrichment of Folksonomies.|

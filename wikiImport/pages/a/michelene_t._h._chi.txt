@@ -1,0 +1,14 @@
+h1. Michelene T. H. Chi
+{{ pages:a_michelene_t._h._chi01.png}}
+
+[[James D. Slotta]]'s advisor, Professor of psychology at Arizona State University
+
+h2. Research
+  * A unified theory of misconceptions and conceptual change
+  * Ways of teaching emergent kinds of science processes
+  * Understanding effective ways of learning from self-explaining, collaborating, tutoring and observing learning dialogues
+
+h2. Links
+  * [[http://chilab.asu.edu/|Homepage]]
+  
+{{page>abib:Michelene T. H. Chi}}

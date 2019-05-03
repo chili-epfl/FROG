@@ -1,0 +1,98 @@
+h1. Appscript snippets
+
+See all my [[hacks]].
+
+[[http://appscript.sourceforge.net/rb-appscript/index.html|rb-appscript]] is an implementation of [[http://developer.apple.com/library/mac/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html|AppleScript]] for Ruby. It's great, but it's often hard to translate between the AppleScript in AppleScript Editor dictionaries, and finding the right Appscript incantations. (IRB is great for experimenting with this). So I wanted to collect all my little snippets here.
+
+There's [[http://www.apeth.com/rbappscript/00intro.html|a whole book]] about rb-appscript.
+
+Install rb-appscript
+<code ruby>sudo gem install rb-appscript</code>
+
+and include it in your scripts
+<code ruby>require 'appscript'
+include Appscript</code>
+
+h2. General commands
+Brings app to foreground
+<code ruby>app("AnyApp").activate</code>
+
+Find the current active app
+<code ruby>
+app = Appscript.app("System Events")
+return app.application_processes[app.application_processes.frontmost.get.index(true)+1].name.get.strip</code>
+
+h2. BibDesk
+See my [[BibDesk]] hacks.
+
+Open a given bibliography (also opens BibDesk, if it wasn't open before)
+<code ruby>app("BibDesk").open("/path/to/file")</code>
+
+Get the current selection (an array, use [0] for the first selected citation)
+<code ruby>app("BibDesk").document.selection.get</code>
+
+Search for a citation, author, etc. Returns an array of hits.
+<code ruby>searchresult = app("BibDesk").search({:for => arg})</code>
+
+Get citekey for the first currently selected citation
+<code ruby>app("BibDesk").document.selection.get[0][0].get.cite_key.get</code>
+
+Set the value of a custom field
+<code ruby>app("BibDesk").document.search({:for => "citekey2003"})[0].fields["CustomField"].value.set("1")</code>
+
+h2. DevonThink Pro
+Creates a folder in DevonThink (and all folders above, if necessary) in the current database, and returns the folder handle
+<code ruby>folder = app("DevonThink Pro").create_location("/Folder/Structure").get</code>
+
+Create a record. This one took me a while to figure out (the //folder// can be the container that was returned from the command above). The easiest is to create plain-text notes. Creating rich text notes is really annoying with AppleScript. HTML notes are easy, but they cannot be edited in DevonThink.
+<code ruby>app("DevonThink Pro").create_record_with( { :name => "Name", :type_ => :text, :rich_text => "Contents", :tags => "tags", :comment => "comment", :label => 1, :creation_date => "date" }, {:in => folder} )</code>
+
+h2. Chrome
+
+Get URL of currently active window
+<code ruby>app("Google Chrome").windows[1].get.tabs[dt.windows[1].get.active_tab_index.get].get.URL.get</code>
+
+h2. Skim
+
+Open a PDF (and start Skim, if it isn't running)
+<code ruby>app('Skim').open("/path/to/file")</code>
+
+Returns array of references to open documents
+<code ruby>document_reference = app('Skim').document.get</code>
+
+Returns name of currently frontmost document
+<code ruby>name = app('Skim').document.get[0].name.get</code>
+
+Returns array of open document names
+<code ruby>name = app('Skim').document.name.get</code>
+
+Get the current page number
+<code ruby>page = app('Skim').document.get[0].current_page.get.index.get</code>
+
+Go to a specific page number (zero-index)
+<code ruby>document_reference.go({:to => dd.pages.get[page-1]})</code>
+
+Save a PDF
+<code ruby>app('Skim').save(document_reference)</code>
+
+h2. Finder
+Reveal a file in Finder (opens the correct folder, and selects the file)
+<code ruby>app('Finder').reveal( MacTypes::FileURL.path("fullpath") )</code>
+
+Get currently selected filenames. I did this differently before (using the URL property), but this broke in OSX Lion. Thank you to [[http://stackoverflow.com/questions/6976898|LaC]] who answered my question on StackOverflow, this is the new solution:
+<code ruby>
+app('Finder').selection.get(:result_type=>:alias).each do |item|
+  url = item.path
+end
+</code>
+
+h2. Sublime Text 2
+Sublime Text 2 does not have AppleScript support, but there are some functions we can access anyway. Below we get the currently active text file (only the name, not the path - from the tab title). 
+
+<code ruby>
+app = Appscript.app("System Events")
+idx = app.application_processes.name.get.index("Sublime Text 2")
+st = app.application_processes[idx+1]
+window = st.UI_elements[0].name.get
+return window.split(" ")[0].strip
+</code>

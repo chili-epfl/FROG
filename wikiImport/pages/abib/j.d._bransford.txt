@@ -1,0 +1,3 @@
+h2. J.D. Bransford's publications
+
+| [[..:ref:bransford2000people]] | Bransford, J. D., Brown, A. L., & Cocking, R. R. (2000). How people learn. DC National Academy Press Washington.|[[skimx://bransford2000people|PDF]]|

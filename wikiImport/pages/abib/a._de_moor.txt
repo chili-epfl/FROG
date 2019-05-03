@@ -1,0 +1,3 @@
+h2. A. De Moor's publications
+
+| demoor2006community | De Moor, A. (2006). {Community memory activation with collaboration patterns}. Proc. of the 3rd Prato International Community Informatics Conference (CIRN 2006), Prato, Italy.|[[skimx://demoor2006community|PDF]]|

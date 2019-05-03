@@ -1,0 +1,3 @@
+h2. Georgios Gyftodimos's publications
+
+| [@papadimitriou2009interactive] | Papadimitriou, A., Grigoriadou, M., & Gyftodimos, G. (2009). Interactive Problem Solving Support in the Adaptive Educational Hypermedia System {MATHEMA}. {IEEE} Transactions on Learning Technologies, 2(2), 93--106. doi:10.1109/TLT.2009.19|

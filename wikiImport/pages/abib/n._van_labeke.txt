@@ -1,0 +1,3 @@
+h2. N. Van Labeke's publications
+
+| ainsworth2002using | Ainsworth, S., & Van Labeke, N. (2002). Using a multi-representational design framework to develop and evaluate a dynamic simulation environment. international workshop on dynamic visualizations and learning, Tubingen, Germany.||

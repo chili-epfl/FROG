@@ -1,0 +1,30 @@
+h1. Collaboration Involving Large Displays: The introduction of a shared interactive surface to a communal space.
+
+<ifauth !@admin>|Brignull, H., Izadi, S., Fitzpatrick, G., Rogers, Y., & Rodden, T. (2004). Collaboration Involving Large Displays: The introduction of a shared interactive surface to a communal space.. CSCW 2004.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://brignull2004collaboration|BibDesk]]  | Brignull, H., Izadi, S., Fitzpatrick, G., Rogers, Y., & Rodden, T. (2004). Collaboration Involving Large Displays: The introduction of a shared interactive surface to a communal space.. CSCW 2004. |
+^ [[skimx://brignull2004collaboration|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:brignull2004collaboration?do=edit&vecdo=print\'><frame src=\'/wiki/clip:brignull2004collaboration?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{brignull2004collaboration,
+  author = {Brignull, H. and Izadi, S. and Fitzpatrick, G. and Rogers, Y. and Rodden, T.},
+  booktitle = {CSCW 2004},
+  date-added = {2011-06-09 12:03:22 +0800},
+  date-modified = {2011-06-09 12:04:13 +0800},
+  title = {Collaboration Involving Large Displays: The introduction of a shared interactive surface to a communal space.},
+  year = {2004}
+}
+
+</hidden>
+
+{{page>notes:brignull2004collaboration}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:brignull2004collaboration}}
+
+{{page>kindle:brignull2004collaboration}}
+
+{{page>skimg:brignull2004collaboration}}

@@ -1,0 +1,27 @@
+h2. Images
+
+{{skim:buckinghamshum2010towards0.png}}
+
+[[skimx://buckinghamshum2010towards#4|p. 4]]
+----
+
+{{skim:buckinghamshum2010towards1.png}}
+
+[[skimx://buckinghamshum2010towards#5|p. 5]]
+----
+
+{{skim:buckinghamshum2010towards2.png}}
+
+[[skimx://buckinghamshum2010towards#8|p. 8]]
+----
+
+{{skim:buckinghamshum2010towards3.png}}
+
+[[skimx://buckinghamshum2010towards#8|p. 8]]
+----
+
+{{skim:buckinghamshum2010towards4.png}}
+
+[[skimx://buckinghamshum2010towards#10|p. 10]]
+----
+

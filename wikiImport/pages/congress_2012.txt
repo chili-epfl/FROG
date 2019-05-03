@@ -1,0 +1,3 @@
+h1. Congress 2012
+
+  * [[http://www.sdh-semi.org/conference/sessions.php|Digital Humanities sessions]]

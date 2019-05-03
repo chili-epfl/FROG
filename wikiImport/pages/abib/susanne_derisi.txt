@@ -1,0 +1,3 @@
+h2. Susanne DeRisi's publications
+
+| [@derisi2003what] | DeRisi, S., Kennison, R., & Twyman, N. (2003). The What and Whys of DOIs. PLoS Biology, 1(2), e7. doi:10.1371/journal.pbio.0000057|

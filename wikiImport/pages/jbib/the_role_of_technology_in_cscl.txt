@@ -1,0 +1,8 @@
+h2. Publications in The Role of Technology in CSCL
+
+| [@ogata2007supporting] | Ogata, H., Matsuura, K., & Yano, Y. (2007). Supporting awareness in distributed collaborative learning environments. The Role of Technology in CSCL, 173--191.|
+| [@kynigos2007pupil] | Kynigos, C., Dimaraki, E., & Trouki, E. (2007). Pupil communication during electronic collaborative projects: Integrating communication tools with communication scenarios. The Role of Technology in CSCL, 155--172.|
+| [@verdejo2007designing] | Verdejo, M., Barros, B., Read, T., & Rodriguez-Artacho, M. (2007). Designing a CSCL environment for experimental learning in a distance learning context. The Role of Technology in CSCL, 139--153.|
+| [@soller2007collaborative] | Soller, A., & Lesgold, A. (2007). Collaborative tools in educational practice. The Role of Technology in CSCL, 117--120.|
+| [@constantino2007approach] | Suthers, D. D., & Constantino-Gonzalez, M. D. L. A. (2007). An approach for coaching collaboration based on difference recognition and participation tracking. The Role of Technology in CSCL, 87--113. |
+| [@nakakoji2007computational] | Nakakoji, K., Ohira, M., Takashima, A., & Yamamoto, Y. (2007). A computational tool for lifelong learning: Experiencing breakdowns and understanding situations. The Role of Technology in CSCL, 47--61.|

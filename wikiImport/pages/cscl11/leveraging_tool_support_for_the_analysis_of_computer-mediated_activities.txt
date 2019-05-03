@@ -1,0 +1,224 @@
+h1. Leveraging tool support for the analysis of computer-mediated activities
+organized by [[:a:Gregory Dyke]] and [[:a:Carolyn Penstein Rose]]
+
+h2. Tools
+  * [[:t:Tatiana]] (part of Greg's PhD thesis)
+  * [[:t:SIDE]]
+
+h2. State of the art of analysis
+What it means to analyze
+Major issues, analyzing large quantities of data
+How tools can support this
+
+h3. Multimedia and multimodality
+  * how do you record
+  * how do you analyze recording
+  * complex data formats
+  * huge quantities of data (pretty patterns)
+
+h3. Knowledge crystallization cycle
+  * data
+  * new insights
+  * crystallize insights (record)
+  * iterate... (until you can publish a paper)
+
+h3. Focus on process data
+  * as opposed to stats, conditions, interviews, pre/post, final artefacts
+  * Nvivo/SPSS etc focused on non-process data
+
+h3. Case study
+  * f2f collaboration with collaborative editor (turn-taking or open-floor, two conditions)
+  * look at how note taking works related to what is said, reformulation etc
+  * four ways to look at data: video + transcript, data from collab. editor + replay
+    * synchronize these together
+    * take raw data of collaborative editing and change granularity to "writing units"
+    * tag as "question, note, edit"
+    * take writing units and transcription, show on graphical timeline with colors for different types
+    * show reformulation with arrows
+    * edits for clarity, and for typos
+    * show only certain utterances
+
+h3. Tool support - lit review
+  * ESDA - Exploratory Sequential Data Analysis (Sanderson & Fischer, 1994) - HCI people
+    * research question -> raw sequences -> logs and recordings -> transformed products -> statements (using formal concepts / epistemologies) - what's an appropriate question / kind of data / method of transformation of the data / kind of statement as answer to research questions
+    * Eight C's: 
+      * chunks
+      * comments
+      * codes
+      * connections
+      * comparisons
+      * constraints
+      * conversions
+      * computations
+    * MacSHAPA
+  * Hilbert & Redmiles (2000)
+    * synch & search
+    * transformations
+    * counts and stats
+    * sequences (detection, characterisation, comparisons)
+  * SAW (Goodman et al 2005)
+  * ActivityLens (Avouris et al 2007)
+    * based on [[:activity theory]]
+    * three levels, raw data, events, activities (synced with video)
+  * DRS (Greenberg)
+  * Excel
+  * Tools for transcription etc
+    * ELAN?
+  * Replayer (Morrison et al)
+    * replay data synchronously along different modalities
+
+h3. Outstanding issues
+  * observed activity -> recorded data -> analysis tools and processes -> results
+  * means of reusing various results, in coordination with each other, or use output of one process as input of another process
+  * for example, two independent analyses (coding activities in Excel, and social network analysis - how do they informe each other)
+  * automating analysis
+  * feeding analysis back into realtime systems
+  * eliminate easy, repetitive part of analysis
+
+h3. Computational methods for analysis
+  * data-mining
+    * sequential data-mining
+      * shopping basket (people buying a, they buy c) - tons of people doing few things. 
+    * educational data-mining
+      * in CSCL: few people, big variety of actions
+  * machine learning
+    * automated coding (Rose et al 2007)
+    * prediction (Nussli et al 2009) - dual eye tracking
+  * automated visualisation
+    * social network
+    * word networks
+
+h3. Common models for traces and analysis
+  * Cavicola (Martinez et al 2005)
+    * common format for CSCL data (not in wide use)
+    * generic analysis process
+  * MULCE (Reffay 2008)
+    * sharing learning corpora 
+      * should be understandable ten years from now
+      * doesn't need to be in a specific format, but need to be described
+        * research context
+        * learning context
+  * Datashop (CMU)
+    * data from [[:intelligent tutoring systems]]
+  * UTL (Choquet & Iksal 2008)
+    * using, getting and defining tracks
+    * models and metamodels (might work someday...)
+  * Trace based system (Settouti 2009)
+    * traces and m-traces (plugin for Moodle)
+    * ABSTRACT (Georgeon 2008)
+  * Tatiana framework (Dyke 2008)
+
+h3. Limits of state of the art
+  * operations?
+    * orthogonal implementations
+      * for example in 8C's, connections refer to both time synchronisation and contingencies
+    * integration between operations
+  * complex process model
+    * too many artefacts
+    * not flexible enough
+    * no integration between steps
+  * most analysis tools do not offer conceptual models of analysis
+
+h3. Future
+  * hot
+    * supervised machine learning (labeling)
+    * unsupervised ML (clustering) - finding similar patterns, then analyst has to evaluate whether it makes sense / is interesting or not
+    * (educational) data/pattern mining
+      * identifying boredom in logs, etc
+    * SNA
+  * tepid
+    * understanding analytic processes and representations
+    * corpus and analysis sharing
+
+h2. Tatiana framework
+  * replayable = temporal analytic representation
+    * sequence of events (often rows)
+    * each event has facets (often columns)
+      * name of student
+  * operations
+    * visualization (application of "stylesheet")
+    * transformation (create new set of events)
+      * new or pre-existing events
+      * some automatic, some manual
+    * synchronisation (coordinate multiple visualisations)
+      * both for synchronous and asynchronous data
+    * enrichment (add "column" or "link")
+    * comparing replayable operations with 8Cs and how they match
+      * 8Cs is analyst view
+      * replayable is software engineer view
+    * comparison is hard (to different groups)
+    * aggregation (mainly computations in 8Cs) - once aggregated, you can't synchronize anymore
+    * if you have a number of codes, you can show percentage over all time, but also over chunk of time, and can graph it on a time-line. this allows for aggregation, and comparison (between different treatment groups etc)
+    * doesn't know about students, groups, conditions, teachers
+    * implementation problems
+      * usability
+      * interoperability
+      * adoption
+
+h2. Using machine learning to monitor collaborative interactions
+  * [[:SIDE]] - Summarization Integrated Development Environment
+  * other tools for ML - Wakka, Mallot?
+  * many underestimate or overestimate it
+  * VMT-Basilica (Kumar and Rose 2010) (Gerry Stahl)
+    * chat with shared whiteboard, collaborative design
+    * collaborative learning with support that is context-sensitive
+  * supervised machine learning is not useful if you don't want to feed it back to the process, run similar experiments lot's of time, or have huge amounts of data
+  * TagHelper
+    * labeled texts, unlabeled texts -> TagHelper -> labeled texts, and a model that can label more texts
+      * this process can be iterative - label, fix labels, use newly labeled data as input
+      * result is a map that can used to visualize collaboration, or by back-end server to identify parts of interaction that look problematic, and use triggered intervention
+    * uses text mining technology to automate annotation of conversational data
+    * SIDE is a successor
+      * facilitates rapid prototyping of reporting interfaces for group learning facilitators
+  * how to use? export approach: hypothesis driven (not randomly, or when you have a hammer, everything looks like a nail)
+
+h2. Machine learning
+  * automatic or semi-automatically
+    * inducing concepts (rules) from data
+    * finding patterns in data
+    * explaining data
+    * making predictions
+    * data -> learning algorithm
+    *  -> model -> classification engine -> ...
+
+What is the simplest rule learner will learn to predict whatever is the most frequent result class: Majority class. (For example, majority of cases: yes. So always predict yes. 
+
+Next, can we find a slightly more sophisticated rule learner that makes us more right. What is the second most predictive variable? Pick a feature name, and for each value, there will be a prediction.
+
+Next level is decision trees.
+
+Complex is not necessarily better - can make performance worse - especially with small data sets, more likely to make a bad model (overfitting) because of some outlier. Algorithm should have the right kind of complexity.
+
+If you can make a simplifying assumption, you can make a guided complex model (like assuming that four points are part of a circle)
+
+Linear function learners, miss-classify even some examples in the training data, but afterwards you can make predictions about any point in a multi-dimensional space (dark-blue and light-blue dots). If there are light-blue dots in the dark-blue dots, there must be a lot in common with them, but there might be more features that is not in your data, which would allow you to differentiate better. Leaving in the information in your representation that let's you see different things as different, and similar things as similar.
+
+h3. Process
+  * get to know your data
+    * what distinguishes messages from different categories
+  * represent messages in terms of features
+    * use feature table tab
+  * build machine learning model
+    * use machine learning tab
+  * learn from mistakes and try again
+    * use feature analyzer tab
+
+Kappa statistics show how well your codes map onto the computer's codes (see confusion matrix to see why Kappa is much higher than percentage of correctly classified instances)
+
+h3. Three main algorithms
+  * decision trees (J48)
+    * good with small feature sets, can find contingencies between features (similar to contingencies with ANOVA analysis)
+    * example of a non-linear algorithm
+    * an alternative to using this, is to build the contingencies into the feature set (if there are only a few, and you want to preserve simplicity, for example (windy = yes and overcast = no) = true)
+  * naive bayes
+    * fast, makes decisions based on probabilities
+  * support vector machines (SMO)
+    * makes decisions based on weights, usually works well with text
+      * there is a version that allows non-linear version, but much more complex, need a lot of data
+
+Theoretically you could use an ML algorithm to prove something statistically, and it's much more powerful than linear regression, however too hard to understand, keep it simple for papers. But ML algorithms are great for predictions.
+
+h2. Links
+  * [[http://www.isls.org/cscl2011/cfp-ws-dyke.htm|Overview]]
+  * [[http://code.google.com/p/tatiana/|Tatiana code]]
+  * [[http://www.cs.cmu.edu/~cprose/SIDE.html|SIDE]]

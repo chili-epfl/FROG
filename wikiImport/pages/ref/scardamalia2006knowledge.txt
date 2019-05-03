@@ -1,0 +1,36 @@
+h1. Knowledge building: Theory, pedagogy, and technology
+
+<ifauth !@admin>|Scardamalia, M., & Bereiter, C. (2006). Knowledge building: Theory, pedagogy, and technology. In K. Sawyer (Ed.),  (Tran.), The Cambridge handbook of the learning sciences (97–118). New York: Cambridge University Press.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://scardamalia2006knowledge|BibDesk]]  | Scardamalia, M., & Bereiter, C. (2006). Knowledge building: Theory, pedagogy, and technology. In K. Sawyer (Ed.),  (Tran.), The Cambridge handbook of the learning sciences (97–118). New York: Cambridge University Press. |
+^ [[skimx://scardamalia2006knowledge|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:scardamalia2006knowledge?do=edit&vecdo=print\'><frame src=\'/wiki/clip:scardamalia2006knowledge?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{scardamalia2006knowledge,
+  author = {Scardamalia, Marlene and Bereiter, Carl},
+  booktitle = {The Cambridge handbook of the learning sciences},
+  date-added = {2011-04-24 17:41:02 -0400},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  editor = {Sawyer, K.},
+  notes = {1},
+  pages = {97–118},
+  publisher = {New York: Cambridge University Press},
+  read = {1},
+  title = {Knowledge building: Theory, pedagogy, and technology},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaAAAAAAAaAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhxzY2FyZGFtYWxpYTIwMDZrbm93bGVkZ2UucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcYGy9dItlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14D2AAAAAQAMANrWUgAXPTEAAZ9eAAIAO1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzY2FyZGFtYWxpYTIwMDZrbm93bGVkZ2UucGRmAAAOADoAHABzAGMAYQByAGQAYQBtAGEAbABpAGEAMgAwADAANgBrAG4AbwB3AGwAZQBkAGcAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAwVXNlcnMvU3RpYW4vYmliZGVzay9zY2FyZGFtYWxpYTIwMDZrbm93bGVkZ2UucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECouLi8uLi9iaWJkZXNrL3NjYXJkYW1hbGlhMjAwNmtub3dsZWRnZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACRAJGAksCVAJfAmMCcQJ4AoECrgKzArYCwwLIAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAto=}
+}
+
+</hidden>
+
+{{page>notes:scardamalia2006knowledge}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:scardamalia2006knowledge}}
+
+{{page>kindle:scardamalia2006knowledge}}
+
+{{page>skimg:scardamalia2006knowledge}}

@@ -1,0 +1,6 @@
+h2. Richard Baraniuk's publications
+
+| [@baraniuk2002connexions] | Baraniuk, R., Burrus, C. S., Hendricks, B. M., Henry, G. L., {III}A. O. Hero, Johnson, D. H., Jones, D. L., Kusuma, J., Nowak, R. D., & Odegard, J. E. (2002). Connexions: {DSP} education for a networked world. In Acoustics, Speech, and Signal Processing, 1993. {ICASSP-93.,} 1993 {IEEE} International Conference on (Vol. 4, IV–IV).|
+| [@henry2003connexions] | Henry, G., Baraniuk, R., & Kelty, C. (2003). The connexions project: Promoting open sharing of knowledge for education.|
+| [@baraniuk2004peer] | Baraniuk, R., Henry, G., & Hendricks, B. (2004). Peer to Peer Collaboration with Connexions. In {EDUCAUSE} 2004 Annual Conference. Denver, Colorado.|
+| [@dholakia2010what] | Dholakia, U., King, J., & Baraniuk, R. (2010). What makes an open education program sustainable. The case of Connexions.[online] http://www. oecd. org Accessed, 15.|

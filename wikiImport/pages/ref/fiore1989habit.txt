@@ -1,0 +1,33 @@
+h1. The Now Habit
+
+<ifauth !@admin>|Fiore, N. A. (1989). The Now Habit. Penguin Group.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://fiore1989habit|BibDesk]]  | Fiore, N. A. (1989). The Now Habit. Penguin Group. |
+^ [[skimx://fiore1989habit|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:fiore1989habit?do=edit&vecdo=print\'><frame src=\'/wiki/clip:fiore1989habit?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{fiore1989habit,
+  author = {Fiore, Neil A.},
+  date-added = {2011-05-30 17:00:19 +0800},
+  date-modified = {2012-04-09 01:02:03 +0000},
+  notes = {1},
+  publisher = {Penguin Group},
+  read = {1},
+  title = {The Now Habit},
+  year = {1989},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJmaW9yZTE5ODloYWJpdC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaNdwy9b/3VBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zgdAAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBmaW9yZTE5ODloYWJpdC5wZGYAAA4AJgASAGYAaQBvAHIAZQAxADkAOAA5AGgAYQBiAGkAdAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vYmliZGVzay9maW9yZTE5ODloYWJpdC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIC4uLy4uL2JpYmRlc2svZmlvcmUxOTg5aGFiaXQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhwCHgIjAiwCNwI7AkkCUAJZAnwCgQKEApEClgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo}
+}
+
+</hidden>
+
+{{page>notes:fiore1989habit}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:fiore1989habit}}
+
+{{page>kindle:fiore1989habit}}
+
+{{page>skimg:fiore1989habit}}

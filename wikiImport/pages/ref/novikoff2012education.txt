@@ -1,0 +1,35 @@
+h1. Education of a model student
+
+<ifauth !@admin>|Novikoff, T. P., Kleinberg, J. M., & Strogatza, S. H. (2012). Education of a model student. Proceedings of the National Academy of Sciences of the United States of America.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://novikoff2012education|BibDesk]]  | Novikoff, T. P., Kleinberg, J. M., & Strogatza, S. H. (2012). Education of a model student. Proceedings of the National Academy of Sciences of the United States of America. |
+^ [[skimx://novikoff2012education|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:novikoff2012education?do=edit&vecdo=print\'><frame src=\'/wiki/clip:novikoff2012education?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{novikoff2012education,
+  author = {Novikoff, Timothy P. and Kleinberg, Jon M. and Strogatza, Steven H.},
+  date-added = {2012-01-24 18:27:32 +0000},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  date-read = {2012-02-15 10:04:32 -0500},
+  journal = {Proceedings of the National Academy of Sciences of the United States of America},
+  keywords = {1-today},
+  notes = {1},
+  read = {1},
+  title = {Education of a model student},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZQAAAAAAZQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhlub3Zpa29mZjIwMTJlZHVjYXRpb24ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD0ll4y0Rh7FBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLRKg8AAAAAQAMANrWUgAXPTEAAZ9eAAIAOFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBub3Zpa29mZjIwMTJlZHVjYXRpb24ucGRmAA4ANAAZAG4AbwB2AGkAawBvAGYAZgAyADAAMQAyAGUAZAB1AGMAYQB0AGkAbwBuAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC1Vc2Vycy9TdGlhbi9iaWJkZXNrL25vdmlrb2ZmMjAxMmVkdWNhdGlvbi5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECcuLi8uLi9iaWJkZXNrL25vdmlrb2ZmMjAxMmVkdWNhdGlvbi5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACOAI6Aj8CSAJTAlcCZQJsAnUCnwKkAqcCtAK5AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:novikoff2012education}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:novikoff2012education}}
+
+{{page>kindle:novikoff2012education}}
+
+{{page>skimg:novikoff2012education}}

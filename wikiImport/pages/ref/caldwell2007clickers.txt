@@ -1,0 +1,40 @@
+h1. Clickers in the Large Classroom: Current Research and Best-Practice Tips
+<html><a href='http://www.lifescied.org/content/6/1/9.full.pdf#page=1&view=FitH' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.lifescied.org/content/6/1/9.full.pdf#page=1&view=FitH'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Caldwell, J. E. (2007). Clickers in the Large Classroom: Current Research and Best-Practice Tips. Cell Biology Education, 6(1), 9-20. American Society for Cell Biology. doi: 10.1187/cbe.06-12-0205.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://caldwell2007clickers|BibDesk]]  | Caldwell, J. E. (2007). Clickers in the Large Classroom: Current Research and Best-Practice Tips. Cell Biology Education, 6(1), 9-20. American Society for Cell Biology. doi: 10.1187/cbe.06-12-0205. |
+^ [[skimx://caldwell2007clickers|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:caldwell2007clickers?do=edit&vecdo=print\'><frame src=\'/wiki/clip:caldwell2007clickers?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{caldwell2007clickers,
+  author = {Caldwell, J. E.},
+  date-added = {2013-02-07 15:27:11 +0000},
+  date-modified = {2013-02-07 15:27:25 +0000},
+  doi = {10.1187/cbe.06-12-0205},
+  journal = {Cell Biology Education},
+  month = {mar},
+  number = {1},
+  oa-url = {http://www.lifescied.org/content/6/1/9.full.pdf#page=1&view=FitH},
+  pages = {9-20},
+  publisher = {American Society for Cell Biology},
+  title = {Clickers in the Large Classroom: Current Research and Best-Practice Tips},
+  url = {http://www.lifescied.org/content/6/1/9.full.pdf#page=1&view=FitH},
+  volume = {6},
+  year = {2007},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QJi4uLy4uL0JpYmRlc2svY2FsZHdlbGwyMDA3Y2xpY2tlcnMucGRm0hcLGBlXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhjYWxkd2VsbDIwMDdjbGlja2Vycy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMSqctzTkxxVBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNOXgVAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjYWxkd2VsbDIwMDdjbGlja2Vycy5wZGYAAA4AMgAYAGMAYQBsAGQAdwBlAGwAbAAyADAAMAA3AGMAbABpAGMAawBlAHIAcwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vQmliZGVzay9jYWxkd2VsbDIwMDdjbGlja2Vycy5wZGYAEwABLwAAFQACAAz//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgC3ALwAxAJYAloCXwJqAnMCgQKFAowClQKaAqcCqgK8Ar8CxAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG},
+  bdsk-url-1 = {http://dx.doi.org/10.1187/cbe.06-12-0205}
+}
+
+</hidden>
+
+{{page>notes:caldwell2007clickers}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:caldwell2007clickers}}
+
+{{page>kindle:caldwell2007clickers}}
+
+{{page>skimg:caldwell2007clickers}}

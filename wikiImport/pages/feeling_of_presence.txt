@@ -1,0 +1,7 @@
+h1. Feeling of presence
+
+Dillenbourg says that feeling of presence is important.[(:ref:dillenbourg2008interactive)]
+Witten doesn't agree.[(:ref:witten2011data)]
+
+
+[[http://www.utoronto.ca/|The University of Toronto]] has lot's of research on this.

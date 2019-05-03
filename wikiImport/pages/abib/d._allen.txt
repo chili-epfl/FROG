@@ -1,0 +1,3 @@
+h2. D. Allen's publications
+
+| [[..:ref:allen2001getting]] | Allen, D. (2001). {Getting things done: The art of stress-free productivity}. Penguin Group USA.||

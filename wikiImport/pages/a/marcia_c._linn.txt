@@ -1,0 +1,9 @@
+h1. Marcia C. Linn
+
+Marcia C. Linn is a professor of development and cognition specializing in education in mathematics, science, and technology in the Graduate School of Education at the University of California, Berkeley. 
+
+Worked with [[Jim Slotta]] on [[WISE]]. 
+
+[[http://tels.berkeley.edu/~mclinn/|Website]]
+
+{{page>abib:Marcia C. Linn}}

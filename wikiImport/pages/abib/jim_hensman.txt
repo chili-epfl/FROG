@@ -1,0 +1,3 @@
+h2. Jim Hensman's publications
+
+| [@hensman2010tools] | Hensman, J., Despotakis, D., Brandic, A., & Dimitrova, V. Tools to Find Connections Between Researchers - Findings from Preliminary Work with a Prototype as Part of a University Virtual Research Environment. In .|

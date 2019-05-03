@@ -1,0 +1,4 @@
+h2. Earl Woodruff's publications
+
+| [@scardamalia1989computersupported] | Scardamalia, M., Bereiter, C., {McLean}R. S, Swallow, J., & Woodruff, E. (1989). Computer-supported intentional learning environments. Journal of Educational Computing Research, 5(1), 51–68.|
+| [@hewitt2010bringing] | Hewitt, J., & Woodruff, E. (2010). Bringing Coherence to Knowledge Building Discussions. In IKIT Summer Institute.|

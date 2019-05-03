@@ -1,0 +1,3 @@
+h2. Matthias Nückles's publications
+
+| nuckles2007scripting | Nückles, M., Ertelt, A., Wittwer, J., & Renkl, A. (2007). Scripting Laypersons’ Problem Descriptions in {Internet-Based} Communication with Experts. In F. Fischer, I. Kollar, H. Mandl & J. M. Haake (Eds.),  (Tran.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 73--89). Boston, {MA}: Springer {US}. Retrieved from http://www.springerlink.com.myaccess.library.utoronto.ca/content/j538766115531qt5/.|[[skimx://nuckles2007scripting|PDF]]|

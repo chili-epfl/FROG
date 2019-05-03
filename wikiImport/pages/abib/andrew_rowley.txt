@@ -1,0 +1,5 @@
+h2. Andrew Rowley's publications
+
+| [@buckinghamshum2006amemetic] | Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & de Roure, D. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Conference Item. |
+| [@buckinghamshum2006memetic] | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., de Roure, D., Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Conference Item. |
+| [@bailey2009dancing] | Bailey, H., Bachler, M., Buckingham Shum, S., Blanc, A. L., Popat, S., Rowley, A., & Turner, M. (2009). Dancing on the Grid: using {e-Science} tools to extend choreographic research. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 367(1898), 2793--2806. doi:10.1098/rsta.2009.0048|

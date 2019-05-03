@@ -1,0 +1,3 @@
+h2. R. Lotan's publications
+
+| lotan2007developing | Lotan, R. (2007). Developing language and mastering content in heterogeneous classrooms. The teacher’s role in implementing cooperative learning in the classroom. Springer.|[[skimx://lotan2007developing|PDF]]|

@@ -1,0 +1,5 @@
+h2. T. Eisenmann's publications
+
+| asterhan2009online | Asterhan, C. S. C., & Eisenmann, T. (2009). Online and face-to-face discussions in the classroom: A study on the experiences of 'active' and 'silent' students. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|[[skimx://asterhan2009online|PDF]]|
+| eisenmann2009relay | Eisenmann, T., Schwarz, B. B., & De Groot, R. (2009). Relay race of practice: integrating technological tools into teaching and learning scenarios. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|[[skimx://eisenmann2009relay|PDF]]|
+| eisenmann2010teachers | Eisenmann, T. (2010). A Teachers’ Team Integration of a Technological Discussion Tool into Classroom Practices.|[[skimx://eisenmann2010teachers|PDF]]|

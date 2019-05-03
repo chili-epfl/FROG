@@ -1,0 +1,37 @@
+h1. Memetic: from meeting memory to virtual ethnography & distributed video analysis
+
+<ifauth !@admin>|Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & Roure, D. de. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Retrieved from http://oro.open.ac.uk/23374/.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://buckinghamshum2006amemetic|BibDesk]]  | Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & Roure, D. de. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Retrieved from http://oro.open.ac.uk/23374/. |
+^ [[skimx://buckinghamshum2006amemetic|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:buckinghamshum2006amemetic?do=edit&vecdo=print\'><frame src=\'/wiki/clip:buckinghamshum2006amemetic?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @misc{buckinghamshum2006amemetic,
+  author = {Buckingham Shum, Simon and Daw, Michael and Slack, Roger and Juby, Ben and Rowley, Andrew and Bachler, Michelle and Mancini, Clara and Michaelides, Danius and Procter, Rob and Chown, Tim and Hewitt, Terry and de Roure, David},
+  date-added = {2011-04-24 17:36:14 -0400},
+  date-modified = {2011-08-20 13:54:13 +0000},
+  howpublished = {http://oro.open.ac.uk/23374/},
+  month = {jun},
+  note = {The {JISC-funded} Memetic{\textless}sup{\textgreater}2{\textless}/sup{\textgreater} project was designed as knowledge management and project memory support for teams meeting via the Access Grid environment {(Buckingham} Shum et al, 2006). This paper describes how these capabilities also enable it to serve as a novel distributed video analysis tool to support interaction analysis. Memetic technologies can be used to record, annotate and discuss sessions recorded within a flexible, visual hypermedia environment called Compendium. We propose that beyond the use originally conceived, the Memetic toolset could find wide ranging applications within social science for virtual ethnography and data analysis.},
+  read = {1},
+  shorttitle = {Memetic},
+  title = {Memetic: from meeting memory to virtual ethnography & distributed video analysis},
+  type = {Conference Item},
+  url = {http://oro.open.ac.uk/23374/},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAagAAAAAAagAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh5idWNraW5naGFtc2h1bTIwMDZhbWVtZXRpYy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaB7Xy9b0ZlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yymAAAAAQAMANrWUgAXPTEAAZ9eAAIAPVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBidWNraW5naGFtc2h1bTIwMDZhbWVtZXRpYy5wZGYAAA4APgAeAGIAdQBjAGsAaQBuAGcAaABhAG0AcwBoAHUAbQAyADAAMAA2AGEAbQBlAG0AZQB0AGkAYwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAyVXNlcnMvU3RpYW4vYmliZGVzay9idWNraW5naGFtc2h1bTIwMDZhbWVtZXRpYy5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QLC4uLy4uL2JpYmRlc2svYnVja2luZ2hhbXNodW0yMDA2YW1lbWV0aWMucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkwCTgJTAlwCZwJrAnkCgAKJArgCvQLAAs0C0gAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALk}
+}
+
+</hidden>
+
+{{page>notes:buckinghamshum2006amemetic}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:buckinghamshum2006amemetic}}
+
+{{page>kindle:buckinghamshum2006amemetic}}
+
+{{page>skimg:buckinghamshum2006amemetic}}

@@ -1,0 +1,17 @@
+h1. William R. Penuel
+{{ pages:a_william_r._penuel1.png}}
+
+Director of Evaluation Research - [[:SRI]]. Psychology PhD from Clark University.
+
+h2. Research
+His expertise is in the areas of technology-supported classroom-based assessment, program evaluation, and science and technology education policy. His research projects, which have been funded by the National Science Foundation and the U.S. Department of Education, have examined the effects of networked handheld computers on science and mathematics learning, the relationship between professional development activities and curriculum implementation in science, and the effects of intra-organizational dynamics on reform implementation. Currently, he is a senior researcher for the NSF-funded center, Learning in Informal and Formal Environments, where he is studying how curriculum materials informed by learning sciences research can be enacted successfully in diverse classroom settings. He also is Principal Investigator of the Contingent Pedagogies project, an NSF-funded project that is investigating how classroom network technology can improve assessment in middle school Earth science classrooms.
+
+  * [[:GroupScribbles]]
+  * [[:contingent teaching]]
+  * handheld computers
+  * classroom networks
+
+h2. Links
+  * [[http://ctl.sri.com/people/displayPerson.jsp?Nick=bpenuel|Homepage]]
+
+{{page>abib:William R. Penuel}}

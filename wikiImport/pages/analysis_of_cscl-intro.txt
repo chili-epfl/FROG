@@ -1,0 +1,206 @@
+h1. Experience with CSCL intro course on P2PU, and ideas for future research
+//(note, these are very preliminary thoughts and ideas that I shared with my supervisor, I might not end up doing any of the research proposed here)//
+
+h2. Course design
+The course design was very simple. We had five topics, the intro went over two weeks. After that, the 7th week had us looking at case studies of different platforms, and week eight was for summary and reflection. Each week, there was one or two core readings, with sometimes a few additional writings. We asked people to discuss the readings on their own blogs (often with some prompting questions), or on the forum. Some blog posts prompted lively discussions in the comment section.
+
+We created “bi-weekly summaries” twice a week, inspired by “the daily” from MOOCs, pulling together readings, questions, and links to people’s blogs, discussions, etc. Students said that they really appreciated these updates. These were also e-mailed to followers starting about in the middle of the course (the technology kept improving while the course was running). 
+We met once a week (see synchronous meetings).
+
+h2. Sign-up/selecting students
+Although I did make it quite explicit what kind of participation I expected of “core participants”, there was no way of linking to this from the sign-up page, when the course was getting started, so I had no guarantee of students having read it.  (This will be fixed soon). I’m also thinking that perhaps next time, I will make the sign-up question a bit “harder” – not in terms of difficulty, but in terms of engagement. For example, by asking students to read one article, and post some thoughts about it on their blog. That way, they have to do something a lot more active than just clicking “subscribe”, and two sentences about their interest, and I’ll already have their blog URLs.
+
+On the other hand, there were 7 people who applied to the course and did not provide enough information. I asked them to do so, but they never responded. (It’s possible that they did not receive the notification). Perhaps if I had let some of them in, they would have gotten interested, and would have participated more than some of the people who did get in… Given that participation beyond week 1 was such a strong measure of completion, perhaps we should do like undergraduate classes, which let almost anyone sign up for the first two weeks, and then kick people out who are not active enough.
+
+Of course, I could just open enrolment to anyone – and indeed, maybe the active group had settled on being exactly the same. I still think there is a value to having a small group of people who make an explicit commitment to learning together over a certain period of time, but I certainly don’t think it’s the only way to do things.
+
+h2. Participation
+Initially 13 people were accepted as “full participants” (plus Monica and I, who were also committed to doing all the learning activities)
+
+2 we never heard from again
+
+5 left during first few weeks (one left a message stating that she was too busy)
+
+= 6 students who were quite active and committed to the end
+
+At two times during the course, we sent private messages to the students who had become inactive, encouraging them to get “back on the train”. The positive note of the tone received some positive feedback, but nobody ended up re-engaging with the course in a measurable way.
+
+[[http://reganmian.net/blog/2011/06/20/participation-statistics-of-cscl-intro/|Blog entry about participation statistics]]
+
+h2. Amplification
+Lately there has been discussion of amplified conferences - this can mean extending a face-to-face conference into cyberspace, through live-streaming, backchannels, ways of interacting from a distance, etc. It can also mean providing opportunities for interaction before and after the face-to-face meeting, for example in the case of the Learning Analytics conference, organizing a MOOC on the same topic leading up to the conference.
+
+In the same way, we wanted to “amplify” our course. I think the idea of a small group of committed and mutually supportive students working through a curriculum together is very powerful, however there is also richness in accessing a large network of diverse ideas and viewpoints. We attempted to bridge these two ideas - Wiley wikis and MOOCs, or Knowledge Building/group cognition vs connectivism. We offered people the opportunity to apply to become “core members”, who committed themselves to participate actively, and were the only ones with write-access to the P2PU platform, and who received full e-mail notifications of all updates.
+
+In addition, we encouraged people to “follow” the course, which works similar to Twitter - no approval is necessary, and no social commitment is made, but you will receive some updates. We were hoping to hear from some of the followers through for example blogposts on their own blog (which we would syndicate through hashtags), twitter etc. 
+The result was that we never really heard from our followers. Some blog posts were retweeted, and in one case featured by Stephen Downes where it gathered some comments. However, the amplification was mainly alongside participants’ existing social networks. A number of my blog posts were retweeted, but I believe they would have been, had they been free-standing blog posts as well, it had nothing to do with the course.
+
+This is good and bad. It means that we were not able to really leverage the existence of the course itself, and is negative for people with small existing social networks. However, the fact that most users use their existing blogs and Twitter accounts for the courses, means that we can access their various social networks - in our case, one of the students was a Norwegian doctor interested in medical education. Although we have no evidence, it is fair to assume that at least some number of Norwegian medical professionals have been introduced to CSCL ideas through his blog. (See analysis for more about followers). 
+
+h2. Feedback
+All participants active at the end of the course (eight, including me and Monica) answered the following questions in this thread (p2pu.org/en/groups/introduction-to-the-field-of-computer-supported-co/content/wk8-final-week-course-wrap-up-reflection):
+  * What was the best thing about this course?
+  * Did you learn anything that will help you in your job or studies?
+  * Approximately how much time did you spend on the course each week?
+  * How should we improve the organization of the course in the future?
+  * How could the different tools
+  * communication channels work better?
+We also invited all the core students who did not finish the course to fill out a reflection, but nobody did. 
+
+h2. Followers
+About 45 followers (people kept adding themselves throughout the course). Some technical problems: initially received no e-mail updates at all, about half-way in the course began receiving “important updates” (typically bi-weekly summaries etc). We are working on enabling them to receive all notices if they wish. We invited all followers to do a survey on Google Forms, with these questions:
+
+h3. Why did you decide to follow Intro to CSCL?
+(select the most important reasons for choosing to follow)
+  * curious about the new functionality
+  * used it as a bookmark (a way of quickly finding the course again)
+  * wanted to read along, was not planning to be involved
+  * was planning to make some contributions to the course, but didn't want to commit to being a core member
+  * Other:
+
+h3. Was the amount of notifications you received, and other aspects of how the system implements "following" helpful to you? How would you have improved this?
+
+(help us make this better for future courses!)
+
+h3. Did you...
+select as many as you want
+  * receive any notifications from the course?
+  * read at least one bi-weekly update?
+  * visit at least one blog post by a course member?
+  * read at least one forum thread in the course?
+  * visit any of the resources listed in the curriculum (PDFs etc?)
+  * ever retweet, blog or otherwise share anything from the course with your social network
+  * ever write/publish anything about the course on your blog, twitter, wiki or other places?
+
+h3. What did you think about following this course?
+(what was your experience like - write as much as you'd like)
+
+h3. Did you learn anything by following? (1 — 10)
+(interpret as you wish :))
+
+h3. What did you think about the course as a whole? What could be improved?
+(the other questions are about the process of following, this is generally about your impression of the course, and your suggestions)
+
+---
+
+We have received about 10 answers so far (out of 46 followers). One was particularly interesting, a guy from Columbia who never posted anything because he was concerned with his level of English, but put his learning at 10 (maximum), and said he spent a lot of time reading articles and chats. Had never heard about CSCL before, now wants to change his MA thesis topic because of this, and is also interested in running a version of the course in Spanish. I am currently conducting a longer interview with him for my blog.
+
+[[http://reganmian.net/blog/2011/08/04/interview-with-a-cscl-intro-followerlurker/|Blog entry with interview of Columbian follower]]
+h2. Synchronous meetings
+I think synchronous meetings are quite important in completely online classes, especially for motivation and “pacing” (I think a lot of students organize their time by look at the calendar for what is coming up - many of the people in the course probably read the articles a few hours before the weekly meetings). Without the meetings, the course could very easily “slide out”, with very little asynchronous activity as well. It’s also an important venue for creating better social bonds between students, and ideally giving students a sense of “intellectual excitement” - similar to the rush you can get from an exciting face-to-face discussion with a small group or another student. Asynchronous discussion can feel very detached and analytical; I think it’s important to also provide students with a sense of “intellectual excitement” for them to engage fully with the class.
+
+It was difficult to find an appropriate platform that enabled truly peer-based synchronous learning. We tried Big Blue Button, but not only was the audio quality poor, and coordinating eight voices is very difficult. Most similar platforms (Adobe Connect/Elluminate) seem built for teacher-centric communication, where somebody presents, and can take questions. If everyone wants to talk, each student can only talk for 7 minutes and has to listen for 53 minutes - in front of their computer, which is full of distracting features making it much harder to concentrate than in a face-to-face meeting.
+Etherpad
+
+For this reason, we migrated in the middle of the first class to Etherpad, and never went back. We mainly used the chat feature, and sometimes collaboratively edited or pasted links in the editor window. I had the idea to combine this with Skype - thinking that Skype one-on-one is very technically robust, and works very well (when I have one hour meetings with Monica, I forget that it’s mediated by the computer, we get so excited about ideas). I wanted to give students a chance to experience this, so we started with having everyone go to Etherpad, and type in their Skype names, then we grouped them in groups of two, and had them call each other and discuss the readings (we provided some prompting questions, but let it be up to them). 
+
+I of course don’t have access to the contents of other conversations, but I know that I very much enjoyed my calls, and feedback was very positive from other students. Some even set up contact outside of the course (Skype calls etc) to pursue common interests. In the future, it would be interesting to experiment with for example having students first call each other for ten minutes, then switch groups for ten minutes, and other collaborative small group scripts. It would also be neat if there were a platform that all students could log into, which could automatically actuate these kinds of scripts, and even let the tutor “walk around” and visit different small groups etc.
+
+[[http://reganmian.net/blog/2011/05/23/etherpad-small-groups-in-skype-a-new-way-of-doing-p2pu-meetings/|Blog entry about use of Skype and Etherpad for synchronous discussions]]
+
+h2. Threaded chat
+There are many recognized problems with group text chat. [@fuks2006rutyping] talk about “chat confusion”, with too many concurrent threads, not knowing which message a current message refers to, information overload, etc.
+A really interesting event happened in week 7. I had invited Sandy McAuley to give a presentation about Knowledge Building in Nunavut. He had provided a short recording that we could watch at any time during the week, and then he joined us in Etherpad. Since you can replay an entire conversation in Etherpad, I can go back and see exactly what happened. Until minute 24, we all kept the chat in the small chat box, with someone pasting in a document they had been working on in the text edit window (but not working on it). At minute 24, I said: It’s funny that we are all crammed into this tiny text chat, when we have this huge text edit window on our left.
+
+Almost immediately people started typing in the text edit window, using it for chat (like Suthers talks about artifacts being appropriated for discourse in online environments). Because you can see immediately as the other person is typing, often you could begin typing an answer before the person is even done typing a sentence. The colors differentiate who is typing. At the same time, there were at least five or six different conversations going on at different locations in the document. It looked amazing as the entire document was growing in different parts at the same time. Some people mainly focused on one thread, but others went around, quickly scanned through one conversation and typed a reply, went down to another thread, scanned through new messages and typed a reply, etc. (Almost like playing parallel chess). 
+Every single participant was intensely engaged in typing during the remaining half an hour. They reported being overwhelmed by all the information, but also very excited - it was a kind of a rush. Completely different level of engagement than you would have in a tradition voice-conferencing where everyone is sitting around waiting for someone to finish.
+
+h3. Metrics
+In the analysis part, I am suggesting analyzing Etherpad meetings and maybe comparing it with voice-chat etc. I did some back-of-the envelope calculations about the meeting in week 7, using statistics from Wolfram Alpha: I just pasted the entire text (minus anything that was pasted in), and the chat, to a Word document and did word count.
+In one hour, we wrote 9,000 words (about twice as long as this report!), more than 1000 words per person per hour. According to Wolfram Alpha, it takes a person an average of 17 minutes to type 1000 words (so each of us would be typing for 1/3 of the meeting, which is a lot! although I am guessing some of us are quite fast typists)
+It would take a person 7 minutes to say 1000 words - so definitively faster - but with 8 people, that's already 56 minutes (that's assuming absolutely no coordination problems, switching etc)
+It would take a person on average 33 minutes to read 9000 words… however a) i think some of us might be faster readers, but b) all the context switching, rereading old information to get context, etc. might slow us down… this is where eye tracking studies would be really cool! 
+
+h2. Analysis
+I am really interested in how we can analyze the data generated by students' activities. Just listing the data sources, we get
+  * forum posts (P2PUorg)
+  * blog posts (on individual blogs, but aggregated through Netvibes)
+  * twitter (minimal)
+  * etherpad
+  * in future courses, we could also have wiki-editing, posting to Flickr, YouTube, GitHub, etc
+Another source of data is interaction data - when people log in, how long they stay, what they click, etc. Currently it is not easy to get that information from P2PU, but that will be rectified. However, we will not have access to this for any other external platform used, so getting it for P2PU won’t make much difference in our case.
+
+h3. RSS
+Almost all of the platforms above emit RSS feeds. A universal challenge is to match identities - so that “John’s blog”, “John’s github account” and “johnhenson” on Twitter are all connected to the same user. This can be done manually for the existing course, given the low number of students, but this could be part of the user profile in the future, allowing each user to combine their different identities. 
+
+h3. Special cases
+For some platforms, there would need to be some extra parsing. For example, blog RSS feeds do not include comments. This is a big challenge, because sometimes very rich discussions can happen in blog comment sections. However, many blog platforms also provide RSS feeds for comments (including WordPress, which was used for almost all student blogs in this course), so it should not be very difficult to auto-discover these individual comment feeds, and subscribe to them as well.
+A wiki rss feed is often a changelog, and would also have to be parsed to extract the relevant information. The same for commits from GitHub etc. 
+
+h3. Etherpad
+This is where it becomes interesting. Pulling in the chat logs is trivial, even if we had to manually copy them to a text document, there are not that many of them. The stuff written in the central window is more difficult, but not impossible, given that Etherpad a) keeps a record of everything that is said, at any time (you can “playback” the entire conversation), and b) is open source (this would have been impossible in Google Docs)… the first is the authorship colors, they determine who typed what. However, I am not sure if there are any ways of exporting the text with the author colors, to enable automatic analysis (when you export to HTML, it takes away author colors)… also there are no time stamps, so we don't know when during the conversation people said what…
+
+Also of course, if you only analyze the finished text, you loose all the text that was written which might have been deleted or typed over. Not a big problem in our case, where we just added text, but for a collaborative editing activity would be important.
+
+However, everything is stored in Etherpad (this is where there is a difference between pad.p2pu.org and piratepad.net - we control pad.p2pu.org and have access to the backend database etc). i'm not quite sure how it stores the data, but theoretically it should be possible to write a script to extract all the snippets said by whom, at what time… so instead of the finished document, you would get a list of utterances chronological from when it was said.
+
+Etherpad brings in other issues because it is not chronological… for the chat, if someone says something after someone else, we know they have read what the earlier person said (whether it's in response or not, is another question). however, in the Etherpad with Sandy there were five concurrent discussions - so you would want to look at different locations on the page as well. Before I have started playing with the data, I have no idea if we would be able to do anything useful with it.
+
+I think this in itself would be a neat paper - as far as I know, nobody have developed a way of extracting and coding process data from Etherpad, and applying this to meetings in an actual class, would be interesting. I am sure people have done this before, but I would be interested in comparing, let’s say
+  * an hour meeting with eight students using Big Blue Button or Elluminate
+  * an hour meeting using a traditional text chat
+  * an hour meeting using Etherpad encouraging people to use the collaborative editing space to carry out several
+conversation threads (perhaps even scaffolding this in some way, pre-inserting thread topics, or doing something dynamically (Wizard-of-Oz experiments?)
+
+finally, doing a transcript of the Big Blue Button conversation and comparing it with the text from the other two:
+  * amount of information that students are able to exchange in an hour
+  * social network - does anyone dominate the discussion more in the voice-chat
+  * compared to the text chat? are there more topics raised in text chat? is the conversation “deeper” because students can see the history of the conversation? etc
+(I am sure something like this has been done before, but I find it very interesting).
+
+h3. What all this enables
+In itself, I think this might warrant a paper. At Learning Analytics conference, the problem of gathering learning data from interaction distributed over different social platforms was frequently mentioned.
+
+So let us say that we a) were able to build a semi-automated program to harvest all this data at the end of the course or b) a program that ran during the course and in realtime (or almost) analyzed continually the interactions as stated above (and although it would take a bit of time, I am pretty sure I could build it).
+
+Having this data, what can we do with it? We would have a database of every utterance of every person, indexed by time. So we could do some neat plots of activity, across all modes (let’s say a graph with names along one axis, time along another axis, color of dots showing medium of discourse (Twitter, Blog etc), and size of dot indicating length, or some other variable). (Is there a burst of activity on Twitter before and after an Etherpad meeting? Do most people post on Mondays? etc… I can imagine some neat visualizations…)
+
+We also have the contents that people wrote, and could do different things - partly inspired by Teplovs' PhD thesis… we could generate word clouds every week and see how these change… we could index them to the readings and see how terms from the readings start showing up in discussions, we could look at user roles - does someone often introduce new vocabulary that gets “picked up” by others? are new ideas usually introduced in the blogs, and then picked up in forum posts? is the Etherpad used to recap last weeks ideas, or bring in new ones, that will then be sorted out in blog posts later?
+
+h2. Supporting learning
+Having all this information from the different platforms gathered and stored in a common format, continually gathered during the course (let’s say by a script run every night - or continually), can we use this to support learning? We might be able to generate visualizations of activity and content which can be useful, whether to course organizers or exposing it directly to all learners. (Whether these are actually useful would of course be an empirical question, informed by previous experiments with similar visualizations for students). 
+
+Another interesting idea is somehow making the content available to the students for “convergence” and working deeper with it. For example, asking the system to show me everything that has been written about constructivism during the course, whether on blogs, forums, in Etherpad, etc. I am really interested in providing opportunities for “convergence” to online courses which are often big on “divergence” (brain storming, coming up with lot’s of ideas, responding to prompts with whatever comes to your mind), which I think can enable much deeper learning. 
+
+Finally, having access to both the activity patterns and the contents, are there ways to use pattern recognition, machine learning etc to detect certain patterns and have automatic prompts and interventions (whether to provide social or cognitive support, whether to individuals or to the group, etc). Again something that could be tested out using Wizard-of-Oz approach, based on examples in the literature, and if found helpful to learning, could be implemented as software…
+
+(Having easy access to interaction data, one could also experiment with different ways of encouraging participation - could have karma points for people who post a lot, but could also have more advanced rules, like five points for someone who hit three different interaction medium during a week, or who reply to at least two other blogs, etc… At least in the current course, the task-relevant contributions were uniformly of very high quality, so I can predict that amount of course interaction is fairly linearly related to learning outcomes - this would not be the case in all courses, of course - but I think it’s frequently the limiting factor in open courses). 
+
+h2. Challenge
+An important challenge is defining which dependent variables to use when researching the impact of any of the interventions mentioned above. What constitutes success in an open learning course? (From a modest baseline, increased level of engagement, on-task interactions, and lower drop-out rates would all be great. But of course, I’d like to aim higher than that).
+Dimension of course openness
+
+Much of what I am writing here are issues that would affect any distance courses, whether they are open or closed. However, there are also issues that are unique to open courses, which interest me a lot (in the same ways as you can analyze Open Access journals in two ways, one is how to encourage more OA so that more people can access something that originally was expensive or unavailable, but more interesting is the new forms of knowledge sharing and collaboration enabled by the openness of the journals). 
+
+However, the concept of “open courses” contains a number of dimensions, which we have to separate, if we want to analyze the effect of this “openness”. For example:
+  * transparency (people can see what we write)
+this can lead to problems with privacy, and could theoretically inhibit people from participating and sharing - especially in terms of risk-taking and making oneself vulnerable
+  * no grades/coercion
+this has a huge impact on motivation, and also on the role of the course organizer and his/her’s “power”(see below)
+  * no certification/assessment
+this also has an impact on motivation
+  * less credibility/authority of instructors
+goes to the role of the course organizer
+  * instructors have less training/knowledge of subject area
+goes to how the course organizers interact with the class
+
+Different “open courses” might map onto some of the dimensions, and it doesn’t make sense to say “open vs closed”… you could also have an open course, with an expert in the field, an open course that leads to certification etc. 
+
+h3. How this played out in our course
+We had the idea to use badges as a way of overcoming the lack of sustained motivation, by defining clearly what was the minimum requirement of the course, having a clear and measurable “achievement” that students could feel some pride in at the end, and which would also lead to the students naturally generating a form of portfolio. 
+However, this led to a conflict in the course. Perhaps partly because the badges were not integrated with the main P2PU platform, and because we did not do a good job of explaining to the students. I also was away from the course during week 2 and 3 due to travel and an eye infection, leaving Monica to handle the discussions. When I came back, and tried to restart the discussion on badges, there was strong pushback from the students who felt that I was overruling a consensus that had emerged during a synchronous meeting. 
+
+After that, there were several weeks of discussion in the forums and during the synchronous meetings about the role of the course organizers, “democracy” in the course, etc. 
+
+Similar to the way we looked at the dimensions of “openness”, we can look at dimensions of a traditional course organizer’s power, and how this might be different in an open course:
+  * recognized expertise
+  * institutional power and respect (I will be at OISE for years want the teachers there to respect me)
+  * the power of grading
+  * technological capabilities that differ from students, ability to censor comments, remove students, etc
+In our case, Monica and I had worked very hard to put ourselves on the same level as the students, representing ourselves as fellow learners, doing all the same assignments etc. In addition, in the new P2PU platform, there is minimal difference in the technological capabilities of a course organizer and a student. Of course, there were no grades or other way of “coercing” behaviour.
+
+We wanted to encourage students to take initiative and do interesting things, however what mainly happened was that they did not do what we wanted them to do, they didn’t do other things. In the one case where an idea came up - to create an anti-capitalist learning manifesto, which I was happy to let continue, but did not want to be part of, a large part of the course was taken up by trying to decide as a community whether to proceed with this or not (instead of some students just going off and doing it, they wanted everyone to agree, which took a lot of time). 
+
+Another large discussion was about what kind of artefact we wanted to generate as a result of the course. Again, I would have preferred to see students going off saying “hey, I want to make a wiki, who wants to join me? let’s Skype on Tuesday” — “I want to edit a YouTube video, anyone else?”. Instead, again, the students focused on getting the whole class to agree, which predictably took a long time, and in the end resulted in nothing at all being produced.
+
+A bit cynically, I sometimes suspected that people enjoyed the social interaction, and found it much “easier” to argue about what OER to produce, than actually struggling with a difficult theoretical text. This conflict between meta-issues and on-task discussions was something that we had not predicted, and which it might be important to plan for in the future.

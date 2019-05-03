@@ -1,0 +1,3 @@
+h2. S.R. Hiltz's publications
+
+| turoff1999collaborative | Turoff, M., Hiltz, S. R., Bieber, M., Fjermestad, J., & Rana, A. (1999). Collaborative discourse structures in computer mediated group communications. Journal of Computer-Mediated Communication. Wiley Online Library.|[[skimx://turoff1999collaborative|PDF]]|

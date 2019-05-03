@@ -1,0 +1,3 @@
+h2. M. Glassman's publications
+
+| glassman2011logic | Glassman, M., & Kang, M. J. (2011). The logic of wikis: The possibilities of the Web 2.0 classroom. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://glassman2011logic|PDF]]|

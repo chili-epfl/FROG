@@ -1,0 +1,8 @@
+h1. Taxonomies
+
+  * [[encore>encore/Taxonomies+of+pedagogy|Taxonomy of pedagogy page on EncoreLab]]
+  * [[encore>encore/Technology+and+Education+in+Developing+Settings|Tech and ed in developing settings]]
+  * [[encore>encore/S3+Specification|Taxonomy of devices (S3 specifications)]]
+  * [[encore>encoretemp/Handheld+taxonomies+table|Taxonomy of handheld devices (table)]]
+  * [[encore>encore/S3+Scenarios+and+Applications|Taxonomy of pedagogy in S3 scenarios]]
+ 

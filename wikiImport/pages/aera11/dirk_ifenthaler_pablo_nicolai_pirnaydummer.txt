@@ -1,0 +1,47 @@
+====== Automated Knowledge Visualization and Assessment ======
+
+ifenthaler@uni-mannheim.de
+pablo@pirnay-dummer.de
+
+They have an edited volume on computer-based diagnostics.
+
+  * Background and design
+    * Research output level
+    * Analytical research system
+    * Experimental elicitation level
+    * Base technologies
+  * HIMATT (lot's of research, evaluation) (highly integrated model assessment tools & technology)
+    * log in as researcher, design experiment, run experiment, analyze data - all within one environment
+
+  * AKOVIA (automated knowledge visualization and assessment)
+    * automatic knowledge analyser
+    * no matter how your data is structured, as long as it has some graph-like structure, you can analyze it
+    * engine
+      * input (standardized data) 
+        * from graphical assessment
+        * or text
+      * description
+        * visualization
+        * SMD graph theoretical analysis
+      * comparison (one student's representation with whole class representation, for example)
+        * SMD comparison
+        * MITOCAR comparison
+      * output
+        * analysis
+        * protocol
+        * reports
+        * figures & graphs
+    * analyses
+      * concept matching
+      * propositional matching
+      * balanced semantic matching
+      * surface matching
+      * graphicla matching
+      * structural matching
+      * gamma machine
+    * application
+      * listform in Excel xls or textfile
+      * upload
+      * validate
+      * analysis & visualization (can take a few hours)
+      * scripting through Excel file

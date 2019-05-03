@@ -1,0 +1,3 @@
+h2. Theodore Holm Nelson's publications
+
+| [@nelson1981literary] | Nelson, T. H. (1981). Literary Machines: The report on, and of, Project Xanadu concerning word processing, electronic publishing, hypertext, thinkertoys, tomorrow's intellectual revolution, and certain other topics including knowledge, education and freedom. SausalitoCalifornia: Mindful Press.|

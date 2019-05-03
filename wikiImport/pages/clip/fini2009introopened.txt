@@ -1,0 +1,51 @@
+h2. Highlights (45%)
+
+In Fall 2007 David Wiley, professor at Utah State University held a course about Open Education. That time, however, Dr Wiley’s course was followed by a rather unusual group of students. The Fall 2007 edition, in fact, was available to anybody, free of charge, all over the world. The only requisite required was the possession of a blog for the completion of the weekly assignments. The present paper, whose authors attended the course completing it successfully, is an account of the experience they had. It can be considered an innovating experience from many different viewpoints and can be regarded as an example of how the world of the formal education can meet the demands of the informal one, in the broader landscape of professional training and lifelong learning. [[skimx://fini2009introopened#231|p. 231]]
+
+The “Introduction to Open Education” (OpenEd)1 course is a formal undergraduate course by Utah State University (USA). [[skimx://fini2009introopened#232|p. 232]]
+
+The course could be attended in three different ways: 
+  *  Credit: students who needed credit had to sign up for an independent study at their university and find a supervisor to whom the instructor should send a grade at the end of the term; 
+  *  Non-credit: students could attend the course without any grading from the instructor. If they completed the course it was possible for them to get a certificate at the end of the experience saying that the course had been “successfully completed”; 
+  *  Informal: fully non-credit attendance of the activities. [[skimx://fini2009introopened#232|p. 232]]
+
+The course objectives were: 
+  *  To give a firm grounding in the current state of the field of open education, including related topics like copyright, licensing, and sustainability; 
+  *  To help to locate open education in the context of mainstream instructional technologies like learning objects; 
+  *  To get thinking, writing, and dialoguing creatively and critically about current practices and possible alternative practices in open education; 
+  *  To be able to propose OER projects in the local context of each participant. [[skimx://fini2009introopened#232|p. 232]]
+
+1 The exact name is INST 7150 Introduction to Open Education, Fall 2007, the syllabus is on http://www.opencontent.org/ wiki/index.php?title=Intro_Open_Ed_Syllabus [[skimx://fini2009introopened#232|p. 232]]
+
+In order to better understand how the Italian group participating to the OpenEd course gathered together and subsequently operated inside the course, a preamble is necessary: in January 2007 the Laboratorio di Tecnologie dell’Educazione (LTE) at the University of Florence3 set up a virtual community of students, former students, professionals and teachers whose main objective is supporting informal learning and professional training for those who are interested in educational technology. It has been named LTEver4 and is based on the Open Source software Elgg (Fini, 2007)5. Multiple blogs are the main elements in LTEver and it was just from the blog of one of its participants that some LTEver users heard of the OpenEd course and decided to attend it6. Meanwhile a dedicated community was activated inside LTEver. [[skimx://fini2009introopened#233|p. 233]]
+
+in a balanced union of informality and mutual commitment, typical of the communities of practice (Trentin, 2004). The group experienced what Wenger believes are the three basic principles of an effective community of practice (1998): 
+  *  Establishment of a ‘joint venture’, through the formation of a shared vision of problems and shared solutions, the negotiation of priorities among the members and the development of a common awareness; 
+  *  Mutual commitment on the basis of which the members interact and share the experience that is owned by the individual in order to feed cooperative learning; 
+  *  Presence of a shared repertoire represented by sets of knowledge, tools, methods and artifacts through which the collective knowledge is being conveyed and the memory of the community is being kept. [[skimx://fini2009introopened#234|p. 234]]
+
+5 The collective interaction As far as the development of the training process is concerned, three different phases took place in which the role of the collective interaction was a decisive factor: 
+  *  Creation of a starting process: the course teacher traced an outline of [[skimx://fini2009introopened#235|p. 235]]
+
+the training process to complete by the end of the course indicating its objectives, tools, materials and schedule. The syllabus was published on a wiki that was utterly available and open to the learners, even in its editing options. Therefore, integrations and changes to the structure of the course were allowed, for example some weekly assignments were changed to fit the needs of a group of learners. [[skimx://fini2009introopened#236|p. 236]]
+
+
+  *  Emergence of the interactions: a group of participants, while completing the weekly assignments on their own blogs, shared their own ideas and experiences about the learning process that had been proposed and produced a wide and structured net of interactions with constructive functions and cooperative learning purposes. At a first stage, the organizational and didactic structure of the course indicated an individual learning modality for the reading and the working out of the reflections, while the collective interaction among the participants was postponed to a later time, with the stated objective to spur the learners to read the posts in the blogs of their colleagues, getting them to comment on one another. A podcast aggregator had been arranged, but it turned out to be not very functional to the needs of the participants as the references to the comments were not included while, as many learners pointed out, the discussions that sprang from the comments were even more interesting than the posts themselves. [[skimx://fini2009introopened#236|p. 236]]
+
+
+  *  Restructuring of the process: the course instructor worked on the net of interactions produced by the group, received their stimuli and restructured the development of the course proposing a final version, modified and broadened on the basis of the learners’ observations. At the end of the course, starting from the learning material produced by the participants, the teacher could have the opportunity to extrapolate a new pattern for the course to use in the following edition, in a constant process of spiral renewal. [[skimx://fini2009introopened#236|p. 236]]
+
+By means of peer interaction, inside a conception of learning traditionally regarded as an individual and passive fruition of contents, as the course seemed to develop in the first phase, we moved on to something else, namely the notion of a learning environment in which the individual who learns changes and creates the learning materials by himself contributing to determine the collective educational experience and making both the traditional learning poles (author-reader) coincide. There was an alternation between moments of individual fruition and moments of collaboration that asked for the reading of the course participants’ posts and the comments on the posts that each learner considered relevant. The discussions that sprang from this process turned into such a massive instrument of aggregation that they determined a strong motivation to work out a model of learning based on a constructivist style, which acquires a quite different formative value from a traditional distance course. [[skimx://fini2009introopened#236|p. 236]]
+
+The course was set up with a very open perspective. However, during the first eight weeks activities took place in a rather conventional way. The students read the assigned materials and blogged their own answers to the assigned questions. Therefore, apart from the delivery method, based on blog posts, the course appeared to be a kind of conventional e-learning course, with very little interaction among its participants. Probably, interaction lacked initially because of the very tight schedule. [[skimx://fini2009introopened#237|p. 237]]
+
+This state of affairs caused a lot of discussion in the LTEver community of Open Education classmates, so that one of them wrote a pivoting post, the so called “Week X” post, to point out the weaknesses of the course. A broader discussion spread among the other classmates. The teacher proved to be really open-minded since he took part in the discussion and readjusted the syllabus according to the issues rose by the students. [[skimx://fini2009introopened#237|p. 237]]
+
+The new syllabus let more time for cross reading and cross-blogging. Even the teacher had more time to comment on the students’ posts. The lesson taught by this occurrence is that, even in a markedly informal course, a sensible attitude of the teacher is crucial. The final group of students was smaller than the initial one of about fifty people, but it was still quite heterogeneous, being composed of college students, teachers and researchers. This final group turned out to be highly motivated since it followed the schedule of assignments regardless of the expectations in terms of final credits. [[skimx://fini2009introopened#237|p. 237]]
+
+The carrying out of the course. It offers a working example of a new way for professional development courses and lifelong learning. In this case, the professional community worked at different levels, almost all of them mediated by the technological system that supports the community life: 1) information; it was through the community that participants learnt about the opportunity of attending the course; 2) decision-making; because of emulation and reciprocal encouragement a group of users decided to enroll, creating a specialized sub-community; 3) scaffolding; participants supported one another, both in the cognitive and the emotional aspects, during the course. [[skimx://fini2009introopened#238|p. 238]]
+
+BIBLIOGRAPHY [[skimx://fini2009introopened#238|p. 238]]
+
+Fini A. (2007). Verso l’e-learning 2.0, dal formale all’informale: LTEver: un learning landscape per una comunità online, Atti di Didamatica 2007, Società Editrice Asterisco. [[skimx://fini2009introopened#238|p. 238]]
+

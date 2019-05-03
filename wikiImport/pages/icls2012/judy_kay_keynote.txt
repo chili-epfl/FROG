@@ -1,0 +1,94 @@
+h1. Lifelong learning as a driver for designing pervasive technology
+//Keynote by Judy Kay//
+{{ pages:judy_kay_keynote01.png}}
+
+
+h2. Outline
+  * Sisyphean tasks and lifelong learning
+  * Novel interfaces
+  * Electronic footprints
+  * Long term curriculum design and management
+
+h2. Improve posture (personal example)
+  * tell me when I am
+    * slouching
+    * being to inactive
+  * help me find
+    * stuff I've seen about posture
+    * new things I can do, and be inspired to do them
+  * help me
+    * make a plan
+    * remeber to do things I planned to do 
+    * monitor performance
+    * revise plans
+    * (meta-meta: learn how good I am at doing these things, and help me get better at it)
+  * share parts of my learner model with
+    * health professional
+    * friends
+    * community of posture improvers
+
+h2. Sisyphus
+Greek myth, mythos in contrast to logos - metaphors that help us develop a vocabulary to help us think and talk about things that are important. Has to push a rock up a hill for eternity. Had to work alone, every day at the end of the day, it rolled down and he had to do it again. 
+
+Albert Camus: The Myth of Sisyphus - metaphor for life: //"The struggle itself is enough to fill a man's heart. One must imagine Sisyphus happy."//
+
+**Sisyphean task**: done repeatedly over and over to achieve important lifelong goals (like posture), perhaps without "progress"
+
+Could it be that Sisyphus had trouble detecting his progress? (Muscles) -- **personal informatics**
+
+Another class of sisyphean tasks: learn X to the 10,000 hour skill level (for example programming)
+  * tell me when I'm
+    * doing things wrong, like spaghetti code
+    * being slow in clocking up useful practice hours
+  * help me find
+    * stuff I've seen about programming
+    * new things
+  * help me do
+    * metacognitive stuff
+  * share parts of learner model
+
+Spaced repetition for vocabulary, chemistry, maths
+
+h2. Digital footprints - huge potential for long term modeling
+The notion of the mirror (we know what we are, but not what we might be - Shakespeare being too generous)
+
+h3. Learning to collaborate - a Sisysphean task
+  * lots of challenges with collaborative work
+  * context: semester-long capstone software project
+    * explicitly taught group work skills (extreme programming)
+    * Trac: wiki, tickets etc
+    * huge amounts of data about group members and their interactions
+  * analysis
+    * interaction graph: if two people edit the same page, counts as an interaction
+      * using these interaction graphs as the start of a conversation, meta-awareness
+    * activity mirror: how much work people do (move towards the center), can also animate over time
+    * students found these very illuminating - you don't know how much you do relative to others 
+    * integrated narcissus tab - activity mapped by time, and color (category) for each user
+      * cells can be clicked on - shows what it corresponds to
+      * also has scoring
+
+h3. Exploiting educational data mining
+**Sequence mining** - automatically determine whether users fit profile of "manager", "developer", "loafer" or other, some groups have no managers, some have three... is the person who fits the profile of manager the same person as the person supposed to be the manager?
+
+h2. Long term learning over 3-5 year degree program
+CUSP: 200 degrees, 2000 subjects, in a bunch of faculties
+
+University degrees and curriculum goals, mapping of skills and skill sets with courses, learning outcomes, etc. 
+
+h2. Pulling it all together
+Tabletops allow classroom orchestration - small groups, get feedback, teacher knows what's going on, can trace collaborative activity
+
+Class level dashboard
+  * machine learning classifies each block of 30 seconds of activity
+  * features
+    * # of active participants in verbal discussions
+    * the number of touches
+    * the number of actions on other students' concepts
+    * both physical and verbal indicators, combined or separate
+  * teachers get not only the final results, but process data
+  * use a Kinect and a fancy microphone that is both directional, and can separate voices
+
+Classroom orchestration
+  * teacher can orchestrate classroom, control tables, etc through tablet
+
+

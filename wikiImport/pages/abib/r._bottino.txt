@@ -1,0 +1,3 @@
+h2. R. Bottino's publications
+
+| bottino2008supporting | Bottino, R., Earp, J., Olimpo, G., Ott, M., Pozzi, F., & Tavella, M. (2008). Supporting the design of pilot learning activities with the Pedagogical Plan Manager. Learning to Live in the Knowledge Society. Springer.|[[skimx://bottino2008supporting|PDF]]|

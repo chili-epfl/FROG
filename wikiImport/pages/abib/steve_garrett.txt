@@ -1,0 +1,3 @@
+h2. Steve Garrett's publications
+
+| [@barab1999principles] | Barab, S. A., Cherkes-Julkowski, M., Swenson, R., Garrett, S., Shaw, R. E., & Young, M. (1999). Principles of Self-Organization: Learning as Participation in Autocatakinetic Systems. Journal of the Learning Sciences, 8(3-4), 349-390. doi:10.1080/10508406.1999.9672074|

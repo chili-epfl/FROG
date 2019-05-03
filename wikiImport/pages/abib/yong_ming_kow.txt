@@ -1,0 +1,3 @@
+h2. Yong Ming Kow's publications
+
+| [@kow2011forget] | Kow, Y. M., & Nardi, B. (2011). Forget online communities?: revisit cooperative work!. In Proceedings of the ACM 2011 conference on Computer supported cooperative work, CSCW '11 (351--354). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1958824.1958877|

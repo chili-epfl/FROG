@@ -1,0 +1,11 @@
+h1. Min-Chai Hsieh
+
+Eye tracking
+
+Astronomy - the sun and the four seasons, the position of the sun in the sky
+
+Virtual reality / augmented reality
+
+Real environment, real time, 3D (Azuma 1997).
+
+Eye tracking device, needs to be calibrated. 

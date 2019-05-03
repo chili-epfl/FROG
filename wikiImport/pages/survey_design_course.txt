@@ -1,0 +1,8 @@
+h1. Survey design course
+
+I will take notes from articles and discussion in LHA 3043, fall 2013. 
+
+h2. Week 2
+  * [@yu2012measuring] - surveying young children about attitudes towards children with disabilities
+
+I'm also trying to learn statistics, taking notes on [[tss:start|The Statistical Sleuth]]

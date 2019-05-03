@@ -1,0 +1,20 @@
+h2. Images
+
+{{skim:koper2005design0.png}}
+
+[[skimx://koper2005design#12
+|p. 12
+]]<html><hr></html>
+
+{{skim:koper2005design1.png}}
+
+[[skimx://koper2005design#14
+|p. 14
+]]<html><hr></html>
+
+{{skim:koper2005design2.png}}
+
+[[skimx://koper2005design#17
+|p. 17
+]]<html><hr></html>
+

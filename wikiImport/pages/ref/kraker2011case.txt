@@ -1,0 +1,39 @@
+h1. The case for an open science in technology enhanced learning
+
+<ifauth !@admin>|Kraker, P., Leony, D., Reinhardt, W., & Beham, G. (2011). The case for an open science in technology enhanced learning. International Journal of Technology Enhanced Learning, 3(6), 643. doi: 10.1504/IJTEL.2011.045454.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kraker2011case|BibDesk]]  | Kraker, P., Leony, D., Reinhardt, W., & Beham, G. (2011). The case for an open science in technology enhanced learning. International Journal of Technology Enhanced Learning, 3(6), 643. doi: 10.1504/IJTEL.2011.045454. |
+^ [[skimx://kraker2011case|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kraker2011case?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kraker2011case?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{kraker2011case,
+  author = {Kraker, Peter and Leony, Derick and Reinhardt, Wolfgang and Beham, Günter},
+  date-added = {2012-03-11 14:10:25 +0000},
+  date-modified = {2012-04-09 01:02:04 +0000},
+  doi = {10.1504/IJTEL.2011.045454},
+  journal = {International Journal of Technology Enhanced Learning},
+  keywords = {OA/scholpub},
+  notes = {1},
+  number = {6},
+  pages = {643},
+  title = {The case for an open science in technology enhanced learning},
+  url = {http://dx.doi.org/10.1504/IJTEL.2011.045454},
+  volume = {3},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJrcmFrZXIyMDExY2FzZS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKgWy9dFnlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL133eAAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrcmFrZXIyMDExY2FzZS5wZGYAAA4AJgASAGsAcgBhAGsAZQByADIAMAAxADEAYwBhAHMAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vYmliZGVzay9rcmFrZXIyMDExY2FzZS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIC4uLy4uL2JpYmRlc2sva3Jha2VyMjAxMWNhc2UucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhwCHgIjAiwCNwI7AkkCUAJZAnwCgQKEApEClgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo},
+  bdsk-url-1 = {http://dx.doi.org/10.1504/IJTEL.2011.045454}
+}
+
+</hidden>
+
+{{page>notes:kraker2011case}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kraker2011case}}
+
+{{page>kindle:kraker2011case}}
+
+{{page>skimg:kraker2011case}}

@@ -1,0 +1,19 @@
+h2. Highlights (4%)
+
+Abstract: This chapter describes the recent evolution of the Internet into a set of socially oriented applications collectively referred to as Web 2.0, and discusses the application of these new functions for educational purposes. We suggest that to take full advantage of social, semantic, and aggregative properties of Web 2.0 the technologies must be integrated deeply into our instructional designs, which is very challenging to do. Theoretical models of pedagogical design will be required. We propose that the theoretical tradition of learning in knowledge communities may be a good source for such models and describe our own recent model, called Knowledge Community and Inquiry. Next, we present two exemplars of instructional design that adhere to the knowledge community approach, including a graduate seminar course that integrates wiki technologies and a high school biology course that integrates a content management system. We close with a discussion of the implications of such designs for learning and instruction in the 21st century, and address next steps for educators. [[skimx://slotta2012supporting#1|p. 1]]
+
+::Web 2.0 tools: content sites (Flickr, YouTube), blogs, wikis, CMS. Semantic, aggregate, tag, connection.:: [[skimx://slotta2012supporting#4|p. 4]]
+
+Web 2.0 technologies play an important role in the KCI curriculum, serving to coordinate activities, capturing student ideas, semantically aggregating materials, and guiding students to relevant resources (e.g., through the use of semantic tags). Scaffolding technologies such as reflection journals, Web data forms, prompts, or portfolio guides support students during activities. Ideally, such technologies will be integrated, allowing data to be accessible across activities and between software environments. [[skimx://slotta2012supporting#8|p. 8]]
+
+Exemplar 2: A Drupal Community for a High School Climate Change Curriculum [[skimx://slotta2012supporting#11|p. 11]]
+
+To facilitate students’ retrieval of relevant knowledge within these (voluminous) issue pages, keyword tagging was enabled for each independent sub-section of the page (i.e., as opposed to just tagging the whole page). In addition to these sophisticated Drupal pages for climate change issues, the following technology scaffolds were also developed in Drupal: [[skimx://slotta2012supporting#13|p. 13]]
+
+
+  *  A Group Planning Page to support the group in planning, assigning roles, monitoring progress, and addressing problems related to group dynamics or quality of content. 
+  *  Embedded Reflection Notes to help students reflect on their contribution to group work, including the scientific quality of their contributions, and to make personal connections to the activities. 
+  *  A Peer Review scaffold, where students provided feedback to other group concerning gaps, connections, or potential improvements to their Issue pages. The peer review activity helped to raise students’ awareness of the knowledge being developed within other issue pages. [[skimx://slotta2012supporting#14|p. 14]]
+
+REFERENCES [[skimx://slotta2012supporting#18|p. 18]]
+

@@ -1,0 +1,7 @@
+h2. Robert E. Kraut's publications
+
+| gergle2004language | Gergle, D., Kraut, R. E., & Fussell, S. R. (2004). Language Efficiency and Visual Technology. Journal of Language and Social Psychology. Sage Publications.|[[skimx://gergle2004language|PDF]]|
+| gergle2004action | Gergle, D., Kraut, R. E., & Fussell, S. R. (2004). Action as language in a shared visual space. Proceedings of the 2004 ACM conference on Computer supported cooperative work.|[[skimx://gergle2004action|PDF]]|
+| gergle2007modeling | Gergle, D., Rosé, C. P., & Kraut, R. E. (2007). Modeling the impact of shared visual information on collaborative reference. Proceedings of the SIGCHI conference on Human factors in computing systems.|[[skimx://gergle2007modeling|PDF]]|
+| aleahmad2008open | Aleahmad, T., Aleven, V., & Kraut, R. E. (2008). Open community authoring of targeted worked example problems. Intelligent tutoring systems.|[[skimx://aleahmad2008open|PDF]]|
+| aleahmad2009creating | Aleahmad, T., Aleven, V., & Kraut, R. E. (2009). Creating a Corpus of Targeted Learning Resources with a {Web-Based} Open Authoring Tool. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.8.|[[skimx://aleahmad2009creating|PDF]]|

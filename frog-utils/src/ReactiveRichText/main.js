@@ -420,7 +420,6 @@ class ReactiveRichText extends Component<
   };
 
   handleChange = (delta: Object, oldContents: Object, source: string) => {
-  console.log(delta)
     if (!this.props.readOnly) {
       if (source !== 'user') {
         return;

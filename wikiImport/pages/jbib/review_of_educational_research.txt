@@ -1,0 +1,3 @@
+h2. Publications in Review of Educational Research
+
+| [[..:ref:paavola2004models]] | Paavola, S., Lipponen, L., & Hakkarainen, K. (2004). Models of Innovative Knowledge Communities and Three Metaphors of Learning. Review of Educational Research, 74(4), 557-576.||

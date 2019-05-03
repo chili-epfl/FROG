@@ -1,0 +1,13 @@
+h1. Knowledge Building
+
+Learning theory designed by [[a:Marlene Scardamalia]] and [[a:Carl Bereiter]]. Instantiated in the design of the [[Knowledge Forum]] software.
+
+  * [[12 KB principles]]
+  * [[http://www.cjlt.ca/index.php/cjlt/issue/view/70|Special issue of Canadian Journal of Learning Technology on KB]]
+
+
+----
+
+  * [[http://naturalcuriosity.ca/|Natural Curiosity by ICS]]
+----
+  * [[http://kbc2.edu.hku.hk/|Knowledge Building Exchange | Information and Tutorials on Knowledge Building [http://kbc2.edu.hku.hk/]]]

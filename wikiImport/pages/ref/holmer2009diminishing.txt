@@ -1,0 +1,37 @@
+h1. Diminishing Chat Confusion by Multiple Visualizations
+<html><a href='http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.2789&rep=rep1&type=pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.2789&rep=rep1&type=pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Holmer, T., Lukosch, S., & Kunz, V. (2009). Diminishing Chat Confusion by Multiple Visualizations. Journal of Universal Computer Science, 15(16).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://holmer2009diminishing|BibDesk]]  | Holmer, T., Lukosch, S., & Kunz, V. (2009). Diminishing Chat Confusion by Multiple Visualizations. Journal of Universal Computer Science, 15(16). |
+^ [[skimx://holmer2009diminishing|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:holmer2009diminishing?do=edit&vecdo=print\'><frame src=\'/wiki/clip:holmer2009diminishing?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{holmer2009diminishing,
+  author = {Holmer, Torsten and Lukosch, Stephan and Kunz, Verena},
+  date-added = {2011-07-30 05:28:57 +0000},
+  date-modified = {2013-02-11 15:51:56 +0000},
+  journal = {Journal of Universal Computer Science},
+  keywords = {synchronous},
+  notes = {1},
+  number = {16},
+  oa-url = {http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.2789&rep=rep1&type=pdf},
+  read = {1},
+  title = {Diminishing Chat Confusion by Multiple Visualizations},
+  volume = {15},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QJy4uLy4uL0JpYmRlc2svaG9sbWVyMjAwOWRpbWluaXNoaW5nLnBkZtIXCxgZV05TLmRhdGFPEQGUAAAAAAGUAAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lIZaG9sbWVyMjAwOWRpbWluaXNoaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANrOZcoZhj5QREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAyhm+fgAAAAEADADa1lIAFz0xAAGfXgACADhTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAaG9sbWVyMjAwOWRpbWluaXNoaW5nLnBkZgAOADQAGQBoAG8AbABtAGUAcgAyADAAMAA5AGQAaQBtAGkAbgBpAHMAaABpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAtVXNlcnMvU3RpYW4vQmliZGVzay9ob2xtZXIyMDA5ZGltaW5pc2hpbmcucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALgAvQDFAl0CXwJkAm8CeAKGAooCkQKaAp8CrAKvAsECxALJAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:holmer2009diminishing}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:holmer2009diminishing}}
+
+{{page>kindle:holmer2009diminishing}}
+
+{{page>skimg:holmer2009diminishing}}

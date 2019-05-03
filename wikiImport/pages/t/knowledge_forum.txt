@@ -1,0 +1,9 @@
+h1. Knowledge Forum
+
+Tool developed by [[:a:Marlene Scardamalia]], [[:a:Carl Bereiter]], [[:a:Christopher Teplovs]] and more at OISE to promote [[:knowledge building]], which builds on constructivist ideas. Initially called CSILE—Computer Supported Intentional Learning Environments— first used in early prototype version in 1983 in a university course, more fully implemented in 1986 in an elementary school ([@scardamalia1989computersupported]). 
+
+  * [[http://www.knowledgeforum.com/|Knowledge Forum]]
+  * [[http://vimeo.com/17143638|Screencast I did]]
+  * [[http://www.ikit.org|IKIT]]
+----
+Although programs such as CMAP allow for the collaborative creation of concept maps, CSILE/Knowledge Forum remains one of a few digital environments, if not the only one, that supports collaborative knowledge construction by means of movable, user-created digital objects in a two-dimensional space: text has meaning; images, graphics and multimedia have meaning; and that meaning can be augmented by spatial relationships. Work continues to explore the roles of animation and three-dimensional space as means to understand the processes by which knowledge is created in an online environment, and how they can be supported and improved. [@mcauley2010mooc]

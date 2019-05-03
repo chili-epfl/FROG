@@ -1,0 +1,3 @@
+h2. Corbin Tarrant's publications
+
+| [@tarrant2012guide] | Tarrant, C. (2012). Guide to open learning. |

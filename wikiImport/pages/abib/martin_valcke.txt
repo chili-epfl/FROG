@@ -1,0 +1,3 @@
+h2. Martin Valcke's publications
+
+| [@wever2007applying] | Wever, B. D., Keer, H. V., Schellens, T., & Valcke, M. (2007). Applying multilevel modelling to content analysis data: Methodological issues in the study of role assignment in asynchronous discussion groups. Learning and Instruction, 17(4), 436 - 447. doi:DOI: 10.1016/j.learninstruc.2007.04.001|

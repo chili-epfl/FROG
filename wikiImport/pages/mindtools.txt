@@ -1,0 +1,7 @@
+h1. Mindtools
+
+Developed by [[a:David Jonassen]].
+
+h2. Links
+  * [[http://web.missouri.edu/jonassend/courses/mindtool/mindtools.html|Syllabus based on his book]]
+  * [[http://web.missouri.edu/jonassend/mindtools.html|Jonassen's landing page]]

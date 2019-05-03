@@ -1,0 +1,104 @@
+h1. Higher Education Pedagogy
+
+h2. Books
+  * How learning works : seven research-based principles for smart teaching / Susan A. Ambrose ... [et al.] ; foreword by Richard E. Mayer. IN371.102 H8472 OISE
+
+  * [[http://project-srs.cfsdtechnology.wikispaces.net/|Project SRS - home [http://project-srs.cfsdtechnology.wikispaces.net/]]]
+----
+Interactive Engagement (IE) is achieved by questioning students or challenging them to think or to do something that requires thought. Students interact with each other, with the instructor as a coach or guide, or with guided materials created by the instructor (on paper or computer). A key ingredient is frequent and thoughtful interaction. Most of the quantitative research in science education regarding the effectiveness of IE in a learning environment comes from the physics community so these results are highlighted here. The references presented were carefully selected to be of generic interest to science teaching and hence are also quite relevant and useful as guidelines for teaching geoscience.
+
+
+
+Hake (2002 (more info) and 1998) defines:
+
+(a) "Interactive Engagement" (IE) methods as those designed at least in part to promote conceptual understanding through interactive engagement of students in heads-on (always) and hands-on (usually)activities which yield immediate feedback through discussion with peers and/or instructors....
+
+(b) "Traditional" (T) courses as those reported by instructors to make little or no use of IE methods,relying primarily on passive-student lectures, recipe labs, and algorithmic-problem exams. [[http://serc.carleton.edu/introgeo/models/IntEng.html|Interactive Engagement [http://serc.carleton.edu/]]]
+----
+  * [[http://www.pkal.org/documents/|PKAL » Documents [http://www.pkal.org/]]]
+  * [[http://assett.colorado.edu/post/4476|The Half-Flip: “Weekly Previews” and Just-in-Time Teaching Techniques [http://assett.colorado.edu/]]]
+  * [[http://en.wikipedia.org/wiki/Peer_learning|Peer learning - Wikipedia, the free encyclopedia [http://en.wikipedia.org/]]]
+  * [[http://en.wikipedia.org/wiki/Scholarship_of_Teaching_and_Learning|Scholarship of Teaching and Learning - Wikipedia, the free encyclopedia [http://en.wikipedia.org/]]]
+
+(from WP):
+Bass, R. 1999. "The scholarship of teaching: What is the problem?" Creative Thinking about Learning and Teaching 1(1). online
+Huber, M.T., and P. Hutchings. 2005. "Surveying the scholarship of teaching and learning", Chap. 1, The Advancement of Learning: Building the Teaching Commons, (ISBN 0-7879-8115-X)
+Hutchings, P. 2000. "Approaching the scholarship of teaching and learning" (Introduction to Opening Lines: Approaches to the Scholarship of Teaching and Learning; ISBN 0-931050-68-5) online
+Kreber, C. 2002. "Teaching excellence, teaching expertise, and the scholarship of teaching" Innovative Higher Educ. 27:5-23.
+McKinney, K. 2004. "The scholarship of teaching and learning: Past lessons, current challenges, and future visions." To Improve the Academy 22:3-19.
+Shulman, L.S. 1999. "Taking learning seriously" Change July/August 1999:11-17.
+----
+  * [[http://doit.gmu.edu/index.html|Division of Instructional Technology [http://doit.gmu.edu/]]]
+  * [[http://celt.muohio.edu/jctl/|Journal on Centers for Teaching and Learning [http://celt.muohio.edu/]]]
+  * [[http://celt.muohio.edu/lcj/|Learning Communities Journal [http://celt.muohio.edu/]]]
+  * [[http://celt.muohio.edu/ject/|The Journal on Excellence in College Teaching [http://celt.muohio.edu/]]]
+  * [[http://academics.georgiasouthern.edu/ijsotl/index.htm|International Journal for the Scholarship of Teaching and Learning [http://academics.georgiasouthern.edu/]]]
+  * [[http://academics.georgiasouthern.edu/ijsotl/conference/proceedings/index.htm|SoTL Commons Conference Program and Abstracts [http://academics.georgiasouthern.edu/]]]
+  * [[https://blogs.commons.georgetown.edu/vkp/current-projects/|Current Projects | Visible Knowledge Project [https://blogs.commons.georgetown.edu/]]]
+  * [[https://blogs.commons.georgetown.edu/vkp/themes-findings/|Themes & Findings | Visible Knowledge Project [https://blogs.commons.georgetown.edu/]]]
+  * [[http://www.nines.org/|Digital Humanities Caucus | American Studies Association [http://www.theasa.net/]]]
+  * [[http://www.gla.ac.uk/departments/sotl/|University of Glasgow :: SoTL :: SoTL [http://www.gla.ac.uk/]]]
+  * [[http://citl.indiana.edu/programs/sotl/index.php|Scholarship of Teaching & Learning (SOTL) [http://citl.indiana.edu/]]]
+  * [[http://www.carnegiefoundation.org/|Carnegie Foundation for the Advancement of Teaching [http://www.carnegiefoundation.org/]]]
+  * [[http://sotl.illinoisstate.edu/|The Scholarship of Teaching and Learning [http://sotl.illinoisstate.edu/]]]
+  * [[http://scope.bccampus.ca/mod/forum/view.php?id=226|The Role of Online Communities in Developing the SoTL: February 17 - March 5, 2006 [http://scope.bccampus.ca/]]]
+  * [[http://academics.georgiasouthern.edu/ijsotl/index.htm|International Journal for the Scholarship of Teaching and Learning [http://academics.georgiasouthern.edu/]]]
+  * [[http://kwantlen.ca/TD.html|Transformative Dialogues: Teaching and Learning Journal [http://kwantlen.ca/]]]
+  * [[http://www.pestlhe.org.uk/index.php/pestlhe|Practice and Evidence of the Scholarship of Teaching and Learning in Higher Education [http://www.pestlhe.org.uk/]]]
+  * [[http://www.issotl.org/|ISSOTL: International Society for the Scholarship of Teaching and Learning [http://www.issotl.org/]]]
+  * [[http://josotl.indiana.edu/booksForReview/viewBookForReview/22|Book Details [http://josotl.indiana.edu/]]]
+  * [@hatch2009scholarship]
+  * [[http://www.leeshulman.net/|Lee Shulman . net [http://www.leeshulman.net/]]]
+  * [[http://www.leeshulman.net/publications.html|Lee Shulman . net [http://www.leeshulman.net/]]]
+  * [@hutchings2000introduction]
+  * [[http://math.berkeley.edu/people/faculty/alan-schoenfeld|Alan Schoenfeld | Department of Mathematics at University of California Berkeley [http://math.berkeley.edu/]]]
+  * [[http://wiki.biologyscholars.org/3Resources/Annotated_Biblios./2Annot._Bibs_2009|Annot. Bibs 08-09 - Biology Scholars [http://wiki.biologyscholars.org/]]]
+  * [[http://wiki.biologyscholars.org/3Resources/Annotated_Biblios./3Annotated_Bib_'10-11|Annotated Bib '10-11 - Biology Scholars [http://wiki.biologyscholars.org/]]]
+  * [[http://explore.georgetown.edu/people/bassr/?PageTemplateID=138|Randall Bass [http://explore.georgetown.edu/]]]
+  * [[http://academiccommons.org/|Academic Commons [http://academiccommons.org/]]]
+  * [[https://blogs.commons.georgetown.edu/bassr/|Randy Bass [https://blogs.commons.georgetown.edu/]]]
+  * [[http://wiki.biologyscholars.org/3Resources/Annotated_Biblios./Bibliographies-by_topic/Clickers|Clickers - Biology Scholars [http://wiki.biologyscholars.org/]]]
+  * [@cerbin2006lesson]
+  * [@bass1999scholarship]
+  * [[http://new.ipfw.edu/offices/celt/celt-library/scholarship-of-teaching-and-learning-(sotl).html|Center for the Enhancement of Learning and Teaching - Scholarship of Teaching and Learning (SoTL) - IPFW [http://new.ipfw.edu/]]]
+  * [[http://www.carnegiefoundation.org/taxonomy/term/37/all?page=4|eLibrary | Carnegie Foundation for the Advancement of Teaching [http://www.carnegiefoundation.org/]]]
+  * [[:A:Lee S. Shulman]]
+  * [@shulman2002foreword]
+  * [@huber2008situating]
+  * [[http://jitp.commons.gc.cuny.edu/|JITP CUNY The Journal of Interactive Technology and Pedagogy — [http://jitp.commons.gc.cuny.edu/]]]
+  * [[http://issotl12.com/plenary-presenters/|Plenary Presenters – Issotl2012 [http://issotl12.com/]]]
+  * [[http://www.stlhe.ca/|Society for Teaching and Learning in Higher Education - STLHE [http://www.stlhe.ca/]]]
+  * [[http://www.stlhe.ca/publications/green-guides/|Green Guides | STLHE [http://www.stlhe.ca/]]]
+  * [[http://www.stlhe.ca/sotl/sotl-links-and-resources/|Links and Resources | STLHE [http://www.stlhe.ca/]]]
+  * [[:Course Cases]]
+  * [[http://www4.uwm.edu/ltc/hybrid/index.cfm|Hybrid Courses: Welcome [http://www4.uwm.edu/]]]
+  * [[https://docs.google.com/document/d/1Jly4ZLCOiBUM6KU9JaxLXx-CN0LxcsJcoWlHTGbAVuY/edit|hybrid workshop notes - Google Drive]]
+  * [[http://www.crlt.umich.edu/|CRLT | Center for Research on Learning and Teaching [http://www.crlt.umich.edu/]]]
+  * [@mckeachie2011teaching]
+  * [[http://horizon.wiki.nmc.org/Emerging+Technologies|Horizon Report Wiki - Emerging Technologies [http://horizon.wiki.nmc.org/]]]
+  * [[http://cohere.ca/|COHERE [http://cohere.ca/]]]
+  * [[http://future-campus.org/|http://future-campus.org/ [http://future-campus.org/]]]
+  * [[http://irlt.yorku.ca/index.php|Institute for Research on Learning Technologies--Home [http://irlt.yorku.ca/]]]
+  * [[http://irlt.yorku.ca/blended/index.php|Blended Learning for Soft Skills Development--Home Page [http://irlt.yorku.ca/]]]
+  * [[http://skip.ssb.yorku.ca/SSB-Extra/Faculty.nsf/faculty/Adams+Jean#|Jean Adams [http://skip.ssb.yorku.ca/]]]
+
+----
+1. R. W.Guthrie and A. Carlin, "Waking the Dead: Using Interactive Technology to Engage Passive Listeners in the Classroom," Proceedings of the Tenth Americas Conference on Information Systems, New York, August 2004.
+
+2. A. Chickering and Z. Gamson, "Seven Principles for Good Practice in Undergraduate Education," AAHE Bulletin, No. 39, 1987, pp. 3–7.
+
+3. C. Johnson, "Clickers in Your Classroom," Wakonse-Arizona E-Newsletter, Vol. 3, No. 1, 2004, <http://clte.asu.edu/wakonse/ENewsletter/studentresponse_idea.htm> (retrieved January 24, 2007).
+
+4. Ibid.
+
+5. I. Beatty, "Transforming Student Learning with Classroom Communication Systems" (Boulder, Colo.: EDUCAUSE Center for Applied Research, Issue 3, 2004), p. 5, <http://www.educause.edu/LibraryDetailPage/666?ID=ERB0403>.
+
+6. J. West, "Learning Outcomes Related to the Use of Personal Response Systems in Large Science Courses," Academic Commons, December 9, 2005, <http://www.academiccommons.org/commons/review/west-polling-technology> (retrieved January 24, 2007).
+
+7. Johnson, op. cit., para. 8.
+
+8. L. J. Robertson, "Twelve Tips for Using a Computerized Interactive Audience Response System," Medical Teacher, Vol. 22, No. 3, 2000, pp. 237–239; D. Duncan, Clickers in the Classroom (Upper Saddle, N.J.: Addison-Wesley, 2005); and Turning Technologies Audience Response Systems, Higher Education Best Practices, <http://www.turningtechnologies.com/highereducationinteractivelearning/bestpractices.cfm> (retrieved January 24, 2007).
+
+9. Beatty, op. cit., pp. 6–7. [[http://www.educause.edu/ero/article/clickers-classroom-active-learning-approach|Clickers in the Classroom: An Active Learning Approach (EDUCAUSE Quarterly) | EDUCAUSE.edu [http://www.educause.edu/]]]
+----
+  * [[:Pedagogy 101 With Sara Carpenter Ctsi]]

@@ -1,0 +1,5 @@
+h2. P. Tchounikine's publications
+
+| tchounikine2007directions | Tchounikine, P. (2007). Directions to Acknowledge Learners’ Self-organization in CSCL Macro-scripts. Groupware: Design, Implementation, and Use. Springer.|
+| tchounikine2010computer | Tchounikine, P., Rummel, N., & McLaren, B. (2010). Computer Supported Collaborative Learning and Intelligent Tutoring Systems. Advances in Intelligent Tutoring Systems. Springer.|
+| reyes2003supporting | Reyes, P., & Tchounikine, P. (2003). Supporting emergence of threaded learning conversations through augmenting interactional and sequential coherence. Designing for change in networked learning environments: Proceedings of the international conference on computer support for collaborative learning.|

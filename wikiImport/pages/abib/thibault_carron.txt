@@ -1,0 +1,3 @@
+h2. Thibault Carron's publications
+
+| [@marty2011observation] | Marty{Jean-Charles}, & Carron, T. (2011). Observation of Collaborative Activities in a {Game-Based} Learning Platform. {IEEE} Transactions on Learning Technologies, 4(1), 98--110. doi:10.1109/TLT.2011.1|

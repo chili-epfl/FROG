@@ -1,0 +1,3 @@
+h1. Key ideas
+
+Use of concept maps, and comparing concept maps for automatic assessment, offering help etc similar to [[:aera11:start#knowledge_maps_for_representation_of_higher-order_cognition|presentations at AERA 11]]. 

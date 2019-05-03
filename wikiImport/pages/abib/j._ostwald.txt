@@ -1,0 +1,3 @@
+h2. J. Ostwald's publications
+
+| fischer2005knowledge | Fischer, G., & Ostwald, J. (2005). Knowledge communication in design communities. Barriers and biases in computer-mediated knowledge communication. Springer.|[[skimx://fischer2005knowledge|PDF]]|

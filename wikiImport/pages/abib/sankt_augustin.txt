@@ -1,0 +1,3 @@
+h2. Sankt Augustin's publications
+
+| [@stahl2002contributions] | Stahl, G., & Augustin, S. (2002). {Contributions to a Theoretical Framework for CSCL}. In Proceedings of Computer Supported Collaborative Learning (CSCL 2002) (62-71).|

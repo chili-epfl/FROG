@@ -1,0 +1,5 @@
+h1. Knowledge eCommons
+Discourse environment, developed by [[a:Jim Hewitt]] at OISE.
+
+h2. Links
+  * [[http://innovations.oise.utoronto.ca/edtech/index.php/Knowledge_eCommons_2.0|Homepage]]

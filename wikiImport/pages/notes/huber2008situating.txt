@@ -1,0 +1,22 @@
+h1. Key ideas
+//Description of how SoTL is bound in the disciplines, and the "trading zone" where researchers met and exchange ideas, tools, and vocabulary //
+
+h2. Disciplinary specificity
+<blockquote Joseph Schwab 1964>
+This language, which we are choosing to call a discipline's “style,” comprises, at its core, what Joseph Schwab so elegantly distin­guished as substantive and syntactic structures: the “conceptions that guide inquiry” and the “pathways of enquiry [scholars] use, what they mean by verified knowledge and how they go about this verification” (1964: 25, 21).</blockquote>
+
+Scholars build on the tools and analytics frameworks of their disciplines to research teaching
+  * it is what they have available, how they think
+  * it's a way of gaining legitimacy for the research within the field
+  * it's a way of communicating more effectively with others in the same field
+  * it's (sometimes) the most appropriate methods to investigate teaching in that specific field
+
+The challenge is communicating across disciplines, sharing findings, etc. 
+
+h2. Experts and practitioners
+There is a gap between educational researchers who want to understand basic issues, such as the nature of mathematical thinking, and the interests of teaching faculty, who want to know what works.
+
+h2. Trading zone
+<blockquote>This story is, of course, about the strength of disciplinary styles in shaping the scholarship of teaching and learning. But it is also a story about the emergence of a “trading zone” among the disciplines, where scholars are busy simplifying, translating, telling, and persuading “foreigners” to hear their stories and try their wares. 
+
+In this zone, one finds scholars of teaching and learn­ing seeking advice, collaborations, references, methods, and col­leagues to fill in whatever their own disciplinary communities can­ not or will not provide. Their goals are to do better by their stu­dents, and they are willing (within limits) to enter the trading zone and buy, beg, borrow, or steal the tools they need to do the job. </blockquote>

@@ -1,0 +1,56 @@
+h2. Highlights (30%)
+
+Much of the attention around OERs has been on institutional projects which make explicit learning content available. These can be classified as ‘big OER’, but another form of OER is that of small scale, individually produced resources using web 2.0 type services, which are classified as ‘little OER’. This paper examines some of the differences between the use of these two types of OER to highlight issues in open education. These include attitudes towards reputation, the intentionality of the resource, models of sustainability, the implicit affordances of resources and the context of their hosting sites. [[skimx://weller2010little#1|p. 1]]
+
+Drawing on the experience of an European Union funded project which explored the uptake of OERs in developing countries (Sidecap), the OpenLearn project and individual blogging experience this paper aims to explore some of the issues these types of OERs raise. [[skimx://weller2010little#2|p. 2]]
+
+We can broadly characterise these two types of OER as ‘big’ and ‘little’ OER (from Hoyle 2009), where: Big OERs are institutionally generated ones that arise from projects such as OpenLearn. These are usually of high quality, contain explicit teaching aims, presented in a uniform style and form part of a time-limited, focused project with portal and associated research and data. Little OERs are the individually produced, low cost resources. They are produced by anyone, not just educators, may not have explicit educational aims, have low production quality and are shared through a range of third party sites and services. [[skimx://weller2010little#2|p. 2]]
+
+Using this broad generalisation we will explore some of the issues around the use of OERs in education. This is drawn on the following experience: [[skimx://weller2010little#2|p. 2]]
+
+OpenLearn [[skimx://weller2010little#2|p. 2]]
+
+The Sidecap Project [[skimx://weller2010little#2|p. 2]]
+
+had partners in Scotland, England, Mauritius, West Indies and Fiji. (EDULINK). The project ran for 32 months (until Spring 2010) with the objective of promoting multilateral activity amongst the partners through practical activities, networking and hands-on exercises designed to improve the quality of teaching and support for students. The project particularly focused on the uptake and use of OERs to create a sample course in each institution. [[skimx://weller2010little#2|p. 2]]
+
+Blogging [[skimx://weller2010little#2|p. 2]]
+
+Status [[skimx://weller2010little#3|p. 3]]
+
+All of the ACP (Asia-Caribbean-Pacific) partners in the Sidecap project reported reluctance by academics to reuse content from others. Much of this resistance was allied with notions of identity and status. To reuse someone else’s content in teaching was interpreted as a sign of weakness, or a threat to their (often hard-won) status as expert. This objection was somewhat alleviated when the provider of the content was a recognised university with an international reputation. In this case, the big OERs have an advantage, because there is both a sense of mistrust about the type of material produced for little OERs, and also an anxiety that their use would be perceived as unprofessional. The large scale OER projects tend to have a pre-publication filter policy, so only high quality material is released. It also has the associated university brand linked to it, so there is a quality ‘badge’ and recognised reputation which can be seen as enhancing the individual lecturer’s quality and teaching. Big OER could be viewed as a ‘colonizing species’, whereby their presence changes the environment to make it more favourable for subsequent acts of reuse, such as little OERs. [[skimx://weller2010little#3|p. 3]]
+
+Aggregation and Adaptation [[skimx://weller2010little#3|p. 3]]
+
+Many of the big OERs have explicit learning aims associated with them, or at least an intended level and audience. Little OERs on the other hand are created for a variety of purposes and rarely have explicit learning metadata associated with them. This means that big OERs are a useful starting point and can often be used ‘wholesale’, ie without adaptation. [[skimx://weller2010little#3|p. 3]]
+
+This may indicate different patterns of use will operate for big and little OER. With the former the emphasis is on adaptation, taking large chunks of content and expending resource in adapting it to local use. An example of this is the essay writing course developed at the University of the South Pacific (http://www.usp.ac.fj/studyskills/CFDL/module1.html), which was adapted from a course developed by three New Zealand tertiary institutions. Little OER use tends to be focused less around adaptation and more around aggregation, ie taking a number of different resources and creating a cohesive educational narrative that brings these together. [[skimx://weller2010little#4|p. 4]]
+
+::What about a single course outline with open resources produced by an individual? Small OER, but large granularity.:: [[skimx://weller2010little#4|p. 4]]
+
+Models of sustainability [[skimx://weller2010little#4|p. 4]]
+
+The sustainability of little OER is less of an issue and is probably closest to the second of Wiley’s models. These types of resources can be seen as near frictionless outputs from standard academic practice. [[skimx://weller2010little#4|p. 4]]
+
+The key to sustainability for little OER then is to encourage the use of such tools and the generation of new habits which make their production second nature. [[skimx://weller2010little#5|p. 5]]
+
+Affordances of OERs [[skimx://weller2010little#5|p. 5]]
+
+Both Wiley and McAndrew et al state that individual users don’t tend to adapt OERs (by which we mean big OERs). [[skimx://weller2010little#5|p. 5]]
+
+In contrast the low production quality of little OERs has the effect of encouraging further participation. The implicit message in these OERs is that the consumer can become a producer – they are an invitation to participate precisely because of their low quality. Whether this is in writing a blog post that links to it, or in creating a video reaction, the low threshold to content creation is a feature of little OER. [[skimx://weller2010little#5|p. 5]]
+
+Portals and sites [[skimx://weller2010little#6|p. 6]]
+
+Little OER tends to be found on third party, ‘web 2.0’ type services, such as Slideshare, YouTube, Scribd, etc. There are advantages and disadvantages to both approaches, which can be summarised as [[skimx://weller2010little#6|p. 6]]
+
+So for example, Slideshare is a site for sharing powerpoint presentations, which you can add audio too, favourite, comment upon and embed elsewhere. It attracts significantly more web traffic than MIT’s Opencourseware site, but of course features presentations about all manner of subject. This raises a number of questions such as i) Are people more likely to share content through a service such as Slideshare? If so, why? Is it because it easier or because they will greater number of views? ii) Is the basic unit of sharing (the presentation) at Slideshare, a granularity people understand more than courses and units at OER sites? iii) Is the comparison fair? Can we consider Slideshare an OER repository of sorts? iv) Are commercial operations better at developing sites and adding in the necessary functionality this than educational ones? v) Are people 'learning' from Slideshare? If so, how does it compare with learning from OERs? vi) What are the dangers that your resources will be lost on Slideshare, and what use is your data being put to? [[skimx://weller2010little#6|p. 6]]
+
+The role of context [[skimx://weller2010little#7|p. 7]]
+
+The first may be that people don’t value free things, or are suspicious of free. We have become accustomed to roughly equating monetary price with value or quality. Free is therefore obviously low quality or suspicious at least. [[skimx://weller2010little#7|p. 7]]
+
+But in this respect big OERs have a relationship to price when they are the learning materials used by the universities. The message then is that some people have valued them highly enough to pay for them (and the associated services). Little OER by its very nature has not been paid for and so one variable people use to judge value is absent, namely whether someone would pay for it. [[skimx://weller2010little#7|p. 7]]
+
+Hoyle, M (2009). OER And A Pedagogy Of Abundance http://einiverse.eingang.org/2009/11/18/oerand-a-pedagogy-of-abundance/#more-181 [[skimx://weller2010little#8|p. 8]]
+

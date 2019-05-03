@@ -1,0 +1,5 @@
+h2. Nikolaos Avouris's publications
+
+| [@harrer2007towards] | Harrer, A., Zeini, S., Kahrimanis, G., Avouris, N., MarcosJosé Antonio, Martinez-Mones, A., Meier, A., Rummel, N., & Spada, H. (2007). Towards a flexible model for computer-based analysis and visualization of collaborative learning activities. In Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07 (283--285). International Society of the Learning Sciences. |
+| [@rummel2008new] | Rummel, N., Weinberger, A., Wecker, C., Fischer, F., Meier, A., Voyiatzaki, E., Kahrimanis, G., Spada, H., Avouris, N., & Walker, E. (2008). New challenges in CSCL: Towards adaptive script support. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3 (338--345).|
+| [@rummel2011analyzing] | Rummel, N., Deiglmayr, A., Spada, H., Kahrimanis, G., & Avouris, N. (2011). Analyzing collaborative interactions across domains and settings: An adaptable rating scheme. Analyzing Interactions in CSCL, 367--390.|

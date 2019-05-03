@@ -1,0 +1,4 @@
+h2. K.R. Koedinger's publications
+
+| :ref:koedinger1994emergent | Koedinger, K. R. (1994). Emergent properties and structural constraints: Advantages of diagrammatic representations for reasoning and learning. Reasoning with diagrammatic representations.|
+| :ref:koedinger1994emergent | Koedinger, K. R. (1994). Emergent properties and structural constraints: Advantages of diagrammatic representations for reasoning and learning. Reasoning with diagrammatic representations.|

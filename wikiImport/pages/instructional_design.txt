@@ -1,0 +1,303 @@
+h1. Instructional Design
+
+  * [[https://deekayen.net/grounded-instructional-strategies|List of grounded instructional strategies]]
+  * [[List of instructional methods]] from [@reigeluth2010instructional-design]
+
+h2. EME7634 syllabus
+//from [[https://deekayen.net/sites/deekayen.net/files/files/EME7634a_syllabus_sp06.pdf|here]]//
+
+h3. Models:
+(from [[https://deekayen.net/sites/deekayen.net/files/files/EME7634a_syllabus_sp06.pdf|EME7634 syllabus]])
+Dick and Carey, Smith and Ragan, or Kemp and Morrison design model.
+
+h3. Key readings
+  * Reigeluth, C M (1999) Instructional design theories and models: A new paradigm of instructional theory Mahwah, NJ: Lawrence Earlbaum Associates (ISBN 8-8058-2859-1) (Required)
+  * Gustafson, K, & Branch, R (1997) Survey of Instructional development Models ERIC Clearing House on Information and Technology (ISBN 0-937597-43-0) (Required)
+  * Jonassen, D H, Tessmer, M Hannum, WH (1999) Task Analysis Methods for Instructional Design, Mahwah, NJ: Lawrence Erlbaum Associates, Publishers (Required)
+
+h3. Other readings
+  * Ertmer, P. A., & Quinn, J. (1999). The ID CaseBook: Case studies in instructional design. Upper Saddle River, NJ: Prentice-Hall, Inc.
+  * Gustafson, K. L., & Branch, R. (1997). Survey of instructional development models (3rd ed.). Syracuse, New York: ERIC Clearinghouse on Information and Technology, Syracuse University. (IR - 103).
+  * Kemp, J. E., Morrison, G. R., & Ross, S. M. (1994). Designing Effective Instruction. NY: Macmillan College Publishing Company.
+  * Shambaugh, R. N., & Magliaro, S. G. (1997). Mastering the possibilities: A process approach to instructional design. Needham Heights, MA: Allyn and Bacon.
+  * Smith, P. L. & Ragan, T. J. (1999). Instructional Design (2nd ed.). Upper Saddle River, NJ: Prentice-Hall, Inc.
+  * Reigeluth, C. M. (1999). Instructional design theories and models: Volume II – A new paradigm of instructional theory. Hillsdale, NJ: Lawrence, Earlbaum Associates.
+  * West, C. K., Farmer, J. A., Wolff, P. M. (1991). Instructional design: Implications from cognitive science. Needham Heights, MA: Allyn and Bacon.
+  * Anderson, J. R. (1995) Learning and Memory. An Integrated Approach. New York: Wiley.
+  * Biggs, J. & Coilis, K. (1982) Evaluating the Quality of Learning. The SOLO Taxonomy. New York: Academic Press.
+  * Carroll, J. (1990). The Nurnberg Funnel. Cambridge, MA: The MIT Press.
+  * Dills, C. & Romiszowski, A. (Eds.) (1997) Instructional Development Paradigms. Englewood Cliffs, NJ: Educational Technology Publications.
+  * Duchastel, P. (1991) Towards Methodologies for Building Knowledge-Based Instructional Systems. Instructional Science, 20, 349-358.
+  * Gustafson, K. L., & Branch, R. (1997). Re-visioning models of instructional development. Educational Technology Research and Development, 45(3), 73-89.
+  * Gagne, R. (1985). The Conditions of Learning. (4th ed.) New York: Holt, Rinehart and Winston.
+  * Gagne, R., Briggs, L. & Wager, W. (1992), Principles of Instructional Design (4th edition). Fort Worth, TX: Harcourt, Brace, Jovanovich.
+  * Gardner, H. (1991) The Unschooled Mind - How Children Think and How Schools Should Teach. New York: Basic Books.
+  * Hannafin, M. (1992) Emerging technologies, ISD, and learning environments: Critical perspectives. Educational Technology Research and Development, 40, 49-63.
+  * Howe, R. J., & Pearlstein, G. (1995). Short cuts for pilot testing instructional materials. Performance and Instruction, 34(2), 34-37.
+  * Khan, B. (Ed.) (1997) Web-Based Instruction. Englewood Cliffs, NJ: Educational Technology Publications.
+  * Kissell, J. (1997). Understanding and dealing with client resistance. Performance Improvement, 36(1), 10-13.
+  * Jonassen, D. (1996). Handbook of Research for Educational Communications and Technology, Macmillan.
+  * Merrill, D., Li, Z. and Jones, M. (1990). Limitations of first-generation instructional design (ID1). Educational Technology, 30 (1), 7-11.
+  * Reigeluth, C. (1997) Instructional theory, practitioner needs, and new directions: Some reflections. Educational Technology, 37 (1), 42-47.
+  * Reigeluth, C. and Stein, F. (1983). The elaboration theory of instruction. In C. Reigeluth (Ed.), Instructional Design Theories and Models: An Overview of their Current Status. Hillsdale, NJ: Erlbaum.
+  * Wagner, E. & McCombs, B. (1995) Learner centered psychological principles in practice: Designs for distance education. Educational Technology, March - April 1995.
+  * West, C., Farmer, J & Wolff, P. (1991) Instructional Design: Implications from Cognitive Science. Englewood Cliffs, NJ: Prentice-Hall.
+  * Willis, J. (1995) A recursive, reflective instructional design model based on constructivist-interpretivist theory. Educational Technology, Nov - Dec 1995.
+
+h3. Metaphors
+architecture metaphor is being used to convey the notion that educators and instructional designers are knowledge architects; they survey the land (conduct analysis), create blue prints (design treatment plans) and construct (develop) environments to facilitate learning and the construction of knowledge (EME7634)
+
+----
+  * [[http://www.instructionaldesign.org/models/index.html|Instructional Design Models [http://www.instructionaldesign.org/]]]
+  * [[http://carbon.ucdenver.edu/~mryder/itc/idmodels.html|Instructional Design Models [http://carbon.ucdenver.edu/]]]
+  * [[http://www.veletsianos.com/2010/08/25/instructional-systems-design-syllabus/|George Veletsianos » Archive » Instructional Systems Design: Syllabus [http://www.veletsianos.com/]]]
+  * [[http://raleighway.com/addie/|Instructional Design Using the Addie Model]]
+  * [[http://onlinelearninginsights.wordpress.com/2013/05/28/start-here-instructional-design-models-for-online-courses/|“Start Here”: Instructional Design Models for Online Courses | online learning insights]]
+  * [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+  * [[https://deekayen.net/advanced-instructional-system-design|Advanced Instructional System Design | David Norman]]
+
+----
+Dick, W., Carey, L., & Carey, J. O. (2005). The systematic design of instruction: 6th edition. Boston, MA: Allyn & Bacon. [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+  * [[http://www.neiu.edu/~dbehrlic/hrd408/glossary.htm|HRD 408: Glossary of Terms]]
+
+----
+Task Analysis involves the systematic process of identifying specific tasks to be trained and a detailed analysis of each of those tasks (Ehrlich, 2000). To be able to design learning supported instruction, designers must understand the tasks the learners will be performing (Jonassen, Tessmer, & Hannum, 1999). [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+Job, Procedural, and Skill Analysis Method, Instructional and Guided Learning Analysis Method, and Subject Mater/Content Analysis Method. [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+The Job, Procedural, and Skill Analysis Method emerged during WWII when most training being developed was technical training which emphasized procedural skill development. These methods describe in a procedural manner the way jobs are performed. Analyzing steps has become the most common conception of task analysis and there are many methods and approaches published. Alternatively, Instructional and Guided Learning Analysis Method describe tasks how they are best learned. This may or may not be consistent with the ways the job is performed. Subject Matter/Content Analysis Methods consider that designers elicit instructional information from SMEs. [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+Job, Procedural, and Skill Analysis Method – Job Task Analysis
+
+
+The task analysis approach emerged from the field of systems analysis when systems analysis was applied to the world of work (Jonassen, et al., 1999). The purpose of creating task descriptions is to enhance the performance of the overall system or to enhance job or task performance.
+
+
+In order to conduct a job analysis, you must describe and analyze each task. The description should include the stimulus situation and the proper response. One would typically start at a general level and then get more specific (Miller, 1962 as cited in Jonassen, et al., 1999). Jonassen, et al. would argue that there are several advantages to creating task descriptions:
+
+
+It is very job oriented
+
+It provides data to support training, personnel selection, and job design
+
+It describes tasks in sufficient detail to prevent misunderstanding
+
+It identifies the competencies that underlie job tasks [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+Instructional and Guided Learning Analysis Method - Learning Contingency Analysis
+
+
+Learning contingency analysis differs from task analysis primarily in focusing on tasks in a learning environment rather than job performance (Jonassen, et al., 1999, p. 99). By focusing on identifying the behavioral components of tasks, the designer can discover the interdependencies among the tasks (Jonassen, et al., p. 99). Contingency analysis involves first sequencing the instructional content, followed by determining the most effective conditions for the instruction. For example, teaching algebra to a six-year-old during recess would be an extreme example of poor contingency analysis. First the child must have an understanding of basic arithmetic and a learning environment free of distractions.
+
+
+The sequencing of instruction should reflect one behavior having dependence on another (Jonassen, et al., p. 100). To sort learning contingencies, Jonnassen cites Gropper's (1974) four behavioral components tasks can have:
+
+
+Superordinate/subordinate – a hierarchical relationship to show behavior X is a part of behavior Y.
+
+Coordinate relationship – behaviors at the same level in a hierarchical relationship, not necessarily performed at the same time or in the same order.
+
+Shared elements – behaviors that share some amount of the same concepts.
+
+No relationship – behaviors with no relationship to each other. [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+Subject Mater/Content Analysis Method – Master Design Chart
+
+
+The Master Design Chart approach to task analysis is used when the educational ends are the development of the behavioral capabilities of the students (Jonassen, et al., 1999, p. 207). This method has its basis in two foundations. The first foundational principle states that instructional outcomes can be stated as behavioral objectives. The second states the use of instructional taxonomies to describe the outcomes. In using this method, the instructional designer classifies content according to behaviors but is not bound to any taxonomy.
+
+
+To conduct a Master Design Chart analysis the designer constructs the behavior axis using a taxonomy of instructional outcomes. The designer can use more specific behaviors as appropriate. Next the specific items of content are identified and listed as the vertical axis.
+
+
+Each cell in the chart is now analyzed and the relative emphasis required in the course or curriculum is noted in the cell. This is done on a continuum with 0 representing no emphasis and a number such as 3 or 5 representing the most emphasis. Although the resulting chart does not represent relationships among the instructional outcomes, it is recommended a relationship step be taken.
+
+
+A Master Design Chart is constructed for a curriculum or a whole course rather than for an individual lesson. Although it gives an overview of the entire course, no information is included regarding any instructional strategy. A strength of this method is that the risk of omitting important content is reduced. Weaknesses of this method are that it is dependant on the skills of the analyst, lacks basis in needs assessment and is time consuming to construct. [[https://deekayen.net/analysis-techniques-portfolio|Analysis Techniques Portfolio | David Norman]]
+----
+  * [[http://education.ucf.edu/faculty_detail.cfm?id=348|UCF College of Education and Human Performance]]
+  * [[https://deekayen.net/alignment-between-learning-objectives-and-item-types-assessments|Alignment between learning objectives and item types in assessments | David Norman]]
+
+----
+Dick, Carey, and Carey (2005) outline a set of requirements for performance objectives in an instructional unit, including audience, behavior, condition, and degree. The audience is the target population to complete the assigned objective. Behavior includes an action verb to describe what the learners are expected to know and/or be able to do. Cues, stimuli, tools, scope, and complexity are part of the condition in a performance objective. Finally, the acceptable performance is defined by the degree. A complete objective would have all four components, for example, "provided with a list of insects, first graders will write the list of insects in alphabetical order with 90% accuracy. [[https://deekayen.net/defining-performance-objectives|Defining performance objectives | David Norman]]
+----
+  * [[https://deekayen.net/blooms-taxonomy|Bloom's taxonomy | David Norman]]
+  * [[https://deekayen.net/gagne-verbs|Gagne verbs | David Norman]]
+  * [[https://deekayen.net/grounded-instructional-strategies|Grounded instructional strategies | David Norman]]
+
+----
+Nelson's Collaborative Problem Solving (CPS) model [[https://deekayen.net/instructional-treatment-plan-0|Instructional Treatment Plan | David Norman]]
+----
+Many texts have the condition, behavior, and criteria/degree elements of objectives (Dick, Carey, & Carey, 2005, pp. 123-139; Kubiszyn & Borich, 2003, p. 82; Simonson, Smaldino, Albright, & Zvacek 2006, p. 129; Stolovitch & Keeps, 1999, p. 356) and that Hirumi added audience (2005, Â¶ 6 [[https://deekayen.net/instructional-treatment-plan-0|Instructional Treatment Plan | David Norman]]
+----
+Dick, W., Carey, L., & Carey, J. O. (2005). The systematic design of instruction (6th ed.). Boston, MA: Pearson Allyn and Bacon.
+
+
+Hirumi, A. (2005, August 1). Unit 4: Performance objectives supplement. Retrieved September 9, 2005, from http://webct.ucf.edu/eme6613c/Unit04/u04info.html
+
+
+Kubiszyn, T., & Borich, G. (2003). Educational testing and Measurement: Classroom application and practice (7th ed.). Hoboken, NJ: Wiley / Jossey-Bass Education.
+
+
+Reigeluth, C. (1999). Instructional-design theories and models: 2nd ed. Mahwah, NJ: Lawrence Erlbaum Associates.
+
+
+Simonson, M., Smaldino, S., Albright, M., & Zvacek, S. (2006). Teaching and learning at a distance: Foundations of distance education (3rd ed.). Upper Saddle River, NJ: Prentice Hall, Inc.
+
+
+Stolovitch, H. D., & Keeps, E. J. (eds.). (1999). Handbook of human performance technology: Improving individual and organizational performance worldwide (2nd ed.). San Francisco, CA: Jossey-Bass / Pfeiffer [[https://deekayen.net/instructional-treatment-plan-0|Instructional Treatment Plan | David Norman]]
+----
+Instructional Design models are classified into three types, classroom, product and system (Gustafson & Branch, 2002). [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+Classroom models are of interest to, and are usually designed for, professional teachers from K-12, community colleges, vocational schools, and other related areas. These models take into consideration the environment of teachers. Their users may view them as a guide rather than a methodology. These models focus on the use of existing materials rather than the design of new. The output of these models is small, a unit or module of instruction used within the school year. The models also have less rigorous formative evaluation and revision than product or system models. [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+Product-Oriented models, prescriptive in nature, are primarily focused on creating instructional products. These instructional products may be self-study, self-paced computer based training, or other materials that can be used by a student with reduced guidance. The methodology of these models may cause them to be confused with system models, but product models are not used to create comprehensive systems as system models are. Product development models demonstrate four assumptions: the instructional product is needed, something needs to be produced rather than using or modifying existing materials, there will be considerable emphasis on tryout and revision, and the product must be usable by learners with only facilitators but not teachers. These models are drawn upon as computer-based instruction has become more often the instructional delivery method of choice (Gustafson & Branch, 2002). [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+Systems-oriented models are used to develop large amounts of instruction. This can be courses or curricula and may include the development of new materials or the repurposing of existing materials. Systems models align with the ADDIE methodology, emphasizing front-end analysis and design phases. Gustafson and Branch observed emphasis on front-end analysis may result in a proposal for a non-training solution (2002). Systems models, unlike product development models, typically assume a large scope of effort. [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+The Gerlach and Ely Model is a prescriptive model that is well suited to K-12 and higher education. It is meant for novice instructional designers who have knowledge and expertise in a specific context (Braxton, Bronico, & Looms, 1995). Although drawn as a linear model, many of the steps are intended to occur simultaneously. The Gerlach and Ely Model recognizes most curriculum will be designed around the concepts to be taught in each subject matter and teachers, who are forced to adapt existing materials for use in their courses (Braxton, et al., 1995). [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+The first step in the Gerlach and Ely process is to simultaneously specify the content and objectives. With this model intended for K-12 teachers, these combined steps recognize that teachers know the content or think of content first, then define the objectives for that content. The objectives do need to be defined, however, for use in the next steps of the model.
+
+
+The second step is to specify the entry point of learners, which for K-12 teachers may simply mean reviewing existing records. The third step is to perform five activities simultaneously: (1) determine strategy, (2) organize groups, (3) allocate time, (4) allocate space, and (5) select resources. The key is to determine which combinations will best allow the students to meet their objectives. The Gerlach and Ely model emphasizes using existing instructional materials rather than develop new materials.
+
+
+After these simultaneous decisions are made, the next step is evaluation of performance. The teacher should determine what observable or measurable changes occurred in the students and if the observations can be attributed to the instruction. The model concludes with a feedback loop to determine the effectiveness of the instructions so changes can be made as necessary. [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+Product Oriented Model - Bates
+
+
+In 1995, Tony Bates presented a model for developing open and distance learning. Bates realized digital communications were going to be used more frequently for distance education. Early in his research, he acknowledged the fact that there are inherent limitations of distance education. Bates created a framework for selecting learning technologies which is still relevant today. The organizing framework that Bates proposed is called ACTIONS, which stands for access, cost, teaching and learning implications, interaction, organizational issues, novelty and speed.
+
+
+Bates's model has what he calls a front-end system design. A front-end system design has four phases: course outline development, selection of media, development/production of materials, and course delivery. Within each phase, Bates has properly identified the team roles and the actions or issues to be addressed. Bates readily admits he borrows heavily from the ADDIE model from which he derives many of his ideas. One of the reasons Bates may have felt compelled to create an additional model to ADDIE is because ADDIE has been widely and often criticized for being too systematic. ADDIE is often said to be too linear, too constraining, and even too time-consuming to implement with regards to e-learning. While Bates may have been making an attempt to simplify ADDIE, he cautions course design may take as much as two years.
+
+
+One of his main concerns, prompting the development of ACTIONS, was the way face to face course material was adapted for web or other distance learning approaches. Bates feels the traditional remote instructor concept is nothing more than face-to-face instruction without direct interaction. Bates also states these specific scenarios often fail to take advantage of the unique benefits that are available through the specific technology being used.
+
+
+Additionally, in his 1995 book, Technology: Open Learning and Distance Education, Bates details cost analysis when designing distance or e-learning solutions. If his design and evaluation methods are followed, one would easily be able to determine the effect each dollar spent on this e-learning solution has had on a given student. This can be particularly useful when dealing with fiscal management issues.
+
+
+The Bates Model provides the user with a plethora of tools and ideas, each of which will be useful for designing e-learning environments. The model is broken down into four distinct groups. Each group is replete with projects and assignments. [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+System Oriented Model - Gentry IPDM
+
+
+Castelle Gentry explains his model of Instructional Development in the course of a textbook. Gentry named his model the Instructional Project Development and Management (IPDM) Model. The IPDM model was born as a result of five conclusions Gentry made with regards to instructional design. The first conclusion admonishes introductory instructional design textbooks for not adequately linking relationships between instructional design processes and their supporting processes (Gentry, 1994, p. ix). The second of Gentry's conclusions says introductory instructional design textbooks should teach both what and how to "do", in other words "practical means for accomplishing specific tasks" (Gentry, 1994, p. ix). The third through fifth conclusions set a basis for Gentry to develop a generic Instructional Design model as a survey of instructional design processes, supporting processes, and techniques.
+
+
+The result IPDM Model is has eight development components, defined by Gentry (1994) in a non-linear diagram.
+
+
+Needs analysis - establish the validity of needs and goals for existing or proposed instruction
+
+Adoption - establish acceptance of an innovation by those affected and obtain a commitment of resources.
+
+Instructional Design - determine and specify objectives, strategies, techniques, and media for meeting instructional goals.
+
+Production - construct elements of a project, as specified in a design and revision data.
+
+Prototyping - assemble, pilot test, respecify, validate, and finalize an instructional unit.
+
+Product Installation – establish the necessary conditions for effective operation of a new instructional product or process.
+
+Ongoing Operation – maintain the continuing application of an instructional product and/or procedure.
+
+Ongoing Instructional Unit Evaluation – collect and analyze data about an ongoing instructional unit to make decisions about future revision.
+
+The development components have five supporting components, defined by Gentry (1994, p. 5):
+
+
+Project Management – control, coordinate, and allocate resources.
+
+Information Handling – select, collect, organize, store, retrieve, distribute, and assess information required by an ID project.
+
+Resource Acquisition and Allocation – determine resource needs, formalize budgets, and manage resources.
+
+ID Project Personnel – determine needs for staffing, training, assessment, motivation, counseling, censuring, and dismissing ID project members.
+
+Facilities – organize and renovate spaces for design, implementation, and testing of elements of instruction.
+
+The development and supporting components are linked by information sharing between the two clusters for the duration of the project. Gentry designed his model to show instructional design is not a linear process. [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+In an article published in Training Magazine in April 2000, Jack Gordon and Ron Zemke lay out arguments against the use of ISD models. The article was the catalyst for a plethora of rebuttal articles, white papers, and seminars on why ISD is not dead and is still useful and relevant to the field (Clark, 2004). The arguments in the original article were:
+
+
+ISD is too slow and clumsy to meet today's training challenges
+
+There's no "there" there
+
+Used as directed, it produces bad solutions
+
+It clings to the wrong world view [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+Braxton, S., Bronico, K., & Looms, T. (1995). Instructional design methodologies and techniques. Retrieved January 30, 2006, from University of Michigan, Educational Software Design and Authoring Web site: http://www.umich.edu/~ed626/Gerlach_Ely/ge_main.htm
+
+
+Carliner, S. (2003). An instructional design framework for the twenty-first century. Unpublished manuscript, Concordia University. Retrieved January 30, 2006, from http://education.concordia.ca/~scarliner/idmodel.pdf
+
+
+Clark, D. (2004, June 7). The Attack on ISD – 2000. Retrieved January 30, 2006, from http://www.nwlink.com/~donclark/history_isd/attack.html
+
+
+Clark, D. (2004, June 13). A hard look at ISD - 2002. Retrieved January 30, 2006, from http://www.nwlink.com/~donclark/history_isd/look.html
+
+
+Gentry, C.G. (1994). Introduction to instructional development: Process and technique. Belmont, CA: Wadsworth Publishing Company.
+
+
+Gordon, J. & Zemke, R. (2000, April). The attack on ISD: Have we got Instructional Design all wrong?. Training Magazine.
+
+
+Gustafson, K.L., & Branch, R.M. (1997). Survey of instructional development models: Fourth edition. Syracuse, NY: ERIC Clearing house of Information & Technology
+
+
+Ryder, M. (2006). Instructional Design models. Retrieved January 29, 2006, from University of Colorado at Denver, School of Education Web site: http://carbon.cudenver.edu/~mryder/itc_data/idmodels.html#comparative
+
+
+Thiagarajan, S. (1999). Rapid Instructional Design. Retrieved January 29, 2006, from http://www.thiagi.com/article-rid.html
+
+
+Zemke, R. & Rossett, A. (2002, February 1). A hard look at ISD. Training Magazine
+
+
+Book Navigation [[https://deekayen.net/comparison-alternative-instructional-design-models|Comparison of Alternative Instructional Design Models | David Norman]]
+----
+  * [[http://profile.educ.indiana.edu/Default.aspx?alias=profile.educ.indiana.edu/reigelut|Home]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/Elaborate.htm|Reigeluth's Elaboration Theory]]
+
+----
+Reigeluth, C. M. (1979). In search of a better way to organize instruction: The elaboration theory. Journal of Instructional Development, 2 (3), 8-15.
+
+
+Reigeluth, C. M. (1999). The elaboration theory: Guidance for Scope and Sequences Decisions. In R. M. Reigeluth, (Ed.), Instructional-design theories and models: An new paradigm of instructional theory, Volume II, pp. 425-454. Mahwah, NJ: Lawrence Erlbaum Associates.
+
+
+Reigeluth, C. M., & Stein, R. (1983). Elaboration theory. In C. M. Reigeluth (Ed.), Instructional-design theories and models: An overview of their current status. Hillsdale NJ: Erlbaum.
+
+
+Wilson, B., & Cole, P. (1992). A critical review of elaboration theory. Educational Technology Research and Development, 40 (3), 63-79. [[http://www.personal.psu.edu/users/w/x/wxh139/Elaborate.htm|Reigeluth's Elaboration Theory]]
+----
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/Skinner.htm|Skinner's Programmed Instruction]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/PSI.htm|Personalized System of Instruction]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/gagne.htm|Gagne's Conditions of Leanring]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/CDT.htm|Merrill's Component Display Theory]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/ITT.htm|Merrill's Instructional Trasaction Theory]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/Anchored.htm|Anchored Instruction]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/CBR.htm|Case Based Reasoning]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/CFT.htm|Cognitive Flexibility Theory]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/Jonassen.htm|Jonassen's CLEs]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/SOI.htm|Mayer's SOI model]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/Open.htm|Open-Ended Learning Environments]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/TfU.htm|Teaching for Understanding]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/PBL.htm|Problem Based Learning]]
+  * [[http://www.personal.psu.edu/users/w/x/wxh139/Situated.htm|Situated Learning]]
+  * [[http://www.learning-theories.com/elaboration-theory-reigeluth.html|Elaboration Theory (Reigeluth) | Learning Theories]]
+  * [[http://www.nwlink.com/~donclark/index.html|Performance, Learning, Leadership, & Knowledge Site]]
+  * [[http://www.researchinlearningtechnology.net/index.php/rlt/article/view/18989/html|Teaching with student response systems (SRS): teacher-centric aspects that can negatively affect students’ experience of using SRS | Nielsen | Research in Learning Technology]]
+  * [[http://hapgood.us/2013/09/25/commitment/|Commitment | Hapgood]]
+  * [[http://labs.mendeley.com/headstart/|Overview of Educational Technology]]
+  * [[http://www.hastac.org/collections/alternative-pedagogies|Alternative Pedagogies | HASTAC]]

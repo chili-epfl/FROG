@@ -1,0 +1,3 @@
+h2. US Army's publications
+
+| [@army2002training] | Army{US}. (2002, October). Training the Force {(Field} Manual No. 7-0). {US} Army. |

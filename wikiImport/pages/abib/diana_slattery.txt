@@ -1,0 +1,3 @@
+h2. Diana Slattery's publications
+
+| [@moulthrop2002hypermedia] | Moulthrop, S., Slattery, D., Rosenberg, J., Bernstein, M., & Montfort, N. (2002). Hypermedia and multimedia. In Proceedings of the thirteenth ACM conference on Hypertext and hypermedia, HYPERTEXT '02 (196--196). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/513338.513340|

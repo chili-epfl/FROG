@@ -1,0 +1,3 @@
+h2. M.A. Gerosa's publications
+
+| gerosa2010unfolding | Gerosa, M. A., Filippo, D., Pimentel, M., Fuks, H., & Lucena, C. J. P. de. (2010). Is the unfolding of the group discussion off-pattern? Improving coordination support in educational forums using mobile devices. Computers \& Education. Elsevier.|[[skimx://gerosa2010unfolding|PDF]]|

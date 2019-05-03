@@ -1,0 +1,26 @@
+h2. Gerry Stahl's publications
+
+| [@stahl2002contributions] | Stahl, G., & Augustin, S. (2002). {Contributions to a Theoretical Framework for CSCL}. In Proceedings of Computer Supported Collaborative Learning (CSCL 2002) (62-71).|
+| [@stahl2006computersupported] | Stahl, G., Koschmann, T., & Suthers, D. D. (2006). Computer-supported collaborative learning: An historical perspective. Cambridge handbook of the learning sciences, 2006.|
+| [@stahl2011design] | Stahl, G. (2011). Design of computer support for collaboration.|
+| [@stahl2011proposals] | Stahl, G. (2011). Proposals for research.|
+| [@stahl2011introductions] | Stahl, G. (2011). Introductions to ijCSCL.|
+| [@stahl2004building] | Stahl, G. (2004). Building collaborative knowing. What we know about CSCL, 53--85.|
+| [@stahl2006sustaining] | Stahl, G. (2006). Sustaining group cognition in a math chat environment. Research and Practice in Technology Enhanced Learning, 1(2).|
+| [@stahl2006cscl] | Stahl, G., Koschmann, T., & Suthers, D. D. (2006). CSCL: An historical perspective. In Rk. Sawyer (Ed.), Cambridge Handbook of the Learning Sciences. Cambridge University Press. |
+| [@stahl2006group] | Stahl, G. (2006). Group Cognition: Computer Support for Collaborative Knowledge Building. Cambridge, MA: MIT Press.|
+| [@stahl2006supporting] | Stahl, G. (2006). Supporting group cognition in an online math community: A cognitive tool for small-group referencing in text chat. Journal of Educational Computing Research, 35(2), 103--122.|
+| [@stahl2006shared] | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & MühlpfordtMartin. (2006). Shared referencing of mathematical objects in online chat. In Proceedings of the 7th international conference on Learning sciences (716--722).|
+| [@cakir2006shared] | Cakir, M. P., Sarmiento, J., & Stahl, G. (2006). Shared deictic referencing in online mathematics discourse. In Ethnography in Education annual conference. |
+| [@stahl2007discussion] | Stahl, G. (2007). Discussion: Scripting Group Cognition The Problem of Guiding Situated Collaboration. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 327--335). Boston, {MA}: Springer {US}. |
+| [@muhlpfordt2007integration] | MühlpfordtMartin, & Stahl, G. (2007). The integration of synchronous communication across dual interaction spaces. In Proceedings of the 8th iternational conference on Computer supported collaborative learning (522--531).|
+| [@sarmiento2007group] | Sarmiento, J. W., & Stahl, G. (2007). Group creativity in virtual math teams: interactional mechanisms for referencing, remembering and bridging. In Proceedings of the 6th ACM SIGCHI conference on Creativity \& cognition (37--44).|
+| [@stahl2007meaning] | Stahl, G. (2007). Meaning making in CSCL: Conditions and preconditions for cognitive processes by groups. In Proceedings of the 8th iternational conference on Computer supported collaborative learning (652--661).|
+| [@sarmiento2008group] | Sarmiento, J. W., & Stahl, G. (2008). Group creativity in interaction: Collaborative referencing, remembering, and bridging. International Journal of Human-Computer Interaction, 24(5), 492--504.|
+| [@stahl2009chat] | Stahl, G. (2009). A chat about chat. Studying Virtual Math Teams, 7--16.|
+| [@stahl2009classical] | Stahl, G., & Hesse, F. W. (2009). Classical dialogs in CSCL. International Journal of Computer-Supported Collaborative Learning, 4(3), 233--237.|
+| [@cakir2009joint] | Cakir, M. P., Zemel, A., & Stahl, G. (2009). The joint organization of interaction within a multimodal CSCL medium. International Journal of Computer-Supported Collaborative Learning, 4(2), 115--149. |
+| [@stahl2009interactional] | Stahl, G. (2009). Interactional methods and social practices in vmt. Studying Virtual Math Teams, 41--55.|
+| [@stahl2010social] | Stahl, G. (2010). Social practices of group cognition in virtual math teams. Learning Across Sites: New Tools, Infrastructures and Practices, 190.|
+| [@stahl2011theories] | Stahl, G. (2011). Theories of cognition in CSCW. In .|
+| [@stahl2011study] | Stahl, G. (2011). How to study group cognition. Analyzing Interactions in CSCL, 107--130.|

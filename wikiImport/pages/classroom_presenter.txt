@@ -1,0 +1,6 @@
+h1. Classroom Presenter
+
+Tool for integrating table PCs in education, ability to put tablet drawings on board, and pull in drawings from student computers. Mentioned in [@roschelle2007ink] about [[GroupScribbles]].
+
+  * [[http://classroompresenter.cs.washington.edu/|Homepage]]
+  * [[http://classroompresenter.cs.washington.edu/|Video]]

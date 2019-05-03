@@ -1,0 +1,3 @@
+h2. Robert B Barr's publications
+
+| [@barr1995from] | Barr, R. B., & Tagg, J. (1995). From Teaching to Learning.|

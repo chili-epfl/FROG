@@ -1,0 +1,3 @@
+h2. Publications in Argumentation in Artificial Intelligence
+
+| walton2009argumentation | Walton, D. (2009). Argumentation theory: a very short introduction. Argumentation in Artificial Intelligence, 1--22. Springer.|[[skimx://walton2009argumentation|PDF]]|

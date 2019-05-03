@@ -1,0 +1,4 @@
+h2. Publications with keyword "cites-me"
+
+| [@hennis2011reputation] | Hennis, T., Lukosch, S., & Veen, W. (2011). Reputation in Peer-Based Learning Environments. |
+| [@vladoiu2011open] | Vladoiu, M. Open courseware initiatives-after 10 years. In Roedunet International Conference (RoEduNet), 2011 10th (1--6).|

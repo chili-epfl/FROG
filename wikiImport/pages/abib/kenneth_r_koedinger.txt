@@ -1,0 +1,3 @@
+h2. Kenneth R Koedinger's publications
+
+| [@koedinger1999component-based] | Koedinger, K. R., Suthers, D. D., & Forbus, K. D. (1999). {Component-Based Construction of a Science Learning Space}. International Journal of Artificial Intelligence in Education.|

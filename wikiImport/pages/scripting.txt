@@ -1,0 +1,16 @@
+h1. Scripting
+
+Also called [[orchestration]]? Difference from [[scaffolding]]?
+
+h2. Articles
+  * [@slof2010design] - representational scripting for solving complex problem, divides task into three phases (problem orientation, problem solution, solution evaluation), students are provided with external representations (pre-created) for each phase, triads
+
+h2. Tools
+  * [[S-COL]] (can't find it online), described in [@wecker2010scol]
+  * [[http://manyscripts.epfl.ch/welcome]], by [[a:Pierre Dillenbourg]], web-based for university students, discussing articles etc
+
+
+
+h2. People
+  * [[a:Frank Fischer]]
+  * [[a:Pierre Dillenbourg]]

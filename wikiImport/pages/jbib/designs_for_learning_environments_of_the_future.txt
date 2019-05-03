@@ -1,0 +1,3 @@
+h2. Publications in Designs for Learning Environments of the Future
+
+| peters2010scaffolding | Peters, V. L., & Slotta, J. D. (2010). Scaffolding knowledge communities in the classroom: New opportunities in the Web 2.0 era. Designs for Learning Environments of the Future, 205--232. Springer.|[[skimx://peters2010scaffolding|PDF]]|

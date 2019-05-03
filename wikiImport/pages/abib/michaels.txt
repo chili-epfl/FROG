@@ -1,0 +1,3 @@
+h2. Michaels's publications
+
+| [@haklev2011collaboration] | Haklev, {Fournier-Tombs}, Michaels, & Murphy. (2011). Collaboration @ {P2PU}. Course paper for {KMD} 1002. |

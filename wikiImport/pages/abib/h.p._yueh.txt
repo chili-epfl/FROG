@@ -1,0 +1,3 @@
+h2. H.P. Yueh's publications
+
+| jonassen1998computers | Jonassen, D. H., Carr, C., & Yueh, H. P. (1998). Computers as mindtools for engaging learners in critical thinking. TechTrends. Springer.|[[skimx://jonassen1998computers|PDF]]|

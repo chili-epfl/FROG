@@ -1,0 +1,7 @@
+h2. Rob Koper's publications
+
+| [@koper2004educational] | Koper, R., & Manderveld, J. (2004). Educational modelling language: modelling reusable, interoperable, rich and personalised units of learning. British Journal of Educational Technology, 35(5), 537--551.|
+| [@koper2005design] | Koper, R., Giesbers, B., Van Rosmalen, P., Sloep, P., Van Bruggen, J., Tattersall, C., Vogten, H., & Brouns, F. (2005). A design model for lifelong learning networks. Interactive Learning Environments, 13(1), 71--92.|
+| [@brouns2005first] | Brouns, F., Koper, R., Manderveld, J., Van Bruggen, J., Sloep, P., van Rosmalen, P., Tattersall, C., & Vogten, H. (2005). A first exploration of an inductive analysis approach for detecting learning design patterns. Journal of Interactive Media in Education, 3(03), 2. |
+| [@tattersall2006using] | Tattersall, C., Sodhi, T., Burgos, D., & Koper, R. (2006). Using the IMS Learning Design notation for the modelling and delivery of education.|
+| [@vanes2006testing] | Van Es, R., & Koper, R. (2006). Testing the pedagogical expressiveness of IMS LD. JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY, 9(1), 229.|

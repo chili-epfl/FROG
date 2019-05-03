@@ -1,0 +1,70 @@
+h1. Concept Maps
+
+  * [@canas2004building]
+  * [@canas2004cmaptools]
+  * [@canas2005concept]
+  * [@canas2006re-examining]
+  * [@carnot2003summary]
+  * [@coffey2006concept]
+  * [@daley2007cmaptools]
+  * [@nesbit2006learning]
+  * [@novak2004building]
+  * [@novak2006origins]
+  * [@novak2008theory]
+  * [@safayeni2005theoretical]
+  * [@schwendimann2011mapping]
+  * [@wandersee1990concept]
+
+h2. Sites
+  * [[http://www.cmappers.net/|IHMC Cmappers]]
+  * [[http://livemappers.com/home.aspx|LiveMappers]]
+  * [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+  * [[http://cmap.ihmc.us/Publications/|IHMC CmapTools - Publications]]
+
+h2. Main people
+  * [[http://www.ihmc.us/groups/acanas/|Alberto Cañas]] at IHMC (see furthest down)
+  * [[http://en.wikipedia.org/wiki/Joseph_D._Novak|Joseph D. Novak]]
+
+Based on the theories of [[wp>David Ausubel]]
+
+h2. Publications
+
+  * Anderson, J R, & Lebiere, C (1998) The atomic components of thought Mahwah, NJ: Erlbaum
+  * Anderson, J R, Byrne, M D, Douglass, S, Lebiere, C, & Qin, Y (2004) An Integrated Theory of the Mind Psychological Review, 111(4), 10361050
+  * Novak, JD & Gowin, DB (1996) Learning How To Learn, Cambridge University Press: New York, p 7
+  * Ausubel, D (1968) Educational Psychology: A Cognitive View Holt, Rinehart & Winston, New York
+  * Sowa, JF, 1983 Conceptual structures: information processing in mind and machine, Addison-Wesley
+  * Sweller, J & Chandler, P, 1991 Evidence for Cognitive Load Theory Cognition and Instruction, 8(4), p351-362
+  * McAleese,R (1998) The Knowledge Arena as an Extension to the Concept Map: Reflection in Action, Interactive Learning Environments, 6,3,p251-272
+  * Moon, BM, Hoffman, RR, Novak, JD, & Ca?as, AJ (2011) Applied Concept Mapping: Capturing, Analyzing and Organizing Knowledge CRC Press: New York
+  * Villalon, Jorge; Rafael Calvo (2011) "Concept maps as cognitive visualizations of writing assignments" (PDF) Journal of Educational Technology and Society 14 (3): 16-27 Retrieved 2011-11-16
+  * Novak, JD, Learning, Creating Using Knowledge: Concept Maps as Facilitative Tools in Schools and Corporations, Lawrence Erlbaum Associates, (Mahwah), 1998
+  * Novak, JD & Gowin, DB, Learning How to Learn, Cambridge University Press, (Cambridge), 1984
+
+h2. Clippings
+Concept maps were developed to enhance meaningful learning in the sciences. [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+----
+A well-made concept map grows within a context frame defined by an explicit "focus question", while a mind map often has only branches radiating out from a central picture. There is research evidence that knowledge is stored in the brain in the form of productions (situation-response conditionals) that act on declarative memory content which is also referred to as chunks or propositions.[3][4] [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+----
+Because concept maps are constructed to reflect organization of the declarative memory system, they facilitate sense-making and meaningful learning on the part of individuals who make concept maps and those who use them. [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+----
+Concept maps are rather similar to topic maps (in that both allow to connect concepts or topics via graphs), while both can be contrasted with the similar idea of mind mapping, which is often restricted to radial hierarchies and tree structures. Among the various schema and techniques for visualizing ideas, processes, organizations, concept mapping, as developed by Joseph Novak is unique in philosophical basis, which "makes concepts, and propositions composed of concepts, the central elements in the structure of knowledge and construction of meaning."[5] Another contrast between Concept mapping and Mind mapping is the speed and spontaneity when a Mind map is created. A Mind map reflects what you think about a single topic, which can focus group brainstorming. A Concept map can be a map, a system view, of a real (abstract) system or set of concepts. Concept maps are more free form, as multiple hubs and clusters can be created, unlike mind maps which fix on a single conceptual center. [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+----
+The technique of concept mapping was developed by Joseph D. Novak[6] and his research team at Cornell University in the 1970s as a means of representing the emerging science knowledge of students. [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+----
+Novak's work is based on the cognitive theories of David Ausubel (assimilation theory), who stressed the importance of prior knowledge in being able to learn new concepts: "The most important single factor influencing learning is what the learner already knows. Ascertain this and teach accordingly."[7] Novak taught students as young as six years old to make concept maps to represent their response to focus questions such as "What is water?" "What causes the seasons?" In his book Learning How to Learn, Novak states that "meaningful learning involves the assimilation of new concepts and propositions into existing cognitive structures." [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+----
+Various attempts have been made to conceptualize the process of creating concept maps. Ray McAleese, in a series of articles, has suggested that mapping is a process of off-loading. In this 1998 paper, McAleese draws on the work of Sowa [8] and a paper by Sweller & Chandler [9] . In essence, McAleese suggests that the process of making knowledge explicit, using nodes and relationships, allows the individual to become aware of what they know and as a result to be able to modify what they know.[10] Maria Birbili applies that same idea to helping young children learn to think about what they know.[11] The concept of the Knowledge Arena is suggestive of a virtual space where learners may explore what they know and what they do not know. [[http://en.wikipedia.org/wiki/Concept_map|Concept map - Wikipedia, the free encyclopedia]]
+
+h2. Theory from Cañas
+  * [[http://cmapsinternal.ihmc.us/rid=1FHFSHBTJ-11VVJQG-ZLF/Knowledge.cmap|Knowledge - What is Knowledge? (By Canas)]]
+
+{{pages:concept_mapping01.png}}
+{{pages:concept_mapping02.png}}
+
+----
+http://reganmian.net/wiki/Concept%20maps [[http://www.informationtamers.com/WikIT/index.php?title=Main_Page|Mind Mapping Wiki]]
+----
+Study 1 investigates concept maps as generative assessment tools. Study 1A compares the concept map generation and critique process of biology novices and experts. Findings suggest that concept maps are sensitive to different levels of knowledge integration but require scaffolding and revision. Study 1B investigates the implementation of concept maps as summative assessment tools in a WISE evolution module. Results indicate that concept maps can reveal connections between students alternative ideas of evolution. [@schwendimann2011mapping]
+----
+  * [[http://teorije-ucenja.zesoi.fer.hr/doku.php?id=instructional_design:concept_mapping|instructional_design:concept_mapping [Learning Theories] [http://teorije-ucenja.zesoi.fer.hr/]]]

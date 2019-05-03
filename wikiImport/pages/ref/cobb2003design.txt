@@ -1,0 +1,38 @@
+h1. Design experiments in educational research
+
+<ifauth !@admin>|Cobb, P., Confrey, J., Lehrer, R., Schauble, L., & others. (2003). Design experiments in educational research. Educational researcher, 32(1), 9--13.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://cobb2003design|BibDesk]]  | Cobb, P., Confrey, J., Lehrer, R., Schauble, L., & others. (2003). Design experiments in educational research. Educational researcher, 32(1), 9--13. |
+^ [[skimx://cobb2003design|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:cobb2003design?do=edit&vecdo=print\'><frame src=\'/wiki/clip:cobb2003design?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{cobb2003design,
+  author = {Cobb, Paul and Confrey, Jere and Lehrer, Richard and Schauble, Leona and others},
+  date-added = {2013-06-11 19:25:42 +0000},
+  date-modified = {2013-12-09 23:17:30 +0000},
+  date-read = {2013-12-09 18:17:30 -0500},
+  journal = {Educational researcher},
+  keywords = {methods},
+  number = {1},
+  pages = {9--13},
+  publisher = {Sage Publications},
+  read = {1},
+  title = {Design experiments in educational research},
+  volume = {32},
+  year = {2003},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIC4uLy4uL0JpYmRlc2svY29iYjIwMDNkZXNpZ24ucGRm0hcLGBlXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJjb2JiMjAwM2Rlc2lnbi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANRrWSzdzx8gAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADN3SoyAAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb2JiMjAwM2Rlc2lnbi5wZGYAAA4AJgASAGMAbwBiAGIAMgAwADAAMwBkAGUAcwBpAGcAbgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vQmliZGVzay9jb2JiMjAwM2Rlc2lnbi5wZGYAEwABLwAAFQACAAz//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgCxALYAvgI6AjwCQQJMAlUCYwJnAm4CdwJ8AokCjAKeAqECpgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo}
+}
+
+</hidden>
+
+{{page>notes:cobb2003design}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:cobb2003design}}
+
+{{page>kindle:cobb2003design}}
+
+{{page>skimg:cobb2003design}}

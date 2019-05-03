@@ -1,0 +1,4 @@
+h2. R. Pea's publications
+
+| [[..:ref:brecht2002cml]] | Brecht, J., Chung, M., & Pea, R. (2002). CML: the ClassSync modeling language. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community.|
+| white2011distributed | White, T., & Pea, R. (2011). Distributed by Design: On the Promises and Pitfalls of Collaborative Learning with Multiple Representations. Journal of the Learning Sciences. Routledge.|

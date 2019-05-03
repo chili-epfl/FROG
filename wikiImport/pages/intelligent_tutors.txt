@@ -1,0 +1,3 @@
+h1. Intelligent tutors
+
+  * [[http://web.missouri.edu/jonassend/INSYS547.html|Course on topic]] by [[a:David Jonassen]]

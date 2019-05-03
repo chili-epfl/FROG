@@ -1,0 +1,53 @@
+h2. Highlights (12%)
+
+ABSTRACT Online creative collaboration (peer production) has enabled the creation of Wikipedia and open source software (OSS), and is rapidly expanding to encompass new domains, such as video, music, and animation. But what are the underlying principles allowing online creative collaboration to succeed, and how well do they transfer from one domain to another? In this paper, we address these questions by comparing and contrasting online, collaborative animated movies, called collabs, with OSS projects. First, we use qualitative methods to solicit potential success factors from collab participants. Then, we test these predictions by quantitatively analyzing a data set of nearly 900 collabs. Finally, we compare and contrast our results with the literature on OSS development and propose broader theoretical implications. Our findings offer a starting point for a systematic research agenda seeking to unlock the potential of online creative collaboration. [[skimx://luther2010works#1|p. 1]]
+
+We selected Newgrounds1 as the site of our empirical investigation. [[skimx://luther2010works#2|p. 2]]
+
+For most collab participants, success is defined as completing a collab [17]. Unlike OSS projects and Wikipedia articles, collabs are not constantly improved and re-released many times. Rather, they are typically released to the public just once, much like an independent film debut, and almost never changed again. Newgrounds members refer to completed collabs as “successful,” whereas incomplete collab are “failed” or “dead.” Other potential success metrics, such as the ratings and popularity of completed collabs, were typically viewed as secondary. [[skimx://luther2010works#2|p. 2]]
+
+Its membership base, comprised of over 2,200,000 registered user accounts, has created and uploaded over 180,000 animated movies and games. Most of these are single-author, individually-made animations known as solo projects. However, many others are multi-author, collaboratively-made animations called collabs. [[skimx://luther2010works#2|p. 2]]
+
+Completed collabs offer several benefits to their creators. First, only completed collabs are hosted on Newgrounds for audiences to watch; otherwise, the work goes mostly unnoticed. Second, the ratings assigned to completed collabs by audiences contribute to each creator’s Batting Average (BA), the average score of all of his or her Newgrounds submissions. The BA is used to determine member rankings, thus affecting creators’ exposure and reputation within the community. Third, completed collabs may generate income for creators, through Newgrounds’ ad-based revenue sharing program (tied to percentages specified in the multi-author system), cash prizes awarded by the Newgrounds staff for highly rated submissions, or sponsorship from third parties. [[skimx://luther2010works#2|p. 2]]
+
+earlier studies focused on describing the collab production process and challenges for leaders. They also revealed a key distinction between collabs and OSS projects regarding definitions of success. [[skimx://luther2010works#2|p. 2]]
+
+Hundreds of collabs each year are organized on the Newgrounds discussion forums. To start a collab, one member posts a new collab thread describing the project and inviting community members to join. The thread creator typically assumes the role of “leader,” while every other participant takes on the role of “artist” (or a variation of these terms). Two to 50 or more artists may join a given collab, depending on the leader’s goals. If a thread attracts enough interest, it becomes the locus of activity for the collab’s duration, attracting dozens to thousands of replies. If not, the thread is soon buried beneath more popular ones and forgotten. [[skimx://luther2010works#2|p. 2]]
+
+Defining OSS success is complicated because of its ongoing, evolutionary nature. OSS projects are never truly completed, only abandoned. Success metrics that may have worked well in traditional software development contexts often prove inappropriate for OSS development [9]. For example, successful traditional projects may end with a public release, while many OSS projects begin with a public release, contributed by the leader to attract co-developers. [[skimx://luther2010works#2|p. 2]]
+
+Professional animation studios, like film sets, typically embrace a specialized division of labor [3]. Each person has expertise in a specific area, such as modeling, animating, or lighting. Therefore, each scene requires the efforts of many contributors with unique skills. [[skimx://luther2010works#2|p. 2]]
+
+Attempts to generate new metrics for OSS success have generally embraced a multi-dimensional conceptualization of success. They also tend to be informed by a combination of theory and multiple empirical data sources. We review two recent attempts here. [[skimx://luther2010works#2|p. 2]]
+
+Collabs, however, operate more like Wikipedia and OSS projects, in that their division of labor is modularized [17]. Most collabs are structured so that artists can claim a module, such as a chapter of a story, and have near-total control, answerable only to the leader. It is common for a single artist to handle backgrounds, characters, story, dialogue, and music for each scene. The leader is responsible for the initial modularization, the final integration, and all the motivation and management that happens in between. [[skimx://luther2010works#2|p. 2]]
+
+English and Schweik [13] produced a six-part classification, based on phone interviews with OSS developers, manual coding of a sample of OSS projects from SourceForge.net, and theoretical insights from Hardin’s “Tragedy of the Commons” [15]. In this system, OSS projects can be successful, abandoned, or indeterminate at two key stages in their life cycle, Initiation and Growth. A successful Initiation stage is defined as OSS developers achieving a first release, and a successful Growth stage is defined as achieving three subsequent releases. English and Schweik operationalized these definitions and tested them on 110,933 SourceForge projects, with low error rates. Wiggins and Crowston [22] validated a refined version with another SourceForge data set, also with good results. Of 117,733 projects, they classified 31% as abandoned at the Initiation stage, 28% as abandoned at the Growth stage, and 14% as successful at both the Initiation and Growth stages. [[skimx://luther2010works#2|p. 2]]
+
+Newgrounds features a multi-author system, where up to ten people can be formally credited as “co-authors” of the completed animation. [[skimx://luther2010works#2|p. 2]]
+
+Crowston and colleagues [9] developed a set of 18 measures of OSS success, organized into four system process phases: creation and maintenance, quality, use, and consequences. These measures were based on DeLone and McLean’s process model for information systems [11], a literature review of success measures in OSS research, and a survey of OSS developers on [[skimx://luther2010works#2|p. 2]]
+
+SlashDot.org. The authors validated their model by operationalizing three of the 18 measures—number of developers, bug-fixing time, and popularity—and testing them on a sample of 120 SourceForge projects. The resulting correlations between measures suggested high convergent validity. [[skimx://luther2010works#3|p. 3]]
+
+Success Factors [[skimx://luther2010works#3|p. 3]]
+
+
+  *  intrinsic motivation and self-selection for tasks [4,19,21]; 
+  *  a charismatic, capable leader [19,20,21]; 
+  *  a meritocratic, rational culture [19,21,23]; 
+  *  a modular, granular division of labor [4,21]; and 
+  *  use of collaborative technologies, such as CVS, TODO lists, and mailing lists [14,23]. [[skimx://luther2010works#3|p. 3]]
+
+Participants frequently mentioned the amount of planning and structure that leaders had invested in a collab thread as a strong indicator of success. Plans and structure not only offer logistical benefits, but also create a favorable impression of the leader: [[skimx://luther2010works#3|p. 3]]
+
+For other participants, familiarity with the people involved in a collab is at least as important as the idea itself and how well it is organized. Often, the first thing artists look for in a collab thread is a “familiar face”; i.e., the name of a friend or past collaborator: [[skimx://luther2010works#3|p. 3]]
+
+Collabs with dedicated leaders, participants explained to us, are more likely to succeed because the leaders are personally invested in their outcomes: [[skimx://luther2010works#4|p. 4]]
+
+A collab leader’s reputation, in particular, must endure considerable scrutiny by artists: [[skimx://luther2010works#4|p. 4]]
+
+Participants suggested that more activity in a thread, indicated by the number and frequency of replies, often corresponds to a greater likelihood of success. More active threads get increased exposure on the first few pages of the forum, inviting still more replies, in a beneficent cycle: [[skimx://luther2010works#4|p. 4]]
+
+REFERENCES [[skimx://luther2010works#10|p. 10]]
+

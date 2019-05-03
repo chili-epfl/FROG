@@ -1,0 +1,3 @@
+h2. Mel Chua's publications
+
+| [@chua2012radically] | Chua, M. (2012). Radically Transparent Research: Show Me The Codes.|

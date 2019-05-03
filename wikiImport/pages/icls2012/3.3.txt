@@ -1,0 +1,43 @@
+h1. Short paper session 3.3
+
+h2. Development and Validation of a Scale to Place Students along a Learning Progression
+//Namsoo Shin, Shawn Y. Stevens//
+
+Learning progression
+
+ConQuest software (Wu, Adams, Wilson and Haldane, 2007)
+
+
+h2. The Knowledge connections Analyzer
+//Jan van Aalst, Carol Chan, Stella Tian, Christopher Teplovs, Yuan Chan, Wing‐San Wan//
+
+h3. Goals
+  * transformative and embedded assessment essential to knowledge building
+  * previous studies: students can develop e-portfolios of KB and this works help them understand how to interact online
+  * but portfolio assessments not embedded, labor intensive and difficult. Need tools and strategies for making it more feasible
+
+The analysis of the database shouldn't only be the responsibility of the researcher or the teacher, but of the students themselves
+
+h3. Tool
+  * converts KF database to MySql database
+  * Queries to answer 4 basic questions students may have about their work in KF
+    * designed to help students reflect on the KB principles
+      * are we a community (class) that collaborates?
+      * are we putting our knowledge together?
+      * how do our ideas develop over time?
+      * what's happening to my own ideas?
+  * [[http://kbc2.edu.hku.hk|Tools will be available here]]
+
+Different ways of analyzing and visualizing who/how many are building on your notes, or linking to your notes.
+
+h2. Bidirectional artifact analysis: A method for analyzing creative processes
+//Alecia Marie Magnifico, Erica Rosenfeld Halverson//
+
+h3. Steps
+  * Identify a learner-created digital artefact (start with final product)
+  * Document relevant data around the artefact
+    * tracing each step in the process of creation
+    * identifying all of the draft artifacts
+    * creating a timeline of all exogenous research data related to the production
+    * (form and presentation of artifact may change substantially over the course of drafts and critiques)
+  * Construct narrative threads across the data types that trace the core ideas and tools present in the final product back through their development

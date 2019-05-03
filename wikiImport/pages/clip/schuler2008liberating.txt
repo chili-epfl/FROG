@@ -1,0 +1,206 @@
+h1. Notes
+
+* Highlight, page 11
+
+A pattern is a concise discussion of a solution to a problem in some area of focus, which in our case is information and communication for social change.
+
+
+
+* Highlight, page 11
+
+A pattern contains suggestions about how to think about solving the problem and about how to take action to alleviate the problem. Each pat- tern is presented in a consistent format: each has a title, a description of the problem it is designed to address, the context within which it is used, and a discussion that explores the motivation for the pattern and how the pattern can be put to use. A pattern language is an organized collection of patterns that together express a broad coherent response to a large number of related problems. In many, if not all, cases, people will use several patterns in conjunction with each other when trying to solve a particular problem.
+
+
+
+* Highlight, page 33
+
+The explanation generally has two parts: a pattern is something that regularly occurs; a language is a way to describe how elements of some type—usually words, but, in our case, patterns, are used together to create a meaningful whole. But why do we persist in calling it a pattern language when less confusing terminology could be used? The best response is that we use the expression pattern language to describe our work because the product is a pattern language, not something else.
+
+
+
+* Highlight, page 64
+
+The popularity of the idea of a pattern language is due almost entirely to Christopher Alexander, professor emeritus of the Architectural and Urban Studies Depart- ment at the University of California at Berkeley, who has been championing a more integra- tive and human-centered approach to architecture for over forty years. (This is why I often refer to the pattern language concept as ‘‘Alexander’s,’’ even though he worked with many colleagues on various aspects of it.) Since at least the early 1960s, when he was writing his Notes on the Synthesis of Form (1964), Alexander has been interested in uncovering the princi- ples behind the development of towns and buildings that are ‘‘able to come alive’’ (1977). He and his colleagues were not interested only in studying these principles, however. Their strategy was identifying and animating these principles by describing them in straight- forward, useful, accessible, and compelling ways, which they then shared with others. The belief was that if people put these ideas to work, the built environment would ultimately become more beautiful and life affirming.
+
+
+
+* Highlight, page 64
+
+In 1968, Alexander, with colleagues Sara Ishikawa and Murray Silverstein, published A Pat- tern Language That Generates Multi-Service Centers, the first publication containing the idea of pattern languages. This book was a fascinating prelude to the enormously popular (and more polished) A Pattern Language, which came nine years later, in 1977. The original design for 50 Chapter 5 the centers presents a ‘‘prototype for multi-service center buildings’’ at a time when the idea of offering multiple community services, particularly to low-income communities, under one roof, was being explored in several U.S. cities.
+
+
+
+* Highlight, page 65
+
+the centers presents a ‘‘prototype for multi-service center buildings’’ at a time when the idea of offering multiple community services, particularly to low-income communities, under one roof, was being explored in several U.S. cities.
+
+
+
+* Highlight, page 65
+
+a ‘‘system of generated principles, which can be richly transformed accord- ing to local circumstances but which never fail to convey their essentials.’’ They say that ‘‘the ultimate purpose of a prototype design, then, is to provide guidelines for which will generate a large number of specific buildings.’’ The pattern language book is actually present- ing and promoting three things: designs for community service centers in specific commu- nities, a prototype for multi-service centers (in the form of patterns and a pattern language), and the concept of the pattern language as a viable approach to characterizing complex ensembles of knowledge.
+
+
+
+* Highlight, page 65
+
+This set of principles is what Alexander and his colleagues began calling a pattern lan- guage, and each principle within the set was called a pattern—each an encapsulated ap- proach for addressing a specific need or solving a specific problem. They also make it clear that to some degree, patterns are portable. Most, if not all, of the patterns could be used in other architectural contexts. Indeed, several patterns, such as Necklace of Community Proj- ects (16), Windows Overlooking Life (18), and Pools of Light (63), also show up in the 1977 book, A Pattern Language, which has 253 patterns. Patterns can be combined in various ways to generate structures that are especially appropriate for any specific conditions, giving the grammatical nature of the pattern set—hence the use of the word language for the collection of principles that are deemed patterns. The patterns debuted in their 1968 book, and all the patterns that followed contain, like a seed, certain elements that must be present for the pattern to be structurally correct. But just as a sentence like, Green dreams exhume electronic cigarettes with happy purple avarice, can be grammatically correct but meaningless, patterns in the Alexandrian sense must meet certain conditions beyond formal structural requirements in order to be bona-fide patterns.
+
+
+
+* Highlight, page 65
+
+The main thing is that the pattern must be useful, and it must describe phenomena that occur over and over in successful buildings. To this end, certain information must be present within the pattern. The information that is distributed within the pattern includes why (what problems the pattern is intended to address and why this approach is appropriate), and when, where it should be used, who should use it, and how it should be used. This in- formation is placed within formalized pattern language elements that typically include title, problem, context, discussion, and solution or their equivalents. The patterns in the book are presented using a specific structure to portray the information. Each pattern has two parts: a pattern statement and a problem statement. The problem statement is subdivided into an ‘‘if’’ part and a ‘‘then’’ part, that is, if the conditions X occur, then we should do Z in order to solve problem Y.
+
+
+
+* Highlight, page 65
+
+Pattern languages are more than a list of patterns. For one thing, they are linked to one another. If, say, a person uses pattern A, then she may also want to use pattern C or D. Al- though the definition and purpose of the links (which Alexander called ‘‘connections’’) vary
+
+
+
+* Highlight, page 66
+
+from pattern language to pattern language, it is the idea that a grammar of sorts exists that helps tie the patterns together into a language. In the pattern language for the multi-service centers, for example, each pattern has its own icon, and the relationships among the sixty- four patterns are shown in a complex network of interrelationships (figure 5.1).
+
+
+
+* Highlight, page 66
+
+Pattern languages are holistic. A pattern language that is about buildings addresses more than physical structure.
+
+
+
+* Highlight, page 66
+
+‘‘The purpose of developing a pattern language was to provide a non-technical vocabulary of design principles that would allow those who work, study, and/or live in buildings to communicate effectively with the planners and designers of those buildings’’ (University of Oregon 2005).
+
+
+
+* Highlight, page 66
+
+In 1977, with the publication of Alexander’s groundbreaking book A Pattern Language, the concept of the pattern language became known far beyond the West Coast of the United States. The majority of the book is taken up with 253 discrete but interrelated planning, architectural, and construction patterns that covered a huge conceptual area, from the divi- sion of the world’s land mass to what types of things one might put in one’s own room.
+
+
+
+* Highlight, page 69
+
+All patterns in the Alexandrian sense share the same basic structure. Patterns can be thought of as ‘‘semistructured’’ chunks of information (Malone 1987) that have five main elements: name, problem, context, solution, and discussion. It is through the use of this common (though minimal) structure that the power and usefulness of the pattern language can emerge. Alexander’s use of the word language is also simpler than it first seems. The language is simply the way that the patterns are related to each other and how patterns are used in conjunction with each other, much as words are components of spoken or written language.
+
+
+
+* Highlight, page 70
+
+Alexander’s book, The Timeless Way of Building (1979), is a somewhat concise definition of a pattern: ‘‘Each pattern is a three-part rule, which expresses a relationship between a certain context, a problem, and a solution’’ (p. 247).
+
+
+
+* Highlight, page 70
+
+Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use the solution a million times over, without ever doing it the same way twice. (Alexander et al. 1977, my emphasis) The pattern is, in short, at the same time a thing, which happens in the world, and the rule which tells us how to create that thing, and when we must create it. It is both a process and a thing; both a descrip- tion of a thing which is alive, and a description of the process which will generate that thing.’’ (Alexander 1979)
+
+
+
+* Highlight, page 70
+
+A pattern language comprises patterns, but a pattern language is not just a collection of pat- terns; it is an ecology of patterns: ‘‘A pattern language is a network of patterns that call upon one another. Patterns help us remember insights and knowledge about design and can be used in combination to create solutions’’ (Alexander et al. 1977).
+
+
+
+* Highlight, page 71
+
+Each pattern is a whole. The collection of patterns becomes a language when the patterns work together to create a larger whole just as words are used together to create meaningful sentences (Alexander 1979). Alexander emphasizes the creative power of patterns that can be used ‘‘over and over again’’ to generate meaningful structures. The generative capability helps to bring forth the life that Alexander believes must be immanent in the structures we inhabit. He also believes that the patterns, far from restraining creativity, promote it. They enable individuals and communities to reuse and interpret the knowledge recorded in the patterns in their particular context without ever doing it the same way twice. Patterns, like words, help give form to our thinking and, like words, can be used over and over in different ways, but each sentence is constructed in a specific context and must be sensitive to that context.
+
+
+
+* Highlight, page 71
+
+On the second page of A Pattern Language, the authors state, ‘‘In this book, we present one possible pattern language,’’ suggesting that pattern languages could be developed in fields besides architecture. Nevertheless, several years elapsed after the first pattern language and their use within a major community of practice outside architecture and planning. Software professionals in the field of object-oriented programming sensed the value of gathering inter- related ideas together using the organizational power of patterns and the pattern languages and adopted those ideas for their own domain.
+
+
+
+* Highlight, page 71
+
+In 1987, Kent Beck and Ward Cun- ningham wrote a paper for OOPSLA, the main object-oriented conference, entitled, ‘‘Using Pattern Languages for Object-Oriented Programs.’’
+
+
+
+* Highlight, page 71
+
+Computing professionals of other persuasions also became interested in pattern languages, notably in the area of human- computer interaction (Tidwell 1999; Borchers 2001).
+
+
+
+* Highlight, page 71
+
+In the mid-1990s Cunningham developed The Portland Pattern Repository, an application on the Web that would enable software engineers to share their patterns with other pro- grammers.
+
+
+
+* Highlight, page 71
+
+The desire to share ideas and experience among the members of the community
+
+
+
+* Highlight, page 72
+
+led Cunningham to transform the pattern repository concept and the application into a ‘‘radically something-something database application,’’ which he christened a Wiki-Wiki, Hawaiian for ‘‘quick’’ or ‘‘hurry.’’
+
+
+
+* Highlight, page 78
+
+Or they develop participatory designs (see the patterns in this book) that advocate a more equitable partnership between developers and the ultimate users of software and other artifacts in its design (Schuler and Namioka 1993).
+
+
+
+* Highlight, page 80
+
+One of the most notable benefits is that the pattern language model is a logical and compelling way to orga- nize complex, intellectually related material.
+
+
+
+* Text Note, page 83
+
+Finally a link for the Grappling with ideas - conference aspect.
+
+
+
+* Highlight, page 83
+
+Owen’s ‘‘open space technology,’’ where meeting agendas are created by the meeting attendees themselves (Owen 1997).
+
+
+
+* Highlight, page 84
+
+When Alexander collected his patterns into a pattern lan- guage, he was faced with the question of how the set should be organized. Digital informa- tion (on the Web, for example) has more inherent flexibility: it can be ordered in countless ways but is still generally ordered in some way. (Ordering and characterizing, two approaches to organizing collections, are strongly related to each other.) Characterizing (or categorizing) is often the prelude to organizing; it is the process of identifying features of the collection that are relevant to the people who use it.
+
+
+
+* Highlight, page 85
+
+Another important di- mension has to do with leverage, that is, what influence it potentially has, This is conceptu- ally similar to Donella Meadows’ s ‘‘Places to Intervene in a System’’ (1997), where the nine different ‘‘places’’ (or ‘‘leverage points’’) are far more likely to yield different results than others. (The ‘‘biggest’’ place to intervene is ‘‘the mindset or paradigm out of which the goals, rules, feedback structures arise,’’ by the way.)
+
+
+
+* Highlight, page 87
+
+As we know, pattern languages are not just collections of pat- terns. For one thing the domain that is being addressed needs to be sufficiently covered and
+
+
+
+* Highlight, page 88
+
+adequately described. In addition to the patterns having a strong correspondence to the domain, the patterns themselves must work and fit together sensibly. In other words, they must be perceived as being a coherent body of knowledge, and the patterns must be linked so that two or more patterns can be employed effectively and efficiently in any situation.
+
+
+
+* Highlight, page 591
+
+Owen, Harrison. 1997. Open Space Technology: A User’s Guide, Second Edition. San Francisco, CA: Berrett- Koehler Publishers Inc.
+
+
+

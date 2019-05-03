@@ -1,0 +1,11 @@
+h1. Barrie Bennett
+{{ pages:a_barrie_bennet1.png}}
+Professor at OISE
+
+h2. Research
+  * instructional scripts / tricks for classrooms ([@bennett2008beyond])
+
+h2. Links
+  * [[http://www.oise.utoronto.ca/cted/Faculty/Barrie_Bennett/index.html|Homepage]]
+
+{{page>abib:Barrie Bennett}}

@@ -1,0 +1,194 @@
+h1. Technology-enhanced interactions & analysis
+
+h2. The impact of interaction analysis (IA) graphs on groups during online collaboration through blogs according to the "learning by design" scenario
+//Georgios Fesakis, Angelique Dimitracopoulou, Aggelos Palaiodimos//
+
+Previous pilot work on blogging Fessakis et al 2008: graphical synopses of interaction raw data of group blogging helps group to increase level of awareness and regulate function leading to better collaboration by students and moderation by teachers
+
+Q: To what extent do IA graphs increase self-regulation by group blog members, impact of different kinds of graphs?
+
+  * 147 students, 21 groups, 7 members each. 
+  * 3 hours training
+  * manual of use on blog
+
+Task: Design technology enhanced lesson plan
+
+Phases
+  * socialization
+  * first design and peer review
+  * revision and peer review
+  * final project deliverables
+
+Graphs
+  * first group
+    * posts per member (per period)
+    * comments per member
+    * SNA
+  * second group
+    * all graphs on group base, not user base
+    * comments-posts bubble graph per group (compare groups at a glance)
+
+Result
+  * graphs of first category produce more posts and comments
+  * intragroup stronger than inter-group
+  * why? 
+    * increase competition
+    * gives students feeling that teacher is monitoring participation
+
+Further direction
+  * automatic production of graphs
+  * smooth integration in learning environment
+
+h2. Multiple modes of scaffolding to enhance web-based inquiry, Annelies Raes, Tammy Schellens, Bram De Wever, Ellen Vanderhoven
+Social Annotating in the Online Margins- Re(designing) an Annotation Tool drawing on Unintended Ways University Students and Faculty Chose to Use It
+//Annelies Raes, Tammy Schellens, Bram De Wever, Ellen Vanderhoven// (Ghent University, Belgium)
+
+When students are searching for evidence on the web, they use ineffective strategies or don't use strategies at all. What skills do they need, how to scaffold? 
+
+Conceptual framework of Brand-Gruwel 2005. Information problem solving while using internet.
+
+Scaffolding
+  * teacher/human tutor
+  * software tools
+  * distributed scaffolding
+  * ...
+  * technology-enhanced scaffolds (embedded hints and question prompts, static, fixed, faded through project)
+  * teacher-enhanced scaffolds (cues and prompts given by teacher or human tutor, dynamic and interactive)
+
+RQs
+  * WISE project, but also web search etc
+  * impact of scaffolding conditions on students learning science
+    * domain-specific knowledge
+    * regulation of cognition (Schraw & Dennison 1994)
+  * do different scaffolding conditions interact with students' characteristics, gender and students' prior knowledge
+
+Pre-test/post-test
+
+Condition with multiple scaffolds significantly outperformed other conditions.
+
+Boys perform worse with teacher + technology, but girls better if teacher is involved. Main impact on students with low prior knowledge.
+
+h2. Social Annotating in the Online Margins: Re(designing) an Annotation Tool drawing on Unintended Ways University Students and Faculty Chose to Use It
+//Eva Bures, Andrew Feenberg, Cindy Xin, Philip Abrami// (Bishop's University, Canada)
+
+Can highlight text, and write little notes on the side. 
+
+Design research: changing features to meet their emergent uses. 
+
+Twelve grad/undergrad classes in Canada, ed and philosophy.
+
+Expected to use it as a private tool - highlight something, just like you do when reading on paper. 
+
+Feature hacked into Moodle.
+
+The students wanted to see each others annotations. First big change: default public. Nobody makes them private. 
+
+Many of the benefits from students were in looking at other people's annotations - seeing what other students, or what instructor thought. 
+
+Functions:
+  * retrieval online (like "bookmarking" passages)
+  * reflection
+  * reply
+    * unexpected - students would reply to comments, starting small discussions on the side
+    * kinds
+      * socio-emotive (encouraging, etc)
+      * meta-cognitive (help progress through task, coordination)
+      * constructing knowledge through content dialogue (questioning directly)
+  * instructor feedback
+    * also unexpected, really love it
+
+A review tool became a social tool. 
+
+Controversial changes:
+  * reply to annotation button was added
+    * didn't use that, kept adding normal annotations
+  * length of annotations set to 250 words (increase) - very aggravating, need more
+
+h2. Investigating Students’ Epistemologies in CSCL discourse through Reflective Judgment Model and Practical Epistemologies
+//Johnny Yuen//
+
+Reflective judgment model (King & Kitchener 1994, 2004)
+  * students reasoning styles in response to ill-structured problems
+    * 7 levels
+    * pre-reflective -> quasi-reflective -> reflective
+
+Epistemological authenticity framework (Chinn & Brewer, 2001; Chinn & Malhotra 2002)
+
+Use Knowledge Forum
+
+Data
+  * survey
+  * coded final essays
+  * contributions to KF (argumentative or questioning markers)
+
+Quality of students engagements discourse-markers in socio-constructive online discourse are somewhat related to students personal reflective judgment.
+
+h2. Supporting Collaborative Interaction with Open Learner Models- Existing Approaches * Open Questions
+//[[:a:Susan Bull]], [[:a:Ravi Vatrapu]]// (U Birmingham, Copenhagen Business School)
+
+  * HCI
+    * intersubjective epistemology
+      * socio-technological affordances (Suthers 2006, Vatrapu 2010)
+      * technological intersubjectivity (Vatrapu 2009)
+      * group cognition (Stahl 2006)
+    * HCI & CSCL
+      * awareness, articulation and appropriation (CSCW)
+      * learner-centered design (Quintana, Shin, Norris & Soloway 2006)
+        * user-centered design
+        * usability, sociability, learnability (Vatrapu 2008)
+  * Open Learner Models (OLM)
+    * domain model, learner model as subset of domain model? 
+    * constructed based on activities of learner
+    * in intelligent tutoring systems, learner model is not accessible to user
+    * open: available to learner
+      * representation (learner knowledge, beliefs, understanding, skills)
+      * data (problem-solving tasks, specific questions, open-ended interaction)
+      * techniques (constraint-based, Bayesian networks, fuzzy, simple weighted algorithms)
+    * adaption to interaction and personalization of learner
+    * OLM is a human-understandable externalisation of underlying learner model
+    * representations to
+      * learners
+      * teachers
+      * parents
+    * kinds of representations
+      * graphs
+      * text
+      * concept maps
+      * etc
+    * aims
+      * promoting metacognitive skills
+      * navigation
+      * etc
+  * OLM & CSCL
+    * three approaches
+      * **individual learner models**, available to peers
+      * **group model** comprising data from individual team members
+      * **combined group model** which is available to group members
+    * optional sharing of OLM
+      * seek suitable collaborators
+      * or seek more capable others
+    * even when not shared
+      * they talk, spontaneously discuss their learner models
+    * potential benefits
+      * individual perception
+        * socio-technical affordances 
+          * meaning making opportunities and action-taking psosibilities
+        * computer support
+          * artifact-centered discourse - models become artifacts for discourse
+        * collaborative learning
+          * empowers student to be in control of own zone of proximal development
+          * open possibility for inter-group collaborative learning
+  * open research questions
+    * roles
+    * differences
+    * access to data
+
+h2. Questions/discussions
+Interesting tension between what is open and what is private, public, ad-hoc sharing etc (annotation and OLM).
+  * also consider longevity - data that is there forever
+  * bad annotators might be the most vocal ones
+  * you might be unwilling to write publicly critical annotations to peers
+
+Critical question: lot's of process variables, but **did they learn**? However you define learning. (Very skeptical to learner models based on domain models).
+
+Penstein Rose: How do process data link to summative measures? 

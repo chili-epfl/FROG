@@ -1,0 +1,3 @@
+h2. Y.S. Han's publications
+
+| hwang2010semantic | Hwang, D., Nguyen, N. T., Jung, J. J., Sadeghi-Niaraki, A., Baek, K. H., & Han, Y. S. (2010). A Semantic Wiki Framework for Reconciling Conflict Collaborations Based on Selecting Consensus Choice. Journal of Universal Computer Science.|[[skimx://hwang2010semantic|PDF]]|

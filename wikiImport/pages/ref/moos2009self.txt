@@ -1,0 +1,37 @@
+h1. Self-efficacy and prior domain knowledge: to what extent does monitoring mediate their relationship with hypermedia learning?
+
+<ifauth !@admin>|Moos, D. C., & Azevedo, R. (2009). Self-efficacy and prior domain knowledge: to what extent does monitoring mediate their relationship with hypermedia learning?. Metacognition and Learning, 4(3), 197--216. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://moos2009self|BibDesk]]  | Moos, D. C., & Azevedo, R. (2009). Self-efficacy and prior domain knowledge: to what extent does monitoring mediate their relationship with hypermedia learning?. Metacognition and Learning, 4(3), 197--216. Springer. |
+^ [[skimx://moos2009self|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:moos2009self?do=edit&vecdo=print\'><frame src=\'/wiki/clip:moos2009self?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{moos2009self,
+  author = {Moos, D.C. and Azevedo, Roger},
+  date-added = {2011-05-25 07:25:33 +0800},
+  date-modified = {2011-06-09 08:29:55 +0800},
+  journal = {Metacognition and Learning},
+  number = {3},
+  pages = {197--216},
+  publisher = {Springer},
+  read = {1},
+  title = {Self-efficacy and prior domain knowledge: to what extent does monitoring mediate their relationship with hypermedia learning?},
+  volume = {4},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXAAAAAAAXAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhBtb29zMjAwOXNlbGYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tEBygG2/QAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKAe89AAAAAQAMANrWUgAXPTEAAZ9eAAIAL1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBtb29zMjAwOXNlbGYucGRmAAAOACIAEABtAG8AbwBzADIAMAAwADkAcwBlAGwAZgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAkVXNlcnMvU3RpYW4vYmliZGVzay9tb29zMjAwOXNlbGYucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEB4uLi8uLi9iaWJkZXNrL21vb3MyMDA5c2VsZi5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACFAIWAhsCJAIvAjMCQQJIAlECcgJ3AnoChwKMAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAp4=},
+  bdsk-file-2 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXQAAAAAAXQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhFtb29zMjAwOXNlbGZhLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tEGyiG0dQAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKIey1AAAAAQAMANrWUgAXPTEAAZ9eAAIAMFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBtb29zMjAwOXNlbGZhLnBkZgAOACQAEQBtAG8AbwBzADIAMAAwADkAcwBlAGwAZgBhAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACVVc2Vycy9TdGlhbi9iaWJkZXNrL21vb3MyMDA5c2VsZmEucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAfLi4vLi4vYmliZGVzay9tb29zMjAwOXNlbGZhLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIYAhoCHwIoAjMCNwJFAkwCVQJ3AnwCfwKMApEAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACow==}
+}
+
+</hidden>
+
+{{page>notes:moos2009self}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:moos2009self}}
+
+{{page>kindle:moos2009self}}
+
+{{page>skimg:moos2009self}}

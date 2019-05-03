@@ -1,0 +1,44 @@
+h1. Notes
+
+h2. Online Learning Laboratory
+a collaborative learning methodology for classroom-based and distance-learning (LOLA).
+
+Activities aim at encouraging knowledge construction. This chapter describes case study with students in postgrad course in education.
+
+h2. Cooperative vs collaborative learning
+differ in terms of
+  * role, authority and degree of intervention of the teacher
+  * hierarcalization of teaching-learning process
+  * construction and assimilation of knowledge
+  * way in which groups are organized
+  * individual and group responsibility for the activities (Matthews, Cooper & Hawkes, 2004)
+
+h3. 7 activities
+  * discussing texts chosen by teacher
+    * use chat or forum to prepare comment on chosen reading
+    * comments are published, can be discussed by teams
+    * "management of heterogeneity"
+  * inserting links and proposing connections with systematized knowledge
+    * bibliographic research, "state of the art" related to subject
+    * make this available to other students
+    * published using EUREKA
+  * questioning existing knowledge
+    * individually (QuestInd) and in small groups (QuestGru) students prepare questions about texts read
+    * teacher: provides guidance, push students to develop more complex questions
+    * in forum tool
+  * replying to questions that have been drawn up
+    * individually (RespInd) or groups (RespGru)
+    * establish their own criteria for choosing question, and content and length of answer
+  * preparing concept maps
+    * "preparing a collective text"
+    * map is synthesis of texts teams have worked on
+  * producing new knowledge
+    * dialogue between group members to choose subject for article
+    * each member writes own contributions
+    * forward to other members, complete and refute or add ideas
+    * added to portfolios
+  * evaluating procedures that were used
+
+h3. Relevant research 
+  * "Laboratório on line de aprendizagem :uma proposta crítica de aprendizagem colaborativa para a educação", PhD thesis by Lupion Torres (2002) 
+  * other papers

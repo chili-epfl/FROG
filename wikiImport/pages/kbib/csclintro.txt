@@ -1,0 +1,10 @@
+h2. Publications with keyword "csclintro"
+
+| [[..:ref:scaife1996external]] | Scaife, M., & Rogers, Y. (1996). External cognition: how do graphical representations work?. International journal of human-computer studies. Elsevier.| [[skimx://scaife1996external|PDF]] |
+| [[..:ref:suthers2001towards]] | Suthers, D. D. (2001). {Towards a Systematic Study of Representational Guidance for Collaborative Learning Discourse}. Journal Of Universal Computer Science.| [[skimx://suthers2001towards|PDF]] |
+| [[..:ref:puntambekar2002scaffolding]] | Puntambekar, S., & Hubscher, R. (2002). Scaffolding in complex learning environments: What we have gained and what we have missed. Educational Psychologist.| [[skimx://puntambekar2002scaffolding|PDF]] |
+| [[..:ref:stahl2002contributions]] | Stahl, G., & Augustin, S. (2002). {Contributions to a Theoretical Framework for CSCL}. Proceedings of Computer Supported Collaborative Learning (CSCL 2002).| [[skimx://stahl2002contributions|PDF]] |
+| [[..:ref:scardamalia2006knowledge]] | Scardamalia, M., & Bereiter, C. (2006). Knowledge building: Theory, pedagogy, and technology. In K. Sawyer (Ed.),  (Tran.), The Cambridge handbook of the learning sciences (97–118). New York: Cambridge University Press.| [[skimx://scardamalia2006knowledge|PDF]] |
+| [[..:ref:suthers2008empirical]] | Suthers, D. D. (2008). Empirical studies of the value of conceptually explicit notations in collaborative learning. In A. Okada, S. Buckingham Shum & T. Sherborne (Eds.),  (Tran.), Knowledge Cartography (1--23). Springer.| [[skimx://suthers2008empirical|PDF]] |
+| [[..:ref:liddo2010cohere]] | Liddo, A. D., & Buckingham Shum, S. (2010, February). Cohere: A prototype for contested collective intelligence. Retrieved from http://oro.open.ac.uk/19554/.| [[skimx://liddo2010cohere|PDF]] |
+| stahl2006supporting | Stahl, G. (2006). Supporting group cognition in an online math community: A cognitive tool for small-group referencing in text chat. Journal of Educational Computing Research. Baywood. | [[skimx://stahl2006supporting|PDF]]|

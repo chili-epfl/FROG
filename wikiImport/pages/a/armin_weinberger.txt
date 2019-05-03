@@ -1,0 +1,13 @@
+h1. Armin Weinberger
+{{ pages:a_armin_weinberger1.png}}
+Professor in educational technology, Uni Saarland
+
+h2. Research
+  * [[:scripting]]
+  * argumentation
+  * intercultural learning
+
+h2. Links
+  * [[http://bildungswissenschaften.uni-saarland.de/index.php?page=person&pid=5|Homepage]]
+
+{{page>abib:armin weinberger}}

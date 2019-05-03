@@ -1,0 +1,79 @@
+h1. Key ideas
+
+h2. Metaphors
+Socrates "pedagogical use of learning technology - drawing informal sketch in the sand. 
+Advantages:
+  * more expressive of key concepts than a neat, chiseled presentation
+  * informal sketch better invites participation of student in active reasoning, compare to formal diagram
+  * act of drawing, gesturing and speaking in close synchrony let's him focus student's attention of meaning
+  * by asking probing questions, learns about student's state of knowledge, adaptability of instruction
+::(So in a way, informal sketches "afford" messing with, modifying, redrawing, thinking with in a different way than professionally rendered visualizations?)::
+
+h2. Affordances of ink
+  * express important ideas more vividly (compared to typing)
+  * teachers can highlight and annotate over words and diagrams, focusing student attention on key features
+
+h2. Student-response systems
+Clickers, multiple choice questions. Anonymous answers. Incorporated in a teaching pattern which includes discussing with the side-partner, etc. [[Classroom Response]] (early system with tablets).
+
+h2. Improvisation and coordination
+
+All these presume that teacher coordinates all classroom interaction, no support for *coordinated use of technology among students*
+
+<blockquote>GS to be a platform that supports teachers in inventing and enacting new forms of collaboration and coordination in their classroom without resorting to additional programming.</blockquote>
+
+Synchronize attention and actions with those of partner to accomplish shared outcome is an elemental skill for students to learn.
+
+In the classroom, cost of coordination is traditionally a major barrier to engaging in more playful learning experiences.
+
+h2. Design
+h3. Layout
+Above, there is a public space, all notes dragged here are automatically visible to everyone in the group, or the whole class. 
+
+Below is a private space, a scribble pad which is an endless source of fresh scribble sheets. Users can pull sheets off the pad and write or type on them to generate new content. Users can zoom out several levels to help arrange and maintain their Scribbles
+
+h3. Unit
+Scribble sheet - small square of virtual paper, large enough to express a single thought or concept. 
+
+  * can be public or private (easily controlled through spatial location on screen, upper or lower window)
+  * unique - can only exist one place. moving it between public and private is a way of coordinating, turn-taking, etc.
+  * can be spatially organized to express groupings, chronologies or hierarchies
+  * can have attached a smaller sheet, named label, as annotation
+  * take operation executes atomically - only one person can take the sheet, this enables self-coordination, without having lot's of students milling around a physical board
+  * once pads are on the public board, anyone can reorganize them, and take them to their private board (and then put them back, if they want to)
+
+h3. Technology
+[[Tuple Space]] architecture.
+
+Supports multiple simultaneous dragging operations.
+
+h2. Teaching patterns
+
+h3. Fractions
+  * teacher asks students to scribble fractions between 0 and 1, and post the sheet publicly
+  * branch points:
+    * if some have used decimal or percentage, teacher can ask them to replace this sheet as ratio
+    * if everyone understood correctly, continue
+  * ask them to attach labels to the biggest or smaller fractions, closest to 3/4 etc.
+  * ask students to convince neighbour of which fraction is the biggest.
+  * ask students to place their fractions in order (taking advantage of spatial organization)
+  * ask students to label fractions not in order
+  * discuss equivalent fractions, like 1/3 or 2/6
+      * try to think of additional equivalent fractions, keep them on private board for now
+      * ask one student "Asher, would you share one of your equivalent fractions by dragging to public board?" "thanks, 3/9 is also equivalent, how many of you had 3/9? did anyone have a different equivalent fraction?"
+      * move into discussion about how to prove that they are different
+    * discussion about different representations
+      * create a matrix with kinds of representations on top, and fractions on the left, students can fill in with bar charts, pie diagrams etc
+h3. University examples
+  * professor asks students to produce sheets with different molecules forms of representation, such as formulas, electron-dot diagrams, or ball-and-stick diagrams
+  * physics professor can have students sketch a ball at different places in its trajectory and place these in order, from most to least kinetic energy
+  * Chinese-language professor challenge class to come up with radicals and put together different Chinese characters
+
+h3. Group simulation / distributed algorithm
+  * asking group members to write birth date on a scribble sheet, post on public board
+  * teacher challenges students to come up with a method by which they could add up all numbers
+  * someone comes up with a distributed algorithm
+  * how to prevent deadlock, etc. 
+
+h3. Collaborative games
+  * hangman, password, apples-to-appes, crossword, sudoku

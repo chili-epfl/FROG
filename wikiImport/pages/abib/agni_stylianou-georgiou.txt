@@ -1,0 +1,3 @@
+h2. Agni Stylianou-Georgiou's publications
+
+| [@stylianou2011analyzing] | Stylianou-Georgiou, A., Papanastasiou, E., & Puntambekar, S. (2011). Analyzing collaborative processes and learning from hypertext through hierarchical linear modelling. Analyzing Interactions in CSCL, 145--159.|

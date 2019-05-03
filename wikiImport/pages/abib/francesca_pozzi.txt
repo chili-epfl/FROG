@@ -1,0 +1,7 @@
+h2. Francesca Pozzi's publications
+
+| [@pozzi2007general] | Pozzi, F., Manca, S., Persico, D., & Sarti, L. (2007). A general framework for tracking and analysing learning processes in computer-supported collaborative learning environments. Innovations in Education and Teaching International, 44(2), 169--179.|
+| [@bottino2008supporting] | Bottino, R., Earp, J., Olimpo, G., Ott, M., Pozzi, F., & Tavella, M. (2008). Supporting the design of pilot learning activities with the Pedagogical Plan Manager. Learning to Live in the Knowledge Society, 37--44. |
+| [@pozzi2009using] | Pozzi, F. (2009). Using Collaborative Techniques in Virtual Learning Communities. In U. Cress, V. Dimitrova & M. Specht (Eds.), Learning in the Synergy of Multiple Disciplines (Vol. 5794, 670--675). Berlin, Heidelberg: Springer Berlin Heidelberg. |
+| [@pozzi2010using] | Pozzi, F. (2010). Using Jigsaw and Case Study for supporting online collaborative learning. Computers & Education, 55(1), 67 - 75. doi:DOI: 10.1016/j.compedu.2009.12.003|
+| [@pozzi2011impact] | Pozzi, F. (2011). The impact of scripted roles on online collaborative learning processes. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9108-x|

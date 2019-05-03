@@ -1,0 +1,3 @@
+h2. Tim Van de Cruys's publications
+
+| [@cruys2009non-negative] | Cruys, T. V. de. (2009). A Non-negative Tensor Factorization Model for Selectional Preference Induction. In Proceedings of the {EACL} 2009 Workshop on {GEMS:} {GEometical} Models of Natural Language Semantics (83–90).|

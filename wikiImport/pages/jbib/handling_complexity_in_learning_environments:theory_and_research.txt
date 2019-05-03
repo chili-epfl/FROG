@@ -1,0 +1,3 @@
+h2. Publications in Handling Complexity in Learning Environments: Theory and Research
+
+| dillenbourg2006collaboration | Dillenbourg, P., & Bétrancourt, M. (2006). Collaboration load. Handling Complexity in Learning Environments: Theory and Research, 141--165.|[[skimx://dillenbourg2006collaboration|PDF]]|

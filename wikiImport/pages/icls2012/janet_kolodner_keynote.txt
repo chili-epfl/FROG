@@ -1,0 +1,62 @@
+h1. Learning scientists changing the world: Challenges and opportunities
+//keynote by [[:a:Janet L. Kolodner]]//
+
+//(notes by [[http://proto-knowledge.blogspot.ca/2012/07/review-of-20-years-of-research-in.html|Beat Schwendimann]])//
+
+Learning deeply, //a process of mental model building//, takes sustained and long-term effort and often requires a lot of help.
+
+(the Italic text is partly controversial)
+
+h2. What we know
+
+  * Promoting and sustaining active engagement is somewhere between 50% and 80% of promoting learning
+  * Learning is a process of iteratively constructing, revising and connecting together mental models - models of what we know and models of how to do things
+  * Becoming fluid at reasoning skills is an iterative process of composing and debugging sequences of how-to's (Schank and Abelson; Anderson; Newell, Rosenbloom Laird)
+  * We know we need to learn something when a mental model or how-to sequence doesn't do the work we want it to do - either we can't do something we want to or or something turns out different than we expected or something happens that we weren't expecting and can't explain
+  * Great deal of reflection and inteerpretation needed to recognize the need to learn and to troubleshoot and revise ones mental models
+
+h3. Helping learners build mental models
+  * framing first, details later (Collins)
+  * help learners experience the results of their decisions, help learners interpret those results and use them to debug their reasoning and understanding; repeat over and over again, repeated deliberative practice
+  * includes reflection on, articulation of debugging of reasoning (interperstation)
+  * recurring opportunities to try out, troubleshoot and revise understanding
+  * lead students to wonder by asking questions (book, teacher and peers can play this role)
+  * allow learners to notice, to identify what they do and don't understand
+  * promote identifying holes in one's mental models and generating questions
+  * help learners care enough (so they have learning goals) to put in the mental energy to construct and revise mental models
+  * help learners connect their mental models by helping them recognize and revisit what they already know and the implications of that on what they are learning (knowledge integration, Linn)
+
+h3. Intrinsic motivation promotes sustained active engagement
+
+  * Personal and epistemological connections promote engagement and learning (Papert, Resnick)
+    * connect with prior knowledge 
+    * when they are interested
+    * when what they are learning connects to the real world and they are helped make that connection
+    * with a goal in mind, learners will themselves become curious and want to learn 
+  * Communities of practice work together to help each other achieve goals
+    * community (of many kinds) encourages engagement
+    * can be created in formal and informal learning environments, with engineered early activities to promote shared values and ways of doing, continued work together to sustain the community (Kolodner)
+    * community engagement gives learners opportunities to imagine what they might be, and mentors can help learners align themselves to their imaginations
+  * Thick authenticity for maintaining integrity (Shaffer and Resnick)
+    * keep it real to keep people engaged - thickly athentic in the mind of the learners
+    * personal, disciplinary, real world, assessment authenticity
+    * solving problems relevant to the world learners live in, having available the same kinds of tools and resources professionals would have
+    * a big question or challenge promotes personal connection (Krajcik, Edelson, Reiser, Kolodner)
+    * assessment is embedded, relevant to learners' goals, and meaningful to learners
+  * Turning over agency to learners allow learners to decide for themselves to participate (Holland)
+    * encouraging agency encourages engagement, and disposition
+  * Providing scaffolding that promotes success and self-assessment keeps it challenging but not out of reach
+
+h2. Implications
+  * lessons will be de-emphasized
+  * challenges will be emphasized
+    * not the same as projects
+    * projects are about doing something, challenges about achieving something
+  * activities will be in the context of challenges, and lessons in the context of activities
+  * lectures will be for purposes identified by learners, and they will often be short and impromptu, recorded and available as needed, or interactive (to be watched as a group, stopped and started as needed, watched and then discussed)
+  * reading, like lectures, will be for purposes identifed by learners to answer questions they have raised or to provide details on what they have already experienced or contextualized
+
+h3. Classrooms
+  * places for addressing challenges together
+  * learning will be purposeful
+  * assessment will be purposeful

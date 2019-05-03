@@ -1,0 +1,3 @@
+h2. A. Cohen's publications
+
+| cohen1998discourse | Cohen, A., & Scardamalia, M. (1998). Discourse About Ideas: Monitoring and Regulation in {Face-to-Face} and {Computer-Mediated} Environments*. Interactive Learning Environments.||

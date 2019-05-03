@@ -1,0 +1,3 @@
+h1. Badges
+
+  * [[https://docs.google.com/document/d/1LgJ56eoGrTRdXtdMePc-sXHlugB9a4ppr2QrIYHDmuM/edit|Towards a Comprehensive Understanding of Badging Systems: A Participatory Draft - Google Docs]]

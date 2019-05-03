@@ -1,0 +1,3 @@
+h2. BA Huberman's publications
+
+| [@golder2006usage] | Golder, Sa., & Huberman, Ba. (2006). Usage Patterns of Collaborative Tagging systems. Journal of Information Science, 32(2), 198-208. doi:10.1177/0165551506062337|

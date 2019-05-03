@@ -1,0 +1,12 @@
+h1. Frank De Jong
+{{ pages:a_frank_de_jong03.png}}
+
+Works at Stoas Hogeschool, Wageningen, Netherlands
+
+h2. Research
+  * some interest in [[:Knowledge Building]], past participation in IKIT
+
+h2. Links
+  * [[http://www.kenniskring.eu/|Kenniskring]] a project he is involved with (?)
+
+{{page>abib:Frank De Jong}}

@@ -1,0 +1,34 @@
+h1. Sociotechnical Relations in the Creation of an Interest--Driven Open Course
+
+<ifauth !@admin>|Ponti, M. (2011). Sociotechnical Relations in the Creation of an Interest--Driven Open Course. Elearning and Digital Media, 8(4).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://ponti2011sociotechnical|BibDesk]]  | Ponti, M. (2011). Sociotechnical Relations in the Creation of an Interest--Driven Open Course. Elearning and Digital Media, 8(4). |
+^ [[skimx://ponti2011sociotechnical|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:ponti2011sociotechnical?do=edit&vecdo=print\'><frame src=\'/wiki/clip:ponti2011sociotechnical?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{ponti2011sociotechnical,
+  author = {Ponti, M.},
+  date-added = {2011-07-22 08:01:05 +0000},
+  date-modified = {2012-04-08 16:28:19 +0000},
+  journal = {Elearning and Digital Media},
+  keywords = {1p2pu},
+  number = {4},
+  title = {Sociotechnical Relations in the Creation of an Interest--Driven Open Course},
+  volume = {8},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZwAAAAAAZwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhtwb250aTIwMTFzb2Npb3RlY2huaWNhbC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcIUy9dHr1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL13/vAAAAAQAMANrWUgAXPTEAAZ9eAAIAOlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBwb250aTIwMTFzb2Npb3RlY2huaWNhbC5wZGYADgA4ABsAcABvAG4AdABpADIAMAAxADEAcwBvAGMAaQBvAHQAZQBjAGgAbgBpAGMAYQBsAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC9Vc2Vycy9TdGlhbi9iaWJkZXNrL3BvbnRpMjAxMXNvY2lvdGVjaG5pY2FsLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QKS4uLy4uL2JpYmRlc2svcG9udGkyMDExc29jaW90ZWNobmljYWwucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkACQgJHAlACWwJfAm0CdAJ9AqkCrgKxAr4CwwAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALV}
+}
+
+</hidden>
+
+{{page>notes:ponti2011sociotechnical}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:ponti2011sociotechnical}}
+
+{{page>kindle:ponti2011sociotechnical}}
+
+{{page>skimg:ponti2011sociotechnical}}

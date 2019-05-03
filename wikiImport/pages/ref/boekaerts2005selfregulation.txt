@@ -1,0 +1,37 @@
+h1. Self-Regulation in the Classroom: A Perspective on Assessment and Intervention
+
+<ifauth !@admin>|Boekaerts, M., & Corno, L. (2005). Self-Regulation in the Classroom: A Perspective on Assessment and Intervention. Applied Psychology, 54(2), 199--231. Retrieved from http://onlinelibrary.wiley.com/store/10.1111/j.1464-0597.2005.00205.x/asset/j.1464-0597.2005.00205.x.pdf?v=1&t=go3h9trj&s=c21949bdcbc74851546f9a1ee84df2e7909e1812.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://boekaerts2005selfregulation|BibDesk]]  | Boekaerts, M., & Corno, L. (2005). Self-Regulation in the Classroom: A Perspective on Assessment and Intervention. Applied Psychology, 54(2), 199--231. Retrieved from http://onlinelibrary.wiley.com/store/10.1111/j.1464-0597.2005.00205.x/asset/j.1464-0597.2005.00205.x.pdf?v=1&t=go3h9trj&s=c21949bdcbc74851546f9a1ee84df2e7909e1812. |
+^ [[skimx://boekaerts2005selfregulation|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:boekaerts2005selfregulation?do=edit&vecdo=print\'><frame src=\'/wiki/clip:boekaerts2005selfregulation?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{boekaerts2005selfregulation,
+  author = {Boekaerts, M. and Corno, L.},
+  date-added = {2011-04-22 13:27:01 -0400},
+  date-modified = {2012-02-03 08:17:51 +0000},
+  issn = {1464-0597},
+  journal = {Applied Psychology},
+  number = {2},
+  pages = {199--231},
+  read = {1},
+  title = {{Self-Regulation} in the Classroom: A Perspective on Assessment and Intervention},
+  url = {http://onlinelibrary.wiley.com/store/10.1111/j.1464-0597.2005.00205.x/asset/j.1464-0597.2005.00205.x.pdf?v=1&t=go3h9trj&s=c21949bdcbc74851546f9a1ee84df2e7909e1812},
+  volume = {54},
+  year = {2005},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAawAAAAAAawAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh9ib2VrYWVydHMyMDA1c2VsZnJlZ3VsYXRpb24ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2stVygG3yQAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKAfAJAAAAAQAMANrWUgAXPTEAAZ9eAAIAPlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib2VrYWVydHMyMDA1c2VsZnJlZ3VsYXRpb24ucGRmAA4AQAAfAGIAbwBlAGsAYQBlAHIAdABzADIAMAAwADUAcwBlAGwAZgByAGUAZwB1AGwAYQB0AGkAbwBuAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASADNVc2Vycy9TdGlhbi9iaWJkZXNrL2JvZWthZXJ0czIwMDVzZWxmcmVndWxhdGlvbi5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEC0uLi8uLi9iaWJkZXNrL2JvZWthZXJ0czIwMDVzZWxmcmVndWxhdGlvbi5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACUAJSAlcCYAJrAm8CfQKEAo0CvQLCAsUC0gLXAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAuk=}
+}
+
+</hidden>
+
+{{page>notes:boekaerts2005selfregulation}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:boekaerts2005selfregulation}}
+
+{{page>kindle:boekaerts2005selfregulation}}
+
+{{page>skimg:boekaerts2005selfregulation}}

@@ -1,0 +1,2 @@
+h1. Key ideas
+//Use a number of tools to convert log data from different processes into a common format, and merge logs. Look at temporal (A follows B), semantic, and social relationships. Produce different kinds of graphs/visualizations. Used with open-ended community of practice.//

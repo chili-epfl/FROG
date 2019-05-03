@@ -1,0 +1,35 @@
+h1. Paragogical Praxis
+
+<ifauth !@admin>|Corneli, J. (2012). Paragogical Praxis. E-Learning and Digital Media, 9(3).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://corneli2012paragogical|BibDesk]]  | Corneli, J. (2012). Paragogical Praxis. E-Learning and Digital Media, 9(3). |
+^ [[skimx://corneli2012paragogical|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:corneli2012paragogical?do=edit&vecdo=print\'><frame src=\'/wiki/clip:corneli2012paragogical?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{corneli2012paragogical,
+  author = {Corneli, Joseph},
+  date-added = {2012-04-10 23:30:02 +0000},
+  date-modified = {2012-04-12 20:05:55 +0000},
+  date-read = {2012-04-12 13:05:55 -0700},
+  journal = {E-Learning and Digital Media},
+  number = {3},
+  read = {1},
+  title = {Paragogical Praxis},
+  volume = {9},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhpjb3JuZWxpMjAxMnBhcmFnb2dpY2FsLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaE/ky9b9pVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXlAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3JuZWxpMjAxMnBhcmFnb2dpY2FsLnBkZgAADgA2ABoAYwBvAHIAbgBlAGwAaQAyADAAMQAyAHAAYQByAGEAZwBvAGcAaQBjAGEAbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9jb3JuZWxpMjAxMnBhcmFnb2dpY2FsLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9jb3JuZWxpMjAxMnBhcmFnb2dpY2FsLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:corneli2012paragogical}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:corneli2012paragogical}}
+
+{{page>kindle:corneli2012paragogical}}
+
+{{page>skimg:corneli2012paragogical}}

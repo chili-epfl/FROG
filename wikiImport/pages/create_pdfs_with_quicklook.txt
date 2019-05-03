@@ -1,0 +1,40 @@
+h1. Create PDFs with QuickLook
+
+Word documents are good for editing, and better for converting to Kindle .mobi files, etc. But my academic workflow is built around PDFs, and I like using Skim for marking them up etc. I also hate having to fire up Word every time I just want a quick look at some document.
+
+Turns out you can use QuickLook to generate PDFs from any format it knows how to preview (and you can add support for lot's of extra formats [[http://www.quicklookplugins.com/|through plugins]]).
+
+I got the inspiration from [[http://stackoverflow.com/questions/5274174/mac-how-to-convert-excel-and-other-file-types-to-pdf-programmatically/5277361#5277361|this post]]. Running <code>qlmanage -p -o outdirectory file</code>creates a directory called file.qlpreview, which contains a Preview.html, and perhaps some images. Then you can use [[http://code.google.com/p/wkhtmltopdf/|wkhtmltopdf]], which you have to install first (just download [[http://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.9.9-OS-X.i368|wkhtmltopdf-0.9.9-OS-X.i368]], and move it to /usr/bin, or where you keep your binaries, and change the name to wkhtmltopdf.
+
+All the script does is grab the currently selected file(s) in Finder, uses qlmanage to extract HTML files, modified the HTML file a little bit to look nicer, and runs wkhtmltopdf to convert it to a PDF. It then highlights the converted file in Finder. 
+
+The latest version of the code (not necessarily the one below) is on [[http://github.com/houshuang/folders2web|github]] in the file **qlmanage-doc2pdf.rb**. Use a keyboard shortcut program like Keyboard Maestro, or turn it into a service.
+
+<code ruby># encoding: UTF-8
+# this script takes a doc file as input (or anything, really), and generates a PDF, using qlmanage and wkhtmltopdf
+
+require 'appscript'
+include Appscript
+require 'cgi'
+
+def do_pdf(path)
+  arg = path
+  puts path
+  file = File.basename(path)
+  `qlmanage -p -o /tmp "#{arg}"`
+  if File.exists?("/tmp/#{file}.qlpreview/Preview.html")
+    a = File.read("/tmp/#{file}.qlpreview/Preview.html") 
+    b = a.gsub('<div class="PageStyle">',"").gsub('{background:#ACB2BB;}','')
+    File.open("/tmp/qlmanage-doc2pdf-tmp.html","w") {|f| f << b}
+    `wkhtmltopdf /tmp/qlmanage-doc2pdf-tmp.html "#{arg}.pdf"`
+    app('Finder').reveal( MacTypes::FileURL.path(arg + ".pdf"))
+  else
+    `/usr/local/bin/growlnotify -t "Not able to convert to PDF" -m "Preview could not convert #{file}"`
+  end
+end
+
+app('Finder').selection.get.each do |item|
+  url =CGI::unescape(item.URL.get)
+  do_pdf(url[16..-1])
+end
+`/usr/local/bin/growlnotify -m "Conversion complete"`</code>

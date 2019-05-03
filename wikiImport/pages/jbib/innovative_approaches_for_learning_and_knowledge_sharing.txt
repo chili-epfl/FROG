@@ -1,0 +1,3 @@
+h2. Publications in Innovative approaches for learning and knowledge sharing
+
+| holmer2006explicit | Holmer, T., Kienle, A., & Wessner, M. (2006). Explicit referencing in learning chats: Needs and acceptance. Innovative approaches for learning and knowledge sharing, 170--184. Springer.|[[skimx://holmer2006explicit|PDF]]|

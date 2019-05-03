@@ -1,0 +1,234 @@
+h1. Key ideas
+//Good literature review on Piaget and Vygotsky (from 1986). Introduces **Reciprocal Teaching** for teaching active reading comprehension skills, using teacher as a fading scaffold.//
+
+h2. Reciprocal teaching
+Combines
+  * expert scaffolding
+  * guided practice in applying simple concrete strategies
+  * cooperative learning discussions
+
+h2. Research question
+  * How can cooperative learning influence individual knowledge acquisition
+  * Does participation in a group problem-solving setting influence individual learning, and if so, in what way?
+  * What are the essential functions of groups that encourage learning? 
+  * What role, if any, does an explicit instructional goal play in such a setting?
+
+h2. Literature review
+h3. Learning and knowledge acquisition
+Stages
+  * ability to regurgitate
+    * leads to inert knowledge, difficult to access without specific activation cue
+    * fails to become part of usable store of knowledge
+    * learner has not established ownership
+  * ownership
+    * flexible access to knowledge
+    * ability to adapt, apply, update or modify knowledge at will
+  * assimilation of knowledge
+    * part of workable knowledge base, can be applied widely
+  * modification or adaptation of usable knowledge in face of new experiences
+    * generalizable body already exists, incompatible new experiences force restructuring
+  * true theory change
+    * stage-like change in fundamental models of thinking restructures knowledge throughout system
+
+h3. Group settings for conceptual change
+situations that 
+<csv>
+"foster automatization, ritualization or routinization and speed", VS, "situations that encourage reflection"
+</csv>
+
+Group learning is ideal for the latter (encouraging consideration of the reason why one acts).
+
+//Discovery methods associated with low information transfer rate, maybe less effective than lectures in content retention measures - belief is that there are general improvements in thinking skills//
+
+h4. Worrying knowledge
+Conceptual understanding and adaptive change fostered in situations which encourage dissatisfaction with existing state of knowledge - change is unlikely when status quo is unquestioned. **Environments which take knowledge as an object of thought, encourage questioning, evaluating, criticizing, worrying knowledge, fruitful breeding grounds for restructuring.**
+
+Dissatisfaction -> mental experimentation, evaluation -> uncertainty, insecurity -> accentuated by questioning and criticism. 
+
+h4. Explanation to others 
+Change more likely to occur when one is required to explain, elaborate or defend one's position to others. Burden of explanation can be push needed to make learner integrate and elaborate knowledge in new ways. 
+
+h2. Vygotsky and Piaget, social or individual first?
+<csv>
+social first, individual first
+"individual thought processes originate in social interactions","all meaningful conceptual change is self-directed, human beings intrinsically motivated to understand the world around us"
+Vygotsky, Piaget
+"learning is mostly other-directed, children continually observe and participate in group activities, conceptual change is process of internalizing cognitive activities originally experienced in the company of others","child as tireless explorer (Chukovsky),  little scientist (Piaget)"
+</csv>
+
+Piaget and Vygotsky held responsible for two opposing views, but not entirely fair.
+
+Piaget: groups are a great forum for helping transitional children take leap to higher level of understanding. Opposing positions causing children to reflect, decenter thinking from egocentric perspective. Social interaction is a necessary condition for developing logic. Process of group interaction internalized as part of child's emergent thinking repertoir, can in the future argue with ourselves because we've had social experience of arguing before.
+
+Vygotsky: consider self-directed experimental play in treatment of tool use, but most emphasizing social nature of individual cognition. Individual thinking is essentially the reenactment  by the individual of cognitive processes that were originally experienced in the company of others.
+
+h4. Guided learning and internalization
+Vygotsky: Expert-led social interactions have central place in learning, provide major impetus to cognitive growth. Piaget and Dewey also place heavy emphasis on guided learning as impetus to developmental change. 
+
+  * what kinds of interactions are maximally effective at inducing cognitive growth? 
+  * to what extent do social collaborations lead to independent competence? 
+  * what are mechanisms underlying internalization? 
+  * can optimal interactions be orchestrated deliberately in instructional settings?
+
+h3. Cooperative learning
+Most research focus on motivation and incentive, rarely looking at actual thinking processes or analyzing learning outcomes. 
+
+Scripts:
+  * jigsaw
+  * student team achievement division
+  * teams-games-tournaments
+  * group investigation
+  * learning together model
+
+Research shows that cooperative learning improves learning outcomes, but why? 3 theories:
+
+  * giving explanations positively correlated with achievement (but maybe those who can explain already knew?)
+  * receiving help somewhat correlated (but what kind)
+  * receiving no answer to questions strongly related to poor outcomes
+
+h4. Role of groups
+Groups provide cognitive support and social/motivational support.
+
+Microethnographic studies of group constellations in classroom have examined the participant structures that modulate interaction. 
+
+In group problem-solving, **thinking load distributed among members, with both cognitive and emotional consequences.** Group sustains general emotive tension because it "shares out" effort of thinking, reduces anxiety produced by having to keep the argument going… 
+
+::This seems to apply much more to synchronous collaboration where each person holds a piece of the map in their mind and is immediately available to be called upon - in asynchronous discussions, each individual must hold the whole map in his mind to be able to respond - granularity of collaboration?::
+
+In group argument, **witness epistemic operations**: 
+  * referring to context, past knowledge, data or general principles
+  * defining the problem
+  * isolating important contributing variables
+  * evaluating progress etc
+Even grade school children observe some basic rules of formal argument, requiring justifications, warrants and backings for a position
+
+h5. Group roles
+Multiple group roles (spontaneously): 
+  * executive (designs plans for action and suggests solutions)
+  * skeptic/critic (questions premises or plans)
+  * didactic (educator, takes on burden of explanation and summarization for less involved group members)
+  * record keeper (keeps track of what has passed)
+  * conciliator (resolves conflict and strives to minimize interpersonal stress)
+roles might appropriated by individual group members or might fluctuate over time. Sharing out these roles also reduce cognitive load.
+
+**Eventually individual will need to internalize all of these roles**
+
+::Would it therefore be better if individuals were compelled to try out all of the different roles to get practice?::
+
+::Similar to explicit meeting roles in consensus groups. Difference between function in one synchronous meeting, and in a longer-term community perspective::
+
+Can be legislated - successful adult dyadic pairs where one is the executor or didactic, and the other is critic etc. In young children, separating role of learning leader from learning listeners. 
+
+h5. Shared expertise
+::Much more important in adults - as well as shared networks?:: 
+
+**Aaronson's jigsaw method** (1978): Children divided into groups of five or six, each group responsible for large body of material on which they will be tested. Material also divided into five-six parts. 
+
+Each group consists of children responsible for part 1, part 2 etc. They first meet in groups (all the part 1's), then return to their holistic group. Each group responsible for covering all the material. 
+
+h5. Requirements for success
+  * only when a child has a partial grasp of the concept in question will peer interactions be effective
+  * social status of children is important - if someone is so strong that what they say becomes pseudoconsensus, learning goes down. 
+    * because of this, Piaget thinks that adults are less effective catalysts of change than peers - too much authority!
+  * child must be faced with a view which both contradicts her own, but also one she can take seriously, "valid centration"
+
+h4. Scaffolding
+**Expert scaffolding** by teacher, master craftsman etc. 
+
+**Procedural support** - intermediate between pure external co-construction of problem solutions and pure intrapersonal thought, temporary assistance is given to child in the form of **"assisted monologue"**
+
+**Scardamalia**: cue cards like "an even better idea is...", gets stronger essays
+
+//Mental prosthetics device //
+
+Classic examples of deliberate, expert-led instruction:
+  * discovery teaching (Davis 1966)
+  * Socratic dialogues (Anderson and Faust 1974)
+ 
+h5. Analysis of instructional ploys used by Socratic teachers 
+//(Collins and Stevens 1982)//
+
+Goals of teaching:
+  * facts and concepts
+  * rule or theory to account for concepts
+  * how to derive rules or theories in general
+
+Main ploys:
+
+  * systematic variation of cases
+  * counter examples and hypothetical cases
+  * entrapment strategies
+  * hypothesis identification strategies (force student to specify working strategy
+  * hypothesis evaluation strategy (make them evaluate hypothesis critically
+
+During discussions, teacher deliberately sequences goals and subgoals
+
+  * errors before omissions
+  * easy misconceptions before fundamentally wrong thinking
+  * address students who have not recently participated first
+  * select teaching examples
+  * analogies grouped by principle
+
+Structure knowledge in students' ZPD, assume continually updating "student model" in teacher's head
+
+h2. Reciprocal teaching
+Designed to provide simple introduction to group discussion techniques aimed at understanding and remembering text content
+
+**Goal**: to have procedure accessible to average teachers and less than average students. Applying simple concrete strategies to the task of **text comprehension**.
+
+h3. Procedure
+Adult teacher and group of students take turns leading a discussion on contents of a section of text they are trying to understand. Discussion leader must ensure four strategic activities: 
+
+  * questioning
+  * clarifying
+  * summarizing
+  * predicting
+
+Flow:
+
+  * Goal is **joint construction of meaning**
+  * **strategies** provide concrete heuristics for getting procedure going
+  * **teacher modeling** provides examples of expert performance
+  * **reciprocal** nature of procedure **forces student engagement**
+
+h3. Strategies
+Not random - good students routinely use them, and poor students don't use them. Improve comprehension and afford alert reader the opportunity for monitoring understanding. 
+
+**Practiced in appropriate context, not as isolated separate skill exercises.** If students could not summarize a section, that informs us that comprehension is not proceeding well, not a failure to perform a particular skill (summarization).
+
+:: situated cognition??::
+
+h3. Proleptic teaching
+//In anticipation of competence// - mature task maintained even if each individual member of the group is not yet capable of full participation.
+
+This is in contrast to classical progression of steadily more difficult tasks and "fading in" - problem is that easy versions of the task are really very different, don't properly prepare student for the hard tasks.
+
+Scaffolding and group dynamics allow us to tackle authentic problems - little room for confusion about the point of the activity, metacognitivity, and transfer p. 48
+
+Teacher models mature comprehension activities, making them overt, explicit and concrete. Instead of being told to be strategic and monitor your comprehension, the students see that the teacher does this by retelling content in her own words, asking what something means etc. Can be emulated.
+
+**Cognitive economy** - enough discussion should take place to ensure a reasonable level of understanding, but no more.
+
+**Planned obsolesence** - teacher as scaffold which fades away, responsibility for comprehension activities transferred to students as soon as they can take charge of their own learning.
+
+Reciprocal teaching was consciously modelled after naturally occurring expert scaffolding (with fading).
+
+h2. Research design
+  * Readings groups of 7th and 8th graders
+  * Listening comprehension for 1st and 2nd graders
+
+Students selected based on low scored on reading comprehension.
+
+Intervention consisted of at least ten days of discussion over four weeks, progress measured by observable change in students' participation in discussions, daily independent tests of reading and retention of novel passages.
+
+h2. Findings
+Independent raters could easily place transcripts into 1st, 2nd and 3rd part of intervention. Individual student scores on four strategies large and reliable improvement. 
+
+Students go from passive answerers, to adequate discussion leaders. 
+
+h2. Discussion
+Very slow pace of acquiring texts, because they don't proceed until everyone understands. It's OK, because main goal is not the content of the text, but the skills to understand any text.
+
+Reading as a process of decoding text and understanding the meaning (skill) vs learning in the sense of acquiring a usable, flexible body of knowledge. Examine procedures such as reciprocal teaching, jigsaw method in situations where children are asked to learn principled bodies of knowledge over time. 
+
+If internalization is a prime mechanism of conceptual change, it is little understood.

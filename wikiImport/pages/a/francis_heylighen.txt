@@ -1,0 +1,14 @@
+h1. Francis Heylighen
+
+(introduced by Jennifer Claro)
+at Free University of Brussels
+
+h2. About
+The main focus of my research is the evolution of complexity: how do higher forms of organization originate and develop? How do systems self-organize, adapt and achieve some form of cognition? I have worked in particular on the development of collective knowledge and intelligence, and its application to the emerging intelligent web, or "global brain". More recently, I have been looking at how individual agents tackle complex challenges via action, exploration, and learning.
+
+[[Cybernetics]]
+
+h2. Links
+  * [[http://pcp.vub.ac.be/HEYL.html|Homepage]]
+
+{{page>abib:Francis Heylighen}}

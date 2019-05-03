@@ -1,0 +1,36 @@
+h1. Yang keynote
+关于教育中长期规划教育信息化问题的思考
+
+杨宗凯　Yang Zongkai 华中师范大学 Central China Normal University (National engineering research center for e-learning)
+
+h2. About the Chinese educational development plan
+
+h3. National situation
+
+Background for the plan
+  * needs for the plan
+  * international situation
+
+One chapter about ed tech 教育信息化 - has revolutionary impact (革命性影响)
+Lists ten big projects - 教育信息化 is one of them
+
+Chapter 19
+  * improve hardware
+  * development of high quality educational resources
+  * national information management system (教育管理信息系统）
+
+h3. International situation
+  * US: "Transforming American Education - Learning powered by technology. National Education Technology Plan" - published in US in 2010
+  * UK: JISC strategy 2010-2012
+  * Japan: Handbook for education technology
+  * Korea: A number of reports, KERIS etc
+
+h3. Thoughts about Chinese plan
+
+Four targets
+  * meet people's expectations and hopes
+  * resolve real problems
+  * take into consideration the national situation
+  * meet international challenge
+
+Explains the process of coming up with the plan.

@@ -1,0 +1,37 @@
+h2. Images
+
+{{skim:buckinghamshum2008knowledge0.png}}
+
+[[skimx://buckinghamshum2008knowledge#5|p. 5]]
+----
+
+{{skim:buckinghamshum2008knowledge1.png}}
+
+[[skimx://buckinghamshum2008knowledge#10|p. 10]]
+----
+
+{{skim:buckinghamshum2008knowledge2.png}}
+
+[[skimx://buckinghamshum2008knowledge#12|p. 12]]
+----
+
+{{skim:buckinghamshum2008knowledge3.png}}
+
+[[skimx://buckinghamshum2008knowledge#13|p. 13]]
+----
+
+{{skim:buckinghamshum2008knowledge4.png}}
+
+[[skimx://buckinghamshum2008knowledge#14|p. 14]]
+----
+
+{{skim:buckinghamshum2008knowledge5.png}}
+
+[[skimx://buckinghamshum2008knowledge#16|p. 16]]
+----
+
+{{skim:buckinghamshum2008knowledge6.png}}
+
+[[skimx://buckinghamshum2008knowledge#17|p. 17]]
+----
+

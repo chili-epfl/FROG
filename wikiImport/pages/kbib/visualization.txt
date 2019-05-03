@@ -1,0 +1,3 @@
+h2. Publications with keyword "visualization"
+
+| [@murthy2012visualizing] | Murthy, D., Gross, A., & Bond, S. (2012). Visualizing Collective Discursive User Interactions in Online Life Science Communities. Arxiv preprint arXiv:1204.3598.|

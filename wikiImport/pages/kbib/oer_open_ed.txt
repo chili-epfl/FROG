@@ -1,0 +1,20 @@
+h2. Publications with keyword "OER/open ed"
+
+| [@hendricks2001connexions] | Hendricks, B. M. (2001). Connexions: An architecture for Web-based educational materials.|
+| [@baraniuk2002connexions] | Baraniuk, R., Burrus, C. S., Hendricks, B. M., Henry, G. L., {III}A. O. Hero, Johnson, D. H., Jones, D. L., Kusuma, J., Nowak, R. D., & Odegard, J. E. (2002). Connexions: {DSP} education for a networked world. In Acoustics, Speech, and Signal Processing, 1993. {ICASSP-93.,} 1993 {IEEE} International Conference on (Vol. 4, IV–IV).|
+| [@wiley2002online] | Wiley, D. A., & Edwards, E. K. (2002). Online self-organizing social systems: The decentralized future of online learning. Quarterly Review of Distance Education, 3(1), 33--46. |
+| [@henry2003connexions] | Henry, G., Baraniuk, R., & Kelty, C. (2003). The connexions project: Promoting open sharing of knowledge for education.|
+| [@baraniuk2004peer] | Baraniuk, R., Henry, G., & Hendricks, B. (2004). Peer to Peer Collaboration with Connexions. In {EDUCAUSE} 2004 Annual Conference. Denver, Colorado.|
+| [@burrus2007connexions] | Burrus, C. S. (2007). {Connexions: An Open Educational Resource for the 21st Century.}. Educational Technology Magazine: The Magazine for Managers of Change in Education, 47(6), 4.|
+| [@aleahmad2008open] | Aleahmad, T., Aleven, V., & Kraut, R. E. (2008). Open community authoring of targeted worked example problems. In Intelligent tutoring systems (216--227). |
+| [@meiszner2010emergence] | Meiszner, A. (2010). The Emergence of Free / Open Courses - Lessons from the Open Source Movement (PhD thesis).|
+| [@buckinghamshum2010collective] | Buckingham Shum, S., & Liddo, A. D. (2010). Collective intelligence for {OER} sustainability. Conference Item. |
+| [@buckinghamshum2010towards] | Buckingham Shum, S., & Ferguson, R. (2010). Towards a social learning space for open educational resources. Conference Item. |
+| [@dholakia2010what] | Dholakia, U., King, J., & Baraniuk, R. (2010). What makes an open education program sustainable. The case of Connexions.[online] http://www. oecd. org Accessed, 15.|
+| [@lawler2011edit] | Lawler, C. (2011). Edit this space: participation and expansive learning in developing Wikiversity (PhD thesis).|
+| [@collins2009longtail] | Collins, A., Fischer, G., Barron, B., Liu, C.-C., & Spada, H. (2009). Long-tail learning: a unique opportunity for CSCL?. In Proceedings of the 9th international conference on Computer supported collaborative learning - Volume 2, CSCL'09 (22--24). International Society of the Learning Sciences. |
+| [@duval2010guest] | Duval, E., & Wiley, D. (2010). Guest Editorial: Open Educational Resources. {IEEE} Transactions on Learning Technologies, 3(2), 83--84. doi:10.1109/TLT.2010.11|
+| [@leinonen2010information] | Leinonen, T., Purma, J., PõldojaHans, & Toikkanen, T. (2010). Information Architecture and Design Solutions Scaffolding Authoring of Open Educational Resources. {IEEE} Transactions on Learning Technologies, 3(2), 116--128. doi:10.1109/TLT.2010.2|
+| [@vladoiu2011open] | Vladoiu, M. Open courseware initiatives-after 10 years. In Roedunet International Conference (RoEduNet), 2011 10th (1--6).|
+| [@schmidt-jones2012open] | Schmidt-Jones, C. (2012). An open education resource supports a diversity of inquiry-based learning. The International Review of Research in Open and Distance Learning, 13(1). |
+| [@tarrant2012guide] | Tarrant, C. (2012). Guide to open learning. |

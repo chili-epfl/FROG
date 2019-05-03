@@ -1,0 +1,3 @@
+h2. S. Izadi's publications
+
+| [[..:ref:brignull2004collaboration]] | Brignull, H., Izadi, S., Fitzpatrick, G., Rogers, Y., & Rodden, T. (2004). Collaboration Involving Large Displays: The introduction of a shared interactive surface to a communal space.. CSCW 2004.||

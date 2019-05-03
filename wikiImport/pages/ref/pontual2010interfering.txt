@@ -1,0 +1,33 @@
+h1. Interfering and resolving: How tabletop interaction facilitates co-construction of argumentative knowledge
+
+<ifauth !@admin>|Pontual Falcão, T., & Price, S. (2010). Interfering and resolving: How tabletop interaction facilitates co-construction of argumentative knowledge. International Journal of Computer-Supported Collaborative Learning, 1--21. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://pontual2010interfering|BibDesk]]  | Pontual Falcão, T., & Price, S. (2010). Interfering and resolving: How tabletop interaction facilitates co-construction of argumentative knowledge. International Journal of Computer-Supported Collaborative Learning, 1--21. Springer. |
+^ [[skimx://pontual2010interfering|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:pontual2010interfering?do=edit&vecdo=print\'><frame src=\'/wiki/clip:pontual2010interfering?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{pontual2010interfering,
+  author = {Pontual Falcão, T. and Price, S.},
+  date-added = {2011-06-04 08:18:07 +0800},
+  date-modified = {2011-06-09 08:29:50 +0800},
+  journal = {International Journal of Computer-Supported Collaborative Learning},
+  pages = {1--21},
+  publisher = {Springer},
+  read = {1},
+  title = {Interfering and resolving: How tabletop interaction facilitates co-construction of argumentative knowledge},
+  year = {2010}
+}
+
+</hidden>
+
+{{page>notes:pontual2010interfering}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:pontual2010interfering}}
+
+{{page>kindle:pontual2010interfering}}
+
+{{page>skimg:pontual2010interfering}}

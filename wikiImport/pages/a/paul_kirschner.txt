@@ -1,0 +1,19 @@
+h1. Paul Kirschner
+{{ pages:a_paul_kirschner01.png}}
+At Open University Netherlands.
+
+h2. Research
+  * Lifelong Learning for professional and personal development
+  * Computer Supported Collaborative Learning
+  * Use of Information and Communication Technologies in education: Initial and lifelong
+  * Acquisition and assessment of skills and competencies
+  * Use of practicals for the acquisition of complex cognitive skills
+  * Text characteristics and learning processes
+  * Media-use in education
+  * Research on
+  * development of electronic learning environments
+
+h2. Links
+  * [[http://www.ou.nl/eCache/DEF/18/176.html|Homepage]]
+  
+{{page>abib:Paul A. Kirschner}}

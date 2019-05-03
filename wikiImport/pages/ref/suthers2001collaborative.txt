@@ -1,0 +1,40 @@
+h1. Collaborative representations: supporting face to face and online knowledge-building discourse
+
+<ifauth !@admin>|Suthers, D. D. (2001). Collaborative representations: supporting face to face and online knowledge-building discourse. Proceedings of the 34th Annual Hawaii International Conference on System Sciences. IEEE Comput. Soc. doi: 10.1109/HICSS.2001.926481.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://suthers2001collaborative|BibDesk]]  | Suthers, D. D. (2001). Collaborative representations: supporting face to face and online knowledge-building discourse. Proceedings of the 34th Annual Hawaii International Conference on System Sciences. IEEE Comput. Soc. doi: 10.1109/HICSS.2001.926481. |
+^ [[skimx://suthers2001collaborative|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:suthers2001collaborative?do=edit&vecdo=print\'><frame src=\'/wiki/clip:suthers2001collaborative?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @conference{suthers2001collaborative,
+  author = {Suthers, Daniel D.},
+  booktitle = {Proceedings of the 34th Annual Hawaii International Conference on System Sciences},
+  date-added = {2011-04-30 09:21:41 -0400},
+  date-modified = {2011-06-16 17:17:32 +0800},
+  doi = {10.1109/HICSS.2001.926481},
+  isbn = {0-7695-0981-9},
+  local-url = {/Volumes/Home/stian/Downloads/Mendeley/Suthers-HICSS-2001.pdf},
+  pages = {10},
+  publisher = {IEEE Comput. Soc},
+  read = {1},
+  title = {{Collaborative representations: supporting face to face and online knowledge-building discourse}},
+  url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=926481},
+  year = {2001},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaAAAAAAAaAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhxzdXRoZXJzMjAwMWNvbGxhYm9yYXRpdmUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdc3Ey9dKDlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14JOAAAAAQAMANrWUgAXPTEAAZ9eAAIAO1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdXRoZXJzMjAwMWNvbGxhYm9yYXRpdmUucGRmAAAOADoAHABzAHUAdABoAGUAcgBzADIAMAAwADEAYwBvAGwAbABhAGIAbwByAGEAdABpAHYAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAwVXNlcnMvU3RpYW4vYmliZGVzay9zdXRoZXJzMjAwMWNvbGxhYm9yYXRpdmUucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECouLi8uLi9iaWJkZXNrL3N1dGhlcnMyMDAxY29sbGFib3JhdGl2ZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACRAJGAksCVAJfAmMCcQJ4AoECrgKzArYCwwLIAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAto=},
+  bdsk-url-1 = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=926481},
+  bdsk-url-2 = {http://dx.doi.org/10.1109/HICSS.2001.926481}
+}
+
+</hidden>
+
+{{page>notes:suthers2001collaborative}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:suthers2001collaborative}}
+
+{{page>kindle:suthers2001collaborative}}
+
+{{page>skimg:suthers2001collaborative}}

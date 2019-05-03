@@ -1,0 +1,6 @@
+h1. Trialogical learning
+
+{{pages:trialogical_learning02.png}}
+
+The trialogical learning approach (Paavola & Hakkarainen, 2009) develops models and tools for supporting and arranging learners’ activities around shared ‘objects’ (such artefacts as texts, models, conceptual artefacts, but also practices and processes) that are created for some real purpose or subsequent use, which is often not the case in conventional educational practices. The focus on collaboration with shared objects and practices can be seen as a complement to the meaning making tradition in CSCL. Within the trialogical approach, individually performed activities and social interaction serve the longer-term processes of developing specific, concrete, shared objects. Shared epistemic objects and practices are not fixed objects with stable properties like materials typically used in educational settings, but open-ended, future oriented, and in the process of being defined by the participants (see Knorr-Cetina, 2001).
+(from Paavola, et al. (2011) Trialogical Learning Supported by Knowledge Practices Environment. CSCL 2011)

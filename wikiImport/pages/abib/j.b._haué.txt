@@ -1,0 +1,3 @@
+h2. J.B. Haué's publications
+
+| haue2009fewer | Haué, J. B., & Dillenbourg, P. (2009). Do Fewer Laptops Make a Better Team?. Interactive artifacts and furniture supporting collaborative work and learning. Springer.|[[skimx://haue2009fewer|PDF]]|

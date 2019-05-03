@@ -1,0 +1,17 @@
+h1. Cindy E. Hmelo-Silver
+{{ pages:a_cindy_e._hmelo-silver1.png}}
+
+At Rutgers Graduate School of Education - Editor of [[Journal of the Learning Sciences]]
+
+h2. Research
+I focus on how people learn about complex phenomena and how technology can help support that learning.  As part of this work, I study problem-based learning, collaborative knowledge construction, and computer supported collaborative learning.   I study the role of technology to support social  knowledge construction and collaborative learning and problem-solving. My research  investigates scaffolded support for problem-based learning, the use of video for learning,  and complex systems understanding.
+
+  * Representational guidance
+  * Learning progressions
+  * Knowledge Building
+  * Analysis
+
+h2. Links
+  * [[http://gse.rutgers.edu/cindy_hmelo-silver|Homepage]]
+
+{{page>abib:Cindy E. Hmelo-Silver}}

@@ -1,0 +1,30 @@
+h1. The CRC Card Book. 1997
+
+<ifauth !@admin>|Bellin, D., & Simone, S. S. (1997). The CRC Card Book. 1997. Reading, MA.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bellin1997card|BibDesk]]  | Bellin, D., & Simone, S. S. (1997). The CRC Card Book. 1997. Reading, MA. |
+^ [[skimx://bellin1997card|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bellin1997card?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bellin1997card?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{bellin1997card,
+  author = {Bellin, D. and Simone, S.S.},
+  date-added = {2011-06-09 14:03:21 +0800},
+  date-modified = {2011-06-09 14:03:33 +0800},
+  journal = {Reading, MA},
+  title = {The CRC Card Book. 1997},
+  year = {1997}
+}
+
+</hidden>
+
+{{page>notes:bellin1997card}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bellin1997card}}
+
+{{page>kindle:bellin1997card}}
+
+{{page>skimg:bellin1997card}}

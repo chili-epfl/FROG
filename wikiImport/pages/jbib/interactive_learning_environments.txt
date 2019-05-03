@@ -1,0 +1,3 @@
+h2. Publications in Interactive Learning Environments
+
+| [[..:ref:koper2005design]] | Koper, R., Giesbers, B., Van Rosmalen, P., Sloep, P., Van Bruggen, J., Tattersall, C., Vogten, H., & Brouns, F. (2005). A design model for lifelong learning networks. Interactive Learning Environments, 13(1), 71--92. Routledge.|[[skimx://koper2005design|PDF]]|

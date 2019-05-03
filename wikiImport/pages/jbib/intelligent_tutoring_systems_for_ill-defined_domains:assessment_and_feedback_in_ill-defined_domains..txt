@@ -1,0 +1,3 @@
+h2. Publications in Intelligent Tutoring Systems for Ill-Defined Domains: Assessment and Feedback in Ill-Defined Domains.
+
+| lynch2008argument | Lynch, C., Pinkwart, N., Ashley, K., & Aleven, V. (2008). What do argument diagrams tell us about students’ aptitude or experience? a statistical analysis in an ill-defined domain. Intelligent Tutoring Systems for Ill-Defined Domains: Assessment and Feedback in Ill-Defined Domains., 56.|[[skimx://lynch2008argument|PDF]]|

@@ -1,0 +1,35 @@
+h1. S-COL: A Copernican turn for the development of flexibly reusable collaboration scripts
+
+<ifauth !@admin>|Wecker, C., Stegmann, K., Bernstein, F., Huber, M. J., Kalus, G., Kollar, I., Rathmayer, S., & Fischer, F. (2010). S-COL: A Copernican turn for the development of flexibly reusable collaboration scripts. International Journal of Computer-Supported Collaborative Learning, 1--23. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://wecker2010scol|BibDesk]]  | Wecker, C., Stegmann, K., Bernstein, F., Huber, M. J., Kalus, G., Kollar, I., Rathmayer, S., & Fischer, F. (2010). S-COL: A Copernican turn for the development of flexibly reusable collaboration scripts. International Journal of Computer-Supported Collaborative Learning, 1--23. Springer. |
+^ [[skimx://wecker2010scol|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:wecker2010scol?do=edit&vecdo=print\'><frame src=\'/wiki/clip:wecker2010scol?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{wecker2010scol,
+  author = {Wecker, Christof and Stegmann, Karsten and Bernstein, F. and Huber, M.J. and Kalus, G. and Kollar, Ingo and Rathmayer, S. and Fischer, Frank},
+  date-added = {2011-05-31 22:58:17 +0800},
+  date-modified = {2011-06-16 17:42:04 +0800},
+  journal = {International Journal of Computer-Supported Collaborative Learning},
+  keywords = {scripting},
+  pages = {1--23},
+  publisher = {Springer},
+  read = {1},
+  title = {S-COL: A Copernican turn for the development of flexibly reusable collaboration scripts},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJ3ZWNrZXIyMDEwc2NvbC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdeB7y9dLDlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14NOAAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB3ZWNrZXIyMDEwc2NvbC5wZGYAAA4AJgASAHcAZQBjAGsAZQByADIAMAAxADAAcwBjAG8AbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vYmliZGVzay93ZWNrZXIyMDEwc2NvbC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIC4uLy4uL2JpYmRlc2svd2Vja2VyMjAxMHNjb2wucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhwCHgIjAiwCNwI7AkkCUAJZAnwCgQKEApEClgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo}
+}
+
+</hidden>
+
+{{page>notes:wecker2010scol}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:wecker2010scol}}
+
+{{page>kindle:wecker2010scol}}
+
+{{page>skimg:wecker2010scol}}

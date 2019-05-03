@@ -1,0 +1,4 @@
+h2. A Weiner's publications
+
+| :ref:suthers1995groupware | Suthers, D., & Weiner, A. (1995). {Groupware for developing critical discussion skills}. The first international conference on Computer support for collaborative learning.|
+| :ref:suthers1995groupware | Suthers, D., & Weiner, A. (1995). {Groupware for developing critical discussion skills}. The first international conference on Computer support for collaborative learning.|

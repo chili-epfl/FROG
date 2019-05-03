@@ -1,0 +1,34 @@
+h1. Blogs and forums as communication and learning tools in a MOOC
+
+<ifauth !@admin>|Mak, S. F. J., Williams, R., & Mackness, J. (2010). Blogs and forums as communication and learning tools in a MOOC. Seventh International Conference on Networked Learning, Aalborg, Denmark.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://mak2010blogs|BibDesk]]  | Mak, S. F. J., Williams, R., & Mackness, J. (2010). Blogs and forums as communication and learning tools in a MOOC. Seventh International Conference on Networked Learning, Aalborg, Denmark. |
+^ [[skimx://mak2010blogs|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:mak2010blogs?do=edit&vecdo=print\'><frame src=\'/wiki/clip:mak2010blogs?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{mak2010blogs,
+  author = {Mak, Sui Fai John and Williams, Roy and Mackness, Jenny},
+  booktitle = {Seventh International Conference on Networked Learning, Aalborg, Denmark},
+  date-added = {2011-07-22 07:53:43 +0000},
+  date-modified = {2012-04-09 01:02:04 +0000},
+  keywords = {1mooc},
+  notes = {1},
+  read = {1},
+  title = {Blogs and forums as communication and learning tools in a MOOC},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXAAAAAAAXAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhBtYWsyMDEwYmxvZ3MucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdK+iy9dGYVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL136hAAAAAQAMANrWUgAXPTEAAZ9eAAIAL1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBtYWsyMDEwYmxvZ3MucGRmAAAOACIAEABtAGEAawAyADAAMQAwAGIAbABvAGcAcwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAkVXNlcnMvU3RpYW4vYmliZGVzay9tYWsyMDEwYmxvZ3MucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEB4uLi8uLi9iaWJkZXNrL21hazIwMTBibG9ncy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACFAIWAhsCJAIvAjMCQQJIAlECcgJ3AnoChwKMAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAp4=}
+}
+
+</hidden>
+
+{{page>notes:mak2010blogs}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:mak2010blogs}}
+
+{{page>kindle:mak2010blogs}}
+
+{{page>skimg:mak2010blogs}}

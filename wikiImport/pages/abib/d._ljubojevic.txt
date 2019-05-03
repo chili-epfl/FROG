@@ -1,0 +1,3 @@
+h2. D. Ljubojevic's publications
+
+| [[..:ref:ljubojevic2010theoretical]] | Ljubojevic, D., & Laurillard, D. (2010). Theoretical approach to distillation of pedagogical patterns from practice to enable transfer and reuse of good teaching. Proceedings of the 2010 European LAMS & Learning Design Conference.|[[skimx://ljubojevic2010theoretical|PDF]]|

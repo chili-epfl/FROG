@@ -1,0 +1,4 @@
+h2. Publications with keyword "own"
+
+| [@jiayimin2011p2pu] | and and. (2011). P2PU: 开放的网络学习社区. 现代教育技术, 21(8), 9--13. |
+| [@long2011practical] | Long, W., & HåklevStian. (2011). A practical model of development for China’s National Quality Course Plan. British Journal of Educational Technology. doi:10.1111/j.1467-8535.2011.01254.x|

@@ -1,0 +1,3 @@
+h2. Chen Bodong's publications
+
+| [@bodong2012comprehensive] | Bodong, C. (2012). Comprehensive Exam.|

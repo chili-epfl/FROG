@@ -1,0 +1,3 @@
+h2. Julienne Hanson's publications
+
+| [@hillier1984social] | Hillier, B., & Hanson, J. (1984). The Social Logic of Space. Cambridge University Press.|

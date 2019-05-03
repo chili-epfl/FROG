@@ -1,0 +1,8 @@
+h2. P. J. Burtis's publications
+
+| :ref:chan1992constructive | ChanC. {K.K}, Burtis, P. J., Scardamalia, M., & Bereiter, C. (1992). Constructive activity in learning from text. American educational research journal.|
+| :ref:burtis1983development | Burtis, P. J., Bereiter, C., Scardamalia, M., & Tetroe, J. (1983). The development of planning in writing. Explorations in the development of writing.|
+| :ref:bereiter1988cognitive | Bereiter, C., Burtis, P. J., & Scardamalia, M. (1988). Cognitive operations in constructing main points in written composition* 1. Journal of memory and language.|
+| :ref:chan1992constructive | ChanC. {K.K}, Burtis, P. J., Scardamalia, M., & Bereiter, C. (1992). Constructive activity in learning from text. American educational research journal.|
+| :ref:burtis1983development | Burtis, P. J., Bereiter, C., Scardamalia, M., & Tetroe, J. (1983). The development of planning in writing. Explorations in the development of writing.|
+| :ref:bereiter1988cognitive | Bereiter, C., Burtis, P. J., & Scardamalia, M. (1988). Cognitive operations in constructing main points in written composition* 1. Journal of memory and language.|

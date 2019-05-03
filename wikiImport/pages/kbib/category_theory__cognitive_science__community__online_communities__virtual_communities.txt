@@ -1,0 +1,3 @@
+h2. Publications with keyword "category theory, cognitive science, community, online communities, virtual communities"
+
+| [@bruckman2006perspective] | Bruckman, A. (2006). A new perspective on "community" and its implications for computer-mediated communication systems. In CHI ’06 extended abstracts on Human factors in computing systems, CHI EA ’06 (616–621). New York, NY, USA: ACM. doi:10.1145/1125451.1125579|

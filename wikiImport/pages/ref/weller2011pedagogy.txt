@@ -1,0 +1,37 @@
+h1. A pedagogy of abundance
+<html><a href='http://oro.open.ac.uk/28774/2/BB62B2.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://oro.open.ac.uk/28774/2/BB62B2.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Weller, M. (2011). A pedagogy of abundance. Spanish Journal of Pedagogy, 249, 223–236. Retrieved from http://oro.open.ac.uk/28774/2/BB62B2.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://weller2011pedagogy|BibDesk]]  | Weller, M. (2011). A pedagogy of abundance. Spanish Journal of Pedagogy, 249, 223–236. Retrieved from http://oro.open.ac.uk/28774/2/BB62B2.pdf. |
+^ [[skimx://weller2011pedagogy|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:weller2011pedagogy?do=edit&vecdo=print\'><frame src=\'/wiki/clip:weller2011pedagogy?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{weller2011pedagogy,
+  author = {Weller, M.},
+  date-added = {2012-04-08 21:45:46 +0000},
+  date-modified = {2012-11-28 00:43:05 +0000},
+  date-read = {2012-04-08 18:16:04 -0400},
+  journal = {Spanish Journal of Pedagogy},
+  oa-url = {http://oro.open.ac.uk/28774/2/BB62B2.pdf},
+  pages = {223–236},
+  read = {1},
+  title = {A pedagogy of abundance},
+  url = {http://oro.open.ac.uk/28774/2/BB62B2.pdf},
+  volume = {249},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYgAAAAAAYgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhZ3ZWxsZXIyMDExcGVkYWdvZ3kucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGeaTXy9dNllBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14XWAAAAAQAMANrWUgAXPTEAAZ9eAAIANVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB3ZWxsZXIyMDExcGVkYWdvZ3kucGRmAAAOAC4AFgB3AGUAbABsAGUAcgAyADAAMQAxAHAAZQBkAGEAZwBvAGcAeQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAqVXNlcnMvU3RpYW4vYmliZGVzay93ZWxsZXIyMDExcGVkYWdvZ3kucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECQuLi8uLi9iaWJkZXNrL3dlbGxlcjIwMTFwZWRhZ29neS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACLAIuAjMCPAJHAksCWQJgAmkCkAKVApgCpQKqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:weller2011pedagogy}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:weller2011pedagogy}}
+
+{{page>kindle:weller2011pedagogy}}
+
+{{page>skimg:weller2011pedagogy}}

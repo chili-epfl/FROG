@@ -1,0 +1,3 @@
+h2. Sam Zeini's publications
+
+| [@harrer2007towards] | Harrer, A., Zeini, S., Kahrimanis, G., Avouris, N., MarcosJosé Antonio, Martinez-Mones, A., Meier, A., Rummel, N., & Spada, H. (2007). Towards a flexible model for computer-based analysis and visualization of collaborative learning activities. In Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07 (283--285). International Society of the Learning Sciences. |

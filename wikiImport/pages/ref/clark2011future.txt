@@ -1,0 +1,47 @@
+h1. The Future of Research Communication (Dagstuhl Perspectives Workshop 11331)
+
+<ifauth !@admin>|Clark, T., Waard, A. D., Herman, I., & Hovy, E. (2011). The Future of Research Communication (Dagstuhl Perspectives Workshop 11331).  (T. Clark, A. D. Waard, I. Herman & E. Hovy, Eds., , Tran.)Dagstuhl Reports, 1(8), 29--52. Dagstuhl, Germany: Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik. doi: http://dx.doi.org/10.4230/DagRep.1.8.29.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://clark2011future|BibDesk]]  | Clark, T., Waard, A. D., Herman, I., & Hovy, E. (2011). The Future of Research Communication (Dagstuhl Perspectives Workshop 11331).  (T. Clark, A. D. Waard, I. Herman & E. Hovy, Eds., , Tran.)Dagstuhl Reports, 1(8), 29--52. Dagstuhl, Germany: Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik. doi: http://dx.doi.org/10.4230/DagRep.1.8.29. |
+^ [[skimx://clark2011future|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:clark2011future?do=edit&vecdo=print\'><frame src=\'/wiki/clip:clark2011future?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{clark2011future,
+  address = {Dagstuhl, Germany},
+  author = {Clark, Tim and Waard, Anita De and Herman, Ivan and Hovy, Eduard},
+  date-added = {2012-02-14 19:35:02 +0000},
+  date-modified = {2012-04-09 01:02:03 +0000},
+  doi = {http://dx.doi.org/10.4230/DagRep.1.8.29},
+  editor = {Clark, Tim and Waard, Anita De and Herman, Ivan and Hovy, Eduard},
+  issn = {2192-5283},
+  journal = {Dagstuhl Reports},
+  keywords = {OA/scholpub},
+  notes = {1},
+  number = {8},
+  pages = {29--52},
+  publisher = {Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik},
+  read = {1},
+  title = {{The Future of Research Communication (Dagstuhl Perspectives Workshop 11331)}},
+  url = {http://drops.dagstuhl.de/opus/volltexte/2011/3315},
+  urn = {urn:nbn:de:0030-drops-33159},
+  volume = {1},
+  year = {2011},
+  annote = {Keywords: science publishing, online communities, science policy, new forms of publishing, bioinformatics, digital repositories, semantic publishing, citation},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNjbGFyazIwMTFmdXR1cmUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaDzgy9b9g1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXDAAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjbGFyazIwMTFmdXR1cmUucGRmAA4AKAATAGMAbABhAHIAawAyADAAMQAxAGYAdQB0AHUAcgBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL2NsYXJrMjAxMWZ1dHVyZS5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL2NsYXJrMjAxMWZ1dHVyZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=},
+  bdsk-url-1 = {http://drops.dagstuhl.de/opus/volltexte/2011/3315},
+  bdsk-url-2 = {http://dx.doi.org/10.4230/DagRep.1.8.29}
+}
+
+</hidden>
+
+{{page>notes:clark2011future}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:clark2011future}}
+
+{{page>kindle:clark2011future}}
+
+{{page>skimg:clark2011future}}

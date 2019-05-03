@@ -1,0 +1,3 @@
+h1. Machine Learning course
+
+  * [[http://news.ycombinator.com/item?id=79359|Readings on ML]]

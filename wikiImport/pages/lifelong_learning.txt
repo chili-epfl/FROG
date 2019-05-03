@@ -1,0 +1,3 @@
+h1. Lifelong learning
+
+  * [@koper2005design] - a very technological approach to learning networks, but some interesting concepts such as learning paths, plus some useful references

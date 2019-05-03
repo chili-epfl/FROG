@@ -1,0 +1,39 @@
+h1. Literature review on the use of games in mathematical learning, Part II: Deployment
+<html><a href='http://lp.noe-kaleidoscope.org/outcomes/litrev/LP-LitReview-v2-desdep-20060314.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://lp.noe-kaleidoscope.org/outcomes/litrev/LP-LitReview-v2-desdep-20060314.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Alexopoulou, E., Bennerstedt, U., Childs, M., Jonker, V., Kynigos, C., Pratt, D., & Wijers, M. (2006). Literature review on the use of games in mathematical learning, Part II: Deployment. Retrieved from http://lp.noe-kaleidoscope.org/outcomes/litrev/LP-LitReview-v2-desdep-20060314.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://alexopoulou2006literature|BibDesk]]  | Alexopoulou, E., Bennerstedt, U., Childs, M., Jonker, V., Kynigos, C., Pratt, D., & Wijers, M. (2006). Literature review on the use of games in mathematical learning, Part II: Deployment. Retrieved from http://lp.noe-kaleidoscope.org/outcomes/litrev/LP-LitReview-v2-desdep-20060314.pdf. |
+^ [[skimx://alexopoulou2006literature|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:alexopoulou2006literature?do=edit&vecdo=print\'><frame src=\'/wiki/clip:alexopoulou2006literature?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @techreport{alexopoulou2006literature,
+  added-at = {2006-03-21T13:30:54.000+0100},
+  author = {Alexopoulou, Efi and Bennerstedt, Ulrika and Childs, Mark and Jonker, Vincent and Kynigos, Chronis and Pratt, Davs and Wijers, Monica},
+  biburl = {http://www.bibsonomy.org/bibtex/2f0d9b8049ab4def7dfaa87f175ea10cb/mathgamespatterns},
+  date-added = {2011-05-18 07:19:42 +0800},
+  date-modified = {2012-08-19 15:40:16 +0000},
+  howpublished = {Report of the Learning Patterns for the Design and Deployment of Mathematical Games project},
+  interhash = {c504194f3d93e96d5c5043043f1bc767},
+  intrahash = {f0d9b8049ab4def7dfaa87f175ea10cb},
+  keywords = {portal},
+  oa-url = {http://lp.noe-kaleidoscope.org/outcomes/litrev/LP-LitReview-v2-desdep-20060314.pdf},
+  read = {0},
+  title = {Literature review on the use of games in mathematical learning, Part II: Deployment},
+  url = {http://lp.noe-kaleidoscope.org/outcomes/litrev/LP-LitReview-v2-desdep-20060314.pdf},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaQAAAAAAaQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh1hbGV4b3BvdWxvdTIwMDZsaXRlcmF0dXJlLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ32gy9brmFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yPYAAAAAQAMANrWUgAXPTEAAZ9eAAIAPFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhbGV4b3BvdWxvdTIwMDZsaXRlcmF0dXJlLnBkZgAOADwAHQBhAGwAZQB4AG8AcABvAHUAbABvAHUAMgAwADAANgBsAGkAdABlAHIAYQB0AHUAcgBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASADFVc2Vycy9TdGlhbi9iaWJkZXNrL2FsZXhvcG91bG91MjAwNmxpdGVyYXR1cmUucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxArLi4vLi4vYmliZGVzay9hbGV4b3BvdWxvdTIwMDZsaXRlcmF0dXJlLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAJIAkoCTwJYAmMCZwJ1AnwChQKzArgCuwLIAs0AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC3w==}
+}
+
+</hidden>
+
+{{page>notes:alexopoulou2006literature}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:alexopoulou2006literature}}
+
+{{page>kindle:alexopoulou2006literature}}
+
+{{page>skimg:alexopoulou2006literature}}

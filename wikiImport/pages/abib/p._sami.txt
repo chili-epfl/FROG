@@ -1,0 +1,3 @@
+h2. P. Sami's publications
+
+| minna2009main | Lakkala, M., Sami, P., Kari, K., Hanni, M., Merja, B., & Hannu, M. (2009). Main functionalities of the Knowledge Practices Environment (KPE) affording knowledge creation practices in education. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|[[skimx://minna2009main|PDF]]|

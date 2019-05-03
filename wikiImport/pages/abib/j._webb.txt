@@ -1,0 +1,5 @@
+h2. J. Webb's publications
+
+| hewitt1995schools | Hewitt, J., Brett, C., Scardamalia, M., Frecker, K., & Webb, J. (1995). Schools for thought: Transforming classrooms into learning communities. Symposium 29.57 y Poster Session.||
+| scardamalia1996constructive | Scardamalia, M., Bereiter, C., Hewitt, J., & Webb, J. (1996). Constructive learning from texts in biology. {NATO} {ASI} {SERIES} F {COMPUTER} {AND} {SYSTEMS} {SCIENCES}.||
+| hewitt1997situative | Hewitt, J., Scardamalia, M., & Webb, J. (1997). Situative design issues for interactive learning environments: The problem of group coherence. Annual Meeting of the American Educational Association, Chicago.||

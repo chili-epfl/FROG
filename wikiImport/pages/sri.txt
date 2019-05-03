@@ -1,0 +1,11 @@
+h1. SRI
+{{ pages:sri1.png}}
+
+(Before Stanford Research Institute)
+
+Non-profit research institute
+
+  * [[http://ctl.sri.com/|Center for Technology in Learning]]
+
+h2. Links here
+{{backlinks>.}}

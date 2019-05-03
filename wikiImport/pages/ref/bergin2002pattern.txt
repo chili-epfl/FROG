@@ -1,0 +1,32 @@
+h1. A Pattern Language for Course Development in Computer Science
+
+<ifauth !@admin>|Bergin, J. (2002). A Pattern Language for Course Development in Computer Science.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bergin2002pattern|BibDesk]]  | Bergin, J. (2002). A Pattern Language for Course Development in Computer Science. |
+^ [[skimx://bergin2002pattern|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bergin2002pattern?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bergin2002pattern?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bergin2002pattern,
+  author = {Bergin, J.},
+  date-added = {2011-05-19 14:32:16 +0800},
+  date-modified = {2011-06-09 08:29:57 +0800},
+  keywords = {portal},
+  read = {1},
+  title = {A Pattern Language for Course Development in Computer Science},
+  year = {2002},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhViZXJnaW4yMDAycGF0dGVybi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ5sTy9bt9VBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yY1AAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiZXJnaW4yMDAycGF0dGVybi5wZGYADgAsABUAYgBlAHIAZwBpAG4AMgAwADAAMgBwAGEAdAB0AGUAcgBuAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2JlcmdpbjIwMDJwYXR0ZXJuLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svYmVyZ2luMjAwMnBhdHRlcm4ucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:bergin2002pattern}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bergin2002pattern}}
+
+{{page>kindle:bergin2002pattern}}
+
+{{page>skimg:bergin2002pattern}}

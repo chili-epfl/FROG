@@ -1,0 +1,3 @@
+h2. R. Stevens's publications
+
+| stevens2007cooperative | Stevens, R. (2007). Cooperative Learning and Literacy Instruction in Middle Level Education. The Teacher’s Role in Implementing Cooperative Learning in the Classroom. Springer.|[[skimx://stevens2007cooperative|PDF]]|

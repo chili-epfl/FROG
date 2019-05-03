@@ -1,0 +1,125 @@
+h1. Python
+
+  * [[https://news.ycombinator.com/item?id=5123308|Python Shortcuts for the Python Beginner | Hacker News [https://news.ycombinator.com/]]]
+----
+  * [[http://maxburstein.com/blog/python-shortcuts-for-the-python-beginner/|Python Shortcuts for the Python Beginner - Max Burstein's Blog [http://maxburstein.com/]]]
+  * [[http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python/6581949#6581949|oop - What is a metaclass in Python? - Stack Overflow [http://stackoverflow.com/]]]
+  * [[http://stackoverflow.com/questions/739654/understanding-python-decorators/1594484#1594484|Understanding Python decorators - Stack Overflow [http://stackoverflow.com/]]]
+  * [[http://stackoverflow.com/questions/231767/the-python-yield-keyword-explained|iterator - The Python yield keyword explained - Stack Overflow [http://stackoverflow.com/]]]
+  * [[http://stackoverflow.com/questions/231767/the-python-yield-keyword-explained|iterator - The Python yield keyword explained - Stack Overflow [http://stackoverflow.com/]]]
+  * [[http://learnpythonthehardway.org/book/|[http://learnpythonthehardway.org/]]]
+  * [[http://learnpythonthehardway.org/book/|[http://learnpythonthehardway.org/]]]
+  * [[http://scipy-lectures.github.com/intro/numpy/index.html|1.3. NumPy: creating and manipulating numerical data — Scipy lecture notes [http://scipy-lectures.github.com/]]]
+  * [[http://scipy-lectures.github.com/advanced/advanced_numpy/index.html|2.2. Advanced Numpy — Scipy lecture notes [http://scipy-lectures.github.com/]]]
+  * [[http://slendrmeans.wordpress.com/will-it-python/|Will it Python? | Slender Means [http://slendrmeans.wordpress.com/]]]
+  * [[http://slendrmeans.wordpress.com/category/will-it-python/|Will it Python | Slender Means [http://slendrmeans.wordpress.com/]]]
+  * [[https://github.com/carljv/Will_it_Python|carljv/Will_it_Python · GitHub [https://github.com/]]]
+  * [[https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks|A gallery of interesting IPython Notebooks · ipython/ipython Wiki [https://github.com/]]]
+  * [[http://interactivepython.org/courselib/static/pythonds/index.html|Welcome to Problem Solving with Algorithms and Data Structures — Problem Solving with Algorithms and Data Structures [http://interactivepython.org/]]]
+  * [[http://www.youtube.com/watch?v=3Fp1zn5ao2M&feature=plcp|Introduction to NumPy and Matplotlib - YouTube [http://www.youtube.com/]]]
+  * [[http://blog.yhathq.com/posts/R-and-pandas-and-what-ive-learned-about-each.html|R and pandas and what I've learned about each [http://blog.yhathq.com/]]]
+  * [[http://reganmian.net/blog/|Random Stuff that Matters]]
+  * [[http://www.youtube.com/watch?v=4ONBVNm3isI|An Introduction to scikit-learn: Machine Learning in Python - YouTube]]
+  * [[http://www.reddit.com/tb/1dr77q|A collection of ipython notebooks for learning pandas. Super cool. via reddit.com]]
+  * [[http://www.reddit.com/tb/1dtufq|"Learning IPython for Interactive Computing and Data Visualization," by Cyrille Rossant. The first IPython-focused book to come out (Packt publishing donates a portion of the proceeds back to IPython). via reddit.com]]
+  * [[http://wikitrans.github.io/2009/12/20/peter-norvig-scientific-computing.html|Peter Norvig - What to demand from a Scientific Computing Language]]
+  * [[https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers|Probabilistic Prog Bayesian Hackers]]
+  * [[http://www.quant-econ.net/|Quantitative Economics — quant-econ 1 documentation]]
+  * [[http://camdavidsonpilon.github.io/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/|Bayesian Methods for Hackers]]
+  * [[https://github.com/luispedro/BuildingMachineLearningSystemsWithPython|luispedro/BuildingMachineLearningSystemsWithPython]]
+  * [[http://nbviewer.ipython.org/urls/raw.github.com/CamDavidsonPilon/lifelines/master/Tutorial%20and%20Examples.ipynb|]]
+  * [[https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers|CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers]]
+  * [[https://news.ycombinator.com/item?id=6507038|Machine Learning with scikit-learn | Hacker News]]
+  * [[http://scikit-learn.org/stable/auto_examples/index.html|Examples — scikit-learn 0.14 documentation]]
+  * [[http://hackflow.com/blog/2013/10/13/functional-python-made-easy/|Functional Python Made Easy - Hackflow]]
+  * [[http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/|Intro to pandas data structures | Greg Reda]]
+  * [[http://nbviewer.ipython.org/urls/raw.github.com/gjreda/gregreda.com/master/content/notebooks/intro-to-pandas.ipynb|]]
+  * [[http://docs.python-guide.org/en/latest/|The Hitchhiker’s Guide to Python! — The Hitchhiker's Guide to Python]]
+  * [[http://learnpythonthehardway.org/book/|]]
+  * [[http://docs.lighttable.com/tutorials/python/|Light Table Python Tutorial]]
+  * [[https://github.com/lihaoyi/macropy|lihaoyi/macropy]]
+  * [[http://nbviewer.ipython.org/urls/raw.github.com/fonnesbeck/multilevel_modeling/master/multilevel_modeling.ipynb|]]
+  * [[http://graph-tool.skewed.de/|graph-tool: Efficent network analysis with python]]
+  * [[http://blog.jetbrains.com/blog/2013/10/21/webinar-recording-production-python-3-web-development-with-pyramid-and-pycharm/|Webinar Recording: Production Python 3 Web Development with Pyramid and PyCharm | JetBrains Company Blog]]
+  * [[http://perone.github.io/stallion/|Stallion]]
+  * [[http://www.mahdiyusuf.com/post/64878566740/good-clean-python-install-on-mavericks-osx-10-9|Mahdi Yusuf - Good Clean Python Install on Mavericks OSX 10.9]]
+  * [[http://sensitivecities.com/so-youd-like-to-make-a-map-using-python-EN.html#.Um1PipRjTo4|So You’d Like To Make a Map Using Python]]
+  * [[http://www.python.org/dev/peps/pep-0008/|PEP 8 -- Style Guide for Python Code]]
+
+----
+def f(x):
+
+    return x + 1
+
+
+map(f, [1, 2, 3]) # => [2, 3, 4] [[http://stackoverflow.com/questions/4769004/learning-python-from-ruby-differences-and-similarities|Learning Python from Ruby; Differences and Similarities - Stack Overflow]]
+----
+for n in [1, 2, 3]:
+
+    print n [[http://stackoverflow.com/questions/4769004/learning-python-from-ruby-differences-and-similarities|Learning Python from Ruby; Differences and Similarities - Stack Overflow]]
+----
+  * [[http://allthingsprogress.com/posts/the-ugliness-of-python|Wit.io: The 'ugliness' of Python]]
+  * [[http://www.ibm.com/developerworks/web/library/os-pythonnltk/index.html|Explore Python, machine learning, and the NLTK library]]
+  * [[http://notes.lexual.com/tech/r_numpy_pandas_cookbook.html|Note — Lexual's Notes 1.0 documentation]]
+  * [[http://pandas.pydata.org/pandas-docs/dev/comparison_with_r.html|Comparison with R / R libraries — pandas 0.13.0rc1-64-gceec8bf documentation]]
+  * [[http://www.dabeaz.com/generators/|Generator Tricks for Systems Programmers]]
+  * [[https://github.com/kachayev/fn.py|kachayev/fn.py]]
+  * [[http://planet.python.org/|Planet Python]]
+  * [[http://inventwithpython.com/blog/|The “Invent with Python” Blog]]
+  * [[http://stackoverflow.com/questions/101268/hidden-features-of-python|Hidden features of Python - Stack Overflow]]
+  * [[http://pandas.pydata.org/pandas-docs/dev/io.html#msgpack-experimental|IO Tools (Text, CSV, HDF5, ...) — pandas 0.13.0rc1-64-gceec8bf documentation]]
+  * [[http://metarabbit.wordpress.com/2013/12/10/how-to-save-load-large-pandas-dataframes/|How to save & load large pandas dataframes | Meta Rabbit]]
+  * [[https://github.com/jrjohansson/scientific-python-lectures|jrjohansson/scientific-python-lectures]]
+  * [[http://scipy-lectures.github.io/|Python Scientific Lecture Notes — Scipy lecture notes]]
+  * [[http://www.packtpub.com/practical-data-analysis/book|Practical Data Analysis | Packt Publishing]]
+  * [[http://www.packtpub.com/building-machine-learning-systems-with-python/book|Building Machine Learning Systems with Python | Packt Publishing]]
+  * [[http://shop.oreilly.com/product/0636920025054.do|Agile Data Science - O'Reilly Media]]
+  * [[http://nbviewer.ipython.org/gist/jackparmer/7729584|]]
+  * [[http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/|Intro to pandas data structures | Greg Reda]]
+  * [[http://nbviewer.ipython.org/github/koldunovn/nk_public_notebooks/blob/master/Apache_log.ipynb|]]
+  * [[https://github.com/danielfrg/copper|danielfrg/copper]]
+
+----
+python3 -m venv myvenv
+
+
+$ source myvenv/bin/activate
+
+
+(myvenv) $ curl wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python
+
+
+(myvenv) $ curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python [[http://stackoverflow.com/questions/18157494/python3-virtual-environment-and-pip|python 3.x - Python3 Virtual Environment and PIP - Stack Overflow]]
+----
+  * [[https://github.com/olgabot/prettyplotlib|olgabot/prettyplotlib]]
+
+----
+import pandas as pd
+
+df = pd.DataFrame({'x': [1, 1, 2, 2, 1, 1], 'y':[1, 2, 2, 2, 2, 1]})
+
+print pd.factorize(pd.lib.fast_zip([df.x, df.y]))[0]
+
+the output is:
+
+
+[0 1 2 2 1 0] [[http://stackoverflow.com/questions/16453465/multi-column-factorize-in-pandas|python - multi-column factorize in pandas - Stack Overflow]]
+----
+df.values.nbytes + df.index.nbytes + df.columns.nbytes [[http://stackoverflow.com/questions/18089667/pandas-how-to-estimate-how-much-memory-a-dataframe-will-need|python - Pandas: How to estimate how much memory a dataframe will need - Stack Overflow]]
+----
+%load_ext memory_profiler [[http://stackoverflow.com/questions/19092812/measure-max-memory-usage-with-ipythonlike-timeit-but-memit|python - Measure (max) memory usage with IPython—like timeit but memit - Stack Overflow]]
+----
+  * [[http://www.astro.washington.edu/users/vanderplas/speaking.html|Talks and Presentations]]
+  * [[http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/|Teaching a Computer to Read: » The Scripted Blog]]
+  * [[http://scipy-lectures.github.io/|Python Scientific Lecture Notes — Scipy lecture notes]]
+  * [[https://github.com/eBay/bayesian-belief-networks|eBay/bayesian-belief-networks]]
+  * [[http://graph-tool.skewed.de/|graph-tool: Efficent network analysis with python]]
+  * [[http://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/|Kernel Density Estimation in Python]]
+  * [[http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/|Teaching a Computer to Read: » The Scripted Blog]]
+  * [[https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers|CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers]]
+  * [[http://nbviewer.ipython.org/github/jrjohansson/ipython-asymptote/blob/master/Asymptote-examples.ipynb|]]
+  * [[https://github.com/mgaitan/django-orm-magic|mgaitan/django-orm-magic]]
+  * [[https://github.com/gregmalcolm/python_koans|gregmalcolm/python_koans]]
+  * [[https://github.com/statsmodels/statsmodels/tree/master/examples/notebooks|statsmodels/examples/notebooks at master · statsmodels/statsmodels]]
+  * [[https://github.com/jvns/pandas-cookbook?utm_source=Python+Weekly+Newsletter&utm_campaign=6ea456d141-Python_Weekly_Issue_120_january_2_2014&utm_medium=email&utm_term=0_9e26887fc5-6ea456d141-312694509|jvns/pandas-cookbook]]
+  * [[https://medium.com/p/40e9b2b36148|Parallelism in one line — Medium]]

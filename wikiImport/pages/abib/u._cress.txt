@@ -1,0 +1,4 @@
+h2. U. Cress's publications
+
+| cress2005social | Cress, U., Barquero, B., Buder, J., & Hesse, F. W. (2005). Social dilemma in knowledge communication via shared databases. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|
+| cress2008systemic | Cress, U., & Kimmerle, J. (2008). A systemic and cognitive view on collaborative knowledge building with wikis. International Journal of Computer-Supported Collaborative Learning. Springer.|

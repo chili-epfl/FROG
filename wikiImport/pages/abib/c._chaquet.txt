@@ -1,0 +1,3 @@
+h2. C. Chaquet's publications
+
+| barre2005reengineering | Barre, V., Chaquet, C., & El-KechaïH. (2005). Re-engineering of collaborative e-learning systems: evaluation of system, collaboration and acquired knowledge qualities. Proceedings of Workshop on Usage Analysis in Learning Systems, Proceedings of Artificial Intelligence in Education.||

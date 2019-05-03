@@ -1,0 +1,3 @@
+h2. G. Regehr's publications
+
+| regehr2006self | Regehr, G., & Eva, K. (2006). {Self-assessment, self-direction, and the self-regulating professional}. Clinical orthopaedics and related research.||

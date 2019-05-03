@@ -1,0 +1,3 @@
+h2. Laura E Girardeau's publications
+
+| [@suthers2002roles] | Suthers, D. D., Girardeau, L. E., & Hundhausen, C. D. (2002). {The Roles of Representations in Online Collaborations}. Design, 1--14.|

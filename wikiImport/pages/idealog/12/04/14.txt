@@ -1,0 +1,3 @@
+h1. Idea log Saturday April 14, 2012
+
+MetaTutor, an environment within which a student is working, which notices how the student works, and intelligently prompts to promote good strategies (I see you have been reading for ten minutes, maybe you should summarize?)... think of Researchr as an integrated literature review tool, record interaction data, and provide hints / scaffolds? (highlighting, higher level notes, etc) [[:aera12:33.030]]

@@ -1,0 +1,39 @@
+h1. The technological dimension of a massive open online course: The case of the CCK08 course tools
+<html><a href='http://www.irrodl.org/index.php/irrodl/article/view/643/1410' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.irrodl.org/index.php/irrodl/article/view/643/1410'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Fini, A. (2009). The technological dimension of a massive open online course: The case of the CCK08 course tools. The International Review of Research in Open and Distance Learning, 10(5), Article--10.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://fini2009technological|BibDesk]]  | Fini, A. (2009). The technological dimension of a massive open online course: The case of the CCK08 course tools. The International Review of Research in Open and Distance Learning, 10(5), Article--10. |
+^ [[skimx://fini2009technological|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:fini2009technological?do=edit&vecdo=print\'><frame src=\'/wiki/clip:fini2009technological?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{fini2009technological,
+  author = {Fini, Antonio},
+  date-added = {2011-07-22 07:54:16 +0000},
+  date-modified = {2013-01-14 20:47:59 +0000},
+  date-read = {2012-04-02 15:54:53 -0400},
+  journal = {The International Review of Research in Open and Distance Learning},
+  keywords = {1mooc},
+  notes = {1},
+  number = {5},
+  oa-url = {http://www.irrodl.org/index.php/irrodl/article/view/643/1410},
+  pages = {Article--10},
+  read = {1},
+  title = {The technological dimension of a massive open online course: The case of the CCK08 course tools},
+  volume = {10},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZQAAAAAAZQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhlmaW5pMjAwOXRlY2hub2xvZ2ljYWwucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaNdky9b/2lBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zgaAAAAAQAMANrWUgAXPTEAAZ9eAAIAOFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBmaW5pMjAwOXRlY2hub2xvZ2ljYWwucGRmAA4ANAAZAGYAaQBuAGkAMgAwADAAOQB0AGUAYwBoAG4AbwBsAG8AZwBpAGMAYQBsAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC1Vc2Vycy9TdGlhbi9iaWJkZXNrL2ZpbmkyMDA5dGVjaG5vbG9naWNhbC5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECcuLi8uLi9iaWJkZXNrL2ZpbmkyMDA5dGVjaG5vbG9naWNhbC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACOAI6Aj8CSAJTAlcCZQJsAnUCnwKkAqcCtAK5AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:fini2009technological}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:fini2009technological}}
+
+{{page>kindle:fini2009technological}}
+
+{{page>skimg:fini2009technological}}

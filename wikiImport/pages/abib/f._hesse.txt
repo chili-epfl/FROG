@@ -1,0 +1,4 @@
+h2. F. Hesse's publications
+
+| stahl2009classical | Stahl, G., & Hesse, F. (2009). Classical dialogs in CSCL. International Journal of Computer-Supported Collaborative Learning. Springer.|
+| bromme2005barriers | Bromme, R., Hesse, F., & Spada, H. (2005). Barriers, biases and opportunities of communication and cooperation with computers: Introduction and overview. Barriers and biases in computer-mediated knowledge communication. Springer.|

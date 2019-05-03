@@ -1,0 +1,3 @@
+h1. Ipython
+
+  * [[http://assorted-experience.blogspot.ca/2013/07/run-ipython-notebook-on-remote-server.html|Assorted Experience: Run IPython notebook on remote server]]

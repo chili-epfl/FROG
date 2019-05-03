@@ -1,0 +1,3 @@
+h2. Publications in Avoiding simplicity, confronting complexity
+
+| munneke2006discussing | Munneke, L., Andriessen, J., Kanselaar, G., & Kirschner, P. (2006). Discussing a wicked problem in a computer-supported collaborative learning environment. Avoiding simplicity, confronting complexity, 197--208.||

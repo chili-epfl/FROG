@@ -1,0 +1,34 @@
+h2. Highlights (69%)
+
+Much free culture research has focused on the incentives that compel individuals to participate in commons-based peer production, the governance of peer production communities, open innovation processes, and the intersection of law with technology and society. An field that deserves more focused attention, and which has the potential to become a key driver for free culture practices is education. [[skimx://schmidt2009commons-based#1|p. 1]]
+
+The free culture movement, and the practice of commons-based peer production that lies at its core, offer interesting perspective for education and I will briefly describe two possible directions for research in this field: the analysis of learning processes in free culture communities, and the notion of a trusted community-based reputation that can serve as a form of accreditation. [[skimx://schmidt2009commons-based#1|p. 1]]
+
+Understanding Learning [[skimx://schmidt2009commons-based#1|p. 1]]
+
+Innovation and invention depend from on the ability to inspect and learn from the earlier work done by others. Opening up and sharing existing codified knowledge as well as parts of the innovation process itself (including idea generation, testing, and prototyping) creates opportunities for others to learn and to participate. [[skimx://schmidt2009commons-based#1|p. 1]]
+
+It is therefore not surprising that upon closer inspection of commons-based peer production communities we find learning at their core. Open source software developers state that gaining new knowledge and sharing knowledge with others (learning and teaching) are key motivations for their participation. Equally, learning is an intrinsic part of user-centered innovation processes where individuals exchange designs and improve upon them. Learning in these projects is not limited to facts and ideas, but extends to social behaviors and dispositions. Participants in online gaming communities develop communication and leadership skills, and contributors to social media sites exhibit high levels of media literacy and are comfortably working with video, audio and photo. [[skimx://schmidt2009commons-based#2|p. 2]]
+
+In a commons-based peer production framework, the concepts of (i) learning and (ii) assessment of learning become inseparable. The community continuously reviews and evaluates the contributions of its members. Open source software developers do not write exams, but the quality of their work (as an indicator for their knowledge) is tested as part of the project's inherent quality review process. Acceptance of a developer's software code into the release of the application is the equivalent of passing an exam. [[skimx://schmidt2009commons-based#2|p. 2]]
+
+The realization that a community of peers is able to effectively evaluate the individual learning achievements of its members is important in the context of education. The types of skills that are relevant in the digital economy are difficult to test through standardised exams: ability to analyse complex information, collaborate with others, and show leadership do not lend themselves to testing, but are better observed on an individual basis. In addition, there is enormous growth in the demand for education, and today's common models for assessment, which require an individual expert to review the work of students, does not scale. A peer assessment model as demonstrated in commons-based peer production offers an alternative that addresses both these challenges. [[skimx://schmidt2009commons-based#2|p. 2]]
+
+This leads us to two research questions: How can the intrinsic assessment mechanism we observe in open source software projects be applied to other domains, especially those that do not typically include the collaborative construction of an artefact? And secondly, how can these social assessment mechanisms be applied to formal education to improve the relevance of the skills that are being evaluated? [[skimx://schmidt2009commons-based#2|p. 2]]
+
+Reputation as a function of trust in aggregate opinions.2 [[skimx://schmidt2009commons-based#2|p. 2]]
+
+We make decisions by referring to information sources we trust, for example, we ask our friends or colleagues for their opinion of a book. If we receive two contradicting recommendations, we calculate a level of trust in each to make a purchasing decision. We can refer to the total level of trust we have in a person's opinion as their reputation. [[skimx://schmidt2009commons-based#2|p. 2]]
+
+Theoretically, this chain of trust can be extended to people outside our immediate networks. If we trust our friend on a particular subject, and she trusts a third person on that subject (and so on), then we are likely to also trust the opinion of our friend's friend. [[skimx://schmidt2009commons-based#3|p. 3]]
+
+they don't scale in the physical world. We can't – on the fly – compute the aggregated trust value we place in the opinion of someone who is a remote member of our social network – a friend of a friend of a friend of a friend. [[skimx://schmidt2009commons-based#3|p. 3]]
+
+In the information world such computations are possible and increasingly being used to help our decision making. [[skimx://schmidt2009commons-based#3|p. 3]]
+
+Degrees are the education system's solution for our inability to dynamically compute trust scores for a large number of opinions. For an employer it is not feasible to ask the opinion of every professor that has every taught a job applicant. The level of reputation that is embodied in a degree, depends on the value of trust we assign to the network of individuals whose opinions were aggregated to confer the degree. [[skimx://schmidt2009commons-based#3|p. 3]]
+
+There is first evidence that reputation in commons-based peer production communities can serve a similar purpose. [[skimx://schmidt2009commons-based#3|p. 3]]
+
+In other words, can reputation that reflects the aggregate opinions of participants in common-based peer production be transferred into economic opportunities that usually require an academic degree? [[skimx://schmidt2009commons-based#3|p. 3]]
+

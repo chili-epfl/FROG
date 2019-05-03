@@ -1,0 +1,136 @@
+h2. Highlights (16%)
+
+The MOOC is open and invitational. No one who wishes to participate is excluded; people negotiate the extent and nature of their participation according to their individual needs and wishes, regardless of whether those needs are defined, for example, by personal interest or workplace requirements. From a theoretical perspective, this creates a very broad form of “legitimate pe- [[skimx://mcauley2010mooc#6|p. 6]]
+
+ripheral participation” (Wenger, 1991) which allows individuals to be drawn into the community of practice at whatever rate is comfortable. From a pragmatic perspective, this framework provides access to large numbers of people who might otherwise be excluded for reasons ranging from time, to geographic location, to formal prerequisites, to financial hardship. [[skimx://mcauley2010mooc#7|p. 7]]
+
+The large scale of the community, from several hundred to several thousand participants, maximizes the possibility that the “long tail” effect will enable someone with even the most esoteric interests within the overall focus of the MOOC to find people with whom to share and collaborate. It means also that the specific expertise of the facilitator can reach the maximum possible number of people interested in accessing that expertise. Finally, the heterogeneity of the student body, with its wide range of knowledge and skills, means that the facilitator will not have to commit to the impossible task of responding individually to each student’s needs. [[skimx://mcauley2010mooc#7|p. 7]]
+
+In all these dimensions, successful participation in a MOOC parallels and scaffolds successful participation in the larger digital economy. [[skimx://mcauley2010mooc#7|p. 7]]
+
+Specific pedagogical issues, challenges and questions include: [[skimx://mcauley2010mooc#8|p. 8]]
+
+
+  *  the extent to which it can support deep enquiry and the creation of sophisticated knowledge; 
+  *  the breadth versus the depth of participation; 
+  *  whether and under what conditions successful participation can extend beyond those with broadband access and sophisticated social networking skills; 
+  *  identifying the processes and practices that might encourage lurkers, or “legitimate peripheral participants”, to take on more active and central roles; 
+  *  the impact or value of even peripheral participation, specifically the extent to which it might contribute to participation in the digital economy in extra-MOOC practices; 
+  *  specific strategies to maximize the effective contribution of facilitators in particular and more advanced participants in general; 
+  *  the role for accreditation, if any, and how it might be implemented. [[skimx://mcauley2010mooc#8|p. 8]]
+
+Alternatively, parallels between MOOCs and commercial ventures such as the Massive Open Online Novel (http://mongoliad.com) or the “Indigo MBA” (http://www.chapters.indigo.ca/Indigo-MBA/indigomba-giz.html) argue that there may be potential for revenue generation that do not unduly compromise the free and open nature of the MOOC model. [[skimx://mcauley2010mooc#8|p. 8]]
+
+! A MOOC is an online course with the option of free and open registration, a publiclyshared curriculum, and open-ended outcomes. MOOCs integrate social networking, accessible online resources, and are facilitated by leading practitioners in the field of study. Most significantly, MOOCs build on the engagement of learners who self-organize their participation according to learning goals, prior knowledge and skills, and common interests. [[skimx://mcauley2010mooc#11|p. 11]]
+
+The term came into being in 2008, though versions of very large open online courses were in existence before that time (McAuley, 2010). [[skimx://mcauley2010mooc#11|p. 11]]
+
+Dr. Alexander (Sandy) McAuley, has worked since the late 1980s as a practitioner and researcher exploring the potential of digital networks to support knowledge creation in education at the K-12 and post-secondary level, particularly in the far north. In 2007- 2008 he worked as PI with team members Dave Cormier and Bonnie Stewart on the innovative Living Archives project (http://livingarchives.ca). [[skimx://mcauley2010mooc#13|p. 13]]
+
+Co-Applicant Bonnie Stewart is a member of UPEI’s inaugural PhD cohort in Educational Studies. Her work explores the mutual constitution of knowledge and technologies, epistemologies of the digital, and post-cyborg conceptions of branding and identity performance. A longtime blogger, she is particularly interested in the lived experience of immersion within social media, and the concepts of self and learner that circulate within the discourses of the digital and creative economies. [[skimx://mcauley2010mooc#13|p. 13]]
+
+Dave Cormier's work focuses on the concepts of community as curriculum, the placing of educational technologies in a post-digital context, and rhizomatic models of knowledge creation [[skimx://mcauley2010mooc#13|p. 13]]
+
+the co-founder and current manager of Edtechtalk, a community of educators that has produced more than 1000 live interactive webcasts since June 2005 [[skimx://mcauley2010mooc#13|p. 13]]
+
+Dave Cormier [[skimx://mcauley2010mooc#14|p. 14]]
+
+My research interests explore how the negotiation of knowledge among peer groups can be leveraged as a learning ecology [[skimx://mcauley2010mooc#14|p. 14]]
+
+I am also interested in how open networked learn- [[skimx://mcauley2010mooc#14|p. 14]]
+
+ing models can support long term connectivity between peers to provide an extended impact on how learning can happen for an individual. [[skimx://mcauley2010mooc#15|p. 15]]
+
+This feeling was reinforced by the finding of the openhabitat project, which suggested that 'eventedness' was a key factor in participation in any online educational endeavour. (Cormier, 2009) [[skimx://mcauley2010mooc#16|p. 16]]
+
+I co-facilitated one of the live, collaborative sessions for CCK08, and found the ever changing dynamics of those sessions both familiar from my time with edtechtalk, and challenging to my instincts as an educator. In any given live session, you might get a combination of people who had not seen any of the materials for a given week, some who were visiting for the first time and others who had been following along with the course quite passionately. There were participants who had things to say with respect to the material of the course, others had input on the format and still more on the value of the topic itself. The authenticity of this, the way in which this transcends the artificial contexts of a traditional course, are one of my key interests in openness. [[skimx://mcauley2010mooc#16|p. 16]]
+
+The network cluster, in the end, is where my main interest lies in the MOOC. Is there a point at which learners select another set of learners with whom they can negotiate solutions/knowledge that will allow them to achieve their goals? Is the resistance that is present for some learners a question of the habit formed in traditional education or does it reflect a more deep seated difference? Goals can be as diverse as the learners themselves, but the possibility of supporting the creation of long term clusters rewards the effort of putting on the event. People meet the people they need to meet. They find the solutions they were hoping to find. They also, hopefully, find a sense of community, which may be reason enough to do it by itself. [[skimx://mcauley2010mooc#17|p. 17]]
+
+While I was comfortable contributing my ideas in the diffuse environment of the MOOC when I felt I had something to offer the distributed nature of the course became difficult for me when we ventured into topics which were content-heavy and unfamiliar to me. I suspect I was not alone: there was a period in the Edfutures MOOC when learner contributions became quite thin, and discussion in Elluminate suggested that many of us were feeling out of our element in this particular discussion and thus remaining relatively silent. It was, for [[skimx://mcauley2010mooc#19|p. 19]]
+
+me, the point of the course at which I largely disengaged: the momentum I'd been building slipped, and once one pulls back, it is harder to start again. I had been participating from the position of a person with both something to contribute and something to learn. Once I felt I didn't have much to offer, I had trouble maintaining my sense of my role. [[skimx://mcauley2010mooc#20|p. 20]]
+
+Extrapolating, I’d venture that one of the implicit limitations on participation in MOOCs may be that sense of learner identity. People not only need to be comfortable in the prosumer role of creator and consumer of knowledge content, but they need to be able to maintain an identity from which they can speak even when their actual knowledge is minimal. [[skimx://mcauley2010mooc#20|p. 20]]
+
+it would be wise for MOOC facilitators to consider strategies for scaffolding or sustaining participation through content-heavy or lesspersonalized topics. [[skimx://mcauley2010mooc#20|p. 20]]
+
+I do know that while MOOCs are in some ways more democratic social contracts than traditional teacher-learner classroom roles, they are still negotiations of power in which people establish the right to speak and be heard based on relational roles. [[skimx://mcauley2010mooc#22|p. 22]]
+
+::Bonnie's unusual role as partner of one course organizer, and having a PhD supervisor who was a co-student. Being uncomfortable with raising certain criticism in the public sphere - the value of "backchannelling", learning that does not happen in the open:: [[skimx://mcauley2010mooc#22|p. 22]]
+
+::George Siemens:: [[skimx://mcauley2010mooc#23|p. 23]]
+
+A few initial experiments in large-scale online interaction - the Online Connectivism Conference 2007 and the Future of Education Conference 2007 (both at University of Manitoba) - provided me with a better understanding of how and why people participate in online learning activities. In particular, I became aware of the need for learning activities to include both synchronous and asynchronous components, as learners from around the world were participating in the conferences. [[skimx://mcauley2010mooc#23|p. 23]]
+
+Based on this discussion, we settled on the pedagogical model that continues to define MOOCs: 
+  *  High levels of learner control over modes and places of interaction 
+  *  Weekly synchronous sessions with facilitators and guest speakers 
+  *  The Daily email newsletter as a regular contact point for course participants. The Daily includes a summary of Moodle forums, course participant blogs, Twitter discussions related to the course, etc. 
+  *  Using RSS-harvesting (gRSShopper) to track blogs of course participants 
+  *  Emphasis on learner autonomy in selecting learning resources and level of participation in activities 
+  *  Emphasis on social systems as effective means for learners to self-organize and wayfinding through complex subject areas 
+  *  The criticality of “creation” - i.e. learners create and share their understanding of the course topics through blogs, concept maps, videos, images, and podcasts. Creating a digital artifact helps learners to re-centre the course discussion to a more personal basis. [[skimx://mcauley2010mooc#24|p. 24]]
+
+:::it’s very easy to fragment content and conversations, the key challenge was, and continues to be, finding a way to connect the fragmented pieces in such a way as to provide learners with a sense of knowledge::: [[skimx://mcauley2010mooc#24|p. 24]]
+
+:::coherence. While we experimented with different technical approaches (such as using Downes’ gRSShopper to aggregate blogs, encourage participants to track the course tag on Google Alerts, use of the Daily newsletter to provide a reasonably consistent summary of course activity), the social interactions of learners in the course provided the most sensemaking approach for most participants. The formation of sub-networks for discussion and collaboration helped to cluster the conversation around themes and topics relevant to individual participants.::: [[skimx://mcauley2010mooc#25|p. 25]]
+
+Since CCK08, I have been involved with various other open courses. In the process, I’m beginning to see a few consistent patterns that emerge as the courses progress. The patterns of participation (generally high early in the course, with the development of sub-networks, and gradual tapering of activity) present a research agenda that may provide critical insight into how teaching and learning should be conducted online, regardless of number of participants. The tools and methods to run a MOOC are still in their infancy, but are improving with each course we run. Similarly, we are refining our pedagogical approach and getting a better sense of when instructors should be most active. We’re also starting to understand the power and control relationship in a MOOC - participants are quite vocal when they perceive that instructors are violating the spirit of open courses. As instructors we have to be aware of these expectations - an open course relies on the effort and participation of many. [[skimx://mcauley2010mooc#25|p. 25]]
+
+it has become quite clear to me that understanding how social interactions in networks scale is critical to understanding the future of education. [[skimx://mcauley2010mooc#25|p. 25]]
+
+Gutenberg permitted content to scale. Today’s web permits social interactions to scale. I can think of very few areas of research that will have a more dramatic impact on education in the next decade. [[skimx://mcauley2010mooc#26|p. 26]]
+
+Although programs such as CMAP allow for the collaborative creation of concept maps, CSILE/Knowledge Forum remains one of a few digital environments, if not the only one, that supports collaborative knowledge construction by means of movable, user-created digital objects in a two-dimensional space: text has meaning; images, graphics and multimedia have meaning; and that meaning can be augmented by spatial relationships. Work continues to explore the roles of animation and three-dimensional space as means to understand the processes by which knowledge is created in an online environment, and how they can be supported and improved. [[skimx://mcauley2010mooc#27|p. 27]]
+
+Because MOOCs are open to anyone who is interested, whether they have the academic or experiential background to contextualize the material explored, the filtering of participants happens after the course starts, rather than before. Both Dave and George have noted that this seems to lead to higher drop/attrition rates than would generally be seen: the fact that the courses are free is likely also a contributing factor, as people are not required to make a extensive financial commitment before embarking. [[skimx://mcauley2010mooc#38|p. 38]]
+
+Although Web 3.0 technologies are expected to help individuals sort through the volume of new knowledge, they depend on the availability of knowledge in a format that they can process. MOOCs, on the other hand, tap into social networks of personal knowledge. Even if no individual can maintain currency with the entirety of a field of knowledge, a sufficiently large group of people can do so collectively. “Knowing that” in this context includes a process of “knowing [[skimx://mcauley2010mooc#39|p. 39]]
+
+how” to create and maintain a network of people that can be tapped when needed to contribute to address a knowledge deficiency or contribute to a knowledge advance. In a world permeated by digital technologies knowing revolves around being aware of one’s potential contribution and being able to integrate and synthesize that contribution into new contexts, translating for others wherever they may be. [[skimx://mcauley2010mooc#40|p. 40]]
+
+In many respects a MOOC parallels a traditional network of scientists and researchers with the exceptions that its membership is much more open, potentially much larger, and it is much more flexible in its potential to take up and respond to issues, questions, and problems on an ad-hoc basis. [[skimx://mcauley2010mooc#40|p. 40]]
+
+Specific issues, challenges and questions include: 
+  *  the capacity to support deep enquiry and the creation of sophisticated knowledge 
+  *  the breadth versus the depth of participation 
+  *  whether and under what conditions successful participation can extend beyond those with broadband access and sophisticated social networking skills 
+  *  identifying the processes and practices through which the strength of the “gravitational pull” that might encourage lurkers, or “legitimate peripheral particpants”, to take on more active and central roles 
+  *  the impact or value of even peripheral participation, specifically the extent to which it might contribute to participation in the digital economy in extra-MOOC practices 
+  *  specific strategies to maximize the effective contribution of facilitators in particular and more advanced participants in general [[skimx://mcauley2010mooc#42|p. 42]]
+
+Connectedness amplifies knowledge and knowledge’s potential. In education, content can easily be produced: it’s important but has limited economic value. Lectures also have limited value, as they’re easy to record and to duplicate. Teaching – as done in most universities – can be duplicated. Learning, on the other hand, can’t be duplicated. [[skimx://mcauley2010mooc#45|p. 45]]
+
+Learning is personal, and has to occur one learner at a time. The support needed for learners to learn is a critical value point. In theory, Canada will be building on the right foundation if we shift our financial investment in education from creating content and turn it to fostering, guiding, and interacting within the learning process. But information changes so quickly that we need a way to stay on top of it. How can a lecture recorded last year be used again this year? Wouldn’t we have to continually deliver new lectures to reflect knowledge growth? [[skimx://mcauley2010mooc#45|p. 45]]
+
+Yes, if we consolidated learning in MOOC model offerings, we would need to continually redo lectures. But there would be no need to do those in isolation from existing academic offerings. How many introductory psychology courses does a field need? Educators can collaborate and share around the content needs of their discipline. Learning, however, requires a human, social element: MOOCs provide both peer-based support and interaction with subject area experts. It is in this consolidation of the many aspects of learning for a collaborative, participatory economy that MOOCs offer the broadest potential. The conditions under which MOOCs may be extend- [[skimx://mcauley2010mooc#45|p. 45]]
+
+able to a broader range of interests and sustainable within a wage economy, however, remain to be seen. [[skimx://mcauley2010mooc#46|p. 46]]
+
+The Indigo MBA, offered online by the bookselling giant, is a “self-directed course of reading for people interested in building their knowledge of business concepts and interacting with like-minded peers,” http://www.chapters.indigo.ca/indigo-mba/indigomba-giz.html?EMS_MID=E... . Indigo sells the books and provides a site for interaction: beyond that, the course is up to participants. The subscription-based Massively Open Online Novel, The Mongoliad, http://mongoliad.com , also clusters and connects people around a common interest, generating revenue by charging a small fee that grants paying subscriber broader and deeper access to the online collaboration. [[skimx://mcauley2010mooc#46|p. 46]]
+
+The Massively Open Online Novel brings to the fore some of the challenges surrounding economic opportunity in the open. Traditional notions of intellectual property do not work in a participatory, collaborative environment. Who owns an idea developed or improved collaboratively? Who owns the revenue deriving from it? [[skimx://mcauley2010mooc#47|p. 47]]
+
+The ability to work with current digital tools to connect fragmented, diffuse, and distributed knowledge nodes, both human and artifactual, is [[skimx://mcauley2010mooc#47|p. 47]]
+
+perhaps the most important literacy that the MOOC environment rewards. Developing one's personal knowledge and presenting it through a coherent reflection or contribution, whether by means of blog posts, concept maps, video or another tool, is a high-level digital literacy. [[skimx://mcauley2010mooc#48|p. 48]]
+
+Informal polling of MOOC participants suggest that learners get more out courses when they a) enter with basic digital literacies, and b) are learning [[skimx://mcauley2010mooc#48|p. 48]]
+
+within what Vygotsky (1978) would call their zone of proximal development, rather than delving into an entirely new discourse or field. Having some pre-existing familiarity with the topic offers points of orientation and meaning-making within the course, and affords a learner currency in the transactional, networked interactions of a MOOC. [[skimx://mcauley2010mooc#49|p. 49]]
+
+The simple skills of blogging/micro blogging, commenting and engaging in other forms of interactive discourse are key to the initial development of voice online. These are underwritten by the ability to quickly scan and filter through potentially vast amounts of other people’s work in order to be able to find the work that can most challenge/complement one's own work. [[skimx://mcauley2010mooc#50|p. 50]]
+
+Likewise, the literacies involved with being a self-starter are heavily embedded in traditional concepts of gender and class. Consistently taking open, declarative positions, cross-examining and critiquing the work of others, and challenging authority and received wisdom are all critical to full participation in a MOOC, yet are discourses heavily identified with privilege. This can be a [[skimx://mcauley2010mooc#51|p. 51]]
+
+particular issue when a MOOC is popular across many different cultures that work on very different ideas of respect for power, authority and knowledge.! [[skimx://mcauley2010mooc#52|p. 52]]
+
+Strong views and opinions can create flare ups that participants may find intimidating. Differences in cultural norms and language barriers also contribute to misunderstandings. Patience, tolerance, suspension of judgment, and openness to other cultures and ideas are required to form social connections and negotiating misunderstandings. [[skimx://mcauley2010mooc#53|p. 53]]
+
+Last, the capacity of MOOC facilitators to attract and engage participants in this unfamiliar and independent environment is a genuine factor in shaping learners' participation. The reputational economy, with its emphasis on performance of knowledge, lends itself to the treatment of leaders [[skimx://mcauley2010mooc#54|p. 54]]
+
+and innovators within fields as minor celebrities. People who are known for a particularly body of expertise will have the reputation and clout to draw a draw a critical mass of participants to a MOOC on that given topic. In the field of educational technologies where MOOCs have their origins, many of these leaders also have skills and backgrounds as educators. They have had the capacity to continue to engage participants once courses have begun, and the reflexivity to continue to improve their own facilitation practices in this new environment. However, the maxim that leaders do not always make the best teachers may be a challenge for MOOCs once the model begins to spread to fields without roots in education. The temptation to over instruct, robbing participants of independence and wayfinding, or to fail to scaffold at all, are challenges that MOOC facilitators must confront regularly in their social contract with participants. A partnership of facilitators, some with the reputation to draw a crowd and lead ground-breaking exploration, and some with the scaffolding and engagement skills needed to communicate effectively with learners, might be a workable combination. [[skimx://mcauley2010mooc#55|p. 55]]
+
+Bibliography and Citations [[skimx://mcauley2010mooc#58|p. 58]]
+

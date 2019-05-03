@@ -1,0 +1,3 @@
+h2. J. Goslin's publications
+
+| nova2003impacts | Nova, N., Dillenbourg, P., Wehrle, T., Goslin, J., & Bourquin, Y. (2003). The impacts of awareness tools on mutual modelling in a collaborative video-game. Groupware: Design, Implementation, and Use. Springer.|[[skimx://nova2003impacts|PDF]]|

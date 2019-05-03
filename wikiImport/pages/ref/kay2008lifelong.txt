@@ -1,0 +1,38 @@
+h1. Lifelong Learner Modeling for Lifelong Personalized Pervasive Learning
+
+<ifauth !@admin>|Kay, J. (2008). Lifelong Learner Modeling for Lifelong Personalized Pervasive Learning. IEEE Transactions on Learning Technologies, 1(4), 215--228. doi:10.1109/TLT.2009.9|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kay2008lifelong|BibDesk]]  | Kay, J. (2008). Lifelong Learner Modeling for Lifelong Personalized Pervasive Learning. IEEE Transactions on Learning Technologies, 1(4), 215--228. doi:10.1109/TLT.2009.9 |
+^ [[skimx://kay2008lifelong|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kay2008lifelong?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kay2008lifelong?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{kay2008lifelong,
+  author = {Kay, Judy},
+  date-added = {2011-06-05 21:19:36 +0800},
+  date-modified = {2011-06-05 21:26:44 +0800},
+  doi = {10.1109/TLT.2009.9},
+  issn = {1939-1382},
+  journal = {{IEEE} Transactions on Learning Technologies},
+  keywords = {self-regulated learning; learner models},
+  number = {4},
+  pages = {215--228},
+  title = {Lifelong Learner Modeling for Lifelong Personalized Pervasive Learning},
+  url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=4770090},
+  volume = {1},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIS4uLy4uL0JpYmRlc2sva2F5MjAwOGxpZmVsb25nLnBkZtIXCxgZV05TLmRhdGFPEQF8AAAAAAF8AAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeUHISCsAAADa1lITa2F5MjAwOGxpZmVsb25nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADpMCwMvXGSFQREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAy9dfcQAAAAEADADa1lIAFz0xAAGfXgACADJTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAa2F5MjAwOGxpZmVsb25nLnBkZgAOACgAEwBrAGEAeQAyADAAMAA4AGwAaQBmAGUAbABvAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAnVXNlcnMvU3RpYW4vQmliZGVzay9rYXkyMDA4bGlmZWxvbmcucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALIAtwC/Aj8CQQJGAlECWgJoAmwCcwJ8AoECjgKRAqMCpgKrAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:kay2008lifelong}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kay2008lifelong}}
+
+{{page>kindle:kay2008lifelong}}
+
+{{page>skimg:kay2008lifelong}}

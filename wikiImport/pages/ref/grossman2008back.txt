@@ -1,0 +1,35 @@
+h1. Back to the future: Directions for research in teaching and teacher education
+
+<ifauth !@admin>|Grossman, P., & McDonald, M. (2008). Back to the future: Directions for research in teaching and teacher education. American Educational Research Journal, 45(1), 184. SAGE Publications.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://grossman2008back|BibDesk]]  | Grossman, P., & McDonald, M. (2008). Back to the future: Directions for research in teaching and teacher education. American Educational Research Journal, 45(1), 184. SAGE Publications. |
+^ [[skimx://grossman2008back|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:grossman2008back?do=edit&vecdo=print\'><frame src=\'/wiki/clip:grossman2008back?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{grossman2008back,
+  author = {Grossman, P. and McDonald, M.},
+  date-added = {2011-06-09 15:45:28 +0800},
+  date-modified = {2011-06-09 15:45:28 +0800},
+  journal = {American Educational Research Journal},
+  number = {1},
+  pages = {184},
+  publisher = {SAGE Publications},
+  title = {Back to the future: Directions for research in teaching and teacher education},
+  volume = {45},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRncm9zc21hbjIwMDhiYWNrLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGad81y9cB6FBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zooAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBncm9zc21hbjIwMDhiYWNrLnBkZgAADgAqABQAZwByAG8AcwBzAG0AYQBuADIAMAAwADgAYgBhAGMAawAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9ncm9zc21hbjIwMDhiYWNrLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9ncm9zc21hbjIwMDhiYWNrLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:grossman2008back}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:grossman2008back}}
+
+{{page>kindle:grossman2008back}}
+
+{{page>skimg:grossman2008back}}

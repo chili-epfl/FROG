@@ -1,0 +1,7 @@
+h2. Kenneth R. Koedinger's publications
+
+| [@koedinger1994emergent] | Koedinger, K. R. (1994). Emergent properties and structural constraints: Advantages of diagrammatic representations for reasoning and learning. Reasoning with diagrammatic representations, 151--156.|
+| [@walker2009beyond] | Walker, E., Rummel, N., & Koedinger, K. R. (2009). Beyond explicit feedback: new directions in adaptive collaborative learning support. In Proceedings of the 9th international conference on Computer supported collaborative learning - Volume 1, CSCL'09 (552--556). International Society of the Learning Sciences. |
+| [@diziol2009using] | Diziol, D., Walker, E., Rummel, N., & Koedinger, K. R. (2009). Using Intelligent Tutor Technology to Implement Adaptive Support for Student Collaboration. Educational Psychology Review, 22(1), 89--102. doi:10.1007/s10648-009-9116-9|
+| [@razzaq2009assistment] | Razzaq, L., Patvarczki, J., Almeida, S. F., Vartak, M., Feng, M., Heffernan, N. T., & Koedinger, K. R. (2009). The {ASSISTment} Builder: Supporting the Life Cycle of Tutoring System Content Creation. {IEEE} Transactions on Learning Technologies, 2(2), 157--166. doi:10.1109/TLT.2009.23|
+| [@walker2011designing] | Walker, E., Rummel, N., & Koedinger, K. R. (2011). Designing automated adaptive support to improve student helping behaviors in a peer tutoring activity. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9111-2|

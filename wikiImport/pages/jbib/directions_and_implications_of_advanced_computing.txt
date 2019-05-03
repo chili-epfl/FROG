@@ -1,0 +1,3 @@
+h2. Publications in Directions and Implications of Advanced Computing
+
+| conklin2008growing | Conklin, J. (2008). Growing a Global Issue Base: An Issue-based Approach to Policy Deliberation. Directions and Implications of Advanced Computing.|[[skimx://conklin2008growing|PDF]]|

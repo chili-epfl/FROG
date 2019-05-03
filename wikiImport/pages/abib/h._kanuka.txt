@@ -1,0 +1,3 @@
+h2. H. Kanuka's publications
+
+| rourke2007barriers | Rourke, L., & Kanuka, H. (2007). Barriers to online critical discourse. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://rourke2007barriers|PDF]]|

@@ -1,0 +1,3 @@
+h2. R.A. Burkhard's publications
+
+| burkhard2004learning | Burkhard, R. A. (2004). Learning from architects: the difference between knowledge visualization and information visualization. Published by the IEEE Computer Society.|[[skimx://burkhard2004learning|PDF]]|

@@ -1,0 +1,3 @@
+h2. Michael Ranney's publications
+
+| [@merrill1992effective] | Merrill, D. C., Reiser, B. J., Ranney, M., & Trafton, J. G. (1992). Effective Tutoring Techniques: A Comparison of Human Tutors and Intelligent Tutoring Systems. Journal of the Learning Sciences, 2(3), 277-305. doi:10.1207/s15327809jls0203_2|

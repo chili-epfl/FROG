@@ -1,0 +1,138 @@
+h1. Flipped classrooms
+//session at Coursera Conference 2013, April 5, UPenn//
+
+h2. Akiba Covitz (edX): Reinventing education in the blended classroom
+//[[http://www.extension.harvard.edu/about-us/faculty-directory/akiba-j-covitz|faculty page]]//
+
+{{pages:flipped_classrooms01.png}}
+
+edX: 4Ps
+  * open source Platform
+  * Portal for learning edX.org
+  * Pedagogy research on learning using "big data"
+  * Production support to ensure high quality
+
+Smaller number of classes, careful study of them. 
+
+h3. SJSU 6.002x Preliminary findings
+  * Compared to previous generation
+    * 5.7% higher on first exam, 9.6% higher on 2nd exam
+    * retake rate from 41% to 9%
+
+h3. MITx intro to comp sci
+  * funded by Gates foundation
+  * Offering full edX course
+  * 20 students, 1 faculty member
+  * done in computer lab
+  * teamwork on solving edX problems
+  * faculty: small group instruction, and additional exercises and resources for students to catch up
+  * results: 18/20 passed midterm with score of 80% or higher
+  * other models, using two weeks to cover one week of edX, etc. Mainly small groups.
+
+h2. Jeff Himpele (Princeton)
+//[[http://www.princeton.edu/mcgraw/about/staff/|faculty page]]//
+
+{{pages:flipped_classrooms02.png}}
+
+Not a big fan of "flipping", misleading. Flipping student/professor, changing their point of view towards teaching and learning. Sounds like "contorsion". Prefers blended/hybrid.
+
+Recording lectures, aligning lectures with quizzes. Look at course from point of view of the ends - objectives, and student's point of view. 
+
+Tools of platforms (Coursera etc) enables a lot more interesting role than just delivering content. We're flipping the students' first engagement with the material. How do they approach the material, with what assumptions. 
+
+Faculty from speaker to guide-on-the-side, listener, coach. 
+
+Some fully flipped courses, including electronic engineering. Lessons:
+  * Watched lecture videos (Coursera)
+  * in-class a number of interactive activities, including 
+    * demonstrations
+    * student polls
+    * q&a
+    * guest answers.
+  * Student feedback: Weird format!
+  * Things happening in class seen as "supplemental" to the "real content"
+  * Some students said "can't attend class because I don't have time" - see it as optional
+
+Better success with courses that were not fully flipped. Faculty chose 3-4 lectures to put online, because of low attendance (holidays), material very complex (students can take their time). We saw that students did engage with the material. Worked very well in sociology course (did much better than they had done on some very complex material).
+
+Electronic and photonic devices, four lectures were flipped. Poll with clickers after the first one:
+  * 60% watched one intently
+  * 12% intently, and multiple times
+  * 20% watched, while doing something else
+  * nobody did not watch
+
+In history lessons, some did not watch, downloaded the subtitles the transcripts and read them instead.
+
+Didn't tell students that they were part of some "revolutionary new thing" (that students might feel would put their GPA at risk), but downplayed it. "Please watch these videos, so that the class discussion will have more meaning". Problems at the end of the lecture videos, students had to start at home, and bring them along to the course - important to create connections between work at home, and lecture.
+
+h2. Adrienne Williams (UCI)
+//[[http://www.faculty.uci.edu/profile.cfm?faculty_id=5290|faculty page]]//
+
+{{pages:flipped_classrooms03.png}}
+
+"What do you want students to be able to do after the course? Then why not make them do that in class, instead of writing notes while you read PPT slides?"
+
+I taught an experimental course with 75 students. Bloom's taxonomy. Incoming students can only do lowest level, want them to get to top level. Why not work on that in class?
+
+Learnt:
+  * take content out, and shut up
+  * during: clickers, minute papers, group work, microlectures, current research
+  * did research, ERB. 
+  * low SAT students improved more than anyone else. But could also be small class size
+
+How to start?
+
+h2. Kathy Takayama (Brown University)
+//[[http://research.brown.edu/myresearch/Kathy_Takayama|faculty page]]//
+
+{{pages:flipped_classrooms04.png}}
+
+Had a vision of what we wanted our students to be doing in class.
+
+Engage undergraduate TAs which would be facilitating in-class time as engaged collaborators. 
+
+Large microeconomics course
+  * 450 students
+  * review sections - nobody went to them
+  * 1/3 of the lectures, replaced with microlecture videos (a few minutes long, Khan academy style)
+    * spent the whole summer thinking about the most difficult parts of the course, has taught for a long time, knew which parts were difficult
+    * very calculus heavy, difficult for people without enough math background
+  * social construction of knowledge (John Seely Brown) - collaborative problem-solving. Wanted things to happen in something similar to the [[http://web.mit.edu/edtech/casestudies/teal.html|TEAL classrom]]
+  * peer-learning facilitated by undergraduate TAs
+  * informed by "Brown culture"
+
+Instructor presence is important, virtual + physical continuum. 
+
+Importance of TAs
+  * Deconstructing every single microlecture with TAs, what works for them. 
+  * They're forming community in advance of the course. 
+  * Deconstructing thinking, metacognitive thinking - how will we ask questions, predicting how peers who they will be facilitating will be thinking. Gives professor insight into undergrad thinking.
+
+Two days a week, lecture. Third day, first watch micro-lectures, then come to collaborative class. 
+
+h2. Questions
+
+{{pages:flipped_classrooms05.jpeg}}
+
+  * Is there an extra benefit from students interacting with non-campus students on Coursera?
+    * some courses had that opportunity, but for-credit students didn't interact much with other students, were strategic about use of time. Needs to be built into course. Other courses were closed, just using Coursera platform.
+    * SPOCs (small private online classes) - not part of the large online open community
+  * Partnership with community colleges, how can they become true partners and not just "TAs"?
+    * Gives you the opportunity for one-on-one conversations with students - it's what we all want to do as lecturers
+  * Were the students at community colleges inspired by the idea of "competing with MIT students"?
+    * broader community - forums, you see people from around the world struggling, challenging themselves. When you see courses from the best universities in the world, it's also very inspiring for community college students, or others.
+    * student's online learnt a lot more than the Stanford students, because of the engagement, teamwork
+    * flip in the student's point of view towards student-centered learning, context is different, student's come to class expecting to hear from an expert. In community college might be easier to get students' more engaged. 
+  * What kind of research do you need from schools of education?
+    * lateral and longitudinal data - is it consistent over time, across instructor, across students. Typically studies done by one professor, who is very motivated to do it well.
+  * What is clickers?
+    * Clicker is the gateway drug to active learning/flipping
+  * History class - putting lecture online, and maximizing time with "high-value" professor. But with more active learning (which I think is valuable), you end up with "students-teaching-students", which changes value-proposition for students
+    * Professor is present, roaming, intensive interaction with professor.
+  * In work with TAs, how are you going to be able to train the next generation of TAs to adapt these wonderful things?
+    * Borrowing from work in CS for 20 years - they've had a generational cult of TAs, that train each other. Current TAs - at least half will extend for another year, recruit next group from course we're teaching in the fall. There will always be overlap. 
+    * People already know about what will be happening in micro-economics, and are signing up because they want that interaction with the professors. 
+  * Impact of flipping on cost of instruction (now or future)?
+    * No cost reduction
+  * How do we get more people to do this, lot's of resistance from faculty? Do you have faculty development model?
+    * Appeal to their being scholars - show evidence and data. 

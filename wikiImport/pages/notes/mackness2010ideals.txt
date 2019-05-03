@@ -1,0 +1,84 @@
+h1. Key ideas
+
+h2. Method
+Online survey to all active participants, e-mail interviews
+
+h2. Theory
+**‘Autonomy’** allows learners maximum choice of where, when, how, with whom and even what to learn. 
+
+//Autonomy was equated to flexibility and control over learning and exemplified by the participants’ choices of how, and how much, to engage with the course.//
+
+**‘Diversity’** ensures that learners are from a sufficiently diverse population to avoid group-think and ‘echo-chambers’ (McRae, 2006). They engage in diverse readings, discussions and environments. 
+
+//This was ensured by the large numbers enrolled on CCK08 from all over the world. Different nationalities, cultures, ages and backgrounds were very much in evidence on the course. Diversity was also reflected in the learning preferences, individual needs and choices expressed by interview respondents.//
+
+**‘Openness’** accommodates all levels of engagement, with no barriers between ‘in’ and ‘out’. It helps to ensure the free flow of information through the network, and encourages a culture of sharing and a focus on knowledge creation. 
+
+//Implicit assumption in the course was that participants would be willing or ready to give and receive information, knowledge, opinions and ideas; in other words to share freely.//
+
+**‘Connectedness’** and interactivity is what makes all this possible. Knowledge emerges as a result of connections.
+
+//I don't consider either 'making connections' or 'theoretical conceptual framework' to be the essence of connectivism. As I have stated many times, knowledge is pattern recognition; learning is becoming able to recognize patterns. (CI) p. 5
+
+In other words, connectivity is not an end, but a means: this shifts the gist of learning theory away from connectivity per se to pattern recognition.//
+
+//from Downes 2007a, 2008, 2009b//
+
+h3. Expectation
+Knowledge would be emergent in the network and become a resource for the network as a whole as well as for the credit-bearing course.
+
+h2. Findings
+
+The four aspects above, **which were all found present in CCK08**, present paradoxes which are difficult to resolve in an online course. 
+
+The more these are fulfilled, the more the potential for participants' learning to be limited by the lack of 
+  * structure
+  * support
+  * moderation
+
+normally associated with an online course, 
+
+and the more they seek to engage in traditional groups as opposed to an open network. 
+
+These responses constrain the possibility of having the positive experiences of autonomy, diversity, openness and connectedness/interactivity normally expected of an online network. The research suggests that the question of whether a large open online network can be fused with a course has yet to be resolved.
+
+h3. Participation
+In CCK08 active participation and interaction was only sustained by a small percentage (14%) of the total number of participants. The remaining 86% had probably either dropped out of the course or were ‘lurking’. There are at least two possible explanations: i) they were getting a free ride (free as in ‘beer’), or ii) they were demonstrating ‘novice’ behaviour; many novices ‘lurk’ until they feel confident enough to expose their views in ‘public’ forums.
+
+h3. Expertise divide
+The expertise divide is critical in all online learning and can effectively undermine openness, connectedness and interactivity, e.g. ‘The reason I stopped is because I cannot understand the issues being discussed anymore’ The more open the course, the more this becomes a dilemma for the course designers.
+
+h3. Limits to autonomy
+the degree to which they could experience autonomy was affected by 
+  * levels of fluency in English
+  * the ‘expertise divide’
+  * assessment for credit participants
+  * personal learning styles
+  * personal sense of identity and the power exerted, either implicitly or explicitly
+  * by instructors through their communications, status and reputation
+  * or by participants themselves
+  * particularly those who engaged in ‘trolling’ behaviour
+
+h3. Freedom to self-organize -> small groups
+The freedom to self-organise and choose where and with whom to interact led to participants establishing small groups and communities where they could interact with like minded people, safe in their comfort zones and ‘echo chambers’ (Gilbert, et al., 2009)
+
+Autonomy is, paradoxically, jeopardised in the absence of constraints (Cilliers, 2005, and Snowden & Boone, 2007)
+
+h3. Diversity
+Lead to little support for the hugely diverse group of participants, some of whom did not necessarily have all the skills or disposition needed to learn successfully, or to become autonomous learners in a MOOC. 
+
+h4. Literature
+Darken and Sibert (1996) have written of the need to support wayfinding in large online networks. 
+
+Salmon (2004) writes of the need to support initial online socialisation as a foundation for collaborative knowledge creation and of the need for effective moderation of online courses.
+
+h3. Sharing requires trust
+Sharing for many people requires trust, and the more connectedness there is, the more time-consuming and hazardous it may be to build trust
+
+h3. "Course"?
+Misleading title, people expected more support/structure. 
+
+::(Interesting broader point about terminology when trying to innovate).::
+
+h3. Boundaries of openness
+The key features of a complex, open course, rich in emergence, are that it is not defined by what must happen, but rather by what must not happen – the boundaries of openness (Cilliers, 2005; Snowden & Boone, 2007)

@@ -1,0 +1,8 @@
+h1. Open collaboration
+  * important
+  * good
+  * better
+
+h2. Remember
+  * this
+  * and that

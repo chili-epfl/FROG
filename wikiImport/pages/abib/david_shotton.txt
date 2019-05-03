@@ -1,0 +1,3 @@
+h2. David Shotton's publications
+
+| [@bourne2011improving] | Bourne, P., Clark, T., Dale, R., de Waard, A., Herman, I., Hovy, E., & Shotton, D. (2011). Improving Future Research Communication and e-Scholarship.|

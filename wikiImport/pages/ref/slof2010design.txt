@@ -1,0 +1,35 @@
+h1. Design and effects of representational scripting on group performance
+
+<ifauth !@admin>|Slof, B., Erkens, G., Kirschner, P. A., & Jaspers, J. (2010). Design and effects of representational scripting on group performance. Educational Technology Research and Development, 1--20. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://slof2010design|BibDesk]]  | Slof, B., Erkens, G., Kirschner, P. A., & Jaspers, J. (2010). Design and effects of representational scripting on group performance. Educational Technology Research and Development, 1--20. Springer. |
+^ [[skimx://slof2010design|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:slof2010design?do=edit&vecdo=print\'><frame src=\'/wiki/clip:slof2010design?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{slof2010design,
+  author = {Slof, Bert and Erkens, Gijsbert and Kirschner, Paul A. and Jaspers, Jos},
+  date-added = {2011-05-26 12:36:45 +0800},
+  date-modified = {2011-11-28 19:50:00 +0000},
+  journal = {Educational Technology Research and Development},
+  keywords = {1representational guidance; scripting},
+  pages = {1--20},
+  publisher = {Springer},
+  read = {1},
+  title = {Design and effects of representational scripting on group performance},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJzbG9mMjAxMGRlc2lnbi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tQyygNRFlBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKA4lWAAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzbG9mMjAxMGRlc2lnbi5wZGYAAA4AJgASAHMAbABvAGYAMgAwADEAMABkAGUAcwBpAGcAbgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vYmliZGVzay9zbG9mMjAxMGRlc2lnbi5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIC4uLy4uL2JpYmRlc2svc2xvZjIwMTBkZXNpZ24ucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhwCHgIjAiwCNwI7AkkCUAJZAnwCgQKEApEClgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo}
+}
+
+</hidden>
+
+{{page>notes:slof2010design}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:slof2010design}}
+
+{{page>kindle:slof2010design}}
+
+{{page>skimg:slof2010design}}

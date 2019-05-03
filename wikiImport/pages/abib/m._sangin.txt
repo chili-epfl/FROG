@@ -1,0 +1,8 @@
+h2. M. Sangin's publications
+
+| sangin2009peer | Sangin, M. (2009). Peer knowledge modeling in computer supported collaborative learning.|
+| sangin2008learners | Sangin, M., Molinari, G., N{\\"u}ssliM.A., & Dillenbourg, P. (2008). How learners use awareness cues about their peer's knowledge?: insights from synchronized eye-tracking data. Proceedings of the 8th international conference on International conference for the learning sciences-Volume 2.|
+| molinari2008colearners | Molinari, G., Sangin, M., & Dillenbourg, P. (2008). When Co-learners Work on Complementary Texts: Effects on Outcome Convergence. Times of Convergence. Technologies Across Learning Contexts. Springer.|
+| sangin2008knowing | Sangin, M., Molinari, G., N{\\"u}ssliM.A., & Dillenbourg, P. (2008). Knowing what the peer knows: The differential effect of knowledge awareness on collaborative learning performance of asymmetric pairs. Times of Convergence. Technologies Across Learning Contexts. Springer.|
+| rebetez2008learning | Rebetez, C., Bétrancourt, M., Sangin, M., & Dillenbourg, P. (2008). Learning from animation enabled by collaboration. Instructional Science. Springer.|
+| molinari2009knowledge | Molinari, G., Sangin, M., Dillenbourg, P., & N{\\"u}ssliM.A. (2009). Knowledge interdependence with the partner, accuracy of mutual knowledge model and computer-supported collaborative learning. European journal of psychology of education. Springer.|

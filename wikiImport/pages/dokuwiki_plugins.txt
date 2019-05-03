@@ -1,0 +1,3 @@
+h1. Plugins currently installed
+
+See [[researchr:dokuwiki plugins|annotated list of some of the plugins used]]

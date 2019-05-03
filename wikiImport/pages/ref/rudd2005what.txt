@@ -1,0 +1,37 @@
+h1. What is the scholarship of teaching and learning
+<html><a href='http://www.nactateachers.org/attachments/article/318/Rudd_December_2005__NACTA_Journal.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.nactateachers.org/attachments/article/318/Rudd_December_2005__NACTA_Journal.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Rudd, R. (2005). What is the scholarship of teaching and learning. NACTA Journal, 49(4), 2–4. Retrieved from http://www.nactateachers.org/attachments/article/318/Rudd_December_2005__NACTA_Journal.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://rudd2005what|BibDesk]]  | Rudd, R. (2005). What is the scholarship of teaching and learning. NACTA Journal, 49(4), 2–4. Retrieved from http://www.nactateachers.org/attachments/article/318/Rudd_December_2005__NACTA_Journal.pdf. |
+^ [[skimx://rudd2005what|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:rudd2005what?do=edit&vecdo=print\'><frame src=\'/wiki/clip:rudd2005what?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{rudd2005what,
+  author = {Rudd, R.},
+  date-added = {2013-01-29 19:08:13 +0000},
+  date-modified = {2013-01-29 19:08:44 +0000},
+  journal = {NACTA Journal},
+  keywords = {0sotl},
+  number = {4},
+  oa-url = {http://www.nactateachers.org/attachments/article/318/Rudd_December_2005__NACTA_Journal.pdf},
+  pages = {2–4},
+  title = {What is the scholarship of teaching and learning},
+  url = {http://www.nactateachers.org/attachments/article/318/Rudd_December_2005__NACTA_Journal.pdf},
+  volume = {49},
+  year = {2005},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXAAAAAAAXAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhBydWRkMjAwNXdoYXQucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3NS6zS2IS1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNLc6bAAAAAQAMANrWUgAXPTEAAZ9eAAIAL1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBydWRkMjAwNXdoYXQucGRmAAAOACIAEAByAHUAZABkADIAMAAwADUAdwBoAGEAdAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAkVXNlcnMvU3RpYW4vYmliZGVzay9ydWRkMjAwNXdoYXQucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEB4uLi8uLi9iaWJkZXNrL3J1ZGQyMDA1d2hhdC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACFAIWAhsCJAIvAjMCQQJIAlECcgJ3AnoChwKMAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAp4=}
+}
+
+</hidden>
+
+{{page>notes:rudd2005what}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:rudd2005what}}
+
+{{page>kindle:rudd2005what}}
+
+{{page>skimg:rudd2005what}}

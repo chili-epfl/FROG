@@ -1,0 +1,3 @@
+h2. Publications in Journal of Computing in Higher Education
+
+| abrami2011interaction | Abrami, P. C., Bernard, R. M., Bures, E. M., Borokhovski, E., & Tamim, R. M. (2011). Interaction in distance education and online learning: using evidence and theory to improve practice. Journal of Computing in Higher Education, 1--22. Springer.|[[skimx://abrami2011interaction|PDF]]|

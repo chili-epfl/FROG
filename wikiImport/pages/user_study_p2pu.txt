@@ -1,0 +1,82 @@
+h1. User testing of P2PU.org
+
+h2. Introduction
+Partly inspired by the [[hci course|Stanford HCI class]], I decided to try out some user testing of the P2PU website. This was both to gain some usability feedback for P2PU, and also to get some experience doing this kind of things. 
+
+h2. TL;DR
+Most important problems (read below for much more detail)
+  * activity feeds on frontpage, course pages and user page were deemed very uninteresting, partly because content was not relevant, partly because of lack of functionality ("User has left comment", but no pull down button to see the comment immediately, etc)
+  * learn page:
+    * many usability problems with language settings
+    * difficult to find courses starting soon/open for signup
+  * course page:
+    * important information about when course starts, status, type etc "below the fold"
+    * many courses don't specify required "pre-requisite knowledge", what is expected of students, etc
+    * when user has to sign-up to be able to register for a course, the mix of these two actions are very confusing to the user
+  * very difficult to find how to go to own courses on P2PU
+
+h2. User
+I invited my friend, who is a PhD student in psychology, and has heard about P2PU from me, but had never visited the website before, and didn't know too many details about "how it works". 
+
+h2. Protocol
+I invited her to access the webpage, first as a new user, and after a substantial time, using my account so she could experience the difference for a user who already is signed up to several courses. I gave her almost no instructions, and asked her to "think aloud" while browsing the site. The whole thing was recorded in Screenflow (her voice, as well as what was on the screen), and I later watched this again to take these notes. 
+
+I will start with an overview of the challenges she faced, and at the bottom is a narrative of the session, ie. the notes I took from the video. I realize that one user is not enough to "generalize", but some of these issues seem pretty general. Some I had thought of myself, and others were things that were new to me. 
+
+h2. Structured findings
+
+h3. Front page
+The user spent very little time on the front page, ending up there several times only to go back to the learn page. One interesting option could be to make a version of the learn page into the front page (similar to for example Kickstarter).
+
+The user clicked on "Start your own" because she wanted to know more about how the process worked (not necessarily because she wanted to create a course), but received no information at all without having to sign-up to the site. 
+
+h3. Learning page
+h4. Language
+At the bottom of the left sidebar on the learn page, there is a language pull down. However:
+  * the pull-down gives no indication about how many courses are in each language, several seem to result in zero hits
+  * selecting a language by itself does not change anything, the user also has to deselect "show all languages". This is quite unintuitive. 
+  * Having selected a language, choosing any other categories from the sidebar resets the language setting. (For example, a user might choose "Chinese", see that there are no community-approved courses in Chinese, and click on "All courses". The language setting is then reset to "All languages")
+
+The user finally gave up using the language functionality, although she was initially quite excited by seeing that there might be courses in Chinese. 
+
+h4. Courses starting soon
+After visiting a course that was already underway, the user went back to the Learn page to try to find a course that was open for sign-up and starting soon. This seems like a very common category to look for. She tried "Fresh additions", which only yields two courses, one which is starting in three weeks, and one which had no start-date and very little content. As far as I know, there are a bunch of education-related courses starting in June, but there is no way of finding these from the Learn page. 
+
+h3. Course page
+The user visited several course pages. Some of the crucial information about a course seems to be hidden too far down on the left sidebar, such as whether a course is "under development" or not, whether it's open for sign-up, what kind of a course it is, and when it starts running. (On my 13" laptop, the only things you can see in the left sidebar "above the fold" is course name, logo, links to follow and participate, short description and (depending on how long the description is) the beginning of the tags. In the main content view, there is the list of tasks, and an activity list (which is especially misleading for courses that are not running yet, since they indicate activity, even though that is just the course organizer editing tasks).
+
+Several of the courses visited (even active ones) had either empty "Full descriptions", or very minimal (shorter than the short descriptions). Apart from whether a course was available for sign-up and when it would start, the user looked for information about what the pre-requisites for a course would be (ie. do I know enough to take a course on Ruby), and how the course would be conducted, and what would be expected of her (are there online meetings? are there assignments? what is the level of workload, etc?). This would typically be addressed in the Full description, but this was not the case in the courses that she visited.
+
+h4. Sign-up process
+Not much information about what "Follow" and "Participate" entails. Clicks on participate mostly to see how the process works (explains that she also wanted to see if she would be asked to pay money for the course). The system immediately takes her to a new user registration form. 
+
+Has to resubmit the form three times, because the password is rejected. (Recommendation: immediately check password validity after filling out the field, and visually show whether it's accepted or not). Also has problems reading the captcha. 
+
+After the initial sign-up, user is immediately taken to a new form to fill out her user profile. Fills in some of the information. Below that is the sign-up question for the course "What made you interested in this topic?". Is genuinely baffled about "which topic", does not connect this back to the course at all, thinks she is still registering as a user. Is not ready to commit to the course yet, just wanted to "explore". Unsure about what will happen if she presses cancel, will her user registration also be cancelled? (Turns out that it isn't, but there is no "Welcome to P2PU message", only the fact that the her username is at the top-right of the screen. 
+
+h3. Finding own courses
+User logged in with my account to use an account that has courses signed up, and started at front page. Was surprised that activity feed didn't reflect my own courses. Spends some time clicking around the site, and is unable to find the list of the courses that I am signed up for. (Initially thinks that the list of four recent courses on My Profile are courses that are available to me, because they look like the icons on the Learn page. Also these are very old courses, not the most recent ones). 
+
+h2. My own thoughts
+One thing which struck me is that there is no clear explanation of our various "learning models" on the front page, learn page or anywhere very accessible. Someone clicking on a course, and then on a challenge, will be confused about the difference. The big link to the learn page on the front page says "Browse groups and courses", but if you end up on for example  [[https://p2pu.org/en/groups/encrypt-and-sign-your-email/|the challenge page for encrypting your email]], it's basically a tutorial, with detailed steps to go through, and a place to leave comments. Very useful material, and something found in lots of places of the internet, but a very different model than a course with a start date etc, or an open-ended study group. Yet to new visitors to P2PU, this is not made clear anywhere. 
+
+Also interesting that the user in several places clicks on links for sign-up, enroll, etc to explore or see if there is more information available, preview the process and requirements etc, whereas we automatically send her to the log-in screen. 
+
+h2. Narrative
+Has a quick look at the front page, decides to go to the Learn page. 
+
+Confused that there is a course in a language she doesn't understand (Swedish) on the course listing page. Excited to see the language pulldown, wants to see if they have anything in her mother tongue (Chinese). Selects Chinese, nothing changes. Tries a few other languages. Figures out that she needs to turn off "All languages". Chooses French, turns of "All Language", does not see any courses. Clicks on Showcase - courses, but they're in English (the language setting has been reset to English automatically). Laughs, and gives up playing with the language selector.
+
+Clicks on "Writing". Wonders about "Classical music" as a course. Chooses programming, visits page for "Intro to programming with Ruby". Reads intro text. Wants to know what the "pre-requisite" for the course is, worried that her level isn't high enough. Can't find information about this. Looks at list of tasks. Views "Full description" - only says goal for the end of the course, not requirement for signing up. Is also wondering "How does this work" - what do I have to do, how often, etc. Chooses participate to see how the sign-up works. System asks her to sign in.
+
+Goes back to front page, selects "Create new course". System asks her to sign in, before showing her anything about how the process works etc. 
+
+Clicks around a bit more, looks at some of the school pages, ends up on School of Education. Goes to course "Connected learning with youth voices". Tries to find out how the course works. Is confused by the activity wall. Clicks on a comment link, ends up in the middle of a very long discussion. Realizes that the course has been going on for a while, worried that it would be too much work to read all those forums to catch up. Still decides to sign up, clicks on Participate, asked to create an account. Has some problems reading the recaptcha string. Has to repeat twice before the password is accepted. 
+
+Finally comes to the fill in profile page, which asks a lot of questions. Fills in most of them, doesn't upload a picture or write very long. Right under "What do you want to learn" comes Signup Questions, and the first is "What made you interested in this topic?". Very confused -- which topic? Tries to submit without answering the signup question, told that "Field cannot be blank". Finally I explain that this field is the signup field for the course that she was just in. She is very surprised - thought this was just signing up for the platform. Also, she wasn't really sure she wanted to sign-up, she just wanted to see how the sign-up process looked, whether there would be more information about the requirements of the course, whether she would have to pay for it, etc. Unclear about what would happen if she pressed Cancel, would her entire signup process then also be cancelled? She cancels, and initially thinks that her registration also was cancelled, but looking at the top of the screen, it shows her as signed in. 
+
+Continues looking around the course, looking for information about what she would be required to do once she signs up. Trying to find out when it is going to start. Clicks on full description - it still shows the template text "Please fill out...". She scrolls around a bit more, and finds the start date in the sidebar. 
+
+Decides she wants to join something that is starting soon instead, so she can be part of it from the beginning. Goes back to Learn page. Tries to find out how to show only courses that are starting soon. Clicks on Fresh Additions, only one course is shown, "Curating our Digital Lives". Goes to visit that course. Sees two entries on the activity wall (from the course organizer preparing the materials). Realizes from the sidebar that the course isn't starting for another three weeks. Reads the full description. Again finds that there is no information about how the course will run, and what she will be expected to do as a participant (and there are no tasks listed yet).
+
+I let her log in as my user so that she can experiment with an account that is already signed up to a few courses, without having to do any "dummy-signups". She wants to find the courses that I am signed up to. First scans the frontpage, is expecting the activity stream on the frontpage to reflect my courses. Then goes to Dashboard. Does not see the course icons in the sidebar. Goes to My profile, finds the courses (although only the four latest are listed - including a draft course that I started more than a year ago and never visited since then, not including some recent courses I participated in). Not sure if the list is for courses that are available, or courses that I am currently participating in. There is a bug on that page which makes the pulldown menu from the username all black (not sure why, could not replicate). Goes to the Learn page to see if my signed up courses are listed there. 

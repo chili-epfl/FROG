@@ -1,0 +1,22 @@
+h1. Likert
+
+  * [[http://stats.stackexchange.com/questions/25109/visualizing-likert-responses-using-r-or-spss|data visualization - Visualizing Likert responses using R or SPSS - Cross Validated [http://stats.stackexchange.com/]]]
+----
+  * [[http://stats.stackexchange.com/questions/20196/which-package-to-use-for-convergent-and-discriminant-validity-in-r|scales - Which package to use for convergent and discriminant validity in R? - Cross Validated [http://stats.stackexchange.com/]]]
+  * [[http://www.methodspace.com/profiles/blogs/factor-analysis-for-likert-ordinal-non-normal-data|Factor Analysis for Likert/Ordinal/Non-normal Data - Methodspace - home of the Research Methods community [http://www.methodspace.com/]]]
+  * [[http://www.psych.upenn.edu/~baron/rpsych/rpsych.html|Notes on the use of R for psychology experiments and questionnaires [http://www.psych.upenn.edu/]]]
+  * [[http://bryer.org/2012/visualizing-likert-items|Visualizing Likert Items [Updated] « Jason Bryer [http://bryer.org/]]]
+  * [[http://www.unt.edu/rss/class/Jon/R_SC/Module7/M7_PCAandFA.R|[http://www.unt.edu/]]]
+  * [[http://www.researchgate.net/post/What_is_the_best_way_used_to_present_the_five-point_likert_scale_data_Using_mean_scores_or_using_percentages|What is the best way used to present the five-point likert scale data? Using mean scores or using percentages ? [http://www.researchgate.net/]]]
+  * [[http://www.ispub.com/journal/the-internet-journal-of-epidemiology/volume-10-number-2/adjusting-structural-equation-modelling-of-spiritual-coping-scale-use-of-the-sattora-bentler-method-as-an-alternative-to-maximum-likelihood-estimation.html#sthash.fJGuKJUb.dpbs|Adjusting Structural Equation Modelling Of Spiritual Coping Scale: Use Of The Sattora-Bentler Method As An Alternative To Maximum Likelihood Estimation - ISPUB [http://www.ispub.com/]]]
+  * [[http://stats.stackexchange.com/questions/32669/vss-criterion-for-the-number-of-factors-in-rs-psych-package|VSS criterion for the number of factors (in R's psych package) - Cross Validated [http://stats.stackexchange.com/]]]
+  * [[http://www.r-bloggers.com/visualizing-likert-items/|Visualizing Likert Items | (R news & tutorials)]]
+
+----
+require(grid)
+
+require(lattice)
+
+require(latticeExtra)
+
+require(HH) [[http://www.r-bloggers.com/plotting-likert-scales/|Plotting Likert Scales | (R news & tutorials)]]

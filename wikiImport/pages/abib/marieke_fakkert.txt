@@ -1,0 +1,3 @@
+h2. Marieke Fakkert's publications
+
+| [@prinsen2008feedback] | Prinsen, F., Terwel, J., Volman, M., & Fakkert, M. (2008). Feedback and Reflection to Promote Student Participation in Computer Supported Collaborative Learning: A Multiple Case Study. In R. M. Gillies, A. F. Ashman & J. Terwel (Eds.), The Teacher’s Role in Implementing Cooperative Learning in the Classroom (132--162). Boston, {MA}: Springer {US}. |

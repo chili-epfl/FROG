@@ -1,0 +1,33 @@
+h1. Fostering knowledge-creating communities
+
+<ifauth !@admin>|Bielaczyc, K., Collins, A., O’Donnell, A., Hmelo-Silver, C., & Erkens, G. (2006). Fostering knowledge-creating communities. Collaborative learning, reasoning, and technology, 37–60. Lawrence Erlbaum.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bielaczyc2006fostering|BibDesk]]  | Bielaczyc, K., Collins, A., O’Donnell, A., Hmelo-Silver, C., & Erkens, G. (2006). Fostering knowledge-creating communities. Collaborative learning, reasoning, and technology, 37–60. Lawrence Erlbaum. |
+^ [[skimx://bielaczyc2006fostering|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bielaczyc2006fostering?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bielaczyc2006fostering?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bielaczyc2006fostering,
+  author = {Bielaczyc, Katerine and Collins, A. and O’Donnell, Am and Hmelo-Silver, Ce and Erkens, G.},
+  date-added = {2012-04-04 12:44:12 +0000},
+  date-modified = {2012-04-04 19:48:12 +0000},
+  journal = {Collaborative learning, reasoning, and technology},
+  pages = {37–60},
+  publisher = {Lawrence Erlbaum},
+  title = {Fostering knowledge-creating communities},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhpiaWVsYWN6eWMyMDA2Zm9zdGVyaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6N2y9bug1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1ybDAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiaWVsYWN6eWMyMDA2Zm9zdGVyaW5nLnBkZgAADgA2ABoAYgBpAGUAbABhAGMAegB5AGMAMgAwADAANgBmAG8AcwB0AGUAcgBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9iaWVsYWN6eWMyMDA2Zm9zdGVyaW5nLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9iaWVsYWN6eWMyMDA2Zm9zdGVyaW5nLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:bielaczyc2006fostering}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bielaczyc2006fostering}}
+
+{{page>kindle:bielaczyc2006fostering}}
+
+{{page>skimg:bielaczyc2006fostering}}

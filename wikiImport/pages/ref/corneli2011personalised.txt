@@ -1,0 +1,37 @@
+h1. Personalised Peer-Supported Learning: The Peer-to-Peer Learning Environment (P2PLE)
+<html><a href='http://greav.ub.edu/der/index.php/der/article/download/188/330' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://greav.ub.edu/der/index.php/der/article/download/188/330'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Corneli, J., & Mikroyannidis, A. (2011). Personalised Peer-Supported Learning: The Peer-to-Peer Learning Environment (P2PLE). Digital Education Review, (20), 14–23. Retrieved from http://greav.ub.edu/der/index.php/der/article/download/188/330.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://corneli2011personalised|BibDesk]]  | Corneli, J., & Mikroyannidis, A. (2011). Personalised Peer-Supported Learning: The Peer-to-Peer Learning Environment (P2PLE). Digital Education Review, (20), 14–23. Retrieved from http://greav.ub.edu/der/index.php/der/article/download/188/330. |
+^ [[skimx://corneli2011personalised|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:corneli2011personalised?do=edit&vecdo=print\'><frame src=\'/wiki/clip:corneli2011personalised?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{corneli2011personalised,
+  author = {Corneli, Joseph and Mikroyannidis, A.},
+  date-added = {2012-04-07 01:49:07 +0000},
+  date-modified = {2012-11-27 19:05:32 +0000},
+  date-read = {2012-04-12 05:01:25 -0400},
+  journal = {Digital Education Review},
+  number = {20},
+  oa-url = {http://greav.ub.edu/der/index.php/der/article/download/188/330},
+  pages = {14–23},
+  read = {1},
+  title = {Personalised Peer-Supported Learning: The Peer-to-Peer Learning Environment (P2PLE)},
+  url = {http://greav.ub.edu/der/index.php/der/article/download/188/330},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZwAAAAAAZwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhtjb3JuZWxpMjAxMXBlcnNvbmFsaXNlZC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaE5ty9b9pFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXkAAAAAQAMANrWUgAXPTEAAZ9eAAIAOlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3JuZWxpMjAxMXBlcnNvbmFsaXNlZC5wZGYADgA4ABsAYwBvAHIAbgBlAGwAaQAyADAAMQAxAHAAZQByAHMAbwBuAGEAbABpAHMAZQBkAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC9Vc2Vycy9TdGlhbi9iaWJkZXNrL2Nvcm5lbGkyMDExcGVyc29uYWxpc2VkLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QKS4uLy4uL2JpYmRlc2svY29ybmVsaTIwMTFwZXJzb25hbGlzZWQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkACQgJHAlACWwJfAm0CdAJ9AqkCrgKxAr4CwwAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALV}
+}
+
+</hidden>
+
+{{page>notes:corneli2011personalised}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:corneli2011personalised}}
+
+{{page>kindle:corneli2011personalised}}
+
+{{page>skimg:corneli2011personalised}}

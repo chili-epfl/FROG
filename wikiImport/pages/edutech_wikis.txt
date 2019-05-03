@@ -1,0 +1,100 @@
+h1. Edutech wikis
+h2. Search all the sites below
+<html>
+<div id="cse" style="width: 100%;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript"> 
+  google.load('search', '1', {language : 'en', style : google.loader.themes.MINIMALIST});
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      '016298834129165152325:sdgc2wdcwwa', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+</script>
+
+</html>
+
+//This Google custom search includes all the sites below, as well as all the [[Individual academic wikis|Researchr wikis]] (in total 42 sites). If you have additions, leave a comment on the [[talk:edutech_wikis|talk page]].//
+
+h2. Sites
+  * [[http://working.dev.deeplocal.com/|Working Examples]] by [[a:James Gee]] (has material by [[a:Daniel T. Hickey]] and others)
+  * [[http://lester.rice.edu/DesktopDefault.aspx|LESTER]] - Learning Science and Technology Repository (archival only) - mainly research projects and journals
+    * continuation of [[http://www.tophe.net/ciltkn.html|CILTKN]] by [[a:Christopher Hoadley]]
+  * [[http://www.infed.org/index.htm|infed Encyclopedia of informal education]]
+  * [[edutech>Main_Page|EduTech Wiki]] - hosted at TECFA, U Geneva
+  * [[http://wik.ed.uiuc.edu/index.php/Main_Page|CTER WikEd UIUC]]
+  * [[http://www.studyplace.org/wiki/Courses|Studyplace]] discussion of education, radical perspectives
+  * [[http://innovations.oise.utoronto.ca/edtech/index.php/Index|OISE ed tech wiki]]
+  * [[http://innovations.oise.utoronto.ca/TechTips/Welcome.html|OISE higher ed teaching tech tips]]
+  * [[http://innovations.oise.utoronto.ca/science/index.php/Main_Page|OISE science teaching approaches]]
+  * [[http://tip.psychology.org/|Theory into Practice database]] - a bunch of psychological theories explained briefly
+  * [[http://designer.50g.com/kb/kb.htm|Instructional theory knowledge base]]
+  * [[http://thesaurus.telearn.org/The_TEL_Thesaurus_and_Dictionary_meta-project|TEL Thesaurus and Dictionary Project]]
+  * [[http://www.virtualcampuses.eu/index.php/Main_Page]] - 300 virtual campus projects
+  * [[http://www.learnlab.org/research/wiki/index.php/Main_Page|Pittsburgh Learning Lab wiki]] - Knowledge-Learning-Instruction (KLI) framework
+  * [[http://eet.sdsu.edu/eetwiki/index.php/Main_Page|Encyclopedia of Educational Technology]] - San Diego State University
+  * [[http://wiki.alt.ac.uk/index.php/Main_Page|Association for Learning Technology UK]]
+  * [[http://wik.ed.uiuc.edu/index.php/Other_education_wikis|Other education wikis]] UIC
+  * [[http://ufetcontent.pbworks.com/w/page/7132075/FrontPage|U Florida Ed Tech doc students research pages]] 
+  * [[http://iae-pedia.org/Main_Page|IAE-Pedia (Information Age Education)]]
+  * [[http://wiki.alt.ac.uk/index.php/Main_Page|Association for Learning Technology wiki]] (not too much content, some on agile learning)
+
+h2. Definitions
+
+  * [[http://www.fse.ulaval.ca/mediatic/pdf/lexat.pdf|U Laval edutech glossary in French]]
+  * [[http://www.virtualcampuses.eu/index.php/Glossary||ReVica glossary]]
+  * [[http://elearning.heacademy.ac.uk/wiki/index.php/Glossary|Glossary at Higher Ed Academy]]
+  * [[http://www.learnlab.org/research/wiki/index.php/Category:Glossary|Pittsburgh Learning Sciences glossary]]
+  * [[http://www.profetic.org/file/e-learning.pdf|Government of Canada bilingual e-learning glossary]]
+
+h2. Other resources
+
+  * [[http://www.youtube.com/user/TravelinEdMan|27 short videos on online training]] by [[a:Curtis Bonk]]
+  * [[http://www.aktors.org/akt/|Advanced Knowledge Technologies]] - database of software, publications etc
+  * [[http://projects.coe.uga.edu/epltt/index.php?title=Main_Page|Emerging Perspectives on Learning, Teaching and Technology]] (wikibased book)
+  * [[http://projects.coe.uga.edu/ITFoundations/indexphp?title=Main_Page|The Foundations of Instructional Technology]] (wikibased book)
+  * [[http://www.scholarpedia.org/article/Encyclopedia_of_computational_neuroscience|Encyclopedia of computational neuroscience - Scholarpedia]]
+  * [[https://openeducationalresources.pbworks.com/w/page/24836480/Home|Open Educational Resources infoKit / Home]]
+  * [[http://cognitiveatlas.org/|Cognitive Atlas]]
+  * [[http://www.gabormelli.com/RKB/HomePage|Gabor Melli research knowledge base]]
+  * [[http://wikipapers.referata.com/wiki/WikiPapers:About|WikiPapers]]
+  * [[http://wikilit.referata.com/wiki/WikiLit]]
+  * [[http://meta.wikimedia.org/wiki/Research:Index|Research:Index - Meta]]
+  * [[https://docs.google.com/document/d/14GtDeiMkA61B7vPDSPGLfIzGumOyDhGIlLNcQCv0gec/edit?hl=en_US|Peeragogy Lit Review - Google Docs]]
+  * [[http://teorije-ucenja.zesoi.fer.hr/doku.php|learning_paradigms_and_theories [Learning Theories]]]
+  * [[http://www.elearning-reviews.org/topics/|eLearning Reviews: Overview]]
+
+~~NOTOC~~
+
+h2. New additions/clippings - not yet sorted
+  * [[http://www.interaction-design.org/|Interaction-Design.org [http://www.interaction-design.org/]]]
+  * [[http://www.nwlink.com/~donclark/contents.html|Site Map [http://www.nwlink.com/]]]
+  * [[http://www.personal.psu.edu/wxh139/knowledge.htm|IT Knowledge Base [http://www.personal.psu.edu/]]]
+  * [[http://home.sprynet.com/~gkearsley/tip/index.html|Theory Into Practice (TIP) [http://home.sprynet.com/]]]
+  * [[http://www.psychology.org/|Encyclopedia of Psychology - Psychology Websites [http://www.psychology.org/]]]
+
+----
+- [[http://tip.psychology.org/|Explorations in Learning & Instruction: The Theory Into Practice Database]] - Dr. Greg Kearsley 
+
+  - [[http://web.cortland.edu/frieda/id/IDdatabase.html|Instructional Design Theory Database Project]]
+
+  - [[http://www.learning-theories.com|Learning-Theories.com]]
+
+  - [[http://www.lifecircles-inc.com/Learningtheories/learningmap.html|Theories of Learning in Educational Psychology]] - Sunny Cooper
+
+  - [[http://www.queensu.ca/ctl/indexFF.php|Queen's University Centre for Teaching and Learning]]
+
+  - [[http://arrow.dit.ie/cgi/viewcontent.cgi?article=1003&context=engscheleart |Learning Theories and Higher Education]] - Dublin Institute of Technology
+
+  - [[http://classweb.gmu.edu/ndabbagh/Resources/IDKB/models_theories.htm|IDKB - Instructional Desgin Knowledge Base]] - Nada Dabbagh, George Mason University 
+
+  - [[http://mmalvin.files.wordpress.com/2009/12/learning-theory-matrix.pdf|Learning Theories and Instruction]] - Meredith Alvin
+
+  - [[http://www.brookes.ac.uk/services/ocsd/2_learntch/theories.html|OCSLD: Theories of Learning ]] - Oxford Centre for Staff and Learning Development
+
+  - [[http://www.southalabama.edu/oll/mobile/index.htm|Online Learning Laboratory]] - University of South Alabama [[http://teorije-ucenja.zesoi.fer.hr/doku.php|learning_paradigms_and_theories [Learning Theories] [http://teorije-ucenja.zesoi.fer.hr/]]]
+----
+  * [[http://elearningclub.sinaapp.com/%E4%B8%8E%E6%95%99%E8%82%B2%E5%92%8C%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0%E7%AD%89%E7%9B%B8%E5%85%B3%E7%9A%84%E7%BB%84%E7%BB%87|]]
+  * [[http://openness.pbworks.com/w/page/13039671/FrontPage|openness / FrontPage [http://openness.pbworks.com/]]]
+  * [[http://wiki.ubc.ca/Teaching_and_Learning_Resources_Portal|Teaching and Learning Resources Portal - UBC Wiki [http://wiki.ubc.ca/]]]

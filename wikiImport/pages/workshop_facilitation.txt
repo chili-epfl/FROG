@@ -1,0 +1,13 @@
+h1. Workshop facilitation
+
+  * [[unconference]]
+  * [[open space technology]]
+  * [[http://facilitation.aspirationtech.org/index.php?title=Main_Page|Aspiration Facilitation wiki]]
+    * [[https://wiki.mozilla.org/Drumbeat/events/kit|Drumbeat event kit]]
+    * Gunner credits the following
+      * [[http://www.ruckus.org|The Ruckus Society]] (Oakland, California US, whose Action Camp model, facilitation techniques and agenda structure have inspired many of the ideas in this document, and where we learned “Spectrograms” and “Strong Wind Blows"
+      * [[http://www.tacticaltech.org|The Tactical Technology Collective]] (Amsterdam, The Netherlands, ), whose Source Camps have served as excellent fountains of insight and experience in the facilitation of productive sessions and events, and whose wisdom in convening diverse international gatherings is unparalleled
+      * [[http://www.blueoxen.org|Blue Oxen Associates]] (Menlo Park, California, US) and Eugene Eric Kim, for guidance and mentoring in the use of wikis and other collaborative tools for both live events and virtual communities;
+
+----
+  * [[http://www.amazon.com/Seating-Matters-State-Art-Arrangements/dp/0962587222/ref=nosim?tag=segarconsu-20|Seating Matters: State of the Art Seating Arrangements: Paul O. Radde: 9780962587221: Amazon.com: Books]]

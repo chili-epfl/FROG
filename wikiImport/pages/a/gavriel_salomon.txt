@@ -1,0 +1,11 @@
+h1. Gavriel Salomon
+{{ pages:a_gavriel_salomon1.png}}
+University of Haifa
+
+h2. Research
+
+h2. Links
+  * [[wikipedia>Gavriel Salomon|Wikipedia article]]
+  * [[http://www.edu.haifa.ac.il/personal/gsalomon/index.htm|Homepage]]
+
+{{page>abib:Gavriel Salomon}}

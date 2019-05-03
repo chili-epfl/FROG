@@ -1,0 +1,3 @@
+h2. G. Dettori's publications
+
+| dettori2008detecting | Dettori, G., & Persico, D. (2008). Detecting {Self-Regulated} Learning in Online Communities by Means of Interaction Analysis. Learning Technologies, {IEEE} Transactions on. doi: 10.1109/TLT.2008.7.|[[skimx://dettori2008detecting|PDF]]|

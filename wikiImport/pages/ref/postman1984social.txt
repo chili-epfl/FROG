@@ -1,0 +1,33 @@
+h1. Social science as theology
+
+<ifauth !@admin>|Postman, N. (1984). Social science as theology. Et Cetera, 41, 22–33.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://postman1984social|BibDesk]]  | Postman, N. (1984). Social science as theology. Et Cetera, 41, 22–33. |
+^ [[skimx://postman1984social|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:postman1984social?do=edit&vecdo=print\'><frame src=\'/wiki/clip:postman1984social?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{postman1984social,
+  author = {Postman, N.},
+  date-added = {2012-03-07 01:55:11 +0000},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  journal = {Et Cetera},
+  notes = {1},
+  pages = {22–33},
+  title = {Social science as theology},
+  volume = {41},
+  year = {1984}
+}
+
+</hidden>
+
+{{page>notes:postman1984social}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:postman1984social}}
+
+{{page>kindle:postman1984social}}
+
+{{page>skimg:postman1984social}}

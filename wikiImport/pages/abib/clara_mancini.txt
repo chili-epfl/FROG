@@ -1,0 +1,9 @@
+h2. Clara Mancini's publications
+
+| [@buckinghamshum2006amemetic] | Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & de Roure, D. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Conference Item. |
+| [@buckinghamshum2007modeling] | Buckingham Shum, S., Uren, V., Li, G., Sereno, B., & Mancini, C. (2007). Modeling naturalistic argumentation in research literatures: Representation and interaction design issues. International Journal of Intelligent Systems, 22(1), 17--47. doi:10.1002/int.20188|
+| [@benn2008ontological] | Benn, N., Buckingham Shum, S., Domingue, J., & Mancini, C. (2008, May). Ontological Foundations for Scholarly Debate Mapping Technology. Conference Item. |
+| [@slack2006design] | Slack, R., Buckingham Shum, S., Mancini, C., & Daw, M. (2006). Design issues for {VREs:} can richer records of meetings enhance collaboration?. Conference Item. |
+| [@mancini2006visualising] | Mancini, C., Scott, D., & Buckingham Shum, S. (2006). Visualising Discourse Coherence in {Non-Linear} Documents. Journal Article. |
+| [@mancini2006modelling] | Mancini, C., & Buckingham Shum, S. (2006). Modelling discourse in contested domains: A semiotic and cognitive framework. International Journal of {Human-Computer} Studies, 64(11), 1154--1171. doi:10.1016/j.ijhcs.2006.07.002|
+| [@buckinghamshum2006memetic] | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., de Roure, D., Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Conference Item. |

@@ -1,0 +1,3 @@
+h2. Wayne Hodgins's publications
+
+| [@hodgins2002ieee] | Hodgins, W., & alErik Duval {\textbackslash}emphet. (2002). {IEEE} Standard for Learning Object Metadata. {IEEE}.|

@@ -1,0 +1,3 @@
+h2. J. Engler's publications
+
+| [[..:ref:weinbrenner2007ontologybased]] | Weinbrenner, S., Engler, J., Bollen, L., & Hoppe, H. U. (2007). Ontologybased Support for Designing Inquiry Learning Scenarios. AIED.|[[skimx://weinbrenner2007ontologybased|PDF]]|

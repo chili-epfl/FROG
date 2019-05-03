@@ -1,0 +1,132 @@
+h2. Highlights (70%)
+
+Abstract. Paragogy is a theory of peer learning: we endeavor to say how it works, and how it works best. This paper outlines paragogy’s contemporary relevance and expounds its principles, showing their connections to other theories. We present an extended example of paragogy in practice, where we use it to evaluate our experiences working at the Peer 2 Peer University (P2PU). [[skimx://corneli2011aparagogy#1|p. 1]]
+
+Although peer learning has been the subject of various studies, it is typically given a secondary role, within a pedagogical framework. This rather staid definition, from a book that approaches peer learning from the perspective of cognitive psychology, illustrates our point [16]: Peer learning is an educational practice in which students interact with other students to attain educational goals. [[skimx://corneli2011aparagogy#1|p. 1]]
+
+Just as more and more employees are expected to have basic multi-media skills – the ability to blog, for example, or to shoot images or videos on their smartphones – so will they be expected to have the basic ability to share knowledge with their peers. [[skimx://corneli2011aparagogy#2|p. 2]]
+
+Thus, peer learning can of course take place between non-students, and it can concern productive, as well as educational, goals. [[skimx://corneli2011aparagogy#2|p. 2]]
+
+Here we cite Cormac Lawler’s recent work on Wikiversity ([11], [12]). Lawler uses and advocates an action research approach, with thematic questions “What does it take to change a given system? [...] and how does the process of changing a system develop our knowledge about that system?” [[skimx://corneli2011aparagogy#2|p. 2]]
+
+Our aim is to develop a set of “good practices” around peer learning, suitable for use by everyone involved (individual learners, organizers, administrators). A model is provided by two related works, one from Crowston et al. concerning “open source software success” [5] and the other from Resnick et al. on “starting new online communities” [17]. We will, however, have to wait for a future work to bring these contributions into one coherent frame with paragogy. [[skimx://corneli2011aparagogy#2|p. 2]]
+
+A. T. Ariyaratne’s essay on Rural Self Help [2], one of the foundational writings of the Sarvodaya Shramadana movement in Sri Lanka6, begins: Nobody needs to teach rural communities about “group effort” and “selfhelp”. [...] The real question, therefore, is to examine what are the constraints that exist inhibiting the expression of their group effort and selfhelp qualities designed to improve food and nutrition levels, clothing, shelter, health, sanitation, education and cultural life? [[skimx://corneli2011aparagogy#2|p. 2]]
+
+We approach peer learning in a similar spirit: it is something we all know how to do, but can’t always do well. Intuitively, there are bound to be difficulties for a group of peers studying a subject together, outside a traditional classroom or without a teacher. Indeed, peer learning is different from other forms of group effort, the proverbial “barnraising” for example, in which the persons involved can be presumed to know how to build barns – or at least to know someone who knows, and stand ready to take orders. Typically, peers are not experts in learning, didactics, or in the subject they are studying, and are faced with multiple difficulties associated with putting together knowledge about the subject, assembling a suitable learning strategy, and communicating with one another. [[skimx://corneli2011aparagogy#2|p. 2]]
+
+5 http://okcon.org/2011/programme/hacking-education-p2pu-a-case-study 6 http://www.sarvodaya.org/about/philosophy/collected-works-vol-1 [[skimx://corneli2011aparagogy#2|p. 2]]
+
+five principles [[skimx://corneli2011aparagogy#3|p. 3]]
+
+Generally the ideas embodied in these principles are not unique to paragogy, indeed, we will try to ground each of them in previously existing literature, while showing their relevance to peer learning. [[skimx://corneli2011aparagogy#3|p. 3]]
+
+1. Changing context as a decentered center. In paragogy, we recognize that we are not merely teachers or learners, but are actually co-creating the learning context as a whole. The central role of environment is not unfamiliar in constructivist thinking about education ([23], p. 4): Thinking of instruction as an environment gives emphasis to the ‘place’ or ‘space’ where learning occurs. At a minimum, a learning environment contains: (1) the learner; (2) a ‘setting’ or a ‘space’ wherein the learner acts, using tools and devices, collecting and interpreting information, interacting perhaps with others, etc. Again, in the paragogical view, the environment should not be taken as “given” but should instead be viewed as co-created by peers. [[skimx://corneli2011aparagogy#3|p. 3]]
+
+::Link to constructivism and the importance of the setting/place where learning happens - and how that is co-constructed with peers.:: [[skimx://corneli2011aparagogy#3|p. 3]]
+
+. Meta-learning as a font of knowledge. [[skimx://corneli2011aparagogy#3|p. 3]]
+
+learning about learning is especially vital for those in the learning business. In peer learning, that is all of us. [[skimx://corneli2011aparagogy#3|p. 3]]
+
+Learners must not simply seek confirmation of what they already know, they must confront and make sense of difference as part of the learning experience. Clearly, differences pose challenges but these are worth grappling with. Firstly, for psychological reasons: in many domains feedback is only available from peers (but of course peer learning can be relevant in domains like rock climbing and computer programming, where automatic feedback does exist). Secondly, there are philosophical or political reasons to affirm difference. In a space like P2PU, which aims to provide “learning for everyone, by everyone, about almost anything”, we can hardly avoid developing an “understanding of social relations without domination in which persons live together in relations of mediation among strangers” [24]. [[skimx://corneli2011aparagogy#3|p. 3]]
+
+3. Peers provide feedback that wouldn’t be there otherwise. [[skimx://corneli2011aparagogy#3|p. 3]]
+
+4. Learning is distributed and nonlinear. Learning does not go in a straight line [8]. In particular, involvement in co-creating the learning context becomes an important “strand” in the paragogical understanding of peer learning. [[skimx://corneli2011aparagogy#4|p. 4]]
+
+5. Realize the dream if you can, then wake up! Without clear goals, there will be be nothing to realize. Without critical thinking about goals (leading us to change them), learning is a mostly passive game. Paragogy calls for a strategy of “deliberate practice” [7]. [[skimx://corneli2011aparagogy#4|p. 4]]
+
+::I first thought they had changed some of their principles, like 4, but turns out they hadn't. Why did I think so?:: [[skimx://corneli2011aparagogy#4|p. 4]]
+
+Blondy [4] points out both uses and challenges for each of the Knowles principles, focusing on how they work in online learning environments. For instance, with reference to the first principle, “Cheren stated that while learners may express a desire to be self-directed in their learning, most lack the required understanding of learning necessary to be self-directed and thus need guidance and encouragement in the learning process.” [[skimx://corneli2011aparagogy#4|p. 4]]
+
+heutagogy [9] (which focuses on self-directed learners), as we have seen above, paragogy focuses on cases in which learners are actively engaged in co-creating their learning environments. In formulating our first principle, we drew on Nishida’s notion of basho (“shared context in motion”), which looks at the way a context constrains or supports different types of (inter-)actions, and simultaneously at the ways in which we can (re-)shape the contexts we find ourselves in [1]. Thus, instead of asking whether or not learners are selfdirected, we would follow Bingham [3], and assert that self-directedness is only meaningful within a relational context (e.g. within a social field) [[skimx://corneli2011aparagogy#4|p. 4]]
+
+::Not sure what this means, look up Bingham:: [[skimx://corneli2011aparagogy#4|p. 4]]
+
+Paragogy is not the only framework that has been used to study peer learning. We’ll mention Scardamalia’s 12-point framework for Knowledge Building [18] and Mwanza’s 8-step process coming from Activity Theory ([15], cf. [14]). Scardamalia’s 12 “socio-cognitive and technological determinants of knowledge building” are framed by the idea of collective cognitive responsibility in the workplace. (Collective responsibility for creating a suitable learning context would be [[skimx://corneli2011aparagogy#4|p. 4]]
+
+another way to describe our first principle.) Scardamalia’s more extensive framework will in general support a more detailed analysis, but may be less intuitive to work with. Mwanza’s eight steps map a given situation to Engeström’s activity triangle [6], and are used to generate design requirements. This method is less normative than either Scardamalia or the present work, but also less specific. As with the work on software and community-building best practices mentioned in the introduction, we must defer the task of fully comparing and contrasting these approaches with our own. [[skimx://corneli2011aparagogy#5|p. 5]]
+
+5 Implementing paragogy [[skimx://corneli2011aparagogy#5|p. 5]]
+
+How to implement the principles? In this paper we will incorporate a strategy used in the US Army’s training programmes: the After Action Review (AAR) [21]. As the name indicates, the AAR is used to review training exercises. It is important to note that while one person typically plays the role of evaluator in such a review (and despite the fact that military personnel are differently ranked), the review itself happens among peers, and examines the operations of the unit as a whole. The four steps in an AAR are: [[skimx://corneli2011aparagogy#5|p. 5]]
+
+1. Review what was supposed to happen (training plans). 2. Establish what happened. 3. Determine what was right or wrong with what happened. 4. Determine how the task should be done differently the next time. [[skimx://corneli2011aparagogy#5|p. 5]]
+
+We note here the similarity of the AAR to the action research cycle [11]. [[skimx://corneli2011aparagogy#5|p. 5]]
+
+6 A case study in paragogical evaluation [[skimx://corneli2011aparagogy#5|p. 5]]
+
+6.1 Changing context as a decentered center: mapping system dynamics and semantics [[skimx://corneli2011aparagogy#5|p. 5]]
+
+Review what was supposed to happen. We both organized multiple courses where participants were supposed to interact and learn about the subject matter: Collaborative Lesson Planning Fall 2010 and Winter 2011 (co-organized with Dr. Majorie King); DIY Math; Math for Game Designers; Open Governance and Learning (co-organized with Marisa Ponti); and, in Spring 2011, Shaping P2PU7, which was an “intervention” based on a preliminary version of this section. [[skimx://corneli2011aparagogy#5|p. 5]]
+
+Establish what happened. Due to critically low participation, the mathematics courses did not run to completion. Participation in Collaborative Lesson Planning and in Open Governance and Learning was minimal, but sufficient for a conversation to be sustained for the entire 6 week session. The theory of paragogy was born in an effort to understand how to produce successful courses. Finally, as of the time of this writing, 32 people have signed up for Shaping P2PU, but so far participation has been very low. [[skimx://corneli2011aparagogy#6|p. 6]]
+
+Determine what was right or wrong with what happened. In the more active courses, there were nice examples of learning by course participants.8 Low participation was common across P2PU, as illustrated by Dan Diebolt’s graphical analysis, which showed that participation within courses was uneven and falling.9 [[skimx://corneli2011aparagogy#6|p. 6]]
+
+Determine how the task should be done differently the next time. Our best experiences as course organizers happened when we were committed to working through the material ourselves. Combining this with gently prompting peers to follow through on their commitments could go a long way towards keeping engagement at a reasonable level – but this only works when commitments are somewhat clear in the first place. The case of Shaping P2PU shows that organizer commitment is not enough. In this case, we feel that further clarification about the aims and intentions of those who are already highly involved in shaping the organization would improve things. [[skimx://corneli2011aparagogy#6|p. 6]]
+
+Looking at this another way, the P2PU ecology contains an implicit rubric for learning and engagement: from the time a member signs up for a course, to its completion, peers go through a cycle.10 As we understand this cycle better, it should be possible to evaluate it for quality. Then P2PU could implement more formal check points throughout the cycle, requiring participants to specify, reaffirm, or adapt their commitments in relationship to judgments about quality. [[skimx://corneli2011aparagogy#6|p. 6]]
+
+6.2 Metalearning is a font of knowledge: transparency, accountability, and tone [[skimx://corneli2011aparagogy#6|p. 6]]
+
+Review what was supposed to happen. Support for community members was offered as a P2PU course (Course Design Orientation), in mailing lists, via weekly phone calls, in a Q&A issue tracker, and via other informal channels. Participants in courses were presumed to be ready and willing to contribute in a useful fashion. [[skimx://corneli2011aparagogy#6|p. 6]]
+
+Establish what happened. Core members do hold themselves accountable, but this behavior is not necessarily transferred or communicated to new members, for whom accountability is low. Course participants frequently disappeared. [[skimx://corneli2011aparagogy#6|p. 6]]
+
+8 E.g. http://open-governance-and-learning.posterous.com/ [[skimx://corneli2011aparagogy#6|p. 6]]
+
+9 http://bit.ly/lqPChA, http://bit.ly/kH89OP [[skimx://corneli2011aparagogy#6|p. 6]]
+
+10 See https://wiki.mozilla.org/Drumbeat/SoW-engagement-ladder [[skimx://corneli2011aparagogy#6|p. 6]]
+
+Determine what was right or wrong with what happened. Core members are doing a lot of work, and the project is moving forward, with grant funding, incorporation, and several new staff positions. Apart from contractual agreements within the nonprofit, community members have little or no accountability to one another. Governance follows a “rough consensus” model [[skimx://corneli2011aparagogy#7|p. 7]]
+
+6.3 Peers provide feedback that wouldn’t be there otherwise: dealing with problems in a respectful way [[skimx://corneli2011aparagogy#7|p. 7]]
+
+Establish what happened. Discussions about P2PU happen in many places (e.g. in courses). Even within the mailing list, it can be difficult to keep track of the full range of ideas circulating at any given time. There has been some talk about using the Lighthouse tracker for organizational matters, but this hasn’t taken off. Earlier experiments, like using a shared spreadsheet to keep track of organization-level tasks, appear to have been undersubscribed. [[skimx://corneli2011aparagogy#7|p. 7]]
+
+Determine what was right or wrong with what happened. Apart from development work, it can be hard to tell what’s happening around P2PU. Presumably participants who have identified critical and unsolvable problems simply leave. The Q&A tracker and mailing list both provide ways to build factual knowledge, but seem less effective for building strategic knowledge. [[skimx://corneli2011aparagogy#7|p. 7]]
+
+Determine how the task should be done differently the next time. In a traditional university, there are typically a lot of ways to resolve problems without dropping out. P2PU’s new “Help Desk” could, indeed, help with this issue – if people use [[skimx://corneli2011aparagogy#7|p. 7]]
+
+One fairly straightforward thought would be to add support for site-wide content tags. Site-wide tags would allow people who are not interested in “metadiscussions” to easily ignore them, whereas a space like Shaping P2PU could aggregate and build upon the already-ongoing platform-level discussions that have arisen in other groups. Tags would provide other learning-specific benefits, including the ability to give and receive light-weight feedback about contributions, and to build a portfolio showing the impact of one’s work. This would, in turn, foster a culture of accountability. [[skimx://corneli2011aparagogy#8|p. 8]]
+
+6.4 Learning is distributed and nonlinear: design considerations [[skimx://corneli2011aparagogy#8|p. 8]]
+
+Review what was supposed to happen. People are supposed to choose and assemble suitable learning resources (blogs, OER, etc.) for their courses, in which everyone is supposed to learn something. Establish what happened. This is essentially what happened, but it is hard to measure when and whether knowledge was gained. [[skimx://corneli2011aparagogy#8|p. 8]]
+
+Determine how the task should be done differently the next time. In terms of measuring learning, P2PU would have to work hard to use anything but “participation” as a proxy value. In terms of broader issues of quality control, one serious thought is for P2PU core members (including staff) to use the platform to organize their activities – entirely in the open. [[skimx://corneli2011aparagogy#8|p. 8]]
+
+6.5 Realize the dream if you can, then wake up: high level roadmap [[skimx://corneli2011aparagogy#8|p. 8]]
+
+Determine what was right or wrong with what happened. P2PU has made considerable progress (e.g. in the form of successful grant applications), but without more transparency about these efforts, the ability of non-core members to learn from organizational successes is limited. This, of course, limits the ability of volunteers to contribute to further successes of this sort, and may, to some extent, limit the ability of volunteers to “strike off on their own” to pursue alternative development goals. [[skimx://corneli2011aparagogy#9|p. 9]]
+
+Determine how the task should be done differently the next time. It is our firm belief that P2PU should work on a public roadmap that leads from now up to the point where the vision is achieved. Both vision and roadmap should be revised as appropriate. [[skimx://corneli2011aparagogy#9|p. 9]]
+
+References [[skimx://corneli2011aparagogy#9|p. 9]]
+
+2. A. T. Ariyaratne. Organization of rural communities for group effort and self-help. In Food Crisis Workshop, Los Baños, Laguna (Philippines), 7-9 Feb 1977, pages 23–24, 1977. [[skimx://corneli2011aparagogy#9|p. 9]]
+
+6. Y. Engeström. Learning by expanding: an activity-theoretical approach to developmental research. Orienta-Konsultit Oy, 1987. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+7. K. A. Ericsson, R. T. Krampe, and C. Tesch-Römer. The role of deliberate practice in the acquisition of expert performance. Psychological review, 100(3):363, 1993. 8. K. W. Fischer and N. Granott. Beyond one-dimensional change: Parallel, concurrent, socially distributed processes in learning and development. Human Development, 38:302–314, 1995. 9. S. Hase and C. Kenyon. From andragogy to heutagogy. UltiBase, 28, 2001. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+11. C. Lawler. Action research as a congruent methodology for understanding wikis: the case of Wikiversity. Journal of Interactive Media in Education, 6:1–11, 2008. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+12. Cormac Lawler. Learning, and learning about learning in Wikiversity. In Proceedings of Wikimania 2007, Taipei, Taiwan, August 2007. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+13. D.Lei,M.AHitt,andR.Bettis.Dynamiccorecompetencesthroughmeta-learning and strategic context. Journal of management, 22(4):549, 1996. 14. D. Mwanza. Towards an activity-oriented design method for HCI research and practice. Ph. D. thesis, The Open University, 2002. 15. D. Mwanza and Y. Engeström. Pedagogical adeptness in the design of e-learning environments: experiences from the Lab@ Future Project. In Proceedings of ELearn, pages 1344–1347. Citeseer, 2003. 16. A. M. O’Donnell and A. King. Cognitive perspectives on peer learning. Lawrence Erlbaum, 1999. 17. Paul Resnick, Joseph Konstan, Yan Chen, and Robert Kraut. Starting new online communities. In Evidence-based social design: Mining the social sciences to build online communities. MIT Press, Cambridge, MA, forthcoming. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+20. R. M. Smith. Helping adults learn how to learn, volume 19 of New Directions for Adult and Continuing Education. Jossey-Bass, 1983. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+22. M. Weller. Using learning environments as a metaphor for educational change. On the Horizon, 17(3):181–189, 2009. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+23. B. G. Wilson. Constructivist learning environments: Case studies in instructional design. Educational Technology Publications, 1996. [[skimx://corneli2011aparagogy#10|p. 10]]
+
+24. Iris Marion Young. The ideal of community and the politics of difference. Social Theory and Practice, 12(1):1–26, 1986. [[skimx://corneli2011aparagogy#10|p. 10]]
+

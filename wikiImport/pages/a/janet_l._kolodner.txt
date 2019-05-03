@@ -1,0 +1,25 @@
+h1. Janet L. Kolodner
+{{ pages:a_janet_l._kolodner1.png}}
+
+at GATech, computing - founder of [[Journal of the Learning Sciences]]
+
+h2. Research
+Development of identity as a scientific reasoner, technological means of promoting and mediating learning, implications and applications of cognition to education and educational technology, artificial intelligence, cognitive science, case-based reasoning, novice-expert evolution, the role of experience in expert and common-sense reasoning, design cognition, creativity, design of decision-aiding tools and interactive learning environments.
+
+h3. From intro at ICLS2012
+[[:a:Peter Reimann]] summarized her career as spanning three stages:
+  * work in the lab, pioneered case-based reasoning (1993)
+  * into schools and science education 
+    * learning by design, 3 year middle-school curriculum on Project-Based Inquiry Science
+  * policy level, Cyberlearning: Transforming Education at NSF
+
+
+h2. Projects
+  * [[http://www.cc.gatech.edu/projects/lbd/home.html|Learning by design]]
+  * [[http://www.its-about-time.com/pbis/pbis.html|Project-based inquiry science]]
+
+h2. Links
+  * [[http://home.cc.gatech.edu/jlk|Homepage]]
+
+{{page>abib:Janet L. Kolodner}}
+~~NOTOC~~

@@ -1,0 +1,38 @@
+h1. Key ideas
+//Looks back at history of Open University, initial scenario was for "lone lighthouse keeper" - no longer relevant. Then online learner, now networked learner//
+
+h2. Informal learning
+**Definition**: “any activity involving the pursuit of understanding, knowledge, or skill that occurs without the presence of externally imposed curricular criteria” (Livingstone, 2006)
+
+**Self-directed informal learning**: "most simply understood as learning that is undertaken in the learner's or learners' own terms without either prescribed curricular requirements or a designated instructor” (Livingstone, 2006:p205). 
+
+**Prevalence:** 80% of the adult population will identify themselves as having carried out informal learning with an extent of around 500 hours per year (Tough, 2002)
+
+h2. OU history
+  * Established in 1969
+  * at that time 5% of adult population attended university
+  * "Open as to people, places, methods and ideas"
+
+h3. Supported Open Learning
+//Material based learning// (Rowntree, 1997)
+
+  * A common material base printed text
+  * accompanied by other materials broadcast through television, the radio or supplied on audio cassette
+  * groups supported by tutor or associate lecture, providing tutorials, phone contact and feedback
+
+h3. Scenarios
+h4. Lighthouse Keeper
+The lighthouse keeper of the 1960s was isolated from content resources such as bookshops, libraries, and educational establishments, and from other students. However they could communicate with the technology of the time (telephone, television and radio) and from time to time post or travel to meetings. In order that such a person could be supplied with what they needed the university had to adopt a philosophy that each course would be contained within a “closed box” that would supply the essential content needs of the lighthouse keeper backed up with support through marked work, telephone contact and occasional tutorials that were not compulsory.
+
+h4. Connected student
+Online communications between students, interest in educational modeling and learning design.
+
+Switch content -> tasks
+
+h4. Open Learner
+A patterns based approach that considers design for, use by the learner may have more impact and scale with resources playing a freer role (Dimitriadis et al., 2009)
+
+Integrate with users' daily lives, informal learning, etc.
+
+h2. Check out
+  * Literature on informal learning: Livingstone, D. W. and Tough, A. 

@@ -1,0 +1,3 @@
+h2. Publications in Applied Artificial Intelligence
+
+| page2005collaboration | Page, K., Michaelides, D., De Roure, D., Shadbolt, N., Chen-Burger, Y. H., Dalton, J., Potter, S., Tate, A., Buckingham Shum, S., Eisenstadt, M., & others. (2005). Collaboration in the Semantic Grid: a Basis for e-Learning. Applied Artificial Intelligence, 19(9), 881--904. Citeseer.|[[skimx://page2005collaboration|PDF]]|

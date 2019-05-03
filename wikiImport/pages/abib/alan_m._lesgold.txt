@@ -1,0 +1,3 @@
+h2. Alan M. Lesgold's publications
+
+| [@toth2002mapping] | Toth, E. E., Suthers, D. D., & Lesgold, A. M. (2002). “Mapping to know”: The effects of representational guidance and reflective assessment on scientific inquiry. Science Education, 86(2), 264--286.|

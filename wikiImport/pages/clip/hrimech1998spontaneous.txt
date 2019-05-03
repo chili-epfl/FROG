@@ -1,0 +1,41 @@
+h2. Highlights (19%)
+
+Recent advances in computer technology require that we revisit the notion of learning, and that we apply new models and theories towards a better understanding ofthe learning process. While there is a considerable body of literature documenting the computer's potential as a teaching and a learning aid, little has been done in the field of educational research to elucidate the steps involved in learning about the use of computers (Waern, 1993). This paper proposes to lay some groundwork towards that end, and to identify learning strategies that are applied by learners confronted with the task of understanding computer technology. [[skimx://hrimech1998spontaneous#2|p. 2]]
+
+The study of learning strategies is primarily concerned about how people use their mind to learn something. [[skimx://hrimech1998spontaneous#7|p. 7]]
+
+In general, learning strategies refer to conscious actions that learners utilize in order to gain direction and control over their learning outcomes. Learning strategies refer to these conscious, though not easily described, actions learners use to control and direct their learning process. Learning strategies are defined as the operations utilized by learners for the effective appropriation of knowledge or skills. They are deliberate, planned activities that induce or bring about learning. For example, language learning strategies are "behaviors or actions which learners use to make learning more successful, self-directed and enjoyable" (Oxford, 1989, p. 235). An individual's preferred strategies evolve over time and become competencies that can be summoned unconsciously whenever the need arises. At that point, the strategies have been integrated into the individual's learning style, and to his/her [[skimx://hrimech1998spontaneous#7|p. 7]]
+
+personality. To study learning strategies means to look at the ways people use their brains and their environment and take actions to acquire new knowledge and skills. By understanding these actions, we may be in a better position to understand how learning in general, and SDL in particular, occur. The preferred strategies learned or developed by an individual become learning or study habits and competencies that he or she uses whenever he or she judges that the learning tasks make their use necessary or worthwhile. [[skimx://hrimech1998spontaneous#8|p. 8]]
+
+For our purposes, learning strategies are considered cognitive, metacognitive, affective or social operations that originate with and ·are propelled by the learner, and that are utilized with the explicit ·· ·purpose of facilitating the appropriation of knowledge or skills. The focus is on the learners and their cognitive and metacognitive ...(i.e. "learning-how-to-learn") competencies in achieving control . ": over the learning process. [[skimx://hrimech1998spontaneous#8|p. 8]]
+
+They can be classified in five categories: cognitive; metacognitive; af. fective; social; and mixed. They also can be classified as direct or ;indirect. Direct strategies transform, in the mind of the learner, the .material to be learned into new self-appropriated structures. Indirect strategies, also called affective or support strategies, act mainly on the learner him/herself, for example by sustaining motivation or reducing stress. Both types of strategies may be general and used across different domains of learning or applied to particular subject .
+  *  matters, areas or specific tasks. [[skimx://hrimech1998spontaneous#8|p. 8]]
+
+Some simple learning strategies, such as repetition, are wide. spread and used by almost everyone, while other strategies, such as imagery or elaboration are more idiosyncratic and must be adapted by each individual to be congruent with their preferences, abilities, and context. Without this criterion of purposeful internalization, learning strategies become mere techniques, or study habits that can sometimes be inefficient or counter-productive. [[skimx://hrimech1998spontaneous#8|p. 8]]
+
+Therefore, the degree of control that learners exerma cise over their own learning through the use of explicit learning fra strategies, becomes an important dimension of self-directed learnto ing (Long, 1989). [[skimx://hrimech1998spontaneous#9|p. 9]]
+
+even though learning strategies have the potential to greatly increase learning effectiveness, some learners, especially underachievers or those who experience some kind of difficulties, often do not use them. Several reasons have been proposed to explain this (Gamer, 1990): low cognitive alertness; poor learning strategies that nevertheless produce some acceptable results; lack of basic knowledge; external attributional style;· and lack of or insufficient transfer of learning. [[skimx://hrimech1998spontaneous#9|p. 9]]
+
+On the other hand, the competent use of learning strategies is commonplace among highly effective learners, and is well docune' mented (Hrimech, 1995). However, even sophisticated learners, when facing a highly informal and unstructured learning environment such as that in which most people learn to use computers, face serious difficulty. Furthermore, little is known about which strategies are more effective in that particular context. In the words of Gamer (1990, p.517), .when the learning context changes, "the nature of strategic activity often varies as well." [[skimx://hrimech1998spontaneous#9|p. 9]]
+
+This research builds on the cognitive paradigm. Cognitive psychology considers human beings as deliberate agents who actively process information throughout their lifetime. The study of learning strategies has been strongly influenced by the cognitivist perspective, which is also aligned with the philosophical assumptions underlying the study of self-directed learning (Long, 1992). In this [[skimx://hrimech1998spontaneous#9|p. 9]]
+
+perspective, for successful learning to occur, appropriate learning strategies must be employed. [[skimx://hrimech1998spontaneous#10|p. 10]]
+
+Some authors in SDL have stressed the importance of studying the strategies SDL learners use, an area which is still hardly known (Olgren, 1992). For example, in her unifying framework for data-based research into adult self-directed learning, Danis (1992) makes the study ofself-regulated learning strategies the core ofthis framework, pointing out to the importance of relating the strategies to the learning content and the learning context. This study proceeds in a similar direction. [[skimx://hrimech1998spontaneous#10|p. 10]]
+
+Instead, we used a qualitative design that included a semistructured interview schedule. Twenty volunteers, twelve females and eight males, aged between 25 years and 48 years, were interviewed. They were asked what methods they used when faced with . new computer-related tasks, and how they went about figuring out how to get them done. In addition we asked the informants to detail the strategies that they used when they encountered learning difficulties, and to estimate those strategies' effectiveness. We also inquired about the strategies that were tried out and subsequently abandoned, and about the reasons for their perceived lack of effectiveness. [[skimx://hrimech1998spontaneous#11|p. 11]]
+
+Affective Or Support Strategies [[skimx://hrimech1998spontaneous#15|p. 15]]
+
+1. Positive self-talk. [[skimx://hrimech1998spontaneous#15|p. 15]]
+
+Having fun with software can be entertaining, and it allows for better concentration on the learning task by reducing stress. In fact, playing could be seen as one of the most effective ways to explore new and creative solutions to difficulties. Sometimes, momentarily leaving the problem application and focusing on an entirely new environment enables the subconscious mind to look for a solution while the conscious mind is occupied at some other, less important task. Returning to the original problem, the learner may find that the solution is more readily available than anticipated. [[skimx://hrimech1998spontaneous#15|p. 15]]
+
+2. Play. [[skimx://hrimech1998spontaneous#15|p. 15]]
+
+3. Perseverance. [[skimx://hrimech1998spontaneous#15|p. 15]]
+

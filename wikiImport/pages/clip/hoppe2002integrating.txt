@@ -1,0 +1,10 @@
+h2. Highlights (5%)
+
+The provision of shared visual representations is considered to be an important facilitator for creative processes in group working and learning scenarios. Although reusability is an inherent feature of computerised representations in general, a comparative analysis of existing tools shows clear deficits in this respect. We are convinced that reusability and thus sustainability of the results of co-constructive group work can be much enhanced by integrating visual environments with functions for indexing, archiving and retrieval to support the construction of group memories. This is exemplified with a new tool which supports creative working groups in the area of “trend monitoring” and technology transfer. This is an example of organisational learning, but also more standard learning scenarios may benefit from this technology. [[skimx://hoppe2002integrating#1|p. 1]]
+
+Reusability is, of course, an inherent feature of computerised representations in general. Yet, a critical analysis of existing tools shows that it is usually not very explicitly supported (see below). The main concern appears to be the provision of a rich, flexible and expressive environment for the collaborative sessions, i.e., the collaborative session is essentially conceived as a closed event. We are convinced that reusability and thus sustainability of the results of co-constructive group work can be much enhanced by integrating visual environments with functions for indexing, archiving and retrieval to support the construction of group memories. [[skimx://hoppe2002integrating#1|p. 1]]
+
+::This is interesting:: [[skimx://hoppe2002integrating#2|p. 2]]
+
+11. Free-hand input: In our experience, free-hand input facilities (hand writing, sketching) are particularly well- suited to support informal, creative processes, as e.g. in brainstorming sessions were typing is disruptive. [[skimx://hoppe2002integrating#3|p. 3]]
+

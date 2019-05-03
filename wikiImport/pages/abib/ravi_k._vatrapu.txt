@@ -1,0 +1,3 @@
+h2. Ravi K. Vatrapu's publications
+
+| [[..:ref:vatrapu2008cultural]] | Vatrapu, R. K. (2008). Cultural considerations in {Computer Supported Collaborative Learning}. Research and Practice in Technology Enhanced Learning.|[[skimx://vatrapu2008cultural|PDF]]|

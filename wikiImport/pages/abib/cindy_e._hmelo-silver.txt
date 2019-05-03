@@ -1,0 +1,5 @@
+h2. Cindy E. Hmelo-Silver's publications
+
+| [@hmelo2004problem] | Hmelo-Silver, C. E. (2004). Problem-based learning: what and how do students learn?. Educational Psychology Review, 16(3), 235--266.|
+| [@rummel2008using] | Rummel, N., & Hmelo-Silver, C. E. (2008). Using contrasting cases to relate collaborative processes and outcomes in CSCL. In Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08 (346--353). International Society of the Learning Sciences. |
+| [@hmelo2011representational] | Hmelo-Silver, C. E., Jordan, R., Liu, L., & Chernobilsky, E. (2011). Representational tools for understanding complex computer-supported collaborative learning environments. Analyzing Interactions in CSCL, 83--106.|

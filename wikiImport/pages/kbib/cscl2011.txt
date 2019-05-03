@@ -1,0 +1,3 @@
+h2. Publications with keyword "cscl2011"
+
+| arnseth2006approaching | Arnseth, H. C., & Ludvigsen, S. (2006). Approaching institutional contexts: systemic versus dialogic research in {CSCL}. International Journal of {Computer-Supported} Collaborative Learning. doi: 10.1007/s11412-006-8874-3. | [[skimx://arnseth2006approaching|PDF]]|

@@ -1,0 +1,63 @@
+h1. Key ideas
+[[https://p2pu.org/en/groups/the-researchers-abode/content/may-26-june-1-compliance-without-pressure-techniques-for-online-communities/|Discussion on P2PU]]
+
+//Trying out two ways of encouraging users to contribute to a community: "foot-in-the-door" (FITD) and "low-ball" (LB). Low-ball elicited more work than foot-in-the-door. Worked as one-time intervention, not to create lasting increase in engagement//
+
+h2. Literature review
+
+h3. Compliance without pressure
+Developed by social psychology and marketing researchers, other techniques:
+  * door-in-the-face
+    * //Cialdini, R., et al. Reciprocal concessions procedure for inducing compliance: The door-in-the-face technique. Journal of Personality and Social Psychology 31, 2 (1975), 206.//
+  * that’s-notall
+    * //Burger, J. Increasing compliance by improving the deal: The that’s-not-all technique. Journal of Personality and Social Psychology 51, 2 (1986), 277.//
+  * bait-and-switch
+
+h3. Social production communities
+Loosely-connected users work together to produce information and artifacts of value. 
+
+h3. Online difference
+Most research has been conducted offline. Effect is often better in public settings with higher visibility, this might play out differently online, with more anonymity - are online social production communities public or private spaces (people work from their homes).
+
+Also, e-mail is not as personal as face-to-face or phone, and e-mail overload may lead to people ignoring incoming messages.
+
+h2. Research setting
+Cyclopath, geographic wiki offering route-finding for cyclists in Minneapolis. Ask users to contribute tags to map.
+
+h3. Intervention
+Short e-mail with different text to three groups, FITD, LB, and control group. 
+
+h3. Outcome variables
+  * Response (yes or no, and number)
+  * Quantity of work (number of tag-applications, number of new tags)
+
+h2. Foot-in-the-door (FITD)
+Once a person performs a small request, he/she is more likely to perform a subsequent, larger demand.
+
+h3. Why does it work?
+Bem's self-perception theory: //when a person is induced to comply with a smaller request, he/she is more likely to comply with a subsequent, larger request because of perceiving himself/herself as the type of person that does such tasks//
+
+Alternative: //psychological reactance, conformity to existing social norms including reciprocity and cognitive dissonance //
+
+
+//Freedman, J., and Fraser, S. Compliance without pressure: The foot-in-the-door technique. Journal of Personality and Social Psychology 4, 2 (1966), 195–202.//
+
+h2. Low-ball (LB)
+Once a person commits to a request, he/she is more likely to perform it at a later stage, even if its cost is increased.
+
+h3. Why does it work?
+commitment: //people generally tend to stick to their commitments when acting in public view//
+
+//Cialdini, R., et al. Low-ball procedure for producing compliance: Commitment then cost. Journal of Personality and Social Psychology 36, 5 (1978), 463–476.//
+
+h2. Findings
+LB significantly increased quantity of work subjects put in, FITD was not as successful. 
+
+When subsequently asked to do more work, FITD participants did less work than others. 
+
+h2. Discussion
+Reciprocity, cyclopath did not return the favors asked.
+
+Reactance to excessive requesting (either annoyance that they were being badgered, or feeling that they had already done their share)
+
+Anchoring - this is the amount of work I should be doing (ie. minimal)

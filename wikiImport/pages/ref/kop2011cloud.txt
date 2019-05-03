@@ -1,0 +1,36 @@
+h1. Cloud Computing and Creativity: Learning on a Massive Open Online Course
+
+<ifauth !@admin>|Kop, R., & Carroll, F. (2011). Cloud Computing and Creativity: Learning on a Massive Open Online Course. European Journal of Open, Distance and E-Learning, Special Issue on Creativity and OER.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kop2011cloud|BibDesk]]  | Kop, R., & Carroll, F. (2011). Cloud Computing and Creativity: Learning on a Massive Open Online Course. European Journal of Open, Distance and E-Learning, Special Issue on Creativity and OER. |
+^ [[skimx://kop2011cloud|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kop2011cloud?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kop2011cloud?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{kop2011cloud,
+  author = {Kop, Rita and Carroll, Fiona},
+  date-added = {2012-01-10 17:28:40 +0000},
+  date-modified = {2012-04-09 01:02:04 +0000},
+  date-read = {2012-04-02 15:18:58 -0400},
+  journal = {European Journal of Open, Distance and E-Learning},
+  keywords = {1mooc},
+  notes = {1},
+  read = {1},
+  title = {Cloud Computing and Creativity: Learning on a Massive Open Online Course},
+  volume = {Special Issue on Creativity and OER},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXAAAAAAAXAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhBrb3AyMDExY2xvdWQucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKc8y9dFY1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL132jAAAAAQAMANrWUgAXPTEAAZ9eAAIAL1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrb3AyMDExY2xvdWQucGRmAAAOACIAEABrAG8AcAAyADAAMQAxAGMAbABvAHUAZAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAkVXNlcnMvU3RpYW4vYmliZGVzay9rb3AyMDExY2xvdWQucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEB4uLi8uLi9iaWJkZXNrL2tvcDIwMTFjbG91ZC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACFAIWAhsCJAIvAjMCQQJIAlECcgJ3AnoChwKMAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAp4=}
+}
+
+</hidden>
+
+{{page>notes:kop2011cloud}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kop2011cloud}}
+
+{{page>kindle:kop2011cloud}}
+
+{{page>skimg:kop2011cloud}}

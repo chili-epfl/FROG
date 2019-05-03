@@ -1,0 +1,3 @@
+h2. Stephen Carson's publications
+
+| [@carson2012massive] | Carson, S., & Schmidt, J. P. (2012). The Massive Open Online Professor. Academic Matters, (May).|

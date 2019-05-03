@@ -1,0 +1,7 @@
+h1. Ceng Ruimin
+
+h2. A learner-centered enhanced filtering recommendation to suport learning from the web of knowledge
+
+filtering:
+  * term frequency-inverse document frequency
+  * association rules

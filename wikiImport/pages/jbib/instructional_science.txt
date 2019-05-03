@@ -1,0 +1,18 @@
+h2. Publications in Instructional Science
+
+| [@oshima1996collaborative] | Oshima, J., Scardamalia, M., & Bereiter, C. (1996). Collaborative learning processes associated with high and low conceptual progress. Instructional Science, 24(2), 125–155.|
+| [@delaat2003complexity] | De Laat, M., & Lally, V. (2003). Complexity, theory and praxis: Researching collaborative learning and tutoring processes in a networked learning community. Instructional Science, 31(1), 7--39. |
+| [@pilkington2003facilitating] | Pilkington, R. M., & Walker, S. A. (2003). Facilitating debate in networked learning: Reflecting on online synchronous discussion in higher education. Instructional Science, 31(1), 41--63.|
+| [@booth2003opening] | Booth, S., & Hulten, M. (2003). Opening dimensions of variation: An empirical study of learning in a web-based discussion. Instructional Science, 31(1), 65--86. |
+| [@levy2003methodological] | Levy, P. (2003). A methodological framework for practice-based research in networked learning. Instructional Science, 31(1), 87--109.|
+| [@roberts2003teaching] | Roberts, G. (2003). Teaching using the Web: Conceptions and approaches from a phenomenographic perspective. Instructional Science, 31(1), 127--150.|
+| [@azevedo2005adaptive] | Azevedo, R., Cromley, J., Winters, F., Moos, D., & Greene, J. (2005). Adaptive Human Scaffolding Facilitates Adolescents’ Self-regulated Learning with Hypermedia. Instructional Science, 33(5), 381-412. |
+| [@azevedo2005scaffolding] | Azevedo, R., & Hadwin, A. F. (2005). Scaffolding self-regulated learning and metacognition--Implications for the design of computer-based scaffolds. Instructional Science, 33(5), 367--379. |
+| [@weinberger2005epistemic] | Weinberger, A., Ertl, B., Fischer, F., & Mandl, H. (2005). Epistemic and social scripts in computer-supported collaborative learning. Instructional Science, 33(1), 1--30. doi:10.1007/s11251-004-2322-4|
+| [@saab2006supporting] | Saab, N., Joolingen, W. R., & {Hout-Wolters}Bernadette H. A. M. (2006). Supporting Communication in a Collaborative Discovery Learning Environment: the Effect of Instruction. Instructional Science, 35(1), 73--98. doi:10.1007/s11251-006-9003-4|
+| [@levre2006relationship] | LièvreB.D., Depover, C., & Dillenbourg, P. (2006). The relationship between tutoring mode and learners’ use of help tools in distance education. Instructional Science, 34(2), 97--129.|
+| [@rohrer2007shuffling] | Rohrer, D., & Taylor, K. (2007). The shuffling of mathematics problems improves learning. Instructional Science, 35(6), 481–498.|
+| [@rebetez2008learning] | Rebetez, C., BétrancourtMireille, Sangin, M., & Dillenbourg, P. (2008). Learning from animation enabled by collaboration. Instructional Science, 1--15.|
+| [@hew2010higher] | Hew, K. F., & Cheung, W. S. (2010). Higher-level knowledge construction in asynchronous online discussions: an analysis of group size, duration of online discussion, and student facilitation techniques. Instructional Science, 39(3), 303--319. doi:10.1007/s11251-010-9129-2|
+| [@dejong2010cognitive] | de Jong, T. (2010). Cognitive load theory, educational research, and instructional design: some food for thought. Instructional Science, 38(2), 105--134. |
+| [@sun2010knowledge] | Sun, Y., Zhang, J., & Scardamalia, M. (2010). Knowledge building and vocabulary growth over two years, Grades 3 and 4. Instructional Science, 38(2), 147--171.|

@@ -1,0 +1,4 @@
+h2. Stephen Hockema's publications
+
+| [@coppin2009cognitive] | Coppin, P. W., & Hockema, S. (2009). {A cognitive exploration of the" non-visual" nature of geometric proofs}. Visual Languages and Logic, 81--95. |
+| [@coppin2010attention] | Coppin, P., Burton, J., & Hockema, S. (2010). An Attention Based Theory to Explore Affordances of Textual and Diagrammatic Proofs. In A. Goel, M. Jamnik & N. Narayanan (Eds.), Diagrammatic Representation and Inference, Lecture Notes in Computer Science (Vol. 6170, 271-278). Springer Berlin / Heidelberg. |

@@ -1,0 +1,37 @@
+h1. The scholarship of teaching: What’s the problem
+<html><a href='http://wiki.biologyscholars.org/@api/deki/files/820/=11RR_Assignment_2_Readings.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://wiki.biologyscholars.org/@api/deki/files/820/=11RR_Assignment_2_Readings.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Bass, R. (1999). The scholarship of teaching: What’s the problem. Inventio: Creative thinking about learning and teaching, 1(1), 1–9. Retrieved from http://wiki.biologyscholars.org/@api/deki/files/820/=11RR_Assignment_2_Readings.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bass1999scholarship|BibDesk]]  | Bass, R. (1999). The scholarship of teaching: What’s the problem. Inventio: Creative thinking about learning and teaching, 1(1), 1–9. Retrieved from http://wiki.biologyscholars.org/@api/deki/files/820/=11RR_Assignment_2_Readings.pdf. |
+^ [[skimx://bass1999scholarship|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bass1999scholarship?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bass1999scholarship?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bass1999scholarship,
+  author = {Bass, R.},
+  date-added = {2013-01-29 18:18:47 +0000},
+  date-modified = {2013-01-29 18:19:11 +0000},
+  journal = {Inventio: Creative thinking about learning and teaching},
+  keywords = {0sotl},
+  number = {1},
+  oa-url = {http://wiki.biologyscholars.org/@api/deki/files/820/=11RR_Assignment_2_Readings.pdf},
+  pages = {1–9},
+  title = {The scholarship of teaching: What’s the problem},
+  url = {http://wiki.biologyscholars.org/@api/deki/files/820/=11RR_Assignment_2_Readings.pdf},
+  volume = {1},
+  year = {1999},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdiYXNzMTk5OXNjaG9sYXJzaGlwLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3M3DzS17CVBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNLcFZAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiYXNzMTk5OXNjaG9sYXJzaGlwLnBkZgAOADAAFwBiAGEAcwBzADEAOQA5ADkAcwBjAGgAbwBsAGEAcgBzAGgAaQBwAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2Jhc3MxOTk5c2Nob2xhcnNoaXAucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9iYXNzMTk5OXNjaG9sYXJzaGlwLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:bass1999scholarship}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bass1999scholarship}}
+
+{{page>kindle:bass1999scholarship}}
+
+{{page>skimg:bass1999scholarship}}

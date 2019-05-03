@@ -1,0 +1,6 @@
+h2. A. Soller's publications
+
+| soller2007collaborative | Soller, A., & Lesgold, A. (2007). Collaborative tools in educational practice. The Role of Technology in CSCL. Springer.|
+| jermann2001mirroring | Jermann, P., Soller, A., & Mühlenbrock, M. (2001). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. Proceedings of the first European conference on computer-supported collaborative learning.|
+| soller2005mirroring | Soller, A., Martínez, A., Jermann, P., & Mühlenbrock, M. (2005). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. International Journal of Artificial Intelligence in Education. IOS Press.|
+| soller2001supporting | Soller, A. (2001). Supporting social interaction in an intelligent collaborative learning system. International Journal of Artificial Intelligence in Education (IJAIED).|

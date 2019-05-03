@@ -1,0 +1,35 @@
+h1. Cai Su
+
+caisu@bnu.edu.cn
+http://www.etc.edu.cn/~cs
+
+h2. 3D Interactive Virtual Learning Environment
+  * game - 3D graphics "peak of the game", virtual worlds or virtual environments
+  * e-learning - LMS -> social network learning -> Second Life / Sloodle(::?::) (3D virtual learning environments) Clougherty (2009)
+
+Problems 
+  * to focused on fun, not appropriate for education
+  * not open enough
+
+So we developed our own environment
+  * 3D modeling
+  * virtual roles & interaction
+    * name, movement, keyboard/mouse, API for other input devices, walk/fly/move
+    * integrate with existing social website
+  * 3D data compression
+
+Plus 
+  * educational theory
+  * education technology
+
+Results
+  * physics simulation
+    * Newton's first law of motion simulation (etc etc)
+  * astronomy simulation
+    * solar system simulation
+
+Mostly just visual demonstrations, not much interaction by user, or freedom to explore. Also display of PPT and video.
+
+::What is purpose of the social feature - multi-user etc?::
+
+Using webcam for AR, bringing the examples from the virtual world into webcam with especially coded cards.

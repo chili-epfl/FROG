@@ -1,0 +1,20 @@
+h2. Images
+
+{{skim:slof2010design0.png}}
+
+[[skimx://slof2010design#5
+|p. 5
+]]<html><hr></html>
+
+{{skim:slof2010design1.png}}
+
+[[skimx://slof2010design#7
+|p. 7
+]]<html><hr></html>
+
+{{skim:slof2010design2.png}}
+
+[[skimx://slof2010design#8
+|p. 8
+]]<html><hr></html>
+

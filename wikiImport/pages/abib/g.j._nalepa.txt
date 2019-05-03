@@ -1,0 +1,3 @@
+h2. G.J. Nalepa's publications
+
+| nalepa2010collective | Nalepa, G. J. (2010). Collective knowledge engineering with semantic wikis. Journal of Universal Computer Science.|[[skimx://nalepa2010collective|PDF]]|

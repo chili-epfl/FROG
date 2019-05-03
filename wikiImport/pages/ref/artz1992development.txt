@@ -1,0 +1,37 @@
+h1. Development of a cognitive-metacognitive framework for protocol analysis of mathematical problem solving in small groups
+
+<ifauth !@admin>|Artz, A. F., & Armour-Thomas, E. (1992). Development of a cognitive-metacognitive framework for protocol analysis of mathematical problem solving in small groups. Cognition and instruction, 9(2), 137--175. Routledge. Retrieved from http://www.jstor.org/stable/pdfplus/3233531.pdf?acceptTC=true.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://artz1992development|BibDesk]]  | Artz, A. F., & Armour-Thomas, E. (1992). Development of a cognitive-metacognitive framework for protocol analysis of mathematical problem solving in small groups. Cognition and instruction, 9(2), 137--175. Routledge. Retrieved from http://www.jstor.org/stable/pdfplus/3233531.pdf?acceptTC=true. |
+^ [[skimx://artz1992development|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:artz1992development?do=edit&vecdo=print\'><frame src=\'/wiki/clip:artz1992development?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{artz1992development,
+  author = {Artz, A.F. and Armour-Thomas, E.},
+  date-added = {2011-06-09 14:30:02 +0800},
+  date-modified = {2012-02-03 08:17:48 +0000},
+  journal = {Cognition and instruction},
+  keywords = {analysis},
+  number = {2},
+  pages = {137--175},
+  publisher = {Routledge},
+  title = {Development of a cognitive-metacognitive framework for protocol analysis of mathematical problem solving in small groups},
+  url = {http://www.jstor.org/stable/pdfplus/3233531.pdf?acceptTC=true},
+  volume = {9},
+  year = {1992},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdhcnR6MTk5MmRldmVsb3BtZW50LnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ36ey9bryVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yQJAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhcnR6MTk5MmRldmVsb3BtZW50LnBkZgAOADAAFwBhAHIAdAB6ADEAOQA5ADIAZABlAHYAZQBsAG8AcABtAGUAbgB0AC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2FydHoxOTkyZGV2ZWxvcG1lbnQucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9hcnR6MTk5MmRldmVsb3BtZW50LnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:artz1992development}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:artz1992development}}
+
+{{page>kindle:artz1992development}}
+
+{{page>skimg:artz1992development}}

@@ -1,0 +1,48 @@
+h2. Highlights (19%)
+
+Scripts can be understood as flexible, individual memory structures guiding our understanding and actions, but also as instructional interventions that help students use the affordances offered in new learning spaces. [[skimx://kollar2014hard#2|p. 2]]
+
+In study 1 (N = 82), the authors observed that when thrown into an unfamiliar, new learning space, students showed low individual learning and low satisfaction with the learning space, compared with students who received basic hints concerning how to use the affordances of the learning space. Study 2 (N = 77) demonstrated positive effects of an external script to guide collaborative decision-making in the new learning space, compared to unstructured collaboration. Thus, a script perspective helps to understand why it is so difficult to use new learning spaces effectively. Script theory can also guide the design of support to overcome these difficulties. [[skimx://kollar2014hard#2|p. 2]]
+
+However, one problem that both teachers and students have when encountering a new learning space is that they lack prior experiences both with the affordances of the room and possibly also with the characteristics of the employed instructional approach. This can be interpreted as an absence of cognitive structures that guide participants in their understanding of and actions in such spaces (Schank, 1999). [[skimx://kollar2014hard#3|p. 3]]
+
+n other words, since those learning spaces and instructional approaches are ‘new’, at least to most participants, learners typically lack appropriate ‘internal scripts’ (Fischer, Kollar, Stegmann, & Wecker, 2013) for such learning experiences. The result is that students are likely to fail to make use of the opportunities of the new learning space, leading to suboptimal learning processes and outcomes. [[skimx://kollar2014hard#3|p. 3]]
+
+This learning space allowed for a dynamic reconfiguration of the furniture to enable quick changes between different social modes of instruction (e.g. switches between group and individual work or between different group sizes) as well as for the use of mobile computer technologies and presentation screens. [[skimx://kollar2014hard#4|p. 4]]
+
+One major assumption of the Script Theory of Guidance is that learning essentially is failure-driven (see also Schank, 1999). [[skimx://kollar2014hard#4|p. 4]]
+
+once something goes different than usual, i.e. once there is a discrepancy between the participant’s employed internal script and the actually observable processes in the classroom, an ‘expectation failure’ (Schank, 1999, pp. 41ff.) occurs that will trigger either a search for an alternative internal script (or alternative internal script components) to make sense of the situation, or yield an expansion of the employed internal script, and – in case this deviation from the original internal script repeats – finally lead to the development of a new internal script component, which is in essence a process of cognitive change, i.e. learning. [[skimx://kollar2014hard#4|p. 4]]
+
+In the Script Theory of Guidance, developing a new internal script is seen as a re-configuration of existing script components (scriptlets, scenes, roles) that can be represented in different plays into a new play [[skimx://kollar2014hard#5|p. 5]]
+
+Schank’s (1999) revised Dynamic Memory Theory – there, internal scripts are not seen as static cognitive entities, but rather as flexible knowledge structures that dynamically bind together different script components, but disconnect them again and create new configurations once the situation has changed so much that the current configuration of internal script components can no longer lead to successful understanding and actions in the given situation. [[skimx://kollar2014hard#5|p. 5]]
+
+In the less familiar condition, all mobile furniture was moved to the walls of the room. For the complete tutorial, students were free in the use of the furniture but were not told what to do with it. In the more familiar condition, the furniture was also located at the walls of the room, with the exception of one chair and one desk by aid of which the senior student demonstrated how these could be used (e.g. to enable quick reconfigurations of the room, the chairs had wheels and a foldable writing pad, and the desk had wheels as well and a handle to change their height). [[skimx://kollar2014hard#5|p. 5]]
+
+During the 90-minute tutorial, students were asked three times to change something about their group-specific physical layout. As dependent variables, we first looked at the quality of group products. In the [[skimx://kollar2014hard#5|p. 5]]
+
+Based on an expert solution, the quality of the group product for the problem-solving task was measured by counting reasonable arguments for and against the single concepts. [[skimx://kollar2014hard#6|p. 6]]
+
+we measured students’ satisfaction with the learning space, using seven items that were to be answered after the tutorial on a 7-point Likert scale (sample items: ‘The furniture assisted us in our small group work’; ‘The furniture was easy to use’). Reliability of the resulting scale was sufficient (Cronbach’s Alpha: α = .65). [[skimx://kollar2014hard#6|p. 6]]
+
+students in the more familiar condition showed significantly higher levels of satisfaction with respect to the new learning space (M = 5.61; SD = 0.65) than students in the less familiar condition (M = 4.76; SD = 0.95; t(80) = –4.71; p < .05; d = –1.04; onetailed). [[skimx://kollar2014hard#6|p. 6]]
+
+Based on these considerations, in a second (experimental) study (N = 77), we investigated to what extent an external script that supported learners in a group decision task by making use of the affordances of the movable furniture described above and of computer technologies that were present in the room led to more appropriate group decisions and higher levels of satisfaction with the new learning space as well as with the group work than unstructured collaborative decision making. [[skimx://kollar2014hard#7|p. 7]]
+
+information pooling paradigm (Stasser & Titus, 1985), in which bits of information that are necessary to arrive at a correct group solution are distributed among group members in a way that some information items are shared, whereas others are unshared, i.e. only one group member has access to them [[skimx://kollar2014hard#7|p. 7]]
+
+In one experimental condition, students received an external script that segmented the decision-making task into three phases. In the first phase, each student was seated in one corner of the room and was individually provided with the information (some shared, some unshared). After 20 minutes, students 1 and 2 [[skimx://kollar2014hard#7|p. 7]]
+
+as well as students 3 and 4 were asked to move their desks together so that an exchange between two dyads was afforded. Another 14 minutes later, all group members were asked to move the desks again to now form one big desk consisting of the four individual desks to afford conversation in the four-member group (see Figure 1). [[skimx://kollar2014hard#8|p. 8]]
+
+As dependent variables, we used (a) the number of correct solutions within each experimental condition, (b) the students’ satisfaction with the learning space, which was measured with 10 [[skimx://kollar2014hard#8|p. 8]]
+
+The results showed that students in the external script condition came to the correct decision more often (five out of ten correct solutions in the scripted condition versus one out of ten correct solutions in the unstructured condition). Also, the external script led students to significantly higher degrees of satisfaction with the learning space [[skimx://kollar2014hard#9|p. 9]]
+
+Designers of new learning spaces should be aware that the potential of their new environment will not be spontaneously realised. They therefore should think of integrating external script components into their spaces. [[skimx://kollar2014hard#10|p. 10]]
+
+While Kollar et al. (2007) measured internal scripts (on argumentation) by having students analyse (fictitious argumentation-related) situations, a more valid instrument might use observations of students’ actions in a situation and/or interviews with participants about what other situations the current situation reminds them of and to ask them to describe what made them act in a certain way. [[skimx://kollar2014hard#11|p. 11]]
+
+A second criticism refers to the fact that both studies used only rather short interventions. As Schank (1999) argued, the development of internal scripts typically is a matter of a series of repeated experiences in sufficiently similar situations – thus, to more closely examine the development of internal scripts participants use in new learning spaces, it would be extremely interesting to look at more extensive learning phases. [[skimx://kollar2014hard#11|p. 11]]
+

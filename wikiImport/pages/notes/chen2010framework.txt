@@ -1,0 +1,3 @@
+h1. Key ideas
+
+This article is a useful reference for distributed social web protocols such as Salmon.

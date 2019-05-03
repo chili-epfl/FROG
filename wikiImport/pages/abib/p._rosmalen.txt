@@ -1,0 +1,3 @@
+h2. P. Rosmalen's publications
+
+| brouns2005first | Brouns, F., Koper, R., Manderveld, J., Van Bruggen, J., Sloep, P., Rosmalen, P. van, Tattersall, C., & Vogten, H. (2005). A first exploration of an inductive analysis approach for detecting learning design patterns. Journal of Interactive Media in Education. Citeseer.|[[skimx://brouns2005first|PDF]]|

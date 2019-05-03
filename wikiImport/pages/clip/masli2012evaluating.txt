@@ -1,0 +1,76 @@
+h2. Highlights (22%)
+
+
+  *  Low-ball (LB): Once a person commits to a request, he/she is more likely to perform it at a later stage, even if its cost is increased [8]. [[skimx://masli2012evaluating#1|p. 1]]
+
+ABSTRACT Social psychology offers several theories of potential use for designing techniques to increase user contributions to online communities. Some of these techniques follow the “compliance without pressure” approach, where users are led to comply with a request without being subjected to any obvious external pressure. We evaluated two such techniques – foot-in-the-door and low-ball – in the context of Cyclopath, a geographic wiki. We found that while both techniques succeeded, low-ball elicited more work than foot-in-the-door. We discuss design and research implications of applying these (and other such techniques) in online communities. [[skimx://masli2012evaluating#1|p. 1]]
+
+While these techniques have been evaluated extensively in several offline contexts, there has been very little evaluation in the world of computer-mediated communication [16, 17], and none in online social production communities. [[skimx://masli2012evaluating#1|p. 1]]
+
+We evaluated FITD and LB techniques in the context of Cyclopath1, an online geographic wiki that offers route-finding services for cyclists in the metropolitan area of MinneapolisSt. Paul, Minnesota, USA. We carried out a work campaign in which we requested Cyclopath users to contribute information to the map in the form of tags with the goal of improving the map for the next cycling season. We conducted a field study and a follow-up survey and found that LB succeeded in eliciting more contributions than the control condition, while FITD had limited success. [[skimx://masli2012evaluating#1|p. 1]]
+
+Social production communities [2, 14] let loosely-connected users work together to produce information and artifacts of value [10]. [[skimx://masli2012evaluating#1|p. 1]]
+
+
+  *  Foot-in-the-door (FITD): Once a person performs a small request, he/she is more likely to perform a subsequent, larger demand [12]. [[skimx://masli2012evaluating#1|p. 1]]
+
+Anonymity on the Internet. Psychological phenomena like cognitive dissonance, considered one of the factors behind the FITD and LB effects, as well as the LB effect itself have been shown to be more effective in public situations [5, 32], where visibility is higher (and consequently, anonymity is lower). However, since obtaining an identity on the Internet is cheap [13], online communications have a higher degree of anonymity than offline situations. Hence, it is not clear if online social production communities are public (contributions are shared) or private spaces (people can work from the confines of their homes), thereby raising questions over the effectiveness of the FITD and LB techniques. [[skimx://masli2012evaluating#2|p. 2]]
+
+Compliance without pressure techniques are designed to lead people to comply with requests without any obvious source of external pressure. Researchers from social psychology and marketing have developed several techniques that fall under this category, e.g. FITD, LB, door-in-the-face [7], that’s-notall [3] and bait-and-switch. FITD is one of the oldest and the most popular of them with well over a hundred studies devoted to it over the last 50 years [4]. LB has also been found to be one of the most effective of these techniques [21, 22]. Because of their effectiveness, FITD and LB are interesting candidate solutions to the problem of under-contribution in online communities, and we thus chose to investigate them. [[skimx://masli2012evaluating#2|p. 2]]
+
+Nature of online communication. Email and similar modes of communication are used most often by online social production communities to interact with their members, as it is the norm on the Internet. These modes are fundamentally not as personal as face-to-face or telephone communication – modes used by most studies of compliance in offline situations. Further, due to problems of email overload, it easy to ignore incoming messages. These reasons affect any interventions that use email as the underlying mode of communication. [[skimx://masli2012evaluating#2|p. 2]]
+
+Several theories have tried to explain why and how FITD and LB work (or not). The most popular explanation for the success of the FITD technique is Bem’s self-perception theory [1], which postulates that when a person is induced to comply with a smaller request, he/she is more likely to comply with a subsequent, larger request because of perceiving himself/herself as the type of person that does such tasks. Alternative theories including those citing psychological reactance, conformity to existing social norms including reciprocity and cognitive dissonance [11] have also been used to explain both successes and failures of the FITD technique. The LB effect has been generally explained using the theory of commitment [8], which says that people generally tend to stick to their commitments when acting in public view. We elaborate on these techniques in a later section in this paper while interpreting the results of our field experiment. [[skimx://masli2012evaluating#2|p. 2]]
+
+While compliance-without-pressure techniques may have potential to increase participation in online communities, if users perceive these techniques as manipulative, their use could negatively impact long-term member satisfaction and commitment. Accordingly, in this work, along with evaluating how successful FITD and LB are in an online social production context, we also evaluate the extent to which they are harmful and discuss the pragmatic issues designers of online communities might face when employing some of them. [[skimx://masli2012evaluating#2|p. 2]]
+
+Online communities have several key differences that makes them unique, and justify the need for an empirical evaluation of proven offline techniques: [[skimx://masli2012evaluating#2|p. 2]]
+
+Initial contact – FITD. We sent email to the subjects in the FITD group asking them to do the initial (small) task of extracting just one tag from a single note, with the subject line “A tiny favor: Cyclopath needs your help!”. The key passage was: Would you spare a minute to help this campaign? All we are asking you to do is to read the following note and extract only one meaningful tag (one or two word label) from it. The email also contained the note itself (we thought that once the subject eyeballed it, the task of extracting one tag would seem trivial), a sample note-tag pair, and a link to an interface to submit the tag. This link launched a simple HTMLbased interface where the subject could re-read the note and enter the tag he/she extracted (see Figure 1(a)). For example, a subject extracted the tags “Dirt path” from the note “dirt path connects to Arcade beware of curb”. Since the initial FITD contact had to be short and easy, we limited subjects to just one attempt at it: if a subject clicked the link again, the system would display a message saying he/she has already completed the task. After the subject submitted the tag from the HTML interface, he/she was thanked. [[skimx://masli2012evaluating#3|p. 3]]
+
+Our experiment design was guided by two hypotheses: H1. The FITD technique will result in higher compliance for the contribution request than the request being presented alone. H2. The LB technique will result in higher compliance for the contribution request than the request being presented alone. [[skimx://masli2012evaluating#3|p. 3]]
+
+We measured compliance using two outcome (dependent) variables: 
+  *  Response: Whether the user responded at all and the number of responses per user (we allowed users to respond multiple times, as described later) to the target request. 
+  *  Quantity of Work: The amount of work done by the user in response to our request, measured in terms of number of tag-applications to blocks and points, and number of new tags introduced into the tag vocabulary. [[skimx://masli2012evaluating#3|p. 3]]
+
+Initial contact – LB. We asked the subjects in the LB group (with the same subject line) to agree to extract one tag from a single note, explicitly asserting that this task should take only a minute to complete. The key passages were: Would you spare a minute to help this campaign? All we are asking you to do is to read a note and extract only one tag (single word label) from it (this should just take you a minute) and [[skimx://masli2012evaluating#3|p. 3]]
+
+If you agree now, we’ll contact you with specific instructions in near future, after we have heard from more people. The email also contained a sample note-tag pair and a link to an interface to express commitment. This link launched a simple HTML-based interface (similar to the FITD interface) where the subject was thanked for agreeing (see Figure 1(b)). [[skimx://masli2012evaluating#4|p. 4]]
+
+Summary of results. Our results suggest that the LB technique significantly increased the quantity of work subjects put in (hypothesis H2). The FITD technique, on the other hand, is not as successful – an average FITD trial produced more work than a control trial, but on an average, FITD subjects did no more work than control subjects (0.57 ≈ 0.60) (hypothesis H1). There also was evidence that the LB technique fared better than the FITD technique. [[skimx://masli2012evaluating#5|p. 5]]
+
+Reciprocity: Cyclopath did not return the favors asked. [[skimx://masli2012evaluating#6|p. 6]]
+
+The LB effect is theoretically simpler: it is generally explained by the theory of commitment. The seminal work on the LB effect [8] attributed its success to the development of commitment to the task in the minds of the person as a consequence of the initial contact. Further research [6] has shown that commitment to the requester, not the task, is actually responsible for the increased likelihood of compliance to the target request. In our case, either is possible: task commitment, since we explicitly asked LB subjects to agree to the task of extracting a tag from a note, or requester committment, as Cyclopath is a community resource, and people tend to care for the communities they are a part of. [[skimx://masli2012evaluating#6|p. 6]]
+
+Conformity to norms: Was the target request not to be done? [[skimx://masli2012evaluating#6|p. 6]]
+
+Consistency needs. [[skimx://masli2012evaluating#6|p. 6]]
+
+There have been several attempts at explaining the FITD effect (or the lack of it) using a variety of psychological processes and theories [4]. Based on these theories, we speculate on the following reasons behind our results.7 [[skimx://masli2012evaluating#6|p. 6]]
+
+In the FITD context, when a subject is presented with the larger request, he/she behaves consistently with his/her prior behavior in a similar context, i.e., the compliance to the initial smaller request. [[skimx://masli2012evaluating#6|p. 6]]
+
+Self-perception not strong enough. [[skimx://masli2012evaluating#6|p. 6]]
+
+Reactance as a result of excessive requesting. [[skimx://masli2012evaluating#6|p. 6]]
+
+We designed a follow-up study to address the following research questions that we constructed from analyzing the results of our field study: [[skimx://masli2012evaluating#6|p. 6]]
+
+RQ-FITD. Why did the FITD technique meet with limited success? Possible reasons include: 
+  *  FITD subjects did not perceive themselves to be the type of people who respond to requests from community sites like Cyclopath (self-perception). 
+  *  FITD subjects did not feel motivated enough to comply with the target request because they felt that they had already done their part when they responded to the initial contact (reactance). 
+  *  FITD subjects felt that the repeating requesting behavior from Cyclopath was badgering them (reactance). ￼ [[skimx://masli2012evaluating#6|p. 6]]
+
+
+  *  FITD subjects who turned down the initial contact felt obligated to comply with the target request on the grounds of reciprocity (reciprocity). [[skimx://masli2012evaluating#7|p. 7]]
+
+RQ-LB. Why did the LB technique succeed in eliciting more contributions? Possible reasons include: 
+  *  LB subjects complied with the target request because they felt a sense of commitment towards the task of extracting tags from notes (task commitment). 
+  *  LB subjects complied with the target request because they felt a sense of commitment towards Cyclopath (requester commitment). [[skimx://masli2012evaluating#7|p. 7]]
+
+::Mainly useful for one-offs, not for fostering long term increase in participation:: [[skimx://masli2012evaluating#9|p. 9]]
+
+REFERENCES [[skimx://masli2012evaluating#9|p. 9]]
+

@@ -1,0 +1,3 @@
+h2. Doug Engelbart's publications
+
+| [@engelbart1962conceptual] | Engelbart, D. (1962). A conceptual framework for the augmentation of man's intellect.|

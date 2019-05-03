@@ -1,0 +1,3 @@
+h2. R. Scheines's publications
+
+| easterday2007tis | Easterday, M. W., Aleven, V., & Scheines, R. (2007). 'Tis Better to Construct than to Receive? The Effects of Diagram Tools on Causal Reasoning. Proceeding of the 2007 conference on Artificial Intelligence in Education: Building Technology Rich Learning Contexts That Work.|[[skimx://easterday2007tis|PDF]]|

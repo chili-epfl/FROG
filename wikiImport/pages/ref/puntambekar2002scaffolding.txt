@@ -1,0 +1,35 @@
+h1. Scaffolding in complex learning environments: What we have gained and what we have missed
+
+<ifauth !@admin>|Puntambekar, S., & Hubscher, R. (2002). Scaffolding in complex learning environments: What we have gained and what we have missed. Educational Psychologist.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://puntambekar2002scaffolding|BibDesk]]  | Puntambekar, S., & Hubscher, R. (2002). Scaffolding in complex learning environments: What we have gained and what we have missed. Educational Psychologist. |
+^ [[skimx://puntambekar2002scaffolding|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:puntambekar2002scaffolding?do=edit&vecdo=print\'><frame src=\'/wiki/clip:puntambekar2002scaffolding?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{puntambekar2002scaffolding,
+  author = {Puntambekar, Sadhana and Hubscher, R.},
+  booktitle = {Educational Psychologist},
+  date-added = {2011-06-04 11:52:29 +0800},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  keywords = {scripting},
+  notes = {1},
+  organization = {Citeseer},
+  read = {1},
+  title = {Scaffolding in complex learning environments: What we have gained and what we have missed},
+  year = {2002},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAagAAAAAAagAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh5wdW50YW1iZWthcjIwMDJzY2FmZm9sZGluZy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tLByg8jkFBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKD1vQAAAAAQAMANrWUgAXPTEAAZ9eAAIAPVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBwdW50YW1iZWthcjIwMDJzY2FmZm9sZGluZy5wZGYAAA4APgAeAHAAdQBuAHQAYQBtAGIAZQBrAGEAcgAyADAAMAAyAHMAYwBhAGYAZgBvAGwAZABpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAyVXNlcnMvU3RpYW4vYmliZGVzay9wdW50YW1iZWthcjIwMDJzY2FmZm9sZGluZy5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QLC4uLy4uL2JpYmRlc2svcHVudGFtYmVrYXIyMDAyc2NhZmZvbGRpbmcucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkwCTgJTAlwCZwJrAnkCgAKJArgCvQLAAs0C0gAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALk}
+}
+
+</hidden>
+
+{{page>notes:puntambekar2002scaffolding}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:puntambekar2002scaffolding}}
+
+{{page>kindle:puntambekar2002scaffolding}}
+
+{{page>skimg:puntambekar2002scaffolding}}

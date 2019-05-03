@@ -1,0 +1,3 @@
+h2. K. Hori's publications
+
+| nakakoji2005interaction | Nakakoji, K., Yamamoto, Y., Akaishi, M., & Hori, K. (2005). Interaction design for scholarly writing: Hypertext representations as a means for creative knowledge work. New review of hypermedia and multimedia. Taylor \& Francis.||

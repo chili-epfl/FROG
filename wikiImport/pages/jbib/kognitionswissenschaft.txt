@@ -1,0 +1,3 @@
+h2. Publications in Kognitionswissenschaft
+
+| dillenbourg2000multidisciplinary | Dillenbourg, P. (2000). A multidisciplinary viewpoint on European research on collaborative learning. Kognitionswissenschaft, 9(1), 50--53. Springer.|[[skimx://dillenbourg2000multidisciplinary|PDF]]|

@@ -1,0 +1,33 @@
+h1. Scholarly communication and bibliometrics
+<html><a href='http://polaris.gseis.ucla.edu/cborgman/pubs/BorgmanFurnerARIST2002.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://polaris.gseis.ucla.edu/cborgman/pubs/BorgmanFurnerARIST2002.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Borgman, C. L., & Furner, J. (2002). Scholarly communication and bibliometrics. Information Today. Retrieved from http://polaris.gseis.ucla.edu/cborgman/pubs/BorgmanFurnerARIST2002.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://borgman2002scholarly|BibDesk]]  | Borgman, C. L., & Furner, J. (2002). Scholarly communication and bibliometrics. Information Today. Retrieved from http://polaris.gseis.ucla.edu/cborgman/pubs/BorgmanFurnerARIST2002.pdf. |
+^ [[skimx://borgman2002scholarly|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:borgman2002scholarly?do=edit&vecdo=print\'><frame src=\'/wiki/clip:borgman2002scholarly?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{borgman2002scholarly,
+  author = {Borgman, C. L. and Furner, J.},
+  date-added = {2012-03-13 17:41:34 +0000},
+  date-modified = {2012-08-19 15:42:46 +0000},
+  oa-url = {http://polaris.gseis.ucla.edu/cborgman/pubs/BorgmanFurnerARIST2002.pdf},
+  publisher = {Information Today},
+  title = {Scholarly communication and bibliometrics},
+  url = {http://polaris.gseis.ucla.edu/cborgman/pubs/BorgmanFurnerARIST2002.pdf},
+  year = {2002},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhib3JnbWFuMjAwMnNjaG9sYXJseS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6PXy9bulVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1ybVAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3JnbWFuMjAwMnNjaG9sYXJseS5wZGYAAA4AMgAYAGIAbwByAGcAbQBhAG4AMgAwADAAMgBzAGMAaABvAGwAYQByAGwAeQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9ib3JnbWFuMjAwMnNjaG9sYXJseS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svYm9yZ21hbjIwMDJzY2hvbGFybHkucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:borgman2002scholarly}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:borgman2002scholarly}}
+
+{{page>kindle:borgman2002scholarly}}
+
+{{page>skimg:borgman2002scholarly}}

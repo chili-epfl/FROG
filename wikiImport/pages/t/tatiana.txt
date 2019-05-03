@@ -1,0 +1,11 @@
+h1. Tatiana
+
+{{pages:t_tatiana01.png}}
+
+
+Developed by [[:a:Gregory Dyke]] at CMU to store and analyze multiple streams of synchronous learning interaction data
+
+h2. Links 
+  * [[http://code.google.com/p/tatiana/|Code]]
+  * [[http://code.google.com/p/tatiana/wiki/TatianaWorkshop|Tatiana workshop]]
+  * [[:cscl11:Leveraging tool support for the analysis of computer-mediated activities]] - workshop at CSCL 2011

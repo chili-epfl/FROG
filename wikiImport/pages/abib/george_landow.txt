@@ -1,0 +1,3 @@
+h2. George Landow's publications
+
+| [@bernstein1991structure] | Bernstein, M., Brown, P. J., Frisse, M., Glushko, R., Zellweger, P., & Landow, G. (1991). Structure, navigation, and hypertext: the status of the navigation problem. In Proceedings of the third annual ACM conference on Hypertext, HYPERTEXT '91 (363--366). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/122974.123011|

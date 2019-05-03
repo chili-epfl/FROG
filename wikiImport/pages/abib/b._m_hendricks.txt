@@ -1,0 +1,3 @@
+h2. B. M Hendricks's publications
+
+| [[..:ref:hendricks2001connexions]] | Hendricks, B. M. (2001). Connexions: An architecture for Web-based educational materials.||

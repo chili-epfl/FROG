@@ -1,0 +1,4 @@
+h2. E. Woodruff's publications
+
+| hewitt2010bringing | Hewitt, J., & Woodruff, E. (2010). Bringing Coherence to Knowledge Building Discussions. IKIT Summer Institute.|
+| scardamalia1989computer-supported | Scardamalia, M., Bereiter, C., {McLean}R. S, Swallow, J., & Woodruff, E. (1989). Computer-supported intentional learning environments. Journal of Educational Computing Research.|

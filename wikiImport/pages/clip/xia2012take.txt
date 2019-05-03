@@ -1,0 +1,4 @@
+h2. Highlights (1%)
+
+Abstract This research examines selected online comments from open courses available on Chinese websites. These courses were created by universities in the West as an effort to build open educational resources (OER) and were recently translated into Chinese and were relocated to some popular Chinese websites. This research aimed to understand why the Chinese viewers value open courses offered by foreign institutions. A statistical cluster analysis was applied to identify patterns of viewers’ behaviour. OER were analysed in a social context and the significance of cross-cultural communication in information sharing and knowledge delivery was explored. It finds that subject, rather than provider, of a course has a positive impact on the number of meaningful comments. [[skimx://xia2012take#1|p. 1]]
+

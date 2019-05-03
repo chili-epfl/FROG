@@ -1,0 +1,33 @@
+h2. Publications with keyword "OA/scholpub"
+
+| [@clark2011future] | Clark, T., Waard, A. D., Herman, I., & Hovy, E. (2011). {The Future of Research Communication (Dagstuhl Perspectives Workshop 11331)}. (T. Clark, A. D. Waard, I. Herman & E. Hovy, Eds.) Dagstuhl Reports, 1(8), 29--52. doi:http://dx.doi.org/10.4230/DagRep.1.8.29|
+| [@kraker2011case] | Kraker, P., Leony, D., Reinhardt, W., & BehamGünter. (2011). The case for an open science in technology enhanced learning. International Journal of Technology Enhanced Learning, 3(6), 643. doi:10.1504/IJTEL.2011.045454|
+| [@keselj4ppdn] | Ke{\v{s}}eljV., & Cercone, N. PPDN—A Framework for Peer-to-peer Collaborative Research Network. In .|
+| [@fjallbrandt1997scholarly] | Fjallbrandt, N. (1997). Scholarly Communication: Historical Development and New Possibilities. International Association of Scientific and Technical University Libraries (IATUL).|
+| [@kahan2001annotea:] | Kahan, J., Koivunen, M.-R., Prud'Hommeaux, E., & Swick, Rr. (2001). Annotea: An Open RDF Infrastructure for Shared Web Annotations. WWW10 International Conference.|
+| [@koivunen2003collaboration] | Koivunen, M.-R., & Swick, R. (2003). Collaboration through Annotation in the Semantic Web. Annotation for the Semantic Web, 46-60.|
+| [@tweney2004replication] | Tweney, R. D. (2004). Replication and the experimental ethnography of science. Journal of Cognition and Culture, 4, 3(4), 731–758.|
+| [@breslin2005toward] | Breslin, J., Harth, A., Bojars, U., & Decker, S. (2005). Toward Semantically-Interlinked Online Communities. Lecture Notes in Computer Science, 3532/2005, 500-514. doi:full_text|
+| [@golder2006usage] | Golder, Sa., & Huberman, Ba. (2006). Usage Patterns of Collaborative Tagging systems. Journal of Information Science, 32(2), 198-208. doi:10.1177/0165551506062337|
+| [@gruber2007ontology] | Gruber, T. (2007). Ontology of Folksonomy: A Mashup of Apples and Oranges. International Journal on Semantic Web and Information Systems, 3(2).|
+| [@bos2007from] | Bos, N., Zimmerman, A., Olson, J., Yew, J., Yerkie, J., Dahl, E., & Olson, G. (2007). From shared databases to communities of practice: A taxonomy of collaboratories. Journal of Computer-Mediated Communication, 12(2). doi:10.1111/j.1083-6101.2007.00343.x|
+| [@renear2009strategic] | Renear, Ah., & Palmer, Cl. (2009). Strategic Reading, Ontologies, and the Future of Scientific Publishing. Science, 325(5942), 828-832. doi:10.1126/science.1157784|
+| [@garcia-castro2010semantic] | Garcia-Castro, A., Labarga, A., Garcia, L., Giraldo, O., MontaOa, C., & Bateman, Ja. (2010). Semantic Web and Social Web heading towards Living Documents in the Life Sciences. Web Semantics: Science, Services and Agents on the World Wide Web, 8(2-3), 155-162. doi:10.1016/j.websem.2010.03.006|
+| [@kraker2010feeding] | Kraker, P., Fessl, A., Hoefler, P., & Lindstaedt, S. (2010). Feeding TEL: Building an Ecosystem Around BuRST to Convey Publication Metadata.|
+| [@duval2010editorial] | Duval, E., Ullmann, T. D., Wild, F., Lindstaedt, S., & Scott, P. Editorial: Research 2.0 for TEL - Four Challenges. In .|
+| [@ciccarese2010open] | Ciccarese, P., Ocana, M., Das, S., & Clark, T. (2010). AO: An Open Annotation Ontology for Science on the Web. Bio Ontologies 2010.|
+| [@quint-rapoport2010open] | Quint-Rapoport, M. (2010). Open source in higher education: A situational analysis of the Open Journal Systems software project (PhD thesis).|
+| [@parra2010filling] | Parra, G., & Duval, E. Filling the Gaps to Know More! About a Researcher. In .|
+| [@joubert2010research] | Joubert, M., & Sutherland, R. Research 2.0: Drawing on the Wisdom of the Crowds to Develop a Research Vision. In .|
+| [@vandeputte2010research] | Vandeputte, B., & Duval, E. Research at the Table. In .|
+| [@boettiger2010experiment] | Boettiger, C. (2010). My experiment with open science: Why the benefits of sharing go beyond source code. |
+| [@nagel2010visualizing] | Nagel, T., & Duval, E. Visualizing the Origins and Connections of Institutions based on Co-authorship of Publications. In .|
+| [@hensman2010tools] | Hensman, J., Despotakis, D., Brandic, A., & Dimitrova, V. Tools to Find Connections Between Researchers - Findings from Preliminary Work with a Prototype as Part of a University Virtual Research Environment. In .|
+| [@heinze2010connecting] | Heinze, N., Joubert, M., & Gillet, D. Connecting Early Career Researchers: Investigating the Needs of Ph.D. Candidates in TEL Working with Web 2.0. In .|
+| [@ciccarese2011open] | Ciccarese, P., Ocana, M., Garcia Castro, L., Das, S., & Clark, T. (2011). An open annotation ontology for science on web 3.0. Journal of Biomedical Semantics, 2(Suppl 2), S4. doi:10.1186/2041-1480-2-S2-S4|
+| [@murray2011semantic] | Murray-Rust, P. (2011). Semantic science and its communication-a personal view. Journal of cheminformatics, 3, 48.|
+| [@tacke2011open] | Tacke, O. (2011). Open Science 2.0: How Research and Education Can Benefit from Open Innovation and Web 2.0. On Collective Intelligence, 37–48. |
+| [@mietchen2011wikis] | Mietchen, D., Hagedorn, G., FörstnerK. U., Kubke, M. F., Koltzenburg, C., Hahnel, M., & Penev, L. (2011). Wikis in scholarly publishing. Information Services and Use, 31(1), 53–59.|
+| [@bourne2011improving] | Bourne, P., Clark, T., Dale, R., de Waard, A., Herman, I., Hovy, E., & Shotton, D. (2011). Improving Future Research Communication and e-Scholarship.|
+| [@veletsianos2011networked] | Veletsianos, G., & Kimmons, R. (2011). Networked participatory scholarship: Emergent techno-cultural pressures toward open and digital scholarship in online networks. Computers \& Education.|
+| [@weller2012openness-creativity] | Weller, M. (2012). The openness-creativity cycle in education. Journal of Interactive Media in Education, 2012(01).|

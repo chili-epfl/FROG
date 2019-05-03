@@ -1,0 +1,8 @@
+h2. I. Kollar's publications
+
+| [[..:ref:wecker2010scol]] | Wecker, C., Stegmann, K., Bernstein, F., Huber, M. J., Kalus, G., Kollar, I., Rathmayer, S., & Fischer, F. (2010). S-COL: A Copernican turn for the development of flexibly reusable collaboration scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|
+| fischer2006perspectives | Fischer, F., Kollar, I., Haake, J. M., & Mandl, H. (2006). Perspectives on Collaboration Scripts.|
+| wecker2009sustainable | Wecker, C., Stegmann, K., Bernstein, F., Huber, M. J., Kalus, G., Rathmayer, S., Kollar, I., & Fischer, F. (2009). Sustainable script and scaffold development for collaboration on varying web content: The S-COL technological approach. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
+| kollar2006collaboration | Kollar, I., Fischer, F., & Hesse, F. W. (2006). Collaboration scripts--a conceptual analysis. Educational Psychology Review. Springer.|
+| kollar2007internal | Kollar, I., Fischer, F., & Slotta, J. D. (2007). Internal and external scripts in computer-supported collaborative inquiry learning. Learning and Instruction.|
+| kollar2005internal | Kollar, I., Fischer, F., & Slotta, J. D. (2005). Internal and external collaboration scripts in web-based science learning at schools. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!.|

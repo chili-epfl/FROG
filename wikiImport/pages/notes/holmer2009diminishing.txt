@@ -1,0 +1,103 @@
+h1. Key ideas
+
+h2. Problems with chat communication
+  * Lack of links between people and what they say
+  * No visibility of listening-in-progress
+  * Lack of visibility of turns-in-progress
+  * Lack of control over turn positioning (co-text loss)
+  * Lack of useful recordings and social context 
+(Smith et al, 2000)
+
+h2. Co-text loss
+Also known as
+  * "intention confusion" (Vronay et al 1999)
+  * "thread confusion"
+  * "interactional coherence" (Herring, 1999)
+  * "chat confusion" ([@fuks2006rutyping])
+
+Problem: Hard to identify a message to which a message refers. Users should be able to reference another chat message when typing. This reference needs to be visualized in some way. 
+
+h2. Different chat contexts
+  * discussing with one person
+  * discussing in a big group
+  * arguing
+  * brainstorming
+may call for different visualizations
+
+h2. Existing chat tools
+  * ThreadedChat (Smith et al, 2000) - tree-based chat tool
+  * HyperDialog ([@pimentel2003cotext], [@fuks2006rutyping])
+  * ThreadedChat (Holmer and Wessner, 2004) part of learning environment, for small groups
+All provide referencing, visualize chat transcript as tree.
+
+h3. Problems with tree visualization
+  * if a message is not referenced by accident, it will be sorted into a new thread and messages can be missed because new messages appear in areas which are not visible on the screen
+  * parallel threads are shown as two indented lists which results in an increasing gap between the messages. This visualization needs more screen space and makes it difficult to follow more than one thread at a time
+  * it is difficult to identify messages, which are produced at the same time, because they may appear at totally different parts even if they belong to the same thread
+
+h3. Systems trying to solve this
+  * KOLUMBUS (Holmer, et al 2006)
+  * ConcertChat (Muhlpfordt and Wessner 2005) (allows referring to several previous messages)
+show transcript in linear order but providing a reference indicator at each message which shows a pointer to the co-text when selected
+
+h3. Drawbacks
+  * do not provide means for getting a visual overview of the discussion and its structure
+  * it's awkward to find out how many parallel threads exist or how many branches are in a thread
+
+h3. Other system
+  * factChat (Harnoncourt et al, 2005) allows users to put messages on a two-dimensional surface in proximity to their co-text
+  * allows creating references to messages which are no more visible
+
+h2. Multiple-Visualization Chat (MuViChat)
+  * support multiple visualizations of referenced chat transcripts
+  * users can choose preferred view
+  * diminish chat confusion
+  * recording and replaying chat discussions 
+
+h3. Technology
+  * Based on XMPP (can be used with many chat-servers)
+  * can refer to only one previous messages or none (not many)
+  * chat logs in XML_format TreeML
+    * can be imported via chat system and replayed
+    * can use ChatLine (Holmer 2008) to use discourse structure analysis on chat log in this format
+
+h3. Visualizations
+  * Classical visualization
+  * List view with highlighting
+    * chat messages are displayed in a list and are chronologically ordered. The newest chat message is highlighted in bold font. If this message references another message, this message is displayed in bold font as well. If this message references another one, this also highlighted etc. By this all referenced messages are highlighted on a path from the most actual message to the root message
+  * Simple tree view
+  * Tree view with highlighting time by fading colours
+  * Tree view with highlighting time by layout
+  * Sequential tree view
+
+(other possibilities:
+  * mindmap-like structures 
+  * visualizations that make use of three dimensions)
+
+h3. Tree-view visualizations
+Common features
+  * chat messages are shown as coloured rectangles
+  * references are shown as lines between these rectangles
+  * each user is represented by a different colour
+  * chat messages can be selected by clicking on them with the left mouse button
+  * selected chat messages are highlighted
+  * the size of the chat window can be changed arbitrarily
+  * Users can choose whether the view is automatically focussed on the most recent chat message
+  * As the tree visualizations require more visualization space than the list- based alternatives, we included a bird’s view which shows the complete chat conversation and highlights the part that is currently shown in the chat window
+
+h2. Results
+Participants were able to use several different visualization methods effectively. 
+
+h3. Future features?
+  * "export to mindmap" feature on selected trees
+  * more workspace awareness features
+  * ability to link messages together after they have been published
+  * bring active threads to the front, different view for each user
+  * change indicator
+
+h2. Future research
+We will use eye-tracking systems and screen recording software in order to analyze crucial aspects of the different visualization alternatives and other interface features
+  * In which way users are scanning the screen and look for the co-text of messages? 
+  * How long does it take and what are the actions of people when the co- text is difficult to find? 
+  * How do people read complex graphical thread structures and which strategies do they use in order to follow multiple discussions? 
+  * Which role do the enhanced awareness functions play when people are actively engaged in conversations?

@@ -1,0 +1,36 @@
+h1. Online moderation of synchronous e-argumentation
+
+<ifauth !@admin>|Asterhan, C. S. C., & Schwarz, B. B. (2010). Online moderation of synchronous e-argumentation. International Journal of Computer-Supported Collaborative Learning, 1--24. Springer. Retrieved from http://www.springerlink.com/content/8256308r5923126w/fulltext.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://asterhan2010online|BibDesk]]  | Asterhan, C. S. C., & Schwarz, B. B. (2010). Online moderation of synchronous e-argumentation. International Journal of Computer-Supported Collaborative Learning, 1--24. Springer. Retrieved from http://www.springerlink.com/content/8256308r5923126w/fulltext.pdf. |
+^ [[skimx://asterhan2010online|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:asterhan2010online?do=edit&vecdo=print\'><frame src=\'/wiki/clip:asterhan2010online?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{asterhan2010online,
+  author = {Asterhan, Christa S. C. and Schwarz, Baruch B.},
+  date-added = {2011-06-04 07:32:33 +0800},
+  date-modified = {2012-02-03 08:17:48 +0000},
+  journal = {International Journal of Computer-Supported Collaborative Learning},
+  keywords = {cmc; synchronous},
+  pages = {1--24},
+  publisher = {Springer},
+  read = {1},
+  title = {Online moderation of synchronous e-argumentation},
+  url = {http://www.springerlink.com/content/8256308r5923126w/fulltext.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYgAAAAAAYgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhZhc3RlcmhhbjIwMTBvbmxpbmUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ37ry9brzVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yQNAAAAAQAMANrWUgAXPTEAAZ9eAAIANVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhc3RlcmhhbjIwMTBvbmxpbmUucGRmAAAOAC4AFgBhAHMAdABlAHIAaABhAG4AMgAwADEAMABvAG4AbABpAG4AZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAqVXNlcnMvU3RpYW4vYmliZGVzay9hc3RlcmhhbjIwMTBvbmxpbmUucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECQuLi8uLi9iaWJkZXNrL2FzdGVyaGFuMjAxMG9ubGluZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACLAIuAjMCPAJHAksCWQJgAmkCkAKVApgCpQKqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:asterhan2010online}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:asterhan2010online}}
+
+{{page>kindle:asterhan2010online}}
+
+{{page>skimg:asterhan2010online}}

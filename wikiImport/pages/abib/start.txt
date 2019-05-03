@@ -1,0 +1,994 @@
+h1.List of authors with publications
+
+List of authors with publications. Only includes authors with three or more publications, with full names.
+
+| [#marlene_scardamalia|Marlene Scardamalia] | [#:a:marlene_scardamalia|author page] |106|
+| [#carl_bereiter|Carl Bereiter] | [#:a:carl_bereiter|author page] |74|
+| [#daniel_d._suthers|Daniel D. Suthers] | [#:a:daniel_d._suthers|author page] |67|
+| [#simon_buckingham_shum|Simon Buckingham Shum] | [#:a:simon_buckingham_shum|author page] |51|
+| [#frank_fischer|Frank Fischer] | [#:a:frank_fischer|author page] |44|
+| [#pierre_dillenbourg|Pierre Dillenbourg] | [#:a:pierre_dillenbourg|author page] |37|
+| [#gerry_stahl|Gerry Stahl] | [#:a:gerry_stahl|author page] |24|
+| [#paul_bouchard|Paul Bouchard] | [#:a:paul_bouchard|author page] |23|
+| [#mark_bernstein|Mark Bernstein] | [#:a:mark_bernstein|author page] |21|
+| [#armin_weinberger|Armin Weinberger] | [#:a:armin_weinberger|author page] |20|
+| [#karsten_stegmann|Karsten Stegmann] |  |19|
+| [#paul_a._kirschner|Paul A. Kirschner] |  |16|
+| [#richard_medina|Richard Medina] |  |16|
+| [#jianwei_zhang|Jianwei Zhang] |  |15|
+| [#others|others] |  |15|
+| [#nikol_rummel|Nikol Rummel] | [#:a:nikol_rummel|author page] |15|
+| [#ravi_vatrapu|Ravi Vatrapu] |  |14|
+| [#james_d._slotta|James D. Slotta] | [#:a:james_d._slotta|author page] |14|
+| [#joseph_corneli|Joseph Corneli] | [#:a:joseph_corneli|author page] |13|
+| [#baruch_b._schwarz|Baruch B. Schwarz] |  |13|
+| [#hans-ruediger_pfister|Hans-Rüdiger Pfister] | [#:a:hans-ruediger_pfister|author page] |12|
+| [#hans_spada|Hans Spada] |  |12|
+| [#jim_hewitt|Jim Hewitt] | [#:a:jim_hewitt|author page] |12|
+| [#heinz_ulrich_hoppe|Heinz Ulrich Hoppe] |  |12|
+| [#ingo_kollar|Ingo Kollar] |  |12|
+| [#nathan_dwyer|Nathan Dwyer] |  |12|
+| [#andreas_harrer|Andreas Harrer] |  |10|
+| [#patrick_jermann|Patrick Jermann] |  |10|
+| [#ulrike_cress|Ulrike Cress] | [#:a:ulrike_cress|author page] |10|
+| [#christof_wecker|Christof Wecker] |  |10|
+| [#joseph_d._novak|Joseph D. Novak] |  |10|
+| [#gellof_kanselaar|Gellof Kanselaar] |  |9|
+| [#alexandra_okada|Alexandra Okada] |  |9|
+| [#heinz_mandl|Heinz Mandl] |  |9|
+| [#christopher_teplovs|Christopher Teplovs] | [#:a:christopher_teplovs|author page] |9|
+| [#peter_reimann|Peter Reimann] | [#:a:peter_reimann|author page] |9|
+| [#vincent_aleven|Vincent Aleven] |  |9|
+| [#yannis_dimitriadis|Yannis Dimitriadis] |  |9|
+| [#jeff_conklin|Jeff Conklin] |  |9|
+| [#rita_kop|Rita Kop] | [#:a:rita_kop|author page] |9|
+| [#jeroen_janssen|Jeroen Janssen] |  |9|
+| [#gijsbert_erkens|Gijsbert Erkens] |  |8|
+| [#jeremy_roschelle|Jeremy Roschelle] | [#:a:jeremy_roschelle|author page] |8|
+| [#martin_muehlpfordt|Martin Mühlpfordt] | [#:a:martin_muehlpfordt|author page] |8|
+| [#christopher_m._hoadley|Christopher M. Hoadley] |  |8|
+| [#joachim_kimmerle|Joachim Kimmerle] | [#:a:joachim_kimmerle|author page] |8|
+| [#christa_s._c._asterhan|Christa S. C. Asterhan] |  |8|
+| [#amy_soller|Amy Soller] |  |8|
+| [#allyson_f._hadwin|Allyson F. Hadwin] |  |7|
+| [#nobuko_fujita|Nobuko Fujita] |  |7|
+| [#erik_duval|Erik Duval] |  |7|
+| [#gaelle_molinari|Gaëlle Molinari] |  |7|
+| [#none|none] |  |7|
+| [#friedrich_w._hesse|Friedrich W. Hesse] |  |7|
+| [#daniel_t._hickey|Daniel T. Hickey] | [#:a:daniel_t._hickey|author page] |7|
+| [#timothy_koschmann|Timothy Koschmann] |  |7|
+| [#mirweis_sangin|Mirweis Sangin] |  |7|
+| [#michelle_bachler|Michelle Bachler] |  |7|
+| [#clara_mancini|Clara Mancini] |  |7|
+| [#anna_de_liddo|Anna De Liddo] | [#:a:anna_de_liddo|author page] |7|
+| [#roy_d._pea|Roy D. Pea] | [#:a:roy_d._pea|author page] |7|
+| [#michael_oehl|Michael Oehl] | [#:a:michael_oehl|author page] |7|
+| [#alan_zemel|Alan Zemel] |  |6|
+| [#martin_wessner|Martin Wessner] |  |6|
+| [#jaan_aalst|Jaan Aalst] |  |6|
+| [#bruce_mclaren|Bruce McLaren] |  |6|
+| [#hugo_fuks|Hugo Fuks] |  |6|
+| [#mary_lamon|Mary Lamon] |  |6|
+| [#gerhard_fischer|Gerhard Fischer] |  |6|
+| [#jud_burtis|Jud Burtis] |  |6|
+| [#christopher_d._hundhausen|Christopher D. Hundhausen] |  |6|
+| [#clare_brett|Clare Brett] |  |6|
+| [#kai_hakkarainen|Kai Hakkarainen] |  |6|
+| [#carlos_jose_pereira_lucena|Carlos José Pereira Lucena] |  |5|
+| [#chris_digiano|Chris DiGiano] | [#:a:chris_digiano|author page] |5|
+| [#francesca_pozzi|Francesca Pozzi] |  |5|
+| [#pierre_tchounikine|Pierre Tchounikine] | [#:a:pierre_tchounikine|author page] |5|
+| [#simeon_retalis|Simeon Retalis] |  |5|
+| [#albert_m._selvin|Albert M. Selvin] |  |5|
+| [#jerry_andriessen|Jerry Andriessen] |  |5|
+| [#george_siemens|George Siemens] |  |5|
+| [#he_le_ne_fournier|Hélène Fournier] |  |5|
+| [#kenneth_r._koedinger|Kenneth R. Koedinger] |  |5|
+| [#carolin_penstein_rose|Carolin Penstein Rosé] |  |5|
+| [#bernhard_ertl|Bernhard Ertl] |  |5|
+| [#murat_perit_cakir|Murat Perit Cakir] |  |5|
+| [#rob_koper|Rob Koper] |  |5|
+| [#roger_azevedo|Roger Azevedo] |  |5|
+| [#robert_e._kraut|Robert E. Kraut] |  |5|
+| [#minna_lakkala|Minna Lakkala] |  |4|
+| [#erin_walker|Erin Walker] |  |4|
+| [#amy_bruckman|Amy Bruckman] |  |4|
+| [#diana_laurillard|Diana Laurillard] | [#:a:diana_laurillard|author page] |4|
+| [#michael_baker|Michael Baker] |  |4|
+| [#richard_baraniuk|Richard Baraniuk] |  |4|
+| [#mariano_pimentel|Mariano Pimentel] |  |4|
+| [#luca_iandoli|Luca Iandoli] |  |4|
+| [#reuma_de_groot|Reuma De Groot] |  |4|
+| [#lasse_lipponen|Lasse Lipponen] |  |4|
+| [#marc-antoine_nuessli|Marc-Antoine Nüssli] | [#:a:marc-antoine_nuessli|author page] |4|
+| [#arlene_weiner|Arlene Weiner] |  |4|
+| [#turadg_aleahmad|Turadg Aleahmad] |  |4|
+| [#jos_jaspers|Jos Jaspers] |  |4|
+| [#antonio_fini|Antonio Fini] |  |4|
+| [#jan-willem_strijbos|Jan-Willem Strijbos] |  |4|
+| [#niels_pinkwart|Niels Pinkwart] |  |4|
+| [#michelene_t._h._chi|Michelene T. H. Chi] | [#:a:michelene_t._h._chi|author page] |4|
+| [#sami_paavola|Sami Paavola] |  |4|
+| [#janet_finlay|Janet Finlay] |  |4|
+| [#maria_de_los_angeles_constantino-gonzalez|Maria De Los Angeles Constantino-Gonzalez] |  |4|
+| [#teresa_huebscher-younger|Teresa Hübscher-Younger] |  |4|
+| [#oliver_scheuer|Oliver Scheuer] |  |4|
+| [#stian_haklev|Stian Håklev] |  |4|
+| [#david_h._jonassen|David H. Jonassen] |  |4|
+| [#catherine_c._marshall|Catherine C. Marshall] |  |4|
+| [#torsten_holmer|Torsten Holmer] |  |4|
+| [#chee-kit_looi|Chee-Kit Looi] |  |4|
+| [#herbert_a._simon|Herbert A. Simon] |  |4|
+| [#verena_kunz|Verena Kunz] |  |3|
+| [#sadhana_puntambekar|Sadhana Puntambekar] |  |3|
+| [#fielding_winters|Fielding Winters] |  |3|
+| [#victor_sampson|Victor Sampson] |  |3|
+| [#nikolaos_avouris|Nikolaos Avouris] |  |3|
+| [#georgios_kahrimanis|Georgios Kahrimanis] |  |3|
+| [#barbara_wasson|Barbara Wasson] |  |3|
+| [#wilma_clark|Wilma Clark] |  |3|
+| [#birgit_imhof|Birgit Imhof] |  |3|
+| [#matthew_johnson|Matthew Johnson] |  |3|
+| [#cindy_e._hmelo-silver|Cindy E. Hmelo-Silver] | [#:a:cindy_e._hmelo-silver|author page] |3|
+| [#john_d._bransford|John D. Bransford] |  |3|
+| [#stephan_lukosch|Stephan Lukosch] |  |3|
+| [#bert_slof|Bert Slof] |  |3|
+| [#astrid_wichmann|Astrid Wichmann] |  |3|
+| [#ton_jong|Ton Jong] |  |3|
+| [#heiko_haller|Heiko Haller] |  |3|
+| [#hans_poldoja|Hans Põldoja] |  |3|
+| [#donatella_persico|Donatella Persico] | [#:a:donatella_persico|author page] |3|
+| [#hiroaki_ogata|Hiroaki Ogata] |  |3|
+| [#paris_avgeriou|Paris Avgeriou] |  |3|
+| [#alan_lesgold|Alan Lesgold] |  |3|
+| [#john_domingue|John Domingue] |  |3|
+| [#sten_ludvigsen|Sten Ludvigsen] |  |3|
+| [#frank_loll|Frank Loll] |  |3|
+| [#laura_girardeau|Laura Girardeau] |  |3|
+| [#samuel_joseph|Samuel Joseph] |  |3|
+| [#rainer_bromme|Rainer Bromme] |  |3|
+| [#angelique_dimitrakocoulou|Angelique Dimitrakocoulou] |  |3|
+| [#jose_antonio_marcos|José Antonio Marcos] |  |3|
+| [#stephen_downes|Stephen Downes] |  |3|
+| [#katrien_verbert|Katrien Verbert] |  |3|
+| [#alejandra_martinez|Alejandra Martínez] |  |3|
+| [#heinrich_hussmann|Heinrich Hussmann] |  |3|
+| [#sara_streng|Sara Streng] |  |3|
+| [#sui_fai_john_mak|Sui Fai John Mak] |  |3|
+| [#brigid_barron|Brigid Barron] |  |3|
+| [#charles_jeffrey_danoff|Charles Jeffrey Danoff] |  |3|
+| [#andrew_rowley|Andrew Rowley] |  |3|
+| [#michael_daw|Michael Daw] |  |3|
+| [#roger_slack|Roger Slack] |  |3|
+| [#tim_clark|Tim Clark] |  |3|
+| [#jenny_mackness|Jenny Mackness] |  |3|
+| [#danius_michaelides|Danius Michaelides] |  |3|
+| [#shaaron_ainsworth|Shaaron Ainsworth] | [#:a:shaaron_ainsworth|author page] |3|
+| [#cormac_lawler|Cormac Lawler] | [#:a:cormac_lawler|author page] |3|
+| [#hanni_muukkonen|Hanni Muukkonen] |  |3|
+| [#andrea_forte|Andrea Forte] |  |3|
+| [#lars_bollen|Lars Bollen] |  |3|
+| [#eva_erdosne_toth|Eva Erdosne Toth] |  |3|
+| [#kelly_a._lack|Kelly A. Lack] |  |2|
+| [#beth_robelia|Beth Robelia] |  |2|
+| [#hilde_van_keer|Hilde Van Keer] |  |2|
+| [#bram_de_wever|Bram De Wever] |  |2|
+| [#stefan_weinbrenner|Stefan Weinbrenner] |  |2|
+| [#birgitta_kopp|Birgitta Kopp] |  |2|
+| [#rebecca_ferguson|Rebecca Ferguson] |  |2|
+| [#saul_greenberg|Saul Greenberg] |  |2|
+| [#marie_joubert|Marie Joubert] |  |2|
+| [#denis_gillet|Denis Gillet] |  |2|
+| [#vania_dimitrova|Vania Dimitrova] |  |2|
+| [#bartolome_rubia-avi|Bartolomé Rubia-Avi] |  |2|
+| [#eduardo_gomez-sanchez|Eduardo Gómez-Sánchez] |  |2|
+| [#stefanie_lindstaedt|Stefanie Lindstaedt] |  |2|
+| [#peter_scott|Peter Scott] |  |2|
+| [#chen-chung_liu|Chen-Chung Liu] |  |2|
+| [#gregory_dyke|Gregory Dyke] | [#:a:gregory_dyke|author page] |2|
+| [#vanessa_l._peters|Vanessa L. Peters] |  |2|
+| [#mireille_betrancourt|Mireille Bétrancourt] |  |2|
+| [#roy_williams|Roy Williams] |  |2|
+| [#judy_kay|Judy Kay] |  |2|
+| [#stephanie_d._teasley|Stephanie D. Teasley] |  |2|
+| [#rupert_wegerif|Rupert Wegerif] |  |2|
+| [#masanori_sugimoto|Masanori Sugimoto] |  |2|
+| [#monica_resendes|Monica Resendes] |  |2|
+| [#jeng-jia_huang|Jeng-Jia Huang] |  |2|
+| [#chronis_kynigos|Chronis Kynigos] |  |2|
+| [#paivi_hakkinen|Päivi Häkkinen] |  |2|
+| [#andreas_formiconi|Andreas Formiconi] |  |2|
+| [#alessandro_giorni|Alessandro Giorni] |  |2|
+| [#nuccia_silvana_pirruccello|Nuccia Silvana Pirruccello] |  |2|
+| [#elisa_spadavecchia|Elisa Spadavecchia] |  |2|
+| [#emanuela_zibordi|Emanuela Zibordi] |  |2|
+| [#fabrice_hong|Fabrice Hong] |  |2|
+| [#ton_de_jong|Ton De Jong] | [#:a:ton_de_jong|author page] |2|
+| [#joey_j._lee|Joey J. Lee] |  |2|
+| [#anne_meier|Anne Meier] |  |2|
+| [#david_boud|David Boud] |  |2|
+| [#manu_kapur|Manu Kapur] | [#:a:manu_kapur|author page] |2|
+| [#douglas_clark|Douglas Clark] |  |2|
+| [#dejana_diziol|Dejana Diziol] |  |2|
+| [#sean_p._goggins|Sean P. Goggins] |  |2|
+| [#james_laffey|James Laffey] |  |2|
+| [#carmen_kohnle|Carmen Kohnle] |  |2|
+| [#bruce_m._mclaren|Bruce M. McLaren] |  |2|
+| [#stavros_demetriadis|Stavros Demetriadis] |  |2|
+| [#allan_collins|Allan Collins] |  |2|
+| [#christine_greenhow|Christine Greenhow] |  |2|
+| [#bonnie_nardi|Bonnie Nardi] |  |2|
+| [#wolfgang_halb|Wolfgang Halb] |  |2|
+| [#fabrizio_giorgini|Fabrizio Giorgini] |  |2|
+| [#wilfrid_utz|Wilfrid Utz] |  |2|
+| [#michael_kickmeier-rust|Michael Kickmeier-Rust] |  |2|
+| [#susan_land|Susan Land] |  |2|
+| [#ayala_gerardo|Ayala Gerardo] |  |2|
+| [#jorg_haake|Jorg Haake] |  |2|
+| [#floriana_grasso|Floriana Grasso] |  |2|
+| [#gabriele_cierniak|Gabriele Cierniak] |  |2|
+| [#ann_blair|Ann Blair] |  |2|
+| [#susan_bull|Susan Bull] | [#:a:susan_bull|author page] |2|
+| [#paul_resta|Paul Resta] |  |2|
+| [#bill_hillier|Bill Hillier] |  |2|
+| [#victoria_uren|Victoria Uren] |  |2|
+| [#weiqin_chen|Weiqin Chen] |  |2|
+| [#john_connelly|John Connelly] |  |2|
+| [#massimo_paolucci|Massimo Paolucci] |  |2|
+| [#nancy_law|Nancy Law] |  |2|
+| [#earl_woodruff|Earl Woodruff] |  |2|
+| [#anne_runde|Anne Runde] |  |2|
+| [#jochen_rick|Jochen Rick] |  |2|
+| [#felix_modritscher|Felix Mödritscher] |  |2|
+| [#stuart_moulthrop|Stuart Moulthrop] |  |2|
+| [#jim_rosenberg|Jim Rosenberg] |  |2|
+| [#zinayida_petrushyna|Zinayida Petrushyna] |  |2|
+| [#mark_guzdial|Mark Guzdial] |  |2|
+| [#michael_joyce|Michael Joyce] |  |2|
+| [#john_dron|John Dron] |  |2|
+| [#marie_desjardins|Marie desJardins] |  |2|
+| [#ola_berge|Ola Berge] |  |2|
+| [#yishay_mor|Yishay Mor] |  |2|
+| [#naill_winters|Naill Winters] |  |2|
+| [#christopher_d_hundhausen|Christopher D Hundhausen] |  |2|
+| [#kitaro_nishida|Kitaro Nishida] |  |2|
+| [#rose_luckin|Rose Luckin] |  |2|
+| [#marlene_morrison|Marlene Morrison] |  |2|
+| [#peter_w._coppin|Peter W. Coppin] |  |2|
+| [#stephen_hockema|Stephen Hockema] |  |2|
+| [#alan_h._schoenfeld|Alan H. Schoenfeld] |  |2|
+| [#teemu_leinonen|Teemu Leinonen] |  |2|
+| [#jun_oshima|Jun Oshima] |  |2|
+| [#christine_hine|Christine Hine] |  |2|
+| [#shirley_agostinho|Shirley Agostinho] |  |2|
+| [#alyssa_friend_wise|Alyssa Friend Wise] |  |2|
+| [#sue_bennett|Sue Bennett] |  |2|
+| [#lori_lockyer|Lori Lockyer] |  |2|
+| [#marcia_c._linn|Marcia C. Linn] | [#:a:marcia_c._linn|author page] |2|
+| [#barry_harper|Barry Harper] |  |2|
+| [#yongwu_miao|Yongwu Miao] |  |2|
+| [#ivana_quinto|Ivana Quinto] |  |2|
+| [#rob_procter|Rob Procter] |  |2|
+| [#gilles_deleuze|Gilles Deleuze] |  |2|
+| [#m-r_koivunen|M-R Koivunen] |  |2|
+| [#sudeshna_das|Sudeshna Das] |  |2|
+| [#eduard_hovy|Eduard Hovy] |  |2|
+| [#ivan_herman|Ivan Herman] |  |2|
+| [#tim_chown|Tim Chown] |  |2|
+| [#terry_hewitt|Terry Hewitt] |  |2|
+| [#david_roure|David Roure] |  |2|
+| [#katerine_bielaczyc|Katerine Bielaczyc] | [#:a:katerine_bielaczyc|author page] |2|
+| [#nobel_khandaker|Nobel Khandaker] |  |2|
+| [#leen-kiat_soh|Leen-Kiat Soh] |  |2|
+| [#and|and] |  |2|
+| [#panagiota_alevizou|Panagiota Alevizou] | [#:a:panagiota_alevizou|author page] |2|
+| [#mingyu_feng|Mingyu Feng] |  |2|
+| [#umberto_eco|Umberto Eco] |  |2|
+| [#neil_t._heffernan|Neil T. Heffernan] |  |2|
+| [#martin_dougiamas|Martin Dougiamas] |  |2|
+| [#ambjorn_naeve|Ambjörn Naeve] |  |2|
+| [#matthias_palmer|Matthias Palmer] |  |2|
+| [#maarten_sierhuis|Maarten Sierhuis] |  |1|
+| [#plato|Plato] |  |1|
+| [#arunagsu_chatterjee|Arunagsu Chatterjee] |  |1|
+| [#effie_law|Effie Law] |  |1|
+| [#felix_guattari|Félix Guattari] |  |1|
+| [#rick_kazman|Rick Kazman] |  |1|
+| [#mikael_nilsson|Mikael Nilsson] |  |1|
+| [#william_snyder|William Snyder] |  |1|
+| [#peter_l._t._pirolli|Peter L. T. Pirolli] |  |1|
+| [#george_steiner|George Steiner] |  |1|
+| [#richard_mcdermott|Richard McDermott] |  |1|
+| [#etienne_wenger|Etienne Wenger] |  |1|
+| [#christopher_pole|Christopher Pole] |  |1|
+| [#herbert_hrachovec|Herbert Hrachovec] |  |1|
+| [#gm_steyn|GM Steyn] |  |1|
+| [#jeffrey_d._karpicke|Jeffrey D. Karpicke] |  |1|
+| [#henry_l._roediger|Henry L. Roediger] |  |1|
+| [#henny_romijn|Henny Romijn] |  |1|
+| [#marjolein_caniels|Marjolein Caniëls] |  |1|
+| [#rn_hamer|RN Hamer] |  |1|
+| [#sustainable|Sustainable] |  |1|
+| [#john_mighton|John Mighton] |  |1|
+| [#masao_abe|Masao Abe] |  |1|
+| [#james_z_wang|James Z Wang] |  |1|
+| [#william_taylor|William Taylor] |  |1|
+| [#wayne_hodgins|Wayne Hodgins] |  |1|
+| [#erik_duval_textbackslashemphet_al|Erik Duval \textbackslashemphet al] |  |1|
+| [#marshall_mcluhan|Marshall McLuhan] |  |1|
+| [#bruce_r._powers|Bruce R. Powers] |  |1|
+| [#stewart_brand|Stewart Brand] |  |1|
+| [#us_dept._education|US Dept. Education] |  |1|
+| [#emile_durkheim|Emile Durkheim] |  |1|
+| [#sam_anderson|Sam Anderson] |  |1|
+| [#erix_isaksson|Erix Isaksson] |  |1|
+| [#utah_state_university._center_for_open_learning|Utah State University. Center for Open Learning] |  |1|
+| [#national_science_foundation|National Science Foundation] |  |1|
+| [#my_language_exchange.com|My Language Exchange.Com] |  |1|
+| [#gregory_bateson|Gregory Bateson] |  |1|
+| [#john_champaign|John Champaign] |  |1|
+| [#kathleen_burnett|Kathleen Burnett] |  |1|
+| [#kirk_boyle|Kirk Boyle] |  |1|
+| [#hjm_tabachneck|HJM Tabachneck] |  |1|
+| [#kr_koedinger|KR Koedinger] |  |1|
+| [#mj_nathan|MJ Nathan] |  |1|
+| [#standish_group|Standish Group] |  |1|
+| [#michael_kohlhase|Michael Kohlhase] |  |1|
+| [#peter_haase|Peter Haase] |  |1|
+| [#jeen_broekstra|Jeen Broekstra] |  |1|
+| [#andreas_eberhart|Andreas Eberhart] |  |1|
+| [#raphael_volz|Raphael Volz] |  |1|
+| [#us_army|US Army] |  |1|
+| [#jon_dron|Jon Dron] |  |1|
+| [#ley_robinson|Ley Robinson] |  |1|
+| [#jose_carlos_mota|Jose Carlos Mota] |  |1|
+| [#tim_van_de_cruys|Tim Van de Cruys] |  |1|
+| [#kj_van_dorp|Kj Van Dorp] |  |1|
+| [#ken_steele|Ken Steele] |  |1|
+| [#jose_dominguez|Jose Dominguez] |  |1|
+| [#patrick_mcandrew|Patrick McAndrew] |  |1|
+| [#julienne_hanson|Julienne Hanson] |  |1|
+| [#stefanie_panke|Stefanie Panke] |  |1|
+| [#benjamin_v._hanrahan|Benjamin V. Hanrahan] |  |1|
+| [#gregorio_convertino|Gregorio Convertino] |  |1|
+| [#les_nelson|Les Nelson] |  |1|
+| [#plon_verhagen|Pløn Verhagen] |  |1|
+| [#peter_brusilovsky|Peter Brusilovsky] |  |1|
+| [#angela_jones|Angela Jones] |  |1|
+| [#david_bornstein|David Bornstein] |  |1|
+| [#am_o_donnell|Am O’Donnell] |  |1|
+| [#ce_hmelo-silver|Ce Hmelo-Silver] |  |1|
+| [#chunyan_wang|Chunyan Wang] |  |1|
+| [#guodong_zhao|Guodong Zhao] |  |1|
+| [#wang_long|Wang Long] |  |1|
+| [#martin_weller|Martin Weller] |  |1|
+| [#chris_pegler|Chris Pegler] |  |1|
+| [#peter_kraker|Peter Kraker] |  |1|
+| [#derick_leony|Derick Leony] |  |1|
+| [#wolfgang_reinhardt|Wolfgang Reinhardt] |  |1|
+| [#guenter_beham|Günter Beham] |  |1|
+| [#joanne_l._badge|Joanne L. Badge] |  |1|
+| [#neil_f._w._saunders|Neil F. W. Saunders] |  |1|
+| [#alan_j._cann|Alan J. Cann] |  |1|
+| [#dietmar_janetzko|Dietmar Janetzko] |  |1|
+| [#airong_luo|Airong Luo] |  |1|
+| [#|Dick Ng'ambi] |  |1|
+| [#ted_hanss|Ted Hanss] |  |1|
+| [#yibo_sun|Yibo Sun] |  |1|
+| [#jacob_solomon|Jacob Solomon] |  |1|
+| [#mark_newman|Mark Newman] |  |1|
+| [#stephanie_teasley|Stephanie Teasley] |  |1|
+| [#fernando_torre|Fernando Torre] |  |1|
+| [#reid_priedhorsky|Reid Priedhorsky] |  |1|
+| [#loren_terveen|Loren Terveen] |  |1|
+| [#michael_ovelgvonne|Michael Ovelgvönne] |  |1|
+| [#kurt_luther|Kurt Luther] |  |1|
+| [#kelly_caine|Kelly Caine] |  |1|
+| [#kevin_ziegler|Kevin Ziegler] |  |1|
+| [#wandel_hansen|Wandel Hansen] |  |1|
+| [#george_veletsianos|George Veletsianos] |  |1|
+| [#cesar_navarrete|Cesar Navarrete] |  |1|
+| [#lisa_blaschke|Lisa Blaschke] |  |1|
+| [#catherine_schmidt-jones|Catherine Schmidt-Jones] |  |1|
+| [#carmen_tschofen|Carmen Tschofen] |  |1|
+| [#hendrik_drachsler|Hendrik Drachsler] |  |1|
+| [#phil_bourne|Phil Bourne] |  |1|
+| [#rb_church|RB Church] |  |1|
+| [#robert_dale|Robert Dale] |  |1|
+| [#anita_waard|Anita Waard] |  |1|
+| [#marvin_minsky|Marvin Minsky] |  |1|
+| [#herbert_blumer|Herbert Blumer] |  |1|
+| [#david_shotton|David Shotton] |  |1|
+| [#anita_de_waard|Anita De Waard] |  |1|
+| [#n_bos|N Bos] |  |1|
+| [#a_zimmerman|A Zimmerman] |  |1|
+| [#j_olson|J Olson] |  |1|
+| [#j_yew|J Yew] |  |1|
+| [#j_yerkie|J Yerkie] |  |1|
+| [#e_dahl|E Dahl] |  |1|
+| [#g_olson|G Olson] |  |1|
+| [#j_breslin|J Breslin] |  |1|
+| [#a_harth|A Harth] |  |1|
+| [#u_bojars|U Bojars] |  |1|
+| [#s_decker|S Decker] |  |1|
+| [#p_ciccarese|P Ciccarese] |  |1|
+| [#m_ocana|M Ocana] |  |1|
+| [#hugh_darwen|Hugh Darwen] |  |1|
+| [#t_clark|T Clark] |  |1|
+| [#n_fjallbrandt|N Fjallbrandt] |  |1|
+| [#a_garcia-castro|A Garcia-Castro] |  |1|
+| [#a_labarga|A Labarga] |  |1|
+| [#l_garcia|L Garcia] |  |1|
+| [#o_giraldo|O Giraldo] |  |1|
+| [#ja_bateman|JA Bateman] |  |1|
+| [#sa_golder|SA Golder] |  |1|
+| [#ba_huberman|BA Huberman] |  |1|
+| [#t_gruber|T Gruber] |  |1|
+| [#j_kahan|J Kahan] |  |1|
+| [#sten_govaerts|Sten Govaerts] |  |1|
+| [#|E Prud'Hommeaux] |  |1|
+| [#rr_swick|RR Swick] |  |1|
+| [#r_swick|R Swick] |  |1|
+| [#ah_renear|AH Renear] |  |1|
+| [#cl_palmer|CL Palmer] |  |1|
+| [#paolo_ciccarese|Paolo Ciccarese] |  |1|
+| [#marco_ocana|Marco Ocana] |  |1|
+| [#leyla_garcia_castro|Leyla Garcia Castro] |  |1|
+| [#larry_a._alferink|Larry A. Alferink] |  |1|
+| [#valeri_farmer-dougan|Valeri Farmer-Dougan] |  |1|
+| [#theodore_holm_nelson|Theodore Holm Nelson] |  |1|
+| [#agnes_sandor|Ágnes Sándor] |  |1|
+| [#yi-chia_wang|Yi-Chia Wang] |  |1|
+| [#yue_cui|Yue Cui] |  |1|
+| [#jaime_arguello|Jaime Arguello] |  |1|
+| [#iris_marion_young|Iris Marion Young] |  |1|
+| [#steven_pinker|Steven Pinker] |  |1|
+| [#edoardo_pignotti|Edoardo Pignotti] |  |1|
+| [#patricia_lupion_torres|Patricia Lupion Torres] |  |1|
+| [#timothy_p._novikoff|Timothy P. Novikoff] |  |1|
+| [#jon_m._kleinberg|Jon M. Kleinberg] |  |1|
+| [#steven_h._strogatza|Steven H. Strogatza] |  |1|
+| [#kourosh_dini|Kourosh Dini] |  |1|
+| [#rudradeb_mitra|Rudradeb Mitra] |  |1|
+| [#fiona_carroll|Fiona Carroll] |  |1|
+| [#feikje_hielkema|Feikje Hielkema] |  |1|
+| [#hanan_sitlia|Hanan Sitlia] |  |1|
+| [#alison_chorley|Alison Chorley] |  |1|
+| [#richard_reid|Richard Reid] |  |1|
+| [#peter_edwards|Peter Edwards] |  |1|
+| [#salman_khan|Salman Khan] |  |1|
+| [#dt_chen|DT Chen] |  |1|
+| [#george_polya|George Pólya] |  |1|
+| [#inc|Inc] |  |1|
+| [#robert_wilkinson|Robert Wilkinson] |  |1|
+| [#rorger_azevedo|Rorger Azevedo] |  |1|
+| [#emory_university._general_libraries._metascholar_initiative|Emory University. General Libraries. MetaScholar Initiative] |  |1|
+| [#david_scott|David Scott] |  |1|
+| [#agnes_stylianou|Agnes Stylianou] |  |1|
+| [#marvin_levine|Marvin Levine] |  |1|
+| [#jyri_engestrom|Jyri Engestrom] |  |1|
+| [#manuel_delanda|Manuel DeLanda] |  |1|
+| [#fast_company|Fast Company] |  |1|
+| [#rj_rienks|RJ Rienks] |  |1|
+| [#dkj_heylen|DKJ Heylen] |  |1|
+| [#alan_m._lesgold|Alan M. Lesgold] |  |1|
+| [#stephen_gourlay|Stephen Gourlay] |  |1|
+| [#helen_haugh|Helen Haugh] |  |1|
+| [#peter_j._brown|Peter J. Brown] |  |1|
+| [#mark_frisse|Mark Frisse] |  |1|
+| [#robert_glushko|Robert Glushko] |  |1|
+| [#polle_zellweger|Polle Zellweger] |  |1|
+| [#george_landow|George Landow] |  |1|
+| [#jay_david_bolter|Jay David Bolter] |  |1|
+| [#paul_tracey|Paul Tracey] |  |1|
+| [#elli_mylonas|Elli Mylonas] |  |1|
+| [#david_levine|David Levine] |  |1|
+| [#marialaura_di_domenico|MariaLaura Di Domenico] |  |1|
+| [#norbert_streitz|Norbert Streitz] |  |1|
+| [#fridolin|Fridolin] |  |1|
+| [#paul_bra|Paul Bra] |  |1|
+| [#david_millard|David Millard] |  |1|
+| [#frank_shipman|Frank Shipman] |  |1|
+| [#wild|Wild] |  |1|
+| [#sean_carton|Sean Carton] |  |1|
+| [#diana_slattery|Diana Slattery] |  |1|
+| [#nick_montfort|Nick Montfort] |  |1|
+| [#david_e._millard|David E. Millard] |  |1|
+| [#mark_j._weal|Mark J. Weal] |  |1|
+| [#diane_greco|Diane Greco] |  |1|
+| [#darren_lunn|Darren Lunn] |  |1|
+| [#james_m._nyce|James M. Nyce] |  |1|
+| [#frank_tompa|Frank Tompa] |  |1|
+| [#michael_peters|Michael Peters] |  |1|
+| [#sofia_angeletou|Sofia Angeletou] |  |1|
+| [#ben_kamens|Ben Kamens] |  |1|
+| [#murphy|Murphy] |  |1|
+| [#michaels|Michaels] |  |1|
+| [#fournier-tombs|Fournier-Tombs] |  |1|
+| [#haklev|Haklev] |  |1|
+| [#ashwin_ram|Ashwin Ram] |  |1|
+| [#daniel_d._pratt|Daniel D. Pratt] |  |1|
+| [#fm_gonzalez|FM González] |  |1|
+| [#beat_adrian_schwendimann|Beat Adrian Schwendimann] |  |1|
+| [#joshua_gay|Joshua Gay] |  |1|
+| [#richard_stallman|Richard Stallman] |  |1|
+| [#eric_miller|Eric Miller] |  |1|
+| [#frank_manola|Frank Manola] |  |1|
+| [#danah_danah|danah danah] |  |1|
+| [#anne_beamish|Anne Beamish] |  |1|
+| [#patricia_r._spence|Patricia R. Spence] |  |1|
+| [#cecili_hansen|Cecili Hansen] |  |1|
+| [#eva_hillemann|Eva Hillemann] |  |1|
+| [#bernard_j._jansen|Bernard J. Jansen] |  |1|
+| [#carey_jewitt|Carey Jewitt] |  |1|
+| [#philip_hofmair|Philip Hofmair] |  |1|
+| [#madhu_c._reddy|Madhu C. Reddy] |  |1|
+| [#shinichiro_sakai|Shinichiro Sakai] |  |1|
+| [#norihisa_awamura|Norihisa Awamura] |  |1|
+| [#harald_mayer|Harald Mayer] |  |1|
+| [#gabriele_ciernak|Gabriele Ciernak] |  |1|
+| [#rena_sircar|Rena Sircar] |  |1|
+| [#gerhilde_meissl-egghart|Gerhilde Meissl-Egghart] |  |1|
+| [#michal_kossowski|Michal Kossowski] |  |1|
+| [#nozomi_ikeya|Nozomi Ikeya] |  |1|
+| [#torkil_clemmensen|Torkil Clemmensen] |  |1|
+| [#yong_ming_kow|Yong Ming Kow] |  |1|
+| [#sanda_erdelez|Sanda Erdelez] |  |1|
+| [#sean_goggins|Sean Goggins] |  |1|
+| [#philip_scown|Philip Scown] |  |1|
+| [#michael_gallagher|Michael Gallagher] |  |1|
+| [#elizabeth_g._cohen|Elizabeth G. Cohen] |  |1|
+| [#doug_engelbart|Doug Engelbart] | [#:a:doug_engelbart|author page] |1|
+| [#thomas_p._mackey|Thomas P. Mackey] |  |1|
+| [#krista_galyen|Krista Galyen] |  |1|
+| [#heather_middleton|Heather Middleton] |  |1|
+| [#dh_jonassen|DH Jonassen] |  |1|
+| [#maret_staron|Maret Staron] |  |1|
+| [#maria_leontios|Maria Leontios] |  |1|
+| [#nicky_solomon|Nicky Solomon] |  |1|
+| [#re_kraut|Re Kraut] |  |1|
+| [#andy_dong|Andy Dong] |  |1|
+| [#bj_hicks|Bj Hicks] |  |1|
+| [#harvard_business_school._division_research|Harvard Business School. Division Research] |  |1|
+| [#ann_l._brown|Ann L. Brown] | [#:a:ann_l._brown|author page] |1|
+| [#chen_bodong|Chen Bodong] |  |1|
+| [#sharon_fay|Sharon Fay] |  |1|
+| [#maria_chuy|Maria Chuy] |  |1|
+| [#bodong_chen|Bodong Chen] |  |1|
+| [#carol_chan|Carol Chan] |  |1|
+| [#peter_smith|Peter Smith] |  |1|
+| [#steve_carson|Steve Carson] |  |1|
+| [#brian_ouellette|Brian Ouellette] |  |1|
+| [#pd_ryan|PD Ryan] |  |1|
+| [#argun_saatcioglu|Argun Saatcioglu] |  |1|
+| [#betty_vandenbosch|Betty Vandenbosch] |  |1|
+| [#stephen_carson|Stephen Carson] |  |1|
+| [#rodrigo_valle|Rodrigo Valle] |  |1|
+| [#nilguen_ozdamar_keskin|Nilgün Özdamar Keskin] |  |1|
+| [#heather_ford|Heather Ford] |  |1|
+| [#creative_commons|Creative Commons] |  |1|
+| [#yuichi_nakamura|Yuichi Nakamura] |  |1|
+| [#gavriel_salomon|Gavriel Salomon] | [#:a:gavriel_salomon|author page] |1|
+| [#david_n._perkins|David N. Perkins] |  |1|
+| [#rebecca_joanne_hogue|Rebecca Joanne Hogue] |  |1|
+| [#anna_sfard|Anna Sfard] | [#:a:anna_sfard|author page] |1|
+| [#iassen_halatchliyski|Iassen Halatchliyski] |  |1|
+| [#inge_waard|Inge Waard] |  |1|
+| [#sean_c._abajian|Sean C. Abajian] |  |1|
+| [#michael_sean_gallagher|Michael Sean Gallagher] |  |1|
+| [#apostolos_koutropoulos|Apostolos Koutropoulos] |  |1|
+| [#mc_matteucci|MC Matteucci] |  |1|
+| [#peter_lloyd|Peter Lloyd] |  |1|
+| [#ryan_s._j._baker|Ryan S. J. Baker] |  |1|
+| [#shane_dawson|Shane Dawson] |  |1|
+| [#caroline_haythornthwaite|Caroline Haythornthwaite] |  |1|
+| [#dragan_gasevic|Dragan Gasevic] |  |1|
+| [#demetrios_sampson|Demetrios Sampson] |  |1|
+| [#andrew_f._monk|Andrew F. Monk] |  |1|
+| [#leon_a._watts|Leon A. Watts] |  |1|
+| [#joanna_mcgrenere|Joanna McGrenere] |  |1|
+| [#kellogg_booth|Kellogg Booth] |  |1|
+| [#qixing_zheng|Qixing Zheng] |  |1|
+| [#syavash_nobarany|Syavash Nobarany] |  |1|
+| [#wil_m._p._aalst|Wil M. P. Aalst] |  |1|
+| [#bo_xiao|Bo Xiao] |  |1|
+| [#stefan_muenzer|Stefan Münzer] |  |1|
+| [#kevin_crowston|Kevin Crowston] |  |1|
+| [#thomas_w._malone|Thomas W. Malone] |  |1|
+| [#werner_mueller|Werner Müller] |  |1|
+| [#carl_gutwin|Carl Gutwin] |  |1|
+| [#tammy_schellens|Tammy Schellens] |  |1|
+| [#martin_valcke|Martin Valcke] |  |1|
+| [#kimberly_tee|Kimberly Tee] |  |1|
+| [#william_g._bowen|William G. Bowen] |  |1|
+| [#ala_samarapungavan|Ala Samarapungavan] |  |1|
+| [#nina_heinze|Nina Heinze] |  |1|
+| [#corbin_tarrant|Corbin Tarrant] |  |1|
+| [#tanya_roscorla|Tanya Roscorla] |  |1|
+| [#jim_hensman|Jim Hensman] |  |1|
+| [#dimoklis_despotakis|Dimoklis Despotakis] |  |1|
+| [#ajdin_brandic|Ajdin Brandic] |  |1|
+| [#jim_slotta|Jim Slotta] |  |1|
+| [#till_nagel|Till Nagel] |  |1|
+| [#bram_vandeputte|Bram Vandeputte] |  |1|
+| [#rosamund_sutherland|Rosamund Sutherland] |  |1|
+| [#gonzalo_parra|Gonzalo Parra] |  |1|
+| [#thomas_daniel_ullmann|Thomas Daniel Ullmann] |  |1|
+| [#fridolin_wild|Fridolin Wild] |  |1|
+| [#hedieh_najafi|Hedieh Najafi] |  |1|
+| [#nick_twyman|Nick Twyman] |  |1|
+| [#rebecca_kennison|Rebecca Kennison] |  |1|
+| [#susanne_derisi|Susanne DeRisi] |  |1|
+| [#barrie_bennett|Barrie Bennett] |  |1|
+| [#carol_rolheiser|Carol Rolheiser] |  |1|
+| [#la_abrahamson|LA Abrahamson] |  |1|
+| [#barry_w._cull|Barry W. Cull] |  |1|
+| [#farshid_marbouti|Farshid Marbouti] |  |1|
+| [#max_muehlhauser|Max Mühlhäuser] |  |1|
+| [#brian_e._granger|Brian E. Granger] |  |1|
+| [#william_r._penuel|William R. Penuel] | [#:a:william_r._penuel|author page] |1|
+| [#yln_tan|YLN Tan] |  |1|
+| [#fernando_perez|Fernando Perez] |  |1|
+| [#gregory_a._debourgh|Gregory A. DeBourgh] |  |1|
+| [#jennifer_sampson|Jennifer Sampson] |  |1|
+| [#susan_welch|Susan Welch] |  |1|
+| [#wenli_chen|Wenli Chen] |  |1|
+| [#david_jonassen|David Jonassen] | [#:a:david_jonassen|author page] |1|
+| [#herbert_remidez|Herbert Remidez] |  |1|
+| [#sr_chaudbury|SR Chaudbury] |  |1|
+| [#jennie_c._de_gagne|Jennie C. De Gagne] |  |1|
+| [#michael_e._lantz|Michael E. Lantz] |  |1|
+| [#eric_woebkenberg|Eric Woebkenberg] |  |1|
+| [#judith_kilpatrick|Judith Kilpatrick] |  |1|
+| [#barbara_patterson|Barbara Patterson] |  |1|
+| [#berings|Berings] |  |1|
+| [#joonhwan_lee|Joonhwan Lee] |  |1|
+| [#valcke|Valcke] |  |1|
+| [#de_grez|De Grez] |  |1|
+| [#agni_stylianou-georgiou|Agni Stylianou-Georgiou] |  |1|
+| [#philip_r._olds|Philip R. Olds] |  |1|
+| [#thomas_a._lechner|Thomas A. Lechner] |  |1|
+| [#thomas_p._edmonds|Thomas P. Edmonds] |  |1|
+| [#carla_carnaghan|Carla Carnaghan] |  |1|
+| [#andrea_altice|Andrea Altice] |  |1|
+| [#deborah_miller|Deborah Miller] |  |1|
+| [#sally_e._weerts|Sally E. Weerts] |  |1|
+| [#pamela_fifer|Pamela Fifer] |  |1|
+| [#emily_dill|Emily Dill] |  |1|
+| [#zhonghong_wang|Zhonghong Wang] |  |1|
+| [#patricia_keogh|Patricia Keogh] |  |1|
+| [#christopher_jones|Christopher Jones] |  |1|
+| [#mel_chua|Mel Chua] |  |1|
+| [#jacques_lonchamp|Jacques Lonchamp] |  |1|
+| [#mingzhu_qiu|Mingzhu Qiu] |  |1|
+| [#carolyn_rose|Carolyn Rosé] |  |1|
+| [#elijah_mayfield|Elijah Mayfield] |  |1|
+| [#giuseppe_ritella|Giuseppe Ritella] |  |1|
+| [#cristian_alcoholado|Cristian Alcoholado] |  |1|
+| [#arturo_tagle|Arturo Tagle] |  |1|
+| [#kay_judy|Kay Judy] |  |1|
+| [#magdalena_ortiz|Magdalena Ortiz] |  |1|
+| [#gerardo_ayala|Gerardo Ayala] |  |1|
+| [#mauricio_osorio|Mauricio Osorio] |  |1|
+| [#daniela_caballero|Daniela Caballero] |  |1|
+| [#wouter_r._van_joolingen|Wouter R. Van Joolingen] |  |1|
+| [#adam_giemza|Adam Giemza] |  |1|
+| [#isabelle_girault|Isabelle Girault] |  |1|
+| [#jorg_kindermann|Jörg Kindermann] |  |1|
+| [#anders_kluge|Anders Kluge] |  |1|
+| [#ard_w._lazonder|Ard W. Lazonder] |  |1|
+| [#vibeke_vold|Vibeke Vold] |  |1|
+| [#anjo_anjewierden|Anjo Anjewierden] |  |1|
+| [#marjolaine_bodin|Marjolaine Bodin] |  |1|
+| [#cedric_d_ham|Cédric D′Ham] |  |1|
+| [#jan_dolonen|Jan Dolonen] |  |1|
+| [#jan_engler|Jan Engler] |  |1|
+| [#caspar_geraedts|Caspar Geraedts] |  |1|
+| [#henrik_grosskreutz|Henrik Grosskreutz] |  |1|
+| [#tasos_hovardas|Tasos Hovardas] |  |1|
+| [#rachel_julien|Rachel Julien] |  |1|
+| [#judith_lechner|Judith Lechner] |  |1|
+| [#yuri_matteman|Yuri Matteman] |  |1|
+| [#oyvind_meistadt|Øyvind Meistadt] |  |1|
+| [#bjorge_naess|Bjørge Næss] |  |1|
+| [#muriel_ney|Muriel Ney] |  |1|
+| [#margus_pedaste|Margus Pedaste] |  |1|
+| [#anthony_perritano|Anthony Perritano] |  |1|
+| [#marieke_rinket|Marieke Rinket] |  |1|
+| [#henrik_von_schlanbusch|Henrik Von Schlanbusch] |  |1|
+| [#tago_sarapuu|Tago Sarapuu] |  |1|
+| [#florian_schulz|Florian Schulz] |  |1|
+| [#jakob_sikken|Jakob Sikken] |  |1|
+| [#jeremy_toussaint|Jeremy Toussaint] |  |1|
+| [#alex_verkade|Alex Verkade] |  |1|
+| [#claire_wajeman|Claire Wajeman] |  |1|
+| [#zacharias_c._zacharia|Zacharias C. Zacharia] |  |1|
+| [#martine_van_der_zanden|Martine Van Der Zanden] |  |1|
+| [#fernanda_denardin|Fernanda Denardin] |  |1|
+| [#jose_abalos|Jose Abalos] |  |1|
+| [#tal_rosen|Tal Rosen] |  |1|
+| [#miguel_nussbaum|Miguel Nussbaum] |  |1|
+| [#eyal_szewkis|Eyal Szewkis] |  |1|
+| [#joshua_a._kirby|Joshua A. Kirby] |  |1|
+| [#vanessa_peters|Vanessa Peters] |  |1|
+| [#matthew_gaydos|Matthew Gaydos] |  |1|
+| [#christopher_hoadley|Christopher Hoadley] | [#:a:christopher_hoadley|author page] |1|
+| [#jody_clarke|Jody Clarke] |  |1|
+| [#sam_zeini|Sam Zeini] |  |1|
+| [#alejandra_martinez-mones|Alejandra Martinez-Mones] |  |1|
+| [#dennis_karney|Dennis Karney] |  |1|
+| [#meng_yew_tee|Meng Yew Tee] |  |1|
+| [#jan_aalst|Jan Aalst] |  |1|
+| [#matthieu_quignard|Matthieu Quignard] |  |1|
+| [#pinar_d_onmez|Pinar D\"onmez] |  |1|
+| [#marie_amelsvoort|Marie Amelsvoort] |  |1|
+| [#miky_ronen|Miky Ronen] |  |1|
+| [#j_org_haake|J\"org Haake] |  |1|
+| [#yael_kali|Yael Kali] |  |1|
+| [#dan_kohen-vacs|Dan Kohen-Vacs] |  |1|
+| [#kristine_lund|Kristine Lund] |  |1|
+| [#taiga_brahm|Taiga Brahm] |  |1|
+| [#volker_wulf|Volker Wulf] |  |1|
+| [#jan_zottmann|Jan Zottmann] |  |1|
+| [#hannie_gijlers|Hannie Gijlers] |  |1|
+| [#markus_rohde|Markus Rohde] |  |1|
+| [#max_halbinger|Max Halbinger] |  |1|
+| [#jonas_koch|Jonas Koch] |  |1|
+| [#robert-jan_simons|Robert-Jan Simons] |  |1|
+| [#vic_lally|Vic Lally] |  |1|
+| [#helmut_prechtl|Helmut Prechtl] |  |1|
+| [#sebastian_boring|Sebastian Boring] |  |1|
+| [#sonja_b_ohm|Sonja B\"ohm] |  |1|
+| [#maarten_laat|Maarten Laat] |  |1|
+| [#daniel_suthers|Daniel Suthers] |  |1|
+| [#susan_a._yoon|Susan A. Yoon] |  |1|
+| [#jennifer_g._cromley|Jennifer G. Cromley] |  |1|
+| [#jeremy_i._m._carpendale|Jeremy I. M. Carpendale] |  |1|
+| [#ge_xun|GE Xun] |  |1|
+| [#jennifer_cromley|Jennifer Cromley] |  |1|
+| [#daniel_moos|Daniel Moos] |  |1|
+| [#jeffrey_greene|Jeffrey Greene] |  |1|
+| [#william_turnbull|William Turnbull] |  |1|
+| [#annemarie_sullivan_palincsar|Annemarie Sullivan Palincsar] | [#:a:annemarie_sullivan_palincsar|author page] |1|
+| [#chris_jones|Chris Jones] |  |1|
+| [#lone_dirckinckholmfeld|Lone Dirckinck‐Holmfeld] |  |1|
+| [#sherrie_atwood|Sherrie Atwood] |  |1|
+| [#yano_yoneo|Yano Yoneo] |  |1|
+| [#patrick_h._m._sins|Patrick H. M. Sins] |  |1|
+| [#judy_malloy|Judy Malloy] |  |1|
+| [#aiman_badri|Aiman Badri] |  |1|
+| [#jerry_e._b._andriessen|Jerry E. B. Andriessen] |  |1|
+| [#paul_leng|Paul Leng] |  |1|
+| [#therese_kobbeltvedt|Therese Kobbeltvedt] |  |1|
+| [#neil_a._fiore|Neil A. Fiore] |  |1|
+| [#carsten_ullrich|Carsten Ullrich] |  |1|
+| [#ruimin_shen|Ruimin Shen] |  |1|
+| [#elisabeth_norman|Elisabeth Norman] |  |1|
+| [#hilde_hetland|Hilde Hetland] |  |1|
+| [#mike_scaife|Mike Scaife] |  |1|
+| [#iris_tabak|Iris Tabak] |  |1|
+| [#rolf_reber|Rolf Reber] |  |1|
+| [#rogers_hall|Rogers Hall] |  |1|
+| [#merav_ilya|Merav Ilya] |  |1|
+| [#julia_gil|Julia Gil] |  |1|
+| [#yair_neuman|Yair Neuman] |  |1|
+| [#lm_bosveld-de_smet|LM Bosveld-de Smet] |  |1|
+| [#colleen_kehoe|Colleen Kehoe] |  |1|
+| [#michael_young|Michael Young] |  |1|
+| [#ravi_k._vatrapu|Ravi K. Vatrapu] |  |1|
+| [#allison_littlejohn|Allison Littlejohn] |  |1|
+| [#anoush_margarayan|Anoush Margarayan] |  |1|
+| [#doris_jorde|Doris Jorde] |  |1|
+| [#robert_e._shaw|Robert E. Shaw] |  |1|
+| [#steve_garrett|Steve Garrett] |  |1|
+| [#annita_fjuk|Annita Fjuk] |  |1|
+| [#rod_swenson|Rod Swenson] |  |1|
+| [#dana_lynn_goldblatt_anthony|Dana Lynn Goldblatt Anthony] |  |1|
+| [#miriam_cherkes-julkowski|Miriam Cherkes-Julkowski] |  |1|
+| [#sasha_a._barab|Sasha A. Barab] |  |1|
+| [#cindy_e._hmelo|Cindy E. Hmelo] |  |1|
+| [#efi_alexopoulou|Efi Alexopoulou] |  |1|
+| [#ulrika_bennerstedt|Ulrika Bennerstedt] |  |1|
+| [#mark_childs|Mark Childs] |  |1|
+| [#vincent_jonker|Vincent Jonker] |  |1|
+| [#davs_pratt|Davs Pratt] |  |1|
+| [#monica_wijers|Monica Wijers] |  |1|
+| [#michele_cerulli|Michele Cerulli] |  |1|
+| [#staffan_bjork|Staffan Björk] |  |1|
+| [#sankt_augustin|Sankt Augustin] |  |1|
+| [#ian_h._witten|Ian H. Witten] |  |1|
+| [#eibe_frank|Eibe Frank] |  |1|
+| [#mark_a._hall|Mark A. Hall] |  |1|
+| [#mark_k._smith|Mark K. Smith] |  |1|
+| [#d_jones|D Jones] |  |1|
+| [#mitchel_resnick|Mitchel Resnick] |  |1|
+| [#douglas_n._gordin|Douglas N. Gordin] |  |1|
+| [#susan_m._williams|Susan M. Williams] |  |1|
+| [#kenneth_r_koedinger|Kenneth R Koedinger] |  |1|
+| [#kenneth_d_forbus|Kenneth D Forbus] |  |1|
+| [#computer_sciences|Computer Sciences] |  |1|
+| [#michael_ranney|Michael Ranney] |  |1|
+| [#east_west_road|East West Road] |  |1|
+| [#viil_lid|Viil Lid] |  |1|
+| [#laura_e_girardeau|Laura E Girardeau] |  |1|
+| [#brian_j._reiser|Brian J. Reiser] |  |1|
+| [#douglas_c._merrill|Douglas C. Merrill] |  |1|
+| [#peter_coppin|Peter Coppin] |  |1|
+| [#jim_burton|Jim Burton] |  |1|
+| [#thomas_hatch|Thomas Hatch] |  |1|
+| [#lee_s._shulman|Lee S. Shulman] | [#:a:lee_s._shulman|author page] |1|
+| [#allen_gunn|Allen Gunn] | [#:a:allen_gunn|author page] |1|
+| [#elizabeth_r_peterson|Elizabeth R Peterson] |  |1|
+| [#kevin_a._barron|Kevin A. Barron] |  |1|
+| [#andreas_meiszner|Andreas Meiszner] |  |1|
+| [#tony_buzan|Tony Buzan] | [#:a:tony_buzan|author page] |1|
+| [#barry_buzan|Barry Buzan] |  |1|
+| [#jeffrey_huang|Jeffrey Huang] |  |1|
+| [#pc_taylor|PC Taylor] |  |1|
+| [#marc_smith|Marc Smith] |  |1|
+| [#keith_r._sawyer|Keith R. Sawyer] |  |1|
+| [#david_a._wiley|David A. Wiley] |  |1|
+| [#erin_k._edwards|Erin K. Edwards] |  |1|
+| [#steve_joordens|Steve Joordens] |  |1|
+| [#dwayne_e_pare|Dwayne E Paré] |  |1|
+| [#matthew_kearney|Matthew Kearney] |  |1|
+| [#edward_w_taylor|Edward W Taylor] |  |1|
+| [#john_tagg|John Tagg] |  |1|
+| [#robert_b_barr|Robert B Barr] |  |1|
+| [#barry_j_zimmerman|Barry J Zimmerman] |  |1|
+| [#lisa_thomas|Lisa Thomas] |  |1|
+| [#jennifer_jones|Jennifer Jones] |  |1|
+| [#leslie_f._reid|Leslie F. Reid] |  |1|
+| [#isobel_falconer|Isobel Falconer] |  |1|
+| [#sally_fincher|Sally Fincher] |  |1|
+| [#brian_w._miller|Brian W. Miller] |  |1|
+| [#may_jadallah|May Jadallah] |  |1|
+| [#kim_nguyen-jahiel|Kim Nguyen-Jahiel] |  |1|
+| [#richard_c._anderson|Richard C. Anderson] |  |1|
+| [#genevieve_newton|Genevieve Newton] |  |1|
+| [#james_kirkland|James Kirkland] |  |1|
+| [#justan_lougheed|Justan Lougheed] |  |1|
+| [#albert_m_selvin|Albert M Selvin] |  |1|
+| [#eleftheria_tomadaki|Eleftheria Tomadaki] |  |1|
+| [#neil_benn|Neil Benn] |  |1|
+| [#sylvester_allred|Sylvester Allred] |  |1|
+| [#martin_reynolds|Martin Reynolds] |  |1|
+| [#andrea_berardi|Andrea Berardi] |  |1|
+| [#calvin_bernard|Calvin Bernard] |  |1|
+| [#jay_mistry|Jay Mistry] |  |1|
+| [#werner_ulrich|Werner Ulrich] |  |1|
+| [#bertrand_sereno|Bertrand Sereno] |  |1|
+| [#carol_brewer|Carol Brewer] |  |1|
+| [#diane_ebert-may|Diane Ebert-May] |  |1|
+| [#ben_juby|Ben Juby] |  |1|
+| [#stephanie_marshall|Stephanie Marshall] |  |1|
+| [#steve_ketteridge|Steve Ketteridge] |  |1|
+| [#heather_fry|Heather Fry] |  |1|
+| [#david_kember|David Kember] |  |1|
+| [#hong-mei_chen|Hong-mei Chen] |  |1|
+| [#bashar_nuseibeh|Bashar Nuseibeh] |  |1|
+| [#ben_ruby|Ben Ruby] |  |1|
+| [#donia_scott|Donia Scott] |  |1|
+| [#bas_kolloffel|Bas Kolloffel] |  |1|
+| [#tessa_h._s._eysink|Tessa H. S. Eysink] |  |1|
+| [#robert_l._jorczak|Robert L. Jorczak] |  |1|
+| [#jan_herrington|Jan Herrington] |  |1|
+| [#thomas_c._reeves|Thomas C. Reeves] |  |1|
+| [#ron_oliver|Ron Oliver] |  |1|
+| [#younghee_woo|Younghee Woo] |  |1|
+| [#ming_ming_chiu|Ming Ming Chiu] |  |1|
+| [#khe_foon_hew|Khe Foon Hew] |  |1|
+| [#wing_sum_cheung|Wing Sum Cheung] |  |1|
+| [#shiou-wen_yeh|Shiou-Wen Yeh] |  |1|
+| [#manoli_pifarre|Manoli Pifarré] |  |1|
+| [#judith_kleine_staarman|Judith Kleine Staarman] |  |1|
+| [#ilias_karasavvidis|Ilias Karasavvidis] |  |1|
+| [#naomi_augar|Naomi Augar] |  |1|
+| [#ruth_raitman|Ruth Raitman] |  |1|
+| [#wanlei_zhou|Wanlei Zhou] |  |1|
+| [#michael_a._evans|Michael A. Evans] |  |1|
+| [#eliot_feenstra|Eliot Feenstra] |  |1|
+| [#emily_ryon|Emily Ryon] |  |1|
+| [#david_mcneill|David McNeill] |  |1|
+| [#alicia_f._chavez|Alicia F. Chávez] |  |1|
+| [#pei-ni_l._causarano|Pei-Ni L. Causarano] |  |1|
+| [#antonio_causarano|Antonio Causarano] |  |1|
+| [#regina_jucks|Regina Jucks] |  |1|
+| [#matthias_nueckles|Matthias Nückles] |  |1|
+| [#anna_ertelt|Anna Ertelt] |  |1|
+| [#jorg_wittwer|Jörg Wittwer] |  |1|
+| [#alexander_renkl|Alexander Renkl] |  |1|
+| [#hans_christian_arnseth|Hans Christian Arnseth] |  |1|
+| [#therese_laferriere|Thérèse Laferrière] |  |1|
+| [#fleur_prinsen|Fleur Prinsen] |  |1|
+| [#jan_terwel|Jan Terwel] |  |1|
+| [#monique_volman|Monique Volman] |  |1|
+| [#marieke_fakkert|Marieke Fakkert] |  |1|
+| [#friedrich_hesse|Friedrich Hesse] |  |1|
+| [#tobias_lauer|Tobias Lauer] |  |1|
+| [#stephan_trahasch|Stephan Trahasch] |  |1|
+| [#kay_hoeksema|Kay Hoeksema] |  |1|
+| [#janet_l._kolodner|Janet L. Kolodner] | [#:a:janet_l._kolodner|author page] |1|
+| [#kati_makitalo-siegl|Kati Mäkitalo-Siegl] |  |1|
+| [#stefan_carmien|Stefan Carmien] |  |1|
+| [#michael_sweet|Michael Sweet] |  |1|
+| [#larry_k._michaelsen|Larry K. Michaelsen] |  |1|
+| [#nadira_saab|Nadira Saab] |  |1|
+| [#wouter_r._joolingen|Wouter R. Joolingen] |  |1|
+| [#bernadette_h._a._m._hout-wolters|Bernadette H. A. M. Hout-Wolters] |  |1|
+| [#seiji_isotani|Seiji Isotani] |  |1|
+| [#jacqueline_bourdeau|Jacqueline Bourdeau] |  |1|
+| [#riichiro_mizoguchi|Riichiro Mizoguchi] |  |1|
+| [#jelena_jovanovic|Jelena Jovanovic] |  |1|
+| [#ioannis_magnisalis|Ioannis Magnisalis] |  |1|
+| [#anastasios_karakostas|Anastasios Karakostas] |  |1|
+| [#rohit_kumar|Rohit Kumar] |  |1|
+| [#chung-hsien_lan|Chung-Hsien Lan] |  |1|
+| [#sabine_graf|Sabine Graf] |  |1|
+| [#kinshuk|Kinshuk] |  |1|
+| [#michael_j._lawson|Michael J. Lawson] |  |1|
+| [#john_r._kirby|John R. Kirby] |  |1|
+| [#lee_dee_miller|Lee Dee Miller] |  |1|
+| [#adam_eck|Adam Eck] |  |1|
+| [#hong_jiang|Hong Jiang] |  |1|
+| [#lydia_lau|Lydia Lau] |  |1|
+| [#|Rebecca O'Rourke] |  |1|
+| [#rafael_a._calvo|Rafael A. Calvo] |  |1|
+| [#|Stephen T. O'Rourke] |  |1|
+| [#janet_jones|Janet Jones] |  |1|
+| [#kalina_yacef|Kalina Yacef] |  |1|
+| [#jean-charles_marty|Jean-Charles Marty] |  |1|
+| [#thibault_carron|Thibault Carron] |  |1|
+| [#meng_fen_grace_lin|Meng Fen Grace Lin] |  |1|
+| [#suthiporn_sajjapanroj|Suthiporn Sajjapanroj] |  |1|
+| [#curtis_j._bonk|Curtis J. Bonk] |  |1|
+| [#christoph_hermann|Christoph Hermann] |  |1|
+| [#thomas_ottmann|Thomas Ottmann] |  |1|
+| [#suleyman_cetintas|Suleyman Cetintas] |  |1|
+| [#yan_ping_xin|Yan Ping Xin] |  |1|
+| [#casey_hord|Casey Hord] |  |1|
+| [#david_wiley|David Wiley] |  |1|
+| [#jukka_purma|Jukka Purma] |  |1|
+| [#tarmo_toikkanen|Tarmo Toikkanen] |  |1|
+| [#juergen_steimle|Jürgen Steimle] |  |1|
+| [#oliver_brdiczka|Oliver Brdiczka] |  |1|
+| [#max_muhlhauser|Max Muhlhauser] |  |1|
+| [#jonathan_sewall|Jonathan Sewall] |  |1|
+| [#mcnaught_carmel|McNaught Carmel] |  |1|
+| [#kember_david|Kember David] |  |1|
+| [#cristina_heffernan|Cristina Heffernan] |  |1|
+| [#murali_mani|Murali Mani] |  |1|
+| [#alexandros_papadimitriou|Alexandros Papadimitriou] |  |1|
+| [#maria_grigoriadou|Maria Grigoriadou] |  |1|
+| [#georgios_gyftodimos|Georgios Gyftodimos] |  |1|
+| [#davide_fossati|Davide Fossati] |  |1|
+| [#barbara_di_eugenio|Barbara Di Eugenio] |  |1|
+| [#christopher_w._brown|Christopher W. Brown] |  |1|
+| [#stellan_ohlsson|Stellan Ohlsson] |  |1|
+| [#david_g._cosejo|David G. Cosejo] |  |1|
+| [#lin_chen|Lin Chen] |  |1|
+| [#orla_lahart|Orla Lahart] |  |1|
+| [#declan_kelly|Declan Kelly] |  |1|
+| [#brendan_tangney|Brendan Tangney] |  |1|
+| [#luiz_faria|Luiz Faria] |  |1|
+| [#antonio_silva|Antonio Silva] |  |1|
+| [#zita_vale|Zita Vale] |  |1|
+| [#albino_marques|Albino Marques] |  |1|
+| [#leena_razzaq|Leena Razzaq] |  |1|
+| [#jozsef_patvarczki|Jozsef Patvarczki] |  |1|
+| [#shane_f._almeida|Shane F. Almeida] |  |1|
+| [#manasi_vartak|Manasi Vartak] |  |1|
+| [#julita_vassileva|Julita Vassileva] |  |1|
+| [#robb_lindgren|Robb Lindgren] |  |1|
+| [#chiu-pin_lin|Chiu-Pin Lin] |  |1|
+| [#kuo-ping_liu|Kuo-Ping Liu] |  |1|
+| [#yasmin_b._kafai|Yasmin B. Kafai] | [#:a:yasmin_b._kafai|author page] |1|
+| [#andrew_meltzoff|Andrew Meltzoff] |  |1|
+| [#patricia_kuhl|Patricia Kuhl] |  |1|
+| [#philip_bell|Philip Bell] |  |1|
+| [#reed_stevens|Reed Stevens] |  |1|
+| [#daniel_l._schwartz|Daniel L. Schwartz] |  |1|
+| [#nancy_vye|Nancy Vye] |  |1|
+| [#byron_reeves|Byron Reeves] |  |1|
+| [#nora_h._sabelli|Nora H. Sabelli] |  |1|

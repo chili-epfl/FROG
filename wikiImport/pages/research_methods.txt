@@ -1,0 +1,9 @@
+h1. Research methods
+
+[@schwarz2011moderation] about using [[Digalu]]/[[Argunaut]] (enhanced chat tool) for [[synchronous communications]], looking at enhancing moderation suite to enable moderator to moderate several group chats at the same time.
+
+They record all the maps, but also a screencast of what the facilitator does, then afterwards they play it back to her, and use this to trigger her reflections and memories about what she did. They spend a lot of time narrating the whole event in detail, with excerpts shown, her comments on the left, and her actions on the right.
+
+----
+
+  * [[http://www.methodspace.com/|Methodspace - home of the Research Methods community]]

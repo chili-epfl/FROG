@@ -1,0 +1,3 @@
+h2. Elli Mylonas's publications
+
+| [@bernstein1991architectures] | Bernstein, M., Bolter, J. D., Joyce, M., & Mylonas, E. (1991). Architectures for volatile hypertext. In Proceedings of the third annual ACM conference on Hypertext, HYPERTEXT '91 (243--260). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/122974.122999|

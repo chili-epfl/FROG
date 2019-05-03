@@ -1,0 +1,36 @@
+h1. Peering into large lectures: examining peer and expert mark agreement using peerScholar, an online peer assessment tool
+
+<ifauth !@admin>|Paré, D. E., & Joordens, S. (2008). Peering into large lectures: examining peer and expert mark agreement using peerScholar, an online peer assessment tool. Journal of Computer Assisted Learning, 24(6), 526–540. Wiley Online Library.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://pare2008peering|BibDesk]]  | Paré, D. E., & Joordens, S. (2008). Peering into large lectures: examining peer and expert mark agreement using peerScholar, an online peer assessment tool. Journal of Computer Assisted Learning, 24(6), 526–540. Wiley Online Library. |
+^ [[skimx://pare2008peering|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:pare2008peering?do=edit&vecdo=print\'><frame src=\'/wiki/clip:pare2008peering?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{pare2008peering,
+  author = {Paré, Dwayne E and Joordens, Steve},
+  date-added = {2013-02-14 20:16:54 +0000},
+  date-modified = {2013-03-08 20:38:35 +0000},
+  journal = {Journal of Computer Assisted Learning},
+  keywords = {0joordens;},
+  number = {6},
+  pages = {526–540},
+  publisher = {Wiley Online Library},
+  title = {Peering into large lectures: examining peer and expert mark agreement using peerScholar, an online peer assessment tool},
+  volume = {24},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIS4uLy4uL0JpYmRlc2svcGFyZTIwMDhwZWVyaW5nLnBkZtIXCxgZV05TLmRhdGFPEQF8AAAAAAF8AAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lITcGFyZTIwMDhwZWVyaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADEqg8s1CsFlQREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAzUL2qQAAAAEADADa1lIAFz0xAAGfXgACADJTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAcGFyZTIwMDhwZWVyaW5nLnBkZgAOACgAEwBwAGEAcgBlADIAMAAwADgAcABlAGUAcgBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAnVXNlcnMvU3RpYW4vQmliZGVzay9wYXJlMjAwOHBlZXJpbmcucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALIAtwC/Aj8CQQJGAlECWgJoAmwCcwJ8AoECjgKRAqMCpgKrAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:pare2008peering}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:pare2008peering}}
+
+{{page>kindle:pare2008peering}}
+
+{{page>skimg:pare2008peering}}

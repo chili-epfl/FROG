@@ -1,0 +1,37 @@
+h1. Crowdsourcing a Personalized Learning Environment for Mathematics
+<html><a href='http://metameso.org/~joe/docs/probation-report-final.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://metameso.org/~joe/docs/probation-report-final.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Corneli, J. (2010). Crowdsourcing a Personalized Learning Environment for Mathematics. fth Doct, 7. Retrieved from http://metameso.org/~joe/docs/probation-report-final.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://corneli2010crowdsourcing|BibDesk]]  | Corneli, J. (2010). Crowdsourcing a Personalized Learning Environment for Mathematics. fth Doct, 7. Retrieved from http://metameso.org/~joe/docs/probation-report-final.pdf. |
+^ [[skimx://corneli2010crowdsourcing|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:corneli2010crowdsourcing?do=edit&vecdo=print\'><frame src=\'/wiki/clip:corneli2010crowdsourcing?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{corneli2010crowdsourcing,
+  author = {Corneli, Joseph},
+  date-added = {2012-04-07 02:04:06 +0000},
+  date-modified = {2012-11-27 19:05:26 +0000},
+  date-read = {2012-04-12 09:32:54 -0400},
+  journal = {fth Doct},
+  keywords = {1p2pu},
+  oa-url = {http://metameso.org/~joe/docs/probation-report-final.pdf},
+  pages = {7},
+  read = {1},
+  title = {Crowdsourcing a Personalized Learning Environment for Mathematics},
+  url = {http://metameso.org/~joe/docs/probation-report-final.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaAAAAAAAaAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhxjb3JuZWxpMjAxMGNyb3dkc291cmNpbmcucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaE5Iy9b9oVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXhAAAAAQAMANrWUgAXPTEAAZ9eAAIAO1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3JuZWxpMjAxMGNyb3dkc291cmNpbmcucGRmAAAOADoAHABjAG8AcgBuAGUAbABpADIAMAAxADAAYwByAG8AdwBkAHMAbwB1AHIAYwBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAwVXNlcnMvU3RpYW4vYmliZGVzay9jb3JuZWxpMjAxMGNyb3dkc291cmNpbmcucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECouLi8uLi9iaWJkZXNrL2Nvcm5lbGkyMDEwY3Jvd2Rzb3VyY2luZy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACRAJGAksCVAJfAmMCcQJ4AoECrgKzArYCwwLIAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAto=}
+}
+
+</hidden>
+
+{{page>notes:corneli2010crowdsourcing}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:corneli2010crowdsourcing}}
+
+{{page>kindle:corneli2010crowdsourcing}}
+
+{{page>skimg:corneli2010crowdsourcing}}

@@ -1,0 +1,36 @@
+h1. Methods and Specification for the Student Model V1
+<html><a href='http://www.next-tell.eu/wp-content/uploads/2011/04/NEXT-TELL-D4.1-BHAM-MethodsAndSpecification_StudentModel.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.next-tell.eu/wp-content/uploads/2011/04/NEXT-TELL-D4.1-BHAM-MethodsAndSpecification_StudentModel.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL. Retrieved from http://www.next-tell.eu/wp-content/uploads/2011/04/NEXT-TELL-D4.1-BHAM-MethodsAndSpecification_StudentModel.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bull2011methods|BibDesk]]  | Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL. Retrieved from http://www.next-tell.eu/wp-content/uploads/2011/04/NEXT-TELL-D4.1-BHAM-MethodsAndSpecification_StudentModel.pdf. |
+^ [[skimx://bull2011methods|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bull2011methods?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bull2011methods?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{bull2011methods,
+  author = {Bull, Susan and Johnson, Matthew and Teplovs, Christopher and Fujita, Nobuko and Vatrapu, Ravi},
+  date = {April 2011},
+  date-added = {2011-11-21 01:54:09 +0000},
+  date-modified = {2012-08-19 15:44:08 +0000},
+  keywords = {NEXT-TELL},
+  oa-url = {http://www.next-tell.eu/wp-content/uploads/2011/04/NEXT-TELL-D4.1-BHAM-MethodsAndSpecification_StudentModel.pdf},
+  publisher = {NEXT-TELL},
+  read = {1},
+  title = {Methods and Specification for the Student Model V1},
+  url = {http://www.next-tell.eu/wp-content/uploads/2011/04/NEXT-TELL-D4.1-BHAM-MethodsAndSpecification_StudentModel.pdf},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNidWxsMjAxMW1ldGhvZHMucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaCBgy9b0flBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yy+AAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBidWxsMjAxMW1ldGhvZHMucGRmAA4AKAATAGIAdQBsAGwAMgAwADEAMQBtAGUAdABoAG8AZABzAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL2J1bGwyMDExbWV0aG9kcy5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL2J1bGwyMDExbWV0aG9kcy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:bull2011methods}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bull2011methods}}
+
+{{page>kindle:bull2011methods}}
+
+{{page>skimg:bull2011methods}}

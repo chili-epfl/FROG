@@ -1,0 +1,34 @@
+h1. The language of democracy: Vernacular or Esperanto? A comparison between the multiculturalist and cosmopolitan perspectives
+
+^ Citation |Archibugi, D. (2005). The language of democracy: Vernacular or Esperanto? A comparison between the multiculturalist and cosmopolitan perspectives. Political Studies, 53(3), 537–555. Wiley Online Library.  ^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:archibugi2005language?do=edit&vecdo=print\'><frame src=\'/wiki/clip:archibugi2005language?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html>^
+^[[bibdeskx://archibugi2005language|BibDesk]] | ::: ^  [[skimx://archibugi2005language|PDF]] ^ 
+
+<hidden BibTex>
+  @article{archibugi2005language,
+  author = {Archibugi, D.},
+  date-added = {2012-03-18 17:06:57 +0000},
+  date-modified = {2012-03-19 12:43:58 +0000},
+  date-read = {2012-03-19 13:43:58 +0100},
+  journal = {Political Studies},
+  number = {3},
+  pages = {537–555},
+  publisher = {Wiley Online Library},
+  read = {1},
+  title = {The language of democracy: Vernacular or Esperanto? A comparison between the multiculturalist and cosmopolitan perspectives},
+  volume = {53},
+  year = {2005},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RFFpOUy5vYmplY3RzV05TLmtleXNWJGNsYXNzog8QgASABqISE4ACgAOAB1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgNGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5pDhIKwAAANrWUhphcmNoaWJ1Z2kyMDA1bGFuZ3VhZ2UyLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEedAzy4vUlVBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLi8aFAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhcmNoaWJ1Z2kyMDA1bGFuZ3VhZ2UyLnBkZgAADgA2ABoAYQByAGMAaABpAGIAdQBnAGkAMgAwADAANQBsAGEAbgBnAHUAYQBnAGUAMgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vQmliZGVzay9hcmNoaWJ1Z2kyMDA1bGFuZ3VhZ2UyLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vQmliZGVzay9hcmNoaWJ1Z2kyMDA1bGFuZ3VhZ2UyLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZQBsAG8AcQBzAHYAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:archibugi2005language}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:archibugi2005language}}
+
+{{page>kindle:archibugi2005language}}
+
+{{page>skimg:archibugi2005language}}

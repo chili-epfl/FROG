@@ -1,0 +1,3 @@
+h2. H.T. Welser's publications
+
+| [[..:ref:welser2011finding]] | Welser, H. T., Cosley, D., Kossinets, G., Lin, A., Dokshin, F., Gay, G., & Smith, M. (2011). Finding social roles in Wikipedia. Proceedings of the 2011 iConference.|[[skimx://welser2011finding|PDF]]|

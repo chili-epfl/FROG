@@ -1,0 +1,11 @@
+h2.  none's publications
+
+<html>
+<table>
+<tr><td><a href = '/wiki/ref:'></a></td><td> </td><td>&nbsp;C</td><td>&nbsp; </td><td>&nbsp;H</td><td>none. (2011). CSCL 2011 Proceedings Volume 3.  (H. Spada, G. Stahl, N. Miyake & N. Law, Eds., , Tran.). ISLS.</td></tr>
+<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>none. (2010). ICLS 2010 Proceedings Volume 1a.  (K. Gomez, L. Lyons & J. Radinsky, Eds., , Tran.). ISLS.</td></tr>
+<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>none. (2010). ICLS 2010 Proceedings Volume 1b.  (K. Gomez, L. Lyons & J. Radinsky, Eds., , Tran.). ISLS.</td></tr>
+<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>none. (2011). CSCL 2011 Proceedings Volume 2.  (H. Spada, G. Stahl, N. Miyake & N. Law, Eds., , Tran.). ISLS.</td></tr>
+<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>none. (2010). ICLS 2010 Proceedings Volume 2.  (K. Gomez, L. Lyons & J. Radinsky, Eds., , Tran.). ISLS.</td></tr>
+<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>none. (2011). CSCL 2011 Proceedings Volume 1.  (H. Spada, G. Stahl, N. Miyake & N. Law, Eds., , Tran.). ISLS.</td></tr>
+<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>none. (2006). The Cambridge handbook of the learning sciences.  (K. R. Sawyer, Ed., , Tran.). Cambridge Univ Press.</td></tr>

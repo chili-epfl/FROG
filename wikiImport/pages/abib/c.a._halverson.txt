@@ -1,0 +1,3 @@
+h2. C.A. Halverson's publications
+
+| halverson2002activity | Halverson, C. A. (2002). Activity theory and distributed cognition: Or what does CSCW need to DO with theories?. Computer Supported Cooperative Work (CSCW). Springer.|[[skimx://halverson2002activity|PDF]]|

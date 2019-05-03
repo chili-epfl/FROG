@@ -1,0 +1,35 @@
+h1. Some factors to consider when designing semi-autonomous learning environments
+
+<ifauth !@admin>|Bouchard, P. (2008). Some factors to consider when designing semi-autonomous learning environments. The Proceedings of the 7th European Conference on e-Learning, Agia Napa, Cyprus, 6-7 November 2008.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bouchard2008some|BibDesk]]  | Bouchard, P. (2008). Some factors to consider when designing semi-autonomous learning environments. The Proceedings of the 7th European Conference on e-Learning, Agia Napa, Cyprus, 6-7 November 2008. |
+^ [[skimx://bouchard2008some|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bouchard2008some?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bouchard2008some?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{bouchard2008some,
+  author = {Bouchard, Paul},
+  booktitle = {The Proceedings of the 7th European Conference on e-Learning, Agia Napa, Cyprus, 6-7 November 2008},
+  date-added = {2012-04-04 18:30:45 +0000},
+  date-modified = {2012-04-05 01:12:41 +0000},
+  date-read = {2012-04-04 21:12:41 -0400},
+  organization = {Academic Conferences Limited},
+  pages = {120},
+  read = {1},
+  title = {Some factors to consider when designing semi-autonomous learning environments},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRib3VjaGFyZDIwMDhzb21lLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6juy9bvqVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yfpAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VjaGFyZDIwMDhzb21lLnBkZgAADgAqABQAYgBvAHUAYwBoAGEAcgBkADIAMAAwADgAcwBvAG0AZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9ib3VjaGFyZDIwMDhzb21lLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9ib3VjaGFyZDIwMDhzb21lLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:bouchard2008some}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bouchard2008some}}
+
+{{page>kindle:bouchard2008some}}
+
+{{page>skimg:bouchard2008some}}

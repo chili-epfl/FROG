@@ -1,0 +1,101 @@
+h1. Key ideas
+
+//Describes process of running EC&1 831, and concept of "Open Teaching", PLN and PLE//
+
+h2. EC&I 831: Education, Curriculum, and Instruction
+OA graduate level ed tech course at Faculty of Education, U of Regina. 
+
+Properties:
+  * developed since 2001 by different teachers
+  * developed and facilitated through FOSS tools or freely available services
+  * open teaching methodologies
+    * educational practice inspired by open source movement
+    * complementary learning theory
+    * emerging theories of knowledge
+  * 20 registered students, more than 200 outside participants
+
+Incorporation of personal learning networks to "collaboratively explore, negotiate, and develop authentic and sustainable knowledge networks"
+
+Granted $30k from Saskatchewan government, usually used to hire learning technologists - wanted to immerse himself, two learning assistants as "social connectors", primary responsibility to help students develop PLNs.
+
+Chose hosted wiki as platform (rejects WebCT, Moodle, Ning). 
+
+h3. Facilitation model
+
+Assignments:
+  * 3 major assessments - required development of PLN
+  * personal blog/digital portfolio (hosted externally)
+  * collaborative wiki resource
+  * major digital project
+
+Interaction:
+  * Synchronous
+    * Adobe Connect -> Elluminate -> [[http://educationaltechnology.ca/couros/765|UStream + Skype]]
+  * Asynchronous
+    * lots, blogs, Delicious, screencasts, participation in communities, microblogging etc
+
+h2. Theoretical underpinnings
+  * Study of educators participating in FOSS communities (PhD thesis?)
+    * participants identified strong tendencies towards collaboration, sharing, and openness in their classroom activities and through professional collaborations
+    * defined themselves as part of a larger "open movement"
+  * Web 2.0 - greater ease of communication + increased amount of material
+
+h3. PLN/PLE
+[[http://educationaltechnology.ca/couros/1156|PLN vs PLE]] - PLE is infrastructure, PLN adds social network?
+
+<blockquote>Personal learning networks are the sum of all social capital and connections that result in the development and facilitation of a personal learning environment</blockquote>
+
+Strategies:
+  * Immerse Yourself
+  * Learn to Read Social Media
+  * Strengthen Your PLN
+  * Know Your Connections
+  * PLNs Central To Learning
+
+Enable course community to continue long after course is over. Class of '08 is going to visit later cohorts. 
+
+h3. Learning theories
+
+h4. Social-cognitive theory
+Social cognitive theory (SCT), also known as social learning theory, suggests that a combination of behavioural, cognitive, and environmental factors influences human behaviour. 
+
+SCT posits that humans learn through their observations of other individuals. If one observes particular behaviours that become associated with favourable outcomes, such behaviours are more likely to be adopted by the observer (Albert & Bandura, 1963). Another relevant feature of SCT is Bandura’s (1997) concept of self-efficacy that he defines as “people’s judgment of their capabilities to organize and execute courses of action required to attain designated types of performances” (p. 391). Bandura considered self-efficacy beliefs to be the most influential arbiter of human activity and an important element in conceptualizing student-centred learning environments (Lorsbach, 1999)
+
+h4. Social constructivism
+  * Vygotsky
+  * Collaboration (Lave & Wenger)
+  * Zone of Proximal Development
+  * Distributed scaffolding (Tabak 2004)
+
+h4. Adult learning theory
+Adults learn differently than children, should be acknowledged and accommodated. Different motivations for learning, significant life experience.
+
+Principles:
+  * Adults need to be involved in the planning and evaluation of their instruction
+  * Experience (including mistakes) provides the basis for learning activities
+  * Adults are most interested in learning subjects that have immediate relevance to their job or personal life
+  * Adult learning is problem-centred rather than content-oriented
+
+(Knowles, 1970)
+
+h4. Connectivism
+Connectivists recognize the influences that emerging technologies have on human cognition, and theorize that technology is reshaping the ways that humans create, store, and distribute knowledge.
+
+h2. Open teaching
+Open teaching is described as **the facilitation of learning experiences that are open, transparent, collaborative, and social**. Open teachers are advocates of a free and open knowledge society, and support their students in the critical consumption, production, connection, and synthesis of knowledge through the shared development of learning networks. 
+
+Typical activities of open teachers may include some or all of the following:
+
+  * advocacy and use of free and/or open source tools and software wherever possible and beneficial to student learning
+  * integration of free and open content and media in teaching and learning
+  * promotion of copyleft content licenses for student content production and publication
+  * facilitation of student understanding regarding copyright law (eg, fair use/fair dealing, copyleft/copyright)
+  * facilitation and scaffolding of student personal learning networks for collaborative and sustained learning
+  * > development of learning environments that are reflective, responsive, student-centred that incorporate a diverse array of instructional and learning strategies
+  * modelling of openness, transparency, connectedness responsible copyright/copyleft use and licensing
+  * advocacy for the participation
+  * development of collaborative gift cultures in education
+
+h2. Look into
+  * Distributed scaffolding (Tabak 2004)
+  * Andragogy (Knowles)

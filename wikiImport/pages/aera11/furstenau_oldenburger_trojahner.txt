@@ -1,0 +1,13 @@
+====== Congruencies and differences of knowledge networks as representations of complex knowledge ======
+
+  * combine quantitative and qualitative approaches to analyzing knowledge networks
+  * aim
+    * how can knowledge network of a test samble be represented, evlauated and statistically assessd by only one knowledge network (modal network) (descriptive)
+    * how can difference and congruency between all individual entworks and criterion networks be analyed (normative approach)
+  * combine qualitative and quantitative networks
+    * modal network - propositions named most frequently and consistently by individual actors
+    * idiosyncratic - increase reliability
+    * transform data into lists of propositions, then equivalent form
+      * person x proposition matrix
+    * networks which were qualitative data can be analyzed through multivariate analysis
+    * lets us empirically test if a scale can be constituted, with enough internal consistency - measures degree of coherence of every proposition, assessed by discrimination

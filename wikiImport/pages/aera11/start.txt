@@ -1,0 +1,85 @@
+h1. Notes from AERA 2011
+
+h2. Other people's notes
+  * [[https://docs.google.com/document/d/1yqPX3sZq3TXen3S9Fene7IvkRX1MqIG4nZbX3_8V6b4/edit?hl=en&authkey=CNDq548G|Bodong's notes]]
+
+h2.  Pedagogical Agent Presence, Appearance, and Agent-Learner Interactions: Current Research and Future Directions 
+
+  * [[Heller, Procter]] 
+  * [[Kim]] 
+  * [[Haake. Silvervarg et al]] 
+  * [[Veletsianos]] 
+  * [[Adcock]] 
+  * [[Overmyer]] 
+
+h2.  Constructing Personal Learning Environments in a Massively Open Online Course: A Level-of-Use Study 
+  * [[PLE]]
+
+h2.  Trends and Innovations in Self-Regulation Assessment 
+  * [[Chen, Bonner]]
+
+h2.  Modelling learning progressions 
+  * [[Zhidong Zhang, Jingyan Lu]] 
+  * [[Jing Chen, Charles W. Anderson]] 
+  * [[Daisy Rutstein]] 
+  * [[Youn Young Choi]] 
+  * [[Derek Briggs]] 
+
+Comments:
+  * Not about achievement, but about how kids are doing, and how to move them along (keep learning on track). If you are using info about students on week-to-week level, you might not need psychometric model. Opportunity for self-correction. BUT: How do you know that was a good item, quality of item? How do you know learning progression used as an underlying framework is a valid one. Once you validate it with large-scale analysis, you can give it to the teacher and they can use it without Bayesian etc. Learning Progression language being appropriated by everyone - summative statements in large-scale testing. Reliability is the wrong metric to be measuring. 
+
+h2.  Online learning 
+  * [[sfu]] 
+
+other quick notes:
+video annotation tool, video of teaching, comment on teaching style etc. ref suthers' artefact and discourse. Prezi public.
+
+looking at a bunch of online composition classes, posting frequency and type of postings correlated with final grades. 
+
+Final grades not good enough indicator of learning though (and could be influenced by performance in forum)
+
+had references to types of postings though, might be useful
+
+h2.  DML 
+[[:a:Mimi Ito]]: Friendship-driven vs interest-driven participation and learning
+
+h2.  Poster session on science and visualizations 
+
+**Introduction** ([[:a:Marcia C. Linn]]) 
+ 
+  * What to illustrate in visualization/model/simulation? 
+  * How to support learners using visualizations? 
+    * Value of predictions / eliciting ideas? 
+    * Ways to support distinguishing among ideas 
+    * Sustaining exploration, refinement of ideas 
+  * Assessment of value-added of visualizations? 
+  * When are visualizations valuable? Why 
+
+h2.  Role of automation in adaptive instruction 
+  * [[Benedict du Boulay]] 
+  * [[Joseph M. Scandura]] 
+  * [[Role of automation Discussants]]
+
+h2.  Knowledge maps for representation of higher-order cognition 
+  * [[Harold F. Neil & Greg Chung]]
+  * [[Dirk Ifenthaler & Pablo Nicolai PirnayDummer]]
+  * [[Roy B. Clarina]]
+  * [[Furstenau, Oldenburger & Trojahner]]
+  * [[Breuer, Bender & Barry]]
+  * [[Knowledge maps discussant and comments]]
+
+h2.  Design based research 
+
+  * [[Gerhard Fischer]]
+  * [[Sharon Derry]]
+  * [[Mike Eisenberg]]
+  * [[Alexander Repenning]]
+  * [[DBR discussant and discussion]]
+
+h2.  Improving online teaching 
+
+  * [[Daniel T. Hickey]]
+
+h2.  SIG 
+
+  * [[Hadwin]]

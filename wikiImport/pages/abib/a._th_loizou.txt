@@ -1,0 +1,3 @@
+h2. A. Th Loizou's publications
+
+| ainsworth2003effects | Ainsworth, S., & Th Loizou, A. (2003). The effects of self-explaining when learning with text or diagrams. Cognitive Science. Elsevier.|[[skimx://ainsworth2003effects|PDF]]|

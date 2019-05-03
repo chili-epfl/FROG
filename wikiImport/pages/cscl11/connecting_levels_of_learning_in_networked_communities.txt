@@ -1,0 +1,290 @@
+h1. Connecting levels of learning in networked communities
+organizers [[:a:Daniel D. Suthers]], [[:a:Christopher Teplovs]], [[:a:Marten de Laat]], [[:a:Jun Oshima]], [[:a:Sam Zeini]]
+
+h2. Gerry Stahl
+
+h3. Philosophy, unit of analysis
+Individual theories vs social theories (before: Kant, Husserl, after: Hegel, Marx, Wittgenstein, Heidegger)
+
+Hegel: not just looking at individual mind, broadens it to looking at history, social, complex and dynamic version of cognition
+
+All modern theories in 20th Century based on Marx, Hegel, Heidegger. Wittgenstein looked at language: cognition is based on different forms of life. You would have different kinds of consciousness, based on your activities. 
+
+Social, linguistic and embodied views of cognition - very influential on all subsequent theories. 
+
+Current important theoreticians in CSCL
+  * Latour: acttor-network theory
+  * Engestrom - activity theory
+  * Lave - CoP
+  * Hutchings - distributed cognition
+  * Suchman - situated cognition
+  * Kling - social informatics
+  * Schegloff - conversation analysis
+
+h3. Preconditions and conditions for collaborative learning
+  * intersubjectivty
+    * has not been analyzed thoroughly, how is this possible in online situations
+    * "people are able to understand each other when they communicate" - how is this possible, starting from idea of individual consciousnesses, how are they conscious of the same thing? a big problem in the history of philosophy - but people are very good at doing this, using different techniques that can be studied empirically
+  * joint problem space
+    * all shared ideas, built in the discourse, can be studied
+  * group cognition
+    * how do small groups use these shared resources to build knowledge, to get their work done as a group? different from traditional view about how individuals accomplish cognitive acts
+  * discourse
+    * answer to previous question: largely through discourse, build joint problem space, and intersubjectivity, and "do group cognition", request information, repair when misunderstanding arises, develop symbolic representations that are shared
+  * collaborative learning
+    * already covered by group cognition - that's how the group learns. but learning sciences want to know - how do the individuals which are involved learn? individuals in the group internalizing what the group has accomplished
+
+h3. Levels
+  * intersubjectivity: community level (sociology, ethnography)
+  * joint problem space: activity theory and actor-network theory th aNT
+  * group cognition: small-group level
+  * discourse: conversation analysis and discourse analysis
+  * collaborative learning: individual level (psychology, social psychology)
+
+h4. Theoretical divide
+Dichotomy between quantitative and qualitative approaches to research. Instead call it "Objective paradigm" vs "meaningful paradigm" (nobody feels put down. 
+
+Habermas: "purposive-rational action" (our primary way of interacting with nature, controlling it to meet our needs), vs. "communicative action" (interaction, understanding, negotiation and intersubjectivity)
+
+In CSCL settings, mix strategic goal-oriented work on assigned tasks, with peer social interaction
+
+Traditional (objective) focus on individual mind, vs. (meaningful) ::post-cognitive:: theories on distributed and situated cognition - incommensurate but both necessary
+
+h3. Dimensions
+Levels of individual, small group, networks etc
+
+Temporal dimensions: brief exchanges, or longitudinal
+
+Different learning issues: characteristics, disciplines, pedagogical approaches, technologies
+
+h3. It takes a multi-vocal village
+Approach selected based upon nature of research interests, questions, hypotheses and data
+
+Sequence of phases with different approaches probably will be most productive. There will also be phases in the learning - starting with social getting to know each other, then get into collaboration, etc. Need different tools for different phases.
+
+Complementarity of objective and meaningful analyses.
+
+  * [[http://gerrystahl.net/pub/cscl2011workshop.pdf|Workshop paper]]
+  * [[http://gerrystahl.net/pub/cscl2011workshop.ppt.pdf|Workshop]]
+
+h2. Dan Suthers
+  * Learning agency in social settings
+    * individual - social setting as stimulus
+    * small group - "maintaining joint conception ofo problem", "group cognition"
+    * community - "knowledge building", purposefully trying to enhance capital of community
+    * network - "networked individualism"
+
+Differ in agent, scale, ties, identity
+
+Learners can participate in //multiple simultaneous forms of learning in constitutive and contextual relationships//
+
+h3. Research questions
+  * how does learning take place through interplay between individual and collective aggregations
+  * local phenomena aggregated lead to emergent phenomena that create resources or value that are then available network-wide for others' individual and small group learning
+  * connectivity of ICT facilitate learners' participation at multiple levels
+  * sorts of research with digital activity logs and artifact repositories
+
+h3. Methodological questions
+  * theories and methods that bridge levels
+  * aggregate levels of analysis inform where to dive in for local analysis, for example make sense of results at aggregate community level or to find local sources of innovation
+  * sequential analys of interaction
+  * how can content analysis, social network analysis etc be coordinated to address these issues
+  * triangulation, visualization techniques to connect levels
+
+h2. Traces: multi-level framework and examples
+(Dan Suthers)
+
+Multiple theories about how learning happens at different levels
+  * social as stimulus -> social entity as learning agent
+  * networked individualism -> maintaining joint conception of a problem
+  * diffusion of innovations -> knowledge building
+
+All involve **uptake**, when an actor takes a trace of another actor's activity as being relevant in some ways for his or her current activity. [@suthers2006technology] for learning epistemologies, [@suthers2010framework] for uptake. 
+
+Might not be responding / interacting, but they are "taking up" someone's ideas and working with them. Basic unit for describing interaction.
+
+How is uptake evidence? "Uptake is evidenced by how individual actions are observably //contingent// on the actions of others in their socio-technical network contexts". Usually use interrater reliability to provide evidence - but isn't explicit about what features of the data made you put that in. But if we want to automate analysis, we need to be explicit about what features. 
+
+Contingencies - not causally necessary, but relationship (?)
+
+Activity may be distributed across multiple media and site
+  * Traces of activity may be framgneted acros smulitple logs
+  * Logs may record activity in wrong ontology for analysis
+Distributed activity may be analytically "cloaked"
+
+Solution:
+  * abstract transcript notation
+  * analytic hierarchy
+
+log files -> contingency graph -> uptake graph > associograms -> SNA
+
+h3. Contingencies
+  * to reply a message it must be written
+  * to read a message, it must be written
+  * continuity of agent's activity (temporal proximity and same actor)
+  * lexical and semantic overlap, reuse of noun phrases
+
+Contingency graph - contextualized action model
+  * analytically relevant ::manifest relationships:: between actor'a ctions and other events
+  * raise analytic level
+    * uptake graph, interpret collections or subgraphs of contingencies as corroborating evidence for uptake
+    * can show uptake not manifest in threading structure, for example
+
+We are making some inferences, but there is evidence so we can show what it is based on
+
+Greg Dyke: How can you show all contingencies, posts also kind of connect to everything we've ever said about a given topic?
+
+Q: How many levels of separation? Invitation to CSCL workshop, someone hears about it, tells someone else etc, is this still contingency? A: Could be, depends on analyst. **Analysts make these kinds of decisions constantly, we're trying to make them and the reasoning explicitly.**
+
+h3. Associograms
+(LAK 2011 paper)
+  * directed affiliation network of actors and **artifacts**
+  * mediation model: how actors' associations are mediated
+
+In contingency graph, person who wrote a message and the person is combined. Associogram breaks out those connections. 
+
+Patterns of mediated associations reveal relationships
+  * dialogue patterns
+  * shared interest
+  * producer/consumer
+  * shared authorship
+
+Multi-media associations
+  * characterize pairwise relationships in tmers of distribution across media
+  * compare roles of various media in supporting associations ([@suthers2010identifying])
+
+Social-network analysis
+  * draw lines between different actors, but line hides what kind of interactions
+
+Multi-level multi-theoretical analysis possible
+
+h2. Automating uptake analysis
+thousands of chat sessions, chose one with some productive features
+
+look for
+  * temporal contingencies
+  * what was the previous thing done by this author
+  * who does this actor address
+
+comparing it with "graduate-student based" analysis
+
+h2. Alyssa Wise et al. (analysis)
+Breaking the rut of low level online discussions - How do we increase probability of positive learning interactions
+
+Structuring and supporting collaboration with student roles 
+  * responsibility and ownership for facilitating discussion
+  * scripting, medium-level of granularity and coercion
+  * assigned roles, but no technical support
+
+Roles
+  * traffic director
+  * starter
+  * inventor
+  * importer
+  * mini-me
+  * elaborator
+  * questioner
+  * devil's advocate
+  * synthesizer
+  * wrapper
+
+Summarizing can be powerful, but usually role given to someone at the end of the class, ends the conversation. We want that to happen earlier in the conversation. Group can build on that, and move forward.
+
+How did it work
+  * instructor introduced roles in f2f session
+  * modeled it explicitly in forum (and explicitly mentioned "I am playing this role")
+  * minimum number, length, timing, other instructions
+
+Dimensions
+  * people
+    * individuals / roles
+    * groups
+  * temporal
+    * individuals within group timeline
+    * individuals' timelines nested within group timeline
+  * spatial
+    * online
+    * f2f
+  * grain size
+    * life
+    * schooling
+    * discussions
+    * course
+    * weeks
+    * groups
+    * threads
+    * posts
+    * units of meaning
+
+Individual comments both serve as individual resources for subsequent ones, but also make up a group discussion pattern, which as a whole creates the context and serve as resources for subsequent comment sof individuals within the task
+
+Group has collective agency in answering challenge, individuals have agency in chooosing what existing posts to read and reply with
+
+Also have to balance this with their given roles
+
+Questions
+  * impact of roles
+  * how do individual comments influence subsequent comments
+  * how does aggregate impact of group's comments collectively influence comments coming later
+
+How they tried to answer
+  * connect group and individual by looking at flow of comments
+  * Ming, Alyssa: knowledge creation, Marten: value creation
+  * transitions between phases as starting point to "dive in" and look at connections
+  * no direct indicator of group understanding (from f2f, not part of data set)
+
+h3. Analysis: Marten
+{{pages:a_marten_de_laat03.png}}
+(CxA = contextual analysis) - interviews, documentation analysis to contextualize why they are talking as they do
+
+Using SNA to look at how the roles are interacting, synthesizer is in the middle of the network
+
+Content analysis - [@gunawardena1997analysis] Five-Phase model
+  * sharing info
+  * exploring dissonance
+  * negotiating meaning
+  * testing / modifying
+  * agreeing / applying
+
+h3. Ming
+[[:a:Ming Chiu]]
+
+Posts at random levels, or in segments: What characterizes pivotal posts that divide a discussion into distinct segments? summaries?
+
+Statistical discourse analysis
+  * pivotal, changes the discussion, what happens afterwards has much higher knowledge creation level
+  * almost all of the pivotal posts are extensive summaries, often created by synthesizer and wrapper
+  * even though wrapper should be the last one, but many students are late, and end up writing posts after the wrapper
+
+h3. Analysis: Value creation
+  * cycle 1: immediate value, productive activities
+  * cycle 2: potential value: robust resources
+  * cycle 3: applied value: promising practices
+  * cycle 4: realized value: return on investment
+  * cycle 5: reframing value: new framework
+
+h3. Questions	
+Chris: example of a week that is amazing for an individual student, but which totally fell apart for the group, or the opposite?
+
+h2. Globaloria West Virginia
+Analyzing wiki log files to understand student team game design processes in the Globaloria West Virginia program, game design classes using Flash and ActionScript
+Rebecca Reynolds, Heisawn Jeong, Sean Goggins
+
+Discovery-based, project-based learning
+  * self-led learning
+  * peer-to-peer learning
+  * expert-guided learning
+  * co-learning
+
+Six contemporary learning abilities (6CLA), from less to more constructivist, similar to Bloom's taxonomy (but specific to the project). 
+
+set 1 (highest): invention of an original project concept (a game) and successful development and completion of a finished computational artifact representing the concept
+
+Goal:
+  * discern what the important variables are, develop a model
+  * started with design research, but feel need to go deeper
+
+Process of externalization and accommodation in wiki (Gerry doesn't like this paper) [@cress2008systematic]
+
+h2. Open source project data
+  * [[http://www.ltfll-project.org/index.php/polycafe.html|PolyCAFe]] to analyze chat and forum discussions

@@ -1,0 +1,3 @@
+h2. C.S. Carr's publications
+
+| jonassen2000mindtools | Jonassen, D. H., & Carr, C. S. (2000). Mindtools: Affording multiple knowledge representations for learning. Computers as cognitive tools, volume two: no more walls: theory change, paradigm shifts, and their influence on the use of computers for instructional purposes. Lawrence Erlbaum.|[[skimx://jonassen2000mindtools|PDF]]|

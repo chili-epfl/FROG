@@ -1,0 +1,3 @@
+h2. JA Bateman's publications
+
+| [@garcia-castro2010semantic] | Garcia-Castro, A., Labarga, A., Garcia, L., Giraldo, O., MontaOa, C., & Bateman, Ja. (2010). Semantic Web and Social Web heading towards Living Documents in the Life Sciences. Web Semantics: Science, Services and Agents on the World Wide Web, 8(2-3), 155-162. doi:10.1016/j.websem.2010.03.006|

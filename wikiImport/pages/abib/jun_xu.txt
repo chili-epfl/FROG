@@ -1,0 +1,4 @@
+h2. Jun Xu's publications
+
+| :ref:suthers2002kukakuka | Suthers, D., & Xu, J. (2002). {K\"{u}k\"{a}k\"{u}k\"{a} : An Online Environment for Artifact-Centered Discourse}. World Wide Web Internet And Web Information Systems.|
+| :ref:suthers2002kukakuka | Suthers, D., & Xu, J. (2002). {K\"{u}k\"{a}k\"{u}k\"{a} : An Online Environment for Artifact-Centered Discourse}. World Wide Web Internet And Web Information Systems.|

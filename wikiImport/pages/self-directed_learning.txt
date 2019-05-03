@@ -1,0 +1,28 @@
+h1. Self-directed learning
+also see [[self-regulated learning]], [[heutagogy]], [[andragogy]]
+
+h2. Societies
+  * [[http://www.selfdirectedlearning.com/index.html|Self Directed Learning]] website
+  * [[http://www.oltraining.com/SDLwebsite/indexSDL.php|International society for self-directed learning]]
+
+h2. People
+  * [[a:Paul Bouchard]] - a number of articles about adult learners
+  * [[Maurice Gibbons]]
+
+h2. Conference presentations (notes)
+  * [[:aera12:19.020|Innovations in Researching Regulation of Learning in Solo and Collaborative Tasks]]
+  * [[cscl11:mupemure|MUPEMURE: Towards a Model of Computer-Supported Collaborative Learning with Multiple Representations]]
+  * [[aera11:hadwin|Hadwin keynote self-directed learning SIG]]
+
+h2. Journals and conferences 
+  * [[http://www-distance.syr.edu/sdlsymposia.html|List of presentations at symposia, and journal, with content analysis]]
+  * [[http://www.oltraining.com/SDLwebsite/docs2011/Call_For_Papers_ISDLS_2012.pdf|CFP for symposium in Cocoa Beach Florida]], February 2012, due October 2011
+  * [[http://www.oltraining.com/SDLwebsite/journals.php|International Journal of Self-Directed Learning]]
+
+h2. Links 
+  * [[http://edutechwiki.unige.ch/en/Self-directed_learning|Self-directed learning on edutech wiki]]
+  * [[http://www.isdls2010.pbworks.com/|International Society of Self-directed Learning wiki]]
+  * [[http://www.slideshare.net/Ritakop/kop-fournier-selfdirected-learning-florida-2011|Presentation]] by [[a:Rita Kop]] on MOOCs and self-regulated learning
+  * [[http://www-distance.syr.edu/sdlhome.html|Self-Directed Learning Web Page]]
+  * [[http://cte.uwaterloo.ca/teaching_resources/tips/self-directed_learning_resources.html|Self-Directed Learning Resources]]
+  * [[http://www.hrdenterprises.com/merchandise.html|HRDE: Human Resource Development Enterprises]]

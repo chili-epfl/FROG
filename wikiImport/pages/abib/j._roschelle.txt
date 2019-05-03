@@ -1,0 +1,5 @@
+h2. J. Roschelle's publications
+
+| [[..:ref:roschelle2007ink]] | Roschelle, J., Tatar, D., Chaudbury, Sr., Dimitriadis, Y., Patton, C., & DiGiano, C. (2007). Ink, improvisation, and interactive engagement: Learning with tablets. Computer. IEEE.|
+| brecht2007coordinating | Brecht, J., DiGiano, C., Patton, C., Tatar, D., Chaudhury, S. R., Roschelle, J., & Davis, K. (2007). Coordinating networked learning activities with a general-purpose Interface.|
+| dimitriadis2007socially | Dimitriadis, Y., Asensio-Pérez, J. I., Hernández-Leo, D., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|

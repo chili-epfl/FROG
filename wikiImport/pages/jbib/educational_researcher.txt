@@ -1,0 +1,9 @@
+h2. Publications in Educational Researcher
+
+| [@sfard1998metaphors] | Sfard, A. (1998). On Two Metaphors for Learning and the Dangers of Choosing Just One. Educational Researcher, 27(2). doi:10.3102/0013189X027002004|
+| [@coulter1999epic] | Coulter, D. (1999). The Epic and the Novel: Dialogism and Teacher Research. Educational Researcher, 4--13. |
+| [@greenhow2009learning] | Greenhow, C., Robelia, B., & Hughes, J. E. (2009). Learning, Teaching, and Scholarship in a Digital Age: Web 2.0 and Classroom Research: What Path Should We Take Now?. Educational Researcher, 38(4), 246-259. doi:10.3102/0013189X09336671|
+| [@zhang2009comments] | Zhang, J. (2009). Comments on Greenhow, Robelia, and Hughes: toward a creative social web for learners and teachers. Educational Researcher, 38(4), 274.|
+| [@greenhow2009response] | Greenhow, C., Robelia, B., & Hughes, J. E. (2009). Response to Comments: Research on Learning and Teaching With Web 2.0: Bridging Conversations. Educational Researcher, 38(4), 280-283. doi:10.3102/0013189X09336675|
+| [@penuel2011organizing] | Penuel, W. R., Fishman, B. J., Cheng, B. H., & Sabelli, N. (2011). Organizing research and development at the intersection of learning, implementation, and design. Educational Researcher, 40(7), 331–337. |
+| [@penuel2011developing] | Penuel, W. R., Fishman, B. J., Cheng, B. H., & Sabelli, N. (2011). Developing the area of design-based implementation research. Educational Researcher.|

@@ -1,0 +1,3 @@
+h2. Am O’Donnell's publications
+
+| [@bielaczyc2006fostering] | Bielaczyc, K., Collins, A., O’Donnell, A., Hmelo-Silver, C., & Erkens, G. (2006). Fostering knowledge-creating communities. Collaborative learning, reasoning, and technology, 37–60.|

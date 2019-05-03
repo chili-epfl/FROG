@@ -1,0 +1,5 @@
+h2. Martin Mühlpfordt's publications
+
+| pfister2003lernprotokollunterstutztes | Pfister, H.-R., Mühlpfordt, M., & Müller, W. (2003). Lernprotokollunterstütztes Lernen - ein Vergleich zwischen unstrukturiertem und systemkontrolliertem diskursivem Lernen im Netz. Zeitschrift für Psychologie.||
+| muhlpfordt2005rolle | Mühlpfordt, M., & Wessner, M. (2005). Die Rolle von Kommunikationsprotokollen und Referenzierungen in der synchronen Chat-Kommunikation.  (StorrerM. Beißwenger & A., Ed., , Tran.). Stuttgart: ibidem.||
+| xiao2005developing | Xiao, B., Münzer, S., & Mühlpfordt, M. (2005). Developing Flexible Groupware for Synchronous Cooperative Distance Learning. Proceedings of the TESI 2005, March 22 - March 24, 2005, Maastricht, Netherlands.||

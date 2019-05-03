@@ -1,0 +1,52 @@
+h2. Highlights (23%)
+
+There is a stockpile of empirical evidence that activities such as problem-solving, inquiry and design support deep learning, particularly when the learner is scaffolded (Hmelo, Holton & Kolodner, 2000; Linn & Eylon, 2006; Quintana, Reiser, Davis et al., 2004; Schauble, Glaser, Schulze & John, 1995). Without guidance, many learning designs would transpire in a way that diverges from the design, making it difficult to test theoretical conjectures, or build constructive models. Guidance can be provided by different sources (e.g., teacher, computer, peer), on different social levels (individuals in groups, small groups, class, communities) and with different types of scaffolding (channeling, prompting, hinting, etc [[skimx://fischer2013scripting#1|p. 1]]
+
+Dillenbourg [[skimx://fischer2013scripting#1|p. 1]]
+
+the paper sketches a model of orchestration in which instructional guidance is seen as an organic and multi-level process to optimize the classroom beyond cognitive learning, with respect to multiple constraints that exist in real world classrooms. In this process, external collaboration scripts are only one of several aspects and the teacher plays an eminent role in aligning the aspects before and during the lesson [[skimx://fischer2013scripting#1|p. 1]]
+
+Tchounikine paper on appropriation focuses on the dangers but also the chances that come with the phenomenon that learners are not interacting with external scripts and tools as they are designed and intended by the designer but as the learner understands them and as they increasing [[skimx://fischer2013scripting#1|p. 1]]
+
+integrate them in their existing cognitive tool kit, based on their goals and on their prior experiences. The Slotta paper on the knowledge community and inquiry model has its main focus on the dynamic interplay of individual cognition and a developing collective knowledge base. [[skimx://fischer2013scripting#2|p. 2]]
+
+Paper 1. Mediating, Scripting, Orchestrating: the Evolution of Instructional Design in CSCL [[skimx://fischer2013scripting#2|p. 2]]
+
+Pierre Dillenbourg, [[skimx://fischer2013scripting#2|p. 2]]
+
+f argumentation activities. [[skimx://fischer2013scripting#2|p. 2]]
+
+The foundational idea of CSCL is actually that collaboration can be ‘designed’ (Roschelle, 1990): communication tools do not simply transport messages between learners but shape their interactions. This mediation effect is obvious when learners seat in front of the same computer, i.e. when computers are not justified by data communication. For instance, CSCL scholars designed graphical editors providing learners with argumentation primitives such as ‘hypothesis’, ‘evidence’, etc. (Suthers et al, 1995). The design of these tools indeed constitutes a piece of instructional design since the interactions induced by the interface are expected to trigger specific cognitive processes, which is the craft of instructional design. This type of design nonetheless constitutes an expansion of what was understood as instructional design in the eighties; it is a more subtle or indirect way to induce targeted interactions, closer to the way ‘design’ is understood outside education. In the next decade, CSCL produced stronger forms of interactions shaping, namely ‘scripts’: the learners had to follow a sequence of interactions steps considered as - to reuse the same examplenecessary for a well-formed argumentation (Weinberger et al, 2002). If Suzanne produces a claim, John would be prompted to provide counter-evidence. This approach is closer to the constraining flavor of instructional design but brings a novelty: the script is designed to be internalized by learners, which is not the case for the lesson plans produced by instructional design. In the same decade, a third approach emerged. For triggering argumentation, one can ask peers to read texts that would provide them with conflicting evidence (‘jigsaw’ method). Alternatively, one may identify learners who have opposite opinions and then pair them for argumentation activities. These pedagogical scenarios are closer to what is produced by instructional design (Jermann & Dillenbourg, 1999). They nonetheless expand instructional design by integrating individual, collaborative and class-wide activities into a consistent workflow. Confusingly, these methods were also called ‘scripts’. We renamed macro-scripts or classroom scripts, while the scripts-to-be-internalized were renamed ‘micro-scripts’. [[skimx://fischer2013scripting#2|p. 2]]
+
+In school-oriented CSCL research, what is designed is not anymore a single activity or a piece of software but a richer set of activities or tools to be orchestrated by a teacher. In this case, instructional design includes designing the ways in which the teachers will handle complexity. [[skimx://fischer2013scripting#3|p. 3]]
+
+The design produces a set of elements that integrate into classroom to form a distributed system. In this organic view of design, the goal is not only to maximize learning gains but also to satisfy classroom constraints (time, discipline, curriculum,...) with a minimal orchestration load. Orchestration hence addresses at guidance from a complementary angle; it is not about how much guidance or structure the teams need, but how much guidance the teacher is able provide, given his or her heavy load. [[skimx://fischer2013scripting#3|p. 3]]
+
+y ‘petite theory’ of orchestration includes two models. The first model describes pedagogical scenarios or scripts as multi-plane and multi-layer activity graphs. These vertices of the graph are the learning activities. The term “multi-plane” describe the fact that these activities may occur at six levels, named “planes” by Vygostky: individual, team, class, periphery, community and world. The edges of the graph are links between activities. The weight of a link [ai aj] is the probability that an aj can be conducted despite the fact that learners have not completed aj. Examples of edges are dataflow, prerequisites, motivation didactic elicitation, ... The flexibility of a graph depends of the link weights and can be defined as the effort necessary to transform an activity graph on the fly. A notation system has been developed to represent these graphs (Figure 1). [[skimx://fischer2013scripting#3|p. 3]]
+
+The second model borrows ideas from information theory in order to the flows of information in a classroom. [[skimx://fischer2013scripting#3|p. 3]]
+
+For instance, when a teacher visually scans the faces of the students in the classroom, he builds a representation of their attention level, with a certain degree of uncertainty. If he or she writes on the backboard for 20 seconds, he does not update his model and the uncertainty increases. Entropy does only decrease without external energy and this energy mostly come from the teacher, who will ask for instance new questions to reduce the uncertainty of his model. This barely legal reuse of information theory inspires the design of new type of learning technologies, namely buffers, for reducing the information load that emerged from monitoring and scaffolding learners. [[skimx://fischer2013scripting#3|p. 3]]
+
+Paper 2. Advances in the Development of a Script Theory of Guidance for Computer-Supported Collaborative Learning Frank Fischer, Ingo Kollar, Karsten Stegmann & Christof Wecker, Ludwig Maximilian University, Munich, Germany, frank.fischer@psy.lmu.de [[skimx://fischer2013scripting#4|p. 4]]
+
+First, it refers to recent schema-theoretic accounts that have broken down the initially quite rigid script concept into multiple components of a dynamic memory. These components are considered to be flexibly combined in response to characteristics of the situation and the individual ́s goals (e.g., Kintsch,1998; Schank, 1999). Second, it builds on socio-cultural theory with its assumptions on the relation of discourse on the social plane and the development of complex cognitive skills (e.g., Vygotsky, 1978) [[skimx://fischer2013scripting#4|p. 4]]
+
+Paper 3. Towards Theoretical Bases to Acknowledge Appropriation Phenomena in CSCL Pierre Tchounikine, [[skimx://fischer2013scripting#4|p. 4]]
+
+Many CSCL settings are based on the hypothesis that the technological enactment framework provided to students will have an influence on their behavioral and cognitive activity. This is particularly the case for scripting approaches, within which the instructional design is reified by both the script (the instructions) and the technology (the system interface or data/work-flow). [[skimx://fischer2013scripting#4|p. 4]]
+
+In contexts within which the learning setting designed artifacts (the script, the technological enactment framework) are supposed to influence the students’ activity, the fact they may be appropriated in different ways is of importance. CSCL cannot escape the theoretical issue of understanding how actors (teachers, students) appropriate these artifacts. [[skimx://fischer2013scripting#5|p. 5]]
+
+aper 4. The Knowledge Community and Inquiry Model: Scaffolding individual, Collaborative, and Collective Activities Jim Slotta, [[skimx://fischer2013scripting#5|p. 5]]
+
+while KCI is theoretically committed to the notion of collective epistemology, it has one foot planted firmly in the theoretical space of scaffolded inquiry (Slotta & Peters, 2008 [[skimx://fischer2013scripting#5|p. 5]]
+
+Goodyear, P. (2001). Effective networked learning in higher education: notes and guidelines. Volume 3 of the Final Report to JCALT: Networked Learning in Higher Education Project. Retrieved from http://csalt.lancs.ac.uk/jisc/ (December 2nd, 2006). [[skimx://fischer2013scripting#7|p. 7]]
+
+Schank, R. C. (1999). Dynamic Memory Revisited. Cambridge, MA: Cambridge University Press. [[skimx://fischer2013scripting#8|p. 8]]
+
+Schellens, T., Van Keer, H., De Wever, B., & Valcke, M. (2007). Scripting by assigning roles: Does it improve knowledge construction in asynchronous discussion groups? International Journal of ComputerSupported Collaborative Learning, 2(2-3), 225-246. [[skimx://fischer2013scripting#8|p. 8]]
+
+Tchounikine, P. (2008). Operationalizing macro-scripts in CSCL technological settings. International Journal of Computer-Supported Collaborative Learning 3(2), 193-233. [[skimx://fischer2013scripting#8|p. 8]]
+

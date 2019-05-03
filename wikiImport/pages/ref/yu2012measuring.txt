@@ -1,0 +1,39 @@
+h1. Measuring Young Children’s Attitudes Toward Peers With Disabilities Highlights From the Research
+<html><a href='http://tec.sagepub.com/content/32/3/132.full.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://tec.sagepub.com/content/32/3/132.full.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Yu, Sy., Ostrosky, M. M., & Fowler, S. A. (2012). Measuring Young Children’s Attitudes Toward Peers With Disabilities Highlights From the Research. Topics in Early Childhood Special Education, 32(3), 132--142.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://yu2012measuring|BibDesk]]  | Yu, Sy., Ostrosky, M. M., & Fowler, S. A. (2012). Measuring Young Children’s Attitudes Toward Peers With Disabilities Highlights From the Research. Topics in Early Childhood Special Education, 32(3), 132--142. |
+^ [[skimx://yu2012measuring|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:yu2012measuring?do=edit&vecdo=print\'><frame src=\'/wiki/clip:yu2012measuring?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{yu2012measuring,
+  author = {Yu, SeonYeong and Ostrosky, Michaelene M and Fowler, Susan A},
+  date-added = {2013-09-14 15:43:52 +0000},
+  date-modified = {2013-09-18 18:39:29 +0000},
+  date-read = {2013-09-18 14:34:21 -0400},
+  journal = {Topics in Early Childhood Special Education},
+  keywords = {survey},
+  number = {3},
+  oa-url = {http://tec.sagepub.com/content/32/3/132.full.pdf},
+  pages = {132--142},
+  publisher = {SAGE Publications},
+  read = {1},
+  title = {Measuring Young Children’s Attitudes Toward Peers With Disabilities Highlights From the Research},
+  volume = {32},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIS4uLy4uL0JpYmRlc2sveXUyMDEybWVhc3VyaW5nLnBkZtIXCxgZV05TLmRhdGFPEQF8AAAAAAF8AAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lITeXUyMDEybWVhc3VyaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADir3185Z+81QREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAzlo0DQAAAAEADADa1lIAFz0xAAGfXgACADJTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAeXUyMDEybWVhc3VyaW5nLnBkZgAOACgAEwB5AHUAMgAwADEAMgBtAGUAYQBzAHUAcgBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAnVXNlcnMvU3RpYW4vQmliZGVzay95dTIwMTJtZWFzdXJpbmcucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALIAtwC/Aj8CQQJGAlECWgJoAmwCcwJ8AoECjgKRAqMCpgKrAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:yu2012measuring}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:yu2012measuring}}
+
+{{page>kindle:yu2012measuring}}
+
+{{page>skimg:yu2012measuring}}

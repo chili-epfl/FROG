@@ -1,0 +1,11 @@
+h1. Pierre Tchounikine
+{{ pages:a_pierre_tchounikine1.png}}
+Informatic Laboratory in Grenoble, professor in informatics
+
+h2. Research
+  * [[:scripting]]
+
+h2. Links
+  * [[|Homepage]]
+
+{{page>abib:Pierre Tchounikine}}

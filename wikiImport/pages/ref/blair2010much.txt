@@ -1,0 +1,31 @@
+h1. Too Much to Know: Managing Scholarly Information before the Modern Age
+
+<ifauth !@admin>|Blair, A. (2010). Too Much to Know: Managing Scholarly Information before the Modern Age. Yale University Press.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://blair2010much|BibDesk]]  | Blair, A. (2010). Too Much to Know: Managing Scholarly Information before the Modern Age. Yale University Press. |
+^ [[skimx://blair2010much|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:blair2010much?do=edit&vecdo=print\'><frame src=\'/wiki/clip:blair2010much?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{blair2010much,
+  author = {Blair, Ann},
+  date-added = {2011-04-29 23:52:23 -0400},
+  date-modified = {2011-04-29 23:52:23 -0400},
+  isbn = {0300112513},
+  publisher = {Yale University Press},
+  title = {Too Much to Know: Managing Scholarly Information before the Modern Age},
+  year = {2010}
+}
+
+</hidden>
+
+{{page>notes:blair2010much}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:blair2010much}}
+
+{{page>kindle:blair2010much}}
+
+{{page>skimg:blair2010much}}

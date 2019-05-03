@@ -1,0 +1,18 @@
+h2. Publications with keyword "scaffolds"
+
+| [@stone1998metaphor] | Stone, C. (1998). The Metaphor of Scaffolding: Its Utility for the Field of Learning Disabilities. Journal of Learning Disabilities, 31(4), 344.|
+| [@scruggs1998happens] | Scruggs, T. E., & Mastropieri, M. A. (1998). What Happens During Instruction. Journal of Learning Disabilities, 31(4), 404.|
+| [@biemiller1998consequences] | Biemiller, A., & Meichenbaum, D. (1998). The Consequences of Negative Scaffolding for Students Who Learn Slowly—-A Commentary on C. Addison Stone's “The Metaphor of Scaffolding. Journal of Learning Disabilities, 31(4), 365. |
+| [@stone1998should] | Stone, C. (1998). Should we salvage the scaffolding metaphor?. Journal of Learning Disabilities, 31(4), 409.|
+| [@reid1998scaffolding] | Reid, D. K. (1998). Scaffolding: a broader view. Journal of Learning Disabilities, 31(4), 386--96.|
+| [@butler1998search] | Butler, D. L. (1998). In Search of the Architect of Learning. Journal of Learning Disabilities, 31(4), 374. |
+| [@palincsar1998keeping] | Palincsar, A. S. (1998). Keeping the Metaphor of Scaffolding Fresh—-A Response to C. Addison Stone's “The Metaphor of Scaffolding. Journal of Learning Disabilities, 31(4), 370.|
+| [@wong1998analyses] | Wong, B. Y. L. (1998). Analyses of Intrinsic and Extrinsic Problems in the Use of the Scaffolding Metaphor in Learning Disabilities Intervention Research: An Introduction. Journal of Learning Disabilities, 31(4), 340--43.|
+| [@donahue1998conversational] | Donahue, M. L., & Lopez-Reyna, N. A. (1998). Conversational Maxims and Scaffolded Learning in Children with Learning Disabilities. Journal of Learning Disabilities, 31(4), 398.|
+| [@land2003scaffolding] | Land, S., & Zembal-Saul, C. (2003). Scaffolding reflection and articulation of scientific explanations in a data-rich, project-based learning environment: An investigation of progress portfolio. Educational Technology Research and Development, 51(4), 65--84.|
+| [@xun2004conceptual] | Xun, Ge., & Land, S. (2004). A conceptual framework for scaffolding III-structured problem-solving processes using question prompts and peer interactions. Educational Technology Research and Development, 52(2), 5-22. |
+| [@azevedo2005adaptive] | Azevedo, R., Cromley, J., Winters, F., Moos, D., & Greene, J. (2005). Adaptive Human Scaffolding Facilitates Adolescents’ Self-regulated Learning with Hypermedia. Instructional Science, 33(5), 381-412. |
+| [@azevedo2005scaffolding] | Azevedo, R., & Hadwin, A. F. (2005). Scaffolding self-regulated learning and metacognition--Implications for the design of computer-based scaffolds. Instructional Science, 33(5), 367--379. |
+| [@peters2010scaffolding] | Peters, V. L., & Slotta, J. D. (2010). Scaffolding knowledge communities in the classroom: New opportunities in the Web 2.0 era. Designs for Learning Environments of the Future, 205--232.|
+| [@yeh2011scaffolding] | Yeh{Shiou-Wen}, Lo{Jia-Jiunn}, & Huang, J.-J. (2011). Scaffolding collaborative technical writing with procedural facilitation and synchronous discussion. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9117-9|
+| [@dimitrova2011semantic] | Dimitrova, V., Lau, L., & {O'Rourke}Rebecca. (2011). Semantic Social Scaffolding for Capturing and Sharing Dissertation Experience. {IEEE} Transactions on Learning Technologies, 4(1), 74--87. doi:10.1109/TLT.2010.42|

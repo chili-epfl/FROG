@@ -1,0 +1,3 @@
+h2. D. Schuler's publications
+
+| [[..:ref:schuler2008liberating]] | Schuler, D. (2008). Liberating voices: A pattern language for communication revolution. The MIT Press.|[[skimx://schuler2008liberating|PDF]]|

@@ -1,0 +1,5 @@
+h1. Metafora
+
+The Metafora "platform" will offer an argumentation space where the students will gather and discuss their findings and emerge with an agreed solution, using in the process also other means and tools put at their disposal by the platform  like Microworlds and other "domain tools" suitable for the tasks being addressed.
+
+The use of a special visual language will permit the students to be precise in their planning (and then in enacting the planned activities), while allowing the system to intelligently follow-up their activities and to produce useful information for them and for their teacher. [[http://www.metafora-project.org/home|Metafora Project]]

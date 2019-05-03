@@ -1,0 +1,38 @@
+h1. Conceptual Design of EduFeedr—an Educationally Enhanced Mash-up Tool for Agora Courses
+<html><a href='http://ceur-ws.org/Vol-506/poldoja.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://ceur-ws.org/Vol-506/poldoja.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Põldoja, H., & Laanpere, M. (2009). Conceptual Design of EduFeedr—an Educationally Enhanced Mash-up Tool for Agora Courses. Proc. Mash-Up Personal Learning Environments-2st Workshop MUPPLE. Retrieved from http://ceur-ws.org/Vol-506/poldoja.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://poldoja2009conceptual|BibDesk]]  | Põldoja, H., & Laanpere, M. (2009). Conceptual Design of EduFeedr—an Educationally Enhanced Mash-up Tool for Agora Courses. Proc. Mash-Up Personal Learning Environments-2st Workshop MUPPLE. Retrieved from http://ceur-ws.org/Vol-506/poldoja.pdf. |
+^ [[skimx://poldoja2009conceptual|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:poldoja2009conceptual?do=edit&vecdo=print\'><frame src=\'/wiki/clip:poldoja2009conceptual?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{poldoja2009conceptual,
+  author = {Põldoja, H. and Laanpere, M.},
+  booktitle = {Proc. Mash-Up Personal Learning Environments-2st Workshop MUPPLE},
+  date-added = {2012-04-07 02:59:01 +0000},
+  date-modified = {2012-11-27 22:12:00 +0000},
+  date-read = {2012-04-07 23:44:29 -0400},
+  keywords = {1p2pu},
+  oa-url = {http://ceur-ws.org/Vol-506/poldoja.pdf},
+  pages = {98–102},
+  read = {1},
+  title = {Conceptual Design of EduFeedr—an Educationally Enhanced Mash-up Tool for Agora Courses},
+  url = {http://ceur-ws.org/Vol-506/poldoja.pdf},
+  volume = {9},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZQAAAAAAZQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhlwb2xkb2phMjAwOWNvbmNlcHR1YWwucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFH0V7y6UluFBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLpV34AAAAAQAMANrWUgAXPTEAAZ9eAAIAOFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBwb2xkb2phMjAwOWNvbmNlcHR1YWwucGRmAA4ANAAZAHAAbwBsAGQAbwBqAGEAMgAwADAAOQBjAG8AbgBjAGUAcAB0AHUAYQBsAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC1Vc2Vycy9TdGlhbi9iaWJkZXNrL3BvbGRvamEyMDA5Y29uY2VwdHVhbC5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECcuLi8uLi9iaWJkZXNrL3BvbGRvamEyMDA5Y29uY2VwdHVhbC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACOAI6Aj8CSAJTAlcCZQJsAnUCnwKkAqcCtAK5AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:poldoja2009conceptual}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:poldoja2009conceptual}}
+
+{{page>kindle:poldoja2009conceptual}}
+
+{{page>skimg:poldoja2009conceptual}}

@@ -1,0 +1,3 @@
+h2. Maarten Laat's publications
+
+| [@laat2007investigating] | Laat, M., Lally, V., Lipponen, L., & Simons, R.-J. (2007). Investigating patterns of interaction in networked learning and computer-supported collaborative learning: A role for Social Network Analysis. International Journal of Computer-Supported Collaborative Learning, 2(1), 87-103. doi:10.1007/s11412-007-9006-4|

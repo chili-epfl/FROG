@@ -1,0 +1,35 @@
+h1. The New Science of Learning
+
+<ifauth !@admin>|Sawyer, K. R. (2006). The New Science of Learning. In K. R. Sawyer (Ed.),  (Tran.), The Cambridge handbook of the learning sciences. Cambridge University Press.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://sawyer2006science|BibDesk]]  | Sawyer, K. R. (2006). The New Science of Learning. In K. R. Sawyer (Ed.),  (Tran.), The Cambridge handbook of the learning sciences. Cambridge University Press. |
+^ [[skimx://sawyer2006science|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:sawyer2006science?do=edit&vecdo=print\'><frame src=\'/wiki/clip:sawyer2006science?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{sawyer2006science,
+  author = {Sawyer, Keith R.},
+  booktitle = {The Cambridge handbook of the learning sciences},
+  date-added = {2011-04-25 19:51:13 -0400},
+  date-modified = {2011-07-25 14:27:46 +0000},
+  editor = {Sawyer, Keith R.},
+  keywords = {toread},
+  publisher = {Cambridge University Press},
+  read = {1},
+  title = {{The New Science of Learning}},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVzYXd5ZXIyMDA2c2NpZW5jZS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcVOy9dIkFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14DQAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzYXd5ZXIyMDA2c2NpZW5jZS5wZGYADgAsABUAcwBhAHcAeQBlAHIAMgAwADAANgBzAGMAaQBlAG4AYwBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL3Nhd3llcjIwMDZzY2llbmNlLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svc2F3eWVyMjAwNnNjaWVuY2UucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:sawyer2006science}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:sawyer2006science}}
+
+{{page>kindle:sawyer2006science}}
+
+{{page>skimg:sawyer2006science}}

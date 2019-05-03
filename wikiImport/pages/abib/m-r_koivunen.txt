@@ -1,0 +1,4 @@
+h2. M-R Koivunen's publications
+
+| [@kahan2001annotea:] | Kahan, J., Koivunen, M.-R., Prud'Hommeaux, E., & Swick, Rr. (2001). Annotea: An Open RDF Infrastructure for Shared Web Annotations. WWW10 International Conference.|
+| [@koivunen2003collaboration] | Koivunen, M.-R., & Swick, R. (2003). Collaboration through Annotation in the Semantic Web. Annotation for the Semantic Web, 46-60.|

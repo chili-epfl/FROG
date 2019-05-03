@@ -1,0 +1,3 @@
+h2. K. Kireyev's publications
+
+| [[..:ref:digiano2006learning]] | DiGiano, C., Tatar, D., & Kireyev, K. (2006). Learning from the Post-It: Building collective intelligence through lightweight, flexible technology. Conference on Computer Supported Cooperative Work Companion, Banff. http://Group Scribbles. sri. com/publications/index. html.|[[skimx://digiano2006learning|PDF]]|

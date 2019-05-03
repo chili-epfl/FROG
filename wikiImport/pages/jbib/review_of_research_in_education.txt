@@ -1,0 +1,3 @@
+h2. Publications in Review of research in education
+
+| [[..:ref:salomon1998individual]] | Salomon, G., & Perkins, D. N. (1998). Individual and social aspects of learning. Review of research in education, 23, 1--24. JSTOR.|[[skimx://salomon1998individual|PDF]]|

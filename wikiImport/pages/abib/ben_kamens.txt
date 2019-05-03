@@ -1,0 +1,3 @@
+h2. Ben Kamens's publications
+
+| [@kamensconstellation] | Kamens, B. Constellation Knowledge - Ben Kamens - building things, mostly software. |

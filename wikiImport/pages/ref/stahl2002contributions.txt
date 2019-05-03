@@ -1,0 +1,35 @@
+h1. Contributions to a Theoretical Framework for CSCL
+
+<ifauth !@admin>|Stahl, G., & Augustin, S. (2002). Contributions to a Theoretical Framework for CSCL. Proceedings of Computer Supported Collaborative Learning (CSCL 2002).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://stahl2002contributions|BibDesk]]  | Stahl, G., & Augustin, S. (2002). Contributions to a Theoretical Framework for CSCL. Proceedings of Computer Supported Collaborative Learning (CSCL 2002). |
+^ [[skimx://stahl2002contributions|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:stahl2002contributions?do=edit&vecdo=print\'><frame src=\'/wiki/clip:stahl2002contributions?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{stahl2002contributions,
+  author = {Stahl, Gerry and Augustin, Sankt},
+  booktitle = {Proceedings of Computer Supported Collaborative Learning (CSCL 2002)},
+  date-added = {2011-05-16 18:14:59 +0800},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  file = {:Volumes/Home/stian/Downloads/10.1.1.16.7179.pdf:pdf},
+  notes = {1},
+  pages = {62-71},
+  read = {1},
+  title = {{Contributions to a Theoretical Framework for CSCL}},
+  year = {2002},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhpzdGFobDIwMDJjb250cmlidXRpb25zLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tR4yfYOolBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADJ9kbiAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdGFobDIwMDJjb250cmlidXRpb25zLnBkZgAADgA2ABoAcwB0AGEAaABsADIAMAAwADIAYwBvAG4AdAByAGkAYgB1AHQAaQBvAG4AcwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9zdGFobDIwMDJjb250cmlidXRpb25zLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9zdGFobDIwMDJjb250cmlidXRpb25zLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:stahl2002contributions}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:stahl2002contributions}}
+
+{{page>kindle:stahl2002contributions}}
+
+{{page>skimg:stahl2002contributions}}

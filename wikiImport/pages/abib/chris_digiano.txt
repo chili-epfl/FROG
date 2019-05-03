@@ -1,0 +1,7 @@
+h2. Chris DiGiano's publications
+
+| [@digiano2006learning] | DiGiano, C., Tatar, D., & Kireyev, K. (2006). Learning from the Post-It: Building collective intelligence through lightweight, flexible technology. In Conference on Computer Supported Cooperative Work Companion, Banff. http://Group Scribbles. sri. com/publications/index. html.|
+| [@roschelle2007ink] | Roschelle, J., Tatar, D., Chaudbury, Sr., Dimitriadis, Y., Patton, C., & DiGiano, C. (2007). Ink, improvisation, and interactive engagement: Learning with tablets. Computer, 40(9), 42--48.|
+| [@roschelle1999developing] | Roschelle, J., DiGiano, C., Koutlis, M., Repenning, A., Phillips, J., Jackiw, N., & Suthers, D. D. (1999). Developing educational software components. Computer, 32(9), 50–58.|
+| [@brecht2007coordinating] | Brecht, J., DiGiano, C., Patton, C., Tatar, D., Chaudhury, S. R., Roschelle, J., & Davis, K. (2007). Coordinating networked learning activities with a general-purpose Interface. |
+| [@dimitriadis2007socially] | Dimitriadis, Y., Asensio-PérezJ.I., Hernández-LeoD., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. In Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|

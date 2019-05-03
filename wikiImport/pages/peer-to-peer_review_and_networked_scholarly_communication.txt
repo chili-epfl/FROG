@@ -1,0 +1,85 @@
+h1. Peer-to-Peer Review and Networked Scholarly Communication
+//Presentation by [[http://www.plannedobsolescence.net/kathleen-fitzpatrick/|Kathleen Fitzpatrick]] at UTSC Town Hall, March 11, 2013//
+
+//Take away: We should not try to blindly copy traditional peer-review practices into online mediums, but use the opportunity to establish new and powerful systems. The design of these systems require technological, but more importantly social innovations and systems. Different communities will have different needs and values, and there cannot be one single solution.//
+
+//Her book: [[http://www.amazon.com/gp/product/0814727883/ref=as_li_ss_tl?ie=UTF8&tag=plannedobsole-20&linkCode=as2&camp=217145&creative=399373&creativeASIN=0814727883|Planned Obsolescence]]//
+
+{{pages:peer-to-peer_review_and_networked_scholarly_communication04.png}}
+
+h2. Media Commons
+All electronic [[http://mediacommons.futureofthebook.org/|scholarly publishing network]] for media studies - founded six years ago. Field focused on writing about new media forms, but itself very book-focused. Ran headlong into problem of peer-review. 
+
+Challenges far less technological in nature than social. Different communities of practice have very different beliefs and processes concerning peer-review. 
+
+h2. Peer-review
+Very important - //sine qua non// of the academy. But we need to start thinking differently about it. 
+
+{{pages:peer-to-peer_review_and_networked_scholarly_communication02.png}}
+
+{{pages:peer-to-peer_review_and_networked_scholarly_communication03.png}}
+
+Not arguing that we need to find better ways to implement traditional peer-review, or to say that peer-review in online journals is "just as good" as in traditional journals... 
+
+**Rather**
+
+We need to find ways of working with and adapting web-native methods and systems of review.
+
+h3. History
+Started in Journal of Philosophical Transactions ([[http://en.wikipedia.org/wiki/Peer_review#History|WP]]). But wasn't really institutionalized until the 20th Century, but could also be said to stem from the Royal License for books (kind of state censorship - delegated to the Royal Society via Royal Imprimatur). 
+
+Censorship gradually became self-censorship. Became "disciplinary technology" (Focauldian concept). Along the way, sheds the connection to state, and shifts towards "technical accuracy" - still focused on policing the boundaries of acceptable discourse. Has become so intractable and indivisibly a part of everything we do that it's hard to imagine a future without it.
+
+h3. Purposes
+Overlapping but non-identical purposes we expect for it to serve
+
+  * feedback from readers to authors, to improve the work
+  * quality control - wheat from the chaff
+  * credentialing - used as de-facto evidence in future evaluations like tenure review
+
+Pre-publication peer-review: whether something merits publication. Merit having been found, peer-review itself stands in for the merit of the work. More appropriate for the scarcity of print publishing than the plenitude of online?
+
+We need filters rather than gatekeepers. 
+
+Need for filters arises from the web's openness. 
+
+<blockquote>The scholar's horror that anyone could publish anything online is matched by the network's delight in exactly the same thing.</blockquote>
+
+Conflation between publishing and distinction. Online, the mere fact of publishing means very little. Imprimatur is about the community, and the recipient. 
+
+h3. Post-publication peer-review
+Assess community response. We might learn something about the **impact** of scholarly works (not impact factor). Relationship between a scholar's work and its field - making discussions about that work visible, aggregating information about how that work gets used, and turning that information into metadata that is attached to the work itself. 
+
+Not interested in creating a new empty "number" to compete with impact factor. Scholars who are experts on analyzing complex forms of qualitative data can lead the way to develop new ways of analyzing impact of scholarly publications.
+
+h3. Peer-to-peer review
+How to design a system that is open, transparent and thorough? 
+
+h4. Peer
+18th century - from status conferred by monarchy to a status earned in a scientific community. Now? More horizontally organized, based in affinity and participation in community processes. A peer is not just anyone, but can be selected based on their experience and trustworthiness, not just their credentials. 
+
+h4. Openness
+  * Not everything might need to be open all the time, real identities vs pseudonymity, open access to peer-review, etc. 
+
+h4. Existing experiments
+Looked at a range of existing experiments in open peer-review, book draft feedback etc. Many examples with CommentPress, one of the earliest on with Cathy Davidson, etc. Also experiments by journals 
+  * Shakespeare Quarterly (CommentPress)
+  * postmedieval (blog)
+  * Kairos
+  * Digital Humanities Now (PressForward)
+
+How do you assess the success of these experiments? This exposes certain assumptions we have about traditional peer-review processes - that it's usually successful, done scrupulously and resulting in high quality work. In open reviews, the whole process is open to introspection, enabling us to ask questions that we were never able to ask about traditional review. How many comments are enough, how prestigious do they have to be? How do you read "silence" - does absence of comments mean that everything is fine, or so horrifyingly bad that people don't want to point it out? Or that people didn't read that far?
+
+h4. Lessons learnt
+Releasing the entire book at once (Planned Obsolescence) was a daunting process, many people were scared away, many more comments in the early chapters than in the later ones. 
+
+The need to encourage larger holistic comments, and not just paragraph or sentence-level comments. Technical problem, but mainly social - how do we encourage the efforts required? (How do we reward it?)
+
+  * [[http://altmetrics.org/manifesto/|AltMetrics]]
+  * [[https://orcid.org/|ORCID]] - researcher IDs
+
+h4. Labor
+Ever-increasing amount of work to be peer-reviewed, and work not evenly distributed, with the bulk done by the "good citizens of the community" who are called upon again and again. In an open process, the amount of labor put in will be more transparent. 
+
+
+ 

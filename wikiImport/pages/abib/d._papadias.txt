@@ -1,0 +1,3 @@
+h2. D. Papadias's publications
+
+| karacapilidis2001computer | Karacapilidis, N., & Papadias, D. (2001). Computer supported argumentation and collaborative decision making: the HERMES system. Information systems. Elsevier.|[[skimx://karacapilidis2001computer|PDF]]|

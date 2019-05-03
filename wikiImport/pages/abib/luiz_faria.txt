@@ -1,0 +1,3 @@
+h2. Luiz Faria's publications
+
+| [@faria2009training] | Faria, L., Silva, A., Vale, Z., & Marques, A. (2009). Training Control Centers' Operators in Incident Diagnosis and Power Restoration Using Intelligent Tutoring Systems. {IEEE} Transactions on Learning Technologies, 2(2), 135--147. doi:10.1109/TLT.2009.16|

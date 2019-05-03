@@ -1,0 +1,11 @@
+h1. Books To Read
+
+
+----
+  * [[http://www.amazon.com/exec/obidos/ASIN/0982703007/downandoutint-20|Amazon.com: Tempo: timing, tactics and strategy in narrative-driven decision-making (9780982703007): Venkatesh Guru Rao: Books]]
+----
+  * [[http://www.amazon.com/The-Leftovers-ebook/dp/B004TLH3L0/ref=sr_1_1?s=digital-text&ie=UTF8&qid=1324048405&sr=1-1|Amazon.com: The Leftovers eBook: Tom Perrotta: Kindle Store]]
+----
+  * [[http://www.amazon.com/Lustrum-ebook/dp/B0041RRH86/ref=sr_1_1?s=digital-text&ie=UTF8&qid=1324035726&sr=1-1|Amazon.com: Lustrum eBook: Robert Harris: Kindle Store]]
+----
+My advice:  you can't use out-of-the-box visualizations to do what you want to do.  Nardi and de Sousa (separate, not co-authors) explain why this is the case (actually, they don't.... ok not making sense here.... they explain why in theory there will be problems, and when you get to vis work you wind up warping your story because you get too much baggage from either the software or the engineer [[http://www.amazon.com/Hell-on-Two-Wheels-ebook/dp/B004XCFJ8E/ref=sr_1_1?s=digital-text&ie=UTF8&qid=1324035547&sr=1-1|Amazon.com: Hell on Two Wheels eBook: Amy Snyder: Kindle Store]]

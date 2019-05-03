@@ -1,0 +1,3 @@
+h2. Hanan Sitlia's publications
+
+| [@fournier2011value] | FournierHélène, Kop, R., & Sitlia, H. (2011). The Value of Learning Analytics to Networked Learning on a Personal Learning Environment. In 1st International Conference on Learning analytics and Knowledge 2011, Banff, February 27-March 1st, 2011.|

@@ -1,0 +1,3 @@
+h2. Cj Danoff's publications
+
+| [#:ref:corneli2011aparagogy|corneli2011aparagogy] | Corneli, J., & Danoff, C. (2011). Paragogy. Proceedings of the 6th Open Knowledge Conference, Berlin, Germany. |[[skimx://corneli2011aparagogy|PDF]]|

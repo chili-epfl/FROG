@@ -1,0 +1,3 @@
+h2. D Jones's publications
+
+| [@suthers1997architecture] | Suthers, D. D., & Jones, D. (1997). {An architecture for intelligent collaborative educational systems}. In Artificial intelligence in education, 1997: knowledge and media in learning systems: proceedings of \{AI-ED\} 97, World Conference on Artificial Intelligence in Education, Kobe, Japan (55).|

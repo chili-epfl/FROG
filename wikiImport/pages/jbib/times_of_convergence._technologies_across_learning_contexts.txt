@@ -1,0 +1,8 @@
+h2. Publications in Times of Convergence. Technologies Across Learning Contexts
+
+| [@rebedea2008extraction] | Rebedea, T., Trausan-Matu, S., & Chiru, C. G. (2008). Extraction of Socio-semantic Data from Chat Conversations in Collaborative Learning Communities. Times of Convergence. Technologies Across Learning Contexts, 366--377.|
+| [@molinari2008colearners] | Sangin, M., Dillenbourg, P., & MolinariGaëlle. (2008). When Co-learners Work on Complementary Texts: Effects on Outcome Convergence. Times of Convergence. Technologies Across Learning Contexts, 304--311.|
+| [@sangin2008knowing] | Sangin, M., Dillenbourg, P., NüssliMarc-Antoine, & MolinariGaëlle. (2008). Knowing what the peer knows: The differential effect of knowledge awareness on collaborative learning performance of asymmetric pairs. Times of Convergence. Technologies Across Learning Contexts, 384--394.|
+| [@bachour2008reflect] | Bachour, K., Kaplan, F., & Dillenbourg, P. (2008). Reflect: An interactive table for regulating face-to-face collaborative learning. Times of Convergence. Technologies Across Learning Contexts, 39--48. |
+| [@jermann2008tinkering] | Jermann, P., Zufferey, G., & Dillenbourg, P. (2008). Tinkering or sketching: Apprentices’ use of tangibles and drawings to solve design problems. Times of Convergence. Technologies Across Learning Contexts, 167--178.|
+| [@lonchamp2008interaction] | Lonchamp, J. (2008). Interaction analysis supporting participants’ self-regulation in a generic CSCL system. Times of Convergence. Technologies Across Learning Contexts, 262--273.|

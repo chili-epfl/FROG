@@ -1,0 +1,35 @@
+h1. Ideal types of students in online learning (not real title)
+
+thorough student
+
+often logging in without posting, just reading. appeared to create posts in an external tool. viewed all posts. replied to posts that she had been viewing more than 3 times.
+self-monitoring student
+
+multi-pass approach, from top-level posts to the replies and back
+reviewed his own posts several times
+particularly focused on replies to his own posts
+independent student
+
+looked like a minimalist student (doing as little as possible)
+create more posts than required
+read instructor's posts, but few of classmates
+progressively developed own ideas (focused more on independent thinking, than classmates)
+used tool for progressive reflection - “in last post: to conclude all of my posts” - development of ideas, but not with anyone else
+(use click tracking, based on Hewitt on scan vs read, etc)
+
+derive profiles of “extreme cases”
+
+dimensions:
+
+attention to voice: peer group; self; self, instructor
+nature of participation (Knowlton, 2005): metacognitive, dialogical, generative, developmental, passive
+participation orientation (Del Valle, Duffy 2007): mastery, task
+Limitations: verification, learner input
+
+Future reearch
+
+validate
+complement with broad-based analysis, interview
+evaluate productiveness of different styles
+examine influences on group discussion
+(own thought: ways of contributing, cognitive roles)

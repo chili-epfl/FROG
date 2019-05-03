@@ -1,0 +1,22 @@
+h2. Images
+
+{{skim:buckinghamshum2006amemetic0.png}}
+
+[[skimx://buckinghamshum2006amemetic#4|p. 4]]
+----
+
+{{skim:buckinghamshum2006amemetic1.png}}
+
+[[skimx://buckinghamshum2006amemetic#8|p. 8]]
+----
+
+{{skim:buckinghamshum2006amemetic2.png}}
+
+[[skimx://buckinghamshum2006amemetic#10|p. 10]]
+----
+
+{{skim:buckinghamshum2006amemetic3.png}}
+
+[[skimx://buckinghamshum2006amemetic#10|p. 10]]
+----
+

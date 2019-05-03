@@ -1,0 +1,6 @@
+h2. Publications with keyword "analytics"
+
+| [@siemens2011open] | Siemens, G., Gasevic, D., Haythornthwaite, C., Dawson, S., Buckingham Shum, S., Ferguson, R., Duval, E., Verbert, K., & d. Baker, R. S. J. (2011). Open Learning Analytics: an integrated & modularized platform. Proposal to design, implement and evaluate an open platform to integrate heterogeneous learning analytics techniques. |
+| [@murthy2012visualizing] | Murthy, D., Gross, A., & Bond, S. (2012). Visualizing Collective Discursive User Interactions in Online Life Science Communities. Arxiv preprint arXiv:1204.3598.|
+| [@qazvinian2012computational] | Qazvinian, V., & Radev, D. R. (2012). A Computational Analysis of Collective Discourse. Arxiv preprint arXiv:1204.3498.|
+| [@ferguson2012state] | Ferguson, R. (2012). The State Of Learning Analytics in 2012: A Review and Future Challenges (12--01). |

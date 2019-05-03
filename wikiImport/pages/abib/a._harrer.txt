@@ -1,0 +1,7 @@
+h2. A. Harrer's publications
+
+| harrer2006bridging | Harrer, A., & Malzahn, N. (2006). Bridging the gap-towards a graphical modeling language for learning designs and collaboration scripts of various granularities. IEEE Computer Society.|
+| kobbe2007specifying | Kobbe, L., Weinberger, A., Dillenbourg, P., Harrer, A., H{\\"a}m{\\"a}l{\\"a}inenR., H{\\"a}kkinenP., & Fischer, F. (2007). Specifying computer-supported collaboration scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|
+| martinez2011interaction | Martínez-Monés, A., Harrer, A., & Dimitriadis, Y. (2011). An interaction-aware design process for the integration of interaction analysis into mainstream CSCL practices. Analyzing Interactions in CSCL. Springer.|
+| dimitrakopoulou2006state | Dimitrakopoulou, A., Petrou, A., Martinez, A., Marcos, J. A., Kollias, V., Jermann, P., Harrer, A., Dimitriadis, Y., & Bollen, L. (2006). State of the art of interaction analysis for Metacognitive Support \& Diagnosis.|
+| degroot2007computer | De Groot, R., Drachman, R., Hever, R., Schwarz, B. B., Hoppe, U., Harrer, A., De Laat, M., Wegerif, R., McLaren, B. M., & Baurens, B. (2007). Computer supported moderation of e-discussions: the ARGUNAUT approach. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|

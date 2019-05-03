@@ -1,0 +1,37 @@
+h1. Capturing and representing deliberation in participatory planning practices
+
+<ifauth !@admin>|Liddo, A. D., & Buckingham Shum, S. (2010, July). Capturing and representing deliberation in participatory planning practices. Retrieved from http://oro.open.ac.uk/22279/.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://liddo2010capturing|BibDesk]]  | Liddo, A. D., & Buckingham Shum, S. (2010, July). Capturing and representing deliberation in participatory planning practices. Retrieved from http://oro.open.ac.uk/22279/. |
+^ [[skimx://liddo2010capturing|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:liddo2010capturing?do=edit&vecdo=print\'><frame src=\'/wiki/clip:liddo2010capturing?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @misc{liddo2010capturing,
+  author = {Liddo, Anna De and Buckingham Shum, Simon},
+  date-added = {2011-04-24 17:23:42 -0400},
+  date-modified = {2011-08-25 10:57:23 +0000},
+  howpublished = {http://oro.open.ac.uk/22279/},
+  keywords = {sensemaking},
+  month = {jul},
+  note = {In this paper we argue for the importance of capturing and representing deliberation in participatory planning practices. We discuss the concept of deliberation in planning theory, and argue for a paradigm that puts deliberation at the centre of public participation to planning decision. We argue that in order to enable effective participation, the normally ephemeral delib- eration process needs to be captured and represented so that the information and knowledge gathered during deliberation is visible for all, can be effectively traced, reused, and can actively influence planning decisions. To scaffold this we describe the integration of three technologies to create a collective project memory structured against five dimensions of participatory plan- ning processes: dialogical, social, spatial, temporal and causal. Based on several authentic par- ticipatory planning cases, we report that this supported deliberation across planning tasks, communication modes, time and environments. The coupled use of online and offline group- ware technologies created a more expressive and transparent participatory knowledge base than is possible with conventional media, and enhanced participatory planning by: supporting the effective capture and representation of deliberation processes and products; providing a rich picture of the social setting in which planning decision develops and supporting reflection in and on planning actions.},
+  read = {1},
+  title = {Capturing and representing deliberation in participatory planning practices},
+  type = {Conference Item},
+  url = {http://oro.open.ac.uk/22279/},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYgAAAAAAYgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhZsaWRkbzIwMTBjYXB0dXJpbmcucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKvPy9dGOVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1355AAAAAQAMANrWUgAXPTEAAZ9eAAIANVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBsaWRkbzIwMTBjYXB0dXJpbmcucGRmAAAOAC4AFgBsAGkAZABkAG8AMgAwADEAMABjAGEAcAB0AHUAcgBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAqVXNlcnMvU3RpYW4vYmliZGVzay9saWRkbzIwMTBjYXB0dXJpbmcucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECQuLi8uLi9iaWJkZXNrL2xpZGRvMjAxMGNhcHR1cmluZy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACLAIuAjMCPAJHAksCWQJgAmkCkAKVApgCpQKqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:liddo2010capturing}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:liddo2010capturing}}
+
+{{page>kindle:liddo2010capturing}}
+
+{{page>skimg:liddo2010capturing}}

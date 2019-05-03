@@ -1,0 +1,34 @@
+h1. Cultural considerations in Computer Supported Collaborative Learning
+
+<ifauth !@admin>|Vatrapu, R. K. (2008). Cultural considerations in Computer Supported Collaborative Learning. Research and Practice in Technology Enhanced Learning, 3(2).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://vatrapu2008cultural|BibDesk]]  | Vatrapu, R. K. (2008). Cultural considerations in Computer Supported Collaborative Learning. Research and Practice in Technology Enhanced Learning, 3(2). |
+^ [[skimx://vatrapu2008cultural|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:vatrapu2008cultural?do=edit&vecdo=print\'><frame src=\'/wiki/clip:vatrapu2008cultural?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{vatrapu2008cultural,
+  author = {Vatrapu, Ravi K.},
+  date-added = {2011-05-20 08:18:12 +0800},
+  date-modified = {2011-06-09 08:29:56 +0800},
+  journal = {Research and Practice in Technology Enhanced Learning},
+  number = {2},
+  read = {1},
+  title = {Cultural considerations in {Computer Supported Collaborative Learning}},
+  volume = {3},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhd2YXRyYXB1MjAwOGN1bHR1cmFsLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdd/Dy9dK61BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14MrAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB2YXRyYXB1MjAwOGN1bHR1cmFsLnBkZgAOADAAFwB2AGEAdAByAGEAcAB1ADIAMAAwADgAYwB1AGwAdAB1AHIAYQBsAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL3ZhdHJhcHUyMDA4Y3VsdHVyYWwucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay92YXRyYXB1MjAwOGN1bHR1cmFsLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:vatrapu2008cultural}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:vatrapu2008cultural}}
+
+{{page>kindle:vatrapu2008cultural}}
+
+{{page>skimg:vatrapu2008cultural}}

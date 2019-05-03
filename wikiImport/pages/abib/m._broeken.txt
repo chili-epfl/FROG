@@ -1,0 +1,3 @@
+h2. M. Broeken's publications
+
+| janssen2005effects | Janssen, J., Erkens, G., Jaspers, J., & Broeken, M. (2005). Effects of visualizing participation in computer-supported collaborative learning.|[[skimx://janssen2005effects|PDF]]|

@@ -1,0 +1,62 @@
+h1. Key ideas
+//Large review document on learning with OER, partially focused on UK. Complains of disconnect between "e-learning elite researchers" and OER. Also describes difficulties with using Mendeley for large literature reviews. Mentions P2PU.//
+
+h2. Gaps in literature
+The literature on learner use of online educational resources is very immature, with a lack of meta-reviews. The overwhelming majority of published studies do not generalise beyond their particular contexts of study. There is no consistent methodology.
+
+There are significant gaps in the literature: there are almost no meso-level studies, no international comparisons, and very little on learners other than university undergraduates.
+
+h2. Areas of interest
+  * learners’ rationale for searching for online resources
+  * types of online resources being sought
+  * complexity/granularity of resources being sought
+  * how resources found are used
+  * whether learners in some subject areas appear to conduct more searches for online resources than others
+  * educational level of resources being sought
+  * location of resources
+  * extent to which resources are the principal or a supplementary source of learning materials
+  * whether or not learners are in formal education
+  * enablers and barriers to use of online resources
+  * how learners retain access to the resources
+  * provenance information
+
+h2. Disconnect
+Judged from the perspective of learner use, there is a significant disconnect between the OER community and the elite of the e-learning research community – with a few notable exceptions. We have no reason to believe that this would be different in other areas of OER scholarship/research. 
+
+We have the sense that numerous learner use authors do not consider themselves part of (or connected to) the more active OER community. Their publications, therefore, often stand alone, lacking bibliographies of great scale or relevance to a researcher.
+
+It was also interesting that a systematic check of both the leading researchers’ CVs in TELEurope (the STELLAR Network of Excellence) and their associated literature database revealed almost no interest in OER or papers published on it. Indeed, there is an issue both in the UK and the EU of a disconnect between the OER community and the ‘elite’ (perceived or self-styled) of e-learning research – with the exception of The Open University in particular and some key individuals there and at a few other locations. It may be just an artefact of our perspective on them but this seems a little less the case in the Netherlands and Canada (though in some other English-speaking countries the communities seem as disconnected as the UK).
+
+h2. No harm done
+The overwhelmingly positive feedback to the resources across both programmes is encouraging but as stated above rarely proves (from the student perspective) the additional merit of OER. Much of the feedback could apply to closed and/or proprietary online resources. That is to say, much of the enthusiasm is generated either by the ability to access materials away from the classroom/campus or pre-/without enrolment. However, the feedback and other achievement and retention data indicate at the very least ‘no harm done’. 
+
+h2. Interesting papers
+**‘From Open Content to Open Course Models: Increasing Access and Enabling Global Participation in Higher Education’** (Morgan & Carey 2009) examines implementation of the [open course] model in three studies, relying on data collected from student interviews, instructor observations and reflections, discussion forum transcripts and more. Implementation with undergraduate students in Canada, Mexico and Russia is described. [International]
+
+**‘Open Educational Resources Plus Social Software: Threat or opportunity for Canadian Higher Education?’** (Anderson 2008) provides an abstract but useful (and well-cited) overview of OER use in the student context. [Canada]
+
+**‘Towards a theory of online learning’** (Anderson 2008) is a highly theoretical approach to understanding online learning. Looks at learner-, knowledge-, community and assessmentcentred contexts, in light of the affordances of the world wide web and Semantic Web. [Canada]
+
+**Using student-generated notes as an interface to a digital repository** (Harvel 2005) is a dissertation which examines the concept of student notetaking as an interface to a digital repository. [US]
+
+**‘From Microtraining and Open Educational Resources (OER) to Master Courses on Geographical Information Systems (GIS)’** summarised at http://www.lunduniversity.lu.se/o.o.i.s?id=12683&postid=1482680
+
+h2. Links
+Mendeley groups
+  * [[http://wwwmendeleycom/groups/1074991/learner-use-of-oer/papers/|Learner use of OER]]
+  * [[http://wwwmendeleycom/groups/1098021/learner-use-of-non-oer-online-resources/papers/|Learner use of non-OER resources]]
+  * [[http://wwwmendeleycom/groups/1216571/learner-generatedcontent/papers/|Learner generated content]]
+  * [[http://wwwmendeleycom/groups/1102391/learner-use-of-online-and-oer-for-learningluoerl-the-community/|Learner use of OER community group]]
+  * [[http://wwwmendeleycom/groups/1223261/staff-and-institution-aspects-of-oer/|Staff and institution aspects of OER]]
+  * [[http://wwwmendeleycom/groups/1075011/nationalpolicies-for-oer-uptake/|National policies for OER]]
+  * [[http://wwwmendeleycom/groups/813911/oer-openedbusiness-models/|Open Ed business models]]
+  * [[http://wwwmendeleycom/groups/1075201/virtualschools-and-colleges/|Virtual schools and colleges]]
+  * [[http://wwwmendeleycom/groups/1075191/benchmarking-e-learning/|Benchmarking e-learning]]
+  * [[http://wwwmendeleycom/groups/1087051/quality-of-e-learning/|Quality of e-learning]]
+
+Other:
+  * [[http://luoerl.referata.com/wiki/LUOERL|Project wiki]]
+  * [[http://ppp.chester.ac.uk]]
+  * [[http://opal.innovationpros.net]]
+  * [[http://www.concede.cc]]
+  * [[http://www.mindmeister.com/76726554/oer-use-reuse-landscape]]

@@ -1,0 +1,3 @@
+h2. P. Reyes's publications
+
+| reyes2003supporting | Reyes, P., & Tchounikine, P. (2003). Supporting emergence of threaded learning conversations through augmenting interactional and sequential coherence. Designing for change in networked learning environments: Proceedings of the international conference on computer support for collaborative learning.|[[skimx://reyes2003supporting|PDF]]|

@@ -1,0 +1,3 @@
+h2. Publications in Modern information retrieval
+
+| hearst1999user | Hearst, M. A. (1999). User interfaces and visualization. Modern information retrieval, 257--323.|[[skimx://hearst1999user|PDF]]|

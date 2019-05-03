@@ -1,0 +1,210 @@
+h1. Key ideas
+//Huge literature review, not even close to finishing parsing it, also two studies, one in a traditional setting, and one in the edtech blogosphere//
+
+Educators as knowledgeable others
+now experts can be found online
+
+h2. Literature review
+h3. Adult ed
+The shift in discourse from adult continuing education to lifelong learning (Edwards & Usher 1998)
+
+h3. Traditional role of educational "spaces"
+The changed position of educational institutions such as universities due to the altered sense of space, place and identity in a virtual learning space has been lamented as a loss, as universities were seen as places where people came together, where minds met and where new ideas were conceived, criticised and tested and provisionally accepted if they were found to stand up sufficiently robustly under criticism.
+
+Peters was reminded of rites with religious undertones, which link location, time and action: ‘Learning and teaching might be based on unconscious, but at the same time “deep-seated” patterns of behaviour, not only of students but also of the teachers. Their ritualisation lends solidity and permanence to the actions taking place in the teaching space’ (Peters, 1999, p. 1)
+
+h3. Perspectives on e-learning
+h3. Information and resources-based view
+Leads to commodification of delivery of education
+
+Intelligent tutoring
+h3. Communication-based view
+Goes back to 1970's, with Turoff first conferencing system. 
+
+h3. Institutionally controlled infrastructure vs informal
+Gulati’s research in the learning experience of professional students on online and blended courses questioned the use of institutionally controlled VLEs and in particular their discussion boards. Students used informal strategies for communication and learning outside the formal environment to complement the formal structures because the discussion boards created difficulties in the communication process between learners, and between learners and their tutors. She recommended that ‘the new and existing strategies for online socialising needed to be studied for their effectiveness in enabling group and social identities in the formal educational contexts’ (Gulati, 2003, p. 50)
+
+h3. Epistemologies
+Barab and Squire propose that ‘cognition is not a thing located within the individual thinker but is a process that is distributed across the knower, the environment in which knowledge occurs, and the activity in which the learner participates’ (Barab & Squire, 2004, p. 1)
+
+In recent years the traditional view of knowledge in a rapidly changing world has been challenged (Lyotard, 1984; O’Hara, 2002; Lankshear et al, 2003; Lewis, 1999; Glaser, 1999)
+
+h3. Power on the Internet
+Barabasi looked at the mathematics of the Internet and Web as networks and found that they do not perform as “random” networks, but as “scale-free” networks. The difference would be ruled by two characteristics: “growth” and “preferential attachment”, showing that this type of network grows “one node at a time” and that a node chooses to what other node it connects. The more connections a node already has, the more likely it is that other nodes will connect to it (Barabasi, 2003, P.86), thus creating “hubs”. This implies that there are power-relations on the network and Barabasi’s research shows that networks are not neutral. Bouchard (2010, in press) also questions the possibility of hierarchy-free peer to peer connections on the Web
+
+The notion of 'supernode' predictably emerges when some contributors are recognized by a number of others as having particular relevance to, or knowledge of a problem. There seems to be a natural tendency within the 'perfectly' democratic network to organize itself, over time, in a hierarchical system composed of leaders and followers. We are then left with a social organization that resembles the 'outside' world of government and commerce, with the difference that the currency of exchange in the network is not money or power, but reputation and popularity. (Bouchard, 2010, p. 3)
+
+The most intriguing result of our Web-mapping project was the complete absence of democracy, fairness, and egalitarian values on the Web. We learned that the topology of the Web prevents us from seeing anything but a mere handful of the billion documents out there. (Barabasi, 2003, p. 56)
+
+h3. Lack of deep thought / superficiality
+Goldhaber (1997) posits that, by using new technologies, we might end up chatting, but not necessarily about anything of substance. The abundance of information and the poverty of attention could be the cause of changes in thinking processes.
+
+Hagel explains that there are other problems with the information abundance and introduces the notion of the “attention economy”. In an information-rich world, the wealth of information means a dearth of something else: a scarcity of whatever it is that information consumes. What information consumes is rather obvious: it consumes the attention of its recipients. Hence a wealth of information creates a poverty of attention and a need to allocate the attention efficiently among the overabundance of information sources that might consume it. (Hagel, 2006, p. 1)
+
+h3. Need for a knowledgable other
+Greenfield argues how in traditional education teachers and tutors compare and contrast narratives with one another and help people with the building of a conceptual framework in doing so (Greenfield, 2006, p. 1; Greenfield, 2004). p. 27
+
+Greenfield is concerned however, that if people do not have access to a robust conceptual framework developed over time with the help of knowledgeable others, they might have problems constructing knowledge (Greenfield, 2004).
+
+**Answer**
+
+Bass, on the other hand, highlighted that there is a great deal of evidence to show that electronic environments encourage analytical and reflective practice. In addition, ‘there are clear indications that the electronic era will provide an unprecedented opportunity for immersion in archival and primary materials, and consequently the making of meaning in cultural and historical analysis for all kinds of learners, from novice to expert’ (Bass, 1999, p1.). p. 29
+
+h3. Challenging ourselves/being challenged
+Bruce saw the information abundance as an advantage over earlier media in ‘the way it can open up our questions. We ask one thing, but the Web leads us to ask more questions and to become aware of how much we do not know’ (Bruce, 2000, p. 107). He would like us to use the Internet not to “pick and choose” what fits in with our own points of view, but also to take on board what discomfits, and to look for alternatives that make us think. 
+
+It should perhaps be questioned if people will do this of their own accord or that they will need the guidance of an educator. He saw the greatest challenge as a change of our search strategies from looking something up, to incorporating web-searching into thinking and reflection processes in order to enable a fruitful investigation. New emerging collaborative tools that facilitate networking and communication with others might aid in developing such a referencing strategy
+
+h3. Internet as a collaborative information project
+Tim Berners-Lee saw the development of the Web as follows: The basic idea of the Web was that of an information space through which people can communicate, but communicate in a special way: communicate by sharing their knowledge in a pool. The idea was not just that it should be a big browsing medium. The idea was that everybody would be putting their ideas in, as well as taking them out. This [the Internet] is not supposed to be a glorified television channel. (Berners-Lee, 1999, p. 1)
+
+h3. Forms of communication
+If this is compared with Dewey’s ideas of communication, it seems that the emphasis has changed from “communicating with others and both learning and changing through the interaction”, to a much “looser” form of communication. Wellman (2003) compared these differences forms of communication as the differences between “strong” and “weak” ties” between people. The intensity in the level of communication is different.
+
+h3. History of psychology
+Subjective approach of Freud, introspective studies of Wundt
+
+h4. Watson: behaviorist appraoch
+(Early 20th century)
+
+emphasised the method of laboratory based animal experiments which avoided any reference to the conscious mind and focussed attention on the relationship between behaviour and the environment. Behaviourist methodology had much in common with philosophical positivism and dominated academic psychology until the second half of the twentieth century. This broadly biological approach to psychology has much in common with evolution as an explanation in psychology which has become important in recent decades. (Lyons, 2001)
+
+h5. Learning
+Behaviourists posit that we learn by receiving stimuli from our environment that provokes a response. The teacher reinforces the approved responses while discouraging the ‘wrong’ responses. 
+
+An example would be training how to ride a bike or car, or indeed the acquisition of almost any skill. 
+
+Once acquired these skills are no longer subject to any conscious thought and this typifies the most important area of behaviourist method for this dissertation. 
+
+Behaviourist research has discovered a wealth of learning that requires no, or almost no, conscious thought. This makes the **acquisition metaphor** the only one applicable to this theory. 
+
+Of course, conditioning by reinforcing, encouraging, and discouraging, implies that the tutor is in charge in this interaction; he or she is allknowing and leads the process. This may be most appropriate for skills training but perhaps less appropriate for more complex learning and thinking.
+
+h4. Cognitive science
+The rise of computer science, ideas about information processing, and developments in neuroscience led to the development of the broad field of cognitive science. (Lyons, 2001) Symbol processing / computational model
+
+A recent influential trend in cognitive science, influenced by ecology, is the consideration of the importance of the environment in addition to the mind and body – **situated cognition** (Robbins & Aydede, 2008) 
+
+h5. Learning
+The subject material that the teacher-agent has chosen and that the learner seeks to master dominates the learning process. On the one end of the spectrum a form of computational learning takes place, but moving to the other side, more reflection and reasoning take place in learning. 
+
+Both behaviourist and cognitive theorists recognise that low-level and high-level learning takes place. Learning is hierarchical and advances as more and more learning takes place. Not all learners will achieve the highest level. 
+
+In this view knowledge can be thought of as a commodity, easily divided into ‘chunks’ which can be digested and internalized by learners. The acquisition metaphor applies. Once acquired, knowledge can be ‘banked’ as an abstract entity stored in the mind of the learner (Freire, 1972).
+
+**Constructivism** developed from cognitivism and, in addition to the subject knowledge that tutors supply, formerly acquired knowledge and experience of students is ￼￼acknowledged and students are encouraged to actively construct their ways of knowing, while building an understanding linking what they learn with their personal experience. 
+
+(also see Vygotsky [@kop2008connectivism], CoP, Illich)
+
+h3. Learn across space and time
+We learn across space as we take ideas and learning resources gained in one location and apply or develop them in another. We learn across time, by revisiting knowledge that was gained in an earlier, in a different context, and more broadly, through ideas and strategies gained in earlier years providing a framework for a lifetime of learning. We move from topic to topic, managing a range of personal learning projects, rather than following a single curriculum. (Sharples et al, 2005, p. 2)
+
+h3. Theories of mind
+  * How important is the world “inside” our minds when we come to grips with the social processes and artefacts around us? 
+  * How important is context in the way we acquire knowledge? 
+
+h4. Symbol-processing view
+Bredo explored the symbol-processing view of mind and provided following definition: ‘The human brain is seen as an information processing system that receives encoded messages through its sensory and motor connections, which interact with information held in its memory, to make sense of them by creating a symbol representation of the problem and using heuristics to identify solutions.’ (Bredo, 1999, p. 28.)
+
+3 dualisms:
+  * separation of language and reality
+    * symbols mirror reality
+    * knowledge is store of representations
+      * which can be translated into language
+        * which can be used for reasoning
+    * only way to find out if they are correct is by checking them against the world
+      * difficult
+        * only contact with world is through these representations
+  * separation of mind and body (computational view)
+    * all learning in terms of conceptual processes located in individual's head
+    * no physical interaction with the surroundings
+  * separation of individual and society
+    * in symbol processing perspective
+      * thinking
+      * learning
+      * development
+    * are processes taking place inside individual
+    * social influences come from the outside
+    * learner is acting on the environment
+    * rather than being immersed in it
+    * divide between knower and known
+
+Bruner saw this view as involved with information processing: ‘how finite, coded, unambiguous information about the world is inscribed, sorted, collated, retrieved, and generally managed by a computational device.’ (Bruner, 1999, p. 148)
+
+HOWEVER
+
+  * the process of knowing is often messier, more fraught with ambiguity (situated view)
+  * how the mind works depends on the tools available
+  * computers might change how we us our minds
+  * mind cannot exist without culture and human knowledge
+  * meanings are in the mind, but find their origin and meaning in community where they were created
+  * mind is both represented by, and realized in the use of human culture
+
+h4. Biological view
+Galton (1869): intelligence largely a matter of genetic inheritance
+
+Resnick: brain is plastic, change through intellectual activity. 
+
+h3. Theories of knowledge
+
+h4. Traditional knowledge
+
+Plato made the distinction between **episteme, knowledge**, which was valued highly as it was considered to be //pure truth//, and which was reached by means of intelligence and reason, exemplified in mathematics. 
+
+**Doxa** on the other hand was “opinion”, and included the visible physical realm, culture, that could never be “true knowledge”. 
+
+Knowledge was identified with **justified true belief** and has a reliability that belief does not have (O’Hara, 2002; Delanty, 2001). 
+
+This idea was developed by the classical thinkers of antiquity and the medieval scholars (Hadot, 2002) but even today there is an important sense in which Plato’s definition of knowledge is still considered to capture an important aspect of the concept of knowledge (Boghossian,2007; Gutting, 2009) . 
+
+h4. Development of traditional knowledge
+  * Enlightenment
+  * mass print literacy
+  * canons of scholarship
+  * universities as authority of knowledge
+  * sciences - objective, fact based
+
+h4. Useful knowledge
+(late modernity)
+
+Knowledge became commodified and its main value was to be its usefulness to society (Wheelahan, 2005; Delanty, 2001); the application of knowledge, which is problem-driven and characterised by the context of its application. It crosses boundaries of disciplines, is seen by some to be more creative and less hierarchical than traditional knowledge, and is shaped outside the university (Wheelahan, 2005). 
+
+‘Traditional knowledge is homogenous and relatively autonomous. Useful knowledge is heterogeneous and, it is claimed, more socially accountable and reflexive’ (Delanty, 2001, p. 110). 
+
+h4. Who defines knowledge
+  * the authority of particular people in developing knowledge influenced by circumstances of the period, power, privilege
+  * in antiquity, scarcity of written material, highly controlled environment
+  * dissemination slow, access restricted to elites
+  * when universities and printing press - privilege disciplinary knowledge
+  * "who gets to say what counts as knowledge"
+
+h4. Pedagogy for human beings
+
+Barnett (2004) had his own interpretations of knowledge in relation to uncertainty and change. He would like to see curriculum and pedagogy to move away from knowledge and skills to be a “pedagogy for human beings”. He discussed a third form of knowledge which would involve learners thinking about and confronting themselves with the uncertainties and dilemmas in their lives and in their field of knowledge, in which the human being itself is implicated. This is similar to ideas by Beck (1986) and Jansen & van der Veen (1992) on learning in the Risk Society. Delanty broadened this from individual learners to society and institutions: ‘By knowledge I mean the capacity of a society for learning, a cognitive capacity that is related to the production of cultural models and institutional innovation’ (Delanty, 2001, p. 5). 
+
+Other forms of knowledge provide the scaffolding students can use to consider propositional knowledge – it is not to be learnt for its own sake or as dead knowledge, but as an intellectual tool to be used in practice. (Wheelahan, 2005, p. 639) p. 61
+
+h4. Distributed knowledge and critique 
+Connectivism 
+
+Paul Boghossian (2007) for instance rejects these forms of knowledge. He emphasises the need for knowledge to be objective. He particularly values ‘universality’ and ‘mind-independence’ of knowledge. In addition, he sees ‘justified true belief’ as the best definition of ‘knowledge’ and rejects knowledge as ‘socially constructed’. 
+
+He does not deny that knowledge could be produced collaboratively, or that people’s social and political values may influence the knowledge they produce; but he argues that ‘many facts about the world are independent of us, and hence independent of our social values and interests’ (Boghossian, 2007, p. 20). 
+
+He further claims that there should always be evidence to support that particular beliefs are independent from our social background to transform them into knowledge. He rejects the relativist view that constructivists, such as Rorty, hold that there are no facts independent from the world in which people live and that the justification of facts will never be independent from us and our social context. 
+
+h3. Theories of learning
+  * **Didactic models** (acquisition metaphor, Sfard 1998)
+    * linked to symbol-processing views of mind, such as behaviourism and cognitivism, where the tutor is thought to transmit knowledge and the student will acquire it
+  * **Models linked to situated views of mind** (participation metaphore)
+    * such as social constructivism and community of practice, where the learner is thought to build on experience and formerly acquired knowledge by participating and interacting in a social context 
+ 
+(Rogers, 2002). 
+
+
+h2. Study
+h3. Research aim
+To investigate how people learn and teach while using social media, and the challenges and opportunities they face, in two different settings: the ABCD project in a formal education institution, and on three online networks. 
+
+h2. Findings
+A trusted “knowledgeable other” is still at the heart of a meaningful learning experience

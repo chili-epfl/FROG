@@ -1,0 +1,11 @@
+h1. James Gee
+
+James Gee (born April 15, 1948) is a researcher who has worked in psycholinguistics, discourse analysis, sociolinguistics, bilingual education, and literacy. 
+
+Gee is currently 
+  * Professor of Literacy Studies at Arizona State University
+  * faculty affiliate of the Games, Learning, and Society group at the University of Wisconsin–Madison
+
+Created [[http://working.dev.deeplocal.com/|Working Examples]]
+
+{{page>abib:James Gee}}

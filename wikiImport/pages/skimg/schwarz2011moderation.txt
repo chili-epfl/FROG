@@ -1,0 +1,44 @@
+h2. Images
+
+{{skim:schwarz2011moderation0.png}}
+
+[[skimx://schwarz2011moderation#6
+|p. 6
+]]<html><hr></html>
+
+{{skim:schwarz2011moderation1.png}}
+
+[[skimx://schwarz2011moderation#13
+|p. 13
+]]<html><hr></html>
+
+{{skim:schwarz2011moderation2.png}}
+
+[[skimx://schwarz2011moderation#14
+|p. 14
+]]<html><hr></html>
+
+{{skim:schwarz2011moderation3.png}}
+
+[[skimx://schwarz2011moderation#15
+|p. 15
+]]<html><hr></html>
+
+{{skim:schwarz2011moderation4.png}}
+
+[[skimx://schwarz2011moderation#16
+|p. 16
+]]<html><hr></html>
+
+{{skim:schwarz2011moderation5.png}}
+
+[[skimx://schwarz2011moderation#17
+|p. 17
+]]<html><hr></html>
+
+{{skim:schwarz2011moderation6.png}}
+
+[[skimx://schwarz2011moderation#17
+|p. 17
+]]<html><hr></html>
+

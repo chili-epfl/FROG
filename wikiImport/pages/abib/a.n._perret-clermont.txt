@@ -1,0 +1,3 @@
+h2. A.N. Perret-Clermont's publications
+
+| muller2007using | Muller Mirza, N., Tartas, V., Perret-Clermont, A. N., & De Pietro, J. F. (2007). Using graphical tools in a phased activity for enhancing dialogical skills: An example with Digalo. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://muller2007using|PDF]]|

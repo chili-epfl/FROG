@@ -1,0 +1,14 @@
+h1. Connectivism
+
+
+----
+  * [[http://netzwerklernen.wikispaces.com/|netzwerklernen - MOOC]]
+----
+Allison Littlejohn's presentation #change11 on connected knowledge and collective learning useful and thought provoking for a way of understanding how we might harness knowledge which is becoming increasingly distributed. My understanding is that the process by which we may do this is through 'charting'. This links well to my growing awareness of PLEs (personal learning environments) and offers a process to descibe how to effectively navigate our unique PLE which can include so many different artifacts and tools and people. [[http://steve-wheeler.blogspot.ca/2011/07/digital-age-learning.html|Digital age learning]]
+
+--
+
+{{pages:connectivism01.png}}
+from [[http://damosworld.wordpress.com/2011/02/03/connectivism-and-connective-knowledge-concept-map/]]
+----
+  * [[http://cmapspublic3.ihmc.us/rid=1J34PX9X7-1B3Y96Y-LX6/connectivism.cmap|connectivism - What is connectivism]]

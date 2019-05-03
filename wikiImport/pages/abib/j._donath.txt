@@ -1,0 +1,3 @@
+h2. J. Donath's publications
+
+| zinman2009signs | Zinman, A., & Donath, J. (2009). Signs: Increasing Expression and Clarity in Instant Messaging. System Sciences, 2009. HICSS'09. 42nd Hawaii International Conference on.|[[skimx://zinman2009signs|PDF]]|

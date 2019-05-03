@@ -1,0 +1,3 @@
+h2. Alan J. Cann's publications
+
+| [@badge2012beyond] | Badge, J. L., Saunders, N. F. W., & Cann, A. J. (2012). Beyond marks: new tools to visualise student engagement via social networks. Research in Learning Technology, 20(0). doi:10.3402/rlt.v20i0.16283|

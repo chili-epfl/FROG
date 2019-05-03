@@ -1,0 +1,5 @@
+h2. Sui Fai John Mak's publications
+
+| [@mackness2010ideals] | Mackness, J., Mak, S. F. J., & Williams, R. (2010). The ideals and reality of participating in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
+| [@mak2010blogs] | Mak, S. F. J., Williams, R., & Mackness, J. (2010). Blogs and forums as communication and learning tools in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
+| [@kop2011pedagogy] | Kop, R., FournierHélène, & Mak, S. F. J. (2011). A pedagogy of abundance or a pedagogy to support human beings? Participant support on massive open online courses. The International Review of Research in Open and Distance Learning, 12(7), 74--93.|

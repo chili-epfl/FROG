@@ -1,0 +1,24 @@
+====== References ======
+
+On this page you can define commonly used notes for [[doku>plugin:refnotes|RefNotes plugin]]. Every note is defined as collection of data //fields//. There are two ways to organize the note definitions:
+
+  - Group a number of notes into single data table (//sheet//). The first row of the table is used to specify which field the corresponding column contains.
+  - Use separate table for each note (//card//). The table should have two columns where the first column is used to specify the field names.
+
+The plugin does not make a distinction between normal table cells and header cells. The field name cells are identified only based on their content. The names are case insensitive but for the rest should be spelled exactly as specified below (i.e. avoid using any formatting in the field name cells). The following field names are supported:
+
+  * **Note name** --- fully qualified note name including the namespace.
+  * **Note text** --- text of the note.
+
+
+===== Note sheet example =====
+
+^  Note name  ^  Note text  ^
+^ :ref:sample1 | A sample reference. |
+^ :ref:sample2 | A sample reference with //some// **formatting**. |
+
+
+===== Note card example =====
+
+^ Note name ^  :ref:sample3  ^
+^ Note text | A sample reference with a [[http://www.dokuwiki.org/|link.]] |

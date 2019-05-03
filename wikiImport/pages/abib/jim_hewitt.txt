@@ -1,0 +1,14 @@
+h2. Jim Hewitt's publications
+
+| [@hewitt1995schools] | Hewitt, J., Brett, C., Scardamalia, M., Frecker, K., & Webb, J. (1995). Schools for thought: Transforming classrooms into learning communities. In Symposium 29.57 y Poster Session (Vol. 31).|
+| [@scardamalia1996constructive] | Scardamalia, M., Bereiter, C., Hewitt, J., & Webb, J. (1996). Constructive learning from texts in biology. {NATO} {ASI} {SERIES} F {COMPUTER} {AND} {SYSTEMS} {SCIENCES}, 148, 44–64.|
+| [@hewitt1997situative] | Hewitt, J., Scardamalia, M., & Webb, J. (1997). Situative design issues for interactive learning environments: The problem of group coherence. In Annual Meeting of the American Educational Association, Chicago.|
+| [@bereiter1997postmodernism] | Bereiter, C., Scardamalia, M., Cassells, C., & Hewitt, J. (1997). Postmodernism, knowledge building, and elementary science. The Elementary School Journal, 329–340.|
+| [@hewitt1998design] | Hewitt, J., & Scardamalia, M. (1998). Design principles for distributed knowledge building processes. Educational Psychology Review, 10(1), 75–96.|
+| [@hewitt2001beyond] | Hewitt, J. (2001). Beyond threaded discourse.|
+| [@carr2002internet-based] | Carr, M. M., Hewitt, J., Scardamalia, M., & Reznick, R. K. (2002). Internet-based otolaryngology case discussions for medical students. The Journal of otolaryngology, 31(4), 197.|
+| [@hewitt2003habitual] | Hewitt, J. (2003). How habitual online practices affect the development of asynchronous discussion threads. Journal of Educational Computing Research, 28(1), 31--45.|
+| [@hewitt2005toward] | Hewitt, J. (2005). Toward an understanding of how threads die in asynchronous computer conferences. Journal of the Learning Sciences, 14(4), 567--589.|
+| [@hewitt2006using] | Hewitt, J., Peters, V. L., & Brett, C. (2006). Using Wiki Technologies as an Adjunct to Computer Conferencing in a Graduate Teacher Education Course. TECHNOLOGY AND TEACHER EDUCATION ANNUAL, 4, 2240.|
+| [@hewitt2010bringing] | Hewitt, J., & Woodruff, E. (2010). Bringing Coherence to Knowledge Building Discussions. In IKIT Summer Institute.|
+| [@qiu2012online] | Qiu, M., Hewitt, J., & Brett, C. (2012). Online class size, note reading, note writing and collaborative discourse. International Journal of Computer-Supported Collaborative Learning, 7(3), 423-442. doi:10.1007/s11412-012-9151-2|

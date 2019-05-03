@@ -1,0 +1,34 @@
+h1. The MOOC Model for Digital Practice
+
+<ifauth !@admin>|McAuley, A., Stewart, B., Siemens, G., & Cormier, D. (2010). The MOOC Model for Digital Practice.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://mcauley2010mooc|BibDesk]]  | McAuley, A., Stewart, B., Siemens, G., & Cormier, D. (2010). The MOOC Model for Digital Practice. |
+^ [[skimx://mcauley2010mooc|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:mcauley2010mooc?do=edit&vecdo=print\'><frame src=\'/wiki/clip:mcauley2010mooc?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{mcauley2010mooc,
+  author = {McAuley, A. and Stewart, B. and Siemens, George and Cormier, D.},
+  date-added = {2012-03-11 11:47:05 +0000},
+  date-modified = {2012-08-27 18:29:53 +0000},
+  date-read = {2012-04-02 17:04:56 -0400},
+  keywords = {1mooc},
+  notes = {1},
+  read = {1},
+  title = {The MOOC Model for Digital Practice},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNtY2F1bGV5MjAxMG1vb2MucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdLCNy9dGZ1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL136nAAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBtY2F1bGV5MjAxMG1vb2MucGRmAA4AKAATAG0AYwBhAHUAbABlAHkAMgAwADEAMABtAG8AbwBjAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL21jYXVsZXkyMDEwbW9vYy5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL21jYXVsZXkyMDEwbW9vYy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:mcauley2010mooc}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:mcauley2010mooc}}
+
+{{page>kindle:mcauley2010mooc}}
+
+{{page>skimg:mcauley2010mooc}}

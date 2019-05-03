@@ -1,0 +1,10 @@
+h1. Huang Ronghuai
+
+Researcher at [[http://ksei.bnu.edu.cn|Knowledge Engineering Center]] at BNU. [[http://ksei.bnu.edu.cn/en/staff/staff_huangrh.htm|CV]].
+
+Videos:
+  * [[http://wlzy.jky.gxnu.edu.cn/xdjyjs/Article_Show.asp?ArticleID=286|精品课程建设与高教信息化]]
+  * [[http://video.sina.com.cn/v/b/41707248-1732519652.html|大会致辞：北京师范大学教育学部副部长 黄荣怀教授]]
+  * [[http://xiyou.cntv.cn/v-c2dfaac0-04ee-11df-be82-001e0bbb2454.html|技术促进学习之TEL五定律]]
+
+{{page>abib:Huang Ronghuai}}

@@ -1,0 +1,47 @@
+h2. Highlights (17%)
+
+In order to make clearer what “designing for orchestration” means, I propose to distinguish orchestration technology from orchestrable technology: 
+  *  Orchestration technology is technology that achieves or supports the activity of orchestrating. 
+  *  Orchestrable technology is technology which use can be decided or adapted (before the session and/or at run-time) by the players in charge of the orchestration (the teacher, a system) while [[skimx://kollar2014effects#1|p. 1]]
+
+orchestrating the setting, in the same way that other parameters of the setting (the timing, the groups, the task, the physical space, the teaching objectives, etc.) may be adapted. [[skimx://kollar2014effects#2|p. 2]]
+
+(Primo)Scripting, conducting and (run-time)Scripting [[skimx://kollar2014effects#2|p. 2]]
+
+Scripting is about envisaging how a set of means should be used in order to address teaching objectives. [[skimx://kollar2014effects#2|p. 2]]
+
+Analyzing the way means such as task and sub-task definitions, task distribution, roles, scheduling, data-flow, the technological framework, and the scaffolding or physical space [[skimx://kollar2014effects#3|p. 3]]
+
+provided may be used to structure and support students’ activities. [[skimx://kollar2014effects#3|p. 3]]
+
+Representing decisions in a way that enables their implementation by students, teachers 3 and/or platforms. The output is what is usually called “the script ”. 
+  *  Conducting is about contextually communicating directions to performers and adapting the setting components or their articulation. [[skimx://kollar2014effects#3|p. 3]]
+
+As an example, conducting a CSCL setting may include: – Analyzing the script unfolding and the students’ individual and collective activities. – Providing students with directions, support, hints, etc. – Tuning the technology using the system’s flexibility, changing the physical space, etc. [[skimx://kollar2014effects#3|p. 3]]
+
+if conducting occurs during the session, scripting takes place before the learning session and, when requested, with different modalities, during the learning session [[skimx://kollar2014effects#3|p. 3]]
+
+For instance, an orchestrated CSCL session may be viewed (from the teacher’s perspective) as: 1. Identifying and/or analyzing the pedagogical objectives, the general principles of the adopted scenario and the features of the particular setting (students, timing, space, etc.). 2. Primo-scripting, i.e., defining the initial script and the associated technological decisions. 3. Conducting the script, which consists of: – Analyzing the enactment (the performance). – Providing students with support and hints, tuning some parameters of the script or the technology. – When needed, engaging in runtime-scripting, i.e., reconsidering objectives and/or means. [[skimx://kollar2014effects#3|p. 3]]
+
+As a way to see how these different notions relate one to another, we may take the example of CSCL scripts and the general model of CSCL script operationalization proposed in (Tchounikine 2008).
+
+* Anchored Note, page 4
+Nice chart. Lookup this article [[skimx://kollar2014effects#4|p. 4]]
+
+Primo-scripting may include (items are not in strict order): [[skimx://kollar2014effects#5|p. 5]]
+
+
+  *  Identifying the script’s intrinsic constraints (bound to the script’s core mechanisms) and the extrinsic constraints (bound to contextual factors), given the pedagogical objectives and the adopted pedagogical principles and learning hypotheses. [[skimx://kollar2014effects#5|p. 5]]
+
+Tchounikine 2007). 
+  *  Defining (as an explicit or implicit decision) the structural model, i.e., what conceptual notions (what “language”) will be used to address the setting (e.g.: phase, group, physical space, group’s ambiance, etc.). [[skimx://kollar2014effects#5|p. 5]]
+
+
+  *  Elaborating the implementation model, i.e., using the different notions to describe the script: the group formation policy and dynamics; the task sequencing and articulation; the dataflow/workflow determining access to individual and collective data and/or to functionalities/tools; the physical space issues if any; etc. [[skimx://kollar2014effects#5|p. 5]]
+
+
+  *  Elaborating the platform specification [[skimx://kollar2014effects#5|p. 5]]
+
+properties, and the selection, adaptation or implementation of a platform). 
+  *  Elaborating what students will be prompted with: the script presentation (description of what students are supposed to do) and the platform presentation (description of the technological means). [[skimx://kollar2014effects#5|p. 5]]
+

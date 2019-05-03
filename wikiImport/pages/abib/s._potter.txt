@@ -1,0 +1,3 @@
+h2. S. Potter's publications
+
+| potter2007application | Potter, S., Kalfoglou, Y., Alani, H., Bachler, M., Buckingham Shum, S., Carvalho, R., Chakravarthy, A., Chalmers, S., Chapman, S., Hu, B., Preece, A., Shadbolt, N., Tate, A., & Tuffield, M. (2007). The application of advanced knowledge technologies for emergency response. Retrieved from http://oro.open.ac.uk/19858/.|[[skimx://potter2007application|PDF]]|

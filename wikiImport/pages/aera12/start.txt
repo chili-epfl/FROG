@@ -1,0 +1,8 @@
+h1. AERA 2012 in Vancouver
+//These are notes I took during sessions at AERA. I don't take notes from all sessions, depending on laptop power, level of energy, relevance to my studies etc. I might get things wrong, don't rely too much on these notes.//
+
+Additional notes by [[https://docs.google.com/document/d/1yqPX3sZq3TXen3S9Fene7IvkRX1MqIG4nZbX3_8V6b4/edit?hl=en&authkey=CNDq548G|Bodong Chen]]
+
+{{pagequery>@aera12: *;sort=a;title;group;cols=3;nostart}}
+
+~~NOCACHE~~

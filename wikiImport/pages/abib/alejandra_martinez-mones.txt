@@ -1,0 +1,3 @@
+h2. Alejandra Martinez-Mones's publications
+
+| harrer2007towards | Harrer, A., Zeini, S., Kahrimanis, G., Avouris, N., MarcosJos\'{e} Antonio, Martinez-Mones, A., Meier, A., Rummel, N., & Spada, H. (2007). Towards a flexible model for computer-based analysis and visualization of collaborative learning activities. Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1599600.1599652.|[[skimx://harrer2007towards|PDF]]|

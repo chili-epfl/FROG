@@ -1,0 +1,3 @@
+h2. Publications in Use of Representations in Reasoning and Problem Solving. Analysis and Improvement
+
+| erkens2010visualization | Erkens, G., Janssen, J., & Kirschner, P. A. (2010). Visualization of argumentation as shared activity. Use of Representations in Reasoning and Problem Solving. Analysis and Improvement, 242--260.|[[skimx://erkens2010visualization|PDF]]|

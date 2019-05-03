@@ -1,0 +1,7 @@
+h2. M. Wessner's publications
+
+| muhlpfordt2005explicit | Mühlpfordt, M., & Wessner, M. (2005). Explicit referencing in chat supports collaborative learning. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!.|
+| holmer2006explicit | Holmer, T., Kienle, A., & Wessner, M. (2006). Explicit referencing in learning chats: Needs and acceptance. Innovative approaches for learning and knowledge sharing. Springer.|
+| stahl2006shared | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & Mühlpfordt, M. (2006). Shared referencing of mathematical objects in online chat. Proceedings of the 7th international conference on Learning sciences.|
+| wessner2007points | Wessner, M., & Pfister, H. R. (2007). Points of cooperation: Integrating cooperative learning into web-based courses. The role of technology in CSCL. Springer.|
+| muhlpfordt2009integration | Mühlpfordt, M., & Wessner, M. (2009). The integration of dual-interaction spaces. Studying virtual math teams. Springer.|

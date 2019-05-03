@@ -1,0 +1,12 @@
+h1. Katerine Bielaczyc
+{{ pages:a_katerine_bielaczyc01.png}}
+
+National Institute of Education
+
+h2. Research
+  * [[:Knowledge Building]]
+
+h2. Links
+  * [[http://lsl.nie.edu.sg/people/researchers/katerine-bielaczyc|Homepage]]
+
+{{page>abib:Katerine Bielaczyc}}

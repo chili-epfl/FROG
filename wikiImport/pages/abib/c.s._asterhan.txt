@@ -1,0 +1,3 @@
+h2. C.S. Asterhan's publications
+
+| [[..:ref:schwarz2011moderation]] | Schwarz, B. B., & Asterhan, C. S. (2011). E-moderation of synchronous discussions in educational settings: A nascent practice. Journal of the Learning Sciences. Routledge.|

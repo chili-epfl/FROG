@@ -1,0 +1,47 @@
+h1. Pimp my research
+
+More [[ideas]]
+
+Start a one-day unconference, or a lecture series about academic productivity. At OISE, or all of UofT (invite people from outside as well). 
+
+The idea is to have people talk about things they've actually used, that worked for them.
+
+h3. Formats
+  * tutorials/workshops (how to, hands on)
+  * blitz talks (3 minutes)
+  * demos (market fair style)
+  * discussions (how can we build stuff together?)
+
+h3. Possible topics:
+  * data analysis
+    * how I use, or learn
+      * SPSS
+      * NVivo
+      * etc
+    * using note cards, highlighters, big overview boards - analogue methods
+  * tech stuff (academhack)
+    * learn to use the terminal on Macs
+    * Markdown
+    * LaTeX
+    * blogs / wikis 
+      * discussion about grad students using blogs/wikis to open their process
+    * using GitHub to collaborate on papers, data
+  * OA
+    * how to secure your rights
+    * FigShare, etc, sharing your data
+  * software
+    * Scrivener
+    * Mendeley
+    * new ways of using EndNote, RefWorks etc
+  * how do you choose what to read, how to plan your PhD? (practical experiences)
+  * personal productivity/time planning
+    * Getting Things Done
+    * Pomodoro-method
+    * waking up early, etc
+    * "weight lifting is good for the brain"
+    * pre-commitment (I'll pay 100$ to Bush Presidential Library if I don't write 200 words on my thesis every day)
+    * streaks (trying to get one cross on the calendar every day for as long as possible)
+  * publishing your thesis/articles in different formats/ways
+
+h3. Way forward
+Get OISE library to sponsor? 

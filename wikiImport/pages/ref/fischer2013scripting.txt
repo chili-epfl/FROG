@@ -1,0 +1,33 @@
+h1. Scripting and Orchestration: Recent Theoretical Advances
+<html><a href='' onClick="trackOutboundLink(this, 'PDFs refpage', ''); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Fischer, F., Slotta, J., Dillenbourg, P., Tchounikine, P., Kollar, I., Wecker, C., & others. (2013). Scripting and Orchestration: Recent Theoretical Advances. In Proceedings of the international conference of computer-supported collaborative learning (CSCL2013) (Vol. 1, 564--571).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://fischer2013scripting|BibDesk]]  | Fischer, F., Slotta, J., Dillenbourg, P., Tchounikine, P., Kollar, I., Wecker, C., & others. (2013). Scripting and Orchestration: Recent Theoretical Advances. In Proceedings of the international conference of computer-supported collaborative learning (CSCL2013) (Vol. 1, 564--571). |
+^ [[skimx://fischer2013scripting|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:fischer2013scripting?do=edit&vecdo=print\'><frame src=\'/wiki/clip:fischer2013scripting?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{fischer2013scripting,
+  author = {Fischer, F and Slotta, J and Dillenbourg, P and Tchounikine, P and Kollar, I and Wecker, C and others},
+  booktitle = {Proceedings of the international conference of computer-supported collaborative learning (CSCL2013)},
+  date-added = {2014-03-20 00:39:31 +0000},
+  date-modified = {2014-03-20 00:39:31 +0000},
+  pages = {564--571},
+  title = {Scripting and Orchestration: Recent Theoretical Advances},
+  volume = {1},
+  year = {2013},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QRC4uLy4uL0JpYmRlc2svYmFrL2Zpc2NoZXIyMDEzc2NyaXB0aW5nLTIwMTQtMDMtMjAgMDk6MTM6MDYgLTA0MDAucGRm0hcLGBlXTlMuZGF0YU8RAe4AAAAAAe4AAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAADq7N2R9maXNjaGVyMjAxM3NjcmlwdGkjMTAzNDBGNEYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQNA9Pz0+w5QAAAAAAAAAAAAIAAwAACSAAAAAAAAAAAAAAAAAAAAADYmFrAAAQAAgAAMl5ligAAAARAAgAAM9P6SUAAAABABAOrs3ZANrWUgAXPTEAAZ9eAAIAQ1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiYWs6AGZpc2NoZXIyMDEzc2NyaXB0aSMxMDM0MEY0Ri5wZGYAAA4AZgAyAGYAaQBzAGMAaABlAHIAMgAwADEAMwBzAGMAcgBpAHAAdABpAG4AZwAtADIAMAAxADQALQAwADMALQAyADAAIAAwADkALwAxADMALwAwADYAIAAtADAANAAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIASlVzZXJzL1N0aWFuL0JpYmRlc2svYmFrL2Zpc2NoZXIyMDEzc2NyaXB0aW5nLTIwMTQtMDMtMjAgMDk6MTM6MDYgLTA0MDAucGRmABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A1QDaAOIC1ALWAtsC5gLvAv0DAQMIAxEDFgMjAyYDOAM7A0AAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADQg==}
+}
+
+</hidden>
+
+{{page>notes:fischer2013scripting}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:fischer2013scripting}}
+
+{{page>kindle:fischer2013scripting}}
+
+{{page>skimg:fischer2013scripting}}

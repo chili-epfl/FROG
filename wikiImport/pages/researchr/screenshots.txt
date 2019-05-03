@@ -1,0 +1,103 @@
+h1. Researchr screenshots
+About [[start|researchr]]
+
+h2. BibDesk
+h3. Managing citation information in BibDesk
+
+{{pages:researchr_screenshots06.png}}
+
+
+h2. Skim
+h3. Highlighting text and adding notes to a PDF
+
+{{pages:researchr_screenshots05.png}}
+
+
+h2. Wiki 
+h3. All pages
+
+{{pages:researchr_screenshots2.png}}
+
+h2. Bibliography listing
+h3. Full bibliography
+
+{{pages:researchr_screenshots9.png}}
+----
+
+h3. Publication list for keyword "scripting"
+
+{{pages:researchr_screenshots7.png}}
+----
+h3. List of publications by author
+
+{{pages:researchr_screenshots8.png}}
+
+h2. Author pages
+
+h3. Index of author pages
+
+{{pages:researchr_screenshots1.png}}
+----
+h3. Author page for Nikol Rummel
+
+{{pages:researchr_screenshots10.png}}
+
+h2. Individual publication
+
+h3. Main page
+
+{{pages:researchr_screenshots02.png}}
+----
+h3. Hidden machine-readable BibTeX citation on each publication page
+
+{{pages:researchr_screenshots03.png}}
+---
+h3. Automatically imported mages with PDF link highlighted
+
+{{pages:researchr_screenshots4.png}}
+----
+h3. PDF automatically opened to the right page from wikilink on publication page
+
+{{pages:researchr_screenshots3.png}}
+----
+h3. Sidewiki automatically opens notes (key ideas) for editing on the left, and displays Skim clippings on the right
+
+{{pages:researchr_screenshots04.png}}
+
+
+h2. Topical pages
+
+h3. GroupScribbles showing full citation on mouse-over
+
+{{pages:researchr_screenshots5.png}}
+
+h2. Chrome
+
+h3. Viewing an external webpage, split-screen dialogue
+
+{{pages:researchr_screenshots08.png}}
+----
+h3. External page run through Instapaper, side-by-side with DokuWiki article
+
+{{pages:researchr_screenshots07.png}}
+
+h2. WordPress
+h3. Editing a blog entry, using [[citekeys]] and wikilinks
+
+{{pages:researchr_screenshots13.png}}
+----
+
+h3. Blog post has been rendered by plugin
+
+{{pages:researchr_screenshots12.png}}
+
+h2. Writing articles
+
+h3. Editing article in Scrivener using [[citekeys]] and MarkDown
+
+{{pages:researchr_screenshots11.png}}
+----
+
+h3. Article has been rendered as RTF file, with citations and reference list
+
+{{pages:researchr_screenshots09.png}}

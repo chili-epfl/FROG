@@ -1,0 +1,16 @@
+h1. AERA info architecture
+
+h2. In general
+AERA was certainly quite overwhelming! I went to a bunch of sessions, which resulted in me being exhausted, and not always making it out for all the social activities in the evenings where the “real learning” was taking place — not sure what’s the better approach… but it was great to get a solid overview over the field, given that it was my first AERA.
+
+h2. Taking notes
+I really enjoyed taking notes in my wiki – it kept it very organized, made it easy to share with others, and I can now go back and explore some of the topics further, read papers by some of the authors, etc. My notes from AERA are here: http://reganmian.net/wiki/aera11:start
+
+h2. Battery
+I hate that my battery always runs out though, and of course big conferences never take care to provide enough outlets. I am seriously thinking about buying an external battery, because I got a lot more out of the sessions when I was taking notes, etc.
+
+h2. Sharing notes
+Would be really interesting to think about ways in which we could more easily share our notes – I’d like to see other people who went to the same sessions as me, and the notes that they took etc. Maybe if we could have some kind of a microtag, or unique ID for each session/presenter, which we could embed in whatever wiki/blog post etc, and then Google could search for them. Or we could even submit one URL for our site, and have a web crawler that went through the site and found all the relevant pages, and displayed them together, including Twitter-links etc. It wouldn’t actually be that hard to build… Not sure if enough people would use it, though.
+
+h2. Releasing program openly
+Also, would be great if AERA would release their entire program as XML or some other structured format, so others could experiment with building APIs, different representations, etc.

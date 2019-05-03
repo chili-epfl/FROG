@@ -1,0 +1,6 @@
+h1. Kindle highlights
+
+(e.g., number of JOLs during learning, when JOLs are deployed during learning, processes that precede and follow JOLs, and the number of JOL- and JOL+ and their relation to subsequent SRL processes); **(loc: 202-4)**
+
+These data can be correlated with learning outcomes and used for predictive purposes when used in conjunction with computer-based learning environments (e.g., Azevedo 2009; Leelawong and Biswas 2008; Graesser et al. 2005). **(loc: 204-7)**
+

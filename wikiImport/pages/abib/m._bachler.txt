@@ -1,0 +1,3 @@
+h2. M. Bachler's publications
+
+| uren2006sensemaking | Uren, V., Buckingham Shum, S., Bachler, M., & Li, G. (2006). Sensemaking tools for understanding research literatures: Design, implementation and user evaluation. International Journal of Human-Computer Studies. Elsevier.||

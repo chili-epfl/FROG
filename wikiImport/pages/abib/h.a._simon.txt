@@ -1,0 +1,3 @@
+h2. H.A. Simon's publications
+
+| larkin1987diagram | Larkin, J. H., & Simon, H. A. (1987). Why a Diagram is (Sometimes) Worth Ten Thousand Words. Cognitive science. Elsevier.|[[skimx://larkin1987diagram|PDF]]|

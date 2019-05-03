@@ -1,0 +1,47 @@
+h1. Survey design
+
+h2. Pilot testing. 
+
+h3. Purpose
+  * Test effectiveness of the intervention materials
+  * Ensure acceptance of the programmes or interventions by the local community
+  * Discover any sensitive issues that may prohibit uptake of the intervention
+
+h3. Literature
+  * [@rothgeb2001questionnaire]
+  * 
+
+h2. Questions to ask
+  * Overall, did you find the survey clear and easy to understand?
+  * Were any words or questions confusing or unclear? If so, which ones?
+  * Do you think any questions should be changed or reworded? If so, which ones?
+  * How do you feel about the length of the survey?
+  * Did you have problems reading or understanding the directions? Which ones?
+  * Ask if anyone in the group has suggestions about improving any questions or the survey as a whole?
+(from [[http://fhop.ucsf.edu/fhop/docs/pdf/prods/cas/pt_surv_piloting_guid.doc|here]])
+
+----
+  * [[http://iss.leeds.ac.uk/info/312/surveys/217/guide_to_the_design_of_questionnaires|University of Leeds - Guide to the Design of Questionnaires [http://iss.leeds.ac.uk/]]]
+
+----
+define your research aims
+
+
+identify the population and sample
+
+
+decide how to collect replies
+
+
+design your questionnaire
+
+
+run a pilot survey
+
+
+carry out the main survey
+
+
+analyse the data [[http://iss.leeds.ac.uk/info/312/surveys/217/guide_to_the_design_of_questionnaires/1|University of Leeds - Guide to the Design of Questionnaires [http://iss.leeds.ac.uk/]]]
+----
+  * [[http://www.howto.gov/customer-service/collecting-feedback/basics-of-survey-and-question-design|Basics of Survey and Question Design | HowTo.gov [http://www.howto.gov/]]]

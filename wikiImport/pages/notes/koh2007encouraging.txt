@@ -1,0 +1,57 @@
+h1. Key ideas
+[[https://p2pu.org/en/groups/the-researchers-abode/content/june-2-8-encouraging-participation/|Notes from P2PU discussion]]
+
+//Survey + statistics from 71 Korean communities to find success factors. Offline meetings leads to increase in posting, usefulness leads to increase in reading. Moderator has no effect.//
+
+h2. Literature review
+h3. Social presence
+
+Definition: //the degree to which the medium facilitates awareness of other people and interpersonal relationships during an interaction//
+
+Critical for effective communications in many social/work contexts.
+
+Textual information prevalent, but low social presence - needs support with graphical, textual or video interfaces.
+
+h3. Sustainable virtual communities
+Require
+  * clear purpose or vision
+  * clear definition of members' role
+    * for example based on life cycle, visitor, novice, regular etc
+  * leadership by community moderators
+    * play an important role in developing social climate, critical success factor for sustainability of any virtual community. 
+    * who face challenge of dealing with heterogenity of members: age, education, profession
+  * online/offline events 
+    * strengthen members' identification within community, and with one another
+    * to amplify this, encourage community members to remember physical appearance of other members or help them match real names with nicknames, etc.
+    * can also be replaced with multimedia support, camera chatting etc
+
+Other perspective, requires:
+  * clear vision
+  * opinion leaders
+  * offline interaction
+  * basic guidelines
+  * useful content
+
+h2. Research question
+Factors that stimulate participants' posting and viewing of community content
+
+Which of four following factors stimulate virtual community:
+  * leader involvement
+  * offline interaction
+  * usefulness
+  * IT infrastructure quality
+
+h3. Site
+77 virtual communities in Korea on Freechal.com, which has half a million virtual communities. Used survey, as well as archival data to measure community size, age, and average monthly level. 
+
+h2. Findings
+Posting activity influenced by offline interaction
+
+Viewing activity affected by perceived usefulness
+
+The fact that these two are influenced by different factors is a key finding.
+
+Contrary to expectations, efforts of community leaders not directly associated with either.
+
+h2. Discussion
+Could be because of collectivist and long-term orientation of Korean culture (explain effect of offline interaction), while perceptions of power distance and strong sense of equity explain insignificant effect of leader involvement.

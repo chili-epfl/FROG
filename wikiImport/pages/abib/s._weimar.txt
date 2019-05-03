@@ -1,0 +1,3 @@
+h2. S. Weimar's publications
+
+| stahl2006shared | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & Mühlpfordt, M. (2006). Shared referencing of mathematical objects in online chat. Proceedings of the 7th international conference on Learning sciences.|[[skimx://stahl2006shared|PDF]]|

@@ -1,0 +1,18 @@
+h2. Highlights
+
+Shared mental models theory normally takes the individual as its unit of analysis. This paper proposes a theoretical framework for studying shared mental models in which the model is considered to be distributed amongst the team. From this framework a cognitive process is predicted which describes how shared mental models are run. A team reasoning task requiring planning was used to illustrate this framework and test predictions derived from it. Two aspects of sharing mental models were studied; the degree of overlap between team members’ mental models and the organization of the division of the model between team members. Experimental results showed that the cognitive processes used were distributed amongst the team and support was found for most, but not all, aspects of the proposed process of running a shared mental model. The organization of sharing was found to in ̄uence this process. [[skimx://banks2000running#1|p. 1]]
+
+The concept of shared mental models (Cannon-Bowers, Salas, & Converse, 1990, 1993) has been used to explain the performance of teams in a range of circumstances including piloting aircraft (e.g. Stout, Cannon-Bowers, Salas, & Milanovich, 1999; Heåner, Mathieu, & Cannon-Bowers, 1995), operating tanks (Minionis, 1995), in software engineering teams (Carley, 1997) and in new product development teams (Madhavan & Grover, 1998). [[skimx://banks2000running#1|p. 1]]
+
+::shared models has been used in many settings:: [[skimx://banks2000running#1|p. 1]]
+
+Hypothesis 1: The number of request and oåer communications in the Complete and Organized conditions will be the same. The number of request and oåer communications in the Disorganized condition will be signi®cantly more than either of these two conditions. [[skimx://banks2000running#9|p. 9]]
+
+Hypothesis 2: The number of hone and widen communications in the Organized condition will be signi®cantly more than in the Complete condition. The number of hone and widen communications in the Disorganized condition will be signi®cantly more than in the Organized condition. [[skimx://banks2000running#9|p. 9]]
+
+Hypothesis 3a: The time taken to complete the trials in the Complete condition will be signi®cantly shorter than the Organized condition which will be signi®cantly shorter than the Disorganized condition. [[skimx://banks2000running#10|p. 10]]
+
+Hypothesis 3b: The number of errors will be the same in all the conditions. [[skimx://banks2000running#10|p. 10]]
+
+Hypothesis 3c: The number of moves will be the same in all conditions. [[skimx://banks2000running#10|p. 10]]
+

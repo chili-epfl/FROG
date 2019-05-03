@@ -1,0 +1,101 @@
+h2. Highlights (35%)
+
+The digitisation of content combined with a global network for delivery and an open system for sharing has seen radical changes in many industries. The economic model which has underpinned many content based industries has been based on an assumption of scarcity. With a digital, open, networked approach we are witnessing a shift to abundance of content, and subsequently new economic models are being developed which have this as an assumption. In this article the role of scarcity in developing higher education practice and pedagogy is explored. The shift to abundant content has as profound implications for education as it has for content industries. The possible contenders for a ‘pedagogy of abundance’ are examined and the necessary requirements for such a pedagogy outlined. [[skimx://weller2011pedagogy#2|p. 2]]
+
+In Boyer’s definition of scholarship there are four components, each of which he suggests should be considered as of equal value by Universities and government policy: 
+  *  Discovery - the creation of new knowledge in a specific area or discipline and is often taken to be synonymous with research. This is probably closest to the public conception of scholarship, as universities are often the site of significant breakthroughs. [[skimx://weller2011pedagogy#2|p. 2]]
+
+
+  *  Integration – integration is focused on interpretation and inter-disciplinary work. It is moving away from the pure, ‘genesis’ research of discovery. Boyer states that it is ‘making connections across the disciplines, placing the specialties in larger context, illuminating data in a revealing way, often educating non-specialists” 
+  *  Application – this is related to the concept of ‘service’, but Boyer makes a distinction between citizenship and scholarly types of service, and for the latter it needs to build on the scholar’s area of expertise. It can be seen as engagement with the wider world outside academia, which might include public engagement activities as well as input into policy and general media discussions. This can also include the time spent peer reviewing journal articles and grant applications and sitting on various committees. 
+  *  Teaching – much of the interpretation of Boyer can be seen as an attempt to raise the profile of teaching. He argues that ‘the work of the professor becomes consequential only as it is understood by others. Yet, today, teaching is often viewed as a routine function, tacked on’. New technology has the potential to impact upon all four scholarly components, but is perhaps in the last category, that of teaching, where there is the greatest potential for a radically different approach to emerge. [[skimx://weller2011pedagogy#3|p. 3]]
+
+::Economic models of scarcity, music industry, freemium, Chris Anderson:: [[skimx://weller2011pedagogy#4|p. 4]]
+
+The modern university is in this sense, a solution to the economics of scarcity. [[skimx://weller2011pedagogy#5|p. 5]]
+
+As a result a ‘pedagogy of scarcity’ developed which is based around a one to many model to make the best use of the scarce resource (the expert). This is embodied in the lecture, which despite its detractors, is still a very efficient means of conveying certain types of learning content. An instructivist pedagogy then can be seen as a direct consequence of the demands of scarcity. [[skimx://weller2011pedagogy#5|p. 5]]
+
+In short, what would a pedagogy of abundance look like? [[skimx://weller2011pedagogy#5|p. 5]]
+
+Wesch (2008) asked students what it ‘said’ about learning, in essence what were the affordances (Gibson 1979; Norman 1988) of the physical learning environment. His students listed the following: 
+  *  To learn is to acquire information 
+  *  Information is scare and hard to find 
+  *  Trust authority for good information 
+  *  Authorized information is beyond discussion 
+  *  Obey the authority 
+  *  Follow along [[skimx://weller2011pedagogy#6|p. 6]]
+
+They are also at distinct odds with the type of experience students have in the online world they inhabit regularly, particularly the social network, read/write web. These environments are characterised by 
+  *  User-generated content 
+  *  Power of the crowd 
+  *  Data on an epic scale 
+  *  Architecture of participation 
+  *  Network effects 
+  *  Openness [[skimx://weller2011pedagogy#6|p. 6]]
+
+Conole (2008) points out “Recent thinking in learning theory has shifted to emphasise the benefit of social and situated learning as opposed to behaviourist, outcomes-based, individual learning. What is striking is that a mapping to the technologies shows that recent trends in the use of technologies, the shift from Web 1.0 to Web 2.0 echoes this; Web 2.0 tools very much emphasise the collective and the network.” [[skimx://weller2011pedagogy#6|p. 6]]
+
+Any pedagogy of abundance would then, I suggest, be based on the following assumptions: 
+  *  Content is free – not all content is free and not yet, but increasingly a free version can be located and so an assumption that this will be the default is more likely than one based on paywalls or micropayments. 
+  *  Content is abundant – as covered above, the quantity of content is now abundant as a result of easy publishing formats and digitisation projects. 
+  *  Content is varied – content is no longer predominantly text based. 
+  *  Sharing is easy – through the use of tools such as social bookmarking, tagging, and linking the ‘cost’ of sharing has largely disappeared 
+  *  Social based – this may not necessarily entail intensive interaction, filtering and sharing as a by-product of individual actions constitutes a social approach to learning 
+  *  Connections are ‘light’ – as with sharing, it is easy to make and preserve connections within a network since they do not necessitate one to one maintenance 
+  *  Organisation is cheap – Clay Shirky (2008) argues that the ‘cost’ of organising people has collapsed, which makes informal groupings more likely to occur and often more successful: “By making it easier for groups to self-assemble and for individuals to contribute to group effort without requiring formal management, these tools have radically altered the old limits on the size, sophistication, and scope of unsupervised effort” 
+  *  Based on a generative system – Zittrain (2008) argues that unpredictability and freedom are essential characteristics of the internet and the reasons why it has generated so many innovative developments. Any pedagogy would seek to harness some element of this generative capability. 
+  *  User generated content – related to the above, the ease of content generation will see not only a greater variety of formats for content, but courses being updated and constructed from learner’s own content. [[skimx://weller2011pedagogy#7|p. 7]]
+
+As Conole (ibid) suggested, there are a number of pedagogies which meet some of these assumptions. We will now examine some of the contenders for a pedagogy of abundance. [[skimx://weller2011pedagogy#7|p. 7]]
+
+Resource Based Learning [[skimx://weller2011pedagogy#7|p. 7]]
+
+Resource based learning (RBL) places resources in the foreground of learning, and the learner’s interaction and selection of these (which may include human resources) is the driving principle. Ryan (2000) uses the following definition for RBL, taken from the Australian National Council on Open and Distance Education RBL is ‘an integrated set of strategies to promote student centred learning in a mass education context, through a combination of specially designed learning resources and interactive media and technologies.’ If one views the abundance of resources as the primary factor in a pedagogy of abundance then RBL looks like an appropriate strategy. I think it is often still grounded in a scarcity approach though, for example Ryan goes on to argue that ‘these integrated strategies for RBL should be based on the [[skimx://weller2011pedagogy#7|p. 7]]
+
+application of a range of instructional design principles to the development of learning materials...’. In a world of abundance the emphasis is less on the development of specific learning materials than on the selection, aggregation and interpretation of existing materials. [[skimx://weller2011pedagogy#8|p. 8]]
+
+Problem based learning [[skimx://weller2011pedagogy#8|p. 8]]
+
+Barrows and Tamblyn (1980) summarise PBL as ‘the learning that results from the process of working toward the understanding or resolution of a problem. The problem is encountered first in the learning process.’ [[skimx://weller2011pedagogy#8|p. 8]]
+
+With its emphasis on learner direction, use of diverse resources and open-endedness it meets many of the requirements set out above. As with RBL it may need recasting to fully utilise the new found abundance of content, where there is greater stress on finding and evaluating resources from a wide range, and the utilisation of social networks as a resource. [[skimx://weller2011pedagogy#8|p. 8]]
+
+Constructivism [[skimx://weller2011pedagogy#8|p. 8]]
+
+Given that it has a loose definition, it is hard to pin down a constructivist approach exactly. Mayer (2004) suggests that such discovery based approaches are less effective than guided ones, arguing that the “debate about discovery has been replayed many times in education but each time, the evidence has favored a guided approach to learning.” [[skimx://weller2011pedagogy#8|p. 8]]
+
+When Kirschner, Sweller and Clark (2006) claim, with some justification, that “the epistemology of a discipline should not be confused with a pedagogy for teaching/learning it” that only highlights that the epistemology of a discipline is now being constructed by all, so learning how to participate in this is as significant as learning the subject matter of the discipline itself. [[skimx://weller2011pedagogy#8|p. 8]]
+
+Communities of practice [[skimx://weller2011pedagogy#9|p. 9]]
+
+Crowston and Howison (2004) propose a hierarchical structure for FLOSS communities, consisting of the following layers: 
+  *  A center of core developers, who contribute the majority of the code and oversee the overall project. 
+  *  In the next layer are the co-developers who submit patches, which are reviewed and checked in by core developers. 
+  *  Further out are the active users who do not contribute code but provide usecases and bug-reports as well as testing new releases. 
+  *  Further out still, are the many passive users of the software who do not contribute directly to the main forums. [[skimx://weller2011pedagogy#9|p. 9]]
+
+Bacon and Dillon (2006) suggest that some of the practices seen in open source communities can be adopted by higher education, in particular the process of peerproduction and the situated method of teaching and learning. With its practical approach, self-direction, user generated content and social aspect, the communities of practice approach as realised in open source communities provides an interesting model for a pedagogy of abundance, since it devolves much of the work to a community, from which all benefit. However, the number of successful open source communities is relatively small compared with the number of unsuccessful ones, and thus the rather tenuous success factors for generating and sustaining an effective community may prove to be a barrier across all subject areas. Where they thrive however, it offers a significant model which higher education can learn much from in terms of motivation and retention (Meiszner 2010). [[skimx://weller2011pedagogy#9|p. 9]]
+
+Connectivism [[skimx://weller2011pedagogy#9|p. 9]]
+
+Of the theories listed here it is the only post-network theory, which has as its starting assumption the internet and the mass of connections we establish. [[skimx://weller2011pedagogy#9|p. 9]]
+
+References [[skimx://weller2011pedagogy#11|p. 11]]
+
+Conole, G. (2008) ‘New Schemas for Mapping Pedagogies and Technologies’. Ariadne, 56. July 2008 http://www.ariadne.ac.uk/issue56/conole/ [[skimx://weller2011pedagogy#11|p. 11]]
+
+Ryan S (2000) The virtual university: the Internet and resource-based learning. Routledge. [[skimx://weller2011pedagogy#11|p. 11]]
+
+Mayer, R. (2004). Should there be a three-strikes rule against pure discovery learning? The case for guided methods of instruction. American Psychologist, 59(1), 14-19. [[skimx://weller2011pedagogy#11|p. 11]]
+
+Kirschner, P. A., Sweller, J. & Clark, R. E. (2006). Why Minimal Guidance During Instruction Does Not Work: An Analysis of the Failure of Constructivist, Discovery, Problem-Based, Experiential, and Inquiry-Based Teaching.Educational Psychologist, 41(2), 75-86 [[skimx://weller2011pedagogy#12|p. 12]]
+
+Bacon, S. and Dillion, T., (2006). ‘The Potential of Open Source Approaches for Education’. Futurelab, TeLearn Online, Available from: http://telearn.noekaleidoscope.org/warehouse/bacon-2006-OpenSource.pdf [[skimx://weller2011pedagogy#12|p. 12]]
+
+Crowston, K., and Howison, J., (2005). ‘The social structure of Free and Open Source software development’. First Monday, 10 (2). Available from http://firstmonday.org/issues/issue10_2/crowston/index.html [[skimx://weller2011pedagogy#12|p. 12]]
+
+Meiszner A (2010) The Emergence of Free / Open Courses - Lessons from the Open Source Movement. PhD Thesis. http://www.scribd.com/doc/33852509/TheEmergence-of-Free-Open-Courses-Lessons-from-the-Open-Source-Movement [[skimx://weller2011pedagogy#12|p. 12]]
+
+Dearing R (1997) Higher education in the learning society. National Committee of Inquiry into Higher Education. http://www.leeds.ac.uk/educol/ncihe/ [[skimx://weller2011pedagogy#12|p. 12]]
+

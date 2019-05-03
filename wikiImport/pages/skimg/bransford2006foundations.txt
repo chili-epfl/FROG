@@ -1,0 +1,16 @@
+h2. Images
+
+{{skim:bransford2006foundations0.png}}
+
+[[skimx://bransford2006foundations#3
+|p. 3
+]]
+----
+
+{{skim:bransford2006foundations1.png}}
+
+[[skimx://bransford2006foundations#9
+|p. 9
+]]
+----
+

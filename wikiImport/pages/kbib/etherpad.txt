@@ -1,0 +1,8 @@
+h2. Publications with keyword "etherpad"
+
+| [@allisonbridging] | Allison, M. A., & Cockrell, J. Bridging Strangers for Collaborative Research on Communicative Cities: A Progress Report on Using Mechanical Turk to Enable Collaborative Research which Yields Collectively-improved Results. |
+| [@muhammad2009awareness] | Muhammad, Y., Jabeen, S., Muhammad, A., Enriquez, M., & others Awareness Elements In Web Based Cooperative Writing Applications. In Computational Intelligence and Industrial Applications, 2009. PACIIA 2009. Asia-Pacific Conference on (Vol. 2, 345--348).|
+| [@grishchenko2010deep] | Grishchenko, V. (2010). Deep hypertext with embedded revision control implemented in regular expressions. In Proceedings of the 6th International Symposium on Wikis and Open Collaboration (1--10).|
+| [@ohare2010online] | O’Hare, S., Quartermaine, L., & Cooke, A. (2010). Online learning: Who is doing the learning?.|
+| [@barton2011students] | Barton, M., & Klint, K. (2011). A Student’s Guide to Collaborative Writing Technologies. Writing Spaces: Readings on Writing, 320. |
+| [@brodahl2011collaborative] | Brodahl, C., Hadjerrouit, S., & Hansen, N. K. (2011). Collaborative Writing with Web 2.0 Technologies: Education Students’ Perceptions. Journal of Information Technology Education, 10. |

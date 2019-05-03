@@ -1,0 +1,4 @@
+h2. Umberto Eco's publications
+
+| [@eco1984semiotics] | Eco, U. (1984). Semiotics and the philosophy of language. Indiana University Press.|
+| [@eco1989open] | Eco, U. (1989). The Open Work. Harvard University Press.|

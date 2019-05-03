@@ -1,0 +1,6 @@
+h2. A. Weiner's publications
+
+| :ref:suthers1995belvedere | Suthers, D., Weiner, A., Connelly, J., & Paolucci, M. (1995). Belvedere: Engaging students in critical discussion of science and public policy issues. Proceedings of the 7th World Conference on Artificial Intelligence in Education.|
+| :ref:suthers1997integrated | Suthers, D., Toth, E. E., & Weiner, A. (1997). An integrated approach to implementing collaborative inquiry in the classroom. Proceedings of the 2nd international conference on Computer support for collaborative learning.|
+| :ref:suthers1995belvedere | Suthers, D., Weiner, A., Connelly, J., & Paolucci, M. (1995). Belvedere: Engaging students in critical discussion of science and public policy issues. Proceedings of the 7th World Conference on Artificial Intelligence in Education.|
+| :ref:suthers1997integrated | Suthers, D., Toth, E. E., & Weiner, A. (1997). An integrated approach to implementing collaborative inquiry in the classroom. Proceedings of the 2nd international conference on Computer support for collaborative learning.|

@@ -1,0 +1,3 @@
+h2. Publications in Journal of Universal Computer Science
+
+| nalepa2010collective | Nalepa, G. J. (2010). Collective knowledge engineering with semantic wikis. Journal of Universal Computer Science, 16(7), 1006--1023.|[[skimx://nalepa2010collective|PDF]]|

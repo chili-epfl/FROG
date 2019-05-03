@@ -1,0 +1,20 @@
+h1. Notes
+
+* Highlight, page 2
+
+One of the first large-scale implementations of badges in online games began in 2002 with Microsoft’s Xbox Live service. Since that time, badges have become a fixture in many games. Notable implementations of badges in social media include Wikipedia’s “Barnstars” which allow users to award each other for doing valued work [8], Q & A site StackOverflow’s system of badges to encourage productive participation, and FourSquare’s implementation of badges to promote location-sharing via “check-ins.”
+
+
+
+* Highlight, page 2
+
+Two additional aspects of goal setting are also essential to mention. First, the goals presented in a badge are not always explicit, either because system designers choose only to adumbrate2 how to earn a badge or because the necessary activities are subjective or imprecisely defined. Secondly, goal setting is most effective when users can see their progress towards the goal. Without signposts to mark the way, there is little or no feedback to keep users moving in the right direction. Furthermore, people often escalate their efforts when they know they are near their goal [5].
+
+
+
+* Highlight, page 4
+
+Together, these findings demand a program of systematic research into the dynamics of badges in social media systems. In addition to exploring the above typology, our future research will focus on understanding their positive and negative influences, as well as the social aspects of giving and receiving badges awarded by system designers (e.g. FourSquare) versus other users (e.g. Wikipedia).5
+
+
+

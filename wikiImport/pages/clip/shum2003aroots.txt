@@ -1,0 +1,20 @@
+h1. Notes
+
+* Highlight, page 1
+
+This chapter considers some of the “roots” to Computer-Supported Argument Visualization (CSAV). The definitions above point to historical ancestors and conceptual foundations, and this chapter seeks to identify the most influential work to whom CSAV owes an intellectual debt. Specifically, we will consider individuals who invented paper-based precursors of argument maps, and/or who envisioned the possibilities that computers opened up. In mapping CSAV’s intellectual terrain, I may well omit important branches to its roots that I have not encountered, but hope that this chapter will serve to stimulate the forging of further connections to other traditions.
+
+
+
+* Highlight, page 2
+
+The human-centred technology research fields such as computer-supported co- operative work (CSCW), computer-mediated communication (CMC), and computer- supported collaborative learning (CSCL) have developed their own flavours of CSAV, in order to support the coordination of distributed organisational activity (Malone et al., 1987), the structuring of contributions to group support systems (Turoff et al., 1999), and the creation of conversations in which learning takes place (Andriessen et al., in press). The chapters in this book demonstrate how widely CSAV is attracting interest and finding applications.
+
+
+
+* Highlight, page 3
+
+Hence, though we may not be able to demonstrate that we ought to reach that belief or disbelief, we have at least the satisfaction of having taken every precaution to reach it rationally. Our moral duty was to approximate, so far as capable, our belief to the fact. We have performed that duty, to the limits of our present rational capacity. And the scheme or method, if it has enlarged that capacity, will have achieved something worthwhile. (p.111)
+
+
+

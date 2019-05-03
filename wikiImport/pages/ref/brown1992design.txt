@@ -1,0 +1,40 @@
+h1. Design experiments: Theoretical and methodological challenges in creating complex interventions in classroom settings
+<html><a href='http://web.media.mit.edu/~kbrennan/mas790/09/DBR/Brown,%20Design%20experiments%20-%20Theoretical%20and%20methodological%20challenges%20in%20creating%20complex%20interventions%20in%20classroom%20settings.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://web.media.mit.edu/~kbrennan/mas790/09/DBR/Brown,%20Design%20experiments%20-%20Theoretical%20and%20methodological%20challenges%20in%20creating%20complex%20interventions%20in%20classroom%20settings.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Brown, A. L. (1992). Design experiments: Theoretical and methodological challenges in creating complex interventions in classroom settings. The journal of the learning sciences, 2(2), 141–178. Retrieved from http://web.media.mit.edu/~kbrennan/mas790/09/DBR/Brown,%20Design%20experiments%20-%20Theoretical%20and%20methodological%20challenges%20in%20creating%20complex%20interventions%20in%20classroom%20settings.pdf|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://brown1992design|BibDesk]]  | Brown, A. L. (1992). Design experiments: Theoretical and methodological challenges in creating complex interventions in classroom settings. The journal of the learning sciences, 2(2), 141–178. Retrieved from http://web.media.mit.edu/~kbrennan/mas790/09/DBR/Brown,%20Design%20experiments%20-%20Theoretical%20and%20methodological%20challenges%20in%20creating%20complex%20interventions%20in%20classroom%20settings.pdf |
+^ [[skimx://brown1992design|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:brown1992design?do=edit&vecdo=print\'><frame src=\'/wiki/clip:brown1992design?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{brown1992design,
+  author = {Brown, A. L.},
+  date-added = {2012-05-08 12:48:51 +0000},
+  date-modified = {2013-12-09 23:17:30 +0000},
+  date-read = {2013-12-09 18:17:30 -0500},
+  journal = {The journal of the learning sciences},
+  keywords = {0BrownCampione},
+  number = {2},
+  oa-url = {http://web.media.mit.edu/~kbrennan/mas790/09/DBR/Brown,%20Design%20experiments%20-%20Theoretical%20and%20methodological%20challenges%20in%20creating%20complex%20interventions%20in%20classroom%20settings.pdf},
+  pages = {141–178},
+  publisher = {Taylor & Francis},
+  read = {1},
+  title = {Design experiments: Theoretical and methodological challenges in creating complex interventions in classroom settings},
+  url = {http://web.media.mit.edu/~kbrennan/mas790/09/DBR/Brown,%20Design%20experiments%20-%20Theoretical%20and%20methodological%20challenges%20in%20creating%20complex%20interventions%20in%20classroom%20settings.pdf},
+  volume = {2},
+  year = {1992},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIS4uLy4uL0JpYmRlc2svYnJvd24xOTkyZGVzaWduLnBkZtIXCxgZV05TLmRhdGFPEQF8AAAAAAF8AAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lITYnJvd24xOTkyZGVzaWduLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmgeZMvW9FJQREYgQ0FSTwACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAy9cskgAAAAEADADa1lIAFz0xAAGfXgACADJTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAYnJvd24xOTkyZGVzaWduLnBkZgAOACgAEwBiAHIAbwB3AG4AMQA5ADkAMgBkAGUAcwBpAGcAbgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAnVXNlcnMvU3RpYW4vQmliZGVzay9icm93bjE5OTJkZXNpZ24ucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALIAtwC/Aj8CQQJGAlECWgJoAmwCcwJ8AoECjgKRAqMCpgKrAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:brown1992design}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:brown1992design}}
+
+{{page>kindle:brown1992design}}
+
+{{page>skimg:brown1992design}}

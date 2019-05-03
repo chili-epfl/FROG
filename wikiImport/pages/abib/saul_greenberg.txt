@@ -1,0 +1,4 @@
+h2. Saul Greenberg's publications
+
+| [@tee2006providing] | Tee, K., Greenberg, S., & Gutwin, C. (2006). Providing artifact awareness to a distributed group through screen sharing. In Proceedings of the 2006 20th anniversary conference on Computer supported cooperative work - CSCW ’06 (99). Association for Computing Machinery (ACM). doi:10.1145/1180875.1180891|
+| [@sun2010places] | Sun, Y., & Greenberg, S. (2010). Places for lightweight group meetings. In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (235). doi:10.1145/1880071.1880111|

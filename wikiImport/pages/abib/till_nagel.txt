@@ -1,0 +1,3 @@
+h2. Till Nagel's publications
+
+| [@nagel2010visualizing] | Nagel, T., & Duval, E. Visualizing the Origins and Connections of Institutions based on Co-authorship of Publications. In .|

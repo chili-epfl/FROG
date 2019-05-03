@@ -1,0 +1,3 @@
+h2. V. Lally's publications
+
+| delaat2003complexity | De Laat, M., & Lally, V. (2003). Complexity, theory and praxis: Researching collaborative learning and tutoring processes in a networked learning community. Instructional Science. Springer.|[[skimx://delaat2003complexity|PDF]]|

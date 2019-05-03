@@ -1,0 +1,3 @@
+h2. Publications with keyword "synchronous,etherpad"
+
+| [@corneli2010live] | Corneli, J., & Mikroyannidis, A. (2010). Live annotation and content discovery in personal learning environments. |

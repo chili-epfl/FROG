@@ -1,0 +1,3 @@
+h2. Publications with keyword "cmc,AI"
+
+| [@tchounikine2010computer] | Tchounikine, P., Rummel, N., & McLaren, B. (2010). Computer Supported Collaborative Learning and Intelligent Tutoring Systems. Advances in Intelligent Tutoring Systems, 447--463.|

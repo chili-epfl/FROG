@@ -1,0 +1,4 @@
+h2. K. Yacef's publications
+
+| reimann2005adaptive | Reimann, P., Judy, K., Yacef, K., & Goodyear, P. (2005). Adaptive visualisation support for self-managed learning groups. AIED 2005--Workshop 6 Representing and Analyzing Collaborative Interactions: What works? When does it work? To what extent are methods re-usable?.|[[skimx://reimann2005adaptive|PDF]]|
+| reimann2011analyzing | Reimann, P., Yacef, K., & Kay, J. (2011). Analyzing collaborative interactions with data mining methods for the benefit of learning. Analyzing Interactions in CSCL. Springer.|[[skimx://reimann2011analyzing|PDF]]|

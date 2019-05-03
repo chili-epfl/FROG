@@ -1,0 +1,3 @@
+h2. Publications with keyword "Wikis, annotation, content discovery"
+
+| corneli2010gravpad | Corneli, J. (2010). GravPad. Proceedings of the 6th International Symposium on Wikis and Open Collaboration, WikiSym '10. New York, NY, USA: ACM. doi: http://doi.acm.org.myaccess.library.utoronto.ca/10.1145/1832772.1832815. | [[skimx://corneli2010gravpad|PDF]]|

@@ -1,0 +1,12 @@
+h1. Joachim Kimmerle
+{{ pages:a_joachim_kimmerle01.png}}
+Professor of psychology, University of Tübingen
+
+h2. Research
+  * [[:self-directed learning]]
+  * cognitive theories of emotions and motivations
+
+h2. Links
+  * [[http://www.uni-tuebingen.de/index.php?id=10339|Homepage]]
+
+{{page>abib:Joachim Kimmerle}}

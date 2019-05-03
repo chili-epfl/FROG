@@ -1,0 +1,71 @@
+h2. Images
+
+{{skim:belanger2010annotative0.png}}
+
+[[skimx://belanger2010annotative#25
+|p. 25
+]]
+----
+
+{{skim:belanger2010annotative1.png}}
+
+[[skimx://belanger2010annotative#26
+|p. 26
+]]
+----
+
+{{skim:belanger2010annotative2.png}}
+
+[[skimx://belanger2010annotative#27
+|p. 27
+]]
+----
+
+{{skim:belanger2010annotative3.png}}
+
+[[skimx://belanger2010annotative#32
+|p. 32
+]]
+----
+
+{{skim:belanger2010annotative4.png}}
+
+[[skimx://belanger2010annotative#35
+|p. 35
+]]
+----
+
+{{skim:belanger2010annotative5.png}}
+
+[[skimx://belanger2010annotative#39
+|p. 39
+]]
+----
+
+{{skim:belanger2010annotative6.png}}
+
+[[skimx://belanger2010annotative#45
+|p. 45
+]]
+----
+
+{{skim:belanger2010annotative7.png}}
+
+[[skimx://belanger2010annotative#51
+|p. 51
+]]
+----
+
+{{skim:belanger2010annotative8.png}}
+
+[[skimx://belanger2010annotative#62
+|p. 62
+]]
+----
+
+{{skim:belanger2010annotative9.png}}
+
+[[skimx://belanger2010annotative#99
+|p. 99
+]]
+----

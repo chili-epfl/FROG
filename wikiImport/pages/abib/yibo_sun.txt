@@ -1,0 +1,3 @@
+h2. Yibo Sun's publications
+
+| [@sun2010places] | Sun, Y., & Greenberg, S. (2010). Places for lightweight group meetings. In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (235). doi:10.1145/1880071.1880111|

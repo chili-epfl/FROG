@@ -1,0 +1,37 @@
+h1. Facilitated hypertext for collective sensemaking: 15 years on from gIBIS
+<html><a href='http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.3415&rep=rep1&type=pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.3415&rep=rep1&type=pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Conklin, J., Selvin, A. M., Buckingham Shum, S., & Sierhuis, M. (2001). Facilitated hypertext for collective sensemaking: 15 years on from gIBIS. Proceedings of the 12th ACM conference on Hypertext and Hypermedia. Retrieved from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.3415&rep=rep1&type=pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://conklin2001facilitated|BibDesk]]  | Conklin, J., Selvin, A. M., Buckingham Shum, S., & Sierhuis, M. (2001). Facilitated hypertext for collective sensemaking: 15 years on from gIBIS. Proceedings of the 12th ACM conference on Hypertext and Hypermedia. Retrieved from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.3415&rep=rep1&type=pdf. |
+^ [[skimx://conklin2001facilitated|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:conklin2001facilitated?do=edit&vecdo=print\'><frame src=\'/wiki/clip:conklin2001facilitated?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{conklin2001facilitated,
+  author = {Conklin, Jeff and Selvin, Albert M. and Buckingham Shum, Simon and Sierhuis, M.},
+  booktitle = {Proceedings of the 12th ACM conference on Hypertext and Hypermedia},
+  date-added = {2011-05-29 00:02:25 +0800},
+  date-modified = {2012-11-27 19:04:47 +0000},
+  keywords = {1representational guidance},
+  oa-url = {http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.3415&rep=rep1&type=pdf},
+  organization = {ACM},
+  pages = {123--124},
+  read = {1},
+  title = {Facilitated hypertext for collective sensemaking: 15 years on from gIBIS},
+  url = {http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.3415&rep=rep1&type=pdf},
+  year = {2001},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhpjb25rbGluMjAwMWZhY2lsaXRhdGVkLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2sxQygaUx1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKBs0HAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb25rbGluMjAwMWZhY2lsaXRhdGVkLnBkZgAADgA2ABoAYwBvAG4AawBsAGkAbgAyADAAMAAxAGYAYQBjAGkAbABpAHQAYQB0AGUAZAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9jb25rbGluMjAwMWZhY2lsaXRhdGVkLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9jb25rbGluMjAwMWZhY2lsaXRhdGVkLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:conklin2001facilitated}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:conklin2001facilitated}}
+
+{{page>kindle:conklin2001facilitated}}
+
+{{page>skimg:conklin2001facilitated}}

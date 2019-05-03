@@ -1,0 +1,3 @@
+h2. W. Siberski's publications
+
+| karger2008what | Karger, P., Olmedilla, D., Abel, F., Herder, E., & Siberski, W. (2008). What Do You Prefer? Using Preferences to Enhance Learning Technology. Learning Technologies, {IEEE} Transactions on. doi: 10.1109/TLT.2008.5.|[[skimx://karger2008what|PDF]]|

@@ -1,0 +1,3 @@
+h2. Jaime Arguello's publications
+
+| [@rose2008analyzing] | Wang{Yi-Chia}, Cui, Y., Arguello, J., Stegmann, K., Weinberger, A., Fischer, F., & RoséCarolin Penstein. (2008). Analyzing collaborative learning processes automatically: Exploiting the advances of computational linguistics in computer-supported collaborative learning. International Journal of {Computer-Supported} Collaborative Learning, 3(3), 237--271. doi:10.1007/s11412-007-9034-0|

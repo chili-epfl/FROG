@@ -1,0 +1,3 @@
+h2. Salman Khan's publications
+
+| [@khansalman] | Khan, S. Salman Khan: Let's use video to reinvent education {\textbar} Video on {TED.com}. |

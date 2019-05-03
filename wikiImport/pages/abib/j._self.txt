@@ -1,0 +1,3 @@
+h2. J. Self's publications
+
+| dillenbourg1992people | Dillenbourg, P., & Self, J. (1992). People power: A human-computer collaborative learning system. Intelligent Tutoring Systems.|[[skimx://dillenbourg1992people|PDF]]|

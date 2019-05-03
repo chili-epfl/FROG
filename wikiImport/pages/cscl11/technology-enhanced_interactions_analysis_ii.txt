@@ -1,0 +1,264 @@
+h1. Technology-enhanced interactions analysis II
+
+h2. Fostering Social Navigation and Elaboration of Controversial Topics with Preference-Inconsistent Recommendations
+//Christina Schwind, Jurgen Buder, Friedrich W. Hesse//
+
+  * elaborated opinion formation requires critical thinking
+
+web seems ideal for this, BUT
+
+psychological barrier
+  * expectations afect information search
+  * confirmation bias
+
+recommender systems 
+  * principle of maximum similarity (Munro, Hook and Benyon 1999)
+
+confrontation with disagreeing others
+  * stimulates conflict
+  * leads to deeper elaboration
+
+Assumptions
+  * preference-inconsistent recommendations
+    * reduce confirmation bias
+    * lead to deeper thinking on controversial topics
+
+Procedure
+  * read introduction on controversial topic
+  * indicate pre-preference
+  * receive list of eight information sources
+
+Conditions
+  * control
+  * consistent recommendation to pre-preference
+  * non-consistent recommendation
+
+All received same information, but the difference was the highlighting (none, consistent, non-consistent). Could only select one reading for further study.
+
+Variables
+  * confirmation bias
+    * confirmation bias in two first, not in third. no difference between 1st and 2nd.
+  * with third, attenuation of preference (first/post)
+  * more novel arguments were introduced in the essay for non-consistent recommendations condition
+
+h2. Adaptable Scripting in Computer-Supported Collaborative Learning to Foster Knowledge and Skill Acquisition
+//Xinghua Wang, [[:a:Ingo Kollar]], [[:a:Karsten Stegmann]], [[:a:Frank Fischer]]//
+
+Collaboration scripts structure group interaction by specifying task, distributing roles, and sequencing sub-activities.
+
+Follow up study of [@weinberger2003scripts].
+
+Flexibility deals with the concerns of coercive scripting ([@tchounikine2007directions]), being too coercive, no room for self-regulation ([@diziol2009using]).
+
+Adaptable scripting as a promising approach to realize self-regulation (Leutner 2009). Learners can switch on and off parts of script based on needs. 
+
+look at how adaptable scripts help acquisition of
+  * domain-specific skills
+  * domain-independent skills
+
+conditions
+  * unscripted
+  * non-adaptable
+  * adaptable
+
+environment
+  * text-based chat, etc - like Weinberg 2003
+
+phases
+  * pre-test
+  * training
+  * chat
+    * reflect on training, plan for treatment
+    * learners in third condition can choose roles
+    * treatment
+      * learn attribution theory by applying theory to cases
+    * post-test
+      * performance on individual knowledge and skill acquisition
+      * analyze new case applying theory
+      * first 10 minutes individually
+      * then chat with group
+        * assess their use of collaboration skills
+
+result
+  * learner in adaptable scripted outperformed 1 and 2 (no significant difference between 1 and 2)
+
+questions:
+  * why did you do the learning phase? why not start right away?
+    * we think learners need some previous knowledge about the script, otherwise they cannot adapt it
+    * how about adaptability during training phase?
+    * not very autonomous
+  * anything about motivation?
+    * some questionnaire, no difference
+    * high or low?
+    * relatively low, especially after the treatment
+  * did you look at ability? i read that higher-level learners might use support even if they don't need it, lower-level learners won't know to use them? could exacerbate difference
+    * have open question to measure learners' knowledge about collaboration
+  * maybe split up the project in time, to keep the motivation higher
+
+h2. Explaining the Effects of Continuous and Faded Scripts on Online Search Skills: The Role of Collaborative Strategy Practice
+//[[:a:Christof Wecker]], [[:a:Ingo Kollar]], [[:a:Frank Fischer]]//, LMU
+
+not just a "script effect" presentation (I have a script, and it works!), but trying to understand how it works
+
+prepare learners to be responsible citizens who can participate in debates about socio-scientific issues
+
+learners collaborative conduct online searches, collaboration script, inquiry unit
+
+beneficial effects of collaboration scripts
+
+during
+  * trigger targeted activities
+  * raise quality of discourse
+  * enhance group products
+
+after
+  * domain-general skills
+
+In previous research, faded scripts have not been inferior to continous scripts
+
+Potential mechanisms of script internalization
+  * what drives the development of domain-general skills when learning with a collaboration script?
+    * mere exposure to script prompts?
+      * in this case, their practice should not predict online search skills
+    * own practice of the strategy suggested by script
+      * the learners' own practice should predict outcome
+    * observing learner partner's practice of strategy (social learning theory)
+      * the learning partner's practice of skills should predict outcome
+
+RQ:
+  * effect of continuous and faded scripts on students' practice
+  * how are students and learning partners' practice of strategy suggested by script related to their development of online search skills 
+
+method
+  * instructional unit: genetics
+    * intro
+    * economic aspect
+    * ecological aspect
+    * health aspect
+
+used WISE platform to study genetics. three cycles focusing on different aspects. each cycle, three phases:
+
+  * study of background info, through WISE (dyads)
+  * collaborative online search, learners went to look for more detailed information which is up-to-date, collaboratively dyads sitting next to each other, with their own laptops, connected - whatever one person clicked on, was brought up on the other person's screen
+  * plenary discussion, exchange arguments and information during collaborative online searches
+
+conditions:
+  * no script
+  * continuous 
+  * faded
+
+script:
+  * panel on the left side, showing complementary prompts, adapted according to stage of search
+  * prompts were different for the two students
+  * in faded, they gradually became less specific and finally went away
+
+dependent:
+  * online search skills (pre/post) - describe strategy for online search
+  * practice of the strategy - recorded screens and dyad's discussions, first ten minutes from three search phases and coded for occurrence of activities
+    * selecting a position
+    * sketching an initial position to be backed up by online search
+
+results:
+  * better with script, no difference faded or not
+  * practice of strategy, with script much better, continuous a bit better than faded
+  * learning practices highly predicted online search skills, partners' did not
+
+discussion:
+  * practice of strategy lower than in laboratory studies (below 10%)
+    * we are in field setting
+    * was just one activity, we didn't expect activity to be 100%
+  * pattern of effects on continuous and faded script on practice of the strategy mirrors pattern of effects on online search skills
+  * mere exposure to script does not explain internalization
+  * one's own practice does to some extent
+  * observing one's partners does not
+  * practice only explained a small percentage, must be other mechanisms
+
+limitations
+  * time limit, ten minutes
+  * look only for a few activities
+
+future research
+  * ways to increase practice of strategy (also in field settings) cf Wecker & Fischer in press
+  * Look for further explanatory variables for script internalization (e. g. mindfulness Salmon & Globerson, 1987)
+
+Teachers should take care that collaboration scripts are actually followed.
+
+h2. Conversational Strategies that Support Idea Generation Productivity in Groups
+//Rohit Kumar, Jack Beuth, [[:a:Carolyn Penstein Rose]]//, CMU
+
+design of tutor prompts for supporting collaborative learning
+  * software agents that monitor interaction of students
+    * social interaction strategies
+    * presentation style of prompts
+
+birds eye:
+  * collaborative learning
+  * small group communication (communication studies)
+  * tutorial dialogue -> dialog systems -> conversational tutors
+
+Kumar 2007 shows
+  * benefit of collaborative learing
+  * dynamic support 
+  * combined
+
+problems
+  * students ignore/abuse agents
+  * tutors unable to manage attention of the students  
+
+Used [[:Basilica]] as system
+
+Instrumental vs socio-emotional interaction
+
+Interesting questions to ask:
+  * significant benefits?
+    * Kumar et al 2010 ITS
+  * amount of social behaviour
+    * Hua et al 2010 ITS
+  * why/how & timing of behavior
+    * Kumar & Rose 2011 SigDial
+  * transfer to other domains
+  * style of presentation
+    * **this talk**
+
+Presentation style
+  * heteroglossia vs monoglossia
+  * lexical/grammatical choices
+  * indicates social positioning of the speaker
+
+heteroglossia
+  * awareness/acknowledgment of multiple perspectives
+  * (more like a suggestion, than a command)
+ 
+learning activity (study)
+  * mechanical engineering course
+  * design a better wrench
+    * underlying concepts: moment, stress, strength
+  * collaborative design lab
+  * team of 3-4 students
+  * communicate using concertchat
+  * supported by automated tutors
+
+metrics
+  * learning outcomes
+  * perception ratings (of tutor, task)
+  * idea contributions (by students)
+    * count using dictionary
+      * how about, can we
+      * increase, decrease, steel
+    * noisy measure, only estimates
+      * for all condition, no bias
+
+results
+  * no significant for learning
+  * for perception, heteroglossic made students more happy, and perceived themselves as more happy
+  * heteroglossic more perceived as "human-like"
+  * better to use a consistent style
+  * heteroglossic led to more idea generation
+  * no relationship between learning and idea generation (unlike Wang 2007)
+
+questions:
+  * more ideas, but are they good or bad ideas?
+    * even bad ideas are useful to learn the tradeoff involved in the design
+  * more intervention was in the social aspect? task of the tutor is not just social, should support more cognitive, content-specific aspects?
+    * constant across all conditions
+    * you need cognitive, social and motivational aspects - three tasks of a tutor

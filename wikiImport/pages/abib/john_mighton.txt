@@ -1,0 +1,3 @@
+h2. John Mighton's publications
+
+| [@mighton2004myth] | Mighton, J. (2004). The Myth of Ability: Nurturing Mathematical Talent in Every Child (Original.). Walker \& Company.|

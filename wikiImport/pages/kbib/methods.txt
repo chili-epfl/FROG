@@ -1,0 +1,3 @@
+h2. Publications with keyword "methods"
+
+| [@rothgeb2001questionnaire] | Rothgeb, J., Willis, G., Forsyth, B., & others. (2001). Questionnaire pretesting methods: Do different techniques and different organizations produce similar results. In Proceedings of the Annual Meeting of the American Statistical Association (5–9). |

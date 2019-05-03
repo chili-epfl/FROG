@@ -1,0 +1,37 @@
+h2. Images
+
+{{skim:deliddo2010method0.png}}
+
+[[skimx://deliddo2010method#9|p. 9]]
+----
+
+{{skim:deliddo2010method1.png}}
+
+[[skimx://deliddo2010method#9|p. 9]]
+----
+
+{{skim:deliddo2010method2.png}}
+
+[[skimx://deliddo2010method#10|p. 10]]
+----
+
+{{skim:deliddo2010method3.png}}
+
+[[skimx://deliddo2010method#10|p. 10]]
+----
+
+{{skim:deliddo2010method4.png}}
+
+[[skimx://deliddo2010method#11|p. 11]]
+----
+
+{{skim:deliddo2010method5.png}}
+
+[[skimx://deliddo2010method#11|p. 11]]
+----
+
+{{skim:deliddo2010method6.png}}
+
+[[skimx://deliddo2010method#12|p. 12]]
+----
+

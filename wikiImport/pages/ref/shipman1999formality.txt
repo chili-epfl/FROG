@@ -1,0 +1,37 @@
+h1. Formality considered harmful: Experiences, emerging themes, and directions on the use of formal representations in interactive systems
+
+<ifauth !@admin>|Shipman, F. M., & Marshall, C. C. (1999). Formality considered harmful: Experiences, emerging themes, and directions on the use of formal representations in interactive systems. Computer Supported Cooperative Work (CSCW), 8(4), 333--352. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://shipman1999formality|BibDesk]]  | Shipman, F. M., & Marshall, C. C. (1999). Formality considered harmful: Experiences, emerging themes, and directions on the use of formal representations in interactive systems. Computer Supported Cooperative Work (CSCW), 8(4), 333--352. Springer. |
+^ [[skimx://shipman1999formality|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:shipman1999formality?do=edit&vecdo=print\'><frame src=\'/wiki/clip:shipman1999formality?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{shipman1999formality,
+  author = {Shipman, F.M. and Marshall, Catherine C.},
+  date-added = {2011-06-04 08:15:19 +0800},
+  date-modified = {2012-02-02 16:41:36 +0000},
+  journal = {Computer Supported Cooperative Work (CSCW)},
+  keywords = {1representational guidance},
+  number = {4},
+  pages = {333--352},
+  publisher = {Springer},
+  read = {1},
+  title = {Formality considered harmful: Experiences, emerging themes, and directions on the use of formal representations in interactive systems},
+  volume = {8},
+  year = {1999},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhzaGlwbWFuMTk5OWZvcm1hbGl0eS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcfxy9dI0VBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14ERAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzaGlwbWFuMTk5OWZvcm1hbGl0eS5wZGYAAA4AMgAYAHMAaABpAHAAbQBhAG4AMQA5ADkAOQBmAG8AcgBtAGEAbABpAHQAeQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9zaGlwbWFuMTk5OWZvcm1hbGl0eS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svc2hpcG1hbjE5OTlmb3JtYWxpdHkucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:shipman1999formality}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:shipman1999formality}}
+
+{{page>kindle:shipman1999formality}}
+
+{{page>skimg:shipman1999formality}}

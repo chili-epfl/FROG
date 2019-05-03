@@ -1,0 +1,3 @@
+h2. E. Voyiatzaki's publications
+
+| rummel2008new | Rummel, N., Weinberger, A., Wecker, C., Fischer, F., Meier, A., Voyiatzaki, E., Kahrimanis, G., Spada, H., Avouris, N., & Walker, E. (2008). New challenges in CSCL: Towards adaptive script support. Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3.|[[skimx://rummel2008new|PDF]]|

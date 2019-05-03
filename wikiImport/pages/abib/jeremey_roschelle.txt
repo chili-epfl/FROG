@@ -1,0 +1,4 @@
+h2. Jeremey Roschelle's publications
+
+| roschelle2000technology | Roschelle, J., & Jackiw, N. (2000). Technology design as educational research: Interweaving imagination, inquiry, and impact. Handbook of research design in mathematics and science education. Citeseer.|
+| roschelle1999developing | Roschelle, J., {DiGiano}C., Koutlis, M., Repenning, A., Phillips, J., Jackiw, N., & Suthers, D. (1999). Developing educational software components. Computer.|

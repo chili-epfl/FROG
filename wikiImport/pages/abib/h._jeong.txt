@@ -1,0 +1,3 @@
+h2. H. Jeong's publications
+
+| dyke2011technological | Dyke, G., Jeong, H., Medina, R., Suthers, D. D., Aalst, J. van, Chen, W., & Looi, C.-K. (2011). Technological affordances for productive multivocality in analysis. CSCL.|[[skimx://dyke2011technological|PDF]]|

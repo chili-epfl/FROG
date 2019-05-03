@@ -1,0 +1,5 @@
+h2. Y. Rogers's publications
+
+| [[..:ref:scaife1996external]] | Scaife, M., & Rogers, Y. (1996). External cognition: how do graphical representations work?. International journal of human-computer studies. Elsevier.|[[skimx://scaife1996external|PDF]]|
+| [[..:ref:brignull2004collaboration]] | Brignull, H., Izadi, S., Fitzpatrick, G., Rogers, Y., & Rodden, T. (2004). Collaboration Involving Large Displays: The introduction of a shared interactive surface to a communal space.. CSCW 2004.||
+| otero2011challenges | Otero, N., Milrad, M., Rogers, Y., Santos, A. J., Verissimo, M., & Torres, N. (2011). Challenges in designing seamless-learning scenarios: affective and emotional effects on external representations. International Journal of Mobile Learning and Organisation. Inderscience.|[[skimx://otero2011challenges|PDF]]|

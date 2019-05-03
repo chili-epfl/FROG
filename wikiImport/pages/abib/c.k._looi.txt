@@ -1,0 +1,5 @@
+h2. C.K. Looi's publications
+
+| [[..:ref:tan2009groupscribbles]] | Tan, Yln., Chen, W., & Looi, C. K. (2009). GroupScribbles as a rapid CSCL tool: Learning experiences of pre-service teachers. Proceedings of the 17th International Conference on Computers in Education 2009.|
+| [[..:ref:chen2009integrating]] | Chen, W., Looi, C. K., & Tan, S. (2009). Integrating CMC and verbal discussions in students' collaborative learning in a F2F classroom. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
+| dyke2011technological | Dyke, G., Jeong, H., Medina, R., Suthers, D., Aalst, J. van, Chen, W., & Looi, C. K. (2011). Technological affordances for productive multivocality in analysis. CSCL.|

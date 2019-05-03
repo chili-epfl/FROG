@@ -1,0 +1,3 @@
+h2. Chris Teplovs's publications
+
+| [#:ref:bull2011methods] | Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL.|[[skimx://bull2011methods|PDF]]|

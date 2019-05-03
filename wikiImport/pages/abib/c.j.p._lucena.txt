@@ -1,0 +1,4 @@
+h2. C.J.P. Lucena's publications
+
+| filippo2009discussion | Filippo, D., Fuks, H., & Lucena, C. J. P. de. (2009). Discussion forum coordination support in distance courses.|
+| gerosa2010unfolding | Gerosa, M. A., Filippo, D., Pimentel, M., Fuks, H., & Lucena, C. J. P. (2010). Is the unfolding of the group discussion off-pattern? Improving coordination support in educational forums using mobile devices. Computers \& Education. Elsevier.|

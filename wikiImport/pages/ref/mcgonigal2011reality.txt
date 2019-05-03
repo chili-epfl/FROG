@@ -1,0 +1,31 @@
+h1. Reality is Broken: Why games make us better and how they can change the world
+
+<ifauth !@admin>|McGonigal, J. (2011). Reality is Broken: Why games make us better and how they can change the world. Penguin Pr.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://mcgonigal2011reality|BibDesk]]  | McGonigal, J. (2011). Reality is Broken: Why games make us better and how they can change the world. Penguin Pr. |
+^ [[skimx://mcgonigal2011reality|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:mcgonigal2011reality?do=edit&vecdo=print\'><frame src=\'/wiki/clip:mcgonigal2011reality?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{mcgonigal2011reality,
+  author = {McGonigal, J.},
+  date-added = {2011-06-18 12:20:42 +0800},
+  date-modified = {2011-06-18 12:26:38 +0800},
+  publisher = {Penguin Pr},
+  read = {1},
+  title = {Reality is Broken: Why games make us better and how they can change the world},
+  year = {2011}
+}
+
+</hidden>
+
+{{page>notes:mcgonigal2011reality}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:mcgonigal2011reality}}
+
+{{page>kindle:mcgonigal2011reality}}
+
+{{page>skimg:mcgonigal2011reality}}

@@ -1,0 +1,3 @@
+h2. Sonja B\"ohm's publications
+
+| [@streng2010measuring] | Streng, S., Stegmann, K., Boring, S., B\"{o}hmSonja, Fischer, F., & Hussmann, H. (2010). Measuring effects of private and shared displays in small-group knowledge sharing processes. In Proceedings of the 6th Nordic Conference on Human-Computer Interaction: Extending Boundaries, NordiCHI '10 (789--792). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1868914.1869030|

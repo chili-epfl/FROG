@@ -1,0 +1,6 @@
+h2. Jos Jaspers's publications
+
+| [@slof2010design] | Slof, B., Erkens, G., Kirschner, P. A., & Jaspers, J. (2010). Design and effects of representational scripting on group performance. Educational Technology Research and Development, 1--20.|
+| [@janssen2005effects] | Janssen, J., Erkens, G., Jaspers, J., & Broeken, M. (2005). Effects of visualizing participation in computer-supported collaborative learning.|
+| [@weinberger2006argumentative] | Weinberger, A., Clark, D., Erkens, G., Sampson, V., Stegmann, K., Janssen, J., Jaspers, J., Kanselaar, G., & Fischer, F. (2006). Argumentative knowledge construction in CSCL. In Proceedings of the 7th international conference on Learning sciences, ICLS '06 (1094--1100). International Society of the Learning Sciences. |
+| [@janssen2007visualization] | Janssen, J., Erkens, G., Kanselaar, G., & Jaspers, J. (2007). Visualization of participation: Does it contribute to successful computer-supported collaborative learning?. Computers \& Education, 49(4), 1037--1065.|

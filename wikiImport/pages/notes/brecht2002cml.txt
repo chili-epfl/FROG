@@ -1,0 +1,46 @@
+h1. Key ideas
+
+h2. Basic idea
+A network of handheld computers, teacher controlling everything like a director in a play - very strong **theatre metaphor**, with "staging", "lights", "props", "backstage" etc. 
+
+Importance of capturing **ephemeral processes** for analysis and sharing. (//"act becomes artefact"//)
+
+h2. Link between physical and CSCL
+Designing, implementing, and monitoring these learning activities is a workflow challenge, as research in teacher cognition, planning, and learning has highlighted (e.g., Borko & Putnam, 1996; Cohen et al.. 1993; Hammond & Sykes. 2001; Little & McLaughlin, 1993).
+
+Teachers currently plan and manage these efforts using a broad array of documents and physical resources, including 
+  * class lists
+  * publishers' teacher activity guides
+  * seat-based distribution of textbook instructions or photocopied materials
+  * physical separation of groups in the classroom space
+  * worksheets to be completed
+  * informal observations of equitable participation by students in discussions
+
+h2. Model
+  * actors (including teacher, students, bots)
+  * data objects
+  * interaction networks (flows of information, workflows?)
+
+(seems similar to ELOs etc)
+
+h2. Agency
+System seems extremely controlled by teacher - very little focus on self-organizing among students, agency etc.
+
+h2. Adaptability
+Focus on contingent/adaptive teaching, like in [@debarger2010teaching], enabling teacher to quickly assess students and collaboration, and change teaching approach on the fly.
+
+h2. Information processing function
+At a modeling level of description, classroom activity can be defined as an information processing function having an input, an output, and a process by which the output is to be generated from the input This functional definition of an activity can be used to model activities including
+  * IRE sequences
+  * role-playing activities (such as participatory simulations)
+  * small group project-based work
+  * seatwork or homework exercises
+
+h2. Scripts
+Mentions an implementation of Initiation-Response-Evaluation related to a global earth science project. 
+
+Automatic implementation of "jigsaw-style" interaction, through saved network topologies.
+
+h2. Check out
+  * Activity-centered design (//Gifford & Enyedy, 1999//; Bodker, 1997; Nardi, 1996)
+  * Education modeling languaguage

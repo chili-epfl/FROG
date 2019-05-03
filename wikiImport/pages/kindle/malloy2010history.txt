@@ -1,0 +1,16 @@
+h1. Kindle highlights
+
+Electronic Literature Authoring Software - Interview with Mark Bernstein **(loc: 2)**
+
+co-editor with Diane Greco of Reading Hypertext. **(loc: 6)**
+
+The TINAC Manifesto said, "Three links per node or it's not a hypertext." **(loc: 36)**
+
+The other widely-available hypertext tools of that time - GUIDE, HyperCard, Intermedia - were all somewhat ambivalent about undisciplined linking, anxious that readers would be lost and confused. We only gradually learned that readers didn't feel lost, and that at times a little confusion is exactly what we want. **(loc: 36-39)**
+
+Storyspace's guard fields, which let the writer change link behavior depending on what the reader has already seen, were tremendously important for the development of serious hypertext, especially hypertext narrative. That let people craft important large hypertexts with meaningful interaction - three links or it's not a hypertext! - and with the scope we associate with the novel. **(loc: 42-45)**
+
+Adrian Miles has a terrific new essay in Reading Hypertext on hypertext teaching. **(loc: 53-54)**
+
+Some topics seem to suggest themselves to people who want to try their hand at hypertext but don't know what to say. Hypertexts about madness - attempts to use hypertextual fragmentation to suggest paranoia, psychosis, or intoxication - arrive in the slush pile with great regularity. They seem easy, but they're hard to do well. Annotated maps are another refuge of beginners. Nonfiction writers who are losing confidence in work sometimes decide to claim the work is really intended for children. This seldom ends well. Young readers are a demanding audience with strong preferences and sophisticated taste. **(loc: 74-78)**
+

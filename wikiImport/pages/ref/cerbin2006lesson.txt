@@ -1,0 +1,37 @@
+h1. Lesson study as a model for building pedagogical knowledge and improving teaching
+<html><a href='http://isetl.org/ijtlhe/pdf/IJTLHE18(3).pdf#page=99' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://isetl.org/ijtlhe/pdf/IJTLHE18(3).pdf#page=99'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Cerbin, W., & Kopp, B. (2006). Lesson study as a model for building pedagogical knowledge and improving teaching. International journal of teaching and learning in higher education, 18(3), 250–257. Retrieved from http://isetl.org/ijtlhe/pdf/IJTLHE18(3).pdf#page=99.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://cerbin2006lesson|BibDesk]]  | Cerbin, W., & Kopp, B. (2006). Lesson study as a model for building pedagogical knowledge and improving teaching. International journal of teaching and learning in higher education, 18(3), 250–257. Retrieved from http://isetl.org/ijtlhe/pdf/IJTLHE18(3).pdf#page=99. |
+^ [[skimx://cerbin2006lesson|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:cerbin2006lesson?do=edit&vecdo=print\'><frame src=\'/wiki/clip:cerbin2006lesson?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{cerbin2006lesson,
+  author = {Cerbin, W. and Kopp, B.},
+  date-added = {2013-01-29 18:28:00 +0000},
+  date-modified = {2013-01-29 18:29:31 +0000},
+  journal = {International journal of teaching and learning in higher education},
+  keywords = {0sotl},
+  number = {3},
+  oa-url = {http://isetl.org/ijtlhe/pdf/IJTLHE18(3).pdf#page=99},
+  pages = {250–257},
+  title = {Lesson study as a model for building pedagogical knowledge and improving teaching},
+  url = {http://isetl.org/ijtlhe/pdf/IJTLHE18(3).pdf#page=99},
+  volume = {18},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRjZXJiaW4yMDA2bGVzc29uLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3L7LzS1+21BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNLcUrAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjZXJiaW4yMDA2bGVzc29uLnBkZgAADgAqABQAYwBlAHIAYgBpAG4AMgAwADAANgBsAGUAcwBzAG8AbgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9jZXJiaW4yMDA2bGVzc29uLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9jZXJiaW4yMDA2bGVzc29uLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:cerbin2006lesson}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:cerbin2006lesson}}
+
+{{page>kindle:cerbin2006lesson}}
+
+{{page>skimg:cerbin2006lesson}}

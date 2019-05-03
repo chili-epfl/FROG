@@ -1,0 +1,4 @@
+h2. Fabrice Hong's publications
+
+| [@weinberger2007orchestrating] | Weinberger, A., Clark, D., Dillenbourg, P., Diziol, D., Sampson, V., Stegmann, K., Rummel, N., Hong, F., Spada, H., McLaren, B., Brahm, T., & Fischer, F. (2007). Orchestrating learning activities on the social and the cognitive level to foster CSCL. In Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07 (38--47). International Society of the Learning Sciences. |
+| [@dillenbourg2008mechanics] | Dillenbourg, P., & Hong, F. (2008). The mechanics of CSCL macro scripts. International Journal of Computer-Supported Collaborative Learning, 3(1), 5--23.|

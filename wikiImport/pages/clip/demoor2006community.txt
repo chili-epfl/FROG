@@ -1,0 +1,8 @@
+h2. Highlights (3%)
+
+We present a model of collaboration patterns as reusable conceptual structures capturing essential collaboration requirements. These patterns include goal patterns (what is the collaboration about?), communication patterns (how does communication to accomplish goals take place?), information patterns (what content knowledge is essential to satisfy collaborative and communicative goals?), task patterns (what particular information patterns are needed for particular action or interaction goals?), and meta-patterns (what patterns are necessary to interpret, link and assess the quality of the other collaboration patterns?). We show how these patterns can be used to activate communities of practice by improving their collective, distributed memory of communicative interactions and information. We outline an approach that structures how collaboration patterns in communities of practice can be elicited, represented, analyzed, and applied. By presenting a realistic scenario, we illustrate how community memory could be activated in practice. [[skimx://demoor2006community#1|p. 1]]
+
+knowledge is essential to satisfy collaborative and communicative goals?), task patterns (what particular information patterns are needed for particular action or interaction goals? [[skimx://demoor2006community#2|p. 2]]
+
+::Relevant to Fischer(99):: [[skimx://demoor2006community#2|p. 2]]
+

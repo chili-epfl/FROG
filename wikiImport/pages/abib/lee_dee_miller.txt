@@ -1,0 +1,3 @@
+h2. Lee Dee Miller's publications
+
+| [@khandaker2011lessons] | Khandaker, N., Soh{Leen-Kiat}, Miller, L. D., Eck, A., & Jiang, H. (2011). Lessons Learned from Comprehensive Deployments of Multiagent {CSCL} Applications {I-MINDS} and {ClassroomWiki}. {IEEE} Transactions on Learning Technologies, 4(1), 47--58. doi:10.1109/TLT.2010.28|

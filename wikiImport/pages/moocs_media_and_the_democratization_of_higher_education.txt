@@ -1,0 +1,90 @@
+h1. MOOCS, media, and the democratization of higher education
+//presentation by [[http://sirjohn.ca/wordpress/|Sir John Daniel]] at the [[http://worldviewsconference.com/|Worldviews Conference 2013]], University of Toronto//
+
+{{pages:moocs_media_and_the_democratization_of_higher_education01.jpeg}}
+
+[[http://sirjohn.ca/wordpress/wp-content/uploads/2012/08/130621WorldviewsTX.pdf|Text]], [[http://sirjohn.ca/wordpress/wp-content/uploads/2012/08/130621Worldviews1.pdf|Slides]]
+
+h2. Democratization of higher education
+h3. Widening access
+  * bringing a higher percentage of the population into higher ed, from 10%->50% in 50 years
+  * notion of "age cohort" has lost its meaning, learning -> life-long
+  * 35% age participation range springboard to development?
+  * graduate employment is a problem, government's response is not to reduce enrolment, but to modify contents of higher ed (more entrepreneurial, especially in China)
+
+[[http://en.wikipedia.org/wiki/Pauline_epistles|St. Pauls' letters to the young churches]] - early form of distance education. Situating academy in a historical context of lecturers in a world where printing was scarce. Printing enabled independent study. 
+
+<blockquote Quote by Korean academic>
+"No nicer sound than the rustling of pages as someone reads a book late at night"</blockquote>
+
+Railways, move print rapidly and reliably over distance. Transformation of postal services -> Correspondence education. Penny post introduced in Britain in 1840, commercial education industry launched through teaching shorthand. Blackboard in 1850, defined conventional education until very recently. New technologies in the 20th Century, radio, television, film, computer. Enthusiasts predicted that each new medium would revolutionize education. 
+
+1962: Programmed learning, "first major innovation since printing". All these innovations took printing as their comparison, not the previous technological innovation. Conclusion: There is no magic educational medium, and perhaps will never be. But a combination can be very effective.
+
+Hard to overstate the impact of the Open University: 
+
+**Open as to**
+  * people
+    * no restriction in terms of undergrad enrolment
+    * 250,000 learners
+    * fifth in teaching quality
+    * top in student satisfaction
+    * conclusion: **possible to deliver quality education to large numbers of people using technology**
+  * places
+  * methods
+  * ideas
+    * evolutionary process - mission has not changed 1970-2010, but the methods and approaches have evolved
+
+"Chronological snobbery" - what we are doing today must be the best
+
+h3. Students determine content
+  * bespoke programs
+  * DIY courses
+
+Ernest L. Boyer set up [[http://www.esc.edu/|Empire State College]] to open up the curriculum - "my degree, my way", students to work with advisors. With sound mentoring, students could design curricula for themselves. The tools enabling the students to do this now: "Open Educational Resources" (coined at UNESCO, 2002). [[http://www.unesco.org/new/en/communication-and-information/access-to-knowledge/open-educational-resources/what-is-the-paris-oer-declaration/|The Paris Declaration]] by UNESCO in 2012, documents:
+  * [[http://www.col.org/resources/publications/Pages/detail.aspx?PID=408|Survey on Governments' Open Educational Resources Policies]]
+  * [[http://www.col.org/resources/publications/Pages/detail.aspx?PID=421|Exploring the Business Case for OER]]
+
+h2. MOOCs
+More media-interest in use of tech in higher ed than any development since the creation of the Open University. Do they contribute to the democratization of higher education, as defined above? 
+
+[[http://jime.open.ac.uk/jime/article/view/2012-18|"Making Sense of MOOCs: Musings in a Maze of Myth, Paradox and Possibility"]]: "What is new is not true, and what is true is not new"
+
+h3. Pre-history
+Pre-history of MOOCs, going back all of five years. [[http://www.connectivistmoocs.org/what-is-a-connectivist-mooc/|cMOOCs]], George Siemens and Stephen Downes. Inspired by Ivan Illich, [[http://www.preservenet.com/theory/Illich/Deschooling/intro.html|Deschooling Society]].
+
+<blockquote From Deschooling Society>A good educational system should have three purposes: it should provide all who want to learn with access to available resources at any time in their lives; empower all who want to share what they know to find those who want to learn it from them; and, finally, furnish all who want to present an issue to the public with the opportunity to make their challenge known</blockquote>
+
+These courses were a logical development of the open educational movement. 
+
+h3. xMOOCs
+Intersection of Wall-Street and Silicon Valley, have little relation to the pioneering cMOOC courses. But xMOOCs might be returning to their cMOOC roots, enabling more collaboration and openness for students. 
+
+U of Edinburgh: [[http://newsletter.alt.ac.uk/2012/08/mooc-pedagogy-the-challenges-of-developing-for-coursera/|Coursera is very conservative in terms of online pedagogical practice.]]
+
+"Every letter in the alphabet is not negotiable"
+
+{{pages:moocs_media_and_the_democratization_of_higher_education01.png}}
+
+Very high dropout rates (see [[http://www.katyjordan.com/MOOCproject.html|this]], [[http://www.educause.edu/ero/article/retention-and-intention-massive-open-online-courses|Daphne Koller's view]])
+
+The degree to which MOOCs are really open. One more step in the OER movement, open as in "registration", but not open as in "license" - don't want them to act as a break on the open education movement. 
+
+[[http://en.crtvu.edu.cn/25th-icde-world-conference/868-how-moocs-are-derailing-open-education-george-siemens-icde-world-conference-keynote|How MOOCs are Derailing Open Education: George Siemens ICDE World Conference Keynote]]
+
+h2. Media
+Greater awareness of open, distance and online learning among the public - but could backlash if people discover that very few people complete MOOCs, and even those who complete, do not get credit. 
+
+A new pedagogy to augment/replace lectures, but MOOC lecturers need to refine their pedagogy, not just use MOOCs as branding.
+
+Short videos seen as "massage for faculty megalomania" rather than serious learning aids for students.
+
+Business models exist for companies that host MOOCs, but not for universities that produce them - monetizing internet activity usually degrades content and interaction.
+
+Tension between offering courses openly, and recruiting students restrictively.
+
+Elite universities: hard in, easy out, vs. open universities: easy in, hard out. An issue of mentality, not of technology. Open Universities have shown that you can offer degree programs to thousands of students successfully.
+
+[[http://www.contactnorth.ca/tips-tools/guide-quality-online-learning|A guide to quality in online learning]] - publication
+
+Use MOOCs to bring online learning into the mainstream of higher education. Let's hope that MOOCs will help rather than hinder that process. 

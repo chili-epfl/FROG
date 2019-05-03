@@ -1,0 +1,3 @@
+h2. Publications in Journal of Artificial Intelligence in Education
+
+| dillenbourg1996some | Dillenbourg, P. (1996). Some technical implications of distributed cognition on the design on interactive learning environments. Journal of Artificial Intelligence in Education, 7, 161--180.|[[skimx://dillenbourg1996some|PDF]]|

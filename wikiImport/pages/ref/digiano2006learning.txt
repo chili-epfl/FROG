@@ -1,0 +1,33 @@
+h1. Learning from the Post-It: Building collective intelligence through lightweight, flexible technology
+
+<ifauth !@admin>|DiGiano, C., Tatar, D., & Kireyev, K. (2006). Learning from the Post-It: Building collective intelligence through lightweight, flexible technology. Conference on Computer Supported Cooperative Work Companion, Banff. http://Group Scribbles. sri. com/publications/index. html.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://digiano2006learning|BibDesk]]  | DiGiano, C., Tatar, D., & Kireyev, K. (2006). Learning from the Post-It: Building collective intelligence through lightweight, flexible technology. Conference on Computer Supported Cooperative Work Companion, Banff. http://Group Scribbles. sri. com/publications/index. html. |
+^ [[skimx://digiano2006learning|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:digiano2006learning?do=edit&vecdo=print\'><frame src=\'/wiki/clip:digiano2006learning?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{digiano2006learning,
+  author = {DiGiano, Chris and Tatar, D. and Kireyev, K.},
+  booktitle = {Conference on Computer Supported Cooperative Work Companion, Banff. http://Group Scribbles. sri. com/publications/index. html},
+  date-added = {2011-06-07 20:37:00 +0800},
+  date-modified = {2012-04-09 01:02:03 +0000},
+  notes = {1},
+  read = {1},
+  title = {Learning from the Post-It: Building collective intelligence through lightweight, flexible technology},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdkaWdpYW5vMjAwNmxlYXJuaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaFfky9b+P1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zZ/AAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBkaWdpYW5vMjAwNmxlYXJuaW5nLnBkZgAOADAAFwBkAGkAZwBpAGEAbgBvADIAMAAwADYAbABlAGEAcgBuAGkAbgBnAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2RpZ2lhbm8yMDA2bGVhcm5pbmcucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9kaWdpYW5vMjAwNmxlYXJuaW5nLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:digiano2006learning}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:digiano2006learning}}
+
+{{page>kindle:digiano2006learning}}
+
+{{page>skimg:digiano2006learning}}

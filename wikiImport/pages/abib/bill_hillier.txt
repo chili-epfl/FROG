@@ -1,0 +1,4 @@
+h2. Bill Hillier's publications
+
+| [@hillier1984social] | Hillier, B., & Hanson, J. (1984). The Social Logic of Space. Cambridge University Press.|
+| [@hillier1999space] | Hillier, B. (1999). Space is the Machine: A Configurational Theory of Architecture. Cambridge University Press.|

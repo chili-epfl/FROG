@@ -1,0 +1,7 @@
+h2. Images
+
+{{skim:bouchard1998distance0.png}}
+
+[[skimx://bouchard1998distance#2|p. 2]]
+----
+

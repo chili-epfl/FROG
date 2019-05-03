@@ -1,0 +1,465 @@
+h2. Highlights (8%)
+
+this book starts from the premise that university teachers must take the main responsibility for what and how their students learn [[skimx://laurillard2001rethinking#1|p. 1]]
+
+Students have only limited choices in how they learn: they can attend lectures or not; they can work hard or not; they can seek truth or better marks—but teachers create the choices open to them. [[skimx://laurillard2001rethinking#1|p. 1]]
+
+)At undergraduate level, students are exploring an already known field of knowledge, they are explicitly not breaking new ground, except at a personal leve [[skimx://laurillard2001rethinking#2|p. 2]]
+
+The central idea is that academic learning is different from other kinds of learning in everyday life because it is not directly experienced, and is necessarily mediated by the teache [[skimx://laurillard2001rethinking#4|p. 4]]
+
+As we shall see in Chapter 2, we cannot deduce from the definition of a concept the range of misconceptions students will exhibit; we have to discover them [[skimx://laurillard2001rethinking#5|p. 5]]
+
+II begins by describing an analytical framework for classifying these media, the Conversational Framework. It is based on the specification developed at the end of Part I for the activities the media must foster if all aspects of the learning process are to be supported. Chapters 5 to 9 define the different categories of learning media, though not from the point of view of their apparent characteristics, which is the standard approach of books on educational media. They are described instead in terms of the nature of the learning activities they support: narrative, interactive, adaptive, communicative, and productive [[skimx://laurillard2001rethinking#6|p. 6]]
+
+Part [[skimx://laurillard2001rethinking#6|p. 6]]
+
+Too few academics build on each others’ previous work in the field; journal articles do not critique others’ work, they only mention it; research and development projects do not build on what has gone before, so the same conclusions are continually repeated. Innovation in the teaching of a subject does not match the standards of innovative research in the subject itself. We should be building a body of knowledge of how best to use learning media, and creating a teaching profession that knows what it is doing and why [[skimx://laurillard2001rethinking#6|p. 6]]
+
+Teaching as mediating learning [[skimx://laurillard2001rethinking#11|p. 11]]
+
+What we believe to be of practical help to lecturers depends upon how we define the aim of teaching, so the greater part of this chapter is concerned with clarifying this basic issue. [[skimx://laurillard2001rethinking#11|p. 11]]
+
+‘The aim of teaching is simple: it is to make student learning possible’ (Ramsden, 1992:5 [[skimx://laurillard2001rethinking#11|p. 11]]
+
+THE CHARACTER OF ACADEMIC LEARNING [[skimx://laurillard2001rethinking#12|p. 12]]
+
+While higher education has increased its class sizes, reduced its teaching time, modularised, accepted students without traditional academic preparation, refocused programmes to prepare students for employment, and so on, it has done so on the basis of little evidence of the consequences, and with little strategic research in place to monitor them. (Dearing, Main Report, 1997:126) [[skimx://laurillard2001rethinking#12|p. 12]]
+
+Is learning at university different from learning at school, or learning outside formal education? [[skimx://laurillard2001rethinking#12|p. 12]]
+
+
+If academic learning is not just about imparting knowledge, is it really different from the acquisition of everyday knowledge? [[skimx://laurillard2001rethinking#12|p. 12]]
+
+This strand of educational theory has always argued for the learner to be actively engaged in the formation of their ideas. More recent exponents of the latter tradition are Vygotsky, Piaget, Bruner, Papert, all of whom argue for the active engagement of the learner rather than the passive reception of given knowledg [[skimx://laurillard2001rethinking#13|p. 13]]
+
+)The idea of academic knowledge as an abstract Platonic form had a new impetus from the development of an information-processing model of cognition. [[skimx://laurillard2001rethinking#13|p. 13]]
+
+used the metaphor of knowledge structures, or conceptual structures, to describe mentalistic entities that can be changed through instruction, or even represented in a computer program. Computational models of cognition now form the mainstream of cognitive psychology, and where psychology leads, educational theorists like to follow. There is an undeniable attraction in the rigour that computational modelling can bring to the description of learning. Lecturers are also likely to be attracted by the idea of a conceptual structure as a stable and well-defined entity abstracted from the contexts in which the concept was experienced. The notion sits well with the ideal of ‘discipline’ knowledge. However, it does not address the reality that all teachers surely recognise—that students do not transfer their knowledge across different settings, that they often find it difficult to relate theory to practice, that knowledge does seem to be context-dependent. University teachers are not aided by the representation of knowledge as a formal structure if they prefer to see learning as an activity that develops capabilities, and knowledge as an aspect of that activity. They need a description of academic knowledge that is more realistic than a stable mental model. [[skimx://laurillard2001rethinking#13|p. 13]]
+
+A CRITIQUE OF ACADEMIC LEARNING AS IMPARTED KNOWLEDGE [[skimx://laurillard2001rethinking#13|p. 13]]
+
+‘situated learning’ expresses dissatisfaction with the idea of formal knowledge, a [[skimx://laurillard2001rethinking#13|p. 13]]
+
+The origins of this approach lie in ethnographic studies and in Vygotsky’s theory of the social character of learning (Vygotsky, 1962). [[skimx://laurillard2001rethinking#13|p. 13]]
+
+Situations might be said to co-produce knowledge through activity. Learning and cognition, it is now argued, are fundamentally situated. (Brown et al., 1989a:32) [[skimx://laurillard2001rethinking#14|p. 14]]
+
+We should abandon once and for all any notion that a concept is some sort of abstract, self-contained substance. Instead, it may be more useful to consider conceptual knowledge as in some ways similar to a set of tools. [[skimx://laurillard2001rethinking#14|p. 14]]
+
+(Ibid. [[skimx://laurillard2001rethinking#14|p. 14]]
+
+As Brown et al. (1989a) argue, we have to use our knowledge in authentic activity, i.e. genuine application of the knowledge, which allows us to build an increasingly rich understanding of the tool itself and how it operates. [[skimx://laurillard2001rethinking#14|p. 14]]
+
+Our argument is that to the degree that abstractions are not grounded in multiple contexts, they will not transfer well. After all, it is not learning the abstraction, but learning the appropriate circumstances in which to ground the abstraction that is difficult. (Brown et al., 1989b:12) [[skimx://laurillard2001rethinking#15|p. 15]]
+
+There is a distinction made, therefore, between teaching abstractions and enabling students to learn abstractions from multiple contexts. T [[skimx://laurillard2001rethinking#15|p. 15]]
+
+A CRITIQUE OF ACADEMIC LEARNING AS SITUATED COGNITION [[skimx://laurillard2001rethinking#16|p. 16]]
+
+Situated cognition is attractive in well-chosen situations, but one of the reasons that education has evolved the way it has over the centuries is that situated cognition is not enough. [[skimx://laurillard2001rethinking#16|p. 16]]
+
+The point of an academic education is that knowledge has to be abstracted, and represented formally to become generalisable and therefore more generally useful. [[skimx://laurillard2001rethinking#16|p. 16]]
+
+Can students be taught to acquire an abstraction from multiple contexts without it being taught directly as an abstraction? [[skimx://laurillard2001rethinking#16|p. 16]]
+
+This is not strictly an example of students discovering ‘that there is no one magically right decomposition’. They are being led through a reasoning process planned by the teacher. [[skimx://laurillard2001rethinking#18|p. 18]]
+
+Using situated learning as a metaphor for academic learning is interesting and powerful as an idea, because it analyses successful naturally-occurring learning to understand how that operates, and then transfers that analysis to the academic context to see how it should be applied there [[skimx://laurillard2001rethinking#18|p. 18]]
+
+ACADEMIC LEARNING AS A WAY OF EXPERIENCING THE WORLD [[skimx://laurillard2001rethinking#19|p. 19]]
+
+We cannot experience structuralism in the same way as we experience good table manners. We cannot experience molecules in the same way as we experience dogs. Because we have to rely on the artificial structuring of our experience of precepts, via academic texts, for example, it is unlikely that the mechanisms we use in the natural environment will transfer directly to this unnatural environment. Thus, our means of access to precepts becomes critical to our success in learning them. (Laurillard, 1987a:202) [[skimx://laurillard2001rethinking#20|p. 20]]
+
+The point about academic knowledge is that, being articulated, it is known through exposition, argument, interpretation. [[skimx://laurillard2001rethinking#21|p. 21]]
+
+It is known through reflection on experience and represents therefore a second-order experience of the world. [[skimx://laurillard2001rethinking#21|p. 21]]
+
+Knowledge derived from experiencing the world at one remove must be accessed differently from that known through a first-order experience. [[skimx://laurillard2001rethinking#21|p. 21]]
+
+Because academic knowledge has this second-order character, it relies heavily on symbolic representation as the medium through which it is known. This is usually language, but may also be mathematical symbols, diagrams, musical notation, phonetics, or any symbol system that can represent a description of the world, and requires interpretation. [[skimx://laurillard2001rethinking#22|p. 22]]
+
+mathematics, but surprisingly little has been done on how students interpret teachers’ language, how they read academic texts, and how they interpret graphical and symbolic information. Roger Säljö makes the same point in his analysis of ‘the written code’ as a medium for learning, fittingly subtitled as ‘observations on the problems of profiting from somebody else’s insights’. The problems arise from the fact that the two worlds, of everyday knowledge and academic knowledge, are not always compatible: [[skimx://laurillard2001rethinking#22|p. 22]]
+
+In scientific texts, new ‘versions of the world’, or fragments of such, are offered, and the act of learning through reading may thus be seen as containing an implicit commitment to transcend assumptions vis à vis reality for which we have a firm basis in terms of our own previous daily experiences. Our knowledge gained by personal experience and therefore ‘true’ in our everyday realm of life, may in our culture have to yield to an alternative mode of conceptualisation that links with a scientific ‘version of the world’. (Säljö, 1984:31) [[skimx://laurillard2001rethinking#22|p. 22]]
+
+A similar dichotomy has been explored by Gibbons et al. (1994) as a contrast between the formal, codified ‘Mode 1’ knowledge of the traditional disciplines, and the informal, implicit ‘Mode 2’ knowledge created by communities of practice. [[skimx://laurillard2001rethinking#22|p. 22]]
+
+Brown and Duguid carry the same dichotomy through to its logical conclusion that practice knowledge is highly contextualised. Informal, experiential, situated knowledge, developed through communities of practice, becomes fully contextualised, to the extent that it is no longer functional beyond that community: [[skimx://laurillard2001rethinking#22|p. 22]]
+
+The tasks undertaken by communities of practice develop particular, local, and highly specialized knowledge within the community...communities develop their own distinct criteria for what counts as evidence...the division of labour produces the division of knowledge... Within communities, producing, warranting, and propagating knowledge are almost indivisible... Hence, the knowledge produced doesn’t turn readily into something with exchange value or use value elsewhere. (Brown and Duguid, 1998) [[skimx://laurillard2001rethinking#23|p. 23]]
+
+The argument against the primacy of formal knowledge, advanced by Gibbons et al., and by Brown and Duguid, thus comes full circle to an acknowledgement that without the processes of decontextualisation, and formalisation, knowledge remains situated and uncommunicable. [[skimx://laurillard2001rethinking#23|p. 23]]
+
+Whereas natural environments afford learning of percepts through situated cognition, teaching must create artificial environments that afford the learning of ‘precepts’, i.e. descriptions of the world. [[skimx://laurillard2001rethinking#24|p. 24]]
+
+What students bring to learning [[skimx://laurillard2001rethinking#25|p. 25]]
+
+Mastery of the art of taking examinations designed to test knowledge is more prevalent than mastery of the knowledge itself. T [[skimx://laurillard2001rethinking#25|p. 25]]
+
+It will continue to be necessary, therefore, for academics to understand not only where [[skimx://laurillard2001rethinking#25|p. 25]]
+
+students should get to, but also where they are as they begin a course. [[skimx://laurillard2001rethinking#25|p. 25]]
+
+There are two fundamentally different ways of investigating what students bring to their learning of a topic. One approach considers student-specific characteristics, such as approach to study, epistemological belief, and intellectual development; the other illuminates the task-specific aspects important for understanding: conceptions, reasoning processes and representational skills. [[skimx://laurillard2001rethinking#26|p. 26]]
+
+QUESTIONNAIRE STUDIES OF STUDENTS’ CHARACTERISTICS [[skimx://laurillard2001rethinking#26|p. 26]]
+
+Individual student characteristics are explored in questionnaire studies as though they are independent of the context of particular learning tasks [[skimx://laurillard2001rethinking#26|p. 26]]
+
+main difficulty in interpreting findings of this type is to decide how far we consider the characteristics discovered to be fixed and immutable for an individual. [[skimx://laurillard2001rethinking#26|p. 26]]
+
+course aims may be defined as being to help students ‘think like a social scientist’, or ‘think like a technologist’. This expresses an intention to acculturate the student, rather than a belief in a personality type, but what about phrases like ‘first class mind’, or ‘scatterbrain’? These express the idea that some aspects of thinking perseverate across a variety of contexts, and constitute an individual style of thinking [[skimx://laurillard2001rethinking#27|p. 27]]
+
+Entwistle decribes a study which asked students to indicate the extent of their agreement with a series of statements about their normal academic work, for [[skimx://laurillard2001rethinking#27|p. 27]]
+
+For example, students who agree with the second statement above (indicating extrinsic motivation) are likely also to agree with the last one (indicating a superficial approach to study). [[skimx://laurillard2001rethinking#27|p. 27]]
+
+In this way, Entwistle is able to identify three types of motivation with these three factors, which he characterises as ‘personal meaning’, ‘reproducing’, and ‘achieving’. [[skimx://laurillard2001rethinking#27|p. 27]]
+
+It is possible to accept that there can be both consistency and variability in students’ approaches to learning. The tendency to adopt a certain approach, or to prefer a certain style of learning, may be a useful way of describing differences between students. But a more complete explanation would also involve a recognition of the way an individual student’s strategy may vary from task to task. (Entwistle, 1981:105) [[skimx://laurillard2001rethinking#27|p. 27]]
+
+The students submitted their assignments and were interviewed about their approach to the tasks. The outcomes and approaches were analysed in terms of Marton’s ‘deep’ and ‘surface’ approaches to learning, and Pask’s ‘operation’ and ‘comprehension’ styles of learning (where ‘operation’ refers to procedures and ‘comprehension’ refers to descriptions). [[skimx://laurillard2001rethinking#28|p. 28]]
+
+It was clear that each student’s choice of deep or surface approach, and of operation or comprehension learning, was dependent to some extent on the nature of the problem set and to some extent on their perception of the teacher’s requirements (Laurillard, 1997) [[skimx://laurillard2001rethinking#28|p. 28]]
+
+1997). A similar point is made by Prosser and Trigwell, who explain the variation in individual acts of learning in terms of the learner’s awareness of the learning context and prior experiences (Prosser and Trigwell, 1999). [[skimx://laurillard2001rethinking#28|p. 28]]
+
+Moreover, part of Entwistle and Ramsden’s research programme showed that students’ approaches could also be influenced by their perceptions of teaching and assessment (Entwistle and Ramsden, 1983). [[skimx://laurillard2001rethinking#28|p. 28]]
+
+EXPLORATORY STUDIES OF THE STUDENT POPUL ATION [[skimx://laurillard2001rethinking#28|p. 28]]
+
+‘phenomenographic’, because they set out to find characteristics in the form of students’ descriptions of the phenomena, in contrast with studies that set out to explain student behaviour by finding relations between predefined characteristics. [[skimx://laurillard2001rethinking#29|p. 29]]
+
+The methodology is to survey or interview a sample of students working on a particular task, either given by the researcher or occurring within their normal study. The students are asked questions about how they approach this learning task, how they think about it, why they do what they do, etc. [[skimx://laurillard2001rethinking#29|p. 29]]
+
+Content analysis of interview or open-ended questionnaire data produces categories of similar responses which enable the researcher to sort the protocols into different types and to find common patterns of internal relations between characteristics of each protocol. [[skimx://laurillard2001rethinking#29|p. 29]]
+
+The methodology invites the emergence of characteristics of the learning process which are necessarily contextualised, because that is the way they were collected, and which are therefore presumed to be applicable to the context of any learning task. The methodology elicits characteristics that are important in the learning process, but it cannot determine how consistent these are for individual students. [[skimx://laurillard2001rethinking#29|p. 29]]
+
+The unit of phenomenographic research is ‘a way of experiencing something’ and the focus is the variation in ways of experiencing something among a population of students. The output is a set of characteristic ways of experiencing something for that population. [[skimx://laurillard2001rethinking#29|p. 29]]
+
+The phenomenographic method uses critical tasks within the topic concerned, probing interviews with students about their experience of carrying out those tasks, and comparative analysis of the protocols to reveal the main forms of conception. [[skimx://laurillard2001rethinking#30|p. 30]]
+
+Interviewing many students within a population will result in several forms of conception of one idea or topic. The relationship between these different conceptions is not clear, however. Some researchers see them as inclusive—a more sophisticated conception will logically include the lower ones. Others, myself among them, see them as being related not to each other, but to the history of the students’ experiences with the idea. And others see them as defining a developmental progression, where each successive conception is better, in a similar way to the progression defined for scientific theories: they explain more, they are more productive. It is an intriguing fact of research on students’ conceptions that they may sometimes bear a strong resemblance to earlier scientific theories—students have Aristotelian conceptions of motion, Lamarckian conceptions of evolution, phlogiston theories of combustion, Eysenckian theories of intelligence, for example, suggesting the delightful idea that the intellectual development of the individual recapitulates the development of the history of ideas (see Säljö, 1988; Brumby, 1984; Champagne et al., 1982). [[skimx://laurillard2001rethinking#30|p. 30]]
+
+The remarkable conclusion from all these studies is that what students know can be described in a relatively concise way, as long as you penetrate to the level of what the concept means to the student. Brown and Van Lehn, in their study of subtraction procedures, found 89 different ways of doing it wrongly (Brown and Van Lehn, 1980). However, by going to a different level of description, at the level of understanding, Resnick and Omanson (1987) found just two ways of misconceptualising subtraction. [[skimx://laurillard2001rethinking#30|p. 30]]
+
+If you remediate one of the eighty-nine wrong procedures, you have another eighty-eight to contend with; but if you remediate one of the misconceptions, you avoid all the inherited bugs and faulty procedures as well. A methodology that searches for the fundamental misconceptions will yield data that are far more valuable. There [[skimx://laurillard2001rethinking#31|p. 31]]
+
+LONGITUDINAL STUDIES OF DEVELOPMENTAL CHANGE IN UNIVERSITY STUDENTS [[skimx://laurillard2001rethinking#36|p. 36]]
+
+William Perry’s study of Harvard undergraduates, carried out from the vantage point of the academic counsellor, documents the long intellectual journey from a basic dualism—regarding knowledge as facts that are right or wrong, dispensed by authority—to a generalised relativism and a commitment to personal values (Perry, 1970) [[skimx://laurillard2001rethinking#36|p. 36]]
+
+This study was carried out via long open-ended interviews with students, one for each year of their degree. The analysis looked at variations between students to generate the existence of different categories of epistemological belief, and at the changes within students to describe a developmental pattern. He documented both epistemological and ethical aspects, the former developing from the dualistic position of knowledge as right or wrong, to a multiplicity of possible correct explanations, to the relativism of contextualised knowledge. There is a parallel in the ethical development, from seeing authority as responsible for what is known, to the solipsism of everyone being equally correct, to a personal responsibility for one’s own set of values. [[skimx://laurillard2001rethinking#36|p. 36]]
+
+Students have to work out where they can locate themselves in this academic debate: on what basis can they decide their view? They do not want to be told, but they want to know how they can know. It is a problem common to students in every subject area. This kind of description of the student population differs from ‘personality’ studies in that all students are expected to go through all stages at some point in their academic career, though the pace of change may differ. Longitudinal studies differ from ‘conceptions’ studies because at any one time a particular student is likely to be at a particular stage. In this sense, Perry’s scheme identifies individual differences between students. What should the teacher do with developmental stages? Do we have to wait until a student is ready for a new way of thinking, or can we push them forward? Perry is clear: We cannot push anyone to develop, or ‘get them to see’ or ‘impact’ them. The causal metaphors hidden in English verbs give us a distracting vocabulary for pedagogy. The tone is Lockean and provocative of resistance. We can provide, we can design opportunities. We can create settings in which students who are ready will be more likely to make new kinds of sense. (Perry, 1988:159–160) [[skimx://laurillard2001rethinking#37|p. 37]]
+
+Finally, we should consider Säljö’s identification of five conceptions of learning, which also mark a developmental progression. His study was again interviewbased but, instead of being longitudinal, took interviewees from all age groups and stages of learning. Säljö’s five stages (Säljö, 1979) are compatible with Perry’s nine, but they bring out what is implicit in Perry’s analysis with respect to how students conceptualise the process of learning itself, as: [[skimx://laurillard2001rethinking#38|p. 38]]
+
+the increase of knowledge; memorising; the acquisition of facts, procedures for use in practice; the abstraction of meaning; an interpretive process for understanding reality. [[skimx://laurillard2001rethinking#38|p. 38]]
+
+Their conception of learning is an important manifestation of a student’s epistemology, being, quite literally, the way they believe they can come to know. [[skimx://laurillard2001rethinking#38|p. 38]]
+
+The complexity of coming to know [[skimx://laurillard2001rethinking#41|p. 41]]
+
+The teacher has to encourage ‘mathemagenic’ activities in the students. This is a term originally coined by Rothkopf to refer to those activities that ‘give birth to learning’, such as ‘systematic eye fixations’ while reading. The term defines ‘truly, a student-centred approach’ to instruction (Rothkopf, 1970:334), but it is a shame to confine it to the realm of such minute behaviours as eye fixations. The context of predominantly behavioural psychology within which Rothkopf was working constrained the application of his idea. He acknowledged the importance of cognitive processing but did not then have the means to take it further than one brief paragraph. [[skimx://laurillard2001rethinking#41|p. 41]]
+
+We need a methodology that provides a deep level of description of what is happening for the student when they learn, linking the way they think about the content to what they achieve as an outcome. [[skimx://laurillard2001rethinking#42|p. 42]]
+
+A better method is to allow the student to complete the task undisturbed, and to give a retrospective account of how they experienced it, much as one might describe an event witnessed. The student’s account is not taken as an objective description of a psychological process, but as being itself a phenomenon which is to be analysed. [[skimx://laurillard2001rethinking#42|p. 42]]
+
+APPREHENDING STRUCTURE [[skimx://laurillard2001rethinking#43|p. 43]]
+
+The most common method of learning in higher education, is via acquisition, especially through lectures and reading. [[skimx://laurillard2001rethinking#43|p. 43]]
+
+n Chapter 1 I argued that a peculiarity of academic learning is to focus, not on the world itself, but on others’ views of that world. [[skimx://laurillard2001rethinking#43|p. 43]]
+
+For students to interpret a complex academic discourse as having a specific intended meaning, they must be able to apprehend the implicit structure of that discourse. A number of studies show that they fail to do this. Since deciding on the structure and how it is to be displayed is part of the teacher’s instructional strategy, this needs elaborating. [[skimx://laurillard2001rethinking#43|p. 43]]
+
+the identification of two contrasting approaches to studying a text: one known as the ‘deep approach’, where the student looks for meaning, and processes the text in a ‘holistic’ way, preserving the original structure of the discourse and therefore preserving its intended meaning; the other known as the ‘surface approach’, where the student focuses on key words or phrases and processes the text in an ‘atomistic’ way, distorting the original structure and therefore changing its meaning. There have been many studies demonstrating this contrast. Marton and Säljö (1976a and b) and Svensson (1997) documented the earliest studies. More recent books by Entwistle (1981), Marton et al. (1997), Ramsden (1988 and 1998), and Marton and Booth (1997) document the many later ones, spanning a range of educational contexts and topic areas. [[skimx://laurillard2001rethinking#43|p. 43]]
+
+Discerning the structure is difficult not just because of its complexity but also because it is rarely explicit. It is conveyed via syntax, conjunctions, and expressions such as ‘in order to’, ‘not only...but also...’, ‘instead’, etc. For many of the ideas students have to grapple with, their only access to them is via text. [[skimx://laurillard2001rethinking#45|p. 45]]
+
+The principle-example structure, which is a common feature of teaching texts, is missed by many students whose attention is captured by the intriguing example (Marton and Wenestam, 1979). The relational argument structure, also important for expressing a complex idea, will be unpacked to its constituent components but may never be reassembled. [[skimx://laurillard2001rethinking#45|p. 45]]
+
+I contrasted secondorder academic knowledge with first-order experiential knowledge as being knowledge of descriptions of the world rather than knowledge of the world. The distinction is particularly important when we consider how learners are to access the knowledge. When the ‘what’ that is being learned is objects, behaviours, sensations, then experience serves as the access; when the ‘what’ is theories, descriptions, viewpoints, then the access can only be through some form of representation: language, symbols, diagrams, pictures. The actions learners must carry out can only be usage of language and symbols, therefore. Learning about dogs can be done through actions on the object: observation, touch, smell, interaction (offering a biscuit, throwing a ball), comparing these experiences with the same actions on other animals, all done without recourse to any form of representation or use of language. Learning about molecules cannot be done without recourse to representation of some kind. [[skimx://laurillard2001rethinking#53|p. 53]]
+
+Students carry out many learning activities during an academic course that appear to consist in learning directly about the world. Students of literature read novels and see plays; students of science look down microscopes to see substances in more detail or investigate the behaviour of electricity; students of management visit organisations. However, these apparently direct experiences of the world are mediated by the teacher, contextualised within the course, and encountered within the way the subject is being taught. [[skimx://laurillard2001rethinking#55|p. 55]]
+
+When students engage with those worlds by interpreting a novel, or identifying a substance, or critiquing an organisation, they are generating further descriptions, or representations, which do not themselves engage directly with the world, only with the world of the teacher. That is why the proper subject of this section is ‘acting on the world of descriptions’. [[skimx://laurillard2001rethinking#55|p. 55]]
+
+Action without feedback is completely unproductive for a learner. [[skimx://laurillard2001rethinking#55|p. 55]]
+
+There are two easily distinguished types of feedback, intrinsic and extrinsic, and both play an important role in learning. ‘Intrinsic’ feedback is that which is given as a natural consequence of the action; the feedback is intrinsic to the action. [[skimx://laurillard2001rethinking#55|p. 55]]
+
+These examples contrast with ‘extrinsic’ feedback, which does not occur within the situation but as an external comment on it: right or wrong, approval or disapproval. [[skimx://laurillard2001rethinking#56|p. 56]]
+
+To use feedback, students must be able to make sense of it. The teacher has to devise situated actions that elicit meaningful intrinsic feedback for the student, or redescribe the student’s description in a way that gives meaningful extrinsic feedback to the student. [[skimx://laurillard2001rethinking#58|p. 58]]
+
+REFLECTING ON GOALS-ACTION-FEEDBACK [[skimx://laurillard2001rethinking#58|p. 58]]
+
+There is not a great deal of work in higher education, nor indeed at other levels of learning, that focuses specifically on the way learners handle the goals of a learning situation. [[skimx://laurillard2001rethinking#58|p. 58]]
+
+The interviews conducted within the ‘phenomenographic’ method focus on how the student perceived the goal, and how they used this in their execution of the task. Some of the early work on reading, which established the deep—surface dichotomy, used retrospective accounts by students of what they were doing. This provided direct evidence of intentions such as ‘looking for the meaning’, ‘trying to discover what the author wanted to put across’, and conversely the absence of these intentions in a surface approach. This link between intention, process and outcome is an empirical one, and demonstrates the importance for the learning process of the way the student interprets the goal of the task. [[skimx://laurillard2001rethinking#58|p. 58]]
+
+The analysis of those protocols showed that the students were united in their perception of the task as being about providing the teacher with what he required of them, rather than as being about designing a program (Laurillard, 1984b). [[skimx://laurillard2001rethinking#59|p. 59]]
+
+The focus of the students’ attention is the ‘problem-in-context’, rather than the problem itself. This is similar to Wertsch’s analysis of the theory of activity (1984): the same task can be perceived differently by teacher and students, and therefore operationalised in a way the teacher may not expect. [[skimx://laurillard2001rethinking#60|p. 60]]
+
+In this chapter we have looked at students’ learning activities in terms of five interdependent aspects of the learning process. Students must address all these mathemagenic activities if learning is to succeed: [[skimx://laurillard2001rethinking#60|p. 60]]
+
+
+  *  apprehend the structure of the discourse—e.g. focus on the narrative line, distinguish evidence and argument, organise and structure the content into a coherent whole; [[skimx://laurillard2001rethinking#60|p. 60]]
+
+interpret the forms of representation—e.g. practise mapping between the concept, system, event or situation and its representation, practise using the forms of representation of an idea, represent the discourse as a whole as well as its constituent parts; act on descriptions of the world—e.g. combine descriptions and representations to generate further descriptions of the world, manipulate the various forms of representation of the world; use feedback—e.g. use both intrinsic and extrinsic feedback to adjust actions to fit the task goal, and adjust descriptions to fit the topic goal; reflect on the goal-action-feedback cycle—e.g. relate the feedback to the goal or message of the discourse, reflect on how the link between action and feedback relates to the structure of the whole. [[skimx://laurillard2001rethinking#61|p. 61]]
+
+Generating a teaching strategy [[skimx://laurillard2001rethinking#62|p. 62]]
+
+include, it will be useful to look first at other attempts to derive strategies for effective [[skimx://laurillard2001rethinking#63|p. 63]]
+
+teaching to see if they find a principled way of doing it. I can identify in the current literature three distinct ways of handling this problem, deriving from different scientific traditions: [[skimx://laurillard2001rethinking#63|p. 63]]
+
+instructional design, deriving originally from behavioural psychology but increasingly incorporating findings from cognitive psychology; constructivist psychology, deriving from developmental psychology; phenomenography, deriving from phenomenological psychology. [[skimx://laurillard2001rethinking#63|p. 63]]
+
+INSTRUCTIONAL DESIGN [[skimx://laurillard2001rethinking#64|p. 64]]
+
+The undisputed father of the field of instructional design is Robert Gagné, whose book The Conditions of Learning, first published in 1965 and now in its fourth edition, forms the precursor to all the current work. A more recent analysis given in The Selection and Use of Media (Romiszowski, 1988), acknowledges the influence of his work, so it is worth looking [[skimx://laurillard2001rethinking#64|p. 64]]
+
+Since it was first published, Gagné’s analysis has shifted from a grounding in behavioural psychology to using information-processing theory as its empirical base. [[skimx://laurillard2001rethinking#64|p. 64]]
+
+Gagné’s approach is essentially a logical analysis of what must be the case, rather than an empirically grounded theory [[skimx://laurillard2001rethinking#64|p. 64]]
+
+He begins with definitions of the general types of human capabilities that are learned: intellectual skills, cognitive strategies, verbal information, etc., a common-sense classification of what there is. He then describes the ‘learning events’ for each capability. These are derived from theoretical constructs generated by experimental studies in cognitive psychology, and based on information-processing theory. The constructs include, for example, ‘shortterm memory storage’, based on studies of telephone number retrieval, and ‘encoding’, based on studies of memory of short passages of text. These ‘learning events’, together with the desired outcomes already defined as capabilities, are then used to generate the internal (mental) and hence external (situational) conditions for learning [[skimx://laurillard2001rethinking#64|p. 64]]
+
+The complete list of instructional events to be carried out by the teacher is: [[skimx://laurillard2001rethinking#64|p. 64]]
+
+activating motivation informing learner of the objective [[skimx://laurillard2001rethinking#64|p. 64]]
+
+directing attention stimulating recall providing learner guidance enhancing retention promoting transfer of learning eliciting performance providing feedback. [[skimx://laurillard2001rethinking#65|p. 65]]
+
+However, its empirical base is constituted in the theoretical constructs of another empirically based discipline. Cognitive psychology has an empirical foundation, but one that is built for its own purposes. [[skimx://laurillard2001rethinking#65|p. 65]]
+
+There is no data in the theoretical development of this approach that derives from students learning in an instructional context. [[skimx://laurillard2001rethinking#65|p. 65]]
+
+A further problem with instructional design of this type is that the analysis into components of the teaching—learning process is not followed by any synthesis. Any relationship between cognitive strategies and motor skills, for example, is not considered. [[skimx://laurillard2001rethinking#65|p. 65]]
+
+another of the key figures in instructional design, David Merrill. [[skimx://laurillard2001rethinking#65|p. 65]]
+
+Perhaps it is the blandness of its conclusions that has permitted the largely uncritical acceptance of this way of tackling the task. Whatever the reasons, it is not a progressive force. It does not find out how the world is, it merely supposes. [[skimx://laurillard2001rethinking#66|p. 66]]
+
+CONSTRUCTIVIST PSYCHOLOGY [[skimx://laurillard2001rethinking#67|p. 67]]
+
+Constructivist psychology is valuable because it provides an account of how the individual learns through interaction with their world. [[skimx://laurillard2001rethinking#67|p. 67]]
+
+non-cognitive. A recent overview of current views of constructivism corrals the wide range of ideologies into two common tenets, that: (1) learning is an active process of constructing rather than acquiring knowledge, and (2) instruction is a process of supporting that construction rather than communicating knowledge. (Duffy and Cunningham, 1996:171) [[skimx://laurillard2001rethinking#67|p. 67]]
+
+Duffy and Cunningham clarify the disparity of views of constructivism in the contrast they draw between ‘cognitive constructivist’ and ‘socio-cultural constructivist’ versions. [[skimx://laurillard2001rethinking#67|p. 67]]
+
+The former derives originally from Piaget’s work, describing children’s development of increasingly abstract constructions of their world. The latter derives from Vygotsky’s description of the development of knowledge through social interaction and the later idea of ‘situated cognition’ [[skimx://laurillard2001rethinking#67|p. 67]]
+
+Duffy and Cunningham regard the two points of view as contradictory rather than complementary. [[skimx://laurillard2001rethinking#67|p. 67]]
+
+To teach constructively is to provide opportunities for complex information processing related to a learner’s needs and knowledge of the world, design relevant and real world (authentic) tasks, help to identify conflicting ideas and attitudes, provide complex and controversial stimuli, challenge the learner’s existing knowledge structures and values, acknowledge vague structures in knowledge, help learners revisit material in greater depths, confirm the learning identified by learners, and guide learners to generate correct solutions. (Burge, 1995:156) [[skimx://laurillard2001rethinking#68|p. 68]]
+
+Biggs is more direct about how to develop a constructivist teaching strategy. He uses the idea of ‘constructive alignment’ to describe the link to be made between the curriculum objectives and the corresponding activities by students. The latter are defined in terms of appropriately ‘high-level verbs’, which means: ‘you get students to do the things that the objectives nominate’ (Biggs, 1999:26). [[skimx://laurillard2001rethinking#68|p. 68]]
+
+High-level verbs such as theorise, or reflect, are contrasted with low-level verbs such as recognise, or memorise. [[skimx://laurillard2001rethinking#68|p. 68]]
+
+Biggs defines teaching and learning activities as either teacher-directed, peer-directed, or self-directed. [[skimx://laurillard2001rethinking#68|p. 68]]
+
+Marton and Booth (1997) also identify two forms of cognitivism, ‘individual cognitivism’ and ‘social cognitivism’, and demonstrate that the two forms offer quite different analyses of the learning process. [[skimx://laurillard2001rethinking#68|p. 68]]
+
+PHENOMENOGRAPHY [[skimx://laurillard2001rethinking#69|p. 69]]
+
+The methodology of phenomenography, described in previous chapters, derives its empirical base from discovery rather than hypothesis testing. It uses qualitative rather than quantitative data, and its output is categories of experience, rather than relational explanations. [[skimx://laurillard2001rethinking#69|p. 69]]
+
+Marton later refers to as the ‘architecture of variation’ to help learners change from one conception to another [[skimx://laurillard2001rethinking#69|p. 69]]
+
+Implicit in this discussion are two distinct ways of linking research results to implications for teaching:
+  *  from descriptions of the internal structures of different conceptions, deduce how teachers and students should make their conceptions explicit so that they can be compared and contrasted;
+  *  from descriptions of the differences between successful and unsuccessful teaching, deduce the characteristics of successful teacher-student interactions. [[skimx://laurillard2001rethinking#69|p. 69]]
+
+The descriptions of differences in teaching are based on studies of teachers teaching students, so the derived characteristics are at the level of the relation between teacher-student-subject, and not at the greater remove of conditionsperson-task, as in instructional design. [[skimx://laurillard2001rethinking#70|p. 70]]
+
+Marton and Booth discuss at length the ways in which phenomenography can contribute to better learning. Their approach begins with a definition of pedagogy in which: teachers mold experiences for their students with the aim of bringing about learning, and the essential feature is that the teacher takes the part of the learner... becomes aware of the experience through the learner’s awareness. (Marton and Booth, 1997:179, original italics) [[skimx://laurillard2001rethinking#70|p. 70]]
+
+In any act of learning, students simultaneously engage in three successive phases—acquiring, knowing, and applying... From the constitutionalist perspective, we consider students’ prior experiences, perceptions, approaches and outcomes to be simultaneously present in their awareness. (Prosser and Trigwell, 1999:17) [[skimx://laurillard2001rethinking#70|p. 70]]
+
+This acknowledgment of the necessary iteration between teacher, student and content is more realistic than the cause-effect models of instructional design and cognitivism. This is why I believe phenomenography offers the best hope for a principled way of generating teaching strategy from research outcomes. [[skimx://laurillard2001rethinking#71|p. 71]]
+
+A PRINCIPLED APPROACH TO GENERATING TEACHING STRATEGY [[skimx://laurillard2001rethinking#71|p. 71]]
+
+This shift in focus from what the teacher should do, to how they must set up the interaction, reflects the fact that we cannot generalise these findings, only the methodology (Marton, 1988). [[skimx://laurillard2001rethinking#71|p. 71]]
+
+Table 4.1 Student and teacher roles [[skimx://laurillard2001rethinking#72|p. 72]]
+
+e 4.1 Student and teacher roles in the learning [[skimx://laurillard2001rethinking#72|p. 72]]
+
+process [[skimx://laurillard2001rethinking#72|p. 72]]
+
+The Socratic method is not, as it is often described, a tutorial method that allows the student to come to an understanding of what they know. It is a rhetorical method that gives all the responsibility to, and therefore achieves all the benefit for, the teacher. [[skimx://laurillard2001rethinking#76|p. 76]]
+
+In the first edition of this book, I included intelligent tutoring systems as another logically principled approach. I concluded then that it did not offer a principled derivation of a teaching strategy because, like instructional design, it did not attempt to link teaching design to empirical data about students learning. Its explicit rejection of empirical data, together with its failure to instantiate theories about learning and teaching have since led to its demise as a field of inquiry. [[skimx://laurillard2001rethinking#77|p. 77]]
+
+Teaching strategy Discursive:
+  *  teacher’s and student’s conceptions should each be continually accessible to the other;
+  *  teacher and student must agree learning goals for the topic; [[skimx://laurillard2001rethinking#77|p. 77]]
+
+
+  *  the teacher must provide a discussion environment for the topic goal, within [[skimx://laurillard2001rethinking#78|p. 78]]
+
+which students can generate and receive feedback on descriptions appropriate to the topic goal. Adaptive:
+  *  the teacher has the responsibility to use the relationship between their own and the student’s conception to determine the task focus of the continuing dialogue;
+  *  the student has the responsibility to use the feedback from their work on the task and relate it to their conception. Interactive:
+  *  the teacher must provide a task environment within which students can act on, generate and receive feedback on actions appropriate to the task goal;
+  *  the students must act to achieve the task goal;
+  *  the teacher must provide meaningful intrinsic feedback on their actions that relates to the nature of the task goal. Reflective:
+  *  the teacher must support the process in which students link the feedback on their actions to the topic goal for every level of description within the topic structure;
+  *  the student must reflect on the task goal, their action on it, and the feedback they received, and link this to their description of their conception of the topic goal. [[skimx://laurillard2001rethinking#78|p. 78]]
+
+Analysing the media for learning and teaching [[skimx://laurillard2001rethinking#79|p. 79]]
+
+A framework for analysis [[skimx://laurillard2001rethinking#81|p. 81]]
+
+Paul Ramsden, in his book on teaching in higher education, seems more pessimistic. Having developed an extensive analysis of what must be required of the be [[skimx://laurillard2001rethinking#81|p. 81]]
+
+pessimistic. Having developed an extensive analysis of what must be required of the best teaching methods—that they must involve students in actively finding knowledge, interpreting results and testing hypotheses—he notes the sharp contrast between these and the [[skimx://laurillard2001rethinking#81|p. 81]]
+
+methods that traditionally place authoritative information before students and leave the rest to them: The reader will now I hope be able to see one step ahead in the argument and confront the inevitable truth that many popular methods, such as the traditional lecture-tutorial-discussion-laboratory-class method of teaching science and social science courses, do not emerge from this analytical process unscathed. In fact, not to put too fine a point on it, many teaching methods in higher education would seem, in terms of our theory, to be actually detrimental to the quality of student learning. (Ramsden, 1992:152) [[skimx://laurillard2001rethinking#82|p. 82]]
+
+PEDAGOGICAL CATEGORIES FOR CLASSIFYING MEDIA
+
+* Anchored Note, page 84
+Example of analyzing a student teacher interaction [[skimx://laurillard2001rethinking#83|p. 83]]
+
+The teaching strategy has been refined into a set of requirements for any learning situation:
+  *  it must operate as an iterative dialogue;
+  *  which must be discursive, adaptive, interactive and reflective;
+  *  and which must operate at the level of descriptions of the topic;
+  *  and at the level of actions within related tasks. [[skimx://laurillard2001rethinking#86|p. 86]]
+
+This is the framework against which we now evaluate the extent to which the various media support the full specification. Because of its essentially dialogic form, I have termed it a ‘Conversational Framework’. [[skimx://laurillard2001rethinking#86|p. 86]]
+
+Figure II.1 The Conversational Framework identifying the activities necessary to complete the learning process. [[skimx://laurillard2001rethinking#87|p. 87]]
+
+This Conversational Framework for describing the learning process is intended to be applicable to any academic learning situation: to the full range of subject areas and types of topic. It is not normally applicable to learning through experience, nor to ‘everyday’ learning. [[skimx://laurillard2001rethinking#87|p. 87]]
+
+The characterisation of the teaching-learning process as a iterative ‘conversation’ is hardly a new idea. I have already quoted Paul Ramsden’s statement that teaching is a sort of conversation. Kolb’s “learning cycle” (Kolb, 1984) states that learning occurs through an iterative cycle of experience followed by feedback, which is reflected on, and then used to revise action (equivalent to activities 6–7–8–11–10–9 in Figure II.1). Gordon Pask formalised the idea of learning as a conversation in Conversation Theory (Pask, 1976), which included the separation of ‘descriptions’ and ‘model-building behaviours’, and the definition of understanding as ‘determined by two levels of agreement’ (Ibid. 22). Vygotsky drew the same kind of distinction between the ‘spontaneous’ concepts of everyday learning, and the ‘scientific’ concepts of the classroom: [[skimx://laurillard2001rethinking#87|p. 87]]
+
+Figure II.2 shows how the Conversational Framework could be interpreted for learning from lectures, where there is little opportunity for the teacher to do anything other than deliver the theory. The remaining activities to complete the learning process must come from the student’s own internal dialogue. [[skimx://laurillard2001rethinking#88|p. 88]]
+
+The chapters are organised according to the main types of educational media. This allows us to focus on their essential pedagogical characteristics and to identify the unique contribution made by each one. We also need a way of characterising the main types of educational media in advance of the pedagogical classification. [[skimx://laurillard2001rethinking#89|p. 89]]
+
+By combining learning experience with logistical characteristics, it is possible to focus on just five media forms, which cover all the key activities identified above. Table II.1 shows how each media form, characterised as narrative, interactive, communicative, adaptive, and productive, identifies with particular kinds of learning experience and delivery method [[skimx://laurillard2001rethinking#89|p. 89]]
+
+le II.1 Five principal media forms with the learning experiences they support and the methods used to deliver them [[skimx://laurillard2001rethinking#90|p. 90]]
+
+Learning experience Attending, apprehending Investigating, exploring Discussing, debating Experimenting, practising Articulating, expressing Methods/technologies Print,TV, video, DVD Library, CD, DVD, Web resources Seminar, online conference Laboratory, field trip, simulation Essay, product, animation, model Media forms Narrative Interactive Communicative Adaptive Productive [[skimx://laurillard2001rethinking#90|p. 90]]
+
+Narrative media [[skimx://laurillard2001rethinking#91|p. 91]]
+
+These presentational media share the core common property that they are non-interactive, which distinguishes them from all the computer-based media [[skimx://laurillard2001rethinking#91|p. 91]]
+
+And the same may be said of television, audio and video media. They cannot respond to their audience’s enquiries, and the learner must make what they can of them. [[skimx://laurillard2001rethinking#91|p. 91]]
+
+Narrative provides a structure that creates global coherence in a text that contains many component parts. [[skimx://laurillard2001rethinking#91|p. 91]]
+
+The structure provides a linear dynamic that links the components to each other via relationships, which may be causal, temporal, or [[skimx://laurillard2001rethinking#91|p. 91]]
+
+audio and [[skimx://laurillard2001rethinking#92|p. 92]]
+
+motivational, depending on the content. In an educational context, print, [[skimx://laurillard2001rethinking#92|p. 92]]
+
+and video all use a variety of structural cues, such as headings, textual signposts, paragraphing, captions, locations, and camera movement, to allow learners to maintain a sense of the overall structure of the narrative, and hence understand its meaning. Narrative is fundamentally linked to cognition by providing the structure that enables the reader to discern the author’s meaning. [[skimx://laurillard2001rethinking#92|p. 92]]
+
+LECTURE [[skimx://laurillard2001rethinking#92|p. 92]]
+
+It therefore puts a tremendous burden on the students to engage in the full range of mathemagenic activities. [[skimx://laurillard2001rethinking#92|p. 92]]
+
+burden on the students to engage in the full range of mathemagenic activities. They must do the work to render the implicit structure explicit to themselves, must reflect on the relationship between what the lecturer is saying and what they previously understood, and decide if it is different and how the difference is to be resolved. [[skimx://laurillard2001rethinking#92|p. 92]]
+
+It can be done, but opportunities for breakdown or failure are numerous. [[skimx://laurillard2001rethinking#92|p. 92]]
+
+Some lecturers acknowledge these limitations, and use techniques designed to address the essential learning activities omitted from the traditional form of one person talking to many for fifty minutes. Questions to students encourage them to reflect, and their answers allow the lecturer to refine the descriptions and explanations offered. Questions from students provide further opportunity at the discursive level for the lecturer to gain an insight into how students are thinking about the topic. Buzz groups encourage students to articulate descriptions and redescriptions of their understanding in interactive discussion with each other. The experiential level is addressed only rarely. [[skimx://laurillard2001rethinking#92|p. 92]]
+
+Their success depends upon the lecturer knowing very well the capabilities of the students, and on the students having very similar capabilities and prior knowledge. [[skimx://laurillard2001rethinking#93|p. 93]]
+
+PRINT [[skimx://laurillard2001rethinking#94|p. 94]]
+
+It is the easiest medium to design (single author), to produce (established publishing mechanisms), to deliver (bookshops and libraries), to handle (light and portable), to use (random access, contents, indexes). [[skimx://laurillard2001rethinking#94|p. 94]]
+
+They can control the topic focus: they can reread, skip, browse, go to another topic via the index or contents page, and in doing so control the pace of delivery of the material. [[skimx://laurillard2001rethinking#94|p. 94]]
+
+Print still has the disadvantages of failing to be interactive, adaptive or reflective, and this has been a particular concern of academics in distance learning institutions such as the Open University. To counter these essential deficiencies of the printed format, a number of design features have been adopted:
+  *  the statement of learning objectives as a way of clarifying the topic goal;
+  *  wide margins to encourage students to make their own annotations on the text;
+  *  the use of in-text questions and activities to encourage action, e.g. students are asked to write down their point of view on a topic before reading on to compare the author’s point of view with their own; students are set analytical tasks, or calculation tasks, as appropriate to the material;
+  *  the provision of supplementary texts to make the material adaptable for students who need to spend more time on some aspects of the work;
+  *  the use of self-assessment questions (SAQs) to help students to reflect on what they know, and to check their performance against a given answer. [[skimx://laurillard2001rethinking#95|p. 95]]
+
+Figure5.1 InterpretationoftheConversationalFrameworkforprintmaterial [[skimx://laurillard2001rethinking#97|p. 97]]
+
+AUDIOVISION [[skimx://laurillard2001rethinking#98|p. 98]]
+
+TELEVISION [[skimx://laurillard2001rethinking#99|p. 99]]
+
+Television (and film, which I take to be equivalent for this discussion) is peculiarly able to convey a way of experiencing the world. It provides a vicarious experience through dynamic sound and vision, and uses a number of technical devices to manipulate that experience. Salomon has called these devices ‘supplantation’, in the sense that they supplant a cognitive process (Salomon, 1979). For example, a ‘zoom’ from long shot to close-up supplants the process of selective attention; a ‘pan’ supplants the process of shifting attention; a ‘montage’ supplants the process of association of ideas. These are powerful rhetorical devices. Add to these the production decisions about what to film, where to point the camera, or how to edit a sequence of images, and the potential for establishing a point of view is clear.
+
+* Anchored Note, page 101
+Analyzing how much students get out of videos or texts in terms of deep structure. Graph of how topics, sub topics and examples are presented. [[skimx://laurillard2001rethinking#99|p. 99]]
+
+VIDEO [[skimx://laurillard2001rethinking#103|p. 103]]
+
+Interactive media [[skimx://laurillard2001rethinking#107|p. 107]]
+
+‘Interactive’ now refers to a medium in which the user can navigate and select content at will. [[skimx://laurillard2001rethinking#107|p. 107]]
+
+HYPERMEDIA [[skimx://laurillard2001rethinking#108|p. 108]]
+
+The communicative media are those that serve the discursive level of the Conversational Framework, having the specific task of bringing people together to discuss. The discussion may be between tutor and student, or between students. The medium of communication is either text/graphics, audio, video, or any combination of the three. [[skimx://laurillard2001rethinking#145|p. 145]]
+
+COMPUTER-MEDIATED CONFERENCING [[skimx://laurillard2001rethinking#147|p. 147]]
+
+DIGITAL DOCUMENT DISCUSSION ENVIRONMENT (D3E) [[skimx://laurillard2001rethinking#151|p. 151]]
+
+STUDENT COLLABORATION [[skimx://laurillard2001rethinking#158|p. 158]]
+
+One of the great untested assumptions of current educational practice is that students learn through discussion. [[skimx://laurillard2001rethinking#158|p. 158]]
+
+Argument between students about a topic can be an extremely effective way of enabling students to find out what they know, and indeed what they do not know, but it does not necessarily lead them to what they are supposed to know. [[skimx://laurillard2001rethinking#158|p. 158]]
+
+Productive media [[skimx://laurillard2001rethinking#161|p. 161]]
+
+MICROWORLDS [[skimx://laurillard2001rethinking#161|p. 161]]
+
+Microworlds are productive media, therefore, in the sense that they enable the learner to create and produce a system of their own, designed to achieve a specific end. Simulations are adaptive, and the student can only explore and investigate, not create and produce. [[skimx://laurillard2001rethinking#163|p. 163]]
+
+The design methodology [[skimx://laurillard2001rethinking#179|p. 179]]
+
+Designing teaching materials [[skimx://laurillard2001rethinking#181|p. 181]]
+
+Students’ misconceptions are typically ‘pedagogenic errors’, the equivalent of iatrogenic diseases (the kind that are caused by doctors’ actions), born of poor teaching rather than ignorance. Teachers must address students’ current conceptions if they are to guide them towards the consensus conceptio [[skimx://laurillard2001rethinking#182|p. 182]]
+
+Defining learning objectives sounds to many academics like a fearsome constraint on their creative teaching aspirations. As you delight in the intricacies and excitement of the ideas you want to promulgate, it can seem like an unwelcome intrusion to have to consider what your students will be able to do as a result. It is not about doing—the protest goes—it is about understanding, appreciating, seeing in a new way. However, the point of having learning objectives is to answer the question: how will you know if the students do understand, appreciate, or see in a new way? What would count as evidence that they understand? Without knowing this, the teacher remains ignorant of the effect of their teaching. Hence the proliferation of pedagogenic errors. [[skimx://laurillard2001rethinking#182|p. 182]]
+
+Table10.1 Defininglearningobjectives 1 State the aim. 2 Define what actions by the student would count as demonstrating to you that they had achieved this aim. 3 Are the actions in 2 defined precisely enough to allow you to agree with a colleague about whether a student has achieved them? If not, return to 2, and refine the precision of the definitions. 4 Do the actions in 2 differentiate students who have achieved the aim, from those who have not? 5 Does the list generated so far cover everything implicit in the aim? If not, then return to 2 and generate the further objectives needed for completeness. 6 List the aim and objectives so defined. [[skimx://laurillard2001rethinking#183|p. 183]]
+
+year. It is rare for a student to come up with a wholly new way of getting it wrong. So if the forms of error are relatively few in number, why are they not documented so that we can address them in future teaching? It has not been done because it has not been seen as a necessary or proper thing to do. [[skimx://laurillard2001rethinking#185|p. 185]]
+
+There are now enough studies of student learning to show that the level of subject matter understanding indicated by examination results is rarely achieved by the same students put to more challenging tests. Students can achieve very good examination results and still exhibit fundamental misconceptions (see Brumby, 1984, in biology; Dahlgren et al., 1978, in economics; Bowden et al., 1992, in physics; McCracken and Dobson, 1999 in geology). The problem is that what begins as a performance indicator soon becomes an end in itself. Inevitably, students learn what assessment assesses. However, if there is a careful analysis of the objectives, then appropriately challenging assignments are possible. This makes it more likely that students will reveal a fundamental misunderstanding, or an over-simplification of an issue. The reflective practitioner, however, will see this as formative evaluation of their own teaching. There is an excellent summary of the issue in Bowden and Marton: If we want to use assessment questions to find out what the students actually learn...this information must be found out from their answers, and this is by no means a trivial undertaking... In order to reveal the variation in students’ understanding the teacher has to discern and focus on critical aspects of the students’ understandings, and these can be discerned precisely due to the variation in the answers... A hidden world of varying ways of thinking about the phenomena dealt with in teaching is revealed. The teacher learns from and about the students. (Bowden and Marton, 1998:185) [[skimx://laurillard2001rethinking#185|p. 185]]
+
+One of the most productive activities a teacher can suggest to students is that they engage in a kind of teacher-student role-play, where one spends, say, five minutes trying to teach the other a particular theory or concept. The one acting as student undertakes to ask whatever questions are necessary to clarify the explanation. Five minutes is usually enough to generate some very fundamental questions from the one acting as ‘teacher’, who has now discovered more precisely what it is they don’t know. [[skimx://laurillard2001rethinking#186|p. 186]]
+
+Table10.4 Designingaffordancesforlearning [[skimx://laurillard2001rethinking#191|p. 191]]
+
+DEVELOPMENTAL TESTING [[skimx://laurillard2001rethinking#194|p. 194]]
+
+The design of the learning activities has to be evaluated in terms of the thinking they elicit. Do students indeed use theory to adapt their actions to the task goal, do they focus on the task goal, do they reflect on the action-feedback cycle to relate this to the topic goal? Students cannot talk aloud as they work, as this intrudes on their cognitive processing of the task in hand, but they can talk to each other. This level of evaluation therefore has to use pairs of students, working together to achieve the topic goal, and discussing their reactions as they work. The data combining both actions and talk will help to reveal the kind of thinking elicited by the design of the learning activities. [[skimx://laurillard2001rethinking#194|p. 194]]
+
+Bowden and Marton (1998) offer an extensive account of research and evaluation studies of university assessment. [[skimx://laurillard2001rethinking#204|p. 204]]
+
+The British Education Index The British Education Index, the other main bibliographic database for education, is not freely available to search, but they do provide access to a list of indexed journals, with some links to publishers’ websites. At: http://www.leeds.ac.uk/bei/ follow the ‘List of journals indexed’ link. Some publishers will provide tables of contents for a selection of volumes of a particular title. The British Education Index oversees Education Line, which provides access to grey and pre-print literature in education at: www.leeds.ac.uk/educol/ Education Line is searchable, and there are some full text articles available. [[skimx://laurillard2001rethinking#244|p. 244]]
+
+References [[skimx://laurillard2001rethinking#253|p. 253]]
+ Narrative media tell or show the learner something (e.g. text, image). Interactive media respond in a limited way to what the learner does (e.g. search engines, multiple choice tests, simple models). Communicative media facilitate exchanges between people (e.g. email, discussion forum). Adaptive media are changed by what the learner does (e.g. some simulations, virtual worlds). Productive media allow the learner to produce something (e.g. word processor, spreadsheet).”

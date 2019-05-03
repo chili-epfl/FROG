@@ -1,0 +1,8 @@
+h2. C.S.C. Asterhan's publications
+
+| [[..:ref:asterhan2010assessing]] | Asterhan, C. S. C. (2010). Assessing e-moderation behavior from synchronous discussion protocols with a multi-dimensional methodology. Computers in Human Behavior. Elsevier.|
+| [[..:ref:asterhan2010online]] | Asterhan, C. S. C., & Schwarz, B. B. (2010). Online moderation of synchronous e-argumentation. International Journal of Computer-Supported Collaborative Learning. Springer.|
+| asterhan2007effects | Asterhan, C. S. C., & Schwarz, B. B. (2007). The effects of monological and dialogical argumentation on concept learning in evolutionary theory.. Journal of Educational Psychology. American Psychological Association.|
+| schwarz2009human | Schwarz, B. B., Asterhan, C. S. C., & Gil, J. (2009). Human guidance of synchronous e-discussions: The effects of different moderation scripts on peer argumentation. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
+| asterhan2009online | Asterhan, C. S. C., & Eisenmann, T. (2009). Online and face-to-face discussions in the classroom: A study on the experiences of 'active' and 'silent' students. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
+| asterhan2010assisting | Asterhan, C. S. C., & Schwarz, B. B. (2010). Assisting the facilitator: Striking a balance between intelligent and human support of computer-mediated discussions. Workshop on Opportunities for intelligent and adaptive behavior in collaborative learning systems.|

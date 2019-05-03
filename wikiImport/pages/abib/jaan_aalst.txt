@@ -1,0 +1,8 @@
+h2. Jaan Aalst's publications
+
+| [@chan2004learning] | Chan, C. K. K., & van Aalst, J. (2004). Learning, assessment and collaboration in computer-supported environments. What We Know About CSCL, 87--112. |
+| [@vanaalst2006rethinking] | van Aalst, J. (2006). Rethinking the nature of online work in asynchronous learning networks. British Journal of Educational Technology, 37(2), 279--288.|
+| [@lee2006students] | Lee, E. Y. C., Chan, C. K. K., & van Aalst, J. (2006). Students assessing their own collaborative knowledge building. International Journal of Computer-Supported Collaborative Learning, 1(2), 277--307.|
+| [@sha2010visualization] | Sha, L., Teplovs, C., & van Aalst, J. (2010). A visualization of group cognition: semantic network analysis of a CSCL community. In Proceedings of the 9th International Conference of the Learning Sciences-Volume 1 (929--936).|
+| [@chuy2011generic] | Chuy, M., Chen, B., Resendes, M., van Aalst, J., Chan, C., Scardamalia, M., & Bereiter, C. (2011). Generic Improvements in Communication Technology to Enhance Socio-cognitive Gains. In CSCL 2011.|
+| [@dyke2011technological] | Dyke, G., Jeong, H., Medina, R., Suthers, D. D., van Aalst, J., Chen, W., & Looi, C.-K. (2011). Technological affordances for productive multivocality in analysis. In CSCL.|

@@ -1,0 +1,44 @@
+h1. Reliability and validity of items in multiple formats in assessing K12 students
+
+Enviro literacy project
+
+====== Theory ======
+
+Learning progressions are **descriptions of the successively more sophisticated ways of thinking** about a topic that can follow one another as children learn about and investigate a topic over a broad span of time.
+
+  * Observation: written assessment items, interview protocol
+  * interpretation: psychometric
+  * cognition
+
+===== Case =====
+
+Written assessment three formats:
+  * constructed response item
+  * ordered multiple choice + [[constructed response]]
+  * multiple true+false + CR
+
+Clinical interview
+  * general questions
+  * follow up questions
+
+===== Research question =====
+
+  * How well can items listed above diagnose students' achievement levels?
+  * How to design items in these formats that elicit accurate indicators of students' understanding?
+  * Do ordered multiple choice and constructed response elicit the same evidence?
+
+===== Findings =====
+
+  * OMC questions are less reliable
+  * OMC questionsa are less discriminative
+
+===== Conclusions =====
+
+CR 
+  * most effective to differentiate students among levels
+  * but some items do not differentiate students at similar level
+
+OMC
+  * less discriminate and less reliable
+  * do not measure students at high ability levels well
+  * combination of CR/OMC better

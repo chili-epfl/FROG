@@ -1,0 +1,35 @@
+h1. Live annotation and content discovery in personal learning environments
+<html><a href='http://oro.open.ac.uk/26429/1/corneli_mupple10.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://oro.open.ac.uk/26429/1/corneli_mupple10.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Corneli, J., & Mikroyannidis, A. (2010). Live annotation and content discovery in personal learning environments. Retrieved from http://oro.open.ac.uk/26429/1/corneli_mupple10.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://corneli2010live|BibDesk]]  | Corneli, J., & Mikroyannidis, A. (2010). Live annotation and content discovery in personal learning environments. Retrieved from http://oro.open.ac.uk/26429/1/corneli_mupple10.pdf. |
+^ [[skimx://corneli2010live|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:corneli2010live?do=edit&vecdo=print\'><frame src=\'/wiki/clip:corneli2010live?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{corneli2010live,
+  author = {Corneli, Joseph and Mikroyannidis, A.},
+  date-added = {2011-06-28 17:56:01 +0800},
+  date-modified = {2012-11-27 19:05:30 +0000},
+  date-read = {2012-04-12 10:19:59 -0400},
+  keywords = {synchronous,etherpad; 1p2pu},
+  oa-url = {http://oro.open.ac.uk/26429/1/corneli_mupple10.pdf},
+  read = {1},
+  title = {Live annotation and content discovery in personal learning environments},
+  url = {http://oro.open.ac.uk/26429/1/corneli_mupple10.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNjb3JuZWxpMjAxMGxpdmUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaE5ay9b9o1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXjAAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3JuZWxpMjAxMGxpdmUucGRmAA4AKAATAGMAbwByAG4AZQBsAGkAMgAwADEAMABsAGkAdgBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL2Nvcm5lbGkyMDEwbGl2ZS5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL2Nvcm5lbGkyMDEwbGl2ZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:corneli2010live}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:corneli2010live}}
+
+{{page>kindle:corneli2010live}}
+
+{{page>skimg:corneli2010live}}

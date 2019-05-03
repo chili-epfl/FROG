@@ -1,0 +1,37 @@
+h1. Integrating CMC and verbal discussions in students' collaborative learning in a F2F classroom
+<html><a href='http://gs.lsl.nie.edu.sg/publication/Chen%20CSCL%202009.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://gs.lsl.nie.edu.sg/publication/Chen%20CSCL%202009.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Chen, W., Looi, C.-K., & Tan, S. (2009). Integrating CMC and verbal discussions in students' collaborative learning in a F2F classroom. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1. Retrieved from http://gs.lsl.nie.edu.sg/publication/Chen%20CSCL%202009.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://chen2009integrating|BibDesk]]  | Chen, W., Looi, C.-K., & Tan, S. (2009). Integrating CMC and verbal discussions in students' collaborative learning in a F2F classroom. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1. Retrieved from http://gs.lsl.nie.edu.sg/publication/Chen%20CSCL%202009.pdf. |
+^ [[skimx://chen2009integrating|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:chen2009integrating?do=edit&vecdo=print\'><frame src=\'/wiki/clip:chen2009integrating?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{chen2009integrating,
+  author = {Chen, Wenli and Looi, Chee-Kit and Tan, S.},
+  booktitle = {Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1},
+  date-added = {2011-06-07 08:29:48 +0800},
+  date-modified = {2012-08-19 15:44:42 +0000},
+  notes = {1},
+  oa-url = {http://gs.lsl.nie.edu.sg/publication/Chen%20CSCL%202009.pdf},
+  organization = {International Society of the Learning Sciences},
+  pages = {315--319},
+  read = {1},
+  title = {Integrating CMC and verbal discussions in students' collaborative learning in a F2F classroom},
+  url = {http://gs.lsl.nie.edu.sg/publication/Chen%20CSCL%202009.pdf},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdjaGVuMjAwOWludGVncmF0aW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2swoyhLotVBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKEyD1AAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjaGVuMjAwOWludGVncmF0aW5nLnBkZgAOADAAFwBjAGgAZQBuADIAMAAwADkAaQBuAHQAZQBnAHIAYQB0AGkAbgBnAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2NoZW4yMDA5aW50ZWdyYXRpbmcucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9jaGVuMjAwOWludGVncmF0aW5nLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:chen2009integrating}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:chen2009integrating}}
+
+{{page>kindle:chen2009integrating}}
+
+{{page>skimg:chen2009integrating}}

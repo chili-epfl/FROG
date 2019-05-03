@@ -1,0 +1,43 @@
+h1. Programming projects
+
+//Some quick notes, brainstorming on learning new programming languages, programming projects etc//
+
+Currently I know Ruby, which I've used for the last few years. 
+
+h3. Ruby
+  * very difficult to make Mac GUI apps
+    * the GUI part
+    * the installation/distribution part
+    * (might be partially solved by RubyMotion, but non-OSS, and 90% of focus on iOS. Few example apps etc. Don't know how compatible all existing libraries are. Some good work on wrapping libraries to abstract Objective C libraries)
+  * very little support for data science, machine learning, statistics
+  * community very focused on web development, not academic computing etc.  
+
+h3. Clojure
+  * very interesting paradigm, and history  
+  * lot's of very intelligent people involved
+  * many companies contributing libraries
+  * leverage Java libraries
+  * ClojureScript for the web
+  * but slow JVM startup, stack traces
+  * easier to distribute? easier to make GUIs? but still not native. few example apps. 
+  * lack of good citeproc/bibtex libraries in Clojure/Java
+
+h2. What kinds of things do I want to build/be able to build?
+
+h3. Continuing work on Researchr... 
+  * Rewriting as an app in Clojure? Tons of work, missing libraries... 
+  * Could remove dependency on Keyboard Maestro (capture keyboard shortcuts) and make it easier to distribute
+  * Possibly integrate wiki (but hard to replicate all of Dokuwiki functionality)
+  * Still dependent on BibDesk and Skim
+  * Possibility of rewriting parts of it as web-only, using Clojure/ClojureScript? Is there a minimal set of functionality that would be useful?
+
+h3. Time tracker/quantified self
+  * Server/client with API
+  * Define some kind of data format (events, time periods, etc)
+  * Visualization - in GUI with JFreeCharts, or in browser with D3/C2 etc?
+  * Leverage any of the work on LightTable, getting ClojureScript to work in GUI?
+
+h3. Data wrangling/stats/machine learning
+  * R for now
+  * Julia
+  * Clojure with Incanter - might not be worth it for now

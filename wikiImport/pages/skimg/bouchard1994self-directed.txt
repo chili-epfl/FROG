@@ -1,0 +1,12 @@
+h2. Images
+
+{{skim:bouchard1994self-directed0.png}}
+
+[[skimx://bouchard1994self-directed#7|p. 7]]
+----
+
+{{skim:bouchard1994self-directed1.png}}
+
+[[skimx://bouchard1994self-directed#16|p. 16]]
+----
+

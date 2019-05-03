@@ -1,0 +1,30 @@
+h1. Design of computer support for collaboration
+
+<ifauth !@admin>|Stahl, G. (2011). Design of computer support for collaboration.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://stahl2011design|BibDesk]]  | Stahl, G. (2011). Design of computer support for collaboration. |
+^ [[skimx://stahl2011design|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:stahl2011design?do=edit&vecdo=print\'><frame src=\'/wiki/clip:stahl2011design?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{stahl2011design,
+  author = {Stahl, Gerry},
+  date-added = {2011-05-30 16:53:59 +0800},
+  date-modified = {2011-06-09 08:29:51 +0800},
+  read = {1},
+  title = {Design of computer support for collaboration},
+  year = {2011}
+}
+
+</hidden>
+
+{{page>notes:stahl2011design}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:stahl2011design}}
+
+{{page>kindle:stahl2011design}}
+
+{{page>skimg:stahl2011design}}

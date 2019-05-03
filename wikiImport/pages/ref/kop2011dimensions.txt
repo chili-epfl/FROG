@@ -1,0 +1,39 @@
+h1. New Dimensions to Self-directed Learning in an Open Networked Learning Environment
+
+<ifauth !@admin>|Kop, R., & FournierHélène. (2011). New Dimensions to Self-directed Learning in an Open Networked Learning Environment. International Journal of Self-Directed Learning, 7(2), 1-18.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kop2011dimensions|BibDesk]]  | Kop, R., & FournierHélène. (2011). New Dimensions to Self-directed Learning in an Open Networked Learning Environment. International Journal of Self-Directed Learning, 7(2), 1-18. |
+^ [[skimx://kop2011dimensions|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kop2011dimensions?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kop2011dimensions?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{kop2011dimensions,
+  author = {Kop, Rita and Fournier, Hélène},
+  date-added = {2012-01-10 17:18:42 +0000},
+  date-modified = {2012-04-09 01:02:04 +0000},
+  date-read = {2012-03-11 09:11:23 -0400},
+  journal = {International Journal of Self-Directed Learning},
+  keywords = {1mooc},
+  notes = {1},
+  number = {2},
+  pages = {1-18},
+  read = {1},
+  title = {New Dimensions to Self-directed Learning in an Open Networked Learning Environment},
+  volume = {7},
+  year = {2011},
+  annote = {conference slides: http://www.slideshare.net/Ritakop/kop-fournier-selfdirected-learning-florida-2011 },
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVrb3AyMDExZGltZW5zaW9ucy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKdCy9dFY1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL132jAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrb3AyMDExZGltZW5zaW9ucy5wZGYADgAsABUAawBvAHAAMgAwADEAMQBkAGkAbQBlAG4AcwBpAG8AbgBzAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2tvcDIwMTFkaW1lbnNpb25zLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2sva29wMjAxMWRpbWVuc2lvbnMucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:kop2011dimensions}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kop2011dimensions}}
+
+{{page>kindle:kop2011dimensions}}
+
+{{page>skimg:kop2011dimensions}}

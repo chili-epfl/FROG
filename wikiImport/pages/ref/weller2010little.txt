@@ -1,0 +1,34 @@
+h1. Big and little OER
+
+<ifauth !@admin>|Weller, M. (2010). Big and little OER. Universitat Oberta de Catalunya. Retrieved from http://www.oerknowledgecloud.com/sites/oerknowledgecloud.com/files/Weller.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://weller2010little|BibDesk]]  | Weller, M. (2010). Big and little OER. Universitat Oberta de Catalunya. Retrieved from http://www.oerknowledgecloud.com/sites/oerknowledgecloud.com/files/Weller.pdf. |
+^ [[skimx://weller2010little|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:weller2010little?do=edit&vecdo=print\'><frame src=\'/wiki/clip:weller2010little?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{weller2010little,
+  author = {Weller, M.},
+  date-added = {2012-04-08 21:45:25 +0000},
+  date-modified = {2012-04-08 22:21:58 +0000},
+  date-read = {2012-04-08 18:21:58 -0400},
+  publisher = {Universitat Oberta de Catalunya},
+  read = {1},
+  title = {Big and little OER},
+  url = {http://www.oerknowledgecloud.com/sites/oerknowledgecloud.com/files/Weller.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhR3ZWxsZXIyMDEwbGl0dGxlLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGeaTTy9dNllBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14XWAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB3ZWxsZXIyMDEwbGl0dGxlLnBkZgAADgAqABQAdwBlAGwAbABlAHIAMgAwADEAMABsAGkAdAB0AGwAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay93ZWxsZXIyMDEwbGl0dGxlLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay93ZWxsZXIyMDEwbGl0dGxlLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:weller2010little}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:weller2010little}}
+
+{{page>kindle:weller2010little}}
+
+{{page>skimg:weller2010little}}

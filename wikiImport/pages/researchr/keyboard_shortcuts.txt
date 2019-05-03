@@ -1,0 +1,14 @@
+h1. Keyboard shortcuts
+(about [[start|researchr]])
+
+{{pages:researchr_keyboard_shortcuts1.png}}
+
+Using keyboard shortcuts are really important for productivity. There are a number of apps for Mac that let you design your own keyboard shortcuts and macros, some are free. I tried a few, and ended up with [[http://www.keyboardmaestro.com/|Keyboard Maestro]], which is not free, but to me well worth the money. It's easy to use, and it's also very easy to restrict keyboard shortcuts to specific applications. I have used this to get more consistency, for example <key>CMD-e</key> opens the current publication in DokuWiki both BibDesk, Skim and DevonThink (but these are three different scripts).
+
+For many scripts, I don't really use the "power" of Keyboard Maestro, because all I do is assign a shortcut to a Ruby script, which usually uses AppleScript to get the information it needs (such as which publication is currently highlighted), or I use an initial <key>CMD-c</key> to copy the currently selected text to the clipboard, I access it through Ruby, do something to it, and then paste the result. 
+
+The Google Scholar macro depicted above is an exception, where I only use the functionality built into Keyboard Macro. I initially wanted to write a Ruby script that downloads the Google Scholar search page, parses it, etc. Partly that would be a lot more work, and partly Google is trying very hard to stop people from "scraping" their websites, so I would have had to spend a lot of time "impersonating" a browser. It struck me that it was just as easy to just "do it in the browser". 
+
+(Note that you can find all the Keyboard Maestro macros in the keyboard_maestro.kmmacros file in the [[http://github.com/houshuang/folders2web/|github repository]]. These obviously need to be modified regarding paths, etc. (One thing to keep in mind is that shell scripts executed by Keyboard Maestro do not have the same environment as you do in terminal, with regards to paths, environmental variables etc). 
+
+On the [[description of all files||list of files in the repository]], I have also indicated which shortcuts I use to launch the various scripts.

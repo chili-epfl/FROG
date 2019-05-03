@@ -1,0 +1,44 @@
+h2. Images
+
+{{skim:holmer2009diminishing0.png}}
+
+[[skimx://holmer2009diminishing#9
+|p. 9
+]]
+----
+
+{{skim:holmer2009diminishing1.png}}
+
+[[skimx://holmer2009diminishing#10
+|p. 10
+]]
+----
+
+{{skim:holmer2009diminishing2.png}}
+
+[[skimx://holmer2009diminishing#10
+|p. 10
+]]
+----
+
+{{skim:holmer2009diminishing3.png}}
+
+[[skimx://holmer2009diminishing#11
+|p. 11
+]]
+----
+
+{{skim:holmer2009diminishing4.png}}
+
+[[skimx://holmer2009diminishing#12
+|p. 12
+]]
+----
+
+{{skim:holmer2009diminishing5.png}}
+
+[[skimx://holmer2009diminishing#15
+|p. 15
+]]
+----
+

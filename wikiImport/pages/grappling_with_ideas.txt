@@ -1,0 +1,285 @@
+h1. Grappling with ideas: divergence and convergence (extended notes)
+
+Talk given to [[http://cck11.mooc.ca/|CCK11]] class in April, 2011. Recording: [[http://vimeo.com/22403448|Vimeo]], [[https://sas.elluminate.com/site/external/jwsdetect/playback.jnlp?psid=2011-04-06.0734.M.D020A8F94687A60B3D95DF94DA4CE4.vcr&sid=2008104|Elluminate]]. Slides: [[http://www.slideshare.net/houshuang/visual-discourse-cck11|Slideshare]], [[http://reganmian.net/files/Visual%20discourse%20CCK11.ppt|PPT]].
+
+//I wrote **[[grappling_with_ideas-the_paper|a paper]]** for a course at OISE based on these ideas. The paper was quite rushed, and would need a lot more work, but it was useful to have to put the ideas here into more cohesive prose.//
+
+{{ideas:visual001.png}}
+
+So I have been thinking a lot about ways that people think, at all kinds of levels
+  * learning
+  * research
+  * grappling with ideas
+
+{{ideas:visual002.png}}
+
+when struggling with something, pull out some paper, jot down some notes, not sure where we are going
+
+{{ideas:visual003.png}}
+
+  * [[a:Tony Buzan]] 
+  * [[ref:buzan2006mind|The mind map book]]
+Putting ideas down on paper, helps you realize what you know, draw connections, propel your thinking forwards
+
+{{ideas:visual004.png}}
+
+People have been doing this for hundreds of years, but now more and more people have huge amounts of information. 
+
+Program that takes all the highlights from my Kindle files, and imports them to DevonThink. I can go through them quickly, tag them etc. Wonderful. Having owned a Kindle for a few months, I have more than 900 clippings from academic articles. 
+
+What kind of systems can help me organize, think, help me understand, see connections between these snippets?
+
+{{ideas:visual005.png}}
+
+Qualitative research and software made for it - similar thing. Lot's of raw material, interview transcripts or participant observation, you are trying to make sense of it. With grounded theory - don't know what your questions or theories will be initially, but you start iteratively going through material, tagging, seeing things emerging.
+
+{{ideas:visual006.png}}
+
+Another interesting software, called [[Tinderbox]]. Very complex, you can do almost anything (which puts some people off). Very strong facilities for expressing information visually, spatially, semantically. You have outlines, containers, scripts that do things with the information. The guy who wrote it also wrote a book about the program, and taking notes. People are doing all kinds of great things with this program.
+
+{{ideas:visual007.png}}
+
+Some other examples of what people have been doing with Tinderbox, from their webpage. 
+
+{{ideas:visual008.png}}
+
+{{ideas:visual009.png}}
+
+  * [[externalization]]
+    * take it out of your brain, put it on a piece of paper, on a computer screen
+    * if we keep ideas in our head, keep thinking about stuff forever, we can't keep that many thoughts in our head at the same time - can't "get anywhere"
+    * many people feel that they have to stop and write things down
+    * when we write things down
+      * we have to choose which words to use to express it
+      * when we are writing on a paper, we might organize the text in different ways (even without meaning to) ([[spatial organization]])
+  * hierarchy
+    * well, here's these four different ideas, but they are all of this category, so maybe I can dump them over here
+    * you might be playing around with this - maybe they should be over here instead
+    * if we have a hundred different thoughts on the same level, it's all meaningless - but if we can group them
+    * let's you forget about part of your thoughts, you can be safe knowing that it's on paper, you don't have to worry about it disappearing, you can put it aside for a while, and concentrate on a smaller part of the ideas, which is the only way you can really go further in your thinking
+    * in Tinderbox, they call this [[yanking]], when you go to a certain part of your hierarchy, and you make that node the "top node" temporarily, so for a little bit of time, you forget about all the rest of the network, and just focus on that subsection
+  * reminds me of [[Getting Things Done]], people are so stressed out because they don't write down everything they have to do, and they keep thinking about it, at times when they cannot do anything about it, so just by putting things down, you help yourself
+  * similar with software (OOP), if you have programs with thousands of lines of code, nobody can get an overview. but if you can encapsulate smaller sections of code in an object, and say this is a very well defined object, we know what it can receive in, and what it will spit out, we've tested it thoroughly, so now we can forget about all those lines of code, and just assume that it works 
+
+{{ideas:visual010.png}}
+
+This is from a workshop that P2PU did, run by [[a:Allen Gunn]], does this interesting workshop methodology ([[open space technology]]). Starts out:
+  * we don't have an agenda for this meeting
+  * please write down ideas for what you want to do during these few days
+    * more than a sentence, less than a paragraph
+    * people generate ideas like crazy
+    * put them up on a big wall (butcher's paper etc)
+  * once all the ideas are up (might take 10 minutes), start collaboratively grouping them
+    * whenever you find two sticky notes that look similar, put them next to each other
+    * everyone are walking about - the physicality of moving, different from traditional conferences where everyone are sitting down
+  * after a little while you have these clusters of notes, and you can name them
+
+{{ideas:visual011.png}}
+
+Suddenly, now we have the schedule for these three days. And everyone feels like their idea got captured, and they don't need to go around for two-three days constantly trying to inject their ideas, making sure it gets treated. They can relax, really focus on listening to whatever topic is being discussed right then, and know that their ideas are "safe", and will be raised. ([[http://www.chacocanyon.com/pointlookout/070912.shtml|parking lots]] are also good for this).
+
+Go into smaller groups to discuss that topic, they can take the sticky notes with them, and discuss that topic in more detail.
+
+{{ideas:visual013.png}}
+
+Cycle of divergence and convergence.
+
+  * [[divergence]] - when you try to come up with as many different ideas as possible, generating huge amount of potentially useful ideas, stop yourself from being too critical, try to just get stuff out there
+  * sit back, and try to organize this, what are the main topics, what are the groupings, what of this do we really want to work on, and what don't we want to work on? ([[convergence]])
+  * once we have this topic, we can go back and "diverge" on this more specialized topic
+
+This cycle of divergence and convergence seems to be how we do these workshops, and it seems to work really well. 
+
+I think it might be how we do a lot of our private thinking as well, without maybe being so aware of it. 
+
+{{ideas:visual014.png}}
+
+This was a course that I took this term, that was primarily structured around a threaded discussion forum. You see the classic threaded structure. Basically, it was not divergent/convergent, rather it was all divergent, or rather stimulus/response.
+
+{{ideas:visual015.png}}
+
+What would tend to happen is that you would have a forum each week, and you would start with the teacher providing some stimulus - it might be a reading, or a recording, or some new ideas that the teacher introduces in this space. Because we know that we have to participate, because there are participation marks and people want to look good in front of the teacher (see [[http://reganmian.net/blog/2011/04/26/grading-evaluative-or-coercive/|evaluative and coercive grading]]), we'll write. Personal anecdotes, free association, whatever that you can say that has anything at all to do with this topic. 
+
+Many had been teachers, so many comments like "I remember when this happened in my class", etc. Then the discussion dies down when people have "said what they have to say", and some new stimulus is introduced.
+
+At the end of the course, what did you get out of it? Well, you'll have been exposed to some ideas, you've heard some of your co-students' ideas. But is this really all that we can do? Especially thinking back at some of the ways that we do really deep thinking.
+
+{{ideas:visual016.png}}
+
+So I had a very different experience, with a very different platform. This is [[Knowledge Forum]], fairly old software created by [[a:Marlene Scardamalia]] and [[a:Carl Bereiter]] at OISE. Used a lot around the world, especially in primary/secondary school for science education. Not open source or available online, so many people have not seen it. I'll give you a quick tour. (These slides are from a [[http://vimeo.com/17143638|screencast]] that I made).
+
+{{ideas:visual017.png}}
+
+It's a graphical interface, not threaded. Here I am pretending to be a primary school student. You can write what your problem is, on the left they have these [[scaffold|scaffolds]]. Technologically it's very simple, you click on one of these, and it inserts the snippet into the text, for example "I need to understand", "This doesn't explain", etc. It helps nudge you to think in a different way, be more meta-cognitively aware, think about "what are you saying", "what kind of a statement are you making", "what kind of cognitive role are you playing in this discussion"? It's proven to be very useful to help young students be more aware of what they are saying. 
+
+{{ideas:visual018.png}}
+
+So you'll create a note, and someone might build on that note, and they might say "I disagree", or "here is some new information", etc. 
+
+{{ideas:visual019.png}}
+
+You can organize these anyway you want, spatially.
+
+{{ideas:visual020.png}}
+
+You can even add background graphics.
+
+{{ideas:visual021.png}}
+
+So we used this environment for a graduate course, and we started a bit similar to the previous course, with a bunch of stimulus. We wouldn't have had to do that, many of the primary school courses start with a blank screen, allowing the students to explore any question they want, but in this case, there was a fair amount of structure before the course started. 
+
+{{ideas:visual022.png}}
+
+This is actually a book, or a draft of a book that the professor was writing. So she chunked up each chapter into small parts, had us read it, and discuss anything that might be interesting to us. So far, very similar to the previous course, providing a lot of stimulus, and we were responding. 
+
+{{ideas:visual023.png}}
+
+We got into a bunch of different discussions. It looks quite messy, and it might be hard to follow along, but if you were using it from the beginning, it's easier. What's really nice about this, is that you can follow different threads in your own pace, without worrying that one thread will "drown" in all the new ideas. You are not so tied down by chronology, like a discussion forum that inexorably marches on. But it's still stimulus/response.
+
+{{ideas:visual024.png}}
+
+After four-five weeks, we had read through the book, and generated a huge amount of ideas. We still had half the course left, so we thought, let's step back. Anyone can create a new view in this environment, even students, so we created a bunch of topical views around topics that had come up during the discussion - things that interested us in particular. I created a view on higher education, others on arts-based education etc. Then we copied the notes into that new view. 
+
+That's a really important part with Knowledge Forum, it's quite easy to copy notes from one view to another. Notes are not "caught" in the initial location where they were expressed, in a traditional discussion forum, when you write something somewhere, it's stuck there. Of course, the idea might live on, but the actual representation is stuck in a specific location. Here you can move them around, as your understanding improves. (See also [[12 KB Principles|the 12 Knowledge Building Principles]].
+
+{{ideas:visual025.png}}
+
+So here is one about adult education, and open education. Seeing all the notes from different weeks about the same topic in one place, allows you to really get an overview of what we've thought, seeing connections you hadn't seen before, and begin to ask, OK, where have we gotten to? What do we still need to know? How can we go deeper on this topic? 
+
+{{ideas:visual026.png}}
+
+Towards the end of the class, the teacher also had us do personal portfolios, so we looked at what are the key issues that I have personally engaged with, what are my contributions to the group. It's also a very nice take-away, here is a representation of my learning from the course, you could invite someone in and say, this is what we've been doing for the last 12 weeks.
+
+{{ideas:visual027.png}}
+
+So instead of stimulus/response, you had this cycle of divergence/convergence, start by putting out a bunch of ideas, brainstorming, responding to stimulus, but then you go in working on that knowledge, you start going in deeper on some of the things that were most interesting. You start to create this representation, whether it's "here's what we know about knowledge building in higher education", or whether it's "here is my personal portfolio", and it's something you can take with you, and show to other people. And that has a value, because coming into a class with 550 posts, it's overwhelming. I felt the same with [[http://scope.bccampus.ca/course/view.php?id=365|LAK11]], I didn't have time to engage with it while it was going on, and I wanted to go back and look at the most valuable resources and posts, but you feel like you are drowning in material (even though some people might have taken responsibility to synthesize some of this).
+
+{{ideas:visual028.png}}
+
+One of the things that they do with Knowledge Forum when they use it in classrooms - it is traditionally not used for fully online classes, although it can be done. Typically, it's used for a class that meets every day. So they let students work on the forum with their ideas, and create this shared representation , and then they'll have a projector and show the forum on the big screen, and they'll be talking about it. Because they have this shared thing that they are all referring to.
+
+I was thinking, it would be interesting to have something similar when we're having these Elluminate discussions in this class, it would be interesting to have some kind of a shared representation of "this is where we have gotten to, these are our common questions", which we could refer to while we are discussing. It's interesting to think about how that might change the way we use this synchronous time as well. 
+
+{{ideas:visual029.png}}
+
+This wouldn't have to be done graphically, this is the same environment ([Knowledge eCommons]]) that I showed you in the very beginning, with the threads, it is made by [[a:Jim Hewitt]] at OISE. He has been experimenting with embedding Etherpad within the course, so you have the threaded discussion to the left, and you can post new notes, and at the same time, you are updating this shared representation of the state of knowledge, what are the key questions we are still struggling with. 
+
+I suggested to him implementing [[tagging]]. After a few weeks of "input", you could go back and see which topics you really wanted to bring to the fore, you could tag those topics that had those topics. It would automatically generate a "saved search" for each tag, you go in there and see all the messages that you tagged, and you'd get a new Etherpad, where you could begin to do some synthesis of the posts that had the topic. So there are ways of doing stuff like this without the graphical, spatial interface.
+
+{{ideas:visual030.png}}
+
+Something that comes up a lot is the difference or dynamic between **artefacts** and **discourse**. Not black-and-white, they kind of overlap, but there are some differences. Discussion forum vs. wiki is a nice metaphor.
+  * discussion forum is a conversation
+    * cumulative
+    * flows inexorably forwards
+    * each post is contextually bound to a specific context, the posts that it replies to at a certain time
+    * not that interesting to go back to, unless you want to see how the ideas developed 
+  * artefact (wiki) 
+    * more independent of a specific context or time
+    * integrative - you don't just add to the end of it, you modify it
+    * whenever you look at it, the latest version reflects the current state of community knowledge, the latest update
+    * example: Wikipedia page, vs. its talk page
+
+see [[monologic and dialogic learning]]
+  * artefact as monologue, doesn't mean that only one person is speaking, but means that it is less contextual, more polished
+
+{{ideas:visual031.png}}
+
+I've been very inspired by [[a:Daniel D. Suthers]]' work, he talks about people having discourse around an artefact. An environment created 15 years ago. Split-screen, everyone can see which artefact they are talking about, and are able to talk about that. 
+
+{{ideas:visual032.png}}
+
+Now we have Google Sidewiki, Diigo, etc, but at that time, it was very new.
+
+{{ideas:visual033.png}}
+
+He talks a lot about [[deixis]], the idea of pointing to stuff. That's what students in Scardamalia's class do, when they meet. They have a big representation up on the screen, and they point to it. - "What about this note, should it be connected to this other note". There's been a bunch of research from [[CSCL]] and [[CSCW]], how do you work with artefacts online, how do you point to stuff?
+
+{{ideas:visual034.png}}
+
+This environment developed at [[http://www.drexel.edu/|Drexel University]] called [[Math Forum]]. A shared whiteboard where people work together on solving math problems, and they have a text chat on the right, and for each message, they can point to something on the screen, and there is a line that is connected to your message. So if you go back in time, and click on that message, for example saying "I think we should delete this", anyone clicking on your message would know exactly what you meant.
+
+There is also a time slider like on Etherpad, so you can go back in time and see how the whiteboard looked at that time. Very neat little thing. 
+
+{{ideas:visual035.png}}
+
+Here you see a bit more the design choices they have made. 
+
+{{ideas:visual036.png}}
+
+They also have something similar where you can work on a document together, select a few paragraphs and say "I think we should delete this", and others can go back in the chat, and see exactly what you were referring to.
+
+{{ideas:visual037.png}}
+
+Suthers has written a lot about the design of collaborative learning environments. 
+
+Two concepts that he uses a lot, are 
+  * [[salience]]
+  * [[constraints]]
+
+{{ideas:visual039.png}}
+
+  * if you look at **pure text**, nothing is privileged over anything else. You look at it, and it's just text. You can judge from the word choice and tone whether the person might be more interested in something, as opposed to something else. but nothing really stands out visually.
+  * you could have different representations
+    * they had a spreadsheet, with empty cells, one cell for hypothesis etc, and people really wanted to fill those cells out. so you have kids sitting around who say "OK, so what is the evidence for this" - you push them into talking/thinking in a certain way
+
+{{ideas:visual038.png}}
+
+Cncept maps where you have to label each connection
+  * by forcing you to label ([[Cohere]] from OU does this), you have to think about what kind of connection you are making. it's kind of annoying, but can be useful.
+
+{{ideas:visual040.png}}
+
+Different ways of representing knowledge:
+  * threaded discussion
+  * graph, explicit relationships
+  * containers
+
+//The design of the tool, shapes the way that people collaborate, and the work that people do together.//
+
+Suthers did a series of very interesting experiments, where he had two students come in to his lab, sitting facing each other looking at individual computers. He would give one person half of the necessary information, and the other person the other half, and only allow them to use the computer to communicate. Later, he would analyze the quality of the finished product, and also call them in after one week to measure recall. 
+
+{{ideas:visual041.png}}
+
+We're interested in both [[MOOC]]s and networked learning in general. I gave a talk a year ago, at a conference organized by Scardamalia, because I felt like these open education people, and the learning sciences people, should talk more. Scardamalia has lots of great ideas, interesting theories and technology. They don't know much about the open ed space, and we don't typically know much about really great research that has been going on for 10-15 years, all happening in labs and published in journals. 
+
+So I got together with [[a:Alexander McAuley]], who works with [[a:Dave Cormier]], to give this presentation about how it would look if Knowledge Forum were more integrated with the web. We came up with a few small scenarios. 
+
+One would be to still use Knowledge Forum as the organizational principle, but it must be much more open to input and output. I should be able to email it, tweet to it, etc, and be able to subscribe to RSS feeds, have open APIs, etc.
+
+{{ideas:visual042.png}}
+
+The other possibility is to say that maybe there is no space called "Knowledge Forum" that we go into, it's more of an overlay over the web - Diigo, and the [[Harvesting Gradebook]] are great examples of this - you go to their blog and grade the assignment right there. A browser overlay or plugin that allows you to make the process of dealing with many different information sources and ideas more systematic, and allow you to share knowledge representations with others. 
+
+{{ideas:visual043.png}}
+
+These are some Chinese slides from presentations I gave in China a few years ago. I was thinking about the broader blogosphere, especially the open education blogosphere, and how it's not like we don't do deep knowledge building, or convergence, or deep reflection and learning - I would never say that, but it's kind of at a different level.
+
+{{ideas:visual044.png}}
+
+So I came up with this concept of [[granularity of collaboration|macro- and microlevels of collaboration]]. 
+
+**Micro-collaboration** would be sitting together with someone working on an article, throwing ideas back and forth, intensely collaborating, and sharing every thought. 
+
+**Macro-collaboration** would be the kind of thing where you read a lot, you might be keeping a lot of these different knowledge representations yourself, you are taking notes and making mindmaps, as you are processing a lot of this information. Finally, you might write a blog post integrating a lot of your thinking from many different sources. And you put it out there, and somebody else read it, and they read a bunch of other stuff, and then they put something out there. This can definitively be called knowledge building as well (depending on how they engage with each other's ideas).
+
+So I had this idea of people being able to take different **epistemic roles** in the blogosphere, where Stephen Downes can be a "hub" in the network, reading everyone's blogs and pulling them together in his daily newsletters. I especially pointed that out in China, because I felt like there was nobody fulfilling a similar role in the Chinese edublogosphere, making it very hard for me as an outside to come in and begin to orient myself.  
+
+{{ideas:visual045.png}}
+
+So how much of the thinking do we do by ourselves, and how polished and finished is the material that we share? Academia is an extreme case, there is a deep knowledge building engagement over decades, but it might take years between each time something is published, and there is a huge amount of thinking and processing that goes on before sometihng is published (of course, you might have lab colleagues which you work with much more informally and openly). So there are different time scales of collaboration.
+
+{{ideas:visual046.png}}
+
+Can different visualizations help automatize some of the work, when the amount of information becomes so large?
+  * [[latent-semantic analysis]]
+  * [[social network analysis]]
+  * [[citation analysis]]
+
+{{ideas:visual047.png}}
+
+This is an interesting visualization that [[a:Christopher Teplovs]] created as part of his PhD thesis. He used latent semantic analysis to show clusters of ideas, and then generated word clouds for each cluster, to quickly show what they were discussing, and change over time. 
+
+{{ideas:visual053.png}}
+
+So I certainly don't have any conclusion, as you can see, but these are things I have been thinking about for a long time, and giving this talk today helped me clarify and collect some of my thoughts. I am planning to explore this field much deeper, and hope to engage some of you in dialogue about these ideas. 

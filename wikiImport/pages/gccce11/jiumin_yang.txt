@@ -1,0 +1,7 @@
+h1. Jiumin Yang
+
+Huazhong Shifan Daxue
+
+Problem: teachers have to visit every student's blog, RSS can solve this
+
+Research: did the students like it, were they able to use it

@@ -1,0 +1,5 @@
+h1. Lifelong Learning 2
+
+Pervasive and ubiquitous computing [@kay2008lifelong]
+----
+A fascinating thread on Reddit asks why & how ex-neo-Nazis, skinheads, and racists changed their minds regarding racism. [[http://kottke.org/|kottke.org - home of fine hypertext products]]

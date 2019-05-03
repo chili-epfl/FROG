@@ -1,0 +1,32 @@
+h1. Edit this space: participation and expansive learning in developing Wikiversity
+
+<ifauth !@admin>|Lawler, C. (2011). Edit this space: participation and expansive learning in developing Wikiversity.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://lawler2011edit|BibDesk]]  | Lawler, C. (2011). Edit this space: participation and expansive learning in developing Wikiversity. |
+^ [[skimx://lawler2011edit|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:lawler2011edit?do=edit&vecdo=print\'><frame src=\'/wiki/clip:lawler2011edit?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @phdthesis{lawler2011edit,
+  author = {Lawler, Cormac},
+  date-added = {2011-06-05 21:36:10 +0800},
+  date-modified = {2011-06-09 18:03:08 +0800},
+  keywords = {wiki; OER/open ed},
+  school = {University of Manchester},
+  title = {Edit this space: participation and expansive learning in developing Wikiversity},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXgAAAAAAXgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhJsYXdsZXIyMDExZWRpdC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKtEy9dGNFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1350AAAAAQAMANrWUgAXPTEAAZ9eAAIAMVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBsYXdsZXIyMDExZWRpdC5wZGYAAA4AJgASAGwAYQB3AGwAZQByADIAMAAxADEAZQBkAGkAdAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAmVXNlcnMvU3RpYW4vYmliZGVzay9sYXdsZXIyMDExZWRpdC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIC4uLy4uL2JpYmRlc2svbGF3bGVyMjAxMWVkaXQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhwCHgIjAiwCNwI7AkkCUAJZAnwCgQKEApEClgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKo}
+}
+
+</hidden>
+
+{{page>notes:lawler2011edit}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:lawler2011edit}}
+
+{{page>kindle:lawler2011edit}}
+
+{{page>skimg:lawler2011edit}}

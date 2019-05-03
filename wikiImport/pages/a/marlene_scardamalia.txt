@@ -1,0 +1,6 @@
+h1. Marlene Scardamalia
+{{ pages:a_marlene_scardamalia1.png}}
+
+Works at OISE, one of the creators of [[:Knowledge Building]] and [[:Knowledge Forum]].
+
+{{page>abib:marlene scardamalia}}

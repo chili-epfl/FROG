@@ -1,0 +1,85 @@
+h1. Scholarship of Teaching and Learning at CTSI
+//two-day workshop on [[SOTL]] at UofT, June 11-12 2013//
+
+h1. SOTL theory
+<blockquote (Hutchings, 1999, p.13)>
+“a kind of going meta in which faculty frame and systematically investigate questions related to student learning- the conditions under which it occurs, what it looks like, how to deepen it and so forth – and do so with an eye not only to improve their own classrooms but to advancing practice beyond it”
+</blockquote>
+
+h1. Formulating a research question
+Buddhists: "Observer awareness"
+
+h2. Sources of inspiration
+  * experiences in the classroom (anecdotal, differences between different conditions)
+  * student performance observation (hard data, feedback from quizzes/exams, different designs)
+  * the literature, empirical work, theory (see [[pedagogy_101_with_sara_carpenter_ctsi|Pedagogy 101]] by Sara Carpenter)
+  * conferences, discipline-specific publicaitons
+  * course evaluation data
+
+Your notes, and the things you note, are shaped by your own perspectives and beliefs of learning. If you focus on information transfer, you will miss emancipatory aspects, equity aspects etc. How can we open up our thinking, and notice more things?
+
+h2. Drill down to the research question
+Ask research framing questions
+  * Why is it that?
+  * What is the difference between?
+  * What is the impact of?
+  * How are students influenced by?
+  * What effect does X have on?
+  * How do students feel about?
+
+h2. Operationalize
+Describe your concepts in clear, direct terms:
+  * What do you mean by X (e.g. critical thinking)? 
+  * How do you define group discussion?
+  * What do you mean when you say that a group activity was successful?
+
+h1. Research design
+h2. Terminology
+  * Research methodology – framework associated with a particular set of assumptions that you will use to conduct your research (i.e. experiment, phenomenology, case study)
+  * Research methods – techniques that you will use to collect data (i.e. interviewing, surveying, observation, focus groups)
+  * Research tools (instruments) – devices you will use to help you collect data (i.e. questionnaires, observation checklists, interview protocols)
+  * Research design – plan of conducting your study that includes all of the above
+
+h2. Research design: Who, Where, When, How, What
+  * Participants
+    * Who do you want to be able to speak about?
+    * Who do you plan to speak to/observe?
+    * What are the characteristics of your sample? 
+  * Instruments
+    * What tools (questionnaires, interview protocols, observation checklists) you are going to use to collect your data?
+    * How can you justify credibility of these instruments?
+  * Procedures
+    * How are you going to recruit your participants?
+    * Is there any criteria for inclusion of participants in your study?
+    * When, where how you will administer your data collection tools to the participants?
+  * Data Analysis
+    * How are you going to analyze your data to address your research questions?
+
+h2. Types of sampling
+{{pages:scholarship_of_teaching_and_learning_at_ctsi02.png}}
+
+h2. Data collection methods
+{{pages:scholarship_of_teaching_and_learning_at_ctsi03.png}}
+
+h2. Criteria for choosing a good instrument
+  * Developed recently – over 5 years old might be outdated
+  * Widely cited by other authors
+  * Has published reviews
+  * Has information on reliability and validity of scores from past uses
+  * Fits your research questions/hypotheses
+  * Has appropriate measurement scales
+
+h1. Assessments in Pedagogical Research
+h2. Concept Inventories
+[[http://en.wikipedia.org/wiki/Concept_inventory|Concept inventories]]
+
+{{pages:scholarship_of_teaching_and_learning_at_ctsi04.png}}
+
+h2. Scientific teaching
+  * [[http://en.wikipedia.org/wiki/Scientific_teaching|Wikipedia]]
+  * [[http://cst.yale.edu/|Center for Scientific Teaching at Yale]]
+  * [[http://www.sciencemag.org/content/304/5670/521.summary|Article in Science]]
+  * [[http://scientificteacher.com/|Scientific Teacher blog]]
+
+Example of flowchart for one scientific teaching intervention:
+{{pages:scholarship_of_teaching_and_learning_at_ctsi05.png}}

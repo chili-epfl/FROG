@@ -1,0 +1,3 @@
+h2. Jim Slotta's publications
+
+| [@slotta2012overview] | Slotta, J. (2012). KCI Overview.|

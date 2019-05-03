@@ -1,0 +1,3 @@
+h2. S Das's publications
+
+| ciccarese2010open | Ciccarese, P., Ocana, M., Das, S., & Clark, T. (2010). AO: An Open Annotation Ontology for Science on the Web. Bio Ontologies 2010. USA Boston MA.||

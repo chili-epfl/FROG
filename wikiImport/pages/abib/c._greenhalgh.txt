@@ -1,0 +1,3 @@
+h2. C. Greenhalgh's publications
+
+| [[..:ref:niramitranon2006coml]] | Niramitranon, J., Sharples, M., & Greenhalgh, C. (2006). COML (Classroom Orchestration Modelling Language) and Scenarios Designer: Toolsets to Facilitate Collaborative Learning in a One-to-One Technology Classroom.|[[skimx://niramitranon2006coml|PDF]]|

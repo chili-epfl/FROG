@@ -1,0 +1,8 @@
+h1. Carl Bereiter
+{{ pages:a_carl_bereiter1.png}}
+
+Professor emeritus, used to work at OISE with [[Marlene Scardamalia]] on [[:Knowledge Forum]] and [[:Knowledge Building]].
+
+{{page>:abib:carl bereiter}}
+----
+  * [[http://en.wikipedia.org/wiki/Carl_Bereiter|Carl Bereiter - Wikipedia, the free encyclopedia [http://en.wikipedia.org/]]]

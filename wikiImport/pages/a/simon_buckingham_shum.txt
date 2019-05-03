@@ -1,0 +1,18 @@
+h1. Simon Buckingham Shum
+{{ pages:a_simon_buckingham_shum1.png}}
+Senior Lecturer in Knowledge Media, Open University UK
+
+h2. Research
+  * [[:Compendium]]
+  * [[:Cohere]]
+  * [[:sensemaking]]
+  * [[:representational guidance]]
+  * [[:collective intelligence]]
+
+h2. Links
+  * [[http://people.kmi.open.ac.uk/sbs/|Blog]]
+  * [[http://kmi.open.ac.uk/people/member/simon-buckingham-shum|Homepage]]
+  * [[http://learningemergence.net|Learning Emergence]]
+  * [[http://www.slideshare.net/sbs|Slideshare]]
+
+{{page>abib:Simon Buckingham Shum}}

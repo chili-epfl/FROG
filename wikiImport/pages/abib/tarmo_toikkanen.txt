@@ -1,0 +1,3 @@
+h2. Tarmo Toikkanen's publications
+
+| [@leinonen2010information] | Leinonen, T., Purma, J., PõldojaHans, & Toikkanen, T. (2010). Information Architecture and Design Solutions Scaffolding Authoring of Open Educational Resources. {IEEE} Transactions on Learning Technologies, 3(2), 116--128. doi:10.1109/TLT.2010.2|

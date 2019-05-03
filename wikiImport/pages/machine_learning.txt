@@ -1,0 +1,10 @@
+h1. Machine Learning
+
+[[a:Carolyn Rose Penstein]] has a course on Machine Learning.
+----
+  * [[http://1.bp.blogspot.com/-ME24ePzpzIM/UQLWTwurfXI/AAAAAAAAANw/W3EETIroA80/s1600/drop_shadows_background.png|drop_shadows_background.png (1600×888) [http://1.bp.blogspot.com/]]]
+  * [[http://zinkov.com/posts/2012-10-04-ml-book-reviews/|Convex Optimized - Machine Learning Textbook minireviews]]
+  * [[http://metarabbit.wordpress.com/2013/05/31/building-machine-learning-systems-with-python/|Building Machine Learning Systems with Python | Meta Rabbit]]
+  * [[http://www.amazon.com/Programming-Collective-Intelligence-Building-Applications/dp/0596529325|Programming Collective Intelligence: Building Smart Web 2.0 Applications: Toby Segaran: 9780596529321: Amazon.com: Books]]
+  * [[http://work.caltech.edu/library/#!?goback=.gde_35222_member_5810981726511443971|Machine Learning Video Library - Learning From Data (Abu-Mostafa)]]
+  * [[http://machinelearningmastery.com/self-study-guide-to-machine-learning/|Self-Study Guide to Machine Learning | Machine Learning Mastery]]

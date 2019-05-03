@@ -1,0 +1,4 @@
+h2. Carmen Kohnle's publications
+
+| [@kollar2007core] | Kollar, I., Wecker, C., Fischer, F., Kohnle, C., & Slotta, J. D. (2007). Are core objectives of web-based collaborative inquiry learning already core learning prerequisites?: the case of argumentation competences and computer literacy. In Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07 (382--384). International Society of the Learning Sciences. |
+| [@wecker2007computer] | Wecker, C., Kohnle, C., & Fischer, F. (2007). Computer literacy and inquiry learning: When geeks learn less. Journal of computer assisted learning, 23(2), 133--144.|

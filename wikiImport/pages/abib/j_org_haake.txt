@@ -1,0 +1,3 @@
+h2. J\"org Haake's publications
+
+| weinberger2007languages | Weinberger, A., Ronen, M., Tchounikine, P., Harrer, A., Dillenbourg, P., HaakeJ\"{o}rg, Kali, Y., Fischer, F., & Kohen-Vacs, D. (2007). Languages and platforms for CSCL scripts. Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1599600.1599759.|[[skimx://weinberger2007languages|PDF]]|

@@ -1,0 +1,19 @@
+h1. Scaffolding
+
+Papers about scaffolding:
+  * [@azevedo2005adaptive]
+  * [@azevedo2005scaffolding]
+  * [@biemiller1998consequences]
+  * [@butler1998search]
+  * [@dimitrova2011semantic]
+  * [@donahue1998conversational]
+  * [@land2003scaffolding]
+  * [@palincsar1998keeping]
+  * [@peters2010scaffolding]
+  * [@reid1998scaffolding]
+  * [@scruggs1998happens]
+  * [@stone1998metaphor]
+  * [@stone1998should]
+  * [@wong1998analyses]
+  * [@xun2004conceptual]
+  * [@yeh2011scaffolding]

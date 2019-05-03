@@ -1,0 +1,52 @@
+h1. Embodied and Embedded Intelligence: Actor Agents on Virtual Stages
+
+Athabasca University, experimental biologist, cogsci, cognitive aging.
+
+  * Simulations
+    * Simulation of the environment
+      * Procedural/core skills
+      * (Driving)
+    * Simulation of the person
+      * Medical simulations
+      * High fidelity mannequins
+      * Hire actors to portray "standard patients" (also in law, other professional education)
+
+  * Animated pedagogical agents
+    * Can be defined a animated computer-generated characters that respond to user input, adapt to user behaviour, and facilitate learning in a computer based learning environment
+    * APAs important, increase "bandwidth" of communication between students and computers through paralinguistic features
+    * increase sense of ease and comfort, fulfill need for personal connection
+    * stimulate essential learning activities, such as exploration, attending, reflection
+    * improve cognitive outcomes in memory, problem solving and comprehension
+    * the persona effect
+      * the mere presence of an animated agent will have a strong positive effect on learner and learner experience
+      * related to Media Equation of Reeve and Nass - biologically predisposed to interact with people (rely on built up memory structures and routines that we have established to interact with people)
+      * evidence for this is weak or equivocal at best
+        * related to the visual appearance of avatars - how does this affect people's experience and interaction
+    * Taxonomies
+      * actor agents (programmable) (Payr)
+      * conversational abilities (Veletsianos) - embodied?
+    * endowing actor agents with conversational abilities (ie embodied intelligence) and historical appeal (historical figures) should enhance intrinsic interest and motivational pull
+    * actor agents
+      * Freudbot
+        * story grammar design
+        * conversational rules around turn-taking
+        * embodied knowledge through narratives and stories, prompted by users
+        * results: doesn't do that well on questionnaire
+
+  * Virtual worlds
+    * computer-generated scene or world immerse themselves and interact with other users/avatars and in-world objects
+    * is there an "immersion effect" (ref "persona effect")
+    * embedded intelligence - a capacity for the virtual world to respond intelligently to user behaviour in order to maintain a sense of immersion
+
+  * Actor agents on virtual stages
+    * "Robotars"
+    * Freudbot on Athabasca U Island
+
+  * Challenges
+    * multiple users
+    * controlling the interactional space
+      * can't just let them loose in open virtual worlds
+    * beyond conversational intelligence
+      * gestures, emotional affective processing
+    * the "uncanny valley"
+      * subjective chat experience with Freud - no image condition, more positive experience and more likely to want to chat again

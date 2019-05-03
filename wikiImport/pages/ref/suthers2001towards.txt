@@ -1,0 +1,37 @@
+h1. Towards a Systematic Study of Representational Guidance for Collaborative Learning Discourse
+
+<ifauth !@admin>|Suthers, D. D. (2001). Towards a Systematic Study of Representational Guidance for Collaborative Learning Discourse. Journal Of Universal Computer Science, 7(3), 1--24.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://suthers2001towards|BibDesk]]  | Suthers, D. D. (2001). Towards a Systematic Study of Representational Guidance for Collaborative Learning Discourse. Journal Of Universal Computer Science, 7(3), 1--24. |
+^ [[skimx://suthers2001towards|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:suthers2001towards?do=edit&vecdo=print\'><frame src=\'/wiki/clip:suthers2001towards?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{suthers2001towards,
+  author = {Suthers, Daniel D.},
+  date-added = {2011-04-30 09:21:41 -0400},
+  date-modified = {2012-04-09 01:02:06 +0000},
+  journal = {Journal Of Universal Computer Science},
+  local-url = {/Volumes/Home/stian/Downloads/Mendeley/Suthers-JUCS-01.pdf},
+  notes = {1},
+  number = {3},
+  pages = {1--24},
+  read = {1},
+  title = {{Towards a Systematic Study of Representational Guidance for Collaborative Learning Discourse}},
+  volume = {7},
+  year = {2001},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYgAAAAAAYgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhZzdXRoZXJzMjAwMXRvd2FyZHMucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSl3LybtXglBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADJu4/CAAAAAQAMANrWUgAXPTEAAZ9eAAIANVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdXRoZXJzMjAwMXRvd2FyZHMucGRmAAAOAC4AFgBzAHUAdABoAGUAcgBzADIAMAAwADEAdABvAHcAYQByAGQAcwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAqVXNlcnMvU3RpYW4vYmliZGVzay9zdXRoZXJzMjAwMXRvd2FyZHMucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECQuLi8uLi9iaWJkZXNrL3N1dGhlcnMyMDAxdG93YXJkcy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACLAIuAjMCPAJHAksCWQJgAmkCkAKVApgCpQKqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:suthers2001towards}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:suthers2001towards}}
+
+{{page>kindle:suthers2001towards}}
+
+{{page>skimg:suthers2001towards}}

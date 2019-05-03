@@ -1,0 +1,6 @@
+h1. Data mining
+
+[[http://dougclow.wordpress.com/2011/02/27/lak11-learning-analytics-and-knowledge-banff/|LAK11]]
+
+h2. Links
+  * [[http://www.autonlab.org/tutorials/|Autonlab Tutorials]]

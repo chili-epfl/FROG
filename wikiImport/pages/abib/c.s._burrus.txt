@@ -1,0 +1,3 @@
+h2. C.S. Burrus's publications
+
+| [[..:ref:burrus2007connexions]] | Burrus, C. S. (2007). {Connexions: An Open Educational Resource for the 21st Century.}. Educational Technology Magazine: The Magazine for Managers of Change in Education. Educational Technology Publications. 700 Palisade AvenueEnglewood Cliffs.||

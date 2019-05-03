@@ -1,0 +1,53 @@
+h1. Bayesian analysis to measure learning progression
+
+Learning progressions rising field, in science ed
+
+Little work on measurement/psychometric modelling of LP data
+
+Many choices in how to model data
+
+Insights for scholars who want to use Bayesian networks to examine models with respect to [[parameter recovery]]
+
+
+====== Learning progression ======
+
+[[Center for continuous intructional improvement]]
+
+**A testable hypothesis regarding how students' understanding and ability grows over time with appropriate instruction**
+
+  * learning target or clear end point
+  * progress variables
+  * defined significant stages
+  * operational definitions of each of the stages
+  * assessments
+
+====== Bayesian network ======
+
+Graphical representation of structure - relationships between variables (vertices) - observable or latent - edges : probabilistic dependency.
+
+Probability of a variable is conditional on it's parent's nodes.
+
+Students might take different paths. How will model reflect learning progression? This study: 4 structures, all variations of modelling a single LP. Will generate data under all structures, and analyze using each of the structures. 
+
+Instead of it being a progression, different stages that students' are at. You can have some level 3 skills, some level 2 skills, etc.
+
+Or maybe there is some relationship or dependency between the levels (probability, not deterministic). You can still jump around, not necessarily go in order.
+
+Dependency of having level 4 skills, might depend on having all the other levels (complex). Maybe skill levels are not in line, but parallell? 
+
+====== Study ======
+
+Factors to vary:
+  * sample size
+  * distrib of students in latent classes
+
+Keep constant
+  * no of levels of learning progression
+  * no of observable variables
+  * strenght of relationships between observable variables and latent variables
+
+====== Conclusion ======
+
+Not much benefit to separating out levels of learning progression
+
+In this case skills were still related - look at a case where there is more of a separation between kills

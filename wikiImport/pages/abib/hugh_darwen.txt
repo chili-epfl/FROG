@@ -1,0 +1,3 @@
+h2. Hugh Darwen's publications
+
+| [@date2006databases] | Date{C.J.}, & Darwen, H. (2006). Databases, types, and the relational model: the third manifesto. {Addison-Wesley}.|

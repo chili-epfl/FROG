@@ -1,0 +1,4 @@
+h2. A. Dimitracopoulou's publications
+
+| bratitsis2009studying | Bratitsis, T., & Dimitracopoulou, A. (2009). Studying the effect of interaction analysis indicators on students' selfregulation during asynchronous discussion learning activities. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
+| dimitracopoulou2008computer | Dimitracopoulou, A. (2008). Computer based interaction analysis supporting self-regulation: achievements and prospects of an emerging research direction. Technology, Instruction, Cognition and Learning (TICL). Citeseer.|

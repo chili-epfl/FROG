@@ -1,0 +1,646 @@
+h1. Grappling with ideas: Divergence and convergence (paper)
+
+//Paper written for a course at OISE. Based on presentation to CCK11 ([[grappling with ideas|extended notes]]).//
+
+h1. Introduction
+
+We are currently living in a knowledge society, and an ever-increasing
+part of the workforce is constituted of “knowledge workers” — how well
+we can work with ideas is becoming more and more crucial to a nation’s
+competitive advantage. In this paper, I will examine innovative ways of
+working with ideas in three different settings, or at three different
+levels: individually working with ideas, collaborative group learning in
+an online/hybrid course, and workshop methodology in a physical meeting.
+
+I will begin by introducing three different examples of these settings
+from my own experience, which began my thinking about this. There is a
+copious literature, both about individually working with ideas, and
+about group collaborative learning (there is far less about workshop
+methodologies), but these theories rarely intersect, or even acknowledge
+other possible levels. This paper will examine several of the key
+concepts in the literature around individual knowledge management, and
+group collaborative learning, as well as my experiences with a specific
+workshop methodology, to see if there are commonalities and
+intersections between the three levels of engagement with ideas.
+
+h1. Introducing the three settings
+
+In the following sections, I will introduce two specific examples from a
+hybrid online class using a novel pedagogical approach coupled with an
+innovative technology, as well as a creative way of organizing
+workshops. I will also introduce the general challenge of working with
+ideas individually, from the point of view of a graduate student. In
+future sections, I will introduce some key analytical concepts, and use
+them to reflect back on the commonalities and differences in these three
+settings or experiences.
+
+h2. Knowledge Forum
+
+One of the first courses I ever took at OISE was Marlene Scardamalia’s
+“Knowledge Building for a Knowledge Society”, which she taught using
+“Knowledge Forum”, a spatially-organized system for collaborative
+discourse (Scardamalia 2003). At the time, I had no background in
+education in general, or educational technology and pedagogy in
+particular, and this course was different from anything I had ever
+experienced.
+
+We met for two hours each week, and between classes we spent time
+individually adding content to the Knowledge Forum database. Scardamalia
+did not lecture during the two hours we had together — at first she
+introduced some of the key concepts, as well as software, then we
+discussed the weekly topics quite loosely. Most of the learning happened
+asynchronously, in the database.
+
+The course was organized around a draft manuscript written by
+Scardamalia and Bereiter about a Knowledge Building Society, and
+initially we spent each week reading chunks of text making up one
+chapter, and adding our ideas using the build-upon, and the scaffolds.
+Already at this stage, I saw how Knowledge Forum let us carry out many
+discussions at once, without loosing track, or having some discussions
+dominate, while others got bypassed.
+
+But the real power became apparent around week four or five. Some of the
+students suggested that once we had finished reading the manuscript, we
+step back and reorganize all of our notes according to topics. We all
+had the power to create new views, and we were now able to pursue what
+had been our initial interests coming into the course, as well as
+recognize emerging themes that nobody had expected to see.
+
+By going back through the previous weeks, rereading the discussions, and
+copying relevant notes to the new topical views, we were able to get an
+overview of “our collective state of knowledge” about for example
+Knowledge Building in higher education, or Knowledge Building and
+assessment. Seeing the notes next to each other, we could identify gaps,
+and keep probing deeper into a given topic.
+
+h2. Workshop
+
+In 2007, I had a chance to attend the Open Translation Tools workshop in
+Zagreb, organized by Allen Gunn at Aspiration Tech. His vision, which he
+had received Open Society Institute funding for, was to bring together
+two groups: people working on open-source translation and linguistic
+tools, and people working on projects that needed collaborative
+translation. At the end of the workshop, the goal was for the first
+group to gain a much better understanding of the needs of people
+actually engaged in community translation, the second group to gain a
+better understanding of what tools and technical support was available,
+and for us as a group to produce some deliverables. These included a map
+of existing software, a list of case studies for translation (the
+combination of which could be used to identify gaps and needed
+software), and a report about the key issues facing collaborative
+translation as a field.
+
+Apart from these specific issues, an overarching goal was for strong
+social bonds to be formed between participants, enabling future
+collaboration and knowledge-sharing, and for the workshop to be run in a
+participatory, collaborative and engaging way, where everyone had a
+chance to explore their own interests and share their own experiences in
+a participatory and democratic way.
+
+After this workshop, I have participated in a number of workshops
+organized by AspirationTech, and others inspired by the same workshop
+methodology. The methodology is inspired by “unconferences” — a response
+to massive conferences where people present on what they submitted
+perhaps half a year earlier, with almost all the conversation going in
+one direction, very little chance for interaction, and no flexibility in
+the program to give space to emergent ideas that might appear during the
+workshop. At an unconference, there is no set program, rather people who
+appear add ideas for sessions to a large poster, and all the sessions
+are discussion-based, rather than lecture-based.
+
+While the unconference format adds excitement, interaction, space for
+emergent ideas and much richer social interactions, they are not quite
+suitable for workshops that want to “get somewhere” — for unconferences,
+the social interactions and open idea-exchanges are a sufficient goal in
+themselves. This is where Gunn’s workshop methodology shines. A workshop
+typically begins by creating the agenda. Everyone Is asked to come up
+with as many ideas as possible about what we are going to discuss during
+the next few days, writing each individual idea on a sticky-note, more
+than a word, and less than a paragraph (typically a statement or a
+question).
+
+All these sticky-notes (the more, the better) are glued onto a large
+canvas of butcher-paper covering an entire wall. Since everyone is
+working in parallel (sometimes you can also do this in groups of three,
+to help people build on each others’ creativity), this can go very
+quickly. In ten minutes, you can have generated hundreds of ideas. Then,
+participants group the sticky notes on the canvas, all ten to twenty
+participants are at the front, finding sticky-notes that are similar and
+moving them together. In the end, you have a number of clusters (and
+perhaps some outliers). The first session ends with naming the different
+groups. These groups will constitute the agenda for the workshop.
+
+When the groups come back after a break, they workshop facilitator has
+discussed with the people organizing the conference, and come up with a
+number of sessions that address different groups of ideas, sessions that
+run in parallel, since small groups are more effective and give each
+person more time to talk and listen. They take the sticky notes from
+their category with them, and are asked to come back with either some
+key findings for the group to reflect on, or a suggestion of future
+specific sessions to address these issues more in-depth.
+
+h2. Individually working with ideas
+
+I have been a student for eight years, working with ideas and
+information. As a student, you process a large amount of input —
+lectures, readings — and somehow need to capture the most important
+information, and engage with the ideas contained within, both for the
+direct purpose of learning, and for the purpose of producing the many
+artifacts that are requested of students in school — presentations,
+papers and projects.
+
+As I progress through different levels of higher education, the amount
+of input sources increases, together with the rising expectations for
+synthesis, critique and creativity. In preparing a PhD research project,
+and subsequent thesis, you must go through hundreds of journal articles,
+conference presentations and individual discussions, mapping out
+relationships between complex ideas, and coming up with new ideas and
+insights.
+
+Scholars have always had to grapple with an “information overload”,
+Blair (2010) writes about how scholars in the middle ages used tools
+such as ‘commonplace books” to collect quotes and excerpts, and there
+was a large industry producing printed books of excerpts. However, the
+rate of information has increased rapidly — a simple Google Scholar
+search can give you full-text access to thousands of nominally relevant
+papers. My own exploration of this space was partly prompted by my
+experience using a Kindle e-book reader to read the academic literature
+for my research.
+
+The Kindle e-book reader enables the user to quickly highlight relevant
+passages of the text — these passages are stored in a text file, which
+can be imported and manipulated on a computer. After only a few months
+or using the Kindle intensively, I had a collection of more than 900
+“snippets” from books and articles I had read. I wanted a way of storing
+and visualizing these snippets that would help me draw connections, and
+engage in deeper thinking around specific topics.
+
+h1. Two cross-cutting concepts
+
+In this section, I will discuss a number of ways in which we work with
+ideas, divided into two cross-cutting concepts — externalization and
+representation of ideas, and manipulating ideas. I will introduce to
+possible interaction scripts for an online course, stimulus/response and
+divergence/convergence, and also the concept of granularity of
+collaboration.
+
+h2. Externalization
+
+The first step when we are grappling with ideas, is to get those ideas
+out of our minds, and down on paper. According to Buzan and Buzan
+(2006), putting ideas down on paper helps you realize what you know,
+draw connections and propel your thinking forwards. In this section, I
+will introduce a few different ways in which externalizing ideas helps
+us work with them better, and link these to the three settings
+introduced previously.
+
+h3. Formulating an idea
+
+The first step of having to formulate an idea is helpful in itself,
+because we have to take something that is a fuzzy representation of
+associations and concepts in our mind, and choose explicit words, or
+graphics, to represent it on paper, on screen. If we are jotting down,
+we might also have to choose where on the page we place each idea, which
+font and weight we write it in, etc. All of this aids us in exploring
+relationships and hierarchies between our ideas.
+
+h3. Getting around working-memory constraints
+
+It is only possible for us to mentally hold and manipulate a small
+number of items in the working memory at a time. This, together with the
+lack of clearly formulating an idea, is why we might sometimes mull over
+an idea in our heads for a long time, and still feel like we are not
+getting any closer.
+
+Getting the ideas out on a piece of a paper, or in a note-taking
+software, is a great first step to increasing your capacity to deal with
+them. The next step is categorization and hierarchy. You start seeing
+patterns in your ideas, and begin to organize them — because a hundred
+similar ideas all listed next to each other, are also very difficult to
+deal with. By working through them slowly, you combine, sort, move four
+different ideas into its own cluster on the page. If you name that
+cluster, it now takes one location in your short-term memory, not four.
+
+The program Tinderbox, a very interesting graphical idea organizer
+developed by Bernstein (2007), has a concept called yanking, where you
+temporarily make a sub-topic in the outline fill the whole screen, and
+become the top or central node for a while. The fact that all of your
+ideas are “safely stored” on the page, means that you can free yourself
+from the burden of having to remember them all, and put the concern for
+the whole away for a little bit. You can focus all of your energy on a
+small part of the idea map, and be confident in your knowledge that all
+of the other ideas have been captured, and will be there when you
+return.
+
+This principle is also present in the productivity system “Getting
+Things Done” (Allen 2001), which has been adopted widely by people whose
+work descriptions entail an ever growing array of different tasks and
+projects to coordinate. One of the key recommendations of this system is
+to write down everything you need to do, in detail. If you don’t do
+this, the brain will continue chewing over things, having you randomly
+remember important todos in the shower, during other times when there is
+nothing that you can do about it. When things have been written down,
+and the brain trusts the system to remind it at the appropriate time,
+this frees up brain cycles allowing for much higher focus, creativity
+and productivity around the task at hand.
+
+There is an interesting parallel to object-oriented programming (OOP)
+practices. Current software projects often extend to tens or hundreds of
+thousands of lines of code. It’s unfeasible for anyone to keep an
+internal representation of such a large codebase, and when bugs appear,
+it is very hard to locate them. Therefore, using OOP, it is possible to
+isolate subsections of the code into methods, that have very well
+defined data going in, and data coming out. A method can be tested very
+thoroughly in isolation, making sure it always does what it should do,
+and after that, the programmer can mentally forget the lines of code
+that it represents, and just treat it as something that always works,
+thus reducing the complexity of his or her internal representation of
+the software.
+
+h3. Social benefit of trusting that our ideas are being taken care of
+
+The idea that you trust the system, and the facilitator, with taking
+good care of your ideas, and making sure that they will be properly
+dealt with, is also a key social concept of both the workshop
+methodology, and in a Knowledge Forum class, which does a lot to create
+a more positive, open and engaging audience. At a workshop, if you have
+expressed your ideas during the initial brainstorming session, and had
+that become part of a named category, then you know that it is “safe”,
+and that it will be dealt with, and given sufficient time, before the
+workshop is over.
+
+Safe in that knowledge, you can put away the attitude which is so common
+in traditional meetings, where everyone are jostling to have their point
+of view, or idea, discussed, and because of this focus on their own
+ideas, are not open enough to listen and engage deeply and honestly with
+other people’s ideas.
+
+You find something similar if you compare a class taught in Knowledge
+Forum, with a class taught either traditionally as a face-to-face
+seminar class, or using traditional threaded online tools. In the two
+latter examples, many students are eager to get their point across,
+before the topic changes, because there is a sense that once the topic
+has changed, there is no way back. However, with a Knowledge Forum
+database, multiple different threads of conversation can be maintained
+at the same time, with none of them “drowning” any of the others out.
+
+h3. Spatial organization and salience
+
+There are many different ways of representing knowledge, or taking
+notes, whether manually on a piece of paper, or supported by an
+application. How you organize notes will impact the way you think, and
+the patterns that you see emerging, and the design of tools for
+collaborative discourse will impact the way the discourse unfolds.
+
+Buzan and Buzan (2006) suggest that the two key factors in increasing
+memory retention of notes are association and emphasis. Both of these
+are lacking in linear lecture notes. Given that our brains tend to look
+for patterns, and completion, structured, spatially organized, and
+linked notes can be a very powerful tool for thought, whereas in
+traditional notes, the important key concepts drown in a torrent of
+text.
+
+Suthers (2001; 2008) has developed this into a theoretical framework for
+analyzing how the design and features of a collaborative tool affects
+the direction of the discourse, and the outcome of the learning
+interaction. He did a series of very interesting experiments, where he
+had two students come into his lab, sitting facing each other looking at
+individual computers. He would give one person half of the necessary
+information, and the other person the other half, and only allow them to
+use the computer to communicate. Later, he would analyze the quality of
+the finished product, and also call them in after one week to measure
+recall.
+
+The two key terms that he came up with, to analyze differences in
+systems designs were salience and constraints. A torrent of text, as
+Buzan and Buzan (2006) complained about above, has no salient features,
+and no constraints. You can write about anything, but nothing stands
+out, none of the features of the knowledge contained within the text is
+more visible than any others.
+
+As opposed to pure text, we can look at a spreadsheet where the boxes
+are called “evidence”, “counter-evidence”, “hypothesis”, etc. Here,
+Suthers found that students were very eager to fill out all the empty
+boxes, which then “forced” them to think about what their theory was,
+what the consequences of that theory would be, etc — thinking in a much
+more systematic fashion than they would, had they used pure text to
+collaborate.
+
+He also experimented with various forms of mind maps, concept maps, etc.
+If you force students to name the link, every time they link two nodes,
+you force them to think about and be aware of why they link two concepts
+together. By doing these experiments with a large number of students,
+and both videotaping the actual process, but also analyzing the final
+artefact that the students produce, rich data about how systems with
+various salient features led students to think in different ways.
+
+h3. Shared artefact
+
+One important function that the external representation plays in a group
+setting, is as a shared referent for discussions. It is useful to
+distinguish between artifact and discourse, as two overlapping but
+different concepts. In a face-to-face meeting, this distinction is very
+clear — an artefact is whatever is captured, and shared between the
+participants, as opposed to the fleeting conversations that in most
+cases is not recorded at all. This means that the artefact not only
+maintains the participants’ “current state of knowledge” during the
+workshop, but also gets to represent the outcomes, and the collective
+memory of the event.
+
+In an online environment, where everything is captured, the distinction
+becomes more blurry. However, in most cases, you can distinguish between
+discourse as more cumulative, and artefact as more integrative. A
+threaded discussion forum is a good example of a discourse setting, with
+each post contextually bound to a specific context (chronology, and the
+post that it replies to), the conversation moves inexorably forwards,
+and it is not that interesting to back, unless you want to trace how
+ideas developed.
+
+An integrative artefact is more like a wikipage, which develops and
+changes to always provide an up-to-date representation of the
+community’s current state of knowledge. This example is captured in
+Wikipedia, where an article is the integrative artefact, and the
+Talk-page, which features discussions about the article, is the
+discourse.
+
+Suthers and his team has have experimented with building collaborative
+learning platforms that integrate artefact-centric discourse (Dwyer and
+Suthers 2005; Lid and Suthers 2003; Suthers and Xu 2002). In addition to
+making sure that both the artefact and the discourse are visible at the
+same time, they have explored the concept of deixis, how you can point
+or refer to a specific point on the artefact (especially for a graphical
+artefact). This is what students in Knowledge Building classrooms do,
+when they meet for “Knowledge Talk” (Bereiter 2004). They
+have a big representation up on the screen, and they point to it. -
+“What about //this// note, should it be connected to //this other//
+note?”. But in an online setting, how can you effectively convey to
+other students which one you mean by “//this//”?
+
+An example of attempting to overcome this problem is an environment
+developed at Drexel University called Math Forum (Stahl 2006). The tool
+provides a shared whiteboard where people work together on solving math
+problems, and they have a text chat on the right. For each message, they
+can point to something on the screen, and there is a line that connects
+your text message to the area of the screen that you are interested in.
+If you go back in time, and click on that message, and the message says
+“I think we should delete this”, you would immediately know what that
+person meant. They also have something similar where you can work on a
+document together, select a few paragraphs and say “I think we should
+delete this”, and others can go back in the chat, and see exactly what
+you were referring to.
+
+h2. Manipulating ideas
+
+In this section, I will introduce two different models for how the
+development of ideas can happen in online courses. Then I will look at
+applying the first model, divergence and convergence, to the workshop
+and individually working with ideas settings.
+
+h3. Stimulus/response
+
+Stimulus/response can describe a very typical way of organizing an
+online course, where you have a forum each week, and you start with the
+teacher providing some stimulus — it might be a reading, or a recording,
+or some new ideas that the teacher introduces in this space. The
+students know that they have to participate, because of the
+participation marks, and because people want to look good in front of
+the teacher, so they will contribute notes — any notes. Personal
+anecdotes, free association, whatever they can come up with that has
+anything at all to do with this topic.
+
+In a typical OISE course, many will have been teachers, so there might
+be many comments like “I remember when this happened in my class”, etc.
+There might be some scattered discussion or response, when people have
+new associations based on what their classmates posted, but it quickly
+dies down when people have “said what they had to say” — until some new
+stimulus is introduced.
+
+At the end of the course, what have the students gotten out of it? They
+have been exposed to some ideas, and they have heard some of their
+co-students' ideas. But this does not seem very ambitious for a graduate
+level course. Likewise, Bereiter (2004, 254), discussing a
+group project where students gather information about polar bears, ask:
+
+<blockquote Bereiter (2004, 254)>But what do they learn about polar bears from producing a multimedia
+document on polar bears? It all depends on what information they
+process in assembling the document. If the only questions they
+consider are “Is it about polar bears?” and “Does it look nice?” we
+may infer that not much polar bear knowledge will be acquired.</blockquote>
+
+h3. Divergence/convergence
+
+Another way of organizing a course can be described as a cycle of
+divergence and convergence. When diverging, we are brainstorming, freely
+associating, coming up with as many new ideas as possible, without being
+too critical about their utility or relevance. This is similar to the
+first five weeks in the course taught by Scardamalia, where students
+where posting their responses to the initial “stimuli”; or the initial
+phase of the workshop, where people are creating sticky notes with ideas
+for topics to discuss.
+
+However, a brainstorming that ends without doing anything with the
+produced material is not very valuable, and this is essentially another
+way of characterizing the first model (stimulus/response). What makes
+the second model different, and more valuable, is that after the
+participants have generated a large amount of material, they stop, take
+a step back, and begin to analyze and look at what they have created.
+What are the emergent topics, groupings, connections that are forming?
+In many ways, this is similar to a grounded theory approach to
+qualitative research, when researchers pour over interview data to look
+at emerging topics (see for example Kelle 1997).
+
+h3. Improvable ideas
+
+One of the core ideas of Knowledge Building relates to the improvability
+of ideas, where “Participants work continuously to improve the quality,
+coherence, and utility of ideas” (Scardamalia 2002). One of the things I
+found so powerful about Knowledge Forum, with it’s spatial display of
+notes, is that notes (and by extension, ideas) are not caught in the
+location where they were first posted, rather they can easily be moved,
+and also copied, to other view — an example of this is the topical views
+that we created in Scardamalia’s class.
+
+This is similar to the affordances of sticky notes at workshops, they
+can be moved around on the wall, and are very accessible to everyone
+(not just one person controlling a computer) (Gunn 2008; Peterson and
+Barron 2007).
+
+Although a spatial interface is very suited to this kind of knowledge
+work, we can imagine other interfaces also implementing similar
+functionality. For example, Knowledge eCommons is an application
+developed at OISE, which is purely textual. An experiment that has
+already been implemented is a split-screen view with a collaborative
+editing board (Etherpad) on the right, and the notes on the left. This
+is a classical integration between discourse and artefact, which was
+mentioned above (although currently there is no method for referring to
+a specific part of the artefact, in the discourse).
+
+One possibility for letting notes be more “moveable”, would be to use
+tagging. Tagging can be used in many ways — for example as folksonomies,
+where people tag things as they produce them, without knowing which tags
+others have agreed upon (Sinclair and Cardew-Hall 2008). This works
+great in large communities like Twitter, but would probably not be
+meaningful in a small study group.
+
+Another approach is to hold off on tagging until you have established
+certain categories, and then use tags essentially as a form of “global
+categories” or channels. An example is that when I tag my tweet with
+#ocwc2011, I know that it will end up in the channel for people who are
+interested in the OpenCourseWare Consortium meeting (Hepp 2010). In the
+same way, students could go back to their previous readings after a few
+weeks, find a few emergent topics, tag messages related to this topic,
+and then have the system automatically create a new view which would
+contain all the tagged messages, and a blank collaborative editing board
+for knowledge building about this topical view.
+
+h3. Micro- and macro-levels of collaboration
+
+Many would object to my description of collaborative software, and their
+ability to enable or not deep knowledge building, as well as the tieing
+of thinking patterns (divergence/convergence and stimuli/response) to
+certain technological structures, or physical workshop tools. As Downes
+(2011) posited in his defence of the traditional lecture, it is quite
+possible for deep engagement to be happening in the mind of someone
+sitting in a large lecture hall, receiving a lecture.
+
+And as we have discussed tools and approaches for individually working
+with ideas, such as Tony Buzan’s mind maps (Buzan and Buzan 2006), a
+committed student could certainly participate in a traditional
+discussion-forum based online course, taking notes, creating concept
+maps, synthesizing the ideas, and then posting a new entry that brings
+together many threads and ideas from different parts of the discussion
+forum.
+
+To tackle this question, I would like to introduce the idea of different
+granularities of collaboration — how much of the working with ideas
+takes place in your own head, and at what point do you share your
+thoughts with others? On one end of the spectrum, at a micro-level of
+collaboration, you might have two people who knew each other well, who
+were engaged in a discussion about a problem, vocalizing every idea that
+comes through their mind, working together as one mind to solve the
+problem.
+
+At the very other far end of the scala, the macro-level of
+collaboration, might be found the scientific world, where individual PhD
+researchers might read hundreds of books and articles, take thousands of
+pages of notes, diagrams, before they finally publish their
+dissertation, which deals with decades worth of literature. A few years
+after the publication of the dissertation, an article might be published
+that builds upon the ideas in the dissertation, a few years later, a new
+article, and so on. (Of course, the PhD student might be part of a local
+research team, and might exchange ideas with them at a much lower
+granularity).
+
+This is a useful distinction, because it covers many areas where we
+instinctively feel that there is collaboration and knowledge building
+going on, such as the edublogosphere, where you can see a progression of
+ideas and a community understanding of the current state of knowledge in
+the field, yet there are no affordances in the tools we use, that make
+this knowledge building easier.
+
+We can also experiment with lowering the granularity of collaboration in
+fields where the granularity to the public has traditionally been quite
+high - an example would be the movement for Open Notebook Science in
+academia, where researchers who would traditionally hoard their lab
+results until the final paper was published are not voluntarily sharing
+their data in almost real-time with anyone who might be interested
+(Bradley 2007).
+
+I began this paper by positing that there were commonalities in the way
+we work with ideas individually, the way groups work with ideas in
+hybrid or online spaces, and in the way innovative approaches to
+workshops try to improve the knowledge building that happens with people
+collaborating in physical spaces.
+
+I introduced three examples of these different settings, and discussed a
+number of analytics concepts, taken both from the literature, and from
+my own experience. I mentioned the importance of externalization of
+ideas, which both relates to spatial organization and salience of the
+medium for expressing the ideas, as well as the importance of knowing
+that the ideas are “safe”, which frees up energy to focus on a subset of
+the ideas (by “yanking” them to the centre).
+
+I then introduced two different idealized models of collaboration
+scripts in online classes, based on two examples that I personally
+experienced, discussed software support for improvable and movable
+ideas, and introduced the concept of granularity of collaboration to
+explain why knowledge building might also occur in environments that do
+not seem to support the concept of improvable ideas natively.
+
+I believe this paper has demonstrated that there is fruitful terrain in
+exploring the intersections between individually working with ideas,
+group collaborative learning, and workshop methodologies (about which,
+unfortunately, there seems to be very little academic literature). It
+would be interesting to hear people active in facilitating collaborative
+courses reflect upon how they as individuals process information, and
+also on how workshops and conferences organized for people within
+Computer-Supported Collaborative Learning could better foster
+collaborative knowledge building.
+
+h1. References
+
+Allen, D. 2001. *Getting things done: The art of stress-free
+productivity*. Penguin Group USA.
+
+Bereiter, C. 2004. Education and mind in the
+knowledge age. *British Journal of Educational Psychology* 74: 127–38.
+
+Bernstein, M. 2007. *The Tinderbox Way*. Eastgate Systems, Inc., USA.
+
+Blair, Ann. 2010. *Too Much to Know: Managing Scholarly Information
+before the Modern Age*. Yale University Press.
+
+Bradley, J. C. 2007. Open notebook science using blogs and wikis.
+
+Buzan, T., and B. Buzan. 2006. *The mind map book*. Pearson Education.
+
+Downes, Stephen. 2011. The Lecture Must Stand.
+
+Dwyer, Nathan, and Daniel D. Suthers. 2005. A study of the foundations
+of artifact-mediated collaboration. *Proceedings of the 2005 conference
+on Computer support for collaborative learning learning 2005: the next
+10 years! - CSCL ’05*: 135–44. doi:10.3115/1149293.1149311.
+http://portal.acm.org/citation.cfm?doid=1149293.1149311.
+
+Gunn, Allen. 2008. *Creating Participatory Events*.
+
+Hepp, M. 2010. HyperTwitter: collaborative knowledge engineering via
+twitter messages. *Knowledge Engineering and Management by the Masses*:
+451–61.
+
+Kelle, U. 1997. Theory building in qualitative research and computer
+programs for the management of textual data.
+
+Lid, Viil, and Daniel D. Suthers. 2003. Supporting Online Learning with
+an Artifact-Centered Cross-Threaded Discussion Tool. *Computers in
+Education*.
+
+Peterson, Elizabeth R., and Kevin A. Barron. 2007. How to Get Focus
+Groups Talking: New Ideas That Will Stick. *International Journal of
+Qualitative Methods* 6.
+
+Scardamalia, Marlene. 2002. Collective cognitive responsibility for the
+advancement of knowledge. *Liberal education in a knowledge society*:
+67–98.
+
+---. 2003. Knowledge Forum (advances beyond CSILE). *Journal of Distance
+Education* 17: 23–28.
+
+Sinclair, J., and M. Cardew-Hall. 2008. The folksonomy tag cloud: when
+is it useful?. *Journal of Information Science* 34: 15.
+
+Stahl, G. 2006. *Group Cognition: Computer Support for Collaborative
+Knowledge Building*. Cambridge, MA: MIT Press.
+
+Suthers, D. D. 2008. Empirical studies of the value of conceptually
+explicit notations in collaborative learning. In *Knowledge Cartography:
+Software tools and mapping techniques*, ed. A. Okada, S. Buckingham
+Shum, and T. Sherborne, 1–23. Springer.
+
+Suthers, Daniel D. 2001. Towards a Systematic Study of Representational
+Guidance for Collaborative Learning Discourse. *Journal Of Universal
+Computer Science* 7: 1–24.
+
+Suthers, Daniel, and Jun Xu. 2002. Kükäkükä : An Online Environment for
+Artifact-Centered Discourse. *World Wide Web Internet And Web
+Information Systems*: 472–80.

@@ -1,0 +1,4 @@
+h2. Jun Oshima's publications
+
+| [@oshima1995informationaccess] | Oshima, J., Bereiter, C., & Scardamalia, M. (1995). Information-access characteristics for high conceptual progress in a computer-networked learning environment. In The first international conference on Computer support for collaborative learning (259–267).|
+| [@oshima1996collaborative] | Oshima, J., Scardamalia, M., & Bereiter, C. (1996). Collaborative learning processes associated with high and low conceptual progress. Instructional Science, 24(2), 125–155.|

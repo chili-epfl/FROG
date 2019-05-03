@@ -1,0 +1,36 @@
+h1. Paragogy: Synergizing individual and organizational learning
+<html><a href='http://metameso.org/~joe/docs/paragogy-final.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://metameso.org/~joe/docs/paragogy-final.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Corneli, J., & Danoff, C. J. (2011). Paragogy: Synergizing individual and organizational learning. 1st International Conference on Learning Analytics and Knowledge. Retrieved from http://metameso.org/~joe/docs/paragogy-final.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://corneli2011paragogy|BibDesk]]  | Corneli, J., & Danoff, C. J. (2011). Paragogy: Synergizing individual and organizational learning. 1st International Conference on Learning Analytics and Knowledge. Retrieved from http://metameso.org/~joe/docs/paragogy-final.pdf. |
+^ [[skimx://corneli2011paragogy|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:corneli2011paragogy?do=edit&vecdo=print\'><frame src=\'/wiki/clip:corneli2011paragogy?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{corneli2011paragogy,
+  author = {Corneli, Joseph and Danoff, Charles Jeffrey},
+  booktitle = {1st International Conference on Learning Analytics and Knowledge},
+  date-added = {2011-05-23 09:58:07 +0800},
+  date-modified = {2012-11-27 19:05:31 +0000},
+  date-read = {2012-04-12 04:39:52 -0400},
+  keywords = {1p2pu},
+  oa-url = {http://metameso.org/~joe/docs/paragogy-final.pdf},
+  read = {1},
+  title = {Paragogy: Synergizing individual and organizational learning},
+  url = {http://metameso.org/~joe/docs/paragogy-final.pdf},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdjb3JuZWxpMjAxMXBhcmFnb2d5LnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaE5my9b9o1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXjAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3JuZWxpMjAxMXBhcmFnb2d5LnBkZgAOADAAFwBjAG8AcgBuAGUAbABpADIAMAAxADEAcABhAHIAYQBnAG8AZwB5AC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2Nvcm5lbGkyMDExcGFyYWdvZ3kucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9jb3JuZWxpMjAxMXBhcmFnb2d5LnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:corneli2011paragogy}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:corneli2011paragogy}}
+
+{{page>kindle:corneli2011paragogy}}
+
+{{page>skimg:corneli2011paragogy}}

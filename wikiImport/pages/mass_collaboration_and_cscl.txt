@@ -1,0 +1,65 @@
+h1. Mass collaboration and CSCL
+
+
+h2. Gerhard Fischer
+
+learning, working and collaboration -> new learning organizations -> new media and new technologies
+
+32. Problems transcending the individual human mind
+problems of **magnitude**, which individuals, even large teams, cannot solve
+  * Scratch
+  * Wikipedia
+
+problems of **systemic nature**, requiring collaboration of many different minds from variety of backgrounds
+  * lifelong elarning
+  * aging population
+  * energy sustainability
+
+Rich landscapes of learning (img)
+
+Consumer culture -> culture of participation, provide all people with the means to participate actively in **personally meaningful** problems, citing Benkler and Tapscott.
+
+(img)
+
+h2. Drawbacks
+  * participation overload
+    * DIY societies
+    * companies offloading work to customers
+  * accumulation of irrelevant information
+  * lack of coherent voices (-> fragmented cultures)
+
+h2. MOOCs
+Develop assessment of MOOCs from LS perspective. Identify core competencies of residential, research-based universities.
+
+h2. Conclusions
+  * cultures of participation
+    * enrich the landscape of learning
+  * by representing
+    * fundamental opportunities, challenges and transformative changes
+  * for
+    * innovative theoretical foundations and systematic development
+  * in learning sciences in general and CSCL specifically
+
+h2. Systemic and cognitive perspective
+  * individual = cognitive system
+  * autopoeietic: exists through own operations
+  * operations = thinking
+  * operationally closed: thoughts build on thoughts
+  * can be stimulated by the environment
+  * processes information
+  * system can assimilate/accomodate
+
+  * Community as a social system: autopoietic & closed (not cognitive system)
+  * operates through communication, syntehsis of message, information & understanding
+  * develops own conventions, social norms, rules
+  * information processing: what becomes central, influential, what dies out?
+  * can be stimulated by the environment
+
+Coupling between social system and cognitive systems. Each can provide environment for the other, stimulate each other -> leads to individual learning and collaborative knowledge construction. 
+
+h2. Experiments based on co-evolution model
+  * How does social system process information?
+  * How does it make use of the individual cognitive systems?
+
+h2. Knowledge construction in Wikipedia
+  * g

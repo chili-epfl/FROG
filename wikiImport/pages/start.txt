@@ -1,0 +1,55 @@
+<columns 100% first column attributes 33% second column attributes 33% third column attributes 33% ->
+
+h3. Links
+  * [[About this wiki]]
+  * [[Lectures]], [[Conferences]]
+  * [[:a:start|Authors]]
+  * [[Scratch]] [[http://localhost/wiki/doku.php/scratch?do=edit|(edit)]]
+  * [[Ideas]]
+  * [[Dokuwiki]]
+  * [[How to]]
+  * [[CSCL intro course]]
+  * [[Machine Learning course]]
+
+h3. Right now
+  * [[Epistemology]]
+  * [[Higher education pedagogy]]
+  * [[Comps]]
+
+h3. Articles
+  * [[Grappling With Ideas-the Paper|Grappling with ideas]]
+  * [[Ideas for Scrobblr]] (in progress)
+  * [[draft literature review open courses|Literature review on Open and Online Courses]] (in progress)
+
+<newcolumn>
+h3. To look at
+  * [[To read]]
+  * [[Journals]]
+  * [[Conferences]]
+  * [[Researchers]]
+  * [[Other things to read]]
+  * [[Useful software]]
+  * [[Blog ideas]]
+
+h3. Current research
+  * [[Patterns for online university courses]]
+  * [[Peer learning]]
+
+h3. Archive
+  * [[Lists of tools]]
+  * [[Pattern language in education]]
+  * [[gccce11:start|GCCCE 2011]]
+<html><hr></html>
+h3. Pages wanted
+~~ORPHANSWANTED:wanted~~
+
+<newcolumn>
+h3. Recently created pages
+{{changes>type=create}}
+
+h3. Recent changes
+{{changes>type=edit,minor}}
+</columns>
+
+~~NOTOC~~
+~~NOCACHE~~

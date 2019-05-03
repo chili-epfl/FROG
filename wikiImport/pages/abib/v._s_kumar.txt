@@ -1,0 +1,3 @@
+h2. V. S Kumar's publications
+
+| kumar2010assessing | Kumar, V. S., Gress, C. L. Z., Hadwin, A. F., & Winne, P. H. (2010). Assessing process in {CSCL:} An ontological approach. Computers in Human Behavior. doi: 10.1016/j.chb.2007.07.004.||

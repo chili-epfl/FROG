@@ -1,0 +1,4 @@
+h2. Peter W. Coppin's publications
+
+| coppin2009cognitive | Coppin, P. W., & Hockema, S. (2009). {A cognitive exploration of the" non-visual" nature of geometric proofs}. Visual Languages and Logic.|[[skimx://coppin2009cognitive|PDF]]|
+| coppin2011reconciling | Coppin, P. W. (2011). Reconciling Competing Accounts of Picture Perception from Art Theory and Perceptual Psychology via the Dual Route Hypothesis. European Conference on Cognitive Science (EuroCogsci 2011).|[[skimx://coppin2011reconciling|PDF]]|

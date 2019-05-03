@@ -1,0 +1,55 @@
+====== Use of knowledge mapping in computer-based assessment ======
+
+  * Knowledge mapping vs concept mapping. Concept mapping has been trademarked in the US.
+
+  * Learning (each box has its own instructional strategy and assessment - sort what you need to teach into these five boxes)
+    * content understanding
+    * collaboration/teamwork
+    * problem solving
+    * communication
+    * self-regulation
+  * Today talk is about content understanding and problem solving
+
+  * O'Neil's Problem Solving Model
+    * Problem Solving
+      * Domain specific PBS strategies
+      * Domain independent PSS
+    * Content Understanding
+    * Self regulation
+      * Metacognition
+      * Motivation
+
+  * Knowledge maps
+    * node-link representation (node = concepts, links = relationships)
+    * has typically been used for instructional purposes, we're using it for assessment purposes
+      * substitute for an essay test (rather than an MC test) 
+    * Can be scored automatically
+    * examples
+      * "sunlight -> leads to -> surface warming"
+      * example of knowledge map about 1930's depression
+  
+  * software compares student-generated map with "perfect map"? 
+    * ask more than one expert to represent the area, map student map against all three experts, take average, use that number
+
+  * Computer gaming (problem solving task)
+    * measures
+      * knowledge mapper
+      * retention similar to Mayer
+      * self-regulation
+
+  * Research questions
+    * what are the scoring methods for KMs
+    * what is reliability and validity
+    * scoring approaches (matrix)
+      * referent free vs referent based
+      * configural vs semantic
+      * choice: compares semantic structure of student work with expert work (referent based and semantic)
+    * can train people to rate maps very reliably
+      * tedious, labor-intensive, time-consuming (but only way to do it with unconstrained tasks)
+
+  * Conclusion
+    * feasible, reliable, sensitive to knowledge differences and instructional effects
+    * task format influences reliability
+    * automated scoring tractable with predefined concepts and links
+
+(http://cresst.org, UCLA, honeil@usc.edu)

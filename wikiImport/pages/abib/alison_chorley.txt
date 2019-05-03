@@ -1,0 +1,3 @@
+h2. Alison Chorley's publications
+
+| [@edwards2009building] | Edwards, P., Reid, R., Chorley, A., Hielkema, F., Mitra, R., & Pignotti, E. (2009). Building a Social Semantic Web for {eScience}. In Proceedings of the {AAAI} 2009 Spring Symposium on Social Semantic Web: Where Web 2.0 meets Web 3.0. |

@@ -1,0 +1,38 @@
+h1. Toward a Script Theory of Guidance in Computer-Supported Collaborative Learning
+<html><a href='http://telearn.archives-ouvertes.fr/docs/00/77/29/34/PDF/Fischer_Kollar_Stegmann_Wecker_2013_.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://telearn.archives-ouvertes.fr/docs/00/77/29/34/PDF/Fischer_Kollar_Stegmann_Wecker_2013_.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Fischer, F., Kollar, I., Stegmann, K., & Wecker, C. (2012). Toward a Script Theory of Guidance in Computer-Supported Collaborative Learning. Educational Technologist, 48(1), 56-66.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://fischer2012toward|BibDesk]]  | Fischer, F., Kollar, I., Stegmann, K., & Wecker, C. (2012). Toward a Script Theory of Guidance in Computer-Supported Collaborative Learning. Educational Technologist, 48(1), 56-66. |
+^ [[skimx://fischer2012toward|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:fischer2012toward?do=edit&vecdo=print\'><frame src=\'/wiki/clip:fischer2012toward?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{fischer2012toward,
+  author = {Fischer, Frank and Kollar, Ingo and Stegmann, Karsten and Wecker, Christof},
+  date-added = {2012-09-22 18:41:58 +0000},
+  date-modified = {2013-01-13 14:06:51 +0000},
+  date-read = {2012-09-26 13:55:20 -0400},
+  journal = {Educational Technologist},
+  keywords = {0fischer},
+  number = {1},
+  oa-url = {http://telearn.archives-ouvertes.fr/docs/00/77/29/34/PDF/Fischer_Kollar_Stegmann_Wecker_2013_.pdf},
+  pages = {56-66},
+  read = {1},
+  title = {Toward a Script Theory of Guidance in Computer-Supported Collaborative Learning},
+  volume = {48},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVmaXNjaGVyMjAxMnRvd2FyZC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKMAVAzIJEqlBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADMgnzqAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBmaXNjaGVyMjAxMnRvd2FyZC5wZGYADgAsABUAZgBpAHMAYwBoAGUAcgAyADAAMQAyAHQAbwB3AGEAcgBkAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2Zpc2NoZXIyMDEydG93YXJkLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svZmlzY2hlcjIwMTJ0b3dhcmQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:fischer2012toward}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:fischer2012toward}}
+
+{{page>kindle:fischer2012toward}}
+
+{{page>skimg:fischer2012toward}}

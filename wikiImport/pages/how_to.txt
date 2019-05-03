@@ -1,0 +1,5 @@
+h1. How to
+see also [[tech]] and [[hacks]]
+
+h2. Bibdesk
+  * [[Import bibliography from Mendeley with file references]]

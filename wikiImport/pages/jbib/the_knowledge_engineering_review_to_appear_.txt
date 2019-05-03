@@ -1,0 +1,3 @@
+h2. Publications in The Knowledge Engineering Review (to appear)
+
+| rahwan2010representing | Rahwan, I., Banihashemi, B., Reed, C., Walton, D., & Abdallah, S. (2010). Representing and classifying arguments on the semantic web. The Knowledge Engineering Review (to appear).|[[skimx://rahwan2010representing|PDF]]|

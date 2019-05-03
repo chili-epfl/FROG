@@ -1,0 +1,3 @@
+h2. T. Takeda's publications
+
+| takeda2002online | Takeda, T., & Suthers, D. D. (2002). {Online workspaces for annotation and discussion of documents}. International Conference on Computers in Education, 2002. Proceedings.. IEEE Comput. Soc. doi: 10.1109/CIE.2002.1186216.|[[skimx://takeda2002online|PDF]]|

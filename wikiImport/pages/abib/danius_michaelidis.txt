@@ -1,0 +1,4 @@
+h2. Danius Michaelidis's publications
+
+| :ref:buckinghamshum2006memetic | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelidis, D., Procter, R., Roure, D. de, Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Retrieved from http://oro.open.ac.uk/23373/.|
+| :ref:buckinghamshum2006memetic | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelidis, D., Procter, R., Roure, D. de, Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Retrieved from http://oro.open.ac.uk/23373/.|

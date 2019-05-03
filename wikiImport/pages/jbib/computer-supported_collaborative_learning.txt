@@ -1,0 +1,3 @@
+h2. Publications in Computer-Supported Collaborative Learning
+
+| scheuer2009computer | Scheuer, O., Loll, F., Pinkwart, N., & McLaren, B. M. (2009). Computer-supported argumentation: A review of the state of the art. Computer-Supported Collaborative Learning.||

@@ -1,0 +1,12 @@
+h2. Images
+
+{{skim:barr1995from0.png}}
+
+[[skimx://barr1995from#4|p. 4]]
+----
+
+{{skim:barr1995from1.png}}
+
+[[skimx://barr1995from#5|p. 5]]
+----
+

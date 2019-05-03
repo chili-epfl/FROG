@@ -1,0 +1,4 @@
+h2. L. Bollen's publications
+
+| [[..:ref:weinbrenner2007ontologybased]] | Weinbrenner, S., Engler, J., Bollen, L., & Hoppe, U. (2007). Ontologybased Support for Designing Inquiry Learning Scenarios. AIED.|
+| dimitrakopoulou2006state | Dimitrakopoulou, A., Petrou, A., Martinez, A., Marcos, J. A., Kollias, V., Jermann, P., Harrer, A., Dimitriadis, Y., & Bollen, L. (2006). State of the art of interaction analysis for Metacognitive Support \& Diagnosis.|

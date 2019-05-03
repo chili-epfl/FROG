@@ -1,0 +1,3 @@
+h2. H. Sharp's publications
+
+| eckstein2002patterns | Eckstein, J., Bergin, J., & Sharp, H. (2002). Patterns for active learning. Proceedings of PloP.|[[skimx://eckstein2002patterns|PDF]]|

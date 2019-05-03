@@ -1,0 +1,15 @@
+h2. Publications with keyword "0flipped"
+
+| [@bathkereducational] | Bathker, K. Educational Technology in a Flipped Classroom Setting.|
+| [@cliftonsplice] | Clifton, C., & Boutell, M. SPLICE: Self-Paced Learning in an Inverted Classroom Environment. |
+| [@zimmarousing] | Zimmaro, D., Corliss, S. B., & Ebbeler, J. Using Lecture Capture to Create a Blended Learning Experience: Investigating Student Learning in a Flipped, Large Enrollment Course.|
+| [@talbertlearning] | Talbert, R. Learning MATLAB in the inverted classroom. |
+| [@ongeri2006teaching] | Ongeri, J., & Edward, T. (2006). Teaching Economics: A Critical Review of the Literature. Available at SSRN 932086.|
+| [@strayer2007effects] | Strayer, J. F. (2007). The effects of the classroom flip on the learning environment: a comparison of learning activity in a traditional classroom and a flip classroom that used an intelligent tutoring system (PhD thesis).|
+| [@adams2007second] | Adams, J., & Morgan, G. (2007). “Second Generation” E-Learning: Characteristics and Design Principles for Supporting Management Soft-Skills Development. International Journal on E-Learning, 6(2), 157–185.|
+| [@morgan2009pedagogy] | Morgan, G., & Adams, J. (2009). Pedagogy first! making web-technologies work for soft skills development in leadership and management education. Journal of Interactive Learning Research, 20(2), 129–155.|
+| [@adams2010four-level] | Adams, J. (2010). A Four-Level Model for Integrating Work and e-Learning to Develop Soft Skills and Improve Job Performance. The IUP Journal of Soft Skills, 4(4), 48–68.|
+| [@sorden2011relationships] | Sorden, S. D. (2011). Relationships among collaborative learning, social presence and student satisfaction in a blended learning environment (PhD thesis). |
+| [@it2012flipping] | It, I. Y. B., & Come, W. T. (2012). –Flipping the Classroom. Mining Key Pedagogical Approaches, 79.|
+| [@hughes2012introduction] | Hughes, H. (2012). Introduction to Flipping the College Classroom. In World Conference on Educational Multimedia, Hypermedia and Telecommunications (Vol. 2012, 2434–2438).|
+| [@frydenberg2012flipping] | Frydenberg, M. (2012). Flipping Excel. In Proceedings of the Information Systems Educators Conference ISSN (Vol. 2167, 1435).|

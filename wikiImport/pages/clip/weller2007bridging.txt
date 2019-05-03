@@ -1,0 +1,24 @@
+h2. Highlights (13%)
+
+The popularity of web 2.0 technologies and approaches poses both a problem and an opportunity for higher education. In this paper the differences in culture between web 2.0 and higher education are examined. The authors propose that both the granularity of education and also the nature of formal assessment are subject to change in a digitised environment, and that as with other industries, there is a threat to higher education. While attempting to embrace many of the positive aspects of web 2.0, there are a number of concerns in higher education, such as the maintenance of quality, overcoming Meno’s paradox and providing adequate support and guidance. It is suggested that user generated and shared learning designs represent one possible means of bridging the gap between these two cultures, while addressing the issues of concern in education. [[skimx://weller2007bridging#1|p. 1]]
+
+There are also significant cultural differences between the values found in higher education and those in the web 2.0 community. There are a number of key features to web 2.0 approaches: The first of these is democracy; the second is that it is based around a bottom-up approach; And, from the education perspective, the third is that they are socially oriented. [[skimx://weller2007bridging#1|p. 1]]
+
+Much of education can be seen as a process of enculturation into academic practice, for instance a PhD student is not only conducting research in to their subject, but learning how to be a researcher and publish academic material. [[skimx://weller2007bridging#1|p. 1]]
+
+The granularity of education [[skimx://weller2007bridging#2|p. 2]]
+
+::Pedagogy of abundance stuff:: [[skimx://weller2007bridging#2|p. 2]]
+
+The topography of formality [[skimx://weller2007bridging#3|p. 3]]
+
+Just as we think of learning being bundled into a convenient course package, so we think of the formalisation of learning being grouped into large chunks. Informal learning is difficult to recognise and accredit, and is thus often overlooked in favour of formal education. There is an intrinsic paradox with informal learning – in order to reward and recognise it, then it needs to be formalised in some manner. This can be through an accredited programme, the use of portfolios to demonstrate competency, or diagnostic tests. [[skimx://weller2007bridging#3|p. 3]]
+
+If we were to consider the formalisation of learning as a topography then currently it is a flat plain with a few high peaks, rather like skyscrapers in a desert, representing courses. The learner traverses this topology over their lifetime, most of it spent on the flat plain, with no easy access to formal recognition, and is then requested to climb large peaks of formality, such as a postgraduate course. This bears little resemblance to how they actually learn, which will have some peaks, but will be more evenly distributed. [[skimx://weller2007bridging#3|p. 3]]
+
+In the online world however, this topology could be subject to considerable change. The peaks become shallower, but more frequent, so it is more akin to an archipelago. In this model, the digitisation of content and interaction mentioned in the previous section allows users to gather evidence of informal learning on a daily basis. They may then choose to bundle this into a formally recognised event, for example by having their portfolio assessed, or engaging in a ‘micro-course’ which demonstrates their ability in a given area, or by creating a meta-document of their own, for example a reflective blog post that draws on the different pieces of evidence. [[skimx://weller2007bridging#3|p. 3]]
+
+Ironically this is actually how educators conduct their professional lives. An educator may engage in a research project and they will formalise this learning through conference presentations or journal articles. They will bundle together recent experience into published text books, or project reports. In this respect the academic profession has a number of recognised means of formalising learning. Many other professions and individuals do not have such readily available and acknowledged means of unifying recent learning and experience. [[skimx://weller2007bridging#3|p. 3]]
+
+References [[skimx://weller2007bridging#7|p. 7]]
+

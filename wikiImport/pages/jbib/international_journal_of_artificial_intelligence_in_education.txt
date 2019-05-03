@@ -1,0 +1,8 @@
+h2. Publications in International Journal of Artificial Intelligence in Education
+
+| [@mclaren2010supporting] | McLaren, B., Scheuer, O., & MiksátkoJ. (2010). Supporting collaborative learning and e-discussions using artificial intelligence techniques. International Journal of Artificial Intelligence in Education, 20(1), 1--46.|
+| [@koedinger1999component-based] | Koedinger, K. R., Suthers, D. D., & Forbus, K. D. (1999). {Component-Based Construction of a Science Learning Space}. International Journal of Artificial Intelligence in Education.|
+| [@ogata2000combining] | Ogata, H., & Yano, Y. (2000). Combining knowledge awareness and information filtering in an open-ended collaborative learning environment. International Journal of Artificial Intelligence in Education, 11(1), 33--46.|
+| [@collins2000role] | Collins, A., Neville, P., & Bielaczyc, K. (2000). The role of different media in designing learning environments. International Journal of Artificial Intelligence in Education, 11(1), 144–162.|
+| [@brusilovsky2003adaptive] | Brusilovsky, P., & Peylo, C. (2003). Adaptive and intelligent web-based educational systems. International Journal of Artificial Intelligence in Education, 13(2-4), 159–172.|
+| [@soller2005mirroring] | Soller, A., Jermann, P., MühlenbrockM., & MartínezAlejandra. (2005). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. International Journal of Artificial Intelligence in Education, 15(4), 261--290.|

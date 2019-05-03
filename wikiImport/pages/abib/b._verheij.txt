@@ -1,0 +1,3 @@
+h2. B. Verheij's publications
+
+| verheij2003artificial | Verheij, B. (2003). Artificial argument assistants for defeasible argumentation. Artificial Intelligence. Elsevier.|[[skimx://verheij2003artificial|PDF]]|

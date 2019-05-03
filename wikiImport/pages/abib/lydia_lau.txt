@@ -1,0 +1,3 @@
+h2. Lydia Lau's publications
+
+| [@dimitrova2011semantic] | Dimitrova, V., Lau, L., & {O'Rourke}Rebecca. (2011). Semantic Social Scaffolding for Capturing and Sharing Dissertation Experience. {IEEE} Transactions on Learning Technologies, 4(1), 74--87. doi:10.1109/TLT.2010.42|

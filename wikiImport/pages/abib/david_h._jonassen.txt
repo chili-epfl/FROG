@@ -1,0 +1,6 @@
+h2. David H. Jonassen's publications
+
+| [@jonassen1998computers] | Jonassen, D. H., Carr, C., & Yueh, H. P. (1998). Computers as mindtools for engaging learners in critical thinking. TechTrends, 43(2), 24--32.|
+| [@jonassen2000toward] | Jonassen, D. H. (2000). Toward a meta-theory of problem solving. Educational Technology: Research \& Development, 48(4), 63--85.|
+| [@jonassen2000mindtools] | Jonassen, D. H., & Carr, C. S. (2000). Mindtools: Affording multiple knowledge representations for learning. Computers as cognitive tools, volume two: no more walls: theory change, paradigm shifts, and their influence on the use of computers for instructional purposes, 165.|
+| [@jonassen2010learning] | Jonassen, D. H. (2010). Learning to solve problems: A handbook for designing problem-solving learning environments. Routledge.|

@@ -1,0 +1,4 @@
+h2. P. Coppin's publications
+
+| :ref:coppin2009cognitive | Coppin, P., & Hockema, S. (2009). {A cognitive exploration of the" non-visual" nature of geometric proofs}. Visual Languages and Logic.|
+| :ref:coppin2009cognitive | Coppin, P., & Hockema, S. (2009). {A cognitive exploration of the" non-visual" nature of geometric proofs}. Visual Languages and Logic.|

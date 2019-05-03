@@ -1,0 +1,3 @@
+h2. Publications in Learning and Individual Differences
+
+| haugwitz2010cognitive | Haugwitz, M., Nesbit, J. C., & Sandmann, A. (2010). Cognitive ability and the instructional efficacy of collaborative concept mapping. Learning and Individual Differences, 20(5), 536--543. Elsevier.|[[skimx://haugwitz2010cognitive|PDF]]|

@@ -1,0 +1,3 @@
+h2. B. M. Hendricks's publications
+
+| [[..:ref:baraniuk2002connexions]] | Baraniuk, R., Burrus, C. S., Hendricks, B. M., Henry, G. L., {III}A. O. Hero, Johnson, D. H., Jones, D. L., Kusuma, J., Nowak, R. D., & Odegard, J. E. (2002). Connexions: {DSP} education for a networked world. Acoustics, Speech, and Signal Processing, 1993. {ICASSP-93.,} 1993 {IEEE} International Conference on.|[[skimx://baraniuk2002connexions|PDF]]|

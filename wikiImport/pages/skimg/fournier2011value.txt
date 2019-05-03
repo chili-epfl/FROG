@@ -1,0 +1,22 @@
+h2. Images
+
+{{skim:fournier2011value0.png}}
+
+[[skimx://fournier2011value#7|p. 7]]
+----
+
+{{skim:fournier2011value1.png}}
+
+[[skimx://fournier2011value#7|p. 7]]
+----
+
+{{skim:fournier2011value2.png}}
+
+[[skimx://fournier2011value#8|p. 8]]
+----
+
+{{skim:fournier2011value3.png}}
+
+[[skimx://fournier2011value#8|p. 8]]
+----
+

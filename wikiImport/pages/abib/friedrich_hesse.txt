@@ -1,0 +1,3 @@
+h2. Friedrich Hesse's publications
+
+| [@soller2007design] | Soller, A., Ogata, H., & Hesse, F. (2007). Design, modeling, and analysis of collaborative learning. In H. U. Hoppe, H. Ogata & A. Soller (Eds.), The Role of Technology in {CSCL} (13--20). Boston, {MA}: Springer {US}. |

@@ -1,0 +1,2 @@
+h1. Key ideas
+//Framework is captured in [@bouchard2009pedagogy]//

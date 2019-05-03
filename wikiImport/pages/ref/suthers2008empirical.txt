@@ -1,0 +1,38 @@
+h1. Empirical studies of the value of conceptually explicit notations in collaborative learning
+
+<ifauth !@admin>|Suthers, D. D. (2008). Empirical studies of the value of conceptually explicit notations in collaborative learning. In A. Okada, S. Buckingham Shum & T. Sherborne (Eds.),  (Tran.), Knowledge Cartography (1--23). Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://suthers2008empirical|BibDesk]]  | Suthers, D. D. (2008). Empirical studies of the value of conceptually explicit notations in collaborative learning. In A. Okada, S. Buckingham Shum & T. Sherborne (Eds.),  (Tran.), Knowledge Cartography (1--23). Springer. |
+^ [[skimx://suthers2008empirical|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:suthers2008empirical?do=edit&vecdo=print\'><frame src=\'/wiki/clip:suthers2008empirical?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{suthers2008empirical,
+  author = {Suthers, Daniel D.},
+  booktitle = {Knowledge Cartography: Software tools and mapping techniques},
+  chapter = {Empirical studies of the value of conceptually explicit notations in collaborative learning},
+  date-added = {2011-04-27 20:09:54 -0400},
+  date-modified = {2012-04-09 01:02:06 +0000},
+  editor = {Okada, A. and Buckingham Shum, S. and Sherborne, T},
+  journal = {Knowledge Cartography},
+  notes = {1},
+  pages = {1--23},
+  publisher = {Springer},
+  read = {1},
+  title = {Empirical studies of the value of conceptually explicit notations in collaborative learning},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhzdXRoZXJzMjAwOGVtcGlyaWNhbC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdc8Py9dKKlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14JqAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdXRoZXJzMjAwOGVtcGlyaWNhbC5wZGYAAA4AMgAYAHMAdQB0AGgAZQByAHMAMgAwADAAOABlAG0AcABpAHIAaQBjAGEAbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9zdXRoZXJzMjAwOGVtcGlyaWNhbC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svc3V0aGVyczIwMDhlbXBpcmljYWwucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:suthers2008empirical}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:suthers2008empirical}}
+
+{{page>kindle:suthers2008empirical}}
+
+{{page>skimg:suthers2008empirical}}

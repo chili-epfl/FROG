@@ -1,0 +1,34 @@
+h1. Quantiative Structural Representations of Cognitive Tasks for Both Learning and Assessment in Complex Cognitive Environments
+
+[[Bayesian network model]]
+
+Develop structural representations of cognitive tasks, complex learning processes
+[[Cognitive task analysis]]
+Provide [[learning trajectories]]
+Provide info of [[cognitively diagnostic assessment]]
+
+[[Structural representation]] used to
+  * effectively express [[cognitive task]]
+  * provide learner with [[cognitive trajectory]]
+
+[[Cognitive task]]: 
+
+**Well structured**: subtasks exhibit well-graded [[knowledge structures]]
+
+OR
+
+**Not well structured**: contain [[latent variables]], multi-represented from [[latent variables]] to [[evidential variables]]
+
+[[Structural hierarchical representation]]
+
+
+====== Case ======
+
+13 3rd yr med students, solve video clinical task, simulated emergency
+Complete case, observe problem, what would you do?
+
+  * [[Deep cognition]]
+  * [[Metacognition]]
+  * [[Cognitive action]]
+
+Organize components into a model - evidential variables. 

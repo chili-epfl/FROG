@@ -1,0 +1,4 @@
+h2. Alyssa Friend Wise's publications
+
+| [@wise2011analyzing] | Wise, A. F., & Chiu, M. M. (2011). Analyzing temporal patterns of knowledge construction in a role-based online discussion. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9120-1|
+| [@wise2012summary] | Wise, A. F. (2012, July). Summary of Analysis of Tapped-In Data.|

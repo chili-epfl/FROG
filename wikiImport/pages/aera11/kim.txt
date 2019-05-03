@@ -1,0 +1,28 @@
+====== The impact of an interface agent on middle-grade females affect in learning introductory algebra ======
+
+//was secondary school teacher in Korea//
+
+  * educational interface agents
+    * animated human-like characters in computer-based learning
+    * simulate human instructional roles: expert, instructor, mentor, coach, learning companion, virtual peer
+    * benefit from simulated social interaction and social relations
+  * is intelligence really necessary when designing these agents? ("many real teachers are not that intelligent")
+
+==== Girls lack of interest in STEM by social influences ====
+  * social stereotypes and influences
+  * girls' preference for collaborative and interactive environments
+    * perform better with highly interactive hints
+    * more sensitive to help messages
+    * perceive virtual characters (or pedagogical agents) more seriously and positively
+  * create girl-friendly virtual STEM learning environment
+
+  * algebra tutor
+    * agent talks: info, motivation, persuasion, pre-recorded human voice (not synthesized computer voice
+    * pre-scripted, not intelligent
+
+  * research questions
+    * will it improve positive attitude?
+    * self-efficacy beliefs
+    * learning outcome
+    * their perceptions of the agent
+  * students who had delayed taking math - weak/not motivated

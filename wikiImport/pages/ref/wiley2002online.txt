@@ -1,0 +1,44 @@
+h1. Online self-organizing social systems: The decentralized future of online learning
+
+<ifauth !@admin>|Wiley, D. A., & Edwards, E. K. (2002). Online self-organizing social systems: The decentralized future of online learning. Quarterly Review of Distance Education, 3(1), 33--46. Retrieved from http://www.oercommons.org/community/online-self-organizing-social-systems-the-decentralized-future-of-online-learning.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://wiley2002online|BibDesk]]  | Wiley, D. A., & Edwards, E. K. (2002). Online self-organizing social systems: The decentralized future of online learning. Quarterly Review of Distance Education, 3(1), 33--46. Retrieved from http://www.oercommons.org/community/online-self-organizing-social-systems-the-decentralized-future-of-online-learning. |
+^ [[skimx://wiley2002online|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:wiley2002online?do=edit&vecdo=print\'><frame src=\'/wiki/clip:wiley2002online?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{wiley2002online,
+  added-at = {2010-05-26T11:44:23.000+0200},
+  author = {Wiley, David A. and Edwards, Erin K.},
+  biburl = {http://www.bibsonomy.org/bibtex/2d7f8832cca201234057240ee94748716/trude},
+  date-added = {2011-04-25 19:42:45 -0400},
+  date-modified = {2011-06-09 18:03:08 +0800},
+  interhash = {9d64fae19cd69e17e4c1a2be6ed314d6},
+  intrahash = {d7f8832cca201234057240ee94748716},
+  issn = {1528-3518},
+  journal = {Quarterly Review of Distance Education},
+  keywords = {OER/open ed},
+  mendeley-tags = {\_todo},
+  number = {1},
+  pages = {33--46},
+  title = {Online self-organizing social systems: The decentralized future of online learning},
+  url = {http://www.oercommons.org/community/online-self-organizing-social-systems-the-decentralized-future-of-online-learning},
+  volume = {3},
+  year = {2002},
+  abstract = {The development of innovative network applications marches on at an astounding rate. Ten years ago who could have predicted the impact of the World Wide Web? Who could have predicted the impact of Napster just two years ago? And who knows what will be next? Such is the conundrum of the instructional technologist who struggles to employ ever-emerging technologies in the service of learning. But not all advances in instructional technology come about through the development of new hardware or software some emerge from the creative applications of existing technology. In this article we discuss such an innovation, the online self-organizing social system (OSOSS). Briefly described, the OSOSS structure allows large numbers of individuals to self-organize in a highly decentralized manner in order to solve problems and accomplish other goals. The OSOSS structure is neither an instructional design theory (such as those described by Reigeluth, 1999) nor an application or Internet protocol (such as Netscape or HTTP). However, due to its distributed and highly decentralized nature, the authors feel that the OSOSS structure could prove as disruptive to traditional notions of online learning as Napster proved to traditional conceptions of the Internet. Our discussion of self-organizing social systems online will begin with an exploration of the issue of scalability and bandwidth in online learning, and the means currently proposed for overcoming these issues: learning objects automatically assembled by intelligent instructional systems. We will discuss what we feel are weaknesses in the automated learning objects approach. Finally, we will use these explorations and discussions as a context for describing the OSOSS structure.},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhN3aWxleTIwMDJvbmxpbmUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tXnydt/VgAAAAAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADJ27eWAAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB3aWxleTIwMDJvbmxpbmUucGRmAA4AKAATAHcAaQBsAGUAeQAyADAAMAAyAG8AbgBsAGkAbgBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL3dpbGV5MjAwMm9ubGluZS5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL3dpbGV5MjAwMm9ubGluZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=},
+  bdsk-url-1 = {http://www.oercommons.org/community/online-self-organizing-social-systems-the-decentralized-future-of-online-learning}
+}
+
+</hidden>
+
+{{page>notes:wiley2002online}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:wiley2002online}}
+
+{{page>kindle:wiley2002online}}
+
+{{page>skimg:wiley2002online}}

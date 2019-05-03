@@ -1,0 +1,3 @@
+h2. N. De Leeuw's publications
+
+| chi1994things | Chi, M., Slotta, J. D., & De Leeuw, N. (1994). From things to processes: A theory of conceptual change for learning science concepts. Learning and instruction. Elsevier.|[[skimx://chi1994things|PDF]]|

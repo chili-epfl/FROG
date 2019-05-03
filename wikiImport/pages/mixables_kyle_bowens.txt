@@ -1,0 +1,48 @@
+h1. Mixables - Kyle Bowen
+
+//[[http://www.educause.edu/Community/MemDir/Profiles/KyleDBowen/58744|Kyle Bowen]] - Purdue U, Indiana//
+
+**[[http://www.itap.purdue.edu/studio/hotseat/|Hotseat]]** - aggregate smart phones, SMS etc as backchannel during class. Economy class with 250 students went from 6 questions to 150 questions during a lecture? Impact on class? Higher student engagement. "Faculty-endorsed distraction"
+
+**[[http://www.itap.purdue.edu/studio/mixable/|Mixable]]** - mix of PLE and LMS inside Facebook, outside of class conversation. Teacher has no more control than students - students can have discussion even if teachers don't want it. You log in, all your groups have already been set up for you.
+
+**[[http://www.itap.purdue.edu/studio/doubletake/|DoubleTake]]** - use phone to capture moment of learning, performance of mastery. Programs where the only way to assess learning is to see it. ASL. No way to do written assignment in ASL. Capture with phones, submit to a system that catalogues it, delivers it to faculty member. Can establish rubrics, or use rubric-based peer evaluation (score card). Distributed system for rendering video. Use videos around campus network that are not in use, encode videos and stream them from there, very scaleable and almost no incremental cost. 
+
+  * Privacy: students make decision on their own: do I want other people to know that I am in this class? No - they can still watch all the conversations. They can also join with a pseudonym (but faculty members still know who they are). More control over their privacy rights than in Blackboard, where they are automatically visible to other students. 
+  * Q: "All or nothing" - all the class participates or it's not valuable?
+  * Three privacy levels, logged in you can see all the resources and all the conversations, but not posting anything. You can stay in that status, nobody will know that you used it, you have access to everything. If you want to contribute, you can change your nickname.
+  * Analytics available to faculty - we can provide almost anything to them, based on research agenda, what more can we give you. Faculty mine it anyway they want to. Tied to university IDs. Can't be used for assessment, because not everybody are participating. 
+  * Faculty want accountability - if someone says something way out of line, or based on their questions need help, they know their real IDs.
+  * [[http://www.sungardhe.com/signals/|CourseSignals]], can predict student success in a class through LMS interaction data. Let's provide students with help resources now, based on their predicted problems. Students in classes that used this software tended to do a letter-grade better. [[http://www.itap.purdue.edu/tlt/signals/|Signals at Purdue]]
+  * One of the best predictors: did you log into the course before the course started. 
+
+**Questions:**
+  * 120 questions in a class (with HotSeat), how do you deal with it? 
+    * one prof brute-forced, brought in TAs, answered all of them
+    * dataminining prof: "can you identify relevancy"? (admin questions vs subject-specific questions, factual vs conceptual etc). algorithm could tell the difference between these categories, who asked a question, context of class etc. 
+    * imagine having a "question strength meter" (compared to password-strength meter)
+    * voting is meaningless, mainly denotes popularity
+    * people who ask good questions tend to keep asking good questions
+    * datamining professor's slides to determine relevancy (+ student's history of asking questions)
+    * John Campbell who developed Signals
+
+**UI and student experience (about anonymity)**
+  * don't start in Blackboard, intention was to enable student, student-to-student connection/collaboration. Challenge: Students don't come to learning easily, they don't say "Hey, I need a thing to help me learn better". 
+  * On campus, an anti-Blackboard crowd, would rather have no LMS. But provide an alternative tool, they were open to it. 
+  * Never intended it to be an actual LSM, but it kind of became one. 
+  * default state is the conservative position, privacy is protected
+  * visual design very important - if it looks old, students think it is old
+  * it's the point at which someone asks for training that we understand that the interface hasn't been designed well enough
+
+**Things we assess** 
+  * Social presence
+  * Correlation with course grades
+  * Measure of success not how many can we sell, but how many learning outcomes can we meet
+
+**Distribution/sharing of software**
+  * Ideal scenario: commercial partner that can take it to market for us
+    * did that with Signals
+  * HotSeat, paid opensource (for $2k, buy the source, use it anyway you want to - can't resell or sell derivative)
+  * Mixable - negotiation with market partner
+  * DoubleTake - unique because of the distributed processing, but some universities have shown interest
+  * Want to seen them used widely, but in a way that it does not cost us anything. Even giving it away costs us something. Not Purdue's "DNA" to give stuff away.

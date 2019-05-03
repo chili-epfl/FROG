@@ -1,0 +1,5 @@
+h2. Alejandra Martínez's publications
+
+| [@soller2005mirroring] | Soller, A., Jermann, P., MühlenbrockM., & MartínezAlejandra. (2005). From mirroring to guiding: A review of state of the art technology for supporting collaborative learning. International Journal of Artificial Intelligence in Education, 15(4), 261--290.|
+| [@dimitrakopoulou2006state] | Dimitrakocoulou, A., Petrou, A., MarcosJosé Antonio, Kollias, V., Jermann, P., Harrer, A., Dimitriadis, Y., Bollen, L., & MartínezAlejandra. (2006). State of the art of interaction analysis for Metacognitive Support \& Diagnosis.|
+| [@martinez2006studying] | MartínezAlejandra, Dimitriadis, Y., Gómez-SánchezEduardo, MarcosJosé Antonio, Rubia-AviBartolomé, & Jorrín-AbellánIván. (2006). Studying participation networks in collaboration using mixed methods. International Journal of {Computer-Supported} Collaborative Learning, 1(3), 383--408. doi:10.1007/s11412-006-8705-6|

@@ -1,0 +1,7 @@
+h2. Images
+
+{{skim:canas2008next0.png}}
+
+[[skimx://canas2008next#2|p. 2]]
+----
+

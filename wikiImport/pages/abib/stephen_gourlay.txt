@@ -1,0 +1,3 @@
+h2. Stephen Gourlay's publications
+
+| [@gourlay2003seci] | Gourlay, S. (2003). The {SECI} model of knowledge creation: some empirical shortcomings. In 4th European Conference on Knowledge Management. |

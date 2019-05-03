@@ -1,0 +1,10 @@
+h2. Highlights (1%)
+
+Collaborative learning, whether supported by computer technology or not, has been a buzzword among educational policy makers, practitioners and researchers for about a decade now. The conversation/debate has long been dominated by popular views on collaboration, combined with an ambitious belief in the possibilities of technology. [[skimx://strijbos2004we#1|p. 1]]
+
+::check this out:: [[skimx://strijbos2004we#1|p. 1]]
+
+Researchers in the field of CSCL have started to take a more reserved position towards popular views on collaboration and technology can be summarised by Salomon’s (2000) claim that what is technologically possible, is not always educationally desirable. Like any other educational approach, CSCL has to provide a sound pedagogical context to support students’ learning. After a decade of technological dominance it is, in our opinion, time to re-align the primary components of CSCL and to consider their interrelationships. [[skimx://strijbos2004we#1|p. 1]]
+
+::::Like any other educational approach, CSCL:::: [[skimx://strijbos2004we#1|p. 1]]
+

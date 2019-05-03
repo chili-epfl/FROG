@@ -1,0 +1,7 @@
+h1. Jigsaw
+
+"The jigsaw method of cooperative learning was first proposed by Aronson and later refined by [[Ann Brown]] and [[Joe Campione]] of Harvard University. By this time in the unit, the children have decided upon the curriculum theme that they will follow (for instance, Onboard Resources, Landing Site, Trip Planning). Students form research groups and are given responsibility for one of the topics. The research groups prepare materials using computers, drawings and writings that will be used to convey their research to other students. Then, using the jigsaw method, the students regroup into learning groups in which each student is the expert in one subtopic, holding a portion of the needed information. The expert on each subtopic is responsible for guiding learning seminars in his or her area. In this manner, the choice of a learning leader is based on expertise rather than random selection. All children in a learning group are experts on one part of the material, thus ensuring participation by all students in a meaningful way.
+
+The eventual "product" of the group will be a Feasibility Study (see Consequential Task) which will combine the expertise of the group members into a report on planning a mission to the planet Mars. The report will be the public display of the group work."
+
+(from [[http://www.edb.utexas.edu/missiontomars/jigsaw.html|UTexas page on Mission to Mars]])

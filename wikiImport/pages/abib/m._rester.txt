@@ -1,0 +1,3 @@
+h2. M. Rester's publications
+
+| lanzenberger2010ontology | Lanzenberger, M., Sampson, J., & Rester, M. (2010). Ontology Visualization: Tools and Techniques for Visual Representation of Semi-Structured Meta-Data. Journal of Universal Computer Science.|[[skimx://lanzenberger2010ontology|PDF]]|

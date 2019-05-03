@@ -1,0 +1,34 @@
+h1. Distance Education and Learner Autonomy: Some Theoretical Implications.
+
+<ifauth !@admin>|Bouchard, P., & Kalman, L. (1998). Distance Education and Learner Autonomy: Some Theoretical Implications.. GIRAT Paul Bouchard.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bouchard1998distance|BibDesk]]  | Bouchard, P., & Kalman, L. (1998). Distance Education and Learner Autonomy: Some Theoretical Implications.. GIRAT Paul Bouchard. |
+^ [[skimx://bouchard1998distance|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bouchard1998distance?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bouchard1998distance?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bouchard1998distance,
+  author = {Bouchard, Paul and Kalman, L.},
+  date-added = {2012-04-04 18:28:47 +0000},
+  date-modified = {2012-04-09 01:02:02 +0000},
+  date-read = {2012-04-04 18:13:44 -0400},
+  notes = {1},
+  publisher = {Paul Bouchard, GIRAT, Department of Education, Rm. S-LB 579, Concordia University, 1455 de Maisonneuve Blvd. West, Montreal, Quebec, Canada H3G 1M8 ($2).},
+  read = {1},
+  title = {Distance Education and Learner Autonomy: Some Theoretical Implications.},
+  year = {1998},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhib3VjaGFyZDE5OThkaXN0YW5jZS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6fEy9bvOFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yd4AAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VjaGFyZDE5OThkaXN0YW5jZS5wZGYAAA4AMgAYAGIAbwB1AGMAaABhAHIAZAAxADkAOQA4AGQAaQBzAHQAYQBuAGMAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9ib3VjaGFyZDE5OThkaXN0YW5jZS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svYm91Y2hhcmQxOTk4ZGlzdGFuY2UucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:bouchard1998distance}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bouchard1998distance}}
+
+{{page>kindle:bouchard1998distance}}
+
+{{page>skimg:bouchard1998distance}}

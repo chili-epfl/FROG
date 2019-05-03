@@ -1,0 +1,4 @@
+h2. Eduardo Gómez-Sánchez's publications
+
+| [[..:ref:bote2008gridcole]] | Bote-Lorenzo, M. L., Gómez-Sánchez, E., Vega-Gorgojo, G., Dimitriadis, Y., Asensio-Pérez, J. I., & Jorrín-Abellán, I. (2008). Gridcole: A tailorable grid service based system that supports scripted collaborative learning. Computers \& Education. Elsevier.|[[skimx://bote2008gridcole|PDF]]|
+| martinez2006studying | Martínez, A., Dimitriadis, Y., Gómez-Sánchez, E., Marcos, J. A., Rubia-Avi, B., & Jorrín-Abellán, I. (2006). Studying participation networks in collaboration using mixed methods. International Journal of {Computer-Supported} Collaborative Learning. doi: 10.1007/s11412-006-8705-6.|[[skimx://martinez2006studying|PDF]]|

@@ -1,0 +1,3 @@
+h2. D. Wigdor's publications
+
+| shen2009collaborative | Shen, C., Ryall, K., Forlines, C., Esenther, A., Vernier, F. D., Everitt, K., Wu, M., Wigdor, D., Morris, M. R., & HancocK, M. (2009). Collaborative Tabletop Research and Evaluation. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|[[skimx://shen2009collaborative|PDF]]|

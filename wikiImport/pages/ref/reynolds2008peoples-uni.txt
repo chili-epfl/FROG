@@ -1,0 +1,37 @@
+h1. Peoples-uni: Developing public health competences–Lessons from a pilot course module
+<html><a href='http://dspace.learningnetworks.org/bitstream/1820/1634/1/Proceedings_Madrid_upload.pdf#page=28' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://dspace.learningnetworks.org/bitstream/1820/1634/1/Proceedings_Madrid_upload.pdf#page=28'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Reynolds, F., & Heller, R. (2008). Peoples-uni: Developing public health competences–Lessons from a pilot course module. OPEN WORKSHOP OF. Retrieved from http://dspace.learningnetworks.org/bitstream/1820/1634/1/Proceedings_Madrid_upload.pdf#page=28.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://reynolds2008peoples-uni|BibDesk]]  | Reynolds, F., & Heller, R. (2008). Peoples-uni: Developing public health competences–Lessons from a pilot course module. OPEN WORKSHOP OF. Retrieved from http://dspace.learningnetworks.org/bitstream/1820/1634/1/Proceedings_Madrid_upload.pdf#page=28. |
+^ [[skimx://reynolds2008peoples-uni|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:reynolds2008peoples-uni?do=edit&vecdo=print\'><frame src=\'/wiki/clip:reynolds2008peoples-uni?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{reynolds2008peoples-uni,
+  author = {Reynolds, F. and Heller, R.},
+  booktitle = {OPEN WORKSHOP OF},
+  date-added = {2012-04-07 03:11:00 +0000},
+  date-modified = {2012-11-27 22:32:57 +0000},
+  date-read = {2012-04-07 23:34:33 -0400},
+  keywords = {1p2pu},
+  oa-url = {http://dspace.learningnetworks.org/bitstream/1820/1634/1/Proceedings_Madrid_upload.pdf#page=28},
+  pages = {28},
+  read = {1},
+  title = {Peoples-uni: Developing public health competences–Lessons from a pilot course module},
+  url = {http://dspace.learningnetworks.org/bitstream/1820/1634/1/Proceedings_Madrid_upload.pdf#page=28},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZwAAAAAAZwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhtyZXlub2xkczIwMDhwZW9wbGVzLXVuaS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcMZy9dH4lBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14AiAAAAAQAMANrWUgAXPTEAAZ9eAAIAOlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgByZXlub2xkczIwMDhwZW9wbGVzLXVuaS5wZGYADgA4ABsAcgBlAHkAbgBvAGwAZABzADIAMAAwADgAcABlAG8AcABsAGUAcwAtAHUAbgBpAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC9Vc2Vycy9TdGlhbi9iaWJkZXNrL3JleW5vbGRzMjAwOHBlb3BsZXMtdW5pLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QKS4uLy4uL2JpYmRlc2svcmV5bm9sZHMyMDA4cGVvcGxlcy11bmkucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkACQgJHAlACWwJfAm0CdAJ9AqkCrgKxAr4CwwAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALV}
+}
+
+</hidden>
+
+{{page>notes:reynolds2008peoples-uni}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:reynolds2008peoples-uni}}
+
+{{page>kindle:reynolds2008peoples-uni}}
+
+{{page>skimg:reynolds2008peoples-uni}}

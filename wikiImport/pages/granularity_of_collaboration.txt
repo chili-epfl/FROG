@@ -1,0 +1,20 @@
+h1. Granularity of collaboration
+
+from [[Grappling with ideas]]
+
+  * does granularity refer to size of contribution, or time between utterances? Bakhtin? ([[:a:Rupert Wegerif]])
+  * the amount of internal conscious processing that happens before ideas are shared with group, how "digested" it is, how many sources does it build upon
+  * [[monologic and dialogic learning]]
+    * larger granularity contributions tend to stand more on their own, be less context-sensitive, have a less defined audience, like a blog entry that can be read by anyone outside of the context of the class (or a journal article)
+    * smaller granularity contributions are embedded in a dialogue, the smaller the granularity, the less sense do the utterances make by themselves ("- Yeah, that one!"), and the more specific is the intended audience. An external visitor would have to read through a series of utterances to recreate context - which is why playback mechanisms etc are valuable.
+    * very small granularity utterances have little historic value even to the participants, except as part of a long transcript. often they will be engaged in coordinating collaborative editing of an artefact that has longer-term value, or individuals take notes which capture the main ideas that came up. this is what will be referred back to. 
+  * collaborative vs cooperative learning? Cooperative learning is usually "looked down upon" in CSCL, but that's only if the students get a project from the teacher, splits it up, each does their own part, puts it back together and hands it in -- in networked learning, what's more common is that I work on my own piece, submit it, and others take it and improve upon it - it doesn't "stop" by handing it in to teacher. 
+  * small-granularity intense collaboration might be very valuable (although I still think it's important with individual reflection and space as well), however it's not feasible to do very often in a distance education setting. much easier to do things asynchronously, optionally with small chunks of intense collaboration interspersed. What's the ideal interaction/balance between these two modes?
+
+h2. Example from Clare's class
+Analyzing a course in terms of varying levels of granularities of contributions. Clare's class, at first look seems to have a constant granularity, no synchronous meetings, only use of discussion forum. However, two people each week chosen to facilitate discussion - these might have smaller granularity of collaboration. Small group to work on case study - these sometimes met synchronously, etc. (They also collaborated on a final product, more integrative than the cumulative addition of new posts - how to account for this?). Finally, some wrote the final paper as a small group, while others did it alone - for those who did it alone, that was a much larger granularity contribution (enabling significant synthesis etc). 
+
+Might also analyze contributions a) later in the course and b) later in the week, and see if these contain more synthesis, and refers to a higher number of previous postings than ones posted early in the course/week. 
+
+h2. Example from CSCL intro
+More classic (?) example of combining granularities in the same week - blog entries being the largest granularity, Etherpad chat being the lowest, P2PU forum posts and blog comments somewhere in between. Similar to KF-based courses cycling between asynchronous posting to KF (larger granularity) and knowledge talk (smaller granularity)... But what about a dyad that sits together and contributes to a KF node? How to analyze the interplay between small groups within the whole class? For the two of them, the granularity is very small, but their contribution in terms of the whole class has a higher granularity. Similar to small groups of scientists collaborating closely to make a large granularity contribution to the literature, etc.

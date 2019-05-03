@@ -1,0 +1,3 @@
+h2. Yuichi Nakamura's publications
+
+| [@yu2010smart] | Yu, Z., & Nakamura, Y. (2010). Smart meeting systems: A survey of state-of-the-art and open issues. ACM Computing Surveys (CSUR), 42(2), 8.|

@@ -1,0 +1,3 @@
+h2. J.S. Olson's publications
+
+| olson2000distance | Olson, G. M., & Olson, J. S. (2000). Distance matters. Human--computer interaction. Taylor \& Francis.|[[skimx://olson2000distance|PDF]]|

@@ -1,0 +1,56 @@
+h2. Images
+
+{{skim:fuks2006rutyping0.png}}
+
+[[skimx://fuks2006rutyping#3
+|p. 3
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping1.png}}
+
+[[skimx://fuks2006rutyping#4
+|p. 4
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping2.png}}
+
+[[skimx://fuks2006rutyping#5
+|p. 5
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping3.png}}
+
+[[skimx://fuks2006rutyping#8
+|p. 8
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping4.png}}
+
+[[skimx://fuks2006rutyping#12
+|p. 12
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping5.png}}
+
+[[skimx://fuks2006rutyping#14
+|p. 14
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping6.png}}
+
+[[skimx://fuks2006rutyping#16
+|p. 16
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping7.png}}
+
+[[skimx://fuks2006rutyping#17
+|p. 17
+]]<html><hr></html>
+
+{{skim:fuks2006rutyping8.png}}
+
+[[skimx://fuks2006rutyping#21
+|p. 21
+]]<html><hr></html>
+

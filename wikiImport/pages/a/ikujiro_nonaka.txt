@@ -1,0 +1,13 @@
+h1. Ikujiro Nonaka
+{{ pages:a_ikujiro_nonaka01.png}}
+Tokyo (1935-), professor of business and management (not emeritus). 
+
+h2. Research
+New New product development game (with Takeuchi) - basis of Scrum (agile development technique)
+
+[[:SECI model]]
+
+h2. Links
+  * [[http://en.wikipedia.org/wiki/Ikujiro_Nonaka|Wikipedia]]
+  
+{{page>abib:Ikujiro Nonaka}}

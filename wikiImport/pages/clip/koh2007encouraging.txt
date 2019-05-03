@@ -1,0 +1,78 @@
+h2. Highlights (45%)
+
+Understanding virtual community development provides a foundation for facilitating collaboration and learning among individuals separated by physical distance and organizational boundaries. Migrating offline communities into online virtual communities has the potential to greatly improve their efficiency and ability to support the sharing of crit- [[skimx://koh2007encouraging#1|p. 1]]
+
+ical information and knowledge in a timely fashion. [[skimx://koh2007encouraging#2|p. 2]]
+
+communication and technology issues present special challenges for virtual communities. Foremost,alackofsocialpresencecreatescommunication weakness in any virtual community. Social presence, or the degree to which the medium facilitates awareness of other people and interpersonal relationships during an interaction [5], is critical for effective communications in many social/work contexts. [[skimx://koh2007encouraging#2|p. 2]]
+
+changing our view of organizations—from focused on command-and-control hierarchies to focused on networks of competency-based virtual communities—promises a radically different set of organizational design options. [[skimx://koh2007encouraging#2|p. 2]]
+
+realizing this promise depends on our ability to develop and maintain communities in which individuals have both the opportunity and the motivation to participate and [[skimx://koh2007encouraging#2|p. 2]]
+
+::Exchange of textual information is prevalent, but has low social presence - need to support with graphical, textual and video interfaces (avatars, graphic images, video chats):: [[skimx://koh2007encouraging#2|p. 2]]
+
+contribute. [[skimx://koh2007encouraging#2|p. 2]]
+
+Here, we explore the factors that stimulate participants’ posting and viewing of community content—two key activities in the ongoing dynamics of any virtual community. [[skimx://koh2007encouraging#2|p. 2]]
+
+motivating members who are physically dispersed to actively participate in their community is difficult. Also difficult for community leaders is reaching a consensus on common goals or interests among heterogeneous community members in terms of age, education, and profession [1] [[skimx://koh2007encouraging#2|p. 2]]
+
+Given the voluntary social context, community leaders play an important role in developing the necessary social climate to generate community participation. Securing or developing effective community leaders is likely to be a critical success factor for the sustainability of any virtual community [10]. [[skimx://koh2007encouraging#2|p. 2]]
+
+posting and viewing are fundamental elements in the ongoing life of any virtual community. [[skimx://koh2007encouraging#2|p. 2]]
+
+Developers must simultaneously deal with communication, motivation, leadership, and technology. [[skimx://koh2007encouraging#2|p. 2]]
+
+Virtual communities are unlikely to be sustainable unless properly stimulated. Four principles suggested in [9] characterize sustainable virtual com- [[skimx://koh2007encouraging#2|p. 2]]
+
+suggest that useful content leads community members to increase their active participation in the form of greater viewing and posting. We expect the perception of usefulness will trigger more frequent viewing activity by community members. [[skimx://koh2007encouraging#3|p. 3]]
+
+munities: clear purpose or vision (such as in the “Save the Earth” club); clear definition of members’ roles (such as designing community activities based on community membership life cycle: visitor, novice, regular, leader); leadership by community moderators; and online/offline events—important since they strengthen members’ identification within the community and with one another [[skimx://koh2007encouraging#3|p. 3]]
+
+To run a community effectively, [12] argued that a clear vision, opinion leaders, offline interaction, basic guidelines, and useful content are required. These factors strengthen the relational ties among community members [[skimx://koh2007encouraging#3|p. 3]]
+
+Based on prior studies [[skimx://koh2007encouraging#3|p. 3]]
+
+we propose four stimulation drivers (see Figure 1): leader involvement, offline interaction, usefulness, and IT infrastructure quality. [[skimx://koh2007encouraging#3|p. 3]]
+
+Which of these drivers are most likely to stimulate a virtual community? To find out, we conducted a field survey of 77 virtual communities in Korea (see the sidebar “How the Survey Was Done”) [[skimx://koh2007encouraging#3|p. 3]]
+
+leader involvement is needed for fostering members’ active involvement in posting and viewing community content. [[skimx://koh2007encouraging#3|p. 3]]
+
+These results suggest that posting activity is influenced by offline interaction (p < 0.01) and that viewing activity is affected by perceived usefulness (p < 0.01). Both models were significant at p < 0.01 level (F-value = 16.601 and 22.563), with the predictors explaining 31.6% and 41.0% of the total variance, respectively. [[skimx://koh2007encouraging#3|p. 3]]
+
+offline interaction increases the social presence of community members [[skimx://koh2007encouraging#3|p. 3]]
+
+Offline interaction helps virtual community members understand, trust, and identify with one another, providing a stronger base for online community activity. [[skimx://koh2007encouraging#3|p. 3]]
+
+Virtual communities are sustainable only when they provide benefits that surpass the costs of membership [[skimx://koh2007encouraging#3|p. 3]]
+
+Offline interaction was significantly related to posting activity, while community usefulness was significantly linked to viewing activity. The differential effects of these drivers highlight the importance of multifaceted strategies for modeling and managing the development of virtual communities. [[skimx://koh2007encouraging#3|p. 3]]
+
+An important element of a viable community is the ongoing provision of content that members perceive as valuable or useful [7]. Consistent with this principle, technology-acceptance models [[skimx://koh2007encouraging#3|p. 3]]
+
+Contrary to our own expectations, the efforts of community leaders were not directly associated with community posting or viewing activity. We conclude that community leadership affects a more foundational building block of the virtual community, while virtual community activity (such as posting or viewing) is directly affected by individual members’ needs (usefulness) and experience (offline interaction). [[skimx://koh2007encouraging#4|p. 4]]
+
+The direct link between offline interaction and posting activity suggests that offline meetings strengthen solidarity and intimacy among community members, encouraging them to be more active in posting content online and requiring more time and mental resources than the simple viewing of existing content. [[skimx://koh2007encouraging#4|p. 4]]
+
+The results of our survey also raise the possibility trheastulntsa.tional culture plays a significant role in the dynamics of virtual communities. For instance, the collectivist and long-term orientation of Korean culture might explain the effect of offline interaction on community activity, while perceptions of power distance and a strong sense of equality might have led to the insignificant effect of leader involvement in the virtual communities we surveyed in Korea. Consideration of cultural differences in virtual community behavior would also be valuable in expanding the generalizability of our findings. [[skimx://koh2007encouraging#4|p. 4]]
+
+According to socialFiidgeunrteit2y.tAhneoarlysis [8], offline interaction prompts community members to perceive “who they are in their community.” [[skimx://koh2007encouraging#4|p. 4]]
+
+Strengthening these links involves encouraging community members to remember the physical appearance of other members or helping them match their real names with online nicknames when they meet one another in cyberspace. When offline interactions are not feasible due to geographical dispersion, the adoption of multimedia support (such as videoconferencing, PC camera chatting, and avatar chatting when hosting community forums in virtual town meetings) may give the community a sense of belonging similar to the effect of offline, face-to-face meetings. [[skimx://koh2007encouraging#4|p. 4]]
+
+::When quality of IT infrastructure is low, offline events might be more important for motivation than in other cases:: [[skimx://koh2007encouraging#4|p. 4]]
+
+The direct relationship between usefulness and viewing activity suggests that when community members perceive that a community and its content are useful to them, they tend to view and explore the material more often. Thus, collecting, displaying, and updating content is critical for encouraging viewing activity among community members. One way to maintain the value of the community is to introduce a peer evaluation system for posted materials. Communityleadersmaythenfilteroutredundantorobsolete postings based on evaluation scores generated through such a system, along with the periodic scanning of community content. A reward system for valuable postings may also be introduced. [[skimx://koh2007encouraging#4|p. 4]]
+
+A key finding is that, in any given community, the posting activity stimulant is not the same as the viewing activity stimulant. While viewing activity is [[skimx://koh2007encouraging#4|p. 4]]
+
+We conducted our survey in two phases. In the first, we developed measures of virtual community drivers based on our reviews of prior studies and refined by pilot testing in Netian.net, a small community service provider in Korea. In the second, we administered the main survey through a Web-based questionnaire system available through Freechal.com, one of the largest community service providers in Korea, with approximately half a million virtual communities. Of the 691 virtual communities in the main survey, 77 provided responses from at least three respondents with an acceptable level of inter-rater agreement. We used this sample for our analysis. All measures satisfied internal consistency reliability tests with Cronbach alpha values exceeding 0.8 and inter-rater agreement scores greater than 0.85. Using archival data from Freechal.com, we measured each community’s size (defined as total number of community members), age (defined as a community’s operating time), and average monthly level (defined as numbers of postings and viewings). The average community size was 1,124 members, and average age was 11 months. Size ranged from 33 members to 7,896 members, and age ranged from two to 26 months. Community size was positively correlated with community age (r = 0.285; p < 0.05). The mean value of postings in the sample was 1,807 and that of viewings was 7,064. The sample included all four types of virtual communities identified in [7]—interests, relationship building, transactions, and fantasies. Factors Goal Management Flow of Links Stocking strategyassociated with the perception by community mem￼Since virtual community driver variables were significantly correlated, we used backward stepwise multiple regression Demand analyses to produce our results. [[skimx://koh2007encouraging#5|p. 5]]
+
+::Viewing activity associated with perception of community usefulness, posting activity influenced by online interaction and quality of IT:: [[skimx://koh2007encouraging#5|p. 5]]
+
+y [[skimx://koh2007encouraging#5|p. 5]]
+
+References ￼ [[skimx://koh2007encouraging#5|p. 5]]
+

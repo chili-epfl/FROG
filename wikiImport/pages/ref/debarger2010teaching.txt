@@ -1,0 +1,39 @@
+h1. Teaching routines to enhance collaboration using classroom network technology
+<html><a href='http://codeguild.com/patti/downloads/DeBargerEtAl-TeachingRoutinesChapter.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://codeguild.com/patti/downloads/DeBargerEtAl-TeachingRoutinesChapter.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|DeBarger, A. H., Penuel, W. R., Harris, C. J., & Schank, P. (2010). Teaching routines to enhance collaboration using classroom network technology. In F. Pozzi & D. Persico (Eds.),  (Tran.), Unpublished manuscript (224-244). IGI Global. Retrieved from http://codeguild.com/patti/downloads/DeBargerEtAl-TeachingRoutinesChapter.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://debarger2010teaching|BibDesk]]  | DeBarger, A. H., Penuel, W. R., Harris, C. J., & Schank, P. (2010). Teaching routines to enhance collaboration using classroom network technology. In F. Pozzi & D. Persico (Eds.),  (Tran.), Unpublished manuscript (224-244). IGI Global. Retrieved from http://codeguild.com/patti/downloads/DeBargerEtAl-TeachingRoutinesChapter.pdf. |
+^ [[skimx://debarger2010teaching|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:debarger2010teaching?do=edit&vecdo=print\'><frame src=\'/wiki/clip:debarger2010teaching?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{debarger2010teaching,
+  author = {DeBarger, A.H. and Penuel, William R. and Harris, C.J. and Schank, P.},
+  booktitle = {Techniques for fostering collaboration in online learning communities: Theoretical and practical perspectives},
+  date-added = {2011-06-07 16:55:33 +0800},
+  date-modified = {2012-11-27 19:06:13 +0000},
+  editor = {Pozzi, F. and Persico, D.},
+  journal = {Unpublished manuscript},
+  notes = {1},
+  oa-url = {http://codeguild.com/patti/downloads/DeBargerEtAl-TeachingRoutinesChapter.pdf},
+  pages = {224-244},
+  publisher = {IGI Global},
+  read = {1},
+  title = {Teaching routines to enhance collaboration using classroom network technology},
+  url = {http://codeguild.com/patti/downloads/DeBargerEtAl-TeachingRoutinesChapter.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhkZWJhcmdlcjIwMTB0ZWFjaGluZy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaFZ4y9b95lBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zYmAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBkZWJhcmdlcjIwMTB0ZWFjaGluZy5wZGYAAA4AMgAYAGQAZQBiAGEAcgBnAGUAcgAyADAAMQAwAHQAZQBhAGMAaABpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9kZWJhcmdlcjIwMTB0ZWFjaGluZy5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svZGViYXJnZXIyMDEwdGVhY2hpbmcucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:debarger2010teaching}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:debarger2010teaching}}
+
+{{page>kindle:debarger2010teaching}}
+
+{{page>skimg:debarger2010teaching}}

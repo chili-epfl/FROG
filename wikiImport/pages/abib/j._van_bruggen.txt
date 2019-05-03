@@ -1,0 +1,5 @@
+h2. J. Van Bruggen's publications
+
+| [[..:ref:koper2005design]] | Koper, R., Giesbers, B., Van Rosmalen, P., Sloep, P., Van Bruggen, J., Tattersall, C., Vogten, H., & Brouns, F. (2005). A design model for lifelong learning networks. Interactive Learning Environments. Routledge.|[[skimx://koper2005design|PDF]]|
+| vanbruggen2003explorations | Van Bruggen, J. (2003). {Explorations in graphical argumentation: The use of external representations of argumentation in collaborative problem solving.}.|[[skimx://vanbruggen2003explorations|PDF]]|
+| brouns2005first | Brouns, F., Koper, R., Manderveld, J., Van Bruggen, J., Sloep, P., Rosmalen, P. van, Tattersall, C., & Vogten, H. (2005). A first exploration of an inductive analysis approach for detecting learning design patterns. Journal of Interactive Media in Education. Citeseer.|[[skimx://brouns2005first|PDF]]|

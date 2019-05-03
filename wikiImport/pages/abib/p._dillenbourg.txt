@@ -1,0 +1,29 @@
+h2. P. Dillenbourg's publications
+
+| molinari2007source | Molinari, G., Jermann, P., & Dillenbourg, P. (2007). Source memorization in chat interactions. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|
+| dillenbourg2006sharing | Dillenbourg, P., & Traum, D. (2006). Sharing solutions: Persistence and grounding in multimodal collaborative problem solving. Journal of the Learning sciences. Routledge.|
+| sangin2008learners | Sangin, M., Molinari, G., N{\\"u}ssliM.A., & Dillenbourg, P. (2008). How learners use awareness cues about their peer's knowledge?: insights from synchronized eye-tracking data. Proceedings of the 8th international conference on International conference for the learning sciences-Volume 2.|
+| dillenbourg2000multidisciplinary | Dillenbourg, P. (2000). A multidisciplinary viewpoint on European research on collaborative learning. Kognitionswissenschaft. Springer.|
+| nova2003impacts | Nova, N., Dillenbourg, P., Wehrle, T., Goslin, J., & Bourquin, Y. (2003). The impacts of awareness tools on mutual modelling in a collaborative video-game. Groupware: Design, Implementation, and Use. Springer.|
+| dillenbourg1992people | Dillenbourg, P., & Self, J. (1992). People power: A human-computer collaborative learning system. Intelligent Tutoring Systems.|
+| levre2006relationship | Lièvre, B. D., Depover, C., & Dillenbourg, P. (2006). The relationship between tutoring mode and learners’ use of help tools in distance education. Instructional Science. Springer.|
+| kobbe2007specifying | Kobbe, L., Weinberger, A., Dillenbourg, P., Harrer, A., H{\\"a}m{\\"a}l{\\"a}inenR., H{\\"a}kkinenP., & Fischer, F. (2007). Specifying computer-supported collaboration scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|
+| molinari2008colearners | Molinari, G., Sangin, M., & Dillenbourg, P. (2008). When Co-learners Work on Complementary Texts: Effects on Outcome Convergence. Times of Convergence. Technologies Across Learning Contexts. Springer.|
+| sangin2008knowing | Sangin, M., Molinari, G., N{\\"u}ssliM.A., & Dillenbourg, P. (2008). Knowing what the peer knows: The differential effect of knowledge awareness on collaborative learning performance of asymmetric pairs. Times of Convergence. Technologies Across Learning Contexts. Springer.|
+| bachour2008reflect | Bachour, K., Kaplan, F., & Dillenbourg, P. (2008). Reflect: An interactive table for regulating face-to-face collaborative learning. Times of Convergence. Technologies Across Learning Contexts. Springer.|
+| jermann2008tinkering | Jermann, P., Zufferey, G., & Dillenbourg, P. (2008). Tinkering or sketching: Apprentices’ use of tangibles and drawings to solve design problems. Times of Convergence. Technologies Across Learning Contexts. Springer.|
+| dillenbourg1992computational | Dillenbourg, P., & Self, J. A. (1992). A computational approach to socially distributed cognition. European Journal of Psychology of Education. Springer.|
+| rebetez2008learning | Rebetez, C., Bétrancourt, M., Sangin, M., & Dillenbourg, P. (2008). Learning from animation enabled by collaboration. Instructional Science. Springer.|
+| dolenh2010task | Do-Lenh, S., Jermann, P., Cuendet, S., Zufferey, G., & Dillenbourg, P. (2010). Task performance vs. learning outcomes: a study of a tangible user interface in the classroom. Sustaining TEL: From Innovation to Learning and Practice. Springer.|
+| kaplan2009interpersonal | Kaplan, F., DoLenh, S., Bachour, K., Kao, G. Y., Gault, C., & Dillenbourg, P. (2009). Interpersonal computers for higher education. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|
+| haue2009fewer | Haué, J. B., & Dillenbourg, P. (2009). Do Fewer Laptops Make a Better Team?. Interactive artifacts and furniture supporting collaborative work and learning. Springer.|
+| huang2009would | Huang, J., Cherubini, M., Nova, N., & Dillenbourg, P. (2009). Why Would Furniture Be Relevant for Collaborative Learning?. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|
+| dillenbourg2005designing | Dillenbourg, P. (2005). Designing biases that augment socio-cognitive interactions. Barriers and biases in computer-mediated knowledge communication. Springer.|
+| alavi2009distributed | Alavi, H., Dillenbourg, P., & Kaplan, F. (2009). Distributed awareness for class orchestration. Learning in the Synergy of Multiple Disciplines. Springer.|
+| dillenbourg2008mechanics | Dillenbourg, P., & Hong, F. (2008). The mechanics of CSCL macro scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|
+| dillenbourg2005european | Dillenbourg, P.European CSCL Research Landscape: A selection of Recently Completed Theses. Computer Supported Collaborative Learning 2005: The Next 10 Years!.|
+| dillenbourg2006collaboration | Dillenbourg, P., & Betrancourt, M. (2006). Collaboration load. Handling Complexity in Learning Environments: Theory and Research.|
+| jermann2008group | Jermann, P., & Dillenbourg, P. (2008). Group mirrors to support interaction regulation in collaborative problem solving. Computers \& Education. Elsevier.|
+| molinari2009knowledge | Molinari, G., Sangin, M., Dillenbourg, P., & N{\\"u}ssliM.A. (2009). Knowledge interdependence with the partner, accuracy of mutual knowledge model and computer-supported collaborative learning. European journal of psychology of education. Springer.|
+| mondoux2004abstraction | Mondoux, J., Auderset, P. B., & Dillenbourg, P. (2004). Abstraction and transfer in collaborative learning. Proceedings of the 6th international conference on Learning sciences.|
+| dillenbourg2010technology | Dillenbourg, P., & Jermann, P. (2010). Technology for classroom orchestration. The New Science of Learning: Computers, Cognition and Collaboration in Education, Berlin: Springer.|

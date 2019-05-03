@@ -1,0 +1,47 @@
+h1. Synchronous meetings
+
+(initial notes adapted from paper for KMD1002)
+
+see literature review under [[synchronous communications]]
+
+h2. Idea
+  * Skype has an API. having a small script on each user's computer, which can talk to Skype, and to a central server. Having a command panel for teacher, who can quickly set up discussion groups, etc. Integration with other tools, such as Etherpad, [[gccce11:chen wenli|GroupScribbles]], etc. Or other system (Gizmo, GTalk). 
+  * Come up with ideas for how to use online synchronous meetings more effectively
+    * self-contained discussions (dyads, groups, big group, etc)
+    * how it can support asynchronous knowledge building in KF or other environments
+      * working on existing artefacts - state of the knowledge, deixis
+
+h2. Role and purpose
+Synchronous meetings can play a variety of roles in P2PU courses. 
+
+  * can be very important for social cohesion, and motivation
+    * making participants feel closer to the group
+    * generating a greater feeling of shared responsibility than is easily possible through asynchronous communications
+  * pace-setter in the course, through having weekly tasks that have to be performed before the synchronous meeting at a set time, because participants are expected to present or discuss certain topics. 
+  * showcase of projects that individual students or small groups of students have undertaken. 
+  * virtual office hours, where students are able to directly get feedback and ask for help on problems that they are stuck on, both from the course organizer, and for the other participants. 
+  * an opportunity to take stock of the conversation so far, and have the community converge around key ideas, and generate a shared understanding of the state of knowledge in the community, to enable moving forwards as a group.
+  * can be very powerful for collaborative knowledge building around artefacts, see below the discussion about the interaction between synchronous tools and artefacts. 
+
+h2. Ways of analyzing a synchronous tool
+h3. Communication channels
+The key unifying feature of a synchronous tool is that it is synchronous, that means that the participants all have to be accessing the system at the same time (unless they are watching a recording, in which case they have now way of interacting with the information), either voice, video or other sensory data is transmitted in close to realtime, and/or the participants are able to access a shared computational state (screen sharing, concurrent editing, etc). 
+
+One way of analyzing a tool is to look at the number and kinds of **communication channels** offered. A tool might offer a number of distinct or combined communication channels. One of the simplest communication tools is **text chat**, which only offers the “text” communication channel. Audio offers the text and audio channels, whereas video offers the three channels text, audio and video. These are combined channels. However, many tools combine a number of distinct channels into one interface, one of the most complex examples is Elluminate, which might offer one text+audio+video channel, with another text only chat channel, awareness of presence and state through a list of participant names and whether they are currently talking, raising their hands, etc, as well as possibly screen sharing, viewing of shared documents or slides, a shared whiteboard, concurrent text editing, etc.
+
+Another approach is to combine a number of different tools. Many internal P2PU community meetings take place over Skype, or even using a phone meeting service (which seems to be less prone to drop-outs with large number of participants), combined with EtherPad, which offers two channels - concurrent text editing, and a text chat on the side. It is also possible to combine truly synchronous tools with non-synchronous tools used in a synchronous way. For example, a participant could ask all the other participants to go to a specific URL. They access the URL in their private browsers, but are able to look at the same artefact in the same state, at the same time. A more advanced example would be concurrent programming using a synchronous tool, and version control. The version control tool would not be truly synchronous, but turn-based: someone could be editing a file, and upon saving ,it’s state would immediately (or at a given push/pull interval) be transferred to the other participants.
+
+h3. Turn-taking
+The number of participants “meeting” at a given time will have a large impact on the kind of interaction that is made possible by different tools. Much of the research in the communication channels and collaborative computer-supported learning literature talks about dyads or very small groups collaborating on solving a given task through a variety of different communication and meaning-making tools. However, if you bring a group of 20 students together, things that work well in a one-on-one Skype conversation rapidly break down. Different tools might themselves privilege different ways of dealing with coordinating input from a group of participants, through explicit devices for turn-taking, designating someone as facilitators, with higher access levels than the rest of the group, etc. 
+
+On one end of the range is Skype group calls, which are similar to phone meetings, with the addition of an optional group or individual text chat. One-on-one, Skype works well, but with the addition of even a small number of additional participants, communication breaks down quickly. There is no indication of who is speaking, especially difficult when speaking with people that are not well known to each other before the meeting. There is no way of indicating turn-taking, and due to the small delay in the audio, and the lack of visual and other cues, a common situation is that participants start speaking simultaneously over each other, only for both of the participants to stop speaking, resulting in an awkward silence on the line.
+
+On the other end, there are tools like Elluminate, that have been designed for dealing with big groups. One or some of the participants are designated as facilitators, and have access to extra functionality, there are indicators showing who are currently speaking, and there is a built-in structure for indicating desire to speak (raising a virtual hand), and giving someone voice. This makes larger groups much more manageable, but also makes the group much more facilitator-centric. This is natural, given that these tools have often been developed for formal distance learning situations, where the teacher is expected to lead the class to a larger extent than is the case at P2PU.
+
+h3. Interaction with external artefacts 
+In a collaborative constructivist environment, students often create artefacts that can become the object of discourse. This could be posts in a discussion forum, case studies, or other products, but it could also be knowledge captured in a knowledge map, such as Knowledge Forum, or even in a wiki. Depending on the combination of tools used, these artefacts can be used both as the objects of discourse, and as the medium of discourse. 
+
+If we want to use a synchronous tool to discuss artefacts, one of the problems is how to achieve **deictic pointing** - ie. how can participants easily refer to specific parts of the artefact, what would in a face-to-face situation be the equivalent of pointing to a node, or a part of a map. In research on factors that makes distance-based communication less effective than face-to-face collaboration, the lack of an effective way of deixis has been identified as a key concern. There are some tools that have experimented with building this in, for example the Drexel MathForum, which is a combination of a shared white board, and a text chat. Users can any time select parts of the whiteboard, or draw lines to point at certain areas. These indications are stored together with the chat messages, so that when reviewing the history, the context for “I don’t agree with this one” is readily apparent. 
+
+h2. Pragmatic and technological concerns
+Aside from the deeper considerations about how the design of a given tool enables or privileges certain kinds of discourse, as discussed above, there is also a series of more pragmatic or technological considerations, that still play an important role how P2PU chooses a tool. Is it open source, and if so, does it have a vibrant community of developers, and good documentation? Is it easy to install and maintain, and how much bandwidth and CPU is needed from P2PU’s side? Do the participants have to install any helper-software, is it available for all platforms, what are the limitations in terms of bandwidth and CPU from the participants’ perspective? How easy is it to integrate the tool with the existing platform, in terms of single log-on, etc? Is it easy to archive meetings, or open meetings up to “spectators” while it is ongoing? 

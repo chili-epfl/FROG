@@ -1,0 +1,6 @@
+h2. Minna Lakkala's publications
+
+| [@lakkala2005patterns] | Lakkala, M., Muukkonen, H., & Hakkarainen, K. (2005). Patterns of scaffolding in computer-mediated collaborative inquiry. Mentoring \& Tutoring: Partnership in Learning, 13(2), 281--300.|
+| [@lakkala2008designing] | Lakkala, M., Muukkonen, H., Paavola, S., & Hakkarainen, K. (2008). Designing pedagogical infrastructures in university courses for technology-enhanced collaborative inquiry. Research and Practice in Technology Enhanced Learning, 3(1).|
+| [@minna2009main] | Lakkala, M., Sami, P., Kari, K., Hanni, M., Merja, B., & Hannu, M. (2009). Main functionalities of the Knowledge Practices Environment (KPE) affording knowledge creation practices in education. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1 (297--306).|
+| [@muukkonen2009exploring] | Muukkonen, H., & Lakkala, M. (2009). Exploring metaskills of knowledge-creating inquiry in higher education. International Journal of Computer-Supported Collaborative Learning, 4(2), 187-211. doi:10.1007/s11412-009-9063-y|

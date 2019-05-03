@@ -1,0 +1,4 @@
+h2. D. Persico's publications
+
+| pozzi2007general | Pozzi, F., Manca, S., Persico, D., & Sarti, L. (2007). A general framework for tracking and analysing learning processes in computer-supported collaborative learning environments. Innovations in Education and Teaching International. Routledge.|
+| dettori2008detecting | Dettori, G., & Persico, D. (2008). Detecting {Self-Regulated} Learning in Online Communities by Means of Interaction Analysis. Learning Technologies, {IEEE} Transactions on. doi: 10.1109/TLT.2008.7.|

@@ -1,0 +1,18 @@
+h1. Tagging
+
+Suggestion to [[a:Jim Hewitt]] (the creator of KeC) of adding tagging. He was skeptical, noting that previously in [[t:Knowledge Forum]], very few people used tags. He thought that it was very hard to anticipate your future needs when you are reading a note, and also that tagging slows you down.
+ 
+ However, I think this is very dependent on the pedagogy ... My idea, based on the video I shared earlier ([[http://vimeo.com/13946174|Intro to Knowledge Forum on Vimeo]]), would be to not tag anything at first. Let us just spend let's say six weeks discussing, reading papers, bringing out issues etc. Maybe the tagging is even turned off at that point. THEN we would say, OK, no more new forums, go back and reread the most interesting stuff, come up with some categories, tag relevant topics and create these new views... Then continue the discussion in those topic/problem-based (rather than chronological/article-based) views.
+
+h2. How to get people to go back and reread notes in online discussion forum
+I think that would actually be a really neat way of doing it - right now, I am not sure how likely it is that we will go back and read the notes in week 1 ever again... However, we might look at them very differently towards the end of the course, and be able to better summarize and get an overview of the topics of the course, rather than just an exhausted feeling of "it's over"... :)
+ 
+h2. ways of tagging / tags as global categories, not as folksonomies
+There are many ways of using tagging. One of them is when there is a pre-determined tag for a given community or conversation. This is like a category, but the innovation is that you can apply this to any kind of Web 2.0 website, and it will theoretically be possible for the information to seamlessly flow together. So for example, a conference often has a tag, let's say the OISE Dean's Grad Conf tag was #oisedgc. People can tag not just their twitter feeds, but also their blog entries, their Slideshare postings, their pictures on Flickr, and their Youtube videos - and can set up a Netvibes account where all of those resources flow together, created in many a hundred different websites (like in the [[http://netvibes/cscl-intro/|CSCL intro course]]. This is quite powerful and amazing.
+
+h2. Problems
+ (In practice, it might not work perfectly - given the desire to have a small tag, you can easily have a tag that overlaps with something else (and there is no central clearing-house for such global tags))... For programming geeks, it's basically a **global name space** :) In addition, when a tag is very popular (for example #wikileaks), it's easy for **spammers** to start tagging things with Wikileaks too, to get their content into all the aggregators, thus really messing up the system...
+
+**Use tag as a tool to move stuff / moveability of ideas**
+----
+  * [[http://tressiemc.com/2014/04/23/another-post-about-hashtags-no-seriously/|Another Post about Hashtags. No, Seriously. | tressiemc]]

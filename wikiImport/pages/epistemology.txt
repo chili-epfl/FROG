@@ -1,0 +1,15 @@
+h1. Epistemology
+
+how fields like physics and math are structured differently from humanities and social sciences
+
+h2. my initial message to Jim
+I think there is something fundamentally different about the knowledge structure in fields like hard science, and humanities/social sciences... (this isn't a revolutionary insight, I know)... a lot of the literature in learning physics etc, and a lot of what we do, looks at "conceptual change", modifying people's internal models of the world, etc... When you finally understand how matter works, it's not very important to you where you read it, which sources you consulted etc... They are just guides - if you can figure it out yourself from first principles or experimentation - great! 
+
+Whereas in sociology, you need to keep multiple models in your head at the same time. You need to understand that Max Weber had one way of explaining capitalist societies, and Adam Smith a second, and Marx a third. AND you need to understand how the three are related, and in what historical context those ideas surfaces... You need to keep all of this in your mind + a lot more, to be considered even a base-line "educated person"... I wonder if this difference is why I am so interested in systems that interact with source material (taking notes, highlighting, reorganizing notes, creating time lines and concept maps, organizing ideas etc)...
+
+h2. Gerry
+While I think it is now more interesting to analyze how the humanities and natural sciences have analogous processes, the classic distinction comes from:
+
+In the US: "Two cultures"
+
+German philosophy: starting with the early hermeneutics people analyzing the interpretive sciences, leading up to Gadamer and then Habermas with his distinction of Work (control of nature thru natural sciences) and Interaction (negotiation of meaning through humanities and social science).

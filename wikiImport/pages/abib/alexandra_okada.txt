@@ -1,0 +1,11 @@
+h2. Alexandra Okada's publications
+
+| [@buckinghamshum2008aknowledge] | Buckingham Shum, S., & Okada, A. (2008, September). Knowledge Cartography for Controversies: The Iraq Debate. Book Chapter. |
+| [@buckinghamshum2008knowledge] | Buckingham Shum, S., & Okada, A. (2008, May). Knowledge Cartography for Open Sensemaking Communities. Journal Article. |
+| [@okada2010eliciting] | Okada, A. (2010). Eliciting Thinking Skills with Inquiry Maps in CLE. In P. L. Torres & R. de Cassia Veiga Marriott (Eds.), Handbook of Research on Collaborative Learning Using Concept Mapping. Information Science Reference.|
+| [@okada2006knowledge] | Okada, A., & Buckingham Shum, S. (2006). Knowledge mapping with Compendium in academic research and online education. In 22nd ICDE World Conference (3--6).|
+| [@okada2008evidence] | Okada, A., & Buckingham Shum, S. (2008). Evidence-Based Dialogue Maps as a research tool to evaluate the quality of school pupils’ scientific argumentation. International Journal of Research and Method in Education, 31(3), 291--315.|
+| [@okada2008fostering] | Okada, A., Tomadaki, E., Buckingham Shum, S., & Scott, P. (2008, June). Fostering Open Sensemaking Communities by Combining Knowledge Maps and Videoconferencing. Journal Article. |
+| [@okada2008scaffolding] | Okada, A. (2008, September). Scaffolding School Pupils’ Scientific Argumentation with {Evidence-Based} Dialogue Maps. Book Chapter. |
+| [@okada2008knowledge] | Okada, A., & Buckingham Shum, S. (2008, September). Knowledge Cartography: Software tools and mapping techniques. Edited Book. |
+| [@mcandrew2009openlearn] | {McAndrew}P., Santos, A., Lane, A., Godwin, S., Okada, A., Wilson, T., Connolly, T., Ferreira, G., Buckingham Shum, S., Bretts, J., & Webb, R. (2009, May). {OpenLearn} Research Report 2006-2008. Other. |

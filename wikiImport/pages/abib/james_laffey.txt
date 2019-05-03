@@ -1,0 +1,4 @@
+h2. James Laffey's publications
+
+| [@goggins2011completely] | Goggins, S. P., Laffey, J., & Gallagher, M. (2011). Completely online group formation and development: small groups as socio-technical systems. Information Technology & People, 24(2), 104-133. doi:10.1108/09593841111137322|
+| [@goggins2009social] | Goggins, S. P., Laffey, J., & Galyen, K. (2009). Social Ability in Online Groups: Representing the Quality of Interactions in Social Computing Environments. In 2009 International Conference on Computational Science and Engineering (667-674). doi:10.1109/CSE.2009.339|

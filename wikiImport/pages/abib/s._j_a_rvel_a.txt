@@ -1,0 +1,4 @@
+h2. S. J{\\"a}rvel{\\"a}'s publications
+
+| :ref:dillenbourg2009evolution | Dillenbourg, P., J{\\"a}rvel{\\"a}S., & Fischer, F. (2009). The evolution of research on computer-supported collaborative learning. Technology-Enhanced Learning. Springer.|
+| :ref:dillenbourg2009evolution | Dillenbourg, P., J{\\"a}rvel{\\"a}S., & Fischer, F. (2009). The evolution of research on computer-supported collaborative learning. Technology-Enhanced Learning. Springer.|

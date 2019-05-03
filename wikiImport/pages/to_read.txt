@@ -1,0 +1,23 @@
+h1. To read
+
+  * [[http://www.smartmobs.com/2011/05/01/networks-explained-by-barabasi/|Networks by Barabasi]]
+  * [[http://learningspaces.org/n/node/60|Lecture as transmedial form]]
+  * [[http://cameronneylon.net/blog/open-research-computation-an-ordinary-journal-with-extraordinary-aims/|Open Research Computation]]
+  * [[http://blog.prof.so/2011/04/better-papers-for-better-science.html|Better papers for better science]]
+  * [[http://www.connectivism.ca/?p=307|Connectivism, learning directed networks]]
+  * [[http://fgiasson.com/blog/index.php/2007/04/12/integration-of-zotero-in-a-semantic-web-environment-to-find-search-and-browse-the-webs-citations/|Zotero, semantic web network]]
+  * [[http://heidiallen.id.au/2011/04/researchly-analyticly-and-peoplebrowsr/|Research.ly etc]]
+  * [[http://bibliontology.com/projects|Bibliographic ontology]]
+  * [[http://www.elsua.net/|Knowledge management blog]]
+  * [[http://learningemergence.net/|Learning emergence]] with [[a:Simon Buckingham Shum]]
+  * [[http://www.middlesex.wikispaces.net/|Wikis at Middlesex U]] through Nobuko
+  * [[http://cooltoolsforschools.wikispaces.com/Home|Cool tools for school]] through Nobuko
+  * [[http://rcsproject.wordpress.com/2011/06/01/future-of-scholarly-communications-roundtable/|Future of Scholarly Communications roundtable]] - videos
+----
+  * [[http://www.organizingcreativity.com/2011/10/literature-list-how-to-organize-a-scientific-work/|Literature List: How to organize a scientific work | ORGANIZING CREATIVITY]]
+  * [[http://hpmor.com/|Harry Potter and the Methods of Rationality | Petunia married a professor, and Harry grew up reading science and science fiction.]]
+  * [[http://www.gwern.net/DNB%20FAQ|Dual N-Back FAQ]]
+  * [[http://www.gwern.net/fiction/Cloud%20Nine|Cloud Nine]]
+  * [[http://en.wikipedia.org/wiki/Robin_Hanson|Robin Hanson - Wikipedia, the free encyclopedia]]
+  * [[http://www.gwern.net/Spaced%20repetition?2|Spaced repetition]]
+  * [[http://www.logicmatters.net/igt/further-notes/godel-without-tears/|Gödel Without (Too Many) Tears | Logic Matters]]

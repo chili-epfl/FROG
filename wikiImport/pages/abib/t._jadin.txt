@@ -1,0 +1,3 @@
+h2. T. Jadin's publications
+
+| richter2009shortcomings | Richter, C., Jadin, T., Parnafes, O., Paavola, S., Kosonen, K., & Jalonen, S. (2009). The shortcomings of existing tools in providing support for knowledge practices.|[[skimx://richter2009shortcomings|PDF]]|

@@ -1,0 +1,39 @@
+h1. Gridcole: A tailorable grid service based system that supports scripted collaborative learning
+
+<ifauth !@admin>|Bote-Lorenzo, M. L., Gómez-Sánchez, E., Vega-Gorgojo, G., Dimitriadis, Y., Asensio-Pérez, J. I., & Jorrín-Abellán, I. (2008). Gridcole: A tailorable grid service based system that supports scripted collaborative learning. Computers \& Education, 51(1), 155--172. Elsevier. Retrieved from http://www.sciencedirect.com/science?_ob=MImg&_imagekey=B6VCJ-4P2B3Y2-2-9&_cdi=5956&_user=994540&_pii=S0360131507000450&_origin=&_coverDate=08%2F31%2F2008&_sk=999489998&view=c&wchp=dGLbVzz-zSkzV&md5=0ed3e829d07eb3c144612d512c3895cb&ie=/sdarticle.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bote2008gridcole|BibDesk]]  | Bote-Lorenzo, M. L., Gómez-Sánchez, E., Vega-Gorgojo, G., Dimitriadis, Y., Asensio-Pérez, J. I., & Jorrín-Abellán, I. (2008). Gridcole: A tailorable grid service based system that supports scripted collaborative learning. Computers \& Education, 51(1), 155--172. Elsevier. Retrieved from http://www.sciencedirect.com/science?_ob=MImg&_imagekey=B6VCJ-4P2B3Y2-2-9&_cdi=5956&_user=994540&_pii=S0360131507000450&_origin=&_coverDate=08%2F31%2F2008&_sk=999489998&view=c&wchp=dGLbVzz-zSkzV&md5=0ed3e829d07eb3c144612d512c3895cb&ie=/sdarticle.pdf. |
+^ [[skimx://bote2008gridcole|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bote2008gridcole?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bote2008gridcole?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bote2008gridcole,
+  author = {Bote-Lorenzo, M.L. and Gómez-Sánchez, Eduardo and Vega-Gorgojo, G. and Dimitriadis, Yannis and Asensio-Pérez, J.I. and Jorrín-Abellán, Iván},
+  date-added = {2011-06-12 12:21:40 +0800},
+  date-modified = {2012-04-09 01:02:02 +0000},
+  journal = {Computers \& Education},
+  keywords = {scripting; portal},
+  notes = {1},
+  number = {1},
+  pages = {155--172},
+  publisher = {Elsevier},
+  read = {1},
+  title = {Gridcole: A tailorable grid service based system that supports scripted collaborative learning},
+  url = {http://www.sciencedirect.com/science?_ob=MImg&_imagekey=B6VCJ-4P2B3Y2-2-9&_cdi=5956&_user=994540&_pii=S0360131507000450&_origin=&_coverDate=08%2F31%2F2008&_sk=999489998&view=c&wchp=dGLbVzz-zSkzV&md5=0ed3e829d07eb3c144612d512c3895cb&ie=/sdarticle.pdf},
+  volume = {51},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRib3RlMjAwOGdyaWRjb2xlLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2stlyhm3I1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADKGe9jAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3RlMjAwOGdyaWRjb2xlLnBkZgAADgAqABQAYgBvAHQAZQAyADAAMAA4AGcAcgBpAGQAYwBvAGwAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9ib3RlMjAwOGdyaWRjb2xlLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9ib3RlMjAwOGdyaWRjb2xlLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:bote2008gridcole}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bote2008gridcole}}
+
+{{page>kindle:bote2008gridcole}}
+
+{{page>skimg:bote2008gridcole}}

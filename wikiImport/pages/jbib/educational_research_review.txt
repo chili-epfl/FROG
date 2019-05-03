@@ -1,0 +1,3 @@
+h2. Publications in Educational research review
+
+| [[..:ref:akkerman2007reconsidering]] | Akkerman, S., Bossche, P. van den, Admiraal, W., Gijselaers, W., Segers, M., Simons, R. J., & Kirschner, P. A. (2007). Reconsidering group cognition: From conceptual confusion to a boundary area between cognitive and socio-cultural perspectives?. Educational research review, 2(1), 39--63. Elsevier.|[[skimx://akkerman2007reconsidering|PDF]]|

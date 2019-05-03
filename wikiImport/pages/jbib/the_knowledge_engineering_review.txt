@@ -1,0 +1,3 @@
+h2. Publications in The Knowledge Engineering Review
+
+| reed2007argument | Reed, C., Walton, D., & Macagno, F. (2007). Argument diagramming in logic, law and artificial intelligence. The Knowledge Engineering Review, 22(1), 87--109. Cambridge University Press.|[[skimx://reed2007argument|PDF]]|

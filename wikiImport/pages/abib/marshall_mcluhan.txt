@@ -1,0 +1,3 @@
+h2. Marshall McLuhan's publications
+
+| [@mcluhan1989global] | {McLuhan}Marshall, & Powers, B. R. (1989). The Global Village. Oxford University Press.|

@@ -1,0 +1,4 @@
+h2. Marcia C. Linn's publications
+
+| [@linn2000wise] | Linn, M. C., & Slotta, J. D. (2000). WISE science. Educational Leadership, 58(2), 29--32.|
+| [@linn2003wise] | Linn, M. C., Clark, D., & Slotta, J. D. (2003). WISE design for knowledge integration. Science Education, 87(4), 517--538.|

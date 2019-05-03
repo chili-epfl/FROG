@@ -1,0 +1,60 @@
+h1. Chen Wenli
+
+Learning Sciences Lab, National Institute of Education, Singapore
+
+GroupScribbles enhance students' L2 (Chinese) learning in Singapore classrooms. Students collaboratively constructing language knowledge through authentic verbal discussion mediated and enhanced by GS.
+
+A lot of kids don't like studying Chinese - can talk, but not read and write, think it's too difficult. 
+
+**Theory:** Rapid Collaborative Knowledge Improvement
+**Pedagogy:** Funnel model
+
+Start by entering classroom to assess what the problem is. 
+  * don't like studying Chinese
+  * don't like collaborative learning (because exam is individual)
+
+Design research, programmers and researchers collaborate closely.
+
+There are 7 "future schools" in Singapore, got lot's of support, very advanced in technology. Each student has their own MacBook. 
+
+4 students in each group. If we let all of them write on the same pad, it gets too messy, so now we have them in smaller groups.
+
+SRI international developed this software with us. Above, shared pad, below, private pad. Like post-it notes. 
+
+Enables synergy between autonomy and collaboration by combining both private and collaborative learning. 
+
+Nice activity pattern - students / GS / F2F, private interaction / group interaction / class interaction.
+
+Start by writing privately, drag it to group board, visit and critique other groups' boards. 
+
+RCKI -- democratizing participation and idea refinement - in the context of live dynamic classroom settings, F2F collaborative knowledge construction and imrpovement over the duration of a class session, supported by certain technolgoies for lightweight instant interactoin.
+Rapid
+  * with limited time for participation
+  * using lightweight form of expression
+  * enabling quick cycles of interaction
+
+Different from [[:Knowledge Building]] -- KB is asynchronous, very deep. This is in one class, students write very quick small notes. 
+
+Funnel model:
+  * seek diversity of ideas
+  * pool collective wisdom
+  * seek greater perfection
+
+h3. Brainstorm ideas
+Start with an article, think about what the article is talking about - on their private board. Then on the group board. No idea is silly idea, contribute as much as you can. Whatever you can think about, just write about it. (**it can be anonymous**). 
+
+h3. Re-organize and synthesize ideas
+Rewrite, reorganize, number of ideas are fewer, quality increases.
+
+h3. Inter-group visiting
+They can look at different group boards, give them ideas and suggestions. Then, seek greater perfection. You can only have three posts - try to express your best ideas in these three postings. 
+
+h3. Summary
+  * We observed successive communal engagements and knowledge building. 
+  * Students able to enhance their language ability through generating, sharing and improving their GS artifacts by interacting with each other.
+  * They used to discuss in English and only write in Chinese, now they are quite good at using Chinese to discuss. 
+  * In F2f GS environment, language knowledge is not an object that is required and possessed by individuals, but becomes embedded in conversations and social discourses.
+  * GS tech and funnel model jointly scaffold students' collaborative learning to achieve desired outcomes.
+    * seamless integration of individual learning, small-group and whole-class interactions in the classroom
+    * facilitate rapid collaborative knowledge improvement
+

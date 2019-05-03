@@ -1,0 +1,3 @@
+h2. N Fjallbrandt's publications
+
+| [@fjallbrandt1997scholarly] | Fjallbrandt, N. (1997). Scholarly Communication: Historical Development and New Possibilities. International Association of Scientific and Technical University Libraries (IATUL).|

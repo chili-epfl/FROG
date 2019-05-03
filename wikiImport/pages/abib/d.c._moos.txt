@@ -1,0 +1,4 @@
+h2. D.C. Moos's publications
+
+| [[..:ref:moos2009self]] | Moos, D. C., & Azevedo, R. (2009). Self-efficacy and prior domain knowledge: to what extent does monitoring mediate their relationship with hypermedia learning?. Metacognition and Learning. Springer.|[[skimx://moos2009self|PDF]]|
+| azevedo2008externally | Azevedo, R., Moos, D. C., Greene, J. A., Winters, F., & Cromley, J. G. (2008). Why is externally-facilitated regulated learning more effective than self-regulated learning with hypermedia?. Educational Technology Research and Development. Springer.|[[skimx://azevedo2008externally|PDF]]|

@@ -1,0 +1,54 @@
+h1. DokuWiki
+
+h2. Todo DokuWiki
+  * Bibtex - why does it sometimes generate double copies? clean names of {} (tell author). generalize generation of citation with PDF, Bibtex links etc. links on top. sorted alphabetically. also generate by keyword. and list of authors / keywords. 
+  * move authors to their own name space
+
+  * Get offline version of Dokuwiki manual
+  * find color plugin that still enables links (and with nice syntax, :: works great)
+  * way to make all internal links absolute (ie prepend with :), so you don't have to do that for every link in notes:
+
+h2. Design of wiki
+  * Think about design of wiki
+    * blank slate text vs some structure
+      * scaffolds / templates
+    * visual representations, reorganizations (links, tags, semantic)
+    * separating view and edit, vs unified (Google Docs) [[Affordances of different individual systems]]
+      * value of WYSIWYG vs structural markup
+      * **TODO**: Check WYSIWYG plugins for DW
+  * Figure out tags better (easier to insert, better system, page listing all tags)
+  * look into semantic wiki (for JSlotta)
+  * look at easy way to mark my own thoughts in notes (color, etc)
+  * finish integrating citations ([[information architecture]])
+  * choose between using namespace or categories, see if you can generate nice category listing pages (alphabetically sorted) of things like authors, and citations. might be easier than namespaces, because with namespaces you have to type more, and remember where you are
+  * look at the wiki sidebar/frame. specifically think about templates for creating new author page etc.
+
+h2. Plugins
+  * [[http://www.dokuwiki.org/plugin:command|Command]] - create lot's of different commands easily
+  * [[http://www.dokuwiki.org/plugin:sync|XMLRPC sync]]
+
+h2. Semantic/data
+  * [[http://www.dokuwiki.org/plugin:datatemplate|Formatting data plugin output]] 
+  * [[http://www.dokuwiki.org/plugin:database|Database]]
+
+h1. Modifications
+  * enable Ctrl+S - Line 682 in inc/form.php, from [[http://bugs.dokuwiki.org/index.php?do=details&task_id=1277&project=1&opened=1135&status%5B0%5D=&order=id&sort=desc|this]]
+  * change linking in refnote (refnote/syntax/references.php line 860)
+  * make skin more tight, take away top login etc? (move to sidebar)
+  * add ctrl+e for edit?
+ 
+h2. Changes plugin
+syntax.php, line 163 change to <code>
+$expl = explode(":", $change['id']);
+$firstpart = $expl[0];
+$dontwant = array("clip","kindle","skimg");
+			
+if($change !== false && page_exists($change['id']) && !in_array($firstpart, $dontwant) ){</code>
+
+Purpose: only display changed pages that still exist ([[http://www.dokuwiki.org/plugin:changes?&#only_list_changes_to_pages_that_still_exist|dokuwiki plugin page]]), and don't include pages from namespaces listed in the dontwant array.
+
+h2. Visualize
+  * [[http://www.drost-tenfelde.de/doku.php?id=dokuwiki:plugins:mindmap:demo|Demo mindmap plugin]]
+  * [[http://www.dokuwiki.org/plugin:mindmap|Mindmap plugin]]
+  * [[https://github.com/splitbrain/dokuwiki-grapher|Grapher Splitbrain github]]
+  * [[http://www.splitbrain.org/blog/2010-08/02-graphing_dokuwiki_help_needed|Blog Splitbrain grapher]]

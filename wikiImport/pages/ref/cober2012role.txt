@@ -1,0 +1,33 @@
+h1. The Role of Aggregate Representations in Scaffolding Collective Inquiry
+<html><a href='https://tspace.library.utoronto.ca/bitstream/1807/33640/1/cober_rebecca_m_201211_MA_thesis.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'https://tspace.library.utoronto.ca/bitstream/1807/33640/1/cober_rebecca_m_201211_MA_thesis.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Cober, R. (2012). The Role of Aggregate Representations in Scaffolding Collective Inquiry (PhD thesis). Retrieved from https://tspace.library.utoronto.ca/bitstream/1807/33640/1/cober_rebecca_m_201211_MA_thesis.pdf|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://cober2012role|BibDesk]]  | Cober, R. (2012). The Role of Aggregate Representations in Scaffolding Collective Inquiry (PhD thesis). Retrieved from https://tspace.library.utoronto.ca/bitstream/1807/33640/1/cober_rebecca_m_201211_MA_thesis.pdf |
+^ [[skimx://cober2012role|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:cober2012role?do=edit&vecdo=print\'><frame src=\'/wiki/clip:cober2012role?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @phdthesis{cober2012role,
+  author = {Cober, R.},
+  date-added = {2012-12-04 14:03:01 +0000},
+  date-modified = {2013-01-29 04:38:43 +0000},
+  keywords = {encore},
+  oa-url = {https://tspace.library.utoronto.ca/bitstream/1807/33640/1/cober_rebecca_m_201211_MA_thesis.pdf},
+  title = {The Role of Aggregate Representations in Scaffolding Collective Inquiry},
+  url = {https://tspace.library.utoronto.ca/bitstream/1807/33640/1/cober_rebecca_m_201211_MA_thesis.pdf},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QHy4uLy4uL0JpYmRlc2svY29iZXIyMDEycm9sZS5wZGbSFwsYGVdOUy5kYXRhTxEBdAAAAAABdAACAAAHU1NESG9tZQAAAAAAAAAAAAAAAAAAAAAAAAAAyXlP2EgrAAAA2tZSEWNvYmVyMjAxMnJvbGUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6u4xfNLLxyUERGIAAAAAAAAgACAAAJIAAAAAAAAAAAAAAAAAAAAAdCaWJkZXNrAAAQAAgAAMl5ligAAAARAAgAAM0tAsIAAAABAAwA2tZSABc9MQABn14AAgAwU1NESG9tZTpVc2VyczoAU3RpYW46AEJpYmRlc2s6AGNvYmVyMjAxMnJvbGUucGRmAA4AJAARAGMAbwBiAGUAcgAyADAAMQAyAHIAbwBsAGUALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIAJVVzZXJzL1N0aWFuL0JpYmRlc2svY29iZXIyMDEycm9sZS5wZGYAABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4AsAC1AL0CNQI3AjwCRwJQAl4CYgJpAnICdwKEAocCmQKcAqEAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACow==}
+}
+
+</hidden>
+
+{{page>notes:cober2012role}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:cober2012role}}
+
+{{page>kindle:cober2012role}}
+
+{{page>skimg:cober2012role}}

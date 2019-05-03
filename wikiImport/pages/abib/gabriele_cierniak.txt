@@ -1,0 +1,4 @@
+h2. Gabriele Cierniak's publications
+
+| [@cierniak2010specification] | Cierniak, G., Imhof, B., & Reimann, P. (2010). Specification of Research Strategy and Methodology. NEXT-TELL. |
+| [@cierniak2011report] | Cierniak, G., Imhof, B., Clark, W., Wasson, B., Hansen, C., Hillemann, E., & Kickmeier-Rust, M. (2011). Report on Baseline Studies and Requirement Analysis. NEXT-TELL. |

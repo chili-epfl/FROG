@@ -1,0 +1,3 @@
+h2. N. Smith Lea's publications
+
+| scardamalia1992educational | Scardamalia, M., Bereiter, C., Brett, C., Burtis, J., Calhoun, C., & Lea, N. S. (1992). Educational applications of a networked communal database. Interactive Learning Environments.||

@@ -1,0 +1,34 @@
+h1. Introduction
+
+<ifauth !@admin>|Boler, M. (2010). Introduction. In Digital media and democracy: Tactics in hard times. MIT Press.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://boler2010digital|BibDesk]]  | Boler, M. (2010). Introduction. In Digital media and democracy: Tactics in hard times. MIT Press. |
+^ [[skimx://boler2010digital|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:boler2010digital?do=edit&vecdo=print\'><frame src=\'/wiki/clip:boler2010digital?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{boler2010digital,
+  author = {Boler, M.},
+  booktitle = {Digital media and democracy: Tactics in hard times},
+  date-added = {2013-01-17 03:21:27 +0000},
+  date-modified = {2013-01-17 03:22:02 +0000},
+  date-read = {2013-01-16 22:22:02 -0500},
+  publisher = {MIT Press},
+  read = {1},
+  title = {Introduction},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRib2xlcjIwMTBkaWdpdGFsLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALujmXzRzTW1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNHRmrAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib2xlcjIwMTBkaWdpdGFsLnBkZgAADgAqABQAYgBvAGwAZQByADIAMAAxADAAZABpAGcAaQB0AGEAbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9ib2xlcjIwMTBkaWdpdGFsLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9ib2xlcjIwMTBkaWdpdGFsLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:boler2010digital}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:boler2010digital}}
+
+{{page>kindle:boler2010digital}}
+
+{{page>skimg:boler2010digital}}

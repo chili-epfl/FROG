@@ -1,0 +1,12 @@
+h1. Projects
+
+Big projects and collaborations around research.
+
+  * [[http://www.role-project.eu/|ROLE]]
+  * [[http://www.teleurope.eu/|TELEurope]] - social networking site for researchers within [[TEL]]
+  * [[http://www.stellarnet.eu/|STELLARNet]]
+  * [[http://www.taconet.org/index.html|TACONet]] - [[self-regulated learning]] in [[TEL]] environments
+
+Smaller
+
+  * [[http://www.teleurope.eu/pg/groups/754/language-technologies-for-lifelong-learning/|Language technologies for life-long learning]]

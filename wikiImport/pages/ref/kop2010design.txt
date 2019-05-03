@@ -1,0 +1,36 @@
+h1. The Design and Development of a Personal Learning Environment: Researching the Learning Experience
+
+<ifauth !@admin>|Kop, R. (2010). The Design and Development of a Personal Learning Environment: Researching the Learning Experience. European Distance and E-learning Network Annual Conference 2010, June 2010, Valencia, Spain.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kop2010design|BibDesk]]  | Kop, R. (2010). The Design and Development of a Personal Learning Environment: Researching the Learning Experience. European Distance and E-learning Network Annual Conference 2010, June 2010, Valencia, Spain. |
+^ [[skimx://kop2010design|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kop2010design?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kop2010design?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{kop2010design,
+  author = {Kop, Rita},
+  booktitle = {European Distance and E-learning Network Annual Conference 2010, June 2010, Valencia, Spain},
+  date-added = {2012-01-10 17:14:53 +0000},
+  date-modified = {2012-04-09 01:02:04 +0000},
+  date-read = {2012-04-02 14:24:42 -0400},
+  keywords = {1mooc},
+  notes = {1},
+  read = {1},
+  title = {The Design and Development of a Personal Learning Environment: Researching the Learning Experience},
+  year = {2010},
+  annote = {Slides: http://www.slideshare.net/Ritakop/rita-eden-valencia-may-2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXQAAAAAAXQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhFrb3AyMDEwZGVzaWduLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdKX4y9dFYlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL132iAAAAAQAMANrWUgAXPTEAAZ9eAAIAMFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrb3AyMDEwZGVzaWduLnBkZgAOACQAEQBrAG8AcAAyADAAMQAwAGQAZQBzAGkAZwBuAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACVVc2Vycy9TdGlhbi9iaWJkZXNrL2tvcDIwMTBkZXNpZ24ucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAfLi4vLi4vYmliZGVzay9rb3AyMDEwZGVzaWduLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIYAhoCHwIoAjMCNwJFAkwCVQJ3AnwCfwKMApEAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACow==}
+}
+
+</hidden>
+
+{{page>notes:kop2010design}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kop2010design}}
+
+{{page>kindle:kop2010design}}
+
+{{page>skimg:kop2010design}}

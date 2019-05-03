@@ -1,0 +1,32 @@
+h1. Constructionism
+
+<ifauth !@admin>|Kafai, Y. B.Constructionism. In The Cambridge handbook of the learning sciences.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kafai2006constructionism|BibDesk]]  | Kafai, Y. B.Constructionism. In The Cambridge handbook of the learning sciences. |
+^ [[skimx://kafai2006constructionism|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kafai2006constructionism?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kafai2006constructionism?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{kafai2006constructionism,
+  author = {Kafai, Yasmin B.},
+  booktitle = {The Cambridge handbook of the learning sciences},
+  crossref = {none2006cambridge},
+  date-added = {2011-07-25 14:56:22 +0000},
+  date-modified = {2011-07-25 15:12:49 +0000},
+  read = {1},
+  title = {Constructionism},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaAAAAAAAaAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhxrYWZhaTIwMDZjb25zdHJ1Y3Rpb25pc20ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaftiy9cnJlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL119mAAAAAQAMANrWUgAXPTEAAZ9eAAIAO1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrYWZhaTIwMDZjb25zdHJ1Y3Rpb25pc20ucGRmAAAOADoAHABrAGEAZgBhAGkAMgAwADAANgBjAG8AbgBzAHQAcgB1AGMAdABpAG8AbgBpAHMAbQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAwVXNlcnMvU3RpYW4vYmliZGVzay9rYWZhaTIwMDZjb25zdHJ1Y3Rpb25pc20ucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECouLi8uLi9iaWJkZXNrL2thZmFpMjAwNmNvbnN0cnVjdGlvbmlzbS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACRAJGAksCVAJfAmMCcQJ4AoECrgKzArYCwwLIAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAto=}
+}
+
+</hidden>
+
+{{page>notes:kafai2006constructionism}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kafai2006constructionism}}
+
+{{page>kindle:kafai2006constructionism}}
+
+{{page>skimg:kafai2006constructionism}}

@@ -1,0 +1,167 @@
+h1. No more LOGIN
+//Keynote by [[:a:Pierre Dillenbourg]]//
+
+**[[http://www.youtube.com/watch?v=UIRDxHAnAlg|Video]]**
+
+Which tools facilitate classroom orchestration?
+
+Showing two eye-tracking examples of collaborative coding, one pair which never looks at the same lines, and one which always does. "Can predict the quality of collaboration in a non-semantic way"
+
+"What is the gravity of an annotation" (it's 5)
+
+Gadgets that "work well", but why? (Even when the researcher is not in the classroom, and the research is finished). Which gadgets reduce orchestration load for teacher (cognitive load for teacher)
+
+Looking at high school students with internships in Switzerland - they don't actually learn very much. They move boxes in the classroom.
+
+Create "warehouse simulator" with paper - pieces of paper (or boxes) have QR codes, read by overhead camera, and projector shows simulation on top of it, and immediately provides feedback details on paper. Compare with multi-touch software, learn more with the tangible. They can move things much faster, explore more solutions, learn more. 
+
+Give a teacher a card to start the simulation - can't play with it. Comes over, asks why it will be faster, asks the rationale etc, then lets them run it. Can leave the card with them if he chooses so. Has some other cards, like "pause the class".
+
+Teacher also had dashboard, showing all the groups, quick visual metric about how much boxes are being moved (whether they are reflecting or not), and how the groups compare to each other. Dillenbourg was worried that this would be too complex, but teachers loved it.
+
+Afterwards, best designs are saved, printed, bring it to the company, and discuss it with supervisor. If it's online, having to login, etc - boss has no time for it. But paper is quick, convenient. 
+
+Orchestration is the real time management of multi-plane multi layer activity graphs (time line with class, team and individual). 
+
+ArgueGraph - answer question, graph answers, match people with very different opinions, full class discussion, individual writing. 
+
+Line in graph shows the current focus, but of course you always have an individual brain working. 
+
+Add three lines: periphery (parents), community (museum), world. 
+
+::Really have to think about orchestration of online synchronous meetings::
+
+Metaphor of packaging medicine in tablet, in box etc:
+
+Instructional design (learning theory): 
+  * kernel activities designed from learning theories while orchestration also covers other activities, less directly related to learning theoreis
+    * debriefing activities (designed but determined)
+    * school routines (non designed, fill the time) - re-visit, homework, copy
+    * logistics activities (login, move tables etc) (not designed but necessary)
+    * extraneous activities (sick, network failure, eureka, fire, crane stopping outside the window) (unavoidable)
+
+(You don't become a teacher in general because you love improvisation)
+
+"Bloominess" - the less related to learning theories, bloominess is lower. "Login" has bloominess of 0.
+
+Step 3: Activity graph must satisfy intrinsic as well as extrinsic constraints
+  * time budget
+  * time segmentation
+  * resources
+  * control
+  * space
+  * costs
+  * grading
+  * leaving traces
+  * safety
+  * teacher's energy
+  * teacher's self-image
+  * school culture
+
+(we don't like to talk about discipline in learning sciences, but it's important for the teacher)
+
+Intrinsic constraints:
+  * students' profiles
+  * domain epistemology
+  * how people learn
+  * curriculum relevance
+
+We tend to invent pedagogy that works for wonderful teachers, which stay in the weekend to analyze the data
+
+Step 4: Activity graph must be permanently adapted to learners' behavior as well as extrinsic constraints and events
+
+Flexibility of links
+Fiber = R(ai -> aj)
+  * pre-requisite
+  * advance organizer
+  * didactic contact
+  * motivation
+  * logistics
+  * dataflow (see operators below) input (aj) = F(output(ai))
+
+Operators input
+  * aggregation
+  * distribution
+  * group formation
+  * group rotation
+  * feedback
+  * decision
+
+Links have a strength (probability of success b, without a)
+
+Elasticity = f(ti tj) - time decay
+
+Step 5: HCI, a "flexible workflow" is a paradox that can be addressed by physical handles on digital structures (like the teacher control cards)
+
+Step 6: Does the color of computers matter? Easier to refer to the computer. Three circles of usability:
+  * HCI (individual level)
+  * usability of team level
+  * usability at classroom level
+
+Orchestration is usability when the user is the classroom
+
+Step 7: Graph extends on information layers (paper)
+  * written (by hand)
+  * augmented (beamed on top)
+  * printed (already existing)
+
+Activity graph has 2 layers, physical & digital, connected by "handles" (tags on paper)
+
+Example of the projector-camera system to teach geometry
+
+Not just paper, it's which type of paper (cards, sheets, shapes)
+
+Step 8: Information layer differ in terms of information persistency (print, augmentation, write etc)
+
+Has to match the persistency with the validity of the information
+
+Step 9: By making visible what would otherwise be invisible, buffers increase persistency of information
+
+Physics 101 - lantern. Toughest course of EPFL. Indicator of which problem they are working on, how long they've been working on it, etc. Reduce waiting time from 62% to 6%
+
+Reduce amount of information, instead of saying exactly how many minutes student has been waiting, using iPhone app etc 
+
+Action buffer
+
+Teacher's cockpit - reflection buffer 
+
+Step 10: Orchestration requires managing massive flows of information
+
+Adapting information theory to classroom - student sleeping is also sending a message. 
+  * an emitter is any object or actor in the classroom that display information
+  * a signal exists if a receiver perceives it
+  * the beat = 1 Hz (one second)
+  * the channels are audio, vision, touch and wires
+  * the bandwidth is determined by the receiver's capacity (=teacher's cognitive load)
+
+Dan Schwartz, Cognitive Load Theory - hard to grasp all this discrete information, need to use slow verbal information to encode. But same information placed in appropriate spatial context. Rapidly "graspable" without encoding.
+
+Step 11: The classroom gemoetry 'chunks' for the teacher. 
+
+Step 12: Modeling a classroom as an information system
+
+//Orchestration the real-time management of multi-plane multi-layer activity graphs that maximize constraints satisfaction and minimize entropy.//
+
+Design for orchestration
+  * control
+  * visibility
+  * flexibility
+  * physicality
+  * minimalism
+  * do not target heroes
+
+Summary
+  * graph
+  * bloominess
+  * constraints
+  * flexibility
+  * paradox
+  * 3rd circle
+  * layers
+  * persistency
+  * buffers
+  * flows
+  * revelateur
+  * modeling
+
+(consists of education, HCI and information theory)

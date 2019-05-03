@@ -1,0 +1,11 @@
+h1. Hypertext
+
+
+----
+  * [[http://www.eastgate.com/ReadingRoom.html|Eastgate Hypertext Reading Room]]
+----
+  * [[http://entertainment.salon.com/2011/10/04/return_of_hypertext/singleton/|Why the book's future never happened - Salon.com]]
+----
+  * [[http://www.eastgate.com/HypertextNow/|HypertextNow: topical]]
+----
+  * [[http://sf-encyclopedia.com/entry/hypertext|Media : Hypertext : SFE : Science Fiction Encyclopedia]]

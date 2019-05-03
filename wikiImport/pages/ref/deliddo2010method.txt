@@ -1,0 +1,37 @@
+h1. A method and tool to support the analysis and enhance the understanding of peer-to-peer learning experiences
+<html><a href='http://openaccess.uoc.edu/webapps/o2/bitstream/10609/4941/6/De%20Liddo.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://openaccess.uoc.edu/webapps/o2/bitstream/10609/4941/6/De%20Liddo.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|De Liddo, A., & Alevizou, P. (2010). A method and tool to support the analysis and enhance the understanding of peer-to-peer learning experiences. Universitat Oberta de Catalunya. Retrieved from http://openaccess.uoc.edu/webapps/o2/bitstream/10609/4941/6/De%20Liddo.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://deliddo2010method|BibDesk]]  | De Liddo, A., & Alevizou, P. (2010). A method and tool to support the analysis and enhance the understanding of peer-to-peer learning experiences. Universitat Oberta de Catalunya. Retrieved from http://openaccess.uoc.edu/webapps/o2/bitstream/10609/4941/6/De%20Liddo.pdf. |
+^ [[skimx://deliddo2010method|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:deliddo2010method?do=edit&vecdo=print\'><frame src=\'/wiki/clip:deliddo2010method?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{deliddo2010method,
+  author = {De Liddo, A. and Alevizou, P.},
+  date-added = {2011-07-22 07:58:23 +0000},
+  date-modified = {2012-11-27 19:06:41 +0000},
+  date-read = {2012-04-07 16:17:24 -0400},
+  gscholar-search-term = {p2pu},
+  keywords = {1p2pu},
+  oa-url = {http://openaccess.uoc.edu/webapps/o2/bitstream/10609/4941/6/De%20Liddo.pdf},
+  publisher = {Universitat Oberta de Catalunya},
+  read = {1},
+  title = {A method and tool to support the analysis and enhance the understanding of peer-to-peer learning experiences},
+  url = {http://openaccess.uoc.edu/webapps/o2/bitstream/10609/4941/6/De%20Liddo.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVkZWxpZGRvMjAxMG1ldGhvZC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaFaey9b97FBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zYsAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBkZWxpZGRvMjAxMG1ldGhvZC5wZGYADgAsABUAZABlAGwAaQBkAGQAbwAyADAAMQAwAG0AZQB0AGgAbwBkAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2RlbGlkZG8yMDEwbWV0aG9kLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svZGVsaWRkbzIwMTBtZXRob2QucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:deliddo2010method}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:deliddo2010method}}
+
+{{page>kindle:deliddo2010method}}
+
+{{page>skimg:deliddo2010method}}

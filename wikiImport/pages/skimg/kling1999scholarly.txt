@@ -1,0 +1,12 @@
+h2. Images
+
+{{skim:kling1999scholarly0.png}}
+
+[[skimx://kling1999scholarly#15|p. 15]]
+----
+
+{{skim:kling1999scholarly1.png}}
+
+[[skimx://kling1999scholarly#21|p. 21]]
+----
+

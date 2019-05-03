@@ -1,0 +1,3 @@
+h2. Jon Dron's publications
+
+| [@dron2007control] | Dron, J. (2007). Control and Constraint in {E-Learning:} Choosing When to Choose. Idea Group Publishing.|

@@ -1,0 +1,3 @@
+h2. Kimberly Tee's publications
+
+| [@tee2006providing] | Tee, K., Greenberg, S., & Gutwin, C. (2006). Providing artifact awareness to a distributed group through screen sharing. In Proceedings of the 2006 20th anniversary conference on Computer supported cooperative work - CSCW ’06 (99). Association for Computing Machinery (ACM). doi:10.1145/1180875.1180891|

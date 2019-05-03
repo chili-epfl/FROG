@@ -1,0 +1,12 @@
+h2. Images
+
+{{skim:fischer2012toward0.png}}
+
+[[skimx://fischer2012toward#34|p. 34]]
+----
+
+{{skim:fischer2012toward1.png}}
+
+[[skimx://fischer2012toward#35|p. 35]]
+----
+

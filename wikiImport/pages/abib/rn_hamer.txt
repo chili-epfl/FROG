@@ -1,0 +1,3 @@
+h2. RN Hamer's publications
+
+| [@rossum2010meaning] | Rossum{E.J.}, & Hamer{RN}. (2010). The meaning of learning and knowing.|

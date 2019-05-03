@@ -1,0 +1,8 @@
+h1. Wikis
+
+  * [@bachelet2008building] - PeoppleWiki, using wiki as social network in higher ed (including alumni). Some lit review.
+----
+  * [[http://www.regisbarondeau.com/Accueil|Accueil]]
+----
+  * [[http://www.ischool.berkeley.edu/newsandevents/events/20120123regenstlecture|Social Media and Peer Learning: From Mediated Pedagogy to Peeragogy | School of Information]]
+  * [[http://wardcunningham.github.com/#newest|Smallest Federated Wiki Videos [http://wardcunningham.github.com/]]]

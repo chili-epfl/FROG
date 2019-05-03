@@ -1,0 +1,9 @@
+h2. Daniel T. Hickey's publications
+
+| [@barab2007situationally] | Barab, S., Zuiker, S., Warren, S., Hickey, D. T., Ingram-Goble, A., Kwon, E. J., Kouper, I., & Herring, S. C. (2007). Situationally embodied curriculum: Relating formalisms and contexts. Science Education, 91(5), 750--782. |
+| [@anderson2007classroom] | Anderson, K. T., Zuiker, S. J., Taasoobshirazi, G., & Hickey, D. T. (2007). Classroom Discourse as a Tool to Enhance Formative Assessment and Practise in Science. International Journal of Science Education, 29(14), 1721--1744. |
+| [@hickey2008first] | Hickey, D. T., Barab, S. A., Ingram-Goble, A., & Zuiker, S. J. (2008). First things first: design principles for worthwhile educational videogames. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 1 (350--357).|
+| [@cross2008argumentation] | Cross, D., Taasoobshirazi, G., Hendricks, S., & Hickey, D. T. (2008). Argumentation: A strategy for improving achievement and revealing scientific identities. International Journal of Science Education, 30(6), 837--861. |
+| [@hickey2009adesigning] | Hickey, D. T., Kwon, E. J., & Filsecker, M. (2009). Designing Assessments, Assessing Designs, and Motivating Engagement in Immersive Educational Videogames.|
+| [@hickey2009designing] | Hickey, D. T., Ingram-Goble, A. A., & Jameson, E. M. (2009). Designing assessments and assessing designs in virtual educational environments. Journal of Science Education and Technology, 18(2), 187--208.|
+| [@mcwilliams2011using] | McWilliams, J., Hickey, D. T., Hines, M. B., Conner, J. M., & Bishop, S. C. (2011). Using Collaborative Writing Tools for Literary Analysis: Twitter, Fan Fiction and The Crucible in the Secondary English Classroom. Journal of Media Literacy Education, 2(3).|

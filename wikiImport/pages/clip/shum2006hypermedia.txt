@@ -1,0 +1,20 @@
+h1. Notes
+
+* Highlight, page 2
+
+Abstract: Having developed, used and evaluated some of the early IBIS-based approaches to design rationale (DR) such as gIBIS and QOC in the late 1980s/mid-1990s, we describe the subsequent evolution of the argumentation-based paradigm through software support, and per- spectives drawn from modeling and meeting facilitation. Particular attention is given to the challenge of negotiating the overheads of capturing this form of rationale. Our approach has maintained a strong emphasis on keeping the representational scheme as simple as possible to enable real time meeting mediation and capture, attending explicitly to the skills required to use the approach well, particularly for the sort of participatory, multi-stakeholder requirements analysis demanded by many design problems. However, we can then specialize the notation and the way in which the tool is used in the service of specific methodologies, supported by a cus- tomizable hypermedia environment, and interoperable with other software tools. After present- ing this approach, called Compendium, we present examples to illustrate the capabilities for support security argumentation in requirements engineering, template driven modeling for document generation, and IBIS-based indexing of and navigation around video records of meet- ings.
+
+
+
+* Highlight, page 2
+
+Few would disagree with this book’s opening chapter that the systematic management of Design Rationale (DR) is not yet common software engineering practice. By extension this applies to the particular flavor of DR with which we work, namely the IBIS/QOC approaches to creating graphical argumentation maps of design deliberation (reviewed in Chapter 1 and classed as “prescriptive, intrusive” in nature). It is the “intrusive” nature of such notations that represent an obstacle to adoption (we will unpack in more nuanced terms what this means), and which has led many to the conclusion that DR based around explicit, graphical argument maps is yet an- other failure of exciting research ideas to overcome the harsh realities of actual day-to-day prac- tice.
+
+
+
+* Highlight, page 2
+
+This chapter argues that the story is more complicated, but more hopeful. Since the late 1980s, through business and industrial case studies, detailed lab analysis, and continual design refinement, we hav
+
+
+

@@ -1,0 +1,12 @@
+h2. Joseph D. Novak's publications
+
+| [@canas2008next] | CañasA.J., Reiska, P., ÅhlbergM., & Novak, J. D. (2008). NEXT STEP: CONSOLIDATING THE CMAPPERS COMMUNITY. |
+| [@novak2010learning] | Novak, J. D. (2010). Learning, creating, and using knowledge: Concept maps as facilitative tools in schools and corporations. Taylor \& Francis.|
+| [@ford1991iconkat] | Ford, K., CañasA.J., Jones, J., Stahl, H., Novak, J. D., & Adams-Webber, J. (1991). ICONKAT: An integrated constructivist knowledge acquisition tool. Knowledge Acquisition, 3(2), 215--236.|
+| [@carnot2003summary] | Carnot, M. J., Feltovich, P., Hoffman, R. R., Feltovich, J., & Novak, J. D. (2003). A summary of literature pertaining to the use of concept mapping techniques and technologies for education and performance support. |
+| [@canas2004building] | CañasA.J., Novak, J. D., GonzálezFM, Novak, J. D., & CañasA.J. (2004). BUILDING ON NEW CONSTRUCTIVIST IDEAS AND CMAPTOOLS TO CREATE A NEW MODEL FOR EDUCATION1. In Proceedings of the 1st InternatiOnal Conference on Concept Mapping. Pamplona, Spain, Sep (14--l7). |
+| [@canas2004building] | CañasA.J., Novak, J. D., GonzálezFM, Novak, J. D., & CañasA.J. (2004). BUILDING ON NEW CONSTRUCTIVIST IDEAS AND CMAPTOOLS TO CREATE A NEW MODEL FOR EDUCATION1. In Proceedings of the 1st InternatiOnal Conference on Concept Mapping. Pamplona, Spain, Sep (14--l7). |
+| [@novak2004building] | Novak, J. D., & CañasA.J. (2004). Building on new constructivist ideas and CmapTools to create a new model for education. In Proceedings 1st International Conference Concept Mapping. Pamplona, Spain.|
+| [@novak2006origins] | Novak, J. D., & CañasA.J. (2006). The origins of the concept mapping tool and the continuing evolution of the tool. Information Visualization, 5(3), 175.|
+| [@canas2006re-examining] | CañasA.J., & Novak, J. D. (2006). Re-examining the foundations for effective use of concept maps. In Concept maps: theory, methodology, technology. Proceedings of the second international conference on concept mapping (Vol. 1, 494--502). |
+| [@novak2008theory] | Novak, J. D., & CañasA.J. (2008). The theory underlying concept maps and how to construct and use them. Florida Institute for Human and Machine Cognition, 2008.|

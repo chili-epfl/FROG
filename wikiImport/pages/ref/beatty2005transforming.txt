@@ -1,0 +1,36 @@
+h1. Transforming student learning with classroom communication systems
+<html><a href='http://arxiv.org/pdf/physics/0508129.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://arxiv.org/pdf/physics/0508129.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Beatty, I. D. (2005). Transforming student learning with classroom communication systems. Arxiv preprint physics/0508129. Retrieved from http://arxiv.org/pdf/physics/0508129.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://beatty2005transforming|BibDesk]]  | Beatty, I. D. (2005). Transforming student learning with classroom communication systems. Arxiv preprint physics/0508129. Retrieved from http://arxiv.org/pdf/physics/0508129.pdf. |
+^ [[skimx://beatty2005transforming|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:beatty2005transforming?do=edit&vecdo=print\'><frame src=\'/wiki/clip:beatty2005transforming?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{beatty2005transforming,
+  author = {Beatty, I. D.},
+  date-added = {2012-09-18 08:30:43 +0000},
+  date-modified = {2012-11-27 18:48:48 +0000},
+  date-read = {2012-09-18 10:41:01 +0200},
+  journal = {Arxiv preprint physics/0508129},
+  keywords = {0fischer},
+  oa-url = {http://arxiv.org/pdf/physics/0508129.pdf},
+  read = {1},
+  title = {Transforming student learning with classroom communication systems},
+  url = {http://arxiv.org/pdf/physics/0508129.pdf},
+  year = {2005},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZgAAAAAAZgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhpiZWF0dHkyMDA1dHJhbnNmb3JtaW5nLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKEvlGzH2pa1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADMfeGrAAAAAQAMANrWUgAXPTEAAZ9eAAIAOVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiZWF0dHkyMDA1dHJhbnNmb3JtaW5nLnBkZgAADgA2ABoAYgBlAGEAdAB0AHkAMgAwADAANQB0AHIAYQBuAHMAZgBvAHIAbQBpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAuVXNlcnMvU3RpYW4vYmliZGVzay9iZWF0dHkyMDA1dHJhbnNmb3JtaW5nLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAoLi4vLi4vYmliZGVzay9iZWF0dHkyMDA1dHJhbnNmb3JtaW5nLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAI8Aj4CQwJMAlcCWwJpAnACeQKkAqkCrAK5Ar4AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAAC0A==}
+}
+
+</hidden>
+
+{{page>notes:beatty2005transforming}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:beatty2005transforming}}
+
+{{page>kindle:beatty2005transforming}}
+
+{{page>skimg:beatty2005transforming}}

@@ -1,0 +1,31 @@
+h1. Proposals for research
+
+<ifauth !@admin>|Stahl, G. (2011). Proposals for research.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://stahl2011proposals|BibDesk]]  | Stahl, G. (2011). Proposals for research. |
+^ [[skimx://stahl2011proposals|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:stahl2011proposals?do=edit&vecdo=print\'><frame src=\'/wiki/clip:stahl2011proposals?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @book{stahl2011proposals,
+  author = {Stahl, Gerry},
+  date-added = {2011-05-30 16:44:58 +0800},
+  date-modified = {2011-06-09 08:29:51 +0800},
+  read = {1},
+  school = {University of Toronto},
+  title = {Proposals for research},
+  year = {2011}
+}
+
+</hidden>
+
+{{page>notes:stahl2011proposals}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:stahl2011proposals}}
+
+{{page>kindle:stahl2011proposals}}
+
+{{page>skimg:stahl2011proposals}}

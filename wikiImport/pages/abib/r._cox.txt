@@ -1,0 +1,3 @@
+h2. R. Cox's publications
+
+| brna2001learning | Brna, P., Cox, R., & Good, J. (2001). Learning to think and communicate with diagrams: 14 questions to consider. Artificial Intelligence Review. Springer.|[[skimx://brna2001learning|PDF]]|

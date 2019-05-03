@@ -1,0 +1,5 @@
+h2. J.W. Strijbos's publications
+
+| strijbos2010emerging | Strijbos, J. W., & Weinberger, A. (2010). Emerging and scripted roles in computer-supported collaborative learning. Computers in Human Behavior. Elsevier.|
+| kirschner2004cscl | Kirschner, P. A., Martens, R. L., & Strijbos, J. W. (2004). CSCL in higher education?: a framework for designing multiple collaborative environments. What we know about CSCL and implementing it in higher education.|
+| strijbos2004we | Strijbos, J. W., Kirschner, P. A., & Martens, R. L. (2004). What we know about CSCL:... and what we do not (but need to) know about CSCL. What we know about CSCL and implementing it in higher education.|

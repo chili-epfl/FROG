@@ -1,0 +1,3 @@
+h2. Krista Galyen's publications
+
+| [@goggins2009social] | Goggins, S. P., Laffey, J., & Galyen, K. (2009). Social Ability in Online Groups: Representing the Quality of Interactions in Social Computing Environments. In 2009 International Conference on Computational Science and Engineering (667-674). doi:10.1109/CSE.2009.339|

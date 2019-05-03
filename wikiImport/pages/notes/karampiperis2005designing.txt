@@ -1,0 +1,53 @@
+h1. Key ideas
+
+h2. Non-SCORM systems
+  * ActiveMath [7]
+  * MetaLinks [8]
+  * NetCoach [9]
+  * DCG [10]
+  * Interbook [11]
+
+Drawbacks:
+  * lack of reuse support (closed, self-contained, cannot be used as service components)
+  * lack of integration (cannot use external services)
+  * supported content and learning scenarios are apriori designed to serve specific pedagogical approaches, non flexible in supporting different pedagogical approaches
+
+h2. SCORM
+//ADL Sharable Content Object Reference Model//
+
+Provides a reference interaction model between **learners** and **learning content**, and describes within a common technical framework for computer and web-based learning the creation process of reusable learning content as “instructional objects”, referred to as //sharable content objects// (SCOs).
+
+h3. Limitation
+Limited to **single learner model**, no interaction between students, or even student-teacher, only student-content. 
+
+h2. IMS Learning Design
+Provides a standard notation language for the description of learning scenarios. Promises the capability of describing **a wide variety of learning activities based on different pedagogies**. 
+
+Has the ability to define the **role of different actors** in the learning process, enabling the definition of both teacher-led and student-led scenarios. 
+
+Builds upon the IMS Content Packaging specification, thus **can integrate** single learner (SCORM-compatible) activities in more complex activity-based learning scenarios
+::wrapper around SCORM content?::
+
+h3. Learning Design framework
+3 levels:
+  * A includes
+    * a series of activities (assessment, discussion, simulation), performed by one or more actors (learners, teachers etc.)
+    * roles, in an environment consisting of learning objects or services. 
+  * B adds 
+    * properties (storing information about a person or group)
+    * conditions (placing constraints upon flow). 
+  * C adds
+    * notifications (triggered events - e.g., if a student asks a question, the teacher needs to be notified that a response is needed)
+
+h2. Automatic course sequencing
+Generate a course suited to the needs of learners
+
+2 approaches
+  * Adaptive Courseware Generation
+    * generate individualized course taking into account specific learning goals and previous knowledge - entire course generated before being shown to learner
+  * Dynamic Courseware Generation
+    * system observes student progress during interaction, dynamically adapts course according to needs and requirements
+::dynamic is like intelligent tutors?::
+
+h2. Rest of paper
+Describes design of a graphical program for authoring IMS-LD modules.

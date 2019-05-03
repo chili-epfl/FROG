@@ -1,0 +1,11 @@
+h2. Gellof Kanselaar's publications
+
+| [@vandrie2005using] | Van Drie, J., Van Boxtel, C., Erkens, G., & Kanselaar, G. (2005). Using representational tools to support historical reasoning in computer-supported collaborative learning. Technology, Pedagogy and Education, 14(1), 25--41.|
+| [@vandrie2005effects] | van Drie, J., van Boxtel, C., Jaspers, J., & Kanselaar, G. (2005). Effects of representational guidance on domain specific reasoning in CSCL. Computers in Human Behavior, 21(4), 575--602.|
+| [@munneke2006discussing] | Munneke, L., Andriessen, J., Kanselaar, G., & Kirschner, P. A. (2006). Discussing a wicked problem in a computer-supported collaborative learning environment. Avoiding simplicity, confronting complexity, 197--208.|
+| [@weinberger2006argumentative] | Weinberger, A., Clark, D., Erkens, G., Sampson, V., Stegmann, K., Janssen, J., Jaspers, J., Kanselaar, G., & Fischer, F. (2006). Argumentative knowledge construction in CSCL. In Proceedings of the 7th international conference on Learning sciences, ICLS '06 (1094--1100). International Society of the Learning Sciences. |
+| [@janssen2007visualization] | Janssen, J., Erkens, G., Kanselaar, G., & Jaspers, J. (2007). Visualization of participation: Does it contribute to successful computer-supported collaborative learning?. Computers \& Education, 49(4), 1037--1065.|
+| [@vanamelsvoort2007representational] | van Amelsvoort, M., Andriessen, J., & Kanselaar, G. (2007). Representational tools in computer-supported collaborative argumentation-based learning: How dyads work with constructed and inspected argumentative diagrams. The Journal of the Learning Sciences, 16(4), 485--521.|
+| [@vanamelsvoort2008students] | van Amelsvoort, M., Andriessen, J., & Kanselaar, G. (2008). How students structure and relate argumentative knowledge when learning together with diagrams. Computers in Human Behavior, 24(3), 1293--1313.|
+| [@janssen2010effects] | Janssen, J., Erkens, G., Kirschner, P. A., & Kanselaar, G. (2010). Effects of representational guidance during computer-supported collaborative learning. Instructional science, 38(1), 59--88.|
+| [@janssen2011multilevel] | Janssen, J., Erkens, G., Kirschner, P. A., & Kanselaar, G. (2011). Multilevel Analysis in CSCL Research. Analyzing Interactions in CSCL, 187--205.|

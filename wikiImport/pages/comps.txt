@@ -1,0 +1,31 @@
+h1. Comps
+
+h2. Plan going forwards:
+  * list of people (like Wesch) and articles/readings that I need to "process", including instructional design approaches that I come across
+  * scour the web for these - including Laurillard's article, Athabasca paper etc
+  * begin mapping the approaches, and looking for citeable literature on the ones that are important
+  * prepare ethics proposal before weekend
+  * look for articles on how the way you teach someone changes the structure of their learning
+  * instructional design principles/deeper theory? who to ask about this?
+
+h2. Basic idea
+How to use digital devices (mobile + laptop) and large displays, as well as new pedagogical scripts, to enable more collaborative and inquiry-based learning in large undergraduate lectures?
+
+h2. Research questions
+  * How can we make a large undergraduate lecture more "seminar-like"
+    * What are the pre-requisites for effective learning in a seminar?
+  * Are there ways in which the large number of people in the same room at the same time can create unique learning opportunities, that could not happen in a small seminar?
+    * crowd-sourcing, wisdom of the crowds etc
+  * How can what is done in-class be supported by work done between classes, online (hybrid)?
+  * How can the learning be evaluated, analyzed, captured? 
+
+h2. Bodies of literature
+  * [[Audience response systems]] (clickers, UnderstoodIt, etc)
+  * [[Scholarship of Teaching and Learning]] (right now under [[Higher Education Pedagogy]])
+    * [[Pedagogical content knowledge]]
+  * [[Flipped classrooms]]
+  * [[Computer-Supported Collaborative Learning]] and [[Learning Sciences]]
+    * [[Scripting]], [[KCI]]
+----
+  * [@prieto2014supporting]
+  * [@fischer2013scripting]

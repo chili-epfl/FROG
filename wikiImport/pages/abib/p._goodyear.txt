@@ -1,0 +1,6 @@
+h2. P. Goodyear's publications
+
+| goodyear2004undergraduate | Goodyear, P., Jones, C., Asensio, M., Hodgson, V., & Steeples, C. (2004). Undergraduate students’ experiences of networked learning in UK higher education: A survey-based study. Advances in research on networked learning. Springer.|[[skimx://goodyear2004undergraduate|PDF]]|
+| goodyear2004research | Goodyear, P., Banks, S., Hodgson, V., & McConnell, D. (2004). Research on networked learning: An overview. Advances in research on networked learning. Springer.|[[skimx://goodyear2004research|PDF]]|
+| goodyear2004towards | Goodyear, P., Avgeriou, P., Baggetun, R., Bartoluzzi, S., Retalis, S., Ronteltap, F., & Rusman, E. (2004). Towards a pattern language for networked learning. Proceedings of Networked Learning.|[[skimx://goodyear2004towards|PDF]]|
+| reimann2005adaptive | Reimann, P., Judy, K., Yacef, K., & Goodyear, P. (2005). Adaptive visualisation support for self-managed learning groups. AIED 2005--Workshop 6 Representing and Analyzing Collaborative Interactions: What works? When does it work? To what extent are methods re-usable?.|[[skimx://reimann2005adaptive|PDF]]|

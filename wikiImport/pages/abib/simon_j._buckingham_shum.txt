@@ -1,0 +1,4 @@
+h2. Simon J. Buckingham Shum's publications
+
+| :ref:shum2007modeling | Shum, S. J. B., Uren, V., Li, G., Sereno, B., & Mancini, C. (2007). Modeling naturalistic argumentation in research literatures: Representation and interaction design issues. International Journal of Intelligent Systems. doi: 10.1002/int.20188.|
+| :ref:shum2007modeling | Shum, S. J. B., Uren, V., Li, G., Sereno, B., & Mancini, C. (2007). Modeling naturalistic argumentation in research literatures: Representation and interaction design issues. International Journal of Intelligent Systems. doi: 10.1002/int.20188.|

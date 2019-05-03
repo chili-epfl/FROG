@@ -1,0 +1,3 @@
+h2. Kelly Caine's publications
+
+| [@luther2010works] | Luther, K., Caine, K., Ziegler, K., & Bruckman, A. (2010). Why it works (when it works). In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (1). doi:10.1145/1880071.1880073|

@@ -1,0 +1,33 @@
+h1. Multilevel Analysis of Uptake, Sessions, and Key Actors in a Socio-Technical Network.
+<html><a href='' onClick="trackOutboundLink(this, 'PDFs refpage', ''); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Suthers, D. D., & Dwyer, N. (2014). Multilevel Analysis of Uptake, Sessions, and Key Actors in a Socio-Technical Network. In LAK Workshops.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://suthers2014multilevel|BibDesk]]  | Suthers, D. D., & Dwyer, N. (2014). Multilevel Analysis of Uptake, Sessions, and Key Actors in a Socio-Technical Network. In LAK Workshops. |
+^ [[skimx://suthers2014multilevel|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:suthers2014multilevel?do=edit&vecdo=print\'><frame src=\'/wiki/clip:suthers2014multilevel?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{suthers2014multilevel,
+  author = {Suthers, Daniel D and Dwyer, Nathan},
+  booktitle = {LAK Workshops},
+  date-added = {2014-08-07 20:55:30 +0000},
+  date-modified = {2014-08-07 21:02:41 +0000},
+  date-read = {2014-08-07 23:02:41 +0200},
+  read = {1},
+  title = {Multilevel Analysis of Uptake, Sessions, and Key Actors in a Socio-Technical Network.},
+  year = {2014},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QPC4uLy4uLy4uLy4uLy4uL1VzZXJzL1N0aWFuL0JpYmRlc2svc3V0aGVyczIwMTRtdWx0aWxldmVsLnBkZtIXCxgZV05TLmRhdGFPEQGUAAAAAAGUAAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeaQ4SCsAAADa1lIZc3V0aGVyczIwMTRtdWx0aWxldmVsLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAETzwaNAJtFNQREYgAAAAAP////8AAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAA0AmYMwAAAAEADADa1lIAFz0xAAGfXgACADhTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAc3V0aGVyczIwMTRtdWx0aWxldmVsLnBkZgAOADQAGQBzAHUAdABoAGUAcgBzADIAMAAxADQAbQB1AGwAdABpAGwAZQB2AGUAbAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAtVXNlcnMvU3RpYW4vQmliZGVzay9zdXRoZXJzMjAxNG11bHRpbGV2ZWwucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAM0A0gDaAnICdAJ5AoQCjQKbAp8CpgKvArQCwQLEAtYC2QLeAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAuA=}
+}
+
+</hidden>
+
+{{page>notes:suthers2014multilevel}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:suthers2014multilevel}}
+
+{{page>kindle:suthers2014multilevel}}
+
+{{page>skimg:suthers2014multilevel}}

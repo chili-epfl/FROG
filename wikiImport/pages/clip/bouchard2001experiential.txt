@@ -1,0 +1,76 @@
+h2. Highlights (33%)
+
+Learning theories contribute to our understanding of the human process of learning, but we need to include research outside of the educational sciences. Bouchard examines the work of philosopher John Dewey, Piaget, Kolb, and Lewin to explore experiential learning and the emerging models. [[skimx://bouchard2001experiential#6|p. 6]]
+
+To examine experiential learning in the workplace, Bouchard discusses Argyris and Schon, dissecting their explications of "espoused theory," "theory-in-use," and "action learning," concluding that the underlying assumptions during such learning can constitute what Argyris and Polanyi have termed our "tacit knowledge." [[skimx://bouchard2001experiential#6|p. 6]]
+
+Both conscious (aware) and tacit (assumed) knowledge have many implications for the workplace and for organizational learning. An intricate model of the latter, proposed by Nomaka, is detailed by Bouchard. [[skimx://bouchard2001experiential#6|p. 6]]
+
+Models of knowledge "disembodied from their source" can be replaced by participatory forms of research that engage the stakeholders in the search for causes, in the experimenting of new ways and in the collaborative reflection for new methods and new knowledge. [[skimx://bouchard2001experiential#6|p. 6]]
+
+Incredibly, the entire edifice of what has been called educational psychology, instructional theory, or recently cognitive theory, rests on the notion that learning is direct outcome of teaching, and that somehow the only way to eople learn better is to teach them better. Even the recent p of concepts such as self-monitoring, individual learning and social cognition (Zimmerman, Bonner, and Kovach, 996; Bandura, 1986), although met with expect~nt_optimism by adult education researchers, have !allen s~ort of dehvenng an under, d. g of human learning that IS anythmg but school-based. [[skimx://bouchard2001experiential#7|p. 7]]
+
+Classic instructional theory stresses the difference between specific kinds of learning: acquiring declarative knowledge (learning the facts) and procedural knowledge (learning how-to). Other cat~ gories have been put forth for analyzing the outcomes of cognitive processes, such as comprehension, application, analysis, and evalu: ation. These in turn have served as the basis for classifying educa~: tiona! goals and procedures to be used by educational professionals in their everyday practice (see Bloom, 1956; Gagne, 1977; Smith and Regan, 1993). [[skimx://bouchard2001experiential#7|p. 7]]
+
+Have you ever been in a situation where your understanding of_an issue was changed because you gained an insight through shanng with a friend or colleague, or you derived a fresh outlook on a pr~b­ lem by reflecting on an experience or a series of_events, or you _sim; ply became aware that a particular aspect of reahty was expandmg . No new facts were learned. No new procedures were mastered. Nevertheless, a fresh way of looking at things enabled you to make a better decision, understand things a little differently, or refl~ct ~n a problem in a new way. Such events are what I call expertentwl learning, because the change that has occurred in your awareness cannot be directly ascribed to anything other than your own perception or experience. [[skimx://bouchard2001experiential#7|p. 7]]
+
+For Dewey, all learning-including classroom instruction-is the result of the experience of the learner (rather than, say, the efforts of the teacher)·_What is needed, Dewey admonished, is not more or better structurmg of [[skimx://bouchard2001experiential#7|p. 7]]
+
+and Lewin (1935) to build a framework explaining how a produces knowledge through experience. Kolb's cycle of learning occurs through a repeated series of four consteps: (1) Concrete experience is encountered in a given situation, presenting a problem to be resolved through the of new knowledge. The learner, following such an , will engage in (2) reflective observation, arriving at an understanding of the reality at hand. In order to solidify that understanding and define it in terms that rna~ le~d to action, · learner then engages in (3) abstract conceptualizatiOn, whereby mental representation, or schema, is built using what is already known of the situation. Finally, only through (4) active experimencan that conceptualization be fully tested and accepted as either true, partially true, or altogether false. [[skimx://bouchard2001experiential#8|p. 8]]
+
+ious generations' accumulated knowledge through passive niques such as lecturing and testing, but rather more and better turing of the experiences available to learners. [[skimx://bouchard2001experiential#8|p. 8]]
+
+Experience is not something that occurs outside a person. Even if we recognize that many experiences originate externally as an event a presence, or the proximity of a perceivable object, the '· tion (what Dewey calls the "continuity") of that experience is basically constructed by each individual within their own phenomenological. context. [[skimx://bouchard2001experiential#8|p. 8]]
+
+Therefore, we need to ask how we actually structure our peF ceptions of the outside world, and how the outside world influences · our perception so that we may arrive at a socially shared construction of reality. Often, with an identical external stimulus, two people may have very different perceptions, leading to different types of experiences and learning. For example, one teacher with 25 years experi~ · ence may have acquired much insight into the nature of the profes- · sion, the best way to approach certain students, and the importance of careful planning and evaluation. Another teacher, with identical seniority, may have never valued reflection or experimentation, and have learned very little about the subtleties of the profession. ::::This phenomenon has been recognized as one important issue in Prior Learning Assessment (PLA), which makes a clear distinction between the person's experience and acquired knowledge and skills.:::: [[skimx://bouchard2001experiential#8|p. 8]]
+
+The process of experiential learning, in Kolb's view, is cyclical in nature, or rather can be visualized as a never-ending spiral, where previous knowledge serves as the basis for constructing new knowledge. It is very similar to the inductive-deductive scientific approach called the experimental method. The usefulness of Kolb's experiential learning cycle may lie in its representation of four distinct steps that learners engage in more or less proficiently depending on their preferred learning style. Since Kolb's publication, educators have been fascinated by the implications of the notion that individual [[skimx://bouchard2001experiential#8|p. 8]]
+
+One groundbreaking attempt to resolve the dichotomy between learning and experience was made by David Kolb (1984) in his theory of experiential learning. Kolb draws on Dewey (1938), Piaget [[skimx://bouchard2001experiential#8|p. 8]]
+
+::Learning styles - strength in one area = weakness in another, so all should be practiced?:: [[skimx://bouchard2001experiential#9|p. 9]]
+
+scholar Chris Argyris (1993) turns the problem on its head suggesting that learning is not so much a function of experience of action. [[skimx://bouchard2001experiential#9|p. 9]]
+
+An ideal learning environment could opportunities for learners to approach the act of learning from all four angles: concrete experience, reflective observation, conceptualization, and active experimentation. [[skimx://bouchard2001experiential#9|p. 9]]
+
+Argyris talks about a kind of learning that can acquired only by building on our experiences through our HLLl\JU"'· He asks, "How do you know you know something'? When can produce (emphasis mine) what you claim you know'' (p. 5). [[skimx://bouchard2001experiential#9|p. 9]]
+
+One of the basic principles of action learning is the dichotomy what people think they do, and what they really do, what and Schon (1974) call the difference between "espoused and "theory-in-use." [[skimx://bouchard2001experiential#9|p. 9]]
+
+Although Dewey acknowledged the importance of unplanned learning (what he called "collateral learning"), he stressed the importance of transmitting the existing of culture. Kolb's experiential learning cycle not only applies those wishing to internalize existing knowledge, it also applies solving problems that are context-specific and unforeseen. [[skimx://bouchard2001experiential#9|p. 9]]
+
+::Theories-in-use - expert behaviour which is very difficult to explain or teach. "Tacit knowledge"?:: [[skimx://bouchard2001experiential#9|p. 9]]
+
+One of the most intermodels to emerge recently is the one proposed by Nonaka ), which emphasizes the interplay between explicit knowledge implicit (or tacit) knowledge. In order for an organization to learn sornetJmng, knowledge needs to be transformed in one combination or other from explicit to impli<;it, or vice-versa (see Figure 10.2). [[skimx://bouchard2001experiential#10|p. 10]]
+
+Thken together, our multitude of theories-in-use and assumptions constitute what Argyris (1994) and Polanyi (1962) have called our "tacit knowledge." [[skimx://bouchard2001experiential#10|p. 10]]
+
+1. Internalization occurs when explicit knowledge (for example, the written rules and procedures for accomplishing a specific task) is absorbed by an individual or a unit to such an extent that the information becomes embedded in the person's own (implicit) knowledge-base. [[skimx://bouchard2001experiential#10|p. 10]]
+
+There can be a problem, however, when our theories-in-use don't work. The natural tendency is to stick to known formulas and avoid the risks of applying new and untested solutions, what Argyris (1993) calls "single loop learning." It works like a thermo~ . stat that is programmed to maintain the temperature at a certain level but the thermostat doesn't ask why the dial was set at that par~ ticular temperature in the first place. In order to benefit fully from the learning potential embedded in experience, we need to adopta "double loop" learning strategy, requiring that we question and test·· assumptions that guide our actions. In other words, we need to ask ourselves, "Is the thermostat dial at the proper setting'? And why'?" [[skimx://bouchard2001experiential#10|p. 10]]
+
+2. Combination occurs when explicit knowledge is reproduced and transmitted to other individuals or units within the organization, through carefully drafted documents containing crucial information. [[skimx://bouchard2001experiential#10|p. 10]]
+
+3. Socialization occurs when one person's implicit knowledge becomes another person's implicit knowledge. This happens in situations where people merge their tacit knowledge-base, for instance, in mentoring relationships. [[skimx://bouchard2001experiential#10|p. 10]]
+
+. Externalization occurs when implicit knowledge within the organization somehow becomes explicit. This can happen when a senior employee's experiential knowledge-base is tapped to produce documents or materials· ..· intended for others. [[skimx://bouchard2001experiential#11|p. 11]]
+
+present in our perception and interpretation of so-called . The meaning of an experience can vary according to a per's background, beliefs, gender, income, etc. [[skimx://bouchard2001experiential#11|p. 11]]
+
+One way to overcome the pitfalls of one-way knowledge production and transmission, while remaining sensitive to the diversity of social experience, is to produce knowledge rooted in the experience ·ofthose who are directly affected by it. But how does one produce this type of knowledge'? Normally, what we learn in books is the result of careful inquiry by experts in a particular field. We have become so accustomed to this that, before accepting anything as legitimate knowledge, we usually check the credentials of those who proposed it. The problem, of course, is that such models of knowledge are often disembodied from their source, and merely convey the application of an objective (instead of subjective) set of rules or research methodology. [[skimx://bouchard2001experiential#11|p. 11]]
+
+Information within an organization· can be written down, saved on disk, or put on a library shelf, butit will not become useable knowledge until it is embedded in people's awareness through one of the four processes described above. [[skimx://bouchard2001experiential#11|p. 11]]
+
+Traditional learning is transmitted mostly through one-way communication, symbolic representations of previously constructed knowledge. [[skimx://bouchard2001experiential#11|p. 11]]
+
+Collaborative and participatory research [[skimx://bouchard2001experiential#11|p. 11]]
+
+Mezirow (1990) uses Habermas's (1972) notion of "emancipatory knowl~ edge" as the basis for critical reflection. For Mezirow, critical reflection occurs when "... people become aware of the cultural and psychological assumptions that have influenced the way they see themselves and the way they structure their lives" (Lewis and Williams, 1994, p. 7). Since assumptions are what we take for granted or are habitual, we are not always aware of them. Without critical reflection, experiential learning can be seen as a mere technique for learning in otherwise curriculum-oriented environments, such as the traditional classroom. Brah and Hoy (1989) talk about the "politics of experience" (p. 71) as an important factor in our individual and collective construction of reality. They state, "Social encounters, as for instance in a classroom, are mediated within the parameters set out by [the] broader social context" (p. 71). By this they mean that a person's experience is rarely, if ever, set in a neutral vacuum, and that the social power relations that define our interactions ar [[skimx://bouchard2001experiential#11|p. 11]]
+
+The nature of human experience suggests that individuals have potential to transform everyday occurrences into real insight, -providing they approach the process as a learning task. [[skimx://bouchard2001experiential#12|p. 12]]
+
+In the spirit of Malcolm Knowles's andragogy ("the art and science of helping adults learn"), adult educators can apply the models of experiential learning to facilitate the birth of relevant knowledge among growth-seeking learners. [[skimx://bouchard2001experiential#12|p. 12]]
+
+References [[skimx://bouchard2001experiential#13|p. 13]]
+

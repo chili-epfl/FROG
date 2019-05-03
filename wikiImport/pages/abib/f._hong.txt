@@ -1,0 +1,3 @@
+h2. F. Hong's publications
+
+| dillenbourg2008mechanics | Dillenbourg, P., & Hong, F. (2008). The mechanics of CSCL macro scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://dillenbourg2008mechanics|PDF]]|

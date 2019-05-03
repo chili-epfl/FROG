@@ -1,0 +1,8 @@
+h2. M. Lamon's publications
+
+| lamon1993beliefs | Lamon, M., Chan, C., Scardamalia, M., Burtis, J., & Brett, C. (1993). Beliefs about learning and constructive processes in reading: Effects of a computer supported intentional learning environment. annual meeting of the American Educational Research Association {(Atlanta,} Ga.|
+| scardamalia1994acsile | Scardamalia, M., Bereiter, C., & Lamon, M. (1994). {CSILE:} Trying to bring students into world 3. Classroom lessons: Integrating cognitive theory and classroom practice.|
+| scardamalia1994csile | Scardamalia, M., Bereiter, C., & Lamon, M. (1994). The {CSILE} project: Trying to bring the classroom into World 3. Classroom lessons: Integrating cognitive theory and classroom practice.|
+| scardamalia1994bringing | Scardamalia, M., Bereiter, C., & Lamon, M. (1994). Bringing the classroom into World {III}. Classroom lessons: Integrating cognitive theory and classroom practice.|
+| lamon2001mapping | Lamon, M., Reeve, R., & Scardamalia, M. (2001). Mapping learning and the growth of knowledge in a knowledge building community. American Educational Research Association Meeting.|
+| zhang2007socio-cognitive | Zhang, J., Scardamalia, M., Lamon, M., Messina, R., & Reeve, R. (2007). Socio-cognitive dynamics of knowledge building in the work of 9-and 10-year-olds. Educational Technology Research and Development.|

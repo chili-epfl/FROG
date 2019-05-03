@@ -1,0 +1,20 @@
+h1. Marten de Laat
+{{ pages:a_marten_de_laat04.png}}
+at Open University Netherlands
+
+h2. Research
+My main research interest is in social learning theories focused on issues related to networked learning. Key questions are how, why and when (informal) learning networks are being formed, how they develop and scale, what value they create, and how are these networks facilitated by technical tools, devices and technical networking infrastructures.
+
+In order to study the nature of networked learning I developed a multi-method approach triangulating quantitative and qualitative techniques to describe the complexity of networked learning from various perspectives and its development overtime.
+The aim of this methodology is to paint a more complete picture of networked learning processes. I believe that these understandings will contribute to the development of better pedagogical frameworks, ICT software and (mobile) devices in order to effectively support (informal) learning in various social configurations. 
+
+This multi-method research framework combines social network analysis (SNA) to find out ‘who is talking to whom’, content analysis (CA) to find out ‘what they are talking about’, and contextual analysis (CxA) focusing on the experiences and settings of the participants to find out ‘why they are talking as they do’.
+
+{{pages:a_marten_de_laat03.png}}
+                                                                                                             
+These three methods are used to triangulate and contextualise our findings and to stay close or connected to the first-hand experiences of the participants themselves. This method was validated during my phd research, where I studied various networked learning communities (in work and educational settings). These studies were focused on providing an empirical account on how participants of these networked learning communities regulate and coordinate their collaborative learning. In these studies I described the development of peer teaching and learning processes by describing the richness and complexity of the networked learning interactions and how participants' participation changes over time developing more advanced networked learning skills and competencies.
+
+h2. Links
+  * [[http://www.open.ou.nl/rslmlt/|Homepage]]
+
+{{page>abib:Marten de Laat}}

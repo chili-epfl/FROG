@@ -1,0 +1,6 @@
+h2. Luca Iandoli's publications
+
+| [@klein2008supporting] | Klein, M., & Iandoli, L. (2008). Supporting Collaborative Deliberation Using a Large-Scale Argumentation System: The MIT Collaboratorium. the proceedings of the 11th Symposim on Directions and Implications of Advanced Computing (DIAC’2008), June, 26--29.|
+| [@gurkan2009common] | GürkanA., & Iandoli, L. (2009). Common ground building in an argumentation-based online collaborative environment. In Proceedings of the International Conference on Management of Emergent Digital EcoSystems (48).|
+| [@gurkan2010mediating] | Gurkan, A., Iandoli, L., Klein, M., & Zollo, G. (2010). Mediating debate through on-line large-scale argumentation: Evidence from the field. Information Sciences, 180(19), 3686--3702.|
+| [@quinto2010debate] | Quinto, I., Buckingham Shum, S., Liddo, A. D., & Iandoli, L. (2010). A debate dashboard to enhance on-line knowledge sharing. Conference Item. |

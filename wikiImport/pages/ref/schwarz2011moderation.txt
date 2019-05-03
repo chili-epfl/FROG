@@ -1,0 +1,37 @@
+h1. E-moderation of synchronous discussions in educational settings: A nascent practice
+
+<ifauth !@admin>|Schwarz, B. B., & Asterhan, C. S. C. (2011). E-moderation of synchronous discussions in educational settings: A nascent practice. Journal of the Learning Sciences, 99999(1), 1--1. Routledge.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://schwarz2011moderation|BibDesk]]  | Schwarz, B. B., & Asterhan, C. S. C. (2011). E-moderation of synchronous discussions in educational settings: A nascent practice. Journal of the Learning Sciences, 99999(1), 1--1. Routledge. |
+^ [[skimx://schwarz2011moderation|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:schwarz2011moderation?do=edit&vecdo=print\'><frame src=\'/wiki/clip:schwarz2011moderation?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{schwarz2011moderation,
+  author = {Schwarz, Baruch B. and Asterhan, Christa S. C.},
+  date-added = {2011-06-05 15:46:40 +0800},
+  date-modified = {2011-06-16 18:38:10 +0800},
+  journal = {Journal of the Learning Sciences},
+  keywords = {cmc; toread; synchronous},
+  number = {1},
+  pages = {1--1},
+  publisher = {Routledge},
+  read = {1},
+  title = {E-moderation of synchronous discussions in educational settings: A nascent practice},
+  volume = {99999},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZQAAAAAAZQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhlzY2h3YXJ6MjAxMW1vZGVyYXRpb24ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdcZ+y9dIvFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14D8AAAAAQAMANrWUgAXPTEAAZ9eAAIAOFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzY2h3YXJ6MjAxMW1vZGVyYXRpb24ucGRmAA4ANAAZAHMAYwBoAHcAYQByAHoAMgAwADEAMQBtAG8AZABlAHIAYQB0AGkAbwBuAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC1Vc2Vycy9TdGlhbi9iaWJkZXNrL3NjaHdhcnoyMDExbW9kZXJhdGlvbi5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECcuLi8uLi9iaWJkZXNrL3NjaHdhcnoyMDExbW9kZXJhdGlvbi5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACOAI6Aj8CSAJTAlcCZQJsAnUCnwKkAqcCtAK5AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:schwarz2011moderation}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:schwarz2011moderation}}
+
+{{page>kindle:schwarz2011moderation}}
+
+{{page>skimg:schwarz2011moderation}}

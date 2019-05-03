@@ -1,0 +1,24 @@
+h1. Tech
+see also [[how to]] and [[hacks]]
+
+h2. Mac
+  * [[Launchd]] (let's you automatically launch applications on startup, on disk mount, at certain times, etc)
+  * [[Zsh]] alternative powerful shell
+----
+On Leopard you can issue a simple Terminal command to flush the DNS cache, and have your host file changes to take immediate effect:
+
+
+view sourceprint?
+
+1
+
+$ dscacheutil -flushcache
+
+ [[http://decoding.wordpress.com/2009/04/06/how-to-edit-the-hosts-file-in-mac-os-x-leopard/|How to edit the hosts file in Mac OS X – Leopard « Decoding the Web]]
+----
+  * [[http://www.meteor.com/|Meteor]]
+  * [[http://wynnnetherland.com/journal/a-stylesheet-author-s-guide-to-terminal-colors|A stylesheet author's guide to terminal colors - Journal]]
+  * [[https://developers.google.com/pagespeed/|Page Speed Online — Google Developers]]
+  * [[http://mathematism.com/2010/12/22/static-site-generators/|Static Site Generators | mathematism]]
+  * [[http://jtaby.com/2012/04/23/modern-web-development-part-1.html|Modern Web Development]]
+  * [[http://square.github.com/cubism/|Cubism.js]]

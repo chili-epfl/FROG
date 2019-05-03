@@ -1,0 +1,80 @@
+h2. Highlights (25%)
+
+New technologies have changed the educational landscape. It is now possible for self-directed learners to participate informally in learning events on open online networks, such as in Massive Open Online Courses. Our research analyzed the agency and level of autonomy required by learners participating in a course of this nature. Using Bouchard’s four-dimensional model of learner control, we found that there are new dimensions to self-directed learning in connectivist learning environments. The research also brought to light new challenges and opportunities for self-directed learners who might not be able to call on trusted educators for support in their learning endeavors, but rely on the aggregation of information and informal communication and collaboration available through social media to advance their learning. [[skimx://kop2011dimensions#1|p. 1]]
+
+Two areas of research are foundational to examining learning in open networked environments: learner autonomy and connectivism. [[skimx://kop2011dimensions#1|p. 1]]
+
+Several researchers in the field of self-directed learning see learner autonomy as an important component of self-directed learning (Ponton, 2005; Bouchard, 2009; Boucouvalas, 2009). Bouchard (2009) and Boucouvalas (2009) both highlighted the learning environment, learning context, and the connections people make during their learning as determining factors in the success of self-directed learning journeys. These elements are aligned with Bandura’s (2002) ideas on “human agency” (p. 269). He accentuated three types of agency: personal agency exercised individually, proxy agency, in which people secure desired outcomes by influencing others to act on their behalf; and collective agency, in which people act in concert to shape their future in whatever cultural context they inhabit. Bandura emphasized the importance of all three agencies and their interrelatedness in the complex world in which we now live. [[skimx://kop2011dimensions#2|p. 2]]
+
+Tough (1979) and Grow (1991) noted that learners move through different phases of self-direction, and Bouchard (2009) identified particular factors that influence autonomous learning strategies. He clustered them in four dimensions, one dealing with psychological issues, one with pedagogical issues, and two with environmental issues: [[skimx://kop2011dimensions#2|p. 2]]
+
+1. The first dimension, which he called the conative one, relates to psychological issues such as drive, motivation, initiative and confidence. In this dimension Bouchard also highlighted aspects of context and transitions, how these influence people’s urges to take up learning, and the social networks that people are involved in and which act as affective support and resources. He noted that their past learning experiences might also influence autonomous learning strategies. [[skimx://kop2011dimensions#2|p. 2]]
+
+2. The algorithmic dimension relates to pedagogical issues, for instance the sequencing, pacing and goal setting in learning, the evaluation of progress, and final evaluation and preparation for validation. These are clearly tasks that in the past were carried out by the educator; in an autonomous learning environment, they become issues that learners themselves have to resolve. [[skimx://kop2011dimensions#2|p. 2]]
+
+Bouchard (2009) also saw two environmental clusters of factors that would influence learning strategies: [[skimx://kop2011dimensions#2|p. 2]]
+
+3. The dimension that Bouchard called the semiotics of learning is related to the delivery model of resources. This model has drastically changed in recent years and moved from the use of resources such as books and paper to electronic texts and multimedia, which might be stored in searchable databases that could be linked through hyperlinks. It could also include contributions in blogs, wikis, and synchronous and asynchronous communication. Information is obtained through social networks and learners will need to be able to evaluate and navigate this new information landscape. [[skimx://kop2011dimensions#2|p. 2]]
+
+4. The importance of aspects of economy was recognized as a fourth category: the perceived and actual value of the learning, the choice to learn for personal gain such as for future employment, and the possible cost of other study options. [[skimx://kop2011dimensions#2|p. 2]]
+
+While Bouchard’s dimensions provide an important basis for exploration of learner autonomy, examining self-directed learning in an open networked learning environment also requires awareness of the challenges of connectivism. [[skimx://kop2011dimensions#3|p. 3]]
+
+The current literature related to Web development highlights four challenges and pertinent developments to connectivist learning: [[skimx://kop2011dimensions#3|p. 3]]
+
+The nature of the network as a place to learn as opposed to a group in an educational institution and the levels of presence in each has been highlighted as an important factor in the willingness of participants to actively engage online (Dron & Anderson, 2007). Power relations in online networks and how these might influence the information and resources that self-directed learners will be able to access are other important issues. The structures of the Web are preventing it from developing into a network where equality is the norm, rather than the exception (Barabasi, 2003; Boyd, 2010b). [[skimx://kop2011dimensions#3|p. 3]]
+
+Some literacies have been identified that are critical for learners to be able to effectively direct their own learning in an open online networked environment. [[skimx://kop2011dimensions#3|p. 3]]
+
+Cloud computing and the emergence of Web2.0 and social media have altered the dynamics of the Web. [[skimx://kop2011dimensions#4|p. 4]]
+
+These tools have created a new demand on human agency in the form of creativity, innovation and self-expression (Sahlberg, 2009; Fisher, Giaccardi, Eden, Sugimoto, & Ye, 2005). [[skimx://kop2011dimensions#4|p. 4]]
+
+The Semantic Web and learning analytics are the latest developments of the Web and can be used for the visualization of large amounts of data, creating a need for learners to be able to understand and critically analyze graphs and figures. The analysis of this “Big Data” can also be used to improve learning in new ways, and some observers envisage the use of analytics in learning recommender systems to aid learners in their information aggregation strategies (Rogers, McEwen, & Pond, 2010; Fournier, Kop, & Sitlia, 2011). [[skimx://kop2011dimensions#4|p. 4]]
+
+This paper will investigate whether the four dimensions that Bouchard (2009) highlighted in his research match the experiences and perceptions of learners in a Massive Open Online Course that was held in the autumn of 2010 and if additional dimensions might be justified by examining their connectivist learning in an online environment. [[skimx://kop2011dimensions#4|p. 4]]
+
+Carroll, Kop, and Woodward (2008) see the creation of a place where people feel comfortable, trusted, and valued as the crux to engaging learners in an online environment. The task would be to move towards a space that aggregates content and imagine it as a community, a place where dialogue happens, where people feel comfortable, and interactions and content can be accessed and engaged with easily: a place where the personal meets the social with the specific purpose of the development of ideas and of learning. [[skimx://kop2011dimensions#4|p. 4]]
+
+The National Research Council of Canada is in the process of designing and developing a place that might support autonomous learners online. It is a Personal Learning Environment (PLE) called Plearn. The development consists of two strands: The creation of a place, encompassing technological components, where people can [[skimx://kop2011dimensions#4|p. 4]]
+
+manage their own learning, and the creation of a pedagogical platform that would support learners in this endeavor. [[skimx://kop2011dimensions#5|p. 5]]
+
+The subject under scrutiny was Personal Learning Environments, Networks and Knowledge (PLENK). It was a free course that lasted 10 weeks with a total of 1641 participants registered. [[skimx://kop2011dimensions#5|p. 5]]
+
+Siemens and Downes (2009) [[skimx://kop2011dimensions#5|p. 5]]
+
+They stress the importance of four types of activity for successful learning: (a) aggregation of information, (b) remixing and reflecting on the resources and relating them to what people already know, (c) repurposing: creating something of their own, and (d) sharing their work and activities with others. [[skimx://kop2011dimensions#5|p. 5]]
+
+Research Methodology [[skimx://kop2011dimensions#5|p. 5]]
+
+De Laat (2006) highlighted the complexity of [[skimx://kop2011dimensions#5|p. 5]]
+
+researching networked learning and emphasized as key problems the issues of human agency and the multitude of issues involved, such as the dynamics of the network, power-relations on the network, and the amount of content generated. Effective analysis would require a multi-method approach and would involve new ethics and privacy issues. [[skimx://kop2011dimensions#6|p. 6]]
+
+::Useful discussion of ethics of collecting "big data", networks, consent etc.:: [[skimx://kop2011dimensions#6|p. 6]]
+
+including the End Survey (N = 63); an Active Producers Survey (N = 32), that was filled out by people after an invitation was posted in the course blog for people who had produced more than two digital artifacts; and a Lurkers Survey (N = 74) that was filled out after a similar call for people who had limited their participation in the course to producing less that 2 digital artifacts and whose behavior was characterized in a consuming rather than a participating nature. [[skimx://kop2011dimensions#6|p. 6]]
+
+qualitative methods in the form of virtual ethnography were used. An ethnographer was working on the course, collecting qualitative data through observation of activities and engagement. She also interviewed and surveyed a number of participants during the final week and held a focus group with ‘silent participants’ (lurkers) after the course to gain a deeper understanding of particular issues related to the active participation of learners. [[skimx://kop2011dimensions#7|p. 7]]
+
+As vast amounts of discursive data were generated in this form of networked learning in an open environment, computational tools such as Nvivo were used for analyses and interpretation of the qualitative research data. [[skimx://kop2011dimensions#7|p. 7]]
+
+Learning analytics tools were used as a form of Social Network Analysis (SNA) to clarify activities and relationships between nodes on the PLENK network. SNA also provided information on the importance of “connectors” on other networks, and the most relevant tools to facilitate this. [[skimx://kop2011dimensions#7|p. 7]]
+
+Some analytics and visualization tools, such as the Social Networks Adapting Pedagogical Practice (SNAPP) tool, were also used to deliver real-time social network visualizations of Moodle discussion forum activity; while the visualization tool NetDraw was used to create an ego network for understanding the role of a particular actor in a discussion. [[skimx://kop2011dimensions#7|p. 7]]
+
+The research data showed some interesting reasons why the majority of participants were lurkers, rather than active producers. As Figure 9 shows, 54.5% of respondents to the lurkers survey indicated that they have always been self-directed learners and do not think they have to actively share and reply to discussion forums and blogs to learn. In addition, 50.9% highlighted that they are tactical lurkers who use particular strategies that are especially useful in their learning. [[skimx://kop2011dimensions#11|p. 11]]
+
+The end-of-course survey highlighted factors that were important to participant motivation. What seemed to motivate participants most was finding particularly striking resources and information, getting involved in an online community, and the opportunity to learn something new. [[skimx://kop2011dimensions#14|p. 14]]
+
+The level of activity by participants in the course was particularly interesting. Although course organizers and promoters of connectivist learning posit that actively producing digital artifacts is an important stage in the networked learning process, most participants had a different view and participated in a different way. [[skimx://kop2011dimensions#15|p. 15]]
+
+Time management, goal setting, and time availability were mentioned as the most important algorithmic factors influencing people’s participation. Learners found it hard to pace themselves and were, especially at the start, overwhelmed by the volume of resources and communication that needed to be managed, shaped, and organized, even though facilitators told participants that it would be impossible to read [[skimx://kop2011dimensions#15|p. 15]]
+
+and view everything that would come their way. People did make decisions about this at a later stage and devised coping strategies with the help of others. [[skimx://kop2011dimensions#16|p. 16]]
+
+Based on analysis of the findings, it seems that to bring out the creative potential in people and to inspire them into the production of digital artifacts, dimensions of activity, engagement, and learning would have to be heightened and at their most favorable. Heightening the level of engagement and active participation is one of the main challenges of learning in an open networked environment and one in which educators could play a role. [[skimx://kop2011dimensions#16|p. 16]]
+
+References [[skimx://kop2011dimensions#17|p. 17]]
+

@@ -1,0 +1,3 @@
+h1. Key ideas
+
+Written by someone who owns an learning software company, sets out mathematical constraints for an intelligent tutor, primarily to schedule repetition. Not sure how these are derived - there is no empirical research mentioned at all. Useful sources for overview of the research on timing/spacing, going back to 1885.

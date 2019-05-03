@@ -1,0 +1,3 @@
+h2. K. Kim's publications
+
+| kim2006conditional | Kim, K. (2006). Conditional Relevance in Internet Relay Chat. Seoul National University Department of English Language and Literature.|[[skimx://kim2006conditional|PDF]]|

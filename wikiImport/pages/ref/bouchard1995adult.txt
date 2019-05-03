@@ -1,0 +1,33 @@
+h1. Adult Education Research Trends in Canadian Universities: An Update to the 1993 (Ottawa) CASAE Reports.
+
+<ifauth !@admin>|Bouchard, P. (1995). Adult Education Research Trends in Canadian Universities: An Update to the 1993 (Ottawa) CASAE Reports.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bouchard1995adult|BibDesk]]  | Bouchard, P. (1995). Adult Education Research Trends in Canadian Universities: An Update to the 1993 (Ottawa) CASAE Reports. |
+^ [[skimx://bouchard1995adult|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bouchard1995adult?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bouchard1995adult?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bouchard1995adult,
+  author = {Bouchard, Paul},
+  date-added = {2012-04-04 18:45:51 +0000},
+  date-modified = {2012-04-09 01:02:02 +0000},
+  date-read = {2012-04-04 17:20:16 -0400},
+  notes = {1},
+  read = {1},
+  title = {Adult Education Research Trends in Canadian Universities: An Update to the 1993 (Ottawa) CASAE Reports.},
+  year = {1995},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVib3VjaGFyZDE5OTVhZHVsdC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6X/y9bu51BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1ycnAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VjaGFyZDE5OTVhZHVsdC5wZGYADgAsABUAYgBvAHUAYwBoAGEAcgBkADEAOQA5ADUAYQBkAHUAbAB0AC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2JvdWNoYXJkMTk5NWFkdWx0LnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svYm91Y2hhcmQxOTk1YWR1bHQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:bouchard1995adult}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bouchard1995adult}}
+
+{{page>kindle:bouchard1995adult}}
+
+{{page>skimg:bouchard1995adult}}

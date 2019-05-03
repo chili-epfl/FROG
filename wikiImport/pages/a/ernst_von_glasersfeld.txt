@@ -1,0 +1,9 @@
+h1. Ernst von Glasersfeld
+
+Passed away. Radical constructivism.
+
+Glasersfeld’s real interest was the epistemology of ‘‘radical’’ constructivism, not learning theory, which he referred to as ‘‘trivial’’ constructivism. (@tobin2007key).
+
+  * [[http://www.vonglasersfeld.com/|Very detailed portal of his writings]]
+
+{{page>abib:Ernst von Glasersfeld}}

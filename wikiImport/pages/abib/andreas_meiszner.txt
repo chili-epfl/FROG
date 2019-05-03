@@ -1,0 +1,3 @@
+h2. Andreas Meiszner's publications
+
+| [@meiszner2010emergence] | Meiszner, A. (2010). The Emergence of Free / Open Courses - Lessons from the Open Source Movement (PhD thesis).|

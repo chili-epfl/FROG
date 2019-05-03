@@ -1,0 +1,63 @@
+h1. MOOC
+
+  * [[http://www.ispub.com/journal/the_internet_journal_of_medical_education/volume_1_number_2_71/article/a-brief-guide-to-understanding-moocs.html|A Brief Guide To Understanding MOOCs]] Ken Masters
+  * [[https://sites.google.com/site/themoocguide/|The MOOC Guide (Downes)]]
+
+{{page>kbib:mooc}}
+----
+A MOOC is an online course with the option of free and open registration, a publicly shared curriculum, and open-ended outcomes. MOOCs integrate social networking, accessible online resources, and are facilitated by leading practitioners in the field of study. Most significantly, MOOCs build on the engagement of learners who self-organize their participation according to learning goals, prior knowledge and skills, and common interests.
+
+
+Based on this discussion, we settled on the pedagogical model that continues to define MOOCs:
+
+
+  * High levels of learner control over modes and places of interaction
+
+  * Weekly synchronous sessions with facilitators and guest speakers
+
+  * The Daily email newsletter as a regular contact point for course participants The Daily includes a summary of Moodle forums, course participant blogs, Twitter discussions related to the course, etc
+
+  * Using RSS-harvesting (gRSShopper) to track blogs of course participants
+
+  * Emphasis on learner autonomy in selecting learning resources and level of participation in activities
+
+  * Emphasis on social systems as effective means for learners to self-organize and wayfinding through complex subject areas
+
+  * The criticality of “creation” - ie learners create and share their understanding of the course topics through blogs, concept maps, videos, images podcasts. 
+
+    * Creating a digital artifact helps learners to re-centre the course discussion to a more personal basis [[:Notes:Mcauley2010mooc]]
+----
+  * [[http://blogs.edweek.org/edweek/edtechresearcher/2012/05/all_moocs_explained_market_open_and_dewey.html|Summarizing All MOOCs in One Slide: Market, Open and Dewey - EdTech Researcher - Education Week]]
+  * [[http://chronicle.com/article/Open-Access-Courses-How-They/131677/?sid=wc|Open-Access Courses: How They Compare - The Digital Campus - The Chronicle of Higher Education]]
+  * [[http://www.educause.edu/game-changers?utm_source=Informz&utm_medium=e-mail&utm_campaign=Game%2BChangers|Game Changers: Education and Information Technologies | EDUCAUSE]]
+  * [[http://blogs.edweek.org/edweek/edtechresearcher/2012/04/all_edtech_summarized_in_one_slide_market_open_and_dewey.html?cmp=ENL-EU-VIEWS2|Summarizing EdTech in One Slide: Market, Open and Dewey - EdTech Researcher - Education Week]]
+  * [[http://www.forbes.com/sites/joshuagans/2012/05/07/what-my-11-year-olds-stanford-course-taught-me-about-online-education/2/|What My 11 Year Old's Stanford Course Taught Me About Online Education - Forbes]]
+  * [[http://www.theatlantic.com/business/archive/2012/05/the-big-idea-that-can-revolutionize-higher-education-mooc/256926/|The Big Idea That Can Revolutionize Higher Education: 'MOOC' - Laura McKenna - Business - The Atlantic]]
+  * [[http://hastac.org/blogs/cathy-davidson/2012/05/10/wheres-courseware-revolution-what-if-students-created-public-online-|Where's the Courseware Revolution? What If STUDENTS Created Public, Online Courses For Others? | HASTAC]]
+  * [[http://techcrunch.com/2012/05/09/move-over-harvard-and-mit-stanford-has-the-real-revolution-in-education/|Move Over Harvard And MIT, Stanford Has The Real “Revolution In Education” | TechCrunch]]
+  * [[http://edtechdev.wordpress.com/2012/05/04/whats-the-problem-with-moocs/|What’s the “problem” with MOOCs? « EdTechDev [http://edtechdev.wordpress.com/]]]
+  * [[http://www.elearnspace.org/blog/2012/06/03/what-is-the-theory-that-underpins-our-moocs/|elearnspace › What is the theory that underpins <em>our</em> moocs? [http://www.elearnspace.org/]]]
+  * [[http://opencontent.org/blog/archives/2386|On the Term “MOOC” | iterating toward openness [http://opencontent.org/]]]
+  * [[http://travelinedman.blogspot.ca/2012/06/jarl-jonah-director-of-coursesites-by.html|TravelinEdMan: Jarl Jonas Director of CourseSites by Blackboard reflects on first MOOC - The World Is Open [http://travelinedman.blogspot.ca/]]]
+  * [[http://www.hybridpedagogy.com/Journal/files/A_MOOC_by_Any_Other_Name.html|A MOOC by Any Other Name | Open Education | HYBRID PEDAGOGY [http://www.hybridpedagogy.com/]]]
+  * [[http://www.tonybates.ca/2012/08/05/whats-right-and-whats-wrong-about-coursera-style-moocs/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+tonybates+%28Tony+Bates%29|What’s right and what’s wrong about Coursera-style MOOCs [http://www.tonybates.ca/]]]
+  * [[http://chronicle.com/blogs/wiredcampus/students-in-free-online-courses-form-groups-to-study-and-socialize/38887|Students in Free Online Courses Form Groups to Study and Socialize - Wired Campus - The Chronicle of Higher Education [http://chronicle.com/]]]
+  * [[http://chronicle.com/blogs/wiredcampus/students-in-free-online-courses-form-groups-to-study-and-socialize/38887|Students in Free Online Courses Form Groups to Study and Socialize - Wired Campus - The Chronicle of Higher Education [http://chronicle.com/]]]
+  * [[http://lisahistory.net/wordpress/2012/08/three-kinds-of-moocs/|Three Kinds of MOOCs « Lisa's (Online) Teaching Blog [http://lisahistory.net/]]]
+  * [[http://mfeldstein.com/the-most-thorough-description-to-date-of-university-experience-with-mooc/|The Most Thorough Description (to date) of University Experience with MOOC |e-Literate [http://mfeldstein.com/]]]
+  * [[http://moocs.epfl.ch/page-88248-en.html|Projects | MOOCs [http://moocs.epfl.ch/]]]
+  * [[http://www.katyjordan.com/MOOCproject.html|MOOC completion rates]]
+  * [[http://moocmoocher.wordpress.com/2013/02/13/synthesising-mooc-completion-rates/|Synthesising MOOC completion rates | MoocMoocher]]
+
+----
+Across a range of Coursera classes, students watch a typical lecture video an average of 1.7 times, with one in every 10 students watching video more than 2.7 times on average. Given that the proportion of students who watch at least 90 percent of the available lecture videos is around twice the number of students who earn a Statement of Accomplishment, this important subpopulation cannot be ignored. [[http://www.educause.edu/ero/article/retention-and-intention-massive-open-online-courses-depth-0?utm_source=Informz&utm_medium=Email+marketing&utm_campaign=ERO&utm_content=TOC|Retention and Intention in Massive Open Online Courses: In Depth (EDUCAUSE Review) | EDUCAUSE.edu]]
+----
+  * [[http://www.aace.org/conf/ELearn/Symposium.htm|AACE - E-Learn Symposium]]
+  * [[http://ignatiawebs.blogspot.ca/2013/05/mooc-edinburgh-report-on-organizing-6.html|@Ignatia Webs: #MOOC @Edinburgh report on organizing 6 Coursera MOOCs]]
+  * [[http://www.wwwords.co.uk/elea/content/pdfs/10/issue10_2.asp|E-Learning ISSN 2042-7530 - Volume 10 Issue 2 (2013) Contents]]
+  * [[http://info.p2pu.org/2013/06/18/data-mooc-results-findings-and-recommendations/|Data MOOC: Results, Findings and Recommendations | Peer to Peer University]]
+  * http://web.mit.edu/newsoffice/2013/6002x-data-offer-insights-into-online-learning-0611.html
+  * [[http://firstmonday.org/ojs/index.php/fm/article/view/4350/3673|The pedagogical foundations of massive open online courses | Glance | First Monday]]
+  * [[http://en.wikiversity.org/wiki/User:Leighblackall/Open_Online_Courses_and_Massively_untold_stories|User:Leighblackall/Open Online Courses and Massively untold stories - Wikiversity]]
+  * [[http://jolt.merlot.org/currentissue.html?utm_source=CTSI+Connect+Newsletter&utm_campaign=a5af36196e-CTSI_Connect_July_20137_2_2013&utm_medium=email&utm_term=0_9ca5f62a6e-a5af36196e-82999753|JOLT - Journal of Online Learning and Teaching]]
+  * [[http://www.slideshare.net/robemoco/mooc-cartography-presentation-for-sloanc-international-conference-on-online-learning-2013|MOOC Cartography - Presentation for Sloan-C International Conferenc...]]

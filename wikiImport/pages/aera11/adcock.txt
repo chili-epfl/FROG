@@ -1,0 +1,54 @@
+====== Using Animated Pedagogical Agents Teaching Empathetic Listening Skills: The Nonverbal Advantage ======
+
+//Old Dominion University//
+
+**Why agents?**
+  * Arguments against use of APA (Clark 1983, Clark and Choi 2005)
+    * novelty effect
+    * expense
+    * seductive detail
+    * evidence of learning gains
+  * BUT Can be a necessary affordance for specific instructional approaches
+    * in this case, a simulated role play strategy
+
+**Empathetic communication skills**
+  * core skill in counseling and helping professions
+    * feeling with the client rather than for the client
+    * certain words associated with empathy, students need to internalize these
+    * allows helper to maintain objectivity
+  * methods for teaching it
+    * films
+    * role-play exercises
+      * how do you do this in distance ed? film it and send it back and forth? 
+    * paid actors
+  * We need cost/resource effective means to teach students at a distance
+
+**CATHIE: Computer agents teaching helping interactions effectively**
+  * online interview simulation designed to train empathetic communication skills
+    * web based, student-directed
+  * features
+    * animated agent acting as client
+    * three response choices at varying levels of effectiveness
+    * immediate feedback on response choice
+    * non verbal decoding - listening to client and looking at facial expressions
+  * Situated cognition (Brown, Collins and Duguid 1989)
+  * Principles of simulation design
+    * operationalize simulated professional practice
+      * what is it like when someone comes into the room? 
+    * meaningful stimulus
+    * appropriate fidelity consideration
+      * difference with novice and expert counselors
+
+**The nonverbal advantage**
+  * Decoding verbal and nonverbal responses
+  * Not possible without a responsive, programmable character on the screen
+    * allows for dynamic responses and system flexibilities
+  * Recorded voice from experienced counselor, showing what people sound like when they break down, etc
+  * Why not use video
+    * want dynamic session that can teach you something - your responses affect the next response
+  * Working on authoring tool
+
+**User responses**
+  * Really liked working with the client, getting immediate feedback.
+  * Eye tracking
+    * shows that experts really focus strongly on face, but even novices watch the face intently

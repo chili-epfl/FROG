@@ -1,0 +1,7 @@
+h2. Images
+
+{{skim:robles2011new0.png}}
+
+[[skimx://robles2011new#6|p. 6]]
+----
+

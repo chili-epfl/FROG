@@ -1,0 +1,64 @@
+h2. Highlights (52%)
+
+Abstract. Personal Learning Environments (PLEs) are gradually gaining ground over traditional Learning Management Systems (LMS) by facilitating the lone or collaborative study of user-chosen blends of content and courses from heterogeneous sources, including Open Educational Resources (OER). Our work is focused on the social aspect of PLEs, and particularly on live interactions between learners, real-time annotation of OER and content discovery. This paper describes Gravpad, a service for sharing live annotations, and showcases how it can contribute to social learning within a PLE [[skimx://corneli2010live#2|p. 2]]
+
+Question 1: What makes a “personal learning environment” special? [[skimx://corneli2010live#3|p. 3]]
+
+The idea is that extra value can be delivered to the student by observing the way they interact in the PLE, and adapting the system's behaviour based on these observations. [[skimx://corneli2010live#3|p. 3]]
+
+Question 2: Where will the aggregated content in the PLE come from, and how can we be sure it is useful? [[skimx://corneli2010live#3|p. 3]]
+
+To the greatest extent possible, the PLE should be truly personalized by its users: not only should they be empowered to share content and ideas, but also to change the defining features of the system itself. [[skimx://corneli2010live#3|p. 3]]
+
+Question 3: What is different about providing a collection of community-curated content on the one hand, and simply advising learners to use the internet as a whole on the other? [[skimx://corneli2010live#3|p. 3]]
+
+The difference lies in the social aspect of working on topics of common interest. Search engines exist to provide access to information, but typically they do much less in the other direction, i.e. when it comes to sharing information with the world. This gap is partially filled by blogs, mailing lists, and so forth. However, we believe we can do better, by creating a service that adapts not only to the preferences and behaviour of individuals, but also to the behaviour of groups who share common interests. In this paper, we will expand on these ideas through the particular example of Gravpad, a modified version of Etherpad3 that can be used to make and share annotations to web content in real time. We will discuss the ways in which Gravpad relates to the other PLE elements mentioned in the bullet points above. First, we will review the PLE idea by looking at a particular learning scenario. [[skimx://corneli2010live#3|p. 3]]
+
+2 Personal Learning Environments: The OpenLearn scenario [[skimx://corneli2010live#3|p. 3]]
+
+The following scenario showcases the use of widget mash-ups in the context of collaborative authoring between OpenLearn users. Let us consider Ann, a student at the Open University, who is taking a course on sustainable energy (T206 - Energy for a sustainable future4). One of her group assignments is on the 10:10 climate change campaign. In order to assist the class in this assignment, her tutor has setup a special page in OpenLearn, with introductory OER from Open University learning units, iTunesU albums, and YouTube videos5. [[skimx://corneli2010live#3|p. 3]]
+
+Ann studies this material first, and then decides to explore some more. Her tutor has suggested a set of widgets within the OpenLearn PLE template shown in Figure 1. Ann starts off with the ObjectSpot search widget to discover more OER on sustainable energy, coming from OpenLearn courses, iTunesU, Wikipedia, SlideShare, and YouTube. She takes notes on the EtherPad widget, which she shares with her group members. She then has a videoconference with them, through the FlashMeeting widget, revising their joint notes on the EtherPad widget at the same time. Ann adds some figures about carbon emissions from the carbon emissions gadget into the group’s EtherPad notes, and she and others in her group look for references to web pages about airlines that offer carbon offset services. Finally, Ann’s group is ready to create their report for the assignment, by expanding and formatting their notes. [[skimx://corneli2010live#4|p. 4]]
+
+2.1 Swarms: A sense of co-presence [[skimx://corneli2010live#5|p. 5]]
+
+Suppose Stan is also on the same course, but in another group. Because the Etherpad widget is set up with Gravpad extensions, he is able to follow changes from other students in real time. For example, the URLs that Ann's group found about carbon offset programmes are drawn into a link aggregator shared by all course students. This is useful to Stan because his group has decided to focus on the impact of national polices around climate change, and he notices from Ann's notes in the link aggregator that carbon offset services tend to conform to the requirements of various national programmes. His group uses Gravpad to make further annotations attached to the pages Ann’s group found, as shown in Figure 2 [[skimx://corneli2010live#5|p. 5]]
+
+We saw in the previous example how social interactions can shape a learning landscape. Indeed, the central idea for Gravpad is precisely to “bend” a collection of existing content to one’s purpose [[skimx://corneli2010live#5|p. 5]]
+
+Annotations are just one example of a paradigm of social-semantic knowledge management. Gravpad operates as a recommender system applied in a real-time context; a variety of data streams in addition to web annotations could be used. For example, in [2], Wolpers et al. sketch out a broad scheme for making use of Contextualized Attention Metadata (CAM). This scheme resolves at a level of detail that includes things like the links followed in a given browsing session, or the programs used together in a given editing session. Gravpad should allow us to dive into interactions at a very fine-grained level, e.g. to make interventions on a word-by-word basis. [[skimx://corneli2010live#6|p. 6]]
+
+The current Gravpad implementation [3] has been built on top of the Greasemonkey7 plugin for Firefox. This plugin allows the Javascript code of a modified Etherpad to be executed in the selected web page, offering a real-time, shared pad alongside the web page, as shown in Figure 2. The idea of using Etherpad to offer real-time writing advice is part of another contemporary research project (Dana Chandler, personal communication). Future implementation work around Gravpad will develop its usefulness in resource discovery, real-time context awareness, and social networking. [[skimx://corneli2010live#6|p. 6]]
+
+Krowne cites the work of Brusilovsky et al. on web annotation (cf. [5], [6]) as one example of a “free culture” trend. [[skimx://corneli2010live#6|p. 6]]
+
+Comparing Etherpad and the Web, we see the difference between a radically open/free production model (given the URL of a pad, anyone can contribute) and a more closed, ownership-based model (I control what happens on my domain, my blog, my course, etc.). [[skimx://corneli2010live#6|p. 6]]
+
+The resulting ability to make comments on anyone's web page without their explicit or implied permission, combined with the ability to filter out comments and pages based on various user-definable and extensible criteria, including contentbased, time-based and social metadata, all serves to suggest that Gravpad may be “web annotation done right” – at least from the point of view of free culture. If user freedom is indeed a strong incentive for participation, will be what counts. [[skimx://corneli2010live#6|p. 6]]
+
+The Salmon Protocol8 provides a way for “annotations to swim upstream to original update sources”, which could remove the need for active polling in favor of a push-based mechanism. [[skimx://corneli2010live#7|p. 7]]
+
+Future challenges in include federating Gravpad servers (perhaps taking the Wave federation protocol as a starting point9); becoming increasingly proficient at noticing implicit connections, in order to create explicit annotations; and developing additional tools to measure the “closeness” and mutual attraction of resources and activities, and the appropriateness of recommendations using these measures. [[skimx://corneli2010live#7|p. 7]]
+
+Google Wave is the most well known related example. We can learn several things from the course of development taken by Wave. [[skimx://corneli2010live#7|p. 7]]
+
+Don't try to do everything on one centralized server. [[skimx://corneli2010live#7|p. 7]]
+
+Do one thing and do it well. [[skimx://corneli2010live#7|p. 7]]
+
+Be compatible with the way people already work. [[skimx://corneli2010live#7|p. 7]]
+
+Finally, new standard for syndicating semantic information about real-time interactions has been coming into its own recently in the form of “Activity Streams”12. [[skimx://corneli2010live#8|p. 8]]
+
+[1] Chatti, M. A., Jarke, M., and Frosch-Wilke, D. (2007). The future of elearning: a shift to knowledge networking and social software. International Journal of Knowledge and Learning, 3(4/5): p.404-420. [[skimx://corneli2010live#9|p. 9]]
+
+[2] Wolpers, M., Najjar, J., Verbert, K., and Duval, E. (2007) Tracking Actual Usage: the Attention Metadata Approach Educational Technology & Society, 10(3), 106-121. [[skimx://corneli2010live#9|p. 9]]
+
+[4] Aaron Krowne "How Free Culture Will Save Digital Libraries" in M. Halbert (Ed.): Free Culture and the Digital Library Symposium Proceedings. Atlanta, Georgia: MetaScholar Initiative at Emory University, 2005. pp. 300-324. [[skimx://corneli2010live#9|p. 9]]
+
+[5] Peter Brusilovsky, Alfred Kobsa, and Wolfgang Nejdl, "The adaptive web: methods and strategies of web personalization", LNCS Vol. 4321, Springer [[skimx://corneli2010live#9|p. 9]]
+
+[6] Brusilovsky, P. and Rizzo, R. (2004) Accessing Web educational resources from mobile wireless devices: The Knowledge Sea approach. In: F. Crestiani, M. Dunlop and S. Mizzaro (eds.): Mobile and Ubiquitous Information Access. Lecture Notes in Computer Science, Vol. 2954, Berlin: Springer Verlag, pp. 54-66. [[skimx://corneli2010live#9|p. 9]]
+
+[9] Shapira, Bracha, and Rokach, Lior, Building Effective Recommender Systems (2010), Springer. [[skimx://corneli2010live#9|p. 9]]
+

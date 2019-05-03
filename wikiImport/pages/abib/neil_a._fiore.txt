@@ -1,0 +1,3 @@
+h2. Neil A. Fiore's publications
+
+| [[..:ref:fiore1989habit]] | Fiore, N. A. (1989). The Now Habit. Penguin Group.|[[skimx://fiore1989habit|PDF]]|

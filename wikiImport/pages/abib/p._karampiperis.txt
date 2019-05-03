@@ -1,0 +1,3 @@
+h2. P. Karampiperis's publications
+
+| [[..:ref:karampiperis2005designing]] | Karampiperis, P., & Sampson, D. (2005). Designing learning services for open learning systems utilizing IMS learning design. Proceedings of the 4th IASTED International Conference on Web-Based Education (WBE 2005).|[[skimx://karampiperis2005designing|PDF]]|

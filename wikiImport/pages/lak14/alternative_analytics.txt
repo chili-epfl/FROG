@@ -1,0 +1,79 @@
+h1. Alternative analytics
+
+h1. Sleeper's lag: motion and attention
+//Raca, Tormey, Dillenbourg//
+
+  * Classroom activities - are they being followed
+    * "with-me-ness"
+  * Signals in the classroom
+    * attention - following the lecture
+  * Signal-oriented view of the classroom (signal-theory)
+  * "Sleep-FL", FB pictures of students sleeping. 
+  * Motion analysis. Intensitivity of movement. 
+
+h3. Filters
+  * annotated region
+  * feature tracking (Lucas-Kanade)
+  * motion tracks (heuristics)
+  * gaussian probability to assign source of motion to a specific student
+
+h3. Study
+  * 4 cameras
+  * questionnaires at 4 different points of time (attention, activities in that period)
+  * want to capture
+    * attention of student (normally distributed)
+    * activities: 3 productive and 3 counter-productive
+
+h3. Questions
+  * teacher-centered positioning (further away from teacher)
+  * student-centered positioning (proximics theory of E. T. Hall)
+    * immediate neighboor
+    * visible neighborhood
+    * other
+
+h3. Synchronization
+  * borrowed from eye tracking
+  * dyadic analysis of classroom - chronological correspondence of movement
+    * immediate neighbor has higher probability of synchronization
+
+Lag between synchronized movements in dyads higher for low-attention students. 
+
+h1. Clustering of classroom visual displays
+//Almeda and Baker//
+
+No empirical evidence that large amounts of visual design supports learning - but can be described as "visual bombardment". May increase off-task behaviour among young children. 
+
+"Classroom Wall Coding System"
+
+h1. Human data interpreters to close the feedback loop
+//Doug Clow//
+{{ pages:lak14_alternative_analytics01.png}}
+
+OU.UK: 3 million Moodle transactions per day. 
+
+[[http://www.open.ac.uk/blogs/innovating/|Innovating Pedagogy Report 2013]]
+
+Institutional capacity building, 8 wranglers. Each working with specific faculty - ::kind of like faculty librarians::. 
+
+h3. Data
+  * student feedback
+  * activity data (Moodle)
+  * delivery data (what kind of course it is, which components that are used, how the incentives are structured for students)
+  * completion, pass rates, demographic information
+
+h3. Report process
+  * briefing discussion
+  * data analysis and report writing
+  * draft discussion
+  * final report
+
+h3. Quality assurance
+  * scrutiny in draft (internal peer-review, statistics etc)
+  * standard document template
+  * executive summary
+  * recommendations ("more research required")
+  * sometimes responsive quick reports, or doing extra in-depth work
+
+Overwhelming finding: not much to see here. How can we streamline to things that are worth to look at regularly?
+
+<blockquote>Only through detailed process of engagement and dialogue between analysts, stakeholders and the data, that insight and organisational change are developed.</blockquote>

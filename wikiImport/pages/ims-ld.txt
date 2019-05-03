@@ -1,0 +1,9 @@
+h1. IMS-LD
+[[Pedagogical patterns]]
+
+h2. References
+  * [@bote2008gridcole] - Gridcole, reads IMS-LD scripts and enables use of grid-resources (supercomputers etc)
+  * [@koper2004educational] - [[EML]], inspired by (and subsuming?) IMS-LD
+
+h2. Links
+  * [[http://www.imsglobal.org/learningdesign|Homepage]]

@@ -1,0 +1,6 @@
+h2. Turadg Aleahmad's publications
+
+| [@aleahmad2008open] | Aleahmad, T., Aleven, V., & Kraut, R. E. (2008). Open community authoring of targeted worked example problems. In Intelligent tutoring systems (216--227). |
+| [@aleahmad2009creating] | Aleahmad, T., Aleven, V., & Kraut, R. E. (2009). Creating a Corpus of Targeted Learning Resources with a {Web-Based} Open Authoring Tool. {IEEE} Transactions on Learning Technologies, 2(1), 3--9. doi:10.1109/TLT.2009.8|
+| [@slotta2009wise] | Slotta, J. D., & Aleahmad, T. (2009). {WISE} technology lessons: Moving from a local proprietary system to a global open source framework. Research and Practice in Technology Enhanced Learning, 4(2).|
+| [@aleahmad2012improving] | Aleahmad, T. (2012). Improving Students’ Study Practices Through the Principled Design of Research Probes (PhD thesis). |

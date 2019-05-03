@@ -1,0 +1,3 @@
+h1. Citeproc
+
+curl --header "Expect:nothing" --header "Content-type: application/json" --data @sampledata.json -X POST http://127.0.0.1:8085?responseformat=html\&style=mla [[http://www.zotero.org/support/dev/citation_styles/citeproc-node|dev:citation_styles:citeproc-node [Zotero Documentation]]]

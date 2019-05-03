@@ -1,0 +1,35 @@
+h1. The ideals and reality of participating in a MOOC
+<html><a href='http://www.lancs.ac.uk/fss/organisations/netlc/past/nlc2010/abstracts/PDFs/Mackness.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.lancs.ac.uk/fss/organisations/netlc/past/nlc2010/abstracts/PDFs/Mackness.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Mackness, J., Mak, S. F. J., & Williams, R. (2010). The ideals and reality of participating in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://mackness2010ideals|BibDesk]]  | Mackness, J., Mak, S. F. J., & Williams, R. (2010). The ideals and reality of participating in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark. |
+^ [[skimx://mackness2010ideals|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:mackness2010ideals?do=edit&vecdo=print\'><frame src=\'/wiki/clip:mackness2010ideals?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{mackness2010ideals,
+  author = {Mackness, Jenny and Mak, Sui Fai John and Williams, Roy},
+  booktitle = {Seventh International Conference on Networked Learning, Aalborg, Denmark},
+  date-added = {2011-07-22 07:53:13 +0000},
+  date-modified = {2013-01-10 17:25:21 +0000},
+  keywords = {1mooc},
+  notes = {1},
+  oa-url = {http://www.lancs.ac.uk/fss/organisations/netlc/past/nlc2010/abstracts/PDFs/Mackness.pdf},
+  read = {1},
+  title = {The ideals and reality of participating in a MOOC},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QJC4uLy4uL0JpYmRlc2svbWFja25lc3MyMDEwaWRlYWxzLnBkZtIXCxgZV05TLmRhdGFPEQGIAAAAAAGIAAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lIWbWFja25lc3MyMDEwaWRlYWxzLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnSvkMvXRmBQREYgQ0FSTwACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAy9d+oAAAAAEADADa1lIAFz0xAAGfXgACADVTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAbWFja25lc3MyMDEwaWRlYWxzLnBkZgAADgAuABYAbQBhAGMAawBuAGUAcwBzADIAMAAxADAAaQBkAGUAYQBsAHMALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIAKlVzZXJzL1N0aWFuL0JpYmRlc2svbWFja25lc3MyMDEwaWRlYWxzLnBkZgATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALUAugDCAk4CUAJVAmACaQJ3AnsCggKLApACnQKgArICtQK6AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:mackness2010ideals}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:mackness2010ideals}}
+
+{{page>kindle:mackness2010ideals}}
+
+{{page>skimg:mackness2010ideals}}

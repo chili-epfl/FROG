@@ -1,0 +1,3 @@
+h2. B. Jeon's publications
+
+| kim2009students | Kim, Y. J., Bae, J., & Jeon, B. (2009). Students’ Visual Perceptions of Virtual Lectures as Measured by Eye Tracking. Human-Computer Interaction. New Trends. Springer.|[[skimx://kim2009students|PDF]]|

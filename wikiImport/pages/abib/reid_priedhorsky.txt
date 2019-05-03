@@ -1,0 +1,3 @@
+h2. Reid Priedhorsky's publications
+
+| [@torre2010bumpy] | Torre, F., Sheppard, S. A., Priedhorsky, R., & Terveen, L. (2010). bumpy, caution with merging. In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (155). doi:10.1145/1880071.1880097|

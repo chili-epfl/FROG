@@ -1,0 +1,24 @@
+h1. GroupScribbles
+          
+Only for Windows computers. Based on tablet computers, writing notes that can be private, shared intra-group or inter-group. A number of pedagogical patterns developed around the system, including "rapid KB", language learning, etc.
+               
+h2. Bibliography                          
+  * [@digiano2006learning] - introductory article, talking about affordances of physical post-it notes (and limitations), leading up to design of GS 
+  * [@roschelle2007ink] - great overview article, probably the single best article to point to, with a number of pedagogical patterns. emphasizes the power of coordination, and link to play. no research.
+  * [@chen2009integrating] - classroom experiment in Singapore, F2F + CMC, circuits
+  * [@tan2009groupscribbles] - rapid knowledge building using GS - notes by Monica
+  * [@debarger2010teaching] - focus on theory of [[teaching routines]], including a few examples of GS teaching routines 
+  * [@niramitranon2006coml] - integration between modeling language [[COML]] ([[pedagogical patterns]]) and GS 
+  * [@looi2008group] - jigsaw method and Knowledge Building
+  
+h2. People involved  
+  * [[a:Jeremy Roschelle]]
+  * [[a:Chris DiGiano]]
+  * [[a:Chen Wenli]]
+
+h2. Links
+  * [[http://groupscribbles.sri.com/|Homepage at SRI]] - original developers
+  * [[http://gs.lsl.nie.edu.sg/|Homepage at National Institute of Education]] - have taken over development of the software
+  * [[http://www.youtube.com/user/groupscribbles|Videos of administration]]
+  * [[http://reganmian.net/blog/2011/06/09/groupscribbles-and-pedagogical-patterns/|My blog post]]
+  * [[http://reganmian.net/monica/csclintro/groupscribbles-for-quick-and-anonymous-knowledge-building/|Monica's blog post]]

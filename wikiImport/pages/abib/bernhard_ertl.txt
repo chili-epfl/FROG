@@ -1,0 +1,7 @@
+h2. Bernhard Ertl's publications
+
+| [@weinberger2005epistemic] | Weinberger, A., Ertl, B., Fischer, F., & Mandl, H. (2005). Epistemic and social scripts in computer-supported collaborative learning. Instructional Science, 33(1), 1--30. doi:10.1007/s11251-004-2322-4|
+| [@weinberger2005facilitating] | Weinberger, A., Reiserer, M., Ertl, B., Fischer, F., & Mandl, H. (2005). Facilitating collaborative knowledge construction in computer-mediated learning environments with cooperation scripts. Barriers and biases in computer-mediated knowledge communication, 15--37.|
+| [@ertl2006conceptual] | Ertl, B., Fischer, F., & Mandl, H. (2006). Conceptual and socio-cognitive support for collaborative learning in videoconferencing environments. Computers \& Education, 47(3), 298--315.|
+| [@ertl2007supporting] | Ertl, B., Kopp, B., & Mandl, H. (2007). Supporting Collaborative Learning in Videoconferencing Using Collaboration Scripts and Content Schemes. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 213--236). Boston, {MA}: Springer {US}. |
+| [@ertl2008supporting] | Ertl, B., Kopp, B., & Mandl, H. (2008). Supporting learning using external representations. Computers \& Education, 51(4), 1599--1608.|

@@ -1,0 +1,36 @@
+h2. Highlights (16%)
+
+Learners engaged in CSCL macro-scripts are involved in selforganization activities. We present an exploratory study that suggests that Bardram’s theoretical model of collective work dynamics is a pertinent basis for both (1) designing interfaces providing a passive support that engages learners in an explicit organization activity, and (2) making learners’ organization more easily detectable and analyzable within a perspective of active support. [[skimx://moguel2010supporting#1|p. 1]]
+
+By definition, macro-scripts provide learners with a certain degree of flexibility, i.e., let them decide on some aspects of the script enactment. Many experiments reported in the literature show that learners use this flexibility, e.g., in context, divide [[skimx://moguel2010supporting#1|p. 1]]
+
+tasks into subtasks and adjust their division of labor, define some sub-strategies, or adopt alternative ways of using the technological means provided: they engage in selforganization activities [3]. Self-organization is “the meta-level activity that a group of learners engaged in a CSCL script may engage in so as to maintain, within the reference frame that is externally defined by the script, a more-or-less stable pattern of collective arrangement”. [[skimx://moguel2010supporting#2|p. 2]]
+
+From a general view point, an intelligent/adaptive CSCL framework addressing organization issues should be able to support self-organization by (1) passive features such as offering learners tools to share their plans, and (2) active support based on a certain understanding of learners’ organization and its evolution. [[skimx://moguel2010supporting#2|p. 2]]
+
+Bardram’s model [4] (see Figure 1) introduces 3 basic notions: co-ordination, co-operation and coconstruction. [[skimx://moguel2010supporting#2|p. 2]]
+
+Bardram’s model highlights the importance of supporting the dynamic transitions that may occur from one level to another during activity. Bottom-up transitions are related to an analysis of the object or the means of the work, which can occur in relation to a breakdown or an explicit shift of focus. Top-down transitions are related to the solving of problems and contradictions, and lead to a stabilization of the object and means of the work. [[skimx://moguel2010supporting#3|p. 3]]
+
+To analyze learners’ organization, we have elaborated a structured coding grid (a set of indicators [8]) that allows analysis of learners’ organization in terms of co-construction, co-operation, and co-ordination. [[skimx://moguel2010supporting#3|p. 3]]
+
+A pedagogical collective challenge is a learning situation where: (1) the problem is designed to make learners practice some target domain-related or meta-cognitive competencies; (2) a group of learners is involved, as a team, in the solving of the [[skimx://moguel2010supporting#3|p. 3]]
+
+problem; (3) solving requires the learners to pool their forces; (4) the problem and the setting are designed to create a positive tension that motivates learners [7]. [[skimx://moguel2010supporting#4|p. 4]]
+
+Preliminary experiments showed that, although learners are aware of the necessarily collective nature of the work, they do not naturally engage in elaborating an explicit organization and, if any, adopt a very poor organization. This leads them not only to fail (failing is not necessarily an issue: learners learn through their interactions during phases 1 and 2, success in phase 3 is nice but not a sine qua non condition for learning) but, more importantly, to feel “in front of a wall”, lose motivation, and not engage in collaboration and knowledge-generative interactions. [[skimx://moguel2010supporting#4|p. 4]]
+
+4 The System: Supporting Learners’ Organization The system (named Albatros) is designed to allow a group of distant learners to collectively build a solution (phases 1 & 2). It integrates 2 dedicated shared editors designed to support learners’ self-organization, classical communication (chat) and voting tools, and the simulation. A comprehensive description can be found in [2]. [[skimx://moguel2010supporting#4|p. 4]]
+
+Fig. 3. Planning [[skimx://moguel2010supporting#5|p. 5]]
+
+definition/execution editor (from the experiment, translated from French) [[skimx://moguel2010supporting#5|p. 5]]
+
+Engaging learners in constructing an explicit organization could represent an obstacle for them: it is a meta-level additional activity they are not used to, they are not naturally convinced of its interest, and the system may have appeared difficult to use. [[skimx://moguel2010supporting#7|p. 7]]
+
+A “co-construction coherent phase with some subsequent minor revisions” pattern appears within groups using the system: a continuous phase (average duration: 46’40’) when preparing the challenge and then during the challenge (average duration: 8’20’’), with short adjustment phases (average: 5 phases and 3’50’’ per phase). In the other groups co-construction is not a proper phase [[skimx://moguel2010supporting#8|p. 8]]
+
+The system appears to encourage learners to act as experts and not as beginners. Groups not using the system engage in individual problem-solving, and attempt to explain or share the work episodically, when necessary (typically: suddenly understanding there are discrepancies in the measurements or calculations). At the end of the preparation phase, they tend to have individual solutions written in different conceptual languages. Groups using the system engage in a collective definition of the data to be acquired. [[skimx://moguel2010supporting#8|p. 8]]
+
+Providing organizational support has necessarily an impact on learners’ activity. Results so far suggest that our system (1) supports learners’ self-organization whilst not imposing a given strategy, (2) promotes knowledge-generative interactions (coconstruction of a common ground and strategies; mutual regulation; resolution of conflicts such as breakdowns), and (3) does not negatively impact motivation (although making learners engage in a meta-level additional activity, whose interest is not obvious for them), and (to be confirmed) seems rather to enhance motivation. [[skimx://moguel2010supporting#10|p. 10]]
+

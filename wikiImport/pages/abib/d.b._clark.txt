@@ -1,0 +1,3 @@
+h2. D.B. Clark's publications
+
+| jeong2011sequential | Jeong, A., Clark, D. B., Sampson, V., & Menekse, M. (2011). Sequential Analysis of Scientific Argumentation in Asynchronous Online Discussion Environments. Analyzing Interactions in CSCL. Springer.|[[skimx://jeong2011sequential|PDF]]|

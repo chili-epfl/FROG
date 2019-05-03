@@ -1,0 +1,3 @@
+h2. W.R. Penuel's publications
+
+| [[..:ref:debarger2010teaching]] | DeBarger, A. H., Penuel, W. R., Harris, C. J., & Schank, P. (2010). Teaching routines to enhance collaboration using classroom network technology. In F. Pozzi & D. Persico (Eds.),  (Tran.), Unpublished manuscript (224-244). IGI Global.|[[skimx://debarger2010teaching|PDF]]|

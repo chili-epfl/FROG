@@ -1,0 +1,32 @@
+h2. Images
+
+{{skim:dillenbourg2006sharing0.png}}
+
+[[skimx://dillenbourg2006sharing#4
+|p. 4
+]]<html><hr></html>
+
+{{skim:dillenbourg2006sharing1.png}}
+
+[[skimx://dillenbourg2006sharing#6
+|p. 6
+]]<html><hr></html>
+
+{{skim:dillenbourg2006sharing2.png}}
+
+[[skimx://dillenbourg2006sharing#13
+|p. 13
+]]<html><hr></html>
+
+{{skim:dillenbourg2006sharing3.png}}
+
+[[skimx://dillenbourg2006sharing#16
+|p. 16
+]]<html><hr></html>
+
+{{skim:dillenbourg2006sharing4.png}}
+
+[[skimx://dillenbourg2006sharing#27
+|p. 27
+]]<html><hr></html>
+

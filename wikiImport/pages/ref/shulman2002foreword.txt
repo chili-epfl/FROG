@@ -1,0 +1,34 @@
+h1. Foreword. Disciplinary Styles in the Scholarship of Teaching and Learning
+
+<ifauth !@admin>|Shulman, L. S. (2002). Foreword. Disciplinary Styles in the Scholarship of Teaching and Learning. Eds. Mary Taylor Huber and Sherwyn P. Morreale. Washington: American Assn. of Higher Educ.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://shulman2002foreword|BibDesk]]  | Shulman, L. S. (2002). Foreword. Disciplinary Styles in the Scholarship of Teaching and Learning. Eds. Mary Taylor Huber and Sherwyn P. Morreale. Washington: American Assn. of Higher Educ. |
+^ [[skimx://shulman2002foreword|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:shulman2002foreword?do=edit&vecdo=print\'><frame src=\'/wiki/clip:shulman2002foreword?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @misc{shulman2002foreword,
+  author = {Shulman, Lee S.},
+  date-added = {2013-01-29 20:27:54 +0000},
+  date-modified = {2013-01-29 21:15:41 +0000},
+  date-read = {2013-01-29 15:32:27 -0500},
+  keywords = {0sotl},
+  publisher = {Eds. Mary Taylor Huber and Sherwyn P. Morreale. Washington: American Assn. of Higher Educ},
+  read = {1},
+  title = {Foreword. Disciplinary Styles in the Scholarship of Teaching and Learning},
+  year = {2002},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdzaHVsbWFuMjAwMmZvcmV3b3JkLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3QLNzS2bdFBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNLeHEAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzaHVsbWFuMjAwMmZvcmV3b3JkLnBkZgAOADAAFwBzAGgAdQBsAG0AYQBuADIAMAAwADIAZgBvAHIAZQB3AG8AcgBkAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL3NodWxtYW4yMDAyZm9yZXdvcmQucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9zaHVsbWFuMjAwMmZvcmV3b3JkLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:shulman2002foreword}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:shulman2002foreword}}
+
+{{page>kindle:shulman2002foreword}}
+
+{{page>skimg:shulman2002foreword}}

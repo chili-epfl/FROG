@@ -1,0 +1,5 @@
+h2. John Domingue's publications
+
+| [@benn2008ontological] | Benn, N., Buckingham Shum, S., Domingue, J., & Mancini, C. (2008, May). Ontological Foundations for Scholarly Debate Mapping Technology. Conference Item. |
+| [@buckinghamshum2002augmenting] | Buckingham Shum, S., Motta, E., & Domingue, J. (2002). Augmenting design deliberation with compendium: The case of collaborative ontology design. In Proceedings of the Workshop on Facilitating Hypertext Collaborative Modelling in conjunction with ACM Hypertext Conference, Maryland. |
+| [@buckingham2002augmenting] | Buckingham Shum, S., Motta, E., & Domingue, J. (2002). Augmenting design deliberation with compendium: The case of collaborative ontology design. |

@@ -1,0 +1,3 @@
+h2. S. Cuendet's publications
+
+| dolenh2010task | Do-Lenh, S., Jermann, P., Cuendet, S., Zufferey, G., & Dillenbourg, P. (2010). Task performance vs. learning outcomes: a study of a tangible user interface in the classroom. Sustaining TEL: From Innovation to Learning and Practice. Springer.|[[skimx://dolenh2010task|PDF]]|

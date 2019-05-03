@@ -1,0 +1,33 @@
+h1. Patterns for classroom education
+
+<ifauth !@admin>|Anthony, D. L. G. (1996). Patterns for classroom education. Inc. Addison-Wesley Longman Publishing Co.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://anthony1996patterns|BibDesk]]  | Anthony, D. L. G. (1996). Patterns for classroom education. Inc. Addison-Wesley Longman Publishing Co. |
+^ [[skimx://anthony1996patterns|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:anthony1996patterns?do=edit&vecdo=print\'><frame src=\'/wiki/clip:anthony1996patterns?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{anthony1996patterns,
+  author = {Anthony, Dana Lynn Goldblatt},
+  date-added = {2011-05-19 14:40:28 +0800},
+  date-modified = {2011-06-09 08:29:56 +0800},
+  keywords = {portal},
+  publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+  read = {1},
+  title = {Patterns for classroom education},
+  year = {1996},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdhbnRob255MTk5NnBhdHRlcm5zLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ36by9bryFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yQIAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhbnRob255MTk5NnBhdHRlcm5zLnBkZgAOADAAFwBhAG4AdABoAG8AbgB5ADEAOQA5ADYAcABhAHQAdABlAHIAbgBzAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2FudGhvbnkxOTk2cGF0dGVybnMucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9hbnRob255MTk5NnBhdHRlcm5zLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:anthony1996patterns}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:anthony1996patterns}}
+
+{{page>kindle:anthony1996patterns}}
+
+{{page>skimg:anthony1996patterns}}

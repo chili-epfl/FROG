@@ -1,0 +1,3 @@
+h2. Janet L. Kolodner's publications
+
+| kolodner2007roles | Kolodner, J. L. (2007). The Roles of Scripts in Promoting Collaborative Discourse in Learning by Design. In F. Fischer, I. Kollar, H. Mandl & J. M. Haake (Eds.),  (Tran.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 237--262). Boston, {MA}: Springer {US}. Retrieved from http://www.springerlink.com.myaccess.library.utoronto.ca/content/g13227245l0w7870/.|[[skimx://kolodner2007roles|PDF]]|

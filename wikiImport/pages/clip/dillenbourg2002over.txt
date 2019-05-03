@@ -1,0 +1,176 @@
+h2. Highlights (22%)
+
+The idea of constraining collaborative learning results from the empirical findings on the effectiveness of collaborative learning. These studies show that the effectiveness of collaborative learning depends upon multiple conditions such as the group composition (size, age, gender, heterogeneity, ...), the task features and the communication media. However, these conditions are multiple and interact with each other in such a complex way that is not possible to guarantee learning effects. Hence, effectiveness control migrated [[skimx://dillenbourg2002over#1|p. 1]]
+
+from outside to inside, from pre-conditions to the actual collaborative processes (Dillenbourg, Baker, Blaye & O'Malley, 1995). Instead of tuning the conditions that (indirectly) determine the group interactions, scholars attempt to (directly) influence the interactions: augmenting the frequency of conflicts, fostering elaborated explanations, supporting mutual understanding, ... Collaboration can be influenced anticipatively, by structuring the collaborative process in order to favour the emergence of productive interactions, or retroactively, by regulating interactions, as tutors do. These two approaches are complementary. [[skimx://dillenbourg2002over#2|p. 2]]
+
+Another alternative approach consists in helping the group to regulate itself by providing it with some representation of its own process (Jermann, 2002; Dillenbourg et al., 2002) or with a trace of their interactions (Zumbach et al, 2002). [[skimx://dillenbourg2002over#2|p. 2]]
+
+Structuring collaborative learning is achieved by semi-structured communication interfaces and/or by the application of scripts for collaborative learning. [[skimx://dillenbourg2002over#2|p. 2]]
+
+The teacher's way of grading collaborative work strengthens this implicit contract. [[skimx://dillenbourg2002over#2|p. 2]]
+
+Is it possible to blend two pedagogical traditions, collaborative learning and traditional instructional design à la Gagné, without losing that which makes 'natural' collaborative learning different from other teaching methods? [[skimx://dillenbourg2002over#3|p. 3]]
+
+The ArgueGraph script [[skimx://dillenbourg2002over#5|p. 5]]
+
+goal of the 'ArgueGraph' script is that students relate courseware design choices with the underlying learning technologies. The script is based on a [[skimx://dillenbourg2002over#5|p. 5]]
+
+simple multiple-choice questionnaire produced by the teacher. For each answer of each question, the teacher determines X and Y values that will be summed to compute the students' opinion in a two-dimensional space. This script includes five steps [[skimx://dillenbourg2002over#6|p. 6]]
+
+2. The system produces a graph in which all students are positioned according to their answers. Students look at the graph and discuss it informally. The system or the tutor forms pairs of students by selecting peers with the largest distance on the graph (i.e., that are most different). [[skimx://dillenbourg2002over#6|p. 6]]
+
+We successfully used this script to teach the relationship between learning theories and the design of educational software (Jermann & Dillenbourg, 1999). [[skimx://dillenbourg2002over#7|p. 7]]
+
+The UniverSanté Script [[skimx://dillenbourg2002over#7|p. 7]]
+
+The MagicBook: We used this script with Laurent Dubois in a project with primary schools following an expedition in Antarctica. In this script: (1) The teacher writes the beginning of a story; (2) All participants read this first chapter; (3) All participants write a second chapter and propose it as a continuation of the story; (4) Proposals for the next chapter proposals are read by the participants who vote for their favourite; (5) The elected chapter becomes the official chapter 2. The script iterates on phase 2. The 'participant' to this script can be an individual learner or, in our experience a whole class of kids. [[skimx://dillenbourg2002over#10|p. 10]]
+
+The Courseware Design Studio is an adaptation from the Phase-X script (Engeli, 2001) for supporting project-based learning. The project process is segmented into phases. In each phase, all teams put their intermediate product in a shared space. In the next phase, a team is allowed to borrow the work produced by another team and to continue its work from it. In our application, the project is to build courseware and the phases were goal definition, content analysis, activity design, and so forth. The rationale for this script is that the shared space would create a kind of permanent idea-seeding. While it seems to work very well in 3D-design projects, our students had difficulties exchanging intermediate results in their design process. [[skimx://dillenbourg2002over#10|p. 10]]
+
+learning (Barrows & Tamblyn, 1980) is a rather standardized script that has been used in a large variety of training situations. [[skimx://dillenbourg2002over#10|p. 10]]
+
+Another well-known script is the 'reciprocal teaching' approach set up by Palincsar and Brown (1984): one peer reads a text paragraph and the other questions him/her about his/her understanding, for the next paragraph the roles are shifted. This is not strictly speaking a collaborative script as it was used with pairs made of an experienced tutor and a student with reading comprehension difficulties. The outcomes of their experiments were so positive, however, that the script might be extended to more symmetrical situations. Many variations of this script exist such as peer tutoring (O'Donnell & [[skimx://dillenbourg2002over#10|p. 10]]
+
+Dansereau, 1992; Fantuzzo et al, 1989) or peer teaching (Reiserer, Ertl & Mandl, 2002). [[skimx://dillenbourg2002over#11|p. 11]]
+
+A script is a story or scenario that the students and tutors have to play as actors play a movie script. Most scripts are sequential: students go through a linear sequence of phases. Some of the presented examples (Phase-X, the MagicBook or Reciprocal Teaching) are defined in an iterative way, but from the student point of view, they are run as a linear sequence. Script = [phase1 phase2 phase 3 ...] [[skimx://dillenbourg2002over#11|p. 11]]
+
+A phase describes what students have to do. This task assignment can be described as a triplet [input activity output]. In the Grid script, the input of phase 3 includes texts and concepts, the activity is to write definitions and the output is the set of concept definitions.
+
+* Anchored Note, page 12
+We never define this other than a time limit [[skimx://dillenbourg2002over#11|p. 11]]
+
+An operational script should include task completion criteria. These criteria can be defined with respect to the activity (e.g., answering all questions in the ArgueGraph script), [[skimx://dillenbourg2002over#12|p. 12]]
+
+The group formation criterion can be internal or external to the script. [[skimx://dillenbourg2002over#13|p. 13]]
+
+External criteria distribute students into groups on the basis of some students' characteristics that pre-exist the CSCL activity: friendship is the most used criterion, but also level of expertise [[skimx://dillenbourg2002over#13|p. 13]]
+
+Internal criteria distribute students into groups based on the students' behaviour or products that have been collected in a previous phase of the script. [[skimx://dillenbourg2002over#14|p. 14]]
+
+The distribution of a global process over different individuals or groups is a mechanism commonly exploited in CSCL scripts; it's almost the essence of these scripts. I review different ways to distribute a global process: distributing the input of the activity versus distributing the activity and distributing over the members of a group versus distributing over different groups. [[skimx://dillenbourg2002over#14|p. 14]]
+
+Input distribution and/or activity distribution: The Jigsaw script defines an input distribution, providing each member of the group with different information. [[skimx://dillenbourg2002over#14|p. 14]]
+
+The Reciprocal Teaching script distributes the activity on the cognitive / metacognitive axis: both actors are concerned with the same text but one has to read and understand while the other has to monitor the other's understanding by asking questions. [[skimx://dillenbourg2002over#14|p. 14]]
+
+Intra-group distribution versus inter-group distribution. [[skimx://dillenbourg2002over#15|p. 15]]
+
+Mode of interaction [[skimx://dillenbourg2002over#16|p. 16]]
+
+Phases differ with respect to the mode of social interaction. The mode varies according to the size of the group, one cannot expect joint problem solving in large groups. [[skimx://dillenbourg2002over#16|p. 16]]
+
+The scripts presented focus on intra-group interactions. Some scripts add inter-group interactions, for instance when one class produces a mathematics problem to challenge other classes. [[skimx://dillenbourg2002over#17|p. 17]]
+
+This section needs the construction of a taxonomy of modes of interaction that goes beyond the scope of this contribution. Among the multiple dimensions of this classification, an important ergonomic feature is the degree of integration of task interactions and social interactions. [[skimx://dillenbourg2002over#17|p. 17]]
+
+Integrated task/communication software enables for instance two medical students to attach notes to specific items of the patient file under scrutiny. [[skimx://dillenbourg2002over#17|p. 17]]
+
+The [[skimx://dillenbourg2002over#17|p. 17]]
+
+tutor has two important roles is the script phases. [[skimx://dillenbourg2002over#17|p. 17]]
+
+Regulating students' interactions. [[skimx://dillenbourg2002over#17|p. 17]]
+
+When the interactions among students are computermediated, regulation becomes difficult (too many messages and messages spread over multiple places) and faces obvious privacy obstacles. Inventing tools that facilitate the regulation of on-line group interactions is an important item on our research agenda. [[skimx://dillenbourg2002over#17|p. 17]]
+
+Feedback on the phase output. [[skimx://dillenbourg2002over#17|p. 17]]
+
+Timing [[skimx://dillenbourg2002over#18|p. 18]]
+
+A simple but fundamental role of a CSCL script is the timing of collaboration. [[skimx://dillenbourg2002over#18|p. 18]]
+
+A script is a sequence in which phase n ends before phase n+1 begins. [[skimx://dillenbourg2002over#18|p. 18]]
+
+Although distance education builds upon individual organisation, my colleagues and I had paradoxically to introduce more and more time constraints in our on-line distance courses. A global time constraint (when the script has to be completed) is often not enough. It was necessary to specify the timing phase per phase, turning the script into a time-management prosthesis. [[skimx://dillenbourg2002over#18|p. 18]]
+
+4.2. Coercion degree [[skimx://dillenbourg2002over#19|p. 19]]
+
+The scripts vary according to the degree of freedom that the learners have in following the script. [[skimx://dillenbourg2002over#19|p. 19]]
+
+
+  *  Induced scripts. The communication interface induces interaction patterns, it implicitly conveys the designer's expectations with respect to the way students should tackle the problem and interact with each other. This low degree of coercion is elegant but often not sufficient to significantly influence the collaborative processes. [[skimx://dillenbourg2002over#19|p. 19]]
+
+Instructed scripts. Students receive oral or written instructions that they have to follow. The coercion is higher than in the induced script since the teacher expectations are made explicit, but they can [[skimx://dillenbourg2002over#19|p. 19]]
+
+course be misunderstood, incorrectly applied, forgotten or completely ignored. [[skimx://dillenbourg2002over#20|p. 20]]
+
+
+  *  Trained scripts. Students are trained to collaborate in a certain way before using them it in a real learning situation. A teacher who plans to use a brainstorming script several times might devote an initial session to train students in brainstorming methods (no premature criticism, ...). The degree of coercion is higher than instructed scripts since the teacher may control the student's understanding and application of the collaboration rules. Experimental studies on script effectiveness require subjects to be trained. [[skimx://dillenbourg2002over#20|p. 20]]
+
+
+  *  Prompted scripts: The system display cues that encourage the learners to take their respective role (Weinberger, Fisher & Mandl, 2002). Their system delivers cues as text messages in the discussion board used by the students for discussing cases. The cues were supposed to lead students to take specific roles such a 'analyser' or 'critique'. [[skimx://dillenbourg2002over#20|p. 20]]
+
+
+  *  Follow-me scripts. Students interact with an environment that does not allow them to escape from the script. In the ArgueGraph script, at phase 3, the students have to agree on one and only one answer, the interface simply did not allow the students to answer in another way. Moreover, the system does not allow them to move to phase 2 as long as they have not completed phase [[skimx://dillenbourg2002over#20|p. 20]]
+
+collaboration actually involves three concurrent processes, which are neither independent of each other, nor identical: [[skimx://dillenbourg2002over#22|p. 22]]
+
+
+  *  The communication or interaction process, i.e. the way group members communicate with each other (e.g., verbal dialogues). [[skimx://dillenbourg2002over#22|p. 22]]
+
+
+  *  The [[skimx://dillenbourg2002over#22|p. 22]]
+
+organisation or coordination processes, i.e. the way group members establish shared goals, distribute task, coordinate each other, regulate mutually, and so forth. [[skimx://dillenbourg2002over#22|p. 22]]
+
+
+  *  The task level or problem solving process, i.e. how the group performs the task, which strategy is elaborated, which understanding is required, et cetera. [[skimx://dillenbourg2002over#22|p. 22]]
+
+The limitation of semi-structured communication tools is that they address only the first process, communication. [[skimx://dillenbourg2002over#22|p. 22]]
+
+The interest of the CSCL scripts is to distribute the coercion load over these different processes, for instance to augment argumentation through group formation (ArgueGraph script), or to impart on the verbal interaction through the objects of the task interface (Belvédère: Suthers et al, 1995). [[skimx://dillenbourg2002over#22|p. 22]]
+
+We learned (Berger et al, 2001) that scripts should kept as simple as possible such that all actors - students and tutors - are able to appropriate these scripts. Two levels of appropriation can be discriminated. [[skimx://dillenbourg2002over#22|p. 22]]
+
+The first level of appropriation is adoption. Students and tutors have to understand the script, i.e. to know what they have to do, without additional difficulty or overload. [[skimx://dillenbourg2002over#23|p. 23]]
+
+The cognitive load of memorizing and applying the script can be reduced in two ways. First, it is possible to help students to give meaning and memorize the script by embedding it within a story. A second way to reduce memory load is to offer a representation of the script or any navigation tool that help learners to know where they are and what is left to do. [[skimx://dillenbourg2002over#23|p. 23]]
+
+The second level of appropriation is internalisation. The goal of the Reciprocal Teaching script is that the reader, in the end, is able to play the script individually; that is he/she is able to simultaneously play both the role of reader and the role of regulator. Similarly, the goals of the ArgueGraph script was that students could later on, individually, consider multiple arguments, for or against a design decision, whatever the learning theory that is behind this argument. [[skimx://dillenbourg2002over#23|p. 23]]
+
+Only a few scripts are build upon this internalisation hypothesis. To-be-internalised scripts require that the way the cognitive task is distributed among individuals is compatible with individual cognition. [[skimx://dillenbourg2002over#23|p. 23]]
+
+One has to discriminate the technical difficulty and the pedagogical relevance of generalizing scripts. [[skimx://dillenbourg2002over#24|p. 24]]
+
+presented in decreasing order of generality. Generalisability is multidimensiona [[skimx://dillenbourg2002over#24|p. 24]]
+
+The first dimension is the target knowledge. It is important to stress that in the three quoted examples, [[skimx://dillenbourg2002over#24|p. 24]]
+
+but with other characteristics of the knowledge to be acquired (procedural versus conceptual, clear-cut versus discussable, ...) [[skimx://dillenbourg2002over#24|p. 24]]
+
+The other dimensions of script generalisability are its adaptation to the target audience (age, mobility, acceptability of the coercion degree, ...) and its compatibility with the course organisational constraints. [[skimx://dillenbourg2002over#24|p. 24]]
+
+To enhance the effectiveness of collaborative learning activities, scripts integrate these activities within more traditional instructional sessions. As the script examples have showed: 
+  *  Scripts enable to integrate activities that were often separated: individual, cooperative, collaborative and collective activities. 
+  *  Scripts enable to integrate co-present activities and computermediated activities. 
+  *  Scripts often include an important role for the tutor. 
+  *  Scripts introduce a time frame in distance education where students often lack landmarks for their time management. [[skimx://dillenbourg2002over#25|p. 25]]
+
+risks: [[skimx://dillenbourg2002over#25|p. 25]]
+
+
+  *  Disturbing 'natural' interactions. [[skimx://dillenbourg2002over#25|p. 25]]
+
+
+  *  Disturbing 'natural' problem solving processes. [[skimx://dillenbourg2002over#25|p. 25]]
+
+Increasing cognitive load. [[skimx://dillenbourg2002over#26|p. 26]]
+
+On the second hand, the script may force the groups to interact and solve the problem in a non-natural way, to invent strategies to be able to collaborate despite the script. These strategies increase the cognitive load as well. [[skimx://dillenbourg2002over#26|p. 26]]
+
+'Didactising' collaborative interactions. [[skimx://dillenbourg2002over#26|p. 26]]
+
+... At the opposite, a teacher usually asks questions whom he already knows the answer and negotiates concepts for which he owns the right definition. The learners knows that these weird interactions are part of a didactic contract in which each actors plays its role. A danger of scripts, especially scripts that specify questions to be asked, is that interactions are played like in the teacher-learner game and hence miss the engagement that can be obtained when the listener really needs our explanation. [[skimx://dillenbourg2002over#26|p. 26]]
+
+'Goalless' interactions. [[skimx://dillenbourg2002over#26|p. 26]]
+
+The degree to which two interlocutors should understand each other is partly determined by interaction rules (such as Grice's maxims), which regulate interactions in the same [[skimx://dillenbourg2002over#26|p. 26]]
+
+manner as a CSCL script does. But, more importantly, the grounding criterion is determined by the team goals: students will make the effort necessary to reach the level of shared understanding that is required to solve the problem (Clark & Brennan, 1991). The same statement can be made about the need for mutual modelling and for mutual regulation. These important cognitive processes are triggered when they are required by the goals. The risk of scripts is twofold. First, they may interfere with the dynamics of goal achievement; second, they may prevent the team to establish shared goals. [[skimx://dillenbourg2002over#27|p. 27]]
+
+Scripted collaboration may appear superficially as genuine collaboration, but may fail to trigger the cognitive, social and emotional mechanisms that are expected to occur during collaboration. [[skimx://dillenbourg2002over#27|p. 27]]
+
+References [[skimx://dillenbourg2002over#28|p. 28]]
+

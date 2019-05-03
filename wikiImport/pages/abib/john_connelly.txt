@@ -1,0 +1,4 @@
+h2. John Connelly's publications
+
+| [@suthers1995belvedere] | Suthers, D. D., Weiner, A., Connelly, J., & Paolucci, M. (1995). Belvedere: Engaging students in critical discussion of science and public policy issues. In Proceedings of the 7th World Conference on Artificial Intelligence in Education (266--273).|
+| [@suthers2001representational] | Suthers, D. D., Connelly, J., Lesgold, A., Paolucci, M., Toth, E. E., & Weiner, A. (2001). {Representational and Advisory Guidance for Students Learning Scientific Inquiry}. Learning, 7--35.|

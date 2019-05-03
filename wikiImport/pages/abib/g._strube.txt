@@ -1,0 +1,3 @@
+h2. G. Strube's publications
+
+| strube2005knowledge | Strube, G., Thalemann, S., Wittstruck, B., & Garg, K. (2005). Knowledge Sharing in Teams of Heterogeneous Experts. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|[[skimx://strube2005knowledge|PDF]]|

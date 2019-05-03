@@ -1,0 +1,8 @@
+h1. Blog ideas
+
+h2. "World's first FREE university"... not!
+  * [[http://globaluni.info/|GlobalUni]]
+  * [[http://www.uopeople.org/|U of the People]]
+
+h2. Open Science
+  * [[AERA info architecture]]

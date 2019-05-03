@@ -1,0 +1,4 @@
+h2. M. Mühlpfordt's publications
+
+| :ref:muhlpfordt2007integration | Mühlpfordt, M., & Stahl, G. (2007). The integration of synchronous communication across dual interaction spaces. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|
+| :ref:muhlpfordt2007integration | Mühlpfordt, M., & Stahl, G. (2007). The integration of synchronous communication across dual interaction spaces. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|

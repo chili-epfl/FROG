@@ -1,0 +1,4 @@
+h2. N. Enyedy's publications
+
+| [[..:ref:hoadley1999between]] | Hoadley, C. M., & Enyedy, N. (1999). Between information and communication: Middle spaces in computer media for learning. Proceedings of the 1999 conference on Computer support for collaborative learning.|[[skimx://hoadley1999between|PDF]]|
+| enyedy2006dialogue | Enyedy, N., & Hoadley, C. M. (2006). From dialogue to monologue and back: Middle spaces in computer-mediated learning. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://enyedy2006dialogue|PDF]]|

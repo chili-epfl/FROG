@@ -1,0 +1,4 @@
+h2. V. Hodgson's publications
+
+| goodyear2004undergraduate | Goodyear, P., Jones, C., Asensio, M., Hodgson, V., & Steeples, C. (2004). Undergraduate students’ experiences of networked learning in UK higher education: A survey-based study. Advances in research on networked learning. Springer.|[[skimx://goodyear2004undergraduate|PDF]]|
+| goodyear2004research | Goodyear, P., Banks, S., Hodgson, V., & McConnell, D. (2004). Research on networked learning: An overview. Advances in research on networked learning. Springer.|[[skimx://goodyear2004research|PDF]]|

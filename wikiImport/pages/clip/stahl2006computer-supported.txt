@@ -1,0 +1,8 @@
+h1. Notes
+
+* Highlight, page 1
+
+Computer-supported collaborative learning (CSCL) is an emerging branch of the learning sciences concerned with studying how people can learn together with the help of computers. As we will see in this essay, such a simple statement conceals considerable complexity. The interplay of learning with technology turns out to be quite intricate. The inclusion of collaboration, computer mediation and distance education has problematized the very notion of learning and called into question prevailing assumptions about how to study it. Like many active fields of scientific research, CSCL has a complex relationship to established disciplines, evolves in ways that are hard to pinpoint and includes important contributions that seem incompatible. The field of CSCL has a long history of controversy about its theory, methods and definition. Furthermore, it is important to view CSCL as a vision of what may be possible with computers and of what kinds of research should be conducted, rather than as an established body of broadly accepted laboratory and classroom practices. We will start from some popular understandings of the issues of CSCL and gradually reveal its more complex nature. We will review CSCL’s historical development and offer our perspective on its future. CSCL within education As the stu
+
+
+

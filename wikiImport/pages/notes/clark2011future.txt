@@ -1,0 +1,101 @@
+h1. Key ideas
+
+//A collection of short reports from a workshop in 2011 on the future of publishing//
+
+h2. Things to check out
+  * The Open Citations Corpus (http://opencitations.net/) contains references to 3.4 million biomedical papers, representing 20% of all PubMed Central papers published between 1950 and 2010, and including all the highly cited papers in every biomedical field.
+  * SciVerse from Elsevier
+  * “Executable journals”
+    * It will help us do science-on-demand (“press this button to re-run your thesis”), and equally the papers can process new data autonomously, generating new results which in turn get processed by other papers.
+    * You’ll receive an email notification when the paper you wrote five years ago is re-run with new inputs from other people’s papers, and so will the people who used yours.
+
+h2. Tools and technologies
+
+h3. Lifecycle of digital artefact
+
+  * Registration 
+  * Certification 
+  * Archiving 
+  * Rewarding 
+  * Enactment of the Digital Artefact: presentations, videos 
+  * Writing 
+  * Discoursing 
+  * Reuse/reproduceable 
+  * Formal/informal 
+  * Granularity of publications
+
+h3. List of main tools
+
+  * Literature programming 2
+  * Scientific publication 3
+  * Spreadsheets 4
+  * Reference management system 5
+  * Web pages + Web sites 6
+  * Powerpoint 7
+  * Word/LaTeX Google docs 8
+  * Supercomputing 9
+  * Gmail 10
+  * Digital library p
+  * Poster 12
+  * Analysis workflow + R scripts, codes 13
+  * Amazon for papers/books 14
+  * Catalogues: s/w library, N/F, Yellow pages 15
+  * YouTube 16
+  * Recordings/broadcast/webinars of talks and presentations 17
+  * Dropbox/SlideShare/Flickr/Twitter 18
+  * Terminologies, thesauri, mapping, ontology 19
+  * Search services 20
+  * Analytical tools to survey the landscape, understand the science landscape, i.e mapping and research literature mapping (Compendium, Cohere, knowledge mapping tools) 21
+  * Technologies thesauri 22
+  * Hubs for communication: centres of communities (automated versions of it) 23
+  * What are the more formal tools 24
+  * EasyChair: Conference reviewing tools 25
+  * Journals 26
+  * Grant repositories/applications: generating documents 27
+  * Database schema, data repositories 28
+  * Google+, Facebook, social networks 29
+  * Learned society 30
+  * Conference call (Skype) 31
+  * Publishers 32
+  * Chat 33
+  * Directories of WhoIs/yellow pages
+
+h3. What are the properties necessary to move a tool from formal to informal tool for scientific communication/publishing?
+
+  * Citeability 2
+  * Preservation 3
+  * Highly shareable 4
+  * Known provenance 5
+  * Trustable 6
+  * Accessibility 7
+  * Stability 8
+  * Granularity 9
+  * Cost (or lack of it) 10
+  * Speed 11
+  * IP restrictions 12
+  * Inherent rewardability 13
+  * Annotatabilility 14
+  * Protectability 15
+  * Staking claims 16
+  * Portability 17
+  * Palpability 18
+  * Easiness 19
+  * Capacity 20
+  * Multimediality
+
+h3. Categories of tools that are emerging
+
+  * Communication Instant Discourse 2
+  * Training tools 3
+  * Document composition, editing, authoring 4
+  * Sensemaking 5
+  * Scientific publication/research sharing 6
+  * Preservation/storage 7
+  * Presentation 8
+  * Search tools 9
+  * Digital artefact/ file sharing 10
+  * Terminology services 11
+  * Curation: metadata/indexing/ managing tools 12
+  * Social 13
+  * Certification tools and commenting 14
+  * Execution tools 

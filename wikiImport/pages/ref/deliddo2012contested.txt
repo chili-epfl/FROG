@@ -1,0 +1,36 @@
+h1. Contested Collective Intelligence: Rationale, Technologies, and a Human-Machine Annotation Study
+
+<ifauth !@admin>|De Liddo, A., Sándor, Á., & Buckingham Shum, S. (2012). Contested Collective Intelligence: Rationale, Technologies, and a Human-Machine Annotation Study. Computer Supported Cooperative Work (CSCW), 1--32. Springer.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://deliddo2012contested|BibDesk]]  | De Liddo, A., Sándor, Á., & Buckingham Shum, S. (2012). Contested Collective Intelligence: Rationale, Technologies, and a Human-Machine Annotation Study. Computer Supported Cooperative Work (CSCW), 1--32. Springer. |
+^ [[skimx://deliddo2012contested|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:deliddo2012contested?do=edit&vecdo=print\'><frame src=\'/wiki/clip:deliddo2012contested?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{deliddo2012contested,
+  author = {De Liddo, Anna and Sándor, Ágnes and Buckingham Shum, Simon},
+  date-added = {2012-02-06 20:20:37 +0000},
+  date-modified = {2012-02-15 01:16:45 +0000},
+  journal = {Computer Supported Cooperative Work (CSCW)},
+  keywords = {1-today},
+  pages = {1--32},
+  publisher = {Springer},
+  read = {1},
+  read-date = {2012-02-14 20:16:45 -0500},
+  title = {Contested Collective Intelligence: Rationale, Technologies, and a Human-Machine Annotation Study},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhkZWxpZGRvMjAxMmNvbnRlc3RlZC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaFaiy9b97VBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zYtAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBkZWxpZGRvMjAxMmNvbnRlc3RlZC5wZGYAAA4AMgAYAGQAZQBsAGkAZABkAG8AMgAwADEAMgBjAG8AbgB0AGUAcwB0AGUAZAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9kZWxpZGRvMjAxMmNvbnRlc3RlZC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svZGVsaWRkbzIwMTJjb250ZXN0ZWQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:deliddo2012contested}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:deliddo2012contested}}
+
+{{page>kindle:deliddo2012contested}}
+
+{{page>skimg:deliddo2012contested}}

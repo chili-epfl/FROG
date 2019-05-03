@@ -1,0 +1,19 @@
+h1. Pierre Dillenbourg
+{{ pages:a_pierre_dillenbourg1.png}}
+
+h2. Research
+A former teacher in elementary school, Pierre Dillenbourg graduated in educational science (University of Mons, Belgium). He started his research on learning technologies in 1984. He obtained a PhD in computer science from the University of Lancaster (UK), in the domain of artificial intelligence applications for educational software. He has been professor assistant at TECFA, University of Geneva. He joined EPFL in November 2002. His current interests concern computer-supported collaborative learning (CSCL): the design and experimentation of interactive furniture; the effects of awareness tools on group performance and mutual modeling; the authoring of CSCL scripts; the use of eye tracking method for predicting interaction patterns. P. Dillenbourg has been consultant for companies in Switzerland and Europe. He is the editor of the Kluwer Series "Computer-Supported Collaborative Learning" and former president of the International Society for Learning Sciences. 
+
+  * eye-tracking
+  * scripting
+  * interactive furniture
+  * effect of awareness tools on group performance
+
+h2. Presentations
+  * [[:icls2012:pierre dillenbourg keynote|No more login]] - keynote at ICLS 2012
+  * [[:Learning from data]] - symposium at Coursera Conference 2013
+
+h2. Links
+  * [[http://people.epfl.ch/pierre.dillenbourg|Homepage]]
+
+{{page>:abib:pierre_dillenbourg}}

@@ -1,0 +1,34 @@
+h1. Eliciting Thinking Skills with Inquiry Maps in CLE
+
+<ifauth !@admin>|Okada, A. (2010). Eliciting Thinking Skills with Inquiry Maps in CLE. In P. L. Torres & R. de Cassia Veiga Marriott (Eds.),  (Tran.), Handbook of Research on Collaborative Learning Using Concept Mapping. Information Science Reference.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://okada2010eliciting|BibDesk]]  | Okada, A. (2010). Eliciting Thinking Skills with Inquiry Maps in CLE. In P. L. Torres & R. de Cassia Veiga Marriott (Eds.),  (Tran.), Handbook of Research on Collaborative Learning Using Concept Mapping. Information Science Reference. |
+^ [[skimx://okada2010eliciting|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:okada2010eliciting?do=edit&vecdo=print\'><frame src=\'/wiki/clip:okada2010eliciting?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{okada2010eliciting,
+  author = {Okada, Alexandra},
+  booktitle = {Handbook of Research on Collaborative Learning Using Concept Mapping},
+  date-added = {2012-01-28 04:14:13 +0000},
+  date-modified = {2012-04-09 01:02:05 +0000},
+  editor = {Torres, Patricia Lupion and de Cassia Veiga Marriott, Rita},
+  keywords = {concept-maps},
+  notes = {1},
+  publisher = {Information Science Reference},
+  title = {Eliciting Thinking Skills with Inquiry Maps in CLE},
+  year = {2010}
+}
+
+</hidden>
+
+{{page>notes:okada2010eliciting}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:okada2010eliciting}}
+
+{{page>kindle:okada2010eliciting}}
+
+{{page>skimg:okada2010eliciting}}

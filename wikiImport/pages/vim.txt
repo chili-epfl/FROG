@@ -1,0 +1,59 @@
+h1. Vim
+
+
+----
+  * [[http://weblog.jamisbuck.org/2008/11/17/vim-follow-up|the { buckblogs :here }: Vim Follow-up]]
+----
+  * [[http://cx4a.org/software/rsense/|RSense - A Ruby development tools for Emacs, Vim and others]]
+----
+  * [[http://www.wana.at/vimshell/|vimshell]]
+----
+  * [[https://github.com/akitaonrails/vimfiles|akitaonrails/vimfiles - GitHub]]
+----
+4505530070656689 [[http://www.vim.org/scripts/script.php?script_id=2771|akitaonrails/vimfiles - GitHub]]
+----
+4505530070656689 [[http://www.thegeekstuff.com/2009/04/ctags-taglist-vi-vim-editor-as-sourece-code-browser/|akitaonrails/vimfiles - GitHub]]
+----
+4505530070656689 [[https://github.com/carlhuda/janus|akitaonrails/vimfiles - GitHub]]
+----
+4505530070656689 [[https://github.com/tpope/vim-rails|akitaonrails/vimfiles - GitHub]]
+----
+4505530070656689 [[https://bitbucket.org/sjl/gundo.vim/src|akitaonrails/vimfiles - GitHub]]
+----
+nnoremap <Space> : [[http://www.thegarvin.com/2010/08/04/remap-caps-lock-to-control.html|akitaonrails/vimfiles - GitHub]]
+----
+Learning the vi and Vim Editors  [[http://vim.wikia.com/wiki/Best_Vim_Tips|akitaonrails/vimfiles - GitHub]]
+----
+Learning the vi and Vim Editors  [[https://github.com/twerth/dotfiles/blob/master/etc/vim/vimrc|akitaonrails/vimfiles - GitHub]]
+----
+	vnoremap < <gv
+
+	vnoremap > >gv 
+
+ [[https://github.com/krisleech/vimfiles|akitaonrails/vimfiles - GitHub]]
+----
+  * [[http://spf13.com/?s=vim|Vim | Steve Francia's Epic Blog]]
+----
+curl https://github.com/spf13/spf13-vim/raw/master/bootstrap.sh -o - | sh [[http://spf13.com/project/spf13-vim|Vim | Steve Francia's Epic Blog]]
+----
+  * [[https://github.com/tpope/vim-fugitive|tpope/vim-fugitive - GitHub]]
+----
+https://bitbucket.org/sjl/gundo.vim/get/91190e67720f.zip [[http://stevelosh.com/blog/2011/09/writing-vim-plugins/|tpope/vim-fugitive - GitHub]]
+----
+  * [[http://www.vimer.cn/|Vimer - Chinese]]
+----
+  * [[http://tnerual.eriogerg.free.fr/vimqrc.html|VIM Quick Reference Card]]
+----
+  * [[http://vimcasts.org/episodes/archive|VimCasts Episodes]]
+----
+https://github.com/LevelbossMike/vim_shortcut_wallpaper/raw/master/vim-shortcuts_1280x800.png [[https://github.com/LevelbossMike/vim_shortcut_wallpaper/raw/master/vim-shortcuts_1280x800.png|VimCasts Episodes]]
+----
+  * [[https://github.com/skwp/dotfiles|skwp/dotfiles - GitHub]]
+	 $5,875.21 [[http://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118|skwp/dotfiles - GitHub]]
+----
+Fortunately, people getting started today with Vim have some amazing resources such as Practical Vim by Drew Neil, Vimcasts and VimGolf that make the process less painful. [[http://samsaffron.com/archive/2013/05/03/eliminating-my-trivial-inconveniences|Eliminating my trivial inconveniences building Discourse]]
+----
+I use a fair amount of Vim plugins. Syntastic, rails.vim, NERDTree, surround.vim, tcomment and many others. The plugins I use help meld Vim so it works really well with my workflow. [[http://samsaffron.com/archive/2013/05/03/eliminating-my-trivial-inconveniences|Eliminating my trivial inconveniences building Discourse]]
+----
+  * [[https://news.ycombinator.com/item?id=5689971|Vim Adventures | Hacker News]]
+  * [[http://amix.dk/blog/post/19744|Zen room for Vim: Focsuing only on the essential - amix.dk]]

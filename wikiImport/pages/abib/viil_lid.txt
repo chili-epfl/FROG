@@ -1,0 +1,3 @@
+h2. Viil Lid's publications
+
+| [@lid2003supporting] | Lid, V., & Suthers, D. D. (2003). {Supporting Online Learning with an Artifact-Centered Cross-Threaded Discussion Tool}. Computers in Education.|

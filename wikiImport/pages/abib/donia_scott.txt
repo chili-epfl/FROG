@@ -1,0 +1,3 @@
+h2. Donia Scott's publications
+
+| [@mancini2006visualising] | Mancini, C., Scott, D., & Buckingham Shum, S. (2006). Visualising Discourse Coherence in {Non-Linear} Documents. Journal Article. |

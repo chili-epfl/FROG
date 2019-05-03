@@ -1,0 +1,7 @@
+h2. Images
+
+{{skim:bouchard2008some0.png}}
+
+[[skimx://bouchard2008some#4|p. 4]]
+----
+

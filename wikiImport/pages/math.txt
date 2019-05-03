@@ -1,0 +1,56 @@
+h1. Math
+
+  * [[http://www.statalgo.com/2011/10/19/stanford-ml-2-linear-algebra-review/|Stanford ML 2: Linear Algebra Review | statalgo [http://www.statalgo.com/]]]
+----
+  * [[http://www.statalgo.com/stanford-machine-learning/|Stanford Machine Learning | statalgo [http://www.statalgo.com/]]]
+  * [[http://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/video-lectures/|Video Lectures | Linear Algebra | Mathematics | MIT OpenCourseWare [http://ocw.mit.edu/]]]
+  * [[http://blog.wolfram.com/2013/02/01/the-ultimate-univariate-probability-distribution-explorer/|The Ultimate Univariate Probability Distribution Explorer « Wolfram Blog [http://blog.wolfram.com/]]]
+  * [[http://www.youcubed.org/|YouCubed - Join the Revolution]]
+
+----
+Gelfand/Shen, Algebra [[http://www.ocf.berkeley.edu/~abhishek/chicmath.htm#elementary|Chicago undergraduate mathematics bibliography]]
+----
+  * [[http://math.stackexchange.com/questions/436415/a-path-to-truly-understanding-probability-and-statistics|soft question - A path to truly understanding probability and statistics - Mathematics Stack Exchange]]
+  * [[http://world.mathigon.org/Conic_Sections|Conic Sections | World of Mathematics]]
+  * [[http://www.cut-the-knot.org/|Interactive Mathematics Miscellany and Puzzles]]
+  * [[http://mathworld.wolfram.com/|Wolfram MathWorld: The Web's Most Extensive Mathematics Resource]]
+  * [[http://www.e-booksdirectory.com/mathematics.php|Free Mathematics Books]]
+  * [[http://wp.kjro.se/2013/12/27/5-insanely-great-books-about-mathematics-you-should-read/|5 insanely great books about mathematics you should read. | kjrose's thoughts]]
+  * [[https://news.ycombinator.com/item?id=6972765|Great books about mathematics | Hacker News]]
+  * [[http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference|MathJax basic tutorial and quick reference - Mathematics Meta Stack Exchange]]
+  * [[http://betterexplained.com/|BetterExplained | Learn Right, Not Rote.]]
+  * [[http://betterexplained.com/calculus/|Introduction | Calculus BetterExplained]]
+
+----
+Rudin's Analysis book is very good, so is Lang's Algebra [[https://news.ycombinator.com/item?id=5014399|Math notes to take you from one year of college calculus to grad student level | Hacker News]]
+----
+Gilbert Strang's Linear Algebra textbook is designed to be useful to the self-learner, and I think the latest edition was revised after MIT's OCW was a thing, so actually references all the material online, IIRC. [[https://news.ycombinator.com/item?id=5014399|Math notes to take you from one year of college calculus to grad student level | Hacker News]]
+----
+My favorite book of this type is Shafarevich's Basic Notions of Algebra. [[https://news.ycombinator.com/item?id=5014399|Math notes to take you from one year of college calculus to grad student level | Hacker News]]
+----
+Elementary Analysis: The Theory of Calculus by Ross [[https://news.ycombinator.com/item?id=5014399|Math notes to take you from one year of college calculus to grad student level | Hacker News]]
+----
+Rudin, Apostol, Spivak, Lang, Munkres ..
+
+	
+
+[−]EliRivers 361 days ago | link | parent
+
+I'd like to say that Apostol's "Introduction to Analytic Number Theory" is bloody awful and is in no way suitable to be an introduction to analytic number theory. A reference book of proofs of some common theorems, yes, but an introduction? No. [[https://news.ycombinator.com/item?id=5014399|Math notes to take you from one year of college calculus to grad student level | Hacker News]]
+----
+[Osborne --- Advanced Mathematical Techniques: for Scientists and Engineers](http://www.amazon.com/Advanced-Mathematical-Techniques-Scien...)
+
+and for a much more indepth, but less pedagogically useful (more of a reference) [Arfken --- Mathematical Methods for Physicists, Seventh Edition: A Comprehensive Guide](http://www.amazon.com/Mathematical-Methods-Physicists-Sevent...) [[https://news.ycombinator.com/item?id=5014399|Math notes to take you from one year of college calculus to grad student level | Hacker News]]
+----
+  * [[http://dl.dropboxusercontent.com/u/315/books/list.html|Shawn's Dropbox Index]]
+  * [[http://www.math.harvard.edu/~ctm/home/text/class/harvard/55a/08/html/index.html|Math 55a]]
+  * [[http://www.math.harvard.edu/~ctm/home/text/class/harvard/55b/09/html/index.html|Math 55b]]
+
+----
+An operation is commutative if the order of the operands don't matter. For instance, in ordinary maths it holds true that a + b = b + a, and therefore the + operation is commutative.
+
+
+An operation is associative if the order of the operations don't matter. For instance, in ordinary maths if holds true that a · (b · c) = (a · b) · c, and therefore the · operation is associative.
+
+
+On the other hand, division, for instance, is neither commutative nor associative. [[http://chrisvest.name/floating-point-addition-is-not-associative.html|chrisvest.name- Floating point addition is not associative]]

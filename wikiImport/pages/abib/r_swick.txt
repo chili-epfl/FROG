@@ -1,0 +1,3 @@
+h2. R Swick's publications
+
+| [@koivunen2003collaboration] | Koivunen, M.-R., & Swick, R. (2003). Collaboration through Annotation in the Semantic Web. Annotation for the Semantic Web, 46-60.|

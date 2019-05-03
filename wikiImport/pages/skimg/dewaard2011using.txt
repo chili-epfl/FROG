@@ -1,0 +1,22 @@
+h2. Images
+
+{{skim:dewaard2011using0.png}}
+
+[[skimx://dewaard2011using#5|p. 5]]
+----
+
+{{skim:dewaard2011using1.png}}
+
+[[skimx://dewaard2011using#8|p. 8]]
+----
+
+{{skim:dewaard2011using2.png}}
+
+[[skimx://dewaard2011using#8|p. 8]]
+----
+
+{{skim:dewaard2011using3.png}}
+
+[[skimx://dewaard2011using#17|p. 17]]
+----
+

@@ -1,0 +1,12 @@
+h1. Marc-Antoine Nüssli
+{{ pages:a_marc-antoine_nuessli1.png}}
+
+PhD student at CRAFT, Polytechnic School of Lausanne
+
+h2. Research
+Working with [[Pierre Dillenbourg]] and [[Patrick Jermann]] on [[:eye-tracking]]
+
+h2. Links
+  * [[http://people.epfl.ch/marc-antoine.nuessli|Homepage]]
+
+{{page>abib:Marc-Antoine Nüssli}}

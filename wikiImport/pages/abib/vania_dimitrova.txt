@@ -1,0 +1,4 @@
+h2. Vania Dimitrova's publications
+
+| [@hensman2010tools] | Hensman, J., Despotakis, D., Brandic, A., & Dimitrova, V. Tools to Find Connections Between Researchers - Findings from Preliminary Work with a Prototype as Part of a University Virtual Research Environment. In .|
+| [@dimitrova2011semantic] | Dimitrova, V., Lau, L., & {O'Rourke}Rebecca. (2011). Semantic Social Scaffolding for Capturing and Sharing Dissertation Experience. {IEEE} Transactions on Learning Technologies, 4(1), 74--87. doi:10.1109/TLT.2010.42|

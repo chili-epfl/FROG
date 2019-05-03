@@ -1,0 +1,40 @@
+h1. The scholarship of teaching and web‐based representations of teaching in the United States: definitions, histories, and new directions
+
+<ifauth !@admin>|Hatch, T. (2009). The scholarship of teaching and web‐based representations of teaching in the United States: definitions, histories, and new directions. Educational Action Research, 17(1), 63-78. Informa UK (Taylor & Francis). doi: 10.1080/09650790802667451.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://hatch2009scholarship|BibDesk]]  | Hatch, T. (2009). The scholarship of teaching and web‐based representations of teaching in the United States: definitions, histories, and new directions. Educational Action Research, 17(1), 63-78. Informa UK (Taylor & Francis). doi: 10.1080/09650790802667451. |
+^ [[skimx://hatch2009scholarship|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:hatch2009scholarship?do=edit&vecdo=print\'><frame src=\'/wiki/clip:hatch2009scholarship?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{hatch2009scholarship,
+  author = {Hatch, Thomas},
+  date-added = {2013-01-29 17:12:39 +0000},
+  date-modified = {2013-01-29 17:12:47 +0000},
+  doi = {10.1080/09650790802667451},
+  journal = {Educational Action Research},
+  keywords = {0sotl},
+  month = {mar},
+  number = {1},
+  pages = {63-78},
+  publisher = {Informa UK (Taylor & Francis)},
+  title = {The scholarship of teaching and web‐based representations of teaching in the United States: definitions, histories, and new directions},
+  url = {http://dx.doi.org/10.1080/09650790802667451},
+  volume = {17},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhoYXRjaDIwMDlzY2hvbGFyc2hpcC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3JKlzS1tTVBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNLbOdAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBoYXRjaDIwMDlzY2hvbGFyc2hpcC5wZGYAAA4AMgAYAGgAYQB0AGMAaAAyADAAMAA5AHMAYwBoAG8AbABhAHIAcwBoAGkAcAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9oYXRjaDIwMDlzY2hvbGFyc2hpcC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svaGF0Y2gyMDA5c2Nob2xhcnNoaXAucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG},
+  bdsk-url-1 = {http://dx.doi.org/10.1080/09650790802667451}
+}
+
+</hidden>
+
+{{page>notes:hatch2009scholarship}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:hatch2009scholarship}}
+
+{{page>kindle:hatch2009scholarship}}
+
+{{page>skimg:hatch2009scholarship}}

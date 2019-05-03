@@ -1,0 +1,4 @@
+h2. J. Conklin's publications
+
+| conklin2006wicked | Conklin, J. (2006). Wicked problems \& social complexity. Citeseer.|
+| conklin2001facilitated | Conklin, J., Selvin, A., Shum, S. B., & Sierhuis, M. (2001). Facilitated hypertext for collective sensemaking: 15 years on from gIBIS. Proceedings of the 12th ACM conference on Hypertext and Hypermedia.|

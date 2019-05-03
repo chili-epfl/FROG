@@ -1,0 +1,9 @@
+h2. Nobuko Fujita's publications
+
+| [@bull2011methods] | Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL. |
+| [@fujita2008group] | Fujita, N. (2008). Group processes supporting the development of progressive discourse in online graduate courses (PhD thesis).|
+| [@fujita2008rethinking] | Fujita, N., & Brett, C. (2008). Rethinking analysis of progressive discourse in online learning: an activity theory perspective. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 1 (248--256).|
+| [@teplovs2009determining] | Teplovs, C., & Fujita, N. (2009). Determining curricular coverage of student contributions to an online discourse environment through the use of latent semantic analysis and term clouds. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 2 (165--167).|
+| [@fujita2009automating] | Fujita, N., & Teplovs, C. (2009). Automating the analysis of collaborative discourse: identifying idea clusters. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 2 (162--164).|
+| [@fujita2010software] | Fujita, N., & Teplovs, C. (2010). Software-based scaffolding: Supporting the development of knowledge building discourse in online courses. In Proceedings of the 9th International Conference of the Learning Sciences-Volume 1 (1048--1054).|
+| [@cacciamani2011influence] | Cacciamani, S., Cesareni, D., Martini, F., Ferrini, T., & Fujita, N. (2011). Influence of participation, facilitator styles, and metacognitive reflection on knowledge building in online university courses. Computers \& Education. |

@@ -1,0 +1,104 @@
+h2. Highlights (72%)
+
+Abstract The Peer-to-Peer Learning Environment (P2PLE) is a proposed approach to helping learners co-construct their learning environment using recommendations about people, content, and tools. The work draws on current research on PLEs, and participant observation at the Peer-to-Peer University (P2PU). We are particularly interested in ways of eliciting explicit, coded, user feedback, and in monitoring the transitions from state to state within the PLE. We discuss the ways in which these ideas can inform the design of a platform for peer-supported study of universitylevel mathematics. [[skimx://corneli2011personalised#1|p. 1]]
+
+The use of online forums, blogs, social networks and other Web 2.0 tools for learning purposes is also increasingly typical, even among co-located groups. [[skimx://corneli2011personalised#2|p. 2]]
+
+we will investigate design issues around personalised and peer-supported learning, drawing on participant observation in a new learning-oriented online community, the Peer-to-Peer University (P2PU)1. We will make use of the existing PLE literature, and walk through an extended thought experiment where we look at how our ideas could be applied in a mathematics learning context. [[skimx://corneli2011personalised#2|p. 2]]
+
+The main idea we investigate in this paper is that of the Peer-to-Peer Learning Environment (P2PLE). Our thought is that since learners typically work through tasks together, or with a degree of peer support, they would benefit from access to a sophisticated, personalised, socially-aware task tracking system. We are agnostic as to whether this system is closely integrated with a given online community, or makes use of the Web-as-Platform model. Part of the view of PLEs is that learners will make use of a wide range of tools and interactions in any case (Willson et al., 2008). Features of the P2PLE could be implemented in either scenario, and, indeed, we have already seen proofs-of-concept for both (we will discuss this in the following section). Both self-directed learning and peer collaboration are already quite strongly supported in Web 2.0 environments. What remains to be seen is how to improve the learning experience by making use of this data as we move towards platform with stronger support for semantics (Web 3.0). The P2PLE proposal indicates the scope of data that we can usefully gather, and makes some initial recommendations for how to use this in the concrete instance of mathematics learning. [[skimx://corneli2011personalised#2|p. 2]]
+
+, a PLE is all about live, interactive adaptation to the needs of the user. Accordingly, there ought to be a way to measure various aspects of quality within the PLE itself. Here we suggest a lightweight approach to user feedback that uses distributed evaluations of all of the components and activities that comprise the environment. [[skimx://corneli2011personalised#3|p. 3]]
+
+objectives are selected from a larger set of possible objectives, tools are selected from a larger set of possible tools, peers are selected from a larger set of possible peers, and so forth. Each of these choices represents an implicit judgment about quality – such choices have the potential to be particularly revealing when they change over time. However, there is a degree of implicitness here that confounds things. Unless we have a way to make the judgments explicit, we won't know whether someone is moving on from a given activity because they are finally satisfied with the results, or because they have grown hopelessly frustrated. [[skimx://corneli2011personalised#4|p. 4]]
+
+Within the current conception of PLEs in the ROLE project, an explicit evaluation or reflection phase is introduced, which can make more of these judgments explicit – see (Fruhmann, 2010) which builds on the theory of self-regulated learning developed in (Zimmerman, 1989). Here, we look for ways to wrap evaluation and reflection even more tightly into use and participation. This requires lightweight ways to communicate sentiments about activities. For example, in response to a given blog or forum post, a reader might say “This blog post was exceptionally wellwritten, I learned a lot from it”, or they might say, “You know, this post was interesting, but it happened to lead me off on a direction that wasn't really relevant to my learning project” -- or they might say, “Reading this post was a waste of my time.” In the case of blogs, feedback of all sorts is currently handled through the comment system. [[skimx://corneli2011personalised#4|p. 4]]
+
+::This is interesting - prompting / scaffolding focused on meta-learning awareness, learning strategies - and of course using the resulting data for automatic adaptation of the environment, learning analytics, research:: [[skimx://corneli2011personalised#4|p. 4]]
+
+::Seems like paragogy is more focused on the practical problems that peer-learners face, based on experience with P2PU and other settings, as opposed to Connectivism, which is more a "grand theory" from first principles, with a lot of handwaving and "we'll figure it out eventually" or "just embrace chaos"...:: [[skimx://corneli2011personalised#4|p. 4]]
+
+::Careful not to conflate issues though - stating that a given piece of material "led someone out of their learning trajectory" might be useful for that individual to reflect on their learning journey, and might be useful for us as researchers - but is it useful feedback for the person who wrote the post, or does it say anything about the "value" of that blog post? Only if the learning community is fairly homogenous in their learning goals.:: [[skimx://corneli2011personalised#4|p. 4]]
+
+feedback could easily be coded. We can start with the popular idea of bookmarking or “starring” content, but we suggest that stars should be used to give feedback, and not simply as bookmarks (Figure 2). In other words, starred content should also show up in the profiles of the people who contributed the content. [[skimx://corneli2011personalised#4|p. 4]]
+
+In a learning context, detailed feedback would be particularly relevant to (peer) producers of content, and also to educators or technologists who are building tools. [[skimx://corneli2011personalised#4|p. 4]]
+
+A peer learner might, for example, request evaluation along a certain set of dimensions: “I'm really trying to work on my writing quality, please let me know if you find my argument cogent or not.” A technologist might be happy to learn about novel uses for the tool they’ve developed. [[skimx://corneli2011personalised#4|p. 4]]
+
+::Who are content producers in this context? Isn't every single learner producing content?:: [[skimx://corneli2011personalised#4|p. 4]]
+
+a targeted set of feedback options could be requested in addition to open feedback. (Targeted requests for feedback are known to work well in writers' workshops, for instance!) As proof of concept, we note that multi-dimensional judgments have been used to good effect for years in the Slashdot community, [[skimx://corneli2011personalised#5|p. 5]]
+
+such judgments can be applied to all aspects of the learning context: tools, objectives, activities, peers. [[skimx://corneli2011personalised#5|p. 5]]
+
+The real question is how feedback is going to be used. [[skimx://corneli2011personalised#5|p. 5]]
+
+Anne, Betty, and Charlie are working together on a paper they plan to present at a conference. [[skimx://corneli2011personalised#5|p. 5]]
+
+This simple scenario shows three axes: People, Tools, and Activities. The range depicted in Figure 3 is meant to suggest a small slice of data about a much larger environment: in general, there would be more items along each of the pictured dimensions, and more dimensions as well. In particular, here we've aggregated activity over a certain short period of time. Looking at other slices along the time dimension might reveal that our protagonists collaborate like this frequently -- or perhaps we would learn that they end up collaborating in a similar way, but with other people. What we don't know just from looking at this picture is how the presentation went, or how any of the protagonists felt about any of the steps in the process. We would need another dimension to learn that Betty and Charlie do indeed find Etherpad to be an effective tool, or that Anne actually prefers it when she gets more help with her video work. But these sorts of judgements could be added as extra dimensions. [[skimx://corneli2011personalised#5|p. 5]]
+
+::Sounds very much like activity theory:: [[skimx://corneli2011personalised#5|p. 5]]
+
+IV. Requirements for Peer Learning [[skimx://corneli2011personalised#6|p. 6]]
+
+We begin with a couple of basic axioms about feedback. 1. Feedback doesn't do much good if the agent(s) receiving the feedback can't use it. 2. Giving feedback tends to be an “extra step”, so we should make it useful for people to give (or they won't do it). [[skimx://corneli2011personalised#6|p. 6]]
+
+we reframe these principles in active terms, looking at what changes (“Deltas”) take place in peer learning. [[skimx://corneli2011personalised#6|p. 6]]
+
+1. Changing the nature of the space: “changing context as a decentred centre”). This could happen at a technological level (e.g. an administrator or programmer adding a new feature to the platform), or, importantly, on a qualitative social level (e.g. by a user making a comment that changes the tone of the conversation). [[skimx://corneli2011personalised#6|p. 6]]
+
+2. Changing what I know about myself : “meta-learning as a font of knowledge”). Users can be kept accountable for their actions and celebrate their contributions by means of a record kept on their user profiles. A user profile that keeps track of things I rated highly, and ratings of my contributions (or recommendations of me) from others would be very useful. In response to changes in my profile, I may update the criteria I'm asking for feedback about. [[skimx://corneli2011personalised#7|p. 7]]
+
+3. Changing my perspective: “peers provide feedback that wouldn't be there otherwise”). Users can have constructively critical views on technology, strategy, or content. Sometimes actions speak louder than words. [[skimx://corneli2011personalised#7|p. 7]]
+
+4. Changing content or connectivity: “learning is distributed and nonlinear”). In a peer-managed environment, “design” can happen on an ongoing, ad hoc, basis. Without changing the “nature” of the space itself, it is possible to change the content, for example by adding or removing a given feed or tool. 5. Changing objectives: “realize the dream if you can, then wake up!”). Individual and collective goals and objectives are important as a way to discuss and critically examine progress. Since goals and objectives change (particularly once they have been achieved, but for other reasons as well), there should be ways to users to adjust their goals. Changes to shared goals and objectives should typically be negotiated. [[skimx://corneli2011personalised#7|p. 7]]
+
+::Interesting approach to have five principles, and then five "deltas" - changes in these principles:: [[skimx://corneli2011personalised#7|p. 7]]
+
+V. Support For Interpersonal Communication Is a social context, the five different kinds of changing features discussed in the previous section are workflow and communication issues, par excellence. [[skimx://corneli2011personalised#7|p. 7]]
+
+The various transitions could happen quickly (e.g. by adding a particular tag to some piece of content), or build up more slowly (e.g. by continual feedback from peers about a given topic). It is important to note that a given piece of content -- like a person -- can be in several categories at once. This leads to the idea of remixing content by sharing it between several courses or groups at once. This idea is akin to the concept of “internationalization”, insofar as we consider content that be immediately used a range of “locales”. [[skimx://corneli2011personalised#7|p. 7]]
+
+::Interesting idea to think of content shared between learning groups as "internationalization"… so internationalization is the process of preparing something to be localized, localization is the process of localizing into a given language… What would "internationalization" of content look like? Are we going back to "learning objects"?:: [[skimx://corneli2011personalised#7|p. 7]]
+
+In this view, ::::a given discourse context, such as a development project, is akin to a simple “language”. Indeed we might find many development projects that are mostly distinguishable by their language choices. Until the learning environment supports content that is adaptable in this manner, the environment may suffer from an unnecessary degree of balkanisation::::. Since the P2PLE adapts content bi-directionally between several sources, constructive activities can take place in different locales or peer groups, and share across boundaries. Importing changes can be selective based on local evaluations of quality (it’s OK if other people use the content in a different way). [[skimx://corneli2011personalised#7|p. 7]]
+
+::Not sure what this means, are they talking literally about open source projects and different programming languages?:: [[skimx://corneli2011personalised#7|p. 7]]
+
+VI. Peer Interactions in a Mathematics Learning Environment [[skimx://corneli2011personalised#8|p. 8]]
+
+We will look back at the ideas generated in earlier sections and think about how they would apply in a P2PLE for university level mathematics. [[skimx://corneli2011personalised#8|p. 8]]
+
+We will look at the project underway to add facilities for problems and solutions to PlanetMath.org, a community-produced mathematics encyclopedia. This will be viewed through the lens provided by the five points discussed above. [[skimx://corneli2011personalised#8|p. 8]]
+
+1. Changing the nature of the space [[skimx://corneli2011personalised#8|p. 8]]
+
+::Relationship between technology design and learning interactions / community interactions:: [[skimx://corneli2011personalised#8|p. 8]]
+
+2. Changing what I know about myself [[skimx://corneli2011personalised#8|p. 8]]
+
+As individual learners accumulate a track record of uploading and solving problems, asking for and offering help, giving feedback on and modifying encyclopedia articles to suit, etc., they should get a better sense of how they learn best. They should be able to ask for specific kinds of feedback and see how their progress improves (e.g. in formulating proofs or demonstrating an understanding of the concept of a limit). They should be able to keep track of particularly helpful and particularly non-helpful suggestions offered by peers or by the recommender system. [[skimx://corneli2011personalised#8|p. 8]]
+
+::How much of this tracking is confined to this particular community, and how much is generalized across contexts, platforms etc.:: [[skimx://corneli2011personalised#8|p. 8]]
+
+3. Changing my perspective Hopefully, peer mentors -- and system developers -- will be able to learn from learner feedback about what's helpful and what's confusing. Feedback should be particularly valuable to learners (“Wow, I didn't even know there was such a thing as spherical trigonometry!”). Ideally, giving and receiving feedback will be comfortable for all involved. [[skimx://corneli2011personalised#8|p. 8]]
+
+4. Changing content or connectivity In addition to peer-producing mathematical content, our hope is that learners and other contributors will be able to develop their own semantic queries. Such queries could be used to identify holes in the corpus, or interesting relationships between activity patterns. Not everyone needs to be able to build these queries to use them, e.g. to generate a feed showing all the latest additions of problems having to do with tori or klein bottles. [[skimx://corneli2011personalised#8|p. 8]]
+
+::Need to keep in mind that math is still more easily linked to a ladder of understanding, a defined field of knowledge, etc than some of the disciplines I might want to study:: [[skimx://corneli2011personalised#8|p. 8]]
+
+5. Changing objectives A shortcoming that was noted in the previous decade of PlanetMath's existence was that support for individual “projects” was not particularly strong. For example, a project to improve the entries about real numbers chose to base its operations on the organisational wiki rather than in PlanetMath itself.3 Content quality in PlanetMath has so far been maintained using a “correction system” that points out places where individual articles are mistaken or could be improved. In order to support the production of educational content, it would be good to generalise the correction system to include ranges of content (sub-collections of the encyclopedia or sub-areas of mathematics). [[skimx://corneli2011personalised#9|p. 9]]
+
+We have discussed a model of learner interactions that takes into account people, tools, activities, and other dimensions. In particular, we have focused on feedback about these items as an ancillary set of dimensions. Time is one of the most important dimensions, and, in some cases, we may be able to infer judgments from time-delineated data -- however, we've focused on ways people can get and give explicit feedback, keeping in mind two axioms, that the feedback should be useful to both receiver and sender. [[skimx://corneli2011personalised#9|p. 9]]
+
+The thought we wish to conclude with is that in today's global context, we are often in touch with peers from all over the world. There is an increasing need courses that cross natural language boundaries, and for specialized technical literacies. But our ability to understand one another well depends partly on the means that we have to express our thoughts, ideas, and concerns. Technologies that are able to provide learners with feedback on their expressions – whether coming from a peer, or from an algorithm – can support the learning process. Following the outline of the previous two sections, our suggestion would be to focus on developing technologies (ranging from light-weight mechanisms like rubrics or rating systems, to sophisticated text mining tools) that learners can use to detect, highlight, and share information about the changing nature of the space, its content and connectivity, and their own self-knowledge, perspective, and objectives. [[skimx://corneli2011personalised#9|p. 9]]
+
+References [[skimx://corneli2011personalised#10|p. 10]]
+
+Chatti, M.A., Jarke, M. and Frosch-Wilke, D. (2007). The future of e-learning: a shift to knowledge networking and social software. International Journal of Knowledge and Learning, 3, 404- 420. [[skimx://corneli2011personalised#10|p. 10]]
+
+Fruhmann, K., Nussbaumer, A., and Albert,D. (2010). A Psycho-Pedagogical Framework for SelfRegulated Learning in a Responsive Open Learning Environment. In Proc. International Conference eLearning Baltics Science (eLBa Science 2010), Rostock, Germany, 2010. [[skimx://corneli2011personalised#10|p. 10]]
+
+Wilson, S. et al. (2007). Personal Learning Environments: Challenging the dominant design of educational systems. Journal of e-Learning and Knowledge Society, 3. Wilson, S. (2008). Patterns of personal learning environments. Interactive Learning Environments, 16(1), 17-34. Zimmerman, B.J. (1989). A Social Cognitive View of Self-Regulated Academic Learning. Journal of Educational Psychology, 81, 329- 339. [[skimx://corneli2011personalised#10|p. 10]]
+

@@ -1,0 +1,41 @@
+h1. Collaborative Knowledge Construction through Shared Representations
+
+<ifauth !@admin>|Suthers, D. D. (2005). Collaborative Knowledge Construction through Shared Representations. Proceedings of the 38th Annual Hawaii International Conference on System Sciences, 5a--5a. Ieee. doi: 10.1109/HICSS.2005.151.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://suthers2005collaborative|BibDesk]]  | Suthers, D. D. (2005). Collaborative Knowledge Construction through Shared Representations. Proceedings of the 38th Annual Hawaii International Conference on System Sciences, 5a--5a. Ieee. doi: 10.1109/HICSS.2005.151. |
+^ [[skimx://suthers2005collaborative|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:suthers2005collaborative?do=edit&vecdo=print\'><frame src=\'/wiki/clip:suthers2005collaborative?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{suthers2005collaborative,
+  author = {Suthers, Daniel D.},
+  date-added = {2011-04-30 09:21:41 -0400},
+  date-modified = {2011-11-28 20:12:23 +0000},
+  doi = {10.1109/HICSS.2005.151},
+  isbn = {0-7695-2268-8},
+  journal = {Proceedings of the 38th Annual Hawaii International Conference on System Sciences},
+  keywords = {1-today; 1representational guidance},
+  local-url = {/Volumes/Home/stian/Downloads/Mendeley/Suthers-HICSS-2005.pdf},
+  pages = {5a--5a},
+  publisher = {Ieee},
+  read = {1},
+  title = {{Collaborative Knowledge Construction through Shared Representations}},
+  url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1385233},
+  year = {2005},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAaAAAAAAAaAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhxzdXRoZXJzMjAwNWNvbGxhYm9yYXRpdmUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdc5Cy9dKEVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14JRAAAAAQAMANrWUgAXPTEAAZ9eAAIAO1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdXRoZXJzMjAwNWNvbGxhYm9yYXRpdmUucGRmAAAOADoAHABzAHUAdABoAGUAcgBzADIAMAAwADUAYwBvAGwAbABhAGIAbwByAGEAdABpAHYAZQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAwVXNlcnMvU3RpYW4vYmliZGVzay9zdXRoZXJzMjAwNWNvbGxhYm9yYXRpdmUucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECouLi8uLi9iaWJkZXNrL3N1dGhlcnMyMDA1Y29sbGFib3JhdGl2ZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACRAJGAksCVAJfAmMCcQJ4AoECrgKzArYCwwLIAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAto=},
+  bdsk-url-1 = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1385233},
+  bdsk-url-2 = {http://dx.doi.org/10.1109/HICSS.2005.151}
+}
+
+</hidden>
+
+{{page>notes:suthers2005collaborative}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:suthers2005collaborative}}
+
+{{page>kindle:suthers2005collaborative}}
+
+{{page>skimg:suthers2005collaborative}}

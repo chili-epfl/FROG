@@ -1,0 +1,5 @@
+h2. Jenny Mackness's publications
+
+| [@mackness2010ideals] | Mackness, J., Mak, S. F. J., & Williams, R. (2010). The ideals and reality of participating in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
+| [@mak2010blogs] | Mak, S. F. J., Williams, R., & Mackness, J. (2010). Blogs and forums as communication and learning tools in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
+| [@tschofen2012connectivism] | Tschofen, C., & Mackness, J. (2012). Connectivism and dimensions of individual experience. The International Review of Research in Open and Distance Learning, 13(1). |

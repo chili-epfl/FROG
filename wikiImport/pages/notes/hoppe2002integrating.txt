@@ -1,0 +1,4 @@
+h1. Key ideas
+
+  * visual representations
+  * and other stuff

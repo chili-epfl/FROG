@@ -1,0 +1,3 @@
+h2. Publications with keyword "0joordens"
+
+| [@pare2008peering] | ParéDwayne E, & Joordens, S. (2008). Peering into large lectures: examining peer and expert mark agreement using peerScholar, an online peer assessment tool. Journal of Computer Assisted Learning, 24(6), 526–540.|

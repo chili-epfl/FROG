@@ -1,0 +1,41 @@
+h1. Syllabi
+
+h2. Grab bag
+  * [[http://www.unco.edu/cebs/psychology/kevinpugh/6-8350/8350syl.html|Cognition and Technology]] by [[a:David Jonassen]]
+  * [[edutech>Essential_reading|Essential reading list on Edutech Wiki]]
+
+h2. Related to CSCL-intro
+  * Gerry Stahl - Drexel - Math Forum: http://gerrystahl.net/teaching/index.html (several CSCW and HCI courses, but also some older CSCL courses)
+  * Dan Suthers - UHawaii - representational guidance - http://lilt.ics.hawaii.edu/suthers/ (links to some courses in Discourse, I have a login - courses on HCI and collective intelligence)
+  * Carolyn Rose Penstein - CMU - machine learning and analytics - http://www.cs.cmu.edu/~cprose/Teaching.html - one on machine learning, and one on CSCL
+  * Ravi Vatrapu - Copenhagen Business School (did PhD under Dan Suthers) - http://www.cs.cmu.edu/~cprose/Teaching.html - courses on technology enhanced teaching
+  * Erik Duval - Leuven - hypermedia and databases -  has course on HCI http://erikduval.wordpress.com/about/
+  * Sadhana Puntambekar - U Wisconsin-Madison - two courses: Interactive Learning Environment, and Cognition of Digital Information. http://www.compassproject.net/sadhana/index.htm
+  * Pierre Dillenbourg - Polytechnic Lausanne - course on Computer Supported Collaborative Work - http://infowww.epfl.ch/imoniteur_ISAP/!itffichecours.htm?ww_i_matiere=1770948&ww_x_anneeAcad=39486325&ww_i_section=249847&ww_i_niveau=6683147&ww_c_langue=en
+  * Caroline Haythornthwaite - UBC - courses on distributed knowledge and community informatics - http://haythorn.wordpress.com/teaching/
+  * Heidy Maldonado - PhD student at Stanford - some older courses on HCI, online learning communities, and visualizations in teaching - http://www.stanford.edu/~kiky/teaching.html
+  * Chip Bruce - iSchool at Illinois - inquiry based learning plus courses with Haythornthwaite - http://chipbruce.wordpress.com/teaching/
+  * Amy Bruckman - College of Computing Georgia Tech - lot's of courses of design of online communities etc - http://www.cc.gatech.edu/~asb/teaching/index.html
+  * Paul Dourish - UC Irvine - Lot's of courses on ubiquitous computing, research methods etc http://www.dourish.com/teaching.html
+  * Alberto Barbosa Raposo - U Pontefico Rio de Janeiro - course on HCI in Portuguese - http://www.tecgraf.puc-rio.br/~abraposo/
+  * Jörg Haake - Distance university in Hagen - courses in CSCW and CSCL in German - http://www.pi6.fernuni-hagen.de/Lehre/
+  * Gerhard Fischer - UC Boulder - life-long learning - courses on Design, Creativity and New Media http://l3d.cs.colorado.edu/~gerhard/courses/index.html
+  * Anders Mørch, UiO, intro to collaborative learning with technology http://www.uio.no/studier/emner/matnat/ifi/TOOL5100/h09/undervisningsplan.xml
+  * Very detailed wiki-syllabus in CSCW, don't know who the instructor is, from University of Limerick, Ireland http://wiki.csisdmz.ul.ie/wiki/CS4458_Computer-Supported_Cooperative_Work_2010
+  * Information visualization, Marti Hearts, Berkeley http://courses.ischool.berkeley.edu/i247/s08/schedule.html
+
+
+h2. METU
+  * [[http://courses.ceit.metu.edu.tr/ceit627/|Advanced Readings in Instructional Technology]] Middle East Technical University (all readings available as downloadable PDFs!) - also [[http://courses.ceit.metu.edu.tr/ceit626/|CEIT626]]
+  * [[http://courses.ceit.metu.edu.tr/ceit420/read.htm|Design, development and eval of educational software]] METU (downloadable, lot's about game design)
+  * [[http://ocw.metu.edu.tr/course/view.php?id=7|Multimedia design and development]] - METU OCW, lot's about [[ADDIE]]
+  * [[http://ocw.metu.edu.tr/course/view.php?id=97|Computational model of mind]], lecture notes and reading list
+  * [[http://ocw.metu.edu.tr/course/view.php?id=98|Using corpora for language research]], lecture notes and reading list
+  * [[http://ocw.metu.edu.tr/course/view.php?id=82|Intro to computer assisted language learning]]
+  * [[http://ocw.metu.edu.tr/course/category.php?id=2|Lot's of OCW courses on instructional teachnology etc]]
+
+----
+
+http://www.edb.utexas.edu/cscl/2010/s1.htm [[http://www.edb.utexas.edu/cscl/2010/s1.htm|CSCL 2009 - Paul Resta - UT@Austin]]
+----
+  * [[http://www.cse.yorku.ca/course_archive/2010-11/F/6390A/|CSE 6390A Knowledge Representation]]

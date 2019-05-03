@@ -1,0 +1,32 @@
+====== Constructing personal learning environments in MOOCs: A level of use study ======
+
+
+//Wendy Drexler et al, University of Florida//
+
+Overview
+  * MOOC (http://bit.ly/WelcomePLEK12)
+  * Feb 7 - April 3, 2011
+  * 136 registered participants (11 for credit
+
+Research questions
+  * how PLEs are used
+  * how effective is the use
+  * factors affecting its use/nonuse
+  * outcomes experienced by use/nonuse of personal learning environments
+
+Methodology
+  * Pre/post survey (very low return frequency)
+
+Future questions
+  * Differences between credit and noncredit students with regard to
+    * motivation
+    * self-regulation
+    * etc
+  * Consider
+    * how can we move beyond tech savvy audiences for open courses and PLEs?
+    * how can facilitators better connect and support students in MOOCs? should they try?
+  * Self-organization of students
+    * students did self-organize, including offline
+      * creating CoP at a school
+    * but teacher did not know this until the end, thus was unable to support them 
+      * going from "teacher-presence" to "student-presence" - teacher is very visible to students, but teacher doesn't know what students are up to

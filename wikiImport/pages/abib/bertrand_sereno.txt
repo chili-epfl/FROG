@@ -1,0 +1,3 @@
+h2. Bertrand Sereno's publications
+
+| [@buckinghamshum2007modeling] | Buckingham Shum, S., Uren, V., Li, G., Sereno, B., & Mancini, C. (2007). Modeling naturalistic argumentation in research literatures: Representation and interaction design issues. International Journal of Intelligent Systems, 22(1), 17--47. doi:10.1002/int.20188|

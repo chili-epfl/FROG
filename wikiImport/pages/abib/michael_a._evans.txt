@@ -1,0 +1,3 @@
+h2. Michael A. Evans's publications
+
+| [@evans2011multimodal] | Evans, M. A., Feenstra, E., Ryon, E., & {McNeill}David. (2011). A multimodal approach to coding discourse: Collaboration, distributed cognition, and geometric reasoning. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9113-0|

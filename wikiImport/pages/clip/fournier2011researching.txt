@@ -1,0 +1,53 @@
+h2. Highlights (27%)
+
+This paper will report on the first phase of research in a PLE, the identification process, of what potential users would find important components, applications and tools on a PLE. The methodology includes surveying “super-users” on their use of existing tools, applications and systems and their preferences in learning, in order to enhance the development of a PLE and reach a specification that potential learners will find useful and empowering in their learning. [[skimx://fournier2011researching#1|p. 1]]
+
+::Virtual Learning Environment vs PLE - VLE is controlled by institution:: [[skimx://fournier2011researching#1|p. 1]]
+
+The lack of presence of an educator to aid the learner in his or her critical engagement with resources has for instance been identified as a problem as the Web is not a power-free environment and people will have to adapt to negotiating this environment autonomously. To find the right information and to know how to access required resources new competencies and abilities will be required from learners. [[skimx://fournier2011researching#2|p. 2]]
+
+Moreover, the new learning environment requires learners to be active in their learning by editing and producing information themselves in a variety of formats and by communicating and collaborating with others in new ways. People need to have a certain level of creativity and innovative thinking, in addition to feeling competent, confident and comfortable in using ICT applications to be able to do so. Learners need to be flexible, able to adapt to new situations and able to solve problems that they come across during their learning journey. They will have to be motivated enough to take on new challenges and could use help from the system itself. [[skimx://fournier2011researching#2|p. 2]]
+
+Some argue that these skills and competencies will develop while engaging in online communication with others, or via challenging feedback or recommendations through the PLE system itself (Downes, 2009). The system and technology itself, or the activity the learner is involved in, will have to be engaging and interesting enough for the learner to work his or her way through the problems that will undoubtedly come up during the learning journey. [[skimx://fournier2011researching#2|p. 2]]
+
+People will have to be motivated to use the environment. Intrinsic motivation has an affective dimension and the literature highlighting the importance of affective aspects to networked learning is growing (Picard, 2004, Kop, 2010, Zaharias & Poylymenakou, 2009; Jones & Issroff, 2004). Other issues related to motivation have been highlighted by Lombard &Ditton (1997), and Dron & Anderson (2007) in the form of “presence”. Dron & Anderson (2007) discussed the different levels of presence in different online learning ‘settings’. They made the distinction between learning in ‘groups’, learning on ‘networks’, and learning by using ‘collectives’. Presence and motivation would be highest in a group, which would be a typical class room or organised online educatorled learning setting, while the presence while learning on an open informal network would be lower, e.g., on the 2008/2009 connectivism courses (Siemens, Downes 2008, 2009). The connection and presence on collectives would be even lower as the connections between people/resources would be in the form of tags. The main characteristic of presence is that of an illusion of non-mediation. In other words, there is a high level of presence when a participant in an online activity experiences the activity as if it was taking place in real life, without the mediation of the computer. Garrison et al (2000) argued that deep and meaningful learning results if three forms of presence play a role in education. These would be “cognitive presence” that ensures a certain level of depth in the educational process and would be important in the creation of meaningful online experiences, “social presence”, would also be important, and in a formal educational environment that of “teacher presence”. In PLE based learning the teacher presence would not necessarily be there, but one could [[skimx://fournier2011researching#2|p. 2]]
+
+argue that there are knowledgeable others on the Web who would take on that teacher role to a certain extent. [[skimx://fournier2011researching#3|p. 3]]
+
+The literature on e-learning evaluation (Attwell,2006) provides a variety of models ranging from comparisons with traditional learning, to benchmarking models, product evaluations, performance evaluations, program and policy evaluations, studies of metadata and more complex all encompassing design-based research (Bannan-Ritland, 2003) models. The approach to the evaluation in these models varies considerably and ranges from an emphasis on the program objectives, the management of the scheme, the outcomes for the user, the expertise required in the program to a participant oriented approach. (Attwell, 2006). These are mostly related to the organization of learning, the ‘input’ and ‘output’ and lack in substance when it comes down to establishing the process taking place and the learner experience. [[skimx://fournier2011researching#3|p. 3]]
+
+The PLE project eventually decided upon three parts to the research: i. An exploration phase: exploration of the literature and of possible components for the PLE, and a close contact with other PLE research groups worldwide. ii. Usability testing of Plearn, the developed learning environment, consisting of feedback from users on mock-ups of the PLE and testing of the Plearn prototype at different stages of development iii. Educational research, consisting of a comparison of learning without and with Plearn in 3 case studies (with different users in different scenarios). [[skimx://fournier2011researching#3|p. 3]]
+
+In the literature, the word “super-user” is used in different contexts and in different meanings, ranging from loyal users in social media campaigns, the user account responsible for the IT system administrator, brand-ambassadors (Merritt, 2009). In this paper we define as super-users, people who use advanced Internet tools and technologies in an educational environment. These tools would include information aggregators, editors and publishers; ones that exploratory research highlighted as possibly important to a Personal Learning Environment. [[skimx://fournier2011researching#3|p. 3]]
+
+An invitation to participate in the online survey was advertized on the Principal Investigator’s online learning daily newsletter—OL Daily (http://www.downes.ca/news/OLDaily.htm) and an email was sent to a targeted list of individuals who participated in an online symposium on Personal Learning Environments (PLEs) and Personal Learning Networks (PLNs) (http://ltc.umanitoba.ca/blogs/ples/about/). [[skimx://fournier2011researching#4|p. 4]]
+
+204 surveys were completed [[skimx://fournier2011researching#4|p. 4]]
+
+::Demographics: about half male, half North-American, majority higher education, majority employed in ed tech related fields, very comfortable with technology:: [[skimx://fournier2011researching#5|p. 5]]
+
+a majority (58%) of survey participants ranking email/webmail as their preferred communication tool; [[skimx://fournier2011researching#6|p. 6]]
+
+When using editing and publishing tools, blog publishing tools [[skimx://fournier2011researching#6|p. 6]]
+
+Participants expanded on their answers regarding mechanisms that help them understand and combine information. What follows is a sampling of their comments: 
+  *  when I can discuss it with others, screencasts and slidecasts 
+  *  when I can organize it so it makes sense 
+  *  when it is posed as a challenge 
+  *  when I take notes and rework/process them 
+  *  when someone tweets a useful link and someone else tweets a link to a related story 
+  *  when I can combine and check information flexibly 
+  *  when it's blogged or op-ed'd 
+  *  when I can do something with it 
+  *  when it is written simply without a lot of extra words and jargon 
+  *  Cmap, visual approaches 
+  *  solitude and reflection [[skimx://fournier2011researching#8|p. 8]]
+
+a majority of participants indicated a preference for sharing interesting information from someone with their social network (79%) and thinking about the information (78%). Sharing the information via email (71%) was also important, while commenting (61%) and writing (57%) of blog posts was also seen as a valuable activity related to received information. Under “other” comments, a high number of respondents indicated a preference for (social) bookmarking options to help them understand and combine information (e.g., share on Greader, diigo, tag it in delicious and retweet). A majority (83%) of participants indicated a preference for talking with other people to help them reflect on a either a topic or learning activity. Receiving feedback from others, knowledgeable persons in particular, was seen as important for 56% of respondents. Writing it down in their own words (74%), was also a well-liked strategy to facilitate reflection. Several found reading related material to be helpful (58%) as well as being on their own without distractions [[skimx://fournier2011researching#8|p. 8]]
+
+Participants from the first survey were invited to participate in a second survey which examined the use of information aggregation tools and technologies, and to share issues and challenges based on their previous experience with collecting various forms of data and information from various sources. [[skimx://fournier2011researching#11|p. 11]]
+
+68 participants completed the survey [[skimx://fournier2011researching#11|p. 11]]
+
+References [[skimx://fournier2011researching#13|p. 13]]
+

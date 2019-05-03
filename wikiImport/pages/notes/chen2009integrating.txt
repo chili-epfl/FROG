@@ -1,0 +1,49 @@
+h1. Key ideas
+
+h2. Actors
+  * teacher as facilitator
+  * student as task performer/problem solver
+  * communication modes as mediator
+
+h2. Collaborative pattern
+  * Individual group member works on the private space in the Tablet PC respectively, then posted to a group board which is synchronized to all group members
+  * They build on each other’s ideas and create the group artifact
+  * After finishing the group task, they visit other groups’ board, learn others’ ideas and give comments and suggestions
+  * Then they go back to the home group board to check the comments given by others and further refine the ideas
+  * At the end the groups that have the best performance present their work to the whole class
+
+h2. Lightbulb pattern
+  * The students individually sketch out their initial impressions of how to connect closed circuits with a light bulb in their GS private board
+  * They contributed their scribble sheets to their own GS group board and then discussed as a group
+    * This task of consolidating the ideas on the same platform will help them to infer the key similarities in constructing a working closed circuit, from the various contributions posted in their group board Provided with some electrical components (batteries, light bulb and wires) to physically connect the circuits following the manner they had sketched earlier in GS and to test them if they would work
+  * Later, they had opportunities to look at other GS boards to be exposed to the different ideas contributed by the other groups
+  * They could also comment on other GS posts if they desired to do so
+    * This would reinforce their newly learnt concept of a closed circuit with a light bulb
+
+  * After the group work, the students did a “gallery walk” to browse other groups’ postings by clicking other group boards
+    * This helped students to be exposed to more different ideas and different perspectives
+  * They were required to give comments and suggestions to other groups
+  * Then they went back to their own board to improve their own group work based on others’ comments and suggestions
+    * The interactions across different groups during “virtual gallery walk” were through GS solely as students could not verbally talk to other groups who were not seated next to them
+  * The group members did discuss verbally within the group when they were browsing other group boards
+
+h2. Analysis
+analyze 
+  * face-to-face discourse
+  * media representations on CSCL environment
+
+h2. Verbal talk
+  * verbalization of ideas ([@artz1992development|artz1992development])
+  * F2F conversations for immediate discussion, clarifying, referencing, improving on own ideas
+  * verbally negotiated before sharing GS artifacts with rest of the class
+
+verbal language is a fundamental tool through which 
+  * learners elaborate thoughts
+  * explain results
+  * evaluate solutions through appropriate feedback
+  * explore and clarify inconsistencies and knowledge gaps
+  * link the verbal information to new strategies and tangible actions
+  * benefit from the cognitive restructuring that underpins cognitive change
+(Fawcett & Garton, 2005; Teasley, 1995)
+
+::Interesting when looking at the transcript, that although they have a shared space, they seem to be showing each other their screens often::

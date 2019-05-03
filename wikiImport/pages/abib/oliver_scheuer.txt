@@ -1,0 +1,6 @@
+h2. Oliver Scheuer's publications
+
+| [@mclaren2010supporting] | McLaren, B., Scheuer, O., & MiksátkoJ. (2010). Supporting collaborative learning and e-discussions using artificial intelligence techniques. International Journal of Artificial Intelligence in Education, 20(1), 1--46.|
+| [@scheuer2009computer] | Scheuer, O., Loll, F., Pinkwart, N., & McLaren, B. M. (2009). Computer-supported argumentation: A review of the state of the art. Computer-Supported Collaborative Learning.|
+| [@scheuer2010automated] | Scheuer, O., McLaren, B., Loll, F., & Pinkwart, N. (2010). Automated Analysis and Feedback Techniques to Support and Teach Argumentation: A Survey. Educational Technologies for Teaching Argumentation Skills, Bentham Science Publishers. Disponible sur Internet:< http://www. activemath. org/pubs/Scheueretal-AnalysisFeedbackArgumentationSurvey-2010. pdf.|
+| [@scheuer2010computer] | Scheuer, O., Loll, F., Pinkwart, N., & McLaren, B. (2010). Computer-supported argumentation: A review of the state of the art. International Journal of Computer-Supported Collaborative Learning, 5(1), 43-102. |

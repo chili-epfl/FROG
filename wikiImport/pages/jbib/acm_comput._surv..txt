@@ -1,0 +1,3 @@
+h2. Publications in ACM Comput. Surv.
+
+| bernstein1999structural | Bernstein, M. (1999). Structural patterns and hypertext rhetoric. ACM Comput. Surv., 31(4es). New York, NY, USA: ACM. doi: http://doi.acm.org.myaccess.library.utoronto.ca/10.1145/345966.346011.|[[skimx://bernstein1999structural|PDF]]|

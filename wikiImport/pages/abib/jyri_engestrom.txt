@@ -1,0 +1,3 @@
+h2. Jyri Engestrom's publications
+
+| [@engestromsome] | Engestrom, J. Why some social network services work and others don’t — Or: the case for object-centered sociality :: Zengestrom. |

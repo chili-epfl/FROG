@@ -1,0 +1,41 @@
+h1. R-U-Typing-2-Me? Evolving a chat tool to increase understanding in learning activities
+<html><a href='http://139.82.71.134/public/papers/2006.ijCSCL.Fuks.RUTyping2Me.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://139.82.71.134/public/papers/2006.ijCSCL.Fuks.RUTyping2Me.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Fuks, H., Pimentel, M., & Lucena, C. J. P. de. (2006). R-U-Typing-2-Me? Evolving a chat tool to increase understanding in learning activities. International Journal of Computer-Supported Collaborative Learning, 1(1), 117--142. doi: 10.1007/s11412-006-6845-3.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://fuks2006rutyping|BibDesk]]  | Fuks, H., Pimentel, M., & Lucena, C. J. P. de. (2006). R-U-Typing-2-Me? Evolving a chat tool to increase understanding in learning activities. International Journal of Computer-Supported Collaborative Learning, 1(1), 117--142. doi: 10.1007/s11412-006-6845-3. |
+^ [[skimx://fuks2006rutyping|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:fuks2006rutyping?do=edit&vecdo=print\'><frame src=\'/wiki/clip:fuks2006rutyping?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{fuks2006rutyping,
+  author = {Fuks, Hugo and Pimentel, Mariano and de Lucena, Carlos José Pereira},
+  date-added = {2011-06-04 14:48:40 +0800},
+  date-modified = {2013-02-11 15:52:48 +0000},
+  doi = {10.1007/s11412-006-6845-3},
+  issn = {1556-1607},
+  journal = {International Journal of {Computer-Supported} Collaborative Learning},
+  keywords = { CMC},
+  number = {1},
+  oa-url = {http://139.82.71.134/public/papers/2006.ijCSCL.Fuks.RUTyping2Me.pdf},
+  pages = {117--142},
+  read = {1},
+  shorttitle = {{R-U-Typing-2-Me?}},
+  title = {{R-U-Typing-2-Me?} Evolving a chat tool to increase understanding in learning activities},
+  url = {http://139.82.71.134/public/papers/2006.ijCSCL.Fuks.RUTyping2Me.pdf},
+  volume = {1},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIi4uLy4uL0JpYmRlc2svZnVrczIwMDZydXR5cGluZy5wZGbSFwsYGVdOUy5kYXRhTxEBgAAAAAABgAACAAAHU1NESG9tZQAAAAAAAAAAAAAAAAAAAAAAAAAAyXlP2EgrAAAA2tZSFGZ1a3MyMDA2cnV0eXBpbmcucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADazavKD012UERGIAAAAAAAAgACAAAJIAAAAAAAAAAAAAAAAAAAAAdCaWJkZXNrAAAQAAgAAMl5ligAAAARAAgAAMoPhbYAAAABAAwA2tZSABc9MQABn14AAgAzU1NESG9tZTpVc2VyczoAU3RpYW46AEJpYmRlc2s6AGZ1a3MyMDA2cnV0eXBpbmcucGRmAAAOACoAFABmAHUAawBzADIAMAAwADYAcgB1AHQAeQBwAGkAbgBnAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAChVc2Vycy9TdGlhbi9CaWJkZXNrL2Z1a3MyMDA2cnV0eXBpbmcucGRmABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4AswC4AMACRAJGAksCVgJfAm0CcQJ4AoEChgKTApYCqAKrArAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:fuks2006rutyping}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:fuks2006rutyping}}
+
+{{page>kindle:fuks2006rutyping}}
+
+{{page>skimg:fuks2006rutyping}}

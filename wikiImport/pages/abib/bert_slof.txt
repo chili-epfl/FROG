@@ -1,0 +1,5 @@
+h2. Bert Slof's publications
+
+| [@slof2010design] | Slof, B., Erkens, G., Kirschner, P. A., & Jaspers, J. (2010). Design and effects of representational scripting on group performance. Educational Technology Research and Development, 1--20.|
+| [@slof2010fostering] | Slof, B., Erkens, G., Kirschner, P. A., Janssen, J., & Phielix, C. (2010). Fostering complex learning-task performance through scripting student use of computer supported representational tools. Computers \& Education.|
+| [@slof2011representational] | Slof, B. (2011). Representational scripting for carrying out complex learning tasks.|

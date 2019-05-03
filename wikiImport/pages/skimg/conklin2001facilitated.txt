@@ -1,0 +1,17 @@
+h2. Images
+
+{{skim:conklin2001facilitated0.png}}
+
+[[skimx://conklin2001facilitated#5|p. 5]]
+----
+
+{{skim:conklin2001facilitated1.png}}
+
+[[skimx://conklin2001facilitated#12|p. 12]]
+----
+
+{{skim:conklin2001facilitated2.png}}
+
+[[skimx://conklin2001facilitated#12|p. 12]]
+----
+

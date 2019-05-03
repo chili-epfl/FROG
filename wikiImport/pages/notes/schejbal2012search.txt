@@ -1,0 +1,22 @@
+h1. Key ideas
+
+//Industrial mode has not yet come to universities - disaggregation, specialization, etc. Lists P2PU as a "for-profit"//
+
+h2. Theory
+h3. Drivers of change
+  * online education
+  * artificial intelligence
+  * market pressures
+  * pressure from federal government (accountable/cheaper/more accessible)
+
+h3. Transformation
+Higher education has not undergone the kind of disruptive transformation we have seen across other sectors. 
+
+<blockquote p. 6>Yet faculty members continue to conduct their work as artisans. Each faculty member is an independent creator. Intellectual property is sacrosanct, nonreplicable, and highly ethereal. Once spent in a classroom, it has to be re-created by the artisan him or herself. </blockquote>
+
+h3. Possible model
+Southern New Hampshire University President: 
+
+Self-paced courses with no conventional instructors, learning modules with clear learning outcomes and built-in assessment. Peer groups and social networks. Final assessments at proctored sites. 
+
+**The game changing idea here is that when we have assessment right, we should not care about how a student achieves learning** (LeBlanc 2011, p. 2)

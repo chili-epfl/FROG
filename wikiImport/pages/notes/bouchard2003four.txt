@@ -1,0 +1,20 @@
+h1. Key ideas
+//Learner control (four aspects), small empirical study of self-learners//
+
+h2. Two definitions
+"Being able to pursue a learning goal with equal vigour and determination without being adversely affected by external factors including the increase or decrease of rewards for pursuing or attaining the goal"
+
+"Being aware of alternative choices, both as to learning strategies and to interpretations or value positions being expressed, and making reasoned choices about the route to follow in accordance with personally significant ideas and purposes"
+
+(Candy, 1991)
+
+h2. Four aspects of self-control
+see [@bouchard2009pedagogy]
+
+h2. Study
+Interviews with 13 adult students in online courses. Questions about the four aspects above, using everyday terminology.
+
+h3. Findings
+  * About half of the students said it took some effort to prevent inertia when facing the prospect of doing tasks online, in the absence of an imposed schedule. 
+  * In the groups where there was less pressure to ‘participate’ in asynchronous forums, students felt that the interaction was more meaningful and that they were more in ‘control’ of the environment. 
+  * Reasons for choosing the on-line version of the course were mostly linked to personal, family and work situations. Somewhat ironically, the same factors were identified as barriers to achievement in the on-line course. 

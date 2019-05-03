@@ -1,0 +1,3 @@
+h2. Peter Brusilovsky's publications
+
+| [@brusilovsky2007user] | Brusilovsky, P., & MillánEva. (2007). User Models for Adaptive Hypermedia and Adaptive Educational Systems. In P. Brusilovsky, A. Kobsa & W. Nejdl (Eds.), The Adaptive Web (3–53). Springer.|

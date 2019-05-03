@@ -1,0 +1,23 @@
+h1. Classroom Tools
+
+  * [[http://www.classdojo.com/|Behavior Management Software - ClassDojo]]
+----
+require "rubygems";
+
+require "appscript";
+
+
+kme = Appscript.app('Keyboard Maestro Engine');
+
+kme.make(:new => :variable, :with_properties => {:name => "My New Variable", :value => "New Value 2"}); [[http://stackoverflow.com/questions/15820444/rewriting-applescript-to-appscript-rb-setting-variable-in-keyboard-maestro/15859519?noredirect=1#15859519|ruby - Rewriting AppleScript to appscript-rb, setting variable in Keyboard Maestro - Stack Overflow]]
+----
+require "rubygems";
+
+require "appscript";
+
+
+kme = Appscript.app('Keyboard Maestro Engine');
+
+kme.make(:new => :variable, :with_properties => {:name => "My New Variable", :value => "New Value 2"}); [[http://stackoverflow.com/questions/15820444/rewriting-applescript-to-appscript-rb-setting-variable-in-keyboard-maestro/15859519?noredirect=1#15859519|ruby - Rewriting AppleScript to appscript-rb, setting variable in Keyboard Maestro - Stack Overflow]]
+----
+  * [[http://stackoverflow.com/questions/828824/string-interpolation-in-bash|String interpolation in Bash - Stack Overflow]]

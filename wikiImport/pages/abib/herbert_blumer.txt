@@ -1,0 +1,3 @@
+h2. Herbert Blumer's publications
+
+| [@blumer1969symbolic] | Blumer, H. (1969). Symbolic Interactionism: Perspective and Method. University of California Press.|

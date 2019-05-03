@@ -1,0 +1,113 @@
+h2. Publications with keyword "1p2pu"
+
+| [@bachelet2008building] | Bachelet, R. (2008). Building a wider learning community in higher education through the PeopleWiki approach. |
+| [@reynolds2008peoples-uni] | Reynolds, F., & Heller, R. (2008). Peoples-uni: Developing public health competences–Lessons from a pilot course module. In OPEN WORKSHOP OF (28). |
+| [@wiley2009openness] | Wiley, D., & Hilton III, J. (2009). Openness, dynamic specialization, and the disaggregated future of higher education. The International Review of Research in Open and Distance Learning, 10(5), Article–10. |
+| [@poldoja2009conceptual] | PõldojaH., & Laanpere, M. (2009). Conceptual Design of EduFeedr—an Educationally Enhanced Mash-up Tool for Agora Courses. In Proc. Mash-Up Personal Learning Environments-2st Workshop MUPPLE (Vol. 9, 98–102). |
+| [@schmidt2009commons-based] | Schmidt, J. P. (2009). Commons-Based Peer Production and education. In Consultado el. Harvard University. |
+| [@hofman2010open] | Hofman, L. (2010). Open Participatory Learning Environments: the Case of Peer 2 Peer University (Master's thesis).|
+| [@corneli2010live] | Corneli, J., & Mikroyannidis, A. (2010). Live annotation and content discovery in personal learning environments. |
+| [@deliddo2010method] | De Liddo, A., & Alevizou, P. (2010). A method and tool to support the analysis and enhance the understanding of peer-to-peer learning experiences. |
+| [@poldoja2010edufeedr] | PõldojaHans. (2010). EduFeedr-following and supporting learners in open blog-based courses.|
+| [@alevizou2010distributed] | Alevizou, P. (2010). Distributed mentoring: peer interaction and collaborative learning in P2PU. In Open Education Conference 2010. |
+| [@alevizou2010engaging] | Alevizou, P., & Forte, A. (2010). Engaging with open education. In Proceedings of the 6th International Symposium on Wikis and Open Collaboration (30).|
+| [@corneli2010crowdsourcing] | Corneli, J. (2010). Crowdsourcing a Personalized Learning Environment for Mathematics. fth Doct, 7. |
+| [@abas2010framework] | Abas, Z. W. (2010). A framework for higher education 2.0: 21st century education for 21st century learners. |
+| [@bacsich2011learner] | Bacsich, P., Phillips, B., & Bristow, S. F. (2011). Learner Use of Online Educational Resources for Learning (LUOERL)–Final report.|
+| [@corneli2011paragogy] | Corneli, J., & Danoff, C. J. (2011). Paragogy: Synergizing individual and organizational learning. In 1st International Conference on Learning Analytics and Knowledge. |
+| [@ford2011masks] | Ford, H., Smolen, A., Carver, B., & Mulligan, D. (2011). Masks.|
+| [@robles2011new] | Robles, G., Gonzales-Barahona, J. M., & Fernandez-Gonzalez, J. New trends from libre software that may change education. In Global Engineering Education Conference (EDUCON), 2011 IEEE (1183--1188).|
+| [@ponti2011sociotechnical] | Ponti, M. (2011). Sociotechnical Relations in the Creation of an Interest--Driven Open Course. Elearning and Digital Media, 8(4).|
+| [@abedin2011online] | Abedin, B. (2011). Web 2.0 and Online Learning and Teaching: A Preliminary Benchmarking Study. Asian Social Science, 7(11), p5. |
+| [@schejbal2012search] | Schejbal, D. (2012). In Search of a New Paradigm for Higher Education. Innovative Higher Education, 1–14.|
+| [@corneli2012detecting] | Corneli, J., & Ponti, M. (2012). Detecting mathematics learning online. In Proceedings of the 8th International Conference on Networked Learning. |
+| [@bucurestiparadigma] | BucureştiU. D. I. N., & EducaţieiF. PARADIGMA ÎNVĂŢĂMÂNTULUI CENTRAT PE STUDENT. ABORDAREA ETNOGRAFICĂ A UNEI COMUNITĂŢI PROFESIONALE. |
+| [@martinezlearning] | Martinez, M. L., & Ferreira, S. L. Da web 2.0 ao learning 2.0: novas oportunidades e desafios para o design de interfaces de aprendizagem. Graf & Tec, (23), 9–16. |
+| [@cobcroftstate] | Cobcroft, R. The STaTe Of The COmmOnS: CaSe STudieS 2010. PLATFORM: Journal of Media and Communication, 2. |
+| [@wilmskollaboratives] | Wilms, F. E. P. Kollaboratives Lernen mit Wikis.|
+| [@mazouedeconstructed] | MazouéJ. G. The deconstructed campus. Journal of Computing in Higher Education, 1–22.|
+| [@valjatagacourse] | VäljatagaT. Course: Designs for learning.|
+| [@cornelicrowdsourcing] | Corneli, J., & Mikroyannidis, A. Crowdsourcing Education: A Role-Based Analysis. |
+| [@staibcentury] | Staib, P. HOW 21 st CENTURY TOOLS ARE USED TO ENGAGE STUDENTS IN LEARNING AND WORK (PhD thesis). |
+| [@stevenslearner-centered] | Stevens, V. Learner-centered Do-it-yourself Learning Management Systems. |
+| [@kalmantuition-free] | Kalman, Y. M. How Low Can You Go? The Tuition-Free Business Model of the University of the People. |
+| [@haeoe] | and 6. 해외 자유이용허락 (CCL) 동향. 이종연 (건국대학교) 4. 고등교육 모바일 플랫폼 동향, 125. |
+| [@ossiannilssonquality] | Ossiannilsson, E., & Creelman, A. Quality improvement of the use of OER in higher education–challenges and consequences. |
+| [@laiexploration] | Lai, C. Y., & Liou, W. C. An exploration in the convergence of knowledge sharing, e-Learning and Web 2.0 ICTs to facilitate Business Education.|
+| [@ramirezhacia] | RamírezJ.J. ?` Hacia la universidad hacker? Retos y modelos para la universidad venidera.|
+| [@ossiannilssonqualityb] | Ossiannilsson, E., & Creelman, A. Quality indicators within the use of open educational resources in higher education. |
+| [@liouexploration] | Liou, W. C. An exploration in the convergence of knowledge sharing: An e-Humanities application.|
+| [@schultheisutilizing] | Schultheis, K., & Mirtschewa, I. Utilizing Web 2.0 to Provide an International Experience for Pre-service Elementary Education Teachers.|
+| [@kaplancontact] | Kaplan, T. R., & Balkenborg, D. Contact details. Economic Journal, 70, 694–704. |
+| [@espinosa20] | Espinosa, R. S. C., & GómezJ. L. E. Web 2.0+ educación: Colaboración y recursos abiertos.|
+| [@vanhook2006access] | Van Hook, S. (2006). Access to global learning: A matter of will. University of California at Santa Barbara. |
+| [@mulder2006advancement] | Mulder, F. (2006). The advancement of Lifelong Learning through Open Educational Resources in an open and flexible (self) learning context. Presentations Dies Natalis 21 september 2006. |
+| [@moon2007open] | Moon, B., & Wolfenden, F. (2007). Open educational resources, international cooperation and teacher education in sub-Saharan Africa. In . |
+| [@forte2007constructing] | Forte, A., & Bruckman, A. (2007). Constructing text: Wiki as a toolkit for (collaborative?) learning. In Proceedings of the 2007 international symposium on Wikis (31–42). |
+| [@eisenstadt2007does] | Eisenstadt, M. (2007). Does Elearning Have To Be So Awful?(Time to Mashup or Shutup). In Advanced Learning Technologies, 2007. ICALT 2007. Seventh IEEE International Conference on (6–10).|
+| [@fitzgerald2007wikis] | Fitzgerald, R. (2007). Wikis as an Exemplary Model of Open Source Learning. Handbook of Research on Open Source Software: Technological, Economic, and, 681. |
+| [@ben-zvi2007using] | Ben-Zvi, D. (2007). Using wiki to promote collaborative learning in statistics education. Technology Innovations in Statistics Education, 1(1).|
+| [@chahine2008context] | Chahine, C. A., Chaignaud, N., Kotowicz, J. P., & PécuchetJ. P. (2008). Context and keyword extraction in plain text using a graph representation. In Signal Image Technology and Internet Based Systems, 2008. SITIS’08. IEEE International Conference on (692–696). |
+| [@batson2008harvest] | Batson, T., Paharia, N., & Kumar, M. S. V. (2008). A Harvest Too Large?: A Framework for Educational Abundance. Opening Up Education: The Collective Advancement of Education through Open Technology, Open Content, and Open Knowledge, 89--103.|
+| [@baggaley2008where] | Baggaley, J. (2008). Where did distance education go wrong?. Distance Education, 29(1), 39–51.|
+| [@mumford2008astronomy] | Mumford, G. S. (2008). Astronomy@ Home. Astronomy Education Review, 7, 103.|
+| [@friesen2008wikiversity] | Friesen, N., & Hopkins, J. (2008). Wikiversity; or education meets the free culture movement: An ethnographic investigation. First Monday, 13(10).|
+| [@gaiser2008lehre] | Gaiser, B. (2008). Lehre im Web 2.0–Didaktisches Flickwerk oder Triumph der Individualität. e-teaching. org, Portalbereich Didaktisches Design. URL: http://www. e-teaching. org/didaktik/kommunikation/08-09-12_Gaiser_Web_2. 0. pdf,[Stand: 13.06. 2010]. |
+| [@heller2009experience] | Heller, R. F. (2009). Experience with a. Human resources for health, 7(1), 43. |
+| [@morgan2009from] | Morgan, T., & Carey, S. (2009). From Open Content to Open Course Models: Increasing Access and Enabling Global Participation in Higher Education. The International Review of Research in Open and Distance Learning, 10(5), Article–10. |
+| [@schmidt2009peer] | Schmidt, J. P., Geith, C., HåklevS., & Thierstein, J. (2009). Peer-to-peer recognition of learning in open education. The International Review of Research in Open and Distance Learning, 10(5), Article--10.|
+| [@chad2009disrupting] | Chad, K. (2009). disrupting libraries. |
+| [@leinonen2009learning] | Leinonen, T., VadénT., & Suoranta, J. (2009). Learning in and with an open wiki project: Wikiversity’s potential in global capacity building. First Monday, 14(2), 2.|
+| [@gupta2009national] | Gupta, P. K., & Arora, J. (2009). National Seminar on Open Access on Textual and Multimedia Content: Bridging the Digital Divide: brief report. Library Hi Tech News, 26(3/4), 5–7.|
+| [@hilton2009openness] | Hilton, J., & Wiley, D. (2009). Openness, dynamic specialization and the disaggregated future of higher education. International Review of Research in Open and Distance Learning, 10(5), 1–16.|
+| [@corneli2010gravpad] | Corneli, J. (2010). GravPad. In Proceedings of the 6th International Symposium on Wikis and Open Collaboration, WikiSym '10 (33:1--33:2). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1832772.1832815|
+| [@ryan2010open] | Ryan, Pd. (2010). Open Education Resources: the next big bang or the last little whimper?.|
+| [@morris2010collaborative] | Morris, T., & Mietchen, D. (2010). Collaborative structuring of knowledge by experts and the public. Arxiv preprint arXiv:1008.3977.|
+| [@steele2010changing] | Steele, K. (2010). THE CHANGING CANADIAN PSE LANDSCAPE. CANADIAN OFFICES US OFFICES, 27. |
+| [@kuklinski2010prototipos] | Kuklinski, H. P., & Balestrini, M. (2010). Prototipos de Mobile Open Education: Una breve selección de Casos. Revista Iberoamericana de Tecnologías del/da Aprendizaje/Aprendizagem, 125.|
+| [@corneli2010problem] | Corneli, J. (2010). Problem solving and mathematical knowledge.|
+| [@mchugh2010analysing] | McHugh, R., & Larsen, B. (2010). Analysing User Lifetime in Voluntary Online Collaboration. DHRS2010, 23. |
+| [@smith2010learning] | Smith, P., Carson, S., & Ouellette, B. (2010). A Learning Passport for Your Lifelong Educational Journey. In LINC 2010.|
+| [@education2010learning] | Education, K. H. (2010). A Learning Passport for Your Lifelong Educational Journey. |
+| [@ouellette2010capturing] | Ouellette, B., Gitin, E., Prost, J., & Smith, P. (2010). Capturing and Organizing Prior Student Learning with the OCW Backpack. |
+| [@espinosa2010recursos] | Espinosa, R. S. C. (2010). Recursos educativos abiertos: Una iniciativa con barreras aún por superar. Apertura, 1(2). |
+| [@hall2010technology] | Hall, R., & Winn, J. (2010). Technology, open education and a resilient higher education. |
+| [@market2010from] | Market, A. E. (2010). From the campus to the future. Educause Review, 45(1), 42–52.|
+| [@oblinger2010from] | Oblinger, D. G. (2010). From the Campus to the Future. Educause Review, (January/February). |
+| [@lane2011best] | Lane, A. (2011). Best Practice Report on Widening Participation in Higher Education Study through Open Educational Resources. |
+| [@hall2011revealing] | Hall, R. (2011). Revealing the transformatory moment of learning technology: the place of critical social theory. Research in Learning Technology, 19(3), 273–284. |
+| [@dominguez2011p2pu] | Dominguez, J. (2011). P2PU + Open Wonderland = Learning virtual worlds development with and from each other. In Journal of Virtual Studies.|
+| [@lane2011developing] | Lane, A. (2011). DEVELOPING INNOVA TIVE SYSTEMS FOR SUPPORTIVE OPEN TEACHING PRACTICES IN HIGHER EDUCATION. Journal for the Systemic Innovation of Education, 1(1), 32–46. |
+| [@lane2011open] | Lane, A., & Van Dorp, K. (2011). Open educational resources and widening participation in higher education: innovations and lessons from open universities. |
+| [@matkin2011meeting] | Matkin, G. W. (2011). Meeting the Challenge of Free Education: How to Make Money When the Competition Is Giving It Away. CONTINUING HIGHER EDUCATION REVIEW, 75, 131. |
+| [@ossiannilsson2011inspirera] | Ossiannilsson, E. S. I. (2011). Inspirera och inspireras, och du får tusenfalt igen. Högre utbildning, 1(1), 65–72. |
+| [@lara2011cultura] | Lara, T. (2011). Cultura Digital: cómo reinventar la educación superior desde lo abierto. Telos: Cuadernos de comunicación e innovación, (88), 110–112. |
+| [@romani2011aprenentatge] | RomaníC.C. (2011). Aprenentatge invisible: aprenent en 3D, 360 i 7/24. |
+| [@norris2011transformation] | Norris, D. M., & Lefrere, P. (2011). Transformation through expeditionary change using online learning and competence-building technologies. ALT-J, Research in Learning Technology, 19(1), 61–72. |
+| [@bartolome2011comunicacin] | BartoloméA. (2011). Comunicación y aprendizaje en la Sociedad del Conocimiento. Virtualidad, Educación y Ciencia, (2), pp–9.|
+| [@kamenetz2011edupunks] | Kamenetz, A. (2011). Edupunks Revisited. eLearn, 2012(12), 2.|
+| [@wilson2011sharing] | Wilson, T., McAndrew, P., & Meiszner, A. (2011). Sharing software engineering resources and open source software across entities. |
+| [@mchugh2011analysing] | McHUGH, R., & Larsen, B. (2011). Analysing user activity in online collaboration projects. In CONFERENCE OF THE INTERNATIONAL SOCIETY FOR SCIENTOMETRICS & INFORMETRICS (Vol. 13, 546–551). |
+| [@mcandrew2011inspiring] | McAndrew, P. (2011). Inspiring creativity in organisations, teachers and learners through Open Educational Resources. Europen Journal of Open, Distance and e-Learning. |
+| [@hall2011questioning] | Hall, R., & Winn, J. (2011). Questioning technology in the development of a resilient higher education. E-Learning and digital media, 8(4), 343–356.|
+| [@vanderark2011getting] | Vander Ark, T. (2011). Getting Smart: How Digital Learning is Changing the World. Jossey-Bass.|
+| [@toming2011communities] | Toming͒K. (2011). Communities of Practice in Higher Education. Stanford University, H-STAR Institute, USA; to Associate Professor Jukka M. Laitamäki, from New York University, USA, and to Professor Yngve Troye Nordkvelle from Lillehammer University, 175.|
+| [@panke2011expert] | Panke, S. (2011). An Expert Survey on the Barriers and Enablers of Open Educational Practices. eLearning Papers, 23. |
+| [@gokcearslan2011place] | Gokcearslan, S., & Ozcan, S. (2011). Place of Wikis in Learning and Teaching Process. Procedia-Social and Behavioral Sciences, 28, 481–485.|
+| [@dix2011shifting] | Dix, A. (2011). A Shifting Boundary: the dynamics of internal cognition and the web as external representation. |
+| [@jiayimin2011p2pu] | and and. (2011). P2PU: 开放的网络学习社区. 现代教育技术, 21(8), 9--13. |
+| [@limpens2011competence] | Limpens, F., & Gillet, D. (2011). A Competence Bartering Platform for Learners. Advances in Web-Based Learning-ICWL 2011, 148–153.|
+| [@buffardi2011open] | Buffardi, A. (2011). Open knowledge and e-research in the digital era. Italian Journal of Sociology of Education, 8(2). |
+| [@mendonca2011freeing] | Mendonca, M. M., McAndrew, P., & Santos, A. (2011). Freeing up access to learning: the role for Open Educational Resources. |
+| [@lakshmana2011open] | Lakshmana, N. (2011). Open educational resources in developing nations: lessons from an Open Online Course.|
+| [@carroll2011designing] | Carroll, J. M., & Wang, J. (2011). Designing Effective Virtual Organizations as Sociotechnical Systems. In System Sciences (HICSS), 2011 44th Hawaii International Conference on (1–10). |
+| [@kikkas2011open] | Kikkas, K., Laanpere, M., & PõldojaH. (2011). Open Courses: The Next big Thing in eLearning?. In Proceedings of the 10th European Conference on eLearning (Vol. 1998, 370–376).|
+| [@klaos2011factors] | Klaos, S. (2011). Factors Influencing Learners’ Satisfaction in an Open E-Learning Environment. Journal of Teacher Education for Sustainability, 13(1), 29–42.|
+| [@muuss-merholz2011faszination] | Muuß-MerholzJ. (2011). Faszination Web 2.0. Materialien zur Beratung Band 19, 85. |
+| [@mcandrew2011fostering] | McAndrew, P. (2011). Fostering open educational practices. eLearning Papers, (23). |
+| [@hurtadotoran2012investigar] | Hurtado ToránE. (2012). Investigar concursando o concursar investigando. In 4IAU 4\textordfeminine Jornadas Internacionales sobre Investigación en Arquitectura y Urbanismo, Valencia, 2011.|
+| [@santos-hermosa2012recursos] | Santos-Hermosa, G., Ferran-Ferrer, N., & Abadal, E. (2012). Recursos educativos abiertos: repositorios y uso. El Profesional de la Informacion, 21(2), 136–145.|
+| [@grable2012overview] | Grable, J. E., Law, R., & Kaus, J. (2012). An Overview of University Financial Education Programs. Student Financial Literacy, 9–26.|
+| [@didderen2012leidt] | Didderen, W., & Verjans, S. (2012). Leidt het fenomeen Open Educational Resources tot nieuwe didactische modellen?. |
+| [@liu2012exploring] | Liu, H., Macintyre, R., & Ferguson, R. (2012). Exploring Qualitative Analytics for E-Mentoring Relationships Building in an Online Social Learning Environment. |
+| [@ossiannilsson2012from] | Ossiannilsson, E., & Creelman, A. (2012). From proprietary to personalized higher education-how OER takes universities outside the comfort zone. Journal of e-Learning and Knowledge Society-English Version, 8(1). |

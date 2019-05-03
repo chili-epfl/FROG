@@ -1,0 +1,16 @@
+h2. Publications with keyword "p2pu"
+
+| ramirezhacia | Ramírez, J. J.?` Hacia la universidad hacker? Retos y modelos para la universidad venidera. | |
+| cornelicrowdsourcing | Corneli, J., & Mikroyannidis, A.Crowdsourcing Education: A Role-Based Analysis. | |
+| batson2008harvest | Batson, T., Paharia, N., & Kumar, M. S. V. (2008). A Harvest Too Large?: A Framework for Educational Abundance. Opening Up Education: The Collective Advancement of Education through Open Technology, Open Content, and Open Knowledge, 89--103. | [[skimx://batson2008harvest|PDF]]|
+| schmidt2009peer | Schmidt, J. P., Geith, C., Håklev, S., & Thierstein, J. (2009). Peer-to-peer recognition of learning in open education. The International Review of Research in Open and Distance Learning, 10(5), Article--10. | [[skimx://schmidt2009peer|PDF]]|
+| corneli2010problem | Corneli, J. (2010). Problem solving and mathematical knowledge. | |
+| hofman2010open | Hofman, L. (2010). Open Participatory Learning Environments: the Case of Peer 2 Peer University. | [[skimx://hofman2010open|PDF]]|
+| kuklinski2010prototipos | Kuklinski, H. P., & Balestrini, M. (2010). Prototipos de Mobile Open Education: Una breve selección de Casos. Revista Iberoamericana de Tecnologías del/da Aprendizaje/Aprendizagem, 125. | [[skimx://kuklinski2010prototipos|PDF]]|
+| mchugh2010analysing | McHugh, R., & Larsen, B. (2010). Analysing User Lifetime in Voluntary Online Collaboration. DHRS2010, 23. | |
+| smith2010learning | Smith, P., Carson, S., & Ouellette, B. (2010). A Learning Passport for Your Lifelong Educational Journey. LINC 2010. | [[skimx://smith2010learning|PDF]]|
+| poldoja2010edufeedr | Põldoja, H. (2010). EduFeedr-following and supporting learners in open blog-based courses. Universitat Oberta de Catalunya. | [[skimx://poldoja2010edufeedr|PDF]]|
+| deliddo2010method | De Liddo, A., & Alevizou, P. (2010). A method and tool to support the analysis and enhance the understanding of peer-to-peer learning experiences. Universitat Oberta de Catalunya.  | [[skimx://deliddo2010method|PDF]]|
+| ryan2010open | Ryan, Pd. (2010). Open Education Resources: the next big bang or the last little whimper?. | |
+| robles2011new | Robles, G., Gonzales-Barahona, J. M., & Fernandez-Gonzalez, J.New trends from libre software that may change education. Global Engineering Education Conference (EDUCON), 2011 IEEE. | [[skimx://robles2011new|PDF]]|
+| ponti2011sociotechnical | Ponti, M. (2011). Sociotechnical Relations in the Creation of an Interest--Driven Open Course. Elearning and Digital Media, 8(4). | [[skimx://ponti2011sociotechnical|PDF]]|

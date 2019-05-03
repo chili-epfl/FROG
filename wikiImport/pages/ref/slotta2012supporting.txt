@@ -1,0 +1,35 @@
+h1. Supporting Collaborative Knowledge Construction with Web 2.0 Technologies.
+
+<ifauth !@admin>|Slotta, J. D., & Najafi, H. (2012). Supporting Collaborative Knowledge Construction with Web 2.0 Technologies. In N. Lavigne (Ed.), Emerging Technologies for the Classroom: A Learning Sciences Perspective.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://slotta2012supporting|BibDesk]]  | Slotta, J. D., & Najafi, H. (2012). Supporting Collaborative Knowledge Construction with Web 2.0 Technologies. In N. Lavigne (Ed.), Emerging Technologies for the Classroom: A Learning Sciences Perspective. |
+^ [[skimx://slotta2012supporting|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:slotta2012supporting?do=edit&vecdo=print\'><frame src=\'/wiki/clip:slotta2012supporting?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @incollection{slotta2012supporting,
+  author = {Slotta, James D. and Najafi, Hedieh},
+  booktitle = {Emerging Technologies for the Classroom: A Learning Sciences Perspective},
+  date-added = {2012-09-18 04:20:50 +0000},
+  date-modified = {2013-01-29 02:28:30 +0000},
+  date-read = {2012-09-18 06:36:29 +0200},
+  editor = {Lavigne, N.},
+  keywords = {0encore},
+  read = {1},
+  title = {Supporting Collaborative Knowledge Construction with Web 2.0 Technologies.},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QJi4uLy4uL0JpYmRlc2svc2xvdHRhMjAxMnN1cHBvcnRpbmcucGRm0hcLGBlXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhzbG90dGEyMDEyc3VwcG9ydGluZy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKEZ1/zH1u2FBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADMfacYAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzbG90dGEyMDEyc3VwcG9ydGluZy5wZGYAAA4AMgAYAHMAbABvAHQAdABhADIAMAAxADIAcwB1AHAAcABvAHIAdABpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vQmliZGVzay9zbG90dGEyMDEyc3VwcG9ydGluZy5wZGYAEwABLwAAFQACAAz//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgC3ALwAxAJYAloCXwJqAnMCgQKFAowClQKaAqcCqgK8Ar8CxAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:slotta2012supporting}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:slotta2012supporting}}
+
+{{page>kindle:slotta2012supporting}}
+
+{{page>skimg:slotta2012supporting}}

@@ -1,0 +1,8 @@
+h2. Kai Hakkarainen's publications
+
+| [@paavola2004models] | Paavola, S., Lipponen, L., & Hakkarainen, K. (2004). Models of Innovative Knowledge Communities and Three Metaphors of Learning. Review of Educational Research, 74(4), 557-576.|
+| [@lipponen2004practices] | Lipponen, L., Hakkarainen, K., & Paavola, S. (2004). Practices and orientations of CSCL. What we know about CSCL, 31--50.|
+| [@lakkala2005patterns] | Lakkala, M., Muukkonen, H., & Hakkarainen, K. (2005). Patterns of scaffolding in computer-mediated collaborative inquiry. Mentoring \& Tutoring: Partnership in Learning, 13(2), 281--300.|
+| [@lakkala2008designing] | Lakkala, M., Muukkonen, H., Paavola, S., & Hakkarainen, K. (2008). Designing pedagogical infrastructures in university courses for technology-enhanced collaborative inquiry. Research and Practice in Technology Enhanced Learning, 3(1).|
+| [@hakkarainen2009knowledge-practice] | Hakkarainen, K. (2009). A knowledge-practice perspective on technology-mediated learning. International Journal of Computer-Supported Collaborative Learning, 4(2), 213-231. doi:10.1007/s11412-009-9064-x|
+| [@ritella2012instrumental] | Ritella, G., & Hakkarainen, K. (2012). Instrumental genesis in technology-mediated learning: From double stimulation to expansive knowledge practices. International Journal of Computer-Supported Collaborative Learning, 7(2), 239-258. doi:10.1007/s11412-012-9144-1|

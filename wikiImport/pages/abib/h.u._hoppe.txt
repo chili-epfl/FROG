@@ -1,0 +1,5 @@
+h2. H.U. Hoppe's publications
+
+| hoppe2008disappearing | Hoppe, H. U. (2008). The Disappearing Computer: Consequences for Educational Technology?. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer Verlag.|
+| hoppe2000distributed | Hoppe, H. U., Gaßner, K., Mühlenbrock, M., & Tewissen, F. (2000). Distributed visual language environments for cooperation and learning: Applications and intelligent support. Group Decision and Negotiation. Springer.|
+| hoppe2002integrating | Hoppe, H. U., & Gaßner, K. (2002). Integrating collaborative concept mapping tools with group memory and retrieval functions. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community.|

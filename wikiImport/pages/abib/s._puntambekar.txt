@@ -1,0 +1,4 @@
+h2. S. Puntambekar's publications
+
+| [[..:ref:puntambekar2002scaffolding]] | Puntambekar, S., & Hubscher, R. (2002). Scaffolding in complex learning environments: What we have gained and what we have missed. Educational Psychologist.|
+| stylianou2011analyzing | Stylianou-Georgiou, A., Papanastasiou, E., & Puntambekar, S. (2011). Analyzing collaborative processes and learning from hypertext through hierarchical linear modelling. Analyzing Interactions in CSCL. Springer.|

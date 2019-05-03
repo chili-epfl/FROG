@@ -1,0 +1,5 @@
+h2. Publications with keyword "web2.0"
+
+| [@glassman2011logic] | Glassman, M., & Kang, M. J. (2011). The logic of wikis: The possibilities of the Web 2.0 classroom. International Journal of Computer-Supported Collaborative Learning, 1--20.|
+| [@mcwilliams2011using] | McWilliams, J., Hickey, D. T., Hines, M. B., Conner, J. M., & Bishop, S. C. (2011). Using Collaborative Writing Tools for Literary Analysis: Twitter, Fan Fiction and The Crucible in the Secondary English Classroom. Journal of Media Literacy Education, 2(3).|
+| [@calvo2011collaborative] | Calvo, R. A., {O'Rourke}Stephen T., Jones, J., Yacef, K., & Reimann, P. (2011). Collaborative Writing Support Tools on the Cloud. {IEEE} Transactions on Learning Technologies, 4(1), 88--97. doi:10.1109/TLT.2010.43|

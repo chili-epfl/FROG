@@ -1,0 +1,8 @@
+h2. Publications with keyword "AI"
+
+| [@hoppe2002integrating] | Hoppe, H. U., & GaßnerK. (2002). Integrating collaborative concept mapping tools with group memory and retrieval functions. In Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community (716--725).|
+| [@mclaren2010supporting] | McLaren, B., Scheuer, O., & MiksátkoJ. (2010). Supporting collaborative learning and e-discussions using artificial intelligence techniques. International Journal of Artificial Intelligence in Education, 20(1), 1--46.|
+| [@scheuer2009computer] | Scheuer, O., Loll, F., Pinkwart, N., & McLaren, B. M. (2009). Computer-supported argumentation: A review of the state of the art. Computer-Supported Collaborative Learning.|
+| [@magnisalis2011adaptive] | Magnisalis, I., Demetriadis, S., & Karakostas, A. (2011). Adaptive and Intelligent Systems for Collaborative Learning Support: A Review of the Field. {IEEE} Transactions on Learning Technologies, 4(1), 5--20. doi:10.1109/TLT.2011.2|
+| [@kumar2011architecture] | Kumar, R., & RoséCarolin Penstein. (2011). Architecture for Building Conversational Agents that Support Collaborative Learning. {IEEE} Transactions on Learning Technologies, 4(1), 21--34. doi:10.1109/TLT.2010.41|
+| [@khandaker2011lessons] | Khandaker, N., Soh{Leen-Kiat}, Miller, L. D., Eck, A., & Jiang, H. (2011). Lessons Learned from Comprehensive Deployments of Multiagent {CSCL} Applications {I-MINDS} and {ClassroomWiki}. {IEEE} Transactions on Learning Technologies, 4(1), 47--58. doi:10.1109/TLT.2010.28|

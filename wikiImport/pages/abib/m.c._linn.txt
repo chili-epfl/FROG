@@ -1,0 +1,3 @@
+h2. M.C. Linn's publications
+
+| linn2003wise | Linn, M. C., Clark, D., & Slotta, J. D. (2003). WISE design for knowledge integration. Science Education. Wiley Online Library.|[[skimx://linn2003wise|PDF]]|

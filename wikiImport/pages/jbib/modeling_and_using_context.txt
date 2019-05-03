@@ -1,0 +1,3 @@
+h2. Publications in Modeling and Using Context
+
+| pimentel2003cotext | Pimentel, M., Fuks, H., & Lucena, C. J. P. de. (2003). Co-text loss in textual chat tools. Modeling and Using Context, 483--490. Springer.|[[skimx://pimentel2003cotext|PDF]]|

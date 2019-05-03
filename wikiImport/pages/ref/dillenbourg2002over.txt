@@ -1,0 +1,31 @@
+h1. Over-scripting CSCL: The risks of blending collaborative learning with instructional design.
+<html><a href='' onClick="trackOutboundLink(this, 'PDFs refpage', ''); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Dillenbourg, P. (2002). Over-scripting CSCL: The risks of blending collaborative learning with instructional design.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://dillenbourg2002over|BibDesk]]  | Dillenbourg, P. (2002). Over-scripting CSCL: The risks of blending collaborative learning with instructional design. |
+^ [[skimx://dillenbourg2002over|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:dillenbourg2002over?do=edit&vecdo=print\'><frame src=\'/wiki/clip:dillenbourg2002over?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{dillenbourg2002over,
+  author = {Dillenbourg, Pierre},
+  date-added = {2011-05-21 01:28:00 +0800},
+  date-modified = {2011-06-09 08:29:55 +0800},
+  read = {1},
+  title = {Over-scripting CSCL: The risks of blending collaborative learning with instructional design.},
+  year = {2002},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QQy4uLy4uL0JpYmRlc2svYmFrL2RpbGxlbmJvdXJnMjAwMm92ZXItMjAxNC0wMy0yMSAwODoxMzowNCAtMDQwMC5wZGbSFwsYGVdOUy5kYXRhTxEB7AAAAAAB7AACAAAHU1NESG9tZQAAAAAAAAAAAAAAAAAAAAAAAAAAyXlP2EgrAAAOrs3ZH2RpbGxlbmJvdXJnMjAwMm92ZXIjNjY4NTg0OS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZoWEnL1v5bUERGIENBUk8AAgADAAAJIAAAAAAAAAAAAAAAAAAAAANiYWsAABAACAAAyXmWKAAAABEACAAAy9c2mwAAAAEAEA6uzdkA2tZSABc9MQABn14AAgBDU1NESG9tZTpVc2VyczoAU3RpYW46AEJpYmRlc2s6AGJhazoAZGlsbGVuYm91cmcyMDAyb3ZlciM2Njg1ODQ5LnBkZgAADgBkADEAZABpAGwAbABlAG4AYgBvAHUAcgBnADIAMAAwADIAbwB2AGUAcgAtADIAMAAxADQALQAwADMALQAyADEAIAAwADgALwAxADMALwAwADQAIAAtADAANAAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIASVVzZXJzL1N0aWFuL0JpYmRlc2svYmFrL2RpbGxlbmJvdXJnMjAwMm92ZXItMjAxNC0wMy0yMSAwODoxMzowNCAtMDQwMC5wZGYAABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A1ADZAOEC0QLTAtgC4wLsAvoC/gMFAw4DEwMgAyMDNQM4Az0AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADPw==}
+}
+
+</hidden>
+
+{{page>notes:dillenbourg2002over}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:dillenbourg2002over}}
+
+{{page>kindle:dillenbourg2002over}}
+
+{{page>skimg:dillenbourg2002over}}

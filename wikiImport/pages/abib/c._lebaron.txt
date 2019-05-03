@@ -1,0 +1,3 @@
+h2. C. LeBaron's publications
+
+| zemel2005usability | Zemel, A., Koschmann, T., LeBaron, C., & Feltovich, P. (2005). Usability as an interactional resource: Deictic management of scene formulation. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!.|[[skimx://zemel2005usability|PDF]]|

@@ -1,0 +1,22 @@
+h1. Carolyn Penstein Rosé
+{{ pages:a_carolyn_penstein_rose01.png}}
+Associate professor, CMU
+Treasurer, ISLS
+
+h2. Research
+My research program is focused on better understanding the social and pragmatic nature of conversation, and using this understanding to build computational systems that can improve the efficacy of conversation between people, and between people and computers. In order to pursue these goals, I invoke approaches from computational discourse analysis and text mining, conversational agents, and computer supported collaborative learning.
+
+  * Basic research in discourse analysis in order to identify conversational constructs that predict important group outcomes such as learning, knowledge transfer, relationship formation, impression management, motivation and decision making.
+  * Basic research on text classification technology for automated analysis of conversational constructs identified under (1) as well as tools to enable other researchers to do the same in their own work.
+  * Basic research on summarization and conversational agent technology that eases development of interventions triggered by automatic analyses from (2) that either enable human facilitators to offer support, directly provide feedback to groups, or behave in such a way as to influence group participation in positive ways.
+
+  * conversational agents
+  * computational discourse analysis
+  * text mining
+  * [[:t:Tatiana]]
+
+h2. Links
+  * [[http://www.cs.cmu.edu/~cprose/|Homepage]]
+  * [[http://www.cs.cmu.edu/~cprose/teledia.html|Teledia lab]]
+
+{{page>abib:Carolyn Penstein Rose}}

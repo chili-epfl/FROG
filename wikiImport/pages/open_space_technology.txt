@@ -1,0 +1,7 @@
+h1. Open Space Technology
+
+Way of conducting meetings, related to [[unconference]] style. 
+
+  * [[http://www.openspaceworld.org/|open space technology]]
+
+Similar to stuff that [[a:Barrie Bennet]] does in classrooms? (ref blog by [[http://reganmian.net/monica/csclintro/representational-guidance-and-knowledge-forum/|Monica]])

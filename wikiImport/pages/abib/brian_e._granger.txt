@@ -1,0 +1,3 @@
+h2. Brian E. Granger's publications
+
+| [@perez2007ipython] | Perez, F., & Granger, B. E. (2007). IPython: A System for Interactive Scientific Computing. Computing in Science & Engineering, 9(3), 21-29. doi:10.1109/MCSE.2007.53|

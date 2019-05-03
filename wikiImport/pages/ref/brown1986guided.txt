@@ -1,0 +1,34 @@
+h1. Guided, Cooperative Learning and Individual Knowledge Acquisition. Technical Report No. 372.
+
+<ifauth !@admin>|Brown, A. L., & Palincsar, A. S. (1986). Guided, Cooperative Learning and Individual Knowledge Acquisition. Technical Report No. 372.. Retrieved from http://eric.ed.gov/PDFS/ED270738.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://brown1986guided|BibDesk]]  | Brown, A. L., & Palincsar, A. S. (1986). Guided, Cooperative Learning and Individual Knowledge Acquisition. Technical Report No. 372.. Retrieved from http://eric.ed.gov/PDFS/ED270738.pdf. |
+^ [[skimx://brown1986guided|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:brown1986guided?do=edit&vecdo=print\'><frame src=\'/wiki/clip:brown1986guided?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{brown1986guided,
+  author = {Brown, A. L. and Palincsar, A. S.},
+  date-added = {2012-05-08 12:50:18 +0000},
+  date-modified = {2012-05-11 11:17:01 +0000},
+  date-read = {2012-05-11 07:17:01 -0400},
+  keywords = {0BrownCampione},
+  read = {1},
+  title = {Guided, Cooperative Learning and Individual Knowledge Acquisition. Technical Report No. 372.},
+  url = {http://eric.ed.gov/PDFS/ED270738.pdf},
+  year = {1986},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNicm93bjE5ODZndWlkZWQucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaB2xy9bzvVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yv9AAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBicm93bjE5ODZndWlkZWQucGRmAA4AKAATAGIAcgBvAHcAbgAxADkAOAA2AGcAdQBpAGQAZQBkAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL2Jyb3duMTk4Nmd1aWRlZC5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL2Jyb3duMTk4Nmd1aWRlZC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:brown1986guided}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:brown1986guided}}
+
+{{page>kindle:brown1986guided}}
+
+{{page>skimg:brown1986guided}}

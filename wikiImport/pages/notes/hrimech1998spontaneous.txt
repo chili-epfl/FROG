@@ -1,0 +1,90 @@
+h1. Key ideas
+//Learning about the use of computers, strategies used by self-learners. Literature review on learning strategies//
+
+h2. Learning strategies
+h3. Definitions
+  * The study of learning strategies is primarily concerned about how people use their mind to learn something
+  * Conscious actions that learners utilize in order to gain direction and control over their learning outcomes
+  * The operations utilized by learners for the effective appropriation of knowledge or skills
+  * They are deliberate, planned activities that induce or bring about learning
+  * Focus is on the learners and their cognitive and metacognitive (i.e. “learning-how-to-learn”) competencies in achieving control over the learning process
+
+h3. Evolution
+An individual's preferred strategies evolve over time -> competencies that can be summoned unconsciously whenever the need arises. Then, the strategies have been integrated into the individual's learning style, and to his/her personality. 
+
+h3. Categories
+  * cognitive
+  * metacognitive
+  * affective OR
+  * social 
+  * mixed
+
+Also
+  * direct OR
+    * transform, in the mind of the learner, material to be learned into new self-appropriated structures
+  * indirect
+    * (affective or support strategies)
+    * act on learner, to sustain motivation or reduce stress
+
+Can be 
+  * general OR
+  * specific to a certain 
+    * subject matter
+    * area
+    * task
+
+Either
+  * Widely used OR
+    * such as repetition
+  * idiosyncratic and adapted
+    * like imagery or elaboration
+
+Must be **purposefully internalized**, otherwise //mere techniques// or study habits that can be inefficient or counter-productive.
+
+::Does this mean that the student needs a certain level of meta-awareness, able to evaluate whether different methods work for him/her etc?::
+
+h3. Strategies and success
+Degree of control learners exercise over own learning through explicit learning strategies have the potential to greatly increase learning effectiveness.
+
+Weak learners often do not use them, because:
+  * low cognitive alertness
+  * poor learning strategies that nevertheless produce some acceptable results
+  * lack of basic knowledge
+  * external attributional style
+  * lack of or insufficient transfer of learning
+(Gamer, 1990)
+
+h3. Cognitive psychology
+This research builds on the cognitive paradigm. Cognitive psychology considers human beings as deliberate agents who actively process information throughout their lifetime. 
+
+The study of learning strategies has been strongly influenced by the cognitivist perspective, which is also aligned with the philosophical assumptions underlying the study of self-directed learning (Long, 1992). 
+
+h3. Importance of studying learning strategies
+Some authors in SDL have stressed the importance of studying the strategies SDL learners use, an area which is still hardly known (Olgren, 1992). 
+
+In her unifying framework for data-based research into adult self-directed learning, Danis (1992) makes the study of self-regulated learning strategies the core of his framework, pointing out the importance of relating the strategies to the learning content and the learning context. 
+
+h2. Study design
+
+Qualitative design that included a semistructured interview schedule. 
+
+h3. Demographics
+Twenty volunteers, twelve females and eight males, aged between 25 years and 48 years, were interviewed. 
+
+h3. Questions
+
+  * what methods they used when faced with new computer-related tasks
+  * how they went about figuring out how to get them done
+  * detail the strategies that they used when they encountered learning difficulties
+  * estimate those strategies' effectiveness
+  * strategies that were tried out and subsequently abandoned
+  * about the reasons for their perceived lack of effectiveness
+
+h2. Findings
+Affective or supportive strategies:
+
+  * Positive self-talk
+  * Play
+    * having fun, leaving task and exploring other aspects
+  * Perseverance
+    * not really a category, but many cited this

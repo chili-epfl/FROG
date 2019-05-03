@@ -1,0 +1,164 @@
+h2. Highlights (2%)
+
+Volume I of Instructional-Design Theories and Models (1983) provides a “snapshot in time” of the status of instructional theory in the early 1980s. Its main purpose was to raise awareness of instructional theories. Volume II (1999) provides a concise summary of a broad sampling of work in the late 1990s on a new paradigm of instructional theories for the Information Age. Its main purpose was to raise awareness of the diversity of theories that provide a customized or learner-centered learning experience in all different domains of human learning and development. It also raised awareness of the importance of values in instructional theory. [[skimx://reigeluth2010instructional-design#xi|p. xi]]
+
+Therefore, the purpose of this Volume III is to take some early steps in building a common knowledge base about instruction with a common use of terms. [[skimx://reigeluth2010instructional-design#xi|p. xi]]
+
+Unit 1 offers some organizational schemes for understanding and developing a common knowledge base about instruction. We strongly urge you to read the four chapters in this unit before reading any of the theories that follow. Unit 2 offers a chapter on each of five major approaches to instruction: the directinstruction, discussion, experiential, problem-based, and simulation approaches. [[skimx://reigeluth2010instructional-design#xi|p. xi]]
+
+Unit 3 offers a chapter on [[skimx://reigeluth2010instructional-design#xi|p. xi]]
+
+instruction for each of four major outcomes of instruction: skill development, understanding, affective development, and integrated learning outcomes. Each of these chapters also synthesizes the current knowledge about that kind of instruction. Finally, Unit 4 offers ideas that may prove useful for building a common knowledge base about instruction. [[skimx://reigeluth2010instructional-design#xii|p. xii]]
+
+Unit 1 Frameworks for Understanding Instructional Theory [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+First, we define instruction as anything that is done purposely to facilitate learning. [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+and then relate design theory, instructional design theory, student-assessment design theory, curriculum design theory, learning theory, and the learning sciences to ins\truction. [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+We identify several aspects of instructional design theory, including event, analysis, planning, building, implementation, and evaluation design theory within instructional design theory. [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+what we mean by instruction itself [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+instructional situations, methods, approaches, components, and content sequencing as the categories of constructs concerned with instruction. Built on an analogy to rules of English grammar, these constructs are linked and designers are advised to carefully consider the relationships among the categories. [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+Merrill discusses the principles of good instruction that may be common to all instruction. Calling these “First Principles,” Merrill lays out [[skimx://reigeluth2010instructional-design#1|p. 1]]
+
+the qualifications for inclusion in this list, along with the principles in brief and in more detail. The principles include the demonstration principle, application principle, task-centered principle, activation principle, and integration principle. The chapter takes up the difficult task of elaborating on these principles and relating them to one another to create a defensible set of principles that Merrill asserts will create effective and efficient instruction. [[skimx://reigeluth2010instructional-design#2|p. 2]]
+
+Chapter 4 (Reigeluth & Carr-Chellman) focuses on the situational principles of instruction—ones that vary from one situation to another. This chapter describes what situational principles are and links them to the notion of universal principles through an analogy of the universe and galaxies. In an effort to increase precision in our language and knowledge base, we elaborate on kinds, parts, and criteria as ways to make methods more precise. Principles as heuristics, or rules of thumb, are particularly important for precise descriptions of methods. A review of learning taxonomies leads us to a description of the instructional theories we have included in units 2 and 3. [[skimx://reigeluth2010instructional-design#2|p. 2]]
+
+Understanding Instructional Theory CHARLES M. REIGELUTH Indiana University ALISON A. CARRCHELLMAN Pennsylvania State University [[skimx://reigeluth2010instructional-design#3|p. 3]]
+
+
+  *  Designtheoryisgoalorientedandnormative.
+  *  Instructionaldesigntheoryisasetofdesigntheoriesthatpertaintovarious aspects of instruction and include: 1. Instructional-event design theory (DT) 2. Instructional-analysis DT 3. Instructional-planning DT 4. Instructional-building DT 5. Instructional-implementationDT 6. Instructional-evaluationDT
+  *  Relatedtheoriesinclude: 1. Student-assessment design theory 2. Curriculum design theory 3. Learning theory 4. Learning sciences
+  *  Interrelationships among all these kinds of theories are powerful, and it is often beneficial to integrate them.
+  *  Instructionaldesigntheoriesandlayersofdesign 1. Contentlayer 2. Strategy layer 3. Messagelayer 4. Controllayer 5. Representation layer 6. Medialogiclayer 7. Data management layer The Role of Instructional Theory in Educational Reform
+  *  Whyanewparadigmofeducationisneededandpossible
+  *  Relationtoparadigmchangeineducation
+  *  RelationtoLearner-CenteredInstruction
+  *  Learner-centeredpsychologicalprinciples
+  *  Thescienceoflearning
+  *  Newparadigmofinstructionaltheory(volume2)
+  *  Cognitiveflexibilitytheory,personalizedlearning,brain-basedlearning,and differentiated instruction Downloaded by [University of Toronto] at 10:04 30 September 2013 UnderstandingInstructionalTheory
+  *  5 The Nature of Instructional Theories: Constructs and Terms
+  *  ResultsofaDelphistudy
+  *  Recommendedconstructsandterms 1. Instructional method 1.1. Scope (micro-meso-macro) 1.2. Generality (universal-local) 1.3. Precision (imprecise-precise) based on parts, kinds, or criteria 1.4. Power (low-high) 1.5. Consistency (low-high) 2. Instructional situation 2.1. Values 2.1.1. About learning goals 2.1.2. About priorities (effectiveness, efficiency, appeal) 2.1.3. About methods 2.1.4. About power (learner, teacher, institution) 2.2. Conditions 2.2.1. Content 2.2.2. Learner 2.2.3. Learning environment 2.2.4. Instructional development constraints [[skimx://reigeluth2010instructional-design#4|p. 4]]
+
+. Therefore, if instruction is to foster any learning at all, it must foster construction. Instruction is not instruction if it does not foster construction. Furthermore, if construction is what the learner does, then we need a different term for what a teacher (or other agent) does to foster construction, and “instruction” has commonly been used more than any other term to convey that meaning. Therefore, we define instruction as anything that is done purposely to facilitate learning. It includes constructivist methods and self-instruction, as well as more traditional views of instruction, such as lecture and direct instruction. [[skimx://reigeluth2010instructional-design#6|p. 6]]
+
+Volume 2 of Instructional-Design Theories and Models (Reigeluth, 1999) was a small sample of the wide variety of information-age instructional-design theories that had been created by 1998. That book made it evident that many instructional theories were constructed with little regard for prior theories. [[skimx://reigeluth2010instructional-design#6|p. 6]]
+
+there are [[skimx://reigeluth2010instructional-design#6|p. 6]]
+
+many important things to know about instruction, including what an instructional product itself should be like, the process by which it should be designed and built, how it should be implemented, how it should be evaluated, how its effects (e.g., learning) should be assessed, what content should be instructed, how people learn, and the interrelationships among all these kinds of knowledge about instruction. It is also helpful to distinguish between design theory and descriptive theory. [[skimx://reigeluth2010instructional-design#7|p. 7]]
+
+Design theory is different from descriptive theory in that it is goal oriented and normative—it identifies good methods for accomplishing goals—whereas descriptive theory describes cause–effect relationships, which are usually probabilistic (meaning that the cause does not always result in the effect), especially in the social sciences. Design theory is aimed at facilitating generative outcomes; that is, it assists in the creation of something, while descriptive theory seeks to describe what already exists. We very much agree with Nelson and Stolterman’s (2003) notions of design expertise. They recognize that there are different fields of design expertise, such as instructional design or engineering or architecture. But they also indicate that all designers share some similar field experiences: [[skimx://reigeluth2010instructional-design#7|p. 7]]
+
+Some people do not like the term theory for such goal-oriented or instrumental knowledge. Some of the terms that they prefer include: method, model, technology, technique, strategy, guidance, and heuristic. However, none of these terms captures the full scope of this kind of knowledge, which includes not only methods (or models, techniques, strategies, and heuristics), but also when and when not to use each method. We have found no other term that fits as well as design theory for capturing methods and when to use them. Second, these two types of knowledge (descriptive and instrumental) are widely recognized as the two major kinds (e.g., the famous distinction by Simon, 1996, between the natural sciences and the sciences of the artificial), and hence are “coordinate” (subordinate to, or kinds of, the same concept—theory). Third, the term theory has been used for decades to characterize the instrumental knowledge base in several fields, and in instruction its use goes back at least to Bruner (1966) and Gagné (1985). For these three reasons, we find it appropriate to refer to each of the two basic kinds of knowledge as theory, [[skimx://reigeluth2010instructional-design#7|p. 7]]
+
+instrumental kind of knowledge as design theory. Consequently, we offer the following definitions. [[skimx://reigeluth2010instructional-design#8|p. 8]]
+
+Instructional Design Theory Instructional design theory is a set of design theories that pertain to various aspects of instruction. One perspective is that those aspects include: [[skimx://reigeluth2010instructional-design#8|p. 8]]
+
+
+  *  what the instruction should be like, which could be called instructionalevent design theory (DT), or instructional-program DT, or instructionalproduct DT;
+  *  what the process of gathering information for making decisions about instruction should be like, which could be called instructional-analysis DT;
+  *  whattheprocessofcreatingtheinstructionalplansshouldbelike,which could be called instructional-planning DT;1
+  *  what the process of creating the instructional resources should be like, which could be called instructional-building DT;2
+  *  whattheprocessofpreparingforimplementationoftheinstructionshould be like, which could be called instructional-implementation DT;3
+  *  whattheprocessforevaluatingtheinstructionshouldbelike(summative and formative), which could be called instructional-evaluation DT. [[skimx://reigeluth2010instructional-design#8|p. 8]]
+
+Note that instructional-event theory is the only one that offers guidance about the nature of the instruction itself. The other five all offer guidance about what is commonly called the instructional systems design (or development) process (ISD). [[skimx://reigeluth2010instructional-design#8|p. 8]]
+
+Now we turn to a discussion of several other kinds of theory that are not kinds of instructional-design theory. They include student-assessment theory, curriculum theory, learning theory, learning sciences, and instructional science. [[skimx://reigeluth2010instructional-design#10|p. 10]]
+
+Student-Assessment Design Theory Student-assessment design theory is guidance for assessing student learning. To the extent that student assessment is integrated with instruction, it would make sense to combine student assessment theory with all six kinds of instructional theories: integrating guidance about the nature of assessment with guidance about the nature of instruction, integrating guidance for the process of analysis for assessments with guidance for the process of analysis for instruction, and so forth for planning, building, implementing, and evaluating assessments and instruction. [[skimx://reigeluth2010instructional-design#10|p. 10]]
+
+Curriculum-Design Theory Curriculum-design theory concerns what should be learned, the content of instruction, including higher-order thinking skills and metacognitive skills, in contrast to instructional-event theory, which concerns how it should be learned (Snelbecker, 1974; see also Reigeluth, 1999, chapter 1—volume 2 of this series). For example, a curriculum-design theory may address the inclusion of more racial and gender diversity in American history. To the extent that “what to teach” is interdependent with “how to teach it,” it would make sense to combine curriculum theory with all six kinds of instructional theories. It is no wonder that many departments in schools of education are called “Curriculum and Instruction.” [[skimx://reigeluth2010instructional-design#10|p. 10]]
+
+Learning Theory Learning theory is descriptive theory rather than design (or instrumental) theory, for it describes the learning process. For example, schema theory and [[skimx://reigeluth2010instructional-design#10|p. 10]]
+
+information-processing theory describe processes that are believed to occur within learners’ heads. If they identified methods for helping those processes to occur, they would be instructional-event design theories. Learning theory may provide an understanding of why a certain method of instruction (in an instructional-event theory) works so well, and hence a rationale for using it, but an instructional-event theory can as easily lead to the development of learning theory (to explain that instructional-event theory) as a learning theory can lead to the development of an instructional-event theory (to apply the learning theory). [[skimx://reigeluth2010instructional-design#11|p. 11]]
+
+Learning Sciences Learning Sciences is a term that has become popular recently. The term instructional science has also been used, and there is a journal by that name. Based on those labels, one would expect that the learning sciences are dedicated to the development of learning theory, and that instructional science is dedicated to the development of instructional theory. However, in practice most learning scientists are interested in developing knowledge about both learning (descriptive theory) and instructional events (design theory). An operational definition of learning sciences would perhaps be a hybrid discipline that includes learning theory and instructional-event theory. It also seems that most learning scientists are not interested in instructional-planning theory, instructional-building theory, instructional-implementation theory, instructional-evaluation theory, or curriculum theory. There is some interest in student-assessment theory. The field of learning sciences is akin to cognitive science in that it is purposely multidisciplinary and not so interested in goals as in the use of certain kinds of instructional methods to shed light on certain kinds of learning processes. [[skimx://reigeluth2010instructional-design#11|p. 11]]
+
+One additional aspect of the nature of theories related to instruction is the notion of “layers of design” discussed by Gibbons and Rogers in chapter 14. [[skimx://reigeluth2010instructional-design#12|p. 12]]
+
+Gibbons and Rogers identify seven layers of design that they believe are important in designing instruction: content, strategy, message, control, representation, media logic, and data management layers. [[skimx://reigeluth2010instructional-design#12|p. 12]]
+
+Within the content layer a designer specifies the structure of the subject-matter elements. This layer is most concerned with the many ways content can be structured. For example, instructional theories related to the content layer of designs might identify subject matter elements divided into sets of tasks, sets of propositions, sets of if/then rules, or sets of discrete semantic (meaning) elements. [[skimx://reigeluth2010instructional-design#12|p. 12]]
+
+Within the strategy layer a designer specifies the organization and properties of learning events, including participant roles and responsibilities, goals and times afforded to goals, and instructional strategies. Theories pertaining to the design at the strategy layer therefore pertain to the setting, the social organization, the “siting,” and the strategies of instructional interactions. [[skimx://reigeluth2010instructional-design#12|p. 12]]
+
+Within the message layer a designer describes the ways that individual messages are used to communicate content and other information to the learner. In essence, if the strategy layer describes a general strategic plan, then the message layer describes the tactical messaging plan for carrying out that strategy. For example, a designer might define in a messaging plan the elements to be used to construct feedback messages in terms of individual message units (right/ wrong judgment, error explanation, remedy explanation, etc.) that will generally comprise feedback messages. There are many classes of messages used during most typical instructional interactions. [[skimx://reigeluth2010instructional-design#12|p. 12]]
+
+Within the control layer a designer specifies how learners express messages back to the source of learning. Theories related to control-layer designs describe ways that learners can take actions, ask questions, make responses, and generally carry out their side of the instructional conversation. An example might be a theory that specifies ways that the learner can take action during practice in an interactive medium, such as a computer. [[skimx://reigeluth2010instructional-design#12|p. 12]]
+
+Within the representation layer a designer describes the way or ways in which messages will be delivered to the learners’ senses, including the media channels that will be used, how messages will be assigned to those channels, and how individual messages that use multiple channels are synchronized. Thus, theories used within the design of the representation layer might describe how to visualize certain kinds of messages, how to maximize the coordination of different media channels, and how to synchronize the messages within their different channels for best effect. [[skimx://reigeluth2010instructional-design#13|p. 13]]
+
+Within the media logic layer a designer specifies how media mechanisms will be made to deliver representations, how to carry out communications (through messaging and control operation), how to implement strategies in a dynamic, unpredictable interaction, how to compute current knowledge model states, and how to gather and analyze data in ways useful during the instruction. This is the part of the design that tells us how media will be used to carry out instructional event plans. For example, a theory related to media logic design might specify ways in which a multimedia computer could be made to deliver a dynamic visual representation simultaneously with an audio description while teaching how to prepare a fine soup. [[skimx://reigeluth2010instructional-design#13|p. 13]]
+
+Within the data management layer a designer specifies what we do with data in the system in terms of capture, archiving, analysis, interpretation, and reporting. An instructional theory related to the design of the data management layer might specify that the result of each step of the process of adding a fraction be captured and analyzed for correctness or incorrectness so that errors can be debugged, or might specify that certain response patterns should be noted as a student executes a tricky procedure so that later analysis can identify possible sources of errors.4 [[skimx://reigeluth2010instructional-design#13|p. 13]]
+
+Therefore, large improvements in learning in public schools require advances in two kinds of knowledge: knowledge about learner-centered methods of instruction (e.g., Watson & Reigeluth, 2008, for an overview) and knowledge about how to help school districts transform themselves to an information-age paradigm of education (e.g., Duffy & Reigeluth, 2008; Reigeluth & Duffy, 2008). This book focuses on advancing the former: knowledge about the learnercentered paradigm of instruction. [[skimx://reigeluth2010instructional-design#15|p. 15]]
+
+Learner-Centered Psychological Principles [[skimx://reigeluth2010instructional-design#15|p. 15]]
+
+the American Psychological Association conducted an extensive project to identify research-based, learner-centered, psychological principles (American Psychological Association Presidential Task Force on Psychology in Education, 1993). Its report identifies 12 such principles and presents the research evidence that supports each. McCombs and colleagues (Lambert & McCombs, 1998; McCombs & Whisler, 1997) summarize that work and describe specific features and characteristics of learner-centered classrooms and schools, along with descriptions of their experiences with learner-centered teachers and schools. They describe the nature of the shift in focus from teaching to learning, including ways to customize learning to student differences, how to [[skimx://reigeluth2010instructional-design#15|p. 15]]
+
+motivate students to put more effort into learning, how to help students assume increasing responsibility for directing their own learning (to prepare them better to be lifelong learners), how to manage the learning process so that faster students can move on as soon as they reach a standard and slower students are not forced to move on before they have reached a standard, and much more. Technology plays a central role in all of these aspects of the learner-centered paradigm. Methods such as these have been proven to significantly advance the ability of students to reach high standards (American Psychological Association Presidential Task Force on Psychology in Education, 1993; Lambert & McCombs, 1998; McCombs & Whisler, 1997) [[skimx://reigeluth2010instructional-design#16|p. 16]]
+
+(Bransford et al., 2000). [[skimx://reigeluth2010instructional-design#16|p. 16]]
+
+We are particularly impressed with Rand Spiro’s cognitive flexibility theory (Spiro et al., 1992) and his observation that information-age (or “post-Gutenberg”) technologies both require and facilitate a different worldview (or frame of mind) and a different style of thinking, through prefigurative schemas (schemas for the development of schemas). This has important implications for dramatic changes in the goals of education, as well as the means, as we evolve deeper into the information age. Other lines of work include personalized learning (Clarke, 2003; Keefe, 2007), brain-based learning (Caine, 2005; Caine & Caine, 1997), and differentiated instruction (Tomlinson, 1999, 2001, 2003). [[skimx://reigeluth2010instructional-design#17|p. 17]]
+
+All elements of any instructional theory can be categorized as one or the other of these two constructs. [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+1. Instructional method: Anything that is done purposely to facilitate learning or human development. [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+2. Instructional situation: All aspects of an instructional context that are useful for deciding when and when not to use a particular instructional method. Each individual aspect of the context is referred to as a “situationality.” Collectively, they are the “situation.”5 [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+Instructional methods can vary in several ways, each of which is an important construct for instructional theories. They are as follows. [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+1.1 Scope of a method: The amount of instruction with which a method deals. While this is really a continuum, it is often divided into three major levels (van Merriënboer, 1997): 1.1.1. Micro: Instruction on an individual skill or understanding, such as a sequence of examples and practice. 1.1.2. Meso: Instruction on a single unit (or cluster of related skills and understandings), such as a sequence of types of cases for a complex cognitive task. 1.1.3. Macro: Instruction on a course (or even a curriculum), such as a sequence of different types of complex tasks. 1.2. [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+1.2. Generality of a method: The breadth of instructional situations in which a method should be used. This is a continuum that ranges from high to low or universal to local. Other descriptors include pervasive, common, restricted, rare, narrow, and local. [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+1.3. Precision of a method: The level of detail of the description of a method. Precision is a reflection of the componential nature of methods. A description of a method typically can be broken down or elaborated into more precise descriptions of the method for facilitating learning. While this characteristic is commonly referred to as a general-versus- [[skimx://reigeluth2010instructional-design#21|p. 21]]
+
+detailed distinction among descriptions of a method (or a generalto-detailed continuum of descriptions of a method), “general” can be confused with the generality of a method itself (versus its description; see 1.2), so we prefer the term precision of a description of a method (imprecise-to-precise continuum). The level of precision is influenced by three constructs: [[skimx://reigeluth2010instructional-design#22|p. 22]]
+
+1.3.1. Parts: More precise descriptions that describe pieces that, when combined, make up the method. 1.3.2. Kinds: More precise descriptions that describe alternatives from which one must choose in using the method. 1.3.3. Criteria:Moreprecisedescriptionsthatprovidecriteriaformaking a decision regarding the method. [[skimx://reigeluth2010instructional-design#22|p. 22]]
+
+1.4. Power of a method: The amount a method contributes toward the attainment of the learning goal for which it was selected. [[skimx://reigeluth2010instructional-design#22|p. 22]]
+
+1.5. Consistency of a method: The reliability with which a method contributes its power toward the attainment of the learning goal for which it was selected within the situations for which it is appropriate. [[skimx://reigeluth2010instructional-design#22|p. 22]]
+
+Instructional situations, like instructional methods, can vary in several ways, each of which is an important construct for instructional theories. They are as follows. [[skimx://reigeluth2010instructional-design#22|p. 22]]
+
+2.1. Values: The elements of instruction that are deemed important by an instructional theory but are a matter of opinion rather than a matter that can be empirically verified. [[skimx://reigeluth2010instructional-design#22|p. 22]]
+
+We have identified four major kinds of instructional values. [[skimx://reigeluth2010instructional-design#23|p. 23]]
+
+2.1.1. Values about learning goals: Statements about which learning outcomes are valued philosophically (opinion). These stand in contrast to identifying goals empirically through a needs analysis. [[skimx://reigeluth2010instructional-design#23|p. 23]]
+
+2.1.2. Values about priorities: Statements about which priorities should be used to judge the success of the instruction. These were formerly called “instructional outcomes” in volumes 1 and 2 (Reigeluth, 1983, 1999), but that term led to a misunderstanding of the construct. Values about priorities address the relative importance of the effectiveness, efficiency, and appeal of the instruction as criteria for judging how good the instructional methods and guidelines are. [[skimx://reigeluth2010instructional-design#23|p. 23]]
+
+2.1.3. Values about methods: Statements about which instructional methods are valued from a philosophical point of view (opinion). These stand in contrast to selecting methods empirically based on research results. [[skimx://reigeluth2010instructional-design#23|p. 23]]
+
+2.1.4. Values about power: Statements about who is given the power to make decisions about goals, priorities, and methods. [[skimx://reigeluth2010instructional-design#23|p. 23]]
+
+2.2. Conditions: All other factors that influence the selection or effects of methods. [[skimx://reigeluth2010instructional-design#23|p. 23]]
+
+2.2.1. Content: The nature of what is to be learned, defined comprehensively to include not only knowledge, skills, and understandings, but also higher-order thinking skills, metacognitive skills, attitudes, values, and so forth. [[skimx://reigeluth2010instructional-design#24|p. 24]]
+
+2.2.2. Learner: The nature of the learner, including prior knowledge, learning styles, learning strategies, motivations, interests, and so forth. [[skimx://reigeluth2010instructional-design#24|p. 24]]
+
+2.2.3. Learning environment: The nature of the learning environment, which includes human resources, material resources, organizational arrangements, and so forth. [[skimx://reigeluth2010instructional-design#24|p. 24]]
+
+2.2.4. Instructional development constraints: The resources available for designing, developing, and implementing the instruction, including money, calendar time, and person hours. [[skimx://reigeluth2010instructional-design#24|p. 24]]
+
+References [[skimx://reigeluth2010instructional-design#25|p. 25]]

@@ -1,0 +1,3 @@
+h2. C.K.K. Chan's publications
+
+| chan2004learning | Chan, C. K. K., & Aalst, J. van. (2004). Learning, assessment and collaboration in computer-supported environments. What We Know About CSCL. Springer.|[[skimx://chan2004learning|PDF]]|

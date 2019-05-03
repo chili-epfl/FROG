@@ -1,0 +1,8 @@
+h2. Publications in Learning, Media and Technology
+
+| [@miao2011applying] | Miao, Y., & Hoppe, H. U. (2011). Applying learning design to work-based learning. Learning, Media and Technology, 36(2), 189--205. doi:10.1080/17439884.2011.553624|
+| [@greenhow2009informal] | Greenhow, C., & Robelia, B. (2009). Informal learning and identity formation in online social networks. Learning, Media and Technology, 34(2), 119-140. doi:10.1080/17439880902923580|
+| [@bennett2011understanding] | Bennett, S., Thomas, L., Agostinho, S., Lockyer, L., Jones, J., & Harper, B. (2011). Understanding the design context for Australian university teachers: implications for the future of learning design. Learning, Media and Technology, 36(2), 151--167. doi:10.1080/17439884.2011.553622|
+| [@agostinho2011future] | Agostinho, S., Bennett, S., Lockyer, L., & Harper, B. (2011). The future of learning design. Learning, Media and Technology, 36(2), 97--99. doi:10.1080/17439884.2011.553619|
+| [@kearney2011learning] | Kearney, M. (2011). A learning design for student-generated digital storytelling. Learning, Media and Technology, 36(2), 169--188. doi:10.1080/17439884.2011.553623|
+| [@falconer2011representing] | Falconer, I., Finlay, J., & Fincher, S. (2011). Representing practice: practice models, patterns, bundles …. Learning, Media and Technology, 36(2), 101--127. doi:10.1080/17439884.2011.553620|

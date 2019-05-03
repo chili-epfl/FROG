@@ -1,0 +1,35 @@
+h1. Four dimensions of learner autonomy
+<html><a href='http://www.casae-aceea.ca/sites/casae/archives/cnf2003/2003_papers/paulbouchard-2CAS03eng.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.casae-aceea.ca/sites/casae/archives/cnf2003/2003_papers/paulbouchard-2CAS03eng.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Bouchard, P. (2003). Four dimensions of learner autonomy. Proceedings 22 nd Annual conference of Canadian Association for the Study of Adult Education. Retrieved from http://www.casae-aceea.ca/sites/casae/archives/cnf2003/2003_papers/paulbouchard-2CAS03eng.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bouchard2003four|BibDesk]]  | Bouchard, P. (2003). Four dimensions of learner autonomy. Proceedings 22 nd Annual conference of Canadian Association for the Study of Adult Education. Retrieved from http://www.casae-aceea.ca/sites/casae/archives/cnf2003/2003_papers/paulbouchard-2CAS03eng.pdf. |
+^ [[skimx://bouchard2003four|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bouchard2003four?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bouchard2003four?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{bouchard2003four,
+  author = {Bouchard, Paul},
+  booktitle = {Proceedings 22 nd Annual conference of Canadian Association for the Study of Adult Education},
+  date-added = {2012-04-04 19:02:16 +0000},
+  date-modified = {2012-08-19 15:42:53 +0000},
+  date-read = {2012-04-04 21:01:47 -0400},
+  oa-url = {http://www.casae-aceea.ca/sites/casae/archives/cnf2003/2003_papers/paulbouchard-2CAS03eng.pdf},
+  read = {1},
+  title = {Four dimensions of learner autonomy},
+  url = {http://www.casae-aceea.ca/sites/casae/archives/cnf2003/2003_papers/paulbouchard-2CAS03eng.pdf},
+  year = {2003},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRib3VjaGFyZDIwMDNmb3VyLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCU5By6IS4VBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLokshAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VjaGFyZDIwMDNmb3VyLnBkZgAADgAqABQAYgBvAHUAYwBoAGEAcgBkADIAMAAwADMAZgBvAHUAcgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9ib3VjaGFyZDIwMDNmb3VyLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9ib3VjaGFyZDIwMDNmb3VyLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:bouchard2003four}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bouchard2003four}}
+
+{{page>kindle:bouchard2003four}}
+
+{{page>skimg:bouchard2003four}}

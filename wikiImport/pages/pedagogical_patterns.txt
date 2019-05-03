@@ -1,0 +1,40 @@
+h1. Pedagogical patterns
+(sequences of interactions - [@debarger2010teaching])
+
+integrate info from [[pattern_language_in_education]]
+
+h2. Learning modeling languages
+  * [[CML]] (doesn't exist)
+  * [[COML]] (builds on CML, for [[GroupScribbles]], one-to-one classroom)
+  * [[SCORM]] (online, only student-content)
+  * [[IMS-LD]] (online, more flexible pedagogy, XML)
+  * [[S-COL]] (system to run script on any web-based platform)
+  * [[SCY]] - how generic can SCY become?
+  * [[EML]] - educational modeling language, by OU NL
+
+h3. References
+  * [@brecht2002cml] - introducing CML, ClassSync Modeling Language - contingent/adaptable teaching, "act as artifact" (capturing and reusing ephemeral scripts). Teacher as theatre director, very teacher oriented. Distributed handhelds, network of actors, resources, networks.
+  * [@karampiperis2005designing] - briefly introduces [[SCORM]] and [[IMS-LD]], mentions problems with non-SCORM compliant tools. SCORM is only student-content, IMS-LD supports many pedagogies. Introduces tool to author IMS-LD packages. 
+  * [@weinbrenner2007ontologybased] - ontology, [[SCY]], visual design, ELOs
+  * [@dejong2010learning] - introducing [[SCY]]
+  * [@bote2008gridcole] - Gridcole, reads IMS-LD scripts and enables use of grid-resources (supercomputers etc)
+  * [@koper2004educational] - EML, by OU NL, XML-based tool for expressing learning, with "meta-pedagogical analysis"
+
+h2. Patterns
+
+h2. Scripts
+  * [@dillenbourg2002over] - over-scripting of CSCL
+  * [@wecker2010scol] - S-COL, using javascript to overlay scripting interface on any web-based system. Could for example [[COML]] ([@niramitranon2006coml]) be connected to S-COL? Although one is intended for physical classrooms, and one for entirely online.
+  * [[telwiki>Collaboration_script|Definition on TELwiki]]
+
+h2. Scaffolds
+  * [[http://reganmian.net/blog/2011/06/04/scaffolding-and-support-for-collaborative-learning/|Blog post]] about [@puntambekar2002scaffolding]
+
+h2. Teaching routines
+  * [@debarger2010teaching] - teaching routines related to [[GroupScribbles]]
+----
+  * [[http://perusersguide.org/|Methods and Materials - PER User's Guide]]
+  * [[http://workingexamples.org/|Working Examples - Examples]]
+  * [[http://www.ld-grid.org/resources/representations-and-languages/design-patterns/patterncollections|View Principle Summary]]
+  * [[http://projectinfolit.org/st/weinberger.asp|Collections of Pedagogical Design Patterns - The Learning Design Grid]]
+  * [[http://www.diglearning.org/toolbox/teach/backward-design|Backward Design - Digital Learning Toolbox]]

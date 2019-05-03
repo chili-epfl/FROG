@@ -1,0 +1,9 @@
+h2. Erik Duval's publications
+
+| [@duval2010guest] | Duval, E., & Wiley, D. (2010). Guest Editorial: Open Educational Resources. {IEEE} Transactions on Learning Technologies, 3(2), 83--84. doi:10.1109/TLT.2010.11|
+| [@verbert2010version] | Verbert, K., Govaerts, S., & Duval, E. (2010). Version 1 of the {ROLE} specifications. |
+| [@nagel2010visualizing] | Nagel, T., & Duval, E. Visualizing the Origins and Connections of Institutions based on Co-authorship of Publications. In .|
+| [@duval2010editorial] | Duval, E., Ullmann, T. D., Wild, F., Lindstaedt, S., & Scott, P. Editorial: Research 2.0 for TEL - Four Challenges. In .|
+| [@parra2010filling] | Parra, G., & Duval, E. Filling the Gaps to Know More! About a Researcher. In .|
+| [@vandeputte2010research] | Vandeputte, B., & Duval, E. Research at the Table. In .|
+| [@siemens2011open] | Siemens, G., Gasevic, D., Haythornthwaite, C., Dawson, S., Buckingham Shum, S., Ferguson, R., Duval, E., Verbert, K., & d. Baker, R. S. J. (2011). Open Learning Analytics: an integrated & modularized platform. Proposal to design, implement and evaluate an open platform to integrate heterogeneous learning analytics techniques. |

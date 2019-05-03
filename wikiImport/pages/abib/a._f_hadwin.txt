@@ -1,0 +1,8 @@
+h2. A. F Hadwin's publications
+
+| [[..:ref:hadwin2010innovative]] | Hadwin, A. F., Oshige, M., Gress, C. L. Z., & Winne, P. H. (2010). Innovative ways for using {gStudy} to orchestrate and research social aspects of self-regulated learning. Computers in Human Behavior. doi: 10.1016/j.chb.2007.06.007.|
+| gress2010advancing | Gress, C. L. Z., & Hadwin, A. F. (2010). Advancing educational research on collaboration through the use of {gStudy} computer-supported collaborative learning {(CSCL)} tools: Introduction to special issue. Computers in Human Behavior. doi: 10.1016/j.chb.2008.12.003.|
+| winne2010learning | Winne, P. H., Hadwin, A. F., & Gress, C. (2010). The learning kit project: Software tools for supporting and researching regulation of collaborative learning. Computers in Human Behavior. doi: 10.1016/j.chb.2007.09.009.|
+| kumar2010assessing | Kumar, V. S., Gress, C. L. Z., Hadwin, A. F., & Winne, P. H. (2010). Assessing process in {CSCL:} An ontological approach. Computers in Human Behavior. doi: 10.1016/j.chb.2007.07.004.|
+| gress2010measurement | Gress, C. L. Z., Fior, M., Hadwin, A. F., & Winne, P. H. (2010). Measurement and assessment in computer-supported collaborative learning. Computers in Human Behavior. doi: 10.1016/j.chb.2007.05.012.|
+| morris2010designing | Morris, R., Hadwin, A. F., Gress, C. L. Z., Miller, M., Fior, M., Church, H., & Winne, P. H. (2010). Designing roles, scripts, and prompts to support {CSCL} in {gStudy}. Computers in Human Behavior. doi: 10.1016/j.chb.2008.12.001.|

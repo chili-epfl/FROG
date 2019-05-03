@@ -1,0 +1,4 @@
+h2. Joey J. Lee's publications
+
+| peters2008learning | Peters, V., Slotta, J. D., Forte, A., Bruckman, A., Lee, J. J., Gaydos, M., Hoadley, C., & Clarke, J. (2008). Learning and research in the web 2 era: opportunities for research. Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1599936.1600023.|[[skimx://peters2008learning|PDF]]|
+| lee2011gamification | Lee, J. J., & Hammer, J. (2011). Gamification in Education: What, How, Why Bother?. Academic Exchange Quarterly.|[[skimx://lee2011gamification|PDF]]|

@@ -1,0 +1,3 @@
+h2. R. Morris's publications
+
+| morris2010designing | Morris, R., Hadwin, A. F., Gress, C. L. Z., Miller, M., Fior, M., Church, H., & Winne, P. H. (2010). Designing roles, scripts, and prompts to support {CSCL} in {gStudy}. Computers in Human Behavior. doi: 10.1016/j.chb.2008.12.001.||

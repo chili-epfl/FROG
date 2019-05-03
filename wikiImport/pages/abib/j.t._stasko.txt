@@ -1,0 +1,3 @@
+h2. J.T. Stasko's publications
+
+| yi2008understanding | Yi, J. S., Kang, Y., Stasko, J. T., & Jacko, J. A. (2008). Understanding and characterizing insights: how do people gain insights using information visualization?. Proceedings of the 2008 conference on BEyond time and errors: novel evaLuation methods for Information Visualization.|[[skimx://yi2008understanding|PDF]]|

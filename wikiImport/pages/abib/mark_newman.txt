@@ -1,0 +1,3 @@
+h2. Mark Newman's publications
+
+| [@solomon2010speaking] | Solomon, J., Newman, M., & Teasley, S. (2010). Speaking through text. In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (197). doi:10.1145/1880071.1880105|

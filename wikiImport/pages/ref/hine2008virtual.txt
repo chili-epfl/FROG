@@ -1,0 +1,32 @@
+h1. Virtual ethnography: Modes, varieties, affordances
+
+<ifauth !@admin>|Hine, C. (2008). Virtual ethnography: Modes, varieties, affordances. The SAGE handbook of online research methods, 257--270.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://hine2008virtual|BibDesk]]  | Hine, C. (2008). Virtual ethnography: Modes, varieties, affordances. The SAGE handbook of online research methods, 257--270. |
+^ [[skimx://hine2008virtual|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:hine2008virtual?do=edit&vecdo=print\'><frame src=\'/wiki/clip:hine2008virtual?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{hine2008virtual,
+  author = {Hine, Christine},
+  date-added = {2011-12-03 01:51:54 +0000},
+  date-modified = {2011-12-08 14:22:58 +0000},
+  journal = {The SAGE handbook of online research methods},
+  pages = {257--270},
+  title = {Virtual ethnography: Modes, varieties, affordances},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNoaW5lMjAwOHZpcnR1YWwucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGae0fy9cDUVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zuRAAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBoaW5lMjAwOHZpcnR1YWwucGRmAA4AKAATAGgAaQBuAGUAMgAwADAAOAB2AGkAcgB0AHUAYQBsAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL2hpbmUyMDA4dmlydHVhbC5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL2hpbmUyMDA4dmlydHVhbC5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:hine2008virtual}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:hine2008virtual}}
+
+{{page>kindle:hine2008virtual}}
+
+{{page>skimg:hine2008virtual}}

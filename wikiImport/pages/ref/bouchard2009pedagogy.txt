@@ -1,0 +1,35 @@
+h1. Pedagogy without a teacher: What are the limits
+
+<ifauth !@admin>|Bouchard, P. (2009). Pedagogy without a teacher: What are the limits. International Journal of Self-Directed Learning, 13.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bouchard2009pedagogy|BibDesk]]  | Bouchard, P. (2009). Pedagogy without a teacher: What are the limits. International Journal of Self-Directed Learning, 13. |
+^ [[skimx://bouchard2009pedagogy|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bouchard2009pedagogy?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bouchard2009pedagogy?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{bouchard2009pedagogy,
+  author = {Bouchard, Paul},
+  date-added = {2012-03-11 12:19:05 +0000},
+  date-modified = {2012-04-05 01:30:43 +0000},
+  date-read = {2012-04-04 21:30:43 -0400},
+  journal = {International Journal of Self-Directed Learning},
+  keywords = {self-regulated learning; 1-today},
+  pages = {13},
+  read = {1},
+  title = {Pedagogy without a teacher: What are the limits},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhib3VjaGFyZDIwMDlwZWRhZ29neS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZ6jwy9bvqVBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1yfpAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBib3VjaGFyZDIwMDlwZWRhZ29neS5wZGYAAA4AMgAYAGIAbwB1AGMAaABhAHIAZAAyADAAMAA5AHAAZQBkAGEAZwBvAGcAeQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9ib3VjaGFyZDIwMDlwZWRhZ29neS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svYm91Y2hhcmQyMDA5cGVkYWdvZ3kucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:bouchard2009pedagogy}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bouchard2009pedagogy}}
+
+{{page>kindle:bouchard2009pedagogy}}
+
+{{page>skimg:bouchard2009pedagogy}}

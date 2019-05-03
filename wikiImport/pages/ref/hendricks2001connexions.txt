@@ -1,0 +1,32 @@
+h1. Connexions: An architecture for Web-based educational materials
+
+<ifauth !@admin>|Hendricks, B. M. (2001). Connexions: An architecture for Web-based educational materials.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://hendricks2001connexions|BibDesk]]  | Hendricks, B. M. (2001). Connexions: An architecture for Web-based educational materials. |
+^ [[skimx://hendricks2001connexions|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:hendricks2001connexions?do=edit&vecdo=print\'><frame src=\'/wiki/clip:hendricks2001connexions?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{hendricks2001connexions,
+  author = {Hendricks, B. M},
+  date-added = {2011-04-24 10:13:34 -0400},
+  date-modified = {2011-06-12 07:32:43 +0800},
+  keywords = {OER/open ed},
+  read = {1},
+  shorttitle = {Connexions},
+  title = {Connexions: An architecture for Web-based educational materials},
+  year = {2001}
+}
+
+</hidden>
+
+{{page>notes:hendricks2001connexions}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:hendricks2001connexions}}
+
+{{page>kindle:hendricks2001connexions}}
+
+{{page>skimg:hendricks2001connexions}}

@@ -1,0 +1,36 @@
+h1. Can we talk about spatial hypertext
+
+<ifauth !@admin>|Bernstein, M. (2011). Can we talk about spatial hypertext. Proceedings of the 22nd ACM conference on Hypertext and hypermedia. Retrieved from http://delivery.acm.org/10.1145/2000000/1995983/p103-bernstein.pdf?ip=142.150.190.39&acc=ACTIVE%20SERVICE&CFID=55514184&CFTOKEN=59751268&__acm__=1322495835_c88d70d370d5c210cdb5dd254a03bfb4.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://bernstein2011can|BibDesk]]  | Bernstein, M. (2011). Can we talk about spatial hypertext. Proceedings of the 22nd ACM conference on Hypertext and hypermedia. Retrieved from http://delivery.acm.org/10.1145/2000000/1995983/p103-bernstein.pdf?ip=142.150.190.39&acc=ACTIVE%20SERVICE&CFID=55514184&CFTOKEN=59751268&__acm__=1322495835_c88d70d370d5c210cdb5dd254a03bfb4. |
+^ [[skimx://bernstein2011can|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:bernstein2011can?do=edit&vecdo=print\'><frame src=\'/wiki/clip:bernstein2011can?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{bernstein2011can,
+  author = {Bernstein, Mark},
+  booktitle = {Proceedings of the 22nd ACM conference on Hypertext and hypermedia},
+  date-added = {2011-11-28 15:51:59 +0000},
+  date-modified = {2012-04-04 19:48:06 +0000},
+  date-read = {2012-03-02 11:40:22 -0500},
+  organization = {ACM},
+  pages = {103--112},
+  read = {0},
+  title = {Can we talk about spatial hypertext},
+  url = {http://delivery.acm.org/10.1145/2000000/1995983/p103-bernstein.pdf?ip=142.150.190.39&acc=ACTIVE%20SERVICE&CFID=55514184&CFTOKEN=59751268&__acm__=1322495835_c88d70d370d5c210cdb5dd254a03bfb4},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYAAAAAAAYAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhRiZXJuc3RlaW4yMDExY2FuLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEL5dzyvkYYVBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADK+V6xAAAAAQAMANrWUgAXPTEAAZ9eAAIAM1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiZXJuc3RlaW4yMDExY2FuLnBkZgAADgAqABQAYgBlAHIAbgBzAHQAZQBpAG4AMgAwADEAMQBjAGEAbgAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAoVXNlcnMvU3RpYW4vYmliZGVzay9iZXJuc3RlaW4yMDExY2FuLnBkZgATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAiLi4vLi4vYmliZGVzay9iZXJuc3RlaW4yMDExY2FuLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIkAiYCKwI0Aj8CQwJRAlgCYQKGAosCjgKbAqAAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACsg==}
+}
+
+</hidden>
+
+{{page>notes:bernstein2011can}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:bernstein2011can}}
+
+{{page>kindle:bernstein2011can}}
+
+{{page>skimg:bernstein2011can}}

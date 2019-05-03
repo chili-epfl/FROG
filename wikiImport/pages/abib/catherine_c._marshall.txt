@@ -1,0 +1,6 @@
+h2. Catherine C. Marshall's publications
+
+| [@shipman1999formality] | Shipman, F. M., & Marshall, C. C. (1999). Formality considered harmful: Experiences, emerging themes, and directions on the use of formal representations in interactive systems. Computer Supported Cooperative Work (CSCW), 8(4), 333--352.|
+| [@bernstein1993argumentation] | Bernstein, M., Marshall, C. C., & Streitz, N. (1993). Argumentation in action. In Proceedings of the fifth ACM conference on Hypertext, HYPERTEXT '93 (274--275). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/168750.168849|
+| [@rosenberg2002chain] | Rosenberg, J., Bernstein, M., Marshall, C. C., de Bra, P., Millard, D., & Shipman, F. (2002). Chain saws for sculptural Hypertext. In Proceedings of the thirteenth ACM conference on Hypertext and hypermedia, HYPERTEXT '02 (137--137). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/513338.513341|
+| [@lunn2010past] | Lunn, D., Bernstein, M., Marshall, C. C., Matias, J. N., Nyce, J. M., & Tompa, F. (2010). Past visions of hypertext and their influence on us today. In Proceedings of the 21st ACM conference on Hypertext and hypermedia, HT '10 (315--315). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1810617.1810666|

@@ -1,0 +1,3 @@
+h2. K. Bolander's publications
+
+| sclater2004factors | Sclater, M., & Bolander, K. (2004). Factors influencing students’ orientation to collaboration in networked learning. Advances in research on networked learning. Springer.|[[skimx://sclater2004factors|PDF]]|

@@ -1,0 +1,376 @@
+h1. HCI course at Coursera
+
+General notes about [[HCI]]
+
+[[https://class.coursera.org/hci/class/index|Course at Coursera]]
+
+h1. Week 1
+h2. General about HCI
+  * consistency and feedback
+  * best interfaces become invisible to us
+  * attentional shift happens when interface becomes intuitive (blind person feeling the world at the end of her cane)
+  * people's tasks, goals and values drive development
+
+h2. Prototyping
+  * grounds communication
+  * rapidly creating an approximation of a design idea
+  * embodies design hypotheses - a reflective conversation with materials
+  * Goal of prototyping is the feedback - "a question rendered as an artefact"
+  * Role of prototype in conversation - serves as common ground
+  * Prototypes are always incomplete
+  * Sketching before you make a painting
+  * Human psychology: people are notoriously bad at estimating the space of possible outcomes, intuitions are often wrong
+  * Focus on goals of design, rather than of a particular design itself
+  * Cycle of flair and focus, hallmark of design processes Early on very broad ideas, towards end, micro-adjustments
+
+h3. Strategy to deal with things that are hard to predict
+  * "known unknowns" - wonder whether they'll be an issue
+  * "unknown unknowns" - stuff you hadn't even thought about 
+
+h3. Rights of prototype:
+  * should not be required to be complete
+  * should be easy to change
+  * gets to retire
+
+What do prototypes prototype?
+  * feel, what might it look like
+  * implementation, what might it work like
+  * role, what might the experience be like
+
+Two dimensional chart - how much you learn from a prototype, and how long it took to create it
+
+**Annealing** - hill climb, local maximum and global maximum (you can optimize a certain strategy, but maybe that strategy isn't the best overall - be able to jump)
+
+**Cost of change over time** - physical products vs web sites etc. Not just programming cost - people get used to a certain piece of software -> ideal is to make the biggest changes early (when it's cheap) and then keep refining (smaller changes) 
+
+h2. Evaluating designs
+  * design and its relationship to truth and objectivity
+  * the people designing the interface know too much about the interface (and the ideas behind it) and too little about the actual user needs and practices
+
+h3. Different kinds of empirical research
+  * usability studies, bringing people to the lab and watching them use it, informal <-> formal
+    * shortcomings: setting isn't very ecologically valid (especially for mobile interfaces that users are expected to use "on the go" etc)
+    * "please me" experimental bias, may work harder or be nicer than they would otherwise
+    * if you only try one (the current) interface, you have no comparison
+  * surveys
+    * get feedback from many people, compare different alternatives
+    * difference between what people say they are going to do, and what they actually do
+  * focus groups
+    * the group dynamics might be positive and give you more useful data, or negative - people agree too much or come up with things that aren't really what they think
+    * especially difficult for taboo topics or cultural biases
+  * feedback from experts
+    * useful to have a structured format, like rubrics
+    * for example heuristic evaluation (we'll learn) - Jacob Nielsen
+    * dogfooding ?
+    * peer critique
+  * comparative experiments
+    * see actual behavior as opposed to self report (compared to surveys)
+    * can see multiple alternatives (as opposed to usability studies)
+    * often more actionable
+    * if running it online, can't see much about the person on the other side of the screen
+  * participant observation - for realistic longitudinal behaviour
+    * observing what people actually do, in their actual work environments
+    * Sutton and Hargardon - brainstorming
+  * theories and simulations
+    * we have a theory about which factors are more important, if we can operationalize this with math, can run simulations
+    * Monte Carlo optimization
+    * been used a lot for input techniques, because people's motor performance is one of the most quantified aspects of HCI
+    * can also be used for higher level cognitive tasks (Peter Pirolli)
+
+h3. Issues to consider:
+  * reliability/precision
+  * generalizability
+  * realism
+  * comparison
+  * work involved
+
+h2. Needfinding
+  * comes from anthropology and field work, Malinowski, "deep hanging out" (Genvieve Bell)
+
+5 key questions:
+  * what do people do 
+  * what values and goals do people have
+  * how are these particular activities embedded in a larger ecology
+  * similarities and differences across people
+  * ...other types of context, like time of day
+
+//Jack Whalen - call centre (Xerox PARC) (people who knew the second most were not the people who had been in repair shop the second longest, but those sitting next to the one that had been there the longest: apprenticeship, tacit knowledge)//
+
+//Ron Yeh - PhD on software tools for field biologists//
+
+h3. Apprentice yourself
+  * set up partnership with people to be observed, be taught steps, observe practice, validate what you are observing with those observed as you go along (work arounds etc)
+  * workarounds and hacks - errors are a goldmine
+
+//Lucy Suchman - Xerox PARC, photocopier use (with John Seely Brown)//
+
+//Walmart example "Do you want the aisles to be less cluttered" - leading question, self report -> lost sales//
+
+h2. Resources:
+  * Bill Buxton - Sketching user interfaces
+  * Institute of Design at Stanford (dschoolstanfordedu)
+  * Kuniavsky, Observing the User Experience
+  * Beyer & Holtzblatt, Contextual design
+
+h2. Interviewing
+  * choosing participants
+  * representatives of target system
+  * maybe current users of similar system
+  * or non users (broaden set of users who can do a task)
+
+use open-ended questions, non-leading. Can be based on log files, recordings etc. 
+
+h3. Avoid self-report on:
+  * what users would want or do in a hypothetical scenario
+  * how often we do things (better to ask how much you exercised last week, as opposed to "each week"
+  * how much you like something on an absolute scale (what does 7 mean?)
+  * avoid binary questions
+
+h3. Longitudinal or sporadic behavior
+having participants do the capturing themselves
+  * diary studies - structured task, specific piece of information
+  * think about appropriate technology - paper for notes in class, audio recorder while driving etc
+  * scales much better than direct observation
+  * as frictionless as possible
+  * training is needed
+  * might need reminding and follow up
+
+h3. Experience sampling
+  * beep people at some regular interval, write down a key piece of information
+  * "pager studies"
+
+h3. Lead users
+  * users as sources of design ideas
+  * Eric von Hippel at MIT
+  * help lead users turn their specific individual solutions into something that can be more generalized
+  * lead users as distributed creation engine
+
+h3. Extreme users
+  * (edge cases)
+  * how do people handle thousands of messages per day
+  * interesting users, technophile or technophobe
+
+h3. Personas
+  * how do you keep insights from users in mind during the entire design process
+  * concrete, have demographic information, motivation - easier to be empathic towards a real human person than a generic one
+
+h1. Week 2
+h2. How to do quick prototyping
+
+h3. Increasingly hard to do, and higher fidelity (as fidelity increases, kinds of useful feedback changes - with digital mockups you might want more formal experimentation techniques)
+  * storyboards
+  * paper prototypes
+  * digital mockups
+  * HTML
+  * dynamic
+  * database
+
+h3. Storyboarding - all about tasks
+  * don't have to be good at drawing - "star people"
+  * should convey
+    * setting (people, environment, task)
+    * sequence (steps, task)
+    * satisfaction (motivation, filling need)
+
+Good idea to impose harsh time limit - like 10 minute for the storyboard. 
+
+h3. Paper prototyping
+  * can mix fidelities, print out of actual screenshot with annotations on top of it
+  * can copy common elements
+
+Try many different alternative prototypes, get users and other stakeholders to help design. Scaffold their efforts.
+
+h3. Wizard of Oz prototypes
+You can have high and low fidelity. Advantage of low fidelity - it's clear that you haven't put a lot of time into it, so users feel more free about critiquing it. 
+
+When preparing a Wizard of Oz scenario, keep in mind that you need to be able to implement the interaction in software at some point - limit the possible responses. Also practice with a friend before facing "real users", how to act as a wizard, and what kind of inputs you can expect. 
+
+Two people (ideally): one who is the wizard, and one who is talking to people guiding them through it.
+
+What feedback do you want from users? Think-aloud is good, but can be distracting, video prompted recall
+
+h3. Video prototype
+  * can have a range of fidelities
+  * should show the whole task, including motivation and success
+    * establishing shots and narrative help
+
+h3. How many prototypes should you build?
+  * many! people graded on quantity of vases vs quality of one vase, egg drop devices etc
+  * functional fixation (Duncker 1945)
+  * empirical: parallel prototyping (first creating three different prototypes, and then getting feedback), rather than one design, feedback, iterated new design etc - were better
+    * separates ego from feedback
+    * encourages comparison and transfer
+    * alternatives provide a vocabulary for talking about designs - especially for prospective users who don't know about the whole "design space" available
+
+h2. Key to good design
+  * what makes an interface easy, hard or "natural"
+
+h3. Making of gulfs, how easily can someone
+  * determine function of a device
+  * tell what actions are possible
+  * determine mapping from intention to physical movement
+  * perform the action
+  * tell what state the system is in / if it's in the desired state
+  * determine the mapping from system state to interpretation
+
+h3. To reduce gulfs (from Don Norman and Jakob Nielsen)
+  * visibility (perceived affordances or signifiers)
+  * feedback
+  * consistency (or standards)
+  * non-destructive operations (undo)
+  * discoverability (systematic exploration of menus etc)
+  * reliability (things work, nothing random)
+
+h3. Mental models
+  * changing temperature in freezer and refridgerator
+  * arise from experience, metaphor and analogical reasoning
+  * slips vs mistakes
+    * slip: right model, but made a mistake
+    * mistake: did what I intended, but had wrong model
+
+h1. Week 3
+
+h2. Ways of evaluating software 
+  * empirical methods, real users
+  * formal, models and formulas of how people will behave in a given situation
+  * simulation, automated tests (low-level stuff)
+  * critique, expertise and heuristic feedback
+
+h2. Peer critique
+Can get it at any point of design, but especially useful
+
+  * before user testing (don't waste users' time on small stuff)
+  * before redesigning (separate problematic part, from part you want to keep)
+  * when you know there are problems, but need evidence to convince others
+  * before release (polish rough edges)
+
+Begin with a clear goal
+
+h3. Heuristic evaluation
+Developed by Jakob Nielsen ([[http://www.useit.com/papers/heuristic/|site]])
+
+Provide a set of people with heuristic principles, which they'll use to look for problems in your design. They first do this independently, walk through a variety of tasks using your design to look for bugs. At the end, they talk with each other. Independent first, gather afterwards - true wisdom-of-crowds.
+
+h4. Ten recommended heuristics
+([[http://www.useit.com/papers/heuristic/heuristic_list.html|source]])
+
+  * Show system status
+    * for example. where the user is in time (progress bar)
+    * space (GMail storage)
+    * change (do you want to save document?)
+    * action (confirmations etc)
+    * next steps (preview?)
+    * completion
+  * Match between system and the real world (familiar metaphors and language)
+    * can also suggest to the user what the most likely action/solution is going to be (on receiving cryptic encoding message in text editor)
+  * User control and freedom
+    * being able to undo and redo
+  * Consistency and standards
+    * have an "other" option, collect responses, and create new categories based on this input
+  * Error prevention
+    * preventing data loss
+  * Recognition over recall
+    * jump straight to reasonable defaults, rather than having lots of interstitial screens
+    * previews
+  * Flexibility and efficiency of use
+  * Aesthetic and minimalist design
+  * Help users recognize, diagnose, and recover from errors
+  * Help and documentation
+
+h4. Process
+  * pre-evaluation training (might need scenarios for some systems)
+  * evaluation: step through each design several times (at least 2 times)
+    * examine details, flow, architecture
+    * consult list of usability principles (Nielsen's principles + category-specific heuristics)
+    * anything else that comes to mind
+  * severity rating (first individually, then as group)
+  * debriefing
+
+h4. Listing problems
+  * each problem listed individually
+  * possible locations
+    * single location in UI
+    * two or more locations that need to be compared
+    * something missing
+
+h4. Comparing expert testing to user testing
+  * expert testing is faster
+  * expert results come "pre-interpreted"
+  * user testing is more accurate
+
+h2. Representations
+The way in which we and the world organize and represent ideas can have a drastic impact on our cognitive abilities, for better and worse
+  * problems are easier to solve when a representation of the problem enforces the constraints and the rules of the problem (stacking bagels, leaving keys by the door)
+  * how we draw a problem has drastic influences on our ability to see a problem, alternative solutions, and coordinate with another person (picking numbers in your head to make up 15, vs picking playing cards, vs 3-in-a-row)
+  * Herb Simon: "Solving a problem simply means representing it so as to make the solution transparent"
+
+h3. When interfaces help people distribute cognition, it can...
+  * encourage experimentation
+    * experts playing tetris moved objects more than they needed to, to test out different scenarios
+  * scaffold learning and reduce errors through redundancy
+  * show (only) differences that matter
+    * Focus plus context - subway maps, center of London is expanded out because stations are densely packed
+  * convert slow calculations into fast perception
+    * Informational equivalence != computationally equivalent (ie. you can get all the info from one representation from the other, but it might take very different levels of effort to extract it)
+  * support chunking, especially by experts
+    * Experts can remember state of a chess board, but only in valid games
+  * increase efficiency
+  * facilitate collaboration
+    * Coordinate collaboration - airplane pilots, speedometers, markers on the rim to show where an change needs to take place, visible to everyone in cockpit, not just the pilot. 
+
+h3. Good representations
+  * shows all the relevant information and nothing else
+  * should enable
+    * comparison
+    * exploration
+    * problem solving
+
+h3. Resources
+  * Herb Simon: The Sciences of the Artificial (nature of mental representations)
+  * Ed Hutchins: Cognition in the Wild (foundation for distributed cognition)
+  * Don Norman: Things that make us Smart
+
+h1. Week 4
+h2. Typographic design
+Whitespace conveys grouping
+
+"Some space must be narrow so that other space may be wide"
+
+Size contrasts to indicate hierarchy
+
+Resources:
+Jennifer Tidwell: Designing Interfaces
+
+h3. Three major goals
+  * Guide: convey structure, relative importance, relationships
+  * Pace: draw people in, help orient, provide hooks to dive deep
+  * Message: express meaning and style, breathe life into the content
+
+h3. Three basic tools of visual design
+  * typography
+  * layout
+  * color
+
+h3. Typographic elements
+  * point size
+  * leading (pronounced like the element lead) - spacing between lines (from typesetting, putting thin strips of lead between lines), customary 20% of point size
+  * x-height, height of lowercase letters. Higher x-height = easier to read online. Low x-height = elegance. Low x-height usually comes with long ascenders and descenders (f, h, etc)
+  * weight (bold etc)
+  * serifs
+
+Heuristic: serif for body and sans-serif for headers (not a lot of empirical support though). Proportional faster than monospaced, and mixed case faster than all-upper case. 
+
+More information is encoded in the top-half of the letters than in the bottom.
+
+h2. Grids, grouping and alignment
+Grid design came from Bauhaus in Germany in 1920s.
+
+A set of columns, and gutters between the columns. Baselines for horizontal alignment.
+
+When creating templates, design for the longest text block
+
+Left-aligned reads faster. We automatically notice misalignments, use strategically.
+
+h3. Color
+Use sparingly. Design in greyscale first, use luminance values from greyscale when moving to color (also use other tools first, like scale and layout). Color can be symbolic and indicate to users possible actions or other semantics, for example blue text is clickable.
+

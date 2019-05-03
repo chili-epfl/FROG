@@ -1,0 +1,3 @@
+h2. Frank Manola's publications
+
+| [@manola2004primer] | Manola, F., & Miller, E. (2004). {RDF} Primer. {W3C}. |

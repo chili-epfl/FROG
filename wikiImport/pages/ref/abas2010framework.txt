@@ -1,0 +1,36 @@
+h1. A framework for higher education 2.0: 21st century education for 21st century learners
+<html><a href='http://eprints.oum.edu.my/492/1/framework_zorainiwati.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://eprints.oum.edu.my/492/1/framework_zorainiwati.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Abas, Z. W. (2010). A framework for higher education 2.0: 21st century education for 21st century learners. Retrieved from http://eprints.oum.edu.my/492/1/framework_zorainiwati.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://abas2010framework|BibDesk]]  | Abas, Z. W. (2010). A framework for higher education 2.0: 21st century education for 21st century learners. Retrieved from http://eprints.oum.edu.my/492/1/framework_zorainiwati.pdf. |
+^ [[skimx://abas2010framework|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:abas2010framework?do=edit&vecdo=print\'><frame src=\'/wiki/clip:abas2010framework?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{abas2010framework,
+  author = {Abas, Z. W.},
+  date-added = {2012-04-07 02:11:30 +0000},
+  date-modified = {2012-08-19 15:38:54 +0000},
+  date-read = {2012-04-07 15:07:27 -0400},
+  keywords = {1p2pu},
+  notes = {1},
+  oa-url = {http://eprints.oum.edu.my/492/1/framework_zorainiwati.pdf},
+  read = {1},
+  title = {A framework for higher education 2.0: 21st century education for 21st century learners},
+  url = {http://eprints.oum.edu.my/492/1/framework_zorainiwati.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVhYmFzMjAxMGZyYW1ld29yay5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZhcUy9a5rlBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1vHuAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBhYmFzMjAxMGZyYW1ld29yay5wZGYADgAsABUAYQBiAGEAcwAyADAAMQAwAGYAcgBhAG0AZQB3AG8AcgBrAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2FiYXMyMDEwZnJhbWV3b3JrLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2svYWJhczIwMTBmcmFtZXdvcmsucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:abas2010framework}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:abas2010framework}}
+
+{{page>kindle:abas2010framework}}
+
+{{page>skimg:abas2010framework}}

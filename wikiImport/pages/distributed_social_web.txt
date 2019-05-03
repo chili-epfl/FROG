@@ -1,0 +1,7 @@
+h1. The distributed social web
+
+How can we make it as easy to tag people, pictures, activity streams etc across multiple social sites as it is on Facebook, with none of the lock-in? How can P2PU interact with lot's of external Web 2.0 sites in a meaningful way (for example, showing blog comments, or pushing people's comments on P2PU back to a blog)?
+
+  * [[http://scripting.com/stories/2011/01/03/rebootingRssRevisited.html|Rebooting RSS]] series of blog entries by Dave Winer 
+  * [[http://scripting.com/stories/2011/04/23/somedayWritersWillWantOutO.html|Someday writes will want to opt out of Facebook and Twitter]] (Dave Winer)
+  * [[http://emergentbydesign.com/2011/04/11/88-projects-standards-for-data-ownership-identity-a-federated-social-web/|88 projects/standards for data ownership/federated web]] (from Paul Osman)

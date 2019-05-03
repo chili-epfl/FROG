@@ -1,0 +1,40 @@
+h1. CoScribe: Integrating Paper and Digital Documents for Collaborative Knowledge Work
+
+<ifauth !@admin>|Steimle, J., Brdiczka, O., & Muhlhauser, M. (2009). CoScribe: Integrating Paper and Digital Documents for Collaborative Knowledge Work. IEEE Transactions on Learning Technologies, 2(3), 174--188. doi: 10.1109/TLT.2009.27.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://steimle2009coscribe|BibDesk]]  | Steimle, J., Brdiczka, O., & Muhlhauser, M. (2009). CoScribe: Integrating Paper and Digital Documents for Collaborative Knowledge Work. IEEE Transactions on Learning Technologies, 2(3), 174--188. doi: 10.1109/TLT.2009.27. |
+^ [[skimx://steimle2009coscribe|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:steimle2009coscribe?do=edit&vecdo=print\'><frame src=\'/wiki/clip:steimle2009coscribe?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{steimle2009coscribe,
+  author = {Steimle, Jürgen and Brdiczka, Oliver and Muhlhauser, Max},
+  date-added = {2011-06-05 21:13:00 +0800},
+  date-modified = {2012-02-29 16:50:11 +0000},
+  date-read = {2012-02-29 11:50:11 -0500},
+  doi = {10.1109/TLT.2009.27},
+  issn = {1939-1382},
+  journal = {{IEEE} Transactions on Learning Technologies},
+  number = {3},
+  pages = {174--188},
+  read = {1},
+  shorttitle = {{CoScribe}},
+  title = {{CoScribe:} Integrating Paper and Digital Documents for Collaborative Knowledge Work},
+  url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5184801},
+  volume = {2},
+  year = {2009},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdzdGVpbWxlMjAwOWNvc2NyaWJlLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdct/y9dJi1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL14HLAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdGVpbWxlMjAwOWNvc2NyaWJlLnBkZgAOADAAFwBzAHQAZQBpAG0AbABlADIAMAAwADkAYwBvAHMAYwByAGkAYgBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL3N0ZWltbGUyMDA5Y29zY3JpYmUucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9zdGVpbWxlMjAwOWNvc2NyaWJlLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:steimle2009coscribe}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:steimle2009coscribe}}
+
+{{page>kindle:steimle2009coscribe}}
+
+{{page>skimg:steimle2009coscribe}}

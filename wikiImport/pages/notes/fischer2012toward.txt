@@ -1,0 +1,41 @@
+h1. Key ideas
+
+h2. Purpose
+  * Addresses how CSCL practices are shaped by dynamically re-configured internal collaboration scripts of the participating learners
+  * How internal collaboration scripts develop through participation in CSCL practices
+  * Prioritizes transactive over non-transactive forms of knowledge application for learning
+  * Explain how external collaboration scripts modify CSCL practices, and influence internal collaboration scripts
+  * Specify optimal scaffolding level for external collaboration scripts that allow for formulation of hypotheses about the fading of external collaboration scripts
+
+h2. Literature review
+h3. Internal/external collaboration scripts
+Internal collaboration scripts: Knowledge on how to collaborate in CSCL (or other) settings. Ref [@kollar2007internal]. 
+
+Can often be missing. Lacking or non-functional internal collaboration scripts can be compensated for by providing external collaboration scripts. See [@kollar2006collaboration], [@rummel2005instructional], [@king2007scripting] and [@weinberger2005facilitating].
+
+Empirical studies on the effects of external collaboration scripts on processes and outcomes of learning: [@rummel2005instructional], Stegmann, Weinberger, & Fischer, 2007, Hämäläinen, Oksanen & Häkkinen, 2008; 'Schellens, van Keer, De Wever & Valcke, 2007; 
+
+Descriptive analytical accounts of CSCL scripts: [@kobbe2007specifying]
+
+h2. Internal collaboration script
+A configuration of knowledge components about a collaborative practice and its parts at different levels of complexity (the components) that guide the person’s understanding of and actions in the collaboration.
+
+Configuration is built up dynamically from its constituents during a particular instance of collaboration. 
+
+h2. External collaboration script
+A configuration of representations (textual, graphical) of collaborative practice and its parts at different levels of complexity. 
+
+Presented to a group of learners by an external source (teacher, website interface) as means to guide their collaborative activities. 
+
+h2. Three questions
+  * How do internal collaboration scripts and situational characteristics interact in shaping CSCL practices (principles 1 & 2)? 
+  * How do internal collaboration scripts develop and change through participation in CSCL practices, and what is their role in the acquisition of knowledge (principles 3 - 5)? 3. 
+  * How do external collaboration scripts affect CSCL practices and individual knowledge acquisition (principles 6 & 7)?
+
+h2. Four components
+h3. Play
+h3. Scene
+h3. Role
+h3. Scriptlet
+
+h2. Seven principles

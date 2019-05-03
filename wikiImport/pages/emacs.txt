@@ -1,0 +1,113 @@
+h1. Emacs
+
+h2. .em
+acs.d
+  * [[https://github.com/bodil/emacs.d|Bodil Stokke]]
+  * [[http://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html|Sacha Chua]]
+  * [[http://milkbox.net/note/single-file-master-emacs-configuration/|Single-file with package.el]]
+
+h2. Markdown
+  * [[https://github.com/milkypostman/markdown-mode-plus|Markdown-mode plus]]
+
+h2. LaTeX
+  * [[https://github.com/milkypostman/hl-sentence|Highlight sentence]]
+
+h2. Look
+  * [[https://github.com/milkypostman/powerline|Powerline]]
+
+
+----
+- `C-h b` is great but I get a lot more mileage out of `C-h m` which will show you the keybindings for the particular modes you have enabled. It's usually a lot easier to find what you're looking for here than in the giant, complete list of keybindings. [[http://evan.tiggerpalace.com/articles/2013/04/24/emacs-a-strange-new-world-part-1-of-many/|The Hippy Hacker]]
+----
+  * [[http://www.reddit.com/tb/1dzcw8|A single file emacs config framework using package.el via reddit.com]]
+  * [[http://bzg.fr/learn-emacs-lisp-in-15-minutes.html|Learn #Emacs Lisp in 15 minutes]]
+  * [[https://vimeo.com/27197852|A short intro to Emacs+ESS on Vimeo]]
+  * [[http://www.reddit.com/tb/1m2u2x|Vim in Emacs Bootstrap via reddit.com]]
+  * [[http://www.gnu.org/software/emacs/manual/html_mono/eintr.html|Programming in Emacs Lisp]]
+  * [[https://www.gnu.org/software/emacs/manual/html_mono/calc.html|GNU Emacs Calc Manual]]
+  * [[https://github.com/xiaohanyu/oh-my-emacs|xiaohanyu/oh-my-emacs]]
+  * [[https://github.com/emacs-helm/helm|emacs-helm/helm]]
+  * [[http://orgmode.org/worg/org-tutorials/index.html|Org tutorials]]
+  * [[http://doc.norang.ca/org-mode.html|Org Mode - Organize Your Life In Plain Text!]]
+  * [[http://members.optusnet.com.au/~charles57/GTD/Natural_Project_Planning.html|Natural Project Planning with org-mode]]
+  * [[http://orgmode.org/worg/org-tutorials/org-ruby.html|org-ruby]]
+  * [[http://www.youtube.com/watch?v=lsgPNVIMkIE|▶ Emacs FAST file access with ido-mode - YouTube]]
+  * [[http://www.emacswiki.org/emacs/CuaMode|EmacsWiki: Cua Mode]]
+  * [[http://ergoemacs.org/emacs/emacs_make_modern.html|How to Set Emacs's User Interface to Modern Conventions]]
+  * [[http://ergoemacs.org/|ErgoEmacs]]
+  * [[http://ergoemacs.org/features.html|ErgoEmacs Features]]
+  * [[http://ergoemacs.org/emacs/emacs_fun.html|Fun With Emacs]]
+  * [[http://www.emacswiki.org/cgi-bin/wiki/AquamacsFAQ#toc6|EmacsWiki: Aquamacs FAQ]]
+  * [[http://kieranhealy.org/resources/emacs-starter-kit.html|Emacs Starter Kit - Kieran Healy]]
+  * [[http://kieranhealy.org/blog/archives/2013/05/28/updates-to-the-social-science-starter-kit/|Updates to the Social Science Starter Kit - Kieran Healy]]
+  * [[https://github.com/jimweirich/emacs-starter-kit/tree/master|jimweirich/emacs-starter-kit]]
+  * [[http://oscarbonilla.com/2007/12/beautiful-emacs/|Beautiful Emacs | oscarbonilla.com]]
+  * [[http://emacs-fu.blogspot.ca/2010/04/zenburn-color-theme.html|emacs-fu: the zenburn color theme]]
+  * [[http://www.cs.berkeley.edu/~prmohan/emacs/|My Emacs Setup]]
+  * [[http://www.cs.berkeley.edu/~prmohan/emacs/org.html|My Emacs - Org Setup]]
+  * [[http://ergoemacs.org/misc/list_of_emacs_starter_kits.html|List of Emacs Starter Kits]]
+  * [[http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html|Emacs Keybinding: the Power of Key Sequences]]
+  * [[http://ergoemacs.org/emacs/file_management.html|Emacs: File Management (dired tutorial)]]
+  * [[http://ergoemacs.org/emacs/emacs_recentf.html|Emacs: Open File Fast: recentf-mode]]
+
+----
+curl -L http://git.io/epre | sh [[https://github.com/bbatsov/prelude|bbatsov/prelude]]
+----
+  * [[http://orgmode.org/manual/index.html|The Org Manual]]
+  * [[http://sachachua.com/blog/2008/01/outlining-your-notes-with-org/|Outlining Your Notes with Org » sacha chua :: living an awesome lifesacha chua :: living an awesome life]]
+  * [[http://members.optusnet.com.au/~charles57/GTD/orgmode.html|Using Emacs org-mode for GTD]]
+  * [[http://orgmode.org/worg/org-tutorials/index.html#sec-2|Org tutorials]]
+  * [[http://members.optusnet.com.au/~charles57/GTD/gtd_workflow.html|How I use Emacs and Org-mode to implement GTD]]
+  * [[http://doc.norang.ca/org-mode.html|Org Mode - Organize Your Life In Plain Text!]]
+  * [[http://derekslager.com/blog/posts/2006/12/the-case-for-emacs.ashx|Org tutorials]]
+
+----
+(defun mac-open-file (filename &optional wildcards)
+
+   (interactive
+
+     (let ((last-nonmenu-event nil)) 
+
+     (find-file-read-args "Find existing file: " t))
+
+   )
+
+ ;  (find-file-existing filename wildcards)
+
+   (find-file-existing filename)
+
+ )
+
+ (global-set-key [(alt o)] 'mac-open-file) [[http://www.emacswiki.org/emacs/MacOSTweaks|EmacsWiki: Mac OSTweaks]]
+----
+  * [[http://www.emacsbites.com/|emacs bites]]
+  * [[http://www.emacswiki.org/emacs/WhyDoesElispSuck|EmacsWiki: Why Does Elisp Suck]]
+  * [[https://workflowy.com/|WorkFlowy - Organize your brain.]]
+  * [[http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/|How to Learn Emacs: A Hand-drawn One-pager for Beginners / A visual tutorial » sacha chua :: living an awesome lifesacha chua :: living an awesome life]]
+  * [[http://sachachua.com/blog/2013/09/how-to-learn-emacs-keyboard-shortcuts-a-visual-tutorial-for-newbies/|How to learn Emacs keyboard shortcuts (a visual tutorial for newbies) » sacha chua :: living an awesome lifesacha chua :: living an awesome life]]
+  * [[https://code.google.com/p/emacs-freex/wiki/Introduction|Introduction - emacs-freex - An Emacs minor mode for organizing and editing a massively-hyperlinked database of your notes and ideas - Google Project Hosting]]
+  * [[https://github.com/kjhealy/emacs-starter-kit|kjhealy/emacs-starter-kit]]
+  * [[http://tapoueh.org/blog/2011/04/15-emacs-kicker.html|Expertise PostgreSQL]]
+  * [[https://github.com/magnars/.emacs.d|magnars/.emacs.d]]
+  * [[http://emacsrocks.com/|Emacs Rocks!]]
+  * [[http://whattheemacsd.com/|What the .emacs.d!?]]
+  * [[http://emacsmovies.org/|EmacsMovies.org]]
+  * [[http://www.masteringemacs.org/|Mastering Emacs]]
+  * [[http://planet.emacsen.org/|Planet Emacsen]]
+  * [[http://whattheemacsd.com/|What the .emacs.d!?]]
+  * [[http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/|Absolute Beginner's Guide to Emacs - Jessica Hamrick]]
+  * [[https://github.com/technomancy/better-defaults|technomancy/better-defaults]]
+  * [[http://blog.senny.ch/blog/2012/09/29/gear-up-getting-started-with-emacs/|gear up - get started with Emacs - Fist of Senn]]
+  * [[http://batsov.com/articles/2011/11/30/the-ultimate-collection-of-emacs-resources/|The Ultimate Collection of Emacs Resources - (think)]]
+  * [[https://github.com/chrisdone/god-mode|chrisdone/god-mode]]
+  * [[https://github.com/kbkbkbkb1/guide-key|kbkbkbkb1/guide-key]]
+  * [[https://github.com/stephendavidmarsh/control-mode|stephendavidmarsh/control-mode]]
+  * [[http://crypt.codemancers.com/posts/2013-09-26-setting-up-emacs-as-development-environment-on-osx/|Setting up Emacs as Ruby development environment on OSX]]
+
+----
+brew install emacs --HEAD --use-git-head --cocoa --srgb [[http://struct.tumblr.com/post/46754394733/emacs-24-use-homebrew-instead-of-emacsformacosx|Emacs 24: Use Homebrew instead of EmacsForMacOSX]]
+----
+  * [[https://github.com/rdallasgray/graphene|rdallasgray/graphene]]
+
+----
+C-h b lists the key bindings applicable in current buffer [[http://stackoverflow.com/questions/207510/what-is-the-key-sequence-for-closing-the-current-buffer-in-emacs|What is the key sequence for closing the current buffer in Emacs? - Stack Overflow]]

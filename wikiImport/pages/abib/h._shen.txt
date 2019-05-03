@@ -1,0 +1,3 @@
+h2. H. Shen's publications
+
+| shen2010integrating | Shen, H. (2010). Integrating Topic-centric Thread-Based Organized Chat into Web-Based Enterprise Instant Messengers. IEEE International Conference on E-Business Engineering.|[[skimx://shen2010integrating|PDF]]|

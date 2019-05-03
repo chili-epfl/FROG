@@ -1,0 +1,7 @@
+h1. Tmux
+
+  * [[http://robots.thoughtbot.com/post/2641409235/a-tmux-crash-course|A Tmux Crash Course]]
+----
+  * [[http://www.dayid.org/os/notes/tm.html|dayid's screen and tmux cheat sheet]]
+  * [[http://tmuxp.readthedocs.org/en/latest/examples.html|Examples — tmuxp 0.1-dev documentation]]
+  * [[http://tmuxp.readthedocs.org/en/latest/about_tmux.html|The Tao of tmux — tmuxp 0.1-dev documentation]]

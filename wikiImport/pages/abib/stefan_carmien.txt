@@ -1,0 +1,3 @@
+h2. Stefan Carmien's publications
+
+| [@carmien2007interplay] | Carmien, S., Kollar, I., Fischer, G., & Fischer, F. (2007). The Interplay of Internal and External Scripts. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 303--326). Boston, {MA}: Springer {US}. |

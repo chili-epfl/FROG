@@ -1,0 +1,3 @@
+h2. Publications in European journal of psychology of education
+
+| molinari2009knowledge | Sangin, M., Dillenbourg, P., Nüssli, M.-A., & Molinari, G. (2009). Knowledge interdependence with the partner, accuracy of mutual knowledge model and computer-supported collaborative learning. European journal of psychology of education, 24(2), 129--144. Springer.|[[skimx://molinari2009knowledge|PDF]]|

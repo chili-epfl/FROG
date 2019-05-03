@@ -1,0 +1,11 @@
+h2. Publications with keyword "NEXT-TELL"
+
+| [@cierniak2010specification] | Cierniak, G., Imhof, B., & Reimann, P. (2010). Specification of Research Strategy and Methodology. NEXT-TELL. |
+| [@reimann2010specification] | Ciernak, G., Imhof, B., & Reimann, P. (2010). Specification of Research Strategy and Methodology. NEXT-TELL.|
+| [@hofmair2011methods] | Hofmair, P., Utz, W., Giorgini, F., Johnson, M., Clark, W., & Halb, W. (2011). Methods and Specifications for Activity Capturing Tools V1. NEXT-TELL.|
+| [@clark2011methods] | Clark, W., Luckin, R., & Jewitt, C. (2011). Methods and Specifications for TISL Components V1. NEXT-TELL. |
+| [@johnson2011student] | Johnson, M., Vatrapu, R., Bull, S., Teplovs, C., & Reimann, P. (2011). Student Model Tools R1. NEXT-TELL.|
+| [@bull2011methods] | Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL. |
+| [@reimann2011training] | Reimann, P., Sircar, R., Giorgini, F., Meissl-Egghart, G., Kickmeier-Rust, M., Kossowski, M., Utz, W., & Halb, W. (2011). Training Concept. NEXT-TELL.|
+| [@cierniak2011report] | Cierniak, G., Imhof, B., Clark, W., Wasson, B., Hansen, C., Hillemann, E., & Kickmeier-Rust, M. (2011). Report on Baseline Studies and Requirement Analysis. NEXT-TELL. |
+| [@mayer2011dissemination] | Mayer, H., & Reimann, P. (2011). Dissemination, Standardisation and Exploitation Activities Report and Plan 1. NEXT-TELL.|

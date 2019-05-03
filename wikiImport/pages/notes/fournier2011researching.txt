@@ -1,0 +1,72 @@
+h1. Key ideas
+//Study of PLE design, lit review of motivation and presence, some statistics from learners//
+
+h2. Literature review
+h3. VLE vs PLE
+Difference between Virtual Learning Environment and PLE - VLE is controlled by an institution.
+
+h3. Requirement of learners
+  * have to be able to negotiate the Web (not a //power-free environment//) autonomously
+  * find right information, access resources, critical assessment of credibility
+  * active in learning by producing in a variety of formats
+  * communicating and collaborating with others in new ways
+  * creativity and innovative thinking
+  * competent using ICT
+  * flexible, adaptible
+  * motivated to take on new challenges
+
+Downes (2009): these skills and competencies will develop while engaging in online communication, or via challenging feedback or recommendations through PLE system
+
+h3. Motivation
+  * Affective aspect (Picard, 2004, Kop, 2010, Zaharias & Poylymenakou, 2009; Jones & Issroff, 2004)
+
+h3. Presence 
+Dron & Anderson 2007 differentiate learning in
+  * groups (motivation/presence highest)
+  * networks (open informal network - motivation is lower)
+  * collectives (even lower motivation - connections between people in the form of tags)
+
+h4. Characteristics
+Illusion of non-mediation (ie. something that works like if it had been in real life). 
+
+Garrison, et al 2000: Deep meaningful learning from three forms of presence:
+  * cognitive presence
+    * certain level of depth in educational process
+  * social presence
+  * teacher presence (in formal environment - could be replaced by "knowledgeable others" on the web?)
+
+h3. E-learning evaluation
+Attwell, 2006 provides a variety of models
+  * comparisons with traditional learning
+  * benchmarking models
+  * product evaluations
+  * performance evaluations
+  * program and policy evaluations
+  * studies of metadata
+  * more complex all encompassing design-based research models (Bannan-Ritland 2009)
+
+h2. Study
+Surveying "super users" (people who use advanced Internet tools and technologies in an educational environment) on use of existing tools, applications, systems, preferences in learning
+
+h3. Phases
+  * exploration of literature
+  * usability testing of Plearn (feedback on mockups)
+  * comparison of learning with and without Plearn in 3 case studies
+
+h3. Outreach
+Announced on OLDaily, sent out to members of PLE mailing list etc. 204 surveys completed. Mainly highly educated, very comfortable with technology. 
+
+h2. Findings
+Mechanisms that help them understand and combine information:
+
+  * when I can discuss it with others, screencasts and slidecasts
+  * when I can organize it so it makes sense
+  * when it is posed as a challenge
+  * when I take notes and rework/process them
+  * when someone tweets a useful link and someone else tweets a link to a related story
+  * when I can combine and check information flexibly
+  * when it's blogged or op-ed'd
+  * when I can do something with it
+  * when it is written simply without a lot of extra words and jargon
+  * Cmap, visual approaches
+  * solitude and reflection

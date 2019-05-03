@@ -1,0 +1,35 @@
+h1. Computer-supported collaborative learning: An historical perspective
+
+<ifauth !@admin>|Stahl, G., Koschmann, T., & Suthers, D. D. (2006). Computer-supported collaborative learning: An historical perspective. Cambridge handbook of the learning sciences, 2006.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://stahl2006computersupported|BibDesk]]  | Stahl, G., Koschmann, T., & Suthers, D. D. (2006). Computer-supported collaborative learning: An historical perspective. Cambridge handbook of the learning sciences, 2006. |
+^ [[skimx://stahl2006computersupported|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:stahl2006computersupported?do=edit&vecdo=print\'><frame src=\'/wiki/clip:stahl2006computersupported?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{stahl2006computersupported,
+  author = {Stahl, Gerry and Koschmann, Timothy and Suthers, Daniel D.},
+  date-added = {2011-04-24 18:01:09 -0400},
+  date-modified = {2012-04-09 01:02:06 +0000},
+  journal = {Cambridge handbook of the learning sciences},
+  notes = {1},
+  read = {1},
+  shorttitle = {Computer-supported collaborative learning},
+  title = {Computer-supported collaborative learning: An historical perspective},
+  volume = {2006},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAagAAAAAAagAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUh5zdGFobDIwMDZjb21wdXRlcnN1cHBvcnRlZC5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2tSCydoV5lBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADJ2k4mAAAAAQAMANrWUgAXPTEAAZ9eAAIAPVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBzdGFobDIwMDZjb21wdXRlcnN1cHBvcnRlZC5wZGYAAA4APgAeAHMAdABhAGgAbAAyADAAMAA2AGMAbwBtAHAAdQB0AGUAcgBzAHUAcABwAG8AcgB0AGUAZAAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAyVXNlcnMvU3RpYW4vYmliZGVzay9zdGFobDIwMDZjb21wdXRlcnN1cHBvcnRlZC5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QLC4uLy4uL2JpYmRlc2svc3RhaGwyMDA2Y29tcHV0ZXJzdXBwb3J0ZWQucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAkwCTgJTAlwCZwJrAnkCgAKJArgCvQLAAs0C0gAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALk}
+}
+
+</hidden>
+
+{{page>notes:stahl2006computersupported}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:stahl2006computersupported}}
+
+{{page>kindle:stahl2006computersupported}}
+
+{{page>skimg:stahl2006computersupported}}

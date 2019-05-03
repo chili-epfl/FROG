@@ -1,0 +1,3 @@
+h2. Hedieh Najafi's publications
+
+| [@slotta2012supporting] | Slotta, J. D., & Najafi, H. (2012). Supporting Collaborative Knowledge Construction with Web 2.0 Technologies. In N. Lavigne (Ed.), Emerging Technologies for the Classroom: A Learning Sciences Perspective.|

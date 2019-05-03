@@ -1,0 +1,69 @@
+h2. Highlights (32%)
+
+This paper presents the findings of research carried out into the use of blogs and forums as communication and learning tools in Connectivism and Connective Knowledge (CCK08), a Massive Open Online Course (MOOC) that was run between September and December 2008. [[skimx://mak2010blogs#1|p. 1]]
+
+a survey and email interviews to explore a number of themes identified in the postings in the course which included: the importance of conceptual connections, personal connections, personal autonomy, media affordances and approaches to learning [[skimx://mak2010blogs#1|p. 1]]
+
+three distinct clusters of respondents, with the following preferred modes of interaction: (1) blogging, (2) using the forums, (3) using both blogging and forums [[skimx://mak2010blogs#1|p. 1]]
+
+blogging and forum use correlated with specific individual learning styles and media affordances: the use of blogs was associated with the ability to create personal space for personal learning, quiet reflection and developing personal relationships with bloggers and others. The use of forums was associated with fast paced challenging interaction, relationships based on sharing of ideas, more open discussion and more links to the discussed themes and bigger picture [[skimx://mak2010blogs#1|p. 1]]
+
+the research also identified three dimensions (home > < bazaar, long-loop> < short-loop, and engagement> <reflection) within which the new media provided different and new opportunities for participating in learning networks [[skimx://mak2010blogs#1|p. 1]]
+
+The goal of this study was to explore participants’ preference for blogs versus discussion forums in CCK08 [[skimx://mak2010blogs#1|p. 1]]
+
+Survey Monkey questionnaire and email interviews, followed by further email ‘conversations’. [[skimx://mak2010blogs#2|p. 2]]
+
+The MOOC was a twelve week credit-bearing course for 24 learners, within an open-access network, including over 2200 registered participants, of whom about 150 remained active [[skimx://mak2010blogs#2|p. 2]]
+
+The Moodle forums were swamped with messages in the early weeks, with over 1000 posts in the Introductions forum from 560 participants [[skimx://mak2010blogs#2|p. 2]]
+
+Some learners set up a SecondLife component, Facebook sites and wikis; some translated the course syllabus into different languages and others created their own mailing lists and scheduled regular online meeting times. [[skimx://mak2010blogs#2|p. 2]]
+
+We decided to explore the following questions: i) What were the reasons for choosing between blogs and forums as communication and learning tools in the CCK08 course? ii) What factors affect the choice of blogs versus forums as communication and learning tools? [[skimx://mak2010blogs#2|p. 2]]
+
+Blogs can give students a social presence (Anderson, 2005), and can be a medium for connection, self expression, self indulgence, and rich and critical distribution of information (Macduff, 2009), and for recording, revisiting and reflecting upon experiences (Xie & Sharma, 2005). Students using blogs generally work autonomously and independently (Wheeler, 2009), beyond the reach of any recognised authority, so it is debatable to what extent educational institutions can, or should attempt to ‘manage’ such learning technology. More pertinently for this research, and those bloggers who were ‘refugees from the forums’ (see below), Alm in her article on blogs as protected spaces (2009, p.20), points out that “the blogger leads the conversation ... [because] the reader is unable to change the course of the conversation ...[they] only have ‘asymmetrical communication rights’, [i.e.] the option of reacting, by choosing to comment or not to comment”. Blogging is nevertheless a social activity, but one which provides “as Gumbrecht (2004) suggests, a ‘safety net’ or a ‘buffer ... from immediate social interaction’ ” (Alm 2009, p.20). Alm continues (p.22) that the “perceived protection in blogs was contrasted with the classroom in which students encounter ‘stage fright’, the fear of looking ‘like an idiot’ ... and the ‘instant reactions of others’ ”. [[skimx://mak2010blogs#2|p. 2]]
+
+Forums have been identified as an essential ingredient of an effective online course, providing the bulk of asynchronous communication and instructional interaction. They are thought to enhance networking opportunities and increase opportunities for consultation and collaboration with other professionals (Anderson & Kanuka, 1997). Significant in the success of online forums is the role of the instructor or moderator (Berge, 2006; Anderson & Kanuka, 1997). Salmon (2004) bases online learning and interaction on discussion forums. Within this widely established approach the role of the instructor or moderator is to ‘weave’, ‘thread’ and ‘respond’... regularly, posting new material, encouraging activities and discussions [so that] students respond with enthusiasm and regular participation.’(Harasim, et al., 1995, p.43). [[skimx://mak2010blogs#2|p. 2]]
+
+participation and interaction in forums is always based on establishing and maintaining comfort (in the technologies), and a supportive ‘space’ within which people can try out and develop new skills, formulate tentative ideas, and become part of a community of inquiry. Trust is all too easily broken, and once broken, difficult to repair: what Barnett (2007) calls the ‘fragility of the will to learn’. If open networks are about building learning networks /communities, the fragility of the will to learn must inform network design and practice [[skimx://mak2010blogs#3|p. 3]]
+
+The Moodle forums and participants’ blogs were searched for statements about the use of blogs and forums for interaction and connectivity and a list of statements was compiled. Concept mapping (CMap) was used to identify statements, grouped under four themes: personal connections (with each other on a personal level), conceptual connections (with the ideas and concepts introduced in the course), technology (how participants made use of a variety of web 2.0 technologies, but principally blogs and discussion forums) and learning (the approaches that participants took to managing their learning). [[skimx://mak2010blogs#3|p. 3]]
+
+82% posted to a blog, 86% ran their own blogs, 75% posted to other people’s blogs and 84% posted to forums [[skimx://mak2010blogs#3|p. 3]]
+
+Of the 90 respondents, more than half (51) ceased participating in forums for some or all of the time, and gave the following reasons for this: 
+  *  27.4%: Structural and procedural reasons(including lack of forum facilitation, and unwieldy forums) 
+  *  64.6%: Unacceptable behaviour (including forceful intellectual debates, feeling of forced participation, and rude behaviour) 
+  *  8%: The expertise divide, between novices and participants familiar with the concepts and technologies. [[skimx://mak2010blogs#4|p. 4]]
+
+Some of the respondents shifted back and forth between blogs and forums, or shifted between using just one of these media, to using both at the same time. Within this dynamic movement, back and forward, fifty two respondents moved into blogs, and their reasons for specifically moving into blogs, rather than exploring other options, or just opting out completely, were as follows: 
+  *  15.3%: Structural reasons (including lack of forum facilitation) 
+  *  46.2%: Unacceptable behaviour (including forceful intellectual debates, rudeness and feeling of forced participation) 
+  *  36.4%: The advantages of blogs (including topics only available in blogs, own space and pace, ease of use, and attempts to find a better alternative), and 
+  *  1.9%: Course requirements. [[skimx://mak2010blogs#4|p. 4]]
+
+When survey respondents were asked why they participated in blogs, the most important reasons, in rank order, were: 1) space to develop my own ideas, 2) ownership, 3) self-expression, 4) familiarity with using blogs, 5) an attractive layout to express ideas, 6) personal learning, 7) quiet slow reflection, 8) personal relationships, 9) own pace, 10) establishing a presence, 11) thoughtful long-term relationships, and 12) personal voice [[skimx://mak2010blogs#5|p. 5]]
+
+When survey respondents were asked why they participated in forums, the most important reasons, in rank order, were: 1) familiarity with forums, 2) faster pace, 3) more lively debates, 4) tougher challenges, 5) big picture links, 6) less effort, 7) easier to find and follow, 8) more people to interact with, 9) more open discussions, 10) relationships based on ideas , 11) more accessible, 12) more sense of being in a group [[skimx://mak2010blogs#5|p. 5]]
+
+1) Home > < Bazaar The home > < bazaar is the dimension of presence, identity, autonomy and having a home base, such as is provided in either the blogs or a in a communal space such as the forums. This dimension ranges from highly ‘personal thoughts’, i.e. a set of thoughts-in-progress, to myself; to ‘emailed thoughts’ sent to known others; to ‘blogged thoughts’ available to known/unknown others, to contributing to ‘a forum’s thoughts’ where personal thoughts start to merge into the ‘thoughts of the forum’; to contributing to ‘virtual forum’s thoughts’(e.g. SecondLife), which can cycle through the whole spectrum again, from the (virtual) home to the (virtual) bazaar. Within the home > < bazaar dimension we can also trace different preferences: for ‘connecting with people’ or ‘connecting with ideas’ which, in the questionnaire results, were generally associated with blogs (people) and forums (ideas) respectively. [[skimx://mak2010blogs#6|p. 6]]
+
+2) Long-loop > < Short-loop The long-loop > < short-loop dimension concerns pace, crafted responses and type of sequence. At the one end of the spectrum are blogs, where responses are carefully thought through and often crafted until they are just right. The bloggers tend to present an internally coherent set of postings in a single place, in a sequence, and often along a single train of thought for some time, in ‘long loops’. At the other end of the spectrum are fast- moving forums, where postings and responses are rapid, often shorter, more recursive and generally multi-track, in much shorter loops. However, these affordances do not always align neatly with ‘short = forums’ and ‘long = blogs’. The latest interactive mode, Twitter, is very much a hybrid of both. It is micro-looping, by definition, but it shares characteristics with blogs (a series of sequential, individual postings). It links to a wide range of other media: to blogs, Facebook, or updates to live events like the Elluminate conferences or UStream webcasts. [[skimx://mak2010blogs#7|p. 7]]
+
+The distinction between long and short loops has little, if anything, to do with the length of individual posts; it is rather about variance in the turn-around time between posts. So although forums were described as sharp exchanges and forthright views [which] ‘were also very valuable in making one think’ (NCP), they were also said to be: ‘lots of postings very quickly ... many were very long and academically challenging reading’ (NCP), drawing attention to other variables, such as the volume and the complexity of the interaction. This distinction might also be described as busy > < quiet interaction. [[skimx://mak2010blogs#7|p. 7]]
+
+Long loops provide affordances for people who want to respond to all comments [[skimx://mak2010blogs#7|p. 7]]
+
+short loops (generally in forums) provide affordances for people who want to learn predominantly by engagement rather than by reflection, and who find it useful, interesting and stimulating to engage in forums (the bazaars) in which strictly individualised knowledge starts to morph or merge into the knowledge and ideas of the forums (or networks) themselves [[skimx://mak2010blogs#7|p. 7]]
+
+The short loops of the bazaar are inevitably multi-track, multi-person and multi–perspective, which are strong affordances for some, but disfordances for others. Some blog postings were transferred to, and then responded to, in forums, and vice versa, which introduces another mode, of ‘transferred affordances’. [[skimx://mak2010blogs#7|p. 7]]
+
+Du, H.S. & Wagner, C. (2005). Learning with weblogs: An empirical investigation. Paper presented at the 2005 Proceedings of the 38th Annual Hawaii international Conference on System Sciences. [[skimx://mak2010blogs#9|p. 9]]
+
+Macduff, I. (2009). Using Blogs as Teaching Tool in Negotiation. Negotiation Journal. 25 (1) 107-124(18). Mackness, J., Mak, S.F.J. & Williams, R. (2009). The Ideals and Reality of Participating in a MOOC. Networked Learning Conference 2010, Denmark. [[skimx://mak2010blogs#10|p. 10]]
+
+Wheeler, S. (2009). Learning Space Mashups: Combining Web 2.0 Tools to Create Collaborative and Reflective Learning Spaces. Future Internet, 1, 3-13. http://www.mdpi.com/1999-5903/1/1/3/pdf [viewed 29 Sept 2009]. [[skimx://mak2010blogs#10|p. 10]]
+
+Xie, Y. & Sharma, P. (2005). Students’ lived experience of using weblogs in a class: An exploratory study. [[skimx://mak2010blogs#10|p. 10]]
+

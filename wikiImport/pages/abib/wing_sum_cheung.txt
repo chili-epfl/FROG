@@ -1,0 +1,3 @@
+h2. Wing Sum Cheung's publications
+
+| [@hew2010higher] | Hew, K. F., & Cheung, W. S. (2010). Higher-level knowledge construction in asynchronous online discussions: an analysis of group size, duration of online discussion, and student facilitation techniques. Instructional Science, 39(3), 303--319. doi:10.1007/s11251-010-9129-2|

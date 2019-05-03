@@ -1,0 +1,3 @@
+h2. Eibe Frank's publications
+
+| [@witten2011data] | Witten, I. H., Frank, E., & Hall, M. A. (2011). Data Mining: Practical Machine Learning Tools and Techniques (629). Morgan Kaufmann.|

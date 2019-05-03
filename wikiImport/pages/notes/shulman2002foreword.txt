@@ -1,0 +1,33 @@
+h1. Key ideas
+//Shulman talks about his research on medical expertise, and how it revealed the importance of the specific, which later led to work on pedagogical content knowledge.//
+
+h2. General vs specific
+His work on medical diagnosis revealed very few general approaches, each field was very different. Later in teaching he found the same thing. 
+<blockquote>
+General methods did exist. But the same teacher who taught one subject well did not necessarily have the capacity to teach another well. Indeed, there were dramatic sub­ject-specific differences in the pedagogical substance and method</blockquote>
+
+He came up with the concept of **Pedagogical content knowledge**. Became important in K12, and eventually in higher education. 
+
+<blockquote>
+Disciplines have contrasting substance and syntax (to use Joseph Schwab's valuable distinction) - ways of organizing themselves and of defining the rules for making arguments and claims that others will warrant. They have different ways of talking about themselves and about the problems, topics, and issues that constitute their subject matters. 
+
+Since teaching and learning a subject are themselves ways of talking about and “doing” the discipline, those consistencies should follow. 
+
+More generally, if domain specificity is likely to be the hallmark of inquiry, learning, and teaching in a discipline, it also follows that we should expect the discussion and investigation of teaching and learning in that discipline itself to be domain specific</blockquote>
+
+h2. Disciplinary differences
+h3. Method
+  * approaches and techniques employed in teaching
+  * strategies and tactics employed in investigation
+
+Classically, both senses of method were the same - they converged. Your research method was how you organized your evidence into a powerful and persuasive argument, which was also your teaching method. Method described your form of argument, and it was clearly domain specific.
+
+h3. "Meta-methods"
+What methods can we use to investigate the efficacy and characters of the methods employed to teach and learn? 
+
+h3. Metaphor
+  * What are the key concepts, principles ideas that animate your work
+  * What are its problems, topics issues
+  * What is it really about
+
+Metaphor refers to those tools we employ to clarify and con­nect the substance of our ideas. Here we find, in all fields, the cen­tral roles played by that family of representations we call analo­gies, metaphors, and similes, as well as narratives and examples. The role of these devices is to connect matters we already under­ stand to others we understand less well.

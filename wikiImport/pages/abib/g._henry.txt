@@ -1,0 +1,4 @@
+h2. G. Henry's publications
+
+| [[..:ref:henry2003connexions]] | Henry, G., Baraniuk, R., & Kelty, C. (2003). The connexions project: Promoting open sharing of knowledge for education.|[[skimx://henry2003connexions|PDF]]|
+| [[..:ref:baraniuk2004peer]] | Baraniuk, R., Henry, G., & Hendricks, B. (2004). Peer to Peer Collaboration with Connexions. {EDUCAUSE} 2004 Annual Conference. Denver, Colorado.||

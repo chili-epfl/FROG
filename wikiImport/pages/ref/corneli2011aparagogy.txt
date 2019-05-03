@@ -1,0 +1,35 @@
+h1. Paragogy
+<html><a href='http://ceur-ws.org/Vol-739/paper_5.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://ceur-ws.org/Vol-739/paper_5.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Corneli, J., & Danoff, C. J. (2011). Paragogy. Proceedings of the 6th Open Knowledge Conference, Berlin, Germany. Retrieved from http://ceur-ws.org/Vol-739/paper_5.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://corneli2011aparagogy|BibDesk]]  | Corneli, J., & Danoff, C. J. (2011). Paragogy. Proceedings of the 6th Open Knowledge Conference, Berlin, Germany. Retrieved from http://ceur-ws.org/Vol-739/paper_5.pdf. |
+^ [[skimx://corneli2011aparagogy|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:corneli2011aparagogy?do=edit&vecdo=print\'><frame src=\'/wiki/clip:corneli2011aparagogy?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @inproceedings{corneli2011aparagogy,
+  author = {Corneli, Joseph and Danoff, Charles Jeffrey},
+  booktitle = {Proceedings of the 6th Open Knowledge Conference, Berlin, Germany},
+  date-added = {2012-04-10 23:33:12 +0000},
+  date-modified = {2012-11-27 19:05:31 +0000},
+  date-read = {2012-04-12 05:18:33 -0400},
+  oa-url = {http://ceur-ws.org/Vol-739/paper_5.pdf},
+  read = {1},
+  title = {Paragogy},
+  url = {http://ceur-ws.org/Vol-739/paper_5.pdf},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhjb3JuZWxpMjAxMWFwYXJhZ29neS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaE5fy9b9o1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zXjAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3JuZWxpMjAxMWFwYXJhZ29neS5wZGYAAA4AMgAYAGMAbwByAG4AZQBsAGkAMgAwADEAMQBhAHAAYQByAGEAZwBvAGcAeQAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9jb3JuZWxpMjAxMWFwYXJhZ29neS5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svY29ybmVsaTIwMTFhcGFyYWdvZ3kucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:corneli2011aparagogy}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:corneli2011aparagogy}}
+
+{{page>kindle:corneli2011aparagogy}}
+
+{{page>skimg:corneli2011aparagogy}}

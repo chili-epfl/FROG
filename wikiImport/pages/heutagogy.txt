@@ -1,0 +1,13 @@
+h1. Heutagogy
+
+  * [[http://www.zotero.org/groups/paragogy/|Zotero bibliography by Joe Corneli]]
+----
+Heutagogy by contrast - and in its loosest interpretation - might be conceived of as a form of flâneurism - the act of wandering described by Charles Baudelaire as a means to more fully experience the landscape or environment one finds oneself in. Many of us assume flâneur-like trajectories when we traverse our way across cyberspace, clicking through hyperlinks, sometimes happening by chance upon pages that interest us, and where serendipitous learning ultimately occurs. Heutagogic learning is essentially self directed and autodidactic, and at its most informal, may involve sense-making of the digital landscape by wandering seemingly aimlessly around it. But there is still a self-determined purpose underlying the actions of the learner. Scholars such as Hase and Kenyon have argued that a shift of emphasis from andragogy to self-determined learning would be beneficial because just like pedagogy, andragogy still holds connotations of teacher control (but see Donald Clark - USA - for an alternative perspective on this). [[http://steve-wheeler.blogspot.ca/2011/07/digital-age-learning.html|Digital age learning]]
+----
+Chris and I went to great pains to not use the term self-directed learning, which we think is the andragopgic perspective. Thus we define heutagogy as self-determined learning.
+
+
+Why is this important? Heutagogy is concerned with the way in which the learner's brain changes when learning occurs and that it doesn't happen when the teacher expects. Furthermore, we can never be sure of what the learner then needs once the learning has occurred. The whole 'curriculum' changes in an instant. So it is more than self-directed.
+
+
+I also (see Hase, 2009), propose a rethink of how we need to define learning. Knowledge and skills acquisition is not learning. Learning is something deeper and changes future experience in complex ways and involves capability rather then just competence. After the idea of brain plasticity it is all about connections in the brain with other learning. [[http://steve-wheeler.blogspot.ca/2011/07/digital-age-learning.html|Digital age learning]]

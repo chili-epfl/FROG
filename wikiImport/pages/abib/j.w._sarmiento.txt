@@ -1,0 +1,4 @@
+h2. J.W. Sarmiento's publications
+
+| sarmiento2007group | Sarmiento, J. W., & Stahl, G. (2007). Group creativity in virtual math teams: interactional mechanisms for referencing, remembering and bridging. Proceedings of the 6th ACM SIGCHI conference on Creativity \& cognition.||
+| sarmiento2008group | Sarmiento, J. W., & Stahl, G. (2008). Group creativity in interaction: Collaborative referencing, remembering, and bridging. International Journal of Human-Computer Interaction. Taylor \& Francis.|[[skimx://sarmiento2008group|PDF]]|

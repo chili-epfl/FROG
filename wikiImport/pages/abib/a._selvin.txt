@@ -1,0 +1,5 @@
+h2. A. Selvin's publications
+
+| conklin2001facilitated | Conklin, J., Selvin, A., Shum, S. B., & Sierhuis, M. (2001). Facilitated hypertext for collective sensemaking: 15 years on from gIBIS. Proceedings of the 12th ACM conference on Hypertext and Hypermedia.|
+| selvin2010practice | Selvin, A., Buckingham Shum, S., & Aakhus, M. (2010). The practice level in participatory design rationale: studying practitioner moves and choices. Retrieved from http://oro.open.ac.uk/20948/.|
+| selvin2008narrative | Selvin, A., & Buckingham Shum, S. (2008, April). Narrative, Sensemaking, and Improvisation in Participatory Hypermedia Construction. Retrieved from http://oro.open.ac.uk/19039/.|

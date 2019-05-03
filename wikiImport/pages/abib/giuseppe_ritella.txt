@@ -1,0 +1,3 @@
+h2. Giuseppe Ritella's publications
+
+| [@ritella2012instrumental] | Ritella, G., & Hakkarainen, K. (2012). Instrumental genesis in technology-mediated learning: From double stimulation to expansive knowledge practices. International Journal of Computer-Supported Collaborative Learning, 7(2), 239-258. doi:10.1007/s11412-012-9144-1|

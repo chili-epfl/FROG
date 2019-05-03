@@ -1,0 +1,5 @@
+h2. J. Finlay's publications
+
+| dearden2002using | Dearden, A., Finlay, J., Allgar, E., & McManus, B. (2002). Using pattern languages in participatory design. Proceedings of the Participatory Design Conference.|
+| dearden2002evaluating | Dearden, A., Finlay, J., Allgar, E., & Mcmanus, B. (2002). Evaluating pattern languages in participatory design. Proceedings of CHI 2002, Conference Extended Abstracts on Human Factors in Computer Systems. Minneapolis ACM Press.|
+| dearden2002patterns | Dearden, A., Finlay, J., Allgar, E., & Mcmanus, B. (2002). Patterns Languages in Participatory Design. Proceedings of People and Computers XVII: Memorable yet Invisible.|

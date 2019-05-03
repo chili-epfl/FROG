@@ -1,0 +1,35 @@
+h1. A model for flexibly editing CSCL scripts
+<html><a href='' onClick="trackOutboundLink(this, 'PDFs refpage', ''); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>| (2012). A model for flexibly editing CSCL scripts. International Journal of Computer-Supported Collaborative Learning, 7(4), 567–592.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://sobreira2012model|BibDesk]]  |  (2012). A model for flexibly editing CSCL scripts. International Journal of Computer-Supported Collaborative Learning, 7(4), 567–592. |
+^ [[skimx://sobreira2012model|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:sobreira2012model?do=edit&vecdo=print\'><frame src=\'/wiki/clip:sobreira2012model?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{sobreira2012model,
+  author = {Sobreira, Péricles and Tchounikine, Pierre},
+  date-added = {2014-03-20 01:16:43 +0000},
+  date-modified = {2014-03-20 01:16:43 +0000},
+  journal = {International Journal of Computer-Supported Collaborative Learning},
+  number = {4},
+  pages = {567–592},
+  publisher = {Springer},
+  title = {A model for flexibly editing CSCL scripts},
+  volume = {7},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QQS4uLy4uL0JpYmRlc2svYmFrL3NvYnJlaXJhMjAxMm1vZGVsLTIwMTQtMDMtMjEgMDU6MzE6NDMgLTA0MDAucGRm0hcLGBlXTlMuZGF0YU8RAeYAAAAAAeYAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAADq7N2R9zb2JyZWlyYTIwMTJtb2RlbC0jMTAzNDM0NTUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQNDRVz0+5twAAAAAAAAAAAAIAAwAACSAAAAAAAAAAAAAAAAAAAAADYmFrAAAQAAgAAMl5ligAAAARAAgAAM9P8fcAAAABABAOrs3ZANrWUgAXPTEAAZ9eAAIAQ1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiYWs6AHNvYnJlaXJhMjAxMm1vZGVsLSMxMDM0MzQ1NS5wZGYAAA4AYAAvAHMAbwBiAHIAZQBpAHIAYQAyADAAMQAyAG0AbwBkAGUAbAAtADIAMAAxADQALQAwADMALQAyADEAIAAwADUALwAzADEALwA0ADMAIAAtADAANAAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIAR1VzZXJzL1N0aWFuL0JpYmRlc2svYmFrL3NvYnJlaXJhMjAxMm1vZGVsLTIwMTQtMDMtMjEgMDU6MzE6NDMgLTA0MDAucGRmAAATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOANIA1wDfAskCywLQAtsC5ALyAvYC/QMGAwsDGAMbAy0DMAM1AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAzc=}
+}
+
+</hidden>
+
+{{page>notes:sobreira2012model}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:sobreira2012model}}
+
+{{page>kindle:sobreira2012model}}
+
+{{page>skimg:sobreira2012model}}

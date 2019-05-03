@@ -1,0 +1,3 @@
+h2. Publications in Web Engineering
+
+| passant2010rethinking | Passant, A., Breslin, J., & Decker, S. (2010). Rethinking microblogging: open, distributed, semantic. Web Engineering, 263--277. Springer.|[[skimx://passant2010rethinking|PDF]]|

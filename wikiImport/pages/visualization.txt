@@ -1,0 +1,34 @@
+h1. Visualization
+
+[@hoppe2002integrating]
+  * [[http://tributary.io/|Tributary]] - in-browser development studio for d3
+----
+  * [[http://thejit.org/|JavaScript InfoVis Toolkit (CTeplovs recommends)]]
+----
+My advice:  you can't use out-of-the-box visualizations to do what you want to do.  Nardi and de Sousa (separate, not co-authors) explain why this is the case (actually, they don't.... ok not making sense here.... they explain why in theory there will be problems, and when you get to vis work you wind up warping your story because you get too much baggage from either the software or the engineer
+----
+  * [[http://www.aktors.org/akt/|AKT - lots of links about mindmapping etc]]
+----
+  * [[http://bost.ocks.org/mike/d3/workshop/|D3 Workshop slides]]
+----
+  * [[https://github.com/jondot/graphene|jondot/graphene]]
+  * [[http://hiveplot.herokuapp.com/index.html|Hive Plots with Neo4j]]
+  * [[http://maxdemarzi.com/2012/03/26/visualizing-a-set-of-hiveplots-with-neo4j/|Visualizing a set of Hiveplots with Neo4j « Max De Marzi]]
+  * [[http://www.hiveplot.com/|Hive Plots - Linear Layout for Network Visualization - Visually Interpreting Network Structure and Content Made Possible]]
+  * [[http://datavisualization.ch/tools/13-javascript-libraries-for-visualizations/|16 Javascript Libraries for Visualizations on Datavisualization.ch]]
+  * [[http://sixrevisions.com/javascript/20-fresh-javascript-data-visualization-libraries/|20 Fresh JavaScript Data Visualization Libraries]]
+  * [[https://github.com/bebraw/jswiki/wiki/Visualization-libraries|Visualization libraries · bebraw/jswiki Wiki]]
+  * [[http://abeautifulwww.com/2008/09/08/20-useful-visualization-libraries/|20 Useful Visualization Libraries | A Beautiful WWW]]
+  * [[http://css.dzone.com/articles/d3js-way-way-more-just-another|D3.js Is Way More Than Just Another Visualization Framework | Web Builder Zone]]
+  * [[http://phrogz.net/JS/d3-playground/#BlankDefault|D3.js Playground]]
+  * [[https://vimeo.com/29458354|Mike Bostock - D3 - Data Visualization Meetup on Vimeo]]
+  * [[https://github.com/sones/sones|sones/sones]]
+  * [[https://vimeo.com/29458354|Mike Bostock - D3 - Data Visualization Meetup on Vimeo]]
+  * [[http://bost.ocks.org/mike/fisheye/|Fisheye Distortion]]
+  * [[http://sigmajs.org/|sigma.js | a lightweight JavaScript graph drawing library]]
+  * [[http://scottcheng.github.com/d3js-101/#/what-is-d3|D3.js 101 [http://scottcheng.github.com/]]]
+  * [[http://kpeng.github.com/d3-workshop/#1|Introduction to d3.js [http://kpeng.github.com/]]]
+  * [[http://alignedleft.com/tutorials/d3/|D3 Tutorials — Scott Murray — alignedleft [http://alignedleft.com/]]]
+  * [[http://shop.oreilly.com/product/0636920026938.do|Interactive Data Visualization for the Web - O'Reilly Media [http://shop.oreilly.com/]]]
+  * [[https://sites.google.com/site/visualspatialproject/reading-list|Reading list - KMD 1002H Pro_Seminar on Visual Thinking]]
+  * [[http://raw.densitydesign.org/|Raw]]

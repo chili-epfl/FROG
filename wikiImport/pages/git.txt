@@ -1,0 +1,10 @@
+h1. Git
+
+
+----
+  * [[http://gitready.com/|git ready » learn git one commit at a time]]
+----
+  * [[http://www.readability.com/articles/lo03uijc|The Universe of Discourse — blog.plover.com — Readability]]
+----
+  * [[http://tomayko.com/writings/the-thing-about-git|The Thing About Git]]
+  * [[http://gitolite.com/gcs/index.html|git concepts simplified]]

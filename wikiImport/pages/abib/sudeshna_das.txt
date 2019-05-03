@@ -1,0 +1,4 @@
+h2. Sudeshna Das's publications
+
+| [@ciccarese2010open] | Ciccarese, P., Ocana, M., Das, S., & Clark, T. (2010). AO: An Open Annotation Ontology for Science on the Web. Bio Ontologies 2010.|
+| [@ciccarese2011open] | Ciccarese, P., Ocana, M., Garcia Castro, L., Das, S., & Clark, T. (2011). An open annotation ontology for science on web 3.0. Journal of Biomedical Semantics, 2(Suppl 2), S4. doi:10.1186/2041-1480-2-S2-S4|

@@ -1,0 +1,3 @@
+h2. M. Reiserer's publications
+
+| weinberger2005facilitating | Weinberger, A., Reiserer, M., Ertl, B., Fischer, F., & Mandl, H. (2005). Facilitating collaborative knowledge construction in computer-mediated learning environments with cooperation scripts. Barriers and biases in computer-mediated knowledge communication. Springer.|[[skimx://weinberger2005facilitating|PDF]]|

@@ -1,0 +1,3 @@
+h2. Publications with keyword "motivation"
+
+| [@chamberlain2012motivations] | Chamberlain, J., Kruschwitz, U., & Poesio, M. (2012). Motivations for Participation in Socially Networked Collective Intelligence Systems. Arxiv preprint arXiv:1204.4071.|

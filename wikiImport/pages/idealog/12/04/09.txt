@@ -1,0 +1,92 @@
+h1. Idea log Monday April 09, 2012
+
+h2. Notes
+h3. Distributed/federated
+Implications of distributing knowledge / notes / ideas / database over many sites
+  * from Moodle/Blackboard to Web 2.0 
+  * from WikiLit/AcaWiki/Mendeley to lot's of Researchr/PhD wikis etc
+
+  * ownership / control
+    * from one central system
+    * can be controlled by individual or by corporation (YouTube, blogger.com etc)
+  * anyone can write, but someone controls who is "indexed"
+  * requirement to have open APIs, open standards
+  * if I don't like your index, I can make my own (with open APIs, permissive licenses etc)
+  * generativity / building mashups etc, because of necessity of open APIs
+
+  * Mozilla federated social web
+  * Diaspora
+  * RSS, blogs, trackbacks
+
+h3. Distributed cognition/learning
+  * in my extensive use of researchr, is there knowledge in researchr, or only in my head?
+  * does the knowledge in researchr exist independent of me, or only in conjunction with me
+  * ie. what is the value of information in researchr to others
+  * as opposed to to me
+  * because I created it
+  * function as memory triggers
+  * if you took away researchr tomorrow, what would be the value of all the work I've already put in?
+  * if you took away researchr, but gave me somebody else's notes?
+  * searching vs information processing - making clippings and dumping them in DevonThink, so that I can "find everything I know about something when I need it" - Steven Johnson (?)
+  * versus forcing yourself to continually integrate knowledge in the wiki... going higher and higher levels, chunking... 
+  * again - how much of the value is the continuous learning, and how much in the final result
+  * "knowledge system - man machine" - but not so much about machine, same thing with people using annotations, commonplace books etc before
+
+  * what do I know? what I can do - knowledge is shown through action? so by being able to solve problems, combine ideas etc, I show knowledge? 
+
+  * is this related to lurking - people who learn without producing? 1200 people in a MOOC, only 80 people write something. do they learn more than the other people? but does that mean the other people learn nothing? can I learn from coming to the MOOC later. have they sorted through their stuff, found the golden nuggets? game theory - it pays off to wait, until the best stuff rises? (of course, the 1200 might be lurking publicly, but might be taking notes, making mindmaps etc locally. egoistic not to share?) 
+
+  * relationship research, learning. literature review. 
+
+h3. Accumulative knowledge
+  * how many percentage of an academic article is "new to you"?
+  * a lot of it is literature review
+  * common ground is important for learning (as is diversity). if we don't share anything, too tiresome
+  * if we share a huge amount, communication is much quicker. don't have to start with "RSS feeds are..."
+  * how many percentage new information is average in an academic paper? new information for whom? :)
+  * (also accumulative through a researcher's career - if you've been working on the same research project for years, each new paper might only add a tiny bit...)
+  * also depends on how much you are guided by the data - is the data just an afterthought, most of it is your theoretical perspectives? does the data ever surprise you? change the way you think? 
+
+h2. Notes modified last 24 hours
+
+  * [@abedin2011online]
+  * [@alevizou2010distributed]
+  * [@alevizou2010engaging]
+  * [@bachelet2008building]
+  * [@bacsich2011learner]
+  * [@bouchard1998training]
+  * [@bouchard2001experiential]
+  * [@bouchard2003four]
+  * [@bouchard2006human]
+  * [@bouchard2008some]
+  * [@bouchard2009pedagogy]
+  * [@deliddo2010method]
+  * [@dewaard2011using]
+  * [@fournier2011researching]
+  * [@fournier2011value]
+  * [@hrimech1998spontaneous]
+  * [@kop2008connectivism]
+  * [@kop2010networked]
+  * [@mcandrew2010defining]
+  * [@schejbal2012search]
+  * [@weller2001scaling]
+
+h2. Clips added without notes last 24 hours
+
+  * [@weller2007bridging]
+
+h2. Pages modified within last 24 hours
+
+  * [[:A:Anna De Liddo]]
+  * [[:A:Katarzyna Kozinska]]
+  * [[:A:Lev Vygotsky]]
+  * [[:A:Panagiota Alevizou]]
+  * [[:A:Paul Bouchard]]
+  * [[:Edutech Wikis]]
+  * [[:Individual Academic Wikis]]
+  * [[:Learning Strategies]]
+  * [[:Presence]]
+  * [[:Ruby]]
+  * [[:Science 2.0]]
+  * [[:Start]]
+  * [[:Wikis]]

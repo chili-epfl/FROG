@@ -1,0 +1,25 @@
+h1. Dave Cormier
+{{ pages:a_dave_cormier1.png}}
+
+Works at UPEI with [[Alexander McAuley]]. Led a [[MOOC]] on [[http://edfutures.com/|EdFutures]].
+
+  * [[http://davecormier.com/edblog/|blog]]
+
+{{page>abib:Dave Cormier}}
+----
+Dave Cormier's work focuses on the concepts of community as curriculum, the placing of educational technologies in a post-digital context, and rhizomatic models of knowledge creation p. 13
+
+
+the co-founder and current manager of Edtechtalk, a community of educators that has produced more than 1000 live interactive webcasts since June 2005 p. 13
+
+
+Dave Cormier p. 14
+
+
+My research interests explore how the negotiation of knowledge among peer groups can be leveraged as a learning ecology p. 14
+
+
+I am also interested in how open networked learn- p. 14
+
+
+ing models can support long term connectivity between peers to provide an extended impact on how learning can happen for an individual [@mcauley2010mooc]

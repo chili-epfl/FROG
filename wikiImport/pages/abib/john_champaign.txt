@@ -1,0 +1,3 @@
+h2. John Champaign's publications
+
+| [@champaign2010peer-based] | Champaign, J., & Cohen, R. (2010). {Peer-Based} Intelligent Tutoring Systems: A {Corpus-Oriented} Approach. In Proceedings of Intelligent Tutoring Systems {(ITS)}.|

@@ -1,0 +1,3 @@
+h1. Data Curation
+
+  * [[http://digital-scholarship.org/rdcb/rdcb.htm|Research Data Curation Bibliography [http://digital-scholarship.org/]]]

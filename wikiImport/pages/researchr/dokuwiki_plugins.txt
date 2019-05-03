@@ -1,0 +1,24 @@
+h1. DokuWiki plugins
+(about [[start|researchr]])
+
+There is a huge selection of plugins for DokuWiki, and I've played with many of them. Here is an [[:plugins|automatic list of all the ones]] I have currently installed. Below I'll mention in a bit more detail some of the most important ones for this project.
+
+| [[http://dokuwiki.org/plugin:backlinks2|Backlinks]]  | Displays a list of pages linking to this page. I use it on all publication pages. |
+| [[http://wiki.foosel.net/snippets/dokuwiki/blockquote|Blockquote]] | Simply formats a very nice blockquote, I use it when editing, especially when publishing articles on the wiki. |
+| [[http://www.dokuwiki.org/plugin:changes|Changes]] | Lists recently changed pages. I use it with [[:dokuwiki#changes_plugin|some modifications]] on the frontpage, and in the sidebar |
+| [[http://www.dokuwiki.org/plugin:columns|Columns]] | Enables three-column layout on the frontpage |
+| [[http://wiki.splitbrain.org/plugin:emphasis|Emphasis]] | This let's me use :: and :: to mark text yellow. I use it for typed comments when importing highlights, and to mark things when typing key ideas. Wish that it would allow other markup, especially wikilinks |
+| [[http://www.dokuwiki.org/plugin:hidden|Hidden]] | I use this plugin to embed the entire BibTeX citation on publication pages |
+| [[http://www.dokuwiki.org/plugin:htag|Htag]] | This is crucial - I really dislike the multiple ==== to mark headers, and h1, h2 etc is so much easier to type, and looks much cleaner |
+| [[http://dokuwiki.org/plugin:include|Include]] | This is also key, it lets you include a wiki page in another wikipage. I use it extensively on the publication pages (see [[anatomy of a publication page]]), and on the author pages (to pull in publication lists)|
+| [[http://dokuwiki.org/plugin:orphanswanted|Orphans wanted]] | I use this on the frontpage to show me the pages I have linked to the most often, that don't yet exist (but probably should) |
+| [[http://www.dokuwiki.org/plugin:pagequery|Pagequery]] | I use this to create the nice page lists on [[:all pages]], and [[a:start|all authors]] |
+| [[http://www.dokuwiki.org/plugin:refnotes|Refnotes]] | I don't actually use this plugin right now, but it was a huge inspiration for developing my own simpler plugin]] |
+| [[http://gerardnico.com/wiki/communication_system/dokuwiki/404ManagerPlugin|404Manager]] | This let's me directly edit a page if a link goes to a page that doesn't exist. Makes page creation much faster and smoother. |
+| [[http://www.dokuwiki.org/plugin:batchedit|Batch edit]] | Let's you quickly make changes to lot's of files |
+| [[http://www.dokuwiki.org/plugin:dblclickedit|Dblclickedit]] | Supposed to make it possible to edit by double-clicking. Doesn't always work, but good idea |
+| [[http://www.dokuwiki.org/plugin:saveandedit|Save and edit]] | A small change, but important one - let's me save pages with <key>CTRL-s</key> |
+
+
+----
+http://bugs.dokuwiki.org/index.php?do=details&task_id=1277 [[http://bugs.dokuwiki.org/index.php?do=details&task_id=1277|FS#1277 : Ctrl+S should save page while editing]]

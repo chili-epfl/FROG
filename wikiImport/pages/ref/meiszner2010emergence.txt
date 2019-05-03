@@ -1,0 +1,33 @@
+h1. The Emergence of Free / Open Courses - Lessons from the Open Source Movement
+
+<ifauth !@admin>|Meiszner, A. (2010). The Emergence of Free / Open Courses - Lessons from the Open Source Movement.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://meiszner2010emergence|BibDesk]]  | Meiszner, A. (2010). The Emergence of Free / Open Courses - Lessons from the Open Source Movement. |
+^ [[skimx://meiszner2010emergence|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:meiszner2010emergence?do=edit&vecdo=print\'><frame src=\'/wiki/clip:meiszner2010emergence?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @phdthesis{meiszner2010emergence,
+  author = {Meiszner, Andreas},
+  date-added = {2011-04-30 00:26:11 -0400},
+  date-modified = {2011-06-09 18:03:08 +0800},
+  keywords = {OER/open ed},
+  read = {1},
+  school = {The Open University},
+  title = {The Emergence of Free / Open Courses - Lessons from the Open Source Movement},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZQAAAAAAZQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhltZWlzem5lcjIwMTBlbWVyZ2VuY2UucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGdLCuy9dGa1BERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL136rAAAAAQAMANrWUgAXPTEAAZ9eAAIAOFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBtZWlzem5lcjIwMTBlbWVyZ2VuY2UucGRmAA4ANAAZAG0AZQBpAHMAegBuAGUAcgAyADAAMQAwAGUAbQBlAHIAZwBlAG4AYwBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAC1Vc2Vycy9TdGlhbi9iaWJkZXNrL21laXN6bmVyMjAxMGVtZXJnZW5jZS5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECcuLi8uLi9iaWJkZXNrL21laXN6bmVyMjAxMGVtZXJnZW5jZS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACOAI6Aj8CSAJTAlcCZQJsAnUCnwKkAqcCtAK5AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAss=}
+}
+
+</hidden>
+
+{{page>notes:meiszner2010emergence}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:meiszner2010emergence}}
+
+{{page>kindle:meiszner2010emergence}}
+
+{{page>skimg:meiszner2010emergence}}

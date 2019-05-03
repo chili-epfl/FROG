@@ -1,0 +1,30 @@
+h1. Citation Management
+
+
+----
+was just riffing on my tool to someone else and I fleshed out in a bit more detail what kind of global infrastructure we need. I really get frustrated sometimes by all the OA advocates who keep pushing for gold and green OA, institutional mandates etc - I am all for that, but there is no innovation, or willingness to see that OA can be more and better than TA, not just free (just like I'd like to see open courses that are qualitatively different from closed courses, not just "free of cost")...
+
+
+anyway here is my vision on a napkin: :)
+
+I keep thinking that people pushing Open Access should think much more about the technical infrastructure, and how we can be not just "a free version of Toll Access journals" but _better_, how OA enables new things! 
+
+
+- we really need unique identifiers for articles. Trying to disambiguate citations based on text-parsing and guessing is not good enough anymore. we also need a Google Scholar which has an open unlimited API which every program could implement, and which is more accountable (the current one has amazing amounts of info but is a black box, and actively resists scraping etc) -- I want to quickly see everyone who has blogged about a certain article. I want to make citation network graphs as easy as one can make graphs of a Twitter network...
+
+
+Imagine a new service which offers citation metadata search, something like OpenLibrary, where people can contribute to improve citations, and there is an effort to disambiguate multiple versions of the same citations. WHere authors can claim their own citations and "curate" them (I'd want my articles to be cited properly). Where each article gets a unique, simple, human-readable key (what's wrong with scardamalia2006knowledge? better than 10013.4430.343.3!)...
+
+
+The service would have an open unlimited API (and a web interface) allowing you to submit a citation (in BibTeX format or in text format), and it would return the unique citekey and the full canonical citation information. It would also accept a fingerprint of a file, either based on the exact bytes in the file, or a hash of the text (which can also identify preprints etc), and do the same. 
+
+
+This unique identifier can then be easily embedded in every kind of social media - there would be plugins for WordPress, MediaWiki, Wikipedia, etc. The service would also be "pingable" by blogs, whereupon it would parse the blog entry for citekeys, and add them to an index - afterwards anyone could quickly query the service for other webpages mentioning a given publication. 
+
+
+Imagine this system with the collaboration of DOAJ - which keeps full TOCs for thousands of journals? With OJS, which fuels thousands of OA journals - all articles should use these unique citekeys (and if the article didn't have a citekey already, the journal would submit the proof-read metadata and generate one)... With the collaboration of PLoS, DSpace, Mendeley, Zotero... 
+
+
+(Imagine the functionality this could unleash? "Show me the articles most cited by all the articles cited in this article" would take a second to calculate...")
+
+ [[https://mail.google.com/mail/u/0/#search/to%3Asylvester/130bc59bdff5c55f|More about future tools - shaklev@gmail.com - Gmail]]

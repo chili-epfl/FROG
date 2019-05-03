@@ -1,0 +1,3 @@
+h2. Publications in Journal of Information Technology Education
+
+| brodahl2011collaborative | Brodahl, C., Hadjerrouit, S., & Hansen, N. K. (2011). Collaborative Writing with Web 2.0 Technologies: Education Students’ Perceptions. Journal of Information Technology Education, 10.|[[skimx://brodahl2011collaborative|PDF]]|

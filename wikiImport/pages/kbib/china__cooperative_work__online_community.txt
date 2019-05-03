@@ -1,0 +1,3 @@
+h2. Publications with keyword "China, cooperative work, online community"
+
+| kow2011forget | Kow, Y. M., & Nardi, B. (2011). Forget online communities?: revisit cooperative work!. Proceedings of the ACM 2011 conference on Computer supported cooperative work, CSCW '11. New York, NY, USA: ACM. doi: http://doi.acm.org.myaccess.library.utoronto.ca/10.1145/1958824.1958877. | [[skimx://kow2011forget|PDF]]|

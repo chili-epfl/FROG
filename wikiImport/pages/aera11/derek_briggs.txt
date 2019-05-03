@@ -1,0 +1,43 @@
+h1. Discussant modelling learning progressions
+
+  * Going from theory to item and item to theory
+    * What needs to go into an item
+    * What needs to come out?
+  * Diagnosing levels of student understanding
+  * while simultaneously validating them
+  * Evaluating "fit" - ways we thought about fit before might not apply 
+  * Characterizing growth over time
+
+====== Zhang & Lu ======
+
+(article: [[zhidong_zhang_jingyan_lu]])
+
+Task-centered approach to performance assessment (Messick)
+
+Starting from things we expect of doctors on the job (evidence), map cognitive processes, hierarchy of "explanatory" latent variables
+
+Use a BIN to make probabilist inferences
+
+Similar to evidence-centered design (Mislevey), BAS (Wilson et al), Messick: performance assessment
+
+Seems to build from literature in learning sciences - parallell traditions
+
+"Conventional assessment procedures, such as MC questions, are ineffective because they lack construct validity"
+
+"Idea Unit Analysis" seems like a fragile way to establish a confirmatory structure for cognitive model. How was the fit tested?
+
+Study design: CR item scores may be influenced by prior exposure to OMC or MTF
+
+Partial credit model, assumes continuos latent construct - learner progression models usually use discrete levels
+
+====== Rutstein & Mislevy ======
+
+Article: ([[daisy_rutstein]])
+
+Bayesian inference network reduces to latent class model. 
+
+Tatsuoka, Leighton & Gierl, Rupp & Templin
+
+Repeated measures design - we don't give kids the same test, there are linking designs to create new tests, assumes continuous latent variable
+
+Forthcoming books: //Learning Progressions in Science//, Gotwals & Alonzo

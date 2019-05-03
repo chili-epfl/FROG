@@ -1,0 +1,3 @@
+h2. Rogers Hall's publications
+
+| [@hall2005reconstructing] | Hall, R. (2005). Reconstructing the Learning Sciences. Journal of the Learning Sciences, 14(1), 139-155. doi:10.1207/s15327809jls1401_8|

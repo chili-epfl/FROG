@@ -1,0 +1,4 @@
+h2. Vanessa L. Peters's publications
+
+| hewitt2006using | Hewitt, J., Peters, V. L., & Brett, C. (2006). Using Wiki Technologies as an Adjunct to Computer Conferencing in a Graduate Teacher Education Course. TECHNOLOGY AND TEACHER EDUCATION ANNUAL.||
+| peters2010scaffolding | Peters, V. L., & Slotta, J. D. (2010). Scaffolding knowledge communities in the classroom: New opportunities in the Web 2.0 era. Designs for Learning Environments of the Future. Springer.|[[skimx://peters2010scaffolding|PDF]]|

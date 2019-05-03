@@ -1,0 +1,4 @@
+h2. N. Jackiw's publications
+
+| roschelle1999developing | Roschelle, J., DiGiano, C., Koutlis, M., Repenning, A., Phillips, J., Jackiw, N., & Suthers, D. D. (1999). Developing educational software components. Computer.||
+| roschelle2000technology | Roschelle, J., & Jackiw, N. (2000). Technology design as educational research: Interweaving imagination, inquiry, and impact. Handbook of research design in mathematics and science education. Citeseer.|[[skimx://roschelle2000technology|PDF]]|

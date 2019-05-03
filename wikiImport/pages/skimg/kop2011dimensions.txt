@@ -1,0 +1,22 @@
+h2. Images
+
+{{skim:kop2011dimensions0.png}}
+
+[[skimx://kop2011dimensions#11|p. 11]]
+----
+
+{{skim:kop2011dimensions1.png}}
+
+[[skimx://kop2011dimensions#12|p. 12]]
+----
+
+{{skim:kop2011dimensions2.png}}
+
+[[skimx://kop2011dimensions#13|p. 13]]
+----
+
+{{skim:kop2011dimensions3.png}}
+
+[[skimx://kop2011dimensions#13|p. 13]]
+----
+

@@ -1,0 +1,39 @@
+h1. Let us take a Yale open course: a Chinese view of open educational resources provided by institutions in the West
+
+<ifauth !@admin>|Xia, J. (2012). Let us take a Yale open course: a Chinese view of open educational resources provided by institutions in the West. Journal of Computer Assisted Learning, no-no. Wiley-Blackwell. doi: 10.1111/j.1365-2729.2012.00477.x.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://xia2012take|BibDesk]]  | Xia, J. (2012). Let us take a Yale open course: a Chinese view of open educational resources provided by institutions in the West. Journal of Computer Assisted Learning, no-no. Wiley-Blackwell. doi: 10.1111/j.1365-2729.2012.00477.x. |
+^ [[skimx://xia2012take|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:xia2012take?do=edit&vecdo=print\'><frame src=\'/wiki/clip:xia2012take?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{xia2012take,
+  author = {Xia, J.},
+  date-added = {2012-08-16 01:03:27 +0000},
+  date-modified = {2012-08-17 02:53:51 +0000},
+  date-read = {2012-08-16 22:53:51 -0400},
+  doi = {10.1111/j.1365-2729.2012.00477.x},
+  journal = {Journal of Computer Assisted Learning},
+  month = {apr},
+  pages = {no-no},
+  publisher = {Wiley-Blackwell},
+  read = {1},
+  title = {Let us take a Yale open course: a Chinese view of open educational resources provided by institutions in the West},
+  url = {http://dx.doi.org/10.1111/j.1365-2729.2012.00477.x},
+  year = {2012},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAWwAAAAAAWwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUg94aWEyMDEydGFrZS5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJZVFDzFG+4FBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADMUfcgAAAAAQAMANrWUgAXPTEAAZ9eAAIALlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgB4aWEyMDEydGFrZS5wZGYADgAgAA8AeABpAGEAMgAwADEAMgB0AGEAawBlAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACNVc2Vycy9TdGlhbi9iaWJkZXNrL3hpYTIwMTJ0YWtlLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QHS4uLy4uL2JpYmRlc2sveGlhMjAxMnRha2UucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAhACEgIXAiACKwIvAj0CRAJNAm0CcgJ1AoIChwAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKZ},
+  bdsk-url-1 = {http://dx.doi.org/10.1111/j.1365-2729.2012.00477.x}
+}
+
+</hidden>
+
+{{page>notes:xia2012take}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:xia2012take}}
+
+{{page>kindle:xia2012take}}
+
+{{page>skimg:xia2012take}}

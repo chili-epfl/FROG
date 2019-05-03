@@ -1,0 +1,33 @@
+h1. The effects of the classroom flip on the learning environment: a comparison of learning activity in a traditional classroom and a flip classroom that used an intelligent tutoring system
+<html><a href='http://etd.ohiolink.edu/send-pdf.cgi/Strayer%20Jeremy.pdf?osu1189523914' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://etd.ohiolink.edu/send-pdf.cgi/Strayer%20Jeremy.pdf?osu1189523914'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Strayer, J. F. (2007). The effects of the classroom flip on the learning environment: a comparison of learning activity in a traditional classroom and a flip classroom that used an intelligent tutoring system (PhD thesis).|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://strayer2007effects|BibDesk]]  | Strayer, J. F. (2007). The effects of the classroom flip on the learning environment: a comparison of learning activity in a traditional classroom and a flip classroom that used an intelligent tutoring system (PhD thesis). |
+^ [[skimx://strayer2007effects|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:strayer2007effects?do=edit&vecdo=print\'><frame src=\'/wiki/clip:strayer2007effects?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @phdthesis{strayer2007effects,
+  author = {Strayer, J. F.},
+  date-added = {2013-02-06 17:31:15 +0000},
+  date-modified = {2013-02-06 17:31:53 +0000},
+  keywords = {0flipped},
+  oa-url = {http://etd.ohiolink.edu/send-pdf.cgi/Strayer%20Jeremy.pdf?osu1189523914},
+  school = {The Ohio State University},
+  title = {The effects of the classroom flip on the learning environment: a comparison of learning activity in a traditional classroom and a flip classroom that used an intelligent tutoring system},
+  year = {2007},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QJC4uLy4uL0JpYmRlc2svc3RyYXllcjIwMDdlZmZlY3RzLnBkZtIXCxgZV05TLmRhdGFPEQGIAAAAAAGIAAIAAAdTU0RIb21lAAAAAAAAAAAAAAAAAAAAAAAAAADJeU/YSCsAAADa1lIWc3RyYXllcjIwMDdlZmZlY3RzLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADWTGIM03/YBQREYgAAAAAAACAAIAAAkgAAAAAAAAAAAAAAAAAAAAB0JpYmRlc2sAABAACAAAyXmWKAAAABEACAAAzThD0AAAAAEADADa1lIAFz0xAAGfXgACADVTU0RIb21lOlVzZXJzOgBTdGlhbjoAQmliZGVzazoAc3RyYXllcjIwMDdlZmZlY3RzLnBkZgAADgAuABYAcwB0AHIAYQB5AGUAcgAyADAAMAA3AGUAZgBmAGUAYwB0AHMALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIAKlVzZXJzL1N0aWFuL0JpYmRlc2svc3RyYXllcjIwMDdlZmZlY3RzLnBkZgATAAEvAAAVAAIADP//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOALUAugDCAk4CUAJVAmACaQJ3AnsCggKLApACnQKgArICtQK6AAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:strayer2007effects}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:strayer2007effects}}
+
+{{page>kindle:strayer2007effects}}
+
+{{page>skimg:strayer2007effects}}

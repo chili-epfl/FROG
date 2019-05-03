@@ -1,0 +1,6 @@
+h2. Janet Finlay's publications
+
+| [@dearden2002using] | Dearden, A., Finlay, J., Allgar, E., & McManus, B. (2002). Using pattern languages in participatory design. In Proceedings of the Participatory Design Conference (104--112). |
+| [@dearden2002evaluating] | Dearden, A., Finlay, J., Allgar, E., & Mcmanus, B. (2002). Evaluating pattern languages in participatory design. In Proceedings of CHI 2002, Conference Extended Abstracts on Human Factors in Computer Systems. Minneapolis ACM Press. |
+| [@dearden2002patterns] | Dearden, A., Finlay, J., Allgar, E., & Mcmanus, B. (2002). Patterns Languages in Participatory Design. In Proceedings of People and Computers XVII: Memorable yet Invisible (159--174).|
+| [@falconer2011representing] | Falconer, I., Finlay, J., & Fincher, S. (2011). Representing practice: practice models, patterns, bundles …. Learning, Media and Technology, 36(2), 101--127. doi:10.1080/17439884.2011.553620|

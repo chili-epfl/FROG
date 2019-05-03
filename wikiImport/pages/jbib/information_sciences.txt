@@ -1,0 +1,3 @@
+h2. Publications in Information Sciences
+
+| gurkan2010mediating | Gurkan, A., Iandoli, L., Klein, M., & Zollo, G. (2010). Mediating debate through on-line large-scale argumentation: Evidence from the field. Information Sciences, 180(19), 3686--3702. Elsevier.|[[skimx://gurkan2010mediating|PDF]]|

@@ -1,0 +1,3 @@
+h2. Gabriele Ciernak's publications
+
+| [@reimann2010specification] | Ciernak, G., Imhof, B., & Reimann, P. (2010). Specification of Research Strategy and Methodology. NEXT-TELL.|

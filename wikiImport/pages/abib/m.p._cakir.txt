@@ -1,0 +1,4 @@
+h2. M.P. Cakir's publications
+
+| :ref:zemel2007disembodied | Zemel, A., Shumar, W., & Cakir, M. P. (2007). The disembodied act: Copresence and indexical symmetry in computer-mediated communication. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|
+| :ref:zemel2007disembodied | Zemel, A., Shumar, W., & Cakir, M. P. (2007). The disembodied act: Copresence and indexical symmetry in computer-mediated communication. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|

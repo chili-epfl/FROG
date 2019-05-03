@@ -1,0 +1,20 @@
+h2. Images
+
+{{skim:bote2008gridcole0.png}}
+
+[[skimx://bote2008gridcole#5
+|p. 5
+]]<html><hr></html>
+
+{{skim:bote2008gridcole1.png}}
+
+[[skimx://bote2008gridcole#6
+|p. 6
+]]<html><hr></html>
+
+{{skim:bote2008gridcole2.png}}
+
+[[skimx://bote2008gridcole#8
+|p. 8
+]]<html><hr></html>
+

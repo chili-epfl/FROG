@@ -1,0 +1,6 @@
+h1. Kindle highlights
+
+This chapter considers some of the “roots” to Computer-Supported Argument Visualization (CSAV). The definitions above point to historical ancestors and conceptual foundations, and this chapter seeks to identify the most influential work to whom CSAV owes an intellectual debt. **(loc: 11-13)**
+
+CSAV is located at the intersection of an eclectic mix of disciplines. We must minimally include philosophy and rhetoric as background disciplines to argumentation 3 **(loc: 16-17)**
+

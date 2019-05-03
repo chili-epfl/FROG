@@ -1,0 +1,4 @@
+h2. Rob Procter's publications
+
+| [@buckinghamshum2006amemetic] | Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & de Roure, D. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Conference Item. |
+| [@buckinghamshum2006memetic] | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., de Roure, D., Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Conference Item. |

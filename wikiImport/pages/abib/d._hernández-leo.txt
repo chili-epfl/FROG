@@ -1,0 +1,5 @@
+h2. D. Hernández-Leo's publications
+
+| hernandez2006collage | Hernández-Leo, D., Villasclaras-Fernández, E. D., Asensio-Pérez, J. I., Dimitriadis, Y., Ruiz-Requies, I., Rubia-Avi, B., & Jorrín-Abellán, I. (2006). COLLAGE: A collaborative Learning Design editor based on patterns. JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY. Citeseer.|[[skimx://hernandez2006collage|PDF]]|
+| dimitriadis2007socially | Dimitriadis, Y., Asensio-Pérez, J. I., Hernández-Leo, D., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|[[skimx://dimitriadis2007socially|PDF]]|
+| delafuente2010system | Fuente-Valentín, L. de la, Pérez-Sanagustín, M., Santos, P., Hernández-Leo, D., Pardo, A., Kloos, C. D., & Blat, J. (2010). System orchestration support for a flow of blended collaborative activities. 2010 International Conference on Intelligent Networking and Collaborative Systems.||

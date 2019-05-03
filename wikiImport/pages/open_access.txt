@@ -1,0 +1,27 @@
+h1. Open Access
+
+from Peter Suber's newsletter
+
+==========
+Peter Suber, SPARC Open Access Newsletter, 4/2/11 (earlham.edu)
+- Highlight Loc. 412-15  | Added on Wednesday, April 06, 2011, 02:50 PM
+
+Some grad students at the University of North Carolina are protesting the school's OA mandate for dissertations. http://www.dailytarheel.com/index.php/article/2011/03/unc_grads_irked_by_thesis_policy * A
+==========
+Peter Suber, SPARC Open Access Newsletter, 4/2/11 (earlham.edu)
+- Highlight Loc. 540-42  | Added on Wednesday, April 06, 2011, 02:52 PM
+
+* Harvard's institutional repository launched a statistics package on the data it provides about authors and deposits, and made and a video showing how to retrieve the data. http://osc.hul.harvard.edu/dash/mydash/cast
+==========
+Peter Suber, SPARC Open Access Newsletter, 4/2/11 (earlham.edu)
+- Highlight Loc. 579-83  | Added on Wednesday, April 06, 2011, 02:53 PM
+
+* Mendeley released a statement on the openness of its data in response to a question from Peter Murray-Rust.  "[Y]es, you could download and mash up our data set in any way you see fit.  It is currently covered by a CC-BY license....[C]urrently there is no bulk data dump option available to all. That option is available to academic researchers who want to work closely with us. The current process of using API methods is the more appropriate tool for developers...." http://blogs.ch.cam.ac.uk/pmr/2011/03/10/mendeley-data-is-open/
+==========
+Peter Suber, SPARC Open Access Newsletter, 4/2/11 (earlham.edu)
+- Highlight Loc. 848-50  | Added on Wednesday, April 06, 2011, 02:58 PM
+
+* MIT's OA mandated turned two years old.  "In the two years since the creation of the MIT Faculty Open Access Policy, over 2,800 articles have been deposited in MIT's research repository, DSpace@MIT, in the Open Access Articles Collection...." http://news-libraries.mit.edu/blog/faculty-access-policy-2/4919/
+
+----
+  * [[http://ropensci.org/|rOpenSci - open source tools for open science [http://ropensci.org/]]]

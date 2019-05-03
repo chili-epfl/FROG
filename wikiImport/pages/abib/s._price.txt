@@ -1,0 +1,3 @@
+h2. S. Price's publications
+
+| [[..:ref:pontual2010interfering]] | Pontual Falcão, T., & Price, S. (2010). Interfering and resolving: How tabletop interaction facilitates co-construction of argumentative knowledge. International Journal of Computer-Supported Collaborative Learning. Springer.||

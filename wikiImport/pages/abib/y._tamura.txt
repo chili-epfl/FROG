@@ -1,0 +1,3 @@
+h2. Y. Tamura's publications
+
+| maejima2008ellipsis | Maejima, M., & Tamura, Y. (2008). Ellipsis resolution with use of case analysis for CSCL discussion search. Proc. E-Learn 2008.|[[skimx://maejima2008ellipsis|PDF]]|

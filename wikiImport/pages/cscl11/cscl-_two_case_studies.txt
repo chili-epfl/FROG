@@ -1,0 +1,95 @@
+h1. CSCL- Two case studies
+
+An alternative to the view of common ground based on convergence of mental models
+
+h2. Seeing what we mean, co-experiencing a shared virtual world
+
+  * Western metaphor of "seeing as knowing in a deep way" (analogy of the cave)
+  * small infant and mother, pointing, looking at something together
+  * case study, 3 students establish and maintain intersubjective understanding of a math problem, which they solve as a group
+
+h3. Problem of intersubjectivity and common ground
+  * intersubjectivity - how a group of people understand the same thing
+  * precondition of collaborative learning is that participants understand each other enough to do their work
+  * includes tacit background knowledge and explicit shared understanding of the current topic
+  * in cognitive science, grounding of shared understanding is treated as the explicit comparisons of mental models or internal opinions, but we think it is the result of interactional work in which a shared world is created and various methods are used to ensure a sharing of this world
+
+h3. Physically embodied being-in-the-world
+  * we are all in a world
+  * we learn about and experience the many dimensions of this world together, as mature social beings
+  * the "problem" of establishing inter-subjectivity is a pseudo-problem in most cases
+  * human existence is fundamentally intersubjective from the very beginning
+  * a problem that arose in philosophy, because philosophers thought about things the wrong way
+
+h3. Intersubjectivity in virtual world
+  * you are not really embodied with other people
+  * all you see is the computer screen
+
+h4. Example of VMT
+  * list of people - presence
+  * chat: every posting starts with name of person
+  * you get a sense of who individual people are, and how they view what is going on in the environment
+
+h3. Practical issues of intersubjectivity online
+  * how do people who met online create a shared world in which they can understand things the same?
+  * how do their online actions (chat and drawing) build a joint problem space of actors, places, times and social relationships
+  * how do they raise issues of understanding, repair misunderstandings, share personal perspectives
+  * "joint problem-space" ([[:a:Jeremy Roschelle]])
+
+h3. Research
+  * choose small chat transcript, analyze it collaboratively as a team, line by line
+
+h4. Analysis
+  * someone invents a new term, how does the group get to understand this term, and use it as a common referent? (hexagonal array)
+  * how do students use questions to establish intersubjectivity? (Nan Zhou looked at this)
+  * students taking turns in making knowledge advances - not one person solving and explaining to others
+  * moving back and forth between different representations (graphical, algebraic etc)
+
+h3. Group cognition in math
+  * open shared worl with external representation - joint problem space visually shared
+  * orient everyone to specific object for mutual discussion
+  * make a particular pattern visually relevant
+  * discuss pattern in words
+  * signify pattern in mathematical symbols and manipulate them
+  * each participant understands the resources, methods and steps well enough to use them individually in the future
+  * features and affordances of CSCL media and environment used to support intersubjectivity and group cognition:
+    * persistent text chat
+    * shared whiteboard
+    * line color & thickness
+    * pointing tool
+
+h3. 3 units of analysis
+  * individual
+  * group
+  * classroom: group posts results to wiki, shared with other groups - interaction between small groups
+
+h3. Questions
+  * from book: all individuals try to solve a problem, nobody are able to, then go into team, are able to
+
+h2. How does group cognition take place and how can it be analyzed in a paradigmatic CSCL setting
+  * hierarchy of level of temporal structure for online collaboration
+  * sequential structure of collaborative math discourse
+  * VMT case study
+  * 10 discourse moves in detail
+  * group cognition in math
+
+h3. Hierarchy of structural layers
+  * conversational topic (longer sequence)
+  * discourse move (sequentical accomplishment built on elementary interchange)
+  * adjacency pair (base interaction involving two or three utterances, which drives a discourse move)
+  * textual utterance (a text chat posting by an individual participant, which may contribute to an adjacency pair)
+  * indexical reference (an element of a textual utterance that points to a resource in the context)
+
+h3. Longer sequences in CSCL
+  * conversation analysis (Sacks, Schegloff), discourse analysis (Gee)
+  * all verbal communication involves adjacency pairs -- how do small groups create knowledge together through "longer sequences"
+  * conversation analysis focses on how people construct their interactions with turn taking and adjacency-pair
+  * usually analyzes American adults in informal settings
+  * needs to be adapted to online text chat
+
+h2. Questions
+  * Vygotsky said "people can solve problems in groups long before they can solve problems individually"
+  * Someone should develop ways of testing groups of students
+  * **How do you measure quality of collaboration, and avoid one person dominating the group?**
+  * Coding based on different theories (I don't do that). Many people assign roles to avoid someone dominating. An adult in the chat room could be a facilitator. We had people in the chat, who were mainly answering questions about the technology. Intelligent agents. Visualize collaboration statistics to make students "self-police".
+  * Stahl feels like humans are good at group processes, so just lets them "do their own thing". Works out over a period of time.

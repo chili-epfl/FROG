@@ -1,0 +1,3 @@
+h2. Computer Sciences's publications
+
+| [@sciences2001learning] | Sciences, C. (2001). {Learning by Constructing Collaborative Representations : An Empirical Comparison of Three Alternatives}, (1993), 577--584.|

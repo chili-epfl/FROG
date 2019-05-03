@@ -1,0 +1,22 @@
+h2. Images
+
+{{skim:buckinghamshum2008cohere0.png}}
+
+[[skimx://buckinghamshum2008cohere#7|p. 7]]
+----
+
+{{skim:buckinghamshum2008cohere1.png}}
+
+[[skimx://buckinghamshum2008cohere#9|p. 9]]
+----
+
+{{skim:buckinghamshum2008cohere2.png}}
+
+[[skimx://buckinghamshum2008cohere#11|p. 11]]
+----
+
+{{skim:buckinghamshum2008cohere3.png}}
+
+[[skimx://buckinghamshum2008cohere#11|p. 11]]
+----
+

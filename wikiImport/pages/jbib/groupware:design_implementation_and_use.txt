@@ -1,0 +1,3 @@
+h2. Publications in Groupware: Design, Implementation, and Use
+
+| tchounikine2007directions | Tchounikine, P. (2007). Directions to Acknowledge Learners’ Self-organization in CSCL Macro-scripts. Groupware: Design, Implementation, and Use, 247--254. Springer.|[[skimx://tchounikine2007directions|PDF]]|

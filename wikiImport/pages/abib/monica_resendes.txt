@@ -1,0 +1,4 @@
+h2. Monica Resendes's publications
+
+| [@resendes2011comprehensive] | Resendes, M. (2011). Comprehensive Exam.|
+| [@chuy2011generic] | Chuy, M., Chen, B., Resendes, M., van Aalst, J., Chan, C., Scardamalia, M., & Bereiter, C. (2011). Generic Improvements in Communication Technology to Enhance Socio-cognitive Gains. In CSCL 2011.|

@@ -1,0 +1,31 @@
+h1. Situating the scholarship of teaching and learning: A cross-disciplinary conversation
+
+<ifauth !@admin>|Huber, M. T., & Morreale, S. P. (2008). Situating the scholarship of teaching and learning: A cross-disciplinary conversation.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://huber2008situating|BibDesk]]  | Huber, M. T., & Morreale, S. P. (2008). Situating the scholarship of teaching and learning: A cross-disciplinary conversation. |
+^ [[skimx://huber2008situating|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:huber2008situating?do=edit&vecdo=print\'><frame src=\'/wiki/clip:huber2008situating?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{huber2008situating,
+  author = {Huber, M. T. and Morreale, S. P.},
+  date-added = {2013-01-29 20:48:45 +0000},
+  date-modified = {2013-01-29 20:51:18 +0000},
+  keywords = {sotl},
+  title = {Situating the scholarship of teaching and learning: A cross-disciplinary conversation},
+  year = {2008},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYgAAAAAAYgAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhZodWJlcjIwMDhzaXR1YXRpbmcucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL3RsxzS2galBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADNLea6AAAAAQAMANrWUgAXPTEAAZ9eAAIANVNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBodWJlcjIwMDhzaXR1YXRpbmcucGRmAAAOAC4AFgBoAHUAYgBlAHIAMgAwADAAOABzAGkAdAB1AGEAdABpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAqVXNlcnMvU3RpYW4vYmliZGVzay9odWJlcjIwMDhzaXR1YXRpbmcucGRmABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECQuLi8uLi9iaWJkZXNrL2h1YmVyMjAwOHNpdHVhdGluZy5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACLAIuAjMCPAJHAksCWQJgAmkCkAKVApgCpQKqAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAArw=}
+}
+
+</hidden>
+
+{{page>notes:huber2008situating}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:huber2008situating}}
+
+{{page>kindle:huber2008situating}}
+
+{{page>skimg:huber2008situating}}

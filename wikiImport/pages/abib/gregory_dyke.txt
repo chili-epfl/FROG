@@ -1,0 +1,4 @@
+h2. Gregory Dyke's publications
+
+| [@dyke2009model] | Dyke, G. (2009). A model for managing and capitalising on the analyses of traces of activity in collaborative interaction (PhD thesis).|
+| [@dyke2011technological] | Dyke, G., Jeong, H., Medina, R., Suthers, D. D., van Aalst, J., Chen, W., & Looi, C.-K. (2011). Technological affordances for productive multivocality in analysis. In CSCL.|

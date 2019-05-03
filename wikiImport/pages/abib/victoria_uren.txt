@@ -1,0 +1,4 @@
+h2. Victoria Uren's publications
+
+| [@buckinghamshum2007modeling] | Buckingham Shum, S., Uren, V., Li, G., Sereno, B., & Mancini, C. (2007). Modeling naturalistic argumentation in research literatures: Representation and interaction design issues. International Journal of Intelligent Systems, 22(1), 17--47. doi:10.1002/int.20188|
+| [@uren2006sensemaking] | Uren, V., Buckingham Shum, S., Bachler, M., & Li, G. (2006). Sensemaking tools for understanding research literatures: Design, implementation and user evaluation. International Journal of Human-Computer Studies, 64(5), 420--445.|

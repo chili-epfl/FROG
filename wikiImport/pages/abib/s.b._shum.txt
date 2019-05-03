@@ -1,0 +1,4 @@
+h2. S.B. Shum's publications
+
+| okada2006knowledge | Okada, A., & Shum, S. B. (2006). Knowledge mapping with Compendium in academic research and online education. 22nd ICDE World Conference.|
+| conklin2001facilitated | Conklin, J., Selvin, A., Shum, S. B., & Sierhuis, M. (2001). Facilitated hypertext for collective sensemaking: 15 years on from gIBIS. Proceedings of the 12th ACM conference on Hypertext and Hypermedia.|

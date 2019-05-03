@@ -1,0 +1,15 @@
+h1. Key ideas
+//Overlap with [@weller2011pedagogy], but very interesting analogy about topography of formality - formal and informal learning//
+
+h2. Topography of formality
+//Formalisation of learning as topography - currently a flat plain with a few high peaks, skyscrapers in the desert, representing courses. Most of life spent on the low plain, doing informal learning, huge climb if you want to get something formalized.//
+
+//This topology might even out, many more small peaks - opportunities to formalize something. Gather evidence of learning on daily basis. Actually more similar to an academic's life//
+
+Just as we think of learning being bundled into a convenient course package, so we think of the formalisation of learning being grouped into large chunks. Informal learning is difficult to recognise and accredit, and is thus often overlooked in favour of formal education. There is an intrinsic paradox with informal learning – in order to reward and recognise it, then it needs to be formalised in some manner. This can be through an accredited programme, the use of portfolios to demonstrate competency, or diagnostic tests.
+
+If we were to consider the formalisation of learning as a topography then currently it is a flat plain with a few high peaks, rather like skyscrapers in a desert, representing courses. The learner traverses this topology over their lifetime, most of it spent on the flat plain, with no easy access to formal recognition, and is then requested to climb large peaks of formality, such as a postgraduate course. This bears little resemblance to how they actually learn, which will have some peaks, but will be more evenly distributed.
+
+In the online world however, this topology could be subject to considerable change. The peaks become shallower, but more frequent, so it is more akin to an archipelago. In this model, the digitisation of content and interaction mentioned in the previous section allows users to gather evidence of informal learning on a daily basis. They may then choose to bundle this into a formally recognised event, for example by having their portfolio assessed, or engaging in a ‘micro-course’ which demonstrates their ability in a given area, or by creating a meta-document of their own, for example a reflective blog post that draws on the different pieces of evidence.
+
+Ironically this is actually how educators conduct their professional lives. An educator may engage in a research project and they will formalise this learning through conference presentations or journal articles. They will bundle together recent experience into published text books, or project reports. In this respect the academic profession has a number of recognised means of formalising learning. Many other professions and individuals do not have such readily available and acknowledged means of unifying recent learning and experience.

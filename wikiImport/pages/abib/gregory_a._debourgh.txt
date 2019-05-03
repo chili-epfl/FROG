@@ -1,0 +1,3 @@
+h2. Gregory A. DeBourgh's publications
+
+| [@debourgh2008classroom] | DeBourgh, G. A. (2008). Use of classroom “clickers” to promote acquisition of advanced reasoning skills. Nurse Education in Practice, 8(2), 76-87. doi:10.1016/j.nepr.2007.02.002|

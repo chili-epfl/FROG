@@ -1,0 +1,5 @@
+h2. Cormac Lawler's publications
+
+| [@lawler2011edit] | Lawler, C. (2011). Edit this space: participation and expansive learning in developing Wikiversity (PhD thesis).|
+| [@lawler2007learning] | Lawler, C. (2007). Learning, and learning about learning in Wikiversity. In Proceedings of Wikimania 2007. Taipei, Taiwan: Wikimedia. |
+| [@lawler2008action] | Lawler, C. (2008). Action research as a congruent methodology for understanding wikis: the case of Wikiversity. Journal of Interactive Media in Education, 6, 1--11.|

@@ -1,0 +1,3 @@
+h2. Jean-Charles Marty's publications
+
+| marty2011observation | Marty{Jean-Charles}, & Carron, T. (2011). Observation of Collaborative Activities in a {Game-Based} Learning Platform. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2011.1.|[[skimx://marty2011observation|PDF]]|

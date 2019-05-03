@@ -1,0 +1,4 @@
+h2. N. Dwyer's publications
+
+| schlager2009analyzing | Schlager, M. S., Farooq, U., Fusco, J., Schank, P., & Dwyer, N. (2009). Analyzing Online Teacher Networks. Journal of Teacher Education. SAGE Publications.|
+| dwyer2007incorporating | Dwyer, N. (2007). Incorporating indexicality and contingency into the design of representations for computer-mediated collaboration.|

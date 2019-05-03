@@ -1,0 +1,5 @@
+h2. Heiko Haller's publications
+
+| [@haller2010quikey] | Haller, H. (2010). QuiKey - an Efficient Semantic Command Line. In S. Pinto & P. Cimiano (Eds.), Knowledge Engineering and Knowledge Management by the Masses -- 17th International Conference, EKAW 2010, Knowledge Acquisition, Modeling and Management (EKAW). Inproceedings, Springer.|
+| [@haller2010knitting] | Haller, H. (2010). Knitting the kNet -- Towards a Global Net of Knowledge. Open Journal of Knowledge Management, 1(1). |
+| [@haller2011user] | Haller, H. (2011). User Interfaces for Personal Knowledge Management with Semantic Technologies (PhD thesis).|

@@ -1,0 +1,3 @@
+h2. F. Tewissen's publications
+
+| hoppe2000distributed | Hoppe, H. U., Gaßner, K., Mühlenbrock, M., & Tewissen, F. (2000). Distributed visual language environments for cooperation and learning: Applications and intelligent support. Group Decision and Negotiation. Springer.|[[skimx://hoppe2000distributed|PDF]]|

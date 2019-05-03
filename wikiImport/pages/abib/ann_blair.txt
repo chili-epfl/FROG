@@ -1,0 +1,4 @@
+h2. Ann Blair's publications
+
+| [@blair2004note] | Blair, A. (2004). Note taking as an art of transmission. Critical inquiry, 85--107.|
+| [@blair2010much] | Blair, A. (2010). Too Much to Know: Managing Scholarly Information before the Modern Age. Yale University Press.|

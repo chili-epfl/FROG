@@ -1,0 +1,7 @@
+h1. Useful software
+
+  * [[http://wafflesoftware.net/thisservice/|ThisService]] - turn Ruby, Perl etc scripts into services that can act on selected text
+    * wikicopy alt+cmd v (select text, have URL on clipboard, creates wiki link)
+    * lucky link ctrl+alt+cmd l (do search on selected text, create wiki link w/ Google Lucky)
+  * [[http://dokuwiki.org/|DokuWiki]]
+    * [[http://eye48.com/dokuwiki/doku.php?id=en:dokuwiki:sioc-plugin:techreport|semantic DokuWiki?]]

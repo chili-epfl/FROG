@@ -1,0 +1,5 @@
+h2. Paris Avgeriou's publications
+
+| [@avgeriou2003towards] | Avgeriou, P., Papasalouros, A., Retalis, S., & Skordalakis, M. (2003). Towards a pattern language for learning management systems. Educational Technology \& Society, 6(2), 11--24. |
+| [@avgeriou2004towards] | Avgeriou, P., Vogiatzis, D., Tzanavari, A., & Retalis, S. (2004). Towards a pattern language for adaptive web-based educational systems. Advanced Technology for Learning, 1(4). |
+| [@goodyear2004towards] | Goodyear, P., Avgeriou, P., Baggetun, R., Bartoluzzi, S., Retalis, S., Ronteltap, F., & Rusman, E. (2004). Towards a pattern language for networked learning. In Proceedings of Networked Learning (449--455).|

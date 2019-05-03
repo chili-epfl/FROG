@@ -1,0 +1,87 @@
+h1. Cognitive tools
+based on [[edutech>cognitive tool]] in edutech
+
+
+[[a:David Jonassen]]
+Gibson 1979, technology from ecological perspective
+
+facilitate cognitive processing
+learners need in order to serve as cognitive apprenticeships
+scaffold process of articulation and reflection - foundations of knowledge construction
+
+empower learners to assume ownership of knowledge
+
+<blockquote David Jonassen 1994>computer-based tools and learning environments that have been adapted or developed to function as intellectual partners with the learner in order to engage and facilitate critical thinking and higher-order learning</blockquote>
+
+Pea (1985) cognitive technology as "… any medium that helps transcend the limitations of the mind, such as memory, in activities of thinking, learning, and problem solving"
+
+Kim and Reeves 2007: designed to bring their expertise to the performance as part of the joint learning system.
+
+Can support learners by (Lajoie 1993, Shim and Lee 2006):
+  * support cognitive processes, memory and metacognitive processes
+  * share cognitive load, support for lower level cognitive skills so resources are left over for higher order thinking skills (::what are lower level and higher order?::)
+  * allow learners to engage in cognitive activities that would be out of reach otherwise (ZPD?)
+  * allow learners to generate and test hypotheses in context of problem solving (CSAV?)
+
+Reeves 1999: cognitive psychology. Computer-based cognitive tools as intellectual partners, enable and facilitate critical thinking. Learners function as designers, using software programs as tools to 
+  * analyze the world
+  * access and interpret information
+  * organize their personal knowledge
+  * represent what they know to others
+
+Basic principles guiding use of interactive software as cognitive tools for teaching and learning:
+  * greatest effect when applied within constructivist learning environments
+  * empower learners to design their own representations of knowledge, rather than absorbing representations preconceived by others
+  * can support deep reflective thinking necessary for meaningful learning
+  * 2 important cognitive effects: those with the technology in terms of intellectual partnershps, and those of the technology in terms of cognitive residue that remains after use of tool ::?::
+  * source of tasks should be learners, guided by teachers and resources
+  * ideally, tasks situated in realistic contexts, with results that are personally meaningful (::why focus on tasks, not ideas?::)
+
+h2. Problems
+Assessment of what is learned often done in a different context, but tools should be thought of as **professional tools**, related to practice
+
+Some tools, like simulations, result in learner only learning tool and not something transferable
+
+Kim and Reeves: learner, tool and activity form a joint learning system. Cognitive activity usually reflects some aspects of all three cognitive distributions:
+  * social
+  * symbolic
+  * physical
+For example, brainstorming for ideas as a team exemplifies social distribution of cognition among people. Drawing diagram on board to visualize ideas reflect their dependence on symbolic and physical distribution. 
+
+Media debate - should symbol systems be conceptualized as part of distributed cognition? (Clark vs Kozma)
+
+Rabardel - instrumentation: an artifact only becomes an instrument through the subject's activity. Instrument is mediator between subject and object, but is also made up of subject and artifact. (Beguin and Rabardel 2000)
+
+Kim and Reeves: Theoretical assumptions about cognitive tools from distributed cognition view:
+  * distributed between learner and cognitive tool
+  * distribution first determined by intentions of tool designers, ie affordances
+  * then by how learners decide to use tool in specific situations
+
+Jonassen and Carr:
+  * semantic organization tools (databases, concept mapping tools)
+  * dynamic modeling tools (spreadsheeets, microworlds)
+  * visualization tools
+  * knowledge construction tools (multimedia authoring tool)
+  * socially shared cognitive tools (computer supported collaborative argumentation)
+
+Kim and Reeves: new forms of tools:
+  * modelers, that model the student
+  * supporting new forms of knowledge representations (DNA)
+
+Robertson, Elliot, Robinson - 5 roles of tools
+  * information seeking
+  * information presentation
+  * knowledge organization (relationships, restructuring, manipulating information)
+  * knowledge integration (connect new information to prior knowledge)
+
+Patel and Groen: tool specificity, level of expertise
+  * general, domain independent expertise (such as creativity)
+  * domain-dependent (precise knowledge and processing strategies of particular domain)
+  * generic domain-dependent (applicable to various sub-domains)
+
+specificity - structure of expertise
+  * knowledge, facts or abstract rules
+  * functions, rule execution, decision support
+  * representations, concrete (isomorphic), abstract (symbolic)
+
+[[edutech>cognitive tool#References|many references in edutech]] 

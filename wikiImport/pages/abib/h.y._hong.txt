@@ -1,0 +1,3 @@
+h2. H.Y. Hong's publications
+
+| [[..:ref:gan2010early]] | Gan, Y., Scardamalia, M., Hong, H. Y., & Zhang, J. (2010). Early Development of Graphical Literacy through Knowledge Building. Canadian Journal of Learning and Technology/La revue canadienne de lapprentissage et de la technologie.|[[skimx://gan2010early|PDF]]|

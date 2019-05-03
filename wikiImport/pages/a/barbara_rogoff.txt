@@ -1,0 +1,14 @@
+h1. Barbara Rogoff
+{{ pages:a_barbara_rogoff1.png}}
+UC Santa Clara Psychology professor
+
+h2. Research
+  * groups
+  * sociocultural theory
+
+h2. Links
+  * [[wikipedia>Barbara Rogoff|Wikipedia article]]
+  * [[http://people.ucsc.edu/~brogoff/|Homepage]]
+  * [[http://wik.ed.uiuc.edu/index.php/Sociocultural_Theory#Barbara_Rogoff.27s_The_Cultural_Nature_of_Human_Development|Notes from sociocultural wiki]]
+
+{{page>abib:Barbara Rogoff}}

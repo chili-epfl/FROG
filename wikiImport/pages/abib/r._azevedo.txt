@@ -1,0 +1,4 @@
+h2. R. Azevedo's publications
+
+| azevedo2008externally | Azevedo, R., Moos, D. C., Greene, J. A., Winters, F. I., & Cromley, J. G. (2008). Why is externally-facilitated regulated learning more effective than self-regulated learning with hypermedia?. Educational Technology Research and Development. Springer.|
+| azevedo2005scaffolding | Azevedo, R., & Hadwin, A. F. (2005). Scaffolding self-regulated learning and metacognition--Implications for the design of computer-based scaffolds. Instructional Science. Springer.|

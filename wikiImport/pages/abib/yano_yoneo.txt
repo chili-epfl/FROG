@@ -1,0 +1,3 @@
+h2. Yano Yoneo's publications
+
+| [@gerardo1996learner] | Gerardo, A., & Yoneo, Y. (1996). Learner models for supporting awareness and collaboration in a CSCL environment. In C. Frasson, G. Gauthier & A. Lesgold (Eds.), Intelligent Tutoring Systems, Lecture Notes in Computer Science (Vol. 1086, 158-167). Springer Berlin / Heidelberg. |

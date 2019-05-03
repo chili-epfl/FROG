@@ -1,0 +1,38 @@
+h1. Developing personal learning networks for open and social learning
+<html><a href='http://www.aupress.ca/books/120177/ebook/06_Veletsianos_2010-Emerging_Technologies_in_Distance_Education.pdf' onClick="trackOutboundLink(this, 'PDFs refpage', 'http://www.aupress.ca/books/120177/ebook/06_Veletsianos_2010-Emerging_Technologies_in_Distance_Education.pdf'); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>|Couros, A. (2010). Developing personal learning networks for open and social learning. Emerging Technologies in Distance Education, 109–128. Retrieved from http://www.aupress.ca/books/120177/ebook/06_Veletsianos_2010-Emerging_Technologies_in_Distance_Education.pdf.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://couros2010developing|BibDesk]]  | Couros, A. (2010). Developing personal learning networks for open and social learning. Emerging Technologies in Distance Education, 109–128. Retrieved from http://www.aupress.ca/books/120177/ebook/06_Veletsianos_2010-Emerging_Technologies_in_Distance_Education.pdf. |
+^ [[skimx://couros2010developing|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:couros2010developing?do=edit&vecdo=print\'><frame src=\'/wiki/clip:couros2010developing?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{couros2010developing,
+  author = {Couros, A.},
+  date-added = {2012-04-08 14:58:49 +0000},
+  date-modified = {2012-11-27 19:05:40 +0000},
+  date-read = {2012-04-27 15:09:43 -0400},
+  journal = {Emerging Technologies in Distance Education},
+  keywords = {1mooc},
+  notes = {1},
+  oa-url = {http://www.aupress.ca/books/120177/ebook/06_Veletsianos_2010-Emerging_Technologies_in_Distance_Education.pdf},
+  pages = {109–128},
+  read = {1},
+  title = {Developing personal learning networks for open and social learning},
+  url = {http://www.aupress.ca/books/120177/ebook/06_Veletsianos_2010-Emerging_Technologies_in_Distance_Education.pdf},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAZAAAAAAAZAAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhhjb3Vyb3MyMDEwZGV2ZWxvcGluZy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFrk2hy6cgL1BERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLp1hvAAAAAQAMANrWUgAXPTEAAZ9eAAIAN1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBjb3Vyb3MyMDEwZGV2ZWxvcGluZy5wZGYAAA4AMgAYAGMAbwB1AHIAbwBzADIAMAAxADAAZABlAHYAZQBsAG8AcABpAG4AZwAuAHAAZABmAA8AEAAHAFMAUwBEAEgAbwBtAGUAEgAsVXNlcnMvU3RpYW4vYmliZGVzay9jb3Vyb3MyMDEwZGV2ZWxvcGluZy5wZGYAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QJi4uLy4uL2JpYmRlc2svY291cm9zMjAxMGRldmVsb3BpbmcucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAjQCNgI7AkQCTwJTAmECaAJxApoCnwKiAq8CtAAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALG}
+}
+
+</hidden>
+
+{{page>notes:couros2010developing}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:couros2010developing}}
+
+{{page>kindle:couros2010developing}}
+
+{{page>skimg:couros2010developing}}

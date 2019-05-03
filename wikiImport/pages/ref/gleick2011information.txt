@@ -1,0 +1,31 @@
+h1. The Information: A History, a Theory, a Flood
+
+<ifauth !@admin>|Gleick, J. (2011). The Information: A History, a Theory, a Flood. Pantheon.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://gleick2011information|BibDesk]]  | Gleick, J. (2011). The Information: A History, a Theory, a Flood. Pantheon. |
+^ [[skimx://gleick2011information|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:gleick2011information?do=edit&vecdo=print\'><frame src=\'/wiki/clip:gleick2011information?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{gleick2011information,
+  author = {Gleick, J.},
+  date-added = {2011-05-25 07:31:48 +0800},
+  date-modified = {2011-05-30 17:13:57 +0800},
+  publisher = {Pantheon},
+  read = {1},
+  title = {The Information: A History, a Theory, a Flood},
+  year = {2011}
+}
+
+</hidden>
+
+{{page>notes:gleick2011information}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:gleick2011information}}
+
+{{page>kindle:gleick2011information}}
+
+{{page>skimg:gleick2011information}}

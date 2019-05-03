@@ -1,0 +1,4 @@
+h2. Joe Corneli's publications
+
+| [#:ref:corneli2011paragogy|corneli2011paragogy] | Corneli, J., & Danoff, C. J. (2011). Paragogy: Synergizing individual and organizational learning. 1st International Conference on Learning Analytics and Knowledge. |[[skimx://corneli2011paragogy|PDF]]|
+| corneli2010gravpad | Corneli, J. (2010). GravPad. Proceedings of the 6th International Symposium on Wikis and Open Collaboration, WikiSym '10. New York, NY, USA: ACM. doi: http://doi.acm.org/10.1145/1832772.1832815.|[[skimx://corneli2010gravpad|PDF]]|

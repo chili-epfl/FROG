@@ -1,0 +1,15 @@
+h1. Key ideas
+
+//This paper was discussed in Clare Brett's research group Feb 14, 2011//
+
+The paper criticizes facile use of neuroscience to inform teaching strategies, highlighting three fallacies:
+
+  * Critical periods
+    * yes, some things are learnt more easily when kids are young, but other things are better learnt when they are older, such as critical thinking
+    * it is possible to learn to read etc in adulthood as well
+  * Brain-based education
+    * "growing dendrites" - but is number of dendrites the right measure of learning?
+    * number of connections between synapses better measurement - seems to be strenghtened by memorization, rather than constructivist approaches
+    * both halves are used at the same time, impossible to target one half
+  * Learning styles
+    * is it always good to teach to kids strengths? kids need to challenge their weaknesses

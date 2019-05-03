@@ -1,0 +1,3 @@
+h2. Jeffrey Greene's publications
+
+| [@azevedo2005adaptive] | Azevedo, R., Cromley, J., Winters, F., Moos, D., & Greene, J. (2005). Adaptive Human Scaffolding Facilitates Adolescents’ Self-regulated Learning with Hypermedia. Instructional Science, 33(5), 381-412. |

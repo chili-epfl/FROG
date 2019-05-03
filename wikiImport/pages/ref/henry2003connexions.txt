@@ -1,0 +1,32 @@
+h1. The connexions project: Promoting open sharing of knowledge for education
+
+<ifauth !@admin>|Henry, G., Baraniuk, R., & Kelty, C. (2003). The connexions project: Promoting open sharing of knowledge for education.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://henry2003connexions|BibDesk]]  | Henry, G., Baraniuk, R., & Kelty, C. (2003). The connexions project: Promoting open sharing of knowledge for education. |
+^ [[skimx://henry2003connexions|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:henry2003connexions?do=edit&vecdo=print\'><frame src=\'/wiki/clip:henry2003connexions?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{henry2003connexions,
+  author = {Henry, G. and Baraniuk, Richard and Kelty, C.},
+  date-added = {2011-04-24 10:13:30 -0400},
+  date-modified = {2011-06-12 07:32:43 +0800},
+  keywords = {OER/open ed},
+  shorttitle = {The connexions project},
+  title = {The connexions project: Promoting open sharing of knowledge for education},
+  year = {2003},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYwAAAAAAYwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhdoZW5yeTIwMDNjb25uZXhpb25zLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGaeMoy9cCqFBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zroAAAAAQAMANrWUgAXPTEAAZ9eAAIANlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBoZW5yeTIwMDNjb25uZXhpb25zLnBkZgAOADAAFwBoAGUAbgByAHkAMgAwADAAMwBjAG8AbgBuAGUAeABpAG8AbgBzAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACtVc2Vycy9TdGlhbi9iaWJkZXNrL2hlbnJ5MjAwM2Nvbm5leGlvbnMucGRmAAATAAEvAAAVAAIADP//AACABdIcHR4fWCRjbGFzc2VzWiRjbGFzc25hbWWjHyAhXU5TTXV0YWJsZURhdGFWTlNEYXRhWE5TT2JqZWN0XxAlLi4vLi4vYmliZGVzay9oZW5yeTIwMDNjb25uZXhpb25zLnBkZtIcHSQloiUhXE5TRGljdGlvbmFyeRIAAYagXxAPTlNLZXllZEFyY2hpdmVyAAgAEQAWAB8AKAAyADUAOgA8AEUASwBSAF0AZABsAG8AcQBzAHUAeAB6AHwAhgCTAJgAoAIwAjICNwJAAksCTwJdAmQCbQKVApoCnQKqAq8AAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACwQ==}
+}
+
+</hidden>
+
+{{page>notes:henry2003connexions}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:henry2003connexions}}
+
+{{page>kindle:henry2003connexions}}
+
+{{page>skimg:henry2003connexions}}

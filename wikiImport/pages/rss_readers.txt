@@ -1,0 +1,65 @@
+h1. Notes about RSS readers
+
+I need to find/develop a tool to track blogs and blog comments, as well as stuff from other RSS sources. I will use this space to take notes.
+
+h2. EduFeedr
+http://www.edufeedr.org/
+Not updated for 13 months. Can take in blogs and comments, understand links between blogs, show social network graphs, understand if a blog entry is a submission for an assignment, etc. Also offline feature, and progress bar.
+
+Also [[http://trac.htk.tlu.ee/modules/browser/EduSuckr/trunk|EduSuckr]] - the harvesting part (in php)
+
+h2. grssHopper
+http://grsshopper.downes.ca/
+
+h2. Individual post comment feeds
+
+h3. wfw:commentRss
+RSS can contain this tag, WordPress does. Contains link to comment URL. Blogspot publishes Atom by default, and does not include this tag in their RSS specification.
+
+  * [[http://wrapping.marthaburtis.net/2011/01/28/plumbing-project-yahoo-pipes-for-aggregating-comments-across-a-syndicated-course-blog/|Using Yahoo Pipes to aggregate comments across DS106 blogs]]
+
+One problem with this approach is the number of hits - throughout a course, a student might publish twenty entries. Every time we update the feeds, we thus have to check 21 (comments + post feed) feeds for each student. Even at 20 students, that's 400 feeds!
+
+h3. Unified comment feed
+Alternative is a singular comments feed. Might need more parsing, to make sure the comments are attributed to the right posts. Which tools publish singular comments feeds?
+
+h2. Standards
+  * [[http://code.google.com/p/pubsubhubbub/|Pubsubhubbub]]
+
+h2. Ruby apps
+  * [[Raggle|http://raggle.org/about/]]
+    * Ruby app (console/local web server), fully featured feed-reader
+    * Development ended in 2005
+  * [[Galaxy|http://rubyforge.org/frs/?group_id=598&release_id=2185]] 
+    * Ruby app, feedreader. Only updated once. Code available.
+  * [[http://okayfail.com/2011/thoughts-on-building-a-feed-reader.html|Readless]] by [[http://okayfail.com/about.html|Phillip]]
+    * thesis project at Ryerson, blog reader that uses Machine Learning to sort through what you want to see
+    * [[https://github.com/houshuang/thesis#readme|code on github]]
+
+h2. Ruby libraries
+  * [[https://github.com/pauldix/feedzirra|FeedZirra]]
+    * recently updated library for fetching and parsing feeds, supposed to be quite up-to-date, not sure about caching/database
+    * [[http://railscasts.com/episodes/168-feed-parsing|Railscast]]
+  * [[http://sporkmonger.com/projects/feedtools|FeedTools]] Download, cache and display feeds - cache through ActiveRecord
+    * [[http://dekstop.de/weblog/2005/12/feedtools_cache_in_ruby_scripts/|Tutorial on using it outside of Rails]]
+
+h3. Not feed-related
+  * [[http://datamapper.org/|DataMapper]] - ORM layer (replace Active Record?)
+
+h2. Protocols for the future
+  * [[http://www.salmon-protocol.org/|Salmon]] - comments flowing both ways
+  * [[http://ostatus.org/|OStatus]]
+    * related to Identi.ca
+  * [[http://activitystrea.ms/|Activitystrea.ms]]
+  * [[http://rsscloud.org/|RSS Cloud]]
+  * [[PubSubHubbub|http://code.google.com/p/pubsubhubbub/]]
+    * plugin for WordPress, enables realtime updating of feeds (push, rather than pull)
+
+h2. Other things we want to import from
+  * [[https://github.com/jhollinger/ruby-etherpad-lite|Ruby Etherpad lite API]]
+
+h2. Loose ideas
+  * Use OPML to keep list of feeds somehow
+----
+  * [[http://tt-rss.org/redmine/projects/tt-rss/wiki/Screenshots|Screenshots - Tiny Tiny RSS]]
+  * [[https://bazqux.com/#|bq | Latest]]

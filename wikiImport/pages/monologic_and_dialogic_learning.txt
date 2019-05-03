@@ -1,0 +1,39 @@
+====== Monologic and dialogic learning ======
+ 
+from [@hoadley1999between]:
+
+[[a:Yakubinskii]], a contemporary of [[:a:Lev Vygotsky]]’s, highlighted the distinction between monologue and dialogue as forms of social interaction.. According to Yakubinskii, the critical factor in determining what is monologue and what is dialogue is not the number of participants involved. Even a monologue theoretically involves both a speaker and a listener. Rather, **the critical factor that distinguishes a dialogue from a monologue is the degree to which the interlocutors actively participate in the production of the text and its meaning within a concrete speech setting** (Yakubinskii, 1923/Wertsch, 1985). In this manner, **dialogue is interaction in which participation is distributed across individuals**, while in monologue, **the production of speech and meaning is reserved for only a subset of the parties involved**. 
+
+===== monologue =====
+related to **information-centric media**
+
+  * more context-independent (i.e. assumes a limited role of the context in establishing the meaning of the text)
+  * lack of social cues
+  * a focus on the domain and not on interaction
+  * based on the private ordering of experience to be communicated in the absence of a shared communicative context
+  * requires the text to be maximally explicit in its linguistic formulation
+  * assume that the objective semantics of the message itself are adequate to convey the text’s meaning
+  * does not provide a means for refining or extending this meaning
+  
+Relying solely on monologic forms of collaboration embodied in informational reproduces many of the faults and limitations of the much criticized transmission model of communication and instruction (Pea, 1993). 
+
+The message of a monologue is not debated, nor negotiated during its production. In monologue, meaning is not seen as the product of interaction but the expression of one person’s ordering of experience (Coutler, 1999).
+
+==== Assessment ====
+Monologic forms are the hallmark of individual competence and accountability, and are one of the primary measures of expertise in learning assessment. Student monologues such as essays or test responses are used to judge students’ competence and are often used to identify experts long after fo rmal schooling. Monologues often reach larger audiences precisely because they are less contextualized. The explicitness of monologic expression represents a significant intellectual challenge, and the value of concise and concrete expression of one’s ideas for one’s own learning has been well documented in the psychology (Chi, de Leeuw, Chiu, & LaVancher, 1991; Chi, de Leeuw, Chiu, & LaVancher, 1994). It should be noted that this benefit occurs in participation in the production of monologue; while "consuming" monologues (e.g., reading textbooks, hearing lectures) is probably the most common learning activity in modern schooling, it has been ceaselessly demonstrated to be ineffective compared to more engaged forms of learning in which students take a more active role.
+
+::interesting division between pedagogical utility of producing vs consuming monologues::
+
+===== dialogue =====
+related to **communication media**
+
+  * more distributed locus of control
+  * more inclusive participation
+  * a focus on interaction and co-construction of meaning.
+
+===== Transition =====
+These two types of media map easily on to two types of social activities in which learning is grounded: dialogue and monologue. Drawing on literature in learning theory, we suggest the need for interfaces that help students transition from dialogue to monologue and back again.
+
+Learning through social appropriation involved moving from dialogic performance to monologic performance (Yakubinskii, 1923/Wertsch, 1985)
+
+it is important for students foster an epistemological approach towards science learning as "science in the making" rather than as "ready made science(Latour, 1987). Learning science by rote—by consuming monologues—encourages students to think of scientists as doing the same (Linn & Songer, 1993).

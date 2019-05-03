@@ -1,0 +1,40 @@
+h1. Rfam: Wikipedia, clans and the "decimal" release
+
+<ifauth !@admin>|Gardner, P. P., Daub, J., Tate, J., Moore, B. L., Osuch, I. H., Griffiths-JonesS., Finn, R. D., Nawrocki, E. P., Kolbe, D. L., Eddy, S. R., & Bateman, A. (2010). Rfam: Wikipedia, clans and the "decimal" release. Nucleic Acids Research, 39(Database), D141--D145. doi: 10.1093/nar/gkq1129.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://gardner2010rfam|BibDesk]]  | Gardner, P. P., Daub, J., Tate, J., Moore, B. L., Osuch, I. H., Griffiths-JonesS., Finn, R. D., Nawrocki, E. P., Kolbe, D. L., Eddy, S. R., & Bateman, A. (2010). Rfam: Wikipedia, clans and the "decimal" release. Nucleic Acids Research, 39(Database), D141--D145. doi: 10.1093/nar/gkq1129. |
+^ [[skimx://gardner2010rfam|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:gardner2010rfam?do=edit&vecdo=print\'><frame src=\'/wiki/clip:gardner2010rfam?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{gardner2010rfam,
+  author = {Gardner, P. P. and Daub, J. and Tate, J. and Moore, B. L. and Osuch, I. H. and {Griffiths-Jones}, S. and Finn, R. D. and Nawrocki, E. P. and Kolbe, D. L. and Eddy, S. R. and Bateman, A.},
+  date-added = {2011-04-24 11:30:07 -0400},
+  date-modified = {2011-06-12 07:33:01 +0800},
+  doi = {10.1093/nar/gkq1129},
+  issn = {0305-1048},
+  journal = {Nucleic Acids Research},
+  keywords = {wiki},
+  month = {nov},
+  number = {Database},
+  pages = {D141--D145},
+  shorttitle = {Rfam},
+  title = {Rfam: Wikipedia, clans and the "decimal" release},
+  url = {http://nar.oxfordjournals.org/content/39/suppl_1/D141.long},
+  volume = {39},
+  year = {2010},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAXwAAAAAAXwAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhNnYXJkbmVyMjAxMHJmYW0ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGac83y9cA+lBERiBDQVJPAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADL1zk6AAAAAQAMANrWUgAXPTEAAZ9eAAIAMlNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBnYXJkbmVyMjAxMHJmYW0ucGRmAA4AKAATAGcAYQByAGQAbgBlAHIAMgAwADEAMAByAGYAYQBtAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASACdVc2Vycy9TdGlhbi9iaWJkZXNrL2dhcmRuZXIyMDEwcmZhbS5wZGYAABMAAS8AABUAAgAM//8AAIAF0hwdHh9YJGNsYXNzZXNaJGNsYXNzbmFtZaMfICFdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfECEuLi8uLi9iaWJkZXNrL2dhcmRuZXIyMDEwcmZhbS5wZGbSHB0kJaIlIVxOU0RpY3Rpb25hcnkSAAGGoF8QD05TS2V5ZWRBcmNoaXZlcgAIABEAFgAfACgAMgA1ADoAPABFAEsAUgBdAGQAbABvAHEAcwB1AHgAegB8AIYAkwCYAKACIAIiAicCMAI7Aj8CTQJUAl0CgQKGAokClgKbAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAq0=}
+}
+
+</hidden>
+
+{{page>notes:gardner2010rfam}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:gardner2010rfam}}
+
+{{page>kindle:gardner2010rfam}}
+
+{{page>skimg:gardner2010rfam}}

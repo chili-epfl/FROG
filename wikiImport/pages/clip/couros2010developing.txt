@@ -1,0 +1,170 @@
+h2. Highlights (51%)
+
+In 2008, an open access, graduate level, educational technology course was offered at the Faculty of Education, University of Regina. The development and facilitation of this course was inspired by philosophies of the open source movement, recent trends in social media, and pedagogies designed to inspire the open, transparent, and networked learning of its participants. The outcome of this course could hardly have been anticipated. By the end of the semester, non-registered participants outnumbered registered students 10 to 1 as a larger educational community formed around the course. The resulting experience has provided insight into the potential for leveraging personal learning networks in open access and distance education. [[skimx://couros2010developing#1|p. 1]]
+
+“Education, Curriculum, and Instruction (EC&I) 831: Open, Connected, Social.” [[skimx://couros2010developing#1|p. 1]]
+
+his fully online course was developed and facilitated using primarily free and open source software (FOSS) or freely available services. Additionally, the course demonstrated open teaching methodologies: educational practice inspired by the open source movement, complementary learning theory, and emerging theories of knowledge. The course challenged typical boundaries common to more traditional distance education courses as students built personal learning networks [[skimx://couros2010developing#1|p. 1]]
+
+(PLNs) to collaboratively explore, negotiate, and develop authentic and sustainable knowledge networks. This latter focus became a catalyst that, as one student described emphatically, “blew the doors of this course right off their hinges.” As a result, the context for learning shifted from the potentially mundane to an engaging series of events where the twenty registered students freely interacted with at least two hundred other educators, theorists, and students from around the world. [[skimx://couros2010developing#2|p. 2]]
+
+EC&I 831 has received considerable attention by academic researchers and educational bloggers. Dave Cormier (2008) wrote that the course provides “an ideal example of the role social learning and negotiation can play in learning.” Jeffrey Young (2008) listed the course as one of three examples of a “growing movement” towards experimenting with open teaching in higher education. George Siemens (2008) described the design of the course as “an important source of insight” that served to inspire the development of the “Connectivism and Connective Knowledge” (CCK08) course, the inaugural Massive Open Online Course (MOOC) facilitated by Siemens and Downes. [[skimx://couros2010developing#2|p. 2]]
+
+::Theoretical underpinnings:: [[skimx://couros2010developing#3|p. 3]]
+
+The open movement [[skimx://couros2010developing#3|p. 3]]
+
+In 2003, I initiated a two-year-long study that examined the perceptions, beliefs, and practices of educators who participated in free and open source software (FOSS) communities (Couros, 2006). Through data collection and analysis, it was revealed that the majority of participants were strongly influenced by the dominant philosophical views inherent within these FOSS communities. Participants identified strong tendencies towards collaboration, sharing, and openness in their classroom activities and through professional collaborations. Generally, these individuals identified themselves as part of a larger phenomenon, later defined as the “the open movement.” [[skimx://couros2010developing#3|p. 3]]
+
+vailability of Web 2.0 tools. [[skimx://couros2010developing#3|p. 3]]
+
+Coinciding with this greater access to publishing came the greater availability of educationally relevant content. [[skimx://couros2010developing#4|p. 4]]
+
+Several learning theories have influenced my approach to distance education and online learning. These include social cognitive theory, social constructivism, and adult learning theory (andragogy). [[skimx://couros2010developing#4|p. 4]]
+
+Social cognitive theory (SCT), also known as social learning theory, suggests that a combination of behavioural, cognitive, and environmental factors influences human behaviour. SCT posits that humans learn through their observations of other individuals. If one observes particular behaviours that become associated with favourable outcomes, such behaviours are more likely to be adopted by the observer (Albert & Bandura, 1963). Another relevant feature of SCT is Bandura’s (1997) concept of self-efficacy that he defines as “people’s judgment of [[skimx://couros2010developing#4|p. 4]]
+
+their capabilities to organize and execute courses of action required to attain designated types of performances” (p. 391). Bandura considered self-efficacy beliefs to be the most influential arbiter of human activity and an important element in conceptualizing student-centred learning environments (Lorsbach, 1999). [[skimx://couros2010developing#5|p. 5]]
+
+ocial constructivism, attributed to Vygotsky, [[skimx://couros2010developing#5|p. 5]]
+
+the importance of collaboration among learners and practitioners in educational environments (Lave & Wenger, 1991). [[skimx://couros2010developing#5|p. 5]]
+
+ZPD [[skimx://couros2010developing#5|p. 5]]
+
+Moving beyond tutoring, Tabak (2004) introduced the concept of distributed scaffolding, an emerging approach of learning design that incorporates multiple forms of support that respond to the diversity of learner needs and to the complexity of given learning environments. Through a greater understanding of how individuals construct knowledge and skills, the role of the social environment, and the design of flexible learner support, educators can increase student performance in both face-to-face and distance learning environments. [[skimx://couros2010developing#5|p. 5]]
+
+Adult learning theory, also known as andragogy, is based on the perception that adults learn differently than children, and that these differences should be acknowledged and accommodated. Knowles, primary developer of this theory, argued that adults generally possess different motivations for learning and have acquired significant life experiences; both of these factors greatly influence the learning process (1970). Due to these key differences, Knowles proposed the following principles for adult learning: [[skimx://couros2010developing#5|p. 5]]
+
+1) Adults need to be involved in the planning and evaluation of their instruction. [[skimx://couros2010developing#5|p. 5]]
+
+(2) Experience (including mistakes) provides the basis for learning activities. (3) Adults are most interested in learning subjects that have immediate relevance to their job or personal life. (4) Adult learning is problem-centred rather than content-oriented. (p. 43) [[skimx://couros2010developing#6|p. 6]]
+
+Connectivism, [[skimx://couros2010developing#6|p. 6]]
+
+he theory stresses the development of “metaskills” for evaluating and managing information and network connections, and notes the importance of pattern recognition as a learning strategy. [[skimx://couros2010developing#6|p. 6]]
+
+Connectivists recognize the influences that emerging technologies have on human cognition, and theorize that technology is reshaping the ways that humans create, store, and distribute knowledge. [[skimx://couros2010developing#6|p. 6]]
+
+Open teaching [[skimx://couros2010developing#7|p. 7]]
+
+Open teaching is described as the facilitation of learning experiences that are open, transparent, collaborative, and social. Open teachers are advocates of a free and open knowledge society, and support their students in the critical consumption, production, connection, and synthesis of knowledge through the shared development of learning networks. Typical activities of open teachers may include some or all of the following: [[skimx://couros2010developing#7|p. 7]]
+
+> advocacy and use of free and/or open source tools and software wherever possible and beneficial to student learning; > integration of free and open content and media in teaching and learning; > promotion of copyleft content licenses for student content production and publication; > facilitation of student understanding regarding copyright law (e.g., fair use/fair dealing, copyleft/copyright); > facilitation and scaffolding of student personal learning networks for collaborative and sustained learning; > developmentoflearningenvironmentsthatarereflective,responsive, student-centred, and that incorporate a diverse array of instructional and learning strategies; [[skimx://couros2010developing#7|p. 7]]
+
+> modellingofopenness,transparency,connectedness,andresponsible copyright/copyleft use and licensing; and, > advocacy for the participation and development of collaborative gift cultures in education and society. [[skimx://couros2010developing#8|p. 8]]
+
+EC&I 831 in detail [[skimx://couros2010developing#8|p. 8]]
+
+Covered areas include a general overview of the course, details of the project’s initiation, arguments for the primary learning environment, and a description of the course facilitation model. [[skimx://couros2010developing#8|p. 8]]
+
+he course is not new — it has been around since 2001 — but when originally submitted to the university calendar, it was written broadly enough to provide sufficient flexibility for future course development [[skimx://couros2010developing#8|p. 8]]
+
+The section of the course discussed in this chapter ran from January to April 2008. There were twenty registered students, most of whom were practicing teachers (K–12) or educational administrators. The graduate courses in our faculty have a typical maximum of sixteen students, but I requested an overload due to student interest in the course and because of the peer-supported pedagogical approach proposed. [[skimx://couros2010developing#8|p. 8]]
+
+The Government of Saskatchewan offers Technology Enhanced Learning grants for the development of online courses, and $30,000 was awarded [[skimx://couros2010developing#8|p. 8]]
+
+for EC&I 831. Typically, when granted an award, the “content expert” (myself in this case) is assigned instructional design and multimedia support personnel. [[skimx://couros2010developing#9|p. 9]]
+
+::Traditionally money spent on instructional design - I wanted to immerse myself in material instead.:: [[skimx://couros2010developing#9|p. 9]]
+
+hus, two learning assistants were hired as social connectors, and their primary responsibilities were to support students in the development of PLNs. These connectors were not tied to a tool or to a learning environment, but directly to the participants—their technical experience, their unique needs for support, and their learning goals. [[skimx://couros2010developing#9|p. 9]]
+
+In the weeks preceding the course, there was much research and discussion regarding the choice of a primary learning environment. Several were tested, and the following gives a brief overview of our conclusions. [[skimx://couros2010developing#9|p. 9]]
+
+WebCT was rejected, however, for the following reasons: it was a proprietary system that could not be modified without vendor support, the learning environment [[skimx://couros2010developing#9|p. 9]]
+
+favours directed learning rather than constructivist approaches, and licensing fees were expensive and increasing in cost. Additionally, a goal of EC&I 831 was that students would be able to explore tools in the course and then apply them to their own professional work. WebCT was not freely available, free, or low-cost, and participants would not likely have much access to this tool in their school divisions. [[skimx://couros2010developing#10|p. 10]]
+
+Moodle [[skimx://couros2010developing#10|p. 10]]
+
+The reasons we did not choose to adopt Moodle include: the software was not as easily available to participants as we hoped, the concept of the CMS is heavily course-centric rather than student-centric, and the majority of Moodle content modules represent a top-down instructivist approach to learning. [[skimx://couros2010developing#10|p. 10]]
+
+Ning [[skimx://couros2010developing#10|p. 10]]
+
+The reasons we did not choose to adopt Ning include the lack of a wiki feature and the awkwardness in including core content material (e.g., syllabus, scope-and-sequence, assessments). [[skimx://couros2010developing#10|p. 10]]
+
+Wiki [[skimx://couros2010developing#11|p. 11]]
+
+We chose Wikispaces.com as it was the senior, best-known, and most stable of the three major providers, offered solid technical support, allowed options for CSS/theme modification, and had a simple user interface that supported many third-party services. The resulting wiki can be found at http://eci831.wikispaces.com. [[skimx://couros2010developing#11|p. 11]]
+
+Course facilitation model [[skimx://couros2010developing#11|p. 11]]
+
+Major assessments Three major student assessments guided the activities of participants for EC&I 831: the development of a personal blog/digital portfolio, the collaborative development of an educational technology wiki resource, and the completion of a student-chosen, major digital project. Activities related to each of these assessments were designed to require and/or result in the development of a personal learning network. Thus, PLNs were both the prerequisite to and the outcome of successful completion. [[skimx://couros2010developing#11|p. 11]]
+
+(a) Personal Blog/Digital Portfolio: Each participant was responsible for developing a digital space to document his or her learning through readings and activities, to provide a space for personal reflection, and to create a personal hub for networked connections. In most cases, these spaces quickly became showcases of student professional activity, and acted as distributed communication portals — alternatives to centralized, managed discussion forums. Students chose [[skimx://couros2010developing#11|p. 11]]
+
+from a number of free services to host their spaces (e.g., Wordpress. com, Edublogs.org) and each blog was customized by the user, both functionally and aesthetically. In most cases, these blogs continue to be maintained and have remained active well beyond the official end date of the course. [[skimx://couros2010developing#12|p. 12]]
+
+(b) Collaborative Wiki Resource: Students worked collaboratively to develop the content of a wiki focused on the use of technology in education. The resource, found at http://t4tl.wikispaces.com, is the result of hundreds of student edits, and covers topics such as tools and techniques, digital pedagogies, virtual worlds, mobile learning, course management software, digital storytelling, podcasting, and screencasting. The site also provides case studies of technology use in the classroom that are supported by rich, multimedia examples. [[skimx://couros2010developing#12|p. 12]]
+
+(c) Major Digital Project: The major digital project was designed so that students could develop a relevant resource for their specific professional context. Some students produced videos, instructional resources, or other multimedia. Others engaged in social networking activities: participation in global collaborative projects, development of private social networks, and development of localized professional development workshops. The completed activities represented a vast range of student technological competencies as well as professional and personal interests. [[skimx://couros2010developing#12|p. 12]]
+
+Tools and Interaction There were a number of synchronous and asynchronous interactions designed throughout the course. This section outlines these interactions and describes the tools used. [[skimx://couros2010developing#12|p. 12]]
+
+a) Synchronous Activities: Two synchronous events were planned weekly, and these averaged in length from 1.5 to 2 hours. The first session of the week was focused on content knowledge and in connecting students to leaders in the educational technology community. Ten presenters in all were invited [[skimx://couros2010developing#12|p. 12]]
+
+All sessions were interactive and recorded in various formats, including an audio-only podcast version. The second session of each week was a “hands-on” session where participants would learn both technical skills related to the dozens of tools used in the course, as well as the tools’ pedagogical possibilities. [[skimx://couros2010developing#13|p. 13]]
+
+Several tools were used to facilitate the synchronous sessions. Adobe Connect, a proprietary web-conferencing tool, was first chosen as a relatively inexpensive solution. Unfortunately, Connect was dropped after only two sessions as we experienced poor audio, system crashes, and negative user feedback. Elluminate, a more expensive alternative, was used next. This tool was found to be more stable, but students and presenters complained about the “primitive” user interface and system crashes. The larger identified issue was that the tool was expensive, proprietary, and not available to most of the participants for their own use. Finally, we began to experiment with ustream.tv (a free video-streaming service) in combination with Skype audio-conferencing. [[skimx://couros2010developing#13|p. 13]]
+
+A precise description of how ustream.tv and Skype were used can be found at http://educationaltechnology.ca/couros/765. [[skimx://couros2010developing#13|p. 13]]
+
+Asynchronous Activities: [[skimx://couros2010developing#13|p. 13]]
+
+> reading, reviewing, and critiquing course readings through participant blogs; > sharing and reviewing articles, tools, and readings through participant blogs or through posting to Delicious (social bookmarking service) with the common course tag (i.e., eci831readings); > creation of screencasts, tutorials, or other resources for selfreferencing or to assist other participants’ understanding; [[skimx://couros2010developing#13|p. 13]]
+
+> reading, reviewing, commenting, and subscribing to blogs from outside of the course community; > participation in open, viral professional development opportunities (e.g., Edtech Talk, OpenPD); > posting created content to Youtube, Blip.tv, ustream.tv, Diigo, Voicethread, Mind42, Google Docs, or other collaborative, social media services; > microblogging through Twitter or Plurk; > collaborative design and development of lesson plans or instructional sets; and, > continued development of the collaborative course wiki. [[skimx://couros2010developing#14|p. 14]]
+
+Many of the asynchronous activities were completely unplanned. Participants worked with individuals in the course community, but often, strong bonds formed with individuals outside of the course due to common interests. Through both the synchronous and asynchronous activities, personal learning networks grew as individuals freely connected with those interested in the content and collaboration, and not solely because of the identification with a specific course. Social interactions became authentic, dynamic, and fluid. [[skimx://couros2010developing#14|p. 14]]
+
+Personal Learning Networks in Distance Education [[skimx://couros2010developing#14|p. 14]]
+
+The first synchronous session of EC&I 831 was a private session with only the registered course participants in attendance. In this session, I briefed students about the potentially open nature of this course and that non-registered participants would be brought in to give formal presentations, to comment on student blogs, and to interact in other ways not yet known. Although optimistic, I was not yet sure at the time how I would solicit interaction from “outsiders” with these students. Yet, only two to three weeks into the course, it became evident how important the development and utilization of my PLN would be in supporting the pedagogical model of the course. To share these understandings, this section will provide a brief definition of personal learning networks and provide strategies for leveraging PLNs in distance education courses. [[skimx://couros2010developing#14|p. 14]]
+
+Conceptualizing the PLN [[skimx://couros2010developing#15|p. 15]]
+
+While there is a growing field of research and thinking behind the concept of the PLE (chapter 9), the academic research on PLNs is much more anecdotal. [[skimx://couros2010developing#15|p. 15]]
+
+I consider “the networked teacher” representation to be a PLE diagram. It describes an individual’s connectivity through participation in social media activities (e.g., blogging, wikis, social networking), and the arrows represent both the consumption and production of content. [[skimx://couros2010developing#16|p. 16]]
+
+I asked individuals within what I perceive to be my own PLN about their perceptions of the differences between the two terms. [[skimx://couros2010developing#16|p. 16]]
+
+I have attempted to capture this conversation in a blog post at: http://educationaltechnology.ca/couros/1156. [[skimx://couros2010developing#16|p. 16]]
+
+The general consensus of this conversation maintains that PLEs are the tools, artefacts, processes, and physical connections that allow learners to control and manage their learning. This definition supports Martindale’s and Dowdy’s observation that “A PLE can be seen as a manifestation of a learner’s informal learning processes via the Web” (chapter 9). Definitions of PLNs, however, seem to extend this framework to more explicitly include the human connections that are mediated through the PLE. In this framework, PLEs become a subset of the substantially humanized PLN. For reference in the remainder of this section, ::::my PLN definition is simple: personal learning networks are the sum of all social capital and connections that result in the development and facilitation of a personal learning environment.:::: [[skimx://couros2010developing#17|p. 17]]
+
+The following is a short list of strategies for developing a personal learning network and for leveraging the PLN in distance education courses. These points were effective in the facilitation of EC&I 831 as evidenced by personal reflection and student feedback. [[skimx://couros2010developing#17|p. 17]]
+
+Immerse Yourself. T [[skimx://couros2010developing#17|p. 17]]
+
+Learn to Read Social Media. [[skimx://couros2010developing#17|p. 17]]
+
+Strengthen Your PLN. [[skimx://couros2010developing#18|p. 18]]
+
+Know Your Connections. T [[skimx://couros2010developing#18|p. 18]]
+
+PLNs Central To Learning. [[skimx://couros2010developing#18|p. 18]]
+
+he most transformative realization that occurred to me because of EC&I 831 is just how important PLNs are for sustained, long-term learning, for students and facilitators alike. Having taught dozens of courses through CMS tools, I think of the irony: the tremendous amount of time and effort put into the development of local, time-based, course-centric communities. The communities die, usually only days after the official end-of-course date. They die because they are communities based around courses, not communities based around communal learning. For students who developed PLNs in EC&I 831, their learning communities still exist. The individuals are active and interactive, and continue to form and negotiate the connections they need to sustain long-term learning for themselves and for their students. This will be further evidenced when the EC&I 831 Class of ’08 visits the current student cohort this semester—an idea for collaboration initiated by these former students. [[skimx://couros2010developing#18|p. 18]]
+
+The two most commonly asked questions from audience members are phrased similarly to “How did you get away with this?” and “Where do you find the time to teach this way?” In answer to the first question, I cannot overemphasize the importance of institutional support for open teaching. [[skimx://couros2010developing#19|p. 19]]
+
+Perhaps the most telling quote regarding the success of the course comes from Jennifer, who wrote, “The best part of this course is that it’s not ending. With the connections we’ve built, it never has to end.” [[skimx://couros2010developing#19|p. 19]]
+
+References [[skimx://couros2010developing#20|p. 20]]
+
+Couros, A. (2006). Examining open (source) communities as networks of innovation: Implications for the adoption of open thinking by teachers [Unpublished doctoral dissertation]. University of Regina, Regina, SK, Canada. [[skimx://couros2010developing#20|p. 20]]
+
+Derry, S.J. (1999). A fish called peer learning: Searching for common themes. In A. O’Donnell & A. King (Eds.), Cognitive Perspectives on Peer Learning (pp. 197–211). Mahwah, NJ: Lawrence Erlbaum. [[skimx://couros2010developing#20|p. 20]]
+
+Gleick, J. (2002). What just happened: A chronicle from the learning frontier. London: Fourth Estate. [[skimx://couros2010developing#20|p. 20]]
+
+Knowles, M. (1970). The Modern Practice of Adult Education: Andragogy versus Pedagogy. Washington, DC: Association Press. [[skimx://couros2010developing#20|p. 20]]
+
+Lorsbach, A. (1999). Self-efficacy theory and learning environment research. Learning Environments Research, 2(2), 157–167. [[skimx://couros2010developing#20|p. 20]]
+
+Tabak, I., (2004). Synergy: A complement to emerging patterns of distributed scaffolding. The Journal of the Learning Sciences, 13(3), 305–335. [[skimx://couros2010developing#20|p. 20]]
+
+Young, J. (2008, 26 September). More “open teaching” courses, and what they could mean for colleges. The Chronicle of Higher Education. Retrieved 8 January 2009, from http://chronicle.com/wiredcampus/article/3349/moreopen-teaching-courses-and-what-they-could-mean-for-colleges [[skimx://couros2010developing#20|p. 20]]
+

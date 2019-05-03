@@ -1,0 +1,4 @@
+h2. Manu Kapur's publications
+
+| [@teasley2008cognitive] | Teasley, S. D., Fischer, F., Weinberger, A., Stegmann, K., Dillenbourg, P., Kapur, M., & Chi, M. T. H. (2008). Cognitive convergence in collaborative learning. In Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08 (360--367). International Society of the Learning Sciences. |
+| [@kapur2009assistance] | Kapur, M., & Rummel, N. (2009). The assistance dilemma in CSCL. In Proceedings of the 9th international conference on Computer supported collaborative learning - Volume 2, CSCL'09 (37--39). International Society of the Learning Sciences. |

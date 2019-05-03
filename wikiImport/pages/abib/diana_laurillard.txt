@@ -1,0 +1,6 @@
+h2. Diana Laurillard's publications
+
+| [@ljubojevic2010theoretical] | Ljubojevic, D., & Laurillard, D. (2010). Theoretical approach to distillation of pedagogical patterns from practice to enable transfer and reuse of good teaching. In Proceedings of the 2010 European LAMS & Learning Design Conference.|
+| [@laurillard2012teaching] | Laurillard, D. (2012). Teaching as a Design Science: Building Pedagogical Patterns for Learning and Technology.. ERIC.|
+| [@laurillard2001rethinking] | Laurillard, D. (2001). Rethinking university teaching: A framework for the effective use of learning technologies. RoutledgeFalmer.|
+| [@laurillard2009pedagogical] | Laurillard, D. (2009). The pedagogical challenges to collaborative technologies. International Journal of Computer-Supported Collaborative Learning, 4(1), 5-20. doi:10.1007/s11412-008-9056-2|

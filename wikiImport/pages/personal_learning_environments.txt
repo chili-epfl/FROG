@@ -1,0 +1,17 @@
+h1. Personal Learning Environments
+
+  * [[http://journal.webscience.org/view/events/The_PLE_Conference_2011/paper.html|PLE conference 2011 papers]]
+----
+  * [[http://pleconference.citilab.eu/?page_id=244|Posters « Ple Conference]]
+----
+  * [[http://pleconference.citilab.eu/?page_id=232|Short papers « Ple Conference]]
+----
+  * [[http://pleconference.citilab.eu/?page_id=230|Full papers « Ple Conference]]
+----
+  * [[http://www.slideshare.net/PLE_SOU|PLE Conference 2011 - Southampton Presentations]]
+----
+  * [[http://journal.webscience.org/view/events/The_PLE_Conference_2011/paper.html|Browse by Events - Web Science Repository]]
+----
+  * [[http://pleconference.citilab.eu/|Ple Conference]]
+----
+  * [[http://www.pleconf.com/|The PLE Conference 2011 | 11-13th July 2011, Southampton.]]

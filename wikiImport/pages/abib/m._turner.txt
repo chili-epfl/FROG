@@ -1,0 +1,3 @@
+h2. M. Turner's publications
+
+| bailey2009dancing | Bailey, H., Bachler, M., Buckingham Shum, S., Blanc, A. L., Popat, S., Rowley, A., & Turner, M. (2009, May). Dancing on the Grid: using {e-Science} tools to extend choreographic research. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences. doi: 10.1098/rsta.2009.0048.|[[skimx://bailey2009dancing|PDF]]|

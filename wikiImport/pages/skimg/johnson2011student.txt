@@ -1,0 +1,57 @@
+h2. Images
+
+{{skim:johnson2011student0.png}}
+
+[[skimx://johnson2011student#6|p. 6]]
+----
+
+{{skim:johnson2011student1.png}}
+
+[[skimx://johnson2011student#6|p. 6]]
+----
+
+{{skim:johnson2011student2.png}}
+
+[[skimx://johnson2011student#11|p. 11]]
+----
+
+{{skim:johnson2011student3.png}}
+
+[[skimx://johnson2011student#26|p. 26]]
+----
+
+{{skim:johnson2011student4.png}}
+
+[[skimx://johnson2011student#27|p. 27]]
+----
+
+{{skim:johnson2011student5.png}}
+
+[[skimx://johnson2011student#29|p. 29]]
+----
+
+{{skim:johnson2011student6.png}}
+
+[[skimx://johnson2011student#30|p. 30]]
+----
+
+{{skim:johnson2011student7.png}}
+
+[[skimx://johnson2011student#61|p. 61]]
+----
+
+{{skim:johnson2011student8.png}}
+
+[[skimx://johnson2011student#62|p. 62]]
+----
+
+{{skim:johnson2011student9.png}}
+
+[[skimx://johnson2011student#62|p. 62]]
+----
+
+{{skim:johnson2011student10.png}}
+
+[[skimx://johnson2011student#79|p. 79]]
+----
+

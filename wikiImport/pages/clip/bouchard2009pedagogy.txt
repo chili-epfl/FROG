@@ -1,0 +1,82 @@
+h2. Highlights (30%)
+
+Today’s workplace is characterized by a growing expectation that employees will learn on their own what they need to learn in order to meet productivity goals. However, self-directed learning is not a simple “either-or” equation. Careful analysis must be applied to the various dimensions of self-directed learning in order to determine whether our choices will promote or hinder the emergence of effective learning behavior. This article identifies four such dimensions and offers a brief outline of each. They are the algorithmic, the conative, the semiotic, and the economic dimensions of self-directed learning. Each of these discrete dimensions and their sub-factors offer considerable potential for developing self-directed learning behaviors and environments. They also point to the fact that by ignoring these important dimensions, we run the risk of significantly reducing the probability that self-directed learning projects will occur or be successful. [[skimx://bouchard2009pedagogy#1|p. 1]]
+
+It is about one central aspect of self-directed learning (SDL) which is referred to as autonomous learning strategies. [[skimx://bouchard2009pedagogy#1|p. 1]]
+
+A few years ago, Long (1992) gave us two fundamental ways in which learning could be learner-controlled. He coined the terms psychological and pedagogical to describe the two dimensions of learner-control along which self-directedness could vary in its expression. In this model, learners could be psychologically driven to learn, which makes them predisposed to self-directed learning. The other dimension refers to the planning and carrying out of the learning activities themselves. The pedagogical dimension of learner-control is concerned with what it is that self-directed learners do. [[skimx://bouchard2009pedagogy#1|p. 1]]
+
+Here are a few observations based on this model. Learners with a high-level of psychological control, for instance, can be highly motivated to learn without necessarily being given the opportunity to chose in what ways they learn. They could also voluntarily devolve the planning of any learning activities to another person. For example, this would be the case of learners who register for a formal course in a university, where doing so for personal reasons has little to do with institutional imperatives such as credits or program degrees. In both cases, the learner conserves a high level of psychological control over the act of learning. [[skimx://bouchard2009pedagogy#1|p. 1]]
+
+On the other hand, the pedagogical dimension is the sum of all activities that are normally the responsibility of an instructor in teacher-directed learning, such as formulating goals, [[skimx://bouchard2009pedagogy#1|p. 1]]
+
+planning activities, selecting resources, and setting deadlines. Of course, a self-directed learner must do all of these things, hence the pedagogical control that self-direction allows. In the example above of registering for a formal course, the learner displayed a high degree of psychological control and a low level of pedagogical control (albeit voluntarily). An alternative example would be learners who hold no responsibility for why and what to learn, but nevertheless are left to their own devices regarding how to learn it. Such situations occur with increasing frequency in the workplace, as some recent research revealed (Bouchard & Hrimech, 2007). [[skimx://bouchard2009pedagogy#2|p. 2]]
+
+The terminology employed by Long is problematic, however. To talk about something being psychological is misleading since the term itself can designate any process that originates from or affects the human mind. Therefore, almost everything can be said to be psychological or to have psychological implications. If we are referring specifically to the inner dynamics that will ultimately entice someone to initiate a learning process, we are really talking about the conative dimension of learning, which includes all the possible reasons a person can have for learning, such as their drive, impulses, initiative, and drive. Ponton, Derrick, Hall, Rhea, and Carr are among other researches examining aspects of conation: “The term ‘conative’ is used with aspects of autonomous learning because conation refers to ... [the agent’s] behavioral intentions and ensuing intentional activity” (2005, p. 50). [[skimx://bouchard2009pedagogy#2|p. 2]]
+
+Similarly, it is awkward to talk about pedagogical issues in the context of SDL, since pedagogy is a term that is primarily used to designate what it is that teachers do. In an environment without a teacher, the term resonates falsely. In an interesting article some years back, Danis and Tremblay (1986) interviewed self-directed learners and discovered, contrary to expectation, that they did not engage much in the so-called teaching tasks. This finding was appropriately named by the authors an “analgorithmia of syntaxes,” (p. 432) because the self-teaching processes (or syntaxes) did not correspond to the form or sequence (the algorithms) advocated in teacher development programs. Therefore, Long’s model can be improved by referring to the second dimension of learner-control as the algorithmic dimension. [[skimx://bouchard2009pedagogy#2|p. 2]]
+
+One of the earliest definitions of self-direction in learning included the central notion of teaching tasks (Tough, 1965). Indeed, if self-direction is associated with learning without a teacher, then obviously the tasks normally assigned to the instructor in a formal setting will naturally be passed on to the learner in a SDL setting (Garrison, 2000). One useful way to think about these new learner-incumbent tasks is to call them autonomous learning strategies, since they are quite distinct from non-autonomous learning strategies such as memorizing for an exam or writing a paper that an instructor is likely to grade favorably. In a series of recent interviews, a number of areas within the conative and algorithmic dimensions were identified as central to the application of autonomous learning strategies (Hrimech & Bouchard, in press). [[skimx://bouchard2009pedagogy#2|p. 2]]
+
+In this research interviews with 40 employees whose job description fit our criteria for knowledge workers were conducted. [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Table 1. Algorithmic Dimensions of Autonomous Learning Strategies [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Sequencing [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Pacing [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Formulating Objectives [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Finding Resources [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Following Up ￼ [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Evaluating [[skimx://bouchard2009pedagogy#3|p. 3]]
+
+Table 2. Conative Dimensions of Autonomous Learning Strategies [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Initiative [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Motive [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Motivation [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Context and Transitions [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Social Environment [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Past Experiences [[skimx://bouchard2009pedagogy#4|p. 4]]
+
+Now, the learner is faced with choices that must be evaluated on the basis of their intrinsic worth. Several interesting questions arise such as the following: (a) Is informal learning less valuable than what is officially recognized for credit learning? (b) If so, is this counterbalanced by the fact that it is also less expensive? (c) Which of the two variables has most intrinsic value, the knowledge itself, or its official sanction by an institution? [[skimx://bouchard2009pedagogy#5|p. 5]]
+
+Self-directed learning has been the object of considerable prescriptive literature that assumes that SDL is naturally a good thing and that it should be supported in all areas of learning, particularly in the workplace. [[skimx://bouchard2009pedagogy#6|p. 6]]
+
+In a world where autonomous learning is more or less expected of learners and employees, these tasks can quickly become overwhelming for the unprepared. The conative dimension reminds us that it is the learner, ultimately, who is at the origin of the act of learning. Failure to recognize this, for example by expecting from employees that they know without providing appropriate support for acquiring the knowledge, can lead to considerable anxiety and frustration. The semiotic dimension requires careful consideration not only to the information available, but also the form in which it is made available. A recent study shows that individuals vary considerably in their ability to search for and retrieve information, and that appropriate search strategies are often overlooked (British Library, 2008). The economic dimension highlights a whole set of factors that need to be applied when deciding what, where and how to learn. These decisions cannot be based on naïve perceptions of the old need-to-know approach that is still prevalent in today’s workplace. [[skimx://bouchard2009pedagogy#6|p. 6]]
+
+Table 3. Semiotic Dimensions of Autonomous Learning Strategies [[skimx://bouchard2009pedagogy#7|p. 7]]
+
+Use of Printed Text [[skimx://bouchard2009pedagogy#7|p. 7]]
+
+Use of NonPrint Text [[skimx://bouchard2009pedagogy#7|p. 7]]
+
+Use of Hypertext [[skimx://bouchard2009pedagogy#7|p. 7]]
+
+Data Collection [[skimx://bouchard2009pedagogy#7|p. 7]]
+
+Social Networks [[skimx://bouchard2009pedagogy#7|p. 7]]
+
+Table 4. Economic Dimension of Autonomous Learning Strategies [[skimx://bouchard2009pedagogy#8|p. 8]]
+
+Actual Value of Knowledge [[skimx://bouchard2009pedagogy#8|p. 8]]
+
+Perceived Value of Knowledge [[skimx://bouchard2009pedagogy#8|p. 8]]
+
+Cost of Learning [[skimx://bouchard2009pedagogy#8|p. 8]]
+
+Cost-Benefit Ratio of Learning [[skimx://bouchard2009pedagogy#8|p. 8]]
+
+Opportunity Costs [[skimx://bouchard2009pedagogy#8|p. 8]]
+
+REFERENCES [[skimx://bouchard2009pedagogy#9|p. 9]]
+

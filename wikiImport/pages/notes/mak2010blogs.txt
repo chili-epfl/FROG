@@ -1,0 +1,83 @@
+h1. Key ideas
+
+h2. Research
+
+h3. Topic
+  * Connectivism and Connective Knowledge (CCK08) (Sep-Dec 2008)
+    * 2200 registered participants, 150 remained active
+  * survey, e-mail interview, look at statements in posts
+
+h3. Question
+Participants' preference for [[:blogs]] vs discussion [[:forums]]
+
+  * What were the reasons for choosing between blogs and forums as communication and learning tools in the CCK08 course?
+  * What factors affect the choice of blogs versus forums as communication and learning tools?
+
+h2. Three dimensions
+h3. home <-> bazaar
+Dimension of presence, identity, autonomy, home base. 
+
+Progress
+  * highly ‘personal thoughts’, ie a set of thoughts-in-progress, to myself
+  * to ‘emailed thoughts’ sent to known others
+  * to ‘blogged thoughts’ available to known/unknown others
+  * to contributing to ‘a forum’s thoughts’ where personal thoughts start to merge into the ‘thoughts of the forum’
+  * to contributing to ‘virtual forum’s thoughts’(eg SecondLife)
+
+Preferences for **connecting with people** (blogs) vs **connecting with ideas** (forums)
+
+h3. long-loop <-> short-loop
+Pace, crafted responses and type of sequence
+
+  * blogs: carefully thought through, creafted
+    * internally coherent set of postings, in sequence, train of thought
+  * forums: fast moving, postings and responses are rapid, shorter, more recursive, multi-track, shorter loops
+
+Short loops (generally in forums) provide affordances for people who want to learn predominantly by engagement rather than by reflection, and who find it useful, interesting and stimulating to engage in forums (the bazaars) in which strictly individualised knowledge starts to morph or merge into the knowledge and ideas of the forums (or networks) themselves
+
+**Transferred affordances** (blog posts commented on in forums etc)
+
+h3. engagement <-> reflection
+Using tools for communication, versus for own reflection and building up PLE/knowledge base
+
+h2. Learning styles
+**Use of blogs** was associated with the ability to create personal space for personal learning, quiet reflection and developing personal relationships with bloggers and others. 
+
+**Use of forums** was associated with fast paced challenging interaction, relationships based on sharing of ideas, more open discussion and more links to the discussed themes and bigger picture
+
+h2. Development
+Many transitioned from forums to blogs, because of 
+  * unacceptable behaviour (main)
+  * lack of moderation
+  * unwieldiness
+  * expertise divide
+
+h2. Reasons for choosing blogs or forum (ranked)
+
+h3. Blogs
+  * space to develop my own ideas
+  * ownership
+  * self-expression
+  * familiarity with using blogs
+  * an attractive layout to express ideas
+  * personal learning
+  * quiet slow reflection
+  * personal relationships
+  * own pace
+  * establishing a presence
+  * thoughtful long-term relationships
+  * personal voice
+
+h3. Forums
+  * familiarity with forums
+  * faster pace
+  * more lively debates
+  * tougher challenges
+  * big picture links
+  * less effort
+  * easier to find and follow
+  * more people to interact with
+  * more open discussions
+  * relationships based on ideas
+  * more accessible
+  * more sense of being in a group

@@ -1,0 +1,2 @@
+h1. Key ideas
+// Suggested by [[https://plus.google.com/107702703184747130690/posts/eMKm8Lyi4jT|Joe Corneli on GPlus]] in response to comment about PhD as waterfall/agile. Interviews two Australian PhD students, one is embedded in many networks, the other is isolated. //

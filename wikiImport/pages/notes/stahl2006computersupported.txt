@@ -1,0 +1,74 @@
+h1. Key ideas
+
+h2. Online teaching and instructor effort
+//online teaching requires at least as much effort by human teachers as classroom teaching [..] it generally significantly increases the teacher effort per student//
+
+::Is this always the case? With all kinds of students, settings? There are clearly environments in which students are learning actively themselves. If this is universally true, P2PU cannot work. Or perhaps P2PU can only work for a small select group of people?::
+
+h2. Cooperation and collaboration
+
+h3. Cooperation
+Partners split the work, solve sub-tasks individually and then assemble the partial results into the final output. In collaboration, partners do the work ‘together.’
+
+The learning is done by individuals, who then contribute their individual results and present the collection of individual results as their group product. 
+
+Learning in cooperative groups is viewed as something that takes place individually—and can therefore be studied with the traditional conceptualizations and methods of educational and psychological research. 
+
+h3. Collaboration
+Collaboration is a process by which individuals negotiate and share meanings relevant to the problem-solving task at hand…. Collaboration is a coordinated, synchronous activity that is the result of a continued attempt to construct and maintain a shared conception of a problem.
+
+Learning occurs socially as the collaborative construction of knowledge. The participants do not go off to do things individually, but remain engaged with a shared task that is constructed and maintained by and for the group as such. The collaborative negotiation and social sharing of group meanings— phenomena central to collaboration—cannot be studied with traditional psychological methods.
+
+Construction and maintenance of shared conceptions of tasks—that are accomplished interactively in group processes. (Link to the concept of "grounding" [@dillenbourg2006sharing])
+
+h3. Critique
+Collaboration is "synchronous"? (No collaboration can happen in asynchronous environments?) 
+
+The difference between cooperation and collaboration seems to be defined too much by a simple linear view of problem solving. What about a knowledge community that iterates over issues - we can split up tasks, recombine them, work sometimes apart and sometimes together. Granularities of collaboration.
+
+View of a course as a trajectory of different approaches, externalizations, granularities of collaboration, use of tools, synchronous vs asynchronous, etc.
+
+h2. Meaning making
+Collaboration is primarily conceptualized as a process of shared meaning construction. 
+
+The meaning making is not assumed to be an expression of mental representations of the individual participants, but is an interactional achievement. 
+
+Meaning making can be analyzed as taking place across sequences of utterances or messages from multiple participants. The meaning is not attributable to individual utterances of individual students because the meaning typically depends upon indexical references to the shared situation, elliptical references to previous utterances and projective preferences for future utterances (Stahl, 2006).
+
+h2. Intersubjectivity
+The question of how intersubjectivity is accomplished has been taken up in a variety of specialized disciplines such as 
+  * pragmatics (Levinson, 2000, Sperber & Wilson, 1982)
+  * social psychology (Rommetveit, 1974)
+  * linguistic anthropology (Hanks, 1996)
+  * sociology (cf Goffman, 1974), especially sociological research in the ethnomethodological tradition (Garfinkel, 1967; Heritage, 1984)
+
+Questions
+  * Do cognitive phenomena take place trans-personally in group discourse?
+  * How is it possible for learning, usually conceived of as a cognitive function, to be distributed across people and artifacts?
+  * How can we underst
+  * knowledge as accomplished practice rather than as a possession or even predisposition?
+
+h2. Metaphors of learning
+[@sfard1998metaphors]:
+  * acquisition - in which learning consists of individuals acquiring knowledge stored in their minds
+  * participation - in which learning consists of increasing participation in communities of practice
+
+[@lipponen2004practices]:
+  * knowledge creation metaphor - in which new knowledge objects or social practices are created in the world through collaboration
+
+h2. Early CSCL projects
+  * ENFI at Gallaudet University (early examples of computer-assisted writing, chat-like for hearing impaired students)
+  * CSILE at UToronto ([[:Knowledge Forum]])
+  * Fifth Dimension Project at UCSD
+
+h3. Influential monographs
+  * Newman, Griffin Cole (1989) The Construction Zone
+  * Bruffee (1993) Collaborative Learning
+  * Crook (1994) Computers and the Collaborative Experience of Learning
+  * Bereiter (2002) Education and Mind in the Knowledge Age
+
+h3. Research methodologies
+  * experimental
+  * descriptive
+  * iterative
+  * (hybrid)

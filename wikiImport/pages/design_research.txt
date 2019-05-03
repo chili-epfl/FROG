@@ -1,0 +1,9 @@
+h1. Design research
+
+Very good literature review of participatory game design[(:ref:mor2006literature)] 
+
+----
+  * [[http://edutechwiki.unige.ch/en/Conjecture_map|Conjecture map - EduTech Wiki]]
+  * [[http://www.tandfonline.com/toc/hlns20/13/1|Taylor & Francis Online :: Journal of the Learning Sciences - Volume 13, Issue 1 [http://www.tandfonline.com/]]]
+  * [[http://dbr.coe.uga.edu/expertinterview.htm|Interview with Design based Research Experts]]
+  * [[http://designbasedresearch.org/|Design-Based Research Collective]]

@@ -1,0 +1,17 @@
+h1. Online collaborative Researchr
+
+h2. Which citation manager to manage citations?
+h3. CiteULike
+  * has a bookmarklet to import from pages (but not very mature), can also paste BibTeX
+  * each article has a global unique ID, BibTeX can be retrieved with http://www.citeulike.org/bibtex/article/ARTICLE_NO
+    * various options for formatting etc
+    * can also export plain-text citation in various styles, need /user/xxx/article/xxx format
+  * longevity? last blog post April 2011
+
+h3. Zotero
+  * Has a read API, but requires parsing HTML source to find group ID
+    * for example from: <link href="https://api.zotero.org/groups/48855/items" type="application/atom+xml" rel="alternate" title="" />
+  * Example of URL that generates BibTeX file of items in group library 
+    * https://api.zotero.org/groups/48855/items?format=bibtex&limit=10
+  * Generates BibTeX file of single item
+    * https://api.zotero.org/groups/48855/items/PG9ZT55P?format=bibtex

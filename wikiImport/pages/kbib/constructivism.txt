@@ -1,0 +1,7 @@
+h2. Publications with keyword "constructivism"
+
+| [@dougiamas1998journey] | Dougiamas, M. (1998). A journey into constructivism. |
+| [@duffy1996constructivism] | Duffy, T. M., & Cunningham, D. J. (1996). Constructivism: Implications for the design and delivery of instruction. Handbook of research for educational communications and technology, 171.|
+| [@mayer2004should] | Mayer{R.E.}. (2004). Should there be a three-strikes rule against pure discovery learning?. American Psychologist, 59(1), 14. |
+| [@bowers2005false] | Bowers, C. A. (2005). The false promises of constructivist theories of learning: A global and ecological critique (Vol. 14). Peter Lang Pub Inc.|
+| [@liu2005vygotsky] | Liu, C.-C., & Matthews, R. (2005). Vygotsky’s philosophy: Constructivism and its criticisms examined. Published by Shannon Research Press Adelaide, South Australia ISSN 1443-1475 http://iej. cjb. net, 6(3), 386--399.|

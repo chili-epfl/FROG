@@ -1,0 +1,3 @@
+h2. J. Yuen's publications
+
+| law2011understanding | Law, N., Yuen, J., Wong, W. O. W., & Leng, J. (2011). Understanding Learners’ Knowledge Building Trajectory Through Visualizations of Multiple Automated Analyses. Analyzing Interactions in CSCL. Springer.|[[skimx://law2011understanding|PDF]]|

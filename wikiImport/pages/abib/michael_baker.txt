@@ -1,0 +1,6 @@
+h2. Michael Baker's publications
+
+| [@andriessen2003argumentation] | Andriessen, J., Baker, M., & Suthers, D. D. (2003). Argumentation, computer support, and the educational context of confronting cognitions. Arguing to learn: Confronting cognitions in computer-supported collaborative learning environments, 1, 1–25.|
+| [@andriessen2003arguing] | Andriessen, J., Baker, M., & Suthers, D. D. (2003). Arguing to learn: confronting cognitions in computer-supported collaborative learning environments. Springer.|
+| [@lund2007argumentation] | Lund, K., MolinariGaëlle, SéjournéA., & Baker, M. (2007). How do argumentation diagrams compare when student pairs use them as a means for debate or as a tool for representing debate?. International Journal of Computer-Supported Collaborative Learning, 2(2), 273--295.|
+| [@baker2007rainbow] | Baker, M., Andriessen, J., Lund, K., Amelsvoort, M., & Quignard, M. (2007). Rainbow: A framework for analysing computer-mediated pedagogical debates. International Journal of Computer-Supported Collaborative Learning, 2(2-3), 315-357. doi:10.1007/s11412-007-9022-4|

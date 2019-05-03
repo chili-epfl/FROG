@@ -1,0 +1,130 @@
+h1. Key ideas
+[[http://reganmian.net/blog/2011/05/17/knowledge-building-theory-pedagogy-and-technology/|Blog post]]
+
+h2. Six themes
+  * Knowledge advancement as a community rather than individual achievement
+  * Knowledge advancement as idea improvement rather than as progress toward true or warranted belief
+  * Knowledge of in contrast to knowledge about
+  * Discourse as collaborative problem solving rather than as argumentation
+  * Constructive use of authoritative information
+  * Understanding as an emergent
+
+h2. Use of authoritative sources
+Rather than being overawed by authority, or dismissive, they see their own work as being legitimated by its connection to problems that have commanded the attention of respected scientists, scholars, and thinkers.
+
+h2. Integrative
+In every progressive discipline one finds periodic reviews of the state of knowledge or the “state of the art” in the field. Fundamentally, a description of the state of knowledge is not about what is in people’s minds at all. If we look back at prehistoric times, using archaeological evidence, we can make statements about the state of knowledge in a certain civilization at a certain time, without knowing anything about any individuals and what they thought or knew.
+An implicit assumption in state-of-the-art reviews is that the knowledge in a field does not merely accumulate but advances.
+
+::Link to a “map of the field”, wiki to keep collective literature review ::
+
+h2. Artefacts
+[[:Epistemic artefacts]]
+  * purely conceptual artifacts (Bereiter, 2002), such as theories and abstract models
+  * “epistemic things” (Rheinberger, 1997), such as concrete models and experimental set- ups. 
+Epistemic artifacts are especially important in education, where the main uses of knowledge are in the creation of further knowledge. When we speak of engaging students in “the deliberate creation and improvement of knowledge that has value for a community”(Scardamalia & Bereiter, 2003) the main value is this epistemic one—a feedforward effect, in which new knowledge gives rise to and speeds the development of yet newer knowledge. In this context, student-generated theories and models are to be judged not so much by their conformity to accepted knowledge as by their value as tools enabling further growth.
+
+h2. Questions
+Idea improvement - example from 5/6 class studying evolution. But without knowing the answer, how do we know whether they have improved, or gone onto a wrong path? How does Knowledge Building work in non-science disciplines? Why is so much of the focus on science? Is that true of all constructivism?
+
+h2. Epistemology
+h3. View of truth, related to KB
+To propose idea improvement as an alternative to progress toward truth may suggest a relativist, anti-foundationalist, or extreme social-constructivist theory of knowledge. The point we want to make here, however, is that you need not take a position on this issue in order to adopt a knowledge building pedagogy with idea improvement as a core principle. You can hold that there are preexisting truths and that, short of revelation, idea improvement is our only means of working toward them; or you can hold that what pass for truths are just conceptual artifacts that have undergone a successful process of development. All that is necessary is to adopt as a working premise that all ideas are improvable— or, at any rate, all interesting ideas.
+h3. Knowledge of, knowledge about
+Knowledge of in Contrast to Knowledge about Since the 1970s, cognitive scientists largely focus on two broad types of knowledge, declarative and procedural (Anderson, 1980). From a pragmatic standpoint, a more useful distinction is between knowledge about and knowledge of something. Knowledge about sky-diving, for instance, would consist of all the declarative knowledge you can retrieve when prompted to state what you know about sky-diving. Such knowledge could be conveniently and adequately represented in a concept net. Knowledge of sky-diving, however, implies an ability to do or to participate in the activity of sky-diving. It consists of both procedural knowledge (e.g, knowing how to open a parachute and guide its descent) and declarative knowledge that would be drawn on when engaged in the activity of sky-diving (e.g., knowledge of equipment characteristics and maintenance requirements, rules of particular events). It entails not only knowledge that can be explicitly stated or demonstrated, but also implicit or intuitive knowledge that is not manifested directly but must be inferred (see Bransford et al., this volume). Knowledge of is activated when a need for it is encountered in action. Whereas knowledge about is approximately equivalent to declarative knowledge, knowledge of is a much richer concept than procedural knowledge.
+
+To be useful outside the limited areas in which knowledge about is sufficient, knowledge needs to be organized around problems rather than topics (Bereiter, 1992).
+
+::Link to situated cognition?::
+
+Of course, topics and problems often go together, but in the most interesting cases they do not—for example, when the connection of knowledge to a problem is analogical, via deeper underlying mechanisms rather than surface resemblance. Such connections are vital to invention, theorizing, and the solving of ill-structured problems. For instance, it is useful for learners’ knowledge of water skiing to be activated when they are studying flight, because it provides a nice experiential anchor for the otherwise rather abstract “angle of attack” explanation of lift.
+Across a broad spectrum of theoretical orientations, instructional designers agree that the best way to acquire what we are calling knowledge of is through problem solving—as in the driving questions of project-based learning (Krajcik & Blumenfeld, this volume) and in inquiry learning more generally (Edelson & Reiser, this volume).
+
+Research on transfer makes it clear, however, that solving problems does not automatically generate the deep structural knowledge on which analogical transfer is based (Catrambone & Holyoak, 1989).
+
+the deep structural knowledge on which analogical transfer is based (Catrambone & Holyoak, 1989).
+
+Problem-based learning environments fall somewhere on a continuum between context-limited to context-general work with knowledge (Bereiter & Scardamalia, 2003; in press). At the context-limited extreme, students’ creative work is limited to problems of such a concrete and narrowly focused kind that they do not raise questions about general principles. Accordingly, the more basic knowledge (of scientific laws or causal mechanisms, for instance) that the curriculum calls for is often left to be conveyed by conventional instructional means. This raises concern that the deep knowledge that is most useful for transfer will not be connected with problems but will remain as knowledge about the relevant principles or laws. In knowledge building, students work with problems that result in deep structural knowledge of.
+
+h2. Discourse
+In the view of science that flourished 50 years ago and that is still prominent in school science, discourse is primarily a way of sharing knowledge and subjecting ideas to criticism, as in formal publications and oral presentations, and question-and-answer sessions after these presentations. Lakatos (1976) challenged this idea, showing how discourse could play a creative role—actively improving on ideas, rather than only acting as a critical filter. Recent empirical studies of scientific discourse support Lakatos’s view. For example, Dunbar (1997) showed that the discourse that goes on inside research laboratories is fundamentally different from the discourse that goes on in presentations and papers—it is more cooperative and concerned with shared understanding.
+
+::Link to :: [[:monologic and dialogic learning]]. ::How does this change with open education and open notebook science - taking the “informal private conversations” into the open?::
+
+There are weak and strong versions of the claim that collaborative discourse plays a role in knowledge advancement. The weak version holds merely that empirical findings and other products of inquiry only become contributions to community knowledge when they are brought into public discourse. This version is compatible with the conventional view of discourse as knowledge sharing. The strong version asserts that the state of public knowledge in a community only exists in the discourse of that community, and the progress of knowledge just is the progress of knowledge-building discourse.
+
+The weak version holds that the advance of knowledge is reflected in the discourse, whereas the strong version holds that there is no advance of community knowledge apart from the discourse.
+
+h2. Self-organization
+how is it logically possible to learn “a conceptual system richer than the one that one already has” (Fodor, 1980, p. 149)? The “learning paradox, ”as it has come to be called (Pascual-Leone, 1980; Bereiter, 1985), poses a fundamental problem for constructivism: If learners construct their own knowledge, how is it possible for them to create a cognitive structure more complex than the one they already possess?
+
+The only creditable solutions are ones that posit some form of self-organization (Quartz, 1993; Molenaar & van der Maas, 2000). At the level of the neural substrate, self-organization is pervasive and characterizes learning of all kinds (Phillips & Singer, 1997). As Grossberg (1997, p. 689) remarked, “brains are self-organizing organs par excellence.” Explaining conceptual development, however, entails self-organization at the level of ideas—explaining how more complex ideas can emerge from interactions of simpler ideas and percepts.
+
+Connectionist models are examples of the larger class of dynamic systems models, all of which attempt to deal in some rigorous way with emergent phenomena.
+
+The practical import of this discussion is that instructional designers need to think more seriously about ideas as real things that can interact with one another to produce new and more complex ideas. School-age students have shown themselves able to make sense of and profit from computer representations of self-organization at the idea level (Ranney & Schank, 1988).
+
+h2. Intentional learning
+Prying loose the concept of knowledge building from concepts of learning has been an evolutionary process, however, which continues. An intermediate concept is “intentional learning”(Bereiter & Scardamalia, 1989)—something more than “active” or “self-regulated” learning, more a matter of having life goals that include a personal learning agenda. This concept grew out of research revealing the opposite of intentional learning: students employing strategies that minimize learning while efficiently meeting the demands of school tasks (Brown, Day, & Jones, 1983; Scardamalia & Bereiter, 1987).
+
+“knowledge-transforming” approach (Scardamalia, Bereiter, & Steinbach, 1984)
+
+Many characteristics of classroom life conspire to discourage intentional learning (Scardamalia & Bereiter, 1996), but a key factor seems to be the structure of classroom communication, in which the teacher serves as the hub through which all information passes.
+
+::interesting that she uses the word hypertext - link to the literature on:: [[:hypertext]]
+
+
+h2. Design
+  * epistemological markers - another word for [[:scaffolds]]
+Critique of threaded discussion forums. Cannot simultaneously respond to a number of messages, etc.
+
+Wherever one is in a Knowledge Forum database, it is always possible to move downward, producing a lower-level note, comment, or subview; upward, producing a more inclusive note or a view of views; and sideways, linking views to views or linking notes in different views. Notes themselves may contain graphics, animations, movies, links to other applications and applets, and so on.
+
+h2. Pedagogy
+Of course, students using Knowledge Forum do not spend all their time at the computer. They read books and magazines, have small-group and whole-class discussions, design and carry out experiments, build things, go on field trips, and do all the other things that make up a rich educational experience. But instead of the online work being an adjunct, as it typically is with instructional management systems, bulletin boards, and the like, Knowledge Forum is where the main work takes place. It is where the “state of knowledge” materializes, takes shape, and advances. It is where the results of the various off-line activities contribute to the overall effort.
+
+::But what is the balance of other activities, especially “knowledge telling” - face-to-face discourse about the online components? How do you best structure an online class, especially one that does not include experiments, testing theories, etc?::
+
+For decades educators have promoted constructivist ideas among themselves whereas their students have been expected to carry out constructivist activities without access to the constructivist ideas lying behind them. There is an internal contradiction there that a principled approach to knowledge building should overcome.
+
+“knowledge telling”—a term derived from a cognitive model of immature composing processes (Scardamalia, Bereiter, & Steinbach, 1984).
+
+
+h2. Building on past work
+::Continuity of KB, having high school children studying electricity pick up on the work they did in primary, secondary. This is a pretty cool idea. Wonder if anyone have really tried this. Across schools? – But how important is it that it is _their own work_ that they pick up? Because they remember what they did before? What if they don't remember at all? What if they all come from different classes in different schools - how do you bring in all of those different perspectives? (Could be quite interesting of course)::
+
+h2. Metacognition
+One distinctive characteristic of students in knowledge building classrooms reflects epistemological awareness. When asked about the effects of learning, students in regular classrooms tend to say that the more they learn and understand, the less there remains to be learned and understood (a belief that accords well with the fixed curriculum that directs their work). Students in knowledge building classrooms, however, tend strongly toward the opposite view, as expressed by one fourth-grade student: “By researching it [a particular knowledge problem] you can find other things that you want to research about.
+
+h2. Relationship between learning and work
+  * CSCL and [[:CSCW]]
+  * Collective reasoning, “global brain”
+  * “Internet becomes the first realistic means for students to connect with civilization-wide knowledge building”
+
+In scientific and scholarly research teams, knowledge building often proceeds with no special technology to support it. This is possible because knowledge building is woven into the social fabric of the group and in a sense all the technology used by the group supports it.
+
+::Yes, but there is a lot of discussion about developing tools for scientists, etc. Why couldn't the same approaches work there?::
+
+h2. Links to other concepts
+h3. Approaches to deep learning, informed by how knowledge advances in the disciplines
+  * [[:learning by discovery]]
+  * [[:guided discovery]]
+  * [[:inquiry learning]]
+  * [[:science: a process approach]]
+
+h3. Other concepts
+  * [[:Thomas Kuhn]]
+  * [[:Imre Lakatos]]
+  * [[:sociology of science]]
+  * [[:the “Science Wars]]
+  * [[:social constructivism]]
+  * [[:schema theory]]
+  * [[:mental models]]
+  * [[:situated cognition]]
+  * [[:explanatory coherence]]
+  * [[:the rhetorical turn]]
+  * [[:communities of practice]]
+  * [[:memetics]]
+  * [[:connectionism]]
+  * [[:emergence]]
+  * [[:self-organization]]

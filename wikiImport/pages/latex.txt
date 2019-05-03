@@ -1,0 +1,25 @@
+h1. Latex
+
+\usepackage[utf8]{inputenc} [[http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management|LaTeX/Bibliography Management - Wikibooks, open books for an open world]]
+----
+Base Header Level: 2
+
+Bibtex: IEEEabrv,../../bibtex/thesis-new
+
+Latex footer: ut-thesis-end
+
+Bibliostyle: plainnat-nourl
+
+Title: My Big Thesis
+
+Author: Neil Alexander Ernst
+
+Latex input: ut-thesis-begin [[http://neilernst.net/2011/07/27/writing-complex-latex-documents-with-scrivener-2-1-and-multimarkdown-3/|Writing Complex Latex Documents with Scrivener 2.1 and MultiMarkDown 3 | Semantic Werks]]
+----
+  * [[http://timbrandes.com/blog/2012/02/28/howto-write-your-thesis-in-latex-using-scrivener-2-multimarkdown-3-and-bibdesk/|How to write your Thesis in LaTeX with Scrivener 2, MultiMarkdown 3 and BibDesk | by Tim Brandes]]
+  * [[http://www.ctan.org/tex-archive/support/latexdiff/|CTAN: tex-archive/support/latexdiff/]]
+  * [[http://en.wikibooks.org/wiki/LaTeX|LaTeX - Wikibooks, open books for an open world]]
+  * [[http://randomdeterminism.wordpress.com/2012/06/01/how-i-stopped-worring-and-started-using-markdown-like-tex/|How I stopped worrying and started using Markdown like TeX | Random Determinism]]
+  * [[http://www.acm.org/sigs/publications/proceedings-templates|ACM SIG Proceedings Templates — Association for Computing Machinery]]
+  * [[http://phaseportrait.blogspot.ca/2012/10/natbib-like-frontend-for-chicago-style.html|Phase Portrait: natbib-like frontend for chicago-style macros]]
+  * [[http://www.dickimaw-books.com/latex/thesis/|Using LaTeX to Write a PhD Thesis]]

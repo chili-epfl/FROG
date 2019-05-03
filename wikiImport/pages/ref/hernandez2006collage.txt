@@ -1,0 +1,38 @@
+h1. COLLAGE: A collaborative Learning Design editor based on patterns
+<html><a href='' onClick="trackOutboundLink(this, 'PDFs refpage', ''); return false;"><img src="/wiki/_media/wiki:downloadbutton.png" class="mediaright" align="right" alt="" /></a></html>
+<ifauth !@admin>| (2006). COLLAGE: A collaborative Learning Design editor based on patterns. JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY, 9(1), 58.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://hernandez2006collage|BibDesk]]  |  (2006). COLLAGE: A collaborative Learning Design editor based on patterns. JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY, 9(1), 58. |
+^ [[skimx://hernandez2006collage|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:hernandez2006collage?do=edit&vecdo=print\'><frame src=\'/wiki/clip:hernandez2006collage?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{hernandez2006collage,
+  author = {Hernández-Leo, D. and Villasclaras-Fernández, E.D. and Asensio-Pérez, J.I. and Dimitriadis, Yannis and Ruiz-Requies, I. and Rubia-Avi, Bartolomé and Jorrín-Abellán, Iván},
+  date-added = {2011-06-12 12:21:06 +0800},
+  date-modified = {2014-03-21 12:12:32 +0000},
+  date-read = {2014-03-21 08:12:32 -0400},
+  journal = {JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY},
+  keywords = {portal},
+  number = {1},
+  pages = {58},
+  publisher = {Citeseer},
+  read = {1},
+  title = {COLLAGE: A collaborative Learning Design editor based on patterns},
+  volume = {9},
+  year = {2006},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QRC4uLy4uL0JpYmRlc2svYmFrL2hlcm5hbmRlejIwMDZjb2xsYWdlLTIwMTQtMDMtMjEgMDg6MTI6MDUgLTA0MDAucGRm0hcLGBlXTlMuZGF0YU8RAe4AAAAAAe4AAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAADq7N2R9oZXJuYW5kZXoyMDA2Y29sbGFnZSNEQUNFMjMucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2s4jyhm26QAAAAAAAAAAAAIAAwAACSAAAAAAAAAAAAAAAAAAAAADYmFrAAAQAAgAAMl5ligAAAARAAgAAMoZ7ykAAAABABAOrs3ZANrWUgAXPTEAAZ9eAAIAQ1NTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBiYWs6AGhlcm5hbmRlejIwMDZjb2xsYWdlI0RBQ0UyMy5wZGYAAA4AZgAyAGgAZQByAG4AYQBuAGQAZQB6ADIAMAAwADYAYwBvAGwAbABhAGcAZQAtADIAMAAxADQALQAwADMALQAyADEAIAAwADgALwAxADIALwAwADUAIAAtADAANAAwADAALgBwAGQAZgAPABAABwBTAFMARABIAG8AbQBlABIASlVzZXJzL1N0aWFuL0JpYmRlc2svYmFrL2hlcm5hbmRlejIwMDZjb2xsYWdlLTIwMTQtMDMtMjEgMDg6MTI6MDUgLTA0MDAucGRmABMAAS8AABUAAgAM//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4A1QDaAOIC1ALWAtsC5gLvAv0DAQMIAxEDFgMjAyYDOAM7A0AAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADQg==}
+}
+
+</hidden>
+
+{{page>notes:hernandez2006collage}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:hernandez2006collage}}
+
+{{page>kindle:hernandez2006collage}}
+
+{{page>skimg:hernandez2006collage}}

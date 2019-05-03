@@ -1,0 +1,37 @@
+h1. The challenges to connectivist learning on open online networks: Learning experiences during a massive open online course
+
+<ifauth !@admin>|Kop, R. (2011). The challenges to connectivist learning on open online networks: Learning experiences during a massive open online course. The International Review of Research in Open and Distance Learning, 12(3), 19--38.|</ifauth>
+<ifauth @admin>
+^ [[bibdeskx://kop2011challenges|BibDesk]]  | Kop, R. (2011). The challenges to connectivist learning on open online networks: Learning experiences during a massive open online course. The International Review of Research in Open and Distance Learning, 12(3), 19--38. |
+^ [[skimx://kop2011challenges|Skim]]     | ::: |
+^ <html><a href="javascript:var MyFrame='<frameset cols=\'*,*\'><frame src=\'/wiki/notes:kop2011challenges?do=edit&vecdo=print\'><frame src=\'/wiki/clip:kop2011challenges?vecdo=print\'></frameset>';with(document) {    write(MyFrame);};return false;"">Sidewiki</a></html> | ::: |
+</ifauth>
+<hidden BibTex>
+  @article{kop2011challenges,
+  author = {Kop, Rita},
+  date-added = {2011-07-22 08:02:40 +0000},
+  date-modified = {2012-04-08 16:28:14 +0000},
+  date-read = {2012-04-02 13:51:48 -0400},
+  journal = {The International Review of Research in Open and Distance Learning},
+  keywords = {1mooc},
+  number = {3},
+  pages = {19--38},
+  read = {1},
+  title = {The challenges to connectivist learning on open online networks: Learning experiences during a massive open online course},
+  volume = {12},
+  year = {2011},
+  bdsk-file-1 = {YnBsaXN0MDDUAQIDBAUIJidUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqAkKFRYXGyIjVSRudWxs0wsMDQ4RElpOUy5vYmplY3RzViRjbGFzc1dOUy5rZXlzog8QgASABoAHohMUgAKAA1lhbGlhc0RhdGFccmVsYXRpdmVQYXRo0hgMGRpXTlMuZGF0YU8RAYQAAAAAAYQAAgAAB1NTREhvbWUAAAAAAAAAAAAAAAAAAAAAAAAAAMl5T9hIKwAAANrWUhVrb3AyMDExY2hhbGxlbmdlcy5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE9YP7yzHcmFBERiAAAAAAAAIAAgAACSAAAAAAAAAAAAAAAAAAAAAHQmliZGVzawAAEAAIAADJeZYoAAAAEQAIAADLMiLoAAAAAQAMANrWUgAXPTEAAZ9eAAIANFNTREhvbWU6VXNlcnM6AFN0aWFuOgBCaWJkZXNrOgBrb3AyMDExY2hhbGxlbmdlcy5wZGYADgAsABUAawBvAHAAMgAwADEAMQBjAGgAYQBsAGwAZQBuAGcAZQBzAC4AcABkAGYADwAQAAcAUwBTAEQASABvAG0AZQASAClVc2Vycy9TdGlhbi9iaWJkZXNrL2tvcDIwMTFjaGFsbGVuZ2VzLnBkZgAAEwABLwAAFQACAAz//wAAgAXSHB0eH1gkY2xhc3Nlc1okY2xhc3NuYW1lox8gIV1OU011dGFibGVEYXRhVk5TRGF0YVhOU09iamVjdF8QIy4uLy4uL2JpYmRlc2sva29wMjAxMWNoYWxsZW5nZXMucGRm0hwdJCWiJSFcTlNEaWN0aW9uYXJ5EgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARQBLAFIAXQBkAGwAbwBxAHMAdQB4AHoAfACGAJMAmACgAigCKgIvAjgCQwJHAlUCXAJlAosCkAKTAqACpQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAK3}
+}
+
+</hidden>
+
+{{page>notes:kop2011challenges}}
+
+h2. Links here
+{{backlinks>.}}
+
+{{page>clip:kop2011challenges}}
+
+{{page>kindle:kop2011challenges}}
+
+{{page>skimg:kop2011challenges}}

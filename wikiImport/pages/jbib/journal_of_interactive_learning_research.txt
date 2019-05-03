@@ -1,0 +1,3 @@
+h2. Publications in Journal of Interactive Learning Research
+
+| stoyanova2001concept | Stoyanova, N., & Kommers, P. (2001). Concept mapping as a medium of shared cognition in computer-supported collaborative problem solving. Journal of Interactive Learning Research, 13(1/2), 111--134.||

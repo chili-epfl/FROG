@@ -1,0 +1,17 @@
+h1. Key ideas
+
+h2. “The Learning Model”: How would we detect learning in this space?
+  * A naıve idea: model learning as vocabulary acquisition
+    * perhaps with “certification” through the evaluation process
+  * More complete: model learning as a change in patterns of behavior
+  * Sophisticated: model learning in terms of the use of new heuristic strategies
+
+h2. Behavior change
+Here we would look for behavior like:
+  * Working at the cutting edge (introducing new material?)
+  * Progressive problem solving (working at increasing depth?)
+  * Collaborative effort (asking or answering questions?)
+  * User-Identified high points (bookmarked threads and articles?)
+  * Processing level (eg browsing vs attempting to solve problems?) 
+  * Quality of self-explanation (knowing how activities relate to goals?)  
+  * Exploration (trying different resources?)

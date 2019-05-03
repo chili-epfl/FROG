@@ -1,0 +1,5 @@
+h1. Allen Gunn
+
+Started [[http://www.aspirationtech.org/|Aspiration Tech]], great contributions to [[workshop facilitation]].
+
+{{page>abib:Allen Gunn}}

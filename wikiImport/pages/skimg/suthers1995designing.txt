@@ -1,0 +1,8 @@
+h2. Images
+
+{{skim:suthers1995designing0.png}}
+
+[[skimx://suthers1995designing#1
+|p. 1
+]]<html><hr></html>
+
