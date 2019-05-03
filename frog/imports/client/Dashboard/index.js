@@ -135,7 +135,9 @@ export const DashboardReactiveWrapper = withTracker(props => {
     session,
     users
   };
-})(MultiWrapper);
+})(e => <MultiWrapper {...e} />);
+// above, it should have been enough to only have MultiWrapper instead of the function wrapper, but
+// that began giving me React component type errors - returns Object. This seems to work for now.
 
 DashboardReactiveWrapper.displayName = 'DashboardReactiveWrapper';
 

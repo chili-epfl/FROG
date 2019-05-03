@@ -1,5 +1,6 @@
 // @flow
 
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { isEmpty, omit } from 'lodash';
 import Delta from 'quill-delta';

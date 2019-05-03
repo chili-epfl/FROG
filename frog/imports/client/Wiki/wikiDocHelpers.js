@@ -1,8 +1,12 @@
-const addNewWikiPage = (wikiDoc, pageId, pageTitle, liType = 'li-richText') => {
+import { uuid } from 'frog-utils';
+
+const addNewWikiPage = (wikiDoc, liId, pageTitle, liType = 'li-richText') => {
+  const pageId = uuid();
   const op = {
     p: ['pages', pageId],
     oi: {
       id: pageId,
+      liId,
       valid: true,
       created: true,
       title: pageTitle,

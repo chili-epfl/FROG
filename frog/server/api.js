@@ -3,6 +3,7 @@ import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 
 import { uuid } from 'frog-utils';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
@@ -18,7 +19,8 @@ import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
 
 WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
-WebApp.connectHandlers.use(bodyParser.json());
+WebApp.connectHandlers.use(bodyParser.json({ limit: 50000000000 }));
+WebApp.connectHandlers.use(bodyParser.text({ limit: '50mb' }));
 
 setupH5PRoutes();
 
@@ -549,6 +551,72 @@ iframe { height: 100%; width: 100%; }
 </html>`;
   response.end(template);
 });
+
+WebApp.connectHandlers.use(
+  '/api/wikiSubmit',
+  async (request, response, next) => {
+    console.info(
+      'Importing page',
+      request.query?.wiki + ' / ' + request.query?.page
+    );
+    try {
+      const { wiki, page, id } = request.query;
+      const { body } = request;
+      if (!wiki || !body || !page) {
+        console.info(
+          'Require wiki and body request parameters, and body payload with text content type'
+        );
+        response.end(
+          'Require wiki and body request parameters, and body payload with text content type'
+        );
+      }
+      const genericDoc = serverConnection.get('li');
+      const dataFn = generateReactiveFn(genericDoc);
+      const newId = dataFn.createLearningItem(
+        'li-richText',
+        body,
+        {
+          wikiId: wiki
+        },
+        undefined,
+        undefined,
+        id
+      );
+
+      const wikidoc = serverConnection.get('wiki', wiki);
+      try {
+        wikidoc.create({ wikiId: wiki, pages: {} });
+      } catch (e) {}
+
+      const op = {
+        p: ['pages', newId],
+        oi: {
+          liId: newId,
+          id: newId,
+          valid: true,
+          created: true,
+          title: page,
+          liType: 'li-richText'
+        }
+      };
+
+      const wikiDoc = serverConnection.get('wiki', wiki);
+      await new Promise(resolve => {
+        wikiDoc.subscribe(() => {
+          wikiDoc.submitOp(op);
+          resolve();
+        });
+      });
+
+      response.writeHead(200);
+      response.end();
+    } catch (e) {
+      console.error(e);
+      response.writeHead(500);
+      response.end();
+    }
+  }
+);
 
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
   if (request.method !== 'POST') {

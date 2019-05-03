@@ -2,18 +2,15 @@
 
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { WikiContext, values, A, uuid } from 'frog-utils';
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  FormHelperText
-} from '@material-ui/core';
+import { WikiContext, values, uuid } from 'frog-utils';
 import { observer } from 'mobx-react';
-import { orderBy } from 'lodash';
+import { toJS } from 'mobx';
 import { Meteor } from 'meteor/meteor';
+import Mousetrap from 'mousetrap';
+import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
+import { toObject as queryToObject } from 'query-parse';
 
-import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
@@ -24,7 +21,7 @@ import Delete from '@material-ui/icons/Delete';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import { learningItemTypesObj, activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import {
   parseDocResults,
   parsePageObjForReactiveRichText,
@@ -37,8 +34,9 @@ import {
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
-import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import Revisions from './Revisions';
+import CreateModal from './ModalCreate';
+import FindModal, { SearchAndFind } from './ModalFind';
 
 const genericDoc = connection.get('li');
 export const dataFn = generateReactiveFn(genericDoc, LI, {
@@ -46,61 +44,80 @@ export const dataFn = generateReactiveFn(genericDoc, LI, {
 });
 const LearningItem = dataFn.LearningItem;
 
-const editableLIs = values(learningItemTypesObj).filter(
-  x => (x.Editor && x.liDataStructure) || x.Creator
-);
-
 type WikiCompPropsT = {
+  location: *,
   match: {
     params: {
       wikiId: string,
       pageTitle: ?string
     }
-  }
+  },
+  history: Object
 };
 
-class WikiComp extends Component<WikiCompPropsT> {
-  wikiDoc: ?Object = null;
+type WikiCompStateT = {
+  dashboardOpen: boolean,
+  dashboardSearch: ?string,
+  pageId: ?string,
+  pageTitle: ?string,
+  pageTitleString: ?string,
+  mode: string,
+  docMode: string,
+  editingTitle: boolean,
+  liType: string,
+  error: ?string,
+  openCreator: ?Object,
+  showTitleEditButton: boolean,
+  wikiContext: Object,
+  pageLiType: ?string,
+  createModalOpen: boolean,
+  findModalOpen: boolean,
+  search: '',
+  currentLI: ?string
+};
 
-  wikiId: ?string = null;
+class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
+  wikiId: string = this.props.match.params.wikiId;
+
+  wikiDoc: Object = {};
+
+  config: Object = {};
 
   constructor(props) {
     super(props);
+    if (!this.wikiId) throw new Error('Empty wikiId field');
+
+    const query = queryToObject(this.props.location.search.slice(1));
     this.state = {
+      dashboardSearch: null,
       dashboardOpen: false,
       pageId: null,
-      pageTitle: this.props.match.params.pageTitle
-        ? this.props.match.params.pageTitle.toLowerCase()
-        : null,
-      pageTitleString: this.props.match.params.pageTitle
-        ? this.props.match.params.pageTitle.toLowerCase()
-        : null,
+      currentLI: null,
+      pageTitle: this.props.match.params.pageTitle || null,
+      pageTitleString: this.props.match.params.pageTitle || null,
       mode: 'document',
-      docMode: 'view',
+      docMode: query.edit ? 'edit' : 'view',
       editingTitle: false,
       data: [],
       liType: 'li-richText',
-      newTitle: '',
       error: null,
       openCreator: false,
       showTitleEditButton: false,
+      pageLiType: null,
+      createModalOpen: false,
+      search: '',
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
         getOnlyValidWikiPages: this.getOnlyValidWikiPages,
-        createPage: this.createNewPageLI
+        createPage: this.createNewPageLI,
+        save: () => this.setState({ docMode: 'view' })
       }
     };
-
-    this.wikiId = this.props.match.params.wikiId;
-    if (!this.wikiId) throw new Error('Empty wikiId field');
   }
 
-  createActivityPage = () => {
-    const { activityType, config, invalid } = this.config;
-    if (invalid) {
-      return window.alert('Cannot create page from invalid configuration');
-    }
+  createActivityPage = (newTitle, rawconfig) => {
+    const { activityType, config, invalid } = rawconfig;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
     doc.create(activityTypesObj[activityType].dataStructure);
@@ -108,15 +125,15 @@ class WikiComp extends Component<WikiCompPropsT> {
       acType: activityType,
       activityData: { config },
       rz: id + '/all',
-      title: this.state.newTitle,
+      title: newTitle,
       activityTypeTitle: activityTypesObj[activityType].meta.name
     };
 
     const newId = dataFn.createLearningItem('li-activity', payload, {
-      title: this.state.newTitle
+      title: newTitle
     });
 
-    addNewWikiPage(this.wikiDoc, newId, this.state.newTitle, 'li-activity');
+    addNewWikiPage(this.wikiDoc, newId, newTitle, 'li-activity');
     this.setState({
       mode: 'document'
     });
@@ -124,12 +141,15 @@ class WikiComp extends Component<WikiCompPropsT> {
 
   WikiLink = observer(({ data }) => {
     const pageObj = wikistore.pages[data.id];
-    const pageTitle = pageObj.title;
     const style = {
       textDecoration: 'underline',
       cursor: 'pointer',
       color: 'black'
     };
+    if (!pageObj) {
+      return <span style={style}>INVALID LINK</span>;
+    }
+    const pageTitle = pageObj.title;
     const link = '/wiki/' + this.wikiId + '/' + pageTitle;
     const linkFn = e => {
       e.preventDefault();
@@ -146,7 +166,7 @@ class WikiComp extends Component<WikiCompPropsT> {
 
     return (
       <span onClick={linkFn} style={style}>
-        {pageTitle}
+        <b>{pageTitle}</b>
       </span>
     );
   });
@@ -167,10 +187,18 @@ class WikiComp extends Component<WikiCompPropsT> {
       if (err) throw err;
       this.loadWikiDoc();
     });
+
+    Mousetrap.bindGlobal('ctrl+n', () =>
+      this.setState({ createModalOpen: true })
+    );
+    Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
+    Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+    Mousetrap.bindGlobal('ctrl+f', () =>
+      this.setState({ findModalOpen: true })
+    );
   }
 
   loadWikiDoc = () => {
-    if (!this.wikiDoc) throw new Error('wikiDoc should not be null!');
     if (!this.wikiDoc.data) {
       const emptyDocValues = {
         wikiId: this.wikiId,
@@ -183,16 +211,22 @@ class WikiComp extends Component<WikiCompPropsT> {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     wikistore.setPages(this.wikiDoc.data.pages);
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+    const query = queryToObject(this.props.location.search.slice(1));
     if (pageTitle != null) {
-      const pageId = parsedPages[pageTitle].id;
+      const pageId = parsedPages[pageTitle.toLowerCase()].id;
+      const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
 
       this.setState({
         pageId,
+        currentLI,
         pageTitle,
         pageTitleString: pageTitle,
-        pageLiType: parsedPages[pageTitle].liType,
+        search: '',
+        findModalOpen: false,
+        pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
         docMode:
-          parsedPages[pageTitle].liType === 'li-activity'
+          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
+          query.edit
             ? 'edit'
             : this.state.docMode
       });
@@ -222,20 +256,28 @@ class WikiComp extends Component<WikiCompPropsT> {
       prevProps.match.params.pageTitle !== this.props.match.params.pageTitle &&
       this.wikiDoc != null
     ) {
+      const query = queryToObject(this.props.location.search.slice(1));
       const pages = parseDocResults(this.wikiDoc.data);
       const newPageTitle = this.props.match.params.pageTitle;
       if (!newPageTitle) return;
 
-      if (!pages[newPageTitle]) {
+      if (!pages[newPageTitle.toLowerCase()]) {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState(
           {
+            search: '',
+            findModalOpen: false,
+            createModalOpen: false,
             pageId: null,
+            currentLI: null,
             pageTitle: newPageTitle,
             pageTitleString: newPageTitle,
-            pageLiType: pages[newPageTitle].liType,
+            pageLiType: pages[newPageTitle.toLowerCase()].liType,
             docMode:
-              pages[newPageTitle].liType === 'li-activity' ? 'edit' : 'view'
+              pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
+              query.edit
+                ? 'edit'
+                : 'view'
           },
           () => {
             this.createNewPageLI(newPageTitle);
@@ -245,55 +287,50 @@ class WikiComp extends Component<WikiCompPropsT> {
         return;
       }
 
-      const pageId = pages[newPageTitle].id;
+      const pageId = pages[newPageTitle.toLowerCase()].id;
+      const liId = pages[newPageTitle.toLowerCase()].liId;
       // eslint-disable-next-line react/no-did-update-set-state
-
       this.setState({
+        search: '',
+        findModalOpen: false,
         pageId,
+        currentLI: liId,
         mode: 'document',
         liType: 'li-richText',
+        error: null,
+        createModalOpen: false,
         pageTitle: newPageTitle,
         pageTitleString: newPageTitle,
-        docMode: pages[newPageTitle].liType === 'li-activity' ? 'edit' : 'view',
-        pageLiType: pages[newPageTitle].liType
+        docMode:
+          pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
+          query.edit
+            ? 'edit'
+            : 'view',
+        pageLiType: pages[newPageTitle.toLowerCase()].liType
       });
     }
   }
 
-  createNewPageLI = (pageTitleRaw: string, liType: ?string) => {
-    if (!pageTitleRaw) throw new Error('Empty pageTitleRaw');
-    const pageTitle = pageTitleRaw.toLowerCase();
+  createNewPageLI = (pageTitle: string, liType: ?string) => {
+    if (!pageTitle) throw new Error('Empty pageTitleRaw');
     const meta = {
       wikiId: this.wikiId
     };
 
-    if (learningItemTypesObj[liType || 'li-richText'].Creator) {
-      this.setState({
-        openCreator: {
-          type: liType,
-          callback: newId => {
-            addNewWikiPage(this.wikiDoc, newId, pageTitle, liType);
-            this.setState({ openCreator: false });
-          }
-        }
-      });
-    } else {
-      const newId = dataFn.createLearningItem(
-        liType || 'li-richText',
-        undefined,
-        meta,
-        undefined,
-        undefined,
-        undefined
-      );
+    const newId = dataFn.createLearningItem(
+      liType || 'li-richText',
+      undefined,
+      meta,
+      undefined,
+      undefined,
+      undefined
+    );
 
-      addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
-      return newId;
-    }
+    addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
+    return newId;
   };
 
-  createLI = () => {
-    const newTitle = this.state.newTitle;
+  createLI = (newTitle, liType = 'li-richText', li, config) => {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     if (newTitle === '') {
       this.setState({
@@ -307,23 +344,33 @@ class WikiComp extends Component<WikiCompPropsT> {
       return;
     }
 
-    if (this.state.mode === 'api') {
-      this.createActivityPage();
+    if (li) {
+      addNewWikiPage(this.wikiDoc, li, newTitle, liType);
+    } else if (config && config.activityType) {
+      this.createActivityPage(newTitle, config);
     } else {
-      this.createNewPageLI(this.state.newTitle, this.state.liType);
+      this.createNewPageLI(newTitle, liType);
     }
-    const link = '/wiki/' + this.wikiId + '/' + this.state.newTitle;
-    this.props.history.push(link);
 
-    this.setState({
-      newTitle: '',
-      error: null
-    });
+    this.setState(
+      {
+        newTitle: '',
+        error: null
+      },
+      () => {
+        const link = '/wiki/' + this.wikiId + '/' + newTitle + '?edit=true';
+        this.props.history.push(link);
+      }
+    );
   };
 
-  deleteLI = (pageId: string) => {
+  deleteLI = (pageId: ?string) => {
+    if (!pageId) throw new Error('Missing pageId for deletion');
+
     const parsedPages = parseDocResults(this.wikiDoc.data);
     const newPageTitle = getPageTitle(parsedPages, null, pageId);
+    if (!newPageTitle) throw new Error('Missing new page title');
+
     const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
     this.props.history.replace(link);
     invalidateWikiPage(this.wikiDoc, pageId, this.loadWikiDoc);
@@ -337,6 +384,7 @@ class WikiComp extends Component<WikiCompPropsT> {
 
   saveNewPageTitle = () => {
     const newPageTitle = this.state.pageTitleString;
+    if (!newPageTitle) throw new Error('Cannot save empty new page title');
 
     changeWikiPageTitle(
       this.wikiDoc,
@@ -348,7 +396,8 @@ class WikiComp extends Component<WikiCompPropsT> {
     this.setState(
       {
         pageTitle: newPageTitle,
-        editingTitle: false
+        editingTitle: false,
+        showTitleEditButton: false
       },
       () => {
         const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
@@ -358,87 +407,15 @@ class WikiComp extends Component<WikiCompPropsT> {
   };
 
   render() {
-    if (!this.state.pageId || !this.state.pageTitle) return null;
-
-    const errorDiv = this.state.error ? (
-      <div>
-        <p style={{ color: 'red' }}>Error: {this.state.error}</p>
-      </div>
-    ) : null;
+    if (!this.state.pageId || !this.state.pageTitle || !this.state.currentLI)
+      return null;
 
     const validPages = this.getOnlyValidWikiPages();
-    const pagesLinks = orderBy(validPages, 'title').map(pageObj => {
-      const pageId = pageObj.id;
-      const pageTitle = pageObj.title;
-
-      const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-
-      const currentPageBool = pageId === this.state.pageId;
-
-      const style = currentPageBool
-        ? {
-            color: 'blue',
-            cursor: 'pointer'
-          }
-        : {
-            cursor: 'pointer'
-          };
-      return (
-        <li key={pageId} style={{ fontSize: '14px' }}>
-          <span
-            onClick={e => {
-              e.preventDefault();
-              this.props.history.push(link);
-            }}
-            style={style}
-          >
-            {pageTitle}
-          </span>
-        </li>
-      );
-    });
-
-    const newPageListItem = (
-      <>
-        <br />
-        <li>
-          <input
-            placeholder="New LI Title"
-            value={this.state.newTitle}
-            onChange={e => {
-              this.setState({ newTitle: e.target.value });
-            }}
-          />
-          <button onClick={this.createLI}>+</button>
-          <br />
-          <FormControl>
-            <Select
-              value={this.state.liType}
-              onChange={e => this.setState({ liType: e.target.value })}
-              displayEmpty
-              name="liType"
-            >
-              {editableLIs.map(x => (
-                <MenuItem key={x.id} value={x.id}>
-                  {x.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Learning Item type</FormHelperText>
-          </FormControl>
-          {errorDiv}
-          <A
-            onClick={() =>
-              this.setState({
-                mode: this.state.mode === 'api' ? 'document' : 'api'
-              })
-            }
-          >
-            Use FROG activity type
-          </A>
-        </li>
-      </>
-    );
+    let pages = validPages;
+    if (this.state.search !== '') {
+      const search = this.state.search.trim().toLowerCase();
+      pages = validPages.filter(x => x.title.toLowerCase().includes(search));
+    }
 
     const containerDivStyle = {
       display: 'flex',
@@ -449,164 +426,32 @@ class WikiComp extends Component<WikiCompPropsT> {
     const sideNavBarStyle = {
       width: '250px',
       backgroundColor: 'lightgrey',
+      overflowX: 'hidden',
+      overflowY: 'auto',
       padding: '10px',
       borderRight: '1px grey solid'
     };
 
     const contentDivStyle = {
       flex: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
       height: '100vh',
       width: 'calc(100vw - 250px)'
     };
 
     const titleDivStyle = {
       display: 'flex',
+      flex: '0 0 50px',
       width: '100%',
       alignItems: 'center',
-      height: '40px',
       fontSize: '30px'
     };
 
-    const titleDiv = this.state.editingTitle ? (
-      <div style={titleDivStyle}>
-        <input
-          placeholder="New Title"
-          value={this.state.pageTitleString}
-          onChange={e => {
-            this.setState({ pageTitleString: e.target.value });
-          }}
-        />
-        <Check onClick={() => this.saveNewPageTitle(this.state.pageId)} />
-      </div>
-    ) : (
-      <div
-        style={titleDivStyle}
-        onMouseEnter={() => {
-          this.setState({ showTitleEditButton: true });
-        }}
-        onMouseLeave={() => {
-          this.setState({ showTitleEditButton: false });
-        }}
-      >
-        <span>{this.state.pageTitle}</span>
-        {this.state.showTitleEditButton && (
-          <Edit onClick={this.handleEditingTitle} />
-        )}
-      </div>
-    );
-
-    const sideNavBar = (
-      <div style={sideNavBarStyle}>
-        <h2>{this.wikiId}</h2>
-        <ul>
-          {newPageListItem}
-          <hr />
-          {pagesLinks}
-        </ul>
-      </div>
-    );
-
-    const topNavBarStyle = {
-      display: 'flex',
-      widht: '100%',
-      backgroundColor: 'lightgrey'
+    const docModeButtonStyle = {
+      fontSize: '16px',
+      marginRight: '20px'
     };
-
-    const topNavBarLeftItemStyle = {
-      display: 'inline-flex',
-      width: '30%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '30px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      padding: '20px 0'
-    };
-
-    const topNavBarCenterItemStyle = {
-      display: 'inline-flex',
-      width: '30%',
-      margin: '0 10%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '30px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      padding: '20px 0'
-    };
-
-    const topNavBarRightItemStyle = {
-      display: 'inline-flex',
-      width: '30%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '30px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      padding: '20px 0'
-    };
-
-    const iconButtonStyle = {
-      marginRight: '5px'
-    };
-
-    const pageItemColor =
-      this.state.mode === 'document' && this.state.docMode === 'view'
-        ? 'secondary'
-        : 'primary';
-    const historyItemColor =
-      this.state.mode === 'document' && this.state.docMode === 'history'
-        ? 'secondary'
-        : 'primary';
-    const dashboardItemColor =
-      this.state.mode === 'dashboard' ? 'secondary' : 'primary';
-
-    const topNavBar = (
-      <div style={topNavBarStyle}>
-        <div
-          style={topNavBarLeftItemStyle}
-          onClick={() => {
-            this.setState({ mode: 'document', docMode: 'view' });
-          }}
-        >
-          <ChromeReaderMode style={iconButtonStyle} color={pageItemColor} />
-          <span stlye={{ color: pageItemColor }}>Page</span>
-        </div>
-        <div
-          style={topNavBarCenterItemStyle}
-          onClick={() => {
-            this.setState({ mode: 'document', docMode: 'history' });
-          }}
-        >
-          <History style={iconButtonStyle} color={historyItemColor} />
-          <span style={{ color: historyItemColor }}>History</span>
-        </div>
-        <div
-          style={topNavBarCenterItemStyle}
-          onClick={() => {
-            this.setState({ mode: 'revisions' });
-          }}
-        >
-          <History style={iconButtonStyle} color={historyItemColor} />
-          <span style={{ color: historyItemColor }}>Revisions</span>
-        </div>
-        <div
-          style={topNavBarRightItemStyle}
-          onClick={() => {
-            this.setState({ mode: 'dashboard' });
-          }}
-        >
-          <div style={{ marginRight: '40px' }}>
-            {this.state.pageId && (
-              <Delete onClick={() => this.deleteLI(this.state.pageId)} />
-            )}
-            Delete page{' '}
-          </div>
-          <Dashboard style={iconButtonStyle} color={dashboardItemColor} />
-          <span style={{ color: dashboardItemColor }}>Dashboard</span>
-        </div>
-      </div>
-    );
 
     const docModeButton = (() => {
       if (
@@ -617,15 +462,17 @@ class WikiComp extends Component<WikiCompPropsT> {
       if (this.state.docMode === 'view')
         return (
           <button
+            style={docModeButtonStyle}
             onClick={() => {
               this.setState({ docMode: 'edit' });
             }}
           >
-            Edit
+            Edit This Page
           </button>
         );
       return (
         <button
+          style={docModeButtonStyle}
           onClick={() => {
             this.setState({ docMode: 'view' });
           }}
@@ -635,6 +482,166 @@ class WikiComp extends Component<WikiCompPropsT> {
       );
     })();
 
+    const titleDiv = this.state.editingTitle ? (
+      <div style={titleDivStyle}>
+        <div>
+          <input
+            placeholder="New Title"
+            value={this.state.pageTitleString}
+            onChange={e => {
+              this.setState({ pageTitleString: e.target.value });
+            }}
+          />
+          <Check onClick={() => this.saveNewPageTitle()} />
+        </div>
+        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
+      </div>
+    ) : (
+      <div style={titleDivStyle}>
+        <div
+          onMouseEnter={() => {
+            this.setState({ showTitleEditButton: true });
+          }}
+          onMouseLeave={() => {
+            this.setState({ showTitleEditButton: false });
+          }}
+        >
+          <span>{this.state.pageTitle}</span>
+          {this.state.showTitleEditButton && (
+            <Edit onClick={this.handleEditingTitle} />
+          )}
+        </div>
+        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
+      </div>
+    );
+
+    const onSelect = id => {
+      const link = '/wiki/' + this.wikiId + '/' + id;
+      this.props.history.push(link);
+    };
+
+    const sideNavBar = (
+      <div style={sideNavBarStyle}>
+        <h2>{this.wikiId}</h2>
+        <ul>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => this.setState({ createModalOpen: true })}
+          >
+            + Create new page
+          </Button>
+          <SearchAndFind
+            key={this.state.pageId}
+            pages={pages}
+            onSearch={e =>
+              this.setState({
+                findModalOpen: false,
+                dashboardSearch: e,
+                mode: 'dashboard'
+              })
+            }
+            onSelect={onSelect}
+          />
+        </ul>
+      </div>
+    );
+
+    const topNavBarStyle = {
+      display: 'flex',
+      flex: '0 0 50px',
+      cursor: 'pointer',
+      width: '100%',
+      backgroundColor: 'lightgrey'
+    };
+
+    const topNavBarItemWidth = validPages.length > 1 ? '20%' : '25%';
+
+    const topNavBarItemStyle = {
+      display: 'inline-flex',
+      width: topNavBarItemWidth,
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '50px',
+      fontSize: '14px',
+      cursor: 'pointer',
+      padding: '20px 0'
+    };
+
+    const iconButtonStyle = {
+      marginRight: '5px'
+    };
+
+    const itemColors = {
+      document: 'primary',
+      history: 'primary',
+      revisions: 'primary',
+      delete: 'primary',
+      dashboard: 'primary'
+    };
+    const activeItem = (() => {
+      const { mode, docMode } = this.state;
+      if (mode === 'document' && docMode === 'view') return 'document';
+      if (mode === 'document' && docMode === 'history') return 'history';
+      return mode;
+    })();
+    itemColors[activeItem] = 'secondary';
+
+    const topNavBar = (
+      <div style={topNavBarStyle}>
+        <div
+          style={topNavBarItemStyle}
+          onClick={() => {
+            this.setState({ mode: 'document', docMode: 'view' });
+          }}
+        >
+          <ChromeReaderMode
+            style={iconButtonStyle}
+            color={itemColors['document']}
+          />
+          <span stlye={{ color: itemColors['document'] }}>Page</span>
+        </div>
+        <div
+          style={topNavBarItemStyle}
+          onClick={() => {
+            this.setState({ mode: 'document', docMode: 'history' });
+          }}
+        >
+          <History style={iconButtonStyle} color={itemColors['history']} />
+          <span style={{ color: itemColors['history'] }}>History</span>
+        </div>
+        <div
+          style={topNavBarItemStyle}
+          onClick={() => {
+            this.setState({ mode: 'revisions', docMode: 'view' });
+          }}
+        >
+          <History style={iconButtonStyle} color={itemColors['revisions']} />
+          <span style={{ color: itemColors['revisions'] }}>Revisions</span>
+        </div>
+        <div
+          style={topNavBarItemStyle}
+          onClick={() => {
+            this.setState({ mode: 'dashboard', docMode: 'view' });
+          }}
+        >
+          <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
+          <span style={{ color: itemColors['dashboard'] }}>Dashboard</span>
+        </div>
+        {validPages.length > 1 ? (
+          <div
+            style={topNavBarItemStyle}
+            onClick={() => {
+              this.deleteLI(this.state.pageId);
+            }}
+          >
+            <Delete style={iconButtonStyle} color={itemColors['delete']} />
+            <span style={{ color: itemColors['delete'] }}>Delete Page</span>
+          </div>
+        ) : null}
+      </div>
+    );
+
     return (
       <div>
         <WikiContext.Provider value={this.state.wikiContext}>
@@ -642,49 +649,89 @@ class WikiComp extends Component<WikiCompPropsT> {
             {sideNavBar}
             <div style={contentDivStyle}>
               {topNavBar}
-              {this.state.mode === 'api' && (
-                <ApiForm
-                  noOffset
-                  showDelete
-                  onConfigChange={e => (this.config = e)}
-                />
-              )}
               {this.state.mode === 'revisions' && (
                 <Revisions doc={this.state.pageId} />
               )}
               {this.state.mode === 'dashboard' && (
-                <LIDashboard
-                  wikiId={this.wikiId}
-                  onClick={page => {
-                    this.props.history.push(`/wiki/${this.wikiId}/${page}`);
-                    this.setState({ mode: 'document', docMode: 'view' });
+                <Paper
+                  elevation={24}
+                  style={{
+                    overflow: 'auto',
+                    height: '100%',
+                    padding: '10px'
                   }}
-                />
-              )}
-              {this.state.mode === 'document' && (
-                <Paper style={{ height: 'calc(100% - 100px)' }}>
-                  {titleDiv}
-                  {docModeButton}
-                  <LearningItem
-                    type={this.state.docMode}
-                    id={this.state.pageId}
+                >
+                  <LIDashboard
+                    wikiId={this.wikiId}
+                    search={this.state.dashboardSearch}
+                    onClick={id => {
+                      const page = values(toJS(wikistore.pages)).find(
+                        x => x.liId === id
+                      ).title;
+                      this.props.history.push(`/wiki/${this.wikiId}/${page}`);
+                      this.setState({ mode: 'document', docMode: 'view' });
+                    }}
                   />
                 </Paper>
               )}
+              {this.state.mode === 'document' && (
+                <>
+                  {titleDiv}
+                  <div
+                    style={{
+                      flex: '0 0 calc(100vh - 100px)',
+                      height: 'calc(100vh - 100px)'
+                    }}
+                  >
+                    <Paper
+                      elevation={24}
+                      style={{
+                        height: '100%',
+                        backgroundColor:
+                          this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
+                      }}
+                      onDoubleClick={() => {
+                        if (this.state.docMode === 'view') {
+                          this.setState({ docMode: 'edit' });
+                        }
+                      }}
+                    >
+                      <LearningItem
+                        type={this.state.docMode}
+                        id={this.state.currentLI}
+                      />
+                    </Paper>
+                  </div>
+                </>
+              )}
             </div>
           </div>
-          {this.state.openCreator && (
-            <Dialog open onClose={() => this.setState({ openCreator: false })}>
-              <LearningItem
-                type="create"
-                meta={{
-                  wikiId: this.wikiId,
-                  title: this.state.openCreator.title
-                }}
-                liType={this.state.openCreator.type}
-                onCreate={this.state.openCreator.callback}
-              />
-            </Dialog>
+          {this.state.findModalOpen && (
+            <FindModal
+              history={this.props.history}
+              setModalOpen={e => this.setState({ findModalOpen: e })}
+              wikiId={this.wikiId}
+              onSelect={onSelect}
+              pages={this.getOnlyValidWikiPages().filter(
+                x => x.id !== this.state.pageId
+              )}
+              errorDiv={this.state.error}
+              onSearch={e =>
+                this.setState({
+                  findModalOpen: false,
+                  dashboardSearch: e,
+                  mode: 'dashboard'
+                })
+              }
+            />
+          )}
+          {this.state.createModalOpen && (
+            <CreateModal
+              onCreate={this.createLI}
+              setModalOpen={e => this.setState({ createModalOpen: e })}
+              errorDiv={this.state.error}
+              wikiId={this.wikiId}
+            />
           )}
         </WikiContext.Provider>
       </div>
