@@ -1,4 +1,10 @@
-const addNewWikiPage = (wikiDoc, pageId, pageTitle, liType = 'li-richText') => {
+const addNewWikiPage = (
+  wikiDoc,
+  pageId,
+  pageTitle,
+  liType = 'li-richText',
+  cb
+) => {
   const op = {
     p: ['pages', pageId],
     oi: {
@@ -11,6 +17,9 @@ const addNewWikiPage = (wikiDoc, pageId, pageTitle, liType = 'li-richText') => {
   };
 
   wikiDoc.submitOp(op);
+  if (cb) {
+    cb();
+  }
 };
 
 const invalidateWikiPage = (wikiDoc, pageId, cb) => {

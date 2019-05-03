@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const cuid = require('cuid');
 const fs = require('fs');
 
-const wiki = 'researchr';
+const wiki = 'r';
 
 const sleep = waitTimeInMs =>
   new Promise(resolve => setTimeout(resolve, waitTimeInMs));
@@ -25,7 +25,7 @@ const getLink = (rawtitle, create) => {
 
 const postWiki = (page, content) => {
   fetch(
-    `https://icchilisrv3.epfl.ch/api/wikiSubmit?wiki=${wiki}&id=${getLink(
+    `http://localhost:3000/api/wikiSubmit?wiki=${wiki}&id=${getLink(
       page
     )}&page=${page}`,
     {
@@ -40,7 +40,7 @@ const postWiki = (page, content) => {
 
 const regexp = /\[([^\]]+)]/g;
 
-const tap = x => console.log(x) || x;
+const tap = x => x; // console.log(x) || x;
 
 const convertLink = doc => ({
   text: {
@@ -139,6 +139,7 @@ const convertLink = doc => ({
 const titlecase = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 
 const processFile = name => {
+  console.log(name);
   const contents = fs.readFileSync('./pages/' + name, 'utf-8');
   const title = name.slice(0, -4);
   postWiki(

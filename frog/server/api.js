@@ -18,9 +18,7 @@ import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
 
-WebApp.connectHandlers.use(
-  bodyParser.urlencoded({ extended: true })
-);
+WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
 WebApp.connectHandlers.use(bodyParser.json({ limit: 50000000000 }));
 WebApp.connectHandlers.use(bodyParser.text({ limit: '50mb' }));
 
@@ -557,7 +555,10 @@ iframe { height: 100%; width: 100%; }
 WebApp.connectHandlers.use(
   '/api/wikiSubmit',
   async (request, response, next) => {
-    console.log('wiki');
+    console.info(
+      'Importing page',
+      request.query?.wiki + ' / ' + request.query?.page
+    );
     try {
       const { wiki, page, id } = request.query;
       const { body } = request;
@@ -587,7 +588,6 @@ WebApp.connectHandlers.use(
         wikidoc.create({ wikiId: wiki, pages: {} });
       } catch (e) {}
 
-      console.log(newId);
       const op = {
         p: ['pages', newId],
         oi: {

@@ -2,19 +2,14 @@
 
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { WikiContext, values, A, uuid } from 'frog-utils';
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  FormHelperText
-} from '@material-ui/core';
+import { WikiContext, values, uuid, SearchField } from 'frog-utils';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
-import { orderBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
+import Mousetrap from 'mousetrap';
+import { toObject as queryToObject } from 'query-parse';
 
-import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
@@ -25,7 +20,7 @@ import Delete from '@material-ui/icons/Delete';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import { learningItemTypesObj, activityTypesObj } from '/imports/activityTypes';
+import { activityTypesObj } from '/imports/activityTypes';
 import {
   parseDocResults,
   parsePageObjForReactiveRichText,
@@ -38,8 +33,9 @@ import {
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
-import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import Revisions from './Revisions';
+import CreateModal from './ModalCreate';
+import FindModal, { PagesLinks } from './ModalFind';
 
 const genericDoc = connection.get('li');
 export const dataFn = generateReactiveFn(genericDoc, LI, {
@@ -47,11 +43,8 @@ export const dataFn = generateReactiveFn(genericDoc, LI, {
 });
 const LearningItem = dataFn.LearningItem;
 
-const editableLIs = values(learningItemTypesObj).filter(
-  x => (x.Editor && x.liDataStructure) || x.Creator
-);
-
 type WikiCompPropsT = {
+  location: *,
   match: {
     params: {
       wikiId: string,
@@ -63,6 +56,7 @@ type WikiCompPropsT = {
 
 type WikiCompStateT = {
   dashboardOpen: boolean,
+  dashboardSearch: ?string,
   pageId: ?string,
   pageTitle: ?string,
   pageTitleString: ?string,
@@ -70,12 +64,14 @@ type WikiCompStateT = {
   docMode: string,
   editingTitle: boolean,
   liType: string,
-  newTitle: string,
   error: ?string,
   openCreator: ?Object,
   showTitleEditButton: boolean,
   wikiContext: Object,
-  pageLiType: ?string
+  pageLiType: ?string,
+  createModalOpen: boolean,
+  findModalOpen: boolean,
+  search: ''
 };
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
@@ -89,21 +85,23 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     super(props);
     if (!this.wikiId) throw new Error('Empty wikiId field');
 
+    const query = queryToObject(this.props.location.search.slice(1));
     this.state = {
       dashboardOpen: false,
       pageId: null,
       pageTitle: this.props.match.params.pageTitle || null,
       pageTitleString: this.props.match.params.pageTitle || null,
       mode: 'document',
-      docMode: 'view',
+      docMode: query.edit ? 'edit' : 'view',
       editingTitle: false,
       data: [],
       liType: 'li-richText',
-      newTitle: '',
       error: null,
       openCreator: false,
       showTitleEditButton: false,
       pageLiType: null,
+      createModalOpen: false,
+      search: '',
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
@@ -113,11 +111,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     };
   }
 
-  createActivityPage = () => {
-    const { activityType, config, invalid } = this.config;
-    if (invalid) {
-      return window.alert('Cannot create page from invalid configuration');
-    }
+  createActivityPage = (newTitle, rawconfig) => {
+    const { activityType, config, invalid } = rawconfig;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
     doc.create(activityTypesObj[activityType].dataStructure);
@@ -125,15 +120,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       acType: activityType,
       activityData: { config },
       rz: id + '/all',
-      title: this.state.newTitle,
+      title: newTitle,
       activityTypeTitle: activityTypesObj[activityType].meta.name
     };
 
     const newId = dataFn.createLearningItem('li-activity', payload, {
-      title: this.state.newTitle
+      title: newTitle
     });
 
-    addNewWikiPage(this.wikiDoc, newId, this.state.newTitle, 'li-activity');
+    addNewWikiPage(this.wikiDoc, newId, newTitle, 'li-activity');
     this.setState({
       mode: 'document'
     });
@@ -187,6 +182,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       if (err) throw err;
       this.loadWikiDoc();
     });
+
+    Mousetrap.bind('ctrl+n', () => this.setState({ createModalOpen: true }));
+    Mousetrap.bind('ctrl+s', () => this.setState({ docMode: 'view' }));
+    Mousetrap.bind('ctrl+e', () => this.setState({ docMode: 'edit' }));
+    Mousetrap.bind('ctrl+f', () => this.setState({ findModalOpen: true }));
+    Mousetrap.bind('ctrl+g', () => this.setState({ docMode: 'edit' }));
   }
 
   loadWikiDoc = () => {
@@ -202,6 +203,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     wikistore.setPages(this.wikiDoc.data.pages);
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+    const query = queryToObject(this.props.location.search.slice(1));
     if (pageTitle != null) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
 
@@ -209,9 +211,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         pageId,
         pageTitle,
         pageTitleString: pageTitle,
+        search: '',
+        findModalOpen: false,
         pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
         docMode:
-          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity'
+          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
+          query.edit
             ? 'edit'
             : this.state.docMode
       });
@@ -241,6 +246,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       prevProps.match.params.pageTitle !== this.props.match.params.pageTitle &&
       this.wikiDoc != null
     ) {
+      const query = queryToObject(this.props.location.search.slice(1));
       const pages = parseDocResults(this.wikiDoc.data);
       const newPageTitle = this.props.match.params.pageTitle;
       if (!newPageTitle) return;
@@ -249,12 +255,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState(
           {
+            search: '',
+            findModalOpen: false,
+            createModalOpen: false,
             pageId: null,
             pageTitle: newPageTitle,
             pageTitleString: newPageTitle,
             pageLiType: pages[newPageTitle.toLowerCase()].liType,
             docMode:
-              pages[newPageTitle.toLowerCase()].liType === 'li-activity'
+              pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
+              query.edit
                 ? 'edit'
                 : 'view'
           },
@@ -270,13 +280,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
+        search: '',
+        findModalOpen: false,
         pageId,
         mode: 'document',
         liType: 'li-richText',
+        error: null,
+        createModalOpen: false,
         pageTitle: newPageTitle,
         pageTitleString: newPageTitle,
         docMode:
-          pages[newPageTitle.toLowerCase()].liType === 'li-activity'
+          pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
+          query.edit
             ? 'edit'
             : 'view',
         pageLiType: pages[newPageTitle.toLowerCase()].liType
@@ -284,40 +299,26 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
   }
 
-  createNewPageLI = (pageTitleRaw: string, liType: ?string) => {
-    if (!pageTitleRaw) throw new Error('Empty pageTitleRaw');
-    const pageTitle = pageTitleRaw;
+  createNewPageLI = (pageTitle: string, liType: ?string) => {
+    if (!pageTitle) throw new Error('Empty pageTitleRaw');
     const meta = {
       wikiId: this.wikiId
     };
 
-    if (learningItemTypesObj[liType || 'li-richText'].Creator) {
-      this.setState({
-        openCreator: {
-          type: liType,
-          callback: newId => {
-            addNewWikiPage(this.wikiDoc, newId, pageTitle, liType);
-            this.setState({ openCreator: false });
-          }
-        }
-      });
-    } else {
-      const newId = dataFn.createLearningItem(
-        liType || 'li-richText',
-        undefined,
-        meta,
-        undefined,
-        undefined,
-        undefined
-      );
+    const newId = dataFn.createLearningItem(
+      liType || 'li-richText',
+      undefined,
+      meta,
+      undefined,
+      undefined,
+      undefined
+    );
 
-      addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
-      return newId;
-    }
+    addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
+    return newId;
   };
 
-  createLI = () => {
-    const newTitle = this.state.newTitle;
+  createLI = (newTitle, liType = 'li-richText', li, config) => {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     if (newTitle === '') {
       this.setState({
@@ -331,18 +332,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       return;
     }
 
-    if (this.state.mode === 'api') {
-      this.createActivityPage();
+    if (li) {
+      addNewWikiPage(this.wikiDoc, li, newTitle, liType);
+    } else if (config) {
+      this.createActivityPage(newTitle, config);
     } else {
-      this.createNewPageLI(this.state.newTitle, this.state.liType);
+      this.createNewPageLI(newTitle, liType);
     }
-    const link = '/wiki/' + this.wikiId + '/' + this.state.newTitle;
-    this.props.history.push(link);
 
-    this.setState({
-      newTitle: '',
-      error: null
-    });
+    const link = '/wiki/' + this.wikiId + '/' + newTitle + '?edit=true';
+    this.props.history.push(link);
   };
 
   deleteLI = (pageId: ?string) => {
@@ -389,85 +388,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   render() {
     if (!this.state.pageId || !this.state.pageTitle) return null;
 
-    const errorDiv = this.state.error ? (
-      <div>
-        <p style={{ color: 'red' }}>Error: {this.state.error}</p>
-      </div>
-    ) : null;
-
     const validPages = this.getOnlyValidWikiPages();
-    const pagesLinks = orderBy(validPages, 'title').map(pageObj => {
-      const pageId = pageObj.id;
-      const pageTitle = pageObj.title;
-
-      const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-
-      const currentPageBool = pageId === this.state.pageId;
-
-      const style = currentPageBool
-        ? {
-            color: 'blue',
-            cursor: 'pointer'
-          }
-        : {
-            cursor: 'pointer'
-          };
-      return (
-        <li key={pageId} style={{ fontSize: '14px' }}>
-          <span
-            onClick={e => {
-              e.preventDefault();
-              this.props.history.push(link);
-            }}
-            style={style}
-          >
-            {pageTitle}
-          </span>
-        </li>
-      );
-    });
-
-    const newPageListItem = (
-      <>
-        <br />
-        <li>
-          <input
-            placeholder="New LI Title"
-            value={this.state.newTitle}
-            onChange={e => {
-              this.setState({ newTitle: e.target.value });
-            }}
-          />
-          <button onClick={this.createLI}>+</button>
-          <br />
-          <FormControl>
-            <Select
-              value={this.state.liType}
-              onChange={e => this.setState({ liType: e.target.value })}
-              displayEmpty
-              name="liType"
-            >
-              {editableLIs.map(x => (
-                <MenuItem key={x.id} value={x.id}>
-                  {x.name}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Learning Item type</FormHelperText>
-          </FormControl>
-          {errorDiv}
-          <A
-            onClick={() =>
-              this.setState({
-                mode: this.state.mode === 'api' ? 'document' : 'api'
-              })
-            }
-          >
-            Use FROG activity type
-          </A>
-        </li>
-      </>
-    );
+    let pages = validPages;
+    if (this.state.search !== '') {
+      const search = this.state.search.trim().toLowerCase();
+      pages = validPages.filter(x => x.title.toLowerCase().includes(search));
+    }
 
     const containerDivStyle = {
       display: 'flex',
@@ -525,13 +451,35 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       </div>
     );
 
+    const onSelect = id => {
+      const link = '/wiki/' + this.wikiId + '/' + id;
+      this.props.history.push(link);
+    };
+
     const sideNavBar = (
       <div style={sideNavBarStyle}>
         <h2>{this.wikiId}</h2>
         <ul>
-          {newPageListItem}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => this.setState({ createModalOpen: true })}
+          >
+            + Create new page
+          </Button>
+          <SearchField
+            debounce={100}
+            onChange={e => {
+              this.setState({ search: e.toLowerCase() });
+            }}
+          />
           <hr />
-          {pagesLinks}
+          <PagesLinks
+            search={this.state.search}
+            currentPage={this.state.pageId}
+            pages={pages}
+            onSelect={onSelect}
+          />
         </ul>
       </div>
     );
@@ -539,7 +487,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const topNavBarStyle = {
       display: 'flex',
       widht: '100%',
-      backgroundColor: 'lightgrey'
+      backgroundColor: 'lightgrey',
+      cursor: 'pointer'
     };
 
     const topNavBarItemWidth = validPages.length > 1 ? '20%' : '25%';
@@ -663,33 +612,36 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             {sideNavBar}
             <div style={contentDivStyle}>
               {topNavBar}
-              {this.state.mode === 'api' && (
-                <ApiForm
-                  noOffset
-                  showDelete
-                  activityType="ac-quiz"
-                  onConfigChange={e => (this.config = e)}
-                />
-              )}
               {this.state.mode === 'revisions' && (
                 <Revisions doc={this.state.pageId} />
               )}
               {this.state.mode === 'dashboard' && (
-                <LIDashboard
-                  wikiId={this.wikiId}
-                  onClick={id => {
-                    console.log(id, toJS(wikistore.pages[id]));
-                    const page = toJS(wikistore.pages[id].title);
-                    this.props.history.push(`/wiki/${this.wikiId}/${page}`);
-                    this.setState({ mode: 'document', docMode: 'view' });
+                <Paper
+                  elevation={24}
+                  style={{
+                    overflow: 'auto',
+                    height: '100%',
+                    padding: '10px'
                   }}
-                />
+                >
+                  <LIDashboard
+                    wikiId={this.wikiId}
+                    search={this.state.dashboardSearch}
+                    onClick={id => {
+                      const page = toJS(wikistore.pages[id].title);
+                      this.props.history.push(`/wiki/${this.wikiId}/${page}`);
+                      this.setState({ mode: 'document', docMode: 'view' });
+                    }}
+                  />
+                </Paper>
               )}
               {this.state.mode === 'document' && (
                 <Paper
                   elevation={24}
                   style={{
+                    overflow: 'auto',
                     height: '100%',
+                    padding: '10px',
                     backgroundColor:
                       this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
                   }}
@@ -704,18 +656,24 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               )}
             </div>
           </div>
-          {this.state.openCreator && (
-            <Dialog open onClose={() => this.setState({ openCreator: false })}>
-              <LearningItem
-                type="create"
-                meta={{
-                  wikiId: this.wikiId,
-                  title: this.state.openCreator.title
-                }}
-                liType={this.state.openCreator.type}
-                onCreate={this.state.openCreator.callback}
-              />
-            </Dialog>
+          {this.state.findModalOpen && (
+            <FindModal
+              history={this.props.history}
+              setModalOpen={e => this.setState({ findModalOpen: e })}
+              wikiId={this.wikiId}
+              onSelect={onSelect}
+              pages={this.getOnlyValidWikiPages().filter(
+                x => x.id !== this.state.pageId
+              )}
+              errorDiv={this.state.error}
+              onSearch={e =>
+                this.setState({
+                  findModalOpen: false,
+                  dashboardSearch: e,
+                  mode: 'dashboard'
+                })
+              }
+            />
           )}
         </WikiContext.Provider>
       </div>

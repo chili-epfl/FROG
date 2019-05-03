@@ -134,7 +134,7 @@ class Dashboard extends React.Component<any, any> {
 
     this.state = {
       results: [],
-      search: '',
+      search: this.props.search || '',
       filter: props.activityId,
       filterTitle: undefined
     };
@@ -210,6 +210,7 @@ class Dashboard extends React.Component<any, any> {
           )}
           <div style={{ position: 'absolute', left: '50%' }}>
             <SearchField
+              initialValue={this.state.search}
               classes={{}}
               onChange={e => {
                 this.setState({ search: e.toLowerCase() });

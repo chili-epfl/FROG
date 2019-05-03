@@ -11,7 +11,8 @@ type TextInputPropsT = {
   onFocus?: Function,
   clearOnEnter?: boolean,
   style?: Object,
-  noBlur?: boolean
+  noBlur?: boolean,
+  placeholder?: string
 };
 
 export class TextInput extends React.Component<
@@ -74,6 +75,7 @@ export class TextInput extends React.Component<
       <input
         type="text"
         onChange={this.onChange}
+        placeholder={this.props.placeholder}
         onFocus={this.props.onFocus}
         onKeyDown={this.handleKey}
         value={this.state.value}
