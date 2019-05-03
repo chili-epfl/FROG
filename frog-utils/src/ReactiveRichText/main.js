@@ -623,10 +623,14 @@ class ReactiveRichText extends Component<
     const scrollContainerClass = 'scroll-container';
     const editorStyle = props.readOnly
       ? { borderStyle: 'hidden' }
-      : {
-          overflowY: 'visible',
-          height: '100%'
-        };
+      : { };
+    const reactQuillStyle = props.readOnly ? {
+      height: '100%'
+    } : {
+      height: 'calc(100% - 42px)'
+    };
+    
+    
     return (
       <WikiContext.Consumer>
         {wikiContext => (
@@ -649,7 +653,7 @@ class ReactiveRichText extends Component<
               />
             )}
             <ReactQuill
-              style={{ height: '100%' }}
+              style={reactQuillStyle}
               defaultValue={this.props.rawData || defaultValue}
               ref={element => {
                 this.quillRef = element;
