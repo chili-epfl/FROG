@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const cuid = require('cuid');
 const fs = require('fs');
 
-const wiki = 'researchr'
+const wiki = 'researchr';
 
 const sleep = waitTimeInMs =>
   new Promise(resolve => setTimeout(resolve, waitTimeInMs));
@@ -23,7 +23,7 @@ const getLink = (rawtitle, create) => {
   }
 };
 
-const postWiki = ( page, content) => {
+const postWiki = (page, content) => {
   fetch(
     `https://icchilisrv3.epfl.ch/api/wikiSubmit?wiki=${wiki}&id=${getLink(
       page
@@ -141,9 +141,8 @@ const titlecase = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 const processFile = name => {
   const contents = fs.readFileSync('./pages/' + name, 'utf-8');
   const title = name.slice(0, -4);
-  console.log(name); //,convertLink(contents));
   postWiki(
-    titlecase(title.replace(/_/g, ' ')),
+    titlecase(title.replace(/_/g, ' ').replace('/', '-')),
     convertLink(contents)
   );
 };
@@ -157,5 +156,16 @@ fs.readdirSync('./pages/')
   .filter(name => name.slice(-4) === '.txt')
   .forEach(async name => {
     processFile(name);
+    await sleep(200);
+  });
+
+fs.readdirSync('./pages/researchr/')
+  .filter(name => name.slice(-4) === '.txt')
+  .forEach(name => getLink('researchr-' + name.slice(0, -4), true));
+
+fs.readdirSync('./pages/researchr/')
+  .filter(name => name.slice(-4) === '.txt')
+  .forEach(async name => {
+    processFile('researchr/' + name);
     await sleep(200);
   });
