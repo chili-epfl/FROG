@@ -59,7 +59,6 @@ export const PagesLinks = ({
   });
 
 export default ({
-  noFocus,
   onSearch,
   setModalOpen,
   pages,
