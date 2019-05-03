@@ -649,6 +649,7 @@ class ReactiveRichText extends Component<
               />
             )}
             <ReactQuill
+              style={{ height: '100%' }}
               defaultValue={this.props.rawData || defaultValue}
               ref={element => {
                 this.quillRef = element;

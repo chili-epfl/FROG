@@ -414,7 +414,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const containerDivStyle = {
       display: 'flex',
-      minHeight: '100vh',
+      height: '100vh',
       width: '100%'
     };
 
@@ -431,15 +431,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       flex: 'auto',
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '100vh',
+      height: '100vh',
       width: 'calc(100vw - 250px)'
     };
 
     const titleDivStyle = {
       display: 'flex',
+      flex: '0 0 50px', 
       width: '100%',
       alignItems: 'center',
-      height: '50px',
       fontSize: '30px'
     };
 
@@ -544,8 +544,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const topNavBarStyle = {
       display: 'flex',
+      flex: '0 0 50px', 
       cursor: 'pointer',
-      height: '50px',
       width: '100%',
       backgroundColor: 'lightgrey'
     };
@@ -674,9 +674,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                   {titleDiv}
                   <div
                     style={{
-                      flex: 'auto',
-                      height: '100%',
-                      width: '100%'
+                      flex: '0 0 calc(100vh - 100px)',
+                      height: 'calc(100vh - 100px)',
                     }}
                   >
                     <Paper
