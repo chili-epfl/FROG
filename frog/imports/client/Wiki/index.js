@@ -319,6 +319,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {
+    console.log(newTitle, liType, li, config);
     const parsedPages = parseDocResults(this.wikiDoc.data);
     if (newTitle === '') {
       this.setState({
@@ -334,7 +335,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (li) {
       addNewWikiPage(this.wikiDoc, li, newTitle, liType);
-    } else if (config) {
+    } else if (config && config.activityType) {
       this.createActivityPage(newTitle, config);
     } else {
       this.createNewPageLI(newTitle, liType);
@@ -673,6 +674,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                   mode: 'dashboard'
                 })
               }
+            />
+          )}
+          {this.state.createModalOpen && (
+            <CreateModal
+              onCreate={this.createLI}
+              setModalOpen={e => this.setState({ createModalOpen: e })}
+              errorDiv={this.state.error}
+              wikiId={this.wikiId}
             />
           )}
         </WikiContext.Provider>
