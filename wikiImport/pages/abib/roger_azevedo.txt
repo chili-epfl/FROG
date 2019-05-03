@@ -1,7 +1,0 @@
-h2. Roger Azevedo's publications
-
-| [@moos2009self] | Moos, D. C., & Azevedo, R. (2009). Self-efficacy and prior domain knowledge: to what extent does monitoring mediate their relationship with hypermedia learning?. Metacognition and Learning, 4(3), 197--216.|
-| [@azevedo2009theoretical] | Azevedo, R. (2009). Theoretical, conceptual, methodological, and instructional issues in research on metacognition and self-regulated learning: A discussion. Metacognition and Learning, 4(1), 87--95. doi:10.1007/s11409-009-9035-7|
-| [@azevedo2005scaffolding] | Azevedo, R., & Hadwin, A. F. (2005). Scaffolding self-regulated learning and metacognition--Implications for the design of computer-based scaffolds. Instructional Science, 33(5), 367--379. |
-| [@azevedo2005adaptive] | Azevedo, R., Cromley, J., Winters, F., Moos, D., & Greene, J. (2005). Adaptive Human Scaffolding Facilitates Adolescents’ Self-regulated Learning with Hypermedia. Instructional Science, 33(5), 381-412. |
-| [@azevedo2008externally] | Azevedo, R., Moos, D. C., Greene, J. A., Winters, F., & Cromley, J. G. (2008). Why is externally-facilitated regulated learning more effective than self-regulated learning with hypermedia?. Educational Technology Research and Development, 56(1), 45--72. |

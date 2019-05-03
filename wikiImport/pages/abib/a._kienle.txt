@@ -1,4 +1,0 @@
-h2. A. Kienle's publications
-
-| holmer2006explicit | Holmer, T., Kienle, A., & Wessner, M. (2006). Explicit referencing in learning chats: Needs and acceptance. Innovative approaches for learning and knowledge sharing. Springer.|[[skimx://holmer2006explicit|PDF]]|
-| kienle2009intertwining | Kienle, A. (2009). Intertwining synchronous and asynchronous communication to support collaborative learning—system design and evaluation. Education and Information Technologies. Springer.|[[skimx://kienle2009intertwining|PDF]]|

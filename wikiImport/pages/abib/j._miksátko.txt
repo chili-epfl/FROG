@@ -1,3 +1,0 @@
-h2. J. Miksátko's publications
-
-| [[..:ref:mclaren2010supporting]] | McLaren, B., Scheuer, O., & Miksátko, J. (2010). Supporting collaborative learning and e-discussions using artificial intelligence techniques. International Journal of Artificial Intelligence in Education. IOS Press.|[[skimx://mclaren2010supporting|PDF]]|

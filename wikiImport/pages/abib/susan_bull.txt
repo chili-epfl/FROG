@@ -1,4 +1,0 @@
-h2. Susan Bull's publications
-
-| [@bull2011methods] | Bull, S., Johnson, M., Teplovs, C., Fujita, N., & Vatrapu, R. (2011). Methods and Specification for the Student Model V1. NEXT-TELL. |
-| [@johnson2011student] | Johnson, M., Vatrapu, R., Bull, S., Teplovs, C., & Reimann, P. (2011). Student Model Tools R1. NEXT-TELL.|

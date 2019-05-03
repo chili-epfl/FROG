@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:asterhan2007effects0.png}}
-
-[[skimx://asterhan2007effects#7|p. 7]]
-----
-

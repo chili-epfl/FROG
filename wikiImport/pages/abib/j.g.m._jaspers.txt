@@ -1,4 +1,0 @@
-h2. J.G.M. Jaspers's publications
-
-| :ref:slof2010design | Slof, B., Erkens, G., Kirschner, P. A., & Jaspers, J. G. M. (2010). Design and effects of representational scripting on group performance. Educational Technology Research and Development. Springer.|
-| :ref:slof2010design | Slof, B., Erkens, G., Kirschner, P. A., & Jaspers, J. G. M. (2010). Design and effects of representational scripting on group performance. Educational Technology Research and Development. Springer.|

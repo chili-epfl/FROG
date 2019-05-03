@@ -1,3 +1,0 @@
-h2. Paul Bra's publications
-
-| [@rosenberg2002chain] | Rosenberg, J., Bernstein, M., Marshall, C. C., de Bra, P., Millard, D., & Shipman, F. (2002). Chain saws for sculptural Hypertext. In Proceedings of the thirteenth ACM conference on Hypertext and hypermedia, HYPERTEXT '02 (137--137). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/513338.513341|

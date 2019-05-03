@@ -1,3 +1,0 @@
-h2. LA Abrahamson's publications
-
-| [@abrahamson2000wireless] | Abrahamson, La., Davidian, A., & Lippai, A. (2000). Wireless calculator networks: Where they came from, why they work, and where they’re going. In 13th Annual International Conference on Technology in Collegiate Mathematics, Atlanta, GA.|

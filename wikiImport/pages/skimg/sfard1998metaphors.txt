@@ -1,8 +1,0 @@
-h2. Images
-
-{{skim:sfard1998metaphors0.png}}
-
-[[skimx://sfard1998metaphors#5
-|p. 5
-]]<html><hr></html>
-

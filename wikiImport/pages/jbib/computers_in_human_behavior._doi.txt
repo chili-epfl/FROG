@@ -1,3 +1,0 @@
-h2. Publications in Computers in Human Behavior. doi
-
-| abrami2010nature | Abrami, P. c. (2010). On the nature of support in computer-supported collaborative learning using gStudy. Computers in Human Behavior. doi, 10.|[[skimx://abrami2010nature|PDF]]|

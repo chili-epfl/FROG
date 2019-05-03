@@ -1,3 +1,0 @@
-h2. Beat Adrian Schwendimann's publications
-
-| [@schwendimann2011mapping] | Schwendimann, B. A. (2011). Mapping biological ideas: Concept maps as knowledge integration tools for evolution education (PhD thesis).|

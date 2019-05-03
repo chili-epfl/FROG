@@ -1,4 +1,0 @@
-h2. Stephanie D. Teasley's publications
-
-| [@teasley2008cognitive] | Teasley, S. D., Fischer, F., Weinberger, A., Stegmann, K., Dillenbourg, P., Kapur, M., & Chi, M. T. H. (2008). Cognitive convergence in collaborative learning. In Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08 (360--367). International Society of the Learning Sciences. |
-| [@teasley2011thinking] | Teasley, S. D. (2011). Thinking about Methods to Capture Effective Collaborations. Analyzing Interactions in CSCL, 131--142.|

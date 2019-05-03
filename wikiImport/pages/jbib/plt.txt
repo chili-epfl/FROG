@@ -1,3 +1,0 @@
-h2. Publications in plt
-
-| koile2007asupporting | Koile, K., Chevalier, K., Low, C., Pal, S., Rogal, A., Singer, D., Sorensen, J., Tay, K. S., & Wu, K. (2007). Supporting Pen-Based Classroom Interaction: New Findings and Functionality for Classroom Learning Partner. plt, 1--7. IEEE Computer Society.|[[skimx://koile2007asupporting|PDF]]|

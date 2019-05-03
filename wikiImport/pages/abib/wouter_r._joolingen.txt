@@ -1,3 +1,0 @@
-h2. Wouter R. Joolingen's publications
-
-| saab2006supporting | Saab, N., Joolingen, W. R., & {Hout-Wolters}Bernadette H. A. M. (2006). Supporting Communication in a Collaborative Discovery Learning Environment: the Effect of Instruction. Instructional Science. doi: 10.1007/s11251-006-9003-4.|[[skimx://saab2006supporting|PDF]]|

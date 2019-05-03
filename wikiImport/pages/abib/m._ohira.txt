@@ -1,3 +1,0 @@
-h2. M. Ohira's publications
-
-| nakakoji2007computational | Nakakoji, K., Ohira, M., Takashima, A., & Yamamoto, Y. (2007). A computational tool for lifelong learning: Experiencing breakdowns and understanding situations. The Role of Technology in CSCL. Springer.|[[skimx://nakakoji2007computational|PDF]]|

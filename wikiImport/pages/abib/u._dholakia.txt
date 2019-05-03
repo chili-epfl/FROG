@@ -1,3 +1,0 @@
-h2. U. Dholakia's publications
-
-| [[..:ref:dholakia2010what]] | Dholakia, U., King, J., & Baraniuk, R. (2010). What makes an open education program sustainable. The case of Connexions.[online] http://www. oecd. org Accessed.|[[skimx://dholakia2010what|PDF]]|

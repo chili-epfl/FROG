@@ -1,3 +1,0 @@
-h2. W. Shumar's publications
-
-| zemel2007disembodied | Zemel, A., Shumar, W., & Cakir, M. P. (2007). The disembodied act: Copresence and indexical symmetry in computer-mediated communication. Proceedings of the 8th iternational conference on Computer supported collaborative learning.||

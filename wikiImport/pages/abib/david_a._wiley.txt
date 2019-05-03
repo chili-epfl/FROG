@@ -1,3 +1,0 @@
-h2. David A. Wiley's publications
-
-| [[..:ref:wiley2002online]] | Wiley, D. A., & Edwards, E. K. (2002). Online self-organizing social systems: The decentralized future of online learning. Quarterly Review of Distance Education. Retrieved from http://www.oercommons.org/community/online-self-organizing-social-systems-the-decentralized-future-of-online-learning.|[[skimx://wiley2002online|PDF]]|

@@ -1,3 +1,0 @@
-h2. A. Zouaq's publications
-
-| zouaq2008building | Zouaq, A., & Nkambou, R. (2008). Building Domain Ontologies from Text for Educational Purposes. Learning Technologies, {IEEE} Transactions on. doi: 10.1109/TLT.2008.12.|[[skimx://zouaq2008building|PDF]]|

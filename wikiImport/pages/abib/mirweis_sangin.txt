@@ -1,9 +1,0 @@
-h2. Mirweis Sangin's publications
-
-| [@sangin2008knowing] | Sangin, M., Dillenbourg, P., NüssliMarc-Antoine, & MolinariGaëlle. (2008). Knowing what the peer knows: The differential effect of knowledge awareness on collaborative learning performance of asymmetric pairs. Times of Convergence. Technologies Across Learning Contexts, 384--394.|
-| [@sangin2008learners] | Sangin, M., Dillenbourg, P., NüssliMarc-Antoine, & MolinariGaëlle. (2008). How learners use awareness cues about their peer's knowledge?: insights from synchronized eye-tracking data. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 2 (287--294).|
-| [@molinari2008colearners] | Sangin, M., Dillenbourg, P., & MolinariGaëlle. (2008). When Co-learners Work on Complementary Texts: Effects on Outcome Convergence. Times of Convergence. Technologies Across Learning Contexts, 304--311.|
-| [@rebetez2008learning] | Rebetez, C., BétrancourtMireille, Sangin, M., & Dillenbourg, P. (2008). Learning from animation enabled by collaboration. Instructional Science, 1--15.|
-| [@sangin2009peer] | Sangin, M. (2009). Peer knowledge modeling in computer supported collaborative learning (PhD thesis).|
-| [@molinari2009knowledge] | Sangin, M., Dillenbourg, P., NüssliMarc-Antoine, & MolinariGaëlle. (2009). Knowledge interdependence with the partner, accuracy of mutual knowledge model and computer-supported collaborative learning. European journal of psychology of education, 24(2), 129--144.|
-| [@sangin2011facilitating] | Sangin, M., MolinariGaëlle, NüssliMarc-Antoine, & Dillenbourg, P. (2011). Facilitating peer knowledge modeling: Effects of a knowledge awareness tool on collaborative learning outcomes and processes. Computers in Human Behavior, 27(3), 1059 - 1067. doi:DOI: 10.1016/j.chb.2010.05.032|

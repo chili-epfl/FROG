@@ -1,8 +1,0 @@
-h1. High level notes
-
-  * this
-  * that
-  * and
-  * the
-  * other
-

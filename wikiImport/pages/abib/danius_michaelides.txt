@@ -1,5 +1,0 @@
-h2. Danius Michaelides's publications
-
-| [@buckinghamshum2006amemetic] | Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & de Roure, D. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Conference Item. |
-| [@page2005collaboration] | Page, K., Michaelides, D., De Roure, D., Shadbolt, N., Chen-Burger, Y. H., Dalton, J., Potter, S., Tate, A., Buckingham Shum, S., Eisenstadt, M., & others. (2005). Collaboration in the Semantic Grid: a Basis for e-Learning. Applied Artificial Intelligence, 19(9), 881--904.|
-| [@buckinghamshum2006memetic] | Buckingham Shum, S., Slack, R., Daw, M., Ruby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., de Roure, D., Chown, T., & Hewitt, T. (2006). Memetic: an infrastructure for meeting memory. Conference Item. |

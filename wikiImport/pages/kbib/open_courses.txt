@@ -1,4 +1,0 @@
-h2. Publications with keyword "open courses"
-
-| mackey2011transparency | Mackey, T. P. (2011). Transparency as a catalyst for interaction and participation in open learning environments. First Monday, 16(10). Retrieved from http://firstmonday.org/htbin/cgiwrap/bin/ojs/index.php/fm/article/view/3333/3070. | [[skimx://mackey2011transparency|PDF]]|
-| valjataga2011open | Väljataga, T., Põldoja, H., & Laanpere, M. (2011). Open Online Courses: Responding to Design Challenges.  (H. Ruokamo, M. Eriksson, L. Pekkala & H. Vuojärvi, Eds., , Tran.)Proceedings of the 4th International Network-Based Education 2011 Conference The Social Media in the Middle of Nowhere. | [[skimx://valjataga2011open|PDF]]|

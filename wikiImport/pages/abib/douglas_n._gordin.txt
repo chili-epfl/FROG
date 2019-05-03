@@ -1,3 +1,0 @@
-h2. Douglas N. Gordin's publications
-
-| [@gordin1995prospects] | Gordin, D. N., & Pea, R. D. (1995). Prospects for Scientific Visualization as an Educational Technology. Journal of the Learning Sciences, 4(3), 249-279. doi:10.1207/s15327809jls0403_1|

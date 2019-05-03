@@ -1,5 +1,0 @@
-h1. Web Development
-
-  * [[http://kushagragour.in/lab/hint/|hint.css - A tooltip library in CSS [http://kushagragour.in/]]]
-----
-  * [[http://bradjasper.com/subtle-patterns-bookmarklet/|SubtlePatterns Bookmarklet - Preview backgrounds on your website [http://bradjasper.com/]]]

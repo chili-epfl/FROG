@@ -1,3 +1,0 @@
-h2. Elijah Mayfield's publications
-
-| [@mu2012acodea] | Mu, J., Stegmann, K., Mayfield, E., RoséCarolyn, & Fischer, F. (2012). The ACODEA framework: Developing segmentation and classification schemes for fully automatic analysis of online discussions. International Journal of Computer-Supported Collaborative Learning, 7(2), 285-305. doi:10.1007/s11412-012-9147-y|

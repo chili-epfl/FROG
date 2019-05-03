@@ -1,3 +1,0 @@
-h2. Michael Gallagher's publications
-
-| [@goggins2011completely] | Goggins, S. P., Laffey, J., & Gallagher, M. (2011). Completely online group formation and development: small groups as socio-technical systems. Information Technology & People, 24(2), 104-133. doi:10.1108/09593841111137322|

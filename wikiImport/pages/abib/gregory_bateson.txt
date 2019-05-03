@@ -1,3 +1,0 @@
-h2. Gregory Bateson's publications
-
-| [@bateson2000steps] | Bateson, G. (2000). Steps to an ecology of mind (University of Chicago Press ed.). Chicago: University of Chicago Press.|

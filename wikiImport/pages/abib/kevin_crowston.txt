@@ -1,3 +1,0 @@
-h2. Kevin Crowston's publications
-
-| [@malone1994interdisciplinary] | Malone, T. W., & Crowston, K. (1994). The interdisciplinary study of coordination. ACM Computing Surveys, 26(1), 87-119. doi:10.1145/174666.174668|

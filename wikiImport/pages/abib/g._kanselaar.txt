@@ -1,4 +1,0 @@
-h2. G. Kanselaar's publications
-
-| janssen2011multilevel | Janssen, J., Erkens, G., Kirschner, P. A., & Kanselaar, G. (2011). Multilevel Analysis in CSCL Research. Analyzing Interactions in CSCL. Springer.|
-| janssen2007visualization | Janssen, J., Erkens, G., Kanselaar, G., & Jaspers, J. (2007). Visualization of participation: Does it contribute to successful computer-supported collaborative learning?. Computers \& Education. Elsevier.|

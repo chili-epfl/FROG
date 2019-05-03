@@ -1,4 +1,0 @@
-h2. Roy Williams's publications
-
-| [@mak2010blogs] | Mak, S. F. J., Williams, R., & Mackness, J. (2010). Blogs and forums as communication and learning tools in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|
-| [@mackness2010ideals] | Mackness, J., Mak, S. F. J., & Williams, R. (2010). The ideals and reality of participating in a MOOC. In Seventh International Conference on Networked Learning, Aalborg, Denmark.|

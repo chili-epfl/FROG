@@ -1,7 +1,0 @@
-h2. N. Rummel's publications
-
-| rummel2011analyzing | Rummel, N., Deiglmayr, A., Spada, H., Kahrimanis, G., & Avouris, N. (2011). Analyzing collaborative interactions across domains and settings: An adaptable rating scheme. Analyzing Interactions in CSCL. Springer.|
-| rummel2005instructional | Rummel, N., & Spada, H. (2005). Instructional support for collaboration in desktop videoconference settings. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|
-| tchounikine2010computer | Tchounikine, P., Rummel, N., & McLaren, B. (2010). Computer Supported Collaborative Learning and Intelligent Tutoring Systems. Advances in Intelligent Tutoring Systems. Springer.|
-| rummel2008new | Rummel, N., Weinberger, A., Wecker, C., Fischer, F., Meier, A., Voyiatzaki, E., Kahrimanis, G., Spada, H., Avouris, N., Walker, E., & others. (2008). New challenges in CSCL: Towards adaptive script support. Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3.|
-| rummel2007can | Rummel, N., & Spada, H. (2007). Can People Learn Computer-Mediated Collaboration by Following A Script?. Scripting computer-supported collaborative learning. Springer.|

@@ -1,4 +1,0 @@
-h2. Michael Kickmeier-Rust's publications
-
-| [@reimann2011training] | Reimann, P., Sircar, R., Giorgini, F., Meissl-Egghart, G., Kickmeier-Rust, M., Kossowski, M., Utz, W., & Halb, W. (2011). Training Concept. NEXT-TELL.|
-| [@cierniak2011report] | Cierniak, G., Imhof, B., Clark, W., Wasson, B., Hansen, C., Hillemann, E., & Kickmeier-Rust, M. (2011). Report on Baseline Studies and Requirement Analysis. NEXT-TELL. |

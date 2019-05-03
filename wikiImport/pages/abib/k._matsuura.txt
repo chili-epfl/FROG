@@ -1,3 +1,0 @@
-h2. K. Matsuura's publications
-
-| ogata2007supporting | Ogata, H., Matsuura, K., & Yano, Y. (2007). Supporting awareness in distributed collaborative learning environments. The Role of Technology in CSCL. Springer.|[[skimx://ogata2007supporting|PDF]]|

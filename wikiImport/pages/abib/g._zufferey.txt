@@ -1,4 +1,0 @@
-h2. G. Zufferey's publications
-
-| jermann2008tinkering | Jermann, P., Zufferey, G., & Dillenbourg, P. (2008). Tinkering or sketching: Apprentices’ use of tangibles and drawings to solve design problems. Times of Convergence. Technologies Across Learning Contexts. Springer.|[[skimx://jermann2008tinkering|PDF]]|
-| dolenh2010task | Do-Lenh, S., Jermann, P., Cuendet, S., Zufferey, G., & Dillenbourg, P. (2010). Task performance vs. learning outcomes: a study of a tangible user interface in the classroom. Sustaining TEL: From Innovation to Learning and Practice. Springer.|[[skimx://dolenh2010task|PDF]]|

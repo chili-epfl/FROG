@@ -1,3 +1,0 @@
-h2. Publications in Electronic Participation
-
-| karamanou2011argvis | Karamanou, A., Loutas, N., & Tarabanis, K. (2011). ArgVis: structuring political deliberations using innovative visualisation technologies. Electronic Participation, 87--98. Springer.|[[skimx://karamanou2011argvis|PDF]]|

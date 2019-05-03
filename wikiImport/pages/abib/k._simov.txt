@@ -1,3 +1,0 @@
-h2. K. Simov's publications
-
-| monachesi2006language | Monachesi, P., Lemnitzer, L., & Simov, K. (2006). Language technology for elearning. Innovative Approaches for Learning and Knowledge Sharing. Springer.|[[skimx://monachesi2006language|PDF]]|

@@ -1,6 +1,0 @@
-h1. Kindle highlights
-
-This document is extremely preliminary and will undergo frequent updates. It is currently just an outline, making reference to the various patterns in other papers that will be incorporated into this work. Many of the patterns referred to are in the two pedagogical patterns papers on my home site. **(loc: 4-6)**
-
-These patterns are intended to help a professor design and deliver a single course lasting one term or semester. The focus is on Computer Science, though much of the advice may apply to other disciplines as well. Most of the information here is known to most skilled instructors. Some may be new to some individuals, of course, but the intent is not to show anything invented by this author. Instead, as all patterns are supposed to do, the intent is to capture good practice in a compact way so that it may be communicated to others, especially to novice instructors. **(loc: 7-11)**
-

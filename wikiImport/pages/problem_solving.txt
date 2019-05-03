@@ -1,3 +1,0 @@
-h1. Problem solving
-
-  * [[http://csps.missouri.edu/pssearch.php|Categorized bibliography of over 500 works]]

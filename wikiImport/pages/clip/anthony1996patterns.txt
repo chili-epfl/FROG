@@ -1,8 +1,0 @@
-h1. Kindle highlights
-
-The "Patterns" section lists some patterns for teaching difficult technical topics (such as object-oriented programming), including patterns for examples, games, flow of the course, and dealing with different learning styles of students: each pattern has four portions. The first two, Problem and Constraints & Forces, lay out the context for the third portion, Solution. The fourth portion describes connections between Related Patterns. The "Pattern Language" section briefly describes how the patterns are used together in the course development process. **(loc: 9-14)**
-
-These are patterns that I've discovered by talking to instructors and by being one. They apply primarily in the context of a class where a heterogeneous group of students work with one or two instructors, but some could be useful in nearly any educational setting. **(loc: 17-19)**
-
-The patterns that follow are arranged in order of most abstract to most concrete. Several of the patterns, especially the more abstract ones, are strategies which lead to solutions. Others, especially the more concrete ones, are ready to implement. Pattern #1 has the highest level of abstraction, #2-6 next highest, and #7-14 are at the most concrete level. Within that arrangement, closely related patterns are together. For instance, the three patterns relating to examples are #8-10. There's no need to read them in the order presented. **(loc: 23-27)**
-

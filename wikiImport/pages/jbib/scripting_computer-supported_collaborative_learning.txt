@@ -1,3 +1,0 @@
-h2. Publications in Scripting computer-supported collaborative learning
-
-| weinberger2007scripting | Weinberger, A., Stegmann, K., Fischer, F., & Mandl, H. (2007). Scripting argumentative knowledge construction in computer-supported learning environments. Scripting computer-supported collaborative learning, 191--211. Springer.|[[skimx://weinberger2007scripting|PDF]]|

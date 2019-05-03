@@ -1,3 +1,0 @@
-h2. E. Chernobilsky's publications
-
-| hmelo2011representational | Hmelo-Silver, C., Jordan, R., Liu, L., & Chernobilsky, E. (2011). Representational tools for understanding complex computer-supported collaborative learning environments. Analyzing Interactions in CSCL. Springer.|[[skimx://hmelo2011representational|PDF]]|

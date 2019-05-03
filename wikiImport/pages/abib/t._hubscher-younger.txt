@@ -1,4 +1,0 @@
-h2. T. Hubscher-Younger's publications
-
-| [@hubscher2003authority|:ref:hubscher2003authority] | Hubscher-Younger, T., & Narayanan, N. H. (2003). Authority and convergence in collaborative learning. Computers \& Education. Elsevier.|
-| [@hubscher2003authority|:ref:hubscher2003authority] | Hubscher-Younger, T., & Narayanan, N. H. (2003). Authority and convergence in collaborative learning. Computers \& Education. Elsevier.|

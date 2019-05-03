@@ -1,3 +1,0 @@
-h2. Publications in British Journal of Psychology
-
-| [[..:ref:banks2000running]] | Banks, A. P., & Millward, L. J. (2000). Running shared mental models as a distributed cognitive process. British Journal of Psychology, 91(4), 513--531. Wiley Online Library.|[[skimx://banks2000running|PDF]]|

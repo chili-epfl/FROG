@@ -1,6 +1,0 @@
-h2. Herbert A. Simon's publications
-
-| [@newell1972human] | Newell, A., & Simon, H. A. (1972). Human problem solving. Englewood Cliffs, {NJ}: {Prentice-Hall}.|
-| [@larkin1987diagram] | Larkin, J. H., & Simon, H. A. (1987). Why a Diagram is (Sometimes) Worth Ten Thousand Words. Cognitive science, 11(1), 65--100.|
-| [@simon1995near] | Simon, H. A. (1995). Near Decomposability and Complexity: How a Mind Resides in a Brain. In H. J. Morowitz & J. L. Singer (Eds.), Proceedings Vol. {XXII}, Santa Fe Institute Studies in the Sciences of Complexity (25–43). Reading, {MA}: {Addison-Wesley}. |
-| [@anderson2000applications] | Anderson, J. R., Reder, L. M., & Simon, H. A. (2000). Applications and Misapplications of Cognitive Psychology to Mathematics Education. Texas Educational Review.|

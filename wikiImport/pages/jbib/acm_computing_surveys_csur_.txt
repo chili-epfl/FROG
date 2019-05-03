@@ -1,3 +1,0 @@
-h2. Publications in ACM Computing Surveys (CSUR)
-
-| yu2010smart | Yu, Z., & Nakamura, Y. (2010). Smart meeting systems: A survey of state-of-the-art and open issues. ACM Computing Surveys (CSUR), 42(2), 8. ACM.|[[skimx://yu2010smart|PDF]]|

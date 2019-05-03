@@ -1,3 +1,0 @@
-h2. A. Arikan's publications
-
-| kartal2010recommendation | Kartal, E., & Arikan, A. (2010). A recommendation for a new Internet-based environment for studying literature.|[[skimx://kartal2010recommendation|PDF]]|

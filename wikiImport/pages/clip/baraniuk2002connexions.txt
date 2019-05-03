@@ -1,6 +1,0 @@
-h2. Highlights (4%)
-
-￼ABSTRACT Connexions is a new approach to authoring, teaching, and learning that aims to fully exploit modern information technology. Available free of charge to anyone under open-content and open-source licenses, Connexions offers custom-tailored, current course material, is adaptable to a wide range of learning styles, and encourages students to explore the links among courses and disciplines. In contrast to the traditional process of textbook writing and publishing, Connexions fosters world-wide, cross-institution communities of authors, instructors, and students, who collaboratively and dynamically fashion “modules” from which courses are constructed. We believe the ideas and philosophy embodied by Connexions have the potential to change the very nature of textbook writing and publishing, producing a dynamic, interconnected educational environment that is pedagogically sound, both time and cost efficient, and fun. This paper overviews the philosophy and technology behind Connexions and describes a nascent community developing material for DSP education. [[skimx://baraniuk2002connexions#1|p. 1]]
-
-::This is relevant:: [[skimx://baraniuk2002connexions#2|p. 2]]
-

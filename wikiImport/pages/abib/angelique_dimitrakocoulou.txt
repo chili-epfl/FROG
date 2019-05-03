@@ -1,5 +1,0 @@
-h2. Angelique Dimitrakocoulou's publications
-
-| [@dimitrakopoulou2006state] | Dimitrakocoulou, A., Petrou, A., MarcosJosé Antonio, Kollias, V., Jermann, P., Harrer, A., Dimitriadis, Y., Bollen, L., & MartínezAlejandra. (2006). State of the art of interaction analysis for Metacognitive Support \& Diagnosis.|
-| [@dimitracopoulou2008computer] | Dimitrakocoulou, A. (2008). Computer based interaction analysis supporting self-regulation: achievements and prospects of an emerging research direction. Technology, Instruction, Cognition and Learning (TICL), 6(4), 291--314.|
-| [@bratitsis2009studying] | Bratitsis, T., & Dimitrakocoulou, A. (2009). Studying the effect of interaction analysis indicators on students' selfregulation during asynchronous discussion learning activities. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1 (601--605). |

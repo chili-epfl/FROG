@@ -1,3 +1,0 @@
-h2. Yan Ping Xin's publications
-
-| [@cetintas2010automatic] | Cetintas, S., Si, L., Xin, Y. P., & Hord, C. (2010). Automatic Detection of {Off-Task} Behaviors in Intelligent Tutoring Systems with Machine Learning Techniques. {IEEE} Transactions on Learning Technologies, 3(3), 228--236. doi:10.1109/TLT.2009.44|

@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:weller2010little0.png}}
-
-[[skimx://weller2010little#6|p. 6]]
-----
-

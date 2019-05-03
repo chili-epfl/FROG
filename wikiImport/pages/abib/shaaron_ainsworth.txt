@@ -1,5 +1,0 @@
-h2. Shaaron Ainsworth's publications
-
-| [@ainsworth1997information] | Ainsworth, S., Bibby, P. A., & Wood, D. J. (1997). Information technology and multiple representations: new opportunities--new problems. Technology, Pedagogy and Education, 6(1), 93--105. |
-| [@ainsworth2002using] | Ainsworth, S., & Van Labeke, N. (2002). Using a multi-representational design framework to develop and evaluate a dynamic simulation environment. In international workshop on dynamic visualizations and learning, Tubingen, Germany.|
-| [@ainsworth2003effects] | Ainsworth, S., & Th Loizou, A. (2003). The effects of self-explaining when learning with text or diagrams. Cognitive Science, 27(4), 669--681. |

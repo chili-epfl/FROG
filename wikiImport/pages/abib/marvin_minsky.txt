@@ -1,3 +1,0 @@
-h2. Marvin Minsky's publications
-
-| [@minsky1988society] | Minsky, M. (1988). The Society of Mind. New York: Simon and Schuster.|

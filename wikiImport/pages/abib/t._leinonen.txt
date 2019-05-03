@@ -1,4 +1,0 @@
-h2. T. Leinonen's publications
-
-| :ref:rubens2005design | Rubens, W., Emans, B., Leinonen, T., Skarmeta, A. G., & Simons, R. J. (2005). Design of web-based collaborative learning environments. Translating the pedagogical learning principles to human computer interface. Computers \& Education. Elsevier.|
-| :ref:rubens2005design | Rubens, W., Emans, B., Leinonen, T., Skarmeta, A. G., & Simons, R. J. (2005). Design of web-based collaborative learning environments. Translating the pedagogical learning principles to human computer interface. Computers \& Education. Elsevier.|

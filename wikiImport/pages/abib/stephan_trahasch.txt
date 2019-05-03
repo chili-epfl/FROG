@@ -1,3 +1,0 @@
-h2. Stephan Trahasch's publications
-
-| [@lauer2007scripted] | Lauer, T., & Trahasch, S. (2007). Scripted Anchored Discussion of Multimedia Lecture Recordings. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 137--153). Boston, {MA}: Springer {US}. |

@@ -1,3 +1,0 @@
-h2. George Pólya's publications
-
-| [@polya1945solve] | PólyaGeorge. (1945). How to Solve It. Princeton University Press.|

@@ -1,3 +1,0 @@
-h2. Ben Juby's publications
-
-| [@buckinghamshum2006amemetic] | Buckingham Shum, S., Daw, M., Slack, R., Juby, B., Rowley, A., Bachler, M., Mancini, C., Michaelides, D., Procter, R., Chown, T., Hewitt, T., & de Roure, D. (2006, June). Memetic: from meeting memory to virtual ethnography & distributed video analysis. Conference Item. |

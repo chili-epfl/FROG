@@ -1,5 +1,0 @@
-h1. Authors
-
-{{pagequery>@a: *;sort=a;title;group;cols=3;nostart}}
-
-~~NOCACHE~~

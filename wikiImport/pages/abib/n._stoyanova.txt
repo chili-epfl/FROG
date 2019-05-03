@@ -1,3 +1,0 @@
-h2. N. Stoyanova's publications
-
-| stoyanova2001concept | Stoyanova, N., & Kommers, P. (2001). Concept mapping as a medium of shared cognition in computer-supported collaborative problem solving. Journal of Interactive Learning Research.||

@@ -1,4 +1,0 @@
-h1. Cybernetics
-
-h2. Links
-  * [[http://pespmc1.vub.ac.be/LIBRARY.html|Extensive library of free books]]

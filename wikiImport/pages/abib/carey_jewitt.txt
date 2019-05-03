@@ -1,3 +1,0 @@
-h2. Carey Jewitt's publications
-
-| [@clark2011methods] | Clark, W., Luckin, R., & Jewitt, C. (2011). Methods and Specifications for TISL Components V1. NEXT-TELL. |

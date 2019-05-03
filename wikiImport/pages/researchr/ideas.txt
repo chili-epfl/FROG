@@ -1,7 +1,0 @@
-h1. Researchr:Ideas
-
-
-----
-  * [[http://rubydoc.info/gems/ruby_gntp/0.3.4/frames|Ruby_gntp (growl notifier)]]
-----
-  * [[https://github.com/RobertLowe/mynu|RobertLowe/mynu - GitHub - menubar DSL]]

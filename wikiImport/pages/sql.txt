@@ -1,7 +1,0 @@
-h1. Sql
-
-  * [[http://philip.greenspun.com/sql/|SQL for Web Nerds]]
-----
-  * [[http://sqlzoo.net/wiki/Main_Page|SQLZOO]]
-  * [[http://postgresguide.com/|Postgres Guide — Postgres Guide]]
-  * [[http://www.play-sql.com/|Play SQL, create a database in Confluence]]

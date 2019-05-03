@@ -1,9 +1,0 @@
-h2. Publications in Journal of Interactive Media in Education
-
-| [@mcandrew2010defining] | McAndrew, P. (2010). Defining openness: updating the concept of “open” for a connected world. Journal of Interactive Media in Education, 2010(02).|
-| [@mccalla2004ecological] | {McCalla}G. (2004). The Ecological Approach to the Design of {E-Learning} Environments: Purpose-based Capture and Use of Information About Learners. Journal of Interactive Media in Education, 7.|
-| [@brouns2005first] | Brouns, F., Koper, R., Manderveld, J., Van Bruggen, J., Sloep, P., van Rosmalen, P., Tattersall, C., & Vogten, H. (2005). A first exploration of an inductive analysis approach for detecting learning design patterns. Journal of Interactive Media in Education, 3(03), 2. |
-| [@conole2008using] | Conole, G., & Weller, M. (2008). Using learning design as a framework for supporting the design and reuse of OER. Journal of Interactive Media in Education, 2008(1). |
-| [@lawler2008action] | Lawler, C. (2008). Action research as a congruent methodology for understanding wikis: the case of Wikiversity. Journal of Interactive Media in Education, 6, 1--11.|
-| [@pegler2012herzberg] | Pegler, C. (2012). Herzberg, hygiene and the motivation to reuse: Towards a three-factor theory to explain motivation to share and use OER. Journal of Interactive Media in Education, 2012(01). |
-| [@weller2012openness-creativity] | Weller, M. (2012). The openness-creativity cycle in education. Journal of Interactive Media in Education, 2012(01).|

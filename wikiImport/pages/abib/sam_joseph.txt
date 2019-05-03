@@ -1,4 +1,0 @@
-h2. Sam Joseph's publications
-
-| :ref:suthers2007conceptual | Suthers, D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2007). {Conceptual representations enhance knowledge construction in asynchronous collaboration}. Proceedings of the 8th iternational conference on Computer supported collaborative learning - CSCL'07. Morristown, NJ, USA: Association for Computational Linguistics. doi: 10.3115/1599600.1599729.|
-| :ref:suthers2007conceptual | Suthers, D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2007). {Conceptual representations enhance knowledge construction in asynchronous collaboration}. Proceedings of the 8th iternational conference on Computer supported collaborative learning - CSCL'07. Morristown, NJ, USA: Association for Computational Linguistics. doi: 10.3115/1599600.1599729.|

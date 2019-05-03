@@ -1,3 +1,0 @@
-h2. C.J. Danoff's publications
-
-| [[..:ref:corneli2011paragogy]] | Corneli, J., & Danoff, C. J. (2011). Paragogy: Synergizing individual and organizational learning. 1st International Conference on Learning Analytics and Knowledge.|[[skimx://corneli2011paragogy|PDF]]|

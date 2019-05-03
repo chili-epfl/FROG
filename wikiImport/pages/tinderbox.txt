@@ -1,7 +1,0 @@
-h1. Tinderbox
-
-[[http://www.eastgate.com/Tinderbox/|Tinderbox]], tool for taking notes, visualizing etc. Written by [[http://www.markbernstein.org/|Mark Bernstein]], who also wrote a book ([@bernstein2007tinderbox]).
-
-  * [[http://notesaboutnotes.com/|Notes about notes]] 
-
- 

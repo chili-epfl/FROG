@@ -1,4 +1,0 @@
-h2. K. Lund's publications
-
-| lund2004human | Lund, K. (2004). Human Support in CSCL. What We Know About CSCL. Springer.|[[skimx://lund2004human|PDF]]|
-| lund2011analytical | Lund, K. (2011). Analytical Frameworks for Group Interactions in CSCL Systems. Analyzing Interactions in CSCL. Springer.|[[skimx://lund2011analytical|PDF]]|

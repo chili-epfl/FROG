@@ -1,3 +1,0 @@
-h2. Publications in Technology-Enhanced Learning
-
-| dillenbourg2009evolution | Dillenbourg, P., Järvelä, S., & Fischer, F. (2009). The evolution of research on computer-supported collaborative learning. Technology-Enhanced Learning, 3--19. Springer.|[[skimx://dillenbourg2009evolution|PDF]]|

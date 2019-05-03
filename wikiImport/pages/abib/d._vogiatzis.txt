@@ -1,3 +1,0 @@
-h2. D. Vogiatzis's publications
-
-| avgeriou2004towards | Avgeriou, P., Vogiatzis, D., Tzanavari, A., & Retalis, S. (2004). Towards a pattern language for adaptive web-based educational systems. Advanced Technology for Learning.|[[skimx://avgeriou2004towards|PDF]]|

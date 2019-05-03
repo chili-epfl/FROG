@@ -1,7 +1,0 @@
-h2. George Siemens's publications
-
-| [@mcauley2010mooc] | McAuley, A., Stewart, B., Siemens, G., & Cormier, D. (2010). The MOOC Model for Digital Practice.|
-| [@siemenselearnspace] | Siemens, G. elearnspace › What are Learning Analytics?. |
-| [@cormier2010through] | Cormier, D., & Siemens, G. (2010). Through the open door: Open courses as research, learning, and engagement. Educause Review, 45(4), 30–9.|
-| [@siemens2011open] | Siemens, G., Gasevic, D., Haythornthwaite, C., Dawson, S., Buckingham Shum, S., Ferguson, R., Duval, E., Verbert, K., & d. Baker, R. S. J. (2011). Open Learning Analytics: an integrated & modularized platform. Proposal to design, implement and evaluate an open platform to integrate heterogeneous learning analytics techniques. |
-| [@siemens2011orientation:] | Siemens, G. (2011). Orientation: Sensemaking And Wayfinding In Complex Distributed Online Information Environments (PhD thesis).|

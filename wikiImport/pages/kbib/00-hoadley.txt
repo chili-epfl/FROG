@@ -1,3 +1,0 @@
-h2. Publications with keyword "00-Hoadley"
-
-| [@hoadley2005using] | Hoadley, C. M., & Kilner, P. G. (2005). Using technology to transform communities of practice into knowledge-building communities. ACM SIGGROUP Bulletin, 25(1), 31--40. ACM. |

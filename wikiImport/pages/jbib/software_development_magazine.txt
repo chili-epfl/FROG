@@ -1,3 +1,0 @@
-h2. Publications in Software Development Magazine
-
-| poppendieck2002wicked | Poppendieck, M. (2002). Wicked projects. Software Development Magazine, 10, 72--6.|[[skimx://poppendieck2002wicked|PDF]]|

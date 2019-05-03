@@ -1,3 +1,0 @@
-h2. Caroline Haythornthwaite's publications
-
-| [@siemens2011open] | Siemens, G., Gasevic, D., Haythornthwaite, C., Dawson, S., Buckingham Shum, S., Ferguson, R., Duval, E., Verbert, K., & d. Baker, R. S. J. (2011). Open Learning Analytics: an integrated & modularized platform. Proposal to design, implement and evaluate an open platform to integrate heterogeneous learning analytics techniques. |

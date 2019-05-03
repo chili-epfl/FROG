@@ -1,3 +1,0 @@
-h2. KR Koedinger's publications
-
-| [@tabachneck1994toward] | Tabachneck{HJM}, Koedinger{KR}, & Nathan{MJ}. (1994). Toward a theoretical account of strategy use and sense-making in mathematics problem solving. In Proceedings of the sixteenth annual conference of the cognitive science society (836–841).|

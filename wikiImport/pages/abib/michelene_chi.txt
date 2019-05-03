@@ -1,4 +1,0 @@
-h2. Michelene Chi's publications
-
-| chi1994things | Chi, M., Slotta, J. D., & De Leeuw, N. (1994). From things to processes: A theory of conceptual change for learning science concepts. Learning and instruction, 4(1), 27--43. Elsevier.|[[skimx://chi1994things|PDF]]|
-| teasley2008cognitive | Teasley, S. D., Fischer, F., Weinberger, A., Stegmann, K., Dillenbourg, P., Kapur, M., & Chi, M. (2008). Cognitive convergence in collaborative learning. Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1599936.1600039.|[[skimx://teasley2008cognitive|PDF]]|

@@ -1,3 +1,0 @@
-h2. Publications in Knowledge and information visualization
-
-| canas2005concept | Cañas, A., Carff, R., Hill, G., Carvalho, M., Arguedas, M., Eskridge, T., Lott, J., & Carvajal, R. (2005). Concept maps: Integrating knowledge and information visualization. Knowledge and information visualization, 181--184. Springer.|[[skimx://canas2005concept|PDF]]|

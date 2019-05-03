@@ -1,5 +1,0 @@
-h2. Publications with keyword "learner models"
-
-| [@gerardo1996learner] | Gerardo, A., & Yoneo, Y. (1996). Learner models for supporting awareness and collaboration in a CSCL environment. In C. Frasson, G. Gauthier & A. Lesgold (Eds.), Intelligent Tutoring Systems, Lecture Notes in Computer Science (Vol. 1086, 158-167). Springer Berlin / Heidelberg. |
-| [@ortiz2003formalizing] | Ortiz, M., Ayala, G., & Osorio, M. (2003). Formalizing the Learner Model for CSCL Environments. In Proceedings of the 4th Mexican International Conference on Computer Science, ENC '03 (151--). Washington, DC, USA: IEEE Computer Society. |
-| [@kay2008lifelong] | Kay, J. (2008). Lifelong Learner Modeling for Lifelong Personalized Pervasive Learning. {IEEE} Transactions on Learning Technologies, 1(4), 215--228. doi:10.1109/TLT.2009.9|

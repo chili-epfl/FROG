@@ -1,3 +1,0 @@
-h2. P. Kraker's publications
-
-| kraker2010feeding | Kraker, P., Fessl, A., Hoefler, P., & Lindstaedt, S. (2010). Feeding TEL: Building an Ecosystem Around BuRST to Convey Publication Metadata.|[[skimx://kraker2010feeding|PDF]]|

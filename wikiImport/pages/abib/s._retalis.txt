@@ -1,7 +1,0 @@
-h2. S. Retalis's publications
-
-| [[..:ref:avgeriou2003towards]] | Avgeriou, P., Papasalouros, A., Retalis, S., & Skordalakis, M. (2003). Towards a pattern language for learning management systems. Educational Technology \& Society. Citeseer.|
-| avgeriou2004towards | Avgeriou, P., Vogiatzis, D., Tzanavari, A., & Retalis, S. (2004). Towards a pattern language for adaptive web-based educational systems. Advanced Technology for Learning.|
-| goodyear2004towards | Goodyear, P., Avgeriou, P., Baggetun, R., Bartoluzzi, S., Retalis, S., Ronteltap, F., & Rusman, E. (2004). Towards a pattern language for networked learning. Proceedings of Networked Learning.|
-| retalis2006eliciting | Retalis, S., Georgiakakis, P., & Dimitriadis, Y. (2006). Eliciting design patterns for e-learning systems. Computer Science Education. Routledge.|
-| lazakidou2009cscl | Lazakidou, G., Retalis, S., Georgiakakis, P., & Karamouzis, S. (2009). CSCL scenarios:= A cocktail of CLFPs. Scripted vs. Free CS Collaboration: Alternatives and Paths for Adaptable and Flexible CS Scripted Collaboration.|

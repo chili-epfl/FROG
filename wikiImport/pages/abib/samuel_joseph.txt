@@ -1,5 +1,0 @@
-h2. Samuel Joseph's publications
-
-| [@suthers2007conceptual] | Suthers, D. D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2007). {Conceptual representations enhance knowledge construction in asynchronous collaboration}. Proceedings of the 8th iternational conference on Computer supported collaborative learning - CSCL'07, 2007, 705--714. doi:10.3115/1599600.1599729|
-| [@suthers2005representational] | Suthers, D. D., Vatrapu, R., Joseph, S., Dwyer, N., & Medina, R. (2005). {Representational Effects in Asynchronous Collaboration : A Research Paradigm and Initial Analysis Department of Information and Computer Sciences University of Hawai ` i at Manoa}. Electronics, (1).|
-| [@suthers2008beyond] | Suthers, D. D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2008). {Beyond threaded discussion: Representational guidance in asynchronous collaborative learning environments}. Computers \& Education, 50(4), 1103--1127. doi:10.1016/j.compedu.2006.10.007|

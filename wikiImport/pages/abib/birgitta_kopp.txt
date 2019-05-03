@@ -1,4 +1,0 @@
-h2. Birgitta Kopp's publications
-
-| [@ertl2007supporting] | Ertl, B., Kopp, B., & Mandl, H. (2007). Supporting Collaborative Learning in Videoconferencing Using Collaboration Scripts and Content Schemes. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 213--236). Boston, {MA}: Springer {US}. |
-| [@ertl2008supporting] | Ertl, B., Kopp, B., & Mandl, H. (2008). Supporting learning using external representations. Computers \& Education, 51(4), 1599--1608.|

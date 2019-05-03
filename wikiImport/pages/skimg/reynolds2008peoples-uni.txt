@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:reynolds2008peoples-uni0.png}}
-
-[[skimx://reynolds2008peoples-uni#3|p. 3]]
-----
-

@@ -1,6 +1,0 @@
-h2. Carlos José Pereira Lucena's publications
-
-| [[..:ref:fuks2006rutyping]] | Fuks, H., Pimentel, M., & Lucena, C. J. P. de. (2006). {R-U-Typing-2-Me?} Evolving a chat tool to increase understanding in learning activities. International Journal of {Computer-Supported} Collaborative Learning. doi: 10.1007/s11412-006-6845-3.|[[skimx://fuks2006rutyping|PDF]]|
-| pimentel2003cotext | Pimentel, M., Fuks, H., & Lucena, C. J. P. de. (2003). Co-text loss in textual chat tools. Modeling and Using Context. Springer.|[[skimx://pimentel2003cotext|PDF]]|
-| filippo2009discussion | Filippo, D., Fuks, H., & Lucena, C. J. P. de. (2009). Discussion forum coordination support in distance courses.|[[skimx://filippo2009discussion|PDF]]|
-| gerosa2010unfolding | Gerosa, M. A., Filippo, D., Pimentel, M., Fuks, H., & Lucena, C. J. P. de. (2010). Is the unfolding of the group discussion off-pattern? Improving coordination support in educational forums using mobile devices. Computers \& Education. Elsevier.|[[skimx://gerosa2010unfolding|PDF]]|

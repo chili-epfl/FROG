@@ -1,3 +1,0 @@
-h2. Volker Wulf's publications
-
-| [@fischer2007community-based] | Fischer, G., Rohde, M., & Wulf, V. (2007). Community-based learning: The core competency of residential, research-based universities. International Journal of Computer-Supported Collaborative Learning, 2(1), 9-40. doi:10.1007/s11412-007-9009-1|

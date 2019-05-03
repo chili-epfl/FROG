@@ -1,5 +1,0 @@
-h2. Sadhana Puntambekar's publications
-
-| [@puntambekar2002scaffolding] | Puntambekar, S., & Hubscher, R. (2002). Scaffolding in complex learning environments: What we have gained and what we have missed. In Educational Psychologist.|
-| [@puntambekar2006analyzing] | Puntambekar, S. (2006). Analyzing collaborative interactions: divergence, shared understanding and construction of knowledge. Computers \& Education, 47(3), 332--351.|
-| [@stylianou2011analyzing] | Stylianou-Georgiou, A., Papanastasiou, E., & Puntambekar, S. (2011). Analyzing collaborative processes and learning from hypertext through hierarchical linear modelling. Analyzing Interactions in CSCL, 145--159.|

@@ -1,3 +1,0 @@
-h2. G. Lazakidou's publications
-
-| lazakidou2009cscl | Lazakidou, G., Retalis, S., Georgiakakis, P., & Karamouzis, S. (2009). CSCL scenarios:= A cocktail of CLFPs. Scripted vs. Free CS Collaboration: Alternatives and Paths for Adaptable and Flexible CS Scripted Collaboration.|[[skimx://lazakidou2009cscl|PDF]]|

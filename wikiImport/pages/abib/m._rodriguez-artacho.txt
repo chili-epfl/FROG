@@ -1,3 +1,0 @@
-h2. M. Rodriguez-Artacho's publications
-
-| verdejo2007designing | Verdejo, M., Barros, B., Read, T., & Rodriguez-Artacho, M. (2007). Designing a CSCL environment for experimental learning in a distance learning context. The Role of Technology in CSCL. Springer.|[[skimx://verdejo2007designing|PDF]]|

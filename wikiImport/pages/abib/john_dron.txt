@@ -1,4 +1,0 @@
-h2. John Dron's publications
-
-| [@dron2002achieving] | Dron, J. (2002). Achieving self-organisation in network-based learning environments (PhD thesis).|
-| [@dron2007designing] | Dron, J. (2007). Designing the undesignable: Social software and control. Subscription Prices and Ordering Information, 60.|

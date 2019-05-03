@@ -1,3 +1,0 @@
-h2. Airong Luo's publications
-
-| [@luo2010towards] | Luo, A., Ng'ambi, D., & Hanss, T. (2010). Towards building a productive, scalable and sustainable collaboration model for open educational resources. In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (273). doi:10.1145/1880071.1880117|

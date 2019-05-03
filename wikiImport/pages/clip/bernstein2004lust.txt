@@ -1,4 +1,0 @@
-h2. Highlights (2%)
-
-Adding and removing links carries great rhetorical weight. Modern hypertext tools often treat links as metadata and use metadata to provide navigational access. To view links or metadata as extrinsic information applied to an underlying document may no longer be a viable strategy. [[skimx://bernstein2004lust#1|p. 1]]
-

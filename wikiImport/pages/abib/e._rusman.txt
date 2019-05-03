@@ -1,3 +1,0 @@
-h2. E. Rusman's publications
-
-| goodyear2004towards | Goodyear, P., Avgeriou, P., Baggetun, R., Bartoluzzi, S., Retalis, S., Ronteltap, F., & Rusman, E. (2004). Towards a pattern language for networked learning. Proceedings of Networked Learning.|[[skimx://goodyear2004towards|PDF]]|

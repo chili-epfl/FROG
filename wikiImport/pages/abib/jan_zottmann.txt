@@ -1,3 +1,0 @@
-h2. Jan Zottmann's publications
-
-| [@stegmann2007towards] | Stegmann, K., Kollar, I., Zottmann, J., Gijlers, H., De Jong, T., Dillenbourg, P., Slotta, J. D., & Fischer, F. (2007). Towards the convergence of CSCL and inquiry learning: scripting collaborative inquiry learning. In Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07 (831--832). International Society of the Learning Sciences. |

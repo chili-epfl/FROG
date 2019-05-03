@@ -1,9 +1,0 @@
-h1. Chris DiGiano
-{{ pages:a_Chris_diGiano1.png}}
-
-Ex-research scientist at [[:SRI]]
-
-h2. Links
-  * [[SRI page]]
-
-{{page>abib:chris digiano}}

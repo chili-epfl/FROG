@@ -1,4 +1,0 @@
-h2. J. Müller's publications
-
-| :ref:muller2004towards | Müller, J., Mühlenbrock, M., & Pinkwart, N. (2004). Towards using concept mapping for math learning. Learning Technology newsletter.|
-| :ref:muller2004towards | Müller, J., Mühlenbrock, M., & Pinkwart, N. (2004). Towards using concept mapping for math learning. Learning Technology newsletter.|

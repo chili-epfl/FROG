@@ -1,4 +1,0 @@
-h2. A. Okada's publications
-
-| :ref:mcandrew2009openlearn | {McAndrew}P., Santos, A., Lane, A., Godwin, S., Okada, A., Wilson, T., Connolly, T., Ferreira, G., Buckingham Shum, S., Bretts, J., & Webb, R. (2009). {OpenLearn} Research Report 2006-2008. Retrieved from http://oro.open.ac.uk/17513/.|
-| :ref:mcandrew2009openlearn | {McAndrew}P., Santos, A., Lane, A., Godwin, S., Okada, A., Wilson, T., Connolly, T., Ferreira, G., Buckingham Shum, S., Bretts, J., & Webb, R. (2009). {OpenLearn} Research Report 2006-2008. Retrieved from http://oro.open.ac.uk/17513/.|

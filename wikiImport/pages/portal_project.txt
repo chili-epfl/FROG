@@ -1,4 +1,0 @@
-h1. Portal project
-
-  * [[Taxonomies]] (currently all from EncoreWiki)
-  * [[Pattern language in education]]

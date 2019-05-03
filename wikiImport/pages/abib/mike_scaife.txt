@@ -1,3 +1,0 @@
-h2. Mike Scaife's publications
-
-| [@scaife1996external] | Scaife, M., & Rogers, Y. (1996). External cognition: how do graphical representations work?. International journal of human-computer studies, 45(2), 185--213.|

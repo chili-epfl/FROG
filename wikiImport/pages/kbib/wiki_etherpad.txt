@@ -1,3 +1,0 @@
-h2. Publications with keyword "wiki,etherpad"
-
-| [@corneli2010gravpad] | Corneli, J. (2010). GravPad. In Proceedings of the 6th International Symposium on Wikis and Open Collaboration, WikiSym '10 (33:1--33:2). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1832772.1832815|

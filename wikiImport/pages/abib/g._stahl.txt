@@ -1,8 +1,0 @@
-h2. G. Stahl's publications
-
-| stahl2009chat | Stahl, G. (2009). A chat about chat. Studying Virtual Math Teams. Springer.|
-| perit2009joint | Perit Cakir, M., Zemel, A., & Stahl, G. (2009). The joint organization of interaction within a multimodal CSCL medium. International Journal of Computer-Supported Collaborative Learning. Springer.|
-| stahl2009classical | Stahl, G., & Hesse, F. (2009). Classical dialogs in CSCL. International Journal of Computer-Supported Collaborative Learning. Springer.|
-| stahl2011study | Stahl, G. (2011). How to study group cognition. Analyzing Interactions in CSCL. Springer.|
-| stahl2004building | Stahl, G. (2004). Building collaborative knowing. What we know about CSCL. Springer.|
-| stahl2011theories | Stahl, G. (2011). Theories of cognition in CSCW.|

@@ -1,3 +1,0 @@
-h2. Annita Fjuk's publications
-
-| [@fjuk1995towards] | Fjuk, A. (1995). Towards and analytical framework for CSCdistanceL. In The first international conference on Computer support for collaborative learning, CSCL '95 (130--134). Hillsdale, NJ, USA: L. Erlbaum Associates Inc. |

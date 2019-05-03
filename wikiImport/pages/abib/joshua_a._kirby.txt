@@ -1,3 +1,0 @@
-h2. Joshua A. Kirby's publications
-
-| hoadley2004socially | Hoadley, C. M., & Kirby, J. A. (2004). Socially relevant representations in interfaces for learning. Proceedings of the 6th international conference on Learning sciences, ICLS '04. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1149126.1149157.|[[skimx://hoadley2004socially|PDF]]|

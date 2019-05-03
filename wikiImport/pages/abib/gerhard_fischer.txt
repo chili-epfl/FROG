@@ -1,8 +1,0 @@
-h2. Gerhard Fischer's publications
-
-| [@carmien2007interplay] | Carmien, S., Kollar, I., Fischer, G., & Fischer, F. (2007). The Interplay of Internal and External Scripts. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 303--326). Boston, {MA}: Springer {US}. |
-| [@fischer2005knowledge] | Fischer, G., & Ostwald, J. (2005). Knowledge communication in design communities. Barriers and biases in computer-mediated knowledge communication, 213--242.|
-| [@fischer2006supporting] | Fischer, G., & Sugimoto, M. (2006). Supporting self-directed learners and learning communities with sociotechnical environments. Research and Practice in Technology Enhanced Learning, 1(1).|
-| [@fischer2007community-based] | Fischer, G., Rohde, M., & Wulf, V. (2007). Community-based learning: The core competency of residential, research-based universities. International Journal of Computer-Supported Collaborative Learning, 2(1), 9-40. doi:10.1007/s11412-007-9009-1|
-| [@fischer2009cultures] | Fischer, G. (2009). Cultures of participation and social computing: Rethinking and reinventing learning and education. In 2009 Ninth IEEE International Conference on Advanced Learning Technologies (1--5).|
-| [@collins2009longtail] | Collins, A., Fischer, G., Barron, B., Liu, C.-C., & Spada, H. (2009). Long-tail learning: a unique opportunity for CSCL?. In Proceedings of the 9th international conference on Computer supported collaborative learning - Volume 2, CSCL'09 (22--24). International Society of the Learning Sciences. |

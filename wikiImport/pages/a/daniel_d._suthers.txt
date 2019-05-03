@@ -1,8 +1,0 @@
-h1. Daniel D. Suthers
-
-Researcher at [[LILTS]] in Hawaii. Supervised [[Ravi Vatrapu]]. Early work on [[representational guidance]], now focuses on [[multivocal analysis]]. 
-
-  * [[http://lilt.ics.hawaii.edu/suthers/|Dan Suthers]]
-  * [[http://lilt.ics.hawaii.edu/research/pubs.html|Publications]]
-
-{{page>:abib:Daniel D. Suthers}}

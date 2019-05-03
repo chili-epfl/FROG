@@ -1,3 +1,0 @@
-h2. Qixing Zheng's publications
-
-| [@zheng2006co-authoring] | Zheng, Q., Booth, K., & McGrenere, J. (2006). Co-authoring with structured annotations. In Proceedings of the SIGCHI conference on Human Factors in computing systems, CHI '06 (131--140). New York, NY, USA: ACM. doi:10.1145/1124772.1124794|

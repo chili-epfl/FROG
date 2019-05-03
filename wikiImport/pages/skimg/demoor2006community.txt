@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:demoor2006community0.png}}
-
-[[skimx://demoor2006community#5|p. 5]]
-----
-

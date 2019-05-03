@@ -1,3 +1,0 @@
-h2. A. Pardo's publications
-
-| delafuente2010system | Fuente-Valentín, L. de la, Pérez-Sanagustín, M., Santos, P., Hernández-Leo, D., Pardo, A., Kloos, C. D., & Blat, J. (2010). System orchestration support for a flow of blended collaborative activities. 2010 International Conference on Intelligent Networking and Collaborative Systems.||

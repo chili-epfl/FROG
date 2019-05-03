@@ -1,4 +1,0 @@
-h2. Stefanie Lindstaedt's publications
-
-| [@duval2010editorial] | Duval, E., Ullmann, T. D., Wild, F., Lindstaedt, S., & Scott, P. Editorial: Research 2.0 for TEL - Four Challenges. In .|
-| [@kraker2010feeding] | Kraker, P., Fessl, A., Hoefler, P., & Lindstaedt, S. (2010). Feeding TEL: Building an Ecosystem Around BuRST to Convey Publication Metadata.|

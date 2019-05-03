@@ -1,3 +1,0 @@
-h1. Julia
-
-  * [[http://boss-level.com/?p=247|Linear Regression 3 Ways in Julia « boss-level.com]]

@@ -1,3 +1,0 @@
-h2. Murali Mani's publications
-
-| [@feng2009using] | Feng, M., Heffernan, N. T., Heffernan, C., & Mani, M. (2009). Using {Mixed-Effects} Modeling to Analyze Different {Grain-Sized} Skill Models in an Intelligent Tutoring System. {IEEE} Transactions on Learning Technologies, 2(2), 79--92. doi:10.1109/TLT.2009.17|

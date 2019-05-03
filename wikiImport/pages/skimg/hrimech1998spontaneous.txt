@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:hrimech1998spontaneous0.png}}
-
-[[skimx://hrimech1998spontaneous#6|p. 6]]
-----
-

@@ -1,3 +1,0 @@
-h2. Andy Dong's publications
-
-| [@dong2005latent] | Dong, A. (2005). The latent semantic approach to studying design team communication. Design Studies, 26(5), 445-461. doi:10.1016/j.destud.2004.10.003|

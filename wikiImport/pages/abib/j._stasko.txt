@@ -1,3 +1,0 @@
-h2. J. Stasko's publications
-
-| stasko2008jigsaw | Stasko, J., Görg, C., & Liu, Z. (2008). Jigsaw: supporting investigative analysis through interactive visualization. Information Visualization. Nature Publishing Group.|[[skimx://stasko2008jigsaw|PDF]]|

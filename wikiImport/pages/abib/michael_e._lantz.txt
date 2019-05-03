@@ -1,3 +1,0 @@
-h2. Michael E. Lantz's publications
-
-| [@lantz2010clickers] | Lantz, M. E. (2010). The use of “Clickers” in the classroom: Teaching innovation or merely an amusing novelty?. Computers in Human Behavior, 26(4), 556-561. doi:10.1016/j.chb.2010.02.014|

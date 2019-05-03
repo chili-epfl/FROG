@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:mcandrew2010defining0.png}}
-
-[[skimx://mcandrew2010defining#5|p. 5]]
-----
-

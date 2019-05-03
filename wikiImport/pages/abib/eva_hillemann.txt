@@ -1,3 +1,0 @@
-h2. Eva Hillemann's publications
-
-| [@cierniak2011report] | Cierniak, G., Imhof, B., Clark, W., Wasson, B., Hansen, C., Hillemann, E., & Kickmeier-Rust, M. (2011). Report on Baseline Studies and Requirement Analysis. NEXT-TELL. |

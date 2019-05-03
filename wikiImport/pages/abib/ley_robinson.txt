@@ -1,3 +1,0 @@
-h2. Ley Robinson's publications
-
-| [@weller2001scaling] | Weller, M., & Robinson, L. (2001). Scaling up an Online Course to Deal with 12 000 Students. Education, Communication & Information, 1(3). |

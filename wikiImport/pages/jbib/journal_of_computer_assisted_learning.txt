@@ -1,9 +1,0 @@
-h2. Publications in Journal of Computer Assisted Learning
-
-| [@pare2008peering] | ParéDwayne E, & Joordens, S. (2008). Peering into large lectures: examining peer and expert mark agreement using peerScholar, an online peer assessment tool. Journal of Computer Assisted Learning, 24(6), 526–540.|
-| [@xia2012take] | Xia, J. (2012). Let us take a Yale open course: a Chinese view of open educational resources provided by institutions in the West. Journal of Computer Assisted Learning, no-no. doi:10.1111/j.1365-2729.2012.00477.x|
-| [@wegerif1996collaborative] | Wegerif, R. (1996). Collaborative learning and directive software. Journal of Computer Assisted Learning, 12(1), 22–32.|
-| [@oh2007scaffolding] | Oh, S., & Jonassen, Dh. (2007). Scaffolding online argumentation during problem solving. Journal of Computer Assisted Learning, 23(2), 95--110.|
-| [@pfister2009impact] | PfisterHans-Rüdiger, & Oehl, M. (2009). The impact of goal focus, task type and group size on synchronous net-based collaborative learning discourses. Journal of Computer Assisted Learning, 25(2), 161--176.|
-| [@kerawalla2009empirically] | Kerawalla, L., Minocha, S., Kirkup, G., & Conole, G. (2009). An empirically grounded framework to guide blogging in higher education. Journal of Computer Assisted Learning, 25(1), 31–42.|
-| [@chen2009aintegrating] | Chen, F. H., Looi, C. K., & Chen, W. (2009). Integrating technology in the classroom: a visual conceptualization of teachers’ knowledge, goals and beliefs. Journal of Computer Assisted Learning, 25(5), 470–488.|

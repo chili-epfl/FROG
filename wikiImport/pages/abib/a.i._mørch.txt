@@ -1,3 +1,0 @@
-h2. A.I. Mørch's publications
-
-| ludvigsen2009computer | Ludvigsen, S., & Mørch, A. I. (2009). Computer-supported collaborative learning: Basic concepts, multiple perspectives, and emerging trends. The International Encyclopedia of Education3rd Edition.|[[skimx://ludvigsen2009computer|PDF]]|

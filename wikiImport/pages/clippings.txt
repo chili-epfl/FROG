@@ -1,9 +1,0 @@
-h1. Clippings
-
-
-----
-Re-thinking the aims of AI
-
-Traditionally, the goal of artificial intelligence was seen as the creation of a 'human-level' mechanical intelligence, a kind of simulated human being which could pass the famous Turing Test by imitating human conversation. Researchers at IHMC have developed and argued for an alternative view based on human-centered computing, in which the primary technological goal is to amplify, rather than replace, human abilities; in which the computer is seen as a cognitive prosthesis rather than a mechanical rival or competitor. In this new vision of our subject, the test of progress is the performance of the entire system comprising human and machines working together. This vision gives an entirely different technological emphasis, focuses on different medium-range goals, suggests different criteria for engineering success and provides a more rational basis for actual deployed applied AI technology than the traditional view. It places issues of human-machine interaction at the center of the subject, and focusses on achieving much tighter forms of integration or 'fit' between people and their artifacts. [[http://www.ihmc.us/Research/computational.php|IHMC Computational and Philosophical Foundations]]
-----
-Im inspired by the Dalai Lama, who said,  Everyday, think as you wake up, today I am fortunate to have woken up, I am alive, I have a precious human life, I am not going to waste it. I am going to use all my energies to develop myself, to expand my heart out to others, to achieve enlightenment for the benefit of all beings, I am going to have kind thoughts towards others, I am not going to get angry or think badly about others, I am going to benefit others as much as I can.  [[http://zenhabits.net/10-benefits-of-rising-early-and-how-to-do-it/|» 10 Benefits of Rising Early, and How to Do It :zenhabits]]

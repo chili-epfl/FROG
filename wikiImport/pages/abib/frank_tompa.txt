@@ -1,3 +1,0 @@
-h2. Frank Tompa's publications
-
-| [@lunn2010past] | Lunn, D., Bernstein, M., Marshall, C. C., Matias, J. N., Nyce, J. M., & Tompa, F. (2010). Past visions of hypertext and their influence on us today. In Proceedings of the 21st ACM conference on Hypertext and hypermedia, HT '10 (315--315). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1810617.1810666|

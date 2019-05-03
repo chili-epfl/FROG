@@ -1,5 +1,0 @@
-h2. Andrea Forte's publications
-
-| [@alevizou2010engaging] | Alevizou, P., & Forte, A. (2010). Engaging with open education. In Proceedings of the 6th International Symposium on Wikis and Open Collaboration (30).|
-| [@peters2008learning] | Peters, V., Slotta, J. D., Forte, A., Bruckman, A., Lee, J. J., Gaydos, M., Hoadley, C., & Clarke, J. (2008). Learning and research in the web 2 era: opportunities for research. In Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08 (237--244). International Society of the Learning Sciences. |
-| [@forte2009writing] | Forte, A., & Bruckman, A. (2009). Writing, Citing, and Participatory Media: Wikis as Learning Environments in the High School Classroom. International Journal of Learning and Media, 1(4), 23-44. doi:10.1162/ijlm_a_00033|

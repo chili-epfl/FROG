@@ -1,3 +1,0 @@
-h2. Syavash Nobarany's publications
-
-| [@nobarany2010designing] | Nobarany, S. (2010). Designing Distributed Collaborative Visual Analytics Systems (Master's thesis).|

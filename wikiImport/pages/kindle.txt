@@ -1,5 +1,0 @@
-h1. Kindle
-
-h2. Clipping limit
-  * [[http://realtech.burningbird.net/web/ebooks/kindle-clipping-limits.html]]
-  * [[http://decodingthekindle.wordpress.com/2008/08/18/changing-book-information-the-final-story/]]

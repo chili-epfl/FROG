@@ -1,4 +1,0 @@
-h2. R.D. Pea's publications
-
-| :ref:hoadley2002finding | Hoadley, C. M., & Pea, R. D. (2002). Finding the ties that bind: Tools in support of a knowledge-building community. Building virtual communities: Learning and change in cyberspace. Citeseer.|
-| :ref:hoadley2002finding | Hoadley, C. M., & Pea, R. D. (2002). Finding the ties that bind: Tools in support of a knowledge-building community. Building virtual communities: Learning and change in cyberspace. Citeseer.|

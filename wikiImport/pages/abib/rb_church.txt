@@ -1,3 +1,0 @@
-h2. RB Church's publications
-
-| [@church1995microgenetic] | Church{RB}, & {Ayman-Nolley}S. (1995). A microgenetic analysis of peer interaction: A bi-directional explanation of learning. In biennial meeting of the Society of Research in Child Development, Indianapolis.|

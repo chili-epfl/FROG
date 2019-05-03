@@ -1,2 +1,0 @@
-h1. Key ideas
-  * [[:monologic and dialogic learning]]

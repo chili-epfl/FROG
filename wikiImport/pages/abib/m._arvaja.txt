@@ -1,4 +1,0 @@
-h2. M. Arvaja's publications
-
-| jarvela2004instructional | Järvelä, S., Häkkinen, P., Arvaja, M., & Leinonen, P. (2004). Instructional support in CSCL. What we know about CSCL. Springer.|[[skimx://jarvela2004instructional|PDF]]|
-| arvaja2011analyzing | Arvaja, M. (2011). Analyzing the Contextual Nature of Collaborative Activity. Analyzing Interactions in CSCL. Springer.|[[skimx://arvaja2011analyzing|PDF]]|

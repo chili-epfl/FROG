@@ -1,4 +1,0 @@
-h2. Weiqin Chen's publications
-
-| [@reber2009effects] | Reber, R., Hetland, H., Chen, W., Norman, E., & Kobbeltvedt, T. (2009). Effects of Example Choice on Interest, Control, and Learning. Journal of the Learning Sciences, 18(4), 509-548. doi:10.1080/10508400903191896|
-| [@isotani2011guest] | Isotani, S., Bourdeau, J., Mizoguchi, R., Chen, W., Wasson, B., & Jovanovic, J. (2011). Guest Editorial: Special Issue on Intelligent and Innovative Support Systems for {CSCL}. {IEEE} Transactions on Learning Technologies, 4(1), 1--4. doi:10.1109/TLT.2011.7|

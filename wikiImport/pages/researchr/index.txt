@@ -1,5 +1,0 @@
-h1. Researchr page index
-
-{{pagequery>@researchr: *;sort=a;title;group;cols=3;nostart}}
-
-~~NOCACHE~~

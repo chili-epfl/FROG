@@ -1,5 +1,0 @@
-h2. Alan Lesgold's publications
-
-| [@suthers2001representational] | Suthers, D. D., Connelly, J., Lesgold, A., Paolucci, M., Toth, E. E., & Weiner, A. (2001). {Representational and Advisory Guidance for Students Learning Scientific Inquiry}. Learning, 7--35.|
-| [@soller2007collaborative] | Soller, A., & Lesgold, A. (2007). Collaborative tools in educational practice. The Role of Technology in CSCL, 117--120.|
-| [@soller2007modeling] | Soller, A., & Lesgold, A. (2007). Modeling the process of collaborative learning. In H. U. Hoppe, H. Ogata & A. Soller (Eds.), The Role of Technology in {CSCL} (63--86). Boston, {MA}: Springer {US}. |

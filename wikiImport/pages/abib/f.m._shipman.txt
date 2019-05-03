@@ -1,3 +1,0 @@
-h2. F.M. Shipman's publications
-
-| [[..:ref:shipman1999formality]] | Shipman, F. M., & Marshall, C. C. (1999). Formality considered harmful: Experiences, emerging themes, and directions on the use of formal representations in interactive systems. Computer Supported Cooperative Work (CSCW). Springer.|[[skimx://shipman1999formality|PDF]]|

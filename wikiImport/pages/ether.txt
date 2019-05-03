@@ -1,4 +1,0 @@
-h1. This is a test
-
-People are always talking about technology. But what about their ideas? That's the real problem. 
-

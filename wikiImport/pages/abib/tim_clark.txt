@@ -1,5 +1,0 @@
-h2. Tim Clark's publications
-
-| [@clark2011future] | Clark, T., Waard, A. D., Herman, I., & Hovy, E. (2011). {The Future of Research Communication (Dagstuhl Perspectives Workshop 11331)}. (T. Clark, A. D. Waard, I. Herman & E. Hovy, Eds.) Dagstuhl Reports, 1(8), 29--52. doi:http://dx.doi.org/10.4230/DagRep.1.8.29|
-| [@bourne2011improving] | Bourne, P., Clark, T., Dale, R., de Waard, A., Herman, I., Hovy, E., & Shotton, D. (2011). Improving Future Research Communication and e-Scholarship.|
-| [@ciccarese2011open] | Ciccarese, P., Ocana, M., Garcia Castro, L., Das, S., & Clark, T. (2011). An open annotation ontology for science on web 3.0. Journal of Biomedical Semantics, 2(Suppl 2), S4. doi:10.1186/2041-1480-2-S2-S4|

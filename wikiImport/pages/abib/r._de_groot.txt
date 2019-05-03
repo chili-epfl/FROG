@@ -1,6 +1,0 @@
-h2. R. De Groot's publications
-
-| schwarz2007argumentation | Schwarz, B. B., & De Groot, R. (2007). Argumentation in a changing world. International Journal of Computer-Supported Collaborative Learning. Springer.|
-| eisenmann2009relay | Eisenmann, T., Schwarz, B. B., & De Groot, R. (2009). Relay race of practice: integrating technological tools into teaching and learning scenarios. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
-| degroot2010teachers | De Groot, R.Teachers’ use of the Argunaut system in the classroom. In N. Pinkwart & B. M. McLaren (Eds.),  (Tran.), Educational technologies for teaching argumentation skills.. Sharjah: Bentham Science Publishers.|
-| degroot2007computer | De Groot, R., Drachman, R., Hever, R., Schwarz, B. B., Hoppe, U., Harrer, A., De Laat, M., Wegerif, R., McLaren, B. M., & Baurens, B. (2007). Computer supported moderation of e-discussions: the ARGUNAUT approach. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|

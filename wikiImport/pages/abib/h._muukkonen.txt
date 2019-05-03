@@ -1,4 +1,0 @@
-h2. H. Muukkonen's publications
-
-| :ref:lakkala2005patterns | Lakkala, M., Muukkonen, H., & Hakkarainen, K. (2005). Patterns of scaffolding in computer-mediated collaborative inquiry. Mentoring \& Tutoring: Partnership in Learning. Routledge.|
-| :ref:lakkala2005patterns | Lakkala, M., Muukkonen, H., & Hakkarainen, K. (2005). Patterns of scaffolding in computer-mediated collaborative inquiry. Mentoring \& Tutoring: Partnership in Learning. Routledge.|

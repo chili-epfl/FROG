@@ -1,3 +1,0 @@
-h2. M. McDonald's publications
-
-| [[..:ref:grossman2008back]] | Grossman, P., & McDonald, M. (2008). Back to the future: Directions for research in teaching and teacher education. American Educational Research Journal. SAGE Publications.|[[skimx://grossman2008back|PDF]]|

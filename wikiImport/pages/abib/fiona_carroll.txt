@@ -1,3 +1,0 @@
-h2. Fiona Carroll's publications
-
-| [@kop2011cloud] | Kop, R., & Carroll, F. (2011). Cloud Computing and Creativity: Learning on a Massive Open Online Course. European Journal of Open, Distance and E-Learning, Special Issue on Creativity and OER.|

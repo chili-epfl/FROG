@@ -1,5 +1,0 @@
-h2. C.K. Kinzer's publications
-
-| kapur2007examining | Kapur, M., & Kinzer, C. K. (2007). Examining the effect of problem type in a synchronous computer-supported collaborative learning (CSCL) environment. Educational Technology Research and Development. Springer.|[[skimx://kapur2007examining|PDF]]|
-| kapur2009productive | Kapur, M., & Kinzer, C. K. (2009). Productive failure in CSCL groups. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://kapur2009productive|PDF]]|
-| kapur2011complexity | Kapur, M., Voiklis, J., & Kinzer, C. K. (2011). A complexity-grounded model for the emergence of convergence in CSCL groups. Analyzing Interactions in CSCL. Springer.|[[skimx://kapur2011complexity|PDF]]|

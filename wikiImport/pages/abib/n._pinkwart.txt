@@ -1,4 +1,0 @@
-h2. N. Pinkwart's publications
-
-| scheuer2010automated | Scheuer, O., McLaren, B. M., Loll, F., & Pinkwart, N.Automated Analysis and Feedback Techniques to Support and Teach Argumentation: A Survey. Educational Technologies for Teaching Argumentation Skills, Bentham Science Publishers. Disponible sur Internet:< http://www. activemath. org/pubs/Scheueretal-AnalysisFeedbackArgumentationSurvey-2010. pdf.|
-| muller2004towards | Müller, J., Mühlenbrock, M., & Pinkwart, N. (2004). Towards using concept mapping for math learning. Learning Technology newsletter.|

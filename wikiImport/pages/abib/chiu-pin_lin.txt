@@ -1,3 +1,0 @@
-h2. Chiu-Pin Lin's publications
-
-| looi2008group | Looi{Chee-Kit}, Lin{Chiu-Pin}, & Liu{Kuo-Ping}. (2008). Group Scribbles to Support Knowledge Building in Jigsaw Method. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2008.20.|[[skimx://looi2008group|PDF]]|

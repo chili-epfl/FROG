@@ -1,8 +1,0 @@
-h2. A. Zemel's publications
-
-| zemel2005texts | Zemel, A. (2005). Texts-in-interaction: Collaborative problem-solving in quasi-synchronous computer-mediated communication. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!.|
-| koschmann2005people | Koschmann, T., Zemel, A., Conlee-Stevens, M., Young, N. P., Robbs, J. E., & Barnhart, A. (2005). How Do People Learn?. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|
-| zemel2005usability | Zemel, A., Koschmann, T., LeBaron, C., & Feltovich, P. (2005). Usability as an interactional resource: Deictic management of scene formulation. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!.|
-| stahl2006shared | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & Mühlpfordt, M. (2006). Shared referencing of mathematical objects in online chat. Proceedings of the 7th international conference on Learning sciences.|
-| zemel2007disembodied | Zemel, A., Shumar, W., & Cakir, M. P. (2007). The disembodied act: Copresence and indexical symmetry in computer-mediated communication. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|
-| cakir2009joint | Cakir, M. P., Zemel, A., & Stahl, G. (2009). The joint organization of interaction within a multimodal CSCL medium. International Journal of Computer-Supported Collaborative Learning. Springer.|

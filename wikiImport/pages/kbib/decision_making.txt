@@ -1,3 +1,0 @@
-h2. Publications with keyword "decision making"
-
-| [@ramamoorthy2012macroscopes] | Ramamoorthy, S., Salamon, A., & Santhanam, R. (2012). Macroscopes: Models for Collective Decision Making.|

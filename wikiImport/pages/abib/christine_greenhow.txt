@@ -1,4 +1,0 @@
-h2. Christine Greenhow's publications
-
-| [@greenhow2009informal] | Greenhow, C., & Robelia, B. (2009). Informal learning and identity formation in online social networks. Learning, Media and Technology, 34(2), 119-140. doi:10.1080/17439880902923580|
-| [@greenhow2009communication] | Greenhow, C., & Robelia, B. (2009). Old Communication, New Literacies: Social Network Sites as Social Learning Resources. Journal of Computer-Mediated Communication, 14(4), 1130-1161. doi:10.1111/j.1083-6101.2009.01484.x|

@@ -1,3 +1,0 @@
-h2. Mitchel Resnick's publications
-
-| [@resnick1996beyond] | Resnick, M. (1996). Beyond the Centralized Mindset. Journal of the Learning Sciences, 5(1), 1-22. doi:10.1207/s15327809jls0501_1|

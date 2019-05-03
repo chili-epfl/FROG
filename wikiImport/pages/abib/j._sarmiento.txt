@@ -1,4 +1,0 @@
-h2. J. Sarmiento's publications
-
-| cakir2006shared | Cakir, M. P., Sarmiento, J., & Stahl, G. (2006). Shared deictic referencing in online mathematics discourse. Ethnography in Education annual conference.|[[skimx://cakir2006shared|PDF]]|
-| stahl2006shared | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & Mühlpfordt, M. (2006). Shared referencing of mathematical objects in online chat. Proceedings of the 7th international conference on Learning sciences.|[[skimx://stahl2006shared|PDF]]|

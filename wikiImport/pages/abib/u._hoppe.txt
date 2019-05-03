@@ -1,5 +1,0 @@
-h2. U. Hoppe's publications
-
-| [[..:ref:weinbrenner2007ontologybased]] | Weinbrenner, S., Engler, J., Bollen, L., & Hoppe, U. (2007). Ontologybased Support for Designing Inquiry Learning Scenarios. AIED.|
-| degroot2007computer | De Groot, R., Drachman, R., Hever, R., Schwarz, B. B., Hoppe, U., Harrer, A., De Laat, M., Wegerif, R., McLaren, B. M., & Baurens, B. (2007). Computer supported moderation of e-discussions: the ARGUNAUT approach. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|
-| muhlenbrock1999computer | Mühlenbrock, M., & Hoppe, U. (1999). Computer supported interaction analysis of group problem solving. Proceedings of the 1999 conference on Computer support for collaborative learning.|

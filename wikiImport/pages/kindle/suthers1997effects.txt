@@ -1,8 +1,0 @@
-h1. Kindle highlights
-
-Puntambekar, S., Nagel, K., Hübscher, R., Guzdial, M., & Kolodner, J. (1997). Intra-group and Intergroup: An exploration of Learning with Complementary Collaboration Tools. In Proc Computer Supported Collaborative Learning Conference ‘97, pp. 207-214. University of Toronto, December 10-14, 1997. **(loc: 88-90)**
-
-Reader, W. (Unpublished). Structuring Argument: The Role of Constraint in the Explication of Scientific Argument, manuscript dated November 1997. **(loc: 92-93)**
-
-Roschelle, J. (1994). Designing for Cognitive Communication: Epistemic Fidelity or Mediating Collaborative Inquiry? The Arachnet Electronic Journal on Virtual Culture, May 16, 1994. Available: ftp://ftp.lib.ncsu.edu/pub/stacks/aejvc/aejvc-v2n02-roschelle-designing **(loc: 93-95)**
-

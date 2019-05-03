@@ -1,3 +1,0 @@
-h2. Publications in Law, Probability and Risk
-
-| verheij2007argumentation | Verheij, B. (2007). Argumentation support software: boxes-and-arrows and beyond. Law, Probability and Risk, 6(1-4), 187--208. Oxford Univ Press.|[[skimx://verheij2007argumentation|PDF]]|

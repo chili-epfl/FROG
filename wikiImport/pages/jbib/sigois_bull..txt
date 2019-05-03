@@ -1,3 +1,0 @@
-h2. Publications in SIGOIS Bull.
-
-| bernstein1988bookmark | Bernstein, M. (1988). The bookmark and the compass: orientation tools for hypertext users. SIGOIS Bull., 9(4), 34--45. New York, NY, USA: ACM. doi: http://doi.acm.org.myaccess.library.utoronto.ca/10.1145/51640.51645.|[[skimx://bernstein1988bookmark|PDF]]|

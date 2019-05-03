@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:tooby199570.png}}
-
-[[skimx://tooby19957#4|p. 4]]
-----
-

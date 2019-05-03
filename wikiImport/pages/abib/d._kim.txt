@@ -1,3 +1,0 @@
-h2. D. Kim's publications
-
-| [[..:ref:lee2005effects]] | Lee, M., & Kim, D. (2005). The effects of the collaborative representation supporting tool on problem-solving processes and outcomes in web-based collaborative problem-based learning (PBL) environments. Journal of Interactive Learning Research.|[[skimx://lee2005effects|PDF]]|

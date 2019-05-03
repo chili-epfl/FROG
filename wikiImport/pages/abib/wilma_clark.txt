@@ -1,5 +1,0 @@
-h2. Wilma Clark's publications
-
-| [@clark2011methods] | Clark, W., Luckin, R., & Jewitt, C. (2011). Methods and Specifications for TISL Components V1. NEXT-TELL. |
-| [@hofmair2011methods] | Hofmair, P., Utz, W., Giorgini, F., Johnson, M., Clark, W., & Halb, W. (2011). Methods and Specifications for Activity Capturing Tools V1. NEXT-TELL.|
-| [@cierniak2011report] | Cierniak, G., Imhof, B., Clark, W., Wasson, B., Hansen, C., Hillemann, E., & Kickmeier-Rust, M. (2011). Report on Baseline Studies and Requirement Analysis. NEXT-TELL. |

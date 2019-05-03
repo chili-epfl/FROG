@@ -1,7 +1,0 @@
-h1. Data Visualization
-
-  * [[http://tools.medialab.sciences-po.fr/iwanthue/|iWantHue [http://tools.medialab.sciences-po.fr/]]]
-----
-  * [[http://colorbrewer2.org/|Colorbrewer: Color Advice for Maps [http://colorbrewer2.org/]]]
-  * [[http://colorschemedesigner.com/|Color Scheme Designer 3 [http://colorschemedesigner.com/]]]
-  * [[http://mbostock.github.com/protovis/docs/color.html|Protovis - Colors [http://mbostock.github.com/]]]

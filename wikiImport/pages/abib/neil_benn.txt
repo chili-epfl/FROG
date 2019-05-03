@@ -1,3 +1,0 @@
-h2. Neil Benn's publications
-
-| [@benn2008ontological] | Benn, N., Buckingham Shum, S., Domingue, J., & Mancini, C. (2008, May). Ontological Foundations for Scholarly Debate Mapping Technology. Conference Item. |

@@ -1,3 +1,0 @@
-h2. M. Melia's publications
-
-| melia2009constraint | Melia, M., & Pahl, C. (2009). {Constraint-Based} Validation of Adaptive {e-Learning} Courseware. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.7.|[[skimx://melia2009constraint|PDF]]|

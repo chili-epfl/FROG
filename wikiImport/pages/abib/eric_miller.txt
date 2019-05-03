@@ -1,3 +1,0 @@
-h2. Eric Miller's publications
-
-| [@manola2004primer] | Manola, F., & Miller, E. (2004). {RDF} Primer. {W3C}. |

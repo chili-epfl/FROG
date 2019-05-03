@@ -1,3 +1,0 @@
-h2. Peter Haase's publications
-
-| [@haase2004comparison] | Haase, P., Broekstra, J., Eberhart, A., & Volz, R. (2004). A comparison of {RDF} query languages. In Proceedings of the Third International Semantic Web Conference, Hiroshima, Japan, 2004.|

@@ -1,6 +1,0 @@
-h2. Amy Bruckman's publications
-
-| [@luther2010works] | Luther, K., Caine, K., Ziegler, K., & Bruckman, A. (2010). Why it works (when it works). In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (1). doi:10.1145/1880071.1880073|
-| [@bruckman2006perspective] | Bruckman, A. (2006). A new perspective on "community" and its implications for computer-mediated communication systems. In CHI ’06 extended abstracts on Human factors in computing systems, CHI EA ’06 (616–621). New York, NY, USA: ACM. doi:10.1145/1125451.1125579|
-| [@peters2008learning] | Peters, V., Slotta, J. D., Forte, A., Bruckman, A., Lee, J. J., Gaydos, M., Hoadley, C., & Clarke, J. (2008). Learning and research in the web 2 era: opportunities for research. In Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08 (237--244). International Society of the Learning Sciences. |
-| [@forte2009writing] | Forte, A., & Bruckman, A. (2009). Writing, Citing, and Participatory Media: Wikis as Learning Environments in the High School Classroom. International Journal of Learning and Media, 1(4), 23-44. doi:10.1162/ijlm_a_00033|

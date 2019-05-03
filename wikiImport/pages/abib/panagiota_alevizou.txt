@@ -1,4 +1,0 @@
-h2. Panagiota Alevizou's publications
-
-| [@alevizou2010engaging] | Alevizou, P., & Forte, A. (2010). Engaging with open education. In Proceedings of the 6th International Symposium on Wikis and Open Collaboration (30).|
-| [@alevizou2010distributed] | Alevizou, P. (2010). Distributed mentoring: peer interaction and collaborative learning in P2PU. In Open Education Conference 2010. |

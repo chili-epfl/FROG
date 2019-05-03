@@ -1,3 +1,0 @@
-h2. A. Smith's publications
-
-| koile2007supporting | Koile, K., Chevalier, K., Rbeiz, M., Rogal, A., Singer, D., Sorensen, J., Smith, A., Tay, K. S., & Wu, K. (2007). Supporting feedback and assessment of digital ink answers to in-class exercises.|[[skimx://koile2007supporting|PDF]]|

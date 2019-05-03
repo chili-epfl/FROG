@@ -1,3 +1,0 @@
-h2. Publications in Computer Supported Collaborative Learning 2005: The Next 10 Years!
-
-| dillenbourg2005european | Dillenbourg, P. (2005). European CSCL Research Landscape: A selection of Recently Completed Theses. Computer Supported Collaborative Learning 2005: The Next 10 Years!, 39.|[[skimx://dillenbourg2005european|PDF]]|

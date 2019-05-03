@@ -1,4 +1,0 @@
-h2. Alan H. Schoenfeld's publications
-
-| [@schoenfeld1992research] | Schoenfeld, A. H. (1992). Research Methods in and for the Learning Sciences. Journal of the Learning Sciences, 2(2), 137-139. doi:10.1207/s15327809jls0202_1|
-| [@schoenfeld2010how] | Schoenfeld, A. H. (2010). How we think: A theory of goal-oriented decision making and its educational applications. Routledge.|

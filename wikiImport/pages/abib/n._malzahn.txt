@@ -1,3 +1,0 @@
-h2. N. Malzahn's publications
-
-| harrer2006bridging | Harrer, A., & Malzahn, N. (2006). Bridging the gap-towards a graphical modeling language for learning designs and collaboration scripts of various granularities. IEEE Computer Society.||

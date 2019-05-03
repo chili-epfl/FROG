@@ -1,7 +1,0 @@
-h1. Command Line Tools
-
-
-----
-  * [[http://www.laffeycomputer.com/rpl.html|REPLACE Strings - LAFFEY: rpl]]
-----
-  * [[http://www.ibm.com/developerworks/aix/library/au-unixtext/index.html|Introduction to text manipulation on UNIX-based systems]]

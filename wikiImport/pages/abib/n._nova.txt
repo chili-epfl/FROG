@@ -1,4 +1,0 @@
-h2. N. Nova's publications
-
-| nova2003impacts | Nova, N., Dillenbourg, P., Wehrle, T., Goslin, J., & Bourquin, Y. (2003). The impacts of awareness tools on mutual modelling in a collaborative video-game. Groupware: Design, Implementation, and Use. Springer.|[[skimx://nova2003impacts|PDF]]|
-| huang2009would | Huang, J.-J., Cherubini, M., Nova, N., & Dillenbourg, P. (2009). Why Would Furniture Be Relevant for Collaborative Learning?. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|[[skimx://huang2009would|PDF]]|

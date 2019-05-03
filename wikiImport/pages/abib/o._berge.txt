@@ -1,4 +1,0 @@
-h2. O. Berge's publications
-
-| :ref:berge2006reuse | Berge, O. (2006). Reuse of digital learning resources in collaborative learning environments.|
-| :ref:berge2006reuse | Berge, O. (2006). Reuse of digital learning resources in collaborative learning environments.|

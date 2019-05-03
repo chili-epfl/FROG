@@ -1,3 +1,0 @@
-h2. PD Ryan's publications
-
-| [@ryan2010open] | Ryan, Pd. (2010). Open Education Resources: the next big bang or the last little whimper?.|

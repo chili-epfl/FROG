@@ -1,3 +1,0 @@
-h2. J Kahan's publications
-
-| [@kahan2001annotea:] | Kahan, J., Koivunen, M.-R., Prud'Hommeaux, E., & Swick, Rr. (2001). Annotea: An Open RDF Infrastructure for Shared Web Annotations. WWW10 International Conference.|

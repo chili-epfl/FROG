@@ -1,3 +1,0 @@
-h2. M. Boekaerts's publications
-
-| [[..:ref:boekaerts2005selfregulation]] | Boekaerts, M., & Corno, L. (2005). {Self-Regulation} in the Classroom: A Perspective on Assessment and Intervention. Applied Psychology.|[[skimx://boekaerts2005selfregulation|PDF]]|

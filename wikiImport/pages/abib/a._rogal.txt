@@ -1,4 +1,0 @@
-h2. A. Rogal's publications
-
-| koile2007asupporting | Koile, K., Chevalier, K., Low, C., Pal, S., Rogal, A., Singer, D., Sorensen, J., Tay, K. S., & Wu, K. (2007). Supporting Pen-Based Classroom Interaction: New Findings and Functionality for Classroom Learning Partner. plt. IEEE Computer Society.|[[skimx://koile2007asupporting|PDF]]|
-| koile2007supporting | Koile, K., Chevalier, K., Rbeiz, M., Rogal, A., Singer, D., Sorensen, J., Smith, A., Tay, K. S., & Wu, K. (2007). Supporting feedback and assessment of digital ink answers to in-class exercises.|[[skimx://koile2007supporting|PDF]]|

@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:corneli2010live0.png}}
-
-[[skimx://corneli2010live#5|p. 5]]
-----
-

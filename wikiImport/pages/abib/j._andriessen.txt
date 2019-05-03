@@ -1,4 +1,0 @@
-h2. J. Andriessen's publications
-
-| :ref:andriessen2003argumentation | Andriessen, J., Baker, M., & Suthers, D. (2003). Argumentation, computer support, and the educational context of confronting cognitions. Arguing to learn: Confronting cognitions in computer-supported collaborative learning environments.|
-| :ref:andriessen2003argumentation | Andriessen, J., Baker, M., & Suthers, D. (2003). Argumentation, computer support, and the educational context of confronting cognitions. Arguing to learn: Confronting cognitions in computer-supported collaborative learning environments.|

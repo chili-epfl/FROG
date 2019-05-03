@@ -1,3 +1,0 @@
-h1. Key ideas
-
-COML is based on CML, described in [@brecht2002cml] (but which never was instantiated), especially designed for one-to-one classroom situations, and linked to [[:GroupScribbles]] (could it be integrated with other tools - how hard would that be?)

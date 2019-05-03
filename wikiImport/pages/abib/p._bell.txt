@@ -1,4 +1,0 @@
-h2. P. Bell's publications
-
-| [[..:ref:bell2009learning]] | Bell, P. (2009). Learning science in informal environments: People, places, and pursuits. Natl Academy Pr.|[[skimx://bell2009learning|PDF]]|
-| bell1997using | Bell, P. (1997). Using argument representations to make thinking visible for individuals and groups. Proceedings of the 2nd international conference on Computer support for collaborative learning.|[[skimx://bell1997using|PDF]]|

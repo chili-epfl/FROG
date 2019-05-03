@@ -1,7 +1,0 @@
-h1. Key ideas
-
-h2. Patterns
-  * communication
-  * knowledge
-
-h2. Interpreaation

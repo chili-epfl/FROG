@@ -1,4 +1,0 @@
-h2. Ola Berge's publications
-
-| [@berge1997making] | Berge, O. (1997). Making distance education collaborative through Internet: Transcending the traditions of distance education and collaborative learning (Master's thesis). |
-| [@berge2006reuse] | Berge, O. (2006). Reuse of digital learning resources in collaborative learning environments (PhD thesis). |

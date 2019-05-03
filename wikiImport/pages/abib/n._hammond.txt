@@ -1,3 +1,0 @@
-h2. N. Hammond's publications
-
-| buckinghamshum1994argumentation | Buckingham Shum, S., & Hammond, N. (1994). Argumentation-based design rationale: what use at what cost. International Journal of Human-Computer Studies. Citeseer.|[[skimx://buckinghamshum1994argumentation|PDF]]|

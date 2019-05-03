@@ -1,3 +1,0 @@
-h1. Berlin
-
-  * [[http://www.slowtravelberlin.com/|Slow Travel Berlin]]

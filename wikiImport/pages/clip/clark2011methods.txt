@@ -1,6 +1,0 @@
-h2. Highlights (0%)
-
-A key goal of TISL is for teachers to be able to conduct sustainable and relevant inquiry into students’ learning and related school-based practices (e.g. teaching, assessment, etc.). To this end, TISL aims to provide scaffolded prompts to the kinds of activity (Column 1, Table 5) teachers (as inquiry teams) can engage in to generate a robust and systemic inquiry. These scaffolds are key features of teacher inquiry across much of the relevant literature. The 5 steps of the TISL method are presented as sequential (but iterative) activities. Similar sequences are also reflected in the Ecology of Resources model which has as its focus the exploration of learner’s technology-rich contexts. [[skimx://clark2011methods#25|p. 25]]
-
-The TISL Planner (as discussed further in Section 5) must, therefore, enable teachers not only to plan and track their inquiry processes but also, specifically, it should encourage and/or prompt them with guided scaffolds which reflect/inform them about the TISL inquiry process/method (e.g. in the form of a library of prior inquiry projects). The TISL Planner should also prompt teachers to consider ways in which they will gather, capture, store, edit, share, recombine, refine, reflect and report on data about students’ learning. [[skimx://clark2011methods#25|p. 25]]
-

@@ -1,4 +1,0 @@
-h2. Ivana Quinto's publications
-
-| [@quinto2010debate] | Quinto, I., Buckingham Shum, S., Liddo, A. D., & Iandoli, L. (2010). A debate dashboard to enhance on-line knowledge sharing. Conference Item. |
-| [@liddo2011discourse-centric] | Liddo, A. D., Buckingham Shum, S., Quinto, I., Bachler, M., & Cannavacciuolo, L. (2011). Discourse-centric learning analytics. Conference Item. |

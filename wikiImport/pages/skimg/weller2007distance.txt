@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:weller2007distance0.png}}
-
-[[skimx://weller2007distance#9|p. 9]]
-----
-

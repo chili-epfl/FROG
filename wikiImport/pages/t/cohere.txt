@@ -1,8 +1,0 @@
-h1. Cohere
-
-h2. Literature
-  * [@deliddo2010method]
-  * [@buckinghamshum2008cohere]
-  * [@buckinghamshum2010collective]
-  * [@liddo2010cohere]
-  * [@liddo2011discourse-centric]

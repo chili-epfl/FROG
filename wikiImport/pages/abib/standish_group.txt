@@ -1,3 +1,0 @@
-h2. Standish Group's publications
-
-| [@group1995standish] | Group, S. (1995). The Standish Group Report: Chaos. |

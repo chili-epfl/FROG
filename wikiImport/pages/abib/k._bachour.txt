@@ -1,4 +1,0 @@
-h2. K. Bachour's publications
-
-| bachour2008reflect | Bachour, K., Kaplan, F., & Dillenbourg, P. (2008). Reflect: An interactive table for regulating face-to-face collaborative learning. Times of Convergence. Technologies Across Learning Contexts. Springer.|[[skimx://bachour2008reflect|PDF]]|
-| kaplan2009interpersonal | Kaplan, F., DoLenh, S., Bachour, K., Kao, G. Y., Gault, C., & Dillenbourg, P. (2009). Interpersonal computers for higher education. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|[[skimx://kaplan2009interpersonal|PDF]]|

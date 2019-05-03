@@ -1,4 +1,0 @@
-h2. S.R. Fussell's publications
-
-| gergle2004language | Gergle, D., Kraut, R. E., & Fussell, S. R. (2004). Language Efficiency and Visual Technology. Journal of Language and Social Psychology. Sage Publications.|[[skimx://gergle2004language|PDF]]|
-| gergle2004action | Gergle, D., Kraut, R. E., & Fussell, S. R. (2004). Action as language in a shared visual space. Proceedings of the 2004 ACM conference on Computer supported cooperative work.|[[skimx://gergle2004action|PDF]]|

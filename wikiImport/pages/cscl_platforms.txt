@@ -1,7 +1,0 @@
-h1. CSCL platforms
-
-Software platforms for collaborative learning, some of these are under development, or only used experimentally, others are available for wide implementation.
-
-  * [[GroupScribbles]] - synchronous tool developed at SRI and National Institute of Education, using handhelds
-  * [[Argunaut]] - (formerly Digalo) structured synchronous tool to develop arguments, with epistemic shapes and value-based links, also moderator interface, related to [[Kishuri]] in Israel
-  * [[Knowledge Forum]] - asynchronous tool for Knowledge Building, developed by [[:a:Marlene Scardamalia]]'s group at OISE

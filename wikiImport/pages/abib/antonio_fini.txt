@@ -1,6 +1,0 @@
-h2. Antonio Fini's publications
-
-| [@fini2009introopened] | Fini, A., Formiconi, A., Giorni, A., Pirruccello, N. S., Spadavecchia, E., & Zibordi, E. (2009). IntroOpenEd 2007: an experience on Open Education by a virtual community of teachers. |
-| [@fini2009technological] | Fini, A. (2009). The technological dimension of a massive open online course: The case of the CCK08 course tools. The International Review of Research in Open and Distance Learning, 10(5), Article--10.|
-| [@calvani2006design] | Calvani, A., Fini, A., Pettenati, M. C., Sarti, L., & Masseti, M. Design of Collaborative Learning Environments: bridging the gap between CSCL theories and Open Source Platforms. |
-| [@calvani2010visualizing] | Calvani, A., Fini, A., Molino, M., & Ranieri, M. (2010). Visualizing and monitoring effective interactions in online collaborative groups. British Journal of Educational Technology, 41(2), 213--226.|

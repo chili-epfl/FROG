@@ -1,3 +1,0 @@
-h2. Publications in AI & Society
-
-| kimmerle2010systems | Kimmerle, J., Moskaliuk, J., Cress, U., & Thiel, A. (2010). A systems theoretical approach to online knowledge building. AI & Society, 26(1), 49-60. Springer.|[[skimx://kimmerle2010systems|PDF]]|

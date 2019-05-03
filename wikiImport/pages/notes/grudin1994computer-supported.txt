@@ -1,3 +1,0 @@
-h1. Key ideas
-
-Notes on [[http://acawiki.org/Computer-supported_cooperative_work:_History_and_focus|Acawiki]]

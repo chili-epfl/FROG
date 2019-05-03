@@ -1,3 +1,0 @@
-h2. Judith Kleine Staarman's publications
-
-| [@pifarre2011wiki] | PifarréManoli, & Staarman, J. K. (2011). Wiki-supported collaborative learning in primary education: How a dialogic space is created for thinking together. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9116-x|

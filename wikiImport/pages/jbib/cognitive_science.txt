@@ -1,3 +1,0 @@
-h2. Publications in Cognitive science
-
-| stenning1995cognitive | Stenning, K., & Oberlander, J. (1995). A cognitive theory of graphical and linguistic reasoning: Logic and implementation. Cognitive science, 19(1), 97--140. Elsevier.|[[skimx://stenning1995cognitive|PDF]]|

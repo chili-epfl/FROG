@@ -1,3 +1,0 @@
-h2. J. Antin's publications
-
-| [[..:ref:antin2011badges]] | Antin, J., & Churchill, E. F. (2011). Badges in Social Media: A Social Psychological Perspective. CHI 2011, ACM, Vancouver, BC.||

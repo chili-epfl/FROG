@@ -1,4 +1,0 @@
-h2. Mdl.A. Constantino-Gonzales's publications
-
-| :ref:constantino-gonzales2003automated | Constantino-Gonzales, M. A., & Suthers, D. (2003). {Automated coaching of collaboration based on workspace analysis: evaluation and implications for future learning environments}. 36th Annual Hawaii International Conference on System Sciences, 2003. Proceedings of the. Ieee. doi: 10.1109/HICSS.2003.1173725.|
-| :ref:constantino-gonzales2003automated | Constantino-Gonzales, M. A., & Suthers, D. (2003). {Automated coaching of collaboration based on workspace analysis: evaluation and implications for future learning environments}. 36th Annual Hawaii International Conference on System Sciences, 2003. Proceedings of the. Ieee. doi: 10.1109/HICSS.2003.1173725.|

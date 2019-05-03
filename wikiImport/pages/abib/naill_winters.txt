@@ -1,4 +1,0 @@
-h2. Naill Winters's publications
-
-| [@mor2006literature] | Mor, Y., Winters, N., Cerulli, M., & BjörkStaffan. (2006). Literature review on the use of games in mathematical learning, Part I: Design.|
-| [@mor2007design] | Mor, Y., & Winters, N. (2007). Design approaches in technology-enhanced learning. Interactive Learning Environments, 15(1), 61--75.|

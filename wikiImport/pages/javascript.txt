@@ -1,6 +1,0 @@
-h1. Javascript
-
-  * [[http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742|Amazon.com: JavaScript: The Good Parts (9780596517748): Douglas Crockford: Books]]
-----
-  * [[http://eloquentjavascript.net/|Eloquent JavaScript: A Modern Introduction to Programming]]
-  * [[http://paulirish.com/2010/10-things-i-learned-from-the-jquery-source/|10 Things I Learned from the jQuery Source « Paul Irish]]

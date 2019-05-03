@@ -1,8 +1,0 @@
-h2. A. Weinberger's publications
-
-| strijbos2010emerging | Strijbos, J. W., & Weinberger, A. (2010). Emerging and scripted roles in computer-supported collaborative learning. Computers in Human Behavior. Elsevier.|
-| kobbe2007specifying | Kobbe, L., Weinberger, A., Dillenbourg, P., Harrer, A., H{\\"a}m{\\"a}l{\\"a}inenR., H{\\"a}kkinenP., & Fischer, F. (2007). Specifying computer-supported collaboration scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|
-| weinberger2005facilitating | Weinberger, A., Reiserer, M., Ertl, B., Fischer, F., & Mandl, H. (2005). Facilitating collaborative knowledge construction in computer-mediated learning environments with cooperation scripts. Barriers and biases in computer-mediated knowledge communication. Springer.|
-| rummel2008new | Rummel, N., Weinberger, A., Wecker, C., Fischer, F., Meier, A., Voyiatzaki, E., Kahrimanis, G., Spada, H., Avouris, N., Walker, E., & others. (2008). New challenges in CSCL: Towards adaptive script support. Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3.|
-| weinberger2006framework | Weinberger, A., & Fischer, F. (2006). A framework to analyze argumentative knowledge construction in computer-supported collaborative learning. Computers \& Education. Elsevier.|
-| weinberger2007scripting | Weinberger, A., Stegmann, K., Fischer, F., & Mandl, H. (2007). Scripting argumentative knowledge construction in computer-supported learning environments. Scripting computer-supported collaborative learning. Springer.|

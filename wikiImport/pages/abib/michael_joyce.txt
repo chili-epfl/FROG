@@ -1,4 +1,0 @@
-h2. Michael Joyce's publications
-
-| [@bernstein1991architectures] | Bernstein, M., Bolter, J. D., Joyce, M., & Mylonas, E. (1991). Architectures for volatile hypertext. In Proceedings of the third annual ACM conference on Hypertext, HYPERTEXT '91 (243--260). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/122974.122999|
-| [@bernstein1992contours] | Bernstein, M., Joyce, M., & Levine, D. (1992). Contours of constructive hypertexts. In Proceedings of the ACM conference on Hypertext, ECHT '92 (161--170). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/168466.168517|

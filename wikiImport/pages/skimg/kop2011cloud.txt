@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:kop2011cloud0.png}}
-
-[[skimx://kop2011cloud#8|p. 8]]
-----
-

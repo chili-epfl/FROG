@@ -1,3 +1,0 @@
-h2. Michael Ovelgvönne's publications
-
-| [@ovelgvonne2010hierarchicalness] | OvelgvönneMichael. (2010). On the hierarchicalness of q&a posting networks. In Proceedings of the 16th ACM international conference on Supporting group work - GROUP '10 (117). doi:10.1145/1880071.1880090|

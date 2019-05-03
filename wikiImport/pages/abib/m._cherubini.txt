@@ -1,4 +1,0 @@
-h2. M. Cherubini's publications
-
-| [[..:ref:dillenbourg2008interactive]] | Dillenbourg, P., Huang, J., & Cherubini, M. (2008). Interactive artifacts and furniture supporting collaborative work and learning. Springer Verlag.|[[skimx://dillenbourg2008interactive|PDF]]|
-| huang2009would | Huang, J.-J., Cherubini, M., Nova, N., & Dillenbourg, P. (2009). Why Would Furniture Be Relevant for Collaborative Learning?. Interactive Artifacts and Furniture Supporting Collaborative Work and Learning. Springer.|[[skimx://huang2009would|PDF]]|

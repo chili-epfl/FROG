@@ -1,3 +1,0 @@
-h2. Farshid Marbouti's publications
-
-| [@marbouti2012design] | Marbouti, F. (2012). Design, Implementation and Testing of a Visual Discussion Forum to Address New Post Bias (Master's thesis). Vancouver, British Columbia, Canada.|

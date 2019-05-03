@@ -1,3 +1,0 @@
-h2. Benjamin V. Hanrahan's publications
-
-| [@hanrahan2012modeling] | Hanrahan, B. V., Convertino, G., & Nelson, L. (2012). Modeling problem difficulty and expertise in stackoverflow. In Proceedings of the ACM 2012 conference on Computer Supported Cooperative Work Companion, CSCW ’12 (91–94). New York, NY, USA: ACM. doi:10.1145/2141512.2141550|

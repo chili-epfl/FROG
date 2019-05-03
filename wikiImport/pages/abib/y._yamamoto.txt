@@ -1,4 +1,0 @@
-h2. Y. Yamamoto's publications
-
-| nakakoji2005interaction | Nakakoji, K., Yamamoto, Y., Akaishi, M., & Hori, K. (2005). Interaction design for scholarly writing: Hypertext representations as a means for creative knowledge work. New review of hypermedia and multimedia. Taylor \& Francis.||
-| nakakoji2007computational | Nakakoji, K., Ohira, M., Takashima, A., & Yamamoto, Y. (2007). A computational tool for lifelong learning: Experiencing breakdowns and understanding situations. The Role of Technology in CSCL. Springer.|[[skimx://nakakoji2007computational|PDF]]|

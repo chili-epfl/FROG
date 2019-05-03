@@ -1,3 +1,0 @@
-h1. Learning Theory
-
-And, actually, a note on terminology. To me, these - constructivism, critical pedagogy, instructivism - are educational theories, or perhaps instructional theories. They do not describe how learning takes place. Learning is the formation of connections between nodes in a networks. A 'learning theory' describes a process that fosters the formation of these connections, such as Hebbian Associationism, Back Propagation, or Boltzmann mechanisms. [[https://mail.google.com/mail/u/0/#inbox/13ea4abeb8da978c|OLDaily ~ May 14, 2013 - shaklev@gmail.com - Gmail]]

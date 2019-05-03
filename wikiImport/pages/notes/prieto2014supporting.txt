@@ -1,6 +1,0 @@
-//An integrated "DSL" for teachers, learning design, Moodle/Mediawiki and modules (GDocs etc)//
-
-h1. Key ideas
-They use Laurillard's LD tool or their own to create [[http://edutechwiki.unige.ch/en/Collaborative_learning_flow_pattern|Collaborative Learning Flow Patterns]], which are instantiated in a Distributed Learning Environment (using Moodle, MediaWiki, Google Docs etc). A few example cases. Neat display of findings grounded in data sources. 
-
-{{skim:prieto2014supporting0.png}}

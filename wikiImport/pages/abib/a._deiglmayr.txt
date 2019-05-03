@@ -1,3 +1,0 @@
-h2. A. Deiglmayr's publications
-
-| rummel2011analyzing | Rummel, N., Deiglmayr, A., Spada, H., Kahrimanis, G., & Avouris, N. (2011). Analyzing collaborative interactions across domains and settings: An adaptable rating scheme. Analyzing Interactions in CSCL. Springer.|[[skimx://rummel2011analyzing|PDF]]|

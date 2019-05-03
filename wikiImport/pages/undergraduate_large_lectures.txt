@@ -1,6 +1,0 @@
-h1. Undergraduate large lectures
-
-h2. Readings on adult learning
-Rogers1977,Lovell 1980,Gibbs1981,Tight1983,Brookfield1983,EntwistleandRamsden1983, MartonHounsellandEntwistle1984,Ramsden1986,RichardsonEysenck andPiper1987,MerriamandCaffarella1991,Laurillard1993, Sutherland 1996
-----
-  * [[https://uwaterloo.ca/centre-for-teaching-excellence/teaching-resources/teaching-tips/alternatives-lecturing/active-learning/activities-large-classes|Activities for large classes | Centre for Teaching Excellence]]

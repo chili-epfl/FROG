@@ -1,3 +1,0 @@
-h2. Marvin Levine's publications
-
-| [@levine1993effective] | Levine, M. (1993). Effective Problem Solving. Prentice Hall.|

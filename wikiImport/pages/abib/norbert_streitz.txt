@@ -1,3 +1,0 @@
-h2. Norbert Streitz's publications
-
-| [@bernstein1993argumentation] | Bernstein, M., Marshall, C. C., & Streitz, N. (1993). Argumentation in action. In Proceedings of the fifth ACM conference on Hypertext, HYPERTEXT '93 (274--275). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/168750.168849|

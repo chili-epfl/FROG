@@ -1,3 +1,0 @@
-h2. Matthew Gaydos's publications
-
-| [@peters2008learning] | Peters, V., Slotta, J. D., Forte, A., Bruckman, A., Lee, J. J., Gaydos, M., Hoadley, C., & Clarke, J. (2008). Learning and research in the web 2 era: opportunities for research. In Proceedings of the 8th international conference on International conference for the learning sciences - Volume 3, ICLS'08 (237--244). International Society of the Learning Sciences. |

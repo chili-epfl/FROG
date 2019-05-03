@@ -1,3 +1,0 @@
-h2. Kuo-Ping Liu's publications
-
-| [@looi2008group] | Looi{Chee-Kit}, Lin{Chiu-Pin}, & Liu{Kuo-Ping}. (2008). Group Scribbles to Support Knowledge Building in Jigsaw Method. {IEEE} Transactions on Learning Technologies, 1(3), 157--164. doi:10.1109/TLT.2008.20|

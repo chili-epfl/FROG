@@ -1,4 +1,0 @@
-h2. Rose Luckin's publications
-
-| [@clark2011methods] | Clark, W., Luckin, R., & Jewitt, C. (2011). Methods and Specifications for TISL Components V1. NEXT-TELL. |
-| [@avramides2007towards] | Avramides, K., & Luckin, R. (2007). Towards the Design of A Representational Tool To Scaffold Students’ Epistemic Understanding of Psychology in Higher Education. |

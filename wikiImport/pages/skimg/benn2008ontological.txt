@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:benn2008ontological0.png}}
-
-[[skimx://benn2008ontological#3|p. 3]]
-----
-

@@ -1,6 +1,0 @@
-h2. F.W. Hesse's publications
-
-| [[..:ref:engelmann2010digital]] | Engelmann, T., & Hesse, F. W. (2010). How digital concept maps about the collaborators’ knowledge and information influence computer-supported collaborative problem solving. International Journal of Computer-Supported Collaborative Learning. Springer.|
-| cress2005social | Cress, U., Barquero, B., Buder, J., & Hesse, F. W. (2005). Social dilemma in knowledge communication via shared databases. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|
-| bromme2005abarriers | Bromme, R., Hesse, F. W., & Spada, H. (2005). Barriers and Biases in Computer-Mediated Expert-Layperson-Communication Barriers and Biases in Computer-Mediated Expert-Layperson-Communication: An overview and insights into the field of medical advice (Vol. 5). Springer Verlag.|
-| kollar2006collaboration | Kollar, I., Fischer, F., & Hesse, F. W. (2006). Collaboration scripts--a conceptual analysis. Educational Psychology Review. Springer.|

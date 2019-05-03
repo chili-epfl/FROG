@@ -1,3 +1,0 @@
-h2. Rick Kazman's publications
-
-| [@kazman2009metropolis] | Kazman, R., & Chen, H.- mei. (2009). The metropolis model: a new logic for development of crowdsourced systems. Communications of the {ACM}, 52(7), 76–84.|

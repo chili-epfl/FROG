@@ -1,3 +1,0 @@
-h2. Jan Aalst's publications
-
-| [@aalst2009distinguishing] | Aalst, J. (2009). Distinguishing knowledge-sharing, knowledge-construction, and knowledge-creation discourses. International Journal of Computer-Supported Collaborative Learning, 4(3), 259-287. doi:10.1007/s11412-009-9069-5|

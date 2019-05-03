@@ -1,3 +1,0 @@
-h2. C.M. Costich's publications
-
-| winters2008self | Winters, F., Greene, J. A., & Costich, C. M. (2008). Self-regulation of learning within computer-based learning environments: A critical analysis. Educational Psychology Review. Springer.|[[skimx://winters2008self|PDF]]|

@@ -1,3 +1,0 @@
-h2. Publications in Learning and Instruction
-
-| [[..:ref:vanbruggen2002external]] | Bruggen, J. M. van, Kirschner, P. A., & Jochems, W. (2002). External representation of argumentation in CSCL and the management of cognitive load. Learning and Instruction, 12(1), 121--138. Elsevier.|[[skimx://vanbruggen2002external|PDF]]|

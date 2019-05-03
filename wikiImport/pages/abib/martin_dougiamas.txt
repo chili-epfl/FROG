@@ -1,4 +1,0 @@
-h2. Martin Dougiamas's publications
-
-| [@dougiamas1998journey] | Dougiamas, M. (1998). A journey into constructivism. |
-| [@dougiamasopen] | Dougiamas, M. The use of Open Source software to support a social constructionist epistemology of teaching and learning within Internet-based communities of reflective inquiry. |

@@ -1,5 +1,0 @@
-h2. R. Reeve's publications
-
-| lamon2001mapping | Lamon, M., Reeve, R., & Scardamalia, M. (2001). Mapping learning and the growth of knowledge in a knowledge building community. American Educational Research Association Meeting.|[[skimx://lamon2001mapping|PDF]]|
-| zhang2007socio-cognitive | Zhang, J., Scardamalia, M., Lamon, M., Messina, R., & Reeve, R. (2007). Socio-cognitive dynamics of knowledge building in the work of 9-and 10-year-olds. Educational Technology Research and Development.||
-| zhang2009designs | Zhang, J., Scardamalia, M., Reeve, R., & Messina, R. (2009). Designs for collective cognitive responsibility in knowledge-building communities. Journal of the Learning Sciences.||

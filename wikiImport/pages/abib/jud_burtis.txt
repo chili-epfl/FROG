@@ -1,8 +1,0 @@
-h2. Jud Burtis's publications
-
-| [@burtis1983development] | Burtis, J., Bereiter, C., Scardamalia, M., & Tetroe, J. (1983). The development of planning in writing. Explorations in the development of writing, 153–174.|
-| [@bereiter1988cognitive] | Bereiter, C., Burtis, J., & Scardamalia, M. (1988). Cognitive operations in constructing main points in written composition* 1. Journal of memory and language, 27(3), 261–278.|
-| [@chan1992constructive] | ChanC. {K.K}, Burtis, J., Scardamalia, M., & Bereiter, C. (1992). Constructive activity in learning from text. American educational research journal, 29(1), 97.|
-| [@scardamalia1992educational] | Scardamalia, M., Bereiter, C., Brett, C., Burtis, J., Calhoun, C., & Lea, N. S. (1992). Educational applications of a networked communal database. Interactive Learning Environments, 2(1), 45–71.|
-| [@lamon1993beliefs] | Lamon, M., Chan, C., Scardamalia, M., Burtis, J., & Brett, C. (1993). Beliefs about learning and constructive processes in reading: Effects of a computer supported intentional learning environment. In annual meeting of the American Educational Research Association {(Atlanta,} Ga.|
-| [@chan1997knowledge] | Chan, C., Burtis, J., & Bereiter, C. (1997). {Knowledge building as a mediator of conflict in conceptual change}. Cognition and Instruction, 15(1), 1--40. |

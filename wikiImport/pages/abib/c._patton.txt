@@ -1,4 +1,0 @@
-h2. C. Patton's publications
-
-| [[..:ref:roschelle2007ink]] | Roschelle, J., Tatar, D., Chaudbury, Sr., Dimitriadis, Y., Patton, C., & DiGiano, C. (2007). Ink, improvisation, and interactive engagement: Learning with tablets. Computer. IEEE.|[[skimx://roschelle2007ink|PDF]]|
-| brecht2007coordinating | Brecht, J., DiGiano, C., Patton, C., Tatar, D., Chaudhury, S. R., Roschelle, J., & Davis, K. (2007). Coordinating networked learning activities with a general-purpose Interface.|[[skimx://brecht2007coordinating|PDF]]|

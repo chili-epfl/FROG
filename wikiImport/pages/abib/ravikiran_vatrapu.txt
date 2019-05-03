@@ -1,4 +1,0 @@
-h2. Ravikiran Vatrapu's publications
-
-| :ref:suthers2005representational | Suthers, D., Vatrapu, R., Joseph, S., Dwyer, N., & Medina, R. (2005). {Representational Effects in Asynchronous Collaboration : A Research Paradigm and Initial Analysis Department of Information and Computer Sciences University of Hawai ` i at Manoa}. Electronics.|
-| :ref:suthers2005representational | Suthers, D., Vatrapu, R., Joseph, S., Dwyer, N., & Medina, R. (2005). {Representational Effects in Asynchronous Collaboration : A Research Paradigm and Initial Analysis Department of Information and Computer Sciences University of Hawai ` i at Manoa}. Electronics.|

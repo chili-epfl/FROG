@@ -1,4 +1,0 @@
-h2. F. Bernstein's publications
-
-| [[..:ref:wecker2010scol]] | Wecker, C., Stegmann, K., Bernstein, F., Huber, M. J., Kalus, G., Kollar, I., Rathmayer, S., & Fischer, F. (2010). S-COL: A Copernican turn for the development of flexibly reusable collaboration scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://wecker2010scol|PDF]]|
-| wecker2009sustainable | Wecker, C., Stegmann, K., Bernstein, F., Huber, M. J., Kalus, G., Rathmayer, S., Kollar, I., & Fischer, F. (2009). Sustainable script and scaffold development for collaboration on varying web content: The S-COL technological approach. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|[[skimx://wecker2009sustainable|PDF]]|

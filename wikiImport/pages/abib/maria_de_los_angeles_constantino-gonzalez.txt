@@ -1,6 +1,0 @@
-h2. Maria De Los Angeles Constantino-Gonzalez's publications
-
-| [@constantino2001coaching] | Constantino-Gonzalez, M. D. L. A., & Suthers, D. D. (2001). {Coaching Collaboration by Comparing Solutions and Tracking Participation}. Learning, 173--180. |
-| [@constantino2002coaching] | Constantino-Gonzalez, M. D. L. A., & Suthers, D. D. (2002). {Coaching collaboration in a computer-mediated learning environment}. Proceedings of the Conference on Computer Support for Collaborative Learning Foundations for a CSCL Community - CSCL '02, 583. doi:10.3115/1658616.1658733|
-| [@constantino2003automated] | Constantino-Gonzalez, M. D. L. A., & Suthers, D. D. (2003). {Automated coaching of collaboration based on workspace analysis: evaluation and implications for future learning environments}. 36th Annual Hawaii International Conference on System Sciences, 2003. Proceedings of the, 10 pp. doi:10.1109/HICSS.2003.1173725|
-| [@constantino2007approach] | Suthers, D. D., & Constantino-Gonzalez, M. D. L. A. (2007). An approach for coaching collaboration based on difference recognition and participation tracking. The Role of Technology in CSCL, 87--113. |

@@ -1,3 +1,0 @@
-h2. N.P. Young's publications
-
-| koschmann2005people | Koschmann, T., Zemel, A., Conlee-Stevens, M., Young, N. P., Robbs, J. E., & Barnhart, A. (2005). How Do People Learn?. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|[[skimx://koschmann2005people|PDF]]|

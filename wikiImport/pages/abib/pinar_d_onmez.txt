@@ -1,3 +1,0 @@
-h2. Pinar D\"onmez's publications
-
-| donmez2005supporting | D\"{o}nmezPinar, Stegmann, K., Weinberger, A., Fischer, F., & Rosé, C. P. (2005). Supporting CSCL with automatic corpus analysis technology. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!, CSCL '05. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1149293.1149310.|[[skimx://donmez2005supporting|PDF]]|

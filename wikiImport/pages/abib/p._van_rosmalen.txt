@@ -1,3 +1,0 @@
-h2. P. Van Rosmalen's publications
-
-| [[..:ref:koper2005design]] | Koper, R., Giesbers, B., Van Rosmalen, P., Sloep, P., Van Bruggen, J., Tattersall, C., Vogten, H., & Brouns, F. (2005). A design model for lifelong learning networks. Interactive Learning Environments. Routledge.|[[skimx://koper2005design|PDF]]|

@@ -1,5 +1,0 @@
-h2. John D. Bransford's publications
-
-| [@bransford2000people] | Bransford, J. D., Brown, A. L., & Cocking, R. R. (2000). How people learn. DC National Academy Press Washington. |
-| [@bransford2006foundations] | Bransford, J. D., Barron, B., Pea, R. D., Meltzoff, A., Kuhl, P., Bell, P., Stevens, R., Schwartz, D. L., Vye, N., Reeves, B., Roschelle, J., & Sabelli, N. H. Foundations and Opportunities for an Interdisciplinary Science of Learning. In The Cambridge handbook of the learning sciences.|
-| [@scardamalia2010new] | Scardamalia, M., Bransford, J. D., Kozma, B., & Quellmalz, E. (2010). New assessments and environments for knowledge building. Assessment and Teaching of 21st Century Skills, 231--300.|

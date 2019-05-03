@@ -1,4 +1,0 @@
-h2. Nuccia Silvana Pirruccello's publications
-
-| [@fini2009introopened] | Fini, A., Formiconi, A., Giorni, A., Pirruccello, N. S., Spadavecchia, E., & Zibordi, E. (2009). IntroOpenEd 2007: an experience on Open Education by a virtual community of teachers. |
-| [@fini2008open] | Formiconi, A., Giorni, A., Pirruccello, N. S., Spadavecchia, E., & Zibordi, E. (2008). Open Education and virtual communities: an experience. In Knowledge Construction in E-learning Context 2008. |

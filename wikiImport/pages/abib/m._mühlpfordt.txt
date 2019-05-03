@@ -1,7 +1,0 @@
-h2. M. Mühlpfordt's publications
-
-| pfister2002supporting | Pfister, H.-R., & Mühlpfordt, M. (2002). Supporting discourse in a synchronous learning environment: The learning protocol approach. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community.|[[skimx://pfister2002supporting|PDF]]|
-| muhlpfordt2005explicit | Mühlpfordt, M., & Wessner, M. (2005). Explicit referencing in chat supports collaborative learning. Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years!.|[[skimx://muhlpfordt2005explicit|PDF]]|
-| stahl2006shared | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M. P., Weimar, S., Wessner, M., & Mühlpfordt, M. (2006). Shared referencing of mathematical objects in online chat. Proceedings of the 7th international conference on Learning sciences.|[[skimx://stahl2006shared|PDF]]|
-| muhlpfordt2007integration | Mühlpfordt, M., & Stahl, G. (2007). The integration of synchronous communication across dual interaction spaces. Proceedings of the 8th iternational conference on Computer supported collaborative learning.|[[skimx://muhlpfordt2007integration|PDF]]|
-| muhlpfordt2009integration | Mühlpfordt, M., & Wessner, M. (2009). The integration of dual-interaction spaces. Studying virtual math teams. Springer.|[[skimx://muhlpfordt2009integration|PDF]]|

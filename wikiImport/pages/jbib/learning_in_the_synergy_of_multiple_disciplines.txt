@@ -1,3 +1,0 @@
-h2. Publications in Learning in the Synergy of Multiple Disciplines
-
-| alavi2009distributed | Alavi, H., Dillenbourg, P., & Kaplan, F. (2009). Distributed awareness for class orchestration. Learning in the Synergy of Multiple Disciplines, 211--225. Springer.|[[skimx://alavi2009distributed|PDF]]|

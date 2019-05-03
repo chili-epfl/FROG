@@ -1,3 +1,0 @@
-h2. Kati Mäkitalo-Siegl's publications
-
-| hakkinen2007educational | Häkkinen, P., & {Mäkitalo-Siegl}Kati. (2007). Educational Perspectives on Scripting {CSCL}. In F. Fischer, I. Kollar, H. Mandl & J. M. Haake (Eds.),  (Tran.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 263--271). Boston, {MA}: Springer {US}. Retrieved from http://www.springerlink.com.myaccess.library.utoronto.ca/content/h42566g1w3274877/.|[[skimx://hakkinen2007educational|PDF]]|

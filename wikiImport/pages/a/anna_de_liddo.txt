@@ -1,5 +1,0 @@
-h1. A:Anna De Liddo
-
-
-----
-Anna De Liddo is Research Associate at Knowledge Media Institute of the Open University (Milton Keynes, UK), where she works in the Open Learning Network project (www.olnet.org) at the design and development of a Collective Intelligence socio-technical infrastructure to enhance collaborative learning in Open Education. She gained her PhD at Polytechnic of Bari, Italy, investigating ICT for Participatory Planning and Deliberation. After that, she held a PostDoc position at the Open University within the ESSENCE Project, investigating and evaluating human-centred computing tools to help tackling wicked problems such as Climate Change. [@deliddo2010method]

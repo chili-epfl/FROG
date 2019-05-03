@@ -1,3 +1,0 @@
-h2. J.L. De Coi's publications
-
-| coi2008control | {De Co}iJ.L., Karger, P., Koesling, A. W., & Olmedilla, D. (2008). Control Your {eLearning} Environment: Exploiting Policies in an Open Infrastructure for Lifelong Learning. Learning Technologies, {IEEE} Transactions on. doi: 10.1109/TLT.2008.11.|[[skimx://coi2008control|PDF]]|

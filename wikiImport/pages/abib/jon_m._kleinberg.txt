@@ -1,3 +1,0 @@
-h2. Jon M. Kleinberg's publications
-
-| [@novikoff2012education] | Novikoff, T. P., Kleinberg, J. M., & Strogatza, S. H. (2012). Education of a model student. Proceedings of the National Academy of Sciences of the United States of America.|

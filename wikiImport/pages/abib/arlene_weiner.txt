@@ -1,6 +1,0 @@
-h2. Arlene Weiner's publications
-
-| [@suthers1995belvedere] | Suthers, D. D., Weiner, A., Connelly, J., & Paolucci, M. (1995). Belvedere: Engaging students in critical discussion of science and public policy issues. In Proceedings of the 7th World Conference on Artificial Intelligence in Education (266--273).|
-| [@suthers1995groupware] | Suthers, D. D., & Weiner, A. (1995). {Groupware for developing critical discussion skills}. In The first international conference on Computer support for collaborative learning (341--348).|
-| [@suthers1997integrated] | Suthers, D. D., Toth, E. E., & Weiner, A. (1997). An integrated approach to implementing collaborative inquiry in the classroom. In Proceedings of the 2nd international conference on Computer support for collaborative learning (275–282).|
-| [@suthers2001representational] | Suthers, D. D., Connelly, J., Lesgold, A., Paolucci, M., Toth, E. E., & Weiner, A. (2001). {Representational and Advisory Guidance for Students Learning Scientific Inquiry}. Learning, 7--35.|

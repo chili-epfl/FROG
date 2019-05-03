@@ -1,3 +1,0 @@
-h2. Publications in The Quarterly Journal of Experimental Psychology
-
-| novick2006understanding | Novick, L. R. (2006). Understanding spatial diagram structure: An analysis of hierarchies, matrices, and networks. The Quarterly Journal of Experimental Psychology, 59(10), 1826--1856. Taylor \& Francis.|[[skimx://novick2006understanding|PDF]]|

@@ -1,5 +1,0 @@
-h1. Learning Analytics Conference 2014
-
-{{pagequery>@lak14: *;sort=a;title;group;cols=3;nostart}}
-
-~~NOCACHE~~

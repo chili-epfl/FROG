@@ -1,3 +1,0 @@
-h2. D. Straker's publications
-
-| [[..:ref:straker1997rapid]] | Straker, D. (1997). Rapid problem-solving with Post-it Notes. Gower.||

@@ -1,3 +1,0 @@
-h2. P.G. Kilner's publications
-
-| hoadley2005using | Hoadley, C. M., & Kilner, P. G. (2005). Using technology to transform communities of practice into knowledge-building communities. ACM SIGGROUP Bulletin. ACM.|[[skimx://hoadley2005using|PDF]]|

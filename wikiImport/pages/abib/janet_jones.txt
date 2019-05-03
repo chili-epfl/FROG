@@ -1,3 +1,0 @@
-h2. Janet Jones's publications
-
-| [@calvo2011collaborative] | Calvo, R. A., {O'Rourke}Stephen T., Jones, J., Yacef, K., & Reimann, P. (2011). Collaborative Writing Support Tools on the Cloud. {IEEE} Transactions on Learning Technologies, 4(1), 88--97. doi:10.1109/TLT.2010.43|

@@ -1,4 +1,0 @@
-h2. M. Sierhuis's publications
-
-| conklin2001facilitated | Conklin, J., Selvin, A. M., Buckingham Shum, S., & Sierhuis, M. (2001). Facilitated hypertext for collective sensemaking: 15 years on from gIBIS. Proceedings of the 12th ACM conference on Hypertext and Hypermedia.|[[skimx://conklin2001facilitated|PDF]]|
-| buckinghamshum2010software | Buckingham Shum, S., Sierhuis, M., Park, J., & Brown, M. (2010). Software agents in support of human argument mapping. Retrieved from http://oro.open.ac.uk/22344/.|[[skimx://buckinghamshum2010software|PDF]]|

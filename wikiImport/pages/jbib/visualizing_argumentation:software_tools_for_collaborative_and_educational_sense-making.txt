@@ -1,3 +1,0 @@
-h2. Publications in Visualizing argumentation: software tools for collaborative and educational sense-making
-
-| conklin2003dialog | Conklin, J. (2003). Dialog Mapping: Reflections on. Visualizing argumentation: software tools for collaborative and educational sense-making, 117. Springer-Verlag New York Inc.|[[skimx://conklin2003dialog|PDF]]|

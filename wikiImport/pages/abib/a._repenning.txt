@@ -1,3 +1,0 @@
-h2. A. Repenning's publications
-
-| roschelle1999developing | Roschelle, J., DiGiano, C., Koutlis, M., Repenning, A., Phillips, J., Jackiw, N., & Suthers, D. D. (1999). Developing educational software components. Computer.||

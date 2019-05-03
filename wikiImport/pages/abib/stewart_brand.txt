@@ -1,3 +1,0 @@
-h2. Stewart Brand's publications
-
-| [@brand1994buildings] | Brand, S. (1994). How Buildings Learn: What happens after they're built. Viking.|

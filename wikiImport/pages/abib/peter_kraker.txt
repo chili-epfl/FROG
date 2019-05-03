@@ -1,3 +1,0 @@
-h2. Peter Kraker's publications
-
-| [@kraker2011case] | Kraker, P., Leony, D., Reinhardt, W., & BehamGünter. (2011). The case for an open science in technology enhanced learning. International Journal of Technology Enhanced Learning, 3(6), 643. doi:10.1504/IJTEL.2011.045454|

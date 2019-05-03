@@ -1,4 +1,0 @@
-h2. R. Kraut's publications
-
-| aleahmad2008open | Aleahmad, T., Aleven, V., & Kraut, R. (2008). Open community authoring of targeted worked example problems. Intelligent tutoring systems.|
-| aleahmad2009creating | Aleahmad, T., Aleven, V., & Kraut, R. (2009). Creating a Corpus of Targeted Learning Resources with a {Web-Based} Open Authoring Tool. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.8.|

@@ -1,3 +1,0 @@
-h2. C.M. Patton's publications
-
-| dimitriadis2007socially | Dimitriadis, Y., Asensio-Pérez, J. I., Hernández-Leo, D., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|[[skimx://dimitriadis2007socially|PDF]]|

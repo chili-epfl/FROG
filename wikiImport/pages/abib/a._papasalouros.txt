@@ -1,3 +1,0 @@
-h2. A. Papasalouros's publications
-
-| [[..:ref:avgeriou2003towards]] | Avgeriou, P., Papasalouros, A., Retalis, S., & Skordalakis, M. (2003). Towards a pattern language for learning management systems. Educational Technology \& Society. Citeseer.|[[skimx://avgeriou2003towards|PDF]]|

@@ -1,9 +1,0 @@
-h2. Images
-
-{{skim:suthers2008empirical0.png}}
-
-{{skim:suthers2008empirical1.png}}
-
-{{skim:suthers2008empirical2.png}}
-
-{{skim:suthers2008empirical3.png}}

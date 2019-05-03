@@ -1,4 +1,0 @@
-h2. Bonnie Nardi's publications
-
-| [@nardi2011comparative] | Nardi, B., Vatrapu, R., & Clemmensen, T. (2011). Comparative informatics. interactions, 18(2), 28--33. doi:http://doi.acm.org/10.1145/1925820.1925828|
-| [@kow2011forget] | Kow, Y. M., & Nardi, B. (2011). Forget online communities?: revisit cooperative work!. In Proceedings of the ACM 2011 conference on Computer supported cooperative work, CSCW '11 (351--354). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/1958824.1958877|

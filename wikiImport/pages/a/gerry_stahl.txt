@@ -1,9 +1,0 @@
-h1. Gerry Stahl
-{{ pages:a_gerry_stahl1.png}}
-
-Editor of [[http://ijcscl.org|ijCSCL]], at Drexel University. Involved with [[Math Forum]], writes on [[group cognition]].
-
-h2. Links
-  * [[http://gerrystahl.net/|Homepage]] - very extensive collection of papers, ebooks, videos etc
-
-{{page>abib:Gerry Stahl}}

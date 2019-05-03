@@ -1,3 +1,0 @@
-h2. C.N. Moridis's publications
-
-| moridis2009mood | Moridis{C.N.}, & Economides{A.A.}. (2009). Mood Recognition during Online {Self-Assessment} Tests. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.12.|[[skimx://moridis2009mood|PDF]]|

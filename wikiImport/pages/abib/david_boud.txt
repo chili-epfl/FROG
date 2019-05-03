@@ -1,4 +1,0 @@
-h2. David Boud's publications
-
-| [@solomon2001researchers] | Solomon, N., Boud, D., Leontios, M., & Staron, M. (2001). Researchers are learners too: collaboration in research on workplace learning. Journal of Workplace Learning, 13(7/8), 274-282. doi:10.1108/13665620110411058|
-| [@boud2003learning] | Boud, D., & Middleton, H. (2003). Learning from others at work: communities of practice and informal learning. Journal of Workplace Learning, 15(5), 194-202. doi:10.1108/13665620310483895|

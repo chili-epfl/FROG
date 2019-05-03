@@ -1,7 +1,0 @@
-h2. Hélène Fournier's publications
-
-| [@fournier2011researching] | FournierHélène, & Kop, R. (2011). Researching the design and development of a Personal Learning Environment: Research on super-users. In PLE Citylab Conference.|
-| [@kop2011dimensions] | Kop, R., & FournierHélène. (2011). New Dimensions to Self-directed Learning in an Open Networked Learning Environment. International Journal of Self-Directed Learning, 7(2), 1-18.|
-| [@fournier2011value] | FournierHélène, Kop, R., & Sitlia, H. (2011). The Value of Learning Analytics to Networked Learning on a Personal Learning Environment. In 1st International Conference on Learning analytics and Knowledge 2011, Banff, February 27-March 1st, 2011.|
-| [@kop2011pedagogy] | Kop, R., FournierHélène, & Mak, S. F. J. (2011). A pedagogy of abundance or a pedagogy to support human beings? Participant support on massive open online courses. The International Review of Research in Open and Distance Learning, 12(7), 74--93.|
-| [@kop2011facilitating] | Kop, R., & FournierHélène. (2011). Facilitating Quality Learning in a Personal Learning Environment through Educational Research. In online session at the Canadian Institute of Distance Education Research. |

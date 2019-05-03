@@ -1,3 +1,0 @@
-h2. Kourosh Dini's publications
-
-| [@dini2009creating] | Dini, K. (2009). Creating Flow with OmniFocus. The Dini Group.|

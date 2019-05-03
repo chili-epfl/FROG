@@ -1,6 +1,0 @@
-h1. Cohere
-
-Tool developed at OU by [[a:Simon Buckingham Shum]] and others.
-
-  * [[http://cohere.open.ac.uk/|Cohere]]
-  * [[http://reganmian.net/blog/2011/05/28/cohere-a-prototype-for-contested-collective-intelligence/|Blog post]] about [@liddo2010cohere]

@@ -1,3 +1,0 @@
-h2. S.H. Kim's publications
-
-| kim2006study | Kim, S. H., Han, H. S., & Han, S. G. (2006). The study on effective programming learning using wiki community systems. Innovative Approaches for Learning and Knowledge Sharing. Springer.|[[skimx://kim2006study|PDF]]|

@@ -1,3 +1,0 @@
-h2. Matthieu Quignard's publications
-
-| [@baker2007rainbow] | Baker, M., Andriessen, J., Lund, K., Amelsvoort, M., & Quignard, M. (2007). Rainbow: A framework for analysing computer-mediated pedagogical debates. International Journal of Computer-Supported Collaborative Learning, 2(2-3), 315-357. doi:10.1007/s11412-007-9022-4|

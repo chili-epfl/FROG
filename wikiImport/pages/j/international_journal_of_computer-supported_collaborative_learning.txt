@@ -1,9 +1,0 @@
-h1. International Journal of Computer-Supported Collaborative Learning
-{{ pages:j_international_journal_of_computer-supported_collaborative_learning01.png}}
-
-Also called ijCSCL. Main journal for [[:CSCL]] field, [[:a:Gerry Stahl]] is editor in chief. Open Access.
-
-h2. Links
-  * [[http://ijcscl.org/|Homepage]]
-
-{{page>jbib:international_journal_of_computer-supported_collaborative_learning}}

@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:bell2010network0.png}}
-
-[[skimx://bell2010network#5|p. 5]]
-----
-

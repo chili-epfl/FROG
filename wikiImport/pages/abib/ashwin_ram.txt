@@ -1,3 +1,0 @@
-h2. Ashwin Ram's publications
-
-| [@ram1995goal-driven] | Ram, A. (1995). Goal-driven learning. Cambridge Mass.: {MIT} Press.|

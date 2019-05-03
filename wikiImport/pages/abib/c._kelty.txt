@@ -1,3 +1,0 @@
-h2. C. Kelty's publications
-
-| [[..:ref:henry2003connexions]] | Henry, G., Baraniuk, R., & Kelty, C. (2003). The connexions project: Promoting open sharing of knowledge for education.|[[skimx://henry2003connexions|PDF]]|

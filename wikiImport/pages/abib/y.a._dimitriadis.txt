@@ -1,3 +1,0 @@
-h2. Y.A. Dimitriadis's publications
-
-| [[..:ref:bote2008gridcole]] | Bote-Lorenzo, M. L., Gómez-Sánchez, E., Vega-Gorgojo, G., Dimitriadis, Y. A., Asensio-Pérez, J. I., & Jorrín-Abellán, I. (2008). Gridcole: A tailorable grid service based system that supports scripted collaborative learning. Computers \& Education. Elsevier.|

@@ -1,4 +1,0 @@
-h2. N. Avouris's publications
-
-| rummel2008new | Rummel, N., Weinberger, A., Wecker, C., Fischer, F., Meier, A., Voyiatzaki, E., Kahrimanis, G., Spada, H., Avouris, N., & Walker, E. (2008). New challenges in CSCL: Towards adaptive script support. Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3.|[[skimx://rummel2008new|PDF]]|
-| rummel2011analyzing | Rummel, N., Deiglmayr, A., Spada, H., Kahrimanis, G., & Avouris, N. (2011). Analyzing collaborative interactions across domains and settings: An adaptable rating scheme. Analyzing Interactions in CSCL. Springer.|[[skimx://rummel2011analyzing|PDF]]|

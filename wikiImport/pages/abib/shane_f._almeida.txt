@@ -1,3 +1,0 @@
-h2. Shane F. Almeida's publications
-
-| razzaq2009assistment | Razzaq, L., Patvarczki, J., Almeida, S. F., Vartak, M., Feng, M., Heffernan, N. T., & Koedinger, K. R. (2009). The {ASSISTment} Builder: Supporting the Life Cycle of Tutoring System Content Creation. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.23.|[[skimx://razzaq2009assistment|PDF]]|

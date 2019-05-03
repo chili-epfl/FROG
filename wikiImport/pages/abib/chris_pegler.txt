@@ -1,3 +1,0 @@
-h2. Chris Pegler's publications
-
-| [@pegler2012herzberg] | Pegler, C. (2012). Herzberg, hygiene and the motivation to reuse: Towards a three-factor theory to explain motivation to share and use OER. Journal of Interactive Media in Education, 2012(01). |

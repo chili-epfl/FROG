@@ -1,6 +1,0 @@
-h2. H. Fuks's publications
-
-| pimentel2003cotext | Pimentel, M., Fuks, H., & Lucena, C. de. (2003). Co-text loss in textual chat tools. Modeling and Using Context. Springer.|
-| fuks2009studying | Fuks, H., & Pimentel, M. (2009). Studying Response-Structure Confusion in VMT. Studying Virtual Math Teams. Springer.|
-| filippo2009discussion | Filippo, D., Fuks, H., & Lucena, C. J. P. de. (2009). Discussion forum coordination support in distance courses.|
-| gerosa2010unfolding | Gerosa, M. A., Filippo, D., Pimentel, M., Fuks, H., & Lucena, C. J. P. (2010). Is the unfolding of the group discussion off-pattern? Improving coordination support in educational forums using mobile devices. Computers \& Education. Elsevier.|

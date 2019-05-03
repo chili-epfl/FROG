@@ -1,3 +1,0 @@
-h2. Mikael Nilsson's publications
-
-| [@palmer2009guidelines] | Palmer, M., Nilsson, M., & NaeveAmbjörn. (2009). Guidelines for the choice of integration technologies. |

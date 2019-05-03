@@ -1,8 +1,0 @@
-h1. Ann Brown
-
-h2. Research
-
-h2. Links
-  * [[ |Homepage]]
-  
-{{page>abib:Ann Brown}}

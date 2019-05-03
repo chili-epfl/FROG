@@ -1,5 +1,0 @@
-h1. Math Forum
-
-Tool created at Drexel University by [{Gerry Stahl]] and others. 
-
-  * [[http://mathforum.org/|Math Forum]]

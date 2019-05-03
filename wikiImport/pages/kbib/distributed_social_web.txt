@@ -1,5 +1,0 @@
-h2. Publications with keyword "distributed social web"
-
-| [@chen2010framework] | Chen, H., Zhou, X., Man, H., Wu, Y., Ahmed, A. U., & Jin, Q. A Framework of Organic Streams: Integrating Dynamically Diversified Contents into Ubiquitous Personal Study. In Ubiquitous Intelligence \& Computing and 7th International Conference on Autonomic \& Trusted Computing (UIC/ATC), 2010 7th International Conference on (386--391). |
-| [@passant2010rethinking] | Passant, A., Breslin, J., & Decker, S. (2010). Rethinking microblogging: open, distributed, semantic. Web Engineering, 263--277.|
-| [@dhekane2011talash:] | Dhekane, R., & Vibber, B. (2011). Talash: Friend Finding In Federated Social Networks.|

@@ -1,4 +1,0 @@
-h1. Concepts
-
-h2. Grounding
-To what extent we know that the other person knows something? Shared understanding of problems, and acknowledgment ([@dillenbourg2006sharing])

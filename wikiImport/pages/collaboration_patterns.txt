@@ -1,9 +1,0 @@
-h1. Collaboration Patterns
-
-collaboration patterns [@demoor2006community]
-----
-knowledge is essential to satisfy collaborative and communicative goals?), task patterns (what particular information patterns are needed for particular action or interaction goals? [@demoor2006community]
-----
-Rob Ford fumes [[http://www.thestar.com/news/gta/2013/11/18/rob_ford_fumes_as_all_but_councils_enablers_flee_dimanno.html|Rob Ford fumes as all but council’s enablers flee: DiManno | Toronto Star]]
-
-{{pages:collaboration_patterns01.png}}

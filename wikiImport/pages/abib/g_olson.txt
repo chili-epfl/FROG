@@ -1,3 +1,0 @@
-h2. G Olson's publications
-
-| [@bos2007from] | Bos, N., Zimmerman, A., Olson, J., Yew, J., Yerkie, J., Dahl, E., & Olson, G. (2007). From shared databases to communities of practice: A taxonomy of collaboratories. Journal of Computer-Mediated Communication, 12(2). doi:10.1111/j.1083-6101.2007.00343.x|

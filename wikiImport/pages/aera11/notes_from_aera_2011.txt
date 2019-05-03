@@ -1,4 +1,0 @@
-  * [[Zhidong Zhang, Jingyan Lu]] Quantiative Structural Representations of Cognitive Takss for Both Learning and Assessment in Complex Cognitive Environments
-  * [[Jing Chen, Charles W. Anderson]] Reliability and validity of items in multiple formats in assessing K12 students
-  * [[Daisy Rutstein]] Bayesian analysis to measure learning progression
-  * [[Youn Young Choi]] Dynamic Bayesian inference Networks and Hidden Markov Models for Modeling Learning Progressions over Multiple Time Point

@@ -1,3 +1,0 @@
-h2. Andrew F. Monk's publications
-
-| [@watts1998reasoning] | Watts, L. A., & Monk, A. F. (1998). Reasoning about tasks, activities and technology to support collaboration. Ergonomics, 41(11), 1583-1606. doi:10.1080/001401398186081|

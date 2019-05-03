@@ -1,3 +1,0 @@
-h2. Philip Hofmair's publications
-
-| [@hofmair2011methods] | Hofmair, P., Utz, W., Giorgini, F., Johnson, M., Clark, W., & Halb, W. (2011). Methods and Specifications for Activity Capturing Tools V1. NEXT-TELL.|

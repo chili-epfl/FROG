@@ -1,4 +1,0 @@
-h2. JD Novak's publications
-
-| [#:ref:canas2008next] | Cañas, Aj., Reiska, P., Åhlberg, M., & Novak, Jd. (2008). NEXT STEP: CONSOLIDATING THE CMAPPERS COMMUNITY. Retrieved from http://cmc.ihmc.us/cmc2008papers/cmc2008-p402.pdf.|[[skimx://canas2008next|PDF]]|
-| canas2004building | Cañas, Aj., Novak, Jd., González, Fm., Novak, J. D., & Cañas, A. J. (2004). BUILDING ON NEW CONSTRUCTIVIST IDEAS AND CMAPTOOLS TO CREATE A NEW MODEL FOR EDUCATION1. Proceedings of the 1st InternatiOnal Conference on Concept Mapping. Pamplona, Spain, Sep. Retrieved from http://www.ihmc.us/users/acanas/Publications/NewModelEducation/NewModelforEducation.pdf.|[[skimx://canas2004building|PDF]]|

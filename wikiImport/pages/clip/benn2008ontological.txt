@@ -1,8 +1,0 @@
-h2. Highlights (3%)
-
-Abstract. Mapping scholarly debates is an important genre of what can be called Knowledge Domain Analytics (KDA) technology – i.e. technology which combines both quantitative and qualitative methods of analysing specialist knowledge domains. However, current KDA technology research has emerged from diverse traditions and thus lacks a common conceptual foundation. This paper reports on the design of a KDA ontology that aims to provide this foundation. The paper then describes the argumentation extensions to the ontology for supporting scholarly debate mapping as a special form of KDA and demonstrates its expressive capabilities using a case study debate. [[skimx://benn2008ontological#2|p. 2]]
-
-One method for merging heterogeneous ontologies requires that the existing ontologies are aligned to a more generic reference ontology that can be used to compare the individual classes in the existing ontologies. Based on the fundamental assumptions that knowledge representation and communication are major activities of knowledge domains, and that knowledge representation and communication constitute semiotic activities, we propose to align the existing ontologies to a reference ontology that describes the interactions between components of any given semiotic activity. [[skimx://benn2008ontological#3|p. 3]]
-
-::What about semantics?:: [[skimx://benn2008ontological#3|p. 3]]
-

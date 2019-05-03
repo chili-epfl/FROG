@@ -1,3 +1,0 @@
-h2. M. Hepp's publications
-
-| hepp2010hypertwitter | Hepp, M. (2010). HyperTwitter: collaborative knowledge engineering via twitter messages. Knowledge Engineering and Management by the Masses. Springer.||

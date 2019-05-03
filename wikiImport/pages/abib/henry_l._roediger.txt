@@ -1,3 +1,0 @@
-h2. Henry L. Roediger's publications
-
-| [@karpicke2008critical] | Karpicke, J. D., & Roediger, H. L. (2008). The Critical Importance of Retrieval for Learning. Science, 319(5865), 966 --968. doi:10.1126/science.1152408|

@@ -1,3 +1,0 @@
-h2. Peter Coppin's publications
-
-| [@coppin2010attention] | Coppin, P., Burton, J., & Hockema, S. (2010). An Attention Based Theory to Explore Affordances of Textual and Diagrammatic Proofs. In A. Goel, M. Jamnik & N. Narayanan (Eds.), Diagrammatic Representation and Inference, Lecture Notes in Computer Science (Vol. 6170, 271-278). Springer Berlin / Heidelberg. |

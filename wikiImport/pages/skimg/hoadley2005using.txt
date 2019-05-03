@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:hoadley2005using0.png}}
-
-[[skimx://hoadley2005using#4|p. 4]]
-----
-

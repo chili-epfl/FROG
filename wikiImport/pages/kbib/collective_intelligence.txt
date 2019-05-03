@@ -1,8 +1,0 @@
-h2. Publications with keyword "collective intelligence"
-
-| [@gangadharan2009understanding] | Gangadharan, S. P. (2009). Understanding Diversity in the Field of Online Deliberation. Online deliberation: Design, research, and practice, 329–347. |
-| [@lloyd2011does] | Lloyd, P. (2011). Does design education always produce designers?. In Researching Design Education: 1st International Symposium for Design Education Researchers, May 18-19 (2011). |
-| [@varshney2012toward] | Varshney, L. R. (2012). Toward a Comparative Cognitive History: Archimedes and DHJ Polymath. Arxiv preprint arXiv:1204.3534.|
-| [@brown2012mapping] | Brown, M., Downie, A., & Buckingham Shum, S. (2012). Mapping the Matrix: Using Compendium as a Tool for Recording the Analytic Group. Group Analysis, 45(1), 99–115.|
-| [@qazvinian2012computational] | Qazvinian, V., & Radev, D. R. (2012). A Computational Analysis of Collective Discourse. Arxiv preprint arXiv:1204.3498.|
-| [@salminen2012collective] | Salminen, J. (2012). Collective Intelligence in Humans: A Literature Review. Arxiv preprint arXiv:1204.3401.|

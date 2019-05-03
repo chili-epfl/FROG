@@ -1,3 +1,0 @@
-h2. F. Gibert-Darras's publications
-
-| gibertdarras2006towards | Gibert-Darras, F., Delozanne, E., Le Calvez, F., Merceron, A., Labat, J. M., & Vandebrouck, F. (2005). Towards a design pattern language to track students’ problem-solving abilities. Citeseer.||

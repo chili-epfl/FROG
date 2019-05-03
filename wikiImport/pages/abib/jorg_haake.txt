@@ -1,4 +1,0 @@
-h2. Jorg Haake's publications
-
-| [@fischer2006perspectives] | Fischer, F., Kollar, I., Haake, J., & Mandl, H. (2006). Perspectives on Collaboration Scripts.|
-| [@haake2007flexible] | Haake, J., & PfisterHans-Rüdiger. (2007). Flexible scripting in net-based learning groups. Scripting computer-supported collaborative learning, 155--175.|

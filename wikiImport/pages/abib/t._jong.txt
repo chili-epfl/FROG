@@ -1,5 +1,0 @@
-h2. T. Jong's publications
-
-| dejong2008explorations | Jong, T. de, Gog, T. van, Jenks, K., Manlove, S., Hell, J. G. van, Jolles, J., Merri{\\"e}nboerT.L., & Boschloo, A. (2008). Explorations in Learning and the Brain: On the Potential of Cognitive Neuroscience for Educational Science. Report by the Netherlands Organisation for Scientific Research. The Hague, The Netherlands. Accessible through http://www. eric-project. nl/nwohome. nsf/pages/NWOA\_7GJDST.|
-| dejong2010cognitive | Jong, T. de. (2010). Cognitive load theory, educational research, and instructional design: some food for thought. Instructional Science. Springer.|
-| kolloffel2011acomparing | Kolloffel, B., Eysink, T. H. S., & Jong, T. de. (2011). Comparing the effects of representational tools in collaborative and individual inquiry learning. International Journal of Computer-Supported Collaborative Learning. Springer.|

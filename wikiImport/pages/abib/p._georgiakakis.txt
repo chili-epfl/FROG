@@ -1,4 +1,0 @@
-h2. P. Georgiakakis's publications
-
-| retalis2006eliciting | Retalis, S., Georgiakakis, P., & Dimitriadis, Y. (2006). Eliciting design patterns for e-learning systems. Computer Science Education. Routledge.|[[skimx://retalis2006eliciting|PDF]]|
-| lazakidou2009cscl | Lazakidou, G., Retalis, S., Georgiakakis, P., & Karamouzis, S. (2009). CSCL scenarios:= A cocktail of CLFPs. Scripted vs. Free CS Collaboration: Alternatives and Paths for Adaptable and Flexible CS Scripted Collaboration.|[[skimx://lazakidou2009cscl|PDF]]|

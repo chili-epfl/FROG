@@ -1,3 +1,0 @@
-h2. Bas Kolloffel's publications
-
-| [@kolloffel2011comparing] | Kolloffel, B., Eysink, T. H. S., & de Jong, T. (2011). Comparing the effects of representational tools in collaborative and individual inquiry learning. International Journal of {Computer-Supported} Collaborative Learning. doi:10.1007/s11412-011-9110-3|

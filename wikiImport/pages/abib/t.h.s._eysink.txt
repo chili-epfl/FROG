@@ -1,3 +1,0 @@
-h2. T.H.S. Eysink's publications
-
-| kolloffel2011acomparing | Kolloffel, B., Eysink, T. H. S., & Jong, T. de. (2011). Comparing the effects of representational tools in collaborative and individual inquiry learning. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://kolloffel2011acomparing|PDF]]|

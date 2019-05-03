@@ -1,3 +1,0 @@
-h2. A. Veerman's publications
-
-| veerman2003constructive | Veerman, A. (2003). Constructive discussions through electronic dialogue. Arguing to learn: Confronting cognitions in computer-supported collaborative learning environments.|[[skimx://veerman2003constructive|PDF]]|

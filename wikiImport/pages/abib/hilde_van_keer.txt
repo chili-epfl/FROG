@@ -1,4 +1,0 @@
-h2. Hilde Van Keer's publications
-
-| [@wever2007applying] | Wever, B. D., Keer, H. V., Schellens, T., & Valcke, M. (2007). Applying multilevel modelling to content analysis data: Methodological issues in the study of role assignment in asynchronous discussion groups. Learning and Instruction, 17(4), 436 - 447. doi:DOI: 10.1016/j.learninstruc.2007.04.001|
-| [@de-wever2010development] | De Wever, B., & Van Keer, H. (2010). Development of a content analysis approach for collaboration in a wiki environment. In Proceedings of the 9th International Conference of the Learning Sciences - Volume 2, ICLS '10 (117--119). International Society of the Learning Sciences. |

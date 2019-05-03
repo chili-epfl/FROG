@@ -1,8 +1,0 @@
-h2. Publications in Science
-
-| [@medina2008bringing] | Medina, R., & Suthers, D. D. (2008). {Bringing Representational Practice From Log to Light Case Study}. Science, 1--8.|
-| [@karpicke2008critical] | Karpicke, J. D., & Roediger, H. L. (2008). The Critical Importance of Retrieval for Learning. Science, 319(5865), 966 --968. doi:10.1126/science.1152408|
-| [@ahn2008recaptcha:] | Ahn, L. von, Maurer, B., {McMillen}C., Abraham, D., & Blum, M. (2008). {ReCAPTCHA:} {Human-Based} Character Recognition via Web Security Measures. Science, 321(12), 1465 -- 1468.|
-| [@mazur2009education] | Mazur, E. (2009). EDUCATION: Farewell, Lecture?. Science, 323(5910), 50-51. doi:10.1126/science.1168927|
-| [@renear2009strategic] | Renear, Ah., & Palmer, Cl. (2009). Strategic Reading, Ontologies, and the Future of Scientific Publishing. Science, 325(5942), 828-832. doi:10.1126/science.1157784|
-| [@karpicke2011retrieval] | Karpicke, J. D., & Blunt, J. R. (2011). Retrieval Practice Produces More Learning than Elaborative Studying with Concept Mapping. Science, 331(6018), 772.|

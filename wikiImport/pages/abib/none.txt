@@ -1,9 +1,0 @@
-h2. none's publications
-
-| [@none2011cscl] | none. (2011). CSCL 2011 Proceedings Volume 3. (H. Spada, G. Stahl, N. Miyake & N. Law, Eds.) . ISLS.|
-| [@none2006cambridge] | none. (2006). The Cambridge handbook of the learning sciences. (K. R. Sawyer, Ed.) . Cambridge Univ Press.|
-| [@none2010icls] | none. (2010). ICLS 2010 Proceedings Volume 2. (K. Gomez, L. Lyons & J. Radinsky, Eds.) . ISLS.|
-| [@none2010bicls] | none. (2010). ICLS 2010 Proceedings Volume 1b. (K. Gomez, L. Lyons & J. Radinsky, Eds.) . ISLS.|
-| [@none2010aicls] | none. (2010). ICLS 2010 Proceedings Volume 1a. (K. Gomez, L. Lyons & J. Radinsky, Eds.) . ISLS.|
-| [@none2011acscl] | none. (2011). CSCL 2011 Proceedings Volume 2. (H. Spada, G. Stahl, N. Miyake & N. Law, Eds.) . ISLS.|
-| [@none2011bcscl] | none. (2011). CSCL 2011 Proceedings Volume 1. (H. Spada, G. Stahl, N. Miyake & N. Law, Eds.) . ISLS.|

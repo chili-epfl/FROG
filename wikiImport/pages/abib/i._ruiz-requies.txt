@@ -1,3 +1,0 @@
-h2. I. Ruiz-Requies's publications
-
-| hernandez2006collage | Hernández-Leo, D., Villasclaras-Fernández, E. D., Asensio-Pérez, J. I., Dimitriadis, Y., Ruiz-Requies, I., Rubia-Avi, B., & Jorrín-Abellán, I. (2006). COLLAGE: A collaborative Learning Design editor based on patterns. JOURNAL OF EDUCATIONAL TECHNOLOGYAND SOCIETY. Citeseer.|[[skimx://hernandez2006collage|PDF]]|

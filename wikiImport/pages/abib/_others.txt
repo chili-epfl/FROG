@@ -1,5 +1,0 @@
-h2.  others's publications
-
-<html>
-<table>
-<tr><td></a></td><td> </td><td>&nbsp; </td><td>&nbsp; </td><td>&nbsp; </td><td>Muhammad, Y., Jabeen, S., Muhammad, A., Enriquez, M., & others.Awareness Elements In Web Based Cooperative Writing Applications. Computational Intelligence and Industrial Applications, 2009. PACIIA 2009. Asia-Pacific Conference on.</td></tr>

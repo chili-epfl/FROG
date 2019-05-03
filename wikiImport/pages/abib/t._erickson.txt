@@ -1,3 +1,0 @@
-h2. T. Erickson's publications
-
-| erickson2000social | Erickson, T., & Kellogg, W. A. (2000). Social translucence: an approach to designing systems that support social processes. ACM Transactions on Computer-Human Interaction (TOCHI). ACM.|[[skimx://erickson2000social|PDF]]|

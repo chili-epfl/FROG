@@ -1,4 +1,0 @@
-h2. S Joseph's publications
-
-| :ref:suthers2008beyond | Suthers, D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2008). {Beyond threaded discussion: Representational guidance in asynchronous collaborative learning environments}. Computers \& Education. doi: 10.1016/j.compedu.2006.10.007.|
-| :ref:suthers2008beyond | Suthers, D., Vatrapu, R., Medina, R., Joseph, S., & Dwyer, N. (2008). {Beyond threaded discussion: Representational guidance in asynchronous collaborative learning environments}. Computers \& Education. doi: 10.1016/j.compedu.2006.10.007.|

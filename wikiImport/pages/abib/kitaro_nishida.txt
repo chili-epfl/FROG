@@ -1,4 +1,0 @@
-h2. Kitaro Nishida's publications
-
-| [@nishida1927hataraku] | Nishida, K. (1927). Hataraku mono kara miru mono e. Tokyo: Iwanami Shoten.|
-| [@nishida1992inquiry] | Nishida, K. (1992). An Inquiry into the Good. New Haven{USA:} Yale University Press.|

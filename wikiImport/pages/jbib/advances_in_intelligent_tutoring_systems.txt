@@ -1,3 +1,0 @@
-h2. Publications in Advances in Intelligent Tutoring Systems
-
-| tchounikine2010computer | Tchounikine, P., Rummel, N., & McLaren, B. (2010). Computer Supported Collaborative Learning and Intelligent Tutoring Systems. Advances in Intelligent Tutoring Systems, 447--463. Springer.|[[skimx://tchounikine2010computer|PDF]]|

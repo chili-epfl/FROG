@@ -1,3 +1,0 @@
-h2. B. L. Moore's publications
-
-| [[..:ref:gardner2010rfam]] | Gardner, P. P., Daub, J., Tate, J., Moore, B. L., Osuch, I. H., {Griffiths-Jones}S., Finn, R. D., Nawrocki, E. P., Kolbe, D. L., Eddy, S. R., & Bateman, A. (2010, November). Rfam: Wikipedia, clans and the "decimal" release. Nucleic Acids Research. doi: 10.1093/nar/gkq1129.||

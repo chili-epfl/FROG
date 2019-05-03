@@ -1,4 +1,0 @@
-h2. K. Kreijns's publications
-
-| kreijns2004designing | Kreijns, K., & Kirschner, P. A. (2004). Designing sociable CSCL environments. What we know about CSCL. Springer.|[[skimx://kreijns2004designing|PDF]]|
-| kirschner2005enhancing | Kirschner, P. A., & Kreijns, K. (2005). Enhancing sociability of computer-supported collaborative learning environments. Barriers and biases in computer-mediated knowledge communication. Springer.|[[skimx://kirschner2005enhancing|PDF]]|

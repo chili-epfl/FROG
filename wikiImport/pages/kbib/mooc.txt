@@ -1,7 +1,0 @@
-h2. Publications with keyword "mooc"
-
-| [@roscorla2012massively] | Roscorla, T. (2012). Massively Open Online Courses Are 'Here to Stay'. Converge. |
-| [@siemens2011orientation:] | Siemens, G. (2011). Orientation: Sensemaking And Wayfinding In Complex Distributed Online Information Environments (PhD thesis).|
-| [@rodriguez2012moocs] | Rodriguez, C. O. (2012). MOOCs and the AI-Stanford like Courses: Two Successful and Distinct Course Formats for Massive Open Online Courses. European Journal of Open, Distance and E-Learning.|
-| [@wade2012critique] | Wade, M. C. (2012). A Critique of Connectivism as a Learning Theory.|
-| [@koutropoulos2012emotive] | Koutropoulos, A., Gallagher, M. S., Abajian, S. C., de Waard, I., Hogue, R. J., KeskinNilgün Özdamar, & Rodriguez, C. O. (2012). Emotive Vocabulary in MOOCs: Context & Participant Retention. European Journal of Open, Distance and E-Learning, (1). |

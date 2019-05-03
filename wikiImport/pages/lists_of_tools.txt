@@ -1,3 +1,0 @@
-h1. List of tools
-
-  * [[representational_guidance#environments|Representational guidance environments]]

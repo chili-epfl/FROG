@@ -1,3 +1,0 @@
-h2. Orla Lahart's publications
-
-| [@lahart2009increasing] | Lahart, O., Kelly, D., & Tangney, B. (2009). Increasing Parental {Self-Efficacy} in a {Home-Tutoring} Environment. {IEEE} Transactions on Learning Technologies, 2(2), 121--134. doi:10.1109/TLT.2009.20|

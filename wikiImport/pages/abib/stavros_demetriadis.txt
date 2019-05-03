@@ -1,4 +1,0 @@
-h2. Stavros Demetriadis's publications
-
-| [@demetriadis2009scripted] | Demetriadis, S., Dimitriadis, Y., & Fischer, F. (2009). Scripted vs. free CS collaboration: alternatives and paths for adaptable and flexible CS scripted collaboration. In Proceedings of the 9th international conference on Computer supported collaborative learning - Volume 2, CSCL'09 (231--231). International Society of the Learning Sciences. |
-| [@magnisalis2011adaptive] | Magnisalis, I., Demetriadis, S., & Karakostas, A. (2011). Adaptive and Intelligent Systems for Collaborative Learning Support: A Review of the Field. {IEEE} Transactions on Learning Technologies, 4(1), 5--20. doi:10.1109/TLT.2011.2|

@@ -1,3 +1,0 @@
-h2. a. Tomsic's publications
-
-| tomsic2005effects | Tomsic, a, & Suthers, D. D. (2005). {Effects of a Discussion Tool on Collaborative Learning and Social Network Structure within an Organization}. Proceedings of the 38th Annual Hawaii International Conference on System Sciences. Ieee. doi: 10.1109/HICSS.2005.223.|[[skimx://tomsic2005effects|PDF]]|

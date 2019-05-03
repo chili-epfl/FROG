@@ -1,3 +1,0 @@
-h2. Inc's publications
-
-| [@spring2010white] | Spring, M., & Inc. (2010). White Paper: Why microblogging and activity streams will overtake email for enterprise communications and collaboration. |

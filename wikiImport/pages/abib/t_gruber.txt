@@ -1,3 +1,0 @@
-h2. T Gruber's publications
-
-| [@gruber2007ontology] | Gruber, T. (2007). Ontology of Folksonomy: A Mashup of Apples and Oranges. International Journal on Semantic Web and Information Systems, 3(2).|

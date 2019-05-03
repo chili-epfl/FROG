@@ -1,3 +1,0 @@
-h2. Publications in Charting the Topic Maps Research and Applications Landscape
-
-| park2006topic | Park, J. (2006). Topic mapping: A view of the road ahead. Charting the Topic Maps Research and Applications Landscape, 1--13. Springer.|[[skimx://park2006topic|PDF]]|

@@ -1,4 +1,0 @@
-h2. Marie desJardins's publications
-
-| [@desjardins2008asucceed] | desJardins, M. (2008). How to succeed in graduate school: a guide for students and advisors, part I of II. Crossroads, 14(3), 3--8. doi:http://doi.acm.org/10.1145/1373576.1373578|
-| [@desjardins2008succeed] | desJardins, M. (2008). How to succeed in graduate school: a guide for students and advisors, part II of II. Crossroads, 14(4), 5--9. doi:http://doi.acm.org/10.1145/1375972.1375975|

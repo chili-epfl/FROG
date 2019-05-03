@@ -1,4 +1,0 @@
-h1. Authoring in multiple formats
-
-  * [[http://stackoverflow.com/questions/78319/writing-a-book-and-targeting-pdf-and-html|StackOverflow]]
-  * [[http://martinfowler.com/articles/writingInXml.html|Writing in XML]]

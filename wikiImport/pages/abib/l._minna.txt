@@ -1,4 +1,0 @@
-h2. L. Minna's publications
-
-| :ref:minna2009main | Minna, L., Sami, P., Kari, K., Hanni, M., Merja, B., & Hannu, M. (2009). Main functionalities of the Knowledge Practices Environment (KPE) affording knowledge creation practices in education. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|
-| :ref:minna2009main | Minna, L., Sami, P., Kari, K., Hanni, M., Merja, B., & Hannu, M. (2009). Main functionalities of the Knowledge Practices Environment (KPE) affording knowledge creation practices in education. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|

@@ -1,3 +1,0 @@
-h2. Max Mühlhäuser's publications
-
-| [@burchardt2009knowledge] | Burchardt, A., Gurevych, I., & MühlhäuserMax. (2009). Knowledge Work. |

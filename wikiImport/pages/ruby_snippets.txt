@@ -1,4 +1,0 @@
-h1. Ruby snippets
-
-Get most recent file in a directory (from [[http://www.ruby-forum.com/topic/432946#960918|here]])
-<code ruby>Dir["/Volumes/Home/stian/Desktop/*"].select {|f| test ?f, f}.sort_by {|f|  File.mtime f}.pop</code> 

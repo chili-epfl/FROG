@@ -1,4 +1,0 @@
-h2. N. Winters's publications
-
-| :ref:mor2007design | Mor, Y., & Winters, N. (2007). Design approaches in technology-enhanced learning. Interactive Learning Environments. Routledge.|
-| :ref:mor2007design | Mor, Y., & Winters, N. (2007). Design approaches in technology-enhanced learning. Interactive Learning Environments. Routledge.|

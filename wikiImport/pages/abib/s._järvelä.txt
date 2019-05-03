@@ -1,5 +1,0 @@
-h2. S. Järvelä's publications
-
-| jarvela2004instructional | Järvelä, S., Häkkinen, P., Arvaja, M., & Leinonen, P. (2004). Instructional support in CSCL. What we know about CSCL. Springer.|[[skimx://jarvela2004instructional|PDF]]|
-| jarvela2008understanding | Järvelä, S., Järvenoja, H., & Veermans, M. (2008). Understanding the dynamics of motivation in socially shared learning. International Journal of Educational Research. Elsevier.|[[skimx://jarvela2008understanding|PDF]]|
-| dillenbourg2009evolution | Dillenbourg, P., Järvelä, S., & Fischer, F. (2009). The evolution of research on computer-supported collaborative learning. Technology-Enhanced Learning. Springer.|[[skimx://dillenbourg2009evolution|PDF]]|

@@ -1,3 +1,0 @@
-h2. Susan A. Yoon's publications
-
-| [@yoon2011using] | Yoon, S. A. (2011). Using Social Network Graphs as Visualization Tools to Influence Peer Selection Decision-Making Strategies to Access Information About Complex Socioscientific Issues. Journal of the Learning Sciences, 20(4), 549-588. doi:10.1080/10508406.2011.563655|

@@ -1,2 +1,0 @@
-  * Building CoP around knowledge mapping and assessment
-  * Experts have highly interconnected knowledge maps (look busy)

@@ -1,3 +1,0 @@
-h2. Jürgen Steimle's publications
-
-| [@steimle2009coscribe] | SteimleJürgen, Brdiczka, O., & Muhlhauser, M. (2009). {CoScribe:} Integrating Paper and Digital Documents for Collaborative Knowledge Work. {IEEE} Transactions on Learning Technologies, 2(3), 174--188. doi:10.1109/TLT.2009.27|

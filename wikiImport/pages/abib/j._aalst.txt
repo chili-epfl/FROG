@@ -1,4 +1,0 @@
-h2. J. Aalst's publications
-
-| :ref:dyke2011technological | Dyke, G., Jeong, H., Medina, R., Suthers, D., Aalst, J. van, Chen, W., & Looi, C. K. (2011). Technological affordances for productive multivocality in analysis. CSCL.|
-| :ref:dyke2011technological | Dyke, G., Jeong, H., Medina, R., Suthers, D., Aalst, J. van, Chen, W., & Looi, C. K. (2011). Technological affordances for productive multivocality in analysis. CSCL.|

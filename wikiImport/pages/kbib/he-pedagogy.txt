@@ -1,5 +1,0 @@
-h2. Publications with keyword "he-pedagogy"
-
-| [@fies2006classroom] | Fies, C., & Marshall, J. (2006). Classroom response systems: A review of the literature. Journal of Science Education and Technology, 15(1), 101--109.|
-| [@simkins2008learning] | Simkins, S. P., & Maier, M. H. (2008). Learning from physics education research: Lessons for economics education. MPRA Paper. |
-| [@bruff2009teaching] | Bruff, D. (2009). Teaching with classroom response systems: Creating active learning environments. Jossey-Bass.|

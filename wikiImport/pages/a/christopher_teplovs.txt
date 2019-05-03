@@ -1,7 +1,0 @@
-h1. Christopher Teplovs
-
-Former PhD student with [[a:Marlene Scardamalia]], currently at Copenhagen Business School with [[a:Nobuko Fujita]] and [[a:Ravi Vatrapu]]. Wrote his PhD thesis on visualization in Knowledge Forum, created [[Knowledge Space Visualizer]].
-
-  * [[http://christopherteplovs.wordpress.com/|homepage]]
-
-{{page>abib:Christopher Teplovs}}

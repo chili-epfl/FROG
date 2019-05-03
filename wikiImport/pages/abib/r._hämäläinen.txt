@@ -1,3 +1,0 @@
-h2. R. Hämäläinen's publications
-
-| kobbe2007specifying | Kobbe, L., Weinberger, A., Dillenbourg, P., Harrer, A., Hämäläinen, R., Häkkinen, P., & Fischer, F. (2007). Specifying computer-supported collaboration scripts. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://kobbe2007specifying|PDF]]|

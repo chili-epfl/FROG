@@ -1,4 +1,0 @@
-h2. A.L. Brown's publications
-
-| [[..:ref:bransford2000people]] | Bransford, J. D., Brown, A. L., & Cocking, R. R. (2000). How people learn. DC National Academy Press Washington.|[[skimx://bransford2000people|PDF]]|
-| brown1987bandwidths | Brown, A. L., & Reeve, R. A. (1987). Bandwidths of competence: The role of supportive contexts in learning and development. Development and learning: Conflict or congruence.||

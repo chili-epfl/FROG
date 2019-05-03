@@ -1,4 +1,0 @@
-h2. Kelly A. Lack's publications
-
-| [@bowen2012current] | Bowen, W. G., & Lack, K. A. (2012). Current Status of Research on Online Learning in Postsecondary Education. Ithaka S+R.|
-| [@lack2013current] | Lack, K. A. (2013). Current Status of Research on Online Learning in Postsecondary Education.|

@@ -1,5 +1,0 @@
-h2. Hiroaki Ogata's publications
-
-| [@ogata2000combining] | Ogata, H., & Yano, Y. (2000). Combining knowledge awareness and information filtering in an open-ended collaborative learning environment. International Journal of Artificial Intelligence in Education, 11(1), 33--46.|
-| [@ogata2007supporting] | Ogata, H., Matsuura, K., & Yano, Y. (2007). Supporting awareness in distributed collaborative learning environments. The Role of Technology in CSCL, 173--191.|
-| [@soller2007design] | Soller, A., Ogata, H., & Hesse, F. (2007). Design, modeling, and analysis of collaborative learning. In H. U. Hoppe, H. Ogata & A. Soller (Eds.), The Role of Technology in {CSCL} (13--20). Boston, {MA}: Springer {US}. |

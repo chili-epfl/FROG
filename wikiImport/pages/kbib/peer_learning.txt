@@ -1,3 +1,0 @@
-h2. Publications with keyword "peer learning"
-
-| king2007structuring | King, A. (2007). Structuring Peer Interaction to Promote Higher-Order Thinking and Complex Learning in Cooperating Groups. The Teacher’s Role in Implementing Cooperative Learning in the Classroom. Springer. | [[skimx://king2007structuring|PDF]]|

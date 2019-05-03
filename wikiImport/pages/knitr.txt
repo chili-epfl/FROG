@@ -1,3 +1,0 @@
-h1. Knitr
-
-  * [[https://github.com/cboettig/knitcitations|cboettig/knitcitations · GitHub [https://github.com/]]]

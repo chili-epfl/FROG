@@ -1,3 +1,0 @@
-h1. Recently imported items
-
-^Note name ^ Note text ^

@@ -1,4 +1,0 @@
-h2. J.J. Jung's publications
-
-| hwang2010semantic | Hwang, D., Nguyen, N. T., Jung, J. J., Sadeghi-Niaraki, A., Baek, K. H., & Han, Y. S. (2010). A Semantic Wiki Framework for Reconciling Conflict Collaborations Based on Selecting Consensus Choice. Journal of Universal Computer Science.|[[skimx://hwang2010semantic|PDF]]|
-| jung2010collective | Jung, J. J. (2010). Collective Intelligence with Visualization and Multimedia. Journal of Universal Computer Science.|[[skimx://jung2010collective|PDF]]|

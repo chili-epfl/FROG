@@ -1,3 +1,0 @@
-h2. E.M. Jameson's publications
-
-| hickey2009designing | Hickey, D. T., Ingram-Goble, A. A., & Jameson, E. M. (2009). Designing assessments and assessing designs in virtual educational environments. Journal of Science Education and Technology. Springer.|[[skimx://hickey2009designing|PDF]]|

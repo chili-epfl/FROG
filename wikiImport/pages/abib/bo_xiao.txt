@@ -1,3 +1,0 @@
-h2. Bo Xiao's publications
-
-| [@xiao2005developing] | Xiao, B., MünzerStefan, & MühlpfordtMartin. (2005). Developing Flexible Groupware for Synchronous Cooperative Distance Learning. In Proceedings of the TESI 2005, March 22 - March 24, 2005, Maastricht, Netherlands. (Vol. 7, 7ff).|

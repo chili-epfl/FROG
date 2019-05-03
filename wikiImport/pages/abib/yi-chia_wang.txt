@@ -1,3 +1,0 @@
-h2. Yi-Chia Wang's publications
-
-| rose2008analyzing | Wang{Yi-Chia}, Cui, Y., Arguello, J., Stegmann, K., Weinberger, A., Fischer, F., & Rosé, C. P. (2008). Analyzing collaborative learning processes automatically: Exploiting the advances of computational linguistics in computer-supported collaborative learning. International Journal of {Computer-Supported} Collaborative Learning. doi: 10.1007/s11412-007-9034-0.|[[skimx://rose2008analyzing|PDF]]|

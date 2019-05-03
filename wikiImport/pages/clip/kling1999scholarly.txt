@@ -1,8 +1,0 @@
-h2. Highlights (1%)
-
-Scholarly publishing practices – especially those related to electronic publishing – are rapidly evolving and have not yet formed stable configurations. The cacophonous discourse about electronic publishing as a means of scholarly communication can be thematized around a series of issues that "are in the talk" as much as "in the published literature”: legitimacy of electronic publishing and electronic journals; whether electronic publishing will reduce overall costs, expand access to documentary materials, and in that sense democratize; whether scholars should vigorously embrace electronic publishing; how electronic publishing will affect traditional paper publishers; and how electronic publishing will affect research libraries. [[skimx://kling1999scholarly#3|p. 3]]
-
-::This is interesting:: [[skimx://kling1999scholarly#3|p. 3]]
-
-It is useful to begin by clarifying several concepts related to electronic publishing. We define an electronic publication as a document distributed primarily through electronic media. The distribution medium is the defining factor, since an electronic publication may well be printed to be read, and may be circulated post-publication in printed form. Conversely, most scholarly publications distributed in paper form were produced on personal computers, and even typeset using software. According this definition, an article posted on a Web page (under a variety of restrictions or conditions), an article distributed via e-mail, or via an e-mail-based distribution list are all electronic publications. [[skimx://kling1999scholarly#4|p. 4]]
-

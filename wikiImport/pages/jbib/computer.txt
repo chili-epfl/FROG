@@ -1,3 +1,0 @@
-h2. Publications in Computer
-
-| [[..:ref:roschelle2007ink]] | Roschelle, J., Tatar, D., Chaudbury, Sr., Dimitriadis, Y., Patton, C., & DiGiano, C. (2007). Ink, improvisation, and interactive engagement: Learning with tablets. Computer, 40(9), 42--48. IEEE.|[[skimx://roschelle2007ink|PDF]]|

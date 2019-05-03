@@ -1,8 +1,0 @@
-h1. The Statistical Sleuth
-
-//I will use these page to gather notes from [[http://www.science.oregonstate.edu/~schafer/Sleuth/|The Statistical Sleuth]] as I go through it. Later I might reorganize and move this to more general pages on statistics.//
-
-{{pagequery>@tss: *;sort=a;title;cols=1;nostart}}
-
-[[http://www.math.smith.edu/~nhorton/sleuth3/|Download R example files]]
-~~NOCACHE~~

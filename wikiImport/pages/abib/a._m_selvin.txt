@@ -1,4 +1,0 @@
-h2. A. M Selvin's publications
-
-| :ref:buckinghamshum2006hypermedia | Buckingham Shum, S., Selvin, A. M., Sierhuis, M., Conklin, J., Haley, C. B., & Nuseibeh, B. (2006). Hypermedia support for argumentation-based rationale: 15 years on from {gIBIS} and {QOC}. Retrieved from http://oro.open.ac.uk/3032/.|
-| :ref:buckinghamshum2006hypermedia | Buckingham Shum, S., Selvin, A. M., Sierhuis, M., Conklin, J., Haley, C. B., & Nuseibeh, B. (2006). Hypermedia support for argumentation-based rationale: 15 years on from {gIBIS} and {QOC}. Retrieved from http://oro.open.ac.uk/3032/.|

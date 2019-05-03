@@ -1,8 +1,0 @@
-h2. Publications in Journal of Computer-Mediated Communication
-
-| [@herring1999interactional] | Herring, S. (1999). Interactional coherence in CMC. Journal of Computer-Mediated Communication, 4(4), 0--0.|
-| [@turoff1999collaborative] | Turoff, M., Hiltz, S. R., Bieber, M., Fjermestad, J., & Rana, A. (1999). Collaborative discourse structures in computer mediated group communications. Journal of Computer-Mediated Communication, 4(4), 0--0.|
-| [@kanuka2005exploration] | Kanuka, H. (2005). An exploration into facilitating higher levels of learning in a text-based Internet learning environment using diverse instructional strategies. Journal of Computer-Mediated Communication, 10(3), 00–00.|
-| [@heckman2005content] | Heckman, R., & Annabi, H. (2005). A Content Analytic Comparison of Learning Processes in Online and Face-to-Face Case Study Discussions. Journal of Computer-Mediated Communication, 10(2), 00–00.|
-| [@bos2007from] | Bos, N., Zimmerman, A., Olson, J., Yew, J., Yerkie, J., Dahl, E., & Olson, G. (2007). From shared databases to communities of practice: A taxonomy of collaboratories. Journal of Computer-Mediated Communication, 12(2). doi:10.1111/j.1083-6101.2007.00343.x|
-| [@greenhow2009communication] | Greenhow, C., & Robelia, B. (2009). Old Communication, New Literacies: Social Network Sites as Social Learning Resources. Journal of Computer-Mediated Communication, 14(4), 1130-1161. doi:10.1111/j.1083-6101.2009.01484.x|

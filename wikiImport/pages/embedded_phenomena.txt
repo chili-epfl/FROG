@@ -1,4 +1,0 @@
-h1. Embedded phenomena
-
-h2. People
-  * [[http://www.evl.uic.edu/moher/Tom_Moher/Home.html|Tom Moher]] at [[University of Illinois at Chicago]]

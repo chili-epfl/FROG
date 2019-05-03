@@ -1,3 +1,0 @@
-h2. T. Engelmann's publications
-
-| [[..:ref:engelmann2010digital]] | Engelmann, T., & Hesse, F. W. (2010). How digital concept maps about the collaborators’ knowledge and information influence computer-supported collaborative problem solving. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://engelmann2010digital|PDF]]|

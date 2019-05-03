@@ -1,3 +1,0 @@
-h2. Aiman Badri's publications
-
-| [@badri2003evaluation] | Badri, A., Grasso, F., & Leng, P. (2003). Evaluation of Discussions in Online Classrooms. In V. Palade, R. Howlett & L. Jain (Eds.), Knowledge-Based Intelligent Information and Engineering Systems, Lecture Notes in Computer Science (Vol. 2774, 193-200). Springer Berlin / Heidelberg. |

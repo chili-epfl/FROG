@@ -1,7 +1,0 @@
-h1. Html
-
-  * [[http://foundation.zurb.com/|Foundation: Rapid Prototyping and Building Framework from ZURB]]
-----
-  * [[http://getskeleton.com/|Skeleton: Beautiful Boilerplate for Responsive, Mobile-Friendly Development]]
-  * [[http://www.99lime.com/|HTML KickStart - Ultra–Lean HTML Building Blocks for Rapid Website Production - KickStart your Website Production - 99Lime.com]]
-  * [[http://www.bentobox.io/|Bento]]

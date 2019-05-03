@@ -1,3 +1,0 @@
-h2. Kinshuk's publications
-
-| [@lan2011enrichment] | Lan{Chung-Hsien}, Graf, S., Lai, K. R., & Kinshuk. (2011). Enrichment of Peer Assessment with Agent Negotiation. {IEEE} Transactions on Learning Technologies, 4(1), 35--46. doi:10.1109/TLT.2010.30|

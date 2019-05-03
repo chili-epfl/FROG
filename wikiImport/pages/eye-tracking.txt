@@ -1,5 +1,0 @@
-h1. Eye-tracking
-
-h2. People
-  * [[a:Pierre Dillenbourg]], [[a:Patrick Jermann]] and [[a:Marc-Antoine Nüssli]] at CRAFT EPFL, research on CSCL and eye-tracking, double eye-tracking, and eye-tracking as deixis [[http://craft.epfl.ch/lang/en/DualEyeTracking|link]]
-  * [[http://www.cogain.org/wiki/Eye_Trackers|List of eye tracking software]]

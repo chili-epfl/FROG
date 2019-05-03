@@ -1,4 +1,0 @@
-h2. Barry Harper's publications
-
-| [@agostinho2011future] | Agostinho, S., Bennett, S., Lockyer, L., & Harper, B. (2011). The future of learning design. Learning, Media and Technology, 36(2), 97--99. doi:10.1080/17439884.2011.553619|
-| [@bennett2011understanding] | Bennett, S., Thomas, L., Agostinho, S., Lockyer, L., Jones, J., & Harper, B. (2011). Understanding the design context for Australian university teachers: implications for the future of learning design. Learning, Media and Technology, 36(2), 151--167. doi:10.1080/17439884.2011.553622|

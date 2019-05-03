@@ -1,7 +1,0 @@
-h2. Jerry Andriessen's publications
-
-| [@andriessen2003argumentation] | Andriessen, J., Baker, M., & Suthers, D. D. (2003). Argumentation, computer support, and the educational context of confronting cognitions. Arguing to learn: Confronting cognitions in computer-supported collaborative learning environments, 1, 1–25.|
-| [@andriessen2003arguing] | Andriessen, J., Baker, M., & Suthers, D. D. (2003). Arguing to learn: confronting cognitions in computer-supported collaborative learning environments. Springer.|
-| [@andriessen2006arguing] | Andriessen, J. (2006). Arguing to learn. In K. Sawyer (Ed.), Handbook of the Learning Sciences (443-459). Cambridge University Press. |
-| [@baker2007rainbow] | Baker, M., Andriessen, J., Lund, K., Amelsvoort, M., & Quignard, M. (2007). Rainbow: A framework for analysing computer-mediated pedagogical debates. International Journal of Computer-Supported Collaborative Learning, 2(2-3), 315-357. doi:10.1007/s11412-007-9022-4|
-| [@andriessen2009argumentative] | Andriessen, J., & Schwarz, B. B. (2009). Argumentative design. Argumentation and Education, 145--174. |

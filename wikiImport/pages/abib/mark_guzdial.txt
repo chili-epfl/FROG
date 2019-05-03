@@ -1,4 +1,0 @@
-h2. Mark Guzdial's publications
-
-| [@guzdial2001beyond] | Guzdial, M., Rick, J., & Kehoe, C. (2001). Beyond Adoption to Invention: Teacher-Created Collaborative Activities in Higher Education. Journal of the Learning Sciences, 10(3), 265-279. doi:10.1207/S15327809JLS1003_2|
-| [@rick2006situating] | Rick, J., & Guzdial, M. (2006). Situating CoWeb: a scholarship of application. International Journal of Computer-Supported Collaborative Learning, 1(1), 89-115. doi:10.1007/s11412-006-6842-6|

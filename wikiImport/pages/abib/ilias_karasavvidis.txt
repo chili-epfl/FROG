@@ -1,3 +1,0 @@
-h2. Ilias Karasavvidis's publications
-
-| [@karasavvidis2010wikibooks] | Karasavvidis, I. (2010). Wikibooks as Tools for Promoting Constructivist Learning in Higher Education: Findings from a Case Study. In K. Elleithy, T. Sobh, M. Iskander, V. Kapila, M. A. Karim & A. Mahmood (Eds.), Technological Developments in Networking, Education and Automation (133--138). Dordrecht: Springer Netherlands. |

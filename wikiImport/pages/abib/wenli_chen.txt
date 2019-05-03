@@ -1,3 +1,0 @@
-h2. Wenli Chen's publications
-
-| [@chen2009integrating] | Chen, W., Looi, C.-K., & Tan, S. (2009). Integrating CMC and verbal discussions in students' collaborative learning in a F2F classroom. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1 (315--319). |

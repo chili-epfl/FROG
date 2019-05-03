@@ -1,4 +1,0 @@
-h2. Paul Resta's publications
-
-| [@christal1997schools] | Christal, M., Ferneding, K., Kennedy-Puthoff, A., & Resta, P. (1997). Schools as knowledge-building communities. Texas Center for Educational Technology. |
-| [@resta2007technology] | Resta, P., & LaferrièreThérèse. (2007). Technology in Support of Collaborative Learning. Educational Psychology Review, 19(1), 65--83. doi:10.1007/s10648-007-9042-7|

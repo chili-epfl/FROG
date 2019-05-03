@@ -1,3 +1,0 @@
-h2. Publications with keyword "lecture"
-
-| [@topping1996effectiveness] | Topping{K.J.}. (1996). The effectiveness of peer tutoring in further and higher education: A typology and review of the literature. Higher education, 32(3), 321–345.|

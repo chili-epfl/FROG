@@ -1,3 +1,0 @@
-h2. Herbert Hrachovec's publications
-
-| [@hrachovec2009socrates] | Hrachovec, H. (2009, March). Socrates, Truth and Peer Production. Manchester {(UK)}. |

@@ -1,3 +1,0 @@
-h2. DH Jonassen's publications
-
-| [@oh2007scaffolding] | Oh, S., & Jonassen, Dh. (2007). Scaffolding online argumentation during problem solving. Journal of Computer Assisted Learning, 23(2), 95--110.|

@@ -1,3 +1,0 @@
-h2. Jeffrey Huang's publications
-
-| [@dillenbourg2008interactive] | Dillenbourg, P., Huang, J., & Cherubini, M. (2008). Interactive artifacts and furniture supporting collaborative work and learning. Springer Verlag.|

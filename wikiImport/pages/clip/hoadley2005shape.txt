@@ -1,4 +1,0 @@
-h2. Highlights
-
-::Participation in CSCL from 1995-2003. Mostly N-Am and Europe, also some Asia. People involved tend to stay involved for some time. Some overlap with learning sciences, primarily in North America. Mainly people from ed, psych and CS.:: [[skimx://hoadley2005shape#6|p. 6]]
-

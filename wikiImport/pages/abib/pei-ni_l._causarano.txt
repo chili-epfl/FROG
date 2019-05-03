@@ -1,3 +1,0 @@
-h2. Pei-Ni L. Causarano's publications
-
-| ke2011identity | Ke, F., Chávez, A. F., Causarano{Pei-Ni} L., & Causarano, A. (2011). Identity presence and knowledge building: Joint emergence in online learning environments?. International Journal of {Computer-Supported} Collaborative Learning. doi: 10.1007/s11412-011-9114-z.|[[skimx://ke2011identity|PDF]]|

@@ -1,3 +1,0 @@
-h2. J. Park's publications
-
-| buckinghamshum2010software | Buckingham Shum, S., Sierhuis, M., Park, J., & Brown, M. (2010). Software agents in support of human argument mapping. Retrieved from http://oro.open.ac.uk/22344/.|[[skimx://buckinghamshum2010software|PDF]]|

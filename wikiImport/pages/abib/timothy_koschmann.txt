@@ -1,9 +1,0 @@
-h2. Timothy Koschmann's publications
-
-| [@stahl2006computersupported] | Stahl, G., Koschmann, T., & Suthers, D. D. (2006). Computer-supported collaborative learning: An historical perspective. Cambridge handbook of the learning sciences, 2006.|
-| [@koschmann1999computer] | Koschmann, T. (1999). Computer Support for Collaboration and Learning. Journal of the Learning Sciences, 8(3-4), 495-497. doi:10.1080/10508406.1999.9672077|
-| [@koschmann2000future] | Koschmann, T. (2000). The Future of Work. Journal of the Learning Sciences, 9(4), 501-503. doi:10.1207/S15327809JLS0904_5|
-| [@koschmann2002deweys] | Koschmann, T. (2002). Dewey's contribution to the foundations of CSCL research. In Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community, CSCL '02 (17--22). International Society of the Learning Sciences. |
-| [@koschmann2003influence] | Koschmann, T. (2003). {The Influence of Knowledge Modeling on the Communication Process}. differences, (1), 1--6.|
-| [@koschmann2005people] | Koschmann, T., Zemel, A., Conlee-Stevens, M., Young, N. P., Robbs, J. E., & Barnhart, A. (2005). How Do People Learn?. Barriers and Biases in Computer-Mediated Knowledge Communication, 265--294.|
-| [@zemel2005usability] | Zemel, A., Koschmann, T., LeBaron, C., & Feltovich, P. (2005). Usability as an interactional resource: Deictic management of scene formulation. In Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years! (743--752).|

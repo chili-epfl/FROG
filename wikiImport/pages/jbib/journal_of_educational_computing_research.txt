@@ -1,8 +1,0 @@
-h2. Publications in Journal of Educational Computing Research
-
-| [@scardamalia1989computersupported] | Scardamalia, M., Bereiter, C., {McLean}R. S, Swallow, J., & Woodruff, E. (1989). Computer-supported intentional learning environments. Journal of Educational Computing Research, 5(1), 51–68.|
-| [@hewitt2003habitual] | Hewitt, J. (2003). How habitual online practices affect the development of asynchronous discussion threads. Journal of Educational Computing Research, 28(1), 31--45.|
-| [@wise2004effects] | Wise, A., Chang, J., Duffy, T., & del Valle, R. (2004). The effects of teacher social presence on student satisfaction, engagement, and learning. Journal of Educational Computing Research, 31(3), 247--271.|
-| [@azevedo2004can] | Azevedo, R., Winters, F. I., & Moos, D. C. (2004). Can students collaboratively use hypermedia to learn science? The dynamics of self-and other-regulatory processes in an ecology classroom. Journal of Educational Computing Research, 31(3), 215--245. |
-| [@hmelo2006introduction] | Hmelo-Silver, C. E. (2006). Introduction: Cognitive tools for collaborative communities. Journal of Educational Computing Research, 35(2), 97--102.|
-| [@stahl2006supporting] | Stahl, G. (2006). Supporting group cognition in an online math community: A cognitive tool for small-group referencing in text chat. Journal of Educational Computing Research, 35(2), 103--122.|

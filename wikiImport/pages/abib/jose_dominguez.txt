@@ -1,3 +1,0 @@
-h2. Jose Dominguez's publications
-
-| [@dominguez2011p2pu] | Dominguez, J. (2011). P2PU + Open Wonderland = Learning virtual worlds development with and from each other. In Journal of Virtual Studies.|

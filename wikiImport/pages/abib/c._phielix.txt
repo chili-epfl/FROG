@@ -1,3 +1,0 @@
-h2. C. Phielix's publications
-
-| slof2010fostering | Slof, B., Erkens, G., Kirschner, P. A., Janssen, J., & Phielix, C. (2010). Fostering complex learning-task performance through scripting student use of computer supported representational tools. Computers \& Education. Elsevier.|[[skimx://slof2010fostering|PDF]]|

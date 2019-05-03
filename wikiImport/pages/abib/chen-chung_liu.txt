@@ -1,3 +1,0 @@
-h2. Chen-Chung Liu's publications
-
-| collins2009longtail | Collins, A., Fischer, G., Barron, B., Liu, C.-C., & Spada, H. (2009). Long-tail learning: a unique opportunity for CSCL?. Proceedings of the 9th international conference on Computer supported collaborative learning - Volume 2, CSCL'09. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1599503.1599512.|[[skimx://collins2009longtail|PDF]]|

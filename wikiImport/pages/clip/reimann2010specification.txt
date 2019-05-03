@@ -1,6 +1,0 @@
-h2. Highlights (0%)
-
-4.2.3 Conducting retrospective analyses While for the purpose of improving learning the development of a domain-specific instructional theory is sufficient, most learning researchers (as distinct from educational practitioners) will aspire to make contributions to general or, at least, domain-specific learning theories. This requires placing a specific study into a broader theoretical context, by framing it as a paradigmatic case of a more encompassing phenomenon. As in all approaches, methodological concerns regarding the trustworthiness and generalizability of findings as well as the repeatability of the design need to be addressed. These questions are well discussed in the literature. For example, Cobb and Gravemeijer provide a short treatment of these aspects specific to DBR [Cobb, 2008], Yin for case studies [Yin, 2003], and Miles and Huberman for qualitative methods in general [Miles, 1994]. At a deep conceptual level, satisfying these concerns ultimately depends on the logic of the method, or its argumentative grammar: (a) what it legitimates as evidence; and (b) how evidence is related to inferences and conclusions. [[skimx://reimann2010specification#17|p. 17]]
-
-10 References [[skimx://reimann2010specification#38|p. 38]]
-

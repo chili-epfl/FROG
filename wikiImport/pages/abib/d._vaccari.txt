@@ -1,3 +1,0 @@
-h2. D. Vaccari's publications
-
-| teixeira2004vchat | Teixeira, M. C., Vaccari, D., Sangalli, M., & Schwietering, J. (2004). V-CHAT-Versatile Chat. Citeseer.|[[skimx://teixeira2004vchat|PDF]]|

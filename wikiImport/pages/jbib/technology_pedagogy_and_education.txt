@@ -1,3 +1,0 @@
-h2. Publications in Technology, Pedagogy and Education
-
-| vandrie2005using | Van Drie, J., Van Boxtel, C., Erkens, G., & Kanselaar, G. (2005). Using representational tools to support historical reasoning in computer-supported collaborative learning. Technology, Pedagogy and Education, 14(1), 25--41. Taylor \& Francis.|[[skimx://vandrie2005using|PDF]]|

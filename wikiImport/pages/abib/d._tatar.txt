@@ -1,6 +1,0 @@
-h2. D. Tatar's publications
-
-| [[..:ref:digiano2006learning]] | DiGiano, C., Tatar, D., & Kireyev, K. (2006). Learning from the Post-It: Building collective intelligence through lightweight, flexible technology. Conference on Computer Supported Cooperative Work Companion, Banff. http://Group Scribbles. sri. com/publications/index. html.|[[skimx://digiano2006learning|PDF]]|
-| [[..:ref:roschelle2007ink]] | Roschelle, J., Tatar, D., Chaudbury, Sr., Dimitriadis, Y., Patton, C., & DiGiano, C. (2007). Ink, improvisation, and interactive engagement: Learning with tablets. Computer. IEEE.|[[skimx://roschelle2007ink|PDF]]|
-| brecht2007coordinating | Brecht, J., DiGiano, C., Patton, C., Tatar, D., Chaudhury, S. R., Roschelle, J., & Davis, K. (2007). Coordinating networked learning activities with a general-purpose Interface.|[[skimx://brecht2007coordinating|PDF]]|
-| dimitriadis2007socially | Dimitriadis, Y., Asensio-Pérez, J. I., Hernández-Leo, D., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|[[skimx://dimitriadis2007socially|PDF]]|

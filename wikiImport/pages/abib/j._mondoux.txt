@@ -1,3 +1,0 @@
-h2. J. Mondoux's publications
-
-| mondoux2004abstraction | Mondoux, J., Auderset, P. B., & Dillenbourg, P. (2004). Abstraction and transfer in collaborative learning. Proceedings of the 6th international conference on Learning sciences.|[[skimx://mondoux2004abstraction|PDF]]|

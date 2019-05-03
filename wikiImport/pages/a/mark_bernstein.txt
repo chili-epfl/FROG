@@ -1,8 +1,0 @@
-h1. Mark Bernstein
-
-Chief architect of [[Tinderbox]], author of [[The Tinderbox way]]. 
-
-  * [[http://www.markbernstein.org/|homepage]]
-  * [[http://www.markbernstein.org/CV/MarkBernstein.html|CV]]
-
-{{page>abib:Mark Bernstein}}

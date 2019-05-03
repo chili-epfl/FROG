@@ -1,5 +1,0 @@
-h1. Getting Things Done
-
-Book by David Allen on productivity. 
-
-  * [[http://www.davidco.com/|Getting Things Done]]

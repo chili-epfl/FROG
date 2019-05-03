@@ -1,5 +1,0 @@
-h2. J. Lonchamp's publications
-
-| lonchamp2006supporting | Lonchamp, J. (2006). Supporting synchronous collaborative learning: A generic, multi-dimensional model. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://lonchamp2006supporting|PDF]]|
-| lonchamp2008interaction | Lonchamp, J. (2008). Interaction analysis supporting participants’ self-regulation in a generic CSCL system. Times of Convergence. Technologies Across Learning Contexts. Springer.|[[skimx://lonchamp2008interaction|PDF]]|
-| lonchamp2009three | Lonchamp, J. (2009). A three-level analysis of collaborative learning in dual-interaction spaces. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://lonchamp2009three|PDF]]|

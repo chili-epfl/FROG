@@ -1,6 +1,0 @@
-h2. J. Oshima's publications
-
-| :ref:oshima1996collaborative | Oshima, J., Scardamalia, M., & Bereiter, C. (1996). Collaborative learning processes associated with high and low conceptual progress. Instructional Science.|
-| :ref:oshima1995information-access | Oshima, J., Bereiter, C., & Scardamalia, M. (1995). Information-access characteristics for high conceptual progress in a computer-networked learning environment. The first international conference on Computer support for collaborative learning.|
-| :ref:oshima1996collaborative | Oshima, J., Scardamalia, M., & Bereiter, C. (1996). Collaborative learning processes associated with high and low conceptual progress. Instructional Science.|
-| :ref:oshima1995information-access | Oshima, J., Bereiter, C., & Scardamalia, M. (1995). Information-access characteristics for high conceptual progress in a computer-networked learning environment. The first international conference on Computer support for collaborative learning.|

@@ -1,3 +1,0 @@
-h2. Jonathan Sewall's publications
-
-| [@aleven2009scaling] | Aleven, V., McLaren, B. M., & Sewall, J. (2009). Scaling Up Programming by Demonstration for Intelligent Tutoring Systems Development: An {Open-Access} Web Site for Middle School Mathematics Learning. {IEEE} Transactions on Learning Technologies, 2(2), 64--78. doi:10.1109/TLT.2009.22|

@@ -1,5 +1,0 @@
-h1. CSCL tools
-
-{{pagequery>@^t: *;sort=a;title;group;cols=3;nostart}}
-
-~~NOCACHE~~

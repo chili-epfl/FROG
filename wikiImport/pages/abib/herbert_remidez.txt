@@ -1,3 +1,0 @@
-h2. Herbert Remidez's publications
-
-| [@jonassen2002mapping] | Jonassen, D., & Remidez, H. (2002). Mapping alternative discourse structures onto computer conferences. In Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community, CSCL '02 (237--244). International Society of the Learning Sciences. |

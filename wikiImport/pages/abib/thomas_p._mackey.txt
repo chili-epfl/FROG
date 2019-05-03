@@ -1,3 +1,0 @@
-h2. Thomas P. Mackey's publications
-
-| [@mackey2011transparency] | Mackey, T. P. (2011). Transparency as a catalyst for interaction and participation in open learning environments. First Monday, 16(10). |

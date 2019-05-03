@@ -1,3 +1,0 @@
-h2. Ágnes Sándor's publications
-
-| [@deliddo2012contested] | De Liddo, A., SándorÁgnes, & Buckingham Shum, S. (2012). Contested Collective Intelligence: Rationale, Technologies, and a Human-Machine Annotation Study. Computer Supported Cooperative Work (CSCW), 1--32.|

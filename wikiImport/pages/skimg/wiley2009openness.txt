@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:wiley2009openness0.png}}
-
-[[skimx://wiley2009openness#8|p. 8]]
-----
-

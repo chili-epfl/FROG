@@ -1,9 +1,0 @@
-h2. Michael Oehl's publications
-
-| [@oehl2005using] | Oehl, M., & PfisterHans-Rüdiger. (2005). Using learning protocols for knowledge acquisition and problem solving with individual and group incentives. In Proceedings of the EDMEDIA 2005 World Conference on Educational Multimedia, Hypermedia \& Telecommunications (2097--2103).|
-| [@oehl2007use] | Oehl, M., & PfisterHans-Rüdiger. (2007). The Use of Learning Protocols for Re-Learning in CSCL. In Proceedings of ED-MEDIA 2007 World Conference on Educational Multimedia, Hypermedia \& Telecommunications (1902--1907).|
-| [@oehl2008knowledge] | Oehl, M., & PfisterHans-Rüdiger. (2008). Knowledge Acquisition and Problem Solving in CSCL with Learning Protocols: Effects of Different Scripting Strategies.|
-| [@oehl2008relearning] | Oehl, M., & PfisterHans-Rüdiger. (2008). Re-Learning in CSCL with Learning Protocols: Which Replay Formats are beneficial?.|
-| [@oehl2008global] | Oehl, M., PfisterHans-Rüdiger, & Gilge, A. (2008). Global text processing in CSCL with learning protocols: a coding scheme for eye movement analyses. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3 (103--104).|
-| [@pfister2009impact] | PfisterHans-Rüdiger, & Oehl, M. (2009). The impact of goal focus, task type and group size on synchronous net-based collaborative learning discourses. Journal of Computer Assisted Learning, 25(2), 161--176.|
-| [@oehl2009explicit] | Oehl, M., & PfisterHans-Rüdiger. (2009). Explicit references in chat-based CSCL: do they facilitate global text processing? evidence from eye movement analyses. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 2 (138--140).|

@@ -1,3 +1,0 @@
-h2. Publications with keyword "workshop"
-
-| [@gunn2008creating] | Gunn, A. (2008). Creating Participatory Events.|

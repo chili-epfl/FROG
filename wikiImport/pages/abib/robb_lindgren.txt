@@ -1,3 +1,0 @@
-h2. Robb Lindgren's publications
-
-| [@pea2008video] | Pea, R. D., & Lindgren, R. (2008). Video Collaboratories for Research and Education: An Analysis of Collaboration Design Patterns. {IEEE} Transactions on Learning Technologies, 1(4), 235--247. doi:10.1109/TLT.2009.5|

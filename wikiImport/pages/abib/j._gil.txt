@@ -1,3 +1,0 @@
-h2. J. Gil's publications
-
-| schwarz2009human | Schwarz, B. B., Asterhan, C. S. C., & Gil, J. (2009). Human guidance of synchronous e-discussions: The effects of different moderation scripts on peer argumentation. Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 1.|[[skimx://schwarz2009human|PDF]]|

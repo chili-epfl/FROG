@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:baraniuk2002connexions0.png}}
-
-[[skimx://baraniuk2002connexions#1|p. 1]]
-----
-

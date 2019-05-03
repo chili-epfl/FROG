@@ -1,3 +1,0 @@
-h2. David N. Perkins's publications
-
-| [[..:ref:salomon1998individual]] | Salomon, G., & Perkins, D. N. (1998). Individual and social aspects of learning. Review of research in education. JSTOR.|[[skimx://salomon1998individual|PDF]]|

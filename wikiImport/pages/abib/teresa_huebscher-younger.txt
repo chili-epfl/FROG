@@ -1,5 +1,0 @@
-h2. Teresa Hübscher-Younger's publications
-
-| [[..:ref:hubscher2003authority]] | Hübscher-Younger, T., & Narayanan, N. H. (2003). Authority and convergence in collaborative learning. Computers \& Education. Elsevier.|[[skimx://hubscher2003authority|PDF]]|
-| hubscher2002influence | Hübscher-Younger, T., & Narayanan, N. H. (2002). Influence of authority on convergence in collaborative learning. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community.|[[skimx://hubscher2002influence|PDF]]|
-| hubscher2003designing | Hübscher-Younger, T., & Narayanan, N. H. (2003). Designing for divergence. Proceedings of the Computer Support for Collaborative Learning Conference.|[[skimx://hubscher2003designing|PDF]]|

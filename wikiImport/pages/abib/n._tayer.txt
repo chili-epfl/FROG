@@ -1,3 +1,0 @@
-h2. N. Tayer's publications
-
-| schwarz2010perspective | Schwarz, B. B., Schur, Y., Pensso, H., & Tayer, N. (2010). Perspective taking and synchronous argumentation for learning the day/night cycle. International Journal of Computer-Supported Collaborative Learning. Springer.|[[skimx://schwarz2010perspective|PDF]]|

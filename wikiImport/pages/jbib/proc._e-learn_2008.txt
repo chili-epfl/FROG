@@ -1,3 +1,0 @@
-h2. Publications in Proc. E-Learn 2008
-
-| maejima2008ellipsis | Maejima, M., & Tamura, Y. (2008). Ellipsis resolution with use of case analysis for CSCL discussion search. Proc. E-Learn 2008, 3793--3800.|[[skimx://maejima2008ellipsis|PDF]]|

@@ -1,5 +1,0 @@
-h1. Text Mining
-
-
-----
-  * [[http://kmi.open.ac.uk/people/member/fridolin-wild|Fridolin Wild | Knowledge Media Institute | The Open University]]

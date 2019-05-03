@@ -1,9 +1,0 @@
-h1. Ibis
-
-
-----
-  * [[http://knowledgegardens.wordpress.com/|Knowledge Gardens - Jack Park KMI]]
-----
-  * [[http://www.topicspaces.org:8888/|TopicQuests - IBIS]]
-----
-  * [[http://ideamappingsuccess.com/|Idea Mapping Success - Learn how to Idea Map]]

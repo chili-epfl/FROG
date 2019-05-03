@@ -1,4 +1,0 @@
-h2. Susan Land's publications
-
-| [@land2003scaffolding] | Land, S., & Zembal-Saul, C. (2003). Scaffolding reflection and articulation of scientific explanations in a data-rich, project-based learning environment: An investigation of progress portfolio. Educational Technology Research and Development, 51(4), 65--84.|
-| [@xun2004conceptual] | Xun, Ge., & Land, S. (2004). A conceptual framework for scaffolding III-structured problem-solving processes using question prompts and peer interactions. Educational Technology Research and Development, 52(2), 5-22. |

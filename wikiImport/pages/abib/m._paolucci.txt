@@ -1,4 +1,0 @@
-h2. M. Paolucci's publications
-
-| :ref:suthers1995belvedere | Suthers, D., Weiner, A., Connelly, J., & Paolucci, M. (1995). Belvedere: Engaging students in critical discussion of science and public policy issues. Proceedings of the 7th World Conference on Artificial Intelligence in Education.|
-| :ref:suthers1995belvedere | Suthers, D., Weiner, A., Connelly, J., & Paolucci, M. (1995). Belvedere: Engaging students in critical discussion of science and public policy issues. Proceedings of the 7th World Conference on Artificial Intelligence in Education.|

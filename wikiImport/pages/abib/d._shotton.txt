@@ -1,3 +1,0 @@
-h2. D. Shotton's publications
-
-| shotton2009semantic | Shotton, D. (2009). {Semantic publishing: the coming revolution in scientific journal publishing}. Learned Publishing. Association of Learned and Professional Society Publishers.|[[skimx://shotton2009semantic|PDF]]|

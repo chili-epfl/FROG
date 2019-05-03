@@ -1,3 +1,0 @@
-h2. Publications in Knowledge Acquisition
-
-| ford1991iconkat | Ford, K., Canas, A., Jones, J., Stahl, H., Novak, J., & Adams-Webber, J. (1991). ICONKAT: An integrated constructivist knowledge acquisition tool. Knowledge Acquisition, 3(2), 215--236. Elsevier.|[[skimx://ford1991iconkat|PDF]]|

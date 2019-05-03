@@ -1,3 +1,0 @@
-h1. Knowledge Maps
-
-  * [[https://sites.google.com/site/mappingrules/|Mapping Rules]]

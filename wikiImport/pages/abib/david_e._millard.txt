@@ -1,3 +1,0 @@
-h2. David E. Millard's publications
-
-| [@bernstein2002writing] | Bernstein, M., Millard, D. E., & Weal, M. J. (2002). On writing sculptural Hypertext. In Proceedings of the thirteenth ACM conference on Hypertext and hypermedia, HYPERTEXT '02 (65--66). New York, NY, USA: ACM. doi:http://doi.acm.org/10.1145/513338.513355|

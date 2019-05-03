@@ -1,4 +1,0 @@
-h2. Christine Hine's publications
-
-| [@hine2008virtual] | Hine, C. (2008). Virtual ethnography: Modes, varieties, affordances. The SAGE handbook of online research methods, 257--270.|
-| [@hine2000virtual] | Hine, C. (2000). Virtual Ethnography. Sage Publications Ltd.|

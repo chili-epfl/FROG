@@ -1,5 +1,0 @@
-h2. Hans Põldoja's publications
-
-| [@poldoja2010edufeedr] | PõldojaHans. (2010). EduFeedr-following and supporting learners in open blog-based courses.|
-| [@leinonen2010information] | Leinonen, T., Purma, J., PõldojaHans, & Toikkanen, T. (2010). Information Architecture and Design Solutions Scaffolding Authoring of Open Educational Resources. {IEEE} Transactions on Learning Technologies, 3(2), 116--128. doi:10.1109/TLT.2010.2|
-| [@valjataga2011open] | VäljatagaT., PõldojaHans, & Laanpere, M. (2011). Open Online Courses: Responding to Design Challenges. In H. Ruokamo, M. Eriksson, L. Pekkala & VuojärviH. (Eds.), Proceedings of the 4th International Network-Based Education 2011 Conference The Social Media in the Middle of Nowhere (68-7).|

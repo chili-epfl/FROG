@@ -1,3 +1,0 @@
-h2. Publications with keyword "memory"
-
-| [@bowler2012design] | Bowler, L., & Mattern, E. (2012). Design techniques for revealing adolescent memory processes related to information seeking: a preliminary study. In Proceedings of the 2012 iConference (1–9).|

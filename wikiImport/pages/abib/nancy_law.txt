@@ -1,4 +1,0 @@
-h2. Nancy Law's publications
-
-| [@lu2010collaborative] | Lu, J., Chiu, M. M., & Law, N. (2010). Collaborative argumentation and justifications: A statistical discourse analysis of online discussions. Computers in Human Behavior.|
-| [@law2011understanding] | Law, N., Yuen, J., Wong, W. O. W., & Leng, J. (2011). Understanding Learners’ Knowledge Building Trajectory Through Visualizations of Multiple Automated Analyses. Analyzing Interactions in CSCL, 47--82.|

@@ -1,4 +1,0 @@
-h2. L.E. Girardeau's publications
-
-| :ref:suthers2003exploratory | Suthers, D., Hundhausen, C. D., & Girardeau, L. E. (2003). {An exploratory comparison of the roles of representations in face to face and online collaborative learning}. 36th Annual Hawaii International Conference on System Sciences, 2003. Proceedings of the. Ieee. doi: 10.1109/HICSS.2003.1173740.|
-| :ref:suthers2003exploratory | Suthers, D., Hundhausen, C. D., & Girardeau, L. E. (2003). {An exploratory comparison of the roles of representations in face to face and online collaborative learning}. 36th Annual Hawaii International Conference on System Sciences, 2003. Proceedings of the. Ieee. doi: 10.1109/HICSS.2003.1173740.|

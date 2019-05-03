@@ -1,3 +1,0 @@
-h2. Publications in Computers \& Graphics
-
-| [[..:ref:anderson2005study]] | Anderson, R., Anderson, R., Hoyer, C., Prince, C., Su, J., Videon, F., & Wolfman, S. (2005). A study of diagrammatic ink in lecture. Computers \& Graphics, 29(4), 480--489. Elsevier.||

@@ -1,3 +1,0 @@
-h2. Matthew Kearney's publications
-
-| [@kearney2011learning] | Kearney, M. (2011). A learning design for student-generated digital storytelling. Learning, Media and Technology, 36(2), 169--188. doi:10.1080/17439884.2011.553623|

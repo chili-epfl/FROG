@@ -1,5 +1,0 @@
-h2. Stephen Downes's publications
-
-| [@downes2008places] | Downes, S. (2008). Places to go: Connectivism & connective knowledge. Innovate Online, 5(1).|
-| [@downes2011lecture] | Downes, S. (2011). The Lecture Must Stand. In Follow the Sun.|
-| [@downes2012connectivism] | Downes, S. (2012). Connectivism and connective knowledge: essays on meaning and learning networks. |

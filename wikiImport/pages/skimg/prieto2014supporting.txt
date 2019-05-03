@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:prieto2014supporting0.png}}
-
-[[skimx://prieto2014supporting#8|p. 8]]
-----
-

@@ -1,3 +1,0 @@
-h2. B. Hendricks's publications
-
-| [[..:ref:baraniuk2004peer]] | Baraniuk, R., Henry, G., & Hendricks, B. (2004). Peer to Peer Collaboration with Connexions. {EDUCAUSE} 2004 Annual Conference. Denver, Colorado.||

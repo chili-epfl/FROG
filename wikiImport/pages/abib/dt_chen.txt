@@ -1,3 +1,0 @@
-h2. DT Chen's publications
-
-| [@kapur2007emergence] | Kapur, M., Hung, D., Jacobson, M., Voiklis, J., Kinzer, C., & Chen, Dt. (2007). Emergence of learning in computer-supported, large-scale collective dynamics: A research agenda. In Proceedings of the international conference of computer-supported collaborative learning (323--332).|

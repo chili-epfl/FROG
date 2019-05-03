@@ -1,3 +1,0 @@
-h1. Key ideas
-//Describes a specific form of wiki used as a social network. Useful references around wikis in academia.//
-

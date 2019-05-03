@@ -1,3 +1,0 @@
-h2. Alexander Renkl's publications
-
-| [@nuckles2007scripting] | NücklesMatthias, Ertelt, A., WittwerJörg, & Renkl, A. (2007). Scripting Laypersons’ Problem Descriptions in {Internet-Based} Communication with Experts. In F. Fischer, I. Kollar, H. Mandl & HaakeJörg M. (Eds.), Scripting {Computer-Supported} Collaborative Learning (Vol. 6, 73--89). Boston, {MA}: Springer {US}. |

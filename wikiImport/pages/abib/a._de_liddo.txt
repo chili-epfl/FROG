@@ -1,4 +1,0 @@
-h2. A. De Liddo's publications
-
-| :ref:liddo2011discourse-centric | Liddo, A. D., Buckingham Shum, S., Quinto, I., Bachler, M., & Cannavacciuolo, L. (2011). Discourse-centric learning analytics. Retrieved from http://oro.open.ac.uk/25829/.|
-| :ref:liddo2011discourse-centric | Liddo, A. D., Buckingham Shum, S., Quinto, I., Bachler, M., & Cannavacciuolo, L. (2011). Discourse-centric learning analytics. Retrieved from http://oro.open.ac.uk/25829/.|

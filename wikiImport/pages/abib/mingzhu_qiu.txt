@@ -1,3 +1,0 @@
-h2. Mingzhu Qiu's publications
-
-| [@qiu2012online] | Qiu, M., Hewitt, J., & Brett, C. (2012). Online class size, note reading, note writing and collaborative discourse. International Journal of Computer-Supported Collaborative Learning, 7(3), 423-442. doi:10.1007/s11412-012-9151-2|

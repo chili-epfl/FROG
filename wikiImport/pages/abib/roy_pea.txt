@@ -1,6 +1,0 @@
-h2. Roy Pea's publications
-
-| [[..:ref:brecht2002cml]] | Brecht, J., Chung, M., & Pea, R. (2002). CML: the ClassSync modeling language. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community.|[[skimx://brecht2002cml|PDF]]|
-| hoadley2002finding | Hoadley, C. M., & Pea, R. (2002). Finding the ties that bind: Tools in support of a knowledge-building community. Building virtual communities: Learning and change in cyberspace. Citeseer.|[[skimx://hoadley2002finding|PDF]]|
-| pea2008video | Pea, R., & Lindgren, R. (2008). Video Collaboratories for Research and Education: An Analysis of Collaboration Design Patterns. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.5.|[[skimx://pea2008video|PDF]]|
-| white2011distributed | White, T., & Pea, R. (2011). Distributed by Design: On the Promises and Pitfalls of Collaborative Learning with Multiple Representations. Journal of the Learning Sciences. Routledge.|[[skimx://white2011distributed|PDF]]|

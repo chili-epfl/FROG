@@ -1,3 +1,0 @@
-h2. Publications in Organization Science
-
-| boland1994designing | Boland Jr, R. J., Tenkasi, R. V., & Te'eni, D. (1994). Designing information technology to support distributed cognition. Organization Science, 456--475. JSTOR.|[[skimx://boland1994designing|PDF]]|

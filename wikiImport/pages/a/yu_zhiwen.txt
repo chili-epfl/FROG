@@ -1,9 +1,0 @@
-h1. Yu Zhiwen
-{{ pages:a_yu_zhiwen1.png}}
-
-Professor in Computer Science, Northwestern Polytechnical University, Xi'an, China
-
-h2. Links
-  * [[http://www.ccm.media.kyoto-u.ac.jp/~yu/index.html|Homepage]]
-
-{{page>abib:yu zhiwen}}

@@ -1,3 +1,0 @@
-h2. J. Simms's publications
-
-| knowlton2010computer-based | Knowlton, D. S., & Simms, J. (2010). Computer-based instruction and generative strategies: Conceptual framework & illustrative example. Computers in Human Behavior. doi: 10.1016/j.chb.2010.02.013.||

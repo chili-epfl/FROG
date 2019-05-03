@@ -1,3 +1,0 @@
-h2. Staffan Björk's publications
-
-| [[..:ref:mor2006literature]] | Mor, Y., Winters, N., Cerulli, M., & Björk, S. (2006). Literature review on the use of games in mathematical learning, Part I: Design.|[[skimx://mor2006literature|PDF]]|

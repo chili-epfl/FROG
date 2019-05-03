@@ -1,3 +1,0 @@
-h2. S. Trausan-Matu's publications
-
-| rebedea2008extraction | Rebedea, T., Trausan-Matu, S., & Chiru, C. G. (2008). Extraction of Socio-semantic Data from Chat Conversations in Collaborative Learning Communities. Times of Convergence. Technologies Across Learning Contexts. Springer.|[[skimx://rebedea2008extraction|PDF]]|

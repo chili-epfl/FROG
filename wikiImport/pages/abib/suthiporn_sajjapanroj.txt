@@ -1,3 +1,0 @@
-h2. Suthiporn Sajjapanroj's publications
-
-| [@lin2011wikibooks] | Lin, M. F. G., Sajjapanroj, S., & Bonk, C. J. (2011). Wikibooks and Wikibookians: {Loosely-Coupled} Community or a Choice for Future Textbook?. {IEEE} Transactions on Learning Technologies. doi:10.1109/TLT.2011.12|

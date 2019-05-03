@@ -1,9 +1,0 @@
-h1. Ideas 
-
-//These are unfinished ideas, things I'd like some day to do, or am just trying to figure out. Feel free to steal them - I'd love to see this stuff happen. And let me know if you want to help me build/create/make it happen!//
-
-  * [[Pimp my research]] - unconference or lecture-series about academic productivity
-  * [[Programming projects]] - ideas on how to move forwards
-  * Script that takes a github repository and renders the source files as a nice syntax highlighted PDF, with structured TOC etc - for reading through code on iPad.
-
-[[Archive of ideas]]

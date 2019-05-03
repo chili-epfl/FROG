@@ -1,4 +1,0 @@
-h2. C.E. Hmelo-Silver's publications
-
-| hmelo2011representational | Hmelo-Silver, C. E., Jordan, R., Liu, L., & Chernobilsky, E. (2011). Representational tools for understanding complex computer-supported collaborative learning environments. Analyzing Interactions in CSCL. Springer.|
-| hmelo2004problem | Hmelo-Silver, C. E. (2004). Problem-based learning: what and how do students learn?. Educational Psychology Review. Springer.|

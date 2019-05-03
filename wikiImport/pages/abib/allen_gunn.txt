@@ -1,3 +1,0 @@
-h2. Allen Gunn's publications
-
-| [@gunn2008creating] | Gunn, A. (2008). Creating Participatory Events.|

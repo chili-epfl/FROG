@@ -1,5 +1,0 @@
-h2. Victor Sampson's publications
-
-| [@weinberger2006argumentative] | Weinberger, A., Clark, D., Erkens, G., Sampson, V., Stegmann, K., Janssen, J., Jaspers, J., Kanselaar, G., & Fischer, F. (2006). Argumentative knowledge construction in CSCL. In Proceedings of the 7th international conference on Learning sciences, ICLS '06 (1094--1100). International Society of the Learning Sciences. |
-| [@weinberger2007orchestrating] | Weinberger, A., Clark, D., Dillenbourg, P., Diziol, D., Sampson, V., Stegmann, K., Rummel, N., Hong, F., Spada, H., McLaren, B., Brahm, T., & Fischer, F. (2007). Orchestrating learning activities on the social and the cognitive level to foster CSCL. In Proceedings of the 8th iternational conference on Computer supported collaborative learning, CSCL'07 (38--47). International Society of the Learning Sciences. |
-| [@jeong2011sequential] | Jeong, A., Clark, D. B., Sampson, V., & Menekse, M. (2011). Sequential Analysis of Scientific Argumentation in Asynchronous Online Discussion Environments. Analyzing Interactions in CSCL, 207--233.|

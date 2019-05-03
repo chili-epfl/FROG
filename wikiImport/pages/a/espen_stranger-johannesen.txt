@@ -1,8 +1,0 @@
-h1. Espen Stranger-Johannesen
-
-h2. Research
-
-h2. Links
-  * [[ |Homepage]]
-  
-{{page>abib:Espen Stranger-Johannesen}}

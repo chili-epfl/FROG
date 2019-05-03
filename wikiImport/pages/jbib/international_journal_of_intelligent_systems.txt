@@ -1,3 +1,0 @@
-h2. Publications in International Journal of Intelligent Systems
-
-| bradshaw1993beyond | Bradshaw, J. M., Ford, K. M., Adams-Webber, J. R., & Boose, J. H. (1993). Beyond the repertory grid: new approaches to constructivist knowledge acquisition tool development. International Journal of Intelligent Systems, 8(2), 287--333. John Wiley \& SonsInc.|[[skimx://bradshaw1993beyond|PDF]]|

@@ -1,3 +1,0 @@
-h2. Publications in Mensch und Computer 2008: Viel Mehr Interaktion
-
-| lukosch2008multiple | Lukosch, S., Holmer, T., & Kunz, V. (2008). Multiple Visualisierungsformen für Beiträge in Chat-Systemen. Mensch und Computer 2008: Viel Mehr Interaktion. Oldenbourg Verlag.|[[skimx://lukosch2008multiple|PDF]]|

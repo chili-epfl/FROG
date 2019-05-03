@@ -1,3 +1,0 @@
-h2. Publications in the proceedings of the 11th Symposim on Directions and Implications of Advanced Computing (DIAC’2008), June
-
-| klein2008supporting | Klein, M., & Iandoli, L. (2008). Supporting Collaborative Deliberation Using a Large-Scale Argumentation System: The MIT Collaboratorium. the proceedings of the 11th Symposim on Directions and Implications of Advanced Computing (DIAC’2008), June, 26--29.|[[skimx://klein2008supporting|PDF]]|

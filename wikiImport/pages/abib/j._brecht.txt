@@ -1,5 +1,0 @@
-h2. J. Brecht's publications
-
-| [[..:ref:brecht2002cml]] | Brecht, J., Chung, M., & Pea, R. (2002). CML: the ClassSync modeling language. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community.|[[skimx://brecht2002cml|PDF]]|
-| brecht2007coordinating | Brecht, J., DiGiano, C., Patton, C., Tatar, D., Chaudhury, S. R., Roschelle, J., & Davis, K. (2007). Coordinating networked learning activities with a general-purpose Interface.|[[skimx://brecht2007coordinating|PDF]]|
-| dimitriadis2007socially | Dimitriadis, Y., Asensio-Pérez, J. I., Hernández-Leo, D., Roschelle, J., Brecht, J., Tatar, D., Chaudhur, S., DiGiano, C., & Patton, C. M. (2007). From socially-mediated to technology-mediated coordination: A study of design tensions using Group Scribbles. Proceedings of the Computer Supported Collaborative Learning 2007 Conference, CSCL.|[[skimx://dimitriadis2007socially|PDF]]|

@@ -1,5 +1,0 @@
-h2. Laura Girardeau's publications
-
-| [@suthers2002comparing] | Suthers, D. D., Hundhausen, C. D., & Girardeau, L. (2002). {Comparing the Roles of Representations in Face to Face and Online Collaborations Laboratory for Interactive Learning Technologies Department of Information and Computer Sciences University of Hawai ` i at Manoa 1 : Introduction}. Interface, 1--5.|
-| [@suthers2003exploratory] | Suthers, D. D., Hundhausen, C. D., & Girardeau, L. (2003). {An exploratory comparison of the roles of representations in face to face and online collaborative learning}. 36th Annual Hawaii International Conference on System Sciences, 2003. Proceedings of the, 10 pp. doi:10.1109/HICSS.2003.1173740|
-| [@suthers2003deictic] | Suthers, D. D., Girardeau, L., & Hundhausen, C. D. (2003). Deictic roles of external representations in face-to-face and online collaboration. Learning, 173--182.|

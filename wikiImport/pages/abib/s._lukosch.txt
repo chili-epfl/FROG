@@ -1,5 +1,0 @@
-h2. S. Lukosch's publications
-
-| lukosch2008multiple | Lukosch, S., Holmer, T., & Kunz, V. (2008). Multiple Visualisierungsformen für Beiträge in Chat-Systemen. Mensch und Computer 2008: Viel Mehr Interaktion. Oldenbourg Verlag.|[[skimx://lukosch2008multiple|PDF]]|
-| holmer2008addressing | Holmer, T., Lukosch, S., & Kunz, V. (2008). Addressing co-text loss with multiple visualizations for chat messages. Groupware: Design, Implementation, and Use. Springer.|[[skimx://holmer2008addressing|PDF]]|
-| holmer2009diminishing | Holmer, T., Lukosch, S., & Kunz, V. (2009). Diminishing Chat Confusion by Multiple Visualizations. Journal of Universal Computer Science.|[[skimx://holmer2009diminishing|PDF]]|

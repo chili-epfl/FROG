@@ -1,3 +1,0 @@
-h2. Joonhwan Lee's publications
-
-| [@gweon2011framework] | Gweon, G., Jun, S., Lee, J., Finger, S., & RoséCarolin Penstein. (2011). A framework for assessment of student project groups on-line and off-line. Analyzing Interactions in CSCL, 293--317.|

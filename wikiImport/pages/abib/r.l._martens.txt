@@ -1,4 +1,0 @@
-h2. R.L. Martens's publications
-
-| kirschner2004cscl | Kirschner, P. A., Martens, R. L., & Strijbos, J.-W. (2004). CSCL in higher education?: a framework for designing multiple collaborative environments. What we know about CSCL and implementing it in higher education.|[[skimx://kirschner2004cscl|PDF]]|
-| strijbos2004we | Strijbos, J.-W., Kirschner, P. A., & Martens, R. L. (2004). What we know about CSCL:... and what we do not (but need to) know about CSCL. What we know about CSCL and implementing it in higher education.|[[skimx://strijbos2004we|PDF]]|

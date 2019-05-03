@@ -1,4 +1,0 @@
-h2. Gilles Deleuze's publications
-
-| [@deleuze1986foucault] | Deleuze, G. (1986). Foucault. Paris: Les Editions de Minuit.|
-| [@deleuze1991empiricism] | Deleuze, G. (1991). Empiricism and subjectivity: An essay on Hume's theory of human nature. Columbia University Press.|

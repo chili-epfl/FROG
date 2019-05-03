@@ -1,5 +1,0 @@
-h2. R. Messina's publications
-
-| zhang2007socio-cognitive | Zhang, J., Scardamalia, M., Lamon, M., Messina, R., & Reeve, R. (2007). Socio-cognitive dynamics of knowledge building in the work of 9-and 10-year-olds. Educational Technology Research and Development.||
-| hong2008principle-based | Hong, H. Y., Scardamalia, M., Messina, R., & Teo, C. (2008). Principle-based design to foster adaptive use of technology for building community knowledge. Proceedings of the 8th international conference on International conference for the learning {sciences-Volume} 1.||
-| zhang2009designs | Zhang, J., Scardamalia, M., Reeve, R., & Messina, R. (2009). Designs for collective cognitive responsibility in knowledge-building communities. Journal of the Learning Sciences.||

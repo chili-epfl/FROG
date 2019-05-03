@@ -1,7 +1,0 @@
-h1. A:Panagiota Alevizou
-
-
-----
-Panagiota's broader background is in media and communications, with a particular emphasis on new media cultures, knowledge systems and learning. She holds a PhD in Media, Communications and Cultural Studies from the University of Sussex. Her interests in open content communities have informed her teaching and prior post doctoral research at the London School of Economics and Political Science. She has published on issues of collective intelligence and cultural citizenship. She is preparing a book (The Web of Knowledge: Encyclopaedias in the Digital Age) to be published by Polity Press. p. 1 [@alevizou2010engaging]
-----
-Panagiota Alevizou is a post-doctoral researcher at the Open University's Institute of Educational Technology working on the Open Learning Networks project (Olnet). As part of her research she has been engaging with numerous stakeholders and projects in the OER community to develop working framework on the nature of openess and collaboration that characterizes the mediation of open resources, while addressing the opportunities and challenges relating to participatory interfaces, web 2.0 pedagogies, adoption and (re)use. Her broader background is in media and communications and her interest in open source/ open content communities was sparked while working on her PhD and has informed her teaching and research at the universities of Sussex and London School of Economics and Political Science [@deliddo2010method]

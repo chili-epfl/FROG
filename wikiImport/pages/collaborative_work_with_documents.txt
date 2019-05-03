@@ -1,7 +1,0 @@
-h1. Collaborative Work With Documents
-
-  * [[http://gitorious.org/stet/stet/blobs/master/notes/stet-spec.txt|STET - tool for distributed commenting used for GPL licensing review process]]
-
-----
-
-  * [[http://www.futureofthebook.org/commentpress/|Commentpress]]

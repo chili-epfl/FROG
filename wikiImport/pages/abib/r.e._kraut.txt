@@ -1,5 +1,0 @@
-h2. R.E. Kraut's publications
-
-| gergle2004action | Gergle, D., Kraut, R. E., & Fussell, S. R. (2004). Action as language in a shared visual space. Proceedings of the 2004 ACM conference on Computer supported cooperative work.|
-| gergle2004language | Gergle, D., Kraut, R. E., & Fussell, S. R. (2004). Language Efficiency and Visual Technology. Journal of Language and Social Psychology. Sage Publications.|
-| gergle2007modeling | Gergle, D., Rosé, C. P., & Kraut, R. E. (2007). Modeling the impact of shared visual information on collaborative reference. Proceedings of the SIGCHI conference on Human factors in computing systems.|

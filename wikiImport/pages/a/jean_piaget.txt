@@ -1,5 +1,0 @@
-h1. Jean Piaget
-
-  * Piagetian infralogical groupings (?)
-
-{{page>abib:Jean Piaget}}

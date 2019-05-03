@@ -1,4 +1,0 @@
-h2. Ambjörn Naeve's publications
-
-| [@palmer2009guidelines] | Palmer, M., Nilsson, M., & NaeveAmbjörn. (2009). Guidelines for the choice of integration technologies. |
-| [@palmer2010personal] | Palmer, M., Isaksson, E., & NaeveAmbjörn. (2010). Personal Learning Service Bundles. |

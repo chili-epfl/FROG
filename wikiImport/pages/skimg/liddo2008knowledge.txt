@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:liddo2008knowledge0.png}}
-
-[[skimx://liddo2008knowledge#5|p. 5]]
-----
-

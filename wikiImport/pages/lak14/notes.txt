@@ -1,3 +1,0 @@
-h1. Notes
-
-  * http://www.eecs.tufts.edu/~coopey/ int.erlace.com, students submit text or small writing (audience response), use minimum spanning three to find clusters among student spatial organization even though students organize with different strategies (linear, etc), can see which groups students voted for, compare different representations of same idea, etc. very neat.

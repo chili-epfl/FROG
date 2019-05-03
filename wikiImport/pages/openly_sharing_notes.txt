@@ -1,3 +1,0 @@
-h1. Openly Sharing Notes
-
-  * [[http://research.kinasevych.ca/|Orest Kinasevych: Research & Study Notes]]

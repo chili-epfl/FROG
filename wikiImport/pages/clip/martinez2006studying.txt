@@ -1,6 +1,0 @@
-h2. Highlights (0%)
-
-Abstract This paper describes the application of a mixed-evaluation method, pub- lished elsewhere, to three different learning scenarios. The method defines how to combine social network analysis with qualitative and quantitative analysis in order to study participatory aspects of learning in CSCL contexts. The three case studies include a course-long, blended learning experience evaluated as the course develops; a course-long, distance learning experience evaluated at the end of the course; and a synchronous experience of a few hours duration. These scenarios show that the analysis techniques and data collection and processing tools are flexible enough to be applied in different conditions. In particular, SAMSA, a tool that processes [[skimx://martinez2006studying#1|p. 1]]
-
-::Very interesting:: [[skimx://martinez2006studying#2|p. 2]]
-

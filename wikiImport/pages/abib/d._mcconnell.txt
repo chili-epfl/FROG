@@ -1,3 +1,0 @@
-h2. D. McConnell's publications
-
-| goodyear2004research | Goodyear, P., Banks, S., Hodgson, V., & McConnell, D. (2004). Research on networked learning: An overview. Advances in research on networked learning. Springer.|[[skimx://goodyear2004research|PDF]]|

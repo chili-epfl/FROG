@@ -1,4 +1,0 @@
-h2. C Mancini's publications
-
-| :ref:mancini2006modelling | Mancini, C., & Buckingham Shum, S. (2006). Modelling discourse in contested domains: A semiotic and cognitive framework. International Journal of {Human-Computer} Studies. doi: 10.1016/j.ijhcs.2006.07.002.|
-| :ref:mancini2006modelling | Mancini, C., & Buckingham Shum, S. (2006). Modelling discourse in contested domains: A semiotic and cognitive framework. International Journal of {Human-Computer} Studies. doi: 10.1016/j.ijhcs.2006.07.002.|

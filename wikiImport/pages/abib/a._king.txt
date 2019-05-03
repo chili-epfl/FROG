@@ -1,4 +1,0 @@
-h2. A. King's publications
-
-| king2007structuring | King, A. (2007). Structuring Peer Interaction to Promote Higher-Order Thinking and Complex Learning in Cooperating Groups. The Teacher’s Role in Implementing Cooperative Learning in the Classroom. Springer.|[[skimx://king2007structuring|PDF]]|
-| king2007scripting | King, A. (2007). Scripting collaborative learning processes: A cognitive perspective. Scripting computer-supported collaborative learning. Springer.|[[skimx://king2007scripting|PDF]]|

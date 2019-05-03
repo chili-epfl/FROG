@@ -1,4 +1,0 @@
-h2. M. Cakir's publications
-
-| cakir2006shared | Cakir, M., Sarmiento, J., & Stahl, G. (2006). Shared deictic referencing in online mathematics discourse. Ethnography in Education annual conference.|
-| stahl2006shared | Stahl, G., Zemel, A., Sarmiento, J., Cakir, M., Weimar, S., Wessner, M., & Mühlpfordt, M. (2006). Shared referencing of mathematical objects in online chat. Proceedings of the 7th international conference on Learning sciences.|

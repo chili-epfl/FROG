@@ -1,8 +1,0 @@
-h2. Images
-
-{{skim:digiano2006learning0.png}}
-
-[[skimx://digiano2006learning#2
-|p. 2
-]]<html><hr></html>
-

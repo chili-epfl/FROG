@@ -1,3 +1,0 @@
-h2. M. Oshige's publications
-
-| [[..:ref:hadwin2010innovative]] | Hadwin, A. F., Oshige, M., Gress, C. L. Z., & Winne, P. H. (2010). Innovative ways for using {gStudy} to orchestrate and research social aspects of self-regulated learning. Computers in Human Behavior. doi: 10.1016/j.chb.2007.06.007.||

@@ -1,4 +1,0 @@
-h2. Judy Kay's publications
-
-| [@kay2008lifelong] | Kay, J. (2008). Lifelong Learner Modeling for Lifelong Personalized Pervasive Learning. {IEEE} Transactions on Learning Technologies, 1(4), 215--228. doi:10.1109/TLT.2009.9|
-| [@reimann2011analyzing] | Reimann, P., Yacef, K., & Kay, J. (2011). Analyzing collaborative interactions with data mining methods for the benefit of learning. Analyzing Interactions in CSCL, 161--185.|

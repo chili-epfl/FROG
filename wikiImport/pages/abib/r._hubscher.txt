@@ -1,3 +1,0 @@
-h2. R. Hubscher's publications
-
-| [[..:ref:puntambekar2002scaffolding]] | Puntambekar, S., & Hubscher, R. (2002). Scaffolding in complex learning environments: What we have gained and what we have missed. Educational Psychologist.|[[skimx://puntambekar2002scaffolding|PDF]]|

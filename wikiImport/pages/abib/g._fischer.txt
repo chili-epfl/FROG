@@ -1,4 +1,0 @@
-h2. G. Fischer's publications
-
-| fischer2009cultures | Fischer, G. (2009). Cultures of participation and social computing: Rethinking and reinventing learning and education. 2009 Ninth IEEE International Conference on Advanced Learning Technologies.|
-| fischer2005knowledge | Fischer, G., & Ostwald, J. (2005). Knowledge communication in design communities. Barriers and biases in computer-mediated knowledge communication. Springer.|

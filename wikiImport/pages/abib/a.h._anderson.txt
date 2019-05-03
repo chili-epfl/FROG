@@ -1,3 +1,0 @@
-h2. A.H. Anderson's publications
-
-| anderson2005exploring | Anderson, A. H., Mullin, J., Mcewan, R., Bal, J., Carletta, J., Grattan, E., & Brundell, P. (2005). Exploring why virtual teamworking is effective in the lab but more difficult in the workplace. Barriers and Biases in Computer-Mediated Knowledge Communication. Springer.|[[skimx://anderson2005exploring|PDF]]|

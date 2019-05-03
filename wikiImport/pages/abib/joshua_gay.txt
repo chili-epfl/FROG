@@ -1,3 +1,0 @@
-h2. Joshua Gay's publications
-
-| [@stallman2002free] | Stallman, R., & Gay, J. (2002). Free Software, Free Society: Selected Essays of Richard M. Stallman. {GNU} press.|

@@ -1,7 +1,0 @@
-h2. Images
-
-{{skim:archibugi2005language0.png}}
-
-[[skimx://archibugi2005language#4|p. 4]]
-----
-

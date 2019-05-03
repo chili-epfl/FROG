@@ -1,8 +1,0 @@
-h1. ICLS 2012 in Sydney
-//These are notes I took during sessions at ICLS. I don't take notes from all sessions, depending on laptop power, level of energy, relevance to my studies etc. I might get things wrong, don't rely too much on these notes.//
-
-Other notes: [[http://cresenciafong.com/wiki/icls_2012_conference_notes_sydney_australia|Cresencia Fong]], [[http://bodongchen.wordpress.com/2012/07/09/icls-2012-envisioning-the-future-of-learning/|Bodong Chen]]
-
-{{pagequery>@icls2012: *;sort=a;title;group;cols=3;nostart}}
-
-~~NOCACHE~~

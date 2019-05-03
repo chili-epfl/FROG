@@ -1,4 +1,0 @@
-h2. Publications with keyword "cmc,representational guidance"
-
-| fischer2002facilitating | Fischer, F., & Mandl, H. (2002). Facilitating knowledge convergence in videoconferencing environments: the role of external representation tools. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community, CSCL '02. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1658616.1658754.|
-| fischer2002facilitating | Fischer, F., & Mandl, H. (2002). Facilitating knowledge convergence in videoconferencing environments: the role of external representation tools. Proceedings of the Conference on Computer Support for Collaborative Learning: Foundations for a CSCL Community, CSCL '02. International Society of the Learning Sciences. Retrieved from http://portal.acm.org.myaccess.library.utoronto.ca/citation.cfm?id=1658616.1658754.|

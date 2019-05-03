@@ -1,3 +1,0 @@
-h2. Andrea Berardi's publications
-
-| [@reynolds2007ecosensus] | Reynolds, M., Berardi, A., Bachler, M., Buckingham Shum, S., Bernard, C., Mistry, J., & Ulrich, W. (2007, May). {ECOSENSUS:} developing collaborative learning systems for stakeholding development in environmental planning. Conference Item. |

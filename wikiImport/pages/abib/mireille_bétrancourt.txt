@@ -1,4 +1,0 @@
-h2. Mireille Bétrancourt's publications
-
-| dillenbourg2006collaboration | Dillenbourg, P., & Bétrancourt, M. (2006). Collaboration load. Handling Complexity in Learning Environments: Theory and Research.|[[skimx://dillenbourg2006collaboration|PDF]]|
-| rebetez2008learning | Rebetez, C., Bétrancourt, M., Sangin, M., & Dillenbourg, P. (2008). Learning from animation enabled by collaboration. Instructional Science. Springer.|[[skimx://rebetez2008learning|PDF]]|

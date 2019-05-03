@@ -1,6 +1,0 @@
-h2. Jan-Willem Strijbos's publications
-
-| [@strijbos2004we] | Strijbos, J.-W., Kirschner, P. A., & Martens, R. L. (2004). What we know about CSCL:... and what we do not (but need to) know about CSCL. In What we know about CSCL and implementing it in higher education (245--259).|
-| [@kirschner2004cscl] | Kirschner, P. A., Martens, R. L., & Strijbos, J.-W. (2004). CSCL in higher education?: a framework for designing multiple collaborative environments. In What we know about CSCL and implementing it in higher education (3--30).|
-| [@strijbos2010emerging] | Strijbos, J.-W., & Weinberger, A. (2010). Emerging and scripted roles in computer-supported collaborative learning. Computers in Human Behavior, 26(4), 491--494.|
-| [@strijbos2011assessment] | Strijbos, J.-W. (2011). Assessment of {(Computer-Supported)} Collaborative Learning. {IEEE} Transactions on Learning Technologies, 4(1), 59--73. doi:10.1109/TLT.2010.37|

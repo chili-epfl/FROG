@@ -1,4 +1,0 @@
-h2. F.I. Winters's publications
-
-| azevedo2008externally | Azevedo, R., Moos, D. C., Greene, J. A., Winters, F. I., & Cromley, J. G. (2008). Why is externally-facilitated regulated learning more effective than self-regulated learning with hypermedia?. Educational Technology Research and Development. Springer.|
-| winters2008self | Winters, F. I., Greene, J. A., & Costich, C. M. (2008). Self-regulation of learning within computer-based learning environments: A critical analysis. Educational Psychology Review. Springer.|

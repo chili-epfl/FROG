@@ -1,4 +1,0 @@
-h2. Chronis Kynigos's publications
-
-| [@alexopoulou2006literature] | Alexopoulou, E., Bennerstedt, U., Childs, M., Jonker, V., Kynigos, C., Pratt, D., & Wijers, M. (2006). Literature review on the use of games in mathematical learning, Part II: Deployment. |
-| [@kynigos2007pupil] | Kynigos, C., Dimaraki, E., & Trouki, E. (2007). Pupil communication during electronic collaborative projects: Integrating communication tools with communication scenarios. The Role of Technology in CSCL, 155--172.|

@@ -1,3 +1,0 @@
-h2. P. Kirschner's publications
-
-| [[..:ref:akkerman2007reconsidering]] | Akkerman, S., {Van den Bossche}P., Admiraal, W., Gijselaers, W., Segers, M., Simons, R. J., & Kirschner, P. (2007). Reconsidering group cognition: From conceptual confusion to a boundary area between cognitive and socio-cultural perspectives?. Educational research review. Elsevier.|[[skimx://akkerman2007reconsidering|PDF]]|

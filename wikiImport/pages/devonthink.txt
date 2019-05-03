@@ -1,9 +1,0 @@
-h1. Devonthink
-
-
-----
-  * [[http://idlethink.wordpress.com/2011/08/10/on-devonthink-and-history-research-iii/|on DevonThink and history research (III): Chronologies and Bridges - a historian'ss craft]]
-----
-  * [[http://idlethink.wordpress.com/2011/07/02/on-devonthink-and-history-research-ii/|On DevonThink and history research (II): Labels, Smart Groups and GTD - a historian's craft]]
-----
-  * [[http://idlethink.wordpress.com/2011/06/24/on-devonthink-and-history-research-i/|on DevonThink and history research (I) - a historian's craft]]

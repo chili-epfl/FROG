@@ -1,9 +1,0 @@
-h2. Publications with keyword "eye-tracking"
-
-| [@radach2004theoretical] | Radach, R., & Kennedy, A. (2004). Theoretical perspectives on eye movements in reading: Past controversies, current issues, and an agenda for future research. European Journal of Cognitive Psychology, 16(1), 3--26.|
-| [@tscholl2005effect] | Tscholl, M., McCarthy, J., & Scholl, J. (2005). The effect of video-augmented chat on collaborative learning with cases. In Proceedings of th 2005 conference on Computer support for collaborative learning: learning 2005: the next 10 years! (682--686).|
-| [@sangin2008learners] | Sangin, M., Dillenbourg, P., NüssliMarc-Antoine, & MolinariGaëlle. (2008). How learners use awareness cues about their peer's knowledge?: insights from synchronized eye-tracking data. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 2 (287--294).|
-| [@oehl2008global] | Oehl, M., PfisterHans-Rüdiger, & Gilge, A. (2008). Global text processing in CSCL with learning protocols: a coding scheme for eye movement analyses. In Proceedings of the 8th international conference on International conference for the learning sciences-Volume 3 (103--104).|
-| [@sangin2009peer] | Sangin, M. (2009). Peer knowledge modeling in computer supported collaborative learning (PhD thesis).|
-| [@oehl2009explicit] | Oehl, M., & PfisterHans-Rüdiger. (2009). Explicit references in chat-based CSCL: do they facilitate global text processing? evidence from eye movement analyses. In Proceedings of the 9th international conference on Computer supported collaborative learning-Volume 2 (138--140).|
-| [@kim2009students] | Kim, Y. J., Bae, J., & Jeon, B. (2009). Students’ Visual Perceptions of Virtual Lectures as Measured by Eye Tracking. Human-Computer Interaction. New Trends, 85--94.|

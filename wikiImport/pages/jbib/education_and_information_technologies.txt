@@ -1,3 +1,0 @@
-h2. Publications in Education and Information Technologies
-
-| kienle2009intertwining | Kienle, A. (2009). Intertwining synchronous and asynchronous communication to support collaborative learning—system design and evaluation. Education and Information Technologies, 14(1), 55--79. Springer.|[[skimx://kienle2009intertwining|PDF]]|

@@ -1,3 +1,0 @@
-h2. E.J. Brown's publications
-
-| brown2009evaluating | Brown{E.J.}, Brailsford{T.J.}, Fisher, T., & Moore, A. (2009). Evaluating Learning Style Personalization in Adaptive Systems: Quantitative Methods and Approaches. {IEEE} Transactions on Learning Technologies. doi: 10.1109/TLT.2009.11.|[[skimx://brown2009evaluating|PDF]]|

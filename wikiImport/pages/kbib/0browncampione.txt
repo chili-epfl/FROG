@@ -1,8 +1,0 @@
-h2. Publications with keyword "0BrownCampione"
-
-| [@brown1986guided] | Brown, A. L., & Palincsar, A. S. (1986). Guided, Cooperative Learning and Individual Knowledge Acquisition. Technical Report No. 372. |
-| [@brown1979zone] | Brown, A. L., & French, L. A. (1979). The zone of potential development: Implications for intelligence testing in the year 2000. Intelligence, 3(3), 255–271.|
-| [@palincsar1984reciprocal] | Palincsar, A. S., & Brown, A. L. (1984). Reciprocal Teaching of Comprehension-Fostering and Comprehension-Monitoring Activities. COGNITION AND INSTRUCTION, 1(2), 117–175. |
-| [@brown1992design] | Brown, A. L. (1992). Design experiments: Theoretical and methodological challenges in creating complex interventions in classroom settings. The journal of the learning sciences, 2(2), 141–178. |
-| [@brown1994guided] | Brown, A. L., & Campione, J. C. (1994). Guided discovery in a community of learners.|
-| [@brown1997transforming] | Brown, A. L. (1997). Transforming schools into communities of thinking and learning about serious matters. American psychologist, 52(4), 399. |

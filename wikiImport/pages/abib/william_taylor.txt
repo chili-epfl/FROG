@@ -1,3 +1,0 @@
-h2. William Taylor's publications
-
-| [@wang2007concept] | Wang, J. Z., & Taylor, W. (2007). Concept Forest: A New Ontology-assisted Text Document Similarity Measurement Method. In {WI} '07: Proceedings of the {IEEE/WIC/ACM} International Conference on Web Intelligence (395–401). Washington, {DC}, {USA}: {IEEE} Computer Society. doi:http://dx.doi.org/10.1109/WI.2007.36|
