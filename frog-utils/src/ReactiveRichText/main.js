@@ -655,7 +655,6 @@ class ReactiveRichText extends Component<
               }}
               readOnly={get(props, 'readOnly')}
               formats={formats}
-              style={{ height: '100%' }}
               modules={{
                 toolbar: get(props, 'readOnly')
                   ? null
