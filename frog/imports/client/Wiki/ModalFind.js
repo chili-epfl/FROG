@@ -58,12 +58,7 @@ export const PagesLinks = ({
     );
   });
 
-export default ({
-  onSearch,
-  setModalOpen,
-  pages,
-  onSelect
-}: Object) => {
+export default ({ onSearch, setModalOpen, pages, onSelect }: Object) => {
   const [search, setSearch] = React.useState('');
   return (
     <Dialog open onClose={() => setModalOpen(false)}>
@@ -102,7 +97,8 @@ export const SearchAndFind = ({
   setSearch: upstreamSetSearch,
   pages,
   onSearch,
-  onSelect
+  onSelect,
+  focus
 }: Object) => {
   const [search, setSearch] = React.useState('');
   const [index, setIndex] = React.useState(null);

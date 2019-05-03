@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const cuid = require('cuid');
 const fs = require('fs');
 
-const wiki = 'f2000';
+const wiki = 'rsrchr';
 
 const sleep = waitTimeInMs =>
   new Promise(resolve => setTimeout(resolve, waitTimeInMs));
@@ -25,7 +25,7 @@ const getLink = (rawtitle, create) => {
 
 const postWiki = (page, content) => {
   fetch(
-    `http://localhost:3000/api/wikiSubmit?wiki=${wiki}&id=${getLink(
+    `https://icchilisrv3.epfl.ch/api/wikiSubmit?wiki=${wiki}&id=${getLink(
       page
     )}&page=${page}`,
     {

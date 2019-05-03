@@ -2,11 +2,12 @@
 
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { WikiContext, values, uuid, SearchField } from 'frog-utils';
+import { WikiContext, values, uuid } from 'frog-utils';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import { Meteor } from 'meteor/meteor';
 import Mousetrap from 'mousetrap';
+import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
 
 import Button from '@material-ui/core/Button';
@@ -187,10 +188,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       this.loadWikiDoc();
     });
 
-    Mousetrap.bind('ctrl+n', () => this.setState({ createModalOpen: true }));
-    Mousetrap.bind('ctrl+s', () => this.setState({ docMode: 'view' }));
-    Mousetrap.bind('ctrl+e', () => this.setState({ docMode: 'edit' }));
-    Mousetrap.bind('ctrl+f', () => this.setState({ findModalOpen: true }));
+    Mousetrap.bindGlobal('ctrl+n', () =>
+      this.setState({ createModalOpen: true })
+    );
+    Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
+    Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+    Mousetrap.bindGlobal('ctrl+f', () =>
+      this.setState({ findModalOpen: true })
+    );
   }
 
   loadWikiDoc = () => {
@@ -437,7 +442,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const titleDivStyle = {
       display: 'flex',
-      flex: '0 0 50px', 
+      flex: '0 0 50px',
       width: '100%',
       alignItems: 'center',
       fontSize: '30px'
@@ -544,7 +549,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const topNavBarStyle = {
       display: 'flex',
-      flex: '0 0 50px', 
+      flex: '0 0 50px',
       cursor: 'pointer',
       width: '100%',
       backgroundColor: 'lightgrey'
@@ -675,7 +680,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                   <div
                     style={{
                       flex: '0 0 calc(100vh - 100px)',
-                      height: 'calc(100vh - 100px)',
+                      height: 'calc(100vh - 100px)'
                     }}
                   >
                     <Paper
