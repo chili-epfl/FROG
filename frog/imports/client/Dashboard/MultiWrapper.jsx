@@ -52,6 +52,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
   }
 
   render() {
+  console.log('multi')
     const { dashNames, onChange, classes, selected, children } = this.props;
     const { which } = this.state;
     return (
@@ -121,6 +122,7 @@ const MultiWrapper = (props: {
     object,
     ready
   } = props;
+  console.log('multi')
   if (!ready) {
     return <CircularProgress />;
   }

@@ -47,6 +47,8 @@ class CustomQuillToolbar extends Component<CustomQuillToolbarPropsT> {
 
         <button className="ql-list" value="ordered" />
         <button className="ql-list" value="bullet" />
+        <button className="ql-indent" value="-1" />
+        <button className="ql-indent" value="+1" />
 
         <button className="ql-link" />
         <button className="ql-image" />
