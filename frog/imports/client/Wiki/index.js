@@ -89,6 +89,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.state = {
       dashboardOpen: false,
       pageId: null,
+      currentLI: null,
       pageTitle: this.props.match.params.pageTitle || null,
       pageTitleString: this.props.match.params.pageTitle || null,
       mode: 'document',
@@ -201,9 +202,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
     if (pageTitle != null) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
-
+      const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
+      
       this.setState({
         pageId,
+        currentLI,
         pageTitle,
         pageTitleString: pageTitle,
         pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
@@ -247,6 +250,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         this.setState(
           {
             pageId: null,
+            currentLI: null,
             pageTitle: newPageTitle,
             pageTitleString: newPageTitle,
             pageLiType: pages[newPageTitle.toLowerCase()].liType,
@@ -264,10 +268,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       }
 
       const pageId = pages[newPageTitle.toLowerCase()].id;
-
+      const liId = pages[newPageTitle.toLowerCase()].liId;
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         pageId,
+        currentLI: liId,
         mode: 'document',
         liType: 'li-richText',
         pageTitle: newPageTitle,
@@ -378,7 +383,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.setState(
       {
         pageTitle: newPageTitle,
-        editingTitle: false
+        editingTitle: false,
+        showTitleEditButton: false,
       },
       () => {
         const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
@@ -388,7 +394,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
-    if (!this.state.pageId || !this.state.pageTitle) return null;
+    if (!this.state.pageId || !this.state.pageTitle || !this.state.currentLI) return null;
 
     const errorDiv = this.state.error ? (
       <div>
@@ -487,6 +493,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const contentDivStyle = {
       flex: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
       minHeight: '100vh',
       width: 'calc(100vw - 250px)'
     };
@@ -495,12 +503,47 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       display: 'flex',
       width: '100%',
       alignItems: 'center',
-      height: '40px',
+      height: '50px',
       fontSize: '30px'
     };
 
+    const docModeButtonStyle = {
+      fontSize: '16px',
+      marginRight: '20px'
+    }
+
+    const docModeButton = (() => {
+      if (
+        this.state.docMode === 'history' ||
+        this.state.pageLiType === 'li-activity'
+      )
+        return null;
+      if (this.state.docMode === 'view')
+        return (
+          <button
+            style={docModeButtonStyle}
+            onClick={() => {
+              this.setState({ docMode: 'edit' });
+            }}
+          >
+            Edit This Page
+          </button>
+        );
+      return (
+        <button
+          style={docModeButtonStyle}
+          onClick={() => {
+            this.setState({ docMode: 'view' });
+          }}
+        >
+          Finish
+        </button>
+      );
+    })();
+
     const titleDiv = this.state.editingTitle ? (
       <div style={titleDivStyle}>
+        <div>
         <input
           placeholder="New Title"
           value={this.state.pageTitleString}
@@ -509,21 +552,30 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           }}
         />
         <Check onClick={() => this.saveNewPageTitle()} />
+        </div>
+        <div style={{flex: '1', textAlign: 'right'}}>
+          {docModeButton}
+        </div>
       </div>
     ) : (
-      <div
-        style={titleDivStyle}
-        onMouseEnter={() => {
-          this.setState({ showTitleEditButton: true });
-        }}
-        onMouseLeave={() => {
-          this.setState({ showTitleEditButton: false });
-        }}
-      >
-        <span>{this.state.pageTitle}</span>
-        {this.state.showTitleEditButton && (
-          <Edit onClick={this.handleEditingTitle} />
-        )}
+      <div style={titleDivStyle}>
+        <div 
+          onMouseEnter={() => {
+            this.setState({ showTitleEditButton: true });
+          }}
+          onMouseLeave={() => {
+            this.setState({ showTitleEditButton: false });
+          }}
+        >
+          <span 
+          >{this.state.pageTitle}</span>
+          {this.state.showTitleEditButton && (
+            <Edit onClick={this.handleEditingTitle} />
+          )}
+        </div>
+        <div style={{flex: '1', textAlign: 'right'}}>
+          {docModeButton}
+        </div>
       </div>
     );
 
@@ -540,8 +592,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const topNavBarStyle = {
       display: 'flex',
-      widht: '100%',
-      backgroundColor: 'lightgrey'
+      height: '50px',
+      width: '100%',
+      backgroundColor: 'lightgrey',
     };
 
     const topNavBarItemWidth = validPages.length > 1 ? '20%' : '25%';
@@ -551,10 +604,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       width: topNavBarItemWidth,
       alignItems: 'center',
       justifyContent: 'center',
-      height: '30px',
+      height: '50px',
       fontSize: '14px',
       cursor: 'pointer',
-      padding: '22px 0'
+      padding: '20px 0'
     };
 
     const iconButtonStyle = {
@@ -631,33 +684,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       </div>
     );
 
-    const docModeButton = (() => {
-      if (
-        this.state.docMode === 'history' ||
-        this.state.pageLiType === 'li-activity'
-      )
-        return null;
-      if (this.state.docMode === 'view')
-        return (
-          <button
-            onClick={() => {
-              this.setState({ docMode: 'edit' });
-            }}
-          >
-            Edit
-          </button>
-        );
-      return (
-        <button
-          onClick={() => {
-            this.setState({ docMode: 'view' });
-          }}
-        >
-          Finish
-        </button>
-      );
-    })();
-
     return (
       <div>
         <WikiContext.Provider value={this.state.wikiContext}>
@@ -687,20 +713,28 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 />
               )}
               {this.state.mode === 'document' && (
-                <Paper
-                  elevation={24}
-                  style={{
-                    backgroundColor:
-                      this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
-                  }}
-                >
-                  {titleDiv}
-                  {docModeButton}
+                <>
+                {titleDiv}
+                <div style={{
+                  flex: 'auto',
+                  height: '100%',
+                  width: '100%'
+                }}>
+                  <Paper
+                    elevation={24}
+                    style={{
+                      height: '100%',
+                      backgroundColor:
+                        this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
+                    }}
+                  >
                   <LearningItem
                     type={this.state.docMode}
-                    id={this.state.pageId}
+                    id={this.state.currentLI}
                   />
                 </Paper>
+                </div>
+                </>
               )}
             </div>
           </div>
