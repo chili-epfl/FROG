@@ -187,7 +187,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     Mousetrap.bind('ctrl+s', () => this.setState({ docMode: 'view' }));
     Mousetrap.bind('ctrl+e', () => this.setState({ docMode: 'edit' }));
     Mousetrap.bind('ctrl+f', () => this.setState({ findModalOpen: true }));
-    Mousetrap.bind('ctrl+g', () => this.setState({ docMode: 'edit' }));
   }
 
   loadWikiDoc = () => {
@@ -319,7 +318,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {
-    console.log(newTitle, liType, li, config);
     const parsedPages = parseDocResults(this.wikiDoc.data);
     if (newTitle === '') {
       this.setState({
