@@ -25,7 +25,6 @@ import { learningItemTypesObj } from '/imports/activityTypes';
 import { Activities } from '/imports/api/activities';
 import { Sessions } from '/imports/api/sessions';
 import LI from '/imports/client/LearningItem';
-import ImageBox from './ImageBox';
 import { connection } from '../App/connection';
 
 const doc = connection.get('li', 'displayLI');
@@ -77,13 +76,21 @@ const styles = () => ({
     flexDirection: 'column'
   },
   liList: {
-    flex: 1,
-    position: 'relative',
-    overflow: 'auto'
+    columnWidth: '200px'
   },
   paper: {
     width: '750px',
     height: '1000px'
+  },
+  liBox: {
+    display: 'inline-block',
+    width: '300px',
+    margin: '5px',
+    padding: '5px',
+    overflow: 'auto'
+  },
+  masonry: {
+    columnWidth: '300px'
   }
 });
 
@@ -217,31 +224,32 @@ class Dashboard extends React.Component<any, any> {
             />
           </div>
         </div>
-        <div className={classes.liList}>
-          {res.map(x => (
-            <LearningItem
-              notEmpty
-              type={this.state.expand ? 'view' : 'thumbView'}
-              search={this.state.search}
-              key={x.id}
-              id={x.id}
-              render={({ children, dataFn: dfn }) => (
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  {dfn.doc.data?.title}
-                  <ImageBox
-                    expand={this.state.expand}
+        <div className={classes.masonry}>
+          {res.map(liObj => {
+            return (
+              <LearningItem
+                search={this.state.search}
+                key={liObj.id}
+                type={this.state.expand ? 'view' : 'thumbView'}
+                id={liObj.id}
+                notEmpty
+                render={props => (
+                  <Paper
+                    elevation={12}
+                    className={classes.liBox}
                     onClick={() =>
                       this.props.onClick
-                        ? this.props.onClick(dfn.doc.data.title)
-                        : this.setState({ zoom: x.id })
+                        ? this.props.onClick(liObj.id)
+                        : !this.state.expand &&
+                          this.setState({ zoom: liObj.id })
                     }
                   >
-                    {children}
-                  </ImageBox>
-                </div>
-              )}
-            />
-          ))}
+                    {props.children}
+                  </Paper>
+                )}
+              />
+            );
+          })}
         </div>
         {this.state.zoom && (
           <ZoomView
