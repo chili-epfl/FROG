@@ -47,7 +47,7 @@ export const PagesLinks = ({
       >
         <span
           onClick={e => {
-            onSelect(e);
+            onSelect(pageTitle);
             e.preventDefault();
           }}
           style={style}
@@ -58,12 +58,14 @@ export const PagesLinks = ({
     );
   });
 
-export default ({ onSearch, setModalOpen, pages, onSelect }: Object) => {
+export default ({
+  noFocus,
+  onSearch,
+  setModalOpen,
+  pages,
+  onSelect
+}: Object) => {
   const [search, setSearch] = React.useState('');
-  const [index, setIndex] = React.useState(null);
-  const filteredPages = orderBy(pages, 'title').filter(x =>
-    x.title.toLowerCase().includes(search)
-  );
   return (
     <Dialog open onClose={() => setModalOpen(false)}>
       <DialogTitle>Find page</DialogTitle>
@@ -76,44 +78,12 @@ export default ({ onSearch, setModalOpen, pages, onSelect }: Object) => {
             paddingRight: '100px'
           }}
         >
-          <SearchField
-            prompt="Select page, or enter for fulltext search"
-            debounce={100}
+          <SearchAndFind
+            pages={pages}
             focus
-            onKeyDown={e => {
-              if (e.keyCode === 38 && index && index > 0) {
-                e.preventDefault();
-                setIndex(index - 1);
-              }
-              if (
-                e.keyCode === 40 &&
-                (index === null || index < filteredPages.length - 1)
-              ) {
-                e.preventDefault();
-                setIndex((index === null ? -1 : index) + 1);
-              }
-              if (e.keyCode === 13) {
-                e.preventDefault();
-                index === null || !filteredPages[index]?.title
-                  ? onSearch(search)
-                  : onSelect(filteredPages[index].title);
-              }
-            }}
-            onChange={e => {
-              setIndex(null);
-              setSearch(e.toLowerCase());
-            }}
-            onSubmit={() =>
-              index === null || !filteredPages[index]?.title
-                ? onSearch(search)
-                : onSelect(filteredPages[index].title)
-            }
-          />
-          <PagesLinks
+            setSearch={setSearch}
+            onSearch={onSearch}
             onSelect={onSelect}
-            index={index}
-            search={search}
-            pages={filteredPages}
           />
         </div>
       </DialogContent>
@@ -126,5 +96,64 @@ export default ({ onSearch, setModalOpen, pages, onSelect }: Object) => {
         )}
       </DialogActions>
     </Dialog>
+  );
+};
+
+export const SearchAndFind = ({
+  setSearch: upstreamSetSearch,
+  pages,
+  onSearch,
+  onSelect
+}: Object) => {
+  const [search, setSearch] = React.useState('');
+  const [index, setIndex] = React.useState(null);
+  const filteredPages = orderBy(pages, 'title').filter(x =>
+    x.title.toLowerCase().includes(search)
+  );
+  return (
+    <>
+      <SearchField
+        prompt="Select page, or enter for fulltext search"
+        debounce={100}
+        focus={!!focus}
+        onKeyDown={e => {
+          if (e.keyCode === 38 && index && index > 0) {
+            e.preventDefault();
+            setIndex(index - 1);
+          }
+          if (
+            e.keyCode === 40 &&
+            (index === null || index < filteredPages.length - 1)
+          ) {
+            e.preventDefault();
+            setIndex((index === null ? -1 : index) + 1);
+          }
+          if (e.keyCode === 13) {
+            e.preventDefault();
+            index === null || !filteredPages[index]?.title
+              ? onSearch(search)
+              : onSelect(filteredPages[index].title);
+          }
+        }}
+        onChange={e => {
+          setIndex(null);
+          setSearch(e.toLowerCase());
+          if (upstreamSetSearch) {
+            upstreamSetSearch(e.toLowerCase());
+          }
+        }}
+        onSubmit={() =>
+          index === null || !filteredPages[index]?.title
+            ? onSearch(search)
+            : onSelect(filteredPages[index].title)
+        }
+      />
+      <PagesLinks
+        onSelect={onSelect}
+        index={index}
+        search={search}
+        pages={filteredPages}
+      />
+    </>
   );
 };

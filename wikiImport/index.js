@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const cuid = require('cuid');
 const fs = require('fs');
 
-const wiki = 'r';
+const wiki = 'f2000';
 
 const sleep = waitTimeInMs =>
   new Promise(resolve => setTimeout(resolve, waitTimeInMs));

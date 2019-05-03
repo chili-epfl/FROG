@@ -591,6 +591,7 @@ WebApp.connectHandlers.use(
       const op = {
         p: ['pages', newId],
         oi: {
+          liId: newId,
           id: newId,
           valid: true,
           created: true,
