@@ -705,8 +705,7 @@ class ReactiveRichText extends Component<
                               wikiId: wikiContext.getWikiId(),
                               title: searchTerm,
                               created: true,
-                              valid: true,
-                              createPage: wikiContext.createPage
+                              valid: true
                             });
                           }
 

@@ -109,9 +109,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
-        getOnlyValidWikiPages: this.getOnlyValidWikiPages,
-        createPage: this.createNewPageLI,
-        save: () => this.setState({ docMode: 'view' })
+        getOnlyValidWikiPages: this.getOnlyValidWikiPages
       }
     };
   }
@@ -172,7 +170,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   });
 
   componentDidMount() {
-    window.frog_WikiLink = this.WikiLink;
+    window.wiki = {
+      WikiLink: this.WikiLink,
+      createPage: this.createNewPageLI,
+    }
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -211,8 +212,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     wikistore.setPages(this.wikiDoc.data.pages);
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+
     const query = queryToObject(this.props.location.search.slice(1));
-    if (pageTitle != null) {
+    
+    if (parsedPages[pageTitle.toLowerCase()]) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
       const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
 
@@ -231,7 +234,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             : this.state.docMode
       });
     } else {
-      this.createNewPageLI('Home');
+      this.createNewPageLI(pageTitle || 'Home');
     }
   };
 
@@ -326,8 +329,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       undefined
     );
 
-    addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
-    return newId;
+    return addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
   };
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {

@@ -15,6 +15,7 @@ const addNewWikiPage = (wikiDoc, liId, pageTitle, liType = 'li-richText') => {
   };
 
   wikiDoc.submitOp(op);
+  return pageId;
 };
 
 const invalidateWikiPage = (wikiDoc, pageId, cb) => {

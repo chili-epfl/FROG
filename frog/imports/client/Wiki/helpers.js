@@ -41,12 +41,7 @@ const getPageTitle = (
   statePageTitle: ?string,
   deletedPageId: ?string
 ) => {
-  if (
-    statePageTitle &&
-    pages[statePageTitle.toLowerCase()] &&
-    pages[statePageTitle.toLowerCase()].valid
-  )
-    return statePageTitle;
+  if (statePageTitle && !deletedPageId) return statePageTitle;
 
   if (Object.keys(pages).length > 0) {
     // eslint-disable-next-line guard-for-in
