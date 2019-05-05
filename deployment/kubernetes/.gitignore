@@ -2,4 +2,4 @@ load-test/
 affinity-test/
 archive/
 nginx-conf*
-
+nginx.conf
