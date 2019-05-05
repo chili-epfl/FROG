@@ -1,0 +1,30 @@
+apiVersion: kubelet.config.k8s.io/v1beta1
+authentication:
+  anonymous:
+    enabled: false
+  webhook:
+    enabled: false
+  x509:
+    clientCAFile: /etc/srv/kubernetes/pki/ca-certificates.crt
+authorization:
+  mode: Webhook
+cgroupRoot: /
+clusterDNS:
+- 10.15.240.10
+clusterDomain: cluster.local
+enableDebuggingHandlers: true
+evictionHard:
+  memory.available: 100Mi
+  nodefs.available: 10%
+  nodefs.inodesFree: 5%
+featureGates:
+  DevicePlugins: true
+  DynamicKubeletConfig: false
+  ExperimentalCriticalPodAnnotation: true
+kind: KubeletConfiguration
+kubeReserved:
+  cpu: 70m
+  ephemeral-storage: 41Gi
+  memory: 2331Mi
+readOnlyPort: 10255
+staticPodPath: /etc/kubernetes/manifests

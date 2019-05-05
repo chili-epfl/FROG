@@ -1,0 +1,15 @@
+######## Service Configuration ########
+kind: Service
+apiVersion: v1
+metadata:
+  name: frog-app-lb
+spec:
+  selector: # for pods     
+    app: frog
+    env-type: test
+  
+  type: LoadBalancer 
+  ports:
+  - port: 3000
+    targetPort: 3000 # port of pod is listening which service will be forwarded to
+    protocol: TCP

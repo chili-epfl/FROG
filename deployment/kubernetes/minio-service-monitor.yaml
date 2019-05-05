@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: minio-metrics-servicemonitor
+  namespace: default
+  labels:
+    release: prom # for prometheues object deployed on prom operator
+spec:
+  selector:
+    matchLabels:
+      app: minio
+      chart: minio-2.4.9
+      heritage: Tiller
+      release: frog-minio
+  endpoints:
+  - port: service
+    path: /minio/prometheus/metrics
+    interval: 15s

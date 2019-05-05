@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frog-cm
+data:
+  METEOR_SETTINGS: |
+    {
+      "sendLogsToExternalDashboardServer": true,
+      "public": {
+          "friendlyProduction": true,
+          "sharedburl": "wss://chilifrog.tk/sharedb",
+          "dashboard_server_url": "https://chilifrog.tk/dashboard" 
+      },
+      "sharedb_dburl": "mongodb://frog-db-mongodb:27017",
+      "sharedb_redis": "frog-redis-master:6379",
+      "logserverRedis" : "redis://frog-redis-master:6379",
+      "externalOperatorRedis": "redis://frog-redis-master:6379",
+      "token": "9f8sd0f98sdfj3j4jFFFF111",
+      "Minio": { "urls": ["https://minio.chilifrog.tk"]}
+    }
+
+  ROOT_URL: https://chilifrog.tk
+  MONGO_URL: mongodb://frog-db-mongodb:27017/meteor
+  PORT: "3000"
+
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frog-app-deployment
+  labels:
+    app: frog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frog
+      
+  # POD declaration
+  template:
+    metadata:
+      labels:
+        app: frog
+    spec:
+      containers:
+        - name: frog
+          image: arasmumcuyan/frog:test
+          imagePullPolicy: Always
+          command: ["node", "main.js"]
+          ports:
+            - containerPort: 3000
+            - containerPort: 3002
+          envFrom:
+            - configMapRef:
+                name: frog-cm
+
+---
+######## Service Configuration ########
+kind: Service
+apiVersion: v1
+metadata:
+  name: frog-app-svc
+spec:
+  selector: # for pods     
+    app: frog
+  
+  type: ClusterIP # external port it was (NodePort)
+  ports:
+  - port: 3000
+    targetPort: 3000 # port of pod is listening which service will be forwarded to
+    protocol: TCP
+
+---
+######## Service Configuration ########
+kind: Service
+apiVersion: v1
+metadata:
+  name: frog-sharedb-svc
+spec:
+  selector: # for pods     
+    app: frog
+  
+  type: ClusterIP # external port 
+  ports:
+  - port: 3002 
+    targetPort: 3002 # port of pod is listening which service will be forwarded to

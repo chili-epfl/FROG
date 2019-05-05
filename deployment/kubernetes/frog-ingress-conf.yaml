@@ -1,0 +1,114 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  namespace: ingress
+  name: frog-ingress-nginx-ingress-controller
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data:
+  log-format-upstream: $time_local  $the_real_ip $request, $status, request_time=$request_time, upstream-name=$proxy_upstream_name, $upstream_addr, upstream-response-time=$upstream_response_time
+  http-snippet: |
+    proxy_cache_path /tmp/nginx levels=1:2 keys_zone=my_zone:10m inactive=6000m use_temp_path=off;
+    proxy_cache_key "$scheme$request_method$host$request_uri";
+    proxy_connect_timeout 30;
+    proxy_read_timeout 120;
+    proxy_send_timeout 120;
+    log_format rt_cache '[$time_local] - $remote_addr - $upstream_cache_status'
+                    '"$request" $status $body_bytes_sent $upstream_addr, $proxy_upstream_name';
+
+  worker-processes: "4"
+  worker-connections: "100000"
+  worker-rlimit-nofile: "102400"
+  # worker-cpu-affinity: "auto 111111111111111111111111"
+  
+  keepalive: "200"
+  keepalive-timeout: "315"
+  keepalive-requests: "10000000"
+
+  server-snippet: |
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml|rss|txt|woff2)$ {
+    
+    set $namespace      "monitor";
+    set $ingress_name   "prom-prometheus-operator-prometheus";
+    set $service_name   "prom-prometheus-operator-prometheus";
+    set $service_port   "9090";
+    set $location_path  "/";
+    set $proxy_upstream_name    "monitor-prom-prometheus-operator-prometheus-9090";
+    set $proxy_host             $proxy_upstream_name;
+
+    # set $namespace      "default";
+    # set $ingress_name   "frog-ingress-app";
+    # set $service_name   "frog-app-service";
+    # set $service_port   "3000";
+    # set $location_path  "/";
+    # set $proxy_upstream_name    "default-frog-app-service-3000";
+    # set $proxy_host             $proxy_upstream_name;
+
+    rewrite_by_lua_block {
+      balancer.rewrite()
+    }
+
+    header_filter_by_lua_block {
+      
+    }
+    body_filter_by_lua_block {
+      
+    }
+
+    log_by_lua_block {
+      
+      balancer.log()
+
+      monitor.call()
+      
+    }
+
+    if ($scheme = https) {
+      more_set_headers                        "Strict-Transport-Security: max-age=15724800; includeSubDomains";
+    }
+    
+    port_in_redirect off;
+    
+
+    client_max_body_size                    1m;
+    
+    proxy_set_header                        Upgrade           $http_upgrade;
+
+    proxy_pass http://upstream_balancer;
+    
+    proxy_set_header    Host              $host;
+    proxy_set_header    X-Real-IP         $remote_addr;
+    proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header    X-Forwarded-Proto $scheme;
+    
+    proxy_redirect          off;
+    proxy_buffering         on;
+    proxy_connect_timeout   43200000;
+    proxy_read_timeout      43200000;
+    proxy_send_timeout      43200000;
+    proxy_http_version      1.1;
+    
+    proxy_cache my_zone;
+    proxy_cache_valid 200 1d;
+    proxy_cache_use_stale   error timeout invalid_header updating http_500 http_502 http_503 http_504;
+    proxy_ignore_headers Set-Cookie X-Accel-Expires Expires Cache-Control;
+  
+    expires 365d;
+    
+    gzip on;
+    gzip_min_length  1100;
+    gzip_buffers  4 32k;
+    gzip_types    text/plain application/x-javascript text/xml text/css;
+    gzip_vary on;
+    
+    add_header X-Proxy-Cache $upstream_cache_status;
+    add_header Cache-Control "public";
+    add_header  X-Upstream  $upstream_addr;
+    
+    access_log  /tmp/nginx/example.com.access.log rt_cache;
+    }  
+    
+  # log-format-upstream: %v - [$the_real_ip] - [$the_real_ip] / "$request" "$status" 'request_time=$request_time [$proxy_upstream_name] $upstream_addr' 'upstream_response_time=$upstream_response_time upstream_status=$upstream_status request_id=$req_id'"
+  
+# log_format upstreaminfo

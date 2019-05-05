@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frog-nginx-app
+  labels:
+   app.kubernetes.io/name: ingress-nginx
+   app.kubernetes.io/part-of: ingress-nginx
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    # kubernetes.io/tls-acme: "true" 
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+
+    certmanager.k8s.io/issuer: "letsencrypt-prod"
+    certmanager.k8s.io/acme-challenge-type: http01
+    # nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    
+spec:
+  tls:                                                                      
+  - hosts:                                                                  
+    - chilifrog.tk
+    secretName: chilifrog-tls
+  rules:
+  - host: chilifrog.tk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frog-nginx-svc
+          servicePort: 80 # port number service is listening 

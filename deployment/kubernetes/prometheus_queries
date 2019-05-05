@@ -1,0 +1,25 @@
+node:node_cpu_utilisation:avg1m
+
+100 * (1 - avg by(instance) (irate(node_cpu_seconds_total{mode='idle'}[5m])))
+
+sum(rate(node_cpu_seconds_total{mode!="idle",mode!="iowait",mode!~"^(?:guest.*)$"}[5m])) BY (instance)
+
+
+sum(node_load1) by (instance) / count(node_cpu_seconds_total{mode="system"}) by (instance) * 100
+
+
+1 - (sum(node_memory_MemAvailable_bytes) by (instance) / sum(node_memory_MemTotal_bytes) by (instance))
+
+
+rate(node_network_receive_bytes_total[1m])
+
+container_cpu_usage_seconds_total{pod_name=~"frog-test-deployment-.*",image=~"arasmumcuyan/frog@.*"}
+
+
+sum(rate(node_network_receive_bytes_total[1m])) by (instance)
+
+
+kube_pod_labels{label_app="frog"}
+
+
+sort_desc(avg(container_memory_usage_bytes{image!="k8s.gcr.io/pause:3.1", node="kube3", pod_name!=""}) by (pod_name)) / 1048576 # in megabyte

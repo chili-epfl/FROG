@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-proxy
+  namespace: kube-system
+  # This annotation ensures that kube-proxy does not get evicted if the node
+  # supports critical pod annotation based priority scheme.
+  # Note that kube-proxy runs as a static pod so this annotation does NOT have
+  # any effect on rescheduler (default scheduler and rescheduler are not
+  # involved in scheduling kube-proxy).
+  annotations:
+    scheduler.alpha.kubernetes.io/critical-pod: ''
+  labels:
+    tier: node
+    component: kube-proxy
+spec:
+  priorityClassName: system-node-critical
+  hostNetwork: true
+  tolerations:
+  - operator: "Exists"
+    effect: "NoExecute"
+  - operator: "Exists"
+    effect: "NoSchedule"
+  containers:
+  - name: kube-proxy
+    image: k8s.gcr.io/kube-proxy:v1.11.8-gke.6
+    resources:
+      requests:
+        cpu: 100m
+    command:
+    - /bin/sh
+    - -c
+    - exec kube-proxy --master=https://35.241.243.74 --kubeconfig=/var/lib/kube-proxy/kubeconfig --cluster-cidr=10.12.0.0/14 --resource-container="" --oom-score-adj=-998 --v=2 --feature-gates=DynamicKubeletConfig=false,DevicePlugins=true,ExperimentalCriticalPodAnnotation=true --iptables-sync-period=1m --iptables-min-sync-period=10s --ipvs-sync-period=1m --ipvs-min-sync-period=10s 1>>/var/log/kube-proxy.log 2>&1
+    
+    
+      
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /etc/ssl/certs
+      name: etc-ssl-certs
+      readOnly: true
+    - mountPath: /usr/share/ca-certificates
+      name: usr-ca-certs
+      readOnly: true
+    - mountPath: /var/log
+      name: varlog
+      readOnly: false
+    - mountPath: /var/lib/kube-proxy/kubeconfig
+      name: kubeconfig
+      readOnly: false
+    - mountPath: /run/xtables.lock
+      name: iptableslock
+      readOnly: false
+    - mountPath: /lib/modules
+      name: lib-modules
+      readOnly: true
+  volumes:
+  - hostPath:
+      path: /usr/share/ca-certificates
+    name: usr-ca-certs
+  - hostPath:
+      path: /etc/ssl/certs
+    name: etc-ssl-certs
+  - hostPath:
+      path: /var/lib/kube-proxy/kubeconfig
+      type: FileOrCreate
+    name: kubeconfig
+  - hostPath:
+      path: /var/log
+    name: varlog
+  - hostPath:
+      path: /run/xtables.lock
+      type: FileOrCreate
+    name: iptableslock
+  - name: lib-modules
+    hostPath:
+      path: /lib/modules

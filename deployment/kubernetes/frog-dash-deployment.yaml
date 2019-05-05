@@ -9,16 +9,16 @@ data:
       "public": {
         "friendlyProduction": true
       },
-      "sharedb_dburl": "mongodb://mongo-test-service:27017",
-      "sharedb_redis": "redis-test-service:6379",
-      "logserverRedis" : "redis://redis-test-service:6379",
-      "externalOperatorRedis": "redis://redis-test-service:6379",
+      "sharedb_dburl": "mongodb://frog-db-mongodb:27017",
+      "sharedb_redis": "frog-redis-master:6379",
+      "logserverRedis" : "redis://frog-redis-master:6379",
+      "externalOperatorRedis": "redis://frog-redis-master:6379",
       "token": "9f8sd0f98sdfj3j4jFFFF1",
-      "Minio": { "urls": ["https://icchilisrv3.epfl.ch:9000"]} 
+      "Minio": { "urls": ["https://minio.chilifrog.tk"]} 
     }
 
-  ROOT_URL: http://minikube
-  MONGO_URL: mongodb://mongo-test-service:27017/meteor
+  ROOT_URL: https://chilifrog.tk
+  MONGO_URL: mongodb://frog-db-mongodb:27017/meteor
   PORT: "3000"
 
 --- 
@@ -26,26 +26,21 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frog-dash-test-deployment
+  name: frog-dash-deployment
   labels:
     app: frog-dash
-    env-type: test
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: frog-dash
-      tier: backend
-      env-type: test
 
   # POD declaration
   template:
     metadata:
       labels:
         app: frog-dash
-        tier: backend
-        env-type: test
 
     spec:
       containers:
@@ -58,23 +53,18 @@ spec:
           envFrom:
             - configMapRef:
                 name: frog-dash-cm
-
-      # TODO: maybe find a better to set regred instead of command line
-      imagePullSecrets:
-        - name: regcred
 ---
 ######## Service Configuration ########
-######## Open an external port to outside of the cluster, type=NodePort ##########
 kind: Service
 apiVersion: v1
 metadata:
-  name: frog-dashboard-service
+  name: frog-dash-svc
 spec:
   selector: # for pods     
     app: frog-dash
-    env-type: test
   
-  type: ClusterIP # external port 
+  type: ClusterIP 
   ports:
-  - port: 3000   # port of service will be listening from Node (will be sent to service on behalf of end-user)
+  - port: 3000   # port of service will be listening from internal ip address (kube-proxy will forward to this address)
     targetPort: 3000   # port of pod is listening which service wiil forward
+
