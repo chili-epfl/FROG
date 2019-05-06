@@ -118,6 +118,7 @@ export class Doc {
         id
       );
       itempointer.create(newLI);
+      itempointer.destroy()
       return id;
     }
   }

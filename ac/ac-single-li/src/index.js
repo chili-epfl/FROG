@@ -13,7 +13,7 @@ const meta = {
   name: 'Add/edit single Learning Item',
   shortDesc: 'New activity, no description available',
   description: 'New activity, no description available',
-  category: 'Individual Learning Items',
+  category: 'Single Learning Items',
   supportsLearningItems: true
 };
 
