@@ -117,7 +117,6 @@ const ChooseActivityTopPanel = connect(
       <Grid item xs={12}>
         <Typography variant="h6">Select activity type</Typography>
       </Grid>
-      import
       <Grid item xs={12}>
         <Grid container justify="center">
           <Grid item xs={8}>
