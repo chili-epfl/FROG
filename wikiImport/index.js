@@ -3,14 +3,22 @@ const fetch = require('node-fetch');
 const cuid = require('cuid');
 const fs = require('fs');
 
-const wiki = 'rsrchr';
+const wiki = process.argv[2];
 
-const sleep = waitTimeInMs =>
-  new Promise(resolve => setTimeout(resolve, waitTimeInMs));
+function msleep(n) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
+
+function sleep(n) {
+  msleep(n * 1000);
+}
+
 const links = {};
 const getLink = (rawtitle, create) => {
   const title = rawtitle
+    .replace(/^:(.+?)/g, '$1')
     .replace(/ /g, '_')
+    .replace(':', '-')
     .toLowerCase()
     .trim();
   if (links[title]) return links[title];
@@ -23,11 +31,15 @@ const getLink = (rawtitle, create) => {
   }
 };
 
+const baseurl = 'https://icchilisrv3.epfl.ch';
+// const baseurl = 'http://localhost:3000';
+
 const postWiki = (page, content) => {
+  console.log(
+    `${baseurl}/api/wikiSubmit?wiki=${wiki}&id=${getLink(page)}&page=${page}`
+  );
   fetch(
-    `https://icchilisrv3.epfl.ch/api/wikiSubmit?wiki=${wiki}&id=${getLink(
-      page
-    )}&page=${page}`,
+    `${baseurl}/api/wikiSubmit?wiki=${wiki}&id=${getLink(page)}&page=${page}`,
     {
       method: 'POST',
       headers: {
@@ -35,12 +47,15 @@ const postWiki = (page, content) => {
       },
       body: JSON.stringify(content)
     }
-  );
+  )
+    .then(e => e.text())
+    .then(e => console.log(e))
+    .catch(e => console.error(e));
 };
 
 const regexp = /\[([^\]]+)]/g;
 
-const tap = x => x; // console.log(x) || x;
+const tap = x => x; //console.log(x) || x;
 
 const convertLink = doc => ({
   text: {
@@ -51,6 +66,7 @@ const convertLink = doc => ({
         .replace(/h(\d). (.+)\n/g, '[##h$1$2]')
         .replace(/(^ *\* .+\n)/gm, '[!!$1]')
         .replace(/(^ *- .+\n)/gm, '[!#$1]')
+        .replace(/\[\@(.+?)\]/g, '[|||notes-$1|||]')
         .split(/\[|\]/g)
     )
       .map(x => {
@@ -107,6 +123,8 @@ const convertLink = doc => ({
             }
             return { insert: text || '', attributes: { link } };
           }
+
+          // console.log(x.slice(3, -3), getLink(x.slice(3, -3)));
           if (getLink(x.slice(3, -3))) {
             return {
               insert: {
@@ -138,7 +156,7 @@ const convertLink = doc => ({
 
 const titlecase = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 
-const processFile = name => {
+const processFile = async name => {
   console.log(name);
   const contents = fs.readFileSync('./pages/' + name, 'utf-8');
   const title = name.slice(0, -4);
@@ -146,6 +164,7 @@ const processFile = name => {
     titlecase(title.replace(/_/g, ' ').replace('/', '-')),
     convertLink(contents)
   );
+  await sleep(0.1);
 };
 
 // pre-process to store IDs
@@ -157,7 +176,6 @@ fs.readdirSync('./pages/')
   .filter(name => name.slice(-4) === '.txt')
   .forEach(async name => {
     processFile(name);
-    await sleep(200);
   });
 
 fs.readdirSync('./pages/researchr/')
@@ -168,5 +186,24 @@ fs.readdirSync('./pages/researchr/')
   .filter(name => name.slice(-4) === '.txt')
   .forEach(async name => {
     processFile('researchr/' + name);
-    await sleep(200);
+  });
+
+fs.readdirSync('./pages/a/')
+  .filter(name => name.slice(-4) === '.txt')
+  .forEach(name => getLink('a-' + name.slice(0, -4), true));
+
+fs.readdirSync('./pages/a/')
+  .filter(name => name.slice(-4) === '.txt')
+  .forEach(async name => {
+    processFile('a/' + name);
+  });
+
+fs.readdirSync('./pages/notes/')
+  .filter(name => name.slice(-4) === '.txt')
+  .forEach(name => getLink('notes-' + name.slice(0, -4), true));
+
+fs.readdirSync('./pages/notes/')
+  .filter(name => name.slice(-4) === '.txt')
+  .forEach(async name => {
+    processFile('notes/' + name);
   });

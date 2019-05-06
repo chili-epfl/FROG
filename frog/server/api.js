@@ -604,9 +604,12 @@ WebApp.connectHandlers.use(
       await new Promise(resolve => {
         wikiDoc.subscribe(() => {
           wikiDoc.submitOp(op);
+          wikiDoc.destroy();
           resolve();
         });
       });
+
+      genericDoc.destroy()
 
       response.writeHead(200);
       response.end();
