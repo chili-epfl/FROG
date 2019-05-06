@@ -123,7 +123,7 @@ class ConfigPanel extends React.Component<*, *> {
     }
   }
 
-  onConfigChange = debounce((e: any) => {
+  onConfigChange = (e: any) => {
     const {
       config,
       setConfig,
@@ -148,7 +148,9 @@ class ConfigPanel extends React.Component<*, *> {
     }
     setActivityTypeId(e.activityType);
     this.forceUpdate();
-  }, 1000);
+  };
+
+  onConfigChangeDebounced = debounce(this.onConfigChange, 500);
 
   shouldComponentUpdate = (nextProps: any) => {
     const { activityId, metadatas, config } = this.props;
@@ -175,6 +177,7 @@ class ConfigPanel extends React.Component<*, *> {
       setActivityTypeId
     } = this.props;
 
+    this.onConfigChangeDebounced.cancel();
     setActivityTypeId(null);
     setExample(0);
     setConfig({});
@@ -295,9 +298,9 @@ class ConfigPanel extends React.Component<*, *> {
             hidePreview
             {...{ config, setConfig, setActivityTypeId, setMetadatas }}
             activityType={activityTypeId}
-            onConfigChange={this.onConfigChange}
+            onConfigChange={this.onConfigChangeDebounced}
             onSelect={this.onSelectActivityType}
-            reload={reloadAPIform}
+            key={reloadAPIform + activityTypeId}
           />
         </div>
       </div>
