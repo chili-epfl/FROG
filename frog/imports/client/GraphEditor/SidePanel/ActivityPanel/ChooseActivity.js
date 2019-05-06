@@ -116,7 +116,8 @@ const ChooseActivityTopPanel = connect(
     >
       <Grid item xs={12}>
         <Typography variant="h6">Select activity type</Typography>
-      </Grid>import
+      </Grid>
+      import
       <Grid item xs={12}>
         <Grid container justify="center">
           <Grid item xs={8}>
@@ -157,32 +158,41 @@ const StyledChooseActivityTopPanel = withStyles(styles)(ChooseActivityTopPanel);
 
 class ActivityCategory extends Component<any, any> {
   state = {
-    open: this.props.defaultState,
+    open: this.props.defaultState
   };
   handleClick = () => {
-    this.setState({open: !this.state.open});
+    this.setState({ open: !this.state.open });
   };
 
   render() {
     const { name, items } = this.props;
     return (
-    <>
-      <ListItem button onClick={this.handleClick}>
-        <ListItemIcon>
-          <StarBorder />
-        </ListItemIcon>
-        <ListItemText inset primary={name} />
-        {this.state.open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-        <List>
-          {items.map((x: any) => (<ListItem button>
-              <ListItemText inset primary={x.meta.name} secondary={x.meta.shortDesc} />
-            </ListItem>
+      <>
+        <ListItem button onClick={this.handleClick} key={name}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText inset primary={name} />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List>
+            {items.map((x: ActivityPackageT) => (
+              <ListItem
+                button
+                key={x.id}
+                onClick={() => this.props.onSelect(x)}
+              >
+                <ListItemText
+                  inset
+                  primary={x.meta.name}
+                  secondary={x.meta.shortDesc}
+                />
+              </ListItem>
             ))}
-        </List>
-      </Collapse>
-    </>
+          </List>
+        </Collapse>
+      </>
     );
   }
 }
@@ -239,7 +249,14 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             store.addHistory();
           }
         };
-    const categories = ['Core tools', 'Deprecated core tools', 'Hyper-specific', 'Simulations', 'Discipline-specific', 'Single Learning Items'];
+    const categories = [
+      'Core tools',
+      'Deprecated core tools',
+      'Hyper-specific',
+      'Simulations',
+      'Discipline-specific',
+      'Single Learning Items'
+    ];
     const filteredList = activityTypesFiltered
       .filter(
         x =>
@@ -249,87 +266,21 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           x.meta.description.toLowerCase().includes(this.state.searchStr)
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
-    console.log(filteredList);
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
     const { classes } = this.props;
     return (
-      // <Grid container>
-      //   <Grid item xs={12}>
-      //     <StyledChooseActivityTopPanel
-      //       hideLibrary={this.props.hideLibrary}
-      //       onSearch={this.handleSearch}
-      //       onToggle={this.handleToggle}
-      //       {...this.props}
-      //     />
-      //   </Grid>
-
-      //   {this.props.store &&
-      //     (this.props.store.ui.libraryOpen ? (
-      //       <Grid item xs={12} className={classes.activityList}>
-      //         <Library
-      //           {...closeLibrary}
-      //           libraryType="activity"
-      //           setDelete={this.props.setDelete}
-      //           setIdRemove={this.props.setIdRemove}
-      //           activityId={this.props.activity._id}
-      //           setActivityTypeId={this.props.setActivityTypeId}
-      //           store={this.props.store}
-      //           locallyChanged={this.props.locallyChanged}
-      //           changesLoaded={this.props.changesLoaded}
-      //           onSelect={this.props.onSelect}
-      //           searchStr={this.state.searchStr}
-      //         />
-      //       </Grid>
-      //     ) : (
-      //       <Grid item xs={12} className={classes.activityList}>
-      //         {filteredList.length === 0 ? (
-      //           <StyledNoResult />
-      //         ) : (
-      //           <List>
-      //             {filteredList.map((x: ActivityPackageT) => (
-      //               <ListComponent
-      //                 hasPreview={
-      //                   !this.props.hidePreview &&
-      //                   x.meta.exampleData !== undefined
-      //                 }
-      //                 onSelect={() => select(x)}
-      //                 showExpanded={this.state.expanded === x.id}
-      //                 expand={() => this.setState({ expanded: x.id })}
-      //                 key={x.id}
-      //                 onPreview={() => {
-      //                   if (this.props.onPreview) {
-      //                     this.props.onPreview(x.id);
-      //                   } else if (this.props.store) {
-      //                     this.props.store.ui.setShowPreview({
-      //                       activityTypeId: x.id
-      //                     });
-      //                   }
-      //                 }}
-      //                 object={x}
-      //                 searchS={this.state.searchStr}
-      //                 eventKey={x.id}
-      //               />
-      //             ))}
-      //           </List>
-      //         )}
-      //       </Grid>
-      //     ))}
-      //   {this.state.showInfo !== null && (
-      //     <Preview
-      //       modal
-      //       activityTypeId={this.state.showInfo}
-      //       dismiss={() => this.setState({ showInfo: null })}
-      //     />
-      //   )}
-      // </Grid>
-      <Drawer
-        variant="permanent"
-        anchor="left"
-      >
+      <Drawer variant="permanent" anchor="left">
         <List component="nav">
-          {categories.map((x: string, idx: number) => (<ActivityCategory name={x} items={filteredList.filter(y => y.meta.category == x)} defaultState={idx==0}/>))}
+          {categories.map((x: string, idx: number) => (
+            <ActivityCategory
+              name={x}
+              items={filteredList.filter(y => y.meta.category == x)}
+              defaultState={idx == 0}
+              onSelect={select}
+            />
+          ))}
         </List>
       </Drawer>
     );
