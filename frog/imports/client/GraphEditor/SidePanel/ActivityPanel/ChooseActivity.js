@@ -116,9 +116,11 @@ class ActivityCategory extends Component<any, any> {
   state = {
     open: this.props.defaultState
   };
+
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
+
   render() {
     const { name, items, classes } = this.props;
     return (
