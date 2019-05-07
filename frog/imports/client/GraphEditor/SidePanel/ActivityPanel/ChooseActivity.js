@@ -19,6 +19,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Collapse from '@material-ui/core/Collapse';
@@ -46,8 +47,7 @@ type PropsT = {
   changesLoaded?: Function,
   setActivityTypeId?: Function,
   hideLibrary?: boolean,
-  whiteList?: string[],
-  anchor: string
+  whiteList?: string[]
 };
 
 const styles = {
@@ -98,8 +98,8 @@ const styles = {
       '0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12)',
     fontSize: '1rem'
   },
-  Sidebar: {
-    zIndex: 1099
+  searchBox: {
+    margin: 8
   }
 };
 
@@ -282,13 +282,19 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
-    const { classes, anchor } = this.props;
+    const { classes } = this.props;
     return (
-      <Drawer
-        variant="permanent"
-        anchor={anchor}
-        classes={{ paper: classes.Sidebar }}
-      >
+      <Grid>
+        <div className={classes.searchBox}>
+          <Grid container spacing={8} alignItems="flex-end" item>
+            <Grid item>
+              <Search fontSize="inherit" />
+            </Grid>
+            <Grid item>
+              <TextField id="search-input" label="Search" />
+            </Grid>
+          </Grid>
+        </div>
         <List component="nav">
           {categories.map((x: string, idx: number) => (
             <ActivityCategory
@@ -299,7 +305,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             />
           ))}
         </List>
-      </Drawer>
+      </Grid>
     );
   }
 }
