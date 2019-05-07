@@ -52,7 +52,8 @@ type PropsT = {
 
 const styles = {
   topPanel: {
-    padding: '10px'
+    padding: '10px',
+    margin: 8
   },
   activityList: {
     height: 'calc(100vh - 112px - 100px)',
@@ -98,8 +99,9 @@ const styles = {
       '0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12)',
     fontSize: '1rem'
   },
-  searchBox: {
-    margin: 8
+  List: {
+    paddingTop: 5,
+    paddingBottom: 5
   }
 };
 
@@ -192,6 +194,7 @@ class ActivityCategory extends Component<any, any> {
                 button
                 key={x.id}
                 onClick={() => this.props.onSelect(x)}
+                classes={{ button: classes.List }}
               >
                 <Tooltip
                   title={x.meta.shortDesc}
@@ -285,7 +288,10 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
     const { classes } = this.props;
     return (
       <Grid>
-        <div className={classes.searchBox}>
+        <div className={classes.topPanel}>
+          <Grid item>
+            <Typography variant="display1">Select Activity Type</Typography>
+          </Grid>
           <Grid container spacing={8} alignItems="flex-end" item>
             <Grid item>
               <Search fontSize="inherit" />
