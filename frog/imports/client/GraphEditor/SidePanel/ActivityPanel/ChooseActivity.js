@@ -19,6 +19,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from '@material-ui/core/Tooltip';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from '../../store';
@@ -45,7 +46,8 @@ type PropsT = {
   changesLoaded?: Function,
   setActivityTypeId?: Function,
   hideLibrary?: boolean,
-  whiteList?: string[]
+  whiteList?: string[],
+  anchor: string
 };
 
 const styles = {
@@ -88,6 +90,16 @@ const styles = {
   },
   resultContainer: {
     height: '100%'
+  },
+  Tooltip: {
+    backgroundColor: '#FFF',
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow:
+      '0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12)',
+    fontSize: '1rem'
+  },
+  Sidebar: {
+    zIndex: 1099
   }
 };
 
@@ -162,9 +174,8 @@ class ActivityCategory extends Component<any, any> {
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
-
   render() {
-    const { name, items } = this.props;
+    const { name, items, classes } = this.props;
     return (
       <>
         <ListItem button onClick={this.handleClick} key={name}>
@@ -182,11 +193,14 @@ class ActivityCategory extends Component<any, any> {
                 key={x.id}
                 onClick={() => this.props.onSelect(x)}
               >
-                <ListItemText
-                  inset
-                  primary={x.meta.name}
-                  secondary={x.meta.shortDesc}
-                />
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
               </ListItem>
             ))}
           </List>
@@ -195,7 +209,7 @@ class ActivityCategory extends Component<any, any> {
     );
   }
 }
-
+ActivityCategory = withStyles(styles)(ActivityCategory);
 class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
 
@@ -268,9 +282,13 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
     const closeLibrary = () =>
       this.props.store && this.props.store.ui.setLibraryOpen(false);
 
-    const { classes } = this.props;
+    const { classes, anchor } = this.props;
     return (
-      <Drawer variant="permanent" anchor="left">
+      <Drawer
+        variant="permanent"
+        anchor={anchor}
+        classes={{ paper: classes.Sidebar }}
+      >
         <List component="nav">
           {categories.map((x: string, idx: number) => (
             <ActivityCategory
