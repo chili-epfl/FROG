@@ -250,11 +250,11 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
         };
     const categories = [
       'Core tools',
-      'Deprecated core tools',
-      'Hyper-specific',
-      'Simulations',
+      'Single Learning Items',
       'Discipline-specific',
-      'Single Learning Items'
+      'Simulations',
+      'Deprecated core tools',
+      'Hyper-specific'
     ];
     const filteredList = activityTypesFiltered
       .filter(
