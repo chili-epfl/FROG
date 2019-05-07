@@ -297,19 +297,42 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               <Search fontSize="inherit" />
             </Grid>
             <Grid item>
-              <TextField id="search-input" label="Search" />
+              <TextField
+                id="search-input"
+                label="Search"
+                onChange={(x: Object) => this.handleSearch(x)}
+              />
             </Grid>
           </Grid>
         </div>
         <List component="nav">
-          {categories.map((x: string, idx: number) => (
-            <ActivityCategory
-              name={x}
-              items={filteredList.filter(y => y.meta.category == x)}
-              defaultState={idx == 0 || idx == 1}
-              onSelect={select}
-            />
-          ))}
+          {this.state.searchStr == '' &&
+            categories.map((x: string, idx: number) => (
+              <ActivityCategory
+                name={x}
+                items={filteredList.filter(y => y.meta.category == x)}
+                defaultState={idx == 0 || idx == 1}
+                onSelect={select}
+              />
+            ))}
+          {this.state.searchStr != '' &&
+            filteredList.map(x => (
+              <ListItem
+                button
+                key={x.id}
+                onClick={() => select(x)}
+                classes={{ button: classes.List }}
+              >
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
+              </ListItem>
+            ))}
         </List>
       </Grid>
     );
