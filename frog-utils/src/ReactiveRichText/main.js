@@ -684,7 +684,7 @@ class ReactiveRichText extends Component<
                       allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages();
+                        const values = wikiContext.getOnlyValidWikiPages(false);
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
@@ -705,8 +705,7 @@ class ReactiveRichText extends Component<
                               wikiId: wikiContext.getWikiId(),
                               title: searchTerm,
                               created: true,
-                              valid: true,
-                              createPage: wikiContext.createPage
+                              valid: true
                             });
                           }
 
@@ -721,7 +720,7 @@ class ReactiveRichText extends Component<
                       mentionDenotationChars: ['#'],
                       type: 'embed',
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages();
+                        const values = wikiContext.getOnlyValidWikiPages(false);
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);

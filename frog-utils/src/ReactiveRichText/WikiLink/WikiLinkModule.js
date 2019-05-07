@@ -222,12 +222,10 @@ class WikiLinkModule {
       );
     } else {
       if (!data.id) {
-        const newId = data.createPage(data.title);
+        const newId = window.wiki.createPage(data.title);
         data.id = newId;
         data.liId = newId;
       }
-
-      delete data['createPage'];
 
       this.quill.insertEmbed(
         this.mentionCharPos,
