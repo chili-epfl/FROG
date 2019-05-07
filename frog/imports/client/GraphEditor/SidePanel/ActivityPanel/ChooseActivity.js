@@ -276,7 +276,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             <ActivityCategory
               name={x}
               items={filteredList.filter(y => y.meta.category == x)}
-              defaultState={idx == 0}
+              defaultState={idx == 0 || idx == 1}
               onSelect={select}
             />
           ))}
