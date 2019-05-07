@@ -30,7 +30,7 @@ const parseSearch = function(search: string) {
 const parsePageObjForReactiveRichText = (wikiId: string, pageObj: Object) => ({
   wikiId,
   id: pageObj.id,
-  liId: pageObj.id,
+  liId: pageObj.liId,
   title: pageObj.title,
   created: pageObj.created,
   valid: pageObj.valid
