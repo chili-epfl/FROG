@@ -31,12 +31,15 @@ import {
   addNewWikiPage,
   invalidateWikiPage,
   changeWikiPageTitle,
-  markPageAsCreated
+  markPageAsCreated,
+  restoreWikiPage,
+  changeWikiPageLI
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import CreateModal from './ModalCreate';
+import DeletedPageModal from './ModalDeletedPage';
 import FindModal, { SearchAndFind } from './ModalFind';
 
 const genericDoc = connection.get('li');
@@ -172,10 +175,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       );
     }
 
+    const deletePageLinkFn = e => {
+      e.preventDefault();
+      this.setState({
+        deletedPageModalOpen: true,
+        currentDeletedPageId: pageObj.id,
+        currentDeletedPageTitle: pageObj.title
+      })
+    }
     if (!pageObj.valid) {
       style.color = 'red';
-      style.cursor = 'not-allowed'
-      return <span style={style}>{pageTitle}</span>;
+
+      return <span onClick={deletePageLinkFn} style={style}>{pageTitle}</span>;
     }
 
     style.color = 'blue';
@@ -431,6 +442,50 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       }
     );
   };
+
+  goToPage = (pageTitle) => {
+    const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+    this.props.history.push(link);
+  }
+
+  restoreDeletedPage = (pageId, pageTitle) => {
+    restoreWikiPage(this.wikiDoc, pageId);
+    this.setState({
+      deletedPageModalOpen: false,
+      currentDeletedPageId: null,
+      currentDeletedPageTitle: null
+    }, () => {
+      const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+      this.props.history.push(link);
+    });
+  }
+
+  createNewLIForPage = (pageId, pageTitle, liType) => {
+    restoreWikiPage(this.wikiDoc, pageId);
+    
+    const meta = {
+      wikiId: this.wikiId
+    };
+
+    const newId = dataFn.createLearningItem(
+      liType || 'li-richText',
+      undefined,
+      meta,
+      undefined,
+      undefined,
+      undefined
+    );
+
+    changeWikiPageLI(this.wikiDoc, pageId, newId);
+    this.setState({
+      deletedPageModalOpen: false,
+      currentDeletedPageId: null,
+      currentDeletedPageTitle: null
+    }, () => {
+      const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+      this.props.history.push(link);
+    });
+  }
 
   render() {
     if (!this.state.pageId || !this.state.pageTitle || !this.state.currentLI)
@@ -759,6 +814,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               setModalOpen={e => this.setState({ createModalOpen: e })}
               errorDiv={this.state.error}
               wikiId={this.wikiId}
+            />
+          )}
+          {this.state.deletedPageModalOpen && (
+            <DeletedPageModal
+              closeModal={() => this.setState({ deletedPageModalOpen:false })}
+              restoreDeletedPage={this.restoreDeletedPage}
+              createNewLIForPage={this.createNewLIForPage}
+              pageId={this.state.currentDeletedPageId}
+              pageTitle={this.state.currentDeletedPageTitle}
             />
           )}
         </WikiContext.Provider>
