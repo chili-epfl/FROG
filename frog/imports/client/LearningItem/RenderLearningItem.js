@@ -190,7 +190,7 @@ class RenderLearningItem extends React.Component<any, any> {
                 dataFn={dataFn && dataFn.specialize('payload')}
                 LearningItem={dataFn && dataFn.LearningItem}
                 search={search && search.toLowerCase()}
-                ref={liType.canDropLI ? this.ref : undefined}
+                ref={liType.canDropLI && type === 'edit' ? this.ref : undefined}
                 open={open}
                 type={type}
                 setOpen={e => this.setState({ open: e })}
