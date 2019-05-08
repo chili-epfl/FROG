@@ -5,7 +5,6 @@ import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -13,11 +12,15 @@ import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 import Cloud from '@material-ui/icons/Cloud';
-
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import Collapse from '@material-ui/core/Collapse';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
-import ListComponent from '../ListComponent';
-import Preview from '../../../Preview';
 
 type StateT = {
   expanded: ?string,
@@ -43,34 +46,16 @@ type PropsT = {
 
 const styles = {
   topPanel: {
-    padding: '10px'
+    padding: '10px',
+    margin: 8
   },
   activityList: {
-    height: 'calc(100vh - 112px - 100px)',
     overflowY: 'auto'
   },
   searchContainer: {
     position: 'relative',
     borderRadius: '5px',
     background: 'rgba(0,0,0,.05)'
-  },
-  searchIcon: {
-    width: '50px',
-    height: '100%',
-    display: 'flex',
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  searchInput: {
-    border: '0',
-    width: '100%',
-    padding: '8px 8px 8px 50px',
-    background: 'none',
-    outline: 'none',
-    whiteSpace: 'normal',
-    verticalAlign: 'middle',
-    fontSize: '1rem'
   },
   centerButton: {
     textAlign: 'center'
@@ -81,73 +66,73 @@ const styles = {
   },
   resultContainer: {
     height: '100%'
+  },
+  Tooltip: {
+    backgroundColor: '#FFF',
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow:
+      '0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12)',
+    fontSize: '1rem'
+  },
+  Category: {
+    fontSize: '1.5rem',
+    fontWeight: 500
+  },
+  List: {
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  Library: {
+    marginRight: 8
   }
 };
 
-const NoResult = ({ classes }) => (
-  <Grid
-    container
-    justify="center"
-    alignItems="center"
-    className={classes.resultContainer}
-  >
-    <Grid item>
-      <Typography variant="body1">No results found</Typography>
-    </Grid>
-  </Grid>
-);
+class ActivityCategory extends Component<any, any> {
+  state = {
+    open: this.props.defaultState
+  };
 
-const StyledNoResult = withStyles(styles)(NoResult);
+  handleClick = () => {
+    this.setState({ open: !this.state.open });
+  };
 
-const ChooseActivityTopPanel = connect(
-  ({ classes, onSearch, onToggle, store, hideLibrary }) => (
-    <Grid
-      container
-      className={classes.topPanel}
-      alignItems="center"
-      spacing={8}
-    >
-      <Grid item xs={12}>
-        <Typography variant="h6">Select activity type</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container justify="center">
-          <Grid item xs={8}>
-            <div className={classes.searchContainer}>
-              <div className={classes.searchIcon}>
-                <Search />
-              </div>
-              <input
-                type="text"
-                onChange={onSearch}
-                className={classes.searchInput}
-                aria-describedby="basic-addon1"
-              />
-            </div>
-          </Grid>
-          {!hideLibrary && (
-            <Grid item xs={4} className={classes.centerButton}>
-              <Button
-                color="primary"
-                size="small"
-                variant={store.ui.libraryOpen ? 'contained' : null}
-                onClick={onToggle}
+  render() {
+    const { name, items, classes } = this.props;
+    return (
+      <>
+        <ListItem button onClick={this.handleClick} key={name}>
+          <ListItemText
+            primary={name}
+            classes={{ primary: classes.Category }}
+          />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List>
+            {items.map((x: ActivityPackageT) => (
+              <ListItem
+                button
+                key={x.id}
+                onClick={() => this.props.onSelect(x)}
+                classes={{ button: classes.List }}
               >
-                <Cloud className={classes.cloudIcon} /> Library
-              </Button>
-            </Grid>
-          )}
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        <Divider />
-      </Grid>
-    </Grid>
-  )
-);
-
-const StyledChooseActivityTopPanel = withStyles(styles)(ChooseActivityTopPanel);
-
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+      </>
+    );
+  }
+}
+const StyledActivityCategory = withStyles(styles)(ActivityCategory);
 class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
 
@@ -200,7 +185,14 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             store.addHistory();
           }
         };
-
+    const categories = [
+      'Core tools',
+      'Single Learning Items',
+      'Discipline-specific',
+      'Simulations',
+      'Deprecated core tools',
+      'Hyper-specific'
+    ];
     const filteredList = activityTypesFiltered
       .filter(
         x =>
@@ -211,79 +203,92 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
-    const closeLibrary = () =>
-      this.props.store && this.props.store.ui.setLibraryOpen(false);
-
-    const { classes } = this.props;
+    const { classes, store } = this.props;
     return (
-      <Grid container>
-        <Grid item xs={12}>
-          <StyledChooseActivityTopPanel
-            hideLibrary={this.props.hideLibrary}
-            onSearch={this.handleSearch}
-            onToggle={this.handleToggle}
-            {...this.props}
-          />
-        </Grid>
-
-        {this.props.store &&
-          (this.props.store.ui.libraryOpen ? (
-            <Grid item xs={12} className={classes.activityList}>
-              <Library
-                {...closeLibrary}
-                libraryType="activity"
-                setDelete={this.props.setDelete}
-                setIdRemove={this.props.setIdRemove}
-                activityId={this.props.activity._id}
-                setActivityTypeId={this.props.setActivityTypeId}
-                store={this.props.store}
-                locallyChanged={this.props.locallyChanged}
-                changesLoaded={this.props.changesLoaded}
-                onSelect={this.props.onSelect}
-                searchStr={this.state.searchStr}
+      <Grid>
+        <div className={classes.topPanel}>
+          <Grid item>
+            <Typography variant="h4">Select Activity Type</Typography>
+          </Grid>
+          <Grid container spacing={8} alignItems="flex-end" item>
+            <Grid item>
+              <Search fontSize="inherit" />
+            </Grid>
+            <Grid item>
+              <TextField
+                id="search-input"
+                label="Search"
+                onChange={(x: Object) => this.handleSearch(x)}
               />
             </Grid>
-          ) : (
-            <Grid item xs={12} className={classes.activityList}>
-              {filteredList.length === 0 ? (
-                <StyledNoResult />
-              ) : (
-                <List>
-                  {filteredList.map((x: ActivityPackageT) => (
-                    <ListComponent
-                      hasPreview={
-                        !this.props.hidePreview &&
-                        x.meta.exampleData !== undefined
-                      }
-                      onSelect={() => select(x)}
-                      showExpanded={this.state.expanded === x.id}
-                      expand={() => this.setState({ expanded: x.id })}
-                      key={x.id}
-                      onPreview={() => {
-                        if (this.props.onPreview) {
-                          this.props.onPreview(x.id);
-                        } else if (this.props.store) {
-                          this.props.store.ui.setShowPreview({
-                            activityTypeId: x.id
-                          });
-                        }
-                      }}
-                      object={x}
-                      searchS={this.state.searchStr}
-                      eventKey={x.id}
-                    />
-                  ))}
-                </List>
-              )}
+            <Grid item>
+              <Button
+                variant="contained"
+                color={!store.ui.libraryOpen ? 'primary' : 'secondary'}
+                onClick={this.handleToggle}
+              >
+                <Cloud className={classes.Library} />
+                Library
+              </Button>
             </Grid>
-          ))}
-        {this.state.showInfo !== null && (
-          <Preview
-            modal
-            activityTypeId={this.state.showInfo}
-            dismiss={() => this.setState({ showInfo: null })}
-          />
-        )}
+          </Grid>
+        </div>
+        <List component="nav">
+          {!this.props.store.ui.libraryOpen &&
+            this.state.searchStr === '' &&
+            categories.map((x: string, idx: number) => (
+              <StyledActivityCategory
+                name={x}
+                items={filteredList.filter(y => y.meta.category === x)}
+                defaultState={idx === 0 || idx === 1}
+                onSelect={select}
+              />
+            ))}
+          {!this.props.store.ui.libraryOpen &&
+            this.state.searchStr !== '' &&
+            filteredList.length !== 0 &&
+            filteredList.map(x => (
+              <ListItem
+                button
+                key={x.id}
+                onClick={() => select(x)}
+                classes={{ button: classes.List }}
+              >
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
+              </ListItem>
+            ))}
+          {!this.props.store.ui.libraryOpen &&
+            this.state.searchStr !== '' &&
+            filteredList.length === 0 && (
+              <ListItem>
+                <ListItemText
+                  inset
+                  primary="No Activity types matched your search"
+                />
+              </ListItem>
+            )}
+          {this.props.store.ui.libraryOpen && (
+            <Library
+              libraryType="activity"
+              setDelete={this.props.setDelete}
+              setIdRemove={this.props.setIdRemove}
+              activityId={this.props.activity._id}
+              setActivityTypeId={this.props.setActivityTypeId}
+              store={this.props.store}
+              locallyChanged={this.props.locallyChanged}
+              changesLoaded={this.props.changesLoaded}
+              onSelect={this.props.onSelect}
+              searchStr={this.state.searchStr}
+            />
+          )}
+        </List>
       </Grid>
     );
   }
