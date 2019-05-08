@@ -161,8 +161,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const createLinkFn = e => {
       e.preventDefault();
-      this.props.history.push(link);
-      setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
+      const linkWithEdit = link  + '?edit=true';
+      this.props.history.push(linkWithEdit);
+      setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 200);
     }
 
     if (!pageObj.created) {
@@ -763,7 +764,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                   <div
                     style={{
                       flex: '0 0 calc(100vh - 100px)',
-                      height: 'calc(100vh - 100px)'
+                      height: 'calc(100vh - 100px)',
+                      overflow: 'hidden'
                     }}
                   >
                     <Paper
