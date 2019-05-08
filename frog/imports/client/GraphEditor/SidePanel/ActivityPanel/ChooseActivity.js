@@ -50,31 +50,12 @@ const styles = {
     margin: 8
   },
   activityList: {
-    height: 'calc(100vh - 112px - 100px)',
     overflowY: 'auto'
   },
   searchContainer: {
     position: 'relative',
     borderRadius: '5px',
     background: 'rgba(0,0,0,.05)'
-  },
-  searchIcon: {
-    width: '50px',
-    height: '100%',
-    display: 'flex',
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  searchInput: {
-    border: '0',
-    width: '100%',
-    padding: '8px 8px 8px 50px',
-    background: 'none',
-    outline: 'none',
-    whiteSpace: 'normal',
-    verticalAlign: 'middle',
-    fontSize: '1rem'
   },
   centerButton: {
     textAlign: 'center'
