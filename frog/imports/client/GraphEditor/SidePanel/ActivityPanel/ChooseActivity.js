@@ -5,9 +5,7 @@ import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -17,16 +15,12 @@ import Cloud from '@material-ui/icons/Cloud';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
-import StarBorder from '@material-ui/icons/StarBorder';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
-import ListComponent from '../ListComponent';
-import Preview from '../../../Preview';
 
 type StateT = {
   expanded: ?string,
@@ -116,9 +110,11 @@ class ActivityCategory extends Component<any, any> {
   state = {
     open: this.props.defaultState
   };
+
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
+
   render() {
     const { name, items, classes } = this.props;
     return (
@@ -155,7 +151,7 @@ class ActivityCategory extends Component<any, any> {
     );
   }
 }
-ActivityCategory = withStyles(styles)(ActivityCategory);
+const StyledActivityCategory = withStyles(styles)(ActivityCategory);
 class ChooseActivityTypeController extends Component<PropsT, StateT> {
   inputRef: any;
 
@@ -225,8 +221,6 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           x.meta.description.toLowerCase().includes(this.state.searchStr)
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
-    const closeLibrary = () =>
-      this.props.store && this.props.store.ui.setLibraryOpen(false);
 
     const { classes, store } = this.props;
     return (
@@ -260,18 +254,18 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
         </div>
         <List component="nav">
           {!this.props.store.ui.libraryOpen &&
-            this.state.searchStr == '' &&
+            this.state.searchStr === '' &&
             categories.map((x: string, idx: number) => (
-              <ActivityCategory
+              <StyledActivityCategory
                 name={x}
-                items={filteredList.filter(y => y.meta.category == x)}
-                defaultState={idx == 0 || idx == 1}
+                items={filteredList.filter(y => y.meta.category === x)}
+                defaultState={idx === 0 || idx === 1}
                 onSelect={select}
               />
             ))}
           {!this.props.store.ui.libraryOpen &&
-            this.state.searchStr != '' &&
-            filteredList.length != 0 &&
+            this.state.searchStr !== '' &&
+            filteredList.length !== 0 &&
             filteredList.map(x => (
               <ListItem
                 button
@@ -290,8 +284,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               </ListItem>
             ))}
           {!this.props.store.ui.libraryOpen &&
-            this.state.searchStr != '' &&
-            filteredList.length == 0 && (
+            this.state.searchStr !== '' &&
+            filteredList.length === 0 && (
               <ListItem>
                 <ListItemText
                   inset
