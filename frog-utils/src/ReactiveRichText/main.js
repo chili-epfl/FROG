@@ -83,7 +83,8 @@ type ReactivePropsT = {
   shorten?: number,
   userId?: string,
   search?: string,
-  onChange?: Function
+  onChange?: Function,
+  autoFocus?: boolean
 };
 
 class ReactiveRichText extends Component<
@@ -102,6 +103,8 @@ class ReactiveRichText extends Component<
   toolbarId: string = uuid();
 
   styleElements: {};
+
+  debouncedInsertNewLi: Function;
 
   state = {
     path: this.props.dataFn.getMergedPath(this.props.path),
@@ -319,6 +322,9 @@ class ReactiveRichText extends Component<
   componentDidMount() {
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
+      if (this.props.autoFocus) {
+        this.quillRef.focus();
+      }
       if (editor) {
         // LI blots in existing content always trigger a change with source 'user'
         // on editor load. This causes the editor to duplicate the LIs in some
@@ -529,7 +535,7 @@ class ReactiveRichText extends Component<
     }
   };
 
-  onDrop = (e: { item: Object | string }, initialView?: string) => {
+  onDrop = (e: { item: Object | string }, initialView?: string = 'view') => {
     const editor = this.quillRef.getEditor();
     const item = e?.item;
 
@@ -584,7 +590,7 @@ class ReactiveRichText extends Component<
     return filter(
       allLiTypes,
       type =>
-        get(type, 'dataStructure') &&
+        get(type, 'liDataStructure') &&
         get(type, 'Editor') &&
         get(type, 'id') !== 'li-richText' &&
         get(type, 'id') !== 'li-doubleRichText'
@@ -621,16 +627,15 @@ class ReactiveRichText extends Component<
     const LearningItem = this.props.dataFn.LearningItem;
     const props = this.props;
     const scrollContainerClass = 'scroll-container';
-    const editorStyle = props.readOnly
-      ? { borderStyle: 'hidden' }
-      : { };
-    const reactQuillStyle = props.readOnly ? {
-      height: '100%'
-    } : {
-      height: 'calc(100% - 42px)'
-    };
-    
-    
+    const editorStyle = props.readOnly ? { borderStyle: 'hidden' } : {};
+    const reactQuillStyle = props.readOnly
+      ? {
+          height: '100%'
+        }
+      : {
+          height: 'calc(100% - 42px)'
+        };
+
     return (
       <WikiContext.Consumer>
         {wikiContext => (
@@ -684,7 +689,7 @@ class ReactiveRichText extends Component<
                       allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages();
+                        const values = wikiContext.getOnlyValidWikiPages(false);
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
@@ -705,8 +710,7 @@ class ReactiveRichText extends Component<
                               wikiId: wikiContext.getWikiId(),
                               title: searchTerm,
                               created: true,
-                              valid: true,
-                              createPage: wikiContext.createPage
+                              valid: true
                             });
                           }
 
@@ -721,12 +725,13 @@ class ReactiveRichText extends Component<
                       mentionDenotationChars: ['#'],
                       type: 'embed',
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages();
+                        const values = wikiContext.getOnlyValidWikiPages(false);
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
                         } else {
                           const matches = [];
+
                           for (const valueObj of values) {
                             const text = (valueObj.title || '').toLowerCase();
                             const searchLower = (

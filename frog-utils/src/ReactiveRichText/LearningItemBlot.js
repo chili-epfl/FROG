@@ -18,15 +18,20 @@ class LearningItemBlot extends Embed {
     const initialView = view || LiViewTypes.VIEW;
 
     node.setAttribute('contenteditable', false);
-    LearningItemBlot.renderLItoNode(
-      liId,
-      authorId,
-      initialView,
-      initialView === LiViewTypes.EDIT ? LiViewTypes.VIEW : initialView,
-      true,
-      node
-    );
-    return node;
+    if (!value) {
+      return;
+    }
+    if (liId) {
+      LearningItemBlot.renderLItoNode(
+        liId,
+        authorId,
+        initialView,
+        initialView === LiViewTypes.EDIT ? LiViewTypes.VIEW : initialView,
+        true,
+        node
+      );
+      return node;
+    }
   }
 
   static renderLItoNode(
@@ -37,24 +42,26 @@ class LearningItemBlot extends Embed {
     controls: any,
     node: any
   ) {
-    ReactDOM.render(
-      <div
-        data-li-id={liId}
-        data-author-id={authorId}
-        data-li-view={liView}
-        data-li-zoom-state={zoomState}
-        data-li-controls={controls}
-      >
-        <LIComponent
-          id={JSON.parse(liId)}
-          authorId={authorId}
-          liView={liView}
-          liZoomState={zoomState}
-          controls={controls}
-        />
-      </div>,
-      node
-    );
+    if (liId) {
+      ReactDOM.render(
+        <div
+          data-li-id={liId}
+          data-author-id={authorId}
+          data-li-view={liView}
+          data-li-zoom-state={zoomState}
+          data-li-controls={controls}
+        >
+          <LIComponent
+            id={JSON.parse(liId)}
+            authorId={authorId}
+            liView={liView}
+            liZoomState={zoomState}
+            controls={controls}
+          />
+        </div>,
+        node
+      );
+    }
   }
 
   constructor(domNode: any, value: Object) {

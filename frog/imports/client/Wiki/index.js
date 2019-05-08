@@ -30,7 +30,8 @@ import {
 import {
   addNewWikiPage,
   invalidateWikiPage,
-  changeWikiPageTitle
+  changeWikiPageTitle,
+  markPageAsCreated
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
@@ -109,9 +110,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
-        getOnlyValidWikiPages: this.getOnlyValidWikiPages,
-        createPage: this.createNewPageLI,
-        save: () => this.setState({ docMode: 'view' })
+        getOnlyValidWikiPages: this.getOnlyValidWikiPages
       }
     };
   }
@@ -133,7 +132,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       title: newTitle
     });
 
-    addNewWikiPage(this.wikiDoc, newId, newTitle, 'li-activity');
+    addNewWikiPage(this.wikiDoc, newId, newTitle, true, 'li-activity');
     this.setState({
       mode: 'document'
     });
@@ -151,14 +150,31 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
     const pageTitle = pageObj.title;
     const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+
     const linkFn = e => {
       e.preventDefault();
       this.props.history.push(link);
     };
 
+    const createLinkFn = e => {
+      e.preventDefault();
+      this.props.history.push(link);
+      setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
+    }
+
+    if (!pageObj.created) {
+      style.color = 'green';
+
+      return (
+        <span onClick={createLinkFn} style={style}>
+          <b>{pageTitle}</b>
+        </span>
+      );
+    }
+
     if (!pageObj.valid) {
       style.color = 'red';
-      style.cursor = 'not-allowed';
+      style.cursor = 'not-allowed'
       return <span style={style}>{pageTitle}</span>;
     }
 
@@ -172,7 +188,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   });
 
   componentDidMount() {
-    window.frog_WikiLink = this.WikiLink;
+    window.wiki = {
+      WikiLink: this.WikiLink,
+      createPage: this.createNewPageLI,
+    }
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -211,8 +230,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     wikistore.setPages(this.wikiDoc.data.pages);
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+
     const query = queryToObject(this.props.location.search.slice(1));
-    if (pageTitle != null) {
+    
+    if (parsedPages[pageTitle && pageTitle.toLowerCase()]) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
       const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
 
@@ -229,9 +250,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           query.edit
             ? 'edit'
             : this.state.docMode
+      }, () => {
+        if (!this.props.match.params.pageTitle) {
+          const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+          this.props.history.replace(link);
+        }
       });
     } else {
-      this.createNewPageLI('Home');
+      this.createNewPageLI(pageTitle || 'Home', true);
     }
   };
 
@@ -245,9 +271,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     );
   };
 
-  getOnlyValidWikiPages = () => {
+  getOnlyValidWikiPages = (includeCurrentPage: boolean) => {
     return values(wikistore.pages)
-      .filter(x => x.valid)
+      .filter(x => x.valid && x.created && (includeCurrentPage || x.title !== this.state.pageTitle))
       .map(pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj));
   };
 
@@ -259,6 +285,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       const query = queryToObject(this.props.location.search.slice(1));
       const pages = parseDocResults(this.wikiDoc.data);
       const newPageTitle = this.props.match.params.pageTitle;
+
       if (!newPageTitle) return;
 
       if (!pages[newPageTitle.toLowerCase()]) {
@@ -280,7 +307,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 : 'view'
           },
           () => {
-            this.createNewPageLI(newPageTitle);
+            this.createNewPageLI(newPageTitle, true);
           }
         );
 
@@ -311,7 +338,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
   }
 
-  createNewPageLI = (pageTitle: string, liType: ?string) => {
+  createNewPageLI = (pageTitle: string, setCreated, liType: ?string) => {
     if (!pageTitle) throw new Error('Empty pageTitleRaw');
     const meta = {
       wikiId: this.wikiId
@@ -326,8 +353,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       undefined
     );
 
-    addNewWikiPage(this.wikiDoc, newId, pageTitle, 'li-richText');
-    return newId;
+    return addNewWikiPage(this.wikiDoc, newId, pageTitle, setCreated, liType || 'li-richText');
   };
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {
@@ -345,11 +371,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     if (li) {
-      addNewWikiPage(this.wikiDoc, li, newTitle, liType);
+      addNewWikiPage(this.wikiDoc, li, newTitle, true, liType);
     } else if (config && config.activityType) {
       this.createActivityPage(newTitle, config);
     } else {
-      this.createNewPageLI(newTitle, liType);
+      this.createNewPageLI(newTitle, true, liType);
     }
 
     this.setState(
@@ -411,7 +437,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       return null;
 
     const validPages = this.getOnlyValidWikiPages();
-    let pages = validPages;
+    const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true);
+    
+    let pages = validPagesIncludingCurrent;
     if (this.state.search !== '') {
       const search = this.state.search.trim().toLowerCase();
       pages = validPages.filter(x => x.title.toLowerCase().includes(search));
@@ -628,7 +656,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
           <span style={{ color: itemColors['dashboard'] }}>Dashboard</span>
         </div>
-        {validPages.length > 1 ? (
+        {validPagesIncludingCurrent.length > 1 ? (
           <div
             style={topNavBarItemStyle}
             onClick={() => {
@@ -650,7 +678,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             <div style={contentDivStyle}>
               {topNavBar}
               {this.state.mode === 'revisions' && (
-                <Revisions doc={this.state.pageId} />
+                <Revisions doc={this.state.currentLI} />
               )}
               {this.state.mode === 'dashboard' && (
                 <Paper

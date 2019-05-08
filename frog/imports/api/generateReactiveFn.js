@@ -118,7 +118,6 @@ export class Doc {
         id
       );
       itempointer.create(newLI);
-      itempointer.destroy()
       return id;
     }
   }
@@ -174,13 +173,11 @@ export class Doc {
       doc.fetch();
       if (doc.type) {
         const data = doc.data;
-        doc.destroy();
         resolve(data);
       }
 
       doc.once('load', () => {
         const data = doc.data;
-        doc.destroy();
         resolve(data);
       });
     });
