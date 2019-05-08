@@ -227,7 +227,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
       <Grid>
         <div className={classes.topPanel}>
           <Grid item>
-            <Typography variant="display1">Select Activity Type</Typography>
+            <Typography variant="h4">Select Activity Type</Typography>
           </Grid>
           <Grid container spacing={8} alignItems="flex-end" item>
             <Grid item>
