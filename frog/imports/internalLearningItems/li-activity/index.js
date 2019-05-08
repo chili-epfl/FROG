@@ -38,7 +38,7 @@ const Viewer = ({ data }) => {
 export default ({
   name: 'FROG Activity',
   id: 'li-activity',
-  dataStructure: {
+  liDataStructure: {
     acType: '',
     rz: '',
     acTypeTitle: '',

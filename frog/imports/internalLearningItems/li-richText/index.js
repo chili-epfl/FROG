@@ -35,6 +35,7 @@ export class Editor extends React.Component<*, *> {
           userId={this.props.userId}
           path={path}
           dataFn={dataFn}
+          autoFocus
         />
       </div>
     );
