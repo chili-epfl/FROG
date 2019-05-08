@@ -119,7 +119,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   createActivityPage = (newTitle, rawconfig) => {
-    const { activityType, config, invalid } = rawconfig;
+    const { activityType, config } = rawconfig;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
     doc.create(activityTypesObj[activityType].dataStructure);
@@ -161,10 +161,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const createLinkFn = e => {
       e.preventDefault();
-      const linkWithEdit = link  + '?edit=true';
+      const linkWithEdit = link + '?edit=true';
       this.props.history.push(linkWithEdit);
       setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 200);
-    }
+    };
 
     if (!pageObj.created) {
       style.color = 'green';
@@ -182,12 +182,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         deletedPageModalOpen: true,
         currentDeletedPageId: pageObj.id,
         currentDeletedPageTitle: pageObj.title
-      })
-    }
+      });
+    };
     if (!pageObj.valid) {
       style.color = 'red';
 
-      return <span onClick={deletePageLinkFn} style={style}>{pageTitle}</span>;
+      return (
+        <span onClick={deletePageLinkFn} style={style}>
+          {pageTitle}
+        </span>
+      );
     }
 
     style.color = 'blue';
@@ -202,8 +206,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   componentDidMount() {
     window.wiki = {
       WikiLink: this.WikiLink,
-      createPage: this.createNewPageLI,
-    }
+      createPage: this.createNewPageLI
+    };
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -244,30 +248,33 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
 
     const query = queryToObject(this.props.location.search.slice(1));
-    
+
     if (parsedPages[pageTitle && pageTitle.toLowerCase()]) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
       const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
 
-      this.setState({
-        pageId,
-        currentLI,
-        pageTitle,
-        pageTitleString: pageTitle,
-        search: '',
-        findModalOpen: false,
-        pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
-        docMode:
-          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
-          query.edit
-            ? 'edit'
-            : this.state.docMode
-      }, () => {
-        if (!this.props.match.params.pageTitle) {
-          const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-          this.props.history.replace(link);
+      this.setState(
+        {
+          pageId,
+          currentLI,
+          pageTitle,
+          pageTitleString: pageTitle,
+          search: '',
+          findModalOpen: false,
+          pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
+          docMode:
+            parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
+            query.edit
+              ? 'edit'
+              : this.state.docMode
+        },
+        () => {
+          if (!this.props.match.params.pageTitle) {
+            const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+            this.props.history.replace(link);
+          }
         }
-      });
+      );
     } else {
       this.createNewPageLI(pageTitle || 'Home', true);
     }
@@ -285,7 +292,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   getOnlyValidWikiPages = (includeCurrentPage: boolean) => {
     return values(wikistore.pages)
-      .filter(x => x.valid && x.created && (includeCurrentPage || x.title !== this.state.pageTitle))
+      .filter(
+        x =>
+          x.valid &&
+          x.created &&
+          (includeCurrentPage || x.title !== this.state.pageTitle)
+      )
       .map(pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj));
   };
 
@@ -365,7 +377,13 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       undefined
     );
 
-    return addNewWikiPage(this.wikiDoc, newId, pageTitle, setCreated, liType || 'li-richText');
+    return addNewWikiPage(
+      this.wikiDoc,
+      newId,
+      pageTitle,
+      setCreated,
+      liType || 'li-richText'
+    );
   };
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {
@@ -444,26 +462,29 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     );
   };
 
-  goToPage = (pageTitle) => {
+  goToPage = pageTitle => {
     const link = '/wiki/' + this.wikiId + '/' + pageTitle;
     this.props.history.push(link);
-  }
+  };
 
   restoreDeletedPage = (pageId, pageTitle) => {
     restoreWikiPage(this.wikiDoc, pageId);
-    this.setState({
-      deletedPageModalOpen: false,
-      currentDeletedPageId: null,
-      currentDeletedPageTitle: null
-    }, () => {
-      const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-      this.props.history.push(link);
-    });
-  }
+    this.setState(
+      {
+        deletedPageModalOpen: false,
+        currentDeletedPageId: null,
+        currentDeletedPageTitle: null
+      },
+      () => {
+        const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+        this.props.history.push(link);
+      }
+    );
+  };
 
   createNewLIForPage = (pageId, pageTitle, liType) => {
     restoreWikiPage(this.wikiDoc, pageId);
-    
+
     const meta = {
       wikiId: this.wikiId
     };
@@ -478,15 +499,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     );
 
     changeWikiPageLI(this.wikiDoc, pageId, newId);
-    this.setState({
-      deletedPageModalOpen: false,
-      currentDeletedPageId: null,
-      currentDeletedPageTitle: null
-    }, () => {
-      const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-      this.props.history.push(link);
-    });
-  }
+    this.setState(
+      {
+        deletedPageModalOpen: false,
+        currentDeletedPageId: null,
+        currentDeletedPageTitle: null
+      },
+      () => {
+        const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+        this.props.history.push(link);
+      }
+    );
+  };
 
   render() {
     if (!this.state.pageId || !this.state.pageTitle || !this.state.currentLI)
@@ -494,7 +518,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const validPages = this.getOnlyValidWikiPages();
     const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true);
-    
+
     let pages = validPagesIncludingCurrent;
     if (this.state.search !== '') {
       const search = this.state.search.trim().toLowerCase();
@@ -820,7 +844,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           )}
           {this.state.deletedPageModalOpen && (
             <DeletedPageModal
-              closeModal={() => this.setState({ deletedPageModalOpen:false })}
+              closeModal={() => this.setState({ deletedPageModalOpen: false })}
               restoreDeletedPage={this.restoreDeletedPage}
               createNewLIForPage={this.createNewLIForPage}
               pageId={this.state.currentDeletedPageId}

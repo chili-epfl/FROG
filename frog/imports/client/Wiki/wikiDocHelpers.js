@@ -1,6 +1,12 @@
 import { uuid } from 'frog-utils';
 
-const addNewWikiPage = (wikiDoc, liId, pageTitle, setCreated, liType = 'li-richText') => {
+const addNewWikiPage = (
+  wikiDoc,
+  liId,
+  pageTitle,
+  setCreated,
+  liType = 'li-richText'
+) => {
   const pageId = uuid();
   const op = {
     p: ['pages', pageId],
@@ -72,6 +78,13 @@ const markPageAsCreated = (wikiDoc, pageId) => {
   };
 
   wikiDoc.submitOp(op);
-}
+};
 
-export { addNewWikiPage, invalidateWikiPage, changeWikiPageTitle, markPageAsCreated, restoreWikiPage, changeWikiPageLI };
+export {
+  addNewWikiPage,
+  invalidateWikiPage,
+  changeWikiPageTitle,
+  markPageAsCreated,
+  restoreWikiPage,
+  changeWikiPageLI
+};

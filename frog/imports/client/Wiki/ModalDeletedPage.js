@@ -7,8 +7,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
-export default ({ closeModal, restoreDeletedPage, createNewLIForPage, pageId, pageTitle }: Object) => {
-  console.log(pageId, pageTitle);
+export default ({
+  closeModal,
+  restoreDeletedPage,
+  createNewLIForPage,
+  pageId,
+  pageTitle
+}: Object) => {
 
   return (
     <Dialog open onClose={() => closeModal()}>
@@ -25,14 +30,14 @@ export default ({ closeModal, restoreDeletedPage, createNewLIForPage, pageId, pa
       </DialogContent>
       <DialogActions>
         <Button onClick={closeModal}>Cancel</Button>
-        <Button 
-          style={{ color: 'blue' }} 
+        <Button
+          style={{ color: 'blue' }}
           onClick={() => restoreDeletedPage(pageId, pageTitle)}
         >
           Restore Page
         </Button>
-        <Button 
-          style={{ color: 'green' }} 
+        <Button
+          style={{ color: 'green' }}
           onClick={() => createNewLIForPage(pageId, pageTitle)}
         >
           Create New Page
