@@ -12,9 +12,11 @@ import OperatorPanel from './OperatorPanel';
 
 const styles = {
   root: {
+    height: 'calc(100vh - 64px - 48px)',
     backgroundColor: '#ffffff',
     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    width: '25vw'
+    width: '25vw',
+    overflowX: 'auto'
   },
   helperContainer: {
     height: '100%'
