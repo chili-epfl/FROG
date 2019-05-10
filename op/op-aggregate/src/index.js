@@ -6,7 +6,8 @@ const meta = {
   name: 'Aggregate items',
   shortName: 'Aggregate',
   shortDesc: 'Aggregate items from groups',
-  description: 'Optionally selecting the top n items by score'
+  description: 'Optionally selecting the top n items by score',
+  category: 'Aggregate'
 };
 
 const config = {

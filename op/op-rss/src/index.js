@@ -5,7 +5,8 @@ export const meta = {
   shortName: 'RSS',
   shortDesc: '',
   description: '',
-  preview: true
+  preview: true,
+  category: 'From API'
 };
 
 export const config = {

@@ -5,7 +5,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Aggregate spreadsheet',
   shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  description: 'Group students with as many similar answers as possible.',
+  category: 'Aggregate'
 };
 
 const config = {

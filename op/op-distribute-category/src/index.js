@@ -5,7 +5,8 @@ const meta = {
   name: 'Distribute categorized objects',
   shortName: 'Distribute categorized',
   shortDesc: 'Distribute categorized products objects to instances',
-  description: 'Distribute categorized products objects to instances.'
+  description: 'Distribute categorized products objects to instances.',
+  category: 'Distribute'
 };
 
 const config = {

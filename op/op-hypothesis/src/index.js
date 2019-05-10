@@ -3,12 +3,13 @@ import { type productOperatorT } from 'frog-utils';
 import liType from './liType';
 
 export const meta = {
-  name: 'Get ideas from Hypothesis',
+  name: 'Hypothes.is annotations',
   shortName: 'Hypothesis',
   shortDesc: 'Get ideas from Hypothesis API',
   description:
     'Collect ideas from an Hypothesis API by hashtag or document id.',
-  preview: true
+  preview: true,
+  category: 'From API'
 };
 
 export const config = {

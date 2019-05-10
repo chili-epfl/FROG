@@ -5,7 +5,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Dataset from quiz data',
   shortDesc: 'Creates dataset for ac-stat from quiz data',
-  description: 'Creates dataset for ac-stat from quiz data'
+  description: 'Creates dataset for ac-stat from quiz data',
+  category: 'Specialized'
 };
 
 const config = {

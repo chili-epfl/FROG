@@ -5,7 +5,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Select top n items by score',
   shortDesc: 'Works for all social structures',
-  description: ''
+  description: '',
+  category: 'Other'
 };
 
 const config = {
