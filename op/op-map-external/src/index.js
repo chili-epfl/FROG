@@ -5,7 +5,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Map external product to student',
   shortDesc: 'External usernames must match FROG usernames',
-  description: ''
+  description: '',
+  category: 'Specialized'
 };
 
 const config = {

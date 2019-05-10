@@ -6,7 +6,8 @@ const meta = {
   name: 'Aggregate items to p2',
   shortName: 'Aggregate->p2',
   shortDesc: 'Aggregate items from individuals',
-  description: 'Sending to appropriate groups'
+  description: 'Sending to appropriate groups',
+  category: 'Aggregate'
 };
 
 const config = {
