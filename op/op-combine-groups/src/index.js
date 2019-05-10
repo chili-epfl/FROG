@@ -4,8 +4,9 @@ import { type socialOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Combine groups into larger groups',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: '',
+  description: '',
+  category: 'Complex'
 };
 
 const config = {
