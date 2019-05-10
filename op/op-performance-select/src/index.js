@@ -7,7 +7,8 @@ const meta = {
   shortName: 'Performance split',
   shortDesc:
     'Split students into two groups based on quiz scores, and assign activities',
-  description: ''
+  description: '',
+  category: 'Control'
 };
 
 const config = {
