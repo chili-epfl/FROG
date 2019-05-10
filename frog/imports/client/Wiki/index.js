@@ -31,7 +31,8 @@ import {
   addNewWikiPage,
   invalidateWikiPage,
   changeWikiPageTitle,
-  markPageAsCreated
+  markPageAsCreated,
+  addInstance
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
@@ -59,23 +60,24 @@ type WikiCompPropsT = {
 type WikiCompStateT = {
   dashboardOpen: boolean,
   dashboardSearch: ?string,
-  pageId: ?string,
   pageTitle: ?string,
+  page: ?Object,
   pageTitleString: ?string,
   mode: string,
   docMode: string,
+  currentLI?: string | Object,
   editingTitle: boolean,
-  liType: string,
   error: ?string,
   openCreator: ?Object,
   showTitleEditButton: boolean,
   wikiContext: Object,
-  pageLiType: ?string,
   createModalOpen: boolean,
   findModalOpen: boolean,
   search: '',
-  currentLI: ?string
+  urlInstance: ?string
 };
+
+const getInstanceId = page => (page.plane === 1 ? Meteor.userId() : 'all');
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   wikiId: string = this.props.match.params.wikiId;
@@ -92,19 +94,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.state = {
       dashboardSearch: null,
       dashboardOpen: false,
-      pageId: null,
-      currentLI: null,
       pageTitle: this.props.match.params.pageTitle || null,
       pageTitleString: this.props.match.params.pageTitle || null,
+      urlInstance: this.props.match.params.instance || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       editingTitle: false,
       data: [],
-      liType: 'li-richText',
       error: null,
       openCreator: false,
       showTitleEditButton: false,
-      pageLiType: null,
       createModalOpen: false,
       search: '',
       wikiContext: {
@@ -132,7 +131,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       title: newTitle
     });
 
-    addNewWikiPage(this.wikiDoc, newId, newTitle, true, 'li-activity');
+    addNewWikiPage(this.wikiDoc, newTitle, true, 'li-activity');
     this.setState({
       mode: 'document'
     });
@@ -160,7 +159,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       e.preventDefault();
       this.props.history.push(link);
       setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
-    }
+    };
 
     if (!pageObj.created) {
       style.color = 'green';
@@ -174,7 +173,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!pageObj.valid) {
       style.color = 'red';
-      style.cursor = 'not-allowed'
+      style.cursor = 'not-allowed';
       return <span style={style}>{pageTitle}</span>;
     }
 
@@ -190,8 +189,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   componentDidMount() {
     window.wiki = {
       WikiLink: this.WikiLink,
-      createPage: this.createNewPageLI,
-    }
+      createPage: this.createNewPageLI
+    };
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -221,7 +220,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!this.wikiDoc.data) {
       const emptyDocValues = {
         wikiId: this.wikiId,
-        pages: {}
+        pages: {
+          home: {
+            id: 'home',
+            valid: true,
+            created: true,
+            title: 'Home',
+            liType: 'li-richText',
+            instances: {}
+          }
+        }
       };
       this.wikiDoc.create(emptyDocValues);
       return;
@@ -230,35 +238,39 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     wikistore.setPages(this.wikiDoc.data.pages);
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+    if (!pageTitle) {
+      return;
+    }
 
     const query = queryToObject(this.props.location.search.slice(1));
-    
-    if (parsedPages[pageTitle && pageTitle.toLowerCase()]) {
-      const pageId = parsedPages[pageTitle.toLowerCase()].id;
-      const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
-
-      this.setState({
-        pageId,
-        currentLI,
-        pageTitle,
-        pageTitleString: pageTitle,
-        search: '',
-        findModalOpen: false,
-        pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
-        docMode:
-          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
-          query.edit
-            ? 'edit'
-            : this.state.docMode
-      }, () => {
-        if (!this.props.match.params.pageTitle) {
-          const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-          this.props.history.replace(link);
-        }
-      });
-    } else {
-      this.createNewPageLI(pageTitle || 'Home', true);
+    const page = parsedPages[pageTitle.toLowerCase()];
+    if (!page) {
+      return this.createNewPageLI(pageTitle || 'Home', true);
     }
+    const instanceId = getInstanceId(page);
+
+    this.ensureInstance(page, () => {
+      this.setState(
+        {
+          page,
+          pageTitle: page.title,
+          pageTitleString: page.title,
+          search: '',
+          findModalOpen: false,
+          currentLI: page.liId || page.instances[instanceId],
+          docMode:
+            page.liType === 'li-activity' || query.edit
+              ? 'edit'
+              : this.state.docMode
+        },
+        () => {
+          if (!this.props.match.params.pageTitle) {
+            const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+            this.props.history.replace(link);
+          }
+        }
+      );
+    });
   };
 
   getWikiId = () => {
@@ -273,9 +285,23 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   getOnlyValidWikiPages = (includeCurrentPage: boolean) => {
     return values(wikistore.pages)
-      .filter(x => x.valid && x.created && (includeCurrentPage || x.title !== this.state.pageTitle))
+      .filter(
+        x =>
+          x.valid &&
+          x.created &&
+          (includeCurrentPage || x.title !== this.state.pageTitle)
+      )
       .map(pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj));
   };
+
+  createNewPageLI = (title, published, liType, p1) =>
+    addNewWikiPage(
+      this.wikiDoc,
+      title,
+      published,
+      liType || 'li-richText',
+      p1 ? 1 : 3
+    );
 
   componentDidUpdate(prevProps) {
     if (
@@ -288,18 +314,17 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
       if (!newPageTitle) return;
 
-      if (!pages[newPageTitle.toLowerCase()]) {
+      const page = pages[newPageTitle.toLowerCase()];
+      if (!page) {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState(
           {
             search: '',
             findModalOpen: false,
             createModalOpen: false,
-            pageId: null,
-            currentLI: null,
+            page: null,
             pageTitle: newPageTitle,
             pageTitleString: newPageTitle,
-            pageLiType: pages[newPageTitle.toLowerCase()].liType,
             docMode:
               pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
               query.edit
@@ -313,50 +338,56 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
         return;
       }
-
-      const pageId = pages[newPageTitle.toLowerCase()].id;
-      const liId = pages[newPageTitle.toLowerCase()].liId;
       // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        search: '',
-        findModalOpen: false,
-        pageId,
-        currentLI: liId,
-        mode: 'document',
-        liType: 'li-richText',
-        error: null,
-        createModalOpen: false,
-        pageTitle: newPageTitle,
-        pageTitleString: newPageTitle,
-        docMode:
-          pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
-          query.edit
-            ? 'edit'
-            : 'view',
-        pageLiType: pages[newPageTitle.toLowerCase()].liType
+
+      const instanceId = getInstanceId(page);
+
+      this.ensureInstance(page, () => {
+        this.setState({
+          search: '',
+          page,
+          findModalOpen: false,
+          mode: 'document',
+          error: null,
+          currentLI: page.liId || page.instances[instanceId],
+          createModalOpen: false,
+          pageTitle: newPageTitle,
+          pageTitleString: newPageTitle,
+          docMode:
+            pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
+            query.edit
+              ? 'edit'
+              : 'view'
+        });
       });
     }
   }
 
-  createNewPageLI = (pageTitle: string, setCreated, liType: ?string) => {
-    if (!pageTitle) throw new Error('Empty pageTitleRaw');
-    const meta = {
-      wikiId: this.wikiId
-    };
+  ensureInstance = (page, cb) => {
+    const instanceId = getInstanceId(page);
+    if (!page.liId && !page.instances[instanceId]) {
+      const meta = {
+        wikiId: this.wikiId
+      };
 
-    const newId = dataFn.createLearningItem(
-      liType || 'li-richText',
-      undefined,
-      meta,
-      undefined,
-      undefined,
-      undefined
-    );
+      const newId = dataFn.createLearningItem(
+        page.liType || 'li-richText',
+        undefined,
+        meta,
+        undefined,
+        undefined,
+        undefined
+      );
 
-    return addNewWikiPage(this.wikiDoc, newId, pageTitle, setCreated, liType || 'li-richText');
+      addInstance(this.wikiDoc, page.id, instanceId, newId);
+    }
+    console.log('ensure', page, instanceId);
+    if (cb) {
+      cb();
+    }
   };
 
-  createLI = (newTitle, liType = 'li-richText', li, config) => {
+  createLI = (newTitle, liType = 'li-richText', li, config, p1) => {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     if (newTitle === '') {
       this.setState({
@@ -371,11 +402,17 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     if (li) {
-      addNewWikiPage(this.wikiDoc, li, newTitle, true, liType);
+      addNewWikiPage(this.wikiDoc, newTitle, true, liType);
     } else if (config && config.activityType) {
       this.createActivityPage(newTitle, config);
     } else {
-      this.createNewPageLI(newTitle, true, liType);
+      addNewWikiPage(
+        this.wikiDoc,
+        newTitle,
+        true,
+        liType || 'li-richText',
+        p1 ? 1 : 3
+      );
     }
 
     this.setState(
@@ -433,12 +470,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
-    if (!this.state.pageId || !this.state.pageTitle || !this.state.currentLI)
+    if (!this.state.page || !this.state.pageTitle || !this.state.currentLI)
       return null;
 
     const validPages = this.getOnlyValidWikiPages();
     const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true);
-    
+
     let pages = validPagesIncludingCurrent;
     if (this.state.search !== '') {
       const search = this.state.search.trim().toLowerCase();
@@ -484,7 +521,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const docModeButton = (() => {
       if (
         this.state.docMode === 'history' ||
-        this.state.pageLiType === 'li-activity'
+        this.state.page.liType === 'li-activity'
       )
         return null;
       if (this.state.docMode === 'view')
@@ -534,7 +571,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             this.setState({ showTitleEditButton: false });
           }}
         >
-          <span>{this.state.pageTitle}</span>
+          <span>
+            {this.state.page?.title +
+              (this.state.page?.plane !== 1
+                ? ''
+                : ' / ' + Meteor.user().username)}
+          </span>
           {this.state.showTitleEditButton && (
             <Edit onClick={this.handleEditingTitle} />
           )}
@@ -596,6 +638,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       padding: '20px 0'
     };
 
+    const topNavBarItemStyleName = {
+      ...topNavBarItemStyle,
+      fontWeight: 'bold'
+    };
+
     const iconButtonStyle = {
       marginRight: '5px'
     };
@@ -627,16 +674,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             style={iconButtonStyle}
             color={itemColors['document']}
           />
-          <span stlye={{ color: itemColors['document'] }}>Page</span>
-        </div>
-        <div
-          style={topNavBarItemStyle}
-          onClick={() => {
-            this.setState({ mode: 'document', docMode: 'history' });
-          }}
-        >
-          <History style={iconButtonStyle} color={itemColors['history']} />
-          <span style={{ color: itemColors['history'] }}>History</span>
+          <span style={{ color: itemColors['document'] }}>Page</span>
         </div>
         <div
           style={topNavBarItemStyle}
@@ -654,7 +692,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           }}
         >
           <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
-          <span style={{ color: itemColors['dashboard'] }}>Dashboard</span>
+          <span style={{ color: itemColors['dashboard'] }}>All Pages</span>
         </div>
         {validPagesIncludingCurrent.length > 1 ? (
           <div
@@ -666,7 +704,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             <Delete style={iconButtonStyle} color={itemColors['delete']} />
             <span style={{ color: itemColors['delete'] }}>Delete Page</span>
           </div>
-        ) : null}
+        ) : (
+          <div />
+        )}
+        <div style={topNavBarItemStyleName}>{Meteor.user().username}</div>
       </div>
     );
 
