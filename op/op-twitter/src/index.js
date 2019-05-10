@@ -7,7 +7,8 @@ export const meta = {
   shortName: 'Twitter',
   shortDesc: 'Get Tweets based on a search query',
   description: '',
-  preview: true
+  preview: true,
+  category: 'From API'
 };
 
 export const config = {

@@ -5,7 +5,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Ranking compare CS211',
   shortDesc: 'Make change matrix based upon rankings',
-  description: 'Make change matrix based upon changed rankings'
+  description: 'Make change matrix based upon changed rankings',
+  category: 'Specialized'
 };
 
 const config = {

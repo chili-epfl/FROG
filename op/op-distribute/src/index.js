@@ -6,7 +6,8 @@ const meta = {
   name: 'Distribute content',
   shortDesc: 'Distribute list items',
   description:
-    'Distribute list items to groups or individual students, with configurable numbers of items per group, overlap allowed or not, etc.'
+    'Distribute list items to groups or individual students, with configurable numbers of items per group, overlap allowed or not, etc.',
+  category: 'Distribute'
 };
 
 const config = {

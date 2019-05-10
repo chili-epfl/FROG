@@ -6,7 +6,8 @@ const meta = {
   name: 'Return reviews',
   shortDesc:
     'Sends reviews back to the group/student who created the original item',
-  description: ''
+  description: '',
+  category: 'Peer-review'
 };
 
 const config = {

@@ -5,7 +5,8 @@ import type { productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Filter',
   shortDesc: 'Filter list of products.',
-  description: 'Filter list of products.'
+  description: 'Filter list of products.',
+  category: 'Other'
 };
 
 const config = {

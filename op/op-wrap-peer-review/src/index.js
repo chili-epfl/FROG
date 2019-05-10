@@ -6,7 +6,8 @@ import liType from './liType';
 const meta = {
   name: 'Wrap for peer-review',
   shortDesc: 'Wraps LI in li-peerReview',
-  description: ''
+  description: '',
+  category: 'Peer review'
 };
 
 const config = {
