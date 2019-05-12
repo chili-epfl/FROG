@@ -9,6 +9,12 @@ function msleep(n) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
 }
 
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
 function sleep(n) {
   msleep(n * 1000);
 }
@@ -31,14 +37,16 @@ const getLink = (rawtitle, create) => {
   }
 };
 
-const baseurl = 'https://icchilisrv3.epfl.ch';
-// const baseurl = 'http://localhost:3000';
+// const baseurl = 'https://icchilisrv3.epfl.ch';
+const baseurl = 'http://localhost:3000';
 
-const postWiki = (page, content) => {
+const postWiki = async (page, content) => {
   console.log(
-    `${baseurl}/api/wikiSubmit?wiki=${wiki}&id=${getLink(page)}&page=${page}`
+    `Preparing fetch ${baseurl}/api/wikiSubmit?wiki=${wiki}&id=${getLink(
+      page
+    )}&page=${page}`
   );
-  fetch(
+  const f = await fetch(
     `${baseurl}/api/wikiSubmit?wiki=${wiki}&id=${getLink(page)}&page=${page}`,
     {
       method: 'POST',
@@ -47,10 +55,9 @@ const postWiki = (page, content) => {
       },
       body: JSON.stringify(content)
     }
-  )
-    .then(e => e.text())
-    .then(e => console.log(e))
-    .catch(e => console.error(e));
+  );
+  const fe = await f.text();
+  return;
 };
 
 const regexp = /\[([^\]]+)]/g;
@@ -157,53 +164,60 @@ const convertLink = doc => ({
 const titlecase = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 
 const processFile = async name => {
-  console.log(name);
   const contents = fs.readFileSync('./pages/' + name, 'utf-8');
   const title = name.slice(0, -4);
-  postWiki(
+  await postWiki(
     titlecase(title.replace(/_/g, ' ').replace('/', '-')),
     convertLink(contents)
   );
-  await sleep(0.1);
 };
 
-// pre-process to store IDs
-fs.readdirSync('./pages/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(name => getLink(name.slice(0, -4), true));
+const doImport = () => {
+  // pre-process to store IDs
+  fs.readdirSync('./pages/')
+    .filter(name => name.slice(-4) === '.txt')
+    .forEach(name => getLink(name.slice(0, -4), true));
 
-fs.readdirSync('./pages/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(async name => {
-    processFile(name);
+  const pages = fs
+    .readdirSync('./pages/')
+    .filter(name => name.slice(-4) === '.txt');
+
+  asyncForEach(pages, async name => {
+    await processFile(name);
   });
 
-fs.readdirSync('./pages/researchr/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(name => getLink('researchr-' + name.slice(0, -4), true));
+  fs.readdirSync('./pages/researchr/')
+    .filter(name => name.slice(-4) === '.txt')
+    .forEach(name => getLink('researchr-' + name.slice(0, -4), true));
 
-fs.readdirSync('./pages/researchr/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(async name => {
+  const researchr = fs
+    .readdirSync('./pages/researchr/')
+    .filter(name => name.slice(-4) === '.txt');
+  asyncForEach(researchr, async name => {
     processFile('researchr/' + name);
   });
 
-fs.readdirSync('./pages/a/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(name => getLink('a-' + name.slice(0, -4), true));
+  fs.readdirSync('./pages/a/')
+    .filter(name => name.slice(-4) === '.txt')
+    .forEach(name => getLink('a-' + name.slice(0, -4), true));
 
-fs.readdirSync('./pages/a/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(async name => {
+  const a = fs
+    .readdirSync('./pages/a/')
+    .filter(name => name.slice(-4) === '.txt');
+  asyncForEach(a, async name => {
     processFile('a/' + name);
   });
 
-fs.readdirSync('./pages/notes/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(name => getLink('notes-' + name.slice(0, -4), true));
+  fs.readdirSync('./pages/notes/')
+    .filter(name => name.slice(-4) === '.txt')
+    .forEach(name => getLink('notes-' + name.slice(0, -4), true));
 
-fs.readdirSync('./pages/notes/')
-  .filter(name => name.slice(-4) === '.txt')
-  .forEach(async name => {
+  const notes = fs
+    .readdirSync('./pages/notes/')
+    .filter(name => name.slice(-4) === '.txt');
+  asyncForEach(notes, async name => {
     processFile('notes/' + name);
   });
+};
+
+doImport();

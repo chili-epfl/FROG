@@ -6,6 +6,7 @@ import { WikiContext, values, uuid } from 'frog-utils';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import { Meteor } from 'meteor/meteor';
+import { findKey, flatMap } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
@@ -33,7 +34,7 @@ import {
   changeWikiPageTitle,
   markPageAsCreated,
   addInstance
-} from './wikiDocHelpers';
+} from '/imports/api/wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
@@ -74,10 +75,9 @@ type WikiCompStateT = {
   createModalOpen: boolean,
   findModalOpen: boolean,
   search: '',
-  urlInstance: ?string
+  urlInstance: ?string,
+  noInstance: ?boolean
 };
-
-const getInstanceId = page => (page.plane === 1 ? Meteor.userId() : 'all');
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   wikiId: string = this.props.match.params.wikiId;
@@ -114,8 +114,50 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     };
   }
 
+  getInstanceId = page => {
+    const urlInstance = this.props.match.params.instance || false;
+    if (!page || page.liId) {
+      return 'all';
+    }
+    if (urlInstance) {
+      if (page.plane === 2) {
+        return urlInstance.trim();
+      }
+      return findKey(page.instances, x => x.username === urlInstance.trim());
+    }
+    const userId = Meteor.userId();
+    if (page.plane === 1) {
+      return page.instances[userId]
+        ? userId
+        : page.noNewInstances
+        ? undefined
+        : userId;
+    }
+
+    if (page.plane === 2) {
+      const group = findKey(page.socialStructure, x => x.includes(userId));
+      return group || (page.noNewInstances ? 'Group activity' : 'Other group');
+    }
+    return 'all';
+  };
+
+  getInstanceName = page => {
+    if (!page || page.plane === 3 || page.liId) {
+      return '';
+    }
+    const instanceId = this.getInstanceId(page);
+    if (page.plane === 2) {
+      return instanceId;
+    }
+    return (
+      page.instances[instanceId]?.username ||
+      (page.noNewInstances ? 'Individual activity' : '')
+    );
+  };
+
   createActivityPage = (newTitle, rawconfig) => {
     const { activityType, config, invalid } = rawconfig;
+    console.log(newTitle, activityType, config, invalid);
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
     doc.create(activityTypesObj[activityType].dataStructure);
@@ -127,11 +169,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       activityTypeTitle: activityTypesObj[activityType].meta.name
     };
 
-    const newId = dataFn.createLearningItem('li-activity', payload, {
-      title: newTitle
-    });
+    const newId = dataFn.createLearningItem(
+      'li-activity',
+      payload,
+      {
+        title: newTitle
+      },
+      true
+    );
 
-    addNewWikiPage(this.wikiDoc, newTitle, true, 'li-activity');
+    addNewWikiPage(this.wikiDoc, newTitle, true, 'li-activity', 3, {
+      all: { liId: newId }
+    });
     this.setState({
       mode: 'document'
     });
@@ -148,7 +197,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       return <span style={style}>INVALID LINK</span>;
     }
     const pageTitle = pageObj.title;
-    const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+    const link =
+      '/wiki/' +
+      this.wikiId +
+      '/' +
+      pageTitle +
+      (data.instance ? '/' + data.instance : '');
 
     const linkFn = e => {
       e.preventDefault();
@@ -160,13 +214,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       this.props.history.push(link);
       setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
     };
+    const displayTitle = pageTitle + (data.instance ? '/' + data.instance : '');
 
     if (!pageObj.created) {
       style.color = 'green';
 
       return (
         <span onClick={createLinkFn} style={style}>
-          <b>{pageTitle}</b>
+          <b>{displayTitle}</b>
         </span>
       );
     }
@@ -181,7 +236,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     return (
       <span onClick={linkFn} style={style}>
-        <b>{pageTitle}</b>
+        <b>{displayTitle}</b>
       </span>
     );
   });
@@ -227,7 +282,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             created: true,
             title: 'Home',
             liType: 'li-richText',
-            instances: {}
+            instances: {},
+            plane: 3
           }
         }
       };
@@ -247,7 +303,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!page) {
       return this.createNewPageLI(pageTitle || 'Home', true);
     }
-    const instanceId = getInstanceId(page);
+    const instanceId = this.getInstanceId(page);
 
     this.ensureInstance(page, () => {
       this.setState(
@@ -256,8 +312,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           pageTitle: page.title,
           pageTitleString: page.title,
           search: '',
+          instance: instanceId,
           findModalOpen: false,
-          currentLI: page.liId || page.instances[instanceId],
+          currentLI: page.liId || page.instances[instanceId]?.liId,
           docMode:
             page.liType === 'li-activity' || query.edit
               ? 'edit'
@@ -278,20 +335,26 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   getWikiPages = () => {
-    return values(wikistore.pages).map(pageObj =>
+    return flatMap(values(wikistore.pages), pageObj =>
       parsePageObjForReactiveRichText(this.wikiId, pageObj)
     );
   };
 
-  getOnlyValidWikiPages = (includeCurrentPage: boolean) => {
-    return values(wikistore.pages)
-      .filter(
+  getOnlyValidWikiPages = (
+    includeCurrentPage: boolean,
+    alsoInstances: boolean
+  ) => {
+    const p = flatMap(
+      values(wikistore.pages).filter(
         x =>
           x.valid &&
           x.created &&
           (includeCurrentPage || x.title !== this.state.pageTitle)
-      )
-      .map(pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj));
+      ),
+      pageObj =>
+        parsePageObjForReactiveRichText(this.wikiId, pageObj, alsoInstances)
+    );
+    return p;
   };
 
   createNewPageLI = (title, published, liType, p1) =>
@@ -305,7 +368,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   componentDidUpdate(prevProps) {
     if (
-      prevProps.match.params.pageTitle !== this.props.match.params.pageTitle &&
+      (prevProps.match.params.pageTitle !== this.props.match.params.pageTitle ||
+        prevProps.match.params.instance !== this.props.match.params.instance) &&
       this.wikiDoc != null
     ) {
       const query = queryToObject(this.props.location.search.slice(1));
@@ -325,6 +389,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             page: null,
             pageTitle: newPageTitle,
             pageTitleString: newPageTitle,
+            urlInstance: this.props.match.params.instance || null,
             docMode:
               pages[newPageTitle.toLowerCase()].liType === 'li-activity' ||
               query.edit
@@ -340,7 +405,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       }
       // eslint-disable-next-line react/no-did-update-set-state
 
-      const instanceId = getInstanceId(page);
+      const instanceId = this.getInstanceId(page);
 
       this.ensureInstance(page, () => {
         this.setState({
@@ -349,7 +414,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           findModalOpen: false,
           mode: 'document',
           error: null,
-          currentLI: page.liId || page.instances[instanceId],
+          urlInstance: this.props.match.params.instance || null,
+          currentLI: page.liId || page.instances[instanceId]?.liId,
           createModalOpen: false,
           pageTitle: newPageTitle,
           pageTitleString: newPageTitle,
@@ -364,24 +430,26 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   ensureInstance = (page, cb) => {
-    const instanceId = getInstanceId(page);
-    if (!page.liId && !page.instances[instanceId]) {
-      const meta = {
-        wikiId: this.wikiId
-      };
+    if (!page.noNewInstances) {
+      const instanceId = this.getInstanceId(page);
+      if (!page.liId && !page.instances[instanceId]?.liId) {
+        const meta = {
+          wikiId: this.wikiId
+        };
 
-      const newId = dataFn.createLearningItem(
-        page.liType || 'li-richText',
-        undefined,
-        meta,
-        undefined,
-        undefined,
-        undefined
-      );
+        const newId = dataFn.createLearningItem(
+          page.liType || 'li-richText',
+          undefined,
+          meta,
+          undefined,
+          undefined,
+          undefined
+        );
+        const username = page.plane === 1 ? Meteor.user().username : undefined;
 
-      addInstance(this.wikiDoc, page.id, instanceId, newId);
+        addInstance(this.wikiDoc, page.id, instanceId, newId, username);
+      }
     }
-    console.log('ensure', page, instanceId);
     if (cb) {
       cb();
     }
@@ -392,6 +460,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (newTitle === '') {
       this.setState({
         error: 'Title cannot be empty'
+      });
+      return;
+    } else if (newTitle.includes('/')) {
+      this.setState({
+        error: 'Title cannot contain /'
       });
       return;
     } else if (parsedPages[newTitle]) {
@@ -470,11 +543,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
-    if (!this.state.page || !this.state.pageTitle || !this.state.currentLI)
+    if (
+      !this.state.page?.noNewInstances &&
+      (!this.state.page || !this.state.pageTitle || !this.state.currentLI)
+    )
       return null;
 
     const validPages = this.getOnlyValidWikiPages();
-    const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true);
+    const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true, true);
 
     let pages = validPagesIncludingCurrent;
     if (this.state.search !== '') {
@@ -521,7 +597,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const docModeButton = (() => {
       if (
         this.state.docMode === 'history' ||
-        this.state.page.liType === 'li-activity'
+        this.state.page?.liType === 'li-activity'
       )
         return null;
       if (this.state.docMode === 'view')
@@ -573,9 +649,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         >
           <span>
             {this.state.page?.title +
-              (this.state.page?.plane !== 1
-                ? ''
-                : ' / ' + Meteor.user().username)}
+              (this.state.page?.plane !== 3
+                ? this.state.urlInstance
+                  ? ' / ' + this.getInstanceName(this.state.page)
+                  : ' (' + this.getInstanceName(this.state.page) + ')'
+                : '')}
           </span>
           {this.state.showTitleEditButton && (
             <Edit onClick={this.handleEditingTitle} />
@@ -604,6 +682,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           <SearchAndFind
             key={this.state.pageId}
             pages={pages}
+            currentPage={this.state.page?.id}
+            currentInstance={this.getInstanceName(this.state.page)}
             onSearch={e =>
               this.setState({
                 findModalOpen: false,
@@ -765,10 +845,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                         }
                       }}
                     >
-                      <LearningItem
-                        type={this.state.docMode}
-                        id={this.state.currentLI}
-                      />
+                      {this.state.currentLI && (
+                        <LearningItem
+                          type={this.state.docMode}
+                          id={this.state.currentLI}
+                        />
+                      )}
                     </Paper>
                   </div>
                 </>

@@ -11,6 +11,7 @@ import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import { Meteor } from 'meteor/meteor';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { uuid } from 'frog-utils';
@@ -189,6 +190,27 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () => downloadLog(session._id),
       text: 'Download log CSV'
+    }
+  },
+  exportWiki: {
+    button: {
+      onClick: () => {
+        const whereTo = window.prompt(
+          'Which wiki should pages be exported to?'
+        );
+        if (!whereTo) {
+          console.log('no whereto');
+          return;
+        }
+        Meteor.call(
+          'export.session.wiki',
+          session._id,
+          whereTo,
+          Meteor.userId(),
+          () => window.alert('Graph exported')
+        );
+      },
+      text: 'Export all activities to wiki'
     }
   },
   dashboard: {

@@ -6,10 +6,8 @@ import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 import copy from 'copy-to-clipboard';
 import Stringify from 'json-stringify-pretty-compact';
-import { LearningItem } from '/imports/client/LearningItem';
 import { activityTypesObj } from '/imports/activityTypes';
 
-import { addNewWikiPage } from '../Wiki/wikiDocHelpers';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connect } from '../GraphEditor/store';
@@ -35,17 +33,15 @@ const Data = ({ title, data }) =>
 
 class InfoComponent extends React.Component<
   any,
-  { product: ?Object, object: ?Object }
+  { product: ?Object, object: ?Object, showDebug: boolean }
 > {
-  state = { product: undefined, object: undefined };
+  state = { showDebug: false, product: undefined, object: undefined };
 
   inFlight = false;
 
   constructor(props) {
     super(props);
-    if (props.showInfo) {
-      this.update(props.item._id);
-    }
+    this.update(this.props.item._id);
   }
 
   componentWillUpdate(nextProps) {
@@ -71,7 +67,7 @@ class InfoComponent extends React.Component<
     }
   }
 
-  exportWiki(item, object) {
+  exportWiki = (item, object) => {
     const whereTo = window.prompt(
       'Where should this be exported to? Wiki and page separated by slash'
     );
@@ -79,26 +75,10 @@ class InfoComponent extends React.Component<
       return;
     }
     const [wiki, page] = whereTo.split('/').map(x => x.trim());
-    const genericDoc = connection.get('li');
-    const dataFn = generateReactiveFn(genericDoc, LearningItem);
-    const payload = {
-      acType: item.activityType,
-      activityData: { config: item.data },
-      rz: item._id + '/all',
-      title: item.title,
-      activityTypeTitle: activityTypesObj[item.activityType].meta.name
-    };
-
-    const newId = dataFn.createLearningItem('li-activity', payload, {
-      title: page
-    });
-    const wikiDoc = connection.get('wiki', wiki);
-    wikiDoc.subscribe(err => {
-      if (err) throw err;
-
-      addNewWikiPage(wikiDoc, newId, page);
-    });
-  }
+    Meteor.call('export.activity.wiki', item._id, wiki, page, () =>
+      window.alert('Page exported')
+    );
+  };
 
   render() {
     const { showInfo, cancelInfo, item } = this.props;
@@ -119,12 +99,23 @@ class InfoComponent extends React.Component<
           <li>id: {item._id}</li>
           <li>State: {item.state}</li>
 
+          {object && (
+            <li>
+              <A onClick={() => this.exportWiki(item, object)}>
+                Export to wiki page
+              </A>
+            </li>
+          )}
           <li>
-            <A onClick={() => this.exportWiki(item, object)}>
-              Export to wiki page
+            <A
+              onClick={() => {
+                this.update(this.props.item._id);
+                this.setState({ showDebug: true });
+              }}
+            >
+              Show debug info
             </A>
           </li>
-
           {product && (
             <li>
               <A
@@ -137,11 +128,13 @@ class InfoComponent extends React.Component<
             </li>
           )}
         </ul>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Data title="Config" data={item.data} />
-          <Data title="Object" data={object} />
-          <Data title="Product" data={product} />
-        </div>
+        {this.state.showDebug && (
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Data title="Config" data={item.data} />
+            <Data title="Object" data={object} />
+            <Data title="Product" data={product} />
+          </div>
+        )}
       </Modal>
     );
   }
@@ -164,7 +157,11 @@ const ShowInfoConnect = withTracker(({ showInfo, cancelInfo }) => {
 ShowInfoConnect.displayName = 'ShowInfoConnect';
 
 const ShowInfo = connect(({ store: { ui: { showInfo, cancelInfo } } }) => (
-  <ShowInfoConnect showInfo={showInfo} cancelInfo={cancelInfo} />
+  <>
+    {showInfo ? (
+      <ShowInfoConnect showInfo={showInfo} cancelInfo={cancelInfo} />
+    ) : null}
+  </>
 ));
 
 export default ShowInfo;
