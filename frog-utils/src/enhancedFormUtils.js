@@ -61,8 +61,10 @@ export const calculateSchema = (
   oldHides?: string[] = [],
   oldSchema?: Object
 ): [Object, string[]] => {
-  delete schema.properties.liTypeEditor;
-  if (schema.properties.openIncomingInEdit?.default) {
+  if (schema.properties?.liTypeEditor) {
+    delete schema.properties.liTypeEditor;
+  }
+  if (schema.properties?.openIncomingInEdit?.default) {
     delete schema.properties.openIncomingInEdit;
   }
   const hide = calculateHides(formData, schema, UISchema);
