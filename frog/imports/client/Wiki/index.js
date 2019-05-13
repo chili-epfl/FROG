@@ -110,6 +110,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       pageLiType: null,
       createModalOpen: false,
       search: '',
+      deletedPageModalOpen: false,
+      currentDeletedPageId: null,
+      currentDeletedPageTitle: null,
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
@@ -249,9 +252,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const query = queryToObject(this.props.location.search.slice(1));
 
-    if (parsedPages[pageTitle && pageTitle.toLowerCase()]) {
+    if (pageTitle && parsedPages[pageTitle.toLowerCase()]) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
       const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
+
+      let deletedPageModalOpen = false;
+      let currentDeletedPageId = null;
+      let currentDeletedPageTitle = null;
+      if (!parsedPages[pageTitle.toLowerCase()].valid) {
+        deletedPageModalOpen = true;
+        currentDeletedPageId = pageId;
+        currentDeletedPageTitle = pageTitle;
+      }
 
       this.setState(
         {
@@ -262,6 +274,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           search: '',
           findModalOpen: false,
           pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
+          deletedPageModalOpen,
+          currentDeletedPageId,
+          currentDeletedPageTitle,
           docMode:
             parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
             query.edit
@@ -396,15 +411,32 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {
     const parsedPages = parseDocResults(this.wikiDoc.data);
-    if (newTitle === '') {
+    const newTitleLower = newTitle.toLowerCase();
+    if (newTitleLower === '') {
       this.setState({
         error: 'Title cannot be empty'
       });
       return;
-    } else if (parsedPages[newTitle]) {
-      this.setState({
-        error: 'Title already used'
-      });
+    } else if (parsedPages[newTitleLower]) {
+      if (parsedPages[newTitleLower].valid) {
+        this.setState({
+          error: 'Title already used'
+        });
+      }
+      else {
+        restoreWikiPage(this.wikiDoc, parsedPages[newTitleLower].id);
+        this.setState(
+          {
+            newTitle: '',
+            error: null
+          },
+          () => {
+            const link = '/wiki/' + this.wikiId + '/' + newTitle + '?edit=true';
+            this.props.history.push(link);
+          }
+        );
+      }
+
       return;
     }
 
@@ -437,7 +469,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
     this.props.history.replace(link);
-    invalidateWikiPage(this.wikiDoc, pageId, this.loadWikiDoc);
+    setTimeout(() => invalidateWikiPage(this.wikiDoc, pageId, this.loadWikiDoc), 100);
   };
 
   handleEditingTitle = () => {
