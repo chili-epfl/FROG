@@ -11,6 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {
   FormControl,
+  FormGroup,
   FormControlLabel,
   Select,
   MenuItem,
@@ -24,6 +25,7 @@ import LI from '../LearningItem';
 import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { learningItemTypesObj } from '/imports/activityTypes';
+import OperatorPanel from '../GraphEditor/SidePanel/OperatorPanel';
 
 const editableLIs = values(learningItemTypesObj).filter(
   x => (x.Editor && x.liDataStructure) || x.Creator
@@ -68,8 +70,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       pageTitleValid: true,
       open: true,
       socialPlane: 'everyone',
-      allowView: false,
-      allowEdit: false
+      allowView: true,
+      allowEdit: true
     };
   }
   handleTitleChange = (e: any) => {
@@ -79,7 +81,15 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.setState({ currentTab: value });
   };
   handleSocialPlaneChange = (e: any, value: any) => {
-    this.setState({ socialPlane: e.target.value });
+    if (e.target.value === 'everyone') {
+      this.setState({
+        socialPlane: e.target.value,
+        allowView: true,
+        allowEdit: true
+      });
+    } else {
+      this.setState({ socialPlane: e.target.value });
+    }
   };
   handleChangeAllowView = () => {
     this.setState({ allowView: !this.state.allowView });
@@ -88,7 +98,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.setState({ allowEdit: !this.state.allowEdit });
   };
   render() {
-    const { currentTab } = this.state;
+    const { currentTab, socialPlane } = this.state;
     const { classes } = this.props;
 
     return (
@@ -111,7 +121,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
         </Tabs>
         <DialogContent>
           {currentTab == 0 && (
-            <>
+            <FormGroup>
               <FormControl className={classes.formControl} fullWidth>
                 <InputLabel htmlFor="page-title">Page Title</InputLabel>
                 <Input
@@ -142,6 +152,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     color="primary"
                   />
                 }
+                disabled={socialPlane === 'everyone'}
                 label="Allow others to view"
               />
               <FormControlLabel
@@ -153,9 +164,10 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     color="primary"
                   />
                 }
+                disabled={socialPlane === 'everyone'}
                 label="Allow others to edit"
               />
-            </>
+            </FormGroup>
           )}
           {currentTab == 1 && (
             <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
