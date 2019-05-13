@@ -5,7 +5,8 @@ import { type productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Distance from (x,y) coordinates',
   shortDesc: 'Distance from (x,y) coordinates.',
-  description: 'Distance from (x,y) coordinates.'
+  description: 'Distance from (x,y) coordinates.',
+  category: 'Other'
 };
 
 const config = {

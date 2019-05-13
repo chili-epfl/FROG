@@ -6,7 +6,8 @@ const meta = {
   shortName: 'Manually group',
   shortDesc: 'Maps students to groups by name',
   description:
-    'Input a list of student names, and group names, and it matches the students to the groups'
+    'Input a list of student names, and group names, and it matches the students to the groups',
+  category: 'Simple'
 };
 
 const config = {

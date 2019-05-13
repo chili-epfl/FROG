@@ -5,7 +5,8 @@ import { type socialOperatorT } from 'frog-utils';
 const meta = {
   name: 'Argue (with constraints)',
   shortDesc: 'Group students to argue',
-  description: 'Group students with as few similar answers as possible.'
+  description: 'Group students with as few similar answers as possible.',
+  category: 'Complex'
 };
 
 const config = {

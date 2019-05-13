@@ -5,7 +5,8 @@ import type { productOperatorT } from 'frog-utils';
 const meta = {
   name: 'Distribute to other individuals or other groups',
   shortDesc: 'Round-robin distributes within a single plane',
-  description: ''
+  description: '',
+  category: 'Distribute'
 };
 
 const config = {

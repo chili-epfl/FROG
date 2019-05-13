@@ -6,7 +6,8 @@ const meta = {
   name: 'Jigsaw',
   shortDesc: 'Assign students to groups and roles',
   description:
-    'Given a list of roles, students are assigned to groups and roles, where each role only appears once in each group.'
+    'Given a list of roles, students are assigned to groups and roles, where each role only appears once in each group.',
+  category: 'Complex'
 };
 
 const config = {
