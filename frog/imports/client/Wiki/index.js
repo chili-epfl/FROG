@@ -539,13 +539,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       width: '100%'
     };
 
+    const navbarsColor = 'white';
+
     const sideNavBarStyle = {
       width: '250px',
-      backgroundColor: 'lightgrey',
+      backgroundColor: navbarsColor,
       overflowX: 'hidden',
       overflowY: 'auto',
       padding: '10px',
-      borderRight: '1px grey solid'
+      borderRight: '1px lightgrey solid'
     };
 
     const contentDivStyle = {
@@ -561,12 +563,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       flex: '0 0 50px',
       width: '100%',
       alignItems: 'center',
-      fontSize: '30px'
+      fontSize: '30px',
+      padding: '0 20px',
     };
 
     const docModeButtonStyle = {
-      fontSize: '16px',
-      marginRight: '20px'
+      fontSize: '14px',
+      marginRight: '20px',
+      width: '150px',
+      border: '1px lightgray solid'
     };
 
     const docModeButton = (() => {
@@ -577,24 +582,26 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         return null;
       if (this.state.docMode === 'view')
         return (
-          <button
+          <Button
             style={docModeButtonStyle}
+            color="primary"
             onClick={() => {
               this.setState({ docMode: 'edit' });
             }}
           >
-            Edit This Page
-          </button>
+            Edit Page
+          </Button>
         );
       return (
-        <button
+        <Button
           style={docModeButtonStyle}
+          color="primary"
           onClick={() => {
             this.setState({ docMode: 'view' });
           }}
         >
           Finish
-        </button>
+        </Button>
       );
     })();
 
@@ -624,7 +631,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         >
           <span>{this.state.pageTitle}</span>
           {this.state.showTitleEditButton && (
-            <Edit onClick={this.handleEditingTitle} />
+            <Edit onClick={this.handleEditingTitle} style={{ height: '20px' }} />
           )}
         </div>
         <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
@@ -668,7 +675,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       flex: '0 0 50px',
       cursor: 'pointer',
       width: '100%',
-      backgroundColor: 'lightgrey'
+      backgroundColor: navbarsColor,
+      borderBottom: '1px lightgrey solid'
     };
 
     const topNavBarItemWidth = validPages.length > 1 ? '20%' : '25%';
@@ -795,8 +803,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                   {titleDiv}
                   <div
                     style={{
-                      flex: '0 0 calc(100vh - 100px)',
-                      height: 'calc(100vh - 100px)',
+                      flex: '0 0 calc(100vh - 102px)',
+                      height: 'calc(100vh - 102px)',
                       overflow: 'hidden'
                     }}
                   >
