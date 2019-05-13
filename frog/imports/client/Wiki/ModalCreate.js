@@ -16,7 +16,8 @@ import {
   InputLabel,
   MenuItem,
   TextField,
-  Checkbox
+  Checkbox,
+  Typography
 } from '@material-ui/core';
 import { values, A } from 'frog-utils';
 import LI from '../LearningItem';
@@ -26,6 +27,7 @@ import { learningItemTypesObj } from '/imports/activityTypes';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
+import AppBar from '@material-ui/core/AppBar';
 
 const editableLIs = values(learningItemTypesObj).filter(
   x => (x.Editor && x.liDataStructure) || x.Creator
@@ -58,13 +60,15 @@ const styles = () => ({
     width: '7vw'
   },
   modalInner: {
-    height: '35vh'
+    height: '35vh',
+    padding: 16
   },
   expander: {
     margin: 'auto'
   },
   tabs: {
-    fontSize: 'inherit'
+    fontSize: 'inherit',
+    color: '#fff'
   }
 });
 
@@ -123,6 +127,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       >
         <FormGroup>
           <FormControl className={classes.formControl}>
+            <Typography variant="title">Create New Page</Typography>
             <TextField
               autoFocus
               id="page-title"
@@ -134,17 +139,19 @@ class NewPageModal extends React.Component<PropsT, StateT> {
           </FormControl>
         </FormGroup>
         <Collapse in={expanded} timeout="auto">
-          <Tabs
-            value={this.state.currentTab}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={this.handleTabs}
-            variant="fullWidth"
-          >
-            <Tab label="Settings" className={classes.tabs} />
-            <Tab label="Component" className={classes.tabs} />
-            <Tab label="Operator" className={classes.tabs} />
-          </Tabs>
+          <AppBar position="static">
+            <Tabs
+              value={this.state.currentTab}
+              indicatorColor="secondary"
+              textColor="#fff"
+              onChange={this.handleTabs}
+              variant="fullWidth"
+            >
+              <Tab label="Settings" className={classes.tabs} />
+              <Tab label="Component" className={classes.tabs} />
+              <Tab label="Operator" className={classes.tabs} />
+            </Tabs>
+          </AppBar>
           <DialogContent classes={{ root: classes.modalInner }}>
             {currentTab === 0 && (
               <FormGroup>
@@ -163,7 +170,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 </FormControl>
                 <FormGroup row>
                   <FormControlLabel
-                    className={classes.formControl}
                     control={
                       <Checkbox
                         checked={this.state.allowView}
@@ -175,7 +181,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     label="Allow others to view"
                   />
                   <FormControlLabel
-                    className={classes.formControl}
                     control={
                       <Checkbox
                         checked={this.state.allowEdit}
