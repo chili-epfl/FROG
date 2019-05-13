@@ -1,118 +1,181 @@
 // @flow
 
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import {
   FormControl,
+  FormControlLabel,
   Select,
   MenuItem,
   FormHelperText,
-  InputLabel
+  Input,
+  InputLabel,
+  Checkbox
 } from '@material-ui/core';
 import { values, A, TextInput } from 'frog-utils';
 import LI from '../LearningItem';
 import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
-
 import { learningItemTypesObj } from '/imports/activityTypes';
 
 const editableLIs = values(learningItemTypesObj).filter(
   x => (x.Editor && x.liDataStructure) || x.Creator
 );
 
-export default ({ onCreate, setModalOpen, errorDiv, wikiId }: Object) => {
-  const [newTitle, setNewTitle] = React.useState('');
-  const [liType, setLiType] = React.useState('');
-  const [openCreator, setOpenCreator] = React.useState(false);
-  const [li, setLI] = React.useState(null);
-  const [config, setConfig] = React.useState({});
-  const LearningItem = LI;
-
-  const canSubmit =
-    (openCreator && !config.invalid) ||
-    (!openCreator &&
-      (learningItemTypesObj[liType || 'li-richText'].liDataStructure || li));
-
-  return (
-    <Dialog open onClose={() => setModalOpen(false)}>
-      <DialogTitle>Add new page</DialogTitle>
-      <DialogContent>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '600',
-            height: '600'
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ color: 'red' }}>{errorDiv}</div>
-            <TextInput
-              placeholder="New LI Title"
-              value={newTitle}
-              onChange={e => setNewTitle(e)}
-              noBlur
-              onSubmit={() => onCreate(newTitle, liType, li, config)}
-              focus
-            />
-            <FormControl variant="outlined">
-              <InputLabel>Template</InputLabel>
-              <Select
-                value={liType}
-                onChange={e => setLiType(e.target.value)}
-                displayEmpty
-                name="liType"
-              >
-                {editableLIs.map(x => (
-                  <MenuItem key={x.id} value={x.id}>
-                    {x.name}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>Learning Item type</FormHelperText>
-            </FormControl>
-            <A onClick={() => setOpenCreator(!openCreator)}>
-              Use FROG activity type
-            </A>
-          </div>
-          <div>
-            {li && <LearningItem type="view" dataFn={dataFn} id={li} />}
-            {!learningItemTypesObj[liType || 'li-richText'].liDataStructure && (
-              <LearningItem
-                type="create"
-                dataFn={dataFn}
-                meta={{
-                  wikiId,
-                  title: newTitle
-                }}
-                liType={liType}
-                onCreate={lix => {
-                  setLI(lix);
-                  onCreate(newTitle, liType, lix);
-                }}
-              />
-            )}
-            {openCreator && (
-              <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
-            )}
-          </div>
-        </div>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setModalOpen(false)}>Cancel</Button>
-        {canSubmit && (
-          <Button
-            color="secondary"
-            onClick={() => onCreate(newTitle, liType, li, config)}
-          >
-            CREATE
-          </Button>
-        )}
-      </DialogActions>
-    </Dialog>
-  );
+type StateT = {
+  currentTab: number,
+  pageTitle: string,
+  pageTitleValid: boolean,
+  socialPlane: string,
+  open: boolean,
+  allowView: boolean,
+  allowEdit: boolean
 };
+
+type PropsT = {
+  classes: Object,
+  onCreate: Function,
+  setModalOpen: Function,
+  errorDiv: any,
+  wikiId: string
+};
+
+const styles = theme => ({
+  formControl: {
+    margin: 8
+  },
+  selectSocialPlane: {
+    width: '7vw'
+  },
+  modalInner: {
+    height: '50vh'
+  }
+});
+
+class NewPageModal extends React.Component<PropsT, StateT> {
+  constructor(props: PropsT) {
+    super(props);
+    this.state = {
+      currentTab: 0,
+      pageTitle: '',
+      pageTitleValid: true,
+      open: true,
+      socialPlane: 'everyone',
+      allowView: false,
+      allowEdit: false
+    };
+  }
+  handleTitleChange = (e: any) => {
+    this.setState({ pageTitle: e.target.value });
+  };
+  handleTabs = (e: any, value: number) => {
+    this.setState({ currentTab: value });
+  };
+  handleSocialPlaneChange = (e: any, value: any) => {
+    this.setState({ socialPlane: e.target.value });
+  };
+  handleChangeAllowView = () => {
+    this.setState({ allowView: !this.state.allowView });
+  };
+  handleChangeAllowEdit = () => {
+    this.setState({ allowEdit: !this.state.allowEdit });
+  };
+  render() {
+    const { currentTab } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Dialog
+        open={this.state.open}
+        onClose={() => this.props.setModalOpen(false)}
+        scroll="paper"
+        classes={{ paper: classes.modalInner }}
+      >
+        <Tabs
+          value={this.state.currentTab}
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={this.handleTabs}
+          variant="fullWidth"
+        >
+          <Tab label="Settings" />
+          <Tab label="Component" />
+          <Tab label="Operator" />
+        </Tabs>
+        <DialogContent>
+          {currentTab == 0 && (
+            <>
+              <FormControl className={classes.formControl} fullWidth>
+                <InputLabel htmlFor="page-title">Page Title</InputLabel>
+                <Input
+                  id="page-title"
+                  value={this.state.pageTitle}
+                  onChange={this.handleTitleChange}
+                />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="social-plane">Social Plane</InputLabel>
+                <Select
+                  value={this.state.socialPlane}
+                  onChange={this.handleSocialPlaneChange}
+                  id="social-plane"
+                  className={classes.selectSocialPlane}
+                >
+                  <MenuItem value={'everyone'}>Everyone</MenuItem>
+                  <MenuItem value={'group'}>Each Group</MenuItem>
+                  <MenuItem value={'individual'}>Each Individual</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControlLabel
+                className={classes.formControl}
+                control={
+                  <Checkbox
+                    checked={this.state.allowView}
+                    onChange={this.handleChangeAllowView}
+                    color="primary"
+                  />
+                }
+                label="Allow others to view"
+              />
+              <FormControlLabel
+                className={classes.formControl}
+                control={
+                  <Checkbox
+                    checked={this.state.allowEdit}
+                    onChange={this.handleChangeAllowEdit}
+                    color="primary"
+                  />
+                }
+                label="Allow others to edit"
+              />
+            </>
+          )}
+          {currentTab == 1 && (
+            <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
+          )}
+          {currentTab == 2 && <>WIP</>}
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => this.props.setModalOpen(false)}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button onClick={this.props.onCreate} color="primary" autoFocus>
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
+
+export default withStyles(styles)(NewPageModal);
