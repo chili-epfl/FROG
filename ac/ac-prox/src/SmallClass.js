@@ -2,7 +2,13 @@ import * as React from 'react';
 import { A } from 'frog-utils';
 import { isEmpty } from 'lodash';
 
-const Runner = ({ logger, data, dataFn, userInfo: { id, name } }) => {
+const Runner = ({
+  activityData: { config },
+  logger,
+  data,
+  dataFn,
+  userInfo: { id, name }
+}) => {
   const addGroup = () => {
     const groups = Object.keys(data.groups);
     const newNumber = isEmpty(groups)
@@ -51,24 +57,50 @@ const Runner = ({ logger, data, dataFn, userInfo: { id, name } }) => {
     </div>
   ) : (
     <>
-      <A onClick={addGroup}>Add group</A> or click on group header to join an
-      existing group
+      {!config.maxGroups ||
+      Object.keys(data.groups).length < config.maxGroups ? (
+        <>
+          <A onClick={addGroup}>Add group</A> or click on group header to join
+          an existing group{' '}
+        </>
+      ) : (
+        'Click on a group header to join an existing group '
+      )}
+      {config.maxStudentsInGroups &&
+        `with less than ${config.maxStudentsInGroups} members`}
       {Object.keys(data.groups).map(group => (
-        <Group data={data} group={group} key={group} onJoin={onJoin} />
+        <Group
+          data={data}
+          group={group}
+          key={group}
+          onJoin={onJoin}
+          max={config.maxStudentsInGroups}
+        />
       ))}
     </>
   );
 };
 
-const Group = ({ data, group, onJoin }) => (
-  <div>
-    <h2>{onJoin ? <A onClick={() => onJoin(group)}>{group}</A> : group}</h2>
-    {Object.keys(data.students)
-      .filter(x => data.students[x] === group)
-      .map(x => (
+const Group = ({ data, group, onJoin, max }) => {
+  const students = Object.keys(data.students).filter(
+    x => data.students[x] === group
+  );
+  const moreSpace = !max || students.length < max;
+  return (
+    <div>
+      <h2>
+        {onJoin && moreSpace ? (
+          <A onClick={() => onJoin(group)}>{group}</A>
+        ) : (
+          group
+        )}
+        {!moreSpace && ' (full)'}
+      </h2>
+      {students.map(x => (
         <li key={x}>{data.studentInfo[x]}</li>
       ))}
-  </div>
-);
+    </div>
+  );
+};
 
 export default Runner;

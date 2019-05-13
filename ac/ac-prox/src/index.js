@@ -4,9 +4,9 @@ import { type ActivityPackageT } from 'frog-utils';
 import dashboards from './dashboard.js';
 
 const meta = {
-  name: 'Proximity',
+  name: 'Students pick their own groups',
   type: 'react-component',
-  shortDesc: 'Manually create group',
+  shortDesc: 'Manually create groups',
   description:
     'Gives the possibility for students to make their own group if followed by the prox operator',
   category: 'Core tools'
@@ -15,7 +15,15 @@ const meta = {
 const config = {
   type: 'object',
   properties: {
-    largeClass: { title: 'Support very large class', type: 'boolean' }
+    largeClass: { title: 'Support very large class', type: 'boolean' },
+    maxGroups: {
+      title: 'Maximum number of groups (empty for unlimited)',
+      type: 'number'
+    },
+    maxStudentsInGroups: {
+      title: 'Maximum number of students in each group (empty for unlimited)',
+      type: 'number'
+    }
   }
 };
 

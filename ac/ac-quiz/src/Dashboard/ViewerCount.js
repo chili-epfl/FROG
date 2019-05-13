@@ -89,7 +89,6 @@ const Question = withStyles(styles)(({ texts, question, answers, classes }) => {
       )}
       {!isEmpty(texts) && (
         <div>
-          <b>Justifications</b>
           <List>
             {texts.map((x, i) => (
               <ListItem className={classes.justifications} divider key={i}>

@@ -6,7 +6,8 @@ const meta = {
   name: 'Create groups',
   shortDesc: 'Group students randomly',
   description:
-    'Create random groups of students, configurable group size and strategy (at least n students, or maximum n students per group).'
+    'Create random groups of students, configurable group size and strategy (at least n students, or maximum n students per group).',
+  category: 'Simple'
 };
 
 const config = {

@@ -158,3 +158,26 @@ test('test mixing larger +', () =>
       B: ['2', '3', '5', '7', '9', '10', '12', '14', '16', '18']
     }
   }));
+
+const object4 = {
+  globalStructure: { studentIds: [1, 2, 3, 4, 5, 8, 9, 10] },
+  socialStructure: {
+    group: {
+      '0': ['1', '2'],
+      '1': ['4', '5'],
+      '2': ['8', '9', '11'],
+      '3': ['10']
+    }
+  }
+};
+
+test('test mixing with just groups, not roles +', () =>
+  expect(operator({ roles: 'A,B' }, object4)).toEqual({
+    group: {
+      '0': ['1', '2'],
+      '1': ['4', '5'],
+      '2': ['8', '9', '11'],
+      '3': ['10']
+    },
+    role: { A: ['1', '4', '8', '10', '11'], B: ['2', '5', '9'] }
+  }));
