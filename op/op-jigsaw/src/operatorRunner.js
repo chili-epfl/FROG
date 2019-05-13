@@ -16,8 +16,6 @@ const operator = (configData, object) => {
 
   let socStruc = {};
   if (configData.mix) {
-    // group: { '0': ['1', '2'], '1': ['3', '4'], '2': ['5'] },
-    // role: { baker: ['2', '4'], chef: ['1', '3', '5'] }
     const roles = Object.keys(socialStructure.role);
     const newRoles = getRotateable(roles, 1);
     const students = focusStudent(socialStructure);
@@ -29,13 +27,23 @@ const operator = (configData, object) => {
     socStruc = students;
   } else {
     const roles = configData.roles.split(',').map(x => x.trim());
-    const groupSize = roles.length;
-    shuffle(globalStructure.studentIds).forEach((studentId, index) => {
-      socStruc[studentId] = {
-        role: roles[index % groupSize],
-        group: Math.floor(index / groupSize).toString()
-      };
-    });
+    const rotatingRoles = getRotateable(roles, 0);
+    if (socialStructure.group) {
+      Object.keys(socialStructure.group).forEach(grp => {
+        const students = socialStructure.group[grp];
+        students.forEach((student, i) => {
+          socStruc[student] = { group: grp, role: rotatingRoles[i] };
+        });
+      });
+    } else {
+      const groupSize = roles.length;
+      shuffle(globalStructure.studentIds).forEach((studentId, index) => {
+        socStruc[studentId] = {
+          role: roles[index % groupSize],
+          group: Math.floor(index / groupSize).toString()
+        };
+      });
+    }
   }
   return focusRole(socStruc);
 };
