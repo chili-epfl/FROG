@@ -5,13 +5,15 @@ import { type productOperatorT } from 'frog-utils';
 
 const meta = {
   name: 'Social->Category',
-  shortDesc: 'Group students to argue',
-  description: 'Group students with as many similar answers as possible.'
+  shortDesc: 'Tag student items with their social attribute as category',
+  description: ''
 };
 
 const config = {
   type: 'object',
-  properties: {}
+  properties: {
+    socialAttribute: { type: 'socialAttribute', title: 'Grouping' }
+  }
 };
 
 export default ({
