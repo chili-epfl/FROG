@@ -108,7 +108,7 @@ export const SearchAndFind = ({
   return (
     <>
       <SearchField
-        prompt="Select page, or enter for fulltext search"
+        prompt="Select page or do a fulltext search"
         debounce={100}
         focus={!!focus}
         onKeyDown={e => {
