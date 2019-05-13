@@ -189,9 +189,9 @@ export default class ActivityStore {
             this.all
           );
           const maxLength = rightBoundTime - time;
-          length = Math.min(maxLength, 10);
+          length = Math.min(maxLength, 5);
         } else {
-          length = 10;
+          length = 5;
         }
         if (length >= 1) {
           const newActivity = new Activity(plane, time, 'Unnamed', length);
