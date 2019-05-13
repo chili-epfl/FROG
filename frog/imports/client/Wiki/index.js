@@ -363,11 +363,19 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   createNewPageLI = (pageTitle: string, setCreated, liType: ?string) => {
-    if (!pageTitle) throw new Error('Empty pageTitleRaw');
+    if (!pageTitle) throw new Error('Empty pageTitle');
+
+    const parsedPages = parseDocResults(this.wikiDoc.data);
+    const pageTitleLower = pageTitle.toLowerCase();
+
+    if (!setCreated && parsedPages[pageTitleLower]) {
+      const pageId = parsedPages[pageTitleLower].id;
+      return pageId;
+    }
+
     const meta = {
       wikiId: this.wikiId
     };
-
     const newId = dataFn.createLearningItem(
       liType || 'li-richText',
       undefined,
