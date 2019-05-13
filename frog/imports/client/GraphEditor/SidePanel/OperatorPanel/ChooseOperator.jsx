@@ -2,18 +2,22 @@
 
 import React, { Component } from 'react';
 
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
-
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import Collapse from '@material-ui/core/Collapse';
 import type { operatorPackageT, OperatorDbT } from 'frog-utils';
 import { Operators } from '/imports/api/operators';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { type StoreProp } from '../../store';
-import ListComponent from '../ListComponent';
 
 type PropsT = StoreProp & {
   classes: Object,
@@ -24,10 +28,10 @@ type StateT = { expanded: ?string, searchStr: string };
 
 const styles = {
   topPanel: {
-    padding: '10px'
+    padding: '10px',
+    margin: 8
   },
   operatorList: {
-    height: 'calc(100vh - 112px - 100px)',
     overflowY: 'auto'
   },
   searchContainer: {
@@ -35,69 +39,72 @@ const styles = {
     borderRadius: '5px',
     background: 'rgba(0,0,0,.05)'
   },
-  searchIcon: {
-    width: '50px',
-    height: '100%',
-    display: 'flex',
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  searchInput: {
-    border: '0',
-    width: '100%',
-    padding: '8px 8px 8px 50px',
-    background: 'none',
-    outline: 'none',
-    whiteSpace: 'normal',
-    verticalAlign: 'middle',
-    fontSize: '1rem'
-  },
   resultContainer: {
     height: '100%'
+  },
+  Tooltip: {
+    backgroundColor: '#FFF',
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow:
+      '0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12)',
+    fontSize: '1rem'
+  },
+  Category: {
+    fontSize: '1.5rem',
+    fontWeight: 500
+  },
+  List: {
+    paddingTop: 5,
+    paddingBottom: 5
   }
 };
 
-const NoResult = ({ classes }) => (
-  <Grid
-    container
-    justify="center"
-    alignItems="center"
-    className={classes.resultContainer}
-  >
-    <Grid item>
-      <Typography variant="body1">No results found</Typography>
-    </Grid>
-  </Grid>
-);
+class OperatorCategory extends Component<any, any> {
+  state = {
+    open: this.props.defaultState
+  };
 
-const StyledNoResult = withStyles(styles)(NoResult);
+  handleClick = () => {
+    this.setState({ open: !this.state.open });
+  };
 
-const ChooseOperatorTopPanel = ({ classes, onSearch }) => (
-  <Grid container className={classes.topPanel} alignItems="center" spacing={8}>
-    <Grid item xs={12}>
-      <Typography variant="h6">Select Operator type</Typography>
-    </Grid>
-    <Grid item xs={12}>
-      <div className={classes.searchContainer}>
-        <div className={classes.searchIcon}>
-          <Search />
-        </div>
-        <input
-          type="text"
-          onChange={onSearch}
-          className={classes.searchInput}
-          aria-describedby="search-operator"
-        />
-      </div>
-    </Grid>
-    <Grid item xs={12}>
-      <Divider />
-    </Grid>
-  </Grid>
-);
-
-const StyledChooseOperatorTopPanel = withStyles(styles)(ChooseOperatorTopPanel);
+  render() {
+    const { name, items, classes } = this.props;
+    return (
+      <>
+        <ListItem button onClick={this.handleClick} key={name}>
+          <ListItemText
+            primary={name}
+            classes={{ primary: classes.Category }}
+          />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List>
+            {items.map((x: operatorPackageT) => (
+              <ListItem
+                button
+                key={x.id}
+                onClick={() => this.props.onSelect(x)}
+                classes={{ button: classes.List }}
+              >
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+      </>
+    );
+  }
+}
+const StyledOperatorCategory = withStyles(styles)(OperatorCategory);
 
 class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   constructor(props: PropsT) {
@@ -105,7 +112,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
     this.state = { expanded: null, searchStr: '' };
   }
 
-  handleSelect = operatorType => () => {
+  select = operatorType => {
     const graphOperator = this.props.store.operatorStore.all.find(
       op => op.id === this.props.operator._id
     );
@@ -132,6 +139,19 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   };
 
   render() {
+    const { operator } = this.props;
+    const categories = {
+      product: [
+        'Aggregate',
+        'Distribute',
+        'From API',
+        'Peer-review',
+        'Other',
+        'Specialized'
+      ],
+      control: ['Control'],
+      social: ['Simple', 'Complex', 'Deprecated']
+    };
     const filteredList = operatorTypes
       .filter(x => x.type === this.props.operator.type)
       .filter(
@@ -145,31 +165,65 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
     const { classes } = this.props;
 
     return (
-      <Grid container>
-        <Grid item xs={12}>
-          <StyledChooseOperatorTopPanel onSearch={this.handleSearch} />
-        </Grid>
-
-        <Grid item xs={12} className={classes.operatorList}>
-          {filteredList.length === 0 ? (
-            <StyledNoResult />
-          ) : (
-            <List>
-              {filteredList.map((x: operatorPackageT) => (
-                <ListComponent
-                  onSelect={this.handleSelect(x)}
-                  showExpanded={this.state.expanded === x.id}
-                  expand={this.handleExpand(x)}
-                  key={x.id}
-                  onPreview={() => {}}
-                  object={x}
-                  searchS={this.state.searchStr}
-                  eventKey={x.id}
-                />
-              ))}
-            </List>
+      <Grid>
+        <div className={classes.topPanel}>
+          <Grid item>
+            <Typography variant="h4">Select Operator</Typography>
+          </Grid>
+          <Grid container spacing={8} alignItems="flex-end" item>
+            <Grid item>
+              <Search fontSize="inherit" />
+            </Grid>
+            <Grid item>
+              <TextField
+                id="search-input"
+                label="Search"
+                onChange={(x: Object) => this.handleSearch(x)}
+              />
+            </Grid>
+          </Grid>
+        </div>
+        <List component="nav">
+          {this.state.searchStr === '' &&
+            categories[operator.type].map((x: string, idx: number) => (
+              <StyledOperatorCategory
+                name={x}
+                items={filteredList.filter(y => y.meta.category === x)}
+                defaultState={idx === 0}
+                onSelect={this.select}
+                key={x}
+              />
+            ))}
+          {this.state.searchStr !== '' &&
+            filteredList.length !== 0 &&
+            filteredList.map(x => (
+              <ListItem
+                button
+                key={x.id}
+                onClick={() => this.select(x)}
+                classes={{ button: classes.List }}
+              >
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
+              </ListItem>
+            ))}
+          {this.state.searchStr !== '' && filteredList.length === 0 && (
+            <ListItem key="no-match-search">
+              <ListItemText
+                inset
+                primary={
+                  'No ' + operator.type + ' operators matched your search'
+                }
+              />
+            </ListItem>
           )}
-        </Grid>
+        </List>
       </Grid>
     );
   }
