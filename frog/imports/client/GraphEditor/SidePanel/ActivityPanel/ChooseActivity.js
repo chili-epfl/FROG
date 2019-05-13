@@ -53,9 +53,7 @@ const styles = {
     overflowY: 'auto'
   },
   searchContainer: {
-    position: 'relative',
-    borderRadius: '5px',
-    background: 'rgba(0,0,0,.05)'
+    marginRight: '8px'
   },
   centerButton: {
     textAlign: 'center'
@@ -210,11 +208,11 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           <Grid item>
             <Typography variant="h4">Select Activity Type</Typography>
           </Grid>
-          <Grid container spacing={8} alignItems="flex-end" item>
+          <Grid container spacing={16} alignItems="flex-end" item>
             <Grid item>
               <Search fontSize="inherit" />
             </Grid>
-            <Grid item>
+            <Grid item className={classes.searchContainer}>
               <TextField
                 id="search-input"
                 label="Search"
@@ -242,6 +240,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 items={filteredList.filter(y => y.meta.category === x)}
                 defaultState={idx === 0 || idx === 1}
                 onSelect={select}
+                key={x}
               />
             ))}
           {!this.props.store.ui.libraryOpen &&
@@ -267,7 +266,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           {!this.props.store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length === 0 && (
-              <ListItem>
+              <ListItem key="no-match-search">
                 <ListItemText
                   inset
                   primary="No Activity types matched your search"
@@ -276,6 +275,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             )}
           {this.props.store.ui.libraryOpen && (
             <Library
+              key="library"
               libraryType="activity"
               setDelete={this.props.setDelete}
               setIdRemove={this.props.setIdRemove}
