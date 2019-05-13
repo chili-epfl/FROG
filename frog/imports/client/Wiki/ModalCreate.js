@@ -69,6 +69,9 @@ const styles = () => ({
   tabs: {
     fontSize: 'inherit',
     color: '#fff'
+  },
+  selectHeading: {
+    fontSize: 'inherit'
   }
 });
 
@@ -155,8 +158,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
           <DialogContent classes={{ root: classes.modalInner }}>
             {currentTab === 0 && (
               <FormGroup>
-                <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="social-plane">Social Plane</InputLabel>
+                <FormControl>
+                  <Typography variant="title">Social Plane</Typography>
                   <Select
                     value={this.state.socialPlane}
                     onChange={this.handleSocialPlaneChange}
