@@ -115,7 +115,6 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   }
 
   select = operatorType => {
-    console.log('Called Select');
     const graphOperator = this.props.store.operatorStore.all.find(
       op => op.id === this.props.operator._id
     );
@@ -155,7 +154,6 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
       control: ['Control'],
       social: ['Simple', 'Complex', 'Deprecated']
     };
-    console.log(operatorTypes);
     const filteredList = operatorTypes
       .filter(x => x.type === this.props.operator.type)
       .filter(
@@ -195,6 +193,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
                 items={filteredList.filter(y => y.meta.category === x)}
                 defaultState={idx === 0}
                 onSelect={this.select}
+                key={x}
               />
             ))}
           {this.state.searchStr !== '' &&
@@ -217,7 +216,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
               </ListItem>
             ))}
           {this.state.searchStr !== '' && filteredList.length === 0 && (
-            <ListItem>
+            <ListItem key="no-match-search">
               <ListItemText
                 inset
                 primary={
