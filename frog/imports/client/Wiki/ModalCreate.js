@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -15,17 +14,15 @@ import {
   FormControlLabel,
   Select,
   MenuItem,
-  FormHelperText,
   Input,
   InputLabel,
   Checkbox
 } from '@material-ui/core';
-import { values, A, TextInput } from 'frog-utils';
+import { values, A } from 'frog-utils';
 import LI from '../LearningItem';
 import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { learningItemTypesObj } from '/imports/activityTypes';
-import OperatorPanel from '../GraphEditor/SidePanel/OperatorPanel';
 
 const editableLIs = values(learningItemTypesObj).filter(
   x => (x.Editor && x.liDataStructure) || x.Creator
@@ -49,7 +46,7 @@ type PropsT = {
   wikiId: string
 };
 
-const styles = theme => ({
+const styles = () => ({
   formControl: {
     margin: 8
   },
@@ -74,13 +71,16 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       allowEdit: true
     };
   }
+
   handleTitleChange = (e: any) => {
     this.setState({ pageTitle: e.target.value });
   };
+
   handleTabs = (e: any, value: number) => {
     this.setState({ currentTab: value });
   };
-  handleSocialPlaneChange = (e: any, value: any) => {
+
+  handleSocialPlaneChange = (e: any) => {
     if (e.target.value === 'everyone') {
       this.setState({
         socialPlane: e.target.value,
@@ -91,12 +91,15 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       this.setState({ socialPlane: e.target.value });
     }
   };
+
   handleChangeAllowView = () => {
     this.setState({ allowView: !this.state.allowView });
   };
+
   handleChangeAllowEdit = () => {
     this.setState({ allowEdit: !this.state.allowEdit });
   };
+
   render() {
     const { currentTab, socialPlane } = this.state;
     const { classes } = this.props;
@@ -120,7 +123,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
           <Tab label="Operator" />
         </Tabs>
         <DialogContent>
-          {currentTab == 0 && (
+          {currentTab === 0 && (
             <FormGroup>
               <FormControl className={classes.formControl} fullWidth>
                 <InputLabel htmlFor="page-title">Page Title</InputLabel>
@@ -138,9 +141,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                   id="social-plane"
                   className={classes.selectSocialPlane}
                 >
-                  <MenuItem value={'everyone'}>Everyone</MenuItem>
-                  <MenuItem value={'group'}>Each Group</MenuItem>
-                  <MenuItem value={'individual'}>Each Individual</MenuItem>
+                  <MenuItem value="everyone">Everyone</MenuItem>
+                  <MenuItem value="group">Each Group</MenuItem>
+                  <MenuItem value="individual">Each Individual</MenuItem>
                 </Select>
               </FormControl>
               <FormControlLabel
@@ -169,10 +172,10 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               />
             </FormGroup>
           )}
-          {currentTab == 1 && (
+          {currentTab === 1 && (
             <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
           )}
-          {currentTab == 2 && <>WIP</>}
+          {currentTab === 2 && <>WIP</>}
         </DialogContent>
         <DialogActions>
           <Button
