@@ -13,9 +13,9 @@ import {
   FormGroup,
   FormControlLabel,
   Select,
-  MenuItem,
-  Input,
   InputLabel,
+  MenuItem,
+  TextField,
   Checkbox
 } from '@material-ui/core';
 import { values, A } from 'frog-utils';
@@ -23,6 +23,9 @@ import LI from '../LearningItem';
 import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { learningItemTypesObj } from '/imports/activityTypes';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
 
 const editableLIs = values(learningItemTypesObj).filter(
   x => (x.Editor && x.liDataStructure) || x.Creator
@@ -34,6 +37,7 @@ type StateT = {
   pageTitleValid: boolean,
   socialPlane: string,
   open: boolean,
+  expanded: boolean,
   allowView: boolean,
   allowEdit: boolean
 };
@@ -54,7 +58,13 @@ const styles = () => ({
     width: '7vw'
   },
   modalInner: {
-    height: '50vh'
+    height: '35vh'
+  },
+  expander: {
+    margin: 'auto'
+  },
+  tabs: {
+    fontSize: 'inherit'
   }
 });
 
@@ -66,6 +76,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       pageTitle: '',
       pageTitleValid: true,
       open: true,
+      expanded: false,
       socialPlane: 'everyone',
       allowView: true,
       allowEdit: true
@@ -101,7 +112,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   render() {
-    const { currentTab, socialPlane } = this.state;
+    const { currentTab, socialPlane, expanded } = this.state;
     const { classes } = this.props;
 
     return (
@@ -109,82 +120,99 @@ class NewPageModal extends React.Component<PropsT, StateT> {
         open={this.state.open}
         onClose={() => this.props.setModalOpen(false)}
         scroll="paper"
-        classes={{ paper: classes.modalInner }}
       >
-        <Tabs
-          value={this.state.currentTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={this.handleTabs}
-          variant="fullWidth"
-        >
-          <Tab label="Settings" />
-          <Tab label="Component" />
-          <Tab label="Operator" />
-        </Tabs>
-        <DialogContent>
-          {currentTab === 0 && (
-            <FormGroup>
-              <FormControl className={classes.formControl} fullWidth>
-                <InputLabel htmlFor="page-title">Page Title</InputLabel>
-                <Input
-                  id="page-title"
-                  value={this.state.pageTitle}
-                  onChange={this.handleTitleChange}
-                />
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="social-plane">Social Plane</InputLabel>
-                <Select
-                  value={this.state.socialPlane}
-                  onChange={this.handleSocialPlaneChange}
-                  id="social-plane"
-                  className={classes.selectSocialPlane}
-                >
-                  <MenuItem value="everyone">Everyone</MenuItem>
-                  <MenuItem value="group">Each Group</MenuItem>
-                  <MenuItem value="individual">Each Individual</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControlLabel
-                className={classes.formControl}
-                control={
-                  <Checkbox
-                    checked={this.state.allowView}
-                    onChange={this.handleChangeAllowView}
-                    color="primary"
+        <FormGroup>
+          <FormControl className={classes.formControl}>
+            <TextField
+              autoFocus
+              id="page-title"
+              value={this.state.pageTitle}
+              onChange={this.handleTitleChange}
+              label="Page Title"
+              margin="normal"
+            />
+          </FormControl>
+        </FormGroup>
+        <Collapse in={expanded} timeout="auto">
+          <Tabs
+            value={this.state.currentTab}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={this.handleTabs}
+            variant="fullWidth"
+          >
+            <Tab label="Settings" className={classes.tabs} />
+            <Tab label="Component" className={classes.tabs} />
+            <Tab label="Operator" className={classes.tabs} />
+          </Tabs>
+          <DialogContent classes={{ root: classes.modalInner }}>
+            {currentTab === 0 && (
+              <FormGroup>
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="social-plane">Social Plane</InputLabel>
+                  <Select
+                    value={this.state.socialPlane}
+                    onChange={this.handleSocialPlaneChange}
+                    id="social-plane"
+                    className={classes.selectSocialPlane}
+                  >
+                    <MenuItem value="everyone">Everyone</MenuItem>
+                    <MenuItem value="group">Each Group</MenuItem>
+                    <MenuItem value="individual">Each Individual</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormGroup row>
+                  <FormControlLabel
+                    className={classes.formControl}
+                    control={
+                      <Checkbox
+                        checked={this.state.allowView}
+                        onChange={this.handleChangeAllowView}
+                        color="primary"
+                      />
+                    }
+                    disabled={socialPlane === 'everyone'}
+                    label="Allow others to view"
                   />
-                }
-                disabled={socialPlane === 'everyone'}
-                label="Allow others to view"
-              />
-              <FormControlLabel
-                className={classes.formControl}
-                control={
-                  <Checkbox
-                    checked={this.state.allowEdit}
-                    onChange={this.handleChangeAllowEdit}
-                    color="primary"
+                  <FormControlLabel
+                    className={classes.formControl}
+                    control={
+                      <Checkbox
+                        checked={this.state.allowEdit}
+                        onChange={this.handleChangeAllowEdit}
+                        color="primary"
+                      />
+                    }
+                    disabled={socialPlane === 'everyone'}
+                    label="Allow others to edit"
                   />
-                }
-                disabled={socialPlane === 'everyone'}
-                label="Allow others to edit"
-              />
-            </FormGroup>
-          )}
-          {currentTab === 1 && (
-            <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
-          )}
-          {currentTab === 2 && <>WIP</>}
-        </DialogContent>
+                </FormGroup>
+              </FormGroup>
+            )}
+            {currentTab === 1 && (
+              <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
+            )}
+            {currentTab === 2 && <>WIP</>}
+          </DialogContent>
+        </Collapse>
         <DialogActions>
+          <IconButton
+            className={classes.expander}
+            onClick={() => this.setState({ expanded: !expanded })}
+          >
+            {expanded ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
           <Button
             onClick={() => this.props.setModalOpen(false)}
             color="primary"
           >
             Cancel
           </Button>
-          <Button onClick={this.props.onCreate} color="primary" autoFocus>
+          <Button
+            onClick={this.props.onCreate}
+            color="primary"
+            variant="contained"
+          >
             Create
           </Button>
         </DialogActions>
