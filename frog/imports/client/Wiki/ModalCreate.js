@@ -60,7 +60,7 @@ const styles = () => ({
     width: '7vw'
   },
   modalInner: {
-    height: '35vh',
+    height: '45vh',
     padding: 16
   },
   expander: {
@@ -197,9 +197,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 </FormGroup>
               </FormGroup>
             )}
-            {currentTab === 1 && (
-              <ApiForm noOffset showDelete onConfigChange={e => setConfig(e)} />
-            )}
+            {currentTab === 1 && <ApiForm noOffset showDelete />}
             {currentTab === 2 && <>WIP</>}
           </DialogContent>
         </Collapse>
