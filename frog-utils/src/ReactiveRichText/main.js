@@ -689,6 +689,7 @@ class ReactiveRichText extends Component<
                       allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
+                        console.log(searchTerm);
                         const values = wikiContext.getOnlyValidWikiPages(
                           false,
                           searchTerm.includes('/')

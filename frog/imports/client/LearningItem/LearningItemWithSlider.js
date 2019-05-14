@@ -74,6 +74,7 @@ class LearningItemWithSlider extends React.Component<
     return (
       <React.Fragment>
         <Slider
+          style={{ width: '95%', margin: '0 auto' }}
           value={this.state.currentRev}
           min={0}
           max={this.state.revisions.length - 1}

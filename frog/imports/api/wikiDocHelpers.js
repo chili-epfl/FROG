@@ -80,3 +80,26 @@ export const addInstance = (wikiDoc, pageId, instanceId, liId, username) => {
 
   wikiDoc.submitOp(op);
 };
+
+export const restoreWikiPage = (wikiDoc, pageId, cb) => {
+  const op = {
+    p: ['pages', pageId, 'valid'],
+    od: false,
+    oi: true
+  };
+
+  wikiDoc.submitOp(op);
+  if (cb) {
+    cb();
+  }
+};
+
+export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
+  const op = {
+    p: ['pages', pageId, 'liId'],
+    od: null,
+    oi: newLiId
+  };
+
+  wikiDoc.submitOp(op);
+};
