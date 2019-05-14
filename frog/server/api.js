@@ -557,7 +557,11 @@ WebApp.connectHandlers.use(
   async (request, response, next) => {
     console.info(
       'Importing page',
-      request.query?.wiki + ' / ' + request.query?.page
+      request.query?.wiki +
+        ' / ' +
+        request.query?.page +
+        ' with ID ' +
+        request.query?.id
     );
     try {
       const { wiki, page, id } = request.query;
@@ -583,11 +587,6 @@ WebApp.connectHandlers.use(
         id
       );
 
-      const wikidoc = serverConnection.get('wiki', wiki);
-      try {
-        wikidoc.create({ wikiId: wiki, pages: {} });
-      } catch (e) {}
-
       const op = {
         p: ['pages', newId],
         oi: {
@@ -596,20 +595,24 @@ WebApp.connectHandlers.use(
           valid: true,
           created: true,
           title: page,
-          liType: 'li-richText'
+          liType: 'li-richText',
+          plane: 3
         }
       };
 
       const wikiDoc = serverConnection.get('wiki', wiki);
       await new Promise(resolve => {
         wikiDoc.subscribe(() => {
+          if (!wikiDoc.type) {
+            wikiDoc.create({ wikiId: wiki, pages: {} });
+          }
           wikiDoc.submitOp(op);
           wikiDoc.destroy();
           resolve();
         });
       });
 
-      genericDoc.destroy()
+      genericDoc.destroy();
 
       response.writeHead(200);
       response.end();

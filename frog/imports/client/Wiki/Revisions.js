@@ -3,6 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { isEmpty, omit } from 'lodash';
+import { A } from 'frog-utils';
 import Delta from 'quill-delta';
 
 import RenderLearningItem from '../LearningItem/RenderLearningItem';
@@ -65,6 +66,7 @@ const Revisions = ({ doc }) => {
           resolve(res)
         )
       );
+      result.reverse();
       setRevisions(result);
     };
     fetch();
@@ -72,77 +74,60 @@ const Revisions = ({ doc }) => {
 
   return (
     <div>
-      {revisions.map((x, i) => (
-        <li key={i}>
-          {toDate(x.time)} -
-          <input
-            type="checkbox"
-            checked={diffFrom === i}
-            onChange={() => {
-              setDiffFrom(i);
+      <div style={{ height: '150px', overflow: 'auto' }}>
+        {revisions.map((x, i) => {
+          return (
+            <li key={i}>
+              <input
+                type="checkbox"
+                checked={diffFrom === i}
+                onChange={() => {
+                  setDiffFrom(i);
+                }}
+              />
+              {'  '}
+              <input
+                type="checkbox"
+                checked={diffTo === i}
+                onChange={() => {
+                  setDiffTo(i);
+                }}
+              />{' '}
+              -{' '}
+              <A
+                onClick={() => {
+                  setDiffTo(i);
+                  setDiffFrom(i === revisions.length - 1 ? i : i + 1);
+                }}
+              >
+                {toDate(x.time)} -{x.contributors.join(', ')}
+              </A>
+            </li>
+          );
+        })}
+      </div>
+      <hr />
+      {diffTo !== undefined && diffFrom !== undefined && (
+        <>
+          <hr />
+          <RenderLearningItem
+            type="view"
+            dataFn={dataFn}
+            key={diffTo + diffFrom + 'fromTo'}
+            id={doc}
+            isPlayback
+            data={{
+              ...revisions[diffFrom].data,
+              payload: {
+                text: transform(
+                  revisions[diffFrom].data.payload,
+                  revisions[diffTo].data.payload
+                )
+              }
             }}
           />
-          {'  '}
-          <input
-            type="checkbox"
-            checked={diffTo === i}
-            onChange={() => {
-              setDiffTo(i);
-            }}
-          />{' '}
-          -{x.contributors.join(', ')}
-        </li>
-      ))}
-      <hr />
-      <>
-        <div style={{ height: '400px' }}>
-          <div style={{ float: 'left', width: '50%' }}>
-            {diffFrom !== undefined && (
-              <RenderLearningItem
-                type="view"
-                dataFn={dataFn}
-                key={diffFrom + 'from'}
-                id={doc}
-                isPlayback
-                data={revisions[diffFrom].data}
-              />
-            )}
-          </div>
-          <div style={{ float: 'right', width: '50%' }}>
-            {diffTo !== undefined && (
-              <RenderLearningItem
-                type="view"
-                dataFn={dataFn}
-                key={diffTo + 'to'}
-                id={doc}
-                isPlayback
-                data={revisions[diffTo].data}
-              />
-            )}
-          </div>
-        </div>
-        {diffTo !== undefined && diffFrom !== undefined && (
-          <>
-            <hr />
-            <RenderLearningItem
-              type="view"
-              dataFn={dataFn}
-              key={diffTo + diffFrom + 'fromTo'}
-              id={doc}
-              isPlayback
-              data={{
-                ...revisions[diffFrom].data,
-                payload: {
-                  text: transform(
-                    revisions[diffFrom].data.payload,
-                    revisions[diffTo].data.payload
-                  )
-                }
-              }}
-            />
-          </>
-        )}
-      </>
+        </>
+      )}
     </div>
   );
 };

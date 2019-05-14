@@ -263,6 +263,7 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'ready' && Meteor.user()) {
         return (
           <Switch>
+            <Route path="/wiki/:wikiId/:pageTitle/:instance" component={Wiki} />
             <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
             <Route path="/wiki/:wikiId" component={Wiki} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
