@@ -710,12 +710,14 @@ class ReactiveRichText extends Component<
                           }
 
                           if (matches.length === 0) {
-                            matches.push({
+                            const existingPageObj = wikiContext.getPageObjForTitle(searchTerm);
+                            const pageObj = existingPageObj || {
                               wikiId: wikiContext.getWikiId(),
                               title: searchTerm,
                               created: true,
                               valid: true
-                            });
+                            }
+                            matches.push(pageObj);
                           }
 
                           renderList(matches, searchTerm);

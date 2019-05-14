@@ -115,7 +115,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       wikiContext: {
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
-        getOnlyValidWikiPages: this.getOnlyValidWikiPages
+        getOnlyValidWikiPages: this.getOnlyValidWikiPages,
+        getPageObjForTitle: this.getPageObjForTitle
       }
     };
   }
@@ -374,6 +375,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   getWikiId = () => {
     return this.wikiId;
   };
+
+  getPageObjForTitle = (pageTitle: string) => {
+    const pageTitleLower = pageTitle.toLowerCase();
+    const parsedPages = parseDocResults(this.wikiDoc.data);
+    return parsedPages[pageTitleLower];
+  }
 
   getWikiPages = () => {
     return flatMap(values(wikistore.pages), pageObj =>
