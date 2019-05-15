@@ -26,6 +26,7 @@ import { values, A } from 'frog-utils';
 import LI from '../LearningItem';
 import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { learningItemTypesObj } from '/imports/activityTypes';
 
 const editableLIs = values(learningItemTypesObj).filter(

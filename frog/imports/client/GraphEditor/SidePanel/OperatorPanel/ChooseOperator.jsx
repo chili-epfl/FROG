@@ -163,7 +163,6 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
     const { classes } = this.props;
-
     return (
       <Grid>
         <div className={classes.topPanel}>
