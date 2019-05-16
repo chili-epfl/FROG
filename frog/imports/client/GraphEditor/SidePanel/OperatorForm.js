@@ -41,8 +41,6 @@ const OperatorForm = observer(
       console.log(store);
       const { operator, test } = this.state;
       if (test) {
-        console.log('Calling Edit');
-
         return (
           <ConfigForm
             node={{ _id: 1, operatorType: this.state.operator, data: {} }}

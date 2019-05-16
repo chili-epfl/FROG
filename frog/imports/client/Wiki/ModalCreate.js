@@ -42,7 +42,8 @@ type StateT = {
   open: boolean,
   expanded: boolean,
   allowView: boolean,
-  allowEdit: boolean
+  allowEdit: boolean,
+  config: Object
 };
 
 type PropsT = {
@@ -87,7 +88,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       expanded: false,
       socialPlane: 'everyone',
       allowView: true,
-      allowEdit: true
+      allowEdit: true,
+      config: {}
     };
   }
 
@@ -119,8 +121,12 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.setState({ allowEdit: !this.state.allowEdit });
   };
 
+  handleConfig = conf => {
+    this.setState({ config: conf });
+  };
+
   render() {
-    const { currentTab, socialPlane, expanded } = this.state;
+    const { currentTab, socialPlane, expanded, pageTitle } = this.state;
     const { classes } = this.props;
     return (
       <Dialog
@@ -197,7 +203,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 </FormGroup>
               </FormGroup>
             )}
-            {currentTab === 1 && <ApiForm noOffset showDelete />}
+            {currentTab === 1 && (
+              <ApiForm
+                noOffset
+                showDelete
+                onConfigChange={e => this.handleConfig(e)}
+              />
+            )}
             {currentTab === 2 && <OperatorForm operatorType="product" />}
           </DialogContent>
         </Collapse>
@@ -215,7 +227,14 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             Cancel
           </Button>
           <Button
-            onClick={this.props.onCreate}
+            onClick={() =>
+              this.props.onCreate(
+                pageTitle,
+                this.state.config === {} ? 'li-richText' : '',
+                null,
+                this.state.config
+              )
+            }
             color="primary"
             variant="contained"
           >
