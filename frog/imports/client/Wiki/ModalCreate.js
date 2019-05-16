@@ -144,6 +144,16 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               onChange={this.handleTitleChange}
               label="Page Title"
               margin="normal"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  this.props.onCreate(
+                    pageTitle,
+                    this.state.config === {} ? 'li-richText' : '',
+                    null,
+                    this.state.config
+                  );
+                }
+              }}
             />
           </FormControl>
         </FormGroup>
