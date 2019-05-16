@@ -28,6 +28,7 @@ import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { learningItemTypesObj } from '/imports/activityTypes';
+import type { OperatorDbT } from 'frog-utils';
 
 const editableLIs = values(learningItemTypesObj).filter(
   x => (x.Editor && x.liDataStructure) || x.Creator
@@ -121,7 +122,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   render() {
     const { currentTab, socialPlane, expanded } = this.state;
     const { classes } = this.props;
-
     return (
       <Dialog
         open={this.state.open}
@@ -198,7 +198,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               </FormGroup>
             )}
             {currentTab === 1 && <ApiForm noOffset showDelete />}
-            {currentTab === 2 && <>WIP</>}
+            {currentTab === 2 && <OperatorForm operatorType="product" />}
           </DialogContent>
         </Collapse>
         <DialogActions>

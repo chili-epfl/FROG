@@ -21,7 +21,8 @@ import { type StoreProp } from '../../store';
 
 type PropsT = StoreProp & {
   classes: Object,
-  operator: OperatorDbT
+  operator: OperatorDbT,
+  onSelect?: Function
 };
 
 type StateT = { expanded: ?string, searchStr: string };
@@ -125,6 +126,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
     if (graphOperator) {
       graphOperator.rename(newName);
     }
+    if (this.props.onSelect) this.props.onSelect(this.props.store);
   };
 
   handleSearch = e => {

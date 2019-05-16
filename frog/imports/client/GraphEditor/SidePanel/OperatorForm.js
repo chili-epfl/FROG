@@ -4,15 +4,15 @@ import jsonSchemaDefaults from 'json-schema-defaults';
 import { observer } from 'mobx-react';
 import ConfigForm from './ConfigForm';
 import ChooseOperatorTypeComp from './OperatorPanel/ChooseOperator';
-import EditClass from './OperatorPanel/EditOperator';
+import EditOperator from './OperatorPanel/EditOperator';
 import type { OperatorDbT } from 'frog-utils';
 import Store from '../store/store';
 import { connect } from '../store';
+
 const store = new Store();
-const EditOperator = connect(EditClass);
 
 type PropsT = {
-  operator: OperatorDbT,
+  operatorType: string,
   onSelect?: Function,
   onConfigChange: Function
 };
@@ -26,14 +26,29 @@ const OperatorForm = observer(
     constructor(props: PropsT) {
       super(props);
       this.state = {
-        operator: this.props.operator
+        operator: {
+          _id: '19872319082371209387',
+          type: this.props.operatorType,
+          data: this.props
+        }
       };
     }
-
+    componentWillReceiveProps = nextprop => {
+      console.log(nextprop);
+    };
     render() {
+      console.log(store);
       const { operator } = this.state;
-      if (operator._id) return <EditOperator operator={operator} />;
-      else return <ChooseOperatorTypeComp store={store} operator={operator} />;
+      if (this.state.operator)
+        return (
+          <ChooseOperatorTypeComp
+            operator={operator}
+            store={store}
+            onSelect={op => {
+              console.log(op);
+            }}
+          />
+        );
     }
   }
 );
