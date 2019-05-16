@@ -50,7 +50,7 @@ const OperatorForm = observer(
           store={store}
           onSelect={op => {
             console.log('Called back');
-            this.setState({ test: false });
+            this.setState({ test: true });
           }}
         />
       );
