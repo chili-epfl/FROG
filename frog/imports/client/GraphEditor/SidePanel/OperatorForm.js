@@ -42,18 +42,19 @@ const OperatorForm = observer(
       console.log(store);
       const { operator, test } = this.state;
       if (test) {
-        return;
-      }
-      return (
-        <ChooseOperatorTypeComp
-          operator={operator}
-          store={store}
-          onSelect={op => {
-            console.log(op);
-            this.setState({ test: true, operator: op });
-          }}
-        />
-      );
+        console.log('Calling Edit');
+        return <EditOperator operator={operator} store={store} />;
+      } else
+        return (
+          <ChooseOperatorTypeComp
+            operator={operator}
+            store={store}
+            onSelect={op => {
+              console.log(op);
+              this.setState({ test: true, operator: op });
+            }}
+          />
+        );
     }
   }
 );

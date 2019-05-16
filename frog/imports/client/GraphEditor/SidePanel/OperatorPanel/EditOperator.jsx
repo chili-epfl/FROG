@@ -94,6 +94,7 @@ export default ({
 }: StoreProp & {
   operator: Object
 }) => {
+  console.log('Edit');
   const graphOperator = all.find(act => act.id === operator._id);
   const operatorType = operatorTypesObj[operator.operatorType];
   if (!graphOperator || !operatorType) return;
