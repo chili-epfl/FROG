@@ -4,7 +4,6 @@ import jsonSchemaDefaults from 'json-schema-defaults';
 import { observer } from 'mobx-react';
 import ConfigForm from './ConfigForm';
 import ChooseOperatorTypeComp from './OperatorPanel/ChooseOperator';
-import EditOperator from './OperatorPanel/EditOperator';
 import type { OperatorDbT } from 'frog-utils';
 import Store from '../store/store';
 import { connect } from '../store';
@@ -30,7 +29,7 @@ const OperatorForm = observer(
         operator: {
           _id: '19872319082371209387',
           type: this.props.operatorType,
-          data: this.props
+          data: {}
         },
         test: false
       };
@@ -43,7 +42,19 @@ const OperatorForm = observer(
       const { operator, test } = this.state;
       if (test) {
         console.log('Calling Edit');
-        return <EditOperator operator={operator} store={store} />;
+
+        return (
+          <ConfigForm
+            node={{ _id: 1, operatorType: this.state.operator, data: {} }}
+            nodeType={this.state.operator}
+            valid={{ social: {} }}
+            connectedActivities={[]}
+            connectedSourceActivities={[]}
+            connectedTargetActivities={[]}
+            refreshValidate={() => null}
+            onChange={e => console.log(e)}
+          />
+        );
       } else
         return (
           <ChooseOperatorTypeComp
