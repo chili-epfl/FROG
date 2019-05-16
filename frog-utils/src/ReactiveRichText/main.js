@@ -640,7 +640,9 @@ class ReactiveRichText extends Component<
       <WikiContext.Consumer>
         {wikiContext => (
           <div
+            className='reactRichText'
             style={{ height: '100%' }}
+            data-wiki-side={wikiContext.side}
             onMouseOver={() => {
               if (this.props.dataFn.listore.dragState) {
                 this.props.dataFn.listore.setOverCB(this.onDrop);

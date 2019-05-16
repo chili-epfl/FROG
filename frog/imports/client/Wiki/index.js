@@ -38,6 +38,7 @@ import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import CreateModal from './ModalCreate';
 import FindModal, { SearchAndFind } from './ModalFind';
+import WikiLink from './WikiLink';
 
 const genericDoc = connection.get('li');
 export const dataFn = generateReactiveFn(genericDoc, LI, {
@@ -53,7 +54,8 @@ type WikiCompPropsT = {
       pageTitle: ?string
     }
   },
-  history: Object
+  history: Object,
+  side?: string
 };
 
 type WikiCompStateT = {
@@ -108,6 +110,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       createModalOpen: false,
       search: '',
       wikiContext: {
+        side: this.props.side,
         getWikiId: this.getWikiId,
         getWikiPages: this.getWikiPages,
         getOnlyValidWikiPages: this.getOnlyValidWikiPages
@@ -138,66 +141,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     });
   };
 
-  WikiLink = observer(({ data }) => {
-    const pageObj = wikistore.pages[data.id];
-    const style = {
-      textDecoration: 'underline',
-      cursor: 'pointer',
-      color: 'black'
-    };
-    if (!pageObj) {
-      return <span style={style}>INVALID LINK</span>;
-    }
-    const pageTitle = pageObj.title;
-    const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-
-    const linkFn = e => {
-      e.preventDefault();
-      console.log(e.shiftKey, this.props.side);
-      const push = e.shiftKey
-        ? this.props.history.push2
-        : this.props.history.push;
-      push(link);
-    };
-
-    const createLinkFn = e => {
-      e.preventDefault();
-      console.log(e.shiftKey, this.props.side);
-      const push = e.shiftKey
-        ? this.props.history.push2
-        : this.props.history.push;
-      push(link);
-      setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
-    };
-
-    if (!pageObj.created) {
-      style.color = 'green';
-
-      return (
-        <span onClick={createLinkFn} style={style}>
-          <b>{pageTitle}</b>
-        </span>
-      );
-    }
-
-    if (!pageObj.valid) {
-      style.color = 'red';
-      style.cursor = 'not-allowed';
-      return <span style={style}>{pageTitle}</span>;
-    }
-
-    style.color = 'blue';
-
-    return (
-      <span onClick={linkFn} style={style}>
-        <b>{pageTitle}</b>
-      </span>
-    );
-  });
-
   componentDidMount() {
     window.wiki = {
-      WikiLink: this.WikiLink,
+      WikiLink,
       createPage: this.createNewPageLI
     };
     this.wikiDoc = connection.get('wiki', this.wikiId);
