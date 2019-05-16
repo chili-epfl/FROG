@@ -5,6 +5,7 @@ import { hideConditional } from 'frog-utils';
 import { observer } from 'mobx-react';
 import type { OperatorDbT } from 'frog-utils';
 import { extendObservable, action } from 'mobx';
+import FlexView from 'react-flexview';
 import { operatorTypesObj } from '/imports/operatorTypes';
 import validateConfig from '/imports/api/validateConfig';
 import { removeActivity } from '/imports/api/remoteActivities';
@@ -98,17 +99,26 @@ const OperatorForm = observer(
         return (
           <>
             <div>
-              <DeleteButton
-                tooltip="Reset activity"
-                msg="Do you really want to remove the activity type, and loose all the configuration data?"
-                onConfirmation={() => {
-                  this.setState({
-                    operatorType: null,
-                    formData: null
-                  });
+              <FlexView
+                marginLeft="auto"
+                style={{
+                  flexDirection: 'column',
+                  position: 'absolute',
+                  right: '2px'
                 }}
-              />
-              <Valid noOffset={this.props.noOffset} />
+              >
+                <DeleteButton
+                  tooltip="Reset activity"
+                  msg="Do you really want to remove the activity type, and loose all the configuration data?"
+                  onConfirmation={() => {
+                    this.setState({
+                      operatorType: null,
+                      formData: null
+                    });
+                  }}
+                />
+                <Valid noOffset={true} />
+              </FlexView>
               <ConfigForm
                 node={{
                   _id: 1,
