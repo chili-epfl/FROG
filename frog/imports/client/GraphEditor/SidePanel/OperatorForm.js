@@ -42,7 +42,7 @@ const OperatorForm = observer(
       console.log(store);
       const { operator, test } = this.state;
       if (test) {
-        return <>Yas</>;
+        return;
       }
       return (
         <ChooseOperatorTypeComp
@@ -50,7 +50,7 @@ const OperatorForm = observer(
           store={store}
           onSelect={op => {
             console.log(op);
-            this.setState({ test: true });
+            this.setState({ test: true, operator: op });
           }}
         />
       );

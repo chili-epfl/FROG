@@ -126,6 +126,7 @@ export default ({
         all.find(act => act.id === x.source.id)
     )
   );
+  console.log(operator);
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel
