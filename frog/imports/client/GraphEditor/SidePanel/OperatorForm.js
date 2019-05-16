@@ -18,7 +18,8 @@ type PropsT = {
 };
 
 type StateT = {
-  operator: OperatorDbT
+  operator: OperatorDbT,
+  test: boolean
 };
 
 const OperatorForm = observer(
@@ -30,7 +31,8 @@ const OperatorForm = observer(
           _id: '19872319082371209387',
           type: this.props.operatorType,
           data: this.props
-        }
+        },
+        test: false
       };
     }
     componentWillReceiveProps = nextprop => {
@@ -38,17 +40,20 @@ const OperatorForm = observer(
     };
     render() {
       console.log(store);
-      const { operator } = this.state;
-      if (this.state.operator)
-        return (
-          <ChooseOperatorTypeComp
-            operator={operator}
-            store={store}
-            onSelect={op => {
-              console.log(op);
-            }}
-          />
-        );
+      const { operator, test } = this.state;
+      if (test) {
+        return <>Yas</>;
+      }
+      return (
+        <ChooseOperatorTypeComp
+          operator={operator}
+          store={store}
+          onSelect={op => {
+            console.log('Called back');
+            this.setState({ test: false });
+          }}
+        />
+      );
     }
   }
 );

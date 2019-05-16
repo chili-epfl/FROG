@@ -114,19 +114,22 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   }
 
   select = operatorType => {
-    const graphOperator = this.props.store.operatorStore.all.find(
-      op => op.id === this.props.operator._id
-    );
-    const newName =
-      operatorTypesObj[operatorType.id].meta.shortName ||
-      operatorTypesObj[operatorType.id].meta.name;
-    Operators.update(this.props.operator._id, {
-      $set: { operatorType: operatorType.id }
-    });
-    if (graphOperator) {
-      graphOperator.rename(newName);
+    if (this.props.onSelect) {
+      this.props.onSelect();
+    } else {
+      const graphOperator = this.props.store.operatorStore.all.find(
+        op => op.id === this.props.operator._id
+      );
+      const newName =
+        operatorTypesObj[operatorType.id].meta.shortName ||
+        operatorTypesObj[operatorType.id].meta.name;
+      Operators.update(this.props.operator._id, {
+        $set: { operatorType: operatorType.id }
+      });
+      if (graphOperator) {
+        graphOperator.rename(newName);
+      }
     }
-    if (this.props.onSelect) this.props.onSelect(this.props.store);
   };
 
   handleSearch = e => {
