@@ -94,6 +94,7 @@ export default ({
 }: StoreProp & {
   operator: Object
 }) => {
+  console.log('Edit');
   const graphOperator = all.find(act => act.id === operator._id);
   const operatorType = operatorTypesObj[operator.operatorType];
   if (!graphOperator || !operatorType) return;
@@ -126,6 +127,7 @@ export default ({
         all.find(act => act.id === x.source.id)
     )
   );
+  console.log(operator);
   return (
     <div style={{ height: '100%', overflowY: 'scroll', position: 'relative' }}>
       <TopPanel

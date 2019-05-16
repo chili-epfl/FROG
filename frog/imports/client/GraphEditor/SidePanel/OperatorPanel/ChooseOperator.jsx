@@ -21,7 +21,8 @@ import { type StoreProp } from '../../store';
 
 type PropsT = StoreProp & {
   classes: Object,
-  operator: OperatorDbT
+  operator: OperatorDbT,
+  onSelect?: Function
 };
 
 type StateT = { expanded: ?string, searchStr: string };
@@ -113,17 +114,21 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   }
 
   select = operatorType => {
-    const graphOperator = this.props.store.operatorStore.all.find(
-      op => op.id === this.props.operator._id
-    );
-    const newName =
-      operatorTypesObj[operatorType.id].meta.shortName ||
-      operatorTypesObj[operatorType.id].meta.name;
-    Operators.update(this.props.operator._id, {
-      $set: { operatorType: operatorType.id }
-    });
-    if (graphOperator) {
-      graphOperator.rename(newName);
+    if (this.props.onSelect) {
+      this.props.onSelect(operatorType);
+    } else {
+      const graphOperator = this.props.store.operatorStore.all.find(
+        op => op.id === this.props.operator._id
+      );
+      const newName =
+        operatorTypesObj[operatorType.id].meta.shortName ||
+        operatorTypesObj[operatorType.id].meta.name;
+      Operators.update(this.props.operator._id, {
+        $set: { operatorType: operatorType.id }
+      });
+      if (graphOperator) {
+        graphOperator.rename(newName);
+      }
     }
   };
 
