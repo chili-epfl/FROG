@@ -1,74 +1,101 @@
 import React, { Component } from 'react';
-WikiLink = () => {
-  //observer(({ data, side }) => {
-  // const pageObj = wikistore.pages[data.id];
-  const spanEl = React.useRef(null);
-  // const style = {
-  //   textDecoration: 'underline',
-  //   cursor: 'pointer',
-  //   color: 'black'
-  // };
-  // if (!pageObj) {
-  //   return <span style={style}>INVALID LINK</span>;
-  // }
-  // const pageTitle = pageObj.title;
-  // const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+import { observer } from 'mobx-react';
 
-  const linkFn = e => {
-    e.preventDefault();
-    console.log(spanEl.current);
-    window.e = spanEl.current;
-    console.log(spanEl.current.closest('.reactRichText')?.dataset.wikiSide);
-    const side = spanEl.current.closest('.reactRichText')?.dataset.wikiSide;
-    console.log(e.shiftKey, side);
-    const sideToSend =
-      (side === 'left' && !e.shiftKey) || (side === 'right' && e.shiftKey)
-        ? 'left'
-        : 'right';
-    // const push =
-    //   sideToSend === 'left'
-    //     ? this.props.history.push
-    //     : this.props.history.push2;
-    // push(link);
-  };
+import { wikistore } from './store';
 
-  // const createLinkFn = e => {
-  //   e.preventDefault();
-  //   console.log(e.shiftKey, side);
-  //   const sideToSend =
-  //     (side === 'left' && !e.shiftKey) || (side === 'right' && e.shiftKey)
-  //       ? 'left'
-  //       : 'right';
-  //   const push =
-  //     sideToSend === 'left'
-  //       ? this.props.history.push
-  //       : this.props.history.push2;
-  //   push(link);
-  //   setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
-  // };
+import { markPageAsCreated } from './wikiDocHelpers';
 
-  // if (!pageObj.created) {
-  //   style.color = 'green';
+const WikiLink = observer(
+  class W extends React.Component<*, *> {
+    ref: null;
+    render() {
+      const { data } = this.props;
 
-  //   return (
-  //     <span ref={spanEl} onClick={createLinkFn} style={style}>
-  //       <b>{pageTitle}</b>
-  //     </span>
-  //   );
-  // }
+      const pageObj = wikistore.pages[data.id];
+      const style = {
+        textDecoration: 'underline',
+        cursor: 'pointer',
+        color: 'black'
+      };
+      if (!pageObj) {
+        return <span style={style}>INVALID LINK</span>;
+      }
+      const pageTitle = pageObj.title;
+      const link =
+        '/wiki/' +
+        wikistore.wikiId +
+        '/' +
+        pageTitle +
+        (data.instance ? '/' + data.instance : '');
 
-  // if (!pageObj.valid) {
-  //   style.color = 'red';
-  //   style.cursor = 'not-allowed';
-  //   return <span style={style}>{pageTitle}</span>;
-  // }
+      const linkFn = e => {
+        e.preventDefault();
+        const side = this.ref.closest('.reactRichText')?.dataset.wikiSide;
+        const sideToSend =
+          (side === 'left' && !e.shiftKey) || (side === 'right' && e.shiftKey)
+            ? 'left'
+            : 'right';
+        console.log(side, e.shiftKey, sideToSend);
+        const push = sideToSend === 'left' ? wikistore.push : wikistore.push2;
+        push(link);
+      };
 
-  // style.color = 'blue';
+      const createLinkFn = e => {
+        e.preventDefault();
+        const linkWithEdit = link + '?edit=true';
+        const side = this.ref.closest('.reactRichText')?.dataset.wikiSide;
+        const sideToSend =
+          (side === 'left' && !e.shiftKey) || (side === 'right' && e.shiftKey)
+            ? 'left'
+            : 'right';
+        const push = sideToSend === 'left' ? wikistore.push : wikistore.push2;
+        push(linkWithEdit);
+        setTimeout(() => markPageAsCreated(wikistore.wikiDoc, pageObj.id), 500);
+      };
+      const displayTitle =
+        pageTitle + (data.instance ? '/' + data.instance : '');
 
-  return (
-    <span ref={spanEl}>
-      <b onClick={linkFn}>{'hi'}</b>
-    </span>
-  );
-};
+      if (!pageObj.created) {
+        style.color = 'green';
+
+        return (
+          <span ref={e => (this.ref = e)} onClick={createLinkFn} style={style}>
+            <b>{displayTitle}</b>
+          </span>
+        );
+      }
+
+      const deletePageLinkFn = e => {
+        e.preventDefault();
+        this.setState({
+          deletedPageModalOpen: true,
+          currentDeletedPageId: pageObj.id,
+          currentDeletedPageTitle: pageObj.title
+        });
+      };
+      if (!pageObj.valid) {
+        style.color = 'red';
+        style.cursor = 'not-allowed';
+        return (
+          <span
+            ref={e => (this.ref = e)}
+            onClick={deletePageLinkFn}
+            style={style}
+          >
+            {pageTitle}
+          </span>
+        );
+      }
+
+      style.color = 'blue';
+
+      return (
+        <span ref={e => (this.ref = e)} onClick={linkFn} style={style}>
+          <b>{displayTitle}</b>
+        </span>
+      );
+    }
+  }
+);
+
 export default WikiLink;

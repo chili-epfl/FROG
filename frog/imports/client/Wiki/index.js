@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { WikiContext, values, uuid } from 'frog-utils';
-import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import { Meteor } from 'meteor/meteor';
 import Mousetrap from 'mousetrap';
@@ -30,8 +29,7 @@ import {
 import {
   addNewWikiPage,
   invalidateWikiPage,
-  changeWikiPageTitle,
-  markPageAsCreated
+  changeWikiPageTitle
 } from './wikiDocHelpers';
 import { wikistore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
@@ -89,6 +87,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   constructor(props) {
     super(props);
     if (!this.wikiId) throw new Error('Empty wikiId field');
+    wikistore.setHistory(this.props.history);
+    wikistore.setWikiId(this.props.match.params.wikiId);
+    wikistore.setWikiDoc(this.wikiDoc);
 
     const query = queryToObject(this.props.location.search.slice(1));
     this.state = {
@@ -142,10 +143,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   componentDidMount() {
-    window.wiki = {
-      WikiLink,
-      createPage: this.createNewPageLI
-    };
+    if (!this.props.noSideBar) {
+      window.wiki = {
+        WikiLink,
+        createPage: this.createNewPageLI
+      };
+    }
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -768,7 +771,7 @@ const Wiki = () => {
             instance: instance2
           }
         }}
-        history={{ push: setURL2, push2: setURL }}
+        history={{ push: setURL, push2: setURL2 }}
       />
     </div>
   );
