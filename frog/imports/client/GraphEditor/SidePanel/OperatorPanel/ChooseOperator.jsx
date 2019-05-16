@@ -115,7 +115,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
 
   select = operatorType => {
     if (this.props.onSelect) {
-      this.props.onSelect();
+      this.props.onSelect(operatorType);
     } else {
       const graphOperator = this.props.store.operatorStore.all.find(
         op => op.id === this.props.operator._id
