@@ -47,7 +47,7 @@ export const PagesLinks = ({
       >
         <span
           onClick={e => {
-            onSelect(pageTitle);
+            onSelect(pageTitle, e);
             e.preventDefault();
           }}
           style={style}
@@ -127,7 +127,7 @@ export const SearchAndFind = ({
             e.preventDefault();
             index === null || !filteredPages[index]?.title
               ? onSearch(search)
-              : onSelect(filteredPages[index].title);
+              : onSelect(filteredPages[index].title, e);
           }
         }}
         onChange={e => {
@@ -137,10 +137,10 @@ export const SearchAndFind = ({
             upstreamSetSearch(e.toLowerCase());
           }
         }}
-        onSubmit={() =>
+        onSubmit={e =>
           index === null || !filteredPages[index]?.title
             ? onSearch(search)
-            : onSelect(filteredPages[index].title)
+            : onSelect(filteredPages[index].title, e)
         }
       />
       <PagesLinks

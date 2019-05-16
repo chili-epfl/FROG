@@ -153,14 +153,22 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const linkFn = e => {
       e.preventDefault();
-      this.props.history.push(link);
+      console.log(e.shiftKey, this.props.side);
+      const push = e.shiftKey
+        ? this.props.history.push2
+        : this.props.history.push;
+      push(link);
     };
 
     const createLinkFn = e => {
       e.preventDefault();
-      this.props.history.push(link);
+      console.log(e.shiftKey, this.props.side);
+      const push = e.shiftKey
+        ? this.props.history.push2
+        : this.props.history.push;
+      push(link);
       setTimeout(() => markPageAsCreated(this.wikiDoc, pageObj.id), 500);
-    }
+    };
 
     if (!pageObj.created) {
       style.color = 'green';
@@ -174,7 +182,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!pageObj.valid) {
       style.color = 'red';
-      style.cursor = 'not-allowed'
+      style.cursor = 'not-allowed';
       return <span style={style}>{pageTitle}</span>;
     }
 
@@ -190,8 +198,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   componentDidMount() {
     window.wiki = {
       WikiLink: this.WikiLink,
-      createPage: this.createNewPageLI,
-    }
+      createPage: this.createNewPageLI
+    };
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -232,30 +240,33 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
 
     const query = queryToObject(this.props.location.search.slice(1));
-    
+
     if (parsedPages[pageTitle && pageTitle.toLowerCase()]) {
       const pageId = parsedPages[pageTitle.toLowerCase()].id;
       const currentLI = parsedPages[pageTitle.toLowerCase()].liId;
 
-      this.setState({
-        pageId,
-        currentLI,
-        pageTitle,
-        pageTitleString: pageTitle,
-        search: '',
-        findModalOpen: false,
-        pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
-        docMode:
-          parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
-          query.edit
-            ? 'edit'
-            : this.state.docMode
-      }, () => {
-        if (!this.props.match.params.pageTitle) {
-          const link = '/wiki/' + this.wikiId + '/' + pageTitle;
-          this.props.history.replace(link);
+      this.setState(
+        {
+          pageId,
+          currentLI,
+          pageTitle,
+          pageTitleString: pageTitle,
+          search: '',
+          findModalOpen: false,
+          pageLiType: parsedPages[pageTitle.toLowerCase()].liType,
+          docMode:
+            parsedPages[pageTitle.toLowerCase()].liType === 'li-activity' ||
+            query.edit
+              ? 'edit'
+              : this.state.docMode
+        },
+        () => {
+          if (!this.props.match.params.pageTitle) {
+            const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+            this.props.history.replace(link);
+          }
         }
-      });
+      );
     } else {
       this.createNewPageLI(pageTitle || 'Home', true);
     }
@@ -273,7 +284,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   getOnlyValidWikiPages = (includeCurrentPage: boolean) => {
     return values(wikistore.pages)
-      .filter(x => x.valid && x.created && (includeCurrentPage || x.title !== this.state.pageTitle))
+      .filter(
+        x =>
+          x.valid &&
+          x.created &&
+          (includeCurrentPage || x.title !== this.state.pageTitle)
+      )
       .map(pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj));
   };
 
@@ -353,7 +369,13 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       undefined
     );
 
-    return addNewWikiPage(this.wikiDoc, newId, pageTitle, setCreated, liType || 'li-richText');
+    return addNewWikiPage(
+      this.wikiDoc,
+      newId,
+      pageTitle,
+      setCreated,
+      liType || 'li-richText'
+    );
   };
 
   createLI = (newTitle, liType = 'li-richText', li, config) => {
@@ -438,7 +460,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     const validPages = this.getOnlyValidWikiPages();
     const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true);
-    
+
     let pages = validPagesIncludingCurrent;
     if (this.state.search !== '') {
       const search = this.state.search.trim().toLowerCase();
@@ -465,7 +487,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
-      width: 'calc(100vw - 250px)'
+      width: 'calc(50vw - 250px)'
     };
 
     const titleDivStyle = {
@@ -543,9 +565,13 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       </div>
     );
 
-    const onSelect = id => {
+    const onSelect = (id, e) => {
+      const push = e.shiftKey
+        ? this.props.history.push2
+        : this.props.history.push;
       const link = '/wiki/' + this.wikiId + '/' + id;
-      this.props.history.push(link);
+
+      push(link);
     };
 
     const sideNavBar = (
@@ -674,7 +700,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       <div>
         <WikiContext.Provider value={this.state.wikiContext}>
           <div style={containerDivStyle}>
-            {sideNavBar}
+            {this.props.noSideBar ? null : sideNavBar}
             <div style={contentDivStyle}>
               {topNavBar}
               {this.state.mode === 'revisions' && (
@@ -767,7 +793,41 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withRouter(WikiComp);
+const Wiki = () => {
+  const [url, setURLraw] = React.useState('/wiki/p/Home');
+  const [url2, setURLraw2] = React.useState('/wiki/p/Home');
+  const setURL2 = e => console.log('2', e) || setURLraw2(e);
+  const setURL = e => console.log('1', e) || setURLraw(e);
+
+  const [_, _wiki, wikiId, pageTitle, instance] = url.split('/');
+  const [_2, _wiki2, wikiId2, pageTitle2, instance2] = url2.split('/');
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <WikiComp
+        side="left"
+        location={{ search: '' }}
+        match={{
+          params: { wikiId, pageTitle, instance }
+        }}
+        history={{ push: setURL, push2: setURL2 }}
+      />
+      <WikiComp
+        side="right"
+        location={{ search: '' }}
+        noSideBar
+        match={{
+          params: {
+            wikiId: wikiId2,
+            pageTitle: pageTitle2,
+            instance: instance2
+          }
+        }}
+        history={{ push: setURL2, push2: setURL }}
+      />
+    </div>
+  );
+};
+
 Wiki.displayName = 'Wiki';
 
 export default Wiki;
