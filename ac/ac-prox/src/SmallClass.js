@@ -13,13 +13,8 @@ const Runner = ({
     const groups = Object.keys(data.groups);
     const newNumber = isEmpty(groups)
       ? 1
-      : parseInt(
-          groups
-            .sort()
-            .slice(-1)[0]
-            .split(' ')[1]
-        ) + 1;
-    const groupName = 'Group ' + newNumber;
+      : parseInt(groups.sort().slice(-1)[0], 10) + 1;
+    const groupName = '' + newNumber;
     logger({ type: 'group.create', itemId: groupName });
 
     if (!data.studentInfo[id]) {
