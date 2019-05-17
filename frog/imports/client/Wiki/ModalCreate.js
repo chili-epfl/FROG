@@ -136,7 +136,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       >
         <FormGroup>
           <FormControl className={classes.formControl}>
-            <Typography variant="title">Create New Page</Typography>
+            <Typography variant="h6">Create New Page</Typography>
             <TextField
               autoFocus
               id="page-title"
@@ -152,7 +152,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             <Tabs
               value={this.state.currentTab}
               indicatorColor="secondary"
-              textColor="#fff"
               onChange={this.handleTabs}
               variant="fullWidth"
             >
@@ -165,7 +164,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             {currentTab === 0 && (
               <FormGroup>
                 <FormControl>
-                  <Typography variant="title">Social Plane</Typography>
+                  <Typography variant="h6">Social Plane</Typography>
                   <Select
                     value={this.state.socialPlane}
                     onChange={this.handleSocialPlaneChange}
@@ -208,6 +207,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 noOffset
                 showDelete
                 onConfigChange={e => this.handleConfig(e)}
+                onSubmit={() => console.log('On Submit')}
               />
             )}
             {currentTab === 2 && <OperatorForm operatorType="product" />}
