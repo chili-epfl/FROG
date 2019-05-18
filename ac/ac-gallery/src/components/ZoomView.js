@@ -32,6 +32,7 @@ const ZoomView = ({
   classes,
   commentGuidelines,
   LearningItem,
+  showUserName,
   bigZoom
 }: Object) => {
   Mousetrap.bind('left', e => {
@@ -53,6 +54,9 @@ const ZoomView = ({
       <Paper depth={24}>
         <div className={bigZoom ? classes.contained : ''}>
           <LearningItem id={learningItems[index].li} type="view" />
+          {showUserName && learningItems[index].username && (
+            <i>{learningItems[index].username}</i>
+          )}
           {commentBox && (
             <ReactiveText
               type="textarea"

@@ -114,6 +114,7 @@ class ActivityRunner extends React.Component<
             logger,
             showCategories,
             expand: config.expand,
+            showUserName: config.showUserName,
             LearningItem: dataFn.LearningItem,
             canSearch: config.canSearch,
             searchCollab: config.searchCollab,
@@ -128,6 +129,8 @@ class ActivityRunner extends React.Component<
               stream={stream}
               meta={{
                 comment: '',
+                userid: userInfo.id,
+                username: userInfo.name,
                 votes: {},
                 categories:
                   category && category !== 'categories' && category !== 'all'
@@ -145,6 +148,8 @@ class ActivityRunner extends React.Component<
               stream={stream}
               meta={{
                 comment: '',
+                userid: userInfo.id,
+                username: userInfo.name,
                 votes: {},
                 categories:
                   category && category !== 'categories' && category !== 'all'
@@ -160,6 +165,7 @@ class ActivityRunner extends React.Component<
           <ZoomView
             key={index}
             index={index}
+            showUserName={config.showUserName}
             commentBox={config.canComment}
             commentGuidelines={config.commentGuidelines}
             close={() => setZoom(false)}
