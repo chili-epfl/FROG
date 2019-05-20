@@ -23,6 +23,8 @@ const mergeFunction = (object, dataFn) => {
           votes: v.votes || {},
           categories: v.categories || (v.category && [v.category]),
           comment: v.comment || '',
+          username: v.username,
+          userId: v.userId,
           li: v.li
         },
         id

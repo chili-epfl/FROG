@@ -494,9 +494,9 @@ export const values = <T>(obj: { [string]: T }): Array<T> => {
   return keys.map(key => obj[key]);
 };
 
-export const getRotateable = (ary: *, toRotate: number): * =>
+export const getRotateable = (ary: *, toRotate?: number): * =>
   new Proxy(ary, {
-    get: (obj, prop) => obj[(parseInt(prop, 10) + toRotate) % obj.length]
+    get: (obj, prop) => obj[(parseInt(prop, 10) + (toRotate || 0)) % obj.length]
   });
 
 export const WikiContext = React.createContext([]);

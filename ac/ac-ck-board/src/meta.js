@@ -273,12 +273,21 @@ export const config = {
   type: 'object',
   properties: {
     title: { title: 'Title', type: 'string' },
-    allowCreate: { title: 'Enable adding new Learning Items', type: 'boolean' },
+    allowCreate: {
+      title: 'Enable adding new Learning Items',
+      type: 'boolean',
+      default: true
+    },
     onlySpecificLI: {
       title: 'Only allow specific Learning Item Type',
-      type: 'boolean'
+      type: 'boolean',
+      default: true
     },
-    liType: { title: 'Learning Item type', type: 'learningItemType' },
+    liType: {
+      title: 'Learning Item type',
+      type: 'learningItemType',
+      default: 'li-short'
+    },
     allowDelete: { title: 'Enable deleting Learning Items', type: 'boolean' },
     studentEditOwn: {
       title: 'Only let students move their own items',
@@ -290,7 +299,8 @@ export const config = {
     },
     showUsername: {
       title: 'Display student names when available',
-      type: 'boolean'
+      type: 'boolean',
+      default: true
     },
     image: {
       title: 'Display background image',

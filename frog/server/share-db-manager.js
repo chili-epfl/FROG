@@ -123,9 +123,15 @@ const sharedbGetRevisionList = (coll, id) =>
           }
 
           let ts = res[0].m.ts;
-          const milestoneOpsIndices = [];
           let contributors = {};
           let last = res.shift().create.data;
+          const milestoneOpsIndices = [
+            {
+              data: cloneDeep(last),
+              contributors: [Meteor.users.findOne(res[0].m.userId).username],
+              time: ts
+            }
+          ];
           res.forEach(
             Meteor.bindEnvironment((op, i) => {
               last = json.type.apply(cloneDeep(last), op.op);
@@ -135,7 +141,7 @@ const sharedbGetRevisionList = (coll, id) =>
                 milestoneOpsIndices.push({
                   data: cloneDeep(last),
                   contributors: Object.keys(contributors).map(
-                    x => Meteor.users.findOne(x).username
+                    x => Meteor.users.findOne(x)?.username
                   ),
                   time: op.m.ts
                 });

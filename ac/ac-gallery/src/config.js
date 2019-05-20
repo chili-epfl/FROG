@@ -48,6 +48,11 @@ export const config = {
       type: 'string'
     },
     expand: { title: 'Expand Learning Items', type: 'boolean' },
+    showUserName: {
+      title: 'Display student names when available',
+      type: 'boolean',
+      default: true
+    },
     hideCategory: {
       title: 'Hide the categories',
       type: 'boolean'

@@ -81,6 +81,7 @@ class ImageList extends React.Component<*, *> {
       logger,
       LearningItem,
       expand,
+      showUserName,
       canSearch,
       canBookmark,
       openEdit
@@ -182,6 +183,7 @@ class ImageList extends React.Component<*, *> {
                       </div>
                     )}
                     {props.children}
+                    {showUserName && liObj.username && <i>{liObj.username}</i>}
                   </Paper>
                 )}
               />

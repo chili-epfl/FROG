@@ -21,6 +21,9 @@ module.exports = {
         selector: 'ForOfStatement'
       }
     ],
+    'no-alert': 'off',
+    'react/no-array-index-key': 'off',
+    'react/no-danger': 'off',
     'no-plusplus': 'off',
     'no-prototype-builtins': 'off',
     'react-hooks/rules-of-hooks': 'error',

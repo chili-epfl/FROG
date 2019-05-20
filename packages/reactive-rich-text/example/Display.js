@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { connection } from './connection';
 import { useReactive } from '@chilifrog/reactive-tools';
+import { connection } from './connection';
 import ReactiveRichText from '../src/main';
 import { generateUID, uidColor } from './getUser';
-import { Presence } from './Presence'
+import { Presence } from './Presence';
 
 const uid = generateUID();
 

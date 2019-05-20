@@ -1,23 +1,23 @@
-var http = require('http');
-var ShareDB = require('@chilifrog/sharedb');
-var WebSocket = require('ws');
-var WebSocketJSONStream = require('@teamwork/websocket-json-stream');
-var ShareDBMongo = require('@chilifrog/sharedb-mongo');
-var richText = require('@minervaproject/rich-text');
-var json0 = require('@minervaproject/ot-json0');
+const http = require('http');
+const ShareDB = require('@chilifrog/sharedb');
+const WebSocket = require('ws');
+const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
+const ShareDBMongo = require('@chilifrog/sharedb-mongo');
+const richText = require('@minervaproject/rich-text');
+const json0 = require('@minervaproject/ot-json0');
 
 json0.type.registerSubtype(richText.type);
 ShareDB.types.register(json0.type);
 
 const dbUrl = 'mongodb://localhost:27017/cursors';
 const db = ShareDBMongo(dbUrl);
-var backend = new ShareDB(db);
+const backend = new ShareDB(db);
 createDoc(startServer);
 
 // Create initial document then fire callback
 function createDoc(callback) {
-  var connection = backend.connect();
-  var doc = connection.get('examples', 'stian5');
+  const connection = backend.connect();
+  const doc = connection.get('examples', 'stian5');
   doc.fetch(function(err) {
     if (err) throw err;
     if (doc.type === null) {
@@ -44,9 +44,9 @@ function startServer() {
 
   const server = http.createServer();
   // Connect any incoming WebSocket connection to ShareDB
-  var wss = new WebSocket.Server({ server: server });
+  const wss = new WebSocket.Server({ server });
   wss.on('connection', function(ws, req) {
-    var stream = new WebSocketJSONStream(ws);
+    const stream = new WebSocketJSONStream(ws);
     backend.listen(stream);
   });
 
