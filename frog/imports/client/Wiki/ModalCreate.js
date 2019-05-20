@@ -217,7 +217,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 noOffset
                 showDelete
                 onConfigChange={e => this.handleConfig(e)}
-                onSubmit={() => console.log('On Submit')}
+                onSubmit={e => this.handleConfig(e)}
               />
             )}
             {currentTab === 2 && <OperatorForm operatorType="product" />}
