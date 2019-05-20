@@ -163,7 +163,8 @@ export type ActivityPackageT = {
     item: any,
     instanceId: string,
     username?: string,
-    object: Object
+    object: Object,
+    plane: number
   ) => any,
   ConfigComponent?: React.ComponentType<{
     configData: Object,

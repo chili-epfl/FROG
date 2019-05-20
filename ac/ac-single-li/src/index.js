@@ -11,8 +11,8 @@ import upgradeFunctions from './upgradeFunctions';
 
 const meta = {
   name: 'Add/edit single Learning Item',
-  shortDesc: 'New activity, no description available',
-  description: 'New activity, no description available',
+  shortDesc: '',
+  description: '',
   category: 'Single Learning Items',
   supportsLearningItems: true
 };
@@ -38,9 +38,12 @@ const config = {
   }
 };
 
-const formatProduct = (_, product) => {
+const formatProduct = (_, product, instanceId, username, object, plane) => {
   const id = uuid();
-  return product.li ? { [id]: { id, ...product } } : {};
+  const owner = plane === 3 ? undefined : plane === 2 ? instanceId : username;
+  return product.li
+    ? { [id]: { id, username: owner, userId: instanceId, ...product } }
+    : {};
 };
 
 const configUI = {

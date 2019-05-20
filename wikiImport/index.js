@@ -37,8 +37,8 @@ const getLink = (rawtitle, create) => {
   }
 };
 
-// const baseurl = 'https://icchilisrv3.epfl.ch';
-const baseurl = 'http://localhost:3000';
+const baseurl = 'https://icchilisrv3.epfl.ch';
+// const baseurl = 'http://localhost:3000';
 
 const postWiki = async (page, content) => {
   console.log(

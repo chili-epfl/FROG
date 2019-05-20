@@ -299,7 +299,8 @@ export const config = {
     },
     showUsername: {
       title: 'Display student names when available',
-      type: 'boolean'
+      type: 'boolean',
+      default: true
     },
     image: {
       title: 'Display background image',

@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { Activities } from '../imports/api/activities';
 import { activityTypesObj } from '../imports/activityTypes';
 import { Objects } from '../imports/api/objects';
+import { Graphs } from '../imports/api/graphs';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Products } from '../imports/api/products';
 import { serverConnection } from './share-db-manager';
@@ -24,7 +25,8 @@ const formatResults = (
   config,
   initData,
   users,
-  object
+  object,
+  ownerId
 ) => {
   const format = (data, instance) => {
     let product;
@@ -32,7 +34,14 @@ const formatResults = (
       const user = users.find(x => x._id === instance);
       const username = user && user.username;
       try {
-        product = formatProduct(config, data, instance, username, object);
+        product = formatProduct(
+          config,
+          data,
+          instance,
+          username,
+          object,
+          plane
+        );
       } catch (error) {
         console.error(
           'Err: Failed to run formatProduct with reactive data',
@@ -40,7 +49,14 @@ const formatResults = (
         );
         console.error(error);
         try {
-          product = formatProduct(config, initData, instance);
+          product = formatProduct(
+            config,
+            initData,
+            instance,
+            username,
+            object,
+            plane
+          );
         } catch (err) {
           console.error(
             'Err: Failed to run formatProduct with initialData',
@@ -55,16 +71,20 @@ const formatResults = (
     return product;
   };
 
-  return results.reduce((acc, k) => {
-    acc[cleanId(k.id)] = { data: format(k.data, cleanId(k.id)) };
-    return acc;
-  }, {});
+  return results
+    .filter(plane > 3 || (x => cleanId(x.id) !== ownerId))
+    .reduce((acc, k) => {
+      acc[cleanId(k.id)] = { data: format(k.data, cleanId(k.id)) };
+      return acc;
+    }, {});
 };
 
 export const getActivityDataFromReactive = (
   activityId: string
 ): activityDataT => {
   const activity = Activities.findOne(activityId);
+  const graph = Graphs.findOne(activity.graphId);
+  const ownerId = graph?.ownerId;
   const aT: ActivityPackageT = activityTypesObj[activity.activityType];
   const object = Objects.findOne(activityId);
   const { structure } = doGetInstances(activity, object);
@@ -91,7 +111,8 @@ export const getActivityDataFromReactive = (
               activity.data,
               initData,
               users,
-              object
+              object,
+              ownerId
             )
           );
         }
