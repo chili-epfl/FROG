@@ -25,7 +25,7 @@ export const config = {
     liType: {
       title: 'Learning Item type',
       type: 'learningItemType',
-      default: 'li-idea'
+      default: 'li-richText'
     },
     allowGeneralLI: {
       title: 'Allow adding any Learning Item',
@@ -34,11 +34,13 @@ export const config = {
     },
     allowEdit: {
       type: 'boolean',
-      title: 'Allow editing Learning Items in the list'
+      title: 'Allow editing Learning Items in the list',
+      default: true
     },
     allowDelete: {
       type: 'boolean',
-      title: 'Allow deleting Learning Items in the list'
+      title: 'Allow deleting Learning Items in the list',
+      default: true
     },
     allowZoom: {
       type: 'boolean',
