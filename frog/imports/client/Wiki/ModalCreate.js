@@ -143,6 +143,10 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     null,
                     this.state.config
                   );
+                } else if (e.keyCode === 40) {
+                  this.setState({ expanded: true });
+                } else if (e.keyCode === 38) {
+                  this.setState({ expanded: false });
                 }
               }}
             />
