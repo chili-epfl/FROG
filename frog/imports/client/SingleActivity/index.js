@@ -1,14 +1,14 @@
+// @flow
+
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
-style = {
+const style = {
   card: {
     minWidth: 275,
     maxWidth: 900,
@@ -27,10 +27,7 @@ type PropsT = {
   classes: Object
 };
 
-class Welcome extends React.Component<StateT, PropsT> {
-  constructor(props) {
-    super(props);
-  }
+class Welcome extends React.Component<PropsT, StateT> {
   render() {
     const { classes } = this.props;
     return (
@@ -49,16 +46,20 @@ class Welcome extends React.Component<StateT, PropsT> {
   }
 }
 
-class ChooseActivityType extends React.Component<{
-  onSubmit: Function,
-  ...PropsT
-}> {
+class ChooseActivityType extends React.Component<
+  {
+    onSubmit: Function,
+    ...PropsT
+  },
+  { config: Object }
+> {
   constructor(props) {
     super(props);
     this.state = {
       config: {}
     };
   }
+
   render() {
     const { classes, onSubmit } = this.props;
     const { config } = this.state;
@@ -80,7 +81,7 @@ class ChooseActivityType extends React.Component<{
   }
 }
 
-class SingleActivity extends React.Component<StateT, PropsT> {
+class SingleActivity extends React.Component<PropsT, StateT> {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,21 +93,23 @@ class SingleActivity extends React.Component<StateT, PropsT> {
   render() {
     const { classes } = this.props;
     const { stage } = this.state;
-    if (stage == 1)
+    if (stage === 1)
       return (
         <>
           <Welcome classes={classes} />
+          {/* Currently, selecting and configuring activity are handled by a
+          single screenplan to separate but gets too complicated */}
+          {/* The function to generate the activity must be called here and the 2 urls returned. */}
           <ChooseActivityType
             classes={classes}
             onSubmit={conf =>
               this.setState({ stage: this.state.stage + 1, config: conf })
             }
-            //The function to generate the activity must be called here and the 2 urls returned.
           />
         </>
       );
-    else if (stage == 2) return <>OK</>;
-    //This is just the last stage placeholder, will update it later.
+    else if (stage === 2) return <>OK</>;
+    return null;
   }
 }
 

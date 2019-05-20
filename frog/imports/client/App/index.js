@@ -27,6 +27,7 @@ import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
 import Wiki from '../Wiki';
 import SingleActivity from '../SingleActivity';
+
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
