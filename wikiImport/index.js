@@ -1,7 +1,7 @@
 require('util').inspect.defaultOptions.depth = null;
+const fs = require('fs');
 const fetch = require('node-fetch');
 const cuid = require('cuid');
-const fs = require('fs');
 
 const wiki = process.argv[2];
 
@@ -57,12 +57,11 @@ const postWiki = async (page, content) => {
     }
   );
   const fe = await f.text();
-  return;
 };
 
 const regexp = /\[([^\]]+)]/g;
 
-const tap = x => x; //console.log(x) || x;
+const tap = x => x; // console.log(x) || x;
 
 const convertLink = doc => ({
   text: {

@@ -13,7 +13,7 @@ export const names = [
 
 // Helper functions for nicely displaying uid
 export const uidColor = uid => {
-  var colors = [
+  const colors = [
     'red',
     'blue',
     'green',
