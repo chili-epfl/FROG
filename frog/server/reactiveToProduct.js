@@ -23,7 +23,8 @@ const formatResults = (
   formatProduct,
   config,
   initData,
-  users
+  users,
+  object
 ) => {
   const format = (data, instance) => {
     let product;
@@ -31,7 +32,7 @@ const formatResults = (
       const user = users.find(x => x._id === instance);
       const username = user && user.username;
       try {
-        product = formatProduct(config, data, instance, username);
+        product = formatProduct(config, data, instance, username, object);
       } catch (error) {
         console.error(
           'Err: Failed to run formatProduct with reactive data',
@@ -89,7 +90,8 @@ export const getActivityDataFromReactive = (
               aT.formatProduct,
               activity.data,
               initData,
-              users
+              users,
+              object
             )
           );
         }

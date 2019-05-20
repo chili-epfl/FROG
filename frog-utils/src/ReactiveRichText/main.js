@@ -686,10 +686,14 @@ class ReactiveRichText extends Component<
                 wikiLink: isEmpty(wikiContext)
                   ? null
                   : {
-                      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                      allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages(false);
+                        console.log(searchTerm);
+                        const values = wikiContext.getOnlyValidWikiPages(
+                          false,
+                          searchTerm.includes('/')
+                        );
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
@@ -721,11 +725,14 @@ class ReactiveRichText extends Component<
                 wikiEmbed: isEmpty(wikiContext)
                   ? null
                   : {
-                      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+                      allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9]*$/,
                       mentionDenotationChars: ['#'],
                       type: 'embed',
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages(false);
+                        const values = wikiContext.getOnlyValidWikiPages(
+                          false,
+                          searchTerm.includes('/')
+                        );
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);

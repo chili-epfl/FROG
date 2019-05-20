@@ -162,7 +162,8 @@ export type ActivityPackageT = {
     config: Object,
     item: any,
     instanceId: string,
-    username?: string
+    username?: string,
+    object: Object
   ) => any,
   ConfigComponent?: React.ComponentType<{
     configData: Object,

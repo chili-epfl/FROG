@@ -81,6 +81,10 @@ module.exports = {
       normal: fromRoot(
         'eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
         'Running ESLint in normal mode'
+      ),
+      normalfix: fromRoot(
+        'eslint --fix --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
+        'Running ESLint in normal fix mode'
       )
     },
     flow: {

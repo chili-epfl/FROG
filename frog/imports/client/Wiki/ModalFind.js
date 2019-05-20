@@ -15,48 +15,82 @@ export const PagesLinks = ({
   currentPage,
   search = '',
   index,
-  onSelect
+  onSelect,
+  currentInstance
 }: {
   pages: Object[],
   currentPage?: string,
+  currentInstance?: string,
   search: string,
   index: ?number,
   onSelect: Function
 }) =>
-  pages.map((pageObj, i) => {
-    const pageId = pageObj.id;
-    const pageTitle = pageObj.title;
+  pages
+    .filter(x => !x.title.includes('/'))
+    .map((pageObj, i) => {
+      const pageId = pageObj.id;
+      const pageTitle = pageObj.title;
 
-    const currentPageBool = pageId === currentPage;
+      const currentPageBool = pageId === currentPage;
 
-    const style = currentPageBool
-      ? {
-          color: 'blue',
-          cursor: 'pointer'
-        }
-      : {
-          cursor: 'pointer'
-        };
-    return (
-      <li
-        key={pageId}
-        style={{
-          fontSize: '14px',
-          backgroundColor: i === index ? 'cornflowerblue' : undefined
-        }}
-      >
-        <span
-          onClick={e => {
-            onSelect(pageTitle);
-            e.preventDefault();
+      const style = currentPageBool
+        ? {
+            color: 'blue',
+            cursor: 'pointer'
+          }
+        : {
+            cursor: 'pointer'
+          };
+      return (
+        <li
+          key={pageId}
+          style={{
+            fontSize: '14px',
+            backgroundColor: i === index ? 'cornflowerblue' : undefined
           }}
-          style={style}
         >
-          <Highlight searchStr={search} text={pageTitle} />
-        </span>
-      </li>
-    );
-  });
+          <span
+            onClick={e => {
+              onSelect(pageTitle);
+              e.preventDefault();
+            }}
+            style={style}
+          >
+            <Highlight searchStr={search} text={pageTitle} />
+          </span>
+          {currentPageBool &&
+            (search.trim().length === 0 &&
+              pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
+                0 && (
+                <ul>
+                  {pages
+                    .filter(x => x.title.startsWith(pageTitle + '/'))
+                    .map(subpage => (
+                      <li
+                        key={subpage.title}
+                        style={{
+                          color:
+                            subpage.title.split('/')[1] === currentInstance
+                              ? 'blue'
+                              : '#585858',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <span
+                          onClick={e => {
+                            onSelect(subpage.title);
+                            e.preventDefault();
+                          }}
+                        >
+                          {' - ' + subpage.title.split('/')[1]}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+              ))}
+        </li>
+      );
+    });
 
 export default ({ onSearch, setModalOpen, pages, onSelect }: Object) => {
   const [search, setSearch] = React.useState('');
@@ -98,7 +132,9 @@ export const SearchAndFind = ({
   pages,
   onSearch,
   onSelect,
-  focus
+  focus,
+  currentPage,
+  currentInstance
 }: Object) => {
   const [search, setSearch] = React.useState('');
   const [index, setIndex] = React.useState(null);
@@ -108,7 +144,7 @@ export const SearchAndFind = ({
   return (
     <>
       <SearchField
-        prompt="Select page, or enter for fulltext search"
+        prompt="Select page or do a fulltext search"
         debounce={100}
         focus={!!focus}
         onKeyDown={e => {
@@ -148,6 +184,8 @@ export const SearchAndFind = ({
         index={index}
         search={search}
         pages={filteredPages}
+        currentPage={currentPage}
+        currentInstance={currentInstance}
       />
     </>
   );

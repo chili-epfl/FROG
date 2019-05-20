@@ -43,7 +43,6 @@ const TopPanel = ({
         marginLeft="auto"
         style={{
           flexDirection: 'column',
-          position: 'absolute',
           right: '2px'
         }}
       >

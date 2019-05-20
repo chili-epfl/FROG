@@ -47,7 +47,7 @@ const configUI = {
   instructions: { 'ui:widget': 'textarea' },
   allowEditing: {
     conditional: formData => formData.submit || !formData.liTypeEditor
-  },
+  }
 };
 
 const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
