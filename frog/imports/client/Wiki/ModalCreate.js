@@ -22,17 +22,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Collapse from '@material-ui/core/Collapse';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
-import { values, A } from 'frog-utils';
-import LI from '../LearningItem';
-import { dataFn } from './index';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
-import { learningItemTypesObj } from '/imports/activityTypes';
-import type { OperatorDbT } from 'frog-utils';
-
-const editableLIs = values(learningItemTypesObj).filter(
-  x => (x.Editor && x.liDataStructure) || x.Creator
-);
 
 type StateT = {
   currentTab: number,

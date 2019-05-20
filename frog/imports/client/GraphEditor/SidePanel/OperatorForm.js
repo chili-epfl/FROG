@@ -8,13 +8,11 @@ import { extendObservable, action } from 'mobx';
 import FlexView from 'react-flexview';
 import { operatorTypesObj } from '/imports/operatorTypes';
 import validateConfig from '/imports/api/validateConfig';
-import { removeActivity } from '/imports/api/remoteActivities';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
 import Store from '../store/store';
 import DeleteButton from './DeleteButton';
 import ChooseOperatorTypeComp from './OperatorPanel/ChooseOperator';
 import ConfigForm from './ConfigForm';
-import ModalDelete from '../RemoteControllers/ModalDelete';
 
 const store = new Store();
 
@@ -117,7 +115,7 @@ const OperatorForm = observer(
                     });
                   }}
                 />
-                <Valid noOffset={true} />
+                <Valid noOffset />
               </FlexView>
               <ConfigForm
                 node={{
