@@ -3,7 +3,7 @@
 import { values } from 'frog-utils';
 import { Meteor } from 'meteor/meteor';
 import { toJS } from 'mobx';
-import { findKey } from 'lodash'
+import { findKey } from 'lodash';
 
 const getInstanceId = page => {
   if (!page) {

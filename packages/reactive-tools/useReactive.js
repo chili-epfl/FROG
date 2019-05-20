@@ -12,19 +12,19 @@ console.log(Quill);
 Quill.register('modules/cursor', QuillCursors);
 
 class RichEditorField extends Component {
-  _storeRef = (ref) => (this._editor = ref);
+  _storeRef = ref => (this._editor = ref);
 
   update = () => this._editor.getEditor().setContents(this.props.data);
 
-  updateCursor = (range) =>
+  updateCursor = range =>
     this.props.doc.submitPresence({
       p: [this.props.uuid],
       t: 'rich-text',
       s: {
         u: this.props.currentUser.userId,
         c: 0,
-        s: [[range.index, range.index + range.length]],
-      },
+        s: [[range.index, range.index + range.length]]
+      }
     });
 
   setUpCursors = () => {
@@ -46,7 +46,7 @@ class RichEditorField extends Component {
     });
 
     this.props.doc.on('presence', (srcList, submitted) => {
-      srcList.forEach((src) => {
+      srcList.forEach(src => {
         const presence = this.props.doc.presence[src];
         if (!presence || !presence.p) {
           return;
@@ -70,8 +70,8 @@ class RichEditorField extends Component {
             // Use Math.abs because the sharedb presence type
             // supports reverse selections, but I don't think
             // Quill Cursors does.
-            var len = Math.abs(sel[1] - sel[0]);
-            var min = Math.min(sel[0], sel[1]);
+            const len = Math.abs(sel[1] - sel[0]);
+            const min = Math.min(sel[0], sel[1]);
 
             cursors.createCursor(userId, userId, getColor(userId));
             cursors.moveCursor(userId, { index: min, length: len });
@@ -102,7 +102,7 @@ class RichEditorField extends Component {
         return;
       }
 
-      forEach(op, (operation) => {
+      forEach(op, operation => {
         const operations = get(operation, 'o.ops') || get(operation, 'o');
         const opPath = last(operation.p);
         // Ensures the ops are for exactly this editor in situations where there
@@ -120,8 +120,8 @@ class RichEditorField extends Component {
         {
           p: [this.props.uuid],
           t: 'rich-text',
-          o: delta.ops,
-        },
+          o: delta.ops
+        }
       ];
       this.props.doc.submitOp(op, { source: this._editor });
     }
@@ -138,14 +138,14 @@ class RichEditorField extends Component {
         { list: 'bullet' },
         { indent: '-1' },
         { indent: '+1' },
-        { color: [] },
-      ],
+        { color: [] }
+      ]
     ];
 
     const modules = {
       cursors: true,
       syntax: true,
-      toolbar: toolbarOptions,
+      toolbar: toolbarOptions
     };
 
     const className = `rich-text secondary-font font-size-inherit background-light-blue rounded line-height-3 ${height}`;
@@ -163,8 +163,7 @@ class RichEditorField extends Component {
 
 RichEditorField.defaultProps = {
   modules: {},
-  height: 'medium',
+  height: 'medium'
 };
 
 export default RichEditorField;
-

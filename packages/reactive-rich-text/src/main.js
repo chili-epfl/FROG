@@ -40,10 +40,10 @@ Quill.register('modules/cursors', QuillCursors);
 console.log(Quill);
 
 const debounce = (func, wait) => {
-  var timeout;
+  let timeout;
   return function(...args) {
-    var context = this;
-    var later = function() {
+    const context = this;
+    const later = function() {
       timeout = null;
       func.apply(context, args);
     };
@@ -363,20 +363,20 @@ class ReactiveRichText extends Component<
         }
 
         if (presence.s.u) {
-          var userid = presence.s.u;
+          const userid = presence.s.u;
           if (
             userid !== this.props.userId &&
             presence.s.s &&
             presence.s.s.length > 0
           ) {
             // TODO: Can QuillCursors support multiple selections?
-            var sel = presence.s.s[0];
+            const sel = presence.s.s[0];
 
             // Use Math.abs because the sharedb presence type
             // supports reverse selections, but I don't think
             // Quill Cursors does.
-            var len = Math.abs(sel[1] - sel[0]);
-            var min = Math.min(sel[0], sel[1]);
+            const len = Math.abs(sel[1] - sel[0]);
+            const min = Math.min(sel[0], sel[1]);
 
             cursors.createCursor(userid, userid, this.props.getColor(userid));
             cursors.moveCursor(userid, { index: min, length: len });

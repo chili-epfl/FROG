@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { render } from 'react-dom'
+import * as React from 'react';
+import { render } from 'react-dom';
 import { connection } from './connection';
-import { useReactive } from './ReactiveHOC'
+import { useReactive } from './ReactiveHOC';
 
 const Display = () => {
   const [data, dataFn, timeout] = useReactive(

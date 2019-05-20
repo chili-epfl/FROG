@@ -14,7 +14,6 @@ export default ({
   pageId,
   pageTitle
 }: Object) => {
-
   return (
     <Dialog open onClose={() => closeModal()}>
       <DialogTitle>{pageTitle}</DialogTitle>

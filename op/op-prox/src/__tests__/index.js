@@ -63,4 +63,3 @@ test('test students', () =>
   expect(operator({}, object)).toEqual({
     group: { LRKM: ['uid_chenli', 'uid_maurice'], SLU3: ['uid_peter'] }
   }));
-
