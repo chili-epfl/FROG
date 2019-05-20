@@ -14,7 +14,7 @@ export default {
   shortDesc: 'Prompt that allows the student to rank a set of answers.',
   description:
     'Students are able to provide a set of rankings for a given prompt.',
-  category: 'Deprecated core tools',
+  category: 'Core tools',
   exampleData: [
     {
       title: 'Train Interface',
