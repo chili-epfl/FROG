@@ -25,6 +25,7 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
+import { activityTypesObj } from '/imports/activityTypes';
 
 type StateT = {
   currentTab: number,
@@ -35,7 +36,8 @@ type StateT = {
   expanded: boolean,
   allowView: boolean,
   allowEdit: boolean,
-  config: Object
+  config?: Object,
+  operatorConfig?: Object
 };
 
 type PropsT = {
@@ -81,6 +83,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       socialPlane: 'everyone',
       allowView: true,
       allowEdit: true,
+      operatorConfig: {},
       config: {}
     };
   }
@@ -120,6 +123,18 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
     const { classes, errorDiv } = this.props;
+    let operatorTypesList = [];
+    const activityType = this.state.config?.activityType;
+    if (
+      activityType &&
+      activityTypesObj[activityType].meta.supportsLearningItems
+    ) {
+      operatorTypesList = ['op-twitter', 'op-rss', 'op-hypothesis'];
+      if (socialPlane !== 'everyone') {
+        operatorTypesList.push('op-aggregate');
+      }
+    }
+
     return (
       <Dialog
         open={this.state.open}
@@ -141,9 +156,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 if (e.keyCode === 13) {
                   this.props.onCreate(
                     pageTitle,
-                    this.state.config === {} ? 'li-richText' : '',
-                    null,
-                    this.state.config
+                    this.state.config,
+                    this.state.operatorConfig
                   );
                 } else if (e.keyCode === 40) {
                   this.setState({ expanded: true });
@@ -220,7 +234,22 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 onSubmit={e => this.handleConfig(e)}
               />
             )}
-            {currentTab === 2 && <OperatorForm operatorType="product" />}
+            {currentTab === 2 && (
+              <OperatorForm
+                operatorType="product"
+                categories={['From the web', 'From the current page']}
+                operatorTypesList={operatorTypesList}
+                operatorMappings={{
+                  'op-twitter': 'From the web',
+                  'op-rss': 'From the web',
+                  'op-hypothesis': 'From the web',
+                  'op-aggregate': 'From the current page'
+                }}
+                onConfigChange={e => this.setState({ operatorConfig: e })}
+                onSubmit={e => this.setState({ operatorConfig: e })}
+                allOpen
+              />
+            )}
           </DialogContent>
         </Collapse>
         <DialogActions>
@@ -240,9 +269,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             onClick={() =>
               this.props.onCreate(
                 pageTitle,
-                this.state.config === {} ? 'li-richText' : '',
-                null,
-                this.state.config
+                this.state.config,
+                this.state.operatorConfig
               )
             }
             color="primary"
