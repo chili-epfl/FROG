@@ -12,6 +12,7 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  FormHelperText,
   Select,
   MenuItem,
   TextField,
@@ -118,7 +119,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
-    const { classes } = this.props;
+    const { classes, errorDiv } = this.props;
     return (
       <Dialog
         open={this.state.open}
@@ -130,6 +131,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             <Typography variant="h6">Create New Page</Typography>
             <TextField
               autoFocus
+              error={errorDiv != null}
               id="page-title"
               value={this.state.pageTitle}
               onChange={this.handleTitleChange}
@@ -143,9 +145,16 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     null,
                     this.state.config
                   );
+                } else if (e.keyCode === 40) {
+                  this.setState({ expanded: true });
+                } else if (e.keyCode === 38) {
+                  this.setState({ expanded: false });
                 }
               }}
             />
+            {errorDiv != null && (
+              <FormHelperText error>{errorDiv}</FormHelperText>
+            )}
           </FormControl>
         </FormGroup>
         <Collapse in={expanded} timeout="auto">
