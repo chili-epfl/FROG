@@ -161,10 +161,26 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     );
   };
 
-  createActivityPage = (newTitle, rawconfig) => {
+  createActivityPage = async (newTitle, rawconfig, operatorConfigRaw) => {
     const { activityType, config, invalid } = rawconfig;
+    const { operatorType, config: operatorConfig } = operatorConfigRaw;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
+    console.log(operatorType, operatorConfig, operatorConfigRaw);
+    if (operatorType) {
+      const contents = await new Promise(resolve => {
+        operatorConfig
+          ? Meteor.call(
+              'run.operator',
+              operatorType,
+              operatorConfig,
+              (err, res) => resolve(res)
+            )
+          : resolve('nothingburger');
+      });
+      console.log(contents);
+    }
+
     doc.create(activityTypesObj[activityType].dataStructure);
     const payload = {
       acType: activityType,
@@ -496,9 +512,19 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
-  createLI = (newTitle, liType = 'li-richText', li, config, p1) => {
+  createLI = async (newTitle, config, operatorConfig, p1) => {
     const parsedPages = parseDocResults(this.wikiDoc.data);
     const newTitleLower = newTitle.toLowerCase();
+    const activityType = config.activityType || 'li-richText';
+    const liType =
+      activityType.slice(0, 3) === 'li-' ? activityType : undefined;
+
+    if (operatorConfig.invalid) {
+      this.setState({
+        error: 'Operator config is invalid'
+      });
+      return;
+    }
     if (newTitleLower === '') {
       this.setState({
         error: 'Title cannot be empty'
@@ -531,10 +557,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       return;
     }
 
-    if (li) {
+    if (liType) {
       addNewWikiPage(this.wikiDoc, newTitle, true, liType);
     } else if (config && config.activityType) {
-      this.createActivityPage(newTitle, config);
+      await this.createActivityPage(newTitle, config, operatorConfig);
     } else {
       addNewWikiPage(
         this.wikiDoc,
