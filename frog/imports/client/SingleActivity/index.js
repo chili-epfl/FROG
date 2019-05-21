@@ -6,7 +6,11 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import { activityTypes } from '/imports/activityTypes';
 
 const style = {
   card: {
@@ -15,6 +19,26 @@ const style = {
     margin: 'auto',
     marginBottom: 16,
     padding: 8
+  },
+  welcome_card: {
+    minWidth: 275,
+    maxWidth: 900,
+    minHeight: 500,
+    margin: 'auto',
+    marginBottom: 16,
+    padding: 8,
+    backgroundImage: "url('/table_bg.png')",
+    backgroundPosition: 'right bottom',
+    backgroundRepeat: 'no-repeat'
+  },
+  icon: {
+    height: 96,
+    width: 96,
+    left: '50%',
+    transform: 'translateX(-50%)'
+  },
+  shortDesc: {
+    position: 'inherit'
   }
 };
 
@@ -31,7 +55,7 @@ class Welcome extends React.Component<PropsT, StateT> {
   render() {
     const { classes } = this.props;
     return (
-      <Card raised className={classes.card}>
+      <Card raised className={classes.welcome_card}>
         <Typography variant="h5" component="h2">
           Welcome to FROG!
         </Typography>
@@ -63,16 +87,37 @@ class ChooseActivityType extends React.Component<
   render() {
     const { classes, onSubmit } = this.props;
     const { config } = this.state;
+    const allowed = [
+      'ac-quiz',
+      'ac-ck-board',
+      'ac-chat',
+      'ac-brainstorm',
+      'ac-ranking',
+      'ac-video'
+    ];
+    const list = activityTypes.filter(x => allowed.includes(x.id));
+    console.log(list);
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">
           Let's start by choosing an activity type
         </Typography>
-        <ApiForm
-          noOffset
-          showDelete
-          onConfigChange={e => this.setState({ config: e })}
-        />
+        <GridList cols="4" spacing="8">
+          {list.map(x => (
+            <GridListTile key={x.id}>
+              <img
+                src={'/' + x.id + '.png'}
+                alt={x.id}
+                className={classes.icon}
+              />
+              <GridListTileBar
+                title={x.meta.name}
+                subtitle={<span>{x.meta.shortDesc}</span>}
+                classes={{ root: classes.shortDesc }}
+              />
+            </GridListTile>
+          ))}
+        </GridList>
         <CardActions>
           <Button onClick={() => onSubmit(config)}>Next</Button>
         </CardActions>
