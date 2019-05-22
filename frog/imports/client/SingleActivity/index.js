@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { activityTypes } from '/imports/activityTypes';
 
 const style = {
@@ -18,7 +17,7 @@ const style = {
     maxWidth: 900,
     margin: 'auto',
     marginBottom: 16,
-    padding: 8
+    padding: 16
   },
   welcome_card: {
     minWidth: 275,
@@ -26,7 +25,7 @@ const style = {
     minHeight: 500,
     margin: 'auto',
     marginBottom: 16,
-    padding: 8,
+    padding: 16,
     backgroundImage: "url('/table_bg.png')",
     backgroundPosition: 'right bottom',
     backgroundRepeat: 'no-repeat'
@@ -39,6 +38,13 @@ const style = {
   },
   shortDesc: {
     position: 'inherit'
+  },
+  button: {
+    right: 0
+  },
+  tile: {
+    background: 'rgba(0, 0, 0, 0.3)',
+    backgroundClip: 'content-box'
   }
 };
 
@@ -56,10 +62,10 @@ class Welcome extends React.Component<PropsT, StateT> {
     const { classes } = this.props;
     return (
       <Card raised className={classes.welcome_card}>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h3" component="h2">
           Welcome to FROG!
         </Typography>
-        <Typography variant="h6" component="h3">
+        <Typography variant="h4" component="h3">
           FROG is a tool to improve the way you present your lecture You can use
           these activities to make your classroom interactive while having a
           full control over the progress of the class and all it takes is 3
@@ -96,7 +102,6 @@ class ChooseActivityType extends React.Component<
       'ac-video'
     ];
     const list = activityTypes.filter(x => allowed.includes(x.id));
-    console.log(list);
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">
@@ -104,7 +109,7 @@ class ChooseActivityType extends React.Component<
         </Typography>
         <GridList cols="4" spacing="8">
           {list.map(x => (
-            <GridListTile key={x.id}>
+            <GridListTile key={x.id} classes={{ root: classes.tile }}>
               <img
                 src={'/' + x.id + '.png'}
                 alt={x.id}
@@ -119,7 +124,14 @@ class ChooseActivityType extends React.Component<
           ))}
         </GridList>
         <CardActions>
-          <Button onClick={() => onSubmit(config)}>Next</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => onSubmit(config)}
+          >
+            Next
+          </Button>
         </CardActions>
       </Card>
     );
