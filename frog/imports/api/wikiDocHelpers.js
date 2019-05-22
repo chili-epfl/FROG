@@ -103,3 +103,30 @@ export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
 
   wikiDoc.submitOp(op);
 };
+
+export const createNewEmptyWikiDoc = (wikiDoc, wikiId) => {
+  const emptyDocValues = {
+    wikiId,
+    pages: {
+      home: {
+        id: 'home',
+        valid: true,
+        created: true,
+        title: 'Home',
+        liType: 'li-richText',
+        instances: {},
+        plane: 3
+      }
+    }
+  };
+  wikiDoc.create(emptyDocValues);
+};
+
+export const completelyDeleteWikiPage = (wikiDoc, pageId) => {
+  const op = {
+    p: ['pages', pageId],
+    od: null
+  };
+
+  wikiDoc.submitOp(op);
+};

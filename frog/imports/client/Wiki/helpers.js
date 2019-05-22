@@ -105,9 +105,19 @@ const getPageTitle = (
   return null;
 };
 
+const checkNewPageTitle = (parsedPages, newPageTitle) => {
+  const parsedTitle = newPageTitle.toLowerCase().trim();
+  if (parsedTitle === '') return 'Title cannot be empty';
+  if (parsedTitle.includes('/')) return 'Title cannot contain /';
+  if (parsedPages[parsedTitle].valid) return 'Title already used';
+
+  return null;
+};
+
 export {
   parseDocResults,
   parseSearch,
   parsePageObjForReactiveRichText,
-  getPageTitle
+  getPageTitle,
+  checkNewPageTitle
 };
