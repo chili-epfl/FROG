@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import { activityTypes } from '/imports/activityTypes';
 
 const style = {
@@ -16,6 +18,7 @@ const style = {
     minWidth: 275,
     maxWidth: 900,
     margin: 'auto',
+    marginTop: 16,
     marginBottom: 16,
     padding: 16
   },
@@ -24,6 +27,7 @@ const style = {
     maxWidth: 900,
     minHeight: 500,
     margin: 'auto',
+    marginTop: 16,
     marginBottom: 16,
     padding: 16,
     backgroundImage: "url('/table_bg.png')",
@@ -45,6 +49,13 @@ const style = {
   tile: {
     background: 'rgba(0, 0, 0, 0.3)',
     backgroundClip: 'content-box'
+  },
+  navbar: {
+    flexDirection: 'row-reverse'
+  },
+  logo: {
+    position: 'absolute',
+    left: 16
   }
 };
 
@@ -153,6 +164,15 @@ class SingleActivity extends React.Component<PropsT, StateT> {
     if (stage === 1)
       return (
         <>
+          <AppBar position="static" color="default">
+            <Toolbar classes={{ root: classes.navbar }}>
+              <Typography variant="h6" color="inherit" className={classes.logo}>
+                FROG
+              </Typography>
+              <Button size="medium">Help</Button>
+              <Button size="medium">Log In/Sign Up</Button>
+            </Toolbar>
+          </AppBar>
           <Welcome classes={classes} />
           {/* Currently, selecting and configuring activity are handled by a
           single screenplan to separate but gets too complicated */}
