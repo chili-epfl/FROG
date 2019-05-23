@@ -120,30 +120,28 @@ class ChooseActivityType extends React.Component<
         </Typography>
         <GridList cols="4" spacing="8">
           {list.map(x => (
-            <GridListTile key={x.id} classes={{ root: classes.tile }}>
-              <img
-                src={'/' + x.id + '.png'}
-                alt={x.id}
-                className={classes.icon}
-              />
-              <GridListTileBar
-                title={x.meta.name}
-                subtitle={<span>{x.meta.shortDesc}</span>}
-                classes={{ root: classes.shortDesc }}
-              />
-            </GridListTile>
+            <a
+              href={'#'}
+              onClick={e => {
+                e.preventDefault();
+                onSubmit(x);
+              }}
+            >
+              <GridListTile key={x.id} classes={{ root: classes.tile }}>
+                <img
+                  src={'/' + x.id + '.png'}
+                  alt={x.id}
+                  className={classes.icon}
+                />
+                <GridListTileBar
+                  title={x.meta.name}
+                  subtitle={<span>{x.meta.shortDesc}</span>}
+                  classes={{ root: classes.shortDesc }}
+                />
+              </GridListTile>
+            </a>
           ))}
         </GridList>
-        <CardActions>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => onSubmit(config)}
-          >
-            Next
-          </Button>
-        </CardActions>
       </Card>
     );
   }
