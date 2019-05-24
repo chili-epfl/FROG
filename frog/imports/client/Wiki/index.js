@@ -80,8 +80,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   constructor(props) {
     super(props);
 
-    const query = queryToObject(this.props.location.search.slice(1));
-
     this.wikiContext = {
       getWikiId: this.getWikiId,
       getOnlyValidWikiPages: () =>
@@ -91,6 +89,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     window.wiki = {
       createNewGenericPage: this.createNewGenericPage
     };
+
+    const query = queryToObject(this.props.location.search.slice(1));
 
     this.state = {
       pagesData: null,
@@ -134,6 +134,18 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     Mousetrap.bindGlobal('ctrl+f', () =>
       this.setState({ findModalOpen: true })
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    const pageTitle = this.props.match.params.pageTitle;
+    if (
+      (pageTitle !== this.state.currentPageObj?.title &&
+        prevProps.match.params.pageTitle !==
+          this.props.match.params.pageTitle) ||
+      prevProps.match.params.instance !== this.props.match.params.instance
+    ) {
+      this.goToPageTitle(pageTitle);
+    }
   }
 
   loadWikiDoc = () => {
@@ -246,7 +258,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         deletedPageModalOpen: false,
         currentDeletedPageId: null,
         currentDeletedPageTitle: null,
-        mode: 'document'
+        mode: 'document',
+        search: '',
+        findModalOpen: false,
+        createModalOpen: false
       },
       () => {
         const link = '/wiki/' + this.wikiId + '/' + pageObj.title;
@@ -257,6 +272,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         this.props.history.push(link);
       }
     );
+  };
+
+  goToPageTitle = pageTitle => {
+    const pageTitleLower = pageTitle.toLowerCase();
+    const pageId = wikiStore.parsedPages[pageTitleLower].id;
+    this.goToPage(pageId);
   };
 
   render() {
@@ -300,12 +321,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       width: 'calc(100vw - 250px)'
     };
 
-    const onSelect = pageTitle => {
-      const pageTitleLower = pageTitle.toLowerCase();
-      const pageId = wikiStore.parsedPages[pageTitleLower].id;
-      this.goToPage(pageId);
-    };
-
     const sideNavBar = (
       <div style={sideNavBarStyle}>
         <h2>{this.wikiId}</h2>
@@ -329,7 +344,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 mode: 'dashboard'
               })
             }
-            onSelect={onSelect}
+            onSelect={this.goToPageTitle}
           />
         </ul>
       </div>
@@ -364,7 +379,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               history={this.props.history}
               setModalOpen={e => this.setState({ findModalOpen: e })}
               wikiId={this.wikiId}
-              onSelect={onSelect}
+              onSelect={this.goToPageTitle}
               pages={validPages}
               errorDiv={this.state.error}
               onSearch={e =>
