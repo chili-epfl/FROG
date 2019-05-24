@@ -44,12 +44,12 @@ export const addNewGlobalWikiPage = (
   const pageId = uuid();
   const obj = {
     id: pageId,
+    plane: 3,
     title: pageTitle,
-    liId,
     valid: true,
     created: setCreated || false,
-    liType,
-    plane: 3
+    liId,
+    liType
   };
 
   const op = {
@@ -59,6 +59,56 @@ export const addNewGlobalWikiPage = (
 
   wikiDoc.submitOp(op);
   return pageId;
+};
+
+export const addNewWikiPageWithInstances = (
+  wikiDoc,
+  plane,
+  pageTitle,
+  liType,
+  instanceId,
+  liId
+) => {
+  const pageId = uuid();
+
+  const instancesObj = {};
+  instancesObj[instanceId] = {
+    instanceId,
+    liId
+  };
+
+  const obj = {
+    id: pageId,
+    plane,
+    title: pageTitle,
+    valid: true,
+    created: true,
+    liType,
+    instances: instancesObj
+  };
+
+  const op = {
+    p: ['pages', pageId],
+    oi: obj
+  };
+
+  wikiDoc.submitOp(op);
+  return pageId;
+};
+
+export const addNewInstancePage = (wikiDoc, pageId, instanceId, liId) => {
+  console.log(wikiDoc, pageId, instanceId, liId);
+  const instanceObj = {
+    instanceId,
+    liId
+  };
+
+  const op = {
+    p: ['pages', pageId, 'instances', instanceId],
+    oi: instanceObj
+  };
+
+  wikiDoc.submitOp(op);
 };
 
 export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
@@ -89,15 +139,6 @@ export const markPageAsCreated = (wikiDoc, pageId) => {
     p: ['pages', pageId, 'created'],
     od: false,
     oi: true
-  };
-
-  wikiDoc.submitOp(op);
-};
-
-export const addInstance = (wikiDoc, pageId, instanceId, liId, username) => {
-  const op = {
-    p: ['pages', pageId, 'instances', instanceId],
-    oi: { liId, username }
   };
 
   wikiDoc.submitOp(op);

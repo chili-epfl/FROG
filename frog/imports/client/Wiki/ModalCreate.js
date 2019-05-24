@@ -29,7 +29,7 @@ type StateT = {
   currentTab: number,
   pageTitle: string,
   pageTitleValid: boolean,
-  socialPlane: string,
+  socialPlane: number,
   open: boolean,
   expanded: boolean,
   allowView: boolean,
@@ -77,7 +77,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       pageTitleValid: true,
       open: true,
       expanded: false,
-      socialPlane: 'everyone',
+      socialPlane: 3,
       allowView: true,
       allowEdit: true,
       config: {}
@@ -116,6 +116,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.setState({ config: conf });
   };
 
+  handleCreate = () => {
+    const { pageTitle, socialPlane } = this.state;
+    this.props.onCreate(pageTitle, socialPlane);
+  };
+
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
     const { classes } = this.props;
@@ -131,18 +136,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             <TextField
               autoFocus
               id="page-title"
-              value={this.state.pageTitle}
+              value={pageTitle}
               onChange={this.handleTitleChange}
               label="Page Title"
               margin="normal"
               onKeyDown={e => {
                 if (e.keyCode === 13) {
-                  this.props.onCreate(
-                    pageTitle,
-                    this.state.config === {} ? 'li-richText' : '',
-                    null,
-                    this.state.config
-                  );
+                  this.handleCreate();
                 }
               }}
             />
@@ -172,9 +172,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     id="social-plane"
                     className={classes.selectSocialPlane}
                   >
-                    <MenuItem value="everyone">Everyone</MenuItem>
-                    <MenuItem value="group">Each Group</MenuItem>
-                    <MenuItem value="individual">Each Individual</MenuItem>
+                    <MenuItem value={3}>Everyone</MenuItem>
+                    <MenuItem value={2}>Each Group</MenuItem>
+                    <MenuItem value={1}>Each Individual</MenuItem>
                   </Select>
                 </FormControl>
                 <FormGroup row>
@@ -228,14 +228,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             Cancel
           </Button>
           <Button
-            onClick={() =>
-              this.props.onCreate(
-                pageTitle,
-                this.state.config === {} ? 'li-richText' : '',
-                null,
-                this.state.config
-              )
-            }
+            onClick={() => this.handleCreate()}
             color="primary"
             variant="contained"
           >

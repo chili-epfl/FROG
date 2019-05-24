@@ -1,12 +1,7 @@
 import { extendObservable, action } from 'mobx';
 import { findKey, flatMap } from 'lodash';
 import { WikiContext, values, uuid } from 'frog-utils';
-import {
-  parseDocResults,
-  parsePageObjForReactiveRichText,
-  getPageTitle,
-  checkNewPageTitle
-} from './helpers';
+import { parseDocResults, getPageTitle, checkNewPageTitle } from './helpers';
 
 class WikiStore {
   constructor() {
@@ -28,16 +23,11 @@ class WikiStore {
       },
 
       get pagesArray(): Array {
-        return flatMap(values(this.pages), pageObj =>
-          parsePageObjForReactiveRichText(this.wikiId, pageObj)
-        );
+        return values(this.pages);
       },
 
       get pagesArrayOnlyValid(): Array {
-        return flatMap(
-          values(wikiStore.pages).filter(x => x.valid && x.created),
-          pageObj => parsePageObjForReactiveRichText(this.wikiId, pageObj)
-        );
+        return values(wikiStore.pages).filter(x => x.valid && x.created);
       },
 
       getPagesArrayOnlyValidExcludingCurrent(currentPageId: string): Array {

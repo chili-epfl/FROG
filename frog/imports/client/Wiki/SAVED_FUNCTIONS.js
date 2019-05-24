@@ -109,13 +109,41 @@ createActivityPage = (newTitle, rawconfig) => {
   });
 };
 
-{
-  /* <span>
-            {this.state.page?.title +
-              (this.state.page?.plane !== 3
-                ? this.state.urlInstance
-                  ? ' / ' + this.getInstanceName(this.state.page)
-                  : ' (' + this.getInstanceName(this.state.page) + ')'
-                : '')}
-          </span> */
-}
+const parsePageObjForReactiveRichText = (
+  wikiId: string,
+  pageObj: Object,
+  alsoInstances: boolean
+) => {
+  const template = {
+    wikiId,
+    id: pageObj.id,
+    title: pageObj.title,
+    liId: pageObj.liId || pageObj.instances[getInstanceId(pageObj)]?.liId,
+    created: pageObj.created,
+    valid: pageObj.valid
+  };
+
+  if (!pageObj.plane || pageObj.plane === 3 || !alsoInstances) {
+    return template;
+  }
+  if (pageObj.plane === 1) {
+    return [
+      template,
+      ...Object.keys(pageObj.instances).map(x => ({
+        ...template,
+        title: pageObj.title + '/' + pageObj.instances[x].username,
+        instance: pageObj.instances[x].username,
+        liId: toJS(pageObj.instances[x].liId)
+      }))
+    ];
+  }
+  return [
+    template,
+    ...Object.keys(pageObj.instances).map(x => ({
+      ...template,
+      title: pageObj.title + '/' + x,
+      instance: x,
+      liId: toJS(pageObj.instances[x].liId)
+    }))
+  ];
+};

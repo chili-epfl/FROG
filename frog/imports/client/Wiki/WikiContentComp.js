@@ -21,11 +21,7 @@ import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
 import { activityTypesObj } from '/imports/activityTypes';
-import {
-  parseDocResults,
-  parsePageObjForReactiveRichText,
-  getPageTitle
-} from './helpers';
+import { parseDocResults, getPageTitle } from './helpers';
 import {
   addNewWikiPage,
   invalidateWikiPage,
@@ -60,6 +56,18 @@ class WikiContentComp extends React.Component<> {
       editingTitle: false,
       showTitleEditButton: false
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentPageObj.id !== this.props.currentPageObj.id) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        docMode: 'view',
+        pageTitleString: this.props.currentPageObj.title,
+        editingTitle: false,
+        showTitleEditButton: false
+      });
+    }
   }
 
   WikiLink = observer(({ data }) => {

@@ -16,9 +16,9 @@ import { connection } from '../App/connection';
 import { activityTypesObj } from '/imports/activityTypes';
 import {
   parseDocResults,
-  parsePageObjForReactiveRichText,
   getPageTitle,
-  checkNewPageTitle
+  checkNewPageTitle,
+  getDifferentPageId
 } from './helpers';
 import {
   addNewWikiPage,
@@ -30,7 +30,9 @@ import {
   changeWikiPageLI,
   createNewEmptyWikiDoc,
   completelyDeleteWikiPage,
-  addNewGlobalWikiPage
+  addNewGlobalWikiPage,
+  addNewInstancePage,
+  addNewWikiPageWithInstances
 } from '/imports/api/wikiDocHelpers';
 import { createNewGenericLI } from './liDocHelpers';
 
@@ -77,6 +79,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   wikiContext: Object = {};
 
+  preventRenderUntilNextShareDBUpdate: boolean = false;
+
   constructor(props) {
     super(props);
 
@@ -96,8 +100,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       pagesData: null,
       dashboardSearch: null,
       pageId: null,
+      currentPageObj: null,
       initialPageTitle: this.props.match.params.pageTitle || null,
-      urlInstance: this.props.match.params.instance || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -148,7 +152,13 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
   }
 
+  shouldComponentUpdate() {
+    return !this.preventRenderUntilNextShareDBUpdate;
+  }
+
   loadWikiDoc = () => {
+    this.preventRenderUntilNextShareDBUpdate = false;
+
     if (!this.wikiDoc.data) {
       const liId = createNewGenericLI(this.wikiId);
       return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
@@ -167,23 +177,61 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.initialLoad = false;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
     const pageTitleLower = pageTitle.toLowerCase();
-    const page = parsedPages[pageTitleLower];
-    const pageId = page.id;
+    const fullPageObj = this.state.pageId
+      ? wikiStore.pages[this.state.pageId]
+      : parsedPages[pageTitleLower];
 
-    if (!page) {
+    if (!fullPageObj) {
       this.initialLoad = true;
-      return this.createNewGenericPage(pageTitle, true);
+      this.createNewGenericPage(pageTitle, true);
+      return;
     }
-    if (!page.valid)
+
+    const instanceId =
+      this.props.match.params.instance || this.getInstanceId(fullPageObj);
+    const currentPageObj = this.getProperCurrentPageObj(
+      fullPageObj,
+      instanceId
+    );
+
+    if (!currentPageObj) {
+      if (!fullPageObj.noNewInstances) {
+        this.initialLoad = true;
+        this.createNewInstancePage(fullPageObj, instanceId);
+        return;
+      }
+    }
+
+    if (!currentPageObj.valid)
       return this.setState({
         deletedPageModalOpen: true,
-        currentDeletedPageId: pageId,
+        currentDeletedPageId: currentPageObj.id,
         currentDeletedPageTitle: pageTitle
       });
 
     this.setState({
-      currentPageObj: page
+      currentPageObj
     });
+  };
+
+  getProperCurrentPageObj = (fullPageObj, instanceId) => {
+    if (!fullPageObj || fullPageObj.plane === 3) return fullPageObj;
+
+    return (
+      fullPageObj.instances[instanceId] &&
+      Object.assign(fullPageObj, fullPageObj.instances[instanceId])
+    );
+  };
+
+  getInstanceId = pageObj => {
+    if (!pageObj || pageObj.plane === 3) return null;
+
+    const userId = Meteor.userId();
+    if (pageObj.plane === 2) {
+      const group = findKey(pageObj.socialStructure, x => x.includes(userId));
+      return group || userId;
+    }
+    return userId;
   };
 
   getWikiId = () => {
@@ -191,8 +239,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   deleteLI = (pageId: string) => {
-    const parsedPages = wikiStore.parsedPages;
-    const newPageId = getPageTitle(parsedPages, null, pageId);
+    const newPageId = getDifferentPageId(wikiStore.pagesArrayOnlyValid, pageId);
     if (!newPageId) throw new Error('Missing new page id');
 
     this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
@@ -210,6 +257,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     return {
       pageId,
+      liId
+    };
+  };
+
+  createNewInstancePage = (pageObj, instanceId) => {
+    // TODO: Handle creating different LI types and activities
+    const liId = createNewGenericLI(this.wikiId);
+    addNewInstancePage(this.wikiDoc, pageObj.id, instanceId, liId);
+    return {
+      instanceId,
       liId
     };
   };
@@ -247,14 +304,28 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
-    // TODO: Change Window URL
+    const instanceId = this.props.match.params.instance;
+    const link =
+      '/wiki/' +
+      this.wikiId +
+      '/' +
+      newPageTitle +
+      (instanceId ? '/' + instanceId : '');
+    this.props.history.replace(link);
   };
 
   goToPage = (pageId, cb) => {
-    const pageObj = wikiStore.pages[pageId];
+    const fullPageObj = wikiStore.pages[pageId];
+    const instanceId = this.getInstanceId(fullPageObj);
+    const currentPageObj = this.getProperCurrentPageObj(
+      fullPageObj,
+      instanceId
+    );
+
     this.setState(
       {
-        currentPageObj: pageObj,
+        pageId,
+        currentPageObj,
         deletedPageModalOpen: false,
         currentDeletedPageId: null,
         currentDeletedPageTitle: null,
@@ -264,7 +335,13 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         createModalOpen: false
       },
       () => {
-        const link = '/wiki/' + this.wikiId + '/' + pageObj.title;
+        if (!currentPageObj) return;
+        const link =
+          '/wiki/' +
+          this.wikiId +
+          '/' +
+          currentPageObj.title +
+          (instanceId ? '/' + instanceId : '');
         if (cb) {
           this.props.history.replace(link);
           return cb();
@@ -280,13 +357,38 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId);
   };
 
+  createLI = (newTitle, plane) => {
+    this.preventRenderUntilNextShareDBUpdate = true;
+    // TODO: Rewrite this function to propely handle creating different types of activities/LIs
+
+    let pageId;
+    if (plane === 3) {
+      const ids = this.createNewGenericPage(newTitle, true);
+      pageId = ids.pageId;
+    } else {
+      const liType = 'li-richText';
+      const liId = createNewGenericLI(this.wikiId);
+      // TODO: Below instance ID should be found differently for groups
+      const instanceId = Meteor.userId();
+
+      pageId = addNewWikiPageWithInstances(
+        this.wikiDoc,
+        plane,
+        newTitle,
+        liType,
+        instanceId,
+        liId
+      );
+    }
+
+    this.goToPage(pageId);
+    // setTimeout(() => {
+    //   this.goToPage(pageId);
+    // }, 100);
+  };
+
   render() {
-    // console.log(this.state);
-    // if (
-    //   !this.state.page?.noNewInstances &&
-    //   (!this.state.page || !this.state.pageTitle || !this.state.currentLI)
-    // )
-    //   return null;
+    if (!this.state.currentPageObj) return null;
 
     const validPages = wikiStore.pagesArrayOnlyValid;
 
@@ -360,12 +462,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 currentPageObj={this.state.currentPageObj}
                 deleteLI={this.deleteLI}
                 changeMode={this.changeMode}
-                moreThanOnePage={validPages > 1}
+                moreThanOnePage={validPages.length > 1}
               />
               <WikiContentComp
                 wikiDoc={this.wikiDoc}
                 currentPageObj={this.state.currentPageObj}
-                currentLI={this.state.currentLI}
                 mode={this.state.mode}
                 changeMode={this.changeMode}
                 changeTitle={this.changeTitle}

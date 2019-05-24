@@ -48,45 +48,6 @@ const parseSearch = function(search: string) {
   return attributes;
 };
 
-const parsePageObjForReactiveRichText = (
-  wikiId: string,
-  pageObj: Object,
-  alsoInstances: boolean
-) => {
-  const template = {
-    wikiId,
-    id: pageObj.id,
-    title: pageObj.title,
-    liId: pageObj.liId || pageObj.instances[getInstanceId(pageObj)]?.liId,
-    created: pageObj.created,
-    valid: pageObj.valid
-  };
-
-  if (!pageObj.plane || pageObj.plane === 3 || !alsoInstances) {
-    return template;
-  }
-  if (pageObj.plane === 1) {
-    return [
-      template,
-      ...Object.keys(pageObj.instances).map(x => ({
-        ...template,
-        title: pageObj.title + '/' + pageObj.instances[x].username,
-        instance: pageObj.instances[x].username,
-        liId: toJS(pageObj.instances[x].liId)
-      }))
-    ];
-  }
-  return [
-    template,
-    ...Object.keys(pageObj.instances).map(x => ({
-      ...template,
-      title: pageObj.title + '/' + x,
-      instance: x,
-      liId: toJS(pageObj.instances[x].liId)
-    }))
-  ];
-};
-
 const getPageTitle = (
   pages: Object,
   statePageTitle: ?string,
@@ -114,10 +75,18 @@ const checkNewPageTitle = (parsedPages, newPageTitle) => {
   return null;
 };
 
+const getDifferentPageId = (pages, oldPageId) => {
+  for (const page of pages) {
+    if (page.id !== oldPageId) return page.id;
+  }
+
+  return null;
+};
+
 export {
   parseDocResults,
   parseSearch,
-  parsePageObjForReactiveRichText,
   getPageTitle,
-  checkNewPageTitle
+  checkNewPageTitle,
+  getDifferentPageId
 };
