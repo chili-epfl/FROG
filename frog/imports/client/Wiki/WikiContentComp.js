@@ -35,7 +35,7 @@ import {
   restoreWikiPage,
   changeWikiPageLI
 } from '/imports/api/wikiDocHelpers';
-import { wikistore } from './store';
+import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import CreateModal from './ModalCreate';
@@ -52,10 +52,74 @@ class WikiContentComp extends React.Component<> {
   constructor(props) {
     super(props);
 
+    window.WikiLink = this.WikiLink;
+
     this.state = {
-      docMode: 'view'
+      docMode: 'view',
+      pageTitleString: this.props.currentPageObj?.title,
+      editingTitle: false,
+      showTitleEditButton: false
     };
   }
+
+  WikiLink = observer(({ data }) => {
+    const pageObj = wikiStore.pages[data.id];
+
+    const style = {
+      textDecoration: 'underline',
+      cursor: 'pointer',
+      color: 'black'
+    };
+
+    if (!pageObj) {
+      return <span style={style}>INVALID LINK</span>;
+    }
+
+    const pageId = pageObj.id;
+    const pageTitle = pageObj.title;
+    const displayTitle = pageTitle + (data.instance ? '/' + data.instance : '');
+
+    if (!pageObj.created) {
+      const createLinkFn = e => {
+        e.preventDefault();
+        markPageAsCreated(this.props.wikiDoc, pageObj.id);
+        this.props.goToPage(pageId);
+      };
+      style.color = 'green';
+
+      return (
+        <span onClick={createLinkFn} style={style}>
+          <b>{displayTitle}</b>
+        </span>
+      );
+    }
+
+    if (!pageObj.valid) {
+      const deletedPageLinkFn = e => {
+        e.preventDefault();
+        this.props.openDeletedPageModal(pageId, pageTitle);
+      };
+      style.color = 'red';
+
+      return (
+        <span onClick={deletedPageLinkFn} style={style}>
+          {pageTitle}
+        </span>
+      );
+    }
+
+    const linkFn = e => {
+      e.preventDefault();
+      this.props.goToPage(pageId);
+    };
+    style.color = 'blue';
+
+    return (
+      <span onClick={linkFn} style={style}>
+        <b>{displayTitle}</b>
+      </span>
+    );
+  });
 
   handleEditingTitle = () => {
     this.setState(prevState => ({
@@ -67,24 +131,13 @@ class WikiContentComp extends React.Component<> {
     const newPageTitle = this.state.pageTitleString;
     if (!newPageTitle) throw new Error('Cannot save empty new page title');
 
-    changeWikiPageTitle(
-      this.wikiDoc,
-      this.state.pageId,
-      this.state.pageTitle,
-      newPageTitle
-    );
+    this.props.changeTitle(this.props.currentPageObj.id, newPageTitle);
 
-    this.setState(
-      {
-        pageTitle: newPageTitle,
-        editingTitle: false,
-        showTitleEditButton: false
-      },
-      () => {
-        const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
-        this.props.history.replace(link);
-      }
-    );
+    this.setState({
+      pageTitleString: newPageTitle,
+      editingTitle: false,
+      showTitleEditButton: false
+    });
   };
 
   render() {
@@ -167,14 +220,7 @@ class WikiContentComp extends React.Component<> {
             this.setState({ showTitleEditButton: false });
           }}
         >
-          <span>
-            {this.state.page?.title +
-              (this.state.page?.plane !== 3
-                ? this.state.urlInstance
-                  ? ' / ' + this.getInstanceName(this.state.page)
-                  : ' (' + this.getInstanceName(this.state.page) + ')'
-                : '')}
-          </span>
+          <span>{this.state.pageTitleString}</span>
           {this.state.showTitleEditButton && (
             <Edit
               onClick={this.handleEditingTitle}
@@ -188,10 +234,10 @@ class WikiContentComp extends React.Component<> {
 
     return (
       <div style={contentDivStyle}>
-        {this.state.mode === 'revisions' && (
-          <Revisions doc={this.state.currentLI} />
+        {this.props.mode === 'revisions' && (
+          <Revisions doc={this.props.currentPageObj.liId} />
         )}
-        {this.state.mode === 'dashboard' && (
+        {this.props.mode === 'dashboard' && (
           <Paper
             elevation={24}
             style={{
@@ -204,16 +250,17 @@ class WikiContentComp extends React.Component<> {
               wikiId={this.wikiId}
               search={this.state.dashboardSearch}
               onClick={id => {
-                const page = values(toJS(wikistore.pages)).find(
+                const page = values(toJS(wikiStore.pages)).find(
                   x => x.liId === id
                 ).title;
                 this.props.history.push(`/wiki/${this.wikiId}/${page}`);
-                this.setState({ mode: 'document', docMode: 'view' });
+                this.props.changeMode('document');
+                this.setState({ docMode: 'view' });
               }}
             />
           </Paper>
         )}
-        {this.state.mode === 'document' && (
+        {this.props.mode === 'document' && (
           <>
             {titleDiv}
             <div
@@ -235,10 +282,10 @@ class WikiContentComp extends React.Component<> {
                   }
                 }}
               >
-                {this.state.currentLI && (
+                {this.props.currentPageObj && (
                   <LearningItem
                     type={this.state.docMode}
-                    id={this.state.currentLI}
+                    id={this.props.currentPageObj.liId}
                   />
                 )}
               </Paper>

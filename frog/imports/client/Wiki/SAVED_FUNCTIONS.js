@@ -1,3 +1,43 @@
+createLI = (newTitle, liType = 'li-richText', li, config, p1) => {
+  const parsedPages = wikiStore.parsedPages;
+  const error = checkNewPageTitle(parsedPages, newTitle);
+  if (error)
+    return this.setState({
+      error
+    });
+
+  const newTitleLower = newTitle.toLowerCase();
+
+  if (parsedPages[newTitleLower]) {
+    completelyDeleteWikiPage(this.wikiDoc, parsedPages[newTitleLower].id);
+  }
+
+  if (li) {
+    addNewWikiPage(this.wikiDoc, newTitle, true, liType);
+  } else if (config && config.activityType) {
+    this.createActivityPage(newTitle, config);
+  } else {
+    addNewWikiPage(
+      this.wikiDoc,
+      newTitle,
+      true,
+      liType || 'li-richText',
+      p1 ? 1 : 3
+    );
+  }
+
+  this.setState(
+    {
+      newTitle: '',
+      error: null
+    },
+    () => {
+      const link = '/wiki/' + this.wikiId + '/' + newTitle + '?edit=true';
+      this.props.history.push(link);
+    }
+  );
+};
+
 getInstanceId = page => {
   const urlInstance = this.props.match.params.instance || false;
   if (!page || page.liId) {
@@ -68,3 +108,14 @@ createActivityPage = (newTitle, rawconfig) => {
     mode: 'document'
   });
 };
+
+{
+  /* <span>
+            {this.state.page?.title +
+              (this.state.page?.plane !== 3
+                ? this.state.urlInstance
+                  ? ' / ' + this.getInstanceName(this.state.page)
+                  : ' (' + this.getInstanceName(this.state.page) + ')'
+                : '')}
+          </span> */
+}

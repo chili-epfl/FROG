@@ -17,7 +17,8 @@ import { activityTypesObj } from '/imports/activityTypes';
 import {
   parseDocResults,
   parsePageObjForReactiveRichText,
-  getPageTitle
+  getPageTitle,
+  checkNewPageTitle
 } from './helpers';
 import {
   addNewWikiPage,
@@ -28,11 +29,12 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  completelyDeleteWikiPage
+  completelyDeleteWikiPage,
+  addNewGlobalWikiPage
 } from '/imports/api/wikiDocHelpers';
 import { createNewGenericLI } from './liDocHelpers';
 
-import { wikistore } from './store';
+import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import CreateModal from './ModalCreate';
@@ -54,17 +56,9 @@ type WikiCompPropsT = {
 
 type WikiCompStateT = {
   dashboardSearch: ?string,
-  pageTitle: ?string,
-  page: ?Object,
-  pageTitleString: ?string,
   mode: string,
-  docMode: string,
-  currentLI?: string | Object,
-  editingTitle: boolean,
   error: ?string,
   openCreator: ?Object,
-  showTitleEditButton: boolean,
-  wikiContext: Object,
   createModalOpen: boolean,
   findModalOpen: boolean,
   search: '',
@@ -79,16 +73,30 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   config: Object = {};
 
-  initialLoad: boolean = false;
+  initialLoad: boolean = true;
+
+  wikiContext: Object = {};
 
   constructor(props) {
     super(props);
 
     const query = queryToObject(this.props.location.search.slice(1));
+
+    this.wikiContext = {
+      getWikiId: this.getWikiId,
+      getOnlyValidWikiPages: () =>
+        wikiStore.getPagesArrayOnlyValidExcludingCurrent()
+    };
+
+    window.wiki = {
+      createNewGenericPage: this.createNewGenericPage
+    };
+
     this.state = {
+      pagesData: null,
       dashboardSearch: null,
       pageId: null,
-      pageTitle: this.props.match.params.pageTitle || null,
+      initialPageTitle: this.props.match.params.pageTitle || null,
       urlInstance: this.props.match.params.instance || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
@@ -98,20 +106,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       search: '',
       deletedPageModalOpen: false,
       currentDeletedPageId: null,
-      currentDeletedPageTitle: null,
-      wikiContext: {
-        getWikiId: this.getWikiId,
-        getWikiPages: this.getWikiPages,
-        getOnlyValidWikiPages: this.getOnlyValidWikiPages
-      }
+      currentDeletedPageTitle: null
     };
   }
 
   componentDidMount() {
-    window.wiki = {
-      WikiLink: this.WikiLink,
-      createPage: this.createNewPageLI
-    };
     this.wikiDoc = connection.get('wiki', this.wikiId);
     this.wikiDoc.on('create', () => {
       this.loadWikiDoc();
@@ -138,28 +137,30 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   loadWikiDoc = () => {
-    if (!this.wikiDoc.data)
-      return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId);
+    if (!this.wikiDoc.data) {
+      const liId = createNewGenericLI(this.wikiId);
+      return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
+    }
 
-    wikistore.setPages(this.wikiDoc.data.pages);
+    wikiStore.setPages(this.wikiDoc.data.pages);
+    this.setState({ pagesData: wikiStore.pages });
 
     if (this.initialLoad) {
-      const parsedPages = parseDocResults(this.wikiDoc.data);
-      return this.handleInitialLoad(parsedPages);
+      return this.handleInitialLoad();
     }
   };
 
-  handleInitialLoad = parsedPages => {
+  handleInitialLoad = () => {
+    const parsedPages = wikiStore.parsedPages;
     this.initialLoad = false;
-    const pageTitle = getPageTitle(parsedPages, this.state.pageTitle);
+    const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
     const pageTitleLower = pageTitle.toLowerCase();
     const page = parsedPages[pageTitleLower];
     const pageId = page.id;
 
     if (!page) {
       this.initialLoad = true;
-      const liId = createNewGenericLI(this.wikiId);
-      return addNewWikiPage(this.wikiDoc, liId, pageTitle, true, 'li-richText');
+      return this.createNewGenericPage(pageTitle, true);
     }
     if (!page.valid)
       return this.setState({
@@ -169,9 +170,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       });
 
     this.setState({
-      pageId,
-      pageTitle,
-      currentLi: page.liId
+      currentPageObj: page
     });
   };
 
@@ -179,86 +178,28 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     return this.wikiId;
   };
 
-  getWikiPages = () => {
-    return flatMap(values(wikistore.pages), pageObj =>
-      parsePageObjForReactiveRichText(this.wikiId, pageObj)
-    );
-  };
-
-  getOnlyValidWikiPages = (
-    includeCurrentPage: boolean,
-    alsoInstances: boolean
-  ) => {
-    const p = flatMap(
-      values(wikistore.pages).filter(
-        x =>
-          x.valid &&
-          x.created &&
-          (includeCurrentPage || x.title !== this.state.pageTitle)
-      ),
-      pageObj =>
-        parsePageObjForReactiveRichText(this.wikiId, pageObj, alsoInstances)
-    );
-    return p;
-  };
-
-  createLI = (newTitle, liType = 'li-richText', li, config, p1) => {
-    const parsedPages = parseDocResults(this.wikiDoc.data);
-    const error = checkNewPageTitle(parsedPages, newTitle);
-    if (error)
-      return this.setState({
-        error
-      });
-
-    const newTitleLower = newTitle.toLowerCase();
-
-    if (parsedPages[newTitleLower]) {
-      completelyDeleteWikiPage(this.wikiDoc, parsedPages[newTitleLower].id);
-    }
-
-    if (li) {
-      addNewWikiPage(this.wikiDoc, newTitle, true, liType);
-    } else if (config && config.activityType) {
-      this.createActivityPage(newTitle, config);
-    } else {
-      addNewWikiPage(
-        this.wikiDoc,
-        newTitle,
-        true,
-        liType || 'li-richText',
-        p1 ? 1 : 3
-      );
-    }
-
-    this.setState(
-      {
-        newTitle: '',
-        error: null
-      },
-      () => {
-        const link = '/wiki/' + this.wikiId + '/' + newTitle + '?edit=true';
-        this.props.history.push(link);
-      }
-    );
-  };
-
   deleteLI = (pageId: string) => {
-    const parsedPages = parseDocResults(this.wikiDoc.data);
+    const parsedPages = wikiStore.parsedPages;
     const newPageId = getPageTitle(parsedPages, null, pageId);
     if (!newPageId) throw new Error('Missing new page id');
 
-    const newPageTitle = parsedPages[pageId].title;
-    this.setState(
-      {
-        pageId: newPageId,
-        pageTitle: newPageTitle
-      },
-      () => {
-        invalidateWikiPage(this.wikiDoc, pageId);
-        const link = '/wiki/' + this.wikiId + '/' + newPageTitle;
-        this.props.history.replace(link);
-      }
+    this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
+  };
+
+  createNewGenericPage = (pageTitle, setCreated) => {
+    const liId = createNewGenericLI(this.wikiId);
+    const pageId = addNewGlobalWikiPage(
+      this.wikiDoc,
+      pageTitle,
+      liId,
+      setCreated,
+      'li-richText'
     );
+
+    return {
+      pageId,
+      liId
+    };
   };
 
   restoreDeletedPage = pageId => {
@@ -273,35 +214,67 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.removeDeletedPageModal();
   };
 
+  openDeletedPageModal = (pageId, pageTitle) => {
+    this.setState({
+      deletedPageModalOpen: true,
+      currentDeletedPageId: pageId,
+      currentDeletedPageTitle: pageTitle
+    });
+  };
+
   removeDeletedPageModal = () => {
-    const pageTitle = this.state.currentDeletedPageTitle;
+    const pageId = this.state.currentDeletedPageId;
+    this.goToPage(pageId);
+  };
+
+  changeMode = mode => {
+    this.setState({
+      mode
+    });
+  };
+
+  changeTitle = (pageId, newPageTitle) => {
+    changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
+    // TODO: Change Window URL
+  };
+
+  goToPage = (pageId, cb) => {
+    const pageObj = wikiStore.pages[pageId];
     this.setState(
       {
+        currentPageObj: pageObj,
         deletedPageModalOpen: false,
         currentDeletedPageId: null,
-        currentDeletedPageTitle: null
+        currentDeletedPageTitle: null,
+        mode: 'document'
       },
       () => {
-        const link = '/wiki/' + this.wikiId + '/' + pageTitle;
+        const link = '/wiki/' + this.wikiId + '/' + pageObj.title;
+        if (cb) {
+          this.props.history.replace(link);
+          return cb();
+        }
         this.props.history.push(link);
       }
     );
   };
 
   render() {
-    if (
-      !this.state.page?.noNewInstances &&
-      (!this.state.page || !this.state.pageTitle || !this.state.currentLI)
-    )
-      return null;
+    // console.log(this.state);
+    // if (
+    //   !this.state.page?.noNewInstances &&
+    //   (!this.state.page || !this.state.pageTitle || !this.state.currentLI)
+    // )
+    //   return null;
 
-    const validPages = this.getOnlyValidWikiPages();
-    const validPagesIncludingCurrent = this.getOnlyValidWikiPages(true, true);
+    const validPages = wikiStore.pagesArrayOnlyValid;
 
-    let pages = validPagesIncludingCurrent;
+    let foundPages = validPages;
     if (this.state.search !== '') {
       const search = this.state.search.trim().toLowerCase();
-      pages = validPages.filter(x => x.title.toLowerCase().includes(search));
+      foundPages = validPages.filter(x =>
+        x.title.toLowerCase().includes(search)
+      );
     }
 
     const containerDivStyle = {
@@ -327,9 +300,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       width: 'calc(100vw - 250px)'
     };
 
-    const onSelect = id => {
-      const link = '/wiki/' + this.wikiId + '/' + id;
-      this.props.history.push(link);
+    const onSelect = pageTitle => {
+      const pageTitleLower = pageTitle.toLowerCase();
+      const pageId = wikiStore.parsedPages[pageTitleLower].id;
+      this.goToPage(pageId);
     };
 
     const sideNavBar = (
@@ -344,10 +318,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             + Create new page
           </Button>
           <SearchAndFind
-            key={this.state.pageId}
-            pages={pages}
-            currentPage={this.state.page?.id}
-            currentInstance={this.getInstanceName(this.state.page)}
+            key={this.state.currentPageObj?.id}
+            pages={foundPages}
+            currentPage={this.state.currentPageObj?.id}
+            // currentInstance={this.getInstanceName(this.state.page)}
             onSearch={e =>
               this.setState({
                 findModalOpen: false,
@@ -363,12 +337,26 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     return (
       <div>
-        <WikiContext.Provider value={this.state.wikiContext}>
+        <WikiContext.Provider value={this.wikiContext}>
           <div style={containerDivStyle}>
             {sideNavBar}
             <div style={contentDivStyle}>
-              {WikiTopNavbar}
-              <WikiContentComp />
+              <WikiTopNavbar
+                currentPageObj={this.state.currentPageObj}
+                deleteLI={this.deleteLI}
+                changeMode={this.changeMode}
+                moreThanOnePage={validPages > 1}
+              />
+              <WikiContentComp
+                wikiDoc={this.wikiDoc}
+                currentPageObj={this.state.currentPageObj}
+                currentLI={this.state.currentLI}
+                mode={this.state.mode}
+                changeMode={this.changeMode}
+                changeTitle={this.changeTitle}
+                openDeletedPageModal={this.openDeletedPageModal}
+                goToPage={this.goToPage}
+              />
             </div>
           </div>
           {this.state.findModalOpen && (
@@ -377,9 +365,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               setModalOpen={e => this.setState({ findModalOpen: e })}
               wikiId={this.wikiId}
               onSelect={onSelect}
-              pages={this.getOnlyValidWikiPages().filter(
-                x => x.id !== this.state.pageId
-              )}
+              pages={validPages}
               errorDiv={this.state.error}
               onSearch={e =>
                 this.setState({

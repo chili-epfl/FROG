@@ -34,6 +34,33 @@ export const addNewWikiPage = (
   return pageId;
 };
 
+export const addNewGlobalWikiPage = (
+  wikiDoc,
+  pageTitle,
+  liId,
+  setCreated,
+  liType = 'li-richText'
+) => {
+  const pageId = uuid();
+  const obj = {
+    id: pageId,
+    title: pageTitle,
+    liId,
+    valid: true,
+    created: setCreated || false,
+    liType,
+    plane: 3
+  };
+
+  const op = {
+    p: ['pages', pageId],
+    oi: obj
+  };
+
+  wikiDoc.submitOp(op);
+  return pageId;
+};
+
 export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   const op = {
     p: ['pages', pageId, 'valid'],
@@ -47,15 +74,10 @@ export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   }
 };
 
-export const changeWikiPageTitle = (
-  wikiDoc,
-  pageId,
-  oldPageTitle,
-  newPageTitle
-) => {
+export const changeWikiPageTitle = (wikiDoc, pageId, newPageTitle) => {
   const op = {
     p: ['pages', pageId, 'title'],
-    od: oldPageTitle,
+    od: null,
     oi: newPageTitle
   };
 
@@ -104,7 +126,7 @@ export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
   wikiDoc.submitOp(op);
 };
 
-export const createNewEmptyWikiDoc = (wikiDoc, wikiId) => {
+export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId) => {
   const emptyDocValues = {
     wikiId,
     pages: {
@@ -113,6 +135,7 @@ export const createNewEmptyWikiDoc = (wikiDoc, wikiId) => {
         valid: true,
         created: true,
         title: 'Home',
+        liId,
         liType: 'li-richText',
         instances: {},
         plane: 3
