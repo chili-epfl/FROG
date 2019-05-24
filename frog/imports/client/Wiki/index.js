@@ -11,15 +11,8 @@ import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
 
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import { connection } from '../App/connection';
-import { activityTypesObj } from '/imports/activityTypes';
-import {
-  parseDocResults,
-  getPageTitle,
-  checkNewPageTitle,
-  getDifferentPageId
-} from './helpers';
+
+import { getPageTitle, checkNewPageTitle, getDifferentPageId } from './helpers';
 import {
   addNewWikiPage,
   invalidateWikiPage,
@@ -37,8 +30,6 @@ import {
 import { createNewGenericLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
-import LIDashboard from '../Dashboard/LIDashboard';
-import Revisions from './Revisions';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
 import FindModal, { SearchAndFind } from './ModalFind';
@@ -173,13 +164,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   handleInitialLoad = () => {
-    const parsedPages = wikiStore.parsedPages;
     this.initialLoad = false;
+    const parsedPages = wikiStore.parsedPages;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
     const pageTitleLower = pageTitle.toLowerCase();
-    const fullPageObj = this.state.pageId
-      ? wikiStore.pages[this.state.pageId]
-      : parsedPages[pageTitleLower];
+    const fullPageObj = parsedPages[pageTitleLower];
 
     if (!fullPageObj) {
       this.initialLoad = true;
@@ -324,7 +313,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     this.setState(
       {
-        pageId,
         currentPageObj,
         deletedPageModalOpen: false,
         currentDeletedPageId: null,
