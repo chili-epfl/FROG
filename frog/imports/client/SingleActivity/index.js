@@ -3,7 +3,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+import Grow from '@material-ui/core/Grow';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
@@ -12,6 +12,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { activityTypes } from '/imports/activityTypes';
+import ApiForm from '../GraphEditor/SidePanel';
 
 const style = {
   card: {
@@ -113,6 +114,7 @@ class ChooseActivityType extends React.Component<
       'ac-video'
     ];
     const list = activityTypes.filter(x => allowed.includes(x.id));
+    console.log(list);
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">
@@ -147,6 +149,32 @@ class ChooseActivityType extends React.Component<
   }
 }
 
+class ConfigPanel extends React.Component<
+  { activityType: Object },
+  { config: Object }
+> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      config: this.props.config
+    };
+  }
+
+  render() {
+    const { id, config } = this.props.activityType;
+    console.log(this.props.activityType);
+    return (
+      <ApiForm
+        activityType={id}
+        config={config}
+        onConfigChange={x => console.log(x)}
+        hidePreview
+        noOffset
+      />
+    );
+  }
+}
+
 class SingleActivity extends React.Component<PropsT, StateT> {
   constructor(props) {
     super(props);
@@ -158,33 +186,37 @@ class SingleActivity extends React.Component<PropsT, StateT> {
 
   render() {
     const { classes } = this.props;
-    const { stage } = this.state;
-    if (stage === 1)
-      return (
-        <>
-          <AppBar position="static" color="default">
-            <Toolbar classes={{ root: classes.navbar }}>
-              <Typography variant="h6" color="inherit" className={classes.logo}>
-                FROG
-              </Typography>
-              <Button size="medium">Help</Button>
-              <Button size="medium">Log In/Sign Up</Button>
-            </Toolbar>
-          </AppBar>
+    const { stage, config } = this.state;
+    return (
+      <>
+        <AppBar position="static" color="default">
+          <Toolbar classes={{ root: classes.navbar }}>
+            <Typography variant="h6" color="inherit" className={classes.logo}>
+              FROG
+            </Typography>
+            <Button size="medium">Help</Button>
+            <Button size="medium">Log In/Sign Up</Button>
+          </Toolbar>
+        </AppBar>
+        <Grow in={stage === 1} unmountOnExit>
           <Welcome classes={classes} />
           {/* Currently, selecting and configuring activity are handled by a
           single screenplan to separate but gets too complicated */}
           {/* The function to generate the activity must be called here and the 2 urls returned. */}
+        </Grow>
+        <Grow in={stage === 1} unmountOnExit>
           <ChooseActivityType
             classes={classes}
             onSubmit={conf =>
               this.setState({ stage: this.state.stage + 1, config: conf })
             }
           />
-        </>
-      );
-    else if (stage === 2) return <>OK</>;
-    return null;
+        </Grow>
+        <Grow in={stage === 2} unmountOnExit>
+          <ConfigPanel activityType={config} />
+        </Grow>
+      </>
+    );
   }
 }
 
