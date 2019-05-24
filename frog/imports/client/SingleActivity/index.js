@@ -12,7 +12,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { activityTypes } from '/imports/activityTypes';
-import ApiForm from '../GraphEditor/SidePanel';
+import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 
 const style = {
   card: {
@@ -150,27 +150,29 @@ class ChooseActivityType extends React.Component<
 }
 
 class ConfigPanel extends React.Component<
-  { activityType: Object },
-  { config: Object }
+  { activityType: Object, classes: Object },
+  { activity: Object }
 > {
   constructor(props) {
     super(props);
     this.state = {
-      config: this.props.config
+      activity: this.props.activityType
     };
   }
 
   render() {
     const { id, config } = this.props.activityType;
-    console.log(this.props.activityType);
+    const { classes } = this.props;
     return (
-      <ApiForm
-        activityType={id}
-        config={config}
-        onConfigChange={x => console.log(x)}
-        hidePreview
-        noOffset
-      />
+      <Card raised className={classes.card}>
+        <ApiForm
+          activityType={id}
+          config={config}
+          onConfigChange={x => this.setState({activity: x})}
+          hidePreview
+          noOffset
+        />
+      </Card>
     );
   }
 }
@@ -213,7 +215,7 @@ class SingleActivity extends React.Component<PropsT, StateT> {
           />
         </Grow>
         <Grow in={stage === 2} unmountOnExit>
-          <ConfigPanel activityType={config} />
+          <ConfigPanel activityType={config} classes={classes} />
         </Grow>
       </>
     );
