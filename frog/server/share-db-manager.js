@@ -1,14 +1,14 @@
 // @flow
 import http from 'http';
 import { Meteor } from 'meteor/meteor';
-import ShareDB from 'sharedb';
+import ShareDB from '@chilifrog/sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from '@teamwork/websocket-json-stream';
-import ShareDBMongo from 'sharedb-mongo';
+import ShareDBMongo from '@chilifrog/sharedb-mongo';
 import RedisPubsub from 'sharedb-redis-pubsub';
-import json from 'ot-json0';
+import json from '@minervaproject/ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
-import richText from 'rich-text';
+import richText from '@minervaproject/rich-text';
 
 declare var Promise: any;
 const server = http.createServer();
