@@ -4,6 +4,7 @@ import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import Dashboard from '@material-ui/icons/Dashboard';
 import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
+import ImportContacts from '@material-ui/icons/ImportContacts';
 
 class WikiTopNavbar extends React.Component<> {
   constructor(props) {
@@ -53,18 +54,13 @@ class WikiTopNavbar extends React.Component<> {
 
     const itemColors = {
       document: 'primary',
-      history: 'primary',
       revisions: 'primary',
       delete: 'primary',
-      dashboard: 'primary'
+      dashboard: 'primary',
+      splitview: 'primary'
     };
-    const activeItem = (() => {
-      const { mode, docMode } = this.state;
-      if (mode === 'document' && docMode === 'view') return 'document';
-      if (mode === 'document' && docMode === 'history') return 'history';
-      return mode;
-    })();
-    itemColors[activeItem] = 'secondary';
+
+    itemColors[this.props.mode] = 'secondary';
 
     return (
       <div style={topNavBarStyle}>
@@ -98,7 +94,19 @@ class WikiTopNavbar extends React.Component<> {
           <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
           <span style={{ color: itemColors['dashboard'] }}>All Pages</span>
         </div>
-        {moreThanOnePage ? (
+        <div
+          style={topNavBarItemStyle}
+          onClick={() => {
+            changeMode('splitview');
+          }}
+        >
+          <ImportContacts
+            style={iconButtonStyle}
+            color={itemColors['splitview']}
+          />
+          <span style={{ color: itemColors['splitview'] }}>Split View</span>
+        </div>
+        {moreThanOnePage && this.props.mode !== 'splitview' ? (
           <div
             style={topNavBarItemStyle}
             onClick={() => {

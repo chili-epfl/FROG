@@ -28,10 +28,6 @@ class WikiStore {
 
       get pagesArrayOnlyValid(): Array {
         return values(wikiStore.pages).filter(x => x.valid && x.created);
-      },
-
-      getPagesArrayOnlyValidExcludingCurrent(currentPageId: string): Array {
-        return this.pagesArrayOnlyValid.filter(x => x.id !== currentPageId);
       }
     });
   }

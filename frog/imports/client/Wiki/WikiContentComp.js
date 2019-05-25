@@ -91,7 +91,7 @@ class WikiContentComp extends React.Component<> {
       const createLinkFn = e => {
         e.preventDefault();
         markPageAsCreated(this.props.wikiDoc, pageObj.id);
-        this.props.goToPage(pageId);
+        this.props.goToPage(pageId, null, this.props.side);
       };
       style.color = 'green';
 
@@ -118,7 +118,7 @@ class WikiContentComp extends React.Component<> {
 
     const linkFn = e => {
       e.preventDefault();
-      this.props.goToPage(pageId);
+      this.props.goToPage(pageId, null, this.props.side);
     };
     style.color = 'blue';
 
@@ -149,12 +149,14 @@ class WikiContentComp extends React.Component<> {
   };
 
   render() {
+    const widthSize = this.props.side ? '50%' : '100%';
     const contentDivStyle = {
       flex: 'auto',
-      display: 'flex',
+      display: 'inline-flex',
       flexDirection: 'column',
-      height: '100vh',
-      width: 'calc(100vw - 250px)'
+      height: '100%',
+      width: widthSize,
+      borderRight: this.props.side === 'left' ? '1px solid lightgrey' : '0px'
     };
 
     const titleDivStyle = {
@@ -268,7 +270,8 @@ class WikiContentComp extends React.Component<> {
             />
           </Paper>
         )}
-        {this.props.mode === 'document' && (
+        {(this.props.mode === 'document' ||
+          this.props.mode === 'splitview') && (
           <>
             {titleDiv}
             <div

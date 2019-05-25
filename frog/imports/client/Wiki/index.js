@@ -12,6 +12,7 @@ import { toObject as queryToObject } from 'query-parse';
 
 import Button from '@material-ui/core/Button';
 
+import { connection } from '../App/connection';
 import { getPageTitle, checkNewPageTitle, getDifferentPageId } from './helpers';
 import {
   addNewWikiPage,
@@ -78,7 +79,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.wikiContext = {
       getWikiId: this.getWikiId,
       getOnlyValidWikiPages: () =>
-        wikiStore.getPagesArrayOnlyValidExcludingCurrent()
+        this.state.mode === 'splitview'
+          ? wikiStore.pagesArrayOnlyValid
+          : wikiStore.pagesArrayOnlyValid.filter(
+              x => x.id !== this.state.currentPageObj?.id
+            )
     };
 
     window.wiki = {
@@ -101,7 +106,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       search: '',
       deletedPageModalOpen: false,
       currentDeletedPageId: null,
-      currentDeletedPageTitle: null
+      currentDeletedPageTitle: null,
+      rightSideCurrentPageObj: null
     };
   }
 
@@ -287,7 +293,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   changeMode = mode => {
     this.setState({
-      mode
+      mode,
+      rightSideCurrentPageObj:
+        mode === 'splitview' ? this.state.currentPageObj : null
     });
   };
 
@@ -303,32 +311,39 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.props.history.replace(link);
   };
 
-  goToPage = (pageId, cb) => {
+  goToPage = (pageId, cb, side) => {
     const fullPageObj = wikiStore.pages[pageId];
     const instanceId = this.getInstanceId(fullPageObj);
-    const currentPageObj = this.getProperCurrentPageObj(
+    const newCurrentPageObj = this.getProperCurrentPageObj(
       fullPageObj,
       instanceId
     );
 
+    const currentPageObj =
+      !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
+    const rightSideCurrentPageObj =
+      side === 'right' ? newCurrentPageObj : this.state.rightSideCurrentPageObj;
+
     this.setState(
       {
         currentPageObj,
+        rightSideCurrentPageObj,
         deletedPageModalOpen: false,
         currentDeletedPageId: null,
         currentDeletedPageTitle: null,
-        mode: 'document',
+        mode: this.state.mode === 'splitview' ? 'splitview' : 'document',
         search: '',
         findModalOpen: false,
         createModalOpen: false
       },
       () => {
-        if (!currentPageObj) return;
+        if (!newCurrentPageObj || side === 'right') return;
+
         const link =
           '/wiki/' +
           this.wikiId +
           '/' +
-          currentPageObj.title +
+          newCurrentPageObj.title +
           (instanceId ? '/' + instanceId : '');
         if (cb) {
           this.props.history.replace(link);
@@ -411,6 +426,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       width: 'calc(100vw - 250px)'
     };
 
+    const wikiPagesDivContainerStyle = {
+      height: 'calc(100vh - 54px)'
+    };
+
     const sideNavBar = (
       <div style={sideNavBarStyle}>
         <h2>{this.wikiId}</h2>
@@ -449,18 +468,34 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               <WikiTopNavbar
                 currentPageObj={this.state.currentPageObj}
                 deleteLI={this.deleteLI}
+                mode={this.state.mode}
                 changeMode={this.changeMode}
                 moreThanOnePage={validPages.length > 1}
               />
-              <WikiContentComp
-                wikiDoc={this.wikiDoc}
-                currentPageObj={this.state.currentPageObj}
-                mode={this.state.mode}
-                changeMode={this.changeMode}
-                changeTitle={this.changeTitle}
-                openDeletedPageModal={this.openDeletedPageModal}
-                goToPage={this.goToPage}
-              />
+              <div style={wikiPagesDivContainerStyle}>
+                <WikiContentComp
+                  wikiDoc={this.wikiDoc}
+                  currentPageObj={this.state.currentPageObj}
+                  mode={this.state.mode}
+                  changeMode={this.changeMode}
+                  changeTitle={this.changeTitle}
+                  openDeletedPageModal={this.openDeletedPageModal}
+                  goToPage={this.goToPage}
+                  side={this.state.mode === 'splitview' ? 'left' : null}
+                />
+                {this.state.mode === 'splitview' && (
+                  <WikiContentComp
+                    wikiDoc={this.wikiDoc}
+                    currentPageObj={this.state.rightSideCurrentPageObj}
+                    mode={this.state.mode}
+                    changeMode={this.changeMode}
+                    changeTitle={this.changeTitle}
+                    openDeletedPageModal={this.openDeletedPageModal}
+                    goToPage={this.goToPage}
+                    side="right"
+                  />
+                )}
+              </div>
             </div>
           </div>
           {this.state.findModalOpen && (
