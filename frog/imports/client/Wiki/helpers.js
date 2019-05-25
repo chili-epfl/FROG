@@ -1,26 +1,5 @@
 // @flow
 
-import { values } from 'frog-utils';
-import { Meteor } from 'meteor/meteor';
-import { toJS } from 'mobx';
-import { findKey } from 'lodash';
-
-const getInstanceId = page => {
-  if (!page) {
-    return 'all';
-  }
-  const userId = Meteor.userId();
-  if (page.plane === 1) {
-    return userId;
-  }
-
-  if (page.plane === 2) {
-    const group = findKey(page.socialStructure, x => x.includes(userId));
-    return group || 'Other group';
-  }
-  return 'all';
-};
-
 const parseDocResults = function(results: Object) {
   const pagesData = results.pages;
   const pages = {};

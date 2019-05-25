@@ -76,18 +76,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   constructor(props) {
     super(props);
 
-    this.wikiContext = {
-      getWikiId: this.getWikiId,
-      getOnlyValidWikiPages: () =>
-        this.state.mode === 'splitview'
-          ? wikiStore.pagesArrayOnlyValid
-          : wikiStore.pagesArrayOnlyValid.filter(
-              x => x.id !== this.state.currentPageObj?.id
-            )
-    };
-
     window.wiki = {
-      createNewGenericPage: this.createNewGenericPage
+      createNewGenericPage: this.createNewGenericPage,
+      goToPage: this.goToPage,
+      openDeletedPageModal: this.openDeletedPageModal
     };
 
     const query = queryToObject(this.props.location.search.slice(1));
@@ -126,6 +118,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       if (err) throw err;
       this.loadWikiDoc();
     });
+
+    window.wikiDoc = this.wikiDoc;
 
     Mousetrap.bindGlobal('ctrl+n', () =>
       this.setState({ createModalOpen: true })
@@ -227,10 +221,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       return group || userId;
     }
     return userId;
-  };
-
-  getWikiId = () => {
-    return this.wikiId;
   };
 
   deleteLI = (pageId: string) => {
@@ -461,78 +451,76 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     return (
       <div>
-        <WikiContext.Provider value={this.wikiContext}>
-          <div style={containerDivStyle}>
-            {sideNavBar}
-            <div style={contentDivStyle}>
-              <WikiTopNavbar
+        <div style={containerDivStyle}>
+          {sideNavBar}
+          <div style={contentDivStyle}>
+            <WikiTopNavbar
+              currentPageObj={this.state.currentPageObj}
+              deleteLI={this.deleteLI}
+              mode={this.state.mode}
+              changeMode={this.changeMode}
+              moreThanOnePage={validPages.length > 1}
+            />
+            <div style={wikiPagesDivContainerStyle}>
+              <WikiContentComp
+                wikiDoc={this.wikiDoc}
                 currentPageObj={this.state.currentPageObj}
-                deleteLI={this.deleteLI}
                 mode={this.state.mode}
                 changeMode={this.changeMode}
-                moreThanOnePage={validPages.length > 1}
+                changeTitle={this.changeTitle}
+                openDeletedPageModal={this.openDeletedPageModal}
+                goToPage={this.goToPage}
+                side={this.state.mode === 'splitview' ? 'left' : null}
               />
-              <div style={wikiPagesDivContainerStyle}>
+              {this.state.mode === 'splitview' && (
                 <WikiContentComp
                   wikiDoc={this.wikiDoc}
-                  currentPageObj={this.state.currentPageObj}
+                  currentPageObj={this.state.rightSideCurrentPageObj}
                   mode={this.state.mode}
                   changeMode={this.changeMode}
                   changeTitle={this.changeTitle}
                   openDeletedPageModal={this.openDeletedPageModal}
                   goToPage={this.goToPage}
-                  side={this.state.mode === 'splitview' ? 'left' : null}
+                  side="right"
                 />
-                {this.state.mode === 'splitview' && (
-                  <WikiContentComp
-                    wikiDoc={this.wikiDoc}
-                    currentPageObj={this.state.rightSideCurrentPageObj}
-                    mode={this.state.mode}
-                    changeMode={this.changeMode}
-                    changeTitle={this.changeTitle}
-                    openDeletedPageModal={this.openDeletedPageModal}
-                    goToPage={this.goToPage}
-                    side="right"
-                  />
-                )}
-              </div>
+              )}
             </div>
           </div>
-          {this.state.findModalOpen && (
-            <FindModal
-              history={this.props.history}
-              setModalOpen={e => this.setState({ findModalOpen: e })}
-              wikiId={this.wikiId}
-              onSelect={this.goToPageTitle}
-              pages={validPages}
-              errorDiv={this.state.error}
-              onSearch={e =>
-                this.setState({
-                  findModalOpen: false,
-                  dashboardSearch: e,
-                  mode: 'dashboard'
-                })
-              }
-            />
-          )}
-          {this.state.createModalOpen && (
-            <CreateModal
-              onCreate={this.createLI}
-              setModalOpen={e => this.setState({ createModalOpen: e })}
-              errorDiv={this.state.error}
-              wikiId={this.wikiId}
-            />
-          )}
-          {this.state.deletedPageModalOpen && (
-            <DeletedPageModal
-              closeModal={() => this.setState({ deletedPageModalOpen: false })}
-              restoreDeletedPage={this.restoreDeletedPage}
-              createNewLIForPage={this.createNewLIForPage}
-              pageId={this.state.currentDeletedPageId}
-              pageTitle={this.state.currentDeletedPageTitle}
-            />
-          )}
-        </WikiContext.Provider>
+        </div>
+        {this.state.findModalOpen && (
+          <FindModal
+            history={this.props.history}
+            setModalOpen={e => this.setState({ findModalOpen: e })}
+            wikiId={this.wikiId}
+            onSelect={this.goToPageTitle}
+            pages={validPages}
+            errorDiv={this.state.error}
+            onSearch={e =>
+              this.setState({
+                findModalOpen: false,
+                dashboardSearch: e,
+                mode: 'dashboard'
+              })
+            }
+          />
+        )}
+        {this.state.createModalOpen && (
+          <CreateModal
+            onCreate={this.createLI}
+            setModalOpen={e => this.setState({ createModalOpen: e })}
+            errorDiv={this.state.error}
+            wikiId={this.wikiId}
+          />
+        )}
+        {this.state.deletedPageModalOpen && (
+          <DeletedPageModal
+            closeModal={() => this.setState({ deletedPageModalOpen: false })}
+            restoreDeletedPage={this.restoreDeletedPage}
+            createNewLIForPage={this.createNewLIForPage}
+            pageId={this.state.currentDeletedPageId}
+            pageTitle={this.state.currentDeletedPageTitle}
+          />
+        )}
       </div>
     );
   }
