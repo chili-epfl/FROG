@@ -14,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import Collapse from '@material-ui/core/Collapse';
-import type { operatorPackageT, OperatorDbT } from 'frog-utils';
+import { type operatorPackageT, type OperatorDbT, cloneDeep } from 'frog-utils';
 import { Operators } from '/imports/api/operators';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { type StoreProp } from '../../store';
@@ -22,7 +22,11 @@ import { type StoreProp } from '../../store';
 type PropsT = StoreProp & {
   classes: Object,
   operator: OperatorDbT,
-  onSelect?: Function
+  onSelect?: Function,
+  operatorTypesList?: Object,
+  operatorMappings?: Object,
+  categories?: string[],
+  allOpen?: boolean
 };
 
 type StateT = { expanded: ?string, searchStr: string };
@@ -157,15 +161,35 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
       control: ['Control'],
       social: ['Simple', 'Complex', 'Deprecated']
     };
-    const filteredList = operatorTypes
-      .filter(x => x.type === this.props.operator.type)
-      .filter(
-        x =>
-          x.meta.name.toLowerCase().includes(this.state.searchStr) ||
-          x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
-          x.meta.description.toLowerCase().includes(this.state.searchStr)
-      )
-      .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
+    const list = this.props.operatorTypesList;
+    const operatorTypesListed = list
+      ? operatorTypes.filter(x => list.includes(x.id))
+      : operatorTypes;
+    let filteredList = cloneDeep(
+      operatorTypesListed
+        .filter(x => x.type === this.props.operator.type)
+        .filter(
+          x =>
+            x.meta.name.toLowerCase().includes(this.state.searchStr) ||
+            x.meta.shortDesc.toLowerCase().includes(this.state.searchStr) ||
+            x.meta.description.toLowerCase().includes(this.state.searchStr)
+        )
+        .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1))
+    );
+    const mappings = this.props.operatorMappings;
+    if (mappings) {
+      filteredList = cloneDeep(filteredList);
+      Object.keys(mappings).forEach(x => {
+        const opToChange = filteredList.find(op => op.id === x);
+        if (opToChange) {
+          opToChange.meta.category = mappings[x];
+        }
+      });
+    }
+    const categoriesRaw = this.props.categories || categories[operator.type];
+    const categoriesToUse = categoriesRaw.filter(x =>
+      filteredList.find(op => op.meta.category === x)
+    );
 
     const { classes } = this.props;
     return (
@@ -189,11 +213,11 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
         </div>
         <List component="nav">
           {this.state.searchStr === '' &&
-            categories[operator.type].map((x: string, idx: number) => (
+            categoriesToUse.map((x: string, idx: number) => (
               <StyledOperatorCategory
                 name={x}
                 items={filteredList.filter(y => y.meta.category === x)}
-                defaultState={idx === 0}
+                defaultState={idx === 0 || this.props.allOpen}
                 onSelect={this.select}
                 key={x}
               />

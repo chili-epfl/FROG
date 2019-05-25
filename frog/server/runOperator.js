@@ -10,8 +10,12 @@ const runOperatorFn = (oTID, data) => {
   if (!oT || !oT.meta.preview) {
     throw new Meteor.Error('No operator or no preview');
   }
-  const product = Promise.await(operators[oTID](data || {}));
-  return product;
+  try {
+    const product = Promise.await(operators[oTID](data || {}))
+    return product;
+  } catch (e) {
+    return Meteor.Error('Operator error', e);
+  }
 };
 
 Meteor.methods({ 'run.operator': runOperatorFn });

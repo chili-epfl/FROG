@@ -50,7 +50,10 @@ export const check = (
 type PropsT = {
   operatorType: string,
   onSelect?: Function,
-  onConfigChange: Function
+  onConfigChange: Function,
+  operatorTypesList?: Object,
+  operatorMappings?: Object,
+  categories?: string[]
 };
 
 type StateT = {
@@ -159,6 +162,9 @@ const OperatorForm = observer(
           <ChooseOperatorTypeComp
             operator={{ type: 'product' }}
             store={store}
+            operatorTypesList={this.props.operatorTypesList}
+            operatorMappings={this.props.operatorMappings}
+            categories={this.props.categories}
             onSelect={op => {
               this.setState(
                 {

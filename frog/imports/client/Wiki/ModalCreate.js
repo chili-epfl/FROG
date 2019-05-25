@@ -12,6 +12,7 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  FormHelperText,
   Select,
   MenuItem,
   TextField,
@@ -24,6 +25,7 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
+import { activityTypesObj } from '/imports/activityTypes';
 
 type StateT = {
   currentTab: number,
@@ -34,7 +36,8 @@ type StateT = {
   expanded: boolean,
   allowView: boolean,
   allowEdit: boolean,
-  config: Object
+  config?: Object,
+  operatorConfig?: Object
 };
 
 type PropsT = {
@@ -80,6 +83,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       socialPlane: 3,
       allowView: true,
       allowEdit: true,
+      operatorConfig: {},
       config: {}
     };
   }
@@ -123,7 +127,19 @@ class NewPageModal extends React.Component<PropsT, StateT> {
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
-    const { classes } = this.props;
+    const { classes, errorDiv } = this.props;
+    let operatorTypesList = [];
+    const activityType = this.state.config?.activityType;
+    if (
+      activityType &&
+      activityTypesObj[activityType].meta.supportsLearningItems
+    ) {
+      operatorTypesList = ['op-twitter', 'op-rss', 'op-hypothesis'];
+      if (socialPlane !== 'everyone') {
+        operatorTypesList.push('op-aggregate');
+      }
+    }
+
     return (
       <Dialog
         open={this.state.open}
@@ -135,6 +151,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             <Typography variant="h6">Create New Page</Typography>
             <TextField
               autoFocus
+              error={errorDiv != null}
               id="page-title"
               value={pageTitle}
               onChange={this.handleTitleChange}
@@ -143,9 +160,16 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               onKeyDown={e => {
                 if (e.keyCode === 13) {
                   this.handleCreate();
+                } else if (e.keyCode === 40) {
+                  this.setState({ expanded: true });
+                } else if (e.keyCode === 38) {
+                  this.setState({ expanded: false });
                 }
               }}
             />
+            {errorDiv != null && (
+              <FormHelperText error>{errorDiv}</FormHelperText>
+            )}
           </FormControl>
         </FormGroup>
         <Collapse in={expanded} timeout="auto">
@@ -211,7 +235,22 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 onSubmit={e => this.handleConfig(e)}
               />
             )}
-            {currentTab === 2 && <OperatorForm operatorType="product" />}
+            {currentTab === 2 && (
+              <OperatorForm
+                operatorType="product"
+                categories={['From the web', 'From the current page']}
+                operatorTypesList={operatorTypesList}
+                operatorMappings={{
+                  'op-twitter': 'From the web',
+                  'op-rss': 'From the web',
+                  'op-hypothesis': 'From the web',
+                  'op-aggregate': 'From the current page'
+                }}
+                onConfigChange={e => this.setState({ operatorConfig: e })}
+                onSubmit={e => this.setState({ operatorConfig: e })}
+                allOpen
+              />
+            )}
           </DialogContent>
         </Collapse>
         <DialogActions>
