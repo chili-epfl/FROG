@@ -651,7 +651,6 @@ class ReactiveRichText extends Component<
             onMouseLeave={() => {
               this.props.dataFn.listore.setOverCB(null);
             }}
-            data-wikiside={wikiContext.side}
           >
             {!get(props, 'readOnly') && (
               <CustomQuillToolbar

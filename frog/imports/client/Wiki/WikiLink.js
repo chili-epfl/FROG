@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
-import { WikiContext, uuid } from 'frog-utils';
 
 import { markPageAsCreated } from '/imports/api/wikiDocHelpers';
 import { wikiStore } from './store';

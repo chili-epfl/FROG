@@ -2,10 +2,7 @@
 
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { WikiContext, values, uuid } from 'frog-utils';
-import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
-import { findKey, flatMap } from 'lodash';
+import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
@@ -13,13 +10,10 @@ import { toObject as queryToObject } from 'query-parse';
 import Button from '@material-ui/core/Button';
 
 import { connection } from '../App/connection';
-import { getPageTitle, checkNewPageTitle, getDifferentPageId } from './helpers';
+import { getPageTitle, getDifferentPageId } from './helpers';
 import {
-  addNewWikiPage,
   invalidateWikiPage,
   changeWikiPageTitle,
-  markPageAsCreated,
-  addInstance,
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
