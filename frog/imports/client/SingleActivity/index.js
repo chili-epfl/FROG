@@ -7,6 +7,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Grow from '@material-ui/core/Grow';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -61,6 +63,9 @@ const style = {
     left: 16
   },
   padded_text: {
+    margin: 8
+  },
+  back_button: {
     margin: 8
   }
 };
@@ -144,7 +149,12 @@ class ChooseActivityType extends React.Component<{
 }
 
 class ConfigPanel extends React.Component<
-  { activityType: ActivityPackageT, classes: Object, onSubmit: Function },
+  {
+    activityType: ActivityPackageT,
+    classes: Object,
+    onSubmit: Function,
+    onReturn: Function
+  },
   { activity: ActivityDbT }
 > {
   render() {
@@ -153,6 +163,12 @@ class ConfigPanel extends React.Component<
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">
+          <IconButton
+            onClick={() => this.props.onReturn()}
+            className={classes.back_button}
+          >
+            <ArrowBack />
+          </IconButton>
           Edit the Activity
         </Typography>
         <ApiForm
@@ -180,12 +196,19 @@ class ConfigPanel extends React.Component<
 
 class Finish extends React.Component<{
   url: Object,
-  classes: Object
+  classes: Object,
+  onReturn: Function
 }> {
   render() {
     const { url, classes } = this.props;
     return (
       <Card raised className={classes.card}>
+        <IconButton
+          onClick={() => this.props.onReturn()}
+          className={classes.back_button}
+        >
+          <ArrowBack />
+        </IconButton>
         <Typography variant="h3" component="h2" className={classes.padded_text}>
           You're all set, please share this link with the participants:{' '}
           <a href={'http://chilifrog.ch/ac/' + url.public}>
@@ -243,6 +266,7 @@ class SingleActivity extends React.Component<PropsT, StateT> {
             onSubmit={conf =>
               this.setState({ stage: this.state.stage + 1, activity: conf })
             }
+            onReturn={() => this.setState({ stage: this.state.stage - 1 })}
           />
         </Grow>
         <Grow in={stage === 3} unmountOnExit>
@@ -257,6 +281,7 @@ class SingleActivity extends React.Component<PropsT, StateT> {
                 .substring(7)
             }}
             classes={classes}
+            onReturn={() => this.setState({ stage: this.state.stage - 1 })}
           />
         </Grow>
       </>
