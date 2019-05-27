@@ -188,14 +188,13 @@ class WikiContentComp extends React.Component<> {
               }}
             >
               <LIDashboard
-                wikiId={this.wikiId}
-                search={this.state.dashboardSearch}
+                wikiId={this.props.wikiId}
+                search={this.props.dashboardSearch}
                 onClick={id => {
-                  const page = values(toJS(wikiStore.pages)).find(
+                  const pageId = values(toJS(wikiStore.pages)).find(
                     x => x.liId === id
-                  ).title;
-                  this.props.history.push(`/wiki/${this.wikiId}/${page}`);
-                  this.props.changeMode('document');
+                  ).id;
+                  this.props.goToPage(pageId);
                   this.setState({ docMode: 'view' });
                 }}
               />

@@ -155,6 +155,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (this.initialLoad) {
       return this.handleInitialLoad();
     }
+
+    if (
+      this.state.currentPageObj &&
+      !wikiStore.pages[this.state.currentPageObj.id].valid
+    ) {
+      console.log('Detected deleted page, redirecting...');
+      const link = window.location.origin + '/wiki/' + this.wikiId;
+      window.location.replace(link);
+    }
   };
 
   handleInitialLoad = () => {
@@ -185,16 +194,33 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       }
     }
 
-    if (!currentPageObj.valid)
-      return this.setState({
+    if (!currentPageObj.valid) {
+      this.initialLoad = true;
+      this.setState({
+        currentPageObj,
         deletedPageModalOpen: true,
         currentDeletedPageId: currentPageObj.id,
-        currentDeletedPageTitle: pageTitle
+        currentDeletedPageTitle: currentPageObj.title
       });
+      return;
+    }
 
-    this.setState({
-      currentPageObj
-    });
+    this.setState(
+      {
+        currentPageObj
+      },
+      () => {
+        const link =
+          '/wiki/' +
+          this.wikiId +
+          '/' +
+          currentPageObj.title +
+          (instanceId && instanceId !== this.getInstanceId(fullPageObj)
+            ? '/' + instanceId
+            : '');
+        this.props.history.push(link);
+      }
+    );
   };
 
   getProperCurrentPageObj = (fullPageObj, instanceId) => {
@@ -302,6 +328,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       fullPageObj,
       instanceId
     );
+
+    if (!newCurrentPageObj) {
+      if (!fullPageObj.noNewInstances) {
+        this.initialLoad = true;
+        this.setState({
+          initialPageTitle: fullPageObj.title
+        });
+        return;
+      }
+    }
 
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
@@ -457,6 +493,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             />
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
+                wikiId={this.wikiId}
                 wikiDoc={this.wikiDoc}
                 currentPageObj={this.state.currentPageObj}
                 mode={this.state.mode}
@@ -468,6 +505,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               />
               {this.state.mode === 'splitview' && (
                 <WikiContentComp
+                  wikiId={this.wikiId}
                   wikiDoc={this.wikiDoc}
                   currentPageObj={this.state.rightSideCurrentPageObj}
                   mode={this.state.mode}
@@ -475,6 +513,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                   changeTitle={this.changeTitle}
                   openDeletedPageModal={this.openDeletedPageModal}
                   goToPage={this.goToPage}
+                  dashboardSearch={this.state.dashboardSearch}
                   side="right"
                 />
               )}
