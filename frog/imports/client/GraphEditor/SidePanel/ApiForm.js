@@ -250,7 +250,6 @@ const ApiForm = observer(
     };
 
     render() {
-      console.log(this.props);
       return (
         <>
           {this.state.activity.activityType ? (

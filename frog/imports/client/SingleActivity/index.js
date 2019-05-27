@@ -117,7 +117,7 @@ class ChooseActivityType extends React.Component<{
         <GridList cols="4" spacing="8">
           {list.map(x => (
             <a
-              href={'#'}
+              href="#"
               onClick={e => {
                 e.preventDefault();
                 onSubmit(x);
@@ -150,7 +150,6 @@ class ConfigPanel extends React.Component<
   render() {
     const { id, config } = this.props.activityType;
     const { classes } = this.props;
-    console.log(id);
     return (
       <Card raised className={classes.card}>
         <ApiForm
@@ -210,10 +209,7 @@ class SingleActivity extends React.Component<PropsT, StateT> {
 
   render() {
     const { classes } = this.props;
-    const { stage, activity, activityType } = this.state;
-    console.log(stage);
-    console.log(activity);
-    console.log(activityType);
+    const { stage, activityType } = this.state;
     return (
       <>
         <AppBar position="static" color="default">
