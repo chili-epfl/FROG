@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -66,7 +67,8 @@ const style = {
 
 type StateT = {
   stage: number,
-  config: Object
+  activityType?: ActivityPackageT,
+  activity?: ActivityDbT
 };
 
 type PropsT = {
@@ -92,20 +94,10 @@ class Welcome extends React.Component<PropsT, StateT> {
   }
 }
 
-class ChooseActivityType extends React.Component<
-  {
-    onSubmit: Function,
-    ...PropsT
-  },
-  { config: Object }
-> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      config: {}
-    };
-  }
-
+class ChooseActivityType extends React.Component<{
+  onSubmit: Function,
+  ...PropsT
+}> {
   render() {
     const { classes, onSubmit } = this.props;
     const allowed = [
@@ -152,19 +144,13 @@ class ChooseActivityType extends React.Component<
 }
 
 class ConfigPanel extends React.Component<
-  { activityType: Object, classes: Object, onSubmit: Function },
-  { activity: Object }
+  { activityType: ActivityPackageT, classes: Object, onSubmit: Function },
+  { activity: ActivityDbT }
 > {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activity: this.props.activityType
-    };
-  }
-
   render() {
     const { id, config } = this.props.activityType;
     const { classes } = this.props;
+    console.log(id);
     return (
       <Card raised className={classes.card}>
         <ApiForm
@@ -190,7 +176,6 @@ class ConfigPanel extends React.Component<
 }
 
 class Finish extends React.Component<{
-  activity: Object,
   url: Object,
   classes: Object
 }> {
@@ -219,14 +204,16 @@ class SingleActivity extends React.Component<PropsT, StateT> {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 1,
-      config: {}
+      stage: 1
     };
   }
 
   render() {
     const { classes } = this.props;
-    const { stage, config } = this.state;
+    const { stage, activity, activityType } = this.state;
+    console.log(stage);
+    console.log(activity);
+    console.log(activityType);
     return (
       <>
         <AppBar position="static" color="default">
@@ -248,22 +235,21 @@ class SingleActivity extends React.Component<PropsT, StateT> {
           <ChooseActivityType
             classes={classes}
             onSubmit={conf =>
-              this.setState({ stage: this.state.stage + 1, config: conf })
+              this.setState({ stage: this.state.stage + 1, activityType: conf })
             }
           />
         </Grow>
         <Grow in={stage === 2} unmountOnExit>
           <ConfigPanel
-            activityType={config}
+            activityType={activityType}
             classes={classes}
             onSubmit={conf =>
-              this.setState({ stage: this.state.stage + 1, config: conf })
+              this.setState({ stage: this.state.stage + 1, activity: conf })
             }
           />
         </Grow>
         <Grow in={stage === 3} unmountOnExit>
           <Finish
-            activity={config}
             url={{
               public: Math.random()
                 .toString(36)
