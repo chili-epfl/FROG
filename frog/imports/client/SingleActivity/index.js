@@ -3,6 +3,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import Grow from '@material-ui/core/Grow';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -57,6 +58,9 @@ const style = {
   logo: {
     position: 'absolute',
     left: 16
+  },
+  padded_text: {
+    margin: 8
   }
 };
 
@@ -104,7 +108,6 @@ class ChooseActivityType extends React.Component<
 
   render() {
     const { classes, onSubmit } = this.props;
-    const { config } = this.state;
     const allowed = [
       'ac-quiz',
       'ac-ck-board',
@@ -114,7 +117,6 @@ class ChooseActivityType extends React.Component<
       'ac-video'
     ];
     const list = activityTypes.filter(x => allowed.includes(x.id));
-    console.log(list);
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">
@@ -150,7 +152,7 @@ class ChooseActivityType extends React.Component<
 }
 
 class ConfigPanel extends React.Component<
-  { activityType: Object, classes: Object },
+  { activityType: Object, classes: Object, onSubmit: Function },
   { activity: Object }
 > {
   constructor(props) {
@@ -168,10 +170,46 @@ class ConfigPanel extends React.Component<
         <ApiForm
           activityType={id}
           config={config}
-          onConfigChange={x => this.setState({activity: x})}
+          onConfigChange={x => this.setState({ activity: x })}
           hidePreview
           noOffset
         />
+        <CardActions>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => this.props.onSubmit(this.state.activity)}
+          >
+            Publish
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  }
+}
+
+class Finish extends React.Component<{
+  activity: Object,
+  url: Object,
+  classes: Object
+}> {
+  render() {
+    const { url, classes } = this.props;
+    return (
+      <Card raised className={classes.card}>
+        <Typography variant="h3" component="h2" className={classes.padded_text}>
+          You're all set, please share this link with the participants:{' '}
+          <a href={'http://chilifrog.ch/ac/' + url.public}>
+            {'http://chilifrog.ch/ac/' + url.public}
+          </a>
+        </Typography>
+        <Typography variant="h4" component="h3" className={classes.padded_text}>
+          Here's a secret link to your behind-the-scene view of the dashboard:{' '}
+          <a href={'http://chilifrog.ch/ac/dash/' + url.dashboard}>
+            {'http://chilifrog.ch/ac/dash/' + url.dashboard}
+          </a>
+        </Typography>
       </Card>
     );
   }
@@ -215,7 +253,27 @@ class SingleActivity extends React.Component<PropsT, StateT> {
           />
         </Grow>
         <Grow in={stage === 2} unmountOnExit>
-          <ConfigPanel activityType={config} classes={classes} />
+          <ConfigPanel
+            activityType={config}
+            classes={classes}
+            onSubmit={conf =>
+              this.setState({ stage: this.state.stage + 1, config: conf })
+            }
+          />
+        </Grow>
+        <Grow in={stage === 3} unmountOnExit>
+          <Finish
+            activity={config}
+            url={{
+              public: Math.random()
+                .toString(36)
+                .substring(7),
+              dashboard: Math.random()
+                .toString(36)
+                .substring(7)
+            }}
+            classes={classes}
+          />
         </Grow>
       </>
     );
