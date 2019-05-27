@@ -28,7 +28,7 @@ const style = {
   welcome_card: {
     minWidth: 275,
     maxWidth: 900,
-    minHeight: 500,
+    minHeight: 300,
     margin: 'auto',
     marginTop: 16,
     marginBottom: 16,
@@ -96,7 +96,7 @@ class Welcome extends React.Component<PropsT, StateT> {
 
 class ChooseActivityType extends React.Component<{
   onSubmit: Function,
-  ...PropsT
+  classes: Object
 }> {
   render() {
     const { classes, onSubmit } = this.props;
@@ -152,12 +152,16 @@ class ConfigPanel extends React.Component<
     const { classes } = this.props;
     return (
       <Card raised className={classes.card}>
+        <Typography variant="h5" component="h2">
+          Edit the Activity
+        </Typography>
         <ApiForm
           activityType={id}
           config={config}
           onConfigChange={x => this.setState({ activity: x })}
           hidePreview
           noOffset
+          hideValidator
         />
         <CardActions>
           <Button
@@ -223,9 +227,6 @@ class SingleActivity extends React.Component<PropsT, StateT> {
         </AppBar>
         <Grow in={stage === 1} unmountOnExit>
           <Welcome classes={classes} />
-          {/* Currently, selecting and configuring activity are handled by a
-          single screenplan to separate but gets too complicated */}
-          {/* The function to generate the activity must be called here and the 2 urls returned. */}
         </Grow>
         <Grow in={stage === 1} unmountOnExit>
           <ChooseActivityType
@@ -245,6 +246,7 @@ class SingleActivity extends React.Component<PropsT, StateT> {
           />
         </Grow>
         <Grow in={stage === 3} unmountOnExit>
+          {/* The function to generate the activity must be called here and the 2 urls returned. */}
           <Finish
             url={{
               public: Math.random()
