@@ -28,6 +28,7 @@ import LearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
+import { Presence } from './Presence';
 
 import WikiLinkModule from './WikiLink/WikiLinkModule';
 import WikiLinkBlot from './WikiLink/WikiLinkBlot';
@@ -319,7 +320,33 @@ class ReactiveRichText extends Component<
     }
   }
 
+  sendPresence = (doc: *) => {
+    doc.submitPresence(
+      {
+        u: this.props.readOnly ? undefined : this.props.userId
+      },
+      () => {
+        doc.requestReplyPresence = false;
+      }
+    );
+  };
+
   componentDidMount() {
+    const doc = this.props.dataFn?.doc;
+
+    if (doc) {
+      doc.requestReplyPresence = true;
+      if (doc.type) {
+        console.log(doc.type);
+        this.sendPresence(doc);
+      } else {
+        console.log('load');
+        doc.on(
+          'load',
+          () => console.log('loaded', doc.type) || this.sendPresence(doc)
+        );
+      }
+    }
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
       if (this.props.autoFocus) {
@@ -376,6 +403,12 @@ class ReactiveRichText extends Component<
   }
 
   componentWillUnmount() {
+    const doc = this.props.dataFn?.doc;
+    if (!this.props.readOnly && doc) {
+      doc.submitPresence({
+        u: undefined
+      });
+    }
     if (!this.props.data && !this.props.rawData) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
       if (!this.props.shorten) {
@@ -650,6 +683,10 @@ class ReactiveRichText extends Component<
               this.props.dataFn.listore.setOverCB(null);
             }}
           >
+            <Presence
+              dataFn={this.props.dataFn}
+              id={this.props.dataFn.doc.id}
+            />
             {!get(props, 'readOnly') && (
               <CustomQuillToolbar
                 id={this.toolbarId}

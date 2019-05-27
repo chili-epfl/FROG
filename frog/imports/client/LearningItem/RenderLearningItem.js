@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { toJS } from 'mobx';
 import { Provider } from 'mobx-react';
 import { omit, isEqual } from 'lodash';
@@ -184,7 +185,7 @@ class RenderLearningItem extends React.Component<any, any> {
               style={{ height: '100%' }}
             >
               <Comp
-                userId={dataFn?.meta?.createdByUser}
+                userId={Meteor.userId()}
                 data={data.payload}
                 isPlayback={isPlayback}
                 dataFn={dataFn && dataFn.specialize('payload')}
