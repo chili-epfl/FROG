@@ -31,7 +31,7 @@ type StateT = {
   currentTab: number,
   pageTitle: string,
   pageTitleValid: boolean,
-  socialPlane: string,
+  socialPlane: number,
   open: boolean,
   expanded: boolean,
   allowView: boolean,
@@ -80,7 +80,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       pageTitleValid: true,
       open: true,
       expanded: false,
-      socialPlane: 'everyone',
+      socialPlane: 3,
       allowView: true,
       allowEdit: true,
       operatorConfig: {},
@@ -120,6 +120,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.setState({ config: conf });
   };
 
+  handleCreate = () => {
+    const { pageTitle, socialPlane } = this.state;
+    this.props.onCreate(pageTitle, socialPlane);
+  };
+
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
     const { classes, errorDiv } = this.props;
@@ -148,17 +153,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               autoFocus
               error={errorDiv != null}
               id="page-title"
-              value={this.state.pageTitle}
+              value={pageTitle}
               onChange={this.handleTitleChange}
               label="Page Title"
               margin="normal"
               onKeyDown={e => {
                 if (e.keyCode === 13) {
-                  this.props.onCreate(
-                    pageTitle,
-                    this.state.config,
-                    this.state.operatorConfig
-                  );
+                  this.handleCreate();
                 } else if (e.keyCode === 40) {
                   this.setState({ expanded: true });
                 } else if (e.keyCode === 38) {
@@ -227,6 +228,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             )}
             {currentTab === 1 && (
               <ApiForm
+                categories={['Core', 'Other']}
+                whiteList={['li-richText', 'ac-gallery', 'ac-brainstorm']}
+                activityMapping={{
+                  'li-richText': 'Core',
+                  'ac-gallery': 'Core',
+                  'ac-brainstorm': 'Other'
+                }}
                 noOffset
                 showDelete
                 onConfigChange={e => this.handleConfig(e)}
@@ -265,13 +273,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             Cancel
           </Button>
           <Button
-            onClick={() =>
-              this.props.onCreate(
-                pageTitle,
-                this.state.config,
-                this.state.operatorConfig
-              )
-            }
+            onClick={() => this.handleCreate()}
             color="primary"
             variant="contained"
           >
