@@ -229,6 +229,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             )}
             {currentTab === 1 && (
               <ApiForm
+                categories={['Core', 'Other']}
+                whiteList={['li-richText', 'ac-gallery', 'ac-brainstorm']}
+                activityMapping={{
+                  'li-richText': 'Core',
+                  'ac-gallery': 'Core',
+                  'ac-brainstorm': 'Other'
+                }}
                 noOffset
                 showDelete
                 onConfigChange={e => this.handleConfig(e)}
