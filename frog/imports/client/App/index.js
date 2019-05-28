@@ -26,6 +26,7 @@ import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
 import Wiki from '../Wiki';
+import SingleActivity from '../SingleActivity';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -268,6 +269,7 @@ const FROGRouter = withRouter(
             <Route path="/wiki/:wikiId" component={Wiki} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/single_activity" component={SingleActivity} />
             <Route path="/:slug" component={StudentView} />
             <Route
               render={() =>
