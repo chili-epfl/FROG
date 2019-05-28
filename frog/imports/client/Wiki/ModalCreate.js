@@ -232,6 +232,19 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 showDelete
                 onConfigChange={e => this.handleConfig(e)}
                 onSubmit={e => this.handleConfig(e)}
+                categories={['interactive', 'non-interactive']}
+                whiteList={[
+                  'ac-chat',
+                  'ac-brainstorm',
+                  'ac-video',
+                  'ac-ck-board'
+                ]}
+                activityMapping={{
+                  'ac-chat': 'interactive',
+                  'ac-brainstorm': 'interactive',
+                  'ac-video': 'non-interactive',
+                  'ac-ck-board': 'interactive'
+                }}
               />
             )}
             {currentTab === 2 && (
