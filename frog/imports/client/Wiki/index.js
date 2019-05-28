@@ -166,7 +166,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const { operatorType, config: operatorConfig } = operatorConfigRaw;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
-    console.log(operatorType, operatorConfig, operatorConfigRaw);
     if (operatorType) {
       const contents = await new Promise(resolve => {
         operatorConfig
@@ -178,7 +177,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             )
           : resolve('nothingburger');
       });
-      console.log(contents);
     }
 
     doc.create(activityTypesObj[activityType].dataStructure);
