@@ -640,6 +640,8 @@ class ReactiveRichText extends Component<
       <WikiContext.Consumer>
         {wikiContext => (
           <div
+            className="reactRichText"
+            data-wiki-side={wikiContext.side || 'left'}
             style={{ height: '100%' }}
             onMouseOver={() => {
               if (this.props.dataFn.listore.dragState) {
@@ -680,7 +682,9 @@ class ReactiveRichText extends Component<
                             openCreator: { liType: 'li-image' }
                           }),
                         video: () =>
-                          this.setState({ openCreator: { liType: 'li-embed' } })
+                          this.setState({
+                            openCreator: { liType: 'li-embed' }
+                          })
                       }
                     },
                 wikiLink: isEmpty(wikiContext)
@@ -689,11 +693,7 @@ class ReactiveRichText extends Component<
                       allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
-                        console.log(searchTerm);
-                        const values = wikiContext.getOnlyValidWikiPages(
-                          false,
-                          searchTerm.includes('/')
-                        );
+                        const values = wikiContext.getOnlyValidWikiPages();
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
@@ -711,7 +711,6 @@ class ReactiveRichText extends Component<
 
                           if (matches.length === 0) {
                             matches.push({
-                              wikiId: wikiContext.getWikiId(),
                               title: searchTerm,
                               created: true,
                               valid: true
@@ -729,10 +728,7 @@ class ReactiveRichText extends Component<
                       mentionDenotationChars: ['#'],
                       type: 'embed',
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages(
-                          false,
-                          searchTerm.includes('/')
-                        );
+                        const values = wikiContext.getOnlyValidWikiPages();
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
