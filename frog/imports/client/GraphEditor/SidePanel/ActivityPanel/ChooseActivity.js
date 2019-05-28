@@ -41,7 +41,10 @@ type PropsT = {
   changesLoaded?: Function,
   setActivityTypeId?: Function,
   hideLibrary?: boolean,
-  whiteList?: string[]
+  whiteList?: string[],
+  categories?: string[],
+  activityMapping?: Object,
+  allOpen?: boolean
 };
 
 const styles = {
@@ -183,14 +186,16 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             store.addHistory();
           }
         };
-    const categories = [
-      'Core tools',
-      'Single Learning Items',
-      'Discipline-specific',
-      'Simulations',
-      'Deprecated core tools',
-      'Hyper-specific'
-    ];
+    const categories = this.props.categories
+      ? this.props.categories
+      : [
+          'Core tools',
+          'Single Learning Items',
+          'Discipline-specific',
+          'Simulations',
+          'Deprecated core tools',
+          'Hyper-specific'
+        ];
     const filteredList = activityTypesFiltered
       .filter(
         x =>
@@ -201,7 +206,20 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
-    const { classes, store } = this.props;
+    const { classes, store, allOpen, activityMapping } = this.props;
+    const defaultDisplay = (
+      items: string[],
+      categoryName: string,
+      idx: number
+    ) => (
+      <StyledActivityCategory
+        name={categoryName}
+        items={items}
+        defaultState={idx === 0 || idx === 1 || allOpen}
+        onSelect={select}
+        key={categoryName}
+      />
+    );
     return (
       <Grid>
         <div className={classes.topPanel}>
@@ -234,15 +252,20 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
         <List component="nav">
           {!this.props.store.ui.libraryOpen &&
             this.state.searchStr === '' &&
-            categories.map((x: string, idx: number) => (
-              <StyledActivityCategory
-                name={x}
-                items={filteredList.filter(y => y.meta.category === x)}
-                defaultState={idx === 0 || idx === 1}
-                onSelect={select}
-                key={x}
-              />
-            ))}
+            categories.map((x: string, idx: number) => {
+              if (activityMapping)
+                return defaultDisplay(
+                  filteredList.filter(y => activityMapping[y.id] === x),
+                  x,
+                  idx
+                );
+              else
+                return defaultDisplay(
+                  filteredList.filter(y => y.meta.category === x),
+                  x,
+                  idx
+                );
+            })}
           {!this.props.store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length !== 0 &&
