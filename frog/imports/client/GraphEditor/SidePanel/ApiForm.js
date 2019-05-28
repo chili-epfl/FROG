@@ -166,7 +166,7 @@ class Config extends React.Component<
 }
 
 type PropsT = {
-  activityType: string,
+  activityType?: string,
   categories?: string[],
   activityMapping?: Object,
   allOpen?: boolean,
