@@ -115,7 +115,7 @@ const FROGRouter = withRouter(
       isStudentList,
       loginQuery
     }: {
-      username: string,
+      username?: string,
       token?: string,
       isStudentList?: boolean,
       loginQuery?: boolean
@@ -232,8 +232,11 @@ const FROGRouter = withRouter(
             }
             if (
               this.props.match.params.slug &&
-              this.props.match.params.slug.slice(0, 4) !== 'wiki'
+              (this.props.match.params.slug.slice(0, 4) === 'wiki' ||
+                this.props.match.params.slug.slice(0, 15) === 'single_activity')
             ) {
+              this.login({});
+            } else if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
