@@ -197,7 +197,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     className={classes.selectSocialPlane}
                   >
                     <MenuItem value={3}>Everyone</MenuItem>
-                    <MenuItem value={2}>Each Group</MenuItem>
                     <MenuItem value={1}>Each Individual</MenuItem>
                   </Select>
                 </FormControl>
