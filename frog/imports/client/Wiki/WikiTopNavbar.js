@@ -6,11 +6,18 @@ import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 
-class WikiTopNavbar extends React.Component<> {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
+class WikiTopNavbar extends React.Component<{ username: string }> {
+  constructor() {
+    super();
+    this.state = {
+      username: '...'
+    };
+    Meteor.subscribe('userData', () => {
+      const user = Meteor.users.findOne();
+      this.setState({
+        username: user.isAnonymous ? 'Anonymous Visitor' : user.username
+      });
+    });
   }
 
   render() {
@@ -20,7 +27,6 @@ class WikiTopNavbar extends React.Component<> {
       deleteLI,
       moreThanOnePage
     } = this.props;
-
     const topNavBarStyle = {
       display: 'flex',
       flex: '0 0 50px',
@@ -119,7 +125,7 @@ class WikiTopNavbar extends React.Component<> {
         ) : (
           <div />
         )}
-        <div style={topNavBarItemStyleName}>{Meteor.user().username}</div>
+        <div style={topNavBarItemStyleName}>{this.state.username}</div>
       </div>
     );
   }

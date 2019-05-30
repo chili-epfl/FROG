@@ -14,15 +14,17 @@ const doLogin = (user, self) => {
       return Accounts._loginUser(self, alreadyUser._id);
     }
   }
-  const userServiceData = {
-    isAnonymous: user ? false : true,
-    id: user || uuid()
-  };
+  const userServiceData = { id: user || uuid() };
   const { userId } = Accounts.updateOrCreateUserFromExternalService(
     'frog',
     userServiceData
   );
-  Meteor.users.update(userId, { $set: { username: userServiceData.id } });
+  Meteor.users.update(userId, {
+    $set: {
+      username: userServiceData.id,
+      isAnonymous: user ? false : true
+    }
+  });
   const stampedLoginToken = Accounts._generateStampedLoginToken();
   Accounts._insertLoginToken(userId, stampedLoginToken);
 

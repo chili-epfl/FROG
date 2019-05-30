@@ -95,7 +95,7 @@ Meteor.publish('userData', function() {
     return this.ready();
   }
   return Meteor.users.find(this.userId, {
-    fields: { username: 1, joinedSessions: 1, role: 1 }
+    fields: { username: 1, isAnonymous: 1, joinedSessions: 1, role: 1 }
   });
 });
 
