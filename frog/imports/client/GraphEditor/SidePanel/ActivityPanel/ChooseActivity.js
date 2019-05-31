@@ -124,7 +124,7 @@ class ActivityCategory extends Component<any, any> {
                   data-for={x.meta.name}
                 />
                 {x.meta.shortDesc && (
-                  <ReactTooltip place="top" type="light" id={x.meta.name}>
+                  <ReactTooltip place="top" delayShow="500" id={x.meta.name}>
                     {x.meta.shortDesc}
                   </ReactTooltip>
                 )}

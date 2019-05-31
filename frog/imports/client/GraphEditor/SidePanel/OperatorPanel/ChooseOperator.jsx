@@ -100,7 +100,11 @@ class OperatorCategory extends Component<any, any> {
                   data-for={x.meta.name}
                 />
                 {x.meta.shortDesc && (
-                  <ReactTooltip place="top" type="light" id={x.meta.name}>
+                  <ReactTooltip
+                    place="top"
+                    id={x.meta.name}
+                    delayShow="500"
+                  >
                     {x.meta.shortDesc}
                   </ReactTooltip>
                 )}
