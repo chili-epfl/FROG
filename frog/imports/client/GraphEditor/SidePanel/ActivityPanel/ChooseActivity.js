@@ -4,6 +4,7 @@ import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
+import ReactTooltip from 'react-tooltip';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +18,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
@@ -117,14 +117,17 @@ class ActivityCategory extends Component<any, any> {
                 onClick={() => this.props.onSelect(x)}
                 classes={{ button: classes.List }}
               >
-                <Tooltip
-                  title={x.meta.shortDesc}
-                  classes={{ tooltip: classes.Tooltip }}
-                  placement="right"
-                  interactive
-                >
-                  <ListItemText inset primary={x.meta.name} />
-                </Tooltip>
+                <ListItemText
+                  inset
+                  primary={x.meta.name}
+                  data-tip
+                  data-for={x.meta.name}
+                />
+                {x.meta.shortDesc && (
+                  <ReactTooltip place="top" type="light" id={x.meta.name}>
+                    {x.meta.shortDesc}
+                  </ReactTooltip>
+                )}
               </ListItem>
             ))}
           </List>
