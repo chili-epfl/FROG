@@ -1,6 +1,5 @@
 // @flow
 /* eslint-disable func-names */
-/* eslint-disable no-unneeded-ternary */
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
@@ -22,7 +21,7 @@ const doLogin = (user, self) => {
   Meteor.users.update(userId, {
     $set: {
       username: userServiceData.id,
-      isAnonymous: user ? false : true
+      isAnonymous: !!user
     }
   });
   const stampedLoginToken = Accounts._generateStampedLoginToken();
