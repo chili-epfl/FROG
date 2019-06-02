@@ -32,7 +32,13 @@ const WikiLink = observer(
           e.preventDefault();
           markPageAsCreated(window.wikiDoc, pageObj.id);
           const side = this.ref.closest('.reactRichText')?.dataset.wikiSide;
-          window.wiki.goToPage(pageId, null, side);
+          const sideToSend =
+            side &&
+            ((side === 'left' && !e.shiftKey) ||
+              (side === 'right' && e.shiftKey))
+              ? 'left'
+              : 'right';
+          window.wiki.goToPage(pageId, null, sideToSend);
         };
 
         style.color = 'green';
@@ -65,7 +71,12 @@ const WikiLink = observer(
       const linkFn = e => {
         e.preventDefault();
         const side = this.ref.closest('.reactRichText')?.dataset.wikiSide;
-        window.wiki.goToPage(pageId, null, side);
+        const sideToSend =
+          side &&
+          ((side === 'left' && !e.shiftKey) || (side === 'right' && e.shiftKey))
+            ? 'left'
+            : 'right';
+        window.wiki.goToPage(pageId, null, sideToSend);
       };
       style.color = 'blue';
 

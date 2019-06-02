@@ -6,10 +6,13 @@ import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
+import { values } from 'frog-utils';
 
 import Button from '@material-ui/core/Button';
 
 import { connection } from '../App/connection';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
+import LI from '../LearningItem';
 import { getPageTitle, getDifferentPageId } from './helpers';
 import {
   invalidateWikiPage,
@@ -17,7 +20,6 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  completelyDeleteWikiPage,
   addNewGlobalWikiPage,
   addNewInstancePage,
   addNewWikiPageWithInstances
@@ -30,6 +32,12 @@ import DeletedPageModal from './ModalDeletedPage';
 import FindModal, { SearchAndFind } from './ModalFind';
 import WikiTopNavbar from './WikiTopNavbar';
 import WikiContentComp from './WikiContentComp';
+
+const genericDoc = connection.get('li');
+export const dataFn = generateReactiveFn(genericDoc, LI, {
+  createdByUser: Meteor.userId()
+});
+export const LearningItem = dataFn.LearningItem;
 
 type WikiCompPropsT = {
   location: *,
@@ -133,7 +141,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           this.props.match.params.pageTitle) ||
       prevProps.match.params.instance !== this.props.match.params.instance
     ) {
-      this.goToPageTitle(pageTitle);
+      this.goToPageTitle(pageTitle, this.props.match.params.instance);
     }
   }
 
@@ -160,9 +168,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       this.state.currentPageObj &&
       !wikiStore.pages[this.state.currentPageObj.id].valid
     ) {
-      console.log('Detected deleted page, redirecting...');
-      const link = window.location.origin + '/wiki/' + this.wikiId;
-      window.location.replace(link);
+      const pageTitle = getPageTitle(wikiStore.parsedPages);
+      this.goToPageTitle(pageTitle);
     }
   };
 
@@ -180,7 +187,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     const instanceId =
-      this.props.match.params.instance || this.getInstanceId(fullPageObj);
+      this.getInstanceIdForName(
+        fullPageObj,
+        this.props.match.params.instance
+      ) || this.getInstanceId(fullPageObj);
     const currentPageObj = this.getProperCurrentPageObj(
       fullPageObj,
       instanceId
@@ -189,7 +199,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        this.createNewInstancePage(fullPageObj, instanceId);
+        const instanceName = Meteor.user().username;
+        this.createNewInstancePage(fullPageObj, instanceId, instanceName);
         return;
       }
     }
@@ -210,13 +221,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         currentPageObj
       },
       () => {
+        const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
         const link =
           '/wiki/' +
           this.wikiId +
           '/' +
           currentPageObj.title +
           (instanceId && instanceId !== this.getInstanceId(fullPageObj)
-            ? '/' + instanceId
+            ? '/' + instanceName
             : '');
         this.props.history.push(link);
       }
@@ -226,10 +238,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   getProperCurrentPageObj = (fullPageObj, instanceId) => {
     if (!fullPageObj || fullPageObj.plane === 3) return fullPageObj;
 
-    return (
-      fullPageObj.instances[instanceId] &&
-      Object.assign(fullPageObj, fullPageObj.instances[instanceId])
-    );
+    const instanceObj = fullPageObj.instances[instanceId];
+    if (!instanceObj) return null;
+
+    const mergedObj = Object.assign({}, fullPageObj, instanceObj);
+    return mergedObj;
   };
 
   getInstanceId = pageObj => {
@@ -241,6 +254,28 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       return group || userId;
     }
     return userId;
+  };
+
+  getInstanceNameForId = (pageObj, instanceId) => {
+    if (!instanceId || !pageObj || pageObj.plane === 3) return null;
+
+    for (const instanceObj of values(pageObj.instances)) {
+      if (instanceObj.instanceId === instanceId)
+        return instanceObj.instanceName;
+    }
+
+    return null;
+  };
+
+  getInstanceIdForName = (pageObj, instanceName) => {
+    if (!instanceName || !pageObj || pageObj.plane === 3) return null;
+
+    for (const instanceObj of values(pageObj.instances)) {
+      if (instanceObj.instanceName === instanceName)
+        return instanceObj.instanceId;
+    }
+
+    return null;
   };
 
   deleteLI = (pageId: string) => {
@@ -266,10 +301,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     };
   };
 
-  createNewInstancePage = (pageObj, instanceId) => {
+  createNewInstancePage = (pageObj, instanceId, instanceName) => {
     // TODO: Handle creating different LI types and activities
     const liId = createNewGenericLI(this.wikiId);
-    addNewInstancePage(this.wikiDoc, pageObj.id, instanceId, liId);
+    addNewInstancePage(
+      this.wikiDoc,
+      pageObj.id,
+      instanceId,
+      instanceName,
+      liId
+    );
     return {
       instanceId,
       liId
@@ -321,9 +362,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.props.history.replace(link);
   };
 
-  goToPage = (pageId, cb, side) => {
+  goToPage = (pageId, cb, side, foreignInstanceId) => {
     const fullPageObj = wikiStore.pages[pageId];
-    const instanceId = this.getInstanceId(fullPageObj);
+    const instanceId = foreignInstanceId || this.getInstanceId(fullPageObj);
     const newCurrentPageObj = this.getProperCurrentPageObj(
       fullPageObj,
       instanceId
@@ -332,9 +373,17 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!newCurrentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        this.setState({
-          initialPageTitle: fullPageObj.title
-        });
+        this.setState(
+          {
+            initialPageTitle: fullPageObj.title
+          },
+          () => {
+            if (foreignInstanceId) return;
+            const instanceName = Meteor.user().username;
+            this.createNewInstancePage(fullPageObj, instanceId, instanceName);
+          }
+        );
+
         return;
       }
     }
@@ -359,12 +408,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       () => {
         if (!newCurrentPageObj || side === 'right') return;
 
+        const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
         const link =
           '/wiki/' +
           this.wikiId +
           '/' +
           newCurrentPageObj.title +
-          (instanceId ? '/' + instanceId : '');
+          (instanceId && instanceId !== this.getInstanceId(fullPageObj)
+            ? '/' + instanceName
+            : '');
         if (cb) {
           this.props.history.replace(link);
           return cb();
@@ -374,10 +426,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     );
   };
 
-  goToPageTitle = pageTitle => {
+  goToPageTitle = (pageTitle, instanceName) => {
     const pageTitleLower = pageTitle.toLowerCase();
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
-    this.goToPage(pageId);
+    const instanceId = this.getInstanceIdForName(
+      wikiStore.parsedPages[pageTitleLower],
+      instanceName
+    );
+    this.goToPage(pageId, null, null, instanceId);
   };
 
   createLI = (newTitle, plane) => {
@@ -393,6 +449,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       const liId = createNewGenericLI(this.wikiId);
       // TODO: Below instance ID should be found differently for groups
       const instanceId = Meteor.userId();
+      const instanceName = Meteor.user().username;
 
       pageId = addNewWikiPageWithInstances(
         this.wikiDoc,
@@ -400,6 +457,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         newTitle,
         liType,
         instanceId,
+        instanceName,
         liId
       );
     }
@@ -450,6 +508,31 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       height: 'calc(100vh - 54px)'
     };
 
+    const instancesList =
+      this.state.currentPageObj.plane === 3
+        ? null
+        : values(this.state.currentPageObj.instances).map(instanceObj => {
+            const line = '- /' + instanceObj.instanceName;
+            const pageId = this.state.currentPageObj.id;
+            const instanceId = instanceObj.instanceId;
+            const style = {
+              cursor: 'pointer',
+              fontWeight:
+                this.state.currentPageObj.instanceId === instanceId
+                  ? 'bold'
+                  : 'normal'
+            };
+            return (
+              <li
+                key={instanceId}
+                onClick={() => this.goToPage(pageId, null, null, instanceId)}
+                style={style}
+              >
+                {line}
+              </li>
+            );
+          });
+
     const sideNavBar = (
       <div style={sideNavBarStyle}>
         <h2>{this.wikiId}</h2>
@@ -476,6 +559,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             onSelect={this.goToPageTitle}
           />
         </ul>
+        {!instancesList ? null : (
+          <div style={{ paddingTop: '10px' }}>
+            <b>Instances</b>
+            <ul>{instancesList}</ul>
+          </div>
+        )}
       </div>
     );
 

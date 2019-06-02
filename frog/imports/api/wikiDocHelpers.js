@@ -67,6 +67,7 @@ export const addNewWikiPageWithInstances = (
   pageTitle,
   liType,
   instanceId,
+  instanceName,
   liId
 ) => {
   const pageId = uuid();
@@ -74,6 +75,7 @@ export const addNewWikiPageWithInstances = (
   const instancesObj = {};
   instancesObj[instanceId] = {
     instanceId,
+    instanceName,
     liId
   };
 
@@ -96,10 +98,16 @@ export const addNewWikiPageWithInstances = (
   return pageId;
 };
 
-export const addNewInstancePage = (wikiDoc, pageId, instanceId, liId) => {
-  console.log(wikiDoc, pageId, instanceId, liId);
+export const addNewInstancePage = (
+  wikiDoc,
+  pageId,
+  instanceId,
+  instanceName,
+  liId
+) => {
   const instanceObj = {
     instanceId,
+    instanceName,
     liId
   };
 
