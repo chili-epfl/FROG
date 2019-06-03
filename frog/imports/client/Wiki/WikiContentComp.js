@@ -1,6 +1,5 @@
 import React from 'react';
-import { WikiContext, values } from 'frog-utils';
-import { toJS } from 'mobx';
+import { WikiContext } from 'frog-utils';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 
 import Button from '@material-ui/core/Button';
@@ -13,6 +12,7 @@ import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
 import { LearningItem } from './index';
+import { getPageDetailsForLiId } from './helpers.js';
 
 class WikiContentComp extends React.Component<> {
   constructor(props) {
@@ -181,11 +181,12 @@ class WikiContentComp extends React.Component<> {
               <LIDashboard
                 wikiId={this.props.wikiId}
                 search={this.props.dashboardSearch}
-                onClick={id => {
-                  const pageId = values(toJS(wikiStore.pages)).find(
-                    x => x.liId === id
-                  ).id;
-                  this.props.goToPage(pageId);
+                onClick={liId => {
+                  const { pageId, instanceId } = getPageDetailsForLiId(
+                    wikiStore.pages,
+                    liId
+                  );
+                  this.props.goToPage(pageId, null, null, instanceId);
                   this.setState({ docMode: 'view' });
                 }}
               />

@@ -11,6 +11,7 @@ const WikiLink = observer(
     render() {
       const { data } = this.props;
       const pageObj = wikiStore.pages[data.id];
+      const instanceId = data.instanceId;
 
       const style = {
         textDecoration: 'underline',
@@ -76,7 +77,7 @@ const WikiLink = observer(
           ((side === 'left' && !e.shiftKey) || (side === 'right' && e.shiftKey))
             ? 'left'
             : 'right';
-        window.wiki.goToPage(pageId, null, sideToSend);
+        window.wiki.goToPage(pageId, null, sideToSend, instanceId);
       };
       style.color = 'blue';
 

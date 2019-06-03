@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import { getPageTitle, getDifferentPageId } from './helpers';
+import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
 import {
   invalidateWikiPage,
   changeWikiPageTitle,
@@ -166,6 +166,21 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (
       this.state.currentPageObj &&
+      wikiStore.pages[this.state.currentPageObj.id].valid
+    ) {
+      const newPageObj = wikiStore.pages[this.state.currentPageObj.id];
+      const currentPageObj = JSON.parse(
+        JSON.stringify(this.state.currentPageObj)
+      );
+      currentPageObj.instances = newPageObj.instances;
+      this.setState({
+        currentPageObj
+      });
+      return;
+    }
+
+    if (
+      this.state.currentPageObj &&
       !wikiStore.pages[this.state.currentPageObj.id].valid
     ) {
       const pageTitle = getPageTitle(wikiStore.parsedPages);
@@ -201,8 +216,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         this.initialLoad = true;
         const instanceName = Meteor.user().username;
         this.createNewInstancePage(fullPageObj, instanceId, instanceName);
-        return;
       }
+      return;
     }
 
     if (!currentPageObj.valid) {
@@ -393,6 +408,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     const rightSideCurrentPageObj =
       side === 'right' ? newCurrentPageObj : this.state.rightSideCurrentPageObj;
 
+    const mode =
+      this.state.mode === 'splitview' ||
+      (this.state.mode !== 'splitview' && side === 'right')
+        ? 'splitview'
+        : 'document';
     this.setState(
       {
         currentPageObj,
@@ -400,7 +420,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         deletedPageModalOpen: false,
         currentDeletedPageId: null,
         currentDeletedPageTitle: null,
-        mode: this.state.mode === 'splitview' ? 'splitview' : 'document',
+        mode,
         search: '',
         findModalOpen: false,
         createModalOpen: false
@@ -437,6 +457,12 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createLI = (newTitle, plane) => {
+    const error = checkNewPageTitle(wikiStore.parsedPages, newTitle);
+    if (error) {
+      this.setState({ error });
+      return;
+    }
+
     this.preventRenderUntilNextShareDBUpdate = true;
     // TODO: Rewrite this function to propely handle creating different types of activities/LIs
 
@@ -590,6 +616,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 changeTitle={this.changeTitle}
                 openDeletedPageModal={this.openDeletedPageModal}
                 goToPage={this.goToPage}
+                dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
               />
               {this.state.mode === 'splitview' && (
