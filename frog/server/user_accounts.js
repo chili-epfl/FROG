@@ -21,7 +21,7 @@ const doLogin = (user, self) => {
   Meteor.users.update(userId, {
     $set: {
       username: userServiceData.id,
-      isAnonymous: !!user
+      isAnonymous: !user
     }
   });
   const stampedLoginToken = Accounts._generateStampedLoginToken();
