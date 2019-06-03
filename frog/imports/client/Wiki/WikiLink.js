@@ -26,7 +26,7 @@ const WikiLink = observer(
       const pageId = pageObj.id;
       const pageTitle = pageObj.title;
       const displayTitle =
-        pageTitle + (data.instance ? '/' + data.instance : '');
+        pageTitle + (data.instanceName ? '/' + data.instanceName : '');
 
       if (!pageObj.created) {
         const createLinkFn = e => {

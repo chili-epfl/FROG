@@ -711,7 +711,7 @@ class ReactiveRichText extends Component<
                               valueObj.plane === 1 &&
                               searchTerm.indexOf('/') > -1
                             ) {
-                              const parts = searchTerm.split('/');
+                              const parts = searchLower.split('/');
                               const pageTitle = parts[0];
                               const searchInstanceName = parts[1];
                               if (text.indexOf(pageTitle) > -1) {
@@ -727,6 +727,7 @@ class ReactiveRichText extends Component<
                                       JSON.stringify(valueObj)
                                     );
                                     pageObj.instanceId = instanceObj.instanceId;
+                                    pageObj.instanceName = instanceName;
                                     pageObj.title =
                                       valueObj.title + '/' + instanceName;
                                     matches.push(pageObj);
@@ -736,7 +737,10 @@ class ReactiveRichText extends Component<
                             }
                           }
 
-                          if (matches.length === 0) {
+                          if (
+                            searchTerm.indexOf('/') === -1 &&
+                            matches.length === 0
+                          ) {
                             matches.push({
                               title: searchTerm,
                               created: true,
