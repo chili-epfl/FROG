@@ -53,7 +53,8 @@ const styles = () => ({
     margin: 8
   },
   selectSocialPlane: {
-    width: '7vw'
+    width: '7vw',
+    minWidth: '135px'
   },
   modalInner: {
     height: '45vh',
