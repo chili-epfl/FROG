@@ -6,123 +6,110 @@ import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 
-class WikiTopNavbar extends React.Component<> {
-  constructor(props) {
-    super(props);
+export default props => {
+  const user = Meteor.user();
+  const { currentPageObj, changeMode, deleteLI, moreThanOnePage } = props;
+  const topNavBarStyle = {
+    display: 'flex',
+    flex: '0 0 50px',
+    cursor: 'pointer',
+    width: '100%',
+    backgroundColor: 'white',
+    borderBottom: '1px lightgrey solid'
+  };
 
-    this.state = {};
-  }
+  const topNavBarItemWidth = moreThanOnePage ? '20%' : '25%';
 
-  render() {
-    const {
-      currentPageObj,
-      changeMode,
-      deleteLI,
-      moreThanOnePage
-    } = this.props;
+  const topNavBarItemStyle = {
+    display: 'inline-flex',
+    width: topNavBarItemWidth,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '50px',
+    fontSize: '14px',
+    cursor: 'pointer',
+    padding: '20px 0'
+  };
 
-    const topNavBarStyle = {
-      display: 'flex',
-      flex: '0 0 50px',
-      cursor: 'pointer',
-      width: '100%',
-      backgroundColor: 'white',
-      borderBottom: '1px lightgrey solid'
-    };
+  const topNavBarItemStyleName = {
+    ...topNavBarItemStyle,
+    fontWeight: 'bold'
+  };
 
-    const topNavBarItemWidth = moreThanOnePage ? '20%' : '25%';
+  const iconButtonStyle = {
+    marginRight: '5px'
+  };
 
-    const topNavBarItemStyle = {
-      display: 'inline-flex',
-      width: topNavBarItemWidth,
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '50px',
-      fontSize: '14px',
-      cursor: 'pointer',
-      padding: '20px 0'
-    };
+  const itemColors = {
+    document: 'primary',
+    revisions: 'primary',
+    delete: 'primary',
+    dashboard: 'primary',
+    splitview: 'primary'
+  };
 
-    const topNavBarItemStyleName = {
-      ...topNavBarItemStyle,
-      fontWeight: 'bold'
-    };
+  itemColors[props.mode] = 'secondary';
 
-    const iconButtonStyle = {
-      marginRight: '5px'
-    };
-
-    const itemColors = {
-      document: 'primary',
-      revisions: 'primary',
-      delete: 'primary',
-      dashboard: 'primary',
-      splitview: 'primary'
-    };
-
-    itemColors[this.props.mode] = 'secondary';
-
-    return (
-      <div style={topNavBarStyle}>
-        <div
-          style={topNavBarItemStyle}
-          onClick={() => {
-            changeMode('document');
-          }}
-        >
-          <ChromeReaderMode
-            style={iconButtonStyle}
-            color={itemColors['document']}
-          />
-          <span style={{ color: itemColors['document'] }}>Page</span>
-        </div>
-        <div
-          style={topNavBarItemStyle}
-          onClick={() => {
-            changeMode('revisions');
-          }}
-        >
-          <History style={iconButtonStyle} color={itemColors['revisions']} />
-          <span style={{ color: itemColors['revisions'] }}>Revisions</span>
-        </div>
-        <div
-          style={topNavBarItemStyle}
-          onClick={() => {
-            changeMode('dashboard');
-          }}
-        >
-          <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
-          <span style={{ color: itemColors['dashboard'] }}>All Pages</span>
-        </div>
-        <div
-          style={topNavBarItemStyle}
-          onClick={() => {
-            changeMode('splitview');
-          }}
-        >
-          <ImportContacts
-            style={iconButtonStyle}
-            color={itemColors['splitview']}
-          />
-          <span style={{ color: itemColors['splitview'] }}>Split View</span>
-        </div>
-        {moreThanOnePage && this.props.mode !== 'splitview' ? (
-          <div
-            style={topNavBarItemStyle}
-            onClick={() => {
-              deleteLI(currentPageObj.id);
-            }}
-          >
-            <Delete style={iconButtonStyle} color={itemColors['delete']} />
-            <span style={{ color: itemColors['delete'] }}>Delete Page</span>
-          </div>
-        ) : (
-          <div />
-        )}
-        <div style={topNavBarItemStyleName}>{Meteor.user().username}</div>
+  return (
+    <div style={topNavBarStyle}>
+      <div
+        style={topNavBarItemStyle}
+        onClick={() => {
+          changeMode('document');
+        }}
+      >
+        <ChromeReaderMode
+          style={iconButtonStyle}
+          color={itemColors['document']}
+        />
+        <span style={{ color: itemColors['document'] }}>Page</span>
       </div>
-    );
-  }
-}
-
-export default WikiTopNavbar;
+      <div
+        style={topNavBarItemStyle}
+        onClick={() => {
+          changeMode('revisions');
+        }}
+      >
+        <History style={iconButtonStyle} color={itemColors['revisions']} />
+        <span style={{ color: itemColors['revisions'] }}>Revisions</span>
+      </div>
+      <div
+        style={topNavBarItemStyle}
+        onClick={() => {
+          changeMode('dashboard');
+        }}
+      >
+        <Dashboard style={iconButtonStyle} color={itemColors['dashboard']} />
+        <span style={{ color: itemColors['dashboard'] }}>All Pages</span>
+      </div>
+      <div
+        style={topNavBarItemStyle}
+        onClick={() => {
+          changeMode('splitview');
+        }}
+      >
+        <ImportContacts
+          style={iconButtonStyle}
+          color={itemColors['splitview']}
+        />
+        <span style={{ color: itemColors['splitview'] }}>Split View</span>
+      </div>
+      {moreThanOnePage && props.mode !== 'splitview' ? (
+        <div
+          style={topNavBarItemStyle}
+          onClick={() => {
+            deleteLI(currentPageObj.id);
+          }}
+        >
+          <Delete style={iconButtonStyle} color={itemColors['delete']} />
+          <span style={{ color: itemColors['delete'] }}>Delete Page</span>
+        </div>
+      ) : (
+        <div />
+      )}
+      <div style={topNavBarItemStyleName}>
+        {user.isAnonymous ? 'Anonymous Visitor' : user.username}
+      </div>
+    </div>
+  );
+};
