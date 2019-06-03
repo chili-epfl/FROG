@@ -1,27 +1,18 @@
 import React from 'react';
 import { WikiContext, values } from 'frog-utils';
 import { toJS } from 'mobx';
-import { Meteor } from 'meteor/meteor';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
-import { connection } from '../App/connection';
-import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import LI from '../LearningItem';
 
 import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
-
-const genericDoc = connection.get('li');
-const dataFn = generateReactiveFn(genericDoc, LI, {
-  createdByUser: Meteor.userId()
-});
-const LearningItem = dataFn.LearningItem;
+import { LearningItem } from './index';
 
 class WikiContentComp extends React.Component<> {
   constructor(props) {
