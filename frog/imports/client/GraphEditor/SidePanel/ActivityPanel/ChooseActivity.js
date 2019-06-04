@@ -124,7 +124,7 @@ class ActivityCategory extends Component<any, any> {
                   data-for={x.meta.name}
                 />
                 {x.meta.shortDesc && (
-                  <ReactTooltip place="top" delayShow="500" id={x.meta.name}>
+                  <ReactTooltip place="top" delayShow={500} id={x.meta.name}>
                     {x.meta.shortDesc}
                   </ReactTooltip>
                 )}
@@ -279,14 +279,12 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 onClick={() => select(x)}
                 classes={{ button: classes.List }}
               >
-                <Tooltip
-                  title={x.meta.shortDesc}
-                  classes={{ tooltip: classes.Tooltip }}
-                  placement="right"
-                  interactive
-                >
-                  <ListItemText inset primary={x.meta.name} />
-                </Tooltip>
+                {x.meta.shortDesc && (
+                  <ReactTooltip place="top" delayShow={500} id={x.meta.name}>
+                    {x.meta.shortDesc}
+                  </ReactTooltip>
+                )}
+                <ListItemText inset primary={x.meta.name} />
               </ListItem>
             ))}
           {!this.props.store.ui.libraryOpen &&
