@@ -2,6 +2,11 @@
 This file outlines a list of common things that should be addressed when opening a PR. 
 -->
 
+<!--
+    Make sure to assign a reviewer if the PR is ready for code review
+    or add the label work in progress
+-->
+
 **Description**
 
 <!--

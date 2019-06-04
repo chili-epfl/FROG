@@ -6,6 +6,7 @@ about: Defines a new feature for the project
 <!--
     Make sure to complete the following before submitting this ticket
     - Add relevant labels for this feature
+    - Assign yourself or someone else to this issue if applicable
 -->
 
 **Description of the feature**

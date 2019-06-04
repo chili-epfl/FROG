@@ -3,10 +3,9 @@ name: Bug report
 about: Create a report to help us improve
 ---
 
-<!-- Please don't delete this template because we'll close your issue -->
-<!-- Before creating an issue please make sure you are using the latest version of webpack. -->
-
-# Bug report
+<!--
+    Make sure to add the bug label to this issue
+-->
 
 **What is the current behavior?**
 
