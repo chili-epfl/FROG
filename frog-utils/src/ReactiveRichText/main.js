@@ -704,12 +704,43 @@ class ReactiveRichText extends Component<
                             const searchLower = (
                               searchTerm || ''
                             ).toLowerCase();
+
                             if (text.indexOf(searchLower) > -1) {
                               matches.push(valueObj);
+                            } else if (
+                              valueObj.plane === 1 &&
+                              searchTerm.indexOf('/') > -1
+                            ) {
+                              const parts = searchLower.split('/');
+                              const pageTitle = parts[0];
+                              const searchInstanceName = parts[1];
+                              if (text.indexOf(pageTitle) > -1) {
+                                for (const instanceObj of Object.values(
+                                  valueObj.instances
+                                )) {
+                                  const instanceName = instanceObj.instanceName.toLowerCase();
+                                  if (
+                                    instanceName.indexOf(searchInstanceName) >
+                                    -1
+                                  ) {
+                                    const pageObj = JSON.parse(
+                                      JSON.stringify(valueObj)
+                                    );
+                                    pageObj.instanceId = instanceObj.instanceId;
+                                    pageObj.instanceName = instanceName;
+                                    pageObj.title =
+                                      valueObj.title + '/' + instanceName;
+                                    matches.push(pageObj);
+                                  }
+                                }
+                              }
                             }
                           }
 
-                          if (matches.length === 0) {
+                          if (
+                            searchTerm.indexOf('/') === -1 &&
+                            matches.length === 0
+                          ) {
                             matches.push({
                               title: searchTerm,
                               created: true,

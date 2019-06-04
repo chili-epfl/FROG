@@ -1,4 +1,4 @@
-import { extendObservable, action } from 'mobx';
+import { extendObservable, action, toJS } from 'mobx';
 import { values } from 'frog-utils';
 
 class WikiStore {
@@ -25,7 +25,7 @@ class WikiStore {
       },
 
       get pagesArrayOnlyValid(): Array {
-        return values(wikiStore.pages).filter(x => x.valid && x.created);
+        return values(toJS(wikiStore.pages)).filter(x => x.valid && x.created);
       }
     });
   }
