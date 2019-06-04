@@ -278,6 +278,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 key={x.id}
                 onClick={() => select(x)}
                 classes={{ button: classes.List }}
+                data-tip
+                data-for={x.meta.name}
               >
                 {x.meta.shortDesc && (
                   <ReactTooltip place="top" delayShow={500} id={x.meta.name}>
