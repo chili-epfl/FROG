@@ -89,9 +89,18 @@ const OperatorForm = observer(
     constructor(props: PropsT) {
       super(props);
       this.state = {
-        operatorType: null,
-        deleteOpen: false
+        operatorType: operatorTypesObj[props.operatorType] || null,
+        deleteOpen: false,
+        formData: props.config
       };
+      if (props.formData) {
+        check(
+          this.state.operatorType.id,
+          this.state.formData,
+          state.setValid,
+          this.props.onConfigChange
+        );
+      }
     }
 
     render() {
@@ -124,7 +133,7 @@ const OperatorForm = observer(
                 node={{
                   _id: 1,
                   operatorType: this.state.operatorType.id,
-                  data: {}
+                  data: this.state.formData || {}
                 }}
                 data={this.state.formData}
                 nodeType={this.state.operatorType}
@@ -135,23 +144,19 @@ const OperatorForm = observer(
                 connectedTargetActivities={[]}
                 refreshValidate={() => null}
                 onChange={e => {
-                  this.setState(
-                    {
-                      formData: {
-                        ...e.formData
-                      }
-                    },
-                    () => {
-                      if (this.state.operatorType) {
-                        check(
-                          this.state.operatorType.id,
-                          this.state.formData,
-                          state.setValid,
-                          this.props.onConfigChange
-                        );
-                      }
+                  if (this.state.operatorType) {
+                    check(
+                      this.state.operatorType.id,
+                      e.formData,
+                      state.setValid,
+                      this.props.onConfigChange
+                    );
+                  }
+                  this.setState({
+                    formData: {
+                      ...e.formData
                     }
-                  );
+                  });
                 }}
               />
             </div>

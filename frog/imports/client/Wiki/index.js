@@ -456,7 +456,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, null, instanceId);
   };
 
-  createLI = (newTitle, plane, config) => {
+  createLI = (newTitle, plane, config, operatorConfig) => {
     console.log(newTitle, plane, config, operatorConfig);
     const error =
       checkNewPageTitle(wikiStore.parsedPages, newTitle) ||

@@ -34,15 +34,16 @@ type ConfigFormPropsT = {
 
 export default class ConfigForm extends Component<
   ConfigFormPropsT,
-  { formData: Object, id?: string, lastChange: Object }
+  { formData: Object, id?: string }
 > {
   unmounted: boolean;
+
+  lastChange = this.props.node.data;
 
   constructor(props: ConfigFormPropsT) {
     super(props);
     this.state = {
-      formData: this.props.node.data,
-      lastChange: this.props.node.data
+      formData: props.node.data
     };
   }
 
@@ -84,12 +85,16 @@ export default class ConfigForm extends Component<
 
   componentWillUnmount() {
     this.unmounted = true;
-    if (!isEqual(this.state.formData, this.state.lastChange)) {
+    if (!isEqual(this.state.formData, this.lastChange)) {
       this.onChangeImmediately({ formData: this.state.formData });
     }
   }
 
-  onChange = debounce(data => this.onChangeImmediately(data), 1000);
+  onChange = debounce(data => {
+    if (!this.unmounted) {
+      this.onChangeImmediately(data);
+    }
+  }, 1000);
 
   onChangeImmediately = (data: *) => {
     if (this.props.onChange) {
@@ -116,9 +121,9 @@ export default class ConfigForm extends Component<
         );
       }
       if (!this.unmounted) {
-        this.setState({ lastChange: data.formData });
+        this.lastChange = data.formData;
+        this.props.refreshValidate();
       }
-      this.props.refreshValidate();
     }
   };
 

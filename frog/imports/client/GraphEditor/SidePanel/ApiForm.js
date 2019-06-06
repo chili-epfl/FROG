@@ -125,21 +125,18 @@ class Config extends React.Component<
             data={this.props.config}
             reload={this.props.reload}
             onChange={e => {
-              this.setState(
-                {
-                  formData: {
-                    ...e.formData,
-                    component: this.state.formData.component
-                  }
-                },
-                () =>
-                  check(
-                    this.aT.id,
-                    this.state.formData,
-                    this.props.setValid,
-                    this.props.onConfigChange
-                  )
+              check(
+                this.aT.id,
+                e.formData,
+                this.props.setValid,
+                this.props.onConfigChange
               );
+              this.setState({
+                formData: {
+                  ...e.formData,
+                  component: this.state.formData.component
+                }
+              });
             }}
             nodeType={this.aT}
             valid={{ social: [] }}

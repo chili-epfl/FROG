@@ -118,12 +118,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleConfig = conf => {
+    console.log('wiki conf', conf);
     this.setState({ config: conf });
   };
 
   handleCreate = () => {
-    const { pageTitle, socialPlane } = this.state;
-    this.props.onCreate(pageTitle, socialPlane, config);
+    const { pageTitle, socialPlane, config, operatorConfig } = this.state;
+    this.props.onCreate(pageTitle, socialPlane, config, operatorConfig);
   };
 
   render() {
@@ -231,6 +232,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               <ApiForm
                 categories={['Core', 'Other']}
                 whiteList={['li-richText', 'ac-gallery', 'ac-brainstorm']}
+                config={this.state.config?.config}
+                activityType={this.state.config?.activityType}
                 activityMapping={{
                   'li-richText': 'Core',
                   'ac-gallery': 'Core',
@@ -245,6 +248,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             {currentTab === 2 && (
               <OperatorForm
                 operatorType="product"
+                config={this.state.operatorConfig?.config}
+                operatorType={this.state.operatorConfig?.operatorType}
                 categories={['From the web', 'From the current page']}
                 operatorTypesList={operatorTypesList}
                 operatorMappings={{
