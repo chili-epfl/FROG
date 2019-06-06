@@ -118,7 +118,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleConfig = conf => {
-    console.log('wiki conf', conf);
     this.setState({ config: conf });
   };
 

@@ -457,10 +457,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createLI = (newTitle, plane, config, operatorConfig) => {
-    console.log(newTitle, plane, config, operatorConfig);
     const error =
       checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
-      (config.invalid && 'Activity type config is not valid');
+      (config.invalid && 'Activity config is not valid') ||
+      (operatorConfig.invalid && 'Operator config is not valid');
     if (error) {
       this.setState({ error });
       return;
