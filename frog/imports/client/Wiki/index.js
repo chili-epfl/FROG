@@ -456,8 +456,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, null, instanceId);
   };
 
-  createLI = (newTitle, plane) => {
-    const error = checkNewPageTitle(wikiStore.parsedPages, newTitle);
+  createLI = (newTitle, plane, config, operatorConfig) => {
+    const error =
+      checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
+      (config.invalid && 'Activity config is not valid') ||
+      (operatorConfig.invalid && 'Operator config is not valid');
     if (error) {
       this.setState({ error });
       return;
