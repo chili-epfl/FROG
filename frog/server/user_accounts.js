@@ -1,5 +1,6 @@
 // @flow
 /* eslint-disable func-names */
+
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
@@ -7,23 +8,15 @@ import { uuid } from 'frog-utils';
 import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
-  if (user) {
-    const alreadyUser = Meteor.users.findOne({ 'services.frog.id': user });
-    if (alreadyUser) {
-      return Accounts._loginUser(self, alreadyUser._id);
-    }
+  const alreadyUser = Meteor.users.findOne({ 'services.frog.id': user });
+  if (alreadyUser) {
+    return Accounts._loginUser(self, alreadyUser._id);
   }
-  const userServiceData = { id: user || uuid() };
-  const { userId } = Accounts.updateOrCreateUserFromExternalService(
-    'frog',
-    userServiceData
-  );
-  Meteor.users.update(userId, {
-    $set: {
-      username: userServiceData.id,
-      isAnonymous: !user
-    }
+
+  const { userId } = Accounts.updateOrCreateUserFromExternalService('frog', {
+    id: user
   });
+  Meteor.users.update(userId, { $set: { username: user } });
   const stampedLoginToken = Accounts._generateStampedLoginToken();
   Accounts._insertLoginToken(userId, stampedLoginToken);
 

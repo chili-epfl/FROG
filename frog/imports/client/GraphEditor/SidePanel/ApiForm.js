@@ -166,10 +166,7 @@ class Config extends React.Component<
 }
 
 type PropsT = {
-  activityType?: string,
-  categories?: string[],
-  activityMapping?: Object,
-  allOpen?: boolean,
+  activityType: string,
   config?: Object,
   hideValidator?: boolean,
   onSelect?: Function,
@@ -321,9 +318,6 @@ const ApiForm = observer(
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
                 whiteList={this.props.whiteList}
-                categories={this.props.categories}
-                activityMapping={this.props.activityMapping}
-                allOpen={this.props.allOpen}
                 store={store}
                 setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}

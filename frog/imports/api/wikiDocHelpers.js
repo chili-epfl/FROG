@@ -34,91 +34,6 @@ export const addNewWikiPage = (
   return pageId;
 };
 
-export const addNewGlobalWikiPage = (
-  wikiDoc,
-  pageTitle,
-  liId,
-  setCreated,
-  liType = 'li-richText'
-) => {
-  const pageId = uuid();
-  const obj = {
-    id: pageId,
-    plane: 3,
-    title: pageTitle,
-    valid: true,
-    created: setCreated || false,
-    liId,
-    liType
-  };
-
-  const op = {
-    p: ['pages', pageId],
-    oi: obj
-  };
-
-  wikiDoc.submitOp(op);
-  return pageId;
-};
-
-export const addNewWikiPageWithInstances = (
-  wikiDoc,
-  plane,
-  pageTitle,
-  liType,
-  instanceId,
-  instanceName,
-  liId
-) => {
-  const pageId = uuid();
-
-  const instancesObj = {};
-  instancesObj[instanceId] = {
-    instanceId,
-    instanceName,
-    liId
-  };
-
-  const obj = {
-    id: pageId,
-    plane,
-    title: pageTitle,
-    valid: true,
-    created: true,
-    liType,
-    instances: instancesObj
-  };
-
-  const op = {
-    p: ['pages', pageId],
-    oi: obj
-  };
-
-  wikiDoc.submitOp(op);
-  return pageId;
-};
-
-export const addNewInstancePage = (
-  wikiDoc,
-  pageId,
-  instanceId,
-  instanceName,
-  liId
-) => {
-  const instanceObj = {
-    instanceId,
-    instanceName,
-    liId
-  };
-
-  const op = {
-    p: ['pages', pageId, 'instances', instanceId],
-    oi: instanceObj
-  };
-
-  wikiDoc.submitOp(op);
-};
-
 export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   const op = {
     p: ['pages', pageId, 'valid'],
@@ -132,10 +47,15 @@ export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   }
 };
 
-export const changeWikiPageTitle = (wikiDoc, pageId, newPageTitle) => {
+export const changeWikiPageTitle = (
+  wikiDoc,
+  pageId,
+  oldPageTitle,
+  newPageTitle
+) => {
   const op = {
     p: ['pages', pageId, 'title'],
-    od: null,
+    od: oldPageTitle,
     oi: newPageTitle
   };
 
@@ -147,6 +67,15 @@ export const markPageAsCreated = (wikiDoc, pageId) => {
     p: ['pages', pageId, 'created'],
     od: false,
     oi: true
+  };
+
+  wikiDoc.submitOp(op);
+};
+
+export const addInstance = (wikiDoc, pageId, instanceId, liId, username) => {
+  const op = {
+    p: ['pages', pageId, 'instances', instanceId],
+    oi: { liId, username }
   };
 
   wikiDoc.submitOp(op);
@@ -170,34 +99,6 @@ export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
     p: ['pages', pageId, 'liId'],
     od: null,
     oi: newLiId
-  };
-
-  wikiDoc.submitOp(op);
-};
-
-export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId) => {
-  const emptyDocValues = {
-    wikiId,
-    pages: {
-      home: {
-        id: 'home',
-        valid: true,
-        created: true,
-        title: 'Home',
-        liId,
-        liType: 'li-richText',
-        instances: {},
-        plane: 3
-      }
-    }
-  };
-  wikiDoc.create(emptyDocValues);
-};
-
-export const completelyDeleteWikiPage = (wikiDoc, pageId) => {
-  const op = {
-    p: ['pages', pageId],
-    od: null
   };
 
   wikiDoc.submitOp(op);

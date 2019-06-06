@@ -105,7 +105,7 @@ const sharedbGetRevisions = (coll, id) =>
       );
       resolve(revisions);
     })
-  ).catch(e => console.error('Trying to get ops, error', coll, id, e));
+  ).catch(e => console.error(e));
 
 const sharedbGetRevisionList = (coll, id) =>
   new Promise(resolve =>
@@ -123,13 +123,12 @@ const sharedbGetRevisionList = (coll, id) =>
           }
 
           let ts = res[0].m.ts;
-          const user = Meteor.users.findOne(res[0].m.userId)?.username;
           let contributors = {};
           let last = res.shift().create.data;
           const milestoneOpsIndices = [
             {
               data: cloneDeep(last),
-              contributors: [user],
+              contributors: [Meteor.users.findOne(res[0].m.userId).username],
               time: ts
             }
           ];

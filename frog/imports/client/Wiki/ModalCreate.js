@@ -31,7 +31,7 @@ type StateT = {
   currentTab: number,
   pageTitle: string,
   pageTitleValid: boolean,
-  socialPlane: number,
+  socialPlane: string,
   open: boolean,
   expanded: boolean,
   allowView: boolean,
@@ -53,8 +53,7 @@ const styles = () => ({
     margin: 8
   },
   selectSocialPlane: {
-    width: '7vw',
-    minWidth: '135px'
+    width: '7vw'
   },
   modalInner: {
     height: '45vh',
@@ -81,7 +80,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       pageTitleValid: true,
       open: true,
       expanded: false,
-      socialPlane: 3,
+      socialPlane: 'everyone',
       allowView: true,
       allowEdit: true,
       operatorConfig: {},
@@ -121,11 +120,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.setState({ config: conf });
   };
 
-  handleCreate = () => {
-    const { pageTitle, socialPlane } = this.state;
-    this.props.onCreate(pageTitle, socialPlane);
-  };
-
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
     const { classes, errorDiv } = this.props;
@@ -154,13 +148,17 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               autoFocus
               error={errorDiv != null}
               id="page-title"
-              value={pageTitle}
+              value={this.state.pageTitle}
               onChange={this.handleTitleChange}
               label="Page Title"
               margin="normal"
               onKeyDown={e => {
                 if (e.keyCode === 13) {
-                  this.handleCreate();
+                  this.props.onCreate(
+                    pageTitle,
+                    this.state.config,
+                    this.state.operatorConfig
+                  );
                 } else if (e.keyCode === 40) {
                   this.setState({ expanded: true });
                 } else if (e.keyCode === 38) {
@@ -197,8 +195,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     id="social-plane"
                     className={classes.selectSocialPlane}
                   >
-                    <MenuItem value={3}>Everyone</MenuItem>
-                    <MenuItem value={1}>Each Individual</MenuItem>
+                    <MenuItem value="everyone">Everyone</MenuItem>
+                    <MenuItem value="group">Each Group</MenuItem>
+                    <MenuItem value="individual">Each Individual</MenuItem>
                   </Select>
                 </FormControl>
                 <FormGroup row>
@@ -229,13 +228,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             )}
             {currentTab === 1 && (
               <ApiForm
-                categories={['Core', 'Other']}
-                whiteList={['li-richText', 'ac-gallery', 'ac-brainstorm']}
-                activityMapping={{
-                  'li-richText': 'Core',
-                  'ac-gallery': 'Core',
-                  'ac-brainstorm': 'Other'
-                }}
                 noOffset
                 showDelete
                 onConfigChange={e => this.handleConfig(e)}
@@ -274,7 +266,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             Cancel
           </Button>
           <Button
-            onClick={() => this.handleCreate()}
+            onClick={() =>
+              this.props.onCreate(
+                pageTitle,
+                this.state.config,
+                this.state.operatorConfig
+              )
+            }
             color="primary"
             variant="contained"
           >

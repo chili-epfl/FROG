@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import ReactTooltip from 'react-tooltip';
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -93,21 +93,14 @@ class OperatorCategory extends Component<any, any> {
                 onClick={() => this.props.onSelect(x)}
                 classes={{ button: classes.List }}
               >
-                <ListItemText
-                  inset
-                  primary={x.meta.name}
-                  data-tip
-                  data-for={x.meta.name}
-                />
-                {x.meta.shortDesc && (
-                  <ReactTooltip
-                    place="top"
-                    id={x.meta.name}
-                    delayShow="500"
-                  >
-                    {x.meta.shortDesc}
-                  </ReactTooltip>
-                )}
+                <Tooltip
+                  title={x.meta.shortDesc}
+                  classes={{ tooltip: classes.Tooltip }}
+                  placement="right"
+                  interactive
+                >
+                  <ListItemText inset primary={x.meta.name} />
+                </Tooltip>
               </ListItem>
             ))}
           </List>

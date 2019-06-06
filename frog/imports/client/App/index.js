@@ -26,7 +26,6 @@ import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
 import Wiki from '../Wiki';
-import SingleActivity from '../SingleActivity';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -115,7 +114,7 @@ const FROGRouter = withRouter(
       isStudentList,
       loginQuery
     }: {
-      username?: string,
+      username: string,
       token?: string,
       isStudentList?: boolean,
       loginQuery?: boolean
@@ -232,11 +231,8 @@ const FROGRouter = withRouter(
             }
             if (
               this.props.match.params.slug &&
-              (this.props.match.params.slug.slice(0, 4) === 'wiki' ||
-                this.props.match.params.slug.slice(0, 15) === 'single_activity')
+              this.props.match.params.slug.slice(0, 4) !== 'wiki'
             ) {
-              this.login({});
-            } else if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
@@ -256,7 +252,6 @@ const FROGRouter = withRouter(
     };
 
     render() {
-      const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
         return <h1>Too late to join this session</h1>;
       }
@@ -265,56 +260,31 @@ const FROGRouter = withRouter(
         return <Redirect to={this.props.location.pathname} />;
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
-      } else if (this.state.mode === 'ready' && user) {
-        if (user.isAnonymous)
-          return (
-            <Switch>
-              <Route
-                path="/wiki/:wikiId/:pageTitle/:instance"
-                component={Wiki}
-              />
-              <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
-              <Route path="/wiki/:wikiId" component={Wiki} />
-              <Route path="/single_activity" component={SingleActivity} />
-              <Route
-                render={() => (
+      } else if (this.state.mode === 'ready' && Meteor.user()) {
+        return (
+          <Switch>
+            <Route path="/wiki/:wikiId/:pageTitle/:instance" component={Wiki} />
+            <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
+            <Route path="/wiki/:wikiId" component={Wiki} />
+            <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/:slug" component={StudentView} />
+            <Route
+              render={() =>
+                LocalSettings.follow ? (
+                  <StudentView />
+                ) : (
                   <h3>
-                    Dear Guest, please register on FROG to access this page.
+                    Welcome to FROG. You are logged in as{' '}
+                    {Meteor.user().username}. If you want to access the teacher
+                    view, go to <Link to="/teacher">/teacher</Link>, otherwise
+                    go to the /SLUG of the session you are a student of
                   </h3>
-                )}
-              />
-            </Switch>
-          );
-        else
-          return (
-            <Switch>
-              <Route
-                path="/wiki/:wikiId/:pageTitle/:instance"
-                component={Wiki}
-              />
-              <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
-              <Route path="/wiki/:wikiId" component={Wiki} />
-              <Route path="/teacher/projector/:slug" component={StudentView} />
-              <Route path="/teacher/" component={TeacherContainer} />
-              <Route path="/single_activity" component={SingleActivity} />
-              <Route path="/:slug" component={StudentView} />
-              <Route
-                render={() =>
-                  LocalSettings.follow ? (
-                    <StudentView />
-                  ) : (
-                    <h3>
-                      Welcome to FROG. You are logged in as{' '}
-                      {Meteor.user().username}. If you want to access the
-                      teacher view, go to <Link to="/teacher">/teacher</Link>,
-                      otherwise go to the /SLUG of the session you are a student
-                      of
-                    </h3>
-                  )
-                }
-              />
-            </Switch>
-          );
+                )
+              }
+            />
+          </Switch>
+        );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
