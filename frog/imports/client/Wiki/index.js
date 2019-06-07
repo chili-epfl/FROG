@@ -446,14 +446,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     );
   };
 
-  goToPageTitle = (pageTitle, instanceName) => {
+  goToPageTitle = (pageTitle, instanceName, side) => {
     const pageTitleLower = pageTitle.toLowerCase();
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(
       wikiStore.parsedPages[pageTitleLower],
       instanceName
     );
-    this.goToPage(pageId, null, null, instanceId);
+    this.goToPage(pageId, null, side, instanceId);
   };
 
   createLI = (newTitle, plane) => {
