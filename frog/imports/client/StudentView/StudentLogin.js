@@ -49,7 +49,6 @@ const styles = () => ({
   }
 });
 
-
 type SettingsT = {
   loginByName: boolean,
   secret?: boolean,

@@ -28,7 +28,6 @@ import { LocalSettings } from '/imports/api/settings';
 import Wiki from '../Wiki';
 import SingleActivity from '../SingleActivity';
 
-
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
@@ -245,11 +244,14 @@ const FROGRouter = withRouter(
                 (err, result) => {
                   if (err || result === -1) {
                     this.setState({ mode: 'noSession' });
-                  }
-                  else if (this.props.match.params.slug.slice(0, 4) === 'wiki') {
-                    this.setState({settings:result, mode:'studentlistwiki'})
-                  }
-                  else {
+                  } else if (
+                    this.props.match.params.slug.slice(0, 4) === 'wiki'
+                  ) {
+                    this.setState({
+                      settings: result,
+                      mode: 'studentlistwiki'
+                    });
+                  } else {
                     this.setState({ settings: result, mode: 'studentlist' });
                   }
                 }
@@ -274,7 +276,7 @@ const FROGRouter = withRouter(
         if (user.isAnonymous)
           return (
             <Switch>
-             <Route
+              <Route
                 path="/wiki/:wikiId/:pageTitle/:instance"
                 component={Wiki}
               />
@@ -291,12 +293,12 @@ const FROGRouter = withRouter(
             </Switch>
           );
         else
-    
           return (
-              <Switch>
+            <Switch>
               <Route
-              path="/wiki/:wikiId/:pageTitle/:instance"
-              component={Wiki}/>
+                path="/wiki/:wikiId/:pageTitle/:instance"
+                component={Wiki}
+              />
               <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
               <Route path="/wiki/:wikiId" component={Wiki} />
               <Route path="/teacher/projector/:slug" component={StudentView} />
@@ -327,20 +329,17 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'noSession') {
         return <h1>No such session exists</h1>;
       }
-      if (this.state.mode === 'studentlist' && this.state.settings){
-        
-        return <StudentLogin
-        settings={this.state.settings}
-        login={this.login}
-        slug={this.props.match.params.slug}
-      />
-    }
-     else {
-      return <NotLoggedIn login = {this.login} /> 
-         
+      if (this.state.mode === 'studentlist' && this.state.settings) {
+        return (
+          <StudentLogin
+            settings={this.state.settings}
+            login={this.login}
+            slug={this.props.match.params.slug}
+          />
+        );
+      } else {
+        return <NotLoggedIn login={this.login} />;
       }
-
-    
     }
   }
 );

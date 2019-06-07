@@ -6,13 +6,18 @@ import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 
-
 import ImportContacts from '@material-ui/icons/ImportContacts';
 
 export default props => {
   const user = Meteor.user();
- 
-  const { currentPageObj, changeMode, deleteLI, moreThanOnePage, wikiId, history, instanceId} = props;
+
+  const {
+    currentPageObj,
+    changeMode,
+    deleteLI,
+    moreThanOnePage,
+    history
+  } = props;
   const topNavBarStyle = {
     display: 'flex',
     flex: '0 0 50px',
@@ -43,11 +48,6 @@ export default props => {
   const iconButtonStyle = {
     marginRight: '5px'
   };
-
-  const logoutButtonStyle = {
-    marginRight:'5px'
-  }; 
-
 
   const itemColors = {
     document: 'primary',
@@ -102,8 +102,6 @@ export default props => {
           color={itemColors['splitview']}
         />
         <span style={{ color: itemColors['splitview'] }}>Split View</span>
-
-     
       </div>
       {moreThanOnePage && props.mode !== 'splitview' ? (
         <div
@@ -119,23 +117,23 @@ export default props => {
         <div />
       )}
       <div style={topNavBarItemStyleName}>
-        
         {user.isAnonymous ? 'Anonymous Visitor' : user.username}
-        {//Adds logout button beside username
+        {
+          // Adds logout button beside username
         }
-        <Button  style = {iconButtonStyle} color = "primary"
-         onClick={() => {
-          sessionStorage.removeItem('frog.sessionToken');
-          Meteor.logout();
-          history.push('/'); 
-          window.notReady();
-        }}>
-         Logout 
-        </Button> 
+        <Button
+          style={iconButtonStyle}
+          color="primary"
+          onClick={() => {
+            sessionStorage.removeItem('frog.sessionToken');
+            Meteor.logout();
+            history.push('/');
+            window.notReady();
+          }}
+        >
+          Logout
+        </Button>
       </div>
-     
-        
-      
     </div>
   );
 };

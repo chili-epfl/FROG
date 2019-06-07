@@ -73,7 +73,6 @@ class Editor extends React.Component<Object, StateT> {
   }
 
   componentDidMount() {
-
     window.addEventListener('resize', this.props.store.ui.updateWindow);
     this.props.store.ui.updateWindow();
   }
