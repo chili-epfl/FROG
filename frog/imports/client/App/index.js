@@ -27,7 +27,7 @@ import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
 import Wiki from '../Wiki';
 import SingleActivity from '../SingleActivity';
-import WikiLogin from '../Wiki/WikiLogin';
+
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -336,15 +336,7 @@ const FROGRouter = withRouter(
       />
     }
      else {
-          console.log("Almost", this.props.match.params.slug); 
-      if (this.props.match.params.slug === 'wiki'){
-            console.log("Reached the right place"); 
-            return <WikiLogin login = {this.login}
-                               settings ={this.state.settings} />
-          }
-          else{
-            return <NotLoggedIn login = {this.login} /> 
-          } 
+      return <NotLoggedIn login = {this.login} /> 
          
       }
 
