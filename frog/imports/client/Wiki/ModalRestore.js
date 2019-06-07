@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 export default ({ setModalOpen, pages, onSelect }: Object) => {
   return (
@@ -21,7 +21,7 @@ export default ({ setModalOpen, pages, onSelect }: Object) => {
           }}
         >
           <ul>
-            {pages.map((pageObj, i) => {
+            {pages.map(pageObj => {
               const pageId = pageObj.id;
               const pageTitle = pageObj.title;
 
