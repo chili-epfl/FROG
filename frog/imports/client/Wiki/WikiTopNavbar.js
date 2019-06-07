@@ -43,11 +43,11 @@ class SettingsMenu extends React.Component<*, *> {
         >
           <MenuItem
             onClick={() => {
-              window.open('https://froglearning.wordpress.com');
+              this.props.openRestoreModal();
               this.handleClose();
             }}
           >
-            Website
+            Restore deleted pages
           </MenuItem>
         </Menu>
       </div>
@@ -57,7 +57,13 @@ class SettingsMenu extends React.Component<*, *> {
 
 export default props => {
   const user = Meteor.user();
-  const { currentPageObj, changeMode, deleteLI, moreThanOnePage } = props;
+  const {
+    currentPageObj,
+    changeMode,
+    deleteLI,
+    moreThanOnePage,
+    openRestoreModal
+  } = props;
   const topNavBarStyle = {
     display: 'flex',
     flex: '0 0 50px',
@@ -158,7 +164,7 @@ export default props => {
       )}
       <div style={topNavBarItemStyleName}>
         <span>{user.isAnonymous ? 'Anonymous Visitor' : user.username}</span>
-        <SettingsMenu />
+        <SettingsMenu openRestoreModal={openRestoreModal} />
       </div>
     </div>
   );
