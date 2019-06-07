@@ -603,11 +603,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
+              wikiId = {this.wikiId}
+              instanceId = {this.props.match.params.instance}
               currentPageObj={this.state.currentPageObj}
               deleteLI={this.deleteLI}
               mode={this.state.mode}
               changeMode={this.changeMode}
               moreThanOnePage={validPages.length > 1}
+              history = {this.props.history}
             />
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
