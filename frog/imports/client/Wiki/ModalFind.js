@@ -51,7 +51,8 @@ export const PagesLinks = ({
         >
           <span
             onClick={e => {
-              onSelect(pageTitle);
+              const sideToSend = e.shiftKey ? 'right' : 'left';
+              onSelect(pageTitle, null, sideToSend);
               e.preventDefault();
             }}
             style={style}
