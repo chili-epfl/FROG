@@ -30,6 +30,7 @@ import { wikiStore } from './store';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
 import FindModal, { SearchAndFind } from './ModalFind';
+import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './WikiTopNavbar';
 import WikiContentComp from './WikiContentComp';
 
@@ -57,6 +58,7 @@ type WikiCompStateT = {
   openCreator: ?Object,
   createModalOpen: boolean,
   findModalOpen: boolean,
+  restoreModalOpen: boolean,
   search: '',
   urlInstance: ?string,
   noInstance: ?boolean
@@ -97,6 +99,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       error: null,
       openCreator: false,
       createModalOpen: false,
+      restoreModalOpen: false,
       search: '',
       deletedPageModalOpen: false,
       currentDeletedPageId: null,
@@ -423,7 +426,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         mode,
         search: '',
         findModalOpen: false,
-        createModalOpen: false
+        createModalOpen: false,
+        restoreModalOpen: false
       },
       () => {
         if (!newCurrentPageObj || side === 'right') return;
@@ -501,6 +505,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!this.state.currentPageObj) return null;
 
     const validPages = wikiStore.pagesArrayOnlyValid;
+    const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
     let foundPages = validPages;
     if (this.state.search !== '') {
@@ -608,6 +613,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               mode={this.state.mode}
               changeMode={this.changeMode}
               moreThanOnePage={validPages.length > 1}
+              openRestoreModal={() => this.setState({ restoreModalOpen: true })}
             />
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
@@ -639,6 +645,15 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             </div>
           </div>
         </div>
+        {this.state.restoreModalOpen && (
+          <RestoreModal
+            pages={invalidPages}
+            setModalOpen={e => this.setState({ restoreModalOpen: e })}
+            onSelect={(pageId, pageTitle) =>
+              this.openDeletedPageModal(pageId, pageTitle)
+            }
+          />
+        )}
         {this.state.findModalOpen && (
           <FindModal
             history={this.props.history}

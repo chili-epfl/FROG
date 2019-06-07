@@ -26,6 +26,10 @@ class WikiStore {
 
       get pagesArrayOnlyValid(): Array {
         return values(toJS(wikiStore.pages)).filter(x => x.valid && x.created);
+      },
+
+      get pagesArrayOnlyInvalid(): Array {
+        return values(toJS(wikiStore.pages)).filter(x => !x.valid && x.created);
       }
     });
   }

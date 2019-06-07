@@ -4,11 +4,66 @@ import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import Dashboard from '@material-ui/icons/Dashboard';
 import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
+import Settings from '@material-ui/icons/Settings';
 import ImportContacts from '@material-ui/icons/ImportContacts';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+
+class SettingsMenu extends React.Component<*, *> {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  render() {
+    const { anchorEl } = this.state;
+
+    return (
+      <div>
+        <IconButton
+          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-haspopup="true"
+          onClick={this.handleClick}
+        >
+          <Settings />
+        </IconButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+        >
+          <MenuItem
+            onClick={() => {
+              this.props.openRestoreModal();
+              this.handleClose();
+            }}
+          >
+            Restore deleted pages
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+  }
+}
 
 export default props => {
   const user = Meteor.user();
-  const { currentPageObj, changeMode, deleteLI, moreThanOnePage } = props;
+  const {
+    currentPageObj,
+    changeMode,
+    deleteLI,
+    moreThanOnePage,
+    openRestoreModal
+  } = props;
   const topNavBarStyle = {
     display: 'flex',
     flex: '0 0 50px',
@@ -108,7 +163,8 @@ export default props => {
         <div />
       )}
       <div style={topNavBarItemStyleName}>
-        {user.isAnonymous ? 'Anonymous Visitor' : user.username}
+        <span>{user.isAnonymous ? 'Anonymous Visitor' : user.username}</span>
+        <SettingsMenu openRestoreModal={openRestoreModal} />
       </div>
     </div>
   );
