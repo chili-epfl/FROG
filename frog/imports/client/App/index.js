@@ -329,17 +329,15 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'noSession') {
         return <h1>No such session exists</h1>;
       }
-      if (this.state.mode === 'studentlist' && this.state.settings) {
-        return (
-          <StudentLogin
-            settings={this.state.settings}
-            login={this.login}
-            slug={this.props.match.params.slug}
-          />
-        );
-      } else {
-        return <NotLoggedIn login={this.login} />;
-      }
+      return this.state.mode === 'studentlist' && this.state.settings ? (
+        <StudentLogin
+          settings={this.state.settings}
+          login={this.login}
+          slug={this.props.match.params.slug}
+        />
+      ) : (
+        <NotLoggedIn login={this.login} />
+      );
     }
   }
 );
