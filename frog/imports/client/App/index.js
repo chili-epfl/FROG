@@ -244,13 +244,6 @@ const FROGRouter = withRouter(
                 (err, result) => {
                   if (err || result === -1) {
                     this.setState({ mode: 'noSession' });
-                  } else if (
-                    this.props.match.params.slug.slice(0, 4) === 'wiki'
-                  ) {
-                    this.setState({
-                      settings: result,
-                      mode: 'studentlistwiki'
-                    });
                   } else {
                     this.setState({ settings: result, mode: 'studentlist' });
                   }

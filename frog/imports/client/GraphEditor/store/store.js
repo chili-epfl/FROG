@@ -168,7 +168,7 @@ export default class Store {
       changeDuration: action((duration: number, dbIsCorrect?: boolean) => {
         if (duration && duration >= 30 && duration <= 1200) {
           const oldPanTime = this.ui.panTime;
-          //changes the scale on duration change 
+          // changes the scale on duration change
           this.ui.setScaleValue(
             (this.ui.scale * duration) / this._graphDuration
           );
@@ -264,7 +264,7 @@ export default class Store {
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(false);
       }),
-      
+
       addHistory: action(() => {
         if (!this.history || this.readOnly || this.state.mode === 'readOnly') {
           return;

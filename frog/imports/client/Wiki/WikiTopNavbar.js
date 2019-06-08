@@ -4,7 +4,6 @@ import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import Dashboard from '@material-ui/icons/Dashboard';
 import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
-<<<<<<< HEAD
 import Button from '@material-ui/core/Button';
 import Settings from '@material-ui/icons/Settings';
 import ImportContacts from '@material-ui/icons/ImportContacts';
@@ -65,7 +64,7 @@ export default props => {
     changeMode,
     deleteLI,
     moreThanOnePage,
-    history
+    history,
     openRestoreModal
   } = props;
   const topNavBarStyle = {
@@ -167,12 +166,8 @@ export default props => {
         <div />
       )}
       <div style={topNavBarItemStyleName}>
-
-       <span> {user.isAnonymous ? 'Anonymous Visitor' : user.username} </span> 
-       <SettingsMenu openRestoreModal={openRestoreModal} />
-        {
-          // Adds logout button beside username
-        }
+        <span> {user.isAnonymous ? 'Anonymous Visitor' : user.username} </span>
+        <SettingsMenu openRestoreModal={openRestoreModal} />
         <Button
           style={iconButtonStyle}
           color="primary"
@@ -185,7 +180,6 @@ export default props => {
         >
           Logout
         </Button>
-
       </div>
     </div>
   );
