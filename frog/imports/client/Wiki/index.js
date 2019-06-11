@@ -6,7 +6,8 @@ import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
-import { values } from 'frog-utils';
+import { values, uuid } from 'frog-utils';
+import { activityTypesObj } from '/imports/activityTypes';
 
 import Button from '@material-ui/core/Button';
 
@@ -303,14 +304,30 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
   };
 
-  createNewGenericPage = (pageTitle, setCreated, config) => {
-    const liId = createNewGenericLI(this.wikiId, config);
+  createNewGenericPage = (pageTitle, setCreated, rawconfig) => {
+    let liId;
+    if (rawconfig && rawconfig.activityType) {
+      const { activityType, config } = rawconfig;
+      const id = uuid();
+      const doc = connection.get('rz', id + '/all');
+      doc.create(activityTypesObj[activityType].dataStructure);
+      const payload = {
+        acType: activityType,
+        activityData: { config },
+        rz: id + '/all',
+        title: pageTitle,
+        activityTypeTitle: activityTypesObj[activityType].meta.name
+      };
+
+      liId = createNewGenericLI(this.wikiId, payload);
+    } else liId = createNewGenericLI(this.wikiId);
+    console.log(rawconfig);
     const pageId = addNewGlobalWikiPage(
       this.wikiDoc,
       pageTitle,
       liId,
       setCreated,
-      config.activityType ? 'li-activity' : 'li-richText'
+      rawconfig && rawconfig.activityType ? 'li-activity' : 'li-richText'
     );
 
     return {

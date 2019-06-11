@@ -14,7 +14,7 @@ export const createNewGenericLI = (wikiId, config) => {
     wikiId
   };
   const newId = dataFn.createLearningItem(
-    (config.activityType) ? 'li-activity' : 'li-richText',
+    config ? 'li-activity' : 'li-richText',
     config,
     meta,
     undefined,
