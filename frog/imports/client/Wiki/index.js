@@ -649,9 +649,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           <RestoreModal
             pages={invalidPages}
             setModalOpen={e => this.setState({ restoreModalOpen: e })}
-            onSelect={(pageId, pageTitle) =>
-              this.openDeletedPageModal(pageId, pageTitle)
-            }
+            onSelect={pageId => restoreWikiPage(this.wikiDoc, pageId)}
           />
         )}
         {this.state.findModalOpen && (
