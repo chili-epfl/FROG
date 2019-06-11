@@ -23,6 +23,7 @@ const scrollMouse = e => {
 };
 
 const mousemove = e => {
+  // We do -100 here because there is 100px above the graph editor
   store.ui.socialMove(e.clientX, e.clientY - 100);
 };
 

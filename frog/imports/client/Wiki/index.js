@@ -613,7 +613,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
               mode={this.state.mode}
               changeMode={this.changeMode}
               moreThanOnePage={validPages.length > 1}
-              history={this.props.history}
               openRestoreModal={() => this.setState({ restoreModalOpen: true })}
             />
             <div style={wikiPagesDivContainerStyle}>

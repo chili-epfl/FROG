@@ -4,7 +4,6 @@ import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
 import Dashboard from '@material-ui/icons/Dashboard';
 import History from '@material-ui/icons/History';
 import Delete from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
 import Settings from '@material-ui/icons/Settings';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 import Menu from '@material-ui/core/Menu';
@@ -58,13 +57,11 @@ class SettingsMenu extends React.Component<*, *> {
 
 export default props => {
   const user = Meteor.user();
-
   const {
     currentPageObj,
     changeMode,
     deleteLI,
     moreThanOnePage,
-    history,
     openRestoreModal
   } = props;
   const topNavBarStyle = {
@@ -166,20 +163,8 @@ export default props => {
         <div />
       )}
       <div style={topNavBarItemStyleName}>
-        <span> {user.isAnonymous ? 'Anonymous Visitor' : user.username} </span>
+        <span>{user.isAnonymous ? 'Anonymous Visitor' : user.username}</span>
         <SettingsMenu openRestoreModal={openRestoreModal} />
-        <Button
-          style={iconButtonStyle}
-          color="primary"
-          onClick={() => {
-            sessionStorage.removeItem('frog.sessionToken');
-            Meteor.logout();
-            history.push('/');
-            window.notReady();
-          }}
-        >
-          Logout
-        </Button>
       </div>
     </div>
   );
