@@ -477,11 +477,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, side, instanceId);
   };
 
-  createLI = (newTitle, plane, config, operatorConfig) => {
-    console.log(config);
+  createLI = (newTitle, plane, rawconfig, operatorConfig) => {
+    console.log(rawconfig);
     const error =
       checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
-      (config.invalid && 'Activity config is not valid') ||
+      (rawconfig.invalid && 'Activity config is not valid') ||
       (operatorConfig.invalid && 'Operator config is not valid');
     if (error) {
       this.setState({ error });
@@ -493,11 +493,27 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     let pageId;
     if (plane === 3) {
-      const ids = this.createNewGenericPage(newTitle, true, config);
+      const ids = this.createNewGenericPage(newTitle, true, rawconfig);
       pageId = ids.pageId;
     } else {
-      const liType = 'li-richText';
-      const liId = createNewGenericLI(this.wikiId);
+      const liType =
+        rawconfig && rawconfig.activityType ? 'li-activity' : 'li-richText';
+      let liId;
+      if (rawconfig && rawconfig.activityType) {
+        const { activityType, config } = rawconfig;
+        const id = uuid();
+        const doc = connection.get('rz', id + '/all');
+        doc.create(activityTypesObj[activityType].dataStructure);
+        const payload = {
+          acType: activityType,
+          activityData: { config },
+          rz: id + '/all',
+          title: newTitle,
+          activityTypeTitle: activityTypesObj[activityType].meta.name
+        };
+
+        liId = createNewGenericLI(this.wikiId, payload);
+      } else liId = createNewGenericLI(this.wikiId);
       // TODO: Below instance ID should be found differently for groups
       const instanceId = Meteor.userId();
       const instanceName = Meteor.user().username;
