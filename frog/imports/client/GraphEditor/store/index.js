@@ -16,6 +16,7 @@ if (Meteor.isClient) {
 }
 
 export type StoreProp = { store: Store };
+
 export function connect(component: any): any {
   return inject('store')(observer(component));
 }
