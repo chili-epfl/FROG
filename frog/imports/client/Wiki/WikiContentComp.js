@@ -96,6 +96,11 @@ class WikiContentComp extends React.Component<> {
       border: '1px lightgray solid'
     };
 
+    const titleStyle = {
+      lineHeight:'1.2'
+
+    }; 
+
     const docModeButton = (() => {
       if (
         this.state.docMode === 'history' ||
@@ -151,7 +156,7 @@ class WikiContentComp extends React.Component<> {
             this.setState({ showTitleEditButton: false });
           }}
         >
-          <span>{this.state.pageTitleString}</span>
+          <span style = {titleStyle}>{this.state.pageTitleString}</span>
           {this.state.showTitleEditButton && (
             <Edit
               onClick={this.handleEditingTitle}
