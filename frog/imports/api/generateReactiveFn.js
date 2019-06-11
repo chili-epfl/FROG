@@ -100,6 +100,8 @@ export class Doc {
     const properPayload =
       // $FlowFixMe
       payload || learningItemTypesObj[liType].liDataStructure;
+    console.log(payload);
+    console.log(properPayload);
     if (!properPayload) {
       return null;
     }

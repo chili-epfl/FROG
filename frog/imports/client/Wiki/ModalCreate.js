@@ -123,6 +123,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
 
   handleCreate = () => {
     const { pageTitle, socialPlane, config, operatorConfig } = this.state;
+    console.log(config);
     this.props.onCreate(pageTitle, socialPlane, config, operatorConfig);
   };
 

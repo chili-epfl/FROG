@@ -12,6 +12,7 @@ if (isBrowser) {
 }
 
 const Viewer = ({ data }) => {
+  console.log(data);
   const activityType = activityTypesObj[data.acType];
   const ActivityToRun = ReactiveHOC(data.rz, undefined)(
     activityRunners[data.acType]

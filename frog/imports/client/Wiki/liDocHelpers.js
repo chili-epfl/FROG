@@ -9,13 +9,13 @@ export const dataFn = generateReactiveFn(genericDoc, LI, {
 });
 export const LearningItem = dataFn.LearningItem;
 
-export const createNewGenericLI = wikiId => {
+export const createNewGenericLI = (wikiId, config) => {
   const meta = {
     wikiId
   };
   const newId = dataFn.createLearningItem(
-    'li-richText',
-    undefined,
+    (config.activityType) ? 'li-activity' : 'li-richText',
+    config,
     meta,
     undefined,
     undefined,

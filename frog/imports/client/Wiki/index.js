@@ -303,14 +303,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
   };
 
-  createNewGenericPage = (pageTitle, setCreated) => {
-    const liId = createNewGenericLI(this.wikiId);
+  createNewGenericPage = (pageTitle, setCreated, config) => {
+    const liId = createNewGenericLI(this.wikiId, config);
     const pageId = addNewGlobalWikiPage(
       this.wikiDoc,
       pageTitle,
       liId,
       setCreated,
-      'li-richText'
+      config.activityType ? 'li-activity' : 'li-richText'
     );
 
     return {
@@ -461,6 +461,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createLI = (newTitle, plane, config, operatorConfig) => {
+    console.log(config);
     const error =
       checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
       (config.invalid && 'Activity config is not valid') ||
@@ -475,7 +476,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     let pageId;
     if (plane === 3) {
-      const ids = this.createNewGenericPage(newTitle, true);
+      const ids = this.createNewGenericPage(newTitle, true, config);
       pageId = ids.pageId;
     } else {
       const liType = 'li-richText';

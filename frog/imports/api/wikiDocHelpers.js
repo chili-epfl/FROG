@@ -86,7 +86,8 @@ export const addNewWikiPageWithInstances = (
     valid: true,
     created: true,
     liType,
-    instances: instancesObj
+    instances: instancesObj,
+    hello: 'Hallo'
   };
 
   const op = {
