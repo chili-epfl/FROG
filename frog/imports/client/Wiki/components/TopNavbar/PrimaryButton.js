@@ -1,4 +1,5 @@
 //@flow
+
 /***
  * This file define a primary button (displayed horizontally in the
  * Navbar).
@@ -7,16 +8,12 @@
 import * as React from 'react';
 
 type PrimaryButtonPropsT = {
-  /** Should the button use alternate color? */
   title: string,
   active?: boolean,
   icon?: React.ComponentType<*>,
   callback?: () => void
 };
 
-/**
- * A button displayed horizontally in the Navbar
- */
 export default (props: PrimaryButtonPropsT) => {
   const { active, title, icon, callback } = props;
 

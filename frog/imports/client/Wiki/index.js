@@ -548,9 +548,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       height: 'calc(100vh - 54px)'
     };
 
-    /**
-     * Buttons displayed horizontally in the NavBar
-     */
     const primaryNavItems = [
       {
         active: this.state.mode === 'document',
@@ -578,6 +575,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       }
     ];
 
+    // Add the delete button to the navigation if applicable
     if (validPages.length > 1) {
       primaryNavItems.push({
         title: 'Delete Page',
