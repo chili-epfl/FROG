@@ -9,6 +9,12 @@ import { toObject as queryToObject } from 'query-parse';
 import { values } from 'frog-utils';
 
 import Button from '@material-ui/core/Button';
+import History from '@material-ui/icons/History';
+import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
+import Dashboard from '@material-ui/icons/Dashboard';
+import ImportContacts from '@material-ui/icons/ImportContacts';
+import Delete from '@material-ui/icons/Delete';
+import RestorePage from '@material-ui/icons/RestorePage';
 
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
@@ -31,7 +37,7 @@ import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
-import WikiTopNavbar from './WikiTopNavbar';
+import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 
 const genericDoc = connection.get('li');
@@ -542,6 +548,50 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       height: 'calc(100vh - 54px)'
     };
 
+    const primaryNavItems = [
+      {
+        active: this.state.mode === 'document',
+        title: 'Page',
+        icon: ChromeReaderMode,
+        callback: () => this.changeMode('document')
+      },
+      {
+        active: this.state.mode === 'revisions',
+        title: 'Revisions',
+        icon: History,
+        callback: () => this.changeMode('revisions')
+      },
+      {
+        active: this.state.mode === 'dashboard',
+        title: 'All Pages',
+        icon: Dashboard,
+        callback: () => this.changeMode('dashboard')
+      },
+      {
+        active: this.state.mode === 'splitview',
+        title: 'Split View',
+        icon: ImportContacts,
+        callback: () => this.changeMode('splitview')
+      }
+    ];
+
+    // Add the delete button to the navigation if applicable
+    if (validPages.length > 1) {
+      primaryNavItems.push({
+        title: 'Delete Page',
+        icon: Delete,
+        callback: () => this.deleteLI(this.state.currentPageObj.id)
+      });
+    }
+
+    const secondaryNavItems = [
+      {
+        title: 'Restore deleted page',
+        icon: RestorePage,
+        callback: () => this.setState({ restoreModalOpen: true })
+      }
+    ];
+
     const instancesList =
       this.state.currentPageObj.plane === 3
         ? null
@@ -608,12 +658,13 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              currentPageObj={this.state.currentPageObj}
-              deleteLI={this.deleteLI}
-              mode={this.state.mode}
-              changeMode={this.changeMode}
-              moreThanOnePage={validPages.length > 1}
-              openRestoreModal={() => this.setState({ restoreModalOpen: true })}
+              user={
+                Meteor.user().isAnonymous
+                  ? 'Anonymous Visitor'
+                  : Meteor.user().username
+              }
+              primaryNavItems={primaryNavItems}
+              secondaryNavItems={secondaryNavItems}
             />
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
