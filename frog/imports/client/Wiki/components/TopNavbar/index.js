@@ -1,15 +1,9 @@
 //@flow
 
-/***
- * This file implements the top-level component for the navbar. The navbar is
- * responsible for displaying wiki page controls. Controls can be primary (displayed
- * horizontally), or secondary (displayed in a dropdown).
- */
-
 import * as React from 'react';
 
 import PrimaryButton from './PrimaryButton';
-import SecondaryPanel from './SecondaryPanel';
+import OverflowPanel from './OverflowPanel';
 
 type TopNavBarPropsT = {
   /** The current Meteor username */
@@ -31,6 +25,10 @@ type TopNavBarPropsT = {
   }>
 };
 
+/***
+ * The navbar is responsible for displaying wiki page controls.
+ * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
+ */
 export default (props: TopNavBarPropsT) => {
   const { user, primaryNavItems, secondaryNavItems } = props;
 
@@ -46,8 +44,8 @@ export default (props: TopNavBarPropsT) => {
       {primaryNavItems.map((item, index) => (
         <PrimaryButton key={index} {...item} />
       ))}
-      <PrimaryButton key="user" title={user} />
-      <SecondaryPanel {...props} />
+      <PrimaryButton key="username" title={user} />
+      <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );
 };

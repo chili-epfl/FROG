@@ -1,10 +1,5 @@
 //@flow
 
-/***
- * This file define a primary button (displayed horizontally in the
- * Navbar).
- */
-
 import * as React from 'react';
 
 type PrimaryButtonPropsT = {
@@ -21,6 +16,7 @@ export default (props: PrimaryButtonPropsT) => {
 
   return (
     <div
+      data-test="primary-button"
       style={{
         display: 'flex',
         flex: 'auto',

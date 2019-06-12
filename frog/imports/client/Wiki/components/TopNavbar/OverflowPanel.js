@@ -1,10 +1,5 @@
 //@flow
 
-/***
- * This file defines the secondary panel of the Navbar. This component takes
- * the form of an overflow dropdown.
- */
-
 import * as React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,22 +7,21 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Settings from '@material-ui/icons/Settings';
 
-type SecondaryPanelPropsT = {
-  /** List of buttons to display in the secondary view (dropdown)*/
-  secondaryNavItems: Array<{
+type OverflowPanelPropsT = {
+  overflowElements: Array<{
     title: string,
     icon: React.ComponentType<*>,
     callback?: () => void
   }>
 };
 
-type SecondaryPanelStateT = {
+type OverflowPanelStateT = {
   anchorEl: HTMLElement | null
 };
 
-export default class SettingsMenu extends React.Component<
-  SecondaryPanelPropsT,
-  SecondaryPanelStateT
+export default class OverflowPanel extends React.Component<
+  OverflowPanelPropsT,
+  OverflowPanelStateT
 > {
   state = {
     anchorEl: null
@@ -42,12 +36,13 @@ export default class SettingsMenu extends React.Component<
   };
 
   render() {
-    const { secondaryNavItems } = this.props;
+    const { overflowElements } = this.props;
     const { anchorEl } = this.state;
 
     return (
-      <div>
+      <React.Fragment>
         <IconButton
+          data-test="overflow-button"
           aria-owns={anchorEl ? 'overflow-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
@@ -56,14 +51,16 @@ export default class SettingsMenu extends React.Component<
         </IconButton>
         <Menu
           id="overflow-menu"
+          data-test="overflow-menu"
           anchorEl={anchorEl}
           open={anchorEl !== null}
           onClose={this.handleClose}
         >
-          {secondaryNavItems.map((item, index) => {
+          {overflowElements.map((item, index) => {
             const Icon = item.icon;
             return (
               <MenuItem
+                data-test="overflow-item"
                 key={index}
                 onClick={() => {
                   if (item.callback !== undefined) {
@@ -80,7 +77,7 @@ export default class SettingsMenu extends React.Component<
             );
           })}
         </Menu>
-      </div>
+      </React.Fragment>
     );
   }
 }
