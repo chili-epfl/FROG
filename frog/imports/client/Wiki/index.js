@@ -658,11 +658,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              user={
-                Meteor.user().isAnonymous
-                  ? 'Anonymous Visitor'
-                  : Meteor.user().username
-              }
+              username={Meteor.user().username}
+              isAnonymous={Meteor.user().isAnonymous}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />
