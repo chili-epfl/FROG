@@ -1,4 +1,4 @@
-//@flow
+// @flow
 
 import * as React from 'react';
 
@@ -24,7 +24,7 @@ export default (props: PrimaryButtonPropsT) => {
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '14px',
-	fontStyle: i ? 'italic' : 'normal',
+        fontStyle: i ? 'italic' : 'normal',
         cursor: callback && 'pointer',
         padding: '20px 0'
       }}
