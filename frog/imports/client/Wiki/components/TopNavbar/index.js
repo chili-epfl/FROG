@@ -45,7 +45,7 @@ export default (props: TopNavBarPropsT) => {
       {primaryNavItems.map((item, index) => (
         <PrimaryButton key={index} {...item} />
       ))}
-      <PrimaryButton key="username" title={user} />
+      <PrimaryButton key="username" title={user} i={isAnonymous}/>
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );
