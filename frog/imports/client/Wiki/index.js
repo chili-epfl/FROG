@@ -67,7 +67,8 @@ type WikiCompStateT = {
   restoreModalOpen: boolean,
   search: '',
   urlInstance: ?string,
-  noInstance: ?boolean
+  noInstance: ?boolean,
+  user: Object
 };
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
@@ -110,7 +111,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       deletedPageModalOpen: false,
       currentDeletedPageId: null,
       currentDeletedPageTitle: null,
-      rightSideCurrentPageObj: null
+      rightSideCurrentPageObj: null,
+      user: Meteor.user()
     };
   }
 
@@ -223,7 +225,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        const instanceName = Meteor.user().username;
+        const instanceName = this.state.user.username;
         this.createNewInstancePage(fullPageObj, instanceId, instanceName);
       }
       return;
@@ -509,7 +511,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   render() {
     if (!this.state.currentPageObj) return null;
-
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
@@ -651,15 +652,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         )}
       </div>
     );
-
     return (
       <div>
         <div style={containerDivStyle}>
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              username={Meteor.user().username}
-              isAnonymous={Meteor.user().isAnonymous}
+              username={this.state.user.username}
+              isAnonymous={this.state.user.isAnonymous}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />

@@ -7,7 +7,7 @@ import OverflowPanel from './OverflowPanel';
 
 type TopNavBarPropsT = {
   /** The current Meteor username */
-  user: string,
+  username: string,
   /* Status of the user, username will be displayed in italics if true */
   isAnonymous: boolean,
   /** List of buttons to display in the primary view */
@@ -31,8 +31,7 @@ type TopNavBarPropsT = {
  * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
  */
 export default (props: TopNavBarPropsT) => {
-  const { user, isAnonymous, primaryNavItems, secondaryNavItems } = props;
-
+  const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
   return (
     <div
       style={{
@@ -45,7 +44,7 @@ export default (props: TopNavBarPropsT) => {
       {primaryNavItems.map((item, index) => (
         <PrimaryButton key={index} {...item} />
       ))}
-      <PrimaryButton key="username" title={user} i={isAnonymous}/>
+      <PrimaryButton key="username" title={username} i={isAnonymous}/>
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );
