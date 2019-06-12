@@ -2,8 +2,8 @@
 
 /***
  * This file implements the top-level component for the navbar. The navbar is
- * responsible for displaying wiki page controls such as full or splitview,
- * page revisions, page delete button, and the current user.
+ * responsible for displaying wiki page controls. Controls can be primary (displayed
+ * horizontally), or secondary (displayed in a dropdown).
  */
 
 import * as React from 'react';
