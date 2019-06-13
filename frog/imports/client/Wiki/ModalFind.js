@@ -41,13 +41,16 @@ export const PagesLinks = ({
         : {
             cursor: 'pointer'
           };
+      const pageLinkStyle = {
+            fontSize: '14px',
+            marginTop: '12px',
+            backgroundColor: i === index ? 'cornflowerblue' : (currentPageBool ? '#e6e6e6': undefined), 
+      }
       return (
         <li
           key={pageId}
-          style={{
-            fontSize: '14px',
-            backgroundColor: i === index ? 'cornflowerblue' : undefined
-          }}
+          style={pageLinkStyle}
+
         >
           <span
             onClick={e => {
