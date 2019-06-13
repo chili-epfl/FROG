@@ -532,7 +532,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       backgroundColor: 'white',
       overflowX: 'hidden',
       overflowY: 'auto',
-      padding: '10px 0 10px 10px',
+      padding: '10px',
       borderRight: '1px lightgrey solid'
     };
 
