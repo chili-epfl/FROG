@@ -3,6 +3,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
+import { startCase } from 'lodash';
 import {
   uniqueNamesGenerator,
   UniqueNamesGeneratorConfig
@@ -17,7 +18,7 @@ const doLogin = (user, self) => {
       return Accounts._loginUser(self, alreadyUser._id);
     }
   }
-  const userServiceData = { id: user || uniqueNamesGenerator(usernameConfig) };
+  const userServiceData = { id: user || startCase(uniqueNamesGenerator(usernameConfig)) };
   const { userId } = Accounts.updateOrCreateUserFromExternalService(
     'frog',
     userServiceData
