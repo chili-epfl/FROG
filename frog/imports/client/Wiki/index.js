@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { withRouter } from 'react-router';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
@@ -40,6 +40,8 @@ import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 
+import withModal from './components/Modal';
+
 const genericDoc = connection.get('li');
 export const dataFn = generateReactiveFn(genericDoc, LI, {
   createdByUser: Meteor.userId()
@@ -54,7 +56,9 @@ type WikiCompPropsT = {
       pageTitle: ?string
     }
   },
-  history: Object
+  history: Object,
+  showModal: (Content: React.AbstractComponent<*>) => void,
+  hideModal: () => void
 };
 
 type WikiCompStateT = {
@@ -70,7 +74,7 @@ type WikiCompStateT = {
   noInstance: ?boolean
 };
 
-class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
+class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   wikiId: string = this.props.match.params.wikiId;
 
   wikiDoc: Object = {};
@@ -588,7 +592,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       {
         title: 'Restore deleted page',
         icon: RestorePage,
-        callback: () => this.setState({ restoreModalOpen: true })
+        callback: () => this.props.showModal(() => <div>Hello World</div>)
       }
     ];
 
@@ -744,7 +748,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withRouter(WikiComp);
+const Wiki = withRouter(withModal(WikiComp));
 Wiki.displayName = 'Wiki';
 
 export default Wiki;

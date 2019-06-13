@@ -25,11 +25,11 @@ type TopNavBarPropsT = {
   }>
 };
 
-/***
+/**
  * The navbar is responsible for displaying wiki page controls.
  * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
  */
-export default (props: TopNavBarPropsT) => {
+const TopNavbar = (props: TopNavBarPropsT) => {
   const { user, primaryNavItems, secondaryNavItems } = props;
 
   return (
@@ -49,3 +49,5 @@ export default (props: TopNavBarPropsT) => {
     </div>
   );
 };
+
+export default TopNavbar;
