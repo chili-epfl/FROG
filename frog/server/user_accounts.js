@@ -18,7 +18,9 @@ const doLogin = (user, self) => {
       return Accounts._loginUser(self, alreadyUser._id);
     }
   }
-  const userServiceData = { id: user || startCase(uniqueNamesGenerator(usernameConfig)) };
+  const userServiceData = {
+    id: user || startCase(uniqueNamesGenerator(usernameConfig))
+  };
   const { userId } = Accounts.updateOrCreateUserFromExternalService(
     'frog',
     userServiceData

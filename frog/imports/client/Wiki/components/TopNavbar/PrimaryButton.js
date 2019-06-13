@@ -7,11 +7,11 @@ type PrimaryButtonPropsT = {
   active?: boolean,
   icon?: React.ComponentType<*>,
   callback?: () => void,
-  i?: boolean
+  italics?: boolean
 };
 
 export default (props: PrimaryButtonPropsT) => {
-  const { active, title, icon, callback, i } = props;
+  const { active, title, icon, callback, italics } = props;
 
   const Icon = icon;
 
@@ -24,7 +24,7 @@ export default (props: PrimaryButtonPropsT) => {
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '14px',
-        fontStyle: i ? 'italic' : 'normal',
+        fontStyle: italics ? 'italic' : 'normal',
         cursor: callback && 'pointer',
         padding: '20px 0'
       }}

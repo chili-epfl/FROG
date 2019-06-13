@@ -6,11 +6,10 @@ import PrimaryButton from './PrimaryButton';
 import OverflowPanel from './OverflowPanel';
 
 type TopNavBarPropsT = {
-  /** The current Meteor username */
   username: string,
-  /* Status of the user, username will be displayed in italics if true */
+  // Status of the user, username will be displayed in italics if true
   isAnonymous: boolean,
-  /** List of buttons to display in the primary view */
+  // List of buttons to display in the primary view
   primaryNavItems: Array<{
     active?: boolean,
     title: string,
@@ -18,7 +17,7 @@ type TopNavBarPropsT = {
     callback?: () => void
   }>,
 
-  /** List of buttons to display in the secondary view (dropdown) */
+  // List of buttons to display in the secondary view (dropdown)
   secondaryNavItems: Array<{
     title: string,
     icon: React.ComponentType<*>,
@@ -44,7 +43,7 @@ export default (props: TopNavBarPropsT) => {
       {primaryNavItems.map((item, index) => (
         <PrimaryButton key={index} {...item} />
       ))}
-      <PrimaryButton key="username" title={username} i={isAnonymous} />
+      <PrimaryButton key="username" title={username} italics={isAnonymous} />
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );
