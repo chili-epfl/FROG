@@ -45,6 +45,7 @@ export const PagesLinks = ({
             fontSize: '14px',
             marginTop: '12px',
             backgroundColor: i === index ? 'cornflowerblue' : (currentPageBool ? '#e6e6e6': undefined), 
+            width: '100%'
       }
       return (
         <li
