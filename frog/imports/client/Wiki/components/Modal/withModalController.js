@@ -35,7 +35,7 @@ export const withModalController = <T: {}>(
     // no modal gets rendered
     const [View, updateData] = React.useState();
 
-    // Updates the state with the provided ModalView and props
+    // Updates the state with the provided View
     const showModal = (View: React.Node) => updateData(View);
 
     const hideModal = () => updateData();
