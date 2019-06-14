@@ -470,6 +470,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     // TODO: Create a new page with the primary LI
     const pageId = addNewWikiPage(this.wikiDoc, title, true, liType, liId, socialPlane);
     // TODO: goto the new page
+    this.goToPage(pageId);
     return { pageId, liId };
   };
 
