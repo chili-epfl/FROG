@@ -40,7 +40,10 @@ import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 
-import withModal from './components/Modal';
+import {
+  withModalController,
+  type ModalParentPropsT
+} from './components/Modal';
 
 const genericDoc = connection.get('li');
 export const dataFn = generateReactiveFn(genericDoc, LI, {
@@ -56,10 +59,8 @@ type WikiCompPropsT = {
       pageTitle: ?string
     }
   },
-  history: Object,
-  showModal: (Content: React.AbstractComponent<*>) => void,
-  hideModal: () => void
-};
+  history: Object
+} & ModalParentPropsT;
 
 type WikiCompStateT = {
   dashboardSearch: ?string,
@@ -111,9 +112,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       createModalOpen: false,
       restoreModalOpen: false,
       search: '',
-      deletedPageModalOpen: false,
-      currentDeletedPageId: null,
-      currentDeletedPageTitle: null,
       rightSideCurrentPageObj: null
     };
   }
@@ -241,6 +239,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         currentDeletedPageId: currentPageObj.id,
         currentDeletedPageTitle: currentPageObj.title
       });
+      this.openDeletedPageModal(currentPageObj.id, currentPageObj.title);
       return;
     }
 
@@ -347,27 +346,25 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   restoreDeletedPage = pageId => {
     restoreWikiPage(this.wikiDoc, pageId);
-    this.removeDeletedPageModal();
+    this.goToPage(pageId);
   };
 
   createNewLIForPage = pageId => {
     restoreWikiPage(this.wikiDoc, pageId);
     const newId = createNewGenericLI(this.wikiId);
     changeWikiPageLI(this.wikiDoc, pageId, newId);
-    this.removeDeletedPageModal();
+    this.goToPage(pageId);
   };
 
   openDeletedPageModal = (pageId, pageTitle) => {
-    this.setState({
-      deletedPageModalOpen: true,
-      currentDeletedPageId: pageId,
-      currentDeletedPageTitle: pageTitle
-    });
-  };
-
-  removeDeletedPageModal = () => {
-    const pageId = this.state.currentDeletedPageId;
-    this.goToPage(pageId);
+    this.props.showModal(
+      <DeletedPageModal
+        hideModal={this.props.hideModal}
+        onCreateNewPage={() => this.createNewLIForPage(pageId)}
+        onRestorePage={() => this.restoreDeletedPage(pageId)}
+        pageTitle={pageTitle}
+      />
+    );
   };
 
   changeMode = mode => {
@@ -430,9 +427,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       {
         currentPageObj,
         rightSideCurrentPageObj,
-        deletedPageModalOpen: false,
-        currentDeletedPageId: null,
-        currentDeletedPageTitle: null,
         mode,
         search: '',
         findModalOpen: false,
@@ -734,21 +728,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             wikiId={this.wikiId}
           />
         )}
-        {this.state.deletedPageModalOpen && (
-          <DeletedPageModal
-            closeModal={() => this.setState({ deletedPageModalOpen: false })}
-            restoreDeletedPage={this.restoreDeletedPage}
-            createNewLIForPage={this.createNewLIForPage}
-            pageId={this.state.currentDeletedPageId}
-            pageTitle={this.state.currentDeletedPageTitle}
-          />
-        )}
       </div>
     );
   }
 }
 
-const Wiki = withRouter(withModal(WikiComp));
+const Wiki = withRouter(withModalController(WikiComp));
 Wiki.displayName = 'Wiki';
 
 export default Wiki;
