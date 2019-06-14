@@ -83,7 +83,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       expanded: false,
       socialPlane: 3,
       allowView: true,
-      allowEdit: true,
+      allowEdit: true
     };
   }
 
@@ -120,7 +120,12 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleCreate = () => {
-    const { pageTitle, socialPlane, activityConfig, operatorConfig } = this.state;
+    const {
+      pageTitle,
+      socialPlane,
+      activityConfig,
+      operatorConfig
+    } = this.state;
     this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
 

@@ -6,8 +6,7 @@ import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { toObject as queryToObject } from 'query-parse';
-import { values, uuid } from 'frog-utils';
-import { activityTypesObj } from '/imports/activityTypes';
+import { values } from 'frog-utils';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
@@ -27,7 +26,7 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  addNewInstancePage,
+  addNewInstancePage
 } from '/imports/api/wikiDocHelpers';
 import { createNewLI } from './liDocHelpers';
 
@@ -449,12 +448,16 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, side, instanceId);
   };
 
- // Creates a new page entry in ShareDB and navigates to it.
+  // Creates a new page entry in ShareDB and navigates to it.
   createPage = (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
-      (activityConfig && activityConfig.invalid && 'Activity config is not valid') ||
-      (operatorConfig && operatorConfig.invalid && 'Operator config is not valid');
+      (activityConfig &&
+        activityConfig.invalid &&
+        'Activity config is not valid') ||
+      (operatorConfig &&
+        operatorConfig.invalid &&
+        'Operator config is not valid');
     if (error) {
       this.setState({ error });
       return;
@@ -462,7 +465,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
-    const pageId = addNewWikiPage(this.wikiDoc, title, true, liType, liId, socialPlane);
+    const pageId = addNewWikiPage(
+      this.wikiDoc,
+      title,
+      true,
+      liType,
+      liId,
+      socialPlane
+    );
     this.goToPage(pageId);
     return { pageId, liId };
   };
@@ -573,7 +583,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 style={style}
               >
                 {line}
-                </li>
+              </li>
             );
           });
 
@@ -683,7 +693,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         {this.state.createModalOpen && (
           <CreateModal
             onCreate={this.createPage}
-            setModalOpen={e => this.setState({createModalOpen: e})}
+            setModalOpen={e => this.setState({ createModalOpen: e })}
             errorDiv={this.state.error}
             wikiId={this.wikiId}
           />

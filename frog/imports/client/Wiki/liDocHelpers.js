@@ -13,9 +13,14 @@ export const dataFn = generateReactiveFn(genericDoc, LI, {
 export const LearningItem = dataFn.LearningItem;
 
 /**
-* Creates an LI entry in the 'li' collection.  
-*/
-export const createNewLI = (wikiId: string, liType: string, activityConfig?: any, pageTitle?: string) => {
+ * Creates an LI entry in the 'li' collection.
+ */
+export const createNewLI = (
+  wikiId: string,
+  liType: string,
+  activityConfig?: any,
+  pageTitle?: string
+) => {
   const meta = {
     wikiId
   };
