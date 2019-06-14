@@ -518,7 +518,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   render() {
     if (!this.state.currentPageObj) return null;
-
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
@@ -660,18 +659,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         )}
       </div>
     );
-
     return (
       <div>
         <div style={containerDivStyle}>
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              user={
-                Meteor.user().isAnonymous
-                  ? 'Anonymous Visitor'
-                  : Meteor.user().username
-              }
+              username={Meteor.user().username}
+              isAnonymous={Meteor.user().isAnonymous}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />
@@ -709,9 +704,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           <RestoreModal
             pages={invalidPages}
             setModalOpen={e => this.setState({ restoreModalOpen: e })}
-            onSelect={(pageId, pageTitle) =>
-              this.openDeletedPageModal(pageId, pageTitle)
-            }
+            onSelect={pageId => {
+              restoreWikiPage(this.wikiDoc, pageId);
+              this.goToPage(pageId, null, null, null);
+            }}
           />
         )}
         {this.state.findModalOpen && (
