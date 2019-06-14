@@ -473,16 +473,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       (config.invalid && 'Activity config is not valid') ||
       (operatorConfig.invalid && 'Operator config is not valid');
     
-    
-
-    if (error) {
+     if (error) {
       this.setState({ error }); 
       return;
     }
-  
-
-    
-
     this.preventRenderUntilNextShareDBUpdate = true;
     // TODO: Rewrite this function to propely handle creating different types of activities/LIs
 
@@ -507,10 +501,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         liId
       );
     }
-
-
-    this.goToPage(pageId);
-    this.setState({error:null}); 
+     this.goToPage(pageId);
     // setTimeout(() => {
     //   this.goToPage(pageId);
     // }, 100);
