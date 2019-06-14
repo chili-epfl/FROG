@@ -67,8 +67,7 @@ type WikiCompStateT = {
   restoreModalOpen: boolean,
   search: '',
   urlInstance: ?string,
-  noInstance: ?boolean,
-  user: Object
+  noInstance: ?boolean
 };
 
 class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
@@ -111,8 +110,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       deletedPageModalOpen: false,
       currentDeletedPageId: null,
       currentDeletedPageTitle: null,
-      rightSideCurrentPageObj: null,
-      user: Meteor.user()
+      rightSideCurrentPageObj: null
     };
   }
 
@@ -225,7 +223,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        const instanceName = this.state.user.username;
+        const instanceName = Meteor.user().username;
         this.createNewInstancePage(fullPageObj, instanceId, instanceName);
       }
       return;
@@ -658,8 +656,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              username={this.state.user.username}
-              isAnonymous={this.state.user.isAnonymous}
+              username={Meteor.user().username}
+              isAnonymous={Meteor.user().isAnonymous}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />
