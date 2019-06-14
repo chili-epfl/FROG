@@ -26,7 +26,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { activityTypesObj } from '/imports/activityTypes';
-import { wikiStore } from './store';
+
 
 type StateT = {
   currentTab: number,
