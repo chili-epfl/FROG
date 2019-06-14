@@ -390,8 +390,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             this.createNewInstancePage(fullPageObj, instanceId, instanceName);
           }
         );
-
-        return;
       }
     }
     const currentPageObj =
