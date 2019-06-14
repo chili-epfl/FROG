@@ -509,7 +509,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   render() {
     if (!this.state.currentPageObj) return null;
-
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
@@ -651,18 +650,14 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         )}
       </div>
     );
-
     return (
       <div>
         <div style={containerDivStyle}>
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              user={
-                Meteor.user().isAnonymous
-                  ? 'Anonymous Visitor'
-                  : Meteor.user().username
-              }
+              username={Meteor.user().username}
+              isAnonymous={Meteor.user().isAnonymous}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />
