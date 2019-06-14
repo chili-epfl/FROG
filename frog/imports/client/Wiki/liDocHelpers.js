@@ -12,9 +12,7 @@ export const dataFn = generateReactiveFn(genericDoc, LI, {
 });
 export const LearningItem = dataFn.LearningItem;
 
-/**
- * Creates an LI entry in the 'li' collection.
- */
+// Creates an LI entry in the 'li' collection.
 export const createNewLI = (
   wikiId: string,
   liType: string,
@@ -25,7 +23,7 @@ export const createNewLI = (
     wikiId
   };
   if (liType === 'li-activity') {
-    /* Need to create an entry for the activity in the 'rz' collection before creating the LI */
+    // Need to create an entry for the activity in the 'rz' collection before creating the LI
     const { activityType, config } = activityConfig;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
