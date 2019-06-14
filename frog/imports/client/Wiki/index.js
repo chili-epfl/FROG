@@ -21,9 +21,7 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  addNewGlobalWikiPage,
   addNewInstancePage,
-  addNewWikiPageWithInstances
 } from '/imports/api/wikiDocHelpers';
 import { createNewLI } from './liDocHelpers';
 
@@ -306,8 +304,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createNewInstancePage = async (pageObj, instanceId, instanceName) => {
-    // TODO: Handle creating different LI types and activities
-    // Duplicate the primary LI for the new instance
     const liId = await dataFn.duplicateLI(pageObj.liId);
     addNewInstancePage(
       this.wikiDoc,
@@ -320,7 +316,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       instanceId,
       liId
     };
-    // return the instance id
   };
 
   restoreDeletedPage = pageId => {
@@ -378,7 +373,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!newCurrentPageObj) {
       if (!fullPageObj.noNewInstances) {
-        console.log('oops');
         this.initialLoad = true;
         this.setState(
           {
@@ -395,7 +389,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         return;
       }
     }
-    Object.keys(newCurrentPageObj).map(key => console.log(key, newCurrentPageObj[key], typeof newCurrentPageObj[key]));
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
     const rightSideCurrentPageObj =
@@ -450,9 +443,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, side, instanceId);
   };
 
-/**
- * Creates a new page entry in ShareDB and navigates to it.
- */
+ // Creates a new page entry in ShareDB and navigates to it.
   createPage = (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
@@ -462,14 +453,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       this.setState({ error });
       return;
     }
-
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
-    // TODO: Create the primary LI
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
-    // TODO: Create a new page with the primary LI
     const pageId = addNewWikiPage(this.wikiDoc, title, true, liType, liId, socialPlane);
-    // TODO: goto the new page
     this.goToPage(pageId);
     return { pageId, liId };
   };
@@ -555,7 +542,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             key={this.state.currentPageObj?.id}
             pages={foundPages}
             currentPage={this.state.currentPageObj?.id}
-            // currentInstance={this.getInstanceName(this.state.page)}
             onSearch={e =>
               this.setState({
                 findModalOpen: false,
@@ -574,7 +560,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         )}
       </div>
     );
-    console.log(this.state);
     return (
       <div>
         <div style={containerDivStyle}>

@@ -96,9 +96,6 @@ export class Doc {
     collection?: string = 'li',
     predefinedId?: string
   ): ?(string | Object) {
-    console.log(liType);
-    console.log(learningItemTypesObj);
-    console.log(learningItemTypesObj[liType]);
     const id = predefinedId || uuid();
     const properPayload =
       // $FlowFixMe
@@ -191,17 +188,11 @@ export class Doc {
       id
     );
     if (LIData.liType === 'li-activity') {
-      const { payload } = LIData
-      console.log(payload.rz);
-      const ac = connection.get('rz', payload.rz);
-      ac.fetch();
-      console.log(ac.data);
+      // In this case the activity also needs to be duplicated
       const acId = uuid();
       const activityPointer = connection.get('rz', acId);
       // New instance starts with empty data
       activityPointer.create({});
-      activityPointer.fetch();
-      console.log(activityPointer);
       LIData.payload.rz = acId;
     }
     const newLI = {

@@ -88,8 +88,7 @@ export const addNewWikiPageWithInstances = (
     valid: true,
     created: true,
     liType,
-    instances: instancesObj,
-    hello: 'Hallo'
+    instances: instancesObj
   };
 
   const op = {
@@ -190,8 +189,7 @@ export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId) => {
         liId,
         liType: 'li-richText',
         instances: {},
-        plane: 3,
-        wikiId
+        plane: 3
       }
     }
   };
