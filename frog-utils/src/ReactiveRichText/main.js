@@ -679,7 +679,7 @@ class ReactiveRichText extends Component<
                         insertLi: this.insertNewLi,
                         image: () =>
                           this.setState({
-                            openCreator: { liType: 'li-image' }
+                            openCreator: { liType: 'li-file' }
                           }),
                         video: () =>
                           this.setState({

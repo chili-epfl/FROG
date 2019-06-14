@@ -61,7 +61,7 @@ export default ({
   Viewer: ({ data, search }: { data: any, search?: string }) =>
     search ? null : (
       <a href={data.url} download={data.filename}>
-        <h2>Click here to download file {data.filename}</h2>
+        <h2>{data.filename}</h2>
       </a>
     ),
   ThumbViewer,
