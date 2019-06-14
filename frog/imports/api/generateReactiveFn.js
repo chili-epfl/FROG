@@ -197,8 +197,11 @@ export class Doc {
       ac.fetch();
       console.log(ac.data);
       const acId = uuid();
-      const activityPointer = this.doc.connection.get('rz', acId);
-      activityPointer.create(ac.data);
+      const activityPointer = connection.get('rz', acId);
+      // New instance starts with empty data
+      activityPointer.create({});
+      activityPointer.fetch();
+      console.log(activityPointer);
       LIData.payload.rz = acId;
     }
     const newLI = {
