@@ -33,7 +33,7 @@ export default ({ setModalOpen, pages, onSelect }: Object) => {
                     cursor: 'pointer'
                   }}
                   onClick={e => {
-                    onSelect(pageId, pageTitle);
+                    onSelect(pageId);
                     setModalOpen(false);
                     e.preventDefault();
                   }}
