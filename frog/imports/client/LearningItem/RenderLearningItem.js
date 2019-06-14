@@ -50,6 +50,7 @@ class RenderLearningItem extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
+    console.log(props);
     this.ref = React.createRef();
     this.state = { open: false };
     const { data, type = 'view', fallback } = props;

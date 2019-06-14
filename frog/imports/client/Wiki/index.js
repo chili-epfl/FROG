@@ -25,7 +25,7 @@ import {
   addNewInstancePage,
   addNewWikiPageWithInstances
 } from '/imports/api/wikiDocHelpers';
-import { createNewGenericLI } from './liDocHelpers';
+import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
 import CreateModal from './ModalCreate';
@@ -34,6 +34,7 @@ import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './WikiTopNavbar';
 import WikiContentComp from './WikiContentComp';
+import { addNewWikiPage } from '../../api/wikiDocHelpers';
 
 const genericDoc = connection.get('li');
 export const dataFn = generateReactiveFn(genericDoc, LI, {
@@ -82,7 +83,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     super(props);
 
     window.wiki = {
-      createNewGenericPage: this.createNewGenericPage,
+      createPage: this.createPage,
       goToPage: this.goToPage,
       openDeletedPageModal: this.openDeletedPageModal
     };
@@ -157,7 +158,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.preventRenderUntilNextShareDBUpdate = false;
 
     if (!this.wikiDoc.data) {
-      const liId = createNewGenericLI(this.wikiId);
+      const liId = createNewLI(this.wikiId, 'li-richText');
       return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
     }
 
@@ -201,7 +202,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!fullPageObj) {
       this.initialLoad = true;
-      this.createNewGenericPage(pageTitle, true);
+      this.createPage(pageTitle, true);
       return;
     }
 
@@ -304,41 +305,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
   };
 
-  createNewGenericPage = (pageTitle, setCreated, rawconfig) => {
-    let liId;
-    if (rawconfig && rawconfig.activityType) {
-      const { activityType, config } = rawconfig;
-      const id = uuid();
-      const doc = connection.get('rz', id + '/all');
-      doc.create(activityTypesObj[activityType].dataStructure);
-      const payload = {
-        acType: activityType,
-        activityData: { config },
-        rz: id + '/all',
-        title: pageTitle,
-        activityTypeTitle: activityTypesObj[activityType].meta.name
-      };
-
-      liId = createNewGenericLI(this.wikiId, payload);
-    } else liId = createNewGenericLI(this.wikiId);
-    console.log(rawconfig);
-    const pageId = addNewGlobalWikiPage(
-      this.wikiDoc,
-      pageTitle,
-      liId,
-      setCreated,
-      rawconfig && rawconfig.activityType ? 'li-activity' : 'li-richText'
-    );
-
-    return {
-      pageId,
-      liId
-    };
-  };
-
   createNewInstancePage = (pageObj, instanceId, instanceName) => {
     // TODO: Handle creating different LI types and activities
-    const liId = createNewGenericLI(this.wikiId);
+    // Duplicate the primary LI for the new instance
+    const liId = dataFn.duplicateLI(pageObj.liId);
     addNewInstancePage(
       this.wikiDoc,
       pageObj.id,
@@ -350,6 +320,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       instanceId,
       liId
     };
+    // return the instance id
   };
 
   restoreDeletedPage = pageId => {
@@ -359,7 +330,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   createNewLIForPage = pageId => {
     restoreWikiPage(this.wikiDoc, pageId);
-    const newId = createNewGenericLI(this.wikiId);
+    const newId = createNewLI(this.wikiId);
     changeWikiPageLI(this.wikiDoc, pageId, newId);
     this.removeDeletedPageModal();
   };
@@ -407,6 +378,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!newCurrentPageObj) {
       if (!fullPageObj.noNewInstances) {
+        console.log('oops');
         this.initialLoad = true;
         this.setState(
           {
@@ -415,6 +387,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           () => {
             if (foreignInstanceId) return;
             const instanceName = Meteor.user().username;
+            this.preventRenderUntilNextShareDBUpdate = true;
             this.createNewInstancePage(fullPageObj, instanceId, instanceName);
           }
         );
@@ -422,7 +395,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         return;
       }
     }
-
+    Object.keys(newCurrentPageObj).map(key => console.log(key));
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
     const rightSideCurrentPageObj =
@@ -477,62 +450,27 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, side, instanceId);
   };
 
-  createLI = (newTitle, plane, rawconfig, operatorConfig) => {
-    console.log(rawconfig);
+/**
+ * Creates a new page entry in ShareDB and navigates to it.
+ */
+  createPage = (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
-      checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
-      (rawconfig.invalid && 'Activity config is not valid') ||
-      (operatorConfig.invalid && 'Operator config is not valid');
+      checkNewPageTitle(wikiStore.parsedPages, title) ||
+      (activityConfig && activityConfig.invalid && 'Activity config is not valid') ||
+      (operatorConfig && operatorConfig.invalid && 'Operator config is not valid');
     if (error) {
       this.setState({ error });
       return;
     }
 
     this.preventRenderUntilNextShareDBUpdate = true;
-    // TODO: Rewrite this function to propely handle creating different types of activities/LIs
-
-    let pageId;
-    if (plane === 3) {
-      const ids = this.createNewGenericPage(newTitle, true, rawconfig);
-      pageId = ids.pageId;
-    } else {
-      const liType =
-        rawconfig && rawconfig.activityType ? 'li-activity' : 'li-richText';
-      let liId;
-      if (rawconfig && rawconfig.activityType) {
-        const { activityType, config } = rawconfig;
-        const id = uuid();
-        const doc = connection.get('rz', id + '/all');
-        doc.create(activityTypesObj[activityType].dataStructure);
-        const payload = {
-          acType: activityType,
-          activityData: { config },
-          rz: id + '/all',
-          title: newTitle,
-          activityTypeTitle: activityTypesObj[activityType].meta.name
-        };
-
-        liId = createNewGenericLI(this.wikiId, payload);
-      } else liId = createNewGenericLI(this.wikiId);
-      // TODO: Below instance ID should be found differently for groups
-      const instanceId = Meteor.userId();
-      const instanceName = Meteor.user().username;
-
-      pageId = addNewWikiPageWithInstances(
-        this.wikiDoc,
-        plane,
-        newTitle,
-        liType,
-        instanceId,
-        instanceName,
-        liId
-      );
-    }
-
-    this.goToPage(pageId);
-    // setTimeout(() => {
-    //   this.goToPage(pageId);
-    // }, 100);
+    const liType = activityConfig ? 'li-activity' : 'li-richText';
+    // TODO: Create the primary LI
+    const primaryLI = createNewLI(this.wikiId, liType, activityConfig, title);
+    // TODO: Create a new page with the primary LI
+    const pageId = addNewWikiPage(this.wikiDoc, title, true, liType, primaryLI, socialPlane);
+    // TODO: goto the new page
+    return { pageId, liId: primaryLI };
   };
 
   render() {
@@ -597,7 +535,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
                 style={style}
               >
                 {line}
-              </li>
+                </li>
             );
           });
 
@@ -635,7 +573,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         )}
       </div>
     );
-
+    console.log(this.state);
     return (
       <div>
         <div style={containerDivStyle}>
@@ -707,8 +645,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         )}
         {this.state.createModalOpen && (
           <CreateModal
-            onCreate={this.createLI}
-            setModalOpen={e => this.setState({ createModalOpen: e })}
+            onCreate={this.createPage}
+            setModalOpen={e => this.setState({createModalOpen: e})}
             errorDiv={this.state.error}
             wikiId={this.wikiId}
           />

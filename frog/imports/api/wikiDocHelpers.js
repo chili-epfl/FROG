@@ -2,9 +2,10 @@ import { uuid } from 'frog-utils';
 
 export const addNewWikiPage = (
   wikiDoc,
-  pageTitle,
+  title,
   setCreated,
   liType = 'li-richText',
+  liId,
   plane,
   instances = {},
   socialStructure,
@@ -15,7 +16,8 @@ export const addNewWikiPage = (
     id: pageId,
     valid: true,
     created: setCreated || false,
-    title: pageTitle,
+    title,
+    liId,
     liType,
     plane,
     instances,
@@ -188,7 +190,8 @@ export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId) => {
         liId,
         liType: 'li-richText',
         instances: {},
-        plane: 3
+        plane: 3,
+        wikiId
       }
     }
   };

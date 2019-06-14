@@ -96,12 +96,13 @@ export class Doc {
     collection?: string = 'li',
     predefinedId?: string
   ): ?(string | Object) {
+    console.log(liType);
+    console.log(learningItemTypesObj);
+    console.log(learningItemTypesObj[liType]);
     const id = predefinedId || uuid();
     const properPayload =
       // $FlowFixMe
       payload || learningItemTypesObj[liType].liDataStructure;
-    console.log(payload);
-    console.log(properPayload);
     if (!properPayload) {
       return null;
     }
@@ -189,7 +190,15 @@ export class Doc {
       'li',
       id
     );
-
+    if (LIData.liType === 'li-activity') {
+      const { payload } = LIData
+      const ac = connection.get('rz', payload.rz);
+      ac.fetch();
+      const acId = uuid();
+      activityPointer = this.doc.connection.get('rz', acId);
+      activityPointer.create(ac);
+      LIData.payload.rz = acId;
+    }
     const newLI = {
       ...LIData,
       createdAt: new Date(),
