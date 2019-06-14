@@ -36,7 +36,7 @@ type StateT = {
   expanded: boolean,
   allowView: boolean,
   allowEdit: boolean,
-  config?: Object,
+  activityConfig?: Object,
   operatorConfig?: Object
 };
 
@@ -83,9 +83,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       expanded: false,
       socialPlane: 3,
       allowView: true,
-      allowEdit: true,
-      operatorConfig: {},
-      config: {}
+      allowEdit: true
     };
   }
 
@@ -118,12 +116,17 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleConfig = conf => {
-    this.setState({ config: conf });
+    this.setState({ activityConfig: conf });
   };
 
   handleCreate = () => {
-    const { pageTitle, socialPlane, config, operatorConfig } = this.state;
-    this.props.onCreate(pageTitle, socialPlane, config, operatorConfig);
+    const {
+      pageTitle,
+      socialPlane,
+      activityConfig,
+      operatorConfig
+    } = this.state;
+    this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
 
   render() {
@@ -231,8 +234,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               <ApiForm
                 categories={['Core', 'Other']}
                 whiteList={['li-richText', 'ac-gallery', 'ac-brainstorm']}
-                config={this.state.config?.config}
-                activityType={this.state.config?.activityType}
+                config={this.state.activityConfig?.config}
+                activityType={this.state.activityConfig?.activityType}
                 activityMapping={{
                   'li-richText': 'Core',
                   'ac-gallery': 'Core',
