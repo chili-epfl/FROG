@@ -305,10 +305,10 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
   };
 
-  createNewInstancePage = (pageObj, instanceId, instanceName) => {
+  createNewInstancePage = async (pageObj, instanceId, instanceName) => {
     // TODO: Handle creating different LI types and activities
     // Duplicate the primary LI for the new instance
-    const liId = dataFn.duplicateLI(pageObj.liId);
+    const liId = await dataFn.duplicateLI(pageObj.liId);
     addNewInstancePage(
       this.wikiDoc,
       pageObj.id,
@@ -330,7 +330,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   createNewLIForPage = pageId => {
     restoreWikiPage(this.wikiDoc, pageId);
-    const newId = createNewLI(this.wikiId);
+    const newId = createNewLI(this.wikiId, 'li-richText');
     changeWikiPageLI(this.wikiDoc, pageId, newId);
     this.removeDeletedPageModal();
   };
@@ -395,7 +395,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
         return;
       }
     }
-    Object.keys(newCurrentPageObj).map(key => console.log(key));
+    Object.keys(newCurrentPageObj).map(key => console.log(key, newCurrentPageObj[key], typeof newCurrentPageObj[key]));
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
     const rightSideCurrentPageObj =
@@ -466,11 +466,11 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
     // TODO: Create the primary LI
-    const primaryLI = createNewLI(this.wikiId, liType, activityConfig, title);
+    const liId = createNewLI(this.wikiId, liType, activityConfig, title);
     // TODO: Create a new page with the primary LI
-    const pageId = addNewWikiPage(this.wikiDoc, title, true, liType, primaryLI, socialPlane);
+    const pageId = addNewWikiPage(this.wikiDoc, title, true, liType, liId, socialPlane);
     // TODO: goto the new page
-    return { pageId, liId: primaryLI };
+    return { pageId, liId };
   };
 
   render() {

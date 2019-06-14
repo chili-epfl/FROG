@@ -192,11 +192,13 @@ export class Doc {
     );
     if (LIData.liType === 'li-activity') {
       const { payload } = LIData
+      console.log(payload.rz);
       const ac = connection.get('rz', payload.rz);
       ac.fetch();
+      console.log(ac.data);
       const acId = uuid();
-      activityPointer = this.doc.connection.get('rz', acId);
-      activityPointer.create(ac);
+      const activityPointer = this.doc.connection.get('rz', acId);
+      activityPointer.create(ac.data);
       LIData.payload.rz = acId;
     }
     const newLI = {
