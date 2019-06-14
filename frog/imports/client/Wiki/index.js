@@ -62,7 +62,7 @@ type WikiCompStateT = {
   mode: string,
   error: ?string,
   openCreator: ?Object,
-  createModalOpen: boolean,
+  createModalOpen:boolean,
   findModalOpen: boolean,
   restoreModalOpen: boolean,
   search: '',
@@ -467,14 +467,21 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createLI = (newTitle, plane, config, operatorConfig) => {
+    
     const error =
       checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
       (config.invalid && 'Activity config is not valid') ||
       (operatorConfig.invalid && 'Operator config is not valid');
+    
+    
+
     if (error) {
-      this.setState({ error });
+      this.setState({ error }); 
       return;
     }
+  
+
+    
 
     this.preventRenderUntilNextShareDBUpdate = true;
     // TODO: Rewrite this function to propely handle creating different types of activities/LIs
@@ -501,7 +508,9 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       );
     }
 
+
     this.goToPage(pageId);
+    this.setState({error:null}); 
     // setTimeout(() => {
     //   this.goToPage(pageId);
     // }, 100);
@@ -726,6 +735,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           <CreateModal
             onCreate={this.createLI}
             setModalOpen={e => this.setState({ createModalOpen: e })}
+            clearError = {() => this.setState({error: null})}
             errorDiv={this.state.error}
             wikiId={this.wikiId}
           />
