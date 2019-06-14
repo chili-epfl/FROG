@@ -92,7 +92,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   }
 
   handleTitleChange = (e: any) => {
-    if (e.target.value === "") this.props.clearError(); 
+    this.handleErrorClearing(e.target.value); 
     this.setState({ pageTitle: e.target.value });
     
   };
@@ -129,6 +129,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     const { pageTitle, socialPlane, config, operatorConfig } = this.state;
     this.props.onCreate(pageTitle, socialPlane, config, operatorConfig);
   };
+  // Clears error messages if the user tries to create a page with an empty title and then types in a new title
+  handleErrorClearing(currentTitle:string) {
+    if (currentTitle === "" || (currentTitle.length > 0 && this.props.errorDiv === "Title cannot be empty"))
+      this.props.clearError();
+  }
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
@@ -148,7 +153,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open={this.state.open}
-        onClose={() => this.props.setModalOpen(false)}
+        onClose={() => {
+          this.props.setModalOpen(false)
+          this.props.clearError()}}
         scroll="paper"
       >
         <FormGroup>
