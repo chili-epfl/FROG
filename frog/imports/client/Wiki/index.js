@@ -701,7 +701,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
             pages={invalidPages}
             setModalOpen={e => this.setState({ restoreModalOpen: e })}
             onSelect={pageId => {
-              this.restoreWikiPage(this.wikiDoc, pageId);
+              restoreWikiPage(this.wikiDoc, pageId);
               this.goToPage(pageId, null, null, null);
             }}
           />
