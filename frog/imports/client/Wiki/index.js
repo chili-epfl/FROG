@@ -450,12 +450,8 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   createPage = (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
-      (activityConfig &&
-        activityConfig.invalid &&
-        'Activity config is not valid') ||
-      (operatorConfig &&
-        operatorConfig.invalid &&
-        'Operator config is not valid');
+      (activityConfig?.invalid && 'Activity config is not valid') ||
+      (operatorConfig?.invalid && 'Operator config is not valid');
     if (error) {
       this.setState({ error });
       return;
