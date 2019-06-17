@@ -26,11 +26,9 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  addNewGlobalWikiPage,
-  addNewInstancePage,
-  addNewWikiPageWithInstances
+  addNewInstancePage
 } from '/imports/api/wikiDocHelpers';
-import { createNewGenericLI } from './liDocHelpers';
+import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
 import CreateModal from './ModalCreate';
@@ -39,6 +37,7 @@ import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
+import { addNewWikiPage } from '../../api/wikiDocHelpers';
 
 import {
   withModalController,
@@ -91,7 +90,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     super(props);
 
     window.wiki = {
-      createNewGenericPage: this.createNewGenericPage,
+      createPage: this.createPage,
       goToPage: this.goToPage,
       openDeletedPageModal: this.openDeletedPageModal
     };
@@ -162,7 +161,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.preventRenderUntilNextShareDBUpdate = false;
 
     if (!this.wikiDoc.data) {
-      const liId = createNewGenericLI(this.wikiId);
+      const liId = createNewLI(this.wikiId, 'li-richText');
       return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
     }
 
@@ -206,7 +205,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!fullPageObj) {
       this.initialLoad = true;
-      this.createNewGenericPage(pageTitle, true);
+      this.createPage(pageTitle, true);
       return;
     }
 
@@ -310,25 +309,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(newPageId, () => invalidateWikiPage(this.wikiDoc, pageId));
   };
 
-  createNewGenericPage = (pageTitle, setCreated) => {
-    const liId = createNewGenericLI(this.wikiId);
-    const pageId = addNewGlobalWikiPage(
-      this.wikiDoc,
-      pageTitle,
-      liId,
-      setCreated,
-      'li-richText'
-    );
-
-    return {
-      pageId,
-      liId
-    };
-  };
-
-  createNewInstancePage = (pageObj, instanceId, instanceName) => {
-    // TODO: Handle creating different LI types and activities
-    const liId = createNewGenericLI(this.wikiId);
+  createNewInstancePage = async (pageObj, instanceId, instanceName) => {
+    const liId = await dataFn.duplicateLI(pageObj.liId);
     addNewInstancePage(
       this.wikiDoc,
       pageObj.id,
@@ -349,7 +331,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   createNewLIForPage = pageId => {
     restoreWikiPage(this.wikiDoc, pageId);
-    const newId = createNewGenericLI(this.wikiId);
+    const newId = createNewLI(this.wikiId, 'li-richText');
     changeWikiPageLI(this.wikiDoc, pageId, newId);
     this.goToPage(pageId);
   };
@@ -392,14 +374,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           () => {
             if (foreignInstanceId) return;
             const instanceName = Meteor.user().username;
+            this.preventRenderUntilNextShareDBUpdate = true;
             this.createNewInstancePage(fullPageObj, instanceId, instanceName);
           }
         );
-
-        return;
       }
     }
-
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
     const rightSideCurrentPageObj =
@@ -450,45 +430,29 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.goToPage(pageId, null, side, instanceId);
   };
 
-  createLI = (newTitle, plane, config, operatorConfig) => {
+  // Creates a new page entry in ShareDB and navigates to it.
+  createPage = (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
-      checkNewPageTitle(wikiStore.parsedPages, newTitle) ||
-      (config.invalid && 'Activity config is not valid') ||
-      (operatorConfig.invalid && 'Operator config is not valid');
+      checkNewPageTitle(wikiStore.parsedPages, title) ||
+      (activityConfig?.invalid && 'Activity config is not valid') ||
+      (operatorConfig?.invalid && 'Operator config is not valid');
     if (error) {
       this.setState({ error });
       return;
     }
-
     this.preventRenderUntilNextShareDBUpdate = true;
-    // TODO: Rewrite this function to propely handle creating different types of activities/LIs
-
-    let pageId;
-    if (plane === 3) {
-      const ids = this.createNewGenericPage(newTitle, true);
-      pageId = ids.pageId;
-    } else {
-      const liType = 'li-richText';
-      const liId = createNewGenericLI(this.wikiId);
-      // TODO: Below instance ID should be found differently for groups
-      const instanceId = Meteor.userId();
-      const instanceName = Meteor.user().username;
-
-      pageId = addNewWikiPageWithInstances(
-        this.wikiDoc,
-        plane,
-        newTitle,
-        liType,
-        instanceId,
-        instanceName,
-        liId
-      );
-    }
-
+    const liType = activityConfig ? 'li-activity' : 'li-richText';
+    const liId = createNewLI(this.wikiId, liType, activityConfig, title);
+    const pageId = addNewWikiPage(
+      this.wikiDoc,
+      title,
+      true,
+      liType,
+      liId,
+      socialPlane
+    );
     this.goToPage(pageId);
-    // setTimeout(() => {
-    //   this.goToPage(pageId);
-    // }, 100);
+    return { pageId, liId };
   };
 
   openDeletedPageModal = (pageId, pageTitle) => {
@@ -514,7 +478,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   render() {
     if (!this.state.currentPageObj) return null;
-
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
@@ -637,7 +600,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             key={this.state.currentPageObj?.id}
             pages={foundPages}
             currentPage={this.state.currentPageObj?.id}
-            // currentInstance={this.getInstanceName(this.state.page)}
             onSearch={e =>
               this.setState({
                 findModalOpen: false,
@@ -656,18 +618,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         )}
       </div>
     );
-
     return (
       <div>
         <div style={containerDivStyle}>
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              user={
-                Meteor.user().isAnonymous
-                  ? 'Anonymous Visitor'
-                  : Meteor.user().username
-              }
+              username={Meteor.user().username}
+              isAnonymous={Meteor.user().isAnonymous}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />
@@ -720,7 +678,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         )}
         {this.state.createModalOpen && (
           <CreateModal
-            onCreate={this.createLI}
+            onCreate={this.createPage}
             setModalOpen={e => this.setState({ createModalOpen: e })}
             errorDiv={this.state.error}
             wikiId={this.wikiId}

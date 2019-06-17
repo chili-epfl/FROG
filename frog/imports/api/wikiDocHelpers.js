@@ -2,9 +2,10 @@ import { uuid } from 'frog-utils';
 
 export const addNewWikiPage = (
   wikiDoc,
-  pageTitle,
+  title,
   setCreated,
   liType = 'li-richText',
+  liId,
   plane,
   instances = {},
   socialStructure,
@@ -15,7 +16,8 @@ export const addNewWikiPage = (
     id: pageId,
     valid: true,
     created: setCreated || false,
-    title: pageTitle,
+    title,
+    liId,
     liType,
     plane,
     instances,
@@ -24,70 +26,6 @@ export const addNewWikiPage = (
   if (socialStructure) {
     obj.socialStructure = socialStructure;
   }
-
-  const op = {
-    p: ['pages', pageId],
-    oi: obj
-  };
-
-  wikiDoc.submitOp(op);
-  return pageId;
-};
-
-export const addNewGlobalWikiPage = (
-  wikiDoc,
-  pageTitle,
-  liId,
-  setCreated,
-  liType = 'li-richText'
-) => {
-  const pageId = uuid();
-  const obj = {
-    id: pageId,
-    plane: 3,
-    title: pageTitle,
-    valid: true,
-    created: setCreated || false,
-    liId,
-    liType
-  };
-
-  const op = {
-    p: ['pages', pageId],
-    oi: obj
-  };
-
-  wikiDoc.submitOp(op);
-  return pageId;
-};
-
-export const addNewWikiPageWithInstances = (
-  wikiDoc,
-  plane,
-  pageTitle,
-  liType,
-  instanceId,
-  instanceName,
-  liId
-) => {
-  const pageId = uuid();
-
-  const instancesObj = {};
-  instancesObj[instanceId] = {
-    instanceId,
-    instanceName,
-    liId
-  };
-
-  const obj = {
-    id: pageId,
-    plane,
-    title: pageTitle,
-    valid: true,
-    created: true,
-    liType,
-    instances: instancesObj
-  };
 
   const op = {
     p: ['pages', pageId],
