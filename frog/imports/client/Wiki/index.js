@@ -61,7 +61,7 @@ type WikiCompStateT = {
   mode: string,
   error: ?string,
   openCreator: ?Object,
-  createModalOpen:boolean,
+  createModalOpen: boolean,
   findModalOpen: boolean,
   restoreModalOpen: boolean,
   search: '',
@@ -685,7 +685,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
           <CreateModal
             onCreate={this.createPage}
             setModalOpen={e => this.setState({ createModalOpen: e })}
-            clearError = {() => this.setState({error: null})}
+            clearError={() => this.setState({ error: null })}
             errorDiv={this.state.error}
             wikiId={this.wikiId}
           />

@@ -1,4 +1,4 @@
-//@flow
+// @flow
 
 import * as React from 'react';
 
@@ -17,7 +17,7 @@ type TopNavBarPropsT = {
     callback?: () => void
   }>,
 
-  /** List of buttons to display in the secondary view (dropdown)*/
+  /** List of buttons to display in the secondary view (dropdown) */
   secondaryNavItems: Array<{
     title: string,
     icon: React.ComponentType<*>,
@@ -25,7 +25,7 @@ type TopNavBarPropsT = {
   }>
 };
 
-/***
+/** *
  * The navbar is responsible for displaying wiki page controls.
  * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
  */
