@@ -193,8 +193,7 @@ export class Doc {
       ac.fetch();
       const acId = uuid();
       const activityPointer = connection.get('rz', acId);
-      console.log(ac.data);
-      activityPointer.create(ac.data);
+      activityPointer.create(ac.data || {});
       LIData.payload.rz = acId;
     }
     const newLI = {
