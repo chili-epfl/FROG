@@ -448,7 +448,6 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
 
   // Creates a new page entry in ShareDB and navigates to it.
   createPage = (title, socialPlane, activityConfig, operatorConfig) => {
-    console.log(activityConfig);
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
       (activityConfig?.invalid && 'Activity config is not valid') ||

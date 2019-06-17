@@ -13,7 +13,7 @@ type SingleActivityPropsT = {
       slug?: string
     }
   }
-}
+};
 
 const liConnection = connection.get('li');
 
@@ -24,10 +24,9 @@ export const dataFn = generateReactiveFn(liConnection, LI, {
 export const LearningItem = dataFn.LearningItem;
 
 const SingleActivity = (props: SingleActivityPropsT) => {
-  if(props.match.params.slug)
+  if (props.match.params.slug)
     return <Display slug={props.match.params.slug} />;
-  else
-    return <Creator />;
-}
+  else return <Creator />;
+};
 
 export default SingleActivity;
