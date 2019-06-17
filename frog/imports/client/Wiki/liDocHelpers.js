@@ -32,7 +32,7 @@ export const createNewLI = (
       acType: activityType,
       activityData: { config },
       rz: id + '/all',
-      title: pageTitle,
+      title: pageTitle || '',
       activityTypeTitle: activityTypesObj[activityType].meta.name
     };
     return dataFn.createLearningItem(liType, payload, meta);
