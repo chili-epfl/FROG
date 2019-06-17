@@ -357,6 +357,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   changeTitle = (pageId, newPageTitle) => {
+
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
     const instanceId = this.props.match.params.instance;
     const link =
@@ -366,6 +367,7 @@ class WikiComp extends Component<WikiCompPropsT, WikiCompStateT> {
       newPageTitle +
       (instanceId ? '/' + instanceId : '');
     this.props.history.replace(link);
+  
   };
 
   goToPage = (pageId, cb, side, foreignInstanceId) => {

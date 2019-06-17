@@ -6,13 +6,18 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
+import {
+  TextField,
+  FormHelperText
+} from '@material-ui/core'; 
 
 import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
 import { LearningItem } from './index';
-import { getPageDetailsForLiId } from './helpers.js';
+import { getPageDetailsForLiId, checkNewPageTitle } from './helpers.js';
+import Form from 'react-jsonschema-form';
 
 class WikiContentComp extends React.Component<> {
   constructor(props) {
@@ -33,8 +38,9 @@ class WikiContentComp extends React.Component<> {
     this.state = {
       docMode: 'view',
       pageTitleString: this.props.currentPageObj?.title,
-      editingTitle: false,
-      showTitleEditButton: false
+      e: false,
+      showTitleEditButton: false,
+      error:null
     };
   }
 
@@ -45,7 +51,8 @@ class WikiContentComp extends React.Component<> {
         docMode: 'view',
         pageTitleString: this.props.currentPageObj.title,
         editingTitle: false,
-        showTitleEditButton: false
+        showTitleEditButton: false,
+        error:null
       });
     }
   }
@@ -56,17 +63,31 @@ class WikiContentComp extends React.Component<> {
     }));
   };
 
+  handleErrors = (newPageTitle) =>{
+    const error =
+    checkNewPageTitle(wikiStore.parsedPages, newPageTitle);
+    console.log(error); 
+    if(error){
+      this.setState({error}); 
+    }
+    else 
+       this.setState({error:null}); 
+  }
+
   saveNewPageTitle = () => {
-    const newPageTitle = this.state.pageTitleString;
-    if (!newPageTitle) throw new Error('Cannot save empty new page title');
-
-    this.props.changeTitle(this.props.currentPageObj.id, newPageTitle);
-
+    const {pageTitleString ,error} = this.state; 
+    this.handleErrors(pageTitleString);
+    if (error === null){
+    this.props.changeTitle(this.props.currentPageObj.id, pageTitleString);
     this.setState({
-      pageTitleString: newPageTitle,
+      pageTitleString,
       editingTitle: false,
       showTitleEditButton: false
     });
+
+    }
+   
+  
   };
 
   render() {
@@ -135,14 +156,21 @@ class WikiContentComp extends React.Component<> {
     const titleDiv = this.state.editingTitle ? (
       <div style={titleDivStyle}>
         <div>
-          <input
-            placeholder="New Title"
+       
+          <TextField
+            label="New Title"
+            error = {this.state.error !== null}
             value={this.state.pageTitleString}
             onChange={e => {
               this.setState({ pageTitleString: e.target.value });
             }}
           />
+          { (this.state.error!==null) &&
+          <FormHelperText error> {this.state.error} </FormHelperText>}
+         
           <Check onClick={() => this.saveNewPageTitle()} />
+
+       
         </div>
         <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
       </div>
