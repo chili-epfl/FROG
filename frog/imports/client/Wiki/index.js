@@ -66,7 +66,7 @@ type WikiCompStateT = {
   mode: string,
   error: ?string,
   openCreator: ?Object,
-  createModalOpen:boolean,
+  createModalOpen: boolean,
   findModalOpen: boolean,
   search: '',
   urlInstance: ?string,
@@ -345,7 +345,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   changeTitle = (pageId, newPageTitle) => {
-
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
     const instanceId = this.props.match.params.instance;
     const link =
@@ -355,7 +354,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       newPageTitle +
       (instanceId ? '/' + instanceId : '');
     this.props.history.replace(link);
-  
   };
 
   goToPage = (pageId, cb, side, foreignInstanceId) => {
@@ -682,7 +680,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <CreateModal
             onCreate={this.createPage}
             setModalOpen={e => this.setState({ createModalOpen: e })}
-            clearError = {() => this.setState({error: null})}
+            clearError={() => this.setState({ error: null })}
             errorDiv={this.state.error}
             wikiId={this.wikiId}
           />
