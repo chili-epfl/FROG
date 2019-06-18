@@ -34,7 +34,7 @@ class WikiContentComp extends React.Component<> {
     this.state = {
       docMode: 'view',
       pageTitleString: this.props.currentPageObj?.title,
-      e: false,
+      editingTitle: false,
       showTitleEditButton: false,
       error: null
     };
@@ -72,12 +72,9 @@ class WikiContentComp extends React.Component<> {
     }
     return error;
   };
-
+  // Clears error messages if the user tries to edit a page with an empty title and then types in a new title
   handleErrorClearing(currentTitle) {
-    if (
-      currentTitle === '' ||
-      (currentTitle.length > 0 && this.state.error === 'Title cannot be empty')
-    )
+    if (currentTitle === '' || (currentTitle.length > 0 && this.state.error === 'Title cannot be empty'))
       this.clearErrors();
   }
 
@@ -172,8 +169,7 @@ class WikiContentComp extends React.Component<> {
           />
           {this.state.error !== null && (
             <FormHelperText id="title-input-helper-text" error>
-              {' '}
-              {this.state.error}{' '}
+              {this.state.error}
             </FormHelperText>
           )}
         </FormControl>
