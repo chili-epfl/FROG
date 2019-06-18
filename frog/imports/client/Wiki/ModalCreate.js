@@ -27,6 +27,7 @@ import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { activityTypesObj } from '/imports/activityTypes';
 
+
 type StateT = {
   currentTab: number,
   pageTitle: string,
@@ -44,6 +45,7 @@ type PropsT = {
   classes: Object,
   onCreate: Function,
   setModalOpen: Function,
+  clearError: Function, 
   errorDiv: any,
   wikiId: string
 };
@@ -88,7 +90,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   }
 
   handleTitleChange = (e: any) => {
+    this.handleErrorClearing(e.target.value); 
     this.setState({ pageTitle: e.target.value });
+    
   };
 
   handleTabs = (e: any, value: number) => {
@@ -128,6 +132,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     } = this.state;
     this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
+  // Clears error messages if the user tries to create a page with an empty title and then types in a new title
+  handleErrorClearing(currentTitle:string) {
+    if (currentTitle === "" || (currentTitle.length > 0 && this.props.errorDiv === "Title cannot be empty"))
+      this.props.clearError();
+  }
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
@@ -147,7 +156,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open={this.state.open}
-        onClose={() => this.props.setModalOpen(false)}
+        onClose={() => {
+          this.props.setModalOpen(false)
+          this.props.clearError()}}
         scroll="paper"
       >
         <FormGroup>
@@ -155,7 +166,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             <Typography variant="h6">Create New Page</Typography>
             <TextField
               autoFocus
-              error={errorDiv != null}
+              error={errorDiv !== null}
               id="page-title"
               value={pageTitle}
               onChange={this.handleTitleChange}
@@ -171,7 +182,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 }
               }}
             />
-            {errorDiv != null && (
+            {errorDiv !== null && (
               <FormHelperText error>{errorDiv}</FormHelperText>
             )}
           </FormControl>
@@ -275,7 +286,10 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             {expanded ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
           <Button
-            onClick={() => this.props.setModalOpen(false)}
+            onClick={() => { 
+              this.props.setModalOpen(false);
+              this.props.clearError(); 
+              }}
             color="primary"
           >
             Cancel
