@@ -8,7 +8,9 @@ import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
 import {
   TextField,
-  FormHelperText
+  FormHelperText,
+  Input,
+  FormControl
 } from '@material-ui/core'; 
 
 import { wikiStore } from './store';
@@ -56,6 +58,9 @@ class WikiContentComp extends React.Component<> {
       });
     }
   }
+  clearErrors = () => {
+    this.setState({error:null}); 
+  }
 
   handleEditingTitle = () => {
     this.setState(prevState => ({
@@ -70,13 +75,20 @@ class WikiContentComp extends React.Component<> {
     if(error){
       this.setState({error}); 
     }
-    else 
-       this.setState({error:null}); 
+    else{
+         this.setState({error});
+    }
+    return error; 
+  }
+
+   handleErrorClearing(currentTitle) {
+    if (currentTitle === "" || (currentTitle.length > 0 && this.state.error === "Title cannot be empty"))
+      this.clearErrors();
   }
 
   saveNewPageTitle = () => {
-    const {pageTitleString ,error} = this.state; 
-    this.handleErrors(pageTitleString);
+    const {pageTitleString} = this.state; 
+    const error = this.handleErrors(pageTitleString);
     if (error === null){
     this.props.changeTitle(this.props.currentPageObj.id, pageTitleString);
     this.setState({
@@ -151,27 +163,28 @@ class WikiContentComp extends React.Component<> {
           Finish
         </Button>
       );
-    })();
+    })
 
     const titleDiv = this.state.editingTitle ? (
       <div style={titleDivStyle}>
-        <div>
-       
+      
+         
+         <FormControl margin = 'normal'>
           <TextField
-            label="New Title"
+            id ="title-input"
+            placeholder="New Title"
             error = {this.state.error !== null}
             value={this.state.pageTitleString}
-            onChange={e => {
-              this.setState({ pageTitleString: e.target.value });
-            }}
+            onChange = {e  => {this.setState({pageTitleString: e.target.value })
+                               this.handleErrorClearing(e.target.value); }}
+            aria-describedby = "title-input-helper-text"
+            
           />
-          { (this.state.error!==null) &&
-          <FormHelperText error> {this.state.error} </FormHelperText>}
-         
-          <Check onClick={() => this.saveNewPageTitle()} />
+             { (this.state.error!==null) &&
+          <FormHelperText id = "title-input-helper-text" error> {this.state.error} </FormHelperText>}
+          </FormControl>
 
-       
-        </div>
+          <Check onClick={() => this.saveNewPageTitle()} />
         <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
       </div>
     ) : (
