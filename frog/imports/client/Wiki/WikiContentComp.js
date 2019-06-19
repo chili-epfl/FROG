@@ -72,9 +72,13 @@ class WikiContentComp extends React.Component<> {
     }
     return error;
   };
+
   // Clears error messages if the user tries to edit a page with an empty title and then types in a new title
   handleErrorClearing(currentTitle) {
-    if (currentTitle === '' || (currentTitle.length > 0 && this.state.error === 'Title cannot be empty'))
+    if (
+      currentTitle === '' ||
+      (currentTitle.length > 0 && this.state.error === 'Title cannot be empty')
+    )
       this.clearErrors();
   }
 
