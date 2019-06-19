@@ -175,7 +175,6 @@ export class Doc {
         const data = doc.data;
         resolve(data);
       }
-
       doc.once('load', () => {
         const data = doc.data;
         resolve(data);
@@ -192,6 +191,9 @@ export class Doc {
       const acData = await new Promise(resolve => {
         const ac = connection.get('rz', LIData.payload.rz);
         ac.fetch();
+        if(ac.type) {
+          resolve(ac.data);
+        }
         ac.once('load', () => {
           resolve(ac.data);
         });
