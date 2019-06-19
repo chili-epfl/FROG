@@ -189,11 +189,16 @@ export class Doc {
     );
     if (LIData.liType === 'li-activity') {
       // In this case the activity also needs to be duplicated
-      const ac = connection.get('rz', LIData.payload.rz);
-      ac.fetch();
+      const acData = await new Promise(resolve => {
+        const ac = connection.get('rz', LIData.payload.rz);
+        ac.fetch();
+        ac.once('load', () => {
+          resolve(ac.data);
+        });
+      });
       const acId = uuid();
       const activityPointer = connection.get('rz', acId);
-      activityPointer.create(ac.data || {});
+      activityPointer.create(acData || {});
       LIData.payload.rz = acId;
     }
     const newLI = {
