@@ -19,7 +19,7 @@ const doLogin = (user, self) => {
     }
   }
   const userServiceData = {
-    id: user || startCase(uniqueNamesGenerator(usernameConfig))
+    id: user || 'Anonymous User' // startCase(uniqueNamesGenerator(usernameConfig))
   };
   const { userId } = Accounts.updateOrCreateUserFromExternalService(
     'frog',
