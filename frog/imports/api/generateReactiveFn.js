@@ -175,7 +175,6 @@ export class Doc {
         const data = doc.data;
         resolve(data);
       }
-
       doc.once('load', () => {
         const data = doc.data;
         resolve(data);
@@ -189,10 +188,19 @@ export class Doc {
     );
     if (LIData.liType === 'li-activity') {
       // In this case the activity also needs to be duplicated
+      const acData = await new Promise(resolve => {
+        const ac = connection.get('rz', LIData.payload.rz);
+        ac.fetch();
+        if (ac.type) {
+          resolve(ac.data);
+        }
+        ac.once('load', () => {
+          resolve(ac.data);
+        });
+      });
       const acId = uuid();
       const activityPointer = connection.get('rz', acId);
-      // New instance starts with empty data
-      activityPointer.create({});
+      activityPointer.create(acData || {});
       LIData.payload.rz = acId;
     }
     const newLI = {
