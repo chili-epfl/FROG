@@ -191,7 +191,7 @@ export class Doc {
       const acData = await new Promise(resolve => {
         const ac = connection.get('rz', LIData.payload.rz);
         ac.fetch();
-        if(ac.type) {
+        if (ac.type) {
           resolve(ac.data);
         }
         ac.once('load', () => {

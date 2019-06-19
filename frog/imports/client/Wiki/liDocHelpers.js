@@ -27,7 +27,9 @@ export const createNewLI = (
     const { activityType, config } = activityConfig;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
-    doc.create(activityTypesObj[activityType].dataStructure || {});
+    const dS = activityTypesObj[activityType].dataStructure;
+    const initData = typeof dS === 'function' ? dS(config) : dS;
+    doc.create(initData || {});
     const payload = {
       acType: activityType,
       activityData: { config },

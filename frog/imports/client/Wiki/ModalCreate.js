@@ -130,6 +130,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     } = this.state;
     this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
+
   // Clears error messages if the user tries to create a page with an empty title and then types in a new title
   handleErrorClearing(currentTitle: string) {
     if (
@@ -273,7 +274,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               <OperatorForm
                 operatorType="product"
                 config={this.state.operatorConfig?.config}
-                operatorType={this.state.operatorConfig?.operatorType}
                 categories={['From the web', 'From the current page']}
                 operatorTypesList={operatorTypesList}
                 operatorMappings={{
