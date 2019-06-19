@@ -27,7 +27,6 @@ import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { activityTypesObj } from '/imports/activityTypes';
 
-
 type StateT = {
   currentTab: number,
   pageTitle: string,
@@ -45,7 +44,7 @@ type PropsT = {
   classes: Object,
   onCreate: Function,
   setModalOpen: Function,
-  clearError: Function, 
+  clearError: Function,
   errorDiv: any,
   wikiId: string
 };
@@ -90,9 +89,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   }
 
   handleTitleChange = (e: any) => {
-    this.handleErrorClearing(e.target.value); 
+    this.handleErrorClearing(e.target.value);
     this.setState({ pageTitle: e.target.value });
-    
   };
 
   handleTabs = (e: any, value: number) => {
@@ -133,8 +131,12 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
   // Clears error messages if the user tries to create a page with an empty title and then types in a new title
-  handleErrorClearing(currentTitle:string) {
-    if (currentTitle === "" || (currentTitle.length > 0 && this.props.errorDiv === "Title cannot be empty"))
+  handleErrorClearing(currentTitle: string) {
+    if (
+      currentTitle === '' ||
+      (currentTitle.length > 0 &&
+        this.props.errorDiv === 'Title cannot be empty')
+    )
       this.props.clearError();
   }
 
@@ -157,8 +159,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       <Dialog
         open={this.state.open}
         onClose={() => {
-          this.props.setModalOpen(false)
-          this.props.clearError()}}
+          this.props.setModalOpen(false);
+          this.props.clearError();
+        }}
         scroll="paper"
       >
         <FormGroup>
@@ -244,13 +247,21 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             {currentTab === 1 && (
               <ApiForm
                 categories={['Core', 'Other']}
-                whiteList={['li-richText', 'ac-gallery', 'ac-brainstorm']}
+                whiteList={[
+                  'li-richText',
+                  'ac-gallery',
+                  'ac-brainstorm',
+                  'ac-quiz',
+                  'ac-ck-board'
+                ]}
                 config={this.state.activityConfig?.config}
                 activityType={this.state.activityConfig?.activityType}
                 activityMapping={{
                   'li-richText': 'Core',
                   'ac-gallery': 'Core',
-                  'ac-brainstorm': 'Other'
+                  'ac-brainstorm': 'Other',
+                  'ac-quiz': 'Core',
+                  'ac-ck-board': 'Core'
                 }}
                 noOffset
                 showDelete
@@ -286,10 +297,10 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             {expanded ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
           <Button
-            onClick={() => { 
+            onClick={() => {
               this.props.setModalOpen(false);
-              this.props.clearError(); 
-              }}
+              this.props.clearError();
+            }}
             color="primary"
           >
             Cancel
