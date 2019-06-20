@@ -141,7 +141,12 @@ class RenderLearningItem extends React.Component<any, any> {
     const CompProps = (
       <div style={{ height: '100%' }}>
         <DraggableCore
-          disabled={type === 'edit' || type === 'history' || disableDragging}
+          disabled={
+            type === 'edit' ||
+            type === 'history' ||
+            disableDragging ||
+            liType.disableDragging
+          }
           offsetParent={document.body}
           onStart={e => {
             if (e.shiftKey) {
