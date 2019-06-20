@@ -102,7 +102,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle:  (this.props.match.pageTitle) || null, 
+      initialPageTitle: this.props.match.pageTitle || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -147,9 +147,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
         decodeURIComponent(prevProps.match.params.pageTitle) !==
-          decodeURIComponent(this.props.match.params.pageTitle) ||
-      (prevProps.match.params.instance !== this.props.match.params.instance)
-    )) {
+          decodeURIComponent(this.props.match.params.pageTitle)) ||
+      prevProps.match.params.instance !== this.props.match.params.instance
+    ) {
       this.goToPageTitle(pageTitle, this.props.match.params.instance);
     }
   }
