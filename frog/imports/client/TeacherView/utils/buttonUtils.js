@@ -199,7 +199,7 @@ export const SessionUtilsButtonsModel = (
           'Which wiki should pages be exported to?'
         );
         if (!whereTo) {
-          console.log('no whereto');
+          console.warn('no whereto');
           return;
         }
         Meteor.call(

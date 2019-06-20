@@ -25,13 +25,9 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 
   activities.forEach(act => {
     const obj = Objects.findOne(act._id);
-    if (act.plane !== 3) {
-      throw new Meteor.Error(
-        'Not implemented yet',
-        'Sorry for the incovienience'
-      );
+    if (act.plane === 3) {
+      importWikiFromFROG(act, obj, wiki, act.title, userId);
     }
-    importWikiFromFROG(act, obj, wiki, act.title, userId);
   });
 };
 
@@ -62,9 +58,14 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
         activityTypeTitle: activityTypesObj[item.activityType].meta.name
       };
 
-      const newId = dataFn.createLearningItem('li-activity', payload, {
-        title: page
-      });
+      const newId = dataFn.createLearningItem(
+        'li-activity',
+        payload,
+        {
+          title: page
+        },
+        true
+      );
 
       acc[x] = {
         liId: newId,
