@@ -102,7 +102,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.props.match.params.pageTitle || null,
+      initialPageTitle:{if (decodeURIComponent(this.props.params.pageTitle) === "undefined") 
+                            null
+                        else if (decodeURIComponent(this.props.params.pageTitle !== "undefined"))
+                              decodeURIComponent(this.props.params.pageTitle)
+                        else
+                           null},
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -142,12 +147,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle = this.props.match.params.pageTitle;
+    const pageTitle = decodeURIComponent(this.props.match.params.pageTitle);
+
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        prevProps.match.params.pageTitle !==
-          this.props.match.params.pageTitle) ||
-      prevProps.match.params.instance !== this.props.match.params.instance
+        decodeURIComponent(prevProps.match.params.pageTitle) !==
+          decodeURIComponent(this.props.match.params.pageTitle) ||
+      (prevProps.match.params.instance !== this.props.match.params.instance)
     ) {
       this.goToPageTitle(pageTitle, this.props.match.params.instance);
     }
@@ -250,7 +256,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           '/wiki/' +
           this.wikiId +
           '/' +
-          currentPageObj.title +
+          encodeURIComponent(currentPageObj.title) +
           (instanceId && instanceId !== this.getInstanceId(fullPageObj)
             ? '/' + instanceName
             : '');
@@ -351,7 +357,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       '/wiki/' +
       this.wikiId +
       '/' +
-      newPageTitle +
+      encodeURIComponent(newPageTitle) +
       (instanceId ? '/' + instanceId : '');
     this.props.history.replace(link);
   };
@@ -407,7 +413,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           '/wiki/' +
           this.wikiId +
           '/' +
-          newCurrentPageObj.title +
+          encodeURIComponent(newCurrentPageObj.title) +
           (instanceId && instanceId !== this.getInstanceId(fullPageObj)
             ? '/' + instanceName
             : '');
