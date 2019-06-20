@@ -6,13 +6,14 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
+import { TextField, FormHelperText, FormControl } from '@material-ui/core';
 
 import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
 import { LearningItem } from './index';
-import { getPageDetailsForLiId } from './helpers.js';
+import { getPageDetailsForLiId, checkNewPageTitle } from './helpers.js';
 
 class WikiContentComp extends React.Component<> {
   constructor(props) {
@@ -34,7 +35,8 @@ class WikiContentComp extends React.Component<> {
       docMode: 'view',
       pageTitleString: this.props.currentPageObj?.title,
       editingTitle: false,
-      showTitleEditButton: false
+      showTitleEditButton: false,
+      error: null
     };
   }
 
@@ -45,10 +47,15 @@ class WikiContentComp extends React.Component<> {
         docMode: 'view',
         pageTitleString: this.props.currentPageObj.title,
         editingTitle: false,
-        showTitleEditButton: false
+        showTitleEditButton: false,
+        error: null
       });
     }
   }
+
+  clearErrors = () => {
+    this.setState({ error: null });
+  };
 
   handleEditingTitle = () => {
     this.setState(prevState => ({
@@ -56,17 +63,38 @@ class WikiContentComp extends React.Component<> {
     }));
   };
 
+  handleErrors = newPageTitle => {
+    const error = checkNewPageTitle(wikiStore.parsedPages, newPageTitle);
+    this.setState({error});
+    return error;
+  };
+
+  // Clears error messages if the user tries to edit a page with an empty title and then types in a new title
+  handleErrorClearing(currentTitle) {
+    if (
+      currentTitle === '' ||
+      (currentTitle.length > 0 && this.state.error === 'Title cannot be empty')
+    )
+      this.clearErrors();
+  }
+
   saveNewPageTitle = () => {
-    const newPageTitle = this.state.pageTitleString;
-    if (!newPageTitle) throw new Error('Cannot save empty new page title');
+    const { pageTitleString } = this.state;
+    const error = this.handleErrors(pageTitleString);
 
-    this.props.changeTitle(this.props.currentPageObj.id, newPageTitle);
-
-    this.setState({
-      pageTitleString: newPageTitle,
-      editingTitle: false,
-      showTitleEditButton: false
-    });
+    if (
+      error === null ||
+      pageTitleString === this.props.currentPageObj?.title
+    ) {
+      this.props.changeTitle(this.props.currentPageObj.id, pageTitleString);
+      this.setState({
+        pageTitleString,
+        editingTitle: false,
+        showTitleEditButton: false,
+        error:
+          pageTitleString === this.props.currentPageObj?.title ? null : error
+      });
+    }
   };
 
   render() {
@@ -97,11 +125,10 @@ class WikiContentComp extends React.Component<> {
     };
 
     const titleStyle = {
-      lineHeight:'1.2'
+      lineHeight: '1.2'
+    };
 
-    }; 
-
-    const docModeButton = (() => {
+    const docModeButton = () => {
       if (
         this.state.docMode === 'history' ||
         this.props.liType === 'li-activity'
@@ -130,20 +157,30 @@ class WikiContentComp extends React.Component<> {
           Finish
         </Button>
       );
-    })();
+    };
 
     const titleDiv = this.state.editingTitle ? (
       <div style={titleDivStyle}>
-        <div>
-          <input
+        <FormControl margin="normal">
+          <TextField
+            id="title-input"
             placeholder="New Title"
+            error={this.state.error !== null}
             value={this.state.pageTitleString}
             onChange={e => {
               this.setState({ pageTitleString: e.target.value });
+              this.handleErrorClearing(e.target.value);
             }}
+            aria-describedby="title-input-helper-text"
           />
-          <Check onClick={() => this.saveNewPageTitle()} />
-        </div>
+          {this.state.error !== null && (
+            <FormHelperText id="title-input-helper-text" error>
+              {this.state.error}
+            </FormHelperText>
+          )}
+        </FormControl>
+
+        <Check onClick={() => this.saveNewPageTitle()} />
         <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
       </div>
     ) : (
@@ -156,7 +193,7 @@ class WikiContentComp extends React.Component<> {
             this.setState({ showTitleEditButton: false });
           }}
         >
-          <span style = {titleStyle}>{this.state.pageTitleString}</span>
+          <span style={titleStyle}>{this.state.pageTitleString}</span>
           {this.state.showTitleEditButton && (
             <Edit
               onClick={this.handleEditingTitle}
