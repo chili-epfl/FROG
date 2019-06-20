@@ -77,15 +77,15 @@ class WikiContentComp extends React.Component<> {
   handleErrorClearing(currentTitle) {
     if (
       currentTitle === '' ||
-      (currentTitle.length > 0 && this.state.error === 'Title cannot be empty')
-    )
+      (currentTitle.length > 0 && this.state.error === 'Title cannot be empty')  )
       this.clearErrors();
   }
 
   saveNewPageTitle = () => {
     const { pageTitleString } = this.state;
     const error = this.handleErrors(pageTitleString);
-    if (error === null) {
+  
+    if (error === null || pageTitleString === this.props.currentPageObj?.title) {
       this.props.changeTitle(this.props.currentPageObj.id, pageTitleString);
       this.setState({
         pageTitleString,

@@ -132,7 +132,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     } = this.state;
     this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
-  // Clears error messages if the user tries to create a page with an empty title and then types in a new title
+  
   handleErrorClearing(currentTitle:string) {
     if (currentTitle === "" || (currentTitle.length > 0 && this.props.errorDiv === "Title cannot be empty"))
       this.props.clearError();
