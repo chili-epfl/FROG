@@ -45,7 +45,6 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
   );
   const genericDoc = connection.get('li');
   const dataFn = generateReactiveFn(genericDoc);
-
   const instanceData = instances
     .filter(x => x !== userId)
     .reduce((acc, x) => {
@@ -57,21 +56,16 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
         activityTypeTitle: activityTypesObj[item.activityType].meta.name
       };
 
-      const newId = dataFn.createLearningItem(
-        'li-activity',
-        payload,
-        {
-          title: page
-        },
-        true
-      );
+      const newId = dataFn.createLearningItem('li-activity', payload, {
+        title: page
+      });
+
       acc[x] = {
         liId: newId,
         username: Meteor.users.findOne(x)?.username
       };
       return acc;
     }, {});
-
   const wikiDoc = connection.get('wiki', wiki);
   wikiDoc.subscribe(err => {
     if (err) throw err;
@@ -84,8 +78,8 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
       page,
       true,
       'li-activity',
+      instanceData.all.liId,
       item.plane,
-      instanceData,
       item.groupingKey ? object.socialStructure[item.groupingKey] : undefined,
       true
     );
