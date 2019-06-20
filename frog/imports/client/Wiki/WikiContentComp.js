@@ -65,11 +65,7 @@ class WikiContentComp extends React.Component<> {
 
   handleErrors = newPageTitle => {
     const error = checkNewPageTitle(wikiStore.parsedPages, newPageTitle);
-    if (error) {
-      this.setState({ error });
-    } else {
-      this.setState({ error });
-    }
+    this.setState({error});
     return error;
   };
 
