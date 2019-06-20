@@ -149,8 +149,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         decodeURIComponent(prevProps.match.params.pageTitle) !==
           decodeURIComponent(this.props.match.params.pageTitle) ||
       (prevProps.match.params.instance !== this.props.match.params.instance)
-    ) {
-      this.goToPageTitle(pageTitle, this.match.params.instance);
+    )) {
+      this.goToPageTitle(pageTitle, this.props.match.params.instance);
     }
   }
 
