@@ -94,7 +94,9 @@ class WikiContentComp extends React.Component<> {
       this.setState({
         pageTitleString,
         editingTitle: false,
-        showTitleEditButton: false
+        showTitleEditButton: false,
+        error:
+          pageTitleString === this.props.currentPageObj?.title ? null : error
       });
     }
   };
