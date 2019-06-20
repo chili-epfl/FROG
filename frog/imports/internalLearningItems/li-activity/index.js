@@ -57,5 +57,6 @@ export default ({
   Editor: Viewer,
   search: (data, search) =>
     data.title.toLowerCase().includes(search) ||
-    data.content.toLowerCase().includes(search)
+    data.content.toLowerCase().includes(search),
+  disableDragging: true
 }: LearningItemT<{ title: string, content: string }>);
