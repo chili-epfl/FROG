@@ -207,7 +207,8 @@ export const SessionUtilsButtonsModel = (
           session._id,
           whereTo,
           Meteor.userId(),
-          () => window.alert('Graph exported')
+          err =>
+            window.alert(err ? 'Oops! something went wrong.' : 'Graph exported')
         );
       },
       text: 'Export all activities to wiki'

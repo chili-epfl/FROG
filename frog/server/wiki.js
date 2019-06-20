@@ -25,6 +25,12 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 
   activities.forEach(act => {
     const obj = Objects.findOne(act._id);
+    if (act.plane !== 3) {
+      throw new Meteor.Error(
+        'Not implemented yet',
+        'Sorry for the incovienience'
+      );
+    }
     importWikiFromFROG(act, obj, wiki, act.title, userId);
   });
 };
