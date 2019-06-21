@@ -17,6 +17,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { activityTypes } from '/imports/activityTypes';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
+import Wiki from '../Wiki';
 
 const style = {
   card: {
@@ -114,37 +115,7 @@ class ChooseActivityType extends React.Component<{
       'ac-video'
     ];
     const list = activityTypes.filter(x => allowed.includes(x.id));
-    return (
-      <Card raised className={classes.card}>
-        <Typography variant="h5" component="h2">
-          Let's start by choosing an activity type
-        </Typography>
-        <GridList cols="4" spacing="8">
-          {list.map(x => (
-            <a
-              href="#"
-              onClick={e => {
-                e.preventDefault();
-                onSubmit(x);
-              }}
-            >
-              <GridListTile key={x.id} classes={{ root: classes.tile }}>
-                <img
-                  src={'/' + x.id + '.png'}
-                  alt={x.id}
-                  className={classes.icon}
-                />
-                <GridListTileBar
-                  title={x.meta.name}
-                  subtitle={<span>{x.meta.shortDesc}</span>}
-                  classes={{ root: classes.shortDesc }}
-                />
-              </GridListTile>
-            </a>
-          ))}
-        </GridList>
-      </Card>
-    );
+    return (<Wiki embedPage={{wikiId: 'test_embed', page: 'ember'}} />);
   }
 }
 
@@ -237,55 +208,7 @@ class SingleActivity extends React.Component<PropsT, StateT> {
   render() {
     const { classes } = this.props;
     const { stage, activityType } = this.state;
-    return (
-      <>
-        <AppBar position="static" color="default">
-          <Toolbar classes={{ root: classes.navbar }}>
-            <Typography variant="h6" color="inherit" className={classes.logo}>
-              FROG
-            </Typography>
-            <Button size="medium">Help</Button>
-            <Button size="medium">Log In/Sign Up</Button>
-          </Toolbar>
-        </AppBar>
-        <Grow in={stage === 1} unmountOnExit>
-          <Welcome classes={classes} />
-        </Grow>
-        <Grow in={stage === 1} unmountOnExit>
-          <ChooseActivityType
-            classes={classes}
-            onSubmit={conf =>
-              this.setState({ stage: this.state.stage + 1, activityType: conf })
-            }
-          />
-        </Grow>
-        <Grow in={stage === 2} unmountOnExit>
-          <ConfigPanel
-            activityType={activityType}
-            classes={classes}
-            onSubmit={conf =>
-              this.setState({ stage: this.state.stage + 1, activity: conf })
-            }
-            onReturn={() => this.setState({ stage: this.state.stage - 1 })}
-          />
-        </Grow>
-        <Grow in={stage === 3} unmountOnExit>
-          {/* The function to generate the activity must be called here and the 2 urls returned. */}
-          <Finish
-            url={{
-              public: Math.random()
-                .toString(36)
-                .substring(7),
-              dashboard: Math.random()
-                .toString(36)
-                .substring(7)
-            }}
-            classes={classes}
-            onReturn={() => this.setState({ stage: this.state.stage - 1 })}
-          />
-        </Grow>
-      </>
-    );
+    return (<Wiki embedPage={{wikiId: 'test_embed', page: 'india', instance: 'leo'}} />);
   }
 }
 
