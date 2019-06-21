@@ -18,11 +18,3 @@ const config2 = {
   group: 'cjgdu4sti00041sj4v5qch1gk',
   groupData: 'cjgdu4sti00031sj47sjionh9'
 };
-
-test('works twice', () => {
-  expect(operator(config2, object2)).toMatchSnapshot();
-});
-
-test.only('works twice', () => {
-  expect(operator(config3, object3)).toEqual();
-});
