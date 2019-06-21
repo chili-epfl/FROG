@@ -100,7 +100,7 @@ module.exports = {
       run: fromRoot('cypress run', 'Starting Cypress in headless mode'),
       ci: fromRoot(
         'start-server-and-test "yarn start server" http://localhost:3000 "yarn start cypress.run"',
-        'Starting Cypress in CI mode'
+        'Starting Cypress in CI mode. Cypress will start once the server is running.'
       )
     },
     lockfiles: fromRoot(
