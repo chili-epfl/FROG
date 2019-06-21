@@ -1,5 +1,8 @@
 language: generic
+before_install:
+- curl https://install.meteor.com/ | sh
+- ./initial_setup.sh
 jobs:
 - stage: "Test"
-  name: "Hello World"
-  script: echo "Hello World"
+  name: "All Tests"
+  script: yarn start test
