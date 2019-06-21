@@ -80,7 +80,8 @@ type WikiCompStateT = {
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
-  wikiId: string = this.props.match?.params.wikiId || this.props.embedPage.wikiId;
+  wikiId: string =
+    this.props.match?.params.wikiId || this.props.embedPage.wikiId;
 
   wikiDoc: Object = {};
 
@@ -108,7 +109,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.props.match?.pageTitle || this.props.embedPage?.page || null,
+      initialPageTitle:
+        this.props.match?.pageTitle || this.props.embedPage?.page || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -136,7 +138,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     });
 
     window.wikiDoc = this.wikiDoc;
-    if(!this.props.embedPage){
+    if (!this.props.embedPage) {
       Mousetrap.bindGlobal('ctrl+n', () =>
         this.setState({ createModalOpen: true })
       );
@@ -149,7 +151,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle = decodeURIComponent(this.props.match?.params.pageTitle) || this.props.embedPage.page;
+    const pageTitle =
+      decodeURIComponent(this.props.match?.params.pageTitle) ||
+      this.props.embedPage.page;
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
@@ -262,7 +266,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           (instanceId && instanceId !== this.getInstanceId(fullPageObj)
             ? '/' + instanceName
             : '');
-        if(!this.props.embedPage) this.props.history.push(link);
+        if (!this.props.embedPage) this.props.history.push(link);
       }
     );
   };
@@ -420,10 +424,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             ? '/' + instanceName
             : '');
         if (cb) {
-          if(!this.props.embedPage) this.props.history.replace(link);
+          if (!this.props.embedPage) this.props.history.replace(link);
           return cb();
         }
-        if(!this.props.embedPage) this.props.history.push(link);
+        if (!this.props.embedPage) this.props.history.push(link);
       }
     );
   };
@@ -631,12 +635,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         <div style={containerDivStyle}>
           {!this.props.embedPage && sideNavBar}
           <div style={contentDivStyle}>
-            {!this.props.embedPage && <WikiTopNavbar
-              username={Meteor.user().username}
-              isAnonymous={Meteor.user().isAnonymous}
-              primaryNavItems={primaryNavItems}
-              secondaryNavItems={secondaryNavItems}
-            />}
+            {!this.props.embedPage && (
+              <WikiTopNavbar
+                username={Meteor.user().username}
+                isAnonymous={Meteor.user().isAnonymous}
+                primaryNavItems={primaryNavItems}
+                secondaryNavItems={secondaryNavItems}
+              />
+            )}
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
                 wikiId={this.wikiId}
