@@ -2079,57 +2079,88 @@ Object {
 exports[`Add categories, actual data 1`] = `
 Object {
   "payload": Object {
-    "all": Object {
-      "config": Object {},
-      "data": Array [
-        Object {
+    "H52zkjGQ24uruxnST": Object {
+      "data": Object {
+        "cjvm7ra5r0018l0iz1fhuqry2": Object {
           "category": undefined,
           "id": "cjvm7ra5r0018l0iz1fhuqry2",
           "li": "cjvm7qk460017l0iz63iz8ghg",
         },
-        Object {
+      },
+    },
+    "JKv43553ALfEJBbSw": Object {
+      "data": Object {
+        "cjvm7ra5r0019l0izp3ehqp1t": Object {
           "category": undefined,
           "id": "cjvm7ra5r0019l0izp3ehqp1t",
           "li": "cjvm7qk3v0016l0izb6kqi2eg",
         },
-        Object {
+      },
+    },
+    "RLoZe2jPGNLqvhWwG": Object {
+      "data": Object {
+        "cjvm7ra5r001al0iz01jousfs": Object {
           "category": undefined,
           "id": "cjvm7ra5r001al0iz01jousfs",
           "li": "cjvm7qk3v0015l0izdypbu02r",
         },
-        Object {
+      },
+    },
+    "Xz4WL2FEZpApP9aZF": Object {
+      "data": Object {
+        "cjvm7ra5r001bl0izdsucd477": Object {
           "category": undefined,
           "id": "cjvm7ra5r001bl0izdsucd477",
           "li": "cjvm7qk3r0011l0izmzigrnbo",
         },
-        Object {
+      },
+    },
+    "YhxyDSkKJJvaDnb8K": Object {
+      "data": Object {
+        "cjvm7ra5r001cl0iz7wyccuua": Object {
           "category": undefined,
           "id": "cjvm7ra5r001cl0iz7wyccuua",
           "li": "cjvm7qk3s0012l0izbpw5vk1e",
         },
-        Object {
+      },
+    },
+    "ZyhkhWTNtFzxLacCx": Object {
+      "data": Object {
+        "cjvm7ra5r001dl0izlij1jpz4": Object {
           "category": undefined,
           "id": "cjvm7ra5r001dl0izlij1jpz4",
           "li": "cjvm7qk3p000zl0iz9jotmdsx",
         },
-        Object {
+      },
+    },
+    "wd47b9AFR8YYh5tga": Object {
+      "data": Object {
+        "cjvm7ra5r001el0iztekbvuzj": Object {
           "category": undefined,
           "id": "cjvm7ra5r001el0iztekbvuzj",
           "li": "cjvm7qk3u0014l0iz4qw18xqn",
         },
-        Object {
+      },
+    },
+    "wyjpHTcnfejBfZ6yb": Object {
+      "data": Object {
+        "cjvm7ra5r001fl0izz7ont0vt": Object {
           "category": undefined,
           "id": "cjvm7ra5r001fl0izz7ont0vt",
           "li": "cjvm7qk3t0013l0izv3sxdotq",
         },
-        Object {
+      },
+    },
+    "xR3CbSik4pS83BWuX": Object {
+      "data": Object {
+        "cjvm7ra5r001gl0izt9drc16p": Object {
           "category": undefined,
           "id": "cjvm7ra5r001gl0izt9drc16p",
           "li": "cjvm7qk3q0010l0iz9qa2o373",
         },
-      ],
+      },
     },
   },
-  "structure": "all",
+  "structure": "individual",
 }
 `;
