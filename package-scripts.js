@@ -95,6 +95,9 @@ module.exports = {
       default: fromRoot('jest', 'Starting Jest'),
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
     },
+    cypress: {
+      default: fromRoot('cypress open', 'Starting Cypress')
+    },
     lockfiles: fromRoot(
       'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
     ),
