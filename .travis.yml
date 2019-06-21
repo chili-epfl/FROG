@@ -1,0 +1,5 @@
+language: node_js
+jobs:
+- stage: "Test"
+  name: "Hello World"
+  script: echo "Hello World"
