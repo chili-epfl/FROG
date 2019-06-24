@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-player": "^1.9.3"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-player": "^1.11.1"
   },
   "devDependencies": {
-    "nps": "5.9.3"
+    "nps": "5.9.5"
   }
 }

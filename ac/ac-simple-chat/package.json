@@ -2,11 +2,15 @@
   "name": "ac-simple-chat",
   "version": "1.0.0",
   "main": "src/index.js",
-  "scripts": {"start": "nps"},
+  "scripts": {
+    "start": "nps"
+  },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
-  "devDependencies": {"nps": "5.9.3"}
+  "devDependencies": {
+    "nps": "5.9.5"
+  }
 }

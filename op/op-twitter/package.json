@@ -9,11 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "frog-utils": "^1.0.0",
     "@houshuang/react-tweet": "1.7.2",
+    "frog-utils": "^1.0.0",
     "twit": "^2.2.10"
   },
   "devDependencies": {
-    "nps": "5.9.3"
+    "nps": "5.9.5"
   }
 }

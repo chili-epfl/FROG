@@ -13,12 +13,12 @@
     "feedparser": "^2.2.9",
     "frog-utils": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
-    "jsonpath-plus": "^0.18.0",
-    "query-string": "^6.2.0",
+    "jsonpath-plus": "^0.20.1",
+    "query-string": "^6.8.1",
     "react-sound": "^1.2.0",
     "strict-uri-encode": "^2.0.0"
   },
   "devDependencies": {
-    "nps": "5.9.3"
+    "nps": "5.9.5"
   }
 }

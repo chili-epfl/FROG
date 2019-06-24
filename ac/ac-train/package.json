@@ -7,16 +7,16 @@
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "immutability-helper": "^2.9.0",
-    "react": "^16.8.0",
+    "immutability-helper": "^3.0.1",
+    "react": "^16.8.6",
     "react-cursor-position": "^3.0.3",
-    "react-dnd": "^5.0.0",
-    "react-dnd-html5-backend": "^5.0.1",
-    "react-dom": "^16.8.0",
-    "react-measure": "^2.2.4",
-    "react-timeout": "^1.1.2"
+    "react-dnd": "^8.0.3",
+    "react-dnd-html5-backend": "^8.0.3",
+    "react-dom": "^16.8.6",
+    "react-measure": "^2.3.0",
+    "react-timeout": "^1.2.0"
   },
   "devDependencies": {
-    "nps": "5.9.3"
+    "nps": "5.9.5"
   }
 }

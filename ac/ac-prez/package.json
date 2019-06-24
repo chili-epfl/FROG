@@ -10,10 +10,10 @@
     "@houshuang/pdfjs-dist": "1.4.162",
     "frog-utils": "^1.0.0",
     "pdf-annotate": "0.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "nps": "5.9.3"
+    "nps": "5.9.5"
   }
 }

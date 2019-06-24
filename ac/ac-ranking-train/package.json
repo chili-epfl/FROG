@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "frog-utils": "^1.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-flip-move": "^3.0.3",
     "recompose": "^0.30.0"
   },
   "devDependencies": {
-    "nps": "5.9.3"
+    "nps": "5.9.5"
   }
 }
