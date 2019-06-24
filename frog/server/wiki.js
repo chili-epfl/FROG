@@ -7,6 +7,7 @@ import { Sessions } from '/imports/api/sessions';
 import { Activities } from '/imports/api/activities';
 import { Objects } from '/imports/api/objects';
 import { Meteor } from 'meteor/meteor';
+import { findKey } from 'lodash';
 import { serverConnection as connection } from './share-db-manager';
 
 const exportActivity = (activityId, wiki, page) => {
@@ -25,13 +26,12 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 
   activities.forEach(act => {
     const obj = Objects.findOne(act._id);
-    if (act.plane === 3) {
-      importWikiFromFROG(act, obj, wiki, act.title, userId);
-    }
+    if(obj) importWikiFromFROG(act, obj, wiki, act.title, userId);
   });
 };
 
 export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
+  console.log(object, item.groupingKey);
   const instances = await new Promise(resolve =>
     connection.createFetchQuery(
       'rz',
@@ -48,8 +48,7 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
   const genericDoc = connection.get('li');
   const dataFn = generateReactiveFn(genericDoc);
   const instanceData = instances
-    .filter(x => x !== userId)
-    .reduce((acc, x) => {
+  .reduce((acc, x) => {
       const payload = {
         acType: item.activityType,
         activityData: { config: item.data },
@@ -69,24 +68,27 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
 
       acc[x] = {
         liId: newId,
-        username: Meteor.users.findOne(x)?.username
+        instanceName: (item.groupingKey) ? item.groupingKey + ' ' + x : Meteor.users.findOne(x)?.username
       };
       return acc;
     }, {});
   const wikiDoc = connection.get('wiki', wiki);
-  wikiDoc.subscribe(err => {
-    if (err) throw err;
+  wikiDoc.subscribe(() => {
     if (!wikiDoc.type) {
       wikiDoc.create({ wikiId: wiki, pages: {} });
     }
-
     addNewWikiPage(
       wikiDoc,
       page,
       true,
       'li-activity',
-      instanceData.all.liId,
+      instanceData.all?.liId || instanceData[userId]?.liId || null,
       item.plane,
+      (item.plane === 3 ) ? undefined : 
+      Object.keys(instanceData).filter(key => key !== userId).reduce((obj, key) => {
+        obj[key] = instanceData[key];
+        return obj;
+      }, {}),
       item.groupingKey ? object.socialStructure[item.groupingKey] : undefined,
       true
     );

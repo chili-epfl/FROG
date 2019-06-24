@@ -292,6 +292,16 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return null;
   };
 
+  getInstanceNameForUser = (pageObj) => {
+    if(pageObj.plane === 1) return Meteor.user().username;
+    if(pageObj.plane === 2) {
+      const userId = Meteor.userId();
+      const groupNumber = findKey(pageObj.socialStructure, x => x.includes(userId));
+      return pageObj.groupingAttribute + ' ' + groupNumber;
+    }
+    return null;
+  }
+
   getInstanceIdForName = (pageObj, instanceName) => {
     if (!instanceName || !pageObj || pageObj.plane === 3) return null;
 
@@ -374,13 +384,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           },
           () => {
             if (foreignInstanceId) return;
-            const instanceName = Meteor.user().username;
+            const instanceName = this.getInstanceNameForUser(fullPageObj);
             this.preventRenderUntilNextShareDBUpdate = true;
             this.createNewInstancePage(fullPageObj, instanceId, instanceName);
           }
         );
       }
     }
+    console.log(pageId);
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
     const rightSideCurrentPageObj =
