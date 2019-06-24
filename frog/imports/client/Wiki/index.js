@@ -93,7 +93,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       createPage: this.createPage,
       goToPage: this.goToPage,
       openDeletedPageModal: this.openDeletedPageModal,
-      addNonActivePage: this.addNonactivePage
+      addNonActivePage: this.addNonActivePage
     };
 
     const query = queryToObject(this.props.location.search.slice(1));
@@ -457,10 +457,15 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return { pageId, liId };
   };
 
-  addNonactivePage = title => {
+  // there is a link to a page that has not yet been formally created, until
+  // clicked upon, but we still keep track of it.
+  addNonActivePage = title => {
+    const existingPage = wikiStore.pagesByTitle[title];
+    if (existingPage) {
+      return { liId: existingPage.liId, pageId: existingPage.id };
+    }
     const liType = 'li-richText';
     const liId = createNewLI(this.wikiId, liType, undefined, title);
-
     const pageId = addNewWikiPage(this.wikiDoc, title, false, liType, liId, 3);
     return { liId, pageId };
   };
