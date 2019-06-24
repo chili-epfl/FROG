@@ -92,7 +92,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     window.wiki = {
       createPage: this.createPage,
       goToPage: this.goToPage,
-      openDeletedPageModal: this.openDeletedPageModal
+      openDeletedPageModal: this.openDeletedPageModal,
+      addNonActivePage: this.addNonactivePage
     };
 
     const query = queryToObject(this.props.location.search.slice(1));
@@ -454,6 +455,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     );
     this.goToPage(pageId);
     return { pageId, liId };
+  };
+
+  addNonactivePage = title => {
+    const liType = 'li-richText';
+    const liId = createNewLI(this.wikiId, liType, undefined, title);
+
+    const pageId = addNewWikiPage(this.wikiDoc, title, false, liType, liId, 3);
+    return { liId, pageId };
   };
 
   openDeletedPageModal = (pageId, pageTitle) => {
