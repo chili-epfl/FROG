@@ -1,7 +1,12 @@
 // @flow
 
-import { type productOperatorRunnerT, wrapUnitAll } from 'frog-utils';
-import { cloneDeep, focusStudent } from 'frog-utils';
+import {
+  type productOperatorRunnerT,
+  wrapUnitAll,
+  cloneDeep,
+  focusStudent
+} from 'frog-utils';
+
 import { isObject } from 'lodash';
 
 const operator = (configData, object) => {
