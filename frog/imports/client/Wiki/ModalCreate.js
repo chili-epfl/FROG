@@ -159,11 +159,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open={this.state.open}
-        onExited ={() => {
+        onExited={() => {
           this.props.setModalOpen(false);
           this.props.clearError();
         }}
-        onEnter = {() =>{
+        onEnter={() => {
           this.props.setModalOpen(true);
           this.props.clearError();
         }}
