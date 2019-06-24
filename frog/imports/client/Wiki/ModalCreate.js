@@ -159,8 +159,12 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open={this.state.open}
-        onClose={() => {
+        onExited={() => {
           this.props.setModalOpen(false);
+          this.props.clearError();
+        }}
+        onEnter={() => {
+          this.props.setModalOpen(true);
           this.props.clearError();
         }}
         scroll="paper"
