@@ -103,7 +103,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-            this.decodePageTitle(this.props.match.params.pageTitle) || null,
+        this.decodePageTitle(this.props.match.params.pageTitle) || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -147,8 +147,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        decodeURIComponent(prevProps.match.params.pageTitle) !==
-          decodeURIComponent(this.props.match.params.pageTitle)) ||
+        this.decodePageTitle(prevProps.match.params.pageTitle) !==
+          this.decodePageTitle(this.props.match.params.pageTitle)) ||
       prevProps.match.params.instance !== this.props.match.params.instance
     ) {
       this.goToPageTitle(pageTitle, this.props.match.params.instance);
@@ -198,16 +198,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
-  decodePageTitle = (currentTitle:string): string => {
-    return (currentTitle === '' ? currentTitle : decodeURIComponent(currentTitle)); 
+  decodePageTitle = (currentTitle: string): string => {
+    if (decodeURIComponent(currentTitle) === 'undefined') {
+      const link = `/wiki/${this.wikiId}/Home`;
+      this.props.history.push(link);
+      return 'Home';
+    }
 
-  } 
+    return decodeURIComponent(currentTitle);
+  };
 
   handleInitialLoad = () => {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
-    const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
-    console.log(pageTitle);
+    const pageTitle = getPageTitle(
+      parsedPages,
+      this.decodePageTitle(this.state.initialPageTitle)
+    );
     const pageTitleLower = pageTitle.toLowerCase();
     const fullPageObj = parsedPages[pageTitleLower];
 
