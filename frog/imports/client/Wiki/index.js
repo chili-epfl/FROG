@@ -103,7 +103,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-        decodeURIComponent(this.props.match.params.pageTitle) || null,
+            this.decodePageTitle(this.props.match.params.pageTitle) || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -143,7 +143,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle = decodeURIComponent(this.props.match.params.pageTitle);
+    const pageTitle = this.decodePageTitle(this.props.match.params.pageTitle);
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
@@ -198,10 +198,16 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
+  decodePageTitle = (currentTitle:string): string => {
+    return (currentTitle === '' ? currentTitle : decodeURIComponent(currentTitle)); 
+
+  } 
+
   handleInitialLoad = () => {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
+    console.log(pageTitle);
     const pageTitleLower = pageTitle.toLowerCase();
     const fullPageObj = parsedPages[pageTitleLower];
 
