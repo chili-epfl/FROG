@@ -65,7 +65,7 @@ class WikiContentComp extends React.Component<> {
 
   handleErrors = newPageTitle => {
     const error = checkNewPageTitle(wikiStore.parsedPages, newPageTitle);
-    this.setState({error});
+    this.setState({ error });
     return error;
   };
 
@@ -181,7 +181,7 @@ class WikiContentComp extends React.Component<> {
         </FormControl>
 
         <Check onClick={() => this.saveNewPageTitle()} />
-        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
+        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
       </div>
     ) : (
       <div style={titleDivStyle}>
@@ -201,7 +201,7 @@ class WikiContentComp extends React.Component<> {
             />
           )}
         </div>
-        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton}</div>
+        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
       </div>
     );
 

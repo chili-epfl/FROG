@@ -13,6 +13,7 @@ export const meta = {
 
 export const config = {
   type: 'object',
+  required: ['query'],
   properties: {
     query: {
       type: 'string',

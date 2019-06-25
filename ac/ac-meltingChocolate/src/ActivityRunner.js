@@ -61,9 +61,7 @@ class ActivityRunner extends React.Component<*, *> {
           id="ac-chocolate"
           style={{ width: '600px', height: '600px' }}
           title="ac-thermoCup"
-          src={`/clientFiles/ac-meltingChocolate/index.html?mode=${
-            this.props.activityData.config?.mode
-          }`}
+          src={`/clientFiles/ac-meltingChocolate/index.html?mode=${this.props.activityData.config?.mode}`}
         />
       </div>
     );

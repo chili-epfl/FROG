@@ -110,7 +110,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-        this.props.match?.pageTitle || this.props.embedPage?.page || null,
+        this.props.match.params.pageTitle || this.props.embedPage?.page || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,

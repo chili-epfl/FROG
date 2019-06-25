@@ -65,7 +65,7 @@ module.exports = {
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
-        `nps -s lockfiles flow.quiet eslint jest`,
+        `nps -s lockfiles flow.quiet eslint jest cypress.ci`,
         'Running LockFiles, Flow, ESLint and Jest'
       )
     },
@@ -94,6 +94,14 @@ module.exports = {
     jest: {
       default: fromRoot('jest', 'Starting Jest'),
       watch: fromRoot('jest --watch', 'Starting Jest in watch mode')
+    },
+    cypress: {
+      default: fromRoot('cypress open', 'Starting Cypress'),
+      run: fromRoot('cypress run', 'Starting Cypress in headless mode'),
+      ci: fromRoot(
+        'start-server-and-test "yarn start server" http://localhost:3000 "yarn start cypress.run"',
+        'Starting Cypress in CI mode. Cypress will start once the server is running.'
+      )
     },
     lockfiles: fromRoot(
       'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
