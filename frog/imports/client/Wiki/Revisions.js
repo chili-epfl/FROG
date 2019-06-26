@@ -7,7 +7,7 @@ import { A } from 'frog-utils';
 import Delta from 'quill-delta';
 
 import RenderLearningItem from '../LearningItem/RenderLearningItem';
-import { dataFn } from './index';
+import { dataFn } from './wikiLearningItem';
 
 // taken from op-richText-diff - should be moved to common location
 const transform = (item, toDiff) => {

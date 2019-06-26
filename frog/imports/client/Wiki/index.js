@@ -17,8 +17,6 @@ import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 
 import { connection } from '../App/connection';
-import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import LI from '../LearningItem';
 import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
 import {
   invalidateWikiPage,
@@ -43,12 +41,6 @@ import {
   withModalController,
   type ModalParentPropsT
 } from './components/Modal';
-
-const genericDoc = connection.get('li');
-export const dataFn = generateReactiveFn(genericDoc, LI, {
-  createdByUser: Meteor.userId()
-});
-export const LearningItem = dataFn.LearningItem;
 
 type WikiCompPropsT = {
   location: *,
