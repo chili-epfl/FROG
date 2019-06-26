@@ -101,8 +101,7 @@ const listWikis = async () => {
     })
   );
   return list.map(doc => {
-    doc.fetch();
-    return doc.data.wikiId;
+    return doc.id;
   });
 };
 
