@@ -279,7 +279,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (!fullPageObj || fullPageObj.plane === 3) return fullPageObj;
 
     const instanceObj = fullPageObj.instances[instanceId];
-    if (!instanceObj) return null;
+    if (!instanceObj) {
+      if (fullPageObj.noNewInstances) {
+        return fullPageObj;
+      } else {
+        return null;
+      }
+    }
 
     const mergedObj = Object.assign({}, fullPageObj, instanceObj);
     return mergedObj;
@@ -307,15 +313,17 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return null;
   };
 
-  getInstanceNameForUser = (pageObj) => {
-    if(pageObj.plane === 1) return Meteor.user().username;
-    if(pageObj.plane === 2) {
+  getInstanceNameForUser = pageObj => {
+    if (pageObj.plane === 1) return Meteor.user().username;
+    if (pageObj.plane === 2) {
       const userId = Meteor.userId();
-      const groupNumber = findKey(pageObj.socialStructure, x => x.includes(userId));
+      const groupNumber = findKey(pageObj.socialStructure, x =>
+        x.includes(userId)
+      );
       return pageObj.groupingAttribute + ' ' + groupNumber;
     }
     return null;
-  }
+  };
 
   getInstanceIdForName = (pageObj, instanceName) => {
     if (!instanceName || !pageObj || pageObj.plane === 3) return null;
@@ -517,6 +525,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
+    console.log(this.state);
     if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;

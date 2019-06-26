@@ -75,8 +75,13 @@ class InfoComponent extends React.Component<
       return;
     }
     const [wiki, page] = whereTo.split('/').map(x => x.trim());
-    Meteor.call('export.activity.wiki', item._id, wiki, page, () =>
-      window.alert('Page exported')
+    Meteor.call(
+      'export.activity.wiki',
+      item._id,
+      wiki,
+      page,
+      Meteor.userId(),
+      () => window.alert('Page exported')
     );
   };
 

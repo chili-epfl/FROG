@@ -1,20 +1,24 @@
 // @flow
 
-import { addNewWikiPage } from '/imports/api/wikiDocHelpers';
+import { Meteor } from 'meteor/meteor';
+
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { activityTypesObj } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
 import { Activities } from '/imports/api/activities';
 import { Objects } from '/imports/api/objects';
-import { Meteor } from 'meteor/meteor';
-import { findKey } from 'lodash';
+import {
+  createNewEmptyWikiDoc,
+  addNewWikiPage
+} from '/imports/api/wikiDocHelpers';
+
 import { serverConnection as connection } from './share-db-manager';
 
-const exportActivity = (activityId, wiki, page) => {
+const exportActivity = (activityId, wiki, page, userId) => {
   const act = Activities.findOne(activityId);
 
   const obj = Objects.findOne(act._id);
-  importWikiFromFROG(act, obj, wiki, page || act.title);
+  importWikiFromFROG(act, obj, wiki, page || act.title, userId);
 };
 
 const exportSessionWiki = (sessionId, wiki, userId) => {
@@ -26,12 +30,12 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 
   activities.forEach(act => {
     const obj = Objects.findOne(act._id);
-    if(obj) importWikiFromFROG(act, obj, wiki, act.title, userId);
+    if (obj) importWikiFromFROG(act, obj, wiki, act.title, userId);
   });
 };
 
-export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
-  console.log(object, item.groupingKey);
+export async function importWikiFromFROG(item, object, wiki, page, userId) {
+  console.log(userId);
   const instances = await new Promise(resolve =>
     connection.createFetchQuery(
       'rz',
@@ -48,7 +52,9 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
   const genericDoc = connection.get('li');
   const dataFn = generateReactiveFn(genericDoc);
   const instanceData = instances
-  .reduce((acc, x) => {
+    .filter(x => x !== userId)
+    .reduce((acc, x) => {
+      console.log(x);
       const payload = {
         acType: item.activityType,
         activityData: { config: item.data },
@@ -68,14 +74,20 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
 
       acc[x] = {
         liId: newId,
-        instanceName: (item.groupingKey) ? item.groupingKey + ' ' + x : Meteor.users.findOne(x)?.username
+        instanceName: item.groupingKey
+          ? item.groupingKey + ' ' + x
+          : Meteor.users.findOne(x)?.username,
+        instanceId: x
       };
       return acc;
     }, {});
   const wikiDoc = connection.get('wiki', wiki);
   wikiDoc.subscribe(() => {
     if (!wikiDoc.type) {
-      wikiDoc.create({ wikiId: wiki, pages: {} });
+      const liId = dataFn.createLearningItem('li-richText', undefined, {
+        wikiId: wiki
+      });
+      createNewEmptyWikiDoc(wikiDoc, wiki, liId);
     }
     addNewWikiPage(
       wikiDoc,
@@ -84,16 +96,19 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
       'li-activity',
       instanceData.all?.liId || instanceData[userId]?.liId || null,
       item.plane,
-      (item.plane === 3 ) ? undefined : 
-      Object.keys(instanceData).filter(key => key !== userId).reduce((obj, key) => {
-        obj[key] = instanceData[key];
-        return obj;
-      }, {}),
+      item.plane === 3
+        ? undefined
+        : Object.keys(instanceData)
+            .filter(key => key !== userId)
+            .reduce((obj, key) => {
+              obj[key] = instanceData[key];
+              return obj;
+            }, {}),
       item.groupingKey ? object.socialStructure[item.groupingKey] : undefined,
       true
     );
   });
-};
+}
 
 Meteor.methods({
   'export.session.wiki': exportSessionWiki,

@@ -257,12 +257,19 @@ class WikiContentComp extends React.Component<> {
                     }
                   }}
                 >
-                  {this.props.currentPageObj && (
+                  {this.props.currentPageObj?.liId && (
                     <LearningItem
                       type={this.state.docMode}
                       id={this.props.currentPageObj.liId}
                     />
                   )}
+                  {!this.props.currentPageObj?.liId &&
+                    this.props.currentPageObj?.noNewInstances && (
+                      <h1>
+                        No instance selected, choose from the list in the left
+                        sidebar
+                      </h1>
+                    )}
                 </Paper>
               </div>
             </>
