@@ -8,35 +8,35 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { listWikis } from './helpers';
 
 type StateT = {
-    list: string[]
-}
+  list: string[]
+};
 
 class Index extends React.Component<null, StateT> {
-    constructor() {
-        super();
-        this.state = {
-            list: []
-        };
-    }
+  constructor() {
+    super();
+    this.state = {
+      list: []
+    };
+  }
 
-    componentWillMount() {
-        listWikis().then(x => {
-          this.setState({ list: x });
-      });
-    }
+  componentWillMount() {
+    listWikis().then(x => {
+      this.setState({ list: x });
+    });
+  }
 
-    render() {
-        return (
-            <List>
-              {this.state.list.map(id => (
-                <Link to={'/wiki/' + id} key={id}>
-                  <ListItem button>
-                    <ListItemText primary={id} />
-                  </ListItem>
-                </Link>
-              ))}
-            </List>
-          );
-    }
+  render() {
+    return (
+      <List>
+        {this.state.list.map(id => (
+          <Link to={'/wiki/' + id} key={id}>
+            <ListItem button>
+              <ListItemText primary={id} />
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+    );
+  }
 }
 export default Index;
