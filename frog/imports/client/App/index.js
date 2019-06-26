@@ -25,7 +25,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
-import Wiki from '../Wiki';
+import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 
 const TeacherContainer = Loadable({
@@ -269,12 +269,7 @@ const FROGRouter = withRouter(
         if (user.isAnonymous)
           return (
             <Switch>
-              <Route
-                path="/wiki/:wikiId/:pageTitle/:instance"
-                component={Wiki}
-              />
-              <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
-              <Route path="/wiki/:wikiId" component={Wiki} />
+              <Route path="/wiki" component={WikiRouter} />
               <Route path="/single_activity" component={SingleActivity} />
               <Route
                 render={() => (
@@ -288,13 +283,7 @@ const FROGRouter = withRouter(
         else
           return (
             <Switch>
-              <Route
-                path="/wiki/:wikiId/:pageTitle/:instance"
-                component={Wiki}
-              />
-              <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
-              <Route path="/wiki/:wikiId" component={Wiki} />
-              <Route path="/wiki" component={Wiki} />
+              <Route path="/wiki" component={WikiRouter} />
               <Route path="/teacher/projector/:slug" component={StudentView} />
               <Route path="/teacher/" component={TeacherContainer} />
               <Route path="/single_activity" component={SingleActivity} />

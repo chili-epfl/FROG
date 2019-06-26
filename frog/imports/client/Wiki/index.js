@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
@@ -16,19 +15,11 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import {
-  getPageTitle,
-  getDifferentPageId,
-  checkNewPageTitle,
-  listWikis
-} from './helpers';
+import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
 import {
   invalidateWikiPage,
   changeWikiPageTitle,
@@ -63,7 +54,7 @@ type WikiCompPropsT = {
   location: *,
   match: {
     params: {
-      wikiId?: string,
+      wikiId: string,
       pageTitle: ?string
     }
   },
@@ -79,18 +70,17 @@ type WikiCompStateT = {
   findModalOpen: boolean,
   search: '',
   urlInstance: ?string,
-  noInstance: ?boolean,
-  wikiList?: string[]
+  noInstance: ?boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
-  wikiId: ?string = this.props.match.params.wikiId || null;
+  wikiId: string = this.props.match.params.wikiId;
 
   wikiDoc: Object = {};
 
   config: Object = {};
 
-  initialLoad: boolean = !!this.wikiId;
+  initialLoad: boolean = true;
 
   wikiContext: Object = {};
 
@@ -98,10 +88,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   constructor(props) {
     super(props);
+
     window.wiki = {
       createPage: this.createPage,
       goToPage: this.goToPage,
-      openDeletedPageModal: this.openDeletedPageModal
+      openDeletedPageModal: this.openDeletedPageModal,
+      addNonActivePage: this.addNonActivePage
     };
 
     const query = queryToObject(this.props.location.search.slice(1));
@@ -111,7 +103,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.props.match.params.pageTitle || null,
+      initialPageTitle:
+        this.decodePageTitle(this.props.match.params.pageTitle) || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -120,50 +113,43 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       search: '',
       rightSideCurrentPageObj: null
     };
-    if (!this.wikiId) {
-      listWikis().then(x => {
-        this.setState({ wikiList: x });
-      });
-    }
   }
 
   componentDidMount() {
-    if (this.wikiId) {
-      this.wikiDoc = connection.get('wiki', this.wikiId);
-      this.wikiDoc.on('create', () => {
-        this.loadWikiDoc();
-      });
-      this.wikiDoc.on('op', () => {
-        this.loadWikiDoc();
-      });
-      this.wikiDoc.on('error', err => {
-        throw err;
-      });
-      this.wikiDoc.subscribe(err => {
-        if (err) throw err;
-        this.loadWikiDoc();
-      });
+    this.wikiDoc = connection.get('wiki', this.wikiId);
+    this.wikiDoc.on('create', () => {
+      this.loadWikiDoc();
+    });
+    this.wikiDoc.on('op', () => {
+      this.loadWikiDoc();
+    });
+    this.wikiDoc.on('error', err => {
+      throw err;
+    });
+    this.wikiDoc.subscribe(err => {
+      if (err) throw err;
+      this.loadWikiDoc();
+    });
 
-      window.wikiDoc = this.wikiDoc;
+    window.wikiDoc = this.wikiDoc;
 
-      Mousetrap.bindGlobal('ctrl+n', () =>
-        this.setState({ createModalOpen: true })
-      );
-      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
-      Mousetrap.bindGlobal('ctrl+f', () =>
-        this.setState({ findModalOpen: true })
-      );
-    }
+    Mousetrap.bindGlobal('ctrl+n', () =>
+      this.setState({ createModalOpen: true })
+    );
+    Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
+    Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+    Mousetrap.bindGlobal('ctrl+f', () =>
+      this.setState({ findModalOpen: true })
+    );
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle = decodeURIComponent(this.props.match.params.pageTitle);
+    const pageTitle = this.decodePageTitle(this.props.match.params.pageTitle);
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        decodeURIComponent(prevProps.match.params.pageTitle) !==
-          decodeURIComponent(this.props.match.params.pageTitle)) ||
+        this.decodePageTitle(prevProps.match.params.pageTitle) !==
+          this.decodePageTitle(this.props.match.params.pageTitle)) ||
       prevProps.match.params.instance !== this.props.match.params.instance
     ) {
       this.goToPageTitle(pageTitle, this.props.match.params.instance);
@@ -213,10 +199,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
+  decodePageTitle = (currentTitle: string): string => {
+    if (decodeURIComponent(currentTitle) === 'undefined') {
+      const link = `/wiki/${this.wikiId}/Home`;
+      this.props.history.push(link);
+      return 'Home';
+    }
+
+    return decodeURIComponent(currentTitle);
+  };
+
   handleInitialLoad = () => {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
-    const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
+    const pageTitle = getPageTitle(
+      parsedPages,
+      this.decodePageTitle(this.state.initialPageTitle)
+    );
     const pageTitleLower = pageTitle.toLowerCase();
     const fullPageObj = parsedPages[pageTitleLower];
 
@@ -472,6 +471,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return { pageId, liId };
   };
 
+  // there is a link to a page that has not yet been formally created, until
+  // clicked upon, but we still keep track of it.
+  addNonActivePage = title => {
+    const existingPage = wikiStore.pagesByTitle[title];
+    if (existingPage) {
+      return { liId: existingPage.liId, pageId: existingPage.id };
+    }
+    const liType = 'li-richText';
+    const liId = createNewLI(this.wikiId, liType, undefined, title);
+    const pageId = addNewWikiPage(this.wikiDoc, title, false, liType, liId, 3);
+    return { liId, pageId };
+  };
+
   openDeletedPageModal = (pageId, pageTitle) => {
     this.props.showModal(
       <DeletedPageModal
@@ -494,19 +506,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
-    if (this.state.wikiList) {
-      return (
-        <List>
-          {this.state.wikiList.map(id => (
-            <Link to={'/wiki/' + id}>
-              <ListItem button>
-                <ListItemText primary={id} />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-      );
-    }
     if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
