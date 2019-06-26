@@ -414,7 +414,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         );
       }
     }
-    console.log(pageId);
     const currentPageObj =
       !side || side === 'left' ? newCurrentPageObj : this.state.currentPageObj;
     const rightSideCurrentPageObj =
@@ -525,7 +524,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
-    console.log(this.state);
     if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;

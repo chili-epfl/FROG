@@ -35,7 +35,6 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 };
 
 export async function importWikiFromFROG(item, object, wiki, page, userId) {
-  console.log(userId);
   const instances = await new Promise(resolve =>
     connection.createFetchQuery(
       'rz',
@@ -54,7 +53,6 @@ export async function importWikiFromFROG(item, object, wiki, page, userId) {
   const instanceData = instances
     .filter(x => x !== userId)
     .reduce((acc, x) => {
-      console.log(x);
       const payload = {
         acType: item.activityType,
         activityData: { config: item.data },
