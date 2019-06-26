@@ -23,7 +23,7 @@ class WikiLinkModule {
       },
       mentionDenotationChars: ['@'],
       showDenotationChar: true,
-      allowedChars: /^[a-zA-Z0-9_$&+,:;=?@#|'<>.^*()!-]*$/,
+      allowedChars: /^[a-zA-Z0-9_]*$/,
       minChars: 0,
       maxChars: 31,
       offsetTop: 2,
