@@ -30,7 +30,7 @@ then
 	    exit 1
     fi
     rm -rf frog/node_modules
-    ln -s node_modules frog
+    ln -s `pwd`/node_modules frog
     ln -s frog/babel.config.js .
     node linkFiles.js
 
