@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
@@ -15,11 +16,19 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LI from '../LearningItem';
-import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
+import {
+  getPageTitle,
+  getDifferentPageId,
+  checkNewPageTitle,
+  listWikis
+} from './helpers';
 import {
   invalidateWikiPage,
   changeWikiPageTitle,
@@ -54,7 +63,7 @@ type WikiCompPropsT = {
   location: *,
   match: {
     params: {
-      wikiId: string,
+      wikiId?: string,
       pageTitle: ?string
     }
   },
@@ -70,17 +79,18 @@ type WikiCompStateT = {
   findModalOpen: boolean,
   search: '',
   urlInstance: ?string,
-  noInstance: ?boolean
+  noInstance: ?boolean,
+  wikiList?: string[]
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
-  wikiId: string = this.props.match.params.wikiId;
+  wikiId: ?string = this.props.match.params.wikiId || null;
 
   wikiDoc: Object = {};
 
   config: Object = {};
 
-  initialLoad: boolean = true;
+  initialLoad: boolean = !!this.wikiId;
 
   wikiContext: Object = {};
 
@@ -88,7 +98,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   constructor(props) {
     super(props);
-
     window.wiki = {
       createPage: this.createPage,
       goToPage: this.goToPage,
@@ -111,34 +120,41 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       search: '',
       rightSideCurrentPageObj: null
     };
+    if (!this.wikiId) {
+      listWikis().then(x => {
+        this.setState({ wikiList: x });
+      });
+    }
   }
 
   componentDidMount() {
-    this.wikiDoc = connection.get('wiki', this.wikiId);
-    this.wikiDoc.on('create', () => {
-      this.loadWikiDoc();
-    });
-    this.wikiDoc.on('op', () => {
-      this.loadWikiDoc();
-    });
-    this.wikiDoc.on('error', err => {
-      throw err;
-    });
-    this.wikiDoc.subscribe(err => {
-      if (err) throw err;
-      this.loadWikiDoc();
-    });
+    if (this.wikiId) {
+      this.wikiDoc = connection.get('wiki', this.wikiId);
+      this.wikiDoc.on('create', () => {
+        this.loadWikiDoc();
+      });
+      this.wikiDoc.on('op', () => {
+        this.loadWikiDoc();
+      });
+      this.wikiDoc.on('error', err => {
+        throw err;
+      });
+      this.wikiDoc.subscribe(err => {
+        if (err) throw err;
+        this.loadWikiDoc();
+      });
 
-    window.wikiDoc = this.wikiDoc;
+      window.wikiDoc = this.wikiDoc;
 
-    Mousetrap.bindGlobal('ctrl+n', () =>
-      this.setState({ createModalOpen: true })
-    );
-    Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-    Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
-    Mousetrap.bindGlobal('ctrl+f', () =>
-      this.setState({ findModalOpen: true })
-    );
+      Mousetrap.bindGlobal('ctrl+n', () =>
+        this.setState({ createModalOpen: true })
+      );
+      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
+      Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+      Mousetrap.bindGlobal('ctrl+f', () =>
+        this.setState({ findModalOpen: true })
+      );
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -478,6 +494,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   render() {
+    if (this.state.wikiList) {
+      return (
+        <List>
+          {this.state.wikiList.map(id => (
+            <Link to={'/wiki/' + id}>
+              <ListItem button>
+                <ListItemText primary={id} />
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      );
+    }
     if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;

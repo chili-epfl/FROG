@@ -2,6 +2,7 @@
 
 import { values } from 'frog-utils';
 import { toJS } from 'mobx';
+import { connection } from '../App/connection';
 
 const parseDocResults = function(results: Object) {
   const pagesData = results.pages;
@@ -88,11 +89,29 @@ const getPageDetailsForLiId = (wikiPages, liId) => {
   return {};
 };
 
+// Function to get ids of all existing wikis
+const listWikis = async () => {
+  const list = await new Promise(resolve =>
+    connection.createFetchQuery('wiki_sitemap', '', null, (err, res) => {
+      if (err) {
+        throw err;
+      } else {
+        resolve(res);
+      }
+    })
+  );
+  return list.map(doc => {
+    doc.fetch();
+    return doc.data.wikiId;
+  });
+};
+
 export {
   parseDocResults,
   parseSearch,
   getPageTitle,
   checkNewPageTitle,
   getDifferentPageId,
-  getPageDetailsForLiId
+  getPageDetailsForLiId,
+  listWikis
 };

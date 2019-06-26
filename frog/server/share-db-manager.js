@@ -45,6 +45,7 @@ try {
     disableSpaceDelimitedActions: true
   });
 }
+backend.addProjection('wiki_sitemap', 'wiki', { wikiId: true });
 export const serverConnection = backend.connect();
 
 export const startShareDB = () => {

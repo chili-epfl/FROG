@@ -294,6 +294,7 @@ const FROGRouter = withRouter(
               />
               <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
               <Route path="/wiki/:wikiId" component={Wiki} />
+              <Route path="/wiki" component={Wiki} />
               <Route path="/teacher/projector/:slug" component={StudentView} />
               <Route path="/teacher/" component={TeacherContainer} />
               <Route path="/single_activity" component={SingleActivity} />
