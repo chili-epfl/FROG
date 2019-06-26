@@ -30,6 +30,14 @@ class WikiStore {
 
       get pagesArrayOnlyInvalid(): Array {
         return values(toJS(wikiStore.pages)).filter(x => !x.valid && x.created);
+      },
+
+      get pagesByTitle(): Array {
+        return Object.keys(toJS(wikiStore.pages)).reduce((acc, x) => {
+          const page = wikiStore.pages[x];
+          acc[page.title] = { ...page, id: x };
+          return acc;
+        }, {});
       }
     });
   }
