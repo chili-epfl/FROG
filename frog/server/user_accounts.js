@@ -3,11 +3,6 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
-import { startCase } from 'lodash';
-import {
-  uniqueNamesGenerator,
-  UniqueNamesGeneratorConfig
-} from 'unique-names-generator';
 
 import { Sessions } from '../imports/api/sessions';
 
@@ -19,7 +14,7 @@ const doLogin = (user, self) => {
     }
   }
   const userServiceData = {
-    id: user || 'Anonymous User' // startCase(uniqueNamesGenerator(usernameConfig))
+    id: user || uuid()
   };
   const { userId } = Accounts.updateOrCreateUserFromExternalService(
     'frog',
@@ -27,7 +22,7 @@ const doLogin = (user, self) => {
   );
   Meteor.users.update(userId, {
     $set: {
-      username: userServiceData.id,
+      username: user || 'Anonymous User',
       isAnonymous: !user
     }
   });
@@ -113,10 +108,17 @@ Meteor.methods({
       );
       Meteor.users.update(userId, { $push: { joinedSessions: slug } });
     }
+  },
+  'change.username': function(newName) {
+    if (Meteor.users.findOne({ username: newName })) {
+      throw new Meteor.Error('User already exists');
+    }
+    Meteor.users.update(this.userId, {
+      $set: {
+        'services.frog.id': newName,
+        username: newName,
+        isAnonymous: false
+      }
+    });
   }
 });
-
-const usernameConfig: UniqueNamesGeneratorConfig = {
-  separator: ' ',
-  length: 2
-};

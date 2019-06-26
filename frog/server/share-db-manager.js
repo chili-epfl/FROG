@@ -60,6 +60,15 @@ export const startShareDB = () => {
         next();
       });
 
+      backend.use('query', (request, next) => {
+        if (request.query?.resetUserId) {
+          Object.assign(request.agent.custom, {
+            userId: request.query?.resetUserId
+          });
+          next('400: Userid reset successfully');
+        }
+        next();
+      });
       backend.use('submit', (request, next) => {
         request.op.m.userId = request.agent.custom.userId;
         next();
