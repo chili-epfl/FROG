@@ -167,6 +167,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
           this.props.setModalOpen(true);
           this.props.clearError();
         }}
+        onEscapeKeyDown={() => this.props.setModalOpen(false)}
         scroll="paper"
       >
         <FormGroup>
