@@ -36,6 +36,7 @@ import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
+import { dataFn } from './wikiLearningItem';
 
 import {
   withModalController,
