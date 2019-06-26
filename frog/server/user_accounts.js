@@ -22,7 +22,7 @@ const doLogin = (user, self) => {
   );
   Meteor.users.update(userId, {
     $set: {
-      username: user || 'Anonymous User',
+      username: user || uuid(),
       isAnonymous: !user
     }
   });

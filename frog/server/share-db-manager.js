@@ -150,9 +150,12 @@ const sharedbGetRevisionList = (coll, id) =>
               if (tsDiff > 30000 || i === res.length - 1) {
                 milestoneOpsIndices.push({
                   data: cloneDeep(last),
-                  contributors: Object.keys(contributors).map(
-                    x => Meteor.users.findOne(x)?.username
-                  ),
+                  contributors: Object.keys(contributors).map(x => {
+                    const userObj = Meteor.users.findOne(x);
+                    return userObj && !user.isAnonymous
+                      ? user.username
+                      : 'Anonymous User';
+                  }),
                   time: op.m.ts
                 });
                 contributors = {};

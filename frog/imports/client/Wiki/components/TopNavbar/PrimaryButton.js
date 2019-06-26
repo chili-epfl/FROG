@@ -11,7 +11,7 @@ type PrimaryButtonPropsT = {
 };
 
 export default (props: PrimaryButtonPropsT) => {
-  const { active, title, icon, callback, italics } = props;
+  const { children, active, title, icon, callback, italics } = props;
 
   const Icon = icon;
 
@@ -36,7 +36,10 @@ export default (props: PrimaryButtonPropsT) => {
           color={active ? 'secondary' : 'primary'}
         />
       ) : null}
-      <span>{title}</span>
+      <>
+        <span>{title}</span>
+        {children}
+      </>
     </div>
   );
 };

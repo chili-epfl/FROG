@@ -52,14 +52,14 @@ const TopNavbar = (props: TopNavBarPropsT) => {
       {primaryNavItems.map((item, index) => (
         <PrimaryButton key={index} {...item} />
       ))}
-      <div style={isAnonymous ? { fontStyle: 'italic' } : {}}>
+      <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>
         <ChangeableText
           penOnLeft
           onlyHover
-          value={isAnonymous ? 'Anonymous User' : username}
+          value={username}
           onSubmit={changeUsername}
         />
-      </div>
+      </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );

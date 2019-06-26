@@ -101,7 +101,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = queryToObject(this.props.location.search.slice(1));
 
     this.state = {
-      username: Meteor.user().username,
+      username: Meteor.user().isAnonymous
+        ? 'Anonymous User'
+        : Meteor.user().username,
       isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
