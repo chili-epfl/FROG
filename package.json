@@ -37,6 +37,7 @@
     "babel-eslint": "10.0.1",
     "babel-plugin-captains-log": "^1.1.0",
     "chokidar": "^2.1.0",
+    "cypress": "^3.3.1",
     "enzyme": "^3.8.0",
     "eslint": "^6.0.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -64,7 +65,8 @@
     "react-test-renderer": "^16.8.6",
     "regenerator-runtime": "^0.13.1",
     "rich-text": "^3.0.1",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "start-server-and-test": "^1.9.1"
   },
   "license": "ISC",
   "dependencies": {
