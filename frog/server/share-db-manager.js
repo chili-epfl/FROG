@@ -152,8 +152,8 @@ const sharedbGetRevisionList = (coll, id) =>
                   data: cloneDeep(last),
                   contributors: Object.keys(contributors).map(x => {
                     const userObj = Meteor.users.findOne(x);
-                    return userObj && !user.isAnonymous
-                      ? user.username
+                    return userObj && !userObj?.isAnonymous
+                      ? userObj.username
                       : 'Anonymous User';
                   }),
                   time: op.m.ts
