@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from 'frog-utils';
 
-import { Sessions, addSession } from './sessions';
+import { Sessions, addSessionFn } from './sessions';
 import {
   Activities,
   Connections,
@@ -20,7 +20,7 @@ import {
 
 export const Graphs = new Mongo.Collection('graphs');
 
-export const createSessionFromActivity = async (
+export const createSessionFromActivity = (
   activityType: string,
   config: Object
 ): {
@@ -28,14 +28,25 @@ export const createSessionFromActivity = async (
   sessionId: string,
   graphId: string,
   activityId: string
-} => {
-  const graphId = addGraph();
-  const activityId = addActivity(activityType, config);
-  Activities.update(activityId, { $set: { graphId } });
-  const sessionId = await addSession(graphId);
-  const session = Sessions.findOne(sessionId);
-  Sessions.update(session._id, { $set: { simpleActivity: true } });
-  return { slug, sessionId, graphId, activityId };
+} | void => {
+  if (Meteor.isServer) {
+    const graphId = addGraph();
+    const activityId = addActivity(activityType, config);
+    Activities.update(activityId, {
+      $set: {
+        graphId,
+        plane: 3,
+        length: 5,
+        startTime: 5,
+        title: 'Single activity'
+      }
+    });
+    const sessionId = addSessionFn(graphId);
+    const session = Sessions.findOne(sessionId);
+    Sessions.update(session._id, { $set: { singleActivity: true } });
+    const slug = session.slug;
+    return { slug, sessionId, graphId, activityId };
+  }
 };
 
 const replaceFromMatching = (matching: Object, data: any) => {
