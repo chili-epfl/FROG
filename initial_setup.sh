@@ -7,7 +7,7 @@ shopt -s dotglob
 
 if ! PYTHON_VERSION=$(python --version);
 then
-    echo "Cannot find Python, please install python 2 and try again"
+    echo "Cannot find Python, please install Python 2 and try again"
     exit 1
 fi
 
