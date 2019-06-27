@@ -108,13 +108,12 @@ const listWikis = async () => {
 /**
  * Function to get the pages of all (valid) pages in a wiki
  * @param {wikiDoc} ShareDB document corresponding to the Wiki
- * @return{Array} Array of pages in the form of [Title, ID] 
+ * @return{Promise} A Promise that resolves into an array of pages in the form of [Title, ID] 
  */
 const listPages = wikiDoc => {
   return new Promise((resolve, reject) =>
     wikiDoc.fetch(err => {
       if (err) {
-        // eslint-disable-next-line no-console
         reject(Error('Unable to fetch the Wiki Document'));
       }
       resolve(
