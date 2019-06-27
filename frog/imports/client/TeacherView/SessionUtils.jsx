@@ -177,7 +177,7 @@ const SessionUtils = ({
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.textCenter}>
-        <DashToggle visible={visible} toggleVisible={toggle} />
+        {!session.simpleActivity && <DashToggle visible={visible} toggleVisible={toggle} />}
       </Grid>
       <Grid item xs={4} style={{ textAlign: 'right' }}>
         <UtilsMenu classes={classes} buttonsModel={buttonsModel} />

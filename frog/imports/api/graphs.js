@@ -4,8 +4,13 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from 'frog-utils';
 
-import { Sessions } from './sessions';
-import { Activities, Connections, insertActivityMongo } from './activities';
+import { Sessions, addSession } from './sessions';
+import {
+  Activities,
+  Connections,
+  insertActivityMongo,
+  addActivity
+} from './activities';
 import { Operators, insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
@@ -14,6 +19,24 @@ import {
 } from './versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
+
+export const createSessionFromActivity = async (
+  activityType: string,
+  config: Object
+): {
+  slug: string,
+  sessionId: string,
+  graphId: string,
+  activityId: string
+} => {
+  const graphId = addGraph();
+  const activityId = addActivity(activityType, config);
+  Activities.update(activityId, { $set: { graphId } });
+  const sessionId = await addSession(graphId);
+  const session = Sessions.findOne(sessionId);
+  Sessions.update(session._id, { $set: { simpleActivity: true } });
+  return { slug, sessionId, graphId, activityId };
+};
 
 const replaceFromMatching = (matching: Object, data: any) => {
   if (Array.isArray(data)) {
@@ -190,6 +213,7 @@ export const removeGraph = (graphId: string) =>
   Meteor.call('graph.flush.all', graphId);
 
 Meteor.methods({
+  'create.graph.from.activity': createSessionFromActivity,
   'graph.merge': ({
     connections,
     activities,
