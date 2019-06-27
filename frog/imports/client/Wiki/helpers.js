@@ -106,7 +106,7 @@ const listWikis = async () => {
 };
 
 /**
- * Function to get the pages of all pages in a wiki
+ * Function to get the pages of all (valid) pages in a wiki
  * @param {wikiDoc} ShareDB document corresponding to the Wiki
  * @return{Array} Array of pages in the form of [Title, ID] 
  */
