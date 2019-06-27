@@ -22,7 +22,8 @@ export const Graphs = new Mongo.Collection('graphs');
 
 export const createSessionFromActivity = (
   activityType: string,
-  config: Object
+  config: Object,
+  plane: number = 3
 ): {
   slug: string,
   sessionId: string,
@@ -35,7 +36,7 @@ export const createSessionFromActivity = (
     Activities.update(activityId, {
       $set: {
         graphId,
-        plane: 3,
+        plane,
         length: 5,
         startTime: 5,
         title: 'Single activity'
