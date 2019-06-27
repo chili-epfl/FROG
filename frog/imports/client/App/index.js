@@ -26,6 +26,7 @@ import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
 import Wiki from '../Wiki';
+import WikiTest from './WikiTest';
 import SingleActivity from '../SingleActivity';
 
 const TeacherContainer = Loadable({
@@ -269,6 +270,9 @@ const FROGRouter = withRouter(
         if (user.isAnonymous)
           return (
             <Switch>
+              <Route path="/wiki_embed/:wikiId/:pageTitle/:instance" component={WikiTest} />
+              <Route path="/wiki_embed/:wikiId/:pageTitle" component={WikiTest} />
+              <Route path="/wiki_embed/:wikiId" component={WikiTest} />
               <Route
                 path="/wiki/:wikiId/:pageTitle/:instance"
                 component={Wiki}
@@ -288,6 +292,9 @@ const FROGRouter = withRouter(
         else
           return (
             <Switch>
+              <Route path="/wiki_embed/:wikiId/:pageTitle/:instance" component={WikiTest} />
+              <Route path="/wiki_embed/:wikiId/:pageTitle" component={WikiTest} />
+              <Route path="/wiki_embed/:wikiId" component={WikiTest} />
               <Route
                 path="/wiki/:wikiId/:pageTitle/:instance"
                 component={Wiki}
