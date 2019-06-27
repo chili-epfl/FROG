@@ -107,10 +107,11 @@ const listWikis = async () => {
 
 /**
  * Function to get the pages of all (valid) pages in a wiki
- * @param {wikiDoc} ShareDB document corresponding to the Wiki
+ * @param {string} wikiId: id of the wiki to list
  * @return{Promise} A Promise that resolves into an array of pages in the form of [Title, ID] 
  */
-const listPages = wikiDoc => {
+const listPages = (wikiId: string) => {
+  const wikiDoc = connection.get('wiki', wikiId);
   return new Promise((resolve, reject) =>
     wikiDoc.fetch(err => {
       if (err) {
