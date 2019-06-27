@@ -105,14 +105,17 @@ const listWikis = async () => {
   });
 };
 
-// Function to get the pages of all pages in a wiki, returns [Title, ID]
-const listPages = async wikiDoc => {
-  const list = await new Promise(resolve =>
+/**
+ * Function to get the pages of all pages in a wiki
+ * @param {wikiDoc} ShareDB document corresponding to the Wiki
+ * @return{Array} Array of pages in the form of [Title, ID] 
+ */
+const listPages = wikiDoc => {
+  return new Promise((resolve, reject) =>
     wikiDoc.fetch(err => {
       if (err) {
         // eslint-disable-next-line no-console
-        console.log('Unable to fetch');
-        return;
+        reject(Error('Unable to fetch the Wiki Document'));
       }
       resolve(
         Object.keys(wikiDoc.data.pages)
@@ -124,7 +127,6 @@ const listPages = async wikiDoc => {
       );
     })
   );
-  return list;
 };
 
 export {
