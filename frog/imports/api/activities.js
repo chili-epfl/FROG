@@ -29,7 +29,7 @@ const extractUpgradedActivityConfig = (activity: Object) => ({
   configVersion: activityTypesObj[activity.activityType].configVersion
 });
 
-export const insertActivityMongo = (activity ) => {
+export const insertActivityMongo = (activity: Object) => {
   try {
     Activities.insert(
       activity.activityType ? extractUpgradedActivityConfig(activity) : activity
