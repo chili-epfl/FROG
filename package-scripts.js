@@ -56,7 +56,7 @@ module.exports = {
       )
     },
     server: fromRoot(
-      'QUALIA_ONE_BUNDLE_TYPE=modern cd frog && meteor',
+      'QUALIA_ONE_BUNDLE_TYPE=modern NODE_OPTIONS="--max_old_space_size=8192" cd frog && meteor',
       'Starting Meteor'
     ),
     test: {
