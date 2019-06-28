@@ -2,41 +2,41 @@
 
 import * as React from 'react';
 import { withRouter } from 'react-router';
-import Wiki from './index';
+import { toObject as queryToObject } from 'query-parse';
+import Wiki, {type PageObjT} from './index';
+
 
 type PropsT = {
     location: *,
     match: {
-      params: {
-        wikiId: string,
-        pageTitle: ?string,
-        instance?: string
-      }
+      params: PageObjT
     },
     history: Object,
     embed: boolean
 };
 
-class WikiWrapper extends React.Component<PropsT> {
-    render() {
+/**
+ * Wraps the wiki for the router and handles URL changes 
+ */
+function WikiWrapper(props: PropsT) {
         return <Wiki
         pageObj={{
-            wikiId: this.props.match.params.wikiId,
-            pageTitle: this.props.match.params.pageTitle,
-            instance: this.props.match.params.instance
+            wikiId: props.match.params.wikiId,
+            pageTitle: props.match.params.pageTitle,
+            instance: props.match.params.instance
         }}
-        setPage={pageObj => {
+        // Function to navigate to a page
+        setPage={(pageObj: PageObjT, replace?: boolean) => {
             if (pageObj.instance) {
-                this.props.history.push(`/wiki/${pageObj.wikiId}/${pageObj.pageTitle}/${pageObj.instance}`);
+                (replace) ? props.history.replace(`/wiki/${pageObj.wikiId}/${pageObj.pageTitle}/${pageObj.instance}`) : props.history.push(`/wiki/${pageObj.wikiId}/${pageObj.pageTitle}/${pageObj.instance}`);
             } else if (pageObj.pageTitle) {
-                this.props.history.push(`/wiki/${pageObj.wikiId}/${pageObj.pageTitle}`);
+                (replace) ? props.history.replace(`/wiki/${pageObj.wikiId}/${pageObj.pageTitle}`) : props.history.push(`/wiki/${pageObj.wikiId}/${pageObj.pageTitle}`);
             } else if (pageObj.wikiId) {
-                this.props.history.push(`/wiki/${pageObj.wikiId}`);
+                (replace) ? props.history.replace(`/wiki/${pageObj.wikiId}`) : props.history.push(`/wiki/${pageObj.wikiId}`);
             }
         }}
-        query={this.props.location.search.slice(1)}
-        />
-    }
+        query={queryToObject(props.location.search.slice(1))}
+        />;
 };
 
 export default withRouter(WikiWrapper);

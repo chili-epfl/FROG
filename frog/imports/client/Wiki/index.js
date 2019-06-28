@@ -4,7 +4,6 @@ import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { toObject as queryToObject } from 'query-parse';
 import { values } from 'frog-utils';
 
 import Button from '@material-ui/core/Button';
@@ -42,14 +41,17 @@ import {
   type ModalParentPropsT
 } from './components/Modal';
 
+export type PageObjT = {
+  wikiId: string,
+  pageTitle?: string,
+  instance?: string
+}
+
 type WikiCompPropsT = {
-  setPage: Function,
-  pageObj: {
-    wikiId: string,
-    pageTitle: string,
-    instance?: string
-  },
-  embed: boolean
+  setPage?: (pageobj: PageObjT, replace: boolean) => void,
+  pageObj: PageObjT,
+  embed?: boolean,
+  query: Object
 } & ModalParentPropsT;
 
 type WikiCompStateT = {
@@ -87,7 +89,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       addNonActivePage: this.addNonActivePage
     };
 
-    const query = queryToObject(this.props.query);
+    const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
     this.state = {
       username: Meteor.user().isAnonymous
@@ -127,7 +129,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     });
 
     window.wikiDoc = this.wikiDoc;
-    if (!this.props.embeddedPage) {
+    if (!this.props.embed) {
       Mousetrap.bindGlobal('ctrl+n', () =>
         this.setState({ createModalOpen: true })
       );
@@ -145,8 +147,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        this.decodePageTitle(prevProps.pageObj.pageTitle) !==
-          this.decodePageTitle(this.props.pageObj.pageTitle)) ||
+        this.decodePageTitle(prevProps.pageObj.pageTitle) !== pageTitle) ||
       prevProps.pageObj.instance !== this.props.pageObj.instance
     ) {
       this.goToPageTitle(pageTitle, this.props.pageObj.instance);
@@ -361,7 +362,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       wikiId: this.wikiId,
       pageTitle: encodeURIComponent(newPageTitle),
       instance: this.props.pageObj.instance
-    });
+    }, true);
   };
 
   goToPage = (pageId, cb, side, foreignInstanceId) => {
@@ -416,7 +417,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             wikiId: this.wikiId,
             pageTitle: encodeURIComponent(newCurrentPageObj.title),
             instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
-          })
+          }, true)
         return cb();
         }
         this.props.setPage({
