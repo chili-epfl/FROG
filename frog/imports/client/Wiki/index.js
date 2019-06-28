@@ -17,8 +17,6 @@ import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 
 import { connection } from '../App/connection';
-import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import LI from '../LearningItem';
 import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
 import {
   invalidateWikiPage,
@@ -38,17 +36,12 @@ import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
+import { dataFn } from './wikiLearningItem';
 
 import {
   withModalController,
   type ModalParentPropsT
 } from './components/Modal';
-
-const genericDoc = connection.get('li');
-export const dataFn = generateReactiveFn(genericDoc, LI, {
-  createdByUser: Meteor.userId()
-});
-export const LearningItem = dataFn.LearningItem;
 
 type WikiCompPropsT = {
   location: *,
@@ -76,7 +69,9 @@ type WikiCompStateT = {
   findModalOpen: boolean,
   search: '',
   urlInstance: ?string,
-  noInstance: ?boolean
+  noInstance: ?boolean,
+  username: string,
+  isAnonymous: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -99,18 +94,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     window.wiki = {
       createPage: this.createPage,
       goToPage: this.goToPage,
-      openDeletedPageModal: this.openDeletedPageModal
+      openDeletedPageModal: this.openDeletedPageModal,
+      addNonActivePage: this.addNonActivePage
     };
 
     const query = queryToObject(this.props.location.search.slice(1));
 
     this.state = {
+      username: Meteor.user().isAnonymous
+        ? 'Anonymous User'
+        : Meteor.user().username,
+      isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-        this.props.match.params.pageTitle || this.props.embeddedPage?.pageTitle || null,
+      this.decodePageTitle(this.props.match?.params.pageTitle) || this.props.embeddedPage?.pageTitle || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -152,13 +152,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   componentDidUpdate(prevProps) {
     const pageTitle =
-      decodeURIComponent(this.props.match?.params.pageTitle) ||
+      this.decodePageTitle(this.props.match?.params.pageTitle) ||
       this.props.embeddedPage?.pageTitle;
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        decodeURIComponent(prevProps.match?.params.pageTitle) !==
-          decodeURIComponent(this.props.match?.params.pageTitle)) ||
+        this.decodePageTitle(prevProps.match?.params.pageTitle) !==
+          this.decodePageTitle(this.props.match?.params.pageTitle)) ||
       prevProps.match?.params.instance !== this.props.match?.params.instance
     ) {
       this.goToPageTitle(pageTitle, this.props.match?.params.instance);
@@ -208,10 +208,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
+  decodePageTitle = (currentTitle: string): string => {
+    if (decodeURIComponent(currentTitle) === 'undefined') {
+      const link = `/wiki/${this.wikiId}/Home`;
+      this.props.history.push(link);
+      return 'Home';
+    }
+
+    return decodeURIComponent(currentTitle);
+  };
+
   handleInitialLoad = () => {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
-    const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
+    const pageTitle = getPageTitle(
+      parsedPages,
+      this.decodePageTitle(this.state.initialPageTitle)
+    );
     const pageTitleLower = pageTitle.toLowerCase();
     const fullPageObj = parsedPages[pageTitleLower];
 
@@ -472,6 +485,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return { pageId, liId };
   };
 
+  // there is a link to a page that has not yet been formally created, until
+  // clicked upon, but we still keep track of it.
+  addNonActivePage = title => {
+    const existingPage = wikiStore.pagesByTitle[title];
+    if (existingPage) {
+      return { liId: existingPage.liId, pageId: existingPage.id };
+    }
+    const liType = 'li-richText';
+    const liId = createNewLI(this.wikiId, liType, undefined, title);
+    const pageId = addNewWikiPage(this.wikiDoc, title, false, liType, liId, 3);
+    return { liId, pageId };
+  };
+
   openDeletedPageModal = (pageId, pageTitle) => {
     this.props.showModal(
       <DeletedPageModal
@@ -640,14 +666,24 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         <div style={containerDivStyle}>
           {!this.props.embeddedPage && sideNavBar}
           <div style={contentDivStyle}>
-            {!this.props.embeddedPage && (
-              <WikiTopNavbar
-                username={Meteor.user().username}
-                isAnonymous={Meteor.user().isAnonymous}
-                primaryNavItems={primaryNavItems}
-                secondaryNavItems={secondaryNavItems}
-              />
-            )}
+            <WikiTopNavbar
+              username={this.state.username}
+              isAnonymous={this.state.isAnonymous}
+              changeUsername={async e => {
+                const err = await new Promise(resolve =>
+                  Meteor.call('change.username', e, error => resolve(error))
+                );
+                if (err?.error === 'User already exists') {
+                  window.alert('Username already exists');
+                  return false;
+                } else {
+                  this.setState({ username: e, isAnonymous: false });
+                  return true;
+                }
+              }}
+              primaryNavItems={primaryNavItems}
+              secondaryNavItems={secondaryNavItems}
+            />
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
                 wikiId={this.wikiId}

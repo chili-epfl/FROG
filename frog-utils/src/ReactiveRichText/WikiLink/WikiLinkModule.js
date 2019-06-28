@@ -222,10 +222,7 @@ class WikiLinkModule {
       );
     } else {
       if (!data.id) {
-        const { pageId, liId } = window.wiki.createNewGenericPage(
-          data.title,
-          false
-        );
+        const { pageId, liId } = window.wiki.addNonActivePage(data.title);
         data.id = pageId;
         data.liId = liId;
       }

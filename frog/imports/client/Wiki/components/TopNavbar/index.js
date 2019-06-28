@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 
+import { ChangeableText } from 'frog-utils';
 import PrimaryButton from './PrimaryButton';
 import OverflowPanel from './OverflowPanel';
 
@@ -9,6 +10,7 @@ type TopNavBarPropsT = {
   username: string,
   // Status of the user, username will be displayed in italics if true
   isAnonymous: boolean,
+  changeUsername: Function,
   // List of buttons to display in the primary view
   primaryNavItems: Array<{
     active?: boolean,
@@ -30,7 +32,13 @@ type TopNavBarPropsT = {
  * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
  */
 const TopNavbar = (props: TopNavBarPropsT) => {
-  const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
+  const {
+    username,
+    isAnonymous,
+    primaryNavItems,
+    secondaryNavItems,
+    changeUsername
+  } = props;
 
   return (
     <div
@@ -44,7 +52,14 @@ const TopNavbar = (props: TopNavBarPropsT) => {
       {primaryNavItems.map((item, index) => (
         <PrimaryButton key={index} {...item} />
       ))}
-      <PrimaryButton key="username" title={username} italics={isAnonymous} />
+      <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>
+        <ChangeableText
+          penOnLeft
+          onlyHover
+          value={username}
+          onSubmit={changeUsername}
+        />
+      </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );
