@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withRouter } from 'react-router';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
@@ -44,20 +43,13 @@ import {
 } from './components/Modal';
 
 type WikiCompPropsT = {
-  location: *,
-  match?: {
-    params: {
-      wikiId: string,
-      pageTitle: ?string,
-      instance?: string
-    }
-  },
-  history: Object,
-  embeddedPage?: {
+  setPage: Function,
+  pageObj: {
     wikiId: string,
     pageTitle: string,
     instance?: string
-  }
+  },
+  embed: boolean
 } & ModalParentPropsT;
 
 type WikiCompStateT = {
@@ -75,9 +67,6 @@ type WikiCompStateT = {
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
-  wikiId: string =
-    this.props.match?.params.wikiId || this.props.embeddedPage?.wikiId;
-
   wikiDoc: Object = {};
 
   config: Object = {};
@@ -98,8 +87,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       addNonActivePage: this.addNonActivePage
     };
 
-    const query = queryToObject(this.props.location.search.slice(1));
-
+    const query = queryToObject(this.props.query);
+    this.wikiId = this.props.pageObj.wikiId;
     this.state = {
       username: Meteor.user().isAnonymous
         ? 'Anonymous User'
@@ -110,9 +99,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-      this.decodePageTitle(this.props.match?.params.pageTitle) ||
-        this.props.embeddedPage?.pageTitle ||
-        null,
+      this.decodePageTitle(this.props.pageObj.pageTitle),
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -154,16 +141,15 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   componentDidUpdate(prevProps) {
     const pageTitle =
-      this.decodePageTitle(this.props.match?.params.pageTitle) ||
-      this.props.embeddedPage?.pageTitle;
+      this.decodePageTitle(this.props.pageObj.pageTitle);
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        this.decodePageTitle(prevProps.match?.params.pageTitle) !==
-          this.decodePageTitle(this.props.match?.params.pageTitle)) ||
-      prevProps.match?.params.instance !== this.props.match?.params.instance
+        this.decodePageTitle(prevProps.pageObj.pageTitle) !==
+          this.decodePageTitle(this.props.pageObj.pageTitle)) ||
+      prevProps.pageObj.instance !== this.props.pageObj.instance
     ) {
-      this.goToPageTitle(pageTitle, this.props.match?.params.instance);
+      this.goToPageTitle(pageTitle, this.props.pageObj.instance);
     }
   }
 
@@ -212,8 +198,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   decodePageTitle = (currentTitle: string): string => {
     if (decodeURIComponent(currentTitle) === 'undefined') {
-      const link = `/wiki/${this.wikiId}/Home`;
-      this.props.history.push(link);
+      this.props.setPage({
+        wikiId: this.wikiId,
+        pageTitle: 'Home'
+      });
       return 'Home';
     }
 
@@ -239,12 +227,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const instanceId =
       this.getInstanceIdForName(
         fullPageObj,
-        this.props.match?.params.instance || this.props.embeddedPage?.instance
+        this.props.pageObj.instance
       ) || this.getInstanceId(fullPageObj);
-    const currentPageObj = this.getProperCurrentPageObj(
-      fullPageObj,
-      instanceId
-    );
+      const currentPageObj = this.getProperCurrentPageObj(
+        fullPageObj,
+        instanceId
+      );
 
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
@@ -273,15 +261,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       },
       () => {
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
-        const link =
-          '/wiki/' +
-          this.wikiId +
-          '/' +
-          encodeURIComponent(currentPageObj.title) +
-          (instanceId && instanceId !== this.getInstanceId(fullPageObj)
-            ? '/' + instanceName
-            : '');
-        if (!this.props.embeddedPage) { this.props.history.push(link) };
+        this.props.setPage({
+          wikiId: this.wikiId,
+          pageTitle: encodeURIComponent(currentPageObj.title),
+          instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
+        });
       }
     );
   };
@@ -373,16 +357,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
-    const instanceId = 
-      this.props.match?.params.instance ||
-      this.props.embeddedPage?.instance;
-    const link =
-      '/wiki/' +
-      this.wikiId +
-      '/' +
-      encodeURIComponent(newPageTitle) +
-      (instanceId ? '/' + instanceId : '');
-    this.props.history.replace(link);
+    this.props.setPage({
+      wikiId: this.wikiId,
+      pageTitle: encodeURIComponent(newPageTitle),
+      instance: this.props.pageObj.instance
+    });
   };
 
   goToPage = (pageId, cb, side, foreignInstanceId) => {
@@ -432,23 +411,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         if (!newCurrentPageObj || side === 'right') return;
 
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
-        const link =
-          '/wiki/' +
-          this.wikiId +
-          '/' +
-          encodeURIComponent(newCurrentPageObj.title) +
-          (instanceId && instanceId !== this.getInstanceId(fullPageObj)
-            ? '/' + instanceName
-            : '');
         if (cb) {
-          if (!this.props.embeddedPage) {
-            this.props.history.replace(link);
-          }
+          this.props.setPage({
+            wikiId: this.wikiId,
+            pageTitle: encodeURIComponent(newCurrentPageObj.title),
+            instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
+          })
         return cb();
         }
-        if (!this.props.embeddedPage) { 
-          this.props.history.push(link);
-        }
+        this.props.setPage({
+          wikiId: this.wikiId,
+          pageTitle: encodeURIComponent(newCurrentPageObj.title),
+          instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
+        })
       }
     );
   };
@@ -667,9 +642,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return (
       <div>
         <div style={containerDivStyle}>
-          {!this.props.embeddedPage && sideNavBar}
+          {!this.props.embed && sideNavBar}
           <div style={contentDivStyle}>
-            <WikiTopNavbar
+            {!this.props.embed && <WikiTopNavbar
               username={this.state.username}
               isAnonymous={this.state.isAnonymous}
               changeUsername={async e => {
@@ -686,7 +661,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
               }}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
-            />
+            />}
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
                 wikiId={this.wikiId}
@@ -699,7 +674,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
-                embed={!!this.props.embeddedPage}
+                embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
                 <WikiContentComp
@@ -713,7 +688,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
-                  embed={!!this.props.embeddedPage}
+                  embed={this.props.embed}
                 />
               )}
             </div>
@@ -721,7 +696,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         </div>
         {this.state.findModalOpen && (
           <FindModal
-            history={this.props.history}
             setModalOpen={e => this.setState({ findModalOpen: e })}
             wikiId={this.wikiId}
             onSelect={this.goToPageTitle}
@@ -750,7 +724,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withRouter(withModalController(WikiComp));
+const Wiki = withModalController(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;
