@@ -40,12 +40,12 @@ class WikiContentComp extends React.Component<> {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.currentPageObj.id !== this.props.currentPageObj.id) {
-      // eslint-disable-next-line react/no-did-update-set-state
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps, this.props);
+    if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
-        pageTitleString: this.props.currentPageObj.title,
+        pageTitleString: nextProps.currentPageObj.title,
         editingTitle: false,
         showTitleEditButton: false,
         error: null
@@ -237,7 +237,7 @@ class WikiContentComp extends React.Component<> {
           {(this.props.mode === 'document' ||
             this.props.mode === 'splitview') && (
             <>
-              {titleDiv}
+              {!this.props.embed && titleDiv}
               <div
                 style={{
                   height: 'calc(100vh - 102px)',
