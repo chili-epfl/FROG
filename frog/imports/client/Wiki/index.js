@@ -62,8 +62,8 @@ type WikiCompPropsT = {
   history: Object,
   embeddedPage?: {
     wikiId: string,
-    pageId: string,
-    instanceId?: string
+    pageTitle: string,
+    instance?: string
   }
 } & ModalParentPropsT;
 
@@ -110,7 +110,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-        this.props.match.params.pageTitle || this.props.embeddedPage?.page || null,
+        this.props.match.params.pageTitle || this.props.embeddedPage?.pageTitle || null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -153,7 +153,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   componentDidUpdate(prevProps) {
     const pageTitle =
       decodeURIComponent(this.props.match?.params.pageTitle) ||
-      this.props.embeddedPage.pageId;
+      this.props.embeddedPage.pageTitle;
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
