@@ -17,7 +17,6 @@
     "@material-ui/styles": "^3.0.0-alpha.10",
     "@teamwork/websocket-json-stream": "1.1.1",
     "babel-plugin-macros": "^2.4.5",
-    "bcrypt": "^3.0.3",
     "body-parser": "^1.18.3",
     "buffer": "^5.2.1",
     "bufferutil": "^4.0.1",
