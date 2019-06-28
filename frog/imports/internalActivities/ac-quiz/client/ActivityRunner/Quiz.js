@@ -8,7 +8,7 @@ import { type ActivityRunnerPropsT } from 'frog-utils';
 
 import Question from './Question';
 import BottomNav from './BottomNav';
-import { isAnswered, computeCoordinates } from '../utils';
+import { isAnswered, computeCoordinates } from '../../utils';
 
 export const condShuffle = (
   list: any[],
