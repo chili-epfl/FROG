@@ -81,7 +81,7 @@ type WikiCompStateT = {
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   wikiId: string =
-    this.props.match?.params.wikiId || this.props.embeddedPage.wikiId;
+    this.props.match?.params.wikiId || this.props.embeddedPage?.wikiId;
 
   wikiDoc: Object = {};
 
@@ -153,7 +153,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   componentDidUpdate(prevProps) {
     const pageTitle =
       decodeURIComponent(this.props.match?.params.pageTitle) ||
-      this.props.embeddedPage.pageTitle;
+      this.props.embeddedPage?.pageTitle;
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
@@ -358,7 +358,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
-    const instanceId = this.props.match?.params.instance || this.props.embeddedPage.instance;
+    console.log(this.props);
+    const instanceId = this.props.match?.params.instance || this.props.embeddedPage?.instance;
     const link =
       '/wiki/' +
       this.wikiId +
@@ -659,6 +660,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
+                embed={!!this.props.embeddedPage}
               />
               {this.state.mode === 'splitview' && (
                 <WikiContentComp
@@ -672,6 +674,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
+                  embed={!!this.props.embeddedPage}
                 />
               )}
             </div>
