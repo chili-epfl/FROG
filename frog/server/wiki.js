@@ -30,11 +30,13 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 
   activities.forEach(act => {
     const obj = Objects.findOne(act._id);
-    if (obj) importWikiFromFROG(act, obj, wiki, act.title, userId);
+    if (obj) {
+      importWikiFromFROG(act, obj, wiki, act.title, userId);
+    }
   });
 };
 
-export async function importWikiFromFROG(item, object, wiki, page, userId) {
+export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
   const instances = await new Promise(resolve =>
     connection.createFetchQuery(
       'rz',
@@ -106,7 +108,7 @@ export async function importWikiFromFROG(item, object, wiki, page, userId) {
       true
     );
   });
-}
+};
 
 Meteor.methods({
   'export.session.wiki': exportSessionWiki,
