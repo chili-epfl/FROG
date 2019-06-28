@@ -281,7 +281,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           (instanceId && instanceId !== this.getInstanceId(fullPageObj)
             ? '/' + instanceName
             : '');
-        if (!this.props.embeddedPage) this.props.history.push(link);
+        if (!this.props.embeddedPage) { this.props.history.push(link) };
       }
     );
   };
