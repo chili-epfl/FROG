@@ -7,5 +7,5 @@ export default function WikiTest(props) {
         pageId: props.match.params.pageId || null,
         instanceId: props.match.params.instanceId || null
     }
-    return <Wiki pageObj={pageObj} setPage={pageObj => console.log(pageObj)} embed/>
+    return <Wiki pageObj={pageObj} setPage={() => {}} embed/>
 }
