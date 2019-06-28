@@ -20,7 +20,6 @@ import { IconButton, CardContent } from '@material-ui/core';
 const red = '#AA0000';
 const blue = '#0000FF';
 const grey = '#A0A0A0';
-
 const chooseColor = (vote, isUp) => {
   switch (vote) {
     case -1:
