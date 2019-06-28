@@ -2,6 +2,7 @@
 
 import { values } from 'frog-utils';
 import { toJS } from 'mobx';
+import { connection } from '../App/connection';
 
 const parseDocResults = function(results: Object) {
   const pagesData = results.pages;
@@ -88,11 +89,53 @@ const getPageDetailsForLiId = (wikiPages, liId) => {
   return {};
 };
 
+// Function to get ids of all existing wikis
+const listWikis = async () => {
+  const list = await new Promise(resolve =>
+    connection.createFetchQuery('wiki_sitemap', '', null, (err, res) => {
+      if (err) {
+        throw err;
+      } else {
+        resolve(res);
+      }
+    })
+  );
+  return list.map(doc => {
+    return doc.id;
+  });
+};
+
+/**
+ * Function to get the pages of all (valid) pages in a wiki
+ * @param {string} wikiId: id of the wiki to list
+ * @return{Promise} A Promise that resolves into an array of pages in the form of [Title, ID] 
+ */
+const listPages = (wikiId: string) => {
+  const wikiDoc = connection.get('wiki', wikiId);
+  return new Promise((resolve, reject) =>
+    wikiDoc.fetch(err => {
+      if (err) {
+        reject(Error('Unable to fetch the Wiki Document'));
+      }
+      resolve(
+        Object.keys(wikiDoc.data.pages)
+          .filter(
+            key =>
+              wikiDoc.data.pages[key].created && wikiDoc.data.pages[key].valid
+          )
+          .map(key => [wikiDoc.data.pages[key].title, key])
+      );
+    })
+  );
+};
+
 export {
   parseDocResults,
   parseSearch,
   getPageTitle,
   checkNewPageTitle,
   getDifferentPageId,
-  getPageDetailsForLiId
+  getPageDetailsForLiId,
+  listWikis,
+  listPages
 };

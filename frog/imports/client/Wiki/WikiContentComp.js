@@ -12,7 +12,7 @@ import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
-import { LearningItem } from './index';
+import { LearningItem } from './wikiLearningItem';
 import { getPageDetailsForLiId, checkNewPageTitle } from './helpers.js';
 
 class WikiContentComp extends React.Component<> {
@@ -158,7 +158,8 @@ class WikiContentComp extends React.Component<> {
       );
     };
 
-    const titleDiv = (this.state.editingTitle && !this.props.embed) ? (
+    const titleDiv = 
+    this.state.editingTitle && !this.props.embed ? (
       <div style={titleDivStyle}>
         <FormControl margin="normal">
           <TextField
