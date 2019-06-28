@@ -41,7 +41,6 @@ class WikiContentComp extends React.Component<> {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, this.props);
     if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
@@ -159,7 +158,7 @@ class WikiContentComp extends React.Component<> {
       );
     };
 
-    const titleDiv = this.state.editingTitle ? (
+    const titleDiv = (this.state.editingTitle && !this.props.embed) ? (
       <div style={titleDivStyle}>
         <FormControl margin="normal">
           <TextField
@@ -187,7 +186,7 @@ class WikiContentComp extends React.Component<> {
       <div style={titleDivStyle}>
         <div
           onMouseEnter={() => {
-            this.setState({ showTitleEditButton: true });
+            this.setState({ showTitleEditButton: !this.props.embed });
           }}
           onMouseLeave={() => {
             this.setState({ showTitleEditButton: false });
@@ -237,7 +236,7 @@ class WikiContentComp extends React.Component<> {
           {(this.props.mode === 'document' ||
             this.props.mode === 'splitview') && (
             <>
-              {!this.props.embed && titleDiv}
+              {titleDiv}
               <div
                 style={{
                   height: 'calc(100vh - 102px)',
