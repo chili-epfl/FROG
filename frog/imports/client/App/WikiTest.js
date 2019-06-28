@@ -3,9 +3,9 @@ import Wiki from '../Wiki';
 
 export default function WikiTest(props) {
     const pageObj = {
-        wikiId: props.match.wikiId,
-        pageId: props.match.pageId || null,
-        instanceId: props.match.instanceId || null
+        wikiId: props.match.params.wikiId,
+        pageId: props.match.params.pageId || null,
+        instanceId: props.match.params.instanceId || null
     }
-    return <Wiki embeddedPage={pageObj} />
+    return <Wiki pageObj={pageObj} setPage={pageObj => console.log(pageObj)} embed/>
 }
