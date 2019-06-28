@@ -17,8 +17,6 @@ import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 
 import { connection } from '../App/connection';
-import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import LI from '../LearningItem';
 import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
 import {
   invalidateWikiPage,
@@ -38,17 +36,12 @@ import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
+import { dataFn } from './wikiLearningItem';
 
 import {
   withModalController,
   type ModalParentPropsT
 } from './components/Modal';
-
-const genericDoc = connection.get('li');
-export const dataFn = generateReactiveFn(genericDoc, LI, {
-  createdByUser: Meteor.userId()
-});
-export const LearningItem = dataFn.LearningItem;
 
 type WikiCompPropsT = {
   location: *,
@@ -70,7 +63,9 @@ type WikiCompStateT = {
   findModalOpen: boolean,
   search: '',
   urlInstance: ?string,
-  noInstance: ?boolean
+  noInstance: ?boolean,
+  username: string,
+  isAnonymous: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -99,6 +94,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = queryToObject(this.props.location.search.slice(1));
 
     this.state = {
+      username: Meteor.user().isAnonymous
+        ? 'Anonymous User'
+        : Meteor.user().username,
+      isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
       pageId: null,
@@ -653,8 +652,20 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           {sideNavBar}
           <div style={contentDivStyle}>
             <WikiTopNavbar
-              username={Meteor.user().username}
-              isAnonymous={Meteor.user().isAnonymous}
+              username={this.state.username}
+              isAnonymous={this.state.isAnonymous}
+              changeUsername={async e => {
+                const err = await new Promise(resolve =>
+                  Meteor.call('change.username', e, error => resolve(error))
+                );
+                if (err?.error === 'User already exists') {
+                  window.alert('Username already exists');
+                  return false;
+                } else {
+                  this.setState({ username: e, isAnonymous: false });
+                  return true;
+                }
+              }}
               primaryNavItems={primaryNavItems}
               secondaryNavItems={secondaryNavItems}
             />

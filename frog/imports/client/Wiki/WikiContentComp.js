@@ -12,7 +12,7 @@ import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
-import { LearningItem } from './index';
+import { LearningItem } from './wikiLearningItem';
 import { getPageDetailsForLiId, checkNewPageTitle } from './helpers.js';
 
 class WikiContentComp extends React.Component<> {
