@@ -158,7 +158,8 @@ class WikiContentComp extends React.Component<> {
       );
     };
 
-    const titleDiv = (this.state.editingTitle && !this.props.embed) ? (
+    const titleDiv = 
+    this.state.editingTitle && !this.props.embed ? (
       <div style={titleDivStyle}>
         <FormControl margin="normal">
           <TextField

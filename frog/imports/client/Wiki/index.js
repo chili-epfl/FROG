@@ -110,7 +110,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       pageId: null,
       currentPageObj: null,
       initialPageTitle:
-      this.decodePageTitle(this.props.match?.params.pageTitle) || this.props.embeddedPage?.pageTitle || null,
+      this.decodePageTitle(this.props.match?.params.pageTitle) ||
+        this.props.embeddedPage?.pageTitle ||
+        null,
       mode: 'document',
       docMode: query.edit ? 'edit' : 'view',
       error: null,
@@ -371,8 +373,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
-    console.log(this.props);
-    const instanceId = this.props.match?.params.instance || this.props.embeddedPage?.instance;
+    const instanceId = 
+      this.props.match?.params.instance ||
+      this.props.embeddedPage?.instance;
     const link =
       '/wiki/' +
       this.wikiId +
@@ -441,7 +444,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           if (!this.props.embeddedPage) {
             this.props.history.replace(link);
           }
-          return cb();
+        return cb();
         }
         if (!this.props.embeddedPage) { 
           this.props.history.push(link);
