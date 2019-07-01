@@ -13,10 +13,8 @@ const ConfigComponent = Loadable({
 export const meta = {
   name: 'Wiki page',
   shortDesc: 'Show a wiki page from an arbitrary wiki',
-  description:
-    '',
-  category: 'Core tools',
-  preview: false
+  description: '',
+  category: 'Core tools'
 };
 
 export default ({
