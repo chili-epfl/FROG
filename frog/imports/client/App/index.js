@@ -28,6 +28,7 @@ import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
+import { connection } from './connection';
 
 window.create = createSessionFromActivity
 
@@ -63,9 +64,15 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
       );
     } else {
       Meteor.connection.setUserId(response.id);
+      connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
     }
 
-    Meteor.subscribe('userData', { onReady: () => setState('ready') });
+    Meteor.subscribe('userData', {
+      onReady: () => {
+        setState('ready');
+        connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+      }
+    });
   }
 };
 
@@ -92,7 +99,10 @@ const FROGRouter = withRouter(
       this.state = { mode: 'waiting' };
       if (Meteor.user()) {
         Meteor.subscribe('userData', {
-          onReady: () => this.setState({ mode: 'ready' })
+          onReady: () => {
+            this.setState({ mode: 'ready' });
+            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+          }
         });
       }
     }
@@ -131,6 +141,9 @@ const FROGRouter = withRouter(
         isStudentList,
         this.props.match.params.slug,
         (err, id) => {
+          if (id) {
+            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+          }
           subscriptionCallback(
             err,
             id,
@@ -151,6 +164,9 @@ const FROGRouter = withRouter(
         } else {
           Meteor.subscribe('userData', {
             onReady: () => {
+              connection.createFetchQuery('rz', {
+                resetUserId: Meteor.userId()
+              });
               this.setState({ mode: 'ready' });
             }
           });

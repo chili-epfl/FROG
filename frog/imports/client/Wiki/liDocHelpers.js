@@ -1,16 +1,8 @@
 // @flow
-import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import { connection } from '../App/connection';
-import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import LI from '../LearningItem';
 import { activityTypesObj } from '/imports/activityTypes';
-
-const genericDoc = connection.get('li');
-export const dataFn = generateReactiveFn(genericDoc, LI, {
-  createdByUser: Meteor.userId()
-});
-export const LearningItem = dataFn.LearningItem;
+import { dataFn } from './wikiLearningItem';
 
 // Creates an LI entry in the 'li' collection.
 export const createNewLI = (

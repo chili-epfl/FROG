@@ -28,7 +28,7 @@ export const activityRunnersExt = entries(activityRunnersRaw).reduce(
 );
 
 const activityRunnersRawInternal = importAll.deferred(
-  '../internalActivities/*/ActivityRunner?(.js)'
+  '../internalActivities/*/client/ActivityRunner?(.js)'
 );
 
 export const activityRunners = entries(activityRunnersRawInternal).reduce(

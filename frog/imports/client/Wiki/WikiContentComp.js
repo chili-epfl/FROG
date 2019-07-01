@@ -12,7 +12,7 @@ import { wikiStore } from './store';
 import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
-import { LearningItem } from './index';
+import { LearningItem } from './wikiLearningItem';
 import { getPageDetailsForLiId, checkNewPageTitle } from './helpers.js';
 
 class WikiContentComp extends React.Component<> {
@@ -40,12 +40,11 @@ class WikiContentComp extends React.Component<> {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.currentPageObj.id !== this.props.currentPageObj.id) {
-      // eslint-disable-next-line react/no-did-update-set-state
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
-        pageTitleString: this.props.currentPageObj.title,
+        pageTitleString: nextProps.currentPageObj.title,
         editingTitle: false,
         showTitleEditButton: false,
         error: null
@@ -159,51 +158,52 @@ class WikiContentComp extends React.Component<> {
       );
     };
 
-    const titleDiv = this.state.editingTitle ? (
-      <div style={titleDivStyle}>
-        <FormControl margin="normal">
-          <TextField
-            id="title-input"
-            placeholder="New Title"
-            error={this.state.error !== null}
-            value={this.state.pageTitleString}
-            onChange={e => {
-              this.setState({ pageTitleString: e.target.value });
-              this.handleErrorClearing(e.target.value);
-            }}
-            aria-describedby="title-input-helper-text"
-          />
-          {this.state.error !== null && (
-            <FormHelperText id="title-input-helper-text" error>
-              {this.state.error}
-            </FormHelperText>
-          )}
-        </FormControl>
-
-        <Check onClick={() => this.saveNewPageTitle()} />
-        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
-      </div>
-    ) : (
-      <div style={titleDivStyle}>
-        <div
-          onMouseEnter={() => {
-            this.setState({ showTitleEditButton: true });
-          }}
-          onMouseLeave={() => {
-            this.setState({ showTitleEditButton: false });
-          }}
-        >
-          <span style={titleStyle}>{this.state.pageTitleString}</span>
-          {this.state.showTitleEditButton && (
-            <Edit
-              onClick={this.handleEditingTitle}
-              style={{ height: '20px' }}
+    const titleDiv =
+      this.state.editingTitle && !this.props.embed ? (
+        <div style={titleDivStyle}>
+          <FormControl margin="normal">
+            <TextField
+              id="title-input"
+              placeholder="New Title"
+              error={this.state.error !== null}
+              value={this.state.pageTitleString}
+              onChange={e => {
+                this.setState({ pageTitleString: e.target.value });
+                this.handleErrorClearing(e.target.value);
+              }}
+              aria-describedby="title-input-helper-text"
             />
-          )}
+            {this.state.error !== null && (
+              <FormHelperText id="title-input-helper-text" error>
+                {this.state.error}
+              </FormHelperText>
+            )}
+          </FormControl>
+
+          <Check onClick={() => this.saveNewPageTitle()} />
+          <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
         </div>
-        <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
-      </div>
-    );
+      ) : (
+        <div style={titleDivStyle}>
+          <div
+            onMouseEnter={() => {
+              this.setState({ showTitleEditButton: !this.props.embed });
+            }}
+            onMouseLeave={() => {
+              this.setState({ showTitleEditButton: false });
+            }}
+          >
+            <span style={titleStyle}>{this.state.pageTitleString}</span>
+            {this.state.showTitleEditButton && (
+              <Edit
+                onClick={this.handleEditingTitle}
+                style={{ height: '20px' }}
+              />
+            )}
+          </div>
+          <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
+        </div>
+      );
 
     return (
       <WikiContext.Provider value={this.wikiContext}>

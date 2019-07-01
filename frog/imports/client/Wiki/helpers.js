@@ -105,6 +105,30 @@ const listWikis = async () => {
   });
 };
 
+/**
+ * Function to get the pages of all (valid) pages in a wiki
+ * @param {string} wikiId: id of the wiki to list
+ * @return{Promise} A Promise that resolves into an array of pages in the form of [Title, ID]
+ */
+const listPages = (wikiId: string) => {
+  const wikiDoc = connection.get('wiki', wikiId);
+  return new Promise((resolve, reject) =>
+    wikiDoc.fetch(err => {
+      if (err) {
+        reject(Error('Unable to fetch the Wiki Document'));
+      }
+      resolve(
+        Object.keys(wikiDoc.data.pages)
+          .filter(
+            key =>
+              wikiDoc.data.pages[key].created && wikiDoc.data.pages[key].valid
+          )
+          .map(key => [wikiDoc.data.pages[key].title, key])
+      );
+    })
+  );
+};
+
 export {
   parseDocResults,
   parseSearch,
@@ -112,5 +136,6 @@ export {
   checkNewPageTitle,
   getDifferentPageId,
   getPageDetailsForLiId,
-  listWikis
+  listWikis,
+  listPages
 };
