@@ -12,7 +12,7 @@ const ActivityRunner = (props: ActivityRunnerPropsT) => {
 
   const pageObj = {
     wikiId: config.component.wiki,
-    pageId: config.component.page
+    pageTitle: config.component.page
   };
   return <Wiki pageObj={pageObj} setPage={() => {}} embed />;
 };
