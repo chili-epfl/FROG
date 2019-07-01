@@ -123,7 +123,11 @@ const listPages = (wikiId: string) => {
             key =>
               wikiDoc.data.pages[key].created && wikiDoc.data.pages[key].valid
           )
-          .map(key => [wikiDoc.data.pages[key].title, key])
+          .map(key => [
+            wikiDoc.data.pages[key].title,
+            key,
+            wikiDoc.data.pages[key].plane
+          ])
       );
     })
   );
