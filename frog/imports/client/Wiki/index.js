@@ -45,7 +45,7 @@ export type PageObjT = {
   wikiId: string,
   pageTitle?: string,
   instance?: string
-}
+};
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -88,6 +88,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       openDeletedPageModal: this.openDeletedPageModal,
       addNonActivePage: this.addNonActivePage
     };
+    // turn on noFollowLinks for embedded pages
+    wikiStore.setNoFollowLinks(props.embed);
 
     const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
@@ -100,8 +102,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle:
-      this.decodePageTitle(this.props.pageObj.pageTitle),
+      initialPageTitle: this.decodePageTitle(this.props.pageObj.pageTitle),
       mode: 'document',
       docMode: query?.edit ? 'edit' : 'view',
       error: null,
@@ -142,8 +143,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle =
-      this.decodePageTitle(this.props.pageObj.pageTitle);
+    const pageTitle = this.decodePageTitle(this.props.pageObj.pageTitle);
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
@@ -226,14 +226,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     const instanceId =
-      this.getInstanceIdForName(
-        fullPageObj,
-        this.props.pageObj.instance
-      ) || this.getInstanceId(fullPageObj);
-      const currentPageObj = this.getProperCurrentPageObj(
-        fullPageObj,
-        instanceId
-      );
+      this.getInstanceIdForName(fullPageObj, this.props.pageObj.instance) ||
+      this.getInstanceId(fullPageObj);
+    const currentPageObj = this.getProperCurrentPageObj(
+      fullPageObj,
+      instanceId
+    );
 
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
@@ -265,7 +263,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         this.props.setPage({
           wikiId: this.wikiId,
           pageTitle: encodeURIComponent(currentPageObj.title),
-          instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
+          instance:
+            instanceId && instanceId !== this.getInstanceId(fullPageObj)
+              ? instanceName
+              : null
         });
       }
     );
@@ -358,11 +359,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
-    this.props.setPage({
-      wikiId: this.wikiId,
-      pageTitle: encodeURIComponent(newPageTitle),
-      instance: this.props.pageObj.instance
-    }, true);
+    this.props.setPage(
+      {
+        wikiId: this.wikiId,
+        pageTitle: encodeURIComponent(newPageTitle),
+        instance: this.props.pageObj.instance
+      },
+      true
+    );
   };
 
   goToPage = (pageId, cb, side, foreignInstanceId) => {
@@ -413,18 +417,27 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
         if (cb) {
-          this.props.setPage({
-            wikiId: this.wikiId,
-            pageTitle: encodeURIComponent(newCurrentPageObj.title),
-            instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
-          }, true)
-        return cb();
+          this.props.setPage(
+            {
+              wikiId: this.wikiId,
+              pageTitle: encodeURIComponent(newCurrentPageObj.title),
+              instance:
+                instanceId && instanceId !== this.getInstanceId(fullPageObj)
+                  ? instanceName
+                  : null
+            },
+            true
+          );
+          return cb();
         }
         this.props.setPage({
           wikiId: this.wikiId,
           pageTitle: encodeURIComponent(newCurrentPageObj.title),
-          instance: (instanceId && instanceId !== this.getInstanceId(fullPageObj)) ? instanceName : null
-        })
+          instance:
+            instanceId && instanceId !== this.getInstanceId(fullPageObj)
+              ? instanceName
+              : null
+        });
       }
     );
   };
@@ -645,24 +658,26 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         <div style={containerDivStyle}>
           {!this.props.embed && sideNavBar}
           <div style={contentDivStyle}>
-            {!this.props.embed && <WikiTopNavbar
-              username={this.state.username}
-              isAnonymous={this.state.isAnonymous}
-              changeUsername={async e => {
-                const err = await new Promise(resolve =>
-                  Meteor.call('change.username', e, error => resolve(error))
-                );
-                if (err?.error === 'User already exists') {
-                  window.alert('Username already exists');
-                  return false;
-                } else {
-                  this.setState({ username: e, isAnonymous: false });
-                  return true;
-                }
-              }}
-              primaryNavItems={primaryNavItems}
-              secondaryNavItems={secondaryNavItems}
-            />}
+            {!this.props.embed && (
+              <WikiTopNavbar
+                username={this.state.username}
+                isAnonymous={this.state.isAnonymous}
+                changeUsername={async e => {
+                  const err = await new Promise(resolve =>
+                    Meteor.call('change.username', e, error => resolve(error))
+                  );
+                  if (err?.error === 'User already exists') {
+                    window.alert('Username already exists');
+                    return false;
+                  } else {
+                    this.setState({ username: e, isAnonymous: false });
+                    return true;
+                  }
+                }}
+                primaryNavItems={primaryNavItems}
+                secondaryNavItems={secondaryNavItems}
+              />
+            )}
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
                 wikiId={this.wikiId}
