@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { get, omit, isEqual } from 'lodash';
-import { type LogT } from 'frog-utils';
+import { type LogT } from './types';
 
 type ReactivePropsT = {
   path: string | string[],

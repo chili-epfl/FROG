@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import React from 'react';
-import { type LogDbT, type DashboardViewerPropsT } from '..';
+import { type LogDbT, type DashboardViewerPropsT } from '../types';
 
 const Viewer = (props: DashboardViewerPropsT) => {
   const {
