@@ -5,6 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from 'frog-utils';
 
 import { Sessions, addSessionFn } from './sessions';
+import { runNextActivity } from './engine';
 import {
   Activities,
   Connections,
@@ -45,6 +46,8 @@ export const createSessionFromActivity = (
     const sessionId = addSessionFn(graphId);
     const session = Sessions.findOne(sessionId);
     Sessions.update(session._id, { $set: { singleActivity: true } });
+    runNextActivity(session._id);
+
     const slug = session.slug;
     return { slug, sessionId, graphId, activityId };
   }

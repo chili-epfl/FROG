@@ -1,7 +1,6 @@
 // @flow
 
 import path from 'path';
-import { createSessionFromActivity} from '/imports/api/graphs'
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { InjectData } from 'meteor/staringatlights:inject-data';
@@ -29,8 +28,6 @@ import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
-
-window.create = createSessionFromActivity
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
