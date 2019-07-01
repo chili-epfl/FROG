@@ -51,7 +51,7 @@ type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
   pageObj: PageObjT,
   embed?: boolean,
-  query: Object
+  query?: Object
 } & ModalParentPropsT;
 
 type WikiCompStateT = {
@@ -103,7 +103,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       initialPageTitle:
       this.decodePageTitle(this.props.pageObj.pageTitle),
       mode: 'document',
-      docMode: query.edit ? 'edit' : 'view',
+      docMode: query?.edit ? 'edit' : 'view',
       error: null,
       openCreator: false,
       createModalOpen: false,
