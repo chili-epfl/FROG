@@ -146,7 +146,7 @@ const MultiWrapper = (props: {
       return cond(activity.data);
     });
   if (aT.meta?.supportsLearningItems) {
-    dashNames.unshift('Learning Items');
+    dashNames.push('Learning Items');
   }
   if (isEmpty(dashNames)) {
     return null;
