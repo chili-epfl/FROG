@@ -40,12 +40,11 @@ class WikiContentComp extends React.Component<> {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.currentPageObj.id !== this.props.currentPageObj.id) {
-      // eslint-disable-next-line react/no-did-update-set-state
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
-        pageTitleString: this.props.currentPageObj.title,
+        pageTitleString: nextProps.currentPageObj.title,
         editingTitle: false,
         showTitleEditButton: false,
         error: null
@@ -159,7 +158,8 @@ class WikiContentComp extends React.Component<> {
       );
     };
 
-    const titleDiv = this.state.editingTitle ? (
+    const titleDiv = 
+    this.state.editingTitle && !this.props.embed ? (
       <div style={titleDivStyle}>
         <FormControl margin="normal">
           <TextField
@@ -187,7 +187,7 @@ class WikiContentComp extends React.Component<> {
       <div style={titleDivStyle}>
         <div
           onMouseEnter={() => {
-            this.setState({ showTitleEditButton: true });
+            this.setState({ showTitleEditButton: !this.props.embed });
           }}
           onMouseLeave={() => {
             this.setState({ showTitleEditButton: false });

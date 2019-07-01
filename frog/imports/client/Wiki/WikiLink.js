@@ -11,6 +11,7 @@ const WikiLink = observer(
     render() {
       const { data } = this.props;
       const pageObj = wikiStore.pages[data.id];
+      const noFollowLinks = wikiStore.noFollowLinks;
       const instanceId = data.instanceId;
 
       const style = {
@@ -45,7 +46,11 @@ const WikiLink = observer(
         style.color = 'green';
 
         return (
-          <span ref={e => (this.ref = e)} onClick={createLinkFn} style={style}>
+          <span
+            ref={e => (this.ref = e)}
+            onClick={noFollowLinks ? null : createLinkFn}
+            style={style}
+          >
             <b>{displayTitle}</b>
           </span>
         );
@@ -61,7 +66,7 @@ const WikiLink = observer(
         return (
           <span
             ref={e => (this.ref = e)}
-            onClick={deletedPageLinkFn}
+            onClick={noFollowLinks ? null : deletedPageLinkFn}
             style={style}
           >
             {pageTitle}
@@ -82,7 +87,11 @@ const WikiLink = observer(
       style.color = 'blue';
 
       return (
-        <span ref={e => (this.ref = e)} onClick={linkFn} style={style}>
+        <span
+          ref={e => (this.ref = e)}
+          onClick={noFollowLinks ? null : linkFn}
+          style={style}
+        >
           <b>{displayTitle}</b>
         </span>
       );

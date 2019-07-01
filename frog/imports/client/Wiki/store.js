@@ -5,6 +5,11 @@ class WikiStore {
   constructor() {
     extendObservable(this, {
       pages: {},
+      noFollowLinks: false,
+
+      setNoFollowLinks: action(e => {
+        this.noFollowLinks = e;
+      }),
 
       setPages: action(e => {
         this.pages = e;
