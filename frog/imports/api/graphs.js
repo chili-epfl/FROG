@@ -4,8 +4,14 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from 'frog-utils';
 
-import { Sessions } from './sessions';
-import { Activities, Connections, insertActivityMongo } from './activities';
+import { Sessions, addSessionFn } from './sessions';
+import { runNextActivity } from './engine';
+import {
+  Activities,
+  Connections,
+  insertActivityMongo,
+  addActivity
+} from './activities';
 import { Operators, insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
@@ -14,6 +20,38 @@ import {
 } from './versionUpgrades';
 
 export const Graphs = new Mongo.Collection('graphs');
+
+export const createSessionFromActivity = (
+  activityType: string,
+  config: Object,
+  plane: number = 3
+): {
+  slug: string,
+  sessionId: string,
+  graphId: string,
+  activityId: string
+} | void => {
+  if (Meteor.isServer) {
+    const graphId = addGraph();
+    const activityId = addActivity(activityType, config);
+    Activities.update(activityId, {
+      $set: {
+        graphId,
+        plane,
+        length: 5,
+        startTime: 5,
+        title: 'Single activity'
+      }
+    });
+    const sessionId = addSessionFn(graphId);
+    const session = Sessions.findOne(sessionId);
+    Sessions.update(session._id, { $set: { singleActivity: true } });
+    runNextActivity(session._id);
+
+    const slug = session.slug;
+    return { slug, sessionId, graphId, activityId };
+  }
+};
 
 const replaceFromMatching = (matching: Object, data: any) => {
   if (Array.isArray(data)) {
@@ -190,6 +228,7 @@ export const removeGraph = (graphId: string) =>
   Meteor.call('graph.flush.all', graphId);
 
 Meteor.methods({
+  'create.graph.from.activity': createSessionFromActivity,
   'graph.merge': ({
     connections,
     activities,

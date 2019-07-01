@@ -227,7 +227,8 @@ export const updateOpenActivities = (
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
-const addSessionFn = (graphId: string, slug: string): string => {
+// if slug is empty, will automatically generate a unique slug, returns sessionId
+export const addSessionFn = (graphId: string, slug?: string): string => {
   if (Meteor.isServer) {
     const validOutput = valid(
       Activities.find({ graphId }).fetch(),
