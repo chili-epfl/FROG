@@ -10,6 +10,7 @@ import {
 } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
+
 export const Activities = new Mongo.Collection('activities');
 export const Connections = new Mongo.Collection('connections');
 export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(

@@ -9,7 +9,10 @@ export default function WikiRouter() {
   return (
     <Switch>
       <Route path="/wiki" exact component={Index} />
-      <Route path="/wiki/:wikiId/:pageTitle/:instance" component={WikiWrapper} />
+      <Route
+        path="/wiki/:wikiId/:pageTitle/:instance"
+        component={WikiWrapper}
+      />
       <Route path="/wiki/:wikiId/:pageTitle" component={WikiWrapper} />
       <Route path="/wiki/:wikiId" component={WikiWrapper} />
     </Switch>

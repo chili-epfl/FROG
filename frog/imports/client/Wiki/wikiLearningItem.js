@@ -1,5 +1,5 @@
 // @flow
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connection } from '../App/connection';
