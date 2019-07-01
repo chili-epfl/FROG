@@ -3,13 +3,12 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
-import {
-  HighlightSearchText,
-  uuid,
-  highlightTargetRichText,
-  cloneDeep,
-  WikiContext
-} from 'frog-utils';
+import { HighlightSearchText } from '../HighlightSearchText';
+export { default as uuid } from 'cuid';
+import { highlightTargetRichText } from '../highlightTargetRichText';
+import { cloneDeep } from '../cloneDeep';
+import { WikiContext } from '../WikiContext';
+
 import {
   isEmpty,
   get,

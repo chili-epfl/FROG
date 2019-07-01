@@ -1,7 +1,7 @@
 // @flow
 import { cloneDeep, isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
-import { type ActivityPackageT } from './index';
+import { type ActivityPackageT } from './types';
 
 export const calculateHides = (
   formData: Object = {},

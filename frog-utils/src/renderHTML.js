@@ -4,7 +4,8 @@ import * as React from 'react';
 import { renderToString } from 'katex';
 import { withState } from 'recompose';
 import clip from 'text-clipper';
-import { uuid, getEmbedlyCache, EmbedlyCache } from './index';
+import uuid from 'cuid';
+import { getEmbedlyCache, EmbedlyCache } from './EmbedlyCache';
 
 const HTML = ({
   html,
