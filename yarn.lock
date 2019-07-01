@@ -946,6 +946,15 @@
     quill "^1.2.6"
     react-dom-factories "^1.0.0"
 
+"@houshuang/react-tweet@1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@houshuang/react-tweet/-/react-tweet-1.7.2.tgz#f2dcf845633ab135c93b8d66b76a0841ea29fa92"
+  integrity sha512-26mSzkhISIO/fayUbih4GF2GmTDnKUON8/hixh/4dz06BLr3fjJY00NaTZ1k3pzoAp/5Q6FGtt3pR4HGcOfuHg==
+  dependencies:
+    react-video-wrapper "1.0.3"
+    twemoji "11.2.0"
+    twitter-text "3.0.0"
+
 "@houshuang/react-webcam@^0.5":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@houshuang/react-webcam/-/react-webcam-0.5.0.tgz#59b3c7f1ed5c3d52abf2482549fda04cd9c40983"
@@ -2922,6 +2931,11 @@ bl@^1.0.0:
   dependencies:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
+
+blacklist@^1.1.2:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/blacklist/-/blacklist-1.1.4.tgz#b2dd09d6177625b2caa69835a37b28995fa9a2f2"
+  integrity sha1-st0J1hd2JbLKppg1o3somV+povI=
 
 block-stream2@^1.0.0:
   version "1.1.0"
@@ -6311,7 +6325,7 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-feedparser@*:
+feedparser@*, feedparser@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/feedparser/-/feedparser-2.2.9.tgz#9138197dafdae05fcadde0036beeaf6066c2c5e9"
   integrity sha1-kTgZfa/a4F/K3eADa+6vYGbCxek=
@@ -8121,7 +8135,7 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-isomorphic-fetch@^2.1.1:
+isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
   integrity sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=
@@ -8810,6 +8824,11 @@ jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
+
+jsonpath-plus@^0.18.0:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/jsonpath-plus/-/jsonpath-plus-0.18.1.tgz#b9ed1f608178dff0d981b663400a4ccf828eb8b2"
+  integrity sha512-4yQiuV641HROc4z9YGvnsr8yAdmzbu8JjdAen8WfiXsXewKvTG4ie2bSygF2maek9PcbtROmS6aLQs31BD+oNQ==
 
 jsonschema@^1.2.4:
   version "1.2.4"
@@ -9523,6 +9542,14 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+markdown-to-jsx@^6.9.1:
+  version "6.10.2"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-6.10.2.tgz#644f602b81d088f10aef1c3674874876146cf38b"
+  integrity sha512-eDCsRobOkbQ4PqCphrxNi/U8geA8DGf52dMP4BrrYsVFyQ2ILFnXIB5sRcIxnRK2nPl8k5hUYdRNRXLlQNYLYg==
+  dependencies:
+    prop-types "^15.6.2"
+    unquote "^1.1.0"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -11544,15 +11571,7 @@ prop-types@15.x, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, pr
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
-  version "15.6.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
-  integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
-  dependencies:
-    loose-envify "^1.3.1"
-    object-assign "^4.1.1"
-
-prop-types@^15.7.2:
+prop-types@^15.5.7, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -11560,6 +11579,14 @@ prop-types@^15.7.2:
     loose-envify "^1.4.0"
     object-assign "^4.1.1"
     react-is "^16.8.1"
+
+prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 proto-list@~1.2.1:
   version "1.2.4"
@@ -11649,15 +11676,15 @@ punycode@1.3.2:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.3.2.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
   integrity sha1-llOgNvt8HuQjQvIyXM7v6jkmxI0=
 
+punycode@1.4.1, punycode@^1.2.4, punycode@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
+  integrity sha1-wNWmOycYgArY4esPpSachN1BhF4=
+
 punycode@2.x.x, punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
-
-punycode@^1.2.4, punycode@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
-  integrity sha1-wNWmOycYgArY4esPpSachN1BhF4=
 
 pure-color@^1.2.0:
   version "1.3.0"
@@ -12332,6 +12359,14 @@ react-s-alert@^1.3.2:
   dependencies:
     babel-runtime "^6.23.0"
 
+react-sound@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-sound/-/react-sound-1.2.0.tgz#1bb7e1ec8494ecc57b03dbdecd1496b10f6541f2"
+  integrity sha512-pc2l8f7Oy3VePRRVesBwSSJ0mrCeD/lE5GVCT1RPdEQ7lgbZTDyWI8HokXHmS1v79aiLnd3WTRhfsBAY0NTb8g==
+  dependencies:
+    prop-types "^15.5.7"
+    soundmanager2 "^2.97.20170602"
+
 react-tagsinput@^3.19.0:
   version "3.19.0"
   resolved "https://registry.yarnpkg.com/react-tagsinput/-/react-tagsinput-3.19.0.tgz#6e3b45595f2d295d4657bf194491988f948caabf"
@@ -12401,6 +12436,14 @@ react-transition-group@^2.2.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
+
+react-video-wrapper@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-video-wrapper/-/react-video-wrapper-1.0.3.tgz#1b034f3f10f2dc7edf1f8851fcbfd642719ebf5e"
+  integrity sha512-ATwGn7fVCK95uhOSGVXZRRhJmrn+wBlM/WQp/c3wCurk/QRpmhRzw3+tFf98oZD/bCih/Zd9dR1qSP0DPFnwIQ==
+  dependencies:
+    blacklist "^1.1.2"
+    classnames "^2.2.0"
 
 react@^16.8.0:
   version "16.8.0"
@@ -13620,6 +13663,11 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
+soundmanager2@^2.97.20170602:
+  version "2.97.20170602"
+  resolved "https://registry.yarnpkg.com/soundmanager2/-/soundmanager2-2.97.20170602.tgz#fe3bc731bfc4d54c1364e71980263e6816981879"
+  integrity sha512-2ee7ES9SJ++WkD7PGHMeT4QUuJr7uC3wacD6RoCDlKjdSp9lpEOaKm3lKWKld119DLILjS2l9U6xpXJN6U0KPQ==
+
 source-list-map@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
@@ -14571,6 +14619,16 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
+twemoji-parser@^11.0.2:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/twemoji-parser/-/twemoji-parser-11.0.2.tgz#24e87c2008abe8544c962f193b88b331de32b446"
+  integrity sha512-5kO2XCcpAql6zjdLwRwJjYvAZyDy3+Uj7v1ipBzLthQmDL7Ce19bEqHr3ImSNeoSW2OA8u02XmARbXHaNO8GhA==
+
+twemoji@11.2.0:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/twemoji/-/twemoji-11.2.0.tgz#3627c3607321bb784bcfb5b65b3b21309c031fa3"
+  integrity sha512-DgTadXkRHugun6mjUf1k3ni04WC4jHOX1bN5MjuCM3nwRyIMdXIr8FmWzW5mEIZjht5jD3NaEyXC4j3POdQwyQ==
+
 twit@^2.2.10:
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/twit/-/twit-2.2.11.tgz#554343d1cf343ddf503280db821f61be5ab407c3"
@@ -14579,6 +14637,15 @@ twit@^2.2.10:
     bluebird "^3.1.5"
     mime "^1.3.4"
     request "^2.68.0"
+
+twitter-text@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/twitter-text/-/twitter-text-3.0.0.tgz#662f255b8ca12412f5b126368496e2430480eae3"
+  integrity sha512-p5/mAvsYp0ESSgKjpaytWNJxrRqM04FnF5wLtc9+U1hXBrQujh/oz+4yR45JHIJfWOKSFZ/aLGaCasNwrqkkcw==
+  dependencies:
+    babel-runtime "^6.26.0"
+    punycode "1.4.1"
+    twemoji-parser "^11.0.2"
 
 type-check@~0.3.2:
   version "0.3.2"
@@ -14720,11 +14787,6 @@ unique-filename@^1.1.1:
   dependencies:
     unique-slug "^2.0.0"
 
-unique-names-generator@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-3.0.0.tgz#2282d88cdef175093ac04c8edf3f89ab19469756"
-  integrity sha512-5BQhANYUKPqFnFYL1OduL7FDPiV7u5K1Lm4Z89YL4uOLH/uCNTnHkW3roFUEiEptOKt8f3uhmWnZj9w0zBXppw==
-
 unique-slug@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/unique-slug/-/unique-slug-2.0.1.tgz#5e9edc6d1ce8fb264db18a507ef9bd8544451ca6"
@@ -14755,6 +14817,11 @@ unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
+
+unquote@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/unquote/-/unquote-1.1.1.tgz#8fded7324ec6e88a0ff8b905e7c098cdc086d544"
+  integrity sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=
 
 unset-value@^1.0.0:
   version "1.0.0"
