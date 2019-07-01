@@ -1,19 +1,24 @@
 // @flow
 
-import { addNewWikiPage } from '/imports/api/wikiDocHelpers';
+import { Meteor } from 'meteor/meteor';
+
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { activityTypesObj } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
 import { Activities } from '/imports/api/activities';
 import { Objects } from '/imports/api/objects';
-import { Meteor } from 'meteor/meteor';
+import {
+  createNewEmptyWikiDoc,
+  addNewWikiPage
+} from '/imports/api/wikiDocHelpers';
+
 import { serverConnection as connection } from './share-db-manager';
 
-const exportActivity = (activityId, wiki, page) => {
+const exportActivity = (activityId, wiki, page, userId) => {
   const act = Activities.findOne(activityId);
 
   const obj = Objects.findOne(act._id);
-  importWikiFromFROG(act, obj, wiki, page || act.title);
+  importWikiFromFROG(act, obj, wiki, page || act.title, userId);
 };
 
 const exportSessionWiki = (sessionId, wiki, userId) => {
@@ -25,7 +30,7 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
 
   activities.forEach(act => {
     const obj = Objects.findOne(act._id);
-    if (act.plane === 3) {
+    if (obj) {
       importWikiFromFROG(act, obj, wiki, act.title, userId);
     }
   });
@@ -69,24 +74,36 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
 
       acc[x] = {
         liId: newId,
-        username: Meteor.users.findOne(x)?.username
+        instanceName: item.groupingKey
+          ? item.groupingKey + ' ' + x
+          : Meteor.users.findOne(x)?.username,
+        instanceId: x
       };
       return acc;
     }, {});
   const wikiDoc = connection.get('wiki', wiki);
-  wikiDoc.subscribe(err => {
-    if (err) throw err;
+  wikiDoc.subscribe(() => {
     if (!wikiDoc.type) {
-      wikiDoc.create({ wikiId: wiki, pages: {} });
+      const liId = dataFn.createLearningItem('li-richText', undefined, {
+        wikiId: wiki
+      });
+      createNewEmptyWikiDoc(wikiDoc, wiki, liId);
     }
-
     addNewWikiPage(
       wikiDoc,
       page,
       true,
       'li-activity',
-      instanceData.all.liId,
+      instanceData.all?.liId || instanceData[userId]?.liId || null,
       item.plane,
+      item.plane === 3
+        ? undefined
+        : Object.keys(instanceData)
+            .filter(key => key !== userId)
+            .reduce((obj, key) => {
+              obj[key] = instanceData[key];
+              return obj;
+            }, {}),
       item.groupingKey ? object.socialStructure[item.groupingKey] : undefined,
       true
     );
