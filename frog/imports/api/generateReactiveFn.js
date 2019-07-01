@@ -4,7 +4,7 @@ import ShareDB from 'sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 import { uuid, type LearningItemComponentT, isBrowser } from 'frog-utils';
-import { uploadFile } from '/imports/api/openUploads';
+import { uploadFile } from './openUploads';
 import { learningItemTypesObj } from '/imports/activityTypes';
 
 export const listore = isBrowser

@@ -1,9 +1,11 @@
+import { Meteor } from 'meteor/meteor';
 import { omitBy, isNil } from 'lodash';
 
 import { uuid, chainUpgrades } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
-import { Activities, addActivity } from '/imports/api/activities';
+import { addActivity } from './activities';
+import { Activities } from './collections';
 import { LibraryStates } from './cache';
 
 const RemoteServer =

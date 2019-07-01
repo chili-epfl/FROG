@@ -1,9 +1,8 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 
-export const UploadList = new Mongo.Collection('uploadList');
+import { UploadList } from './collections';
 
 export const uploadFile = (file: any, name: string, sessionId?: string) => {
   const prom: Promise<any> = new Promise((resolve, reject) => {

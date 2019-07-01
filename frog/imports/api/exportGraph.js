@@ -3,9 +3,9 @@ import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
-import { findActivitiesMongo, Connections } from '/imports/api/activities';
-import { findOperatorsMongo } from '/imports/api/operators';
-import { addGraph, findOneGraphMongo } from '/imports/api/graphs';
+import { findActivitiesMongo, Connections } from './activities';
+import { findOperatorsMongo } from './operators';
+import { addGraph, findOneGraphMongo } from './graphs';
 
 const clean = obj => {
   const { graphId, state, templateRZCloned, hasMergedData, ...ret } = obj; // eslint-disable-line no-unused-vars

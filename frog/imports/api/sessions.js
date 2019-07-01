@@ -1,24 +1,26 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import { uuid, getSlug, values } from 'frog-utils';
 import { difference } from 'lodash';
 
-import { Activities, Connections } from './activities';
+import {
+  Activities,
+  Connections,
+  Graphs,
+  Operators,
+  Sessions
+} from './collections';
 import { activityTypesObj } from '../activityTypes';
-import { Operators } from './operators';
 import {
   runSessionFn,
   runNextActivity,
   updateNextOpenActivities
 } from './engine';
-import { Graphs, addGraph } from './graphs';
+import { addGraph } from './graphs';
 import valid from './validGraphFn';
 
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
-
-export const Sessions = new Mongo.Collection('sessions');
 
 export const restartSession = (session: Object) => {
   const graph = Graphs.findOne(session.graphId);

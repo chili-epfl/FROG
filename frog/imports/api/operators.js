@@ -1,11 +1,9 @@
 // @flow
-import { Mongo } from 'meteor/mongo';
 import { chainUpgrades, uuid } from 'frog-utils';
 
 import { operatorTypesObj } from '/imports/operatorTypes';
 
-export const Operators = new Mongo.Collection('operators');
-export const ExternalOperators = new Mongo.Collection('external_operators');
+import { Operators } from './collections';
 
 const extractUpgradedOperatorConfig = (operator: Object) => ({
   ...operator,

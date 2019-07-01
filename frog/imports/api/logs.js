@@ -1,12 +1,8 @@
 // @flow
-
-import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 import { type LogT, type LogDbT } from 'frog-utils';
 import { LocalSettings } from './settings';
-
-export const Logs = new Mongo.Collection('logs');
 
 export const logLogin = (sessionId: string) => {
   Meteor.call('merge.log', {

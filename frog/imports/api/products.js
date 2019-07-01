@@ -1,13 +1,9 @@
 // @flow
-
-import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import Stringify from 'json-stable-stringify';
 
-import { Logs } from './logs';
-
-export const Products = new Mongo.Collection('products');
+import { Logs, Products } from './collections';
 
 export const saveProduct = (activityId: string) => (
   userId: string,

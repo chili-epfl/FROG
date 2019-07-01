@@ -1,25 +1,24 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from 'frog-utils';
 
-import { Sessions, addSessionFn } from './sessions';
+import { addSessionFn } from './sessions';
 import { runNextActivity } from './engine';
 import {
   Activities,
   Connections,
-  insertActivityMongo,
-  addActivity
-} from './activities';
-import { Operators, insertOperatorMongo } from './operators';
+  Graphs,
+  Operators,
+  Sessions
+} from './collections';
+import { insertActivityMongo, addActivity } from './activities';
+import { insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
   GraphIdUpgrades,
   GraphObjUpgrades
 } from './versionUpgrades';
-
-export const Graphs = new Mongo.Collection('graphs');
 
 export const createSessionFromActivity = (
   activityType: string,

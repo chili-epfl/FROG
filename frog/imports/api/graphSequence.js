@@ -1,8 +1,7 @@
 // @flow
 
 import { type ActivityDbT } from 'frog-utils';
-import { Graphs } from './graphs';
-import { Sessions } from './sessions';
+import { Graphs, Sessions } from './collections';
 import 'core-js/fn/array/flat-map';
 
 export const calculateNextOpen = (

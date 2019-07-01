@@ -4,12 +4,15 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { type ActivityDbT } from 'frog-utils';
 
-import { Activities, Connections } from './activities';
-import { Products } from './products';
-import { Operators } from './operators';
-import { Objects } from './objects';
 import {
-  Sessions,
+  Activities,
+  Connections,
+  Products,
+  Operators,
+  Objects,
+  Sessions
+} from './collections';
+import {
   updateSessionState,
   updateOpenActivities,
   sessionCancelCountDown

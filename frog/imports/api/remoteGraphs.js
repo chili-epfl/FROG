@@ -1,8 +1,9 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 import { omitBy, isNil } from 'lodash';
 
 import { uuid } from 'frog-utils';
-import { Graphs } from '/imports/api/graphs';
+import { Graphs } from './collections';
 import { LibraryStates } from './cache';
 import { graphToString, doImportGraph } from './exportGraph';
 

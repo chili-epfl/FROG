@@ -2,20 +2,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
-import {
-  chainUpgrades,
-  uuid,
-  type MongoT,
-  type DashboardDataDbT
-} from 'frog-utils';
+import { chainUpgrades, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 
-export const Activities = new Mongo.Collection('activities');
-export const Connections = new Mongo.Collection('connections');
-export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
-  'dashboard_data'
-);
+import { Activities, Connections } from './collections';
 
 const extractUpgradedActivityConfig = (activity: Object) => ({
   ...activity,
