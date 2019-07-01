@@ -11,7 +11,9 @@ import LIComponent from './LIComponent';
 const Embed = Quill.import('blots/block/embed');
 const Delta = Quill.import('delta');
 
-const getLearningItemBlot = (reactiveRichTextDataFn: Function) =>
+// We need access to reactiveRichText methods, so we export
+// a class generator
+const getLearningItemBlot = (reactiveRichTextDataFn: Object) =>
   class LearningItemBlot extends Embed {
     static create(value: Object) {
       const node = super.create(value);

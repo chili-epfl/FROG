@@ -47,6 +47,9 @@ let reactiveRichTextDataFn = {
   }
 };
 
+// We pass the reactiveRichTextData object which we will mutate
+// once we receive the correct props. From then on, the Blot should
+// have access to the fully implemented methods.
 const LearningItemBlot = getLearningItemBlot(reactiveRichTextDataFn);
 LearningItemBlot.blotName = 'learning-item';
 LearningItemBlot.tagName = 'div';
@@ -112,8 +115,11 @@ class ReactiveRichText extends Component<
 
   constructor(props: ReactivePropsT) {
     super(props);
-    reactiveRichTextDataFn.getLearningTypesObj = props.dataFn.getLearningTypesObj;
-    reactiveRichTextDataFn.LearningItem = props.dataFn.LearningItem;
+
+    // We assign all values of dataFn to reactiveRichTextDataFn so that
+    // they get passed to LearningItemBlot
+    Object.assign(reactiveRichTextDataFn, props.dataFn);
+
     this.debouncedInsertNewLi = debounce(this.insertNewLi, 100, {
       leading: true,
       trailing: false
