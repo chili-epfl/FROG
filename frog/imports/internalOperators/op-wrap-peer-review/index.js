@@ -7,7 +7,7 @@ const meta = {
   name: 'Wrap for peer-review',
   shortDesc: 'Wraps LI in li-peerReview',
   description: '',
-  category: 'Peer review'
+  category: 'Peer-review'
 };
 
 const config = {
