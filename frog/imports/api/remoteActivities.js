@@ -5,7 +5,7 @@ import { uuid, chainUpgrades } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { addActivity } from './activities';
-import { Activities } from './collections';
+import { Activities } from '/imports/collections';
 import { LibraryStates } from './cache';
 
 const RemoteServer =

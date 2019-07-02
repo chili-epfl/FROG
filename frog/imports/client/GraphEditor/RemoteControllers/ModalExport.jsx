@@ -15,7 +15,7 @@ import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-load
 
 import { sendActivity, updateActivity } from '/imports/api/remoteActivities';
 import { sendGraph, updateGraph } from '/imports/api/remoteGraphs';
-import { Graphs } from '/imports/api/graphs';
+import { Graphs } from '/imports/collections';
 
 type StateT = {
   title: string,

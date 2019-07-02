@@ -8,10 +8,13 @@ import { withRouter } from 'react-router';
 import SessionList from './SessionList';
 import OrchestrationView from './OrchestrationView';
 
-import { GlobalSettings, LocalSettings } from '/imports/api/settings';
-import { Activities } from '/imports/api/activities';
-import { Graphs } from '/imports/api/graphs';
-import { Sessions } from '/imports/api/sessions';
+import {
+  GlobalSettings,
+  Activities,
+  Graphs,
+  Sessions
+} from '/imports/collections';
+import { LocalSettings } from '/imports/api/settings';
 
 const TeacherView = props => (
   <>

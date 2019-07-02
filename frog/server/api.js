@@ -13,7 +13,7 @@ import bodyParser from 'body-parser';
 import requestFun from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
-import { Sessions } from '/imports/api/sessions';
+import { Sessions } from '/imports/collections';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';

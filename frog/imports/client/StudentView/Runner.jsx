@@ -9,9 +9,8 @@ import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import { activityRunners } from '/imports/client/activityRunners';
 import { createLogger } from '/imports/api/logs';
-import { Objects } from '/imports/api/objects';
+import { Objects, Sessions } from '/imports/collections';
 import { LocalSettings } from '/imports/api/settings';
-import { Sessions } from '/imports/api/sessions';
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {

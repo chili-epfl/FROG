@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { shuffle } from 'lodash';
 
-import { UploadList } from '/imports/api/openUploads';
+import { UploadList } from '/imports/collections';
 
 Meteor.methods({
   'minio.signedurl': (name, sessionId) => {

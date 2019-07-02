@@ -22,8 +22,7 @@ import ReactTooltip from 'react-tooltip';
 import Dialog from '@material-ui/core/Dialog';
 
 import { learningItemTypesObj } from '/imports/activityTypes';
-import { Activities } from '/imports/api/activities';
-import { Sessions } from '/imports/api/sessions';
+import { Activities, Sessions } from '/imports/collections';
 import LI from '/imports/client/LearningItem';
 import { connection } from '../App/connection';
 

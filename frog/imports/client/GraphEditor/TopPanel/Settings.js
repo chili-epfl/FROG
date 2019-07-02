@@ -20,12 +20,8 @@ import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Help from '@material-ui/icons/Help';
 
-import {
-  addGraph,
-  assignGraph,
-  removeGraph,
-  Graphs
-} from '/imports/api/graphs';
+import { Graphs } from '/imports/collections';
+import { addGraph, assignGraph, removeGraph } from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
 

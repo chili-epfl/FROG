@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import extStyles from './styles';
-import { Sessions } from '/imports/api/sessions';
+import { Sessions } from '/imports/collections';
 
 const cleanStudentList = studentList =>
   studentList

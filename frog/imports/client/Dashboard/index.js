@@ -10,9 +10,7 @@ import { type ActivityDbT } from 'frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import doGetInstances from '/imports/api/doGetInstances';
-import { Sessions } from '/imports/api/sessions';
-import { Objects } from '/imports/api/objects';
-import { DashboardData } from '/imports/api/activities';
+import { Sessions, Objects, DashboardData } from '/imports/collections';
 import { activityTypesObj } from '/imports/activityTypes';
 import LearningItem from '/imports/client/LearningItem';
 import { connection as conn } from '../App/connection';

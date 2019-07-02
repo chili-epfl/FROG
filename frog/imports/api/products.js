@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 import Stringify from 'json-stable-stringify';
 
-import { Logs, Products } from './collections';
+import { Logs, Products } from '/imports/collections';
 
 export const saveProduct = (activityId: string) => (
   userId: string,

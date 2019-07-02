@@ -11,8 +11,7 @@ import { activityTypesObj } from '/imports/activityTypes';
 import { connection } from '../App/connection';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connect } from '../GraphEditor/store';
-import { Activities } from '/imports/api/activities';
-import { Operators } from '/imports/api/operators';
+import { Activities, Operators } from '/imports/collections';
 import { downloadExport } from './utils/exportComponent';
 
 const CopyButton = ({ data }) => (

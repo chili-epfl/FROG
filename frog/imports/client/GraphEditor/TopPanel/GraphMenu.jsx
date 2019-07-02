@@ -10,7 +10,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
 import Edit from '@material-ui/icons/Edit';
 
-import { Graphs, renameGraph } from '/imports/api/graphs';
+import { Graphs } from '/imports/collections';
+import { renameGraph } from '/imports/api/graphs';
 
 import { ValidButton } from '../Validator';
 import { connect, store } from '../store';

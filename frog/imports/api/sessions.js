@@ -9,7 +9,7 @@ import {
   Graphs,
   Operators,
   Sessions
-} from './collections';
+} from '/imports/collections';
 import { activityTypesObj } from '../activityTypes';
 import {
   runSessionFn,

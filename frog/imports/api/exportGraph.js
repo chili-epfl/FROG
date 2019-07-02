@@ -1,9 +1,12 @@
+// @flow
 import fileDialog from 'file-dialog';
 import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
 import { omit } from 'lodash';
 
-import { findActivitiesMongo, Connections } from './activities';
+import { Connections } from '/imports/collections';
+
+import { findActivitiesMongo } from './activities';
 import { findOperatorsMongo } from './operators';
 import { addGraph, findOneGraphMongo } from './graphs';
 

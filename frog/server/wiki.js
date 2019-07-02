@@ -4,9 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { activityTypesObj } from '/imports/activityTypes';
-import { Sessions } from '/imports/api/sessions';
-import { Activities } from '/imports/api/activities';
-import { Objects } from '/imports/api/objects';
+import { Sessions, Activities, Objects } from '/imports/collections';
 import {
   createNewEmptyWikiDoc,
   addNewWikiPage

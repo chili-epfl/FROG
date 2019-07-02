@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
 
-import { Sessions } from '../imports/api/sessions';
+import { Sessions } from '/imports/collections';
 
 const doLogin = (user, self) => {
   if (user) {

@@ -11,7 +11,7 @@ import {
   Graphs,
   Operators,
   Sessions
-} from './collections';
+} from '/imports/collections';
 import { insertActivityMongo, addActivity } from './activities';
 import { insertOperatorMongo } from './operators';
 import {

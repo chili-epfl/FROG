@@ -11,7 +11,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { Activities } from '/imports/api/activities';
+import { Activities } from '/imports/collections';
 import { activityTypesObj } from '/imports/activityTypes';
 import { DashboardReactiveWrapper } from './index';
 import LIDashboard from './LIDashboard';

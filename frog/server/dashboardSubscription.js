@@ -4,8 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { set } from 'lodash';
 import { uuid, cloneDeep, values, type ActivityDbT } from 'frog-utils';
 
+import { DashboardData, Activities } from '/imports/collections';
 import { activityTypesObj } from '../imports/activityTypes';
-import { DashboardData, Activities } from '../imports/api/activities';
 import { DashboardStates } from '../imports/api/cache';
 import { regenerateState } from '../imports/api/mergeLogData';
 import { serverConnection } from './share-db-manager';

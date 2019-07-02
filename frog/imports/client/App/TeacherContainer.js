@@ -6,7 +6,7 @@ import { every } from 'lodash';
 import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { ExternalOperators } from '/imports/api/operators';
+import { ExternalOperators } from '/imports/collections';
 import { operatorTypesObj, operatorTypes } from '/imports/operatorTypes';
 import TeacherView from '../TeacherView';
 import GraphEditor from '../GraphEditor';

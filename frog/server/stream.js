@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
-import { Activities } from '/imports/api/activities';
+import { Activities } from '/imports/collections';
 import { activityTypesObj } from '/imports/activityTypes';
 import { SharedbCache } from '/imports/api/cache';
 import { serverConnection } from './share-db-manager';

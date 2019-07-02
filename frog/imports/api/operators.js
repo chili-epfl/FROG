@@ -3,7 +3,7 @@ import { chainUpgrades, uuid } from 'frog-utils';
 
 import { operatorTypesObj } from '/imports/operatorTypes';
 
-import { Operators } from './collections';
+import { Operators } from '/imports/collections';
 
 const extractUpgradedOperatorConfig = (operator: Object) => ({
   ...operator,

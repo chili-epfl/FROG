@@ -5,8 +5,7 @@ import { omitBy, isNil } from 'lodash';
 import { chainUpgrades, uuid } from 'frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
-
-import { Activities, Connections } from './collections';
+import { Activities, Connections } from '/imports/collections';
 
 const extractUpgradedActivityConfig = (activity: Object) => ({
   ...activity,

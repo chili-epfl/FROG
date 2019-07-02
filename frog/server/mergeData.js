@@ -12,10 +12,8 @@ import {
   type structureDefT,
   uuid
 } from 'frog-utils';
-import { Activities } from '../imports/api/activities';
-import { Objects } from '../imports/api/objects';
+import { Activities, Objects, Sessions } from '/imports/collections';
 import doGetInstances from '../imports/api/doGetInstances';
-import { Sessions } from '../imports/api/sessions';
 
 import { serverConnection } from './share-db-manager';
 import { activityTypesObj } from '../imports/activityTypes';

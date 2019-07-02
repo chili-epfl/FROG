@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 
-import { UploadList } from './collections';
+import { UploadList } from '/imports/collections';
 
 export const uploadFile = (file: any, name: string, sessionId?: string) => {
   const prom: Promise<any> = new Promise((resolve, reject) => {

@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { omitBy, isNil } from 'lodash';
 
 import { uuid } from 'frog-utils';
-import { Graphs } from './collections';
+import { Graphs } from '/imports/collections';
 import { LibraryStates } from './cache';
 import { graphToString, doImportGraph } from './exportGraph';
 

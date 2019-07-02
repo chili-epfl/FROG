@@ -3,12 +3,9 @@
 import { type activityDataT, type ActivityPackageT } from 'frog-utils';
 import { Meteor } from 'meteor/meteor';
 
-import { Activities } from '../imports/api/activities';
+import { Activities, Objects, Graphs, Products } from '/imports/collections';
 import { activityTypesObj } from '../imports/activityTypes';
-import { Objects } from '../imports/api/objects';
-import { Graphs } from '../imports/api/graphs';
 import doGetInstances from '../imports/api/doGetInstances';
-import { Products } from '../imports/api/products';
 import { serverConnection } from './share-db-manager';
 
 declare var Promise: any;

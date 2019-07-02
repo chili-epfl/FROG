@@ -1,6 +1,6 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import { Sessions } from '/imports/api/sessions';
+import { Sessions } from '/imports/collections';
 import { ensureReactive } from './mergeData';
 
 function sessionJoin(slug: string) {

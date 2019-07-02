@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { Operators } from '/imports/api/operators';
+import { Operators } from '/imports/collections';
 import { connect } from '../../store';
 
 import EditClass from './EditOperator';

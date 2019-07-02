@@ -10,20 +10,21 @@ import { uuid } from 'frog-utils';
 import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env.js';
 
-import { Logs } from '../imports/api/logs';
-import teacherImports from './teacherImports';
 import {
+  Logs,
   Activities,
-  findActivitiesMongo,
   Connections,
-  DashboardData
-} from '../imports/api/activities.js';
+  DashboardData,
+  Operators,
+  Sessions,
+  Products,
+  Objects,
+  GlobalSettings
+} from '/imports/collections';
+import teacherImports from './teacherImports';
+import { findActivitiesMongo } from '../imports/api/activities.js';
 import { upgradeGraphMongo } from '../imports/api/graphs.js';
-import { Operators, findOperatorsMongo } from '../imports/api/operators.js';
-import { Sessions } from '../imports/api/sessions.js';
-import { Products } from '../imports/api/products.js';
-import { Objects } from '../imports/api/objects.js';
-import { GlobalSettings } from '../imports/api/settings.js';
+import { findOperatorsMongo } from '../imports/api/operators.js';
 import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';

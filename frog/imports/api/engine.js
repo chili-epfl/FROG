@@ -11,7 +11,7 @@ import {
   Operators,
   Objects,
   Sessions
-} from './collections';
+} from '/imports/collections';
 import {
   updateSessionState,
   updateOpenActivities,

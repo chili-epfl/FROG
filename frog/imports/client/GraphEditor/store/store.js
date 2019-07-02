@@ -7,16 +7,17 @@ import Stringify from 'json-stable-stringify';
 import valid from '/imports/api/validGraphFn';
 import {
   Graphs,
+  Activities,
+  Connections,
+  Operators
+} from '/imports/collections';
+import {
   mergeGraph,
   setCurrentGraph,
   findOneGraphMongo
 } from '/imports/api/graphs';
-import {
-  Activities,
-  findActivitiesMongo,
-  Connections
-} from '/imports/api/activities';
-import { Operators, findOperatorsMongo } from '/imports/api/operators';
+import { findActivitiesMongo } from '/imports/api/activities';
+import { findOperatorsMongo } from '/imports/api/operators';
 import { LibraryStates } from '/imports/api/cache';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LocalSettings } from '/imports/api/settings';

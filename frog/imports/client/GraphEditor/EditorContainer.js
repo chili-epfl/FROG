@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ReactTooltip from 'react-tooltip';
-import { Graphs } from '/imports/api/graphs';
+import { Graphs } from '/imports/collections';
 import Grid from '@material-ui/core/Grid';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';

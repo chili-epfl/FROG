@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { Activities } from '/imports/api/activities';
+import { Activities } from '/imports/collections';
 import ChooseActivity from './ChooseActivity';
 import EditActivity from './EditActivity';
 
