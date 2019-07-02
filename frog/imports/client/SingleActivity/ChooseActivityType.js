@@ -7,6 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import { activityTypes } from '/imports/activityTypes';
+import { templatesObj } from '/imports/internalTemplates';
 import { type PropsT } from './types';
 
 /**
@@ -29,10 +30,11 @@ export default function ChooseActivityType(
     'ac-video'
   ];
   const list = activityTypes.filter(x => allowed.includes(x.id));
+  list.push(templatesObj['te-peerReview']);
   return (
     <Card raised className={classes.card}>
       <Typography variant="h5" component="h2">
-        Let's start by choosing an activity type
+        Let's start by choosing an activity type or template
       </Typography>
       <GridList cols="4" spacing="8">
         {list.map(x => (

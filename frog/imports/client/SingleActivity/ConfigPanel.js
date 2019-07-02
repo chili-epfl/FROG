@@ -26,6 +26,7 @@ export default class ConfigPanel extends React.Component<
   { activity: ActivityDbT }
 > {
   render() {
+    console.log(this.props.activityType);
     const { id, config } = this.props.activityType;
     const { classes } = this.props;
     return (
