@@ -1,22 +1,27 @@
 // @flow
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import { type PropsT } from './types';
+import { style } from './style';
+
+const BASE_URL = window.location.origin;
 
 /**
  * The final screen displayed after the creation of a single activity.
  * @param {Object} url - An object containing the paths of public and dashboard view
  * @param {Function} onReturn - Callback function for handling the 'Back' button
  */
-export default function Finish(
+function Finish(
   props: {
     url: {
-      public: String,
-      dashboard: String
+      public: string,
+      dashboard: string
     },
     onReturn: Function
   } & PropsT
@@ -32,48 +37,13 @@ export default function Finish(
       </IconButton>
       <Typography variant="h3" component="h2" className={classes.padded_text}>
         You're all set, please share this link with the participants:{' '}
-        <a
-          href={
-            window.location.protocol +
-            '//' +
-            window.location.hostname +
-            ':' +
-            window.location.port +
-            '/' +
-            url.public
-          }
-        >
-          {window.location.protocol +
-            '//' +
-            window.location.hostname +
-            ':' +
-            window.location.port +
-            '/' +
-            url.public}
-        </a>
+        <Link to={'/' + url.public}>{BASE_URL + '/' + url.public}</Link>
       </Typography>
       <Typography variant="h4" component="h3" className={classes.padded_text}>
         Here's a secret link to your behind-the-scene view of the dashboard:{' '}
-        <a
-          href={
-            window.location.protocol +
-            '//' +
-            window.location.hostname +
-            ':' +
-            window.location.port +
-            '/' +
-            url.dashboard
-          }
-        >
-          {window.location.protocol +
-            '//' +
-            window.location.hostname +
-            ':' +
-            window.location.port +
-            '/' +
-            url.dashboard}
-        </a>
+        <Link to={'/' + url.dashboard}>{BASE_URL + '/' + url.dashboard}</Link>
       </Typography>
     </Card>
   );
 }
+export default withStyles(style)(Finish);

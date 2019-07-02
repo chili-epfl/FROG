@@ -33,7 +33,8 @@ const style = {
   },
   tile: {
     background: 'rgba(0, 0, 0, 0.3)',
-    backgroundClip: 'content-box'
+    backgroundClip: 'content-box',
+    cursor: 'pointer'
   },
   navbar: {
     flexDirection: 'row-reverse'

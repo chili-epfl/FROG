@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { withStyles } from '@material-ui/styles';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { type PropsT } from './types';
+import { style } from './style';
 
 /**
  * The final screen displayed after the creation of a single activity.
@@ -17,14 +19,19 @@ import { type PropsT } from './types';
  * @param {Function} onSubmit - Callback function for handling the 'Submit' button
  * @param {Function} onReturn - Callback function for handling the 'Back' button
  */
-export default class ConfigPanel extends React.Component<
+class ConfigPanel extends React.Component<
   {
     activityType: ActivityPackageT,
     onSubmit: Function,
     onReturn: Function
   } & PropsT,
-  { activity: ActivityDbT }
+  { activity?: ActivityDbT }
 > {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     const { id, config } = this.props.activityType;
     const { classes } = this.props;
@@ -45,7 +52,6 @@ export default class ConfigPanel extends React.Component<
           onConfigChange={x => this.setState({ activity: x })}
           hidePreview
           noOffset
-          hideValidator
         />
         <CardActions>
           <Button
@@ -53,6 +59,9 @@ export default class ConfigPanel extends React.Component<
             color="primary"
             className={classes.button}
             onClick={() => this.props.onSubmit(this.state.activity)}
+            disabled={
+              this.state.activity?.errors && this.state.activity?.errors.length
+            }
           >
             Publish
           </Button>
@@ -61,3 +70,4 @@ export default class ConfigPanel extends React.Component<
     );
   }
 }
+export default withStyles(style)(ConfigPanel);

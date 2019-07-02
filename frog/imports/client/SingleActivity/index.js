@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { withStyles } from '@material-ui/styles';
 import Grow from '@material-ui/core/Grow';
 import TopBar from './TopBar';
 import Welcome from './Welcome';
@@ -9,32 +8,29 @@ import ChooseActivityType from './ChooseActivityType';
 import ConfigPanel from './ConfigPanel';
 import Loading from './Loading';
 import Finish from './Finish';
-import { style } from './style';
-import { type StateT, type PropsT } from './types';
+import { type StateT } from './types';
 
 /**
  * The main class for the Single Activity
  */
-class SingleActivity extends React.Component<PropsT, StateT> {
-  constructor(props) {
-    super(props);
+class SingleActivity extends React.Component<{}, StateT> {
+  constructor() {
+    super();
     this.state = {
       stage: 1
     };
   }
 
   render() {
-    const { classes } = this.props;
-    const { stage, activityType } = this.state;
+    const { stage, slug, activityType } = this.state;
     return (
       <>
-        <TopBar classes={classes} />
+        <TopBar />
         <Grow in={stage === 1} unmountOnExit>
-          <Welcome classes={classes} />
+          <Welcome />
         </Grow>
         <Grow in={stage === 1} unmountOnExit>
           <ChooseActivityType
-            classes={classes}
             onSubmit={conf =>
               this.setState({ stage: this.state.stage + 1, activityType: conf })
             }
@@ -43,7 +39,6 @@ class SingleActivity extends React.Component<PropsT, StateT> {
         <Grow in={stage === 2} unmountOnExit>
           <ConfigPanel
             activityType={activityType}
-            classes={classes}
             onSubmit={conf => {
               this.setState({ stage: this.state.stage + 1, activity: conf });
               Meteor.call(
@@ -53,8 +48,10 @@ class SingleActivity extends React.Component<PropsT, StateT> {
                 3,
                 (err, res) => {
                   if (err) {
-                    // eslint-disable-next-line no-console
-                    console.log(err);
+                    window.alert(
+                      'Could not create your activity, please try later.'
+                    );
+                    this.setState({ stage: this.state.stage - 1 });
                   } else {
                     this.setState({
                       stage: this.state.stage + 1,
@@ -68,21 +65,19 @@ class SingleActivity extends React.Component<PropsT, StateT> {
           />
         </Grow>
         <Grow in={stage === 3} unmountOnExit>
-          <Loading classes={classes} />
+          <Loading />
         </Grow>
         <Grow in={stage === 4} unmountOnExit>
           <Finish
             url={{
-              public: this.state.slug,
-              dashboard: 'teacher/orchestration/' + this.state.slug
+              public: slug,
+              dashboard: 'teacher/orchestration/' + slug
             }}
-            classes={classes}
-            onReturn={() => this.setState({ stage: this.state.stage - 1 })}
+            onReturn={() => this.setState({ stage: this.state.stage - 2 })}
           />
         </Grow>
       </>
     );
   }
 }
-
-export default withStyles(style)(SingleActivity);
+export default SingleActivity;

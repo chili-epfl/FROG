@@ -1,14 +1,16 @@
 // @flow
 
 import React from 'react';
+import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { type PropsT } from './types';
+import { style } from './style';
 
 /**
  * Introductory welcome message shown to users at the beginning
  */
-export default function Welcome(props: PropsT) {
+function Welcome(props: PropsT) {
   const { classes } = props;
   return (
     <Card raised className={classes.welcome_card}>
@@ -23,3 +25,4 @@ export default function Welcome(props: PropsT) {
     </Card>
   );
 }
+export default withStyles(style)(Welcome);

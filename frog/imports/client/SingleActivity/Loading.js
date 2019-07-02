@@ -1,15 +1,17 @@
 // @flow
 
 import React from 'react';
+import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { type PropsT } from './types';
+import { style } from './style';
 
 /**
  * Intermediate loading bar displayed while creating the single activity
  */
-export default function Loading(props: PropsT) {
+function Loading(props: PropsT) {
   const { classes } = props;
   return (
     <Card className={classes.card}>
@@ -25,3 +27,5 @@ export default function Loading(props: PropsT) {
     </Card>
   );
 }
+
+export default withStyles(style)(Loading);

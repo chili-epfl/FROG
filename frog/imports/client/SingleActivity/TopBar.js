@@ -1,16 +1,18 @@
 // @flow
 
 import React from 'react';
+import { withStyles } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { type PropsT } from './types';
+import { style } from './style';
 
 /**
  * Navigation bar displayed at the top
  */
-export default function TopBar(props: PropsT) {
+function TopBar(props: PropsT) {
   const { classes } = props;
   return (
     <AppBar position="static" color="default">
@@ -24,3 +26,4 @@ export default function TopBar(props: PropsT) {
     </AppBar>
   );
 }
+export default withStyles(style)(TopBar);
