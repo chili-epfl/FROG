@@ -20,7 +20,7 @@ class WikiStore {
         // eslint-disable-next-line guard-for-in
         for (const pageId in this.pages) {
           const pageObj = this.pages[pageId];
-          pages[pageObj.title.toLowerCase()] = pageObj;
+          pages[pageObj.title.trim().toLowerCase()] = pageObj;
         }
         return pages;
       },

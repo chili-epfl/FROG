@@ -262,7 +262,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
         this.props.setPage({
           wikiId: this.wikiId,
-          pageTitle: encodeURIComponent(currentPageObj.title),
+          pageTitle: encodeURIComponent(currentPageObj.title.trim()),
           instance:
             instanceId && instanceId !== this.getInstanceId(fullPageObj)
               ? instanceName
@@ -380,7 +380,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.props.setPage(
       {
         wikiId: this.wikiId,
-        pageTitle: encodeURIComponent(newPageTitle),
+        pageTitle: encodeURIComponent(newPageTitle.trim()),
         instance: this.props.pageObj.instance
       },
       true
@@ -438,7 +438,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           this.props.setPage(
             {
               wikiId: this.wikiId,
-              pageTitle: encodeURIComponent(newCurrentPageObj.title),
+              pageTitle: encodeURIComponent(newCurrentPageObj.title.trim()),
               instance:
                 instanceId && instanceId !== this.getInstanceId(fullPageObj)
                   ? instanceName
@@ -450,7 +450,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
         this.props.setPage({
           wikiId: this.wikiId,
-          pageTitle: encodeURIComponent(newCurrentPageObj.title),
+          pageTitle: encodeURIComponent(newCurrentPageObj.title.trim()),
           instance:
             instanceId && instanceId !== this.getInstanceId(fullPageObj)
               ? instanceName
@@ -461,7 +461,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   goToPageTitle = (pageTitle, instanceName, side) => {
-    const pageTitleLower = pageTitle.toLowerCase();
+    const pageTitleLower = pageTitle.trim().toLowerCase();
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(
       wikiStore.parsedPages[pageTitleLower],
