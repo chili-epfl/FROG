@@ -8,6 +8,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import { activityTypes } from '/imports/activityTypes';
+import { templatesObj } from '/imports/internalTemplates';
 import { type PropsT } from './types';
 import { style } from './style';
 
@@ -21,6 +22,7 @@ const allowed = [
   'ac-video'
 ];
 const list = activityTypes.filter(x => allowed.includes(x.id));
+list.push(templatesObj['te-peerReview']);
 
 /**
  * The icon-based selection form for choosing the activity type
