@@ -6,6 +6,7 @@ import { uuid, chainUpgrades } from 'frog-utils';
 
 import { Sessions, addSessionFn } from './sessions';
 import { runNextActivity } from './engine';
+import { templatesObj } from '/imports/internalTemplates';
 import {
   Activities,
   Connections,
@@ -18,6 +19,7 @@ import {
   GraphIdUpgrades,
   GraphObjUpgrades
 } from './versionUpgrades';
+import { doImportGraph } from './exportGraph';
 
 export const Graphs = new Mongo.Collection('graphs');
 
@@ -32,20 +34,33 @@ export const createSessionFromActivity = (
   activityId: string
 } | void => {
   if (Meteor.isServer) {
-    const graphId = addGraph();
-    const activityId = addActivity(activityType, config);
-    Activities.update(activityId, {
-      $set: {
-        graphId,
-        plane,
-        length: 5,
-        startTime: 5,
-        title: 'Single activity'
-      }
-    });
+    let graphId;
+    let activityId;
+    let instructions;
+    if (activityType.slice(0, 3) === 'te-') {
+      const template = templatesObj[activityType];
+      const [graphString, instr] = template.makeTemplate(config);
+      instructions = instr;
+      graphId = doImportGraph(undefined, graphString);
+    } else {
+      graphId = addGraph();
+      activityId = addActivity(activityType, config);
+      Activities.update(activityId, {
+        $set: {
+          graphId,
+          plane,
+          length: 5,
+          startTime: 5,
+          title: 'Single activity'
+        }
+      });
+    }
     const sessionId = addSessionFn(graphId);
     const session = Sessions.findOne(sessionId);
-    Sessions.update(session._id, { $set: { singleActivity: true } });
+    const template = activityType.slice(0, 3) === 'te-';
+    Sessions.update(session._id, {
+      $set: { singleActivity: !template, template, instructions }
+    });
     runNextActivity(session._id);
 
     const slug = session.slug;
