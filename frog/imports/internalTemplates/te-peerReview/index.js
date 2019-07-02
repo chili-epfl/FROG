@@ -38,6 +38,19 @@ const p1Instructions = {
     'Open the Projector View to display all the student contributions on the projector'
 };
 
+const p2Instructions = {
+  '4_5':
+    'Please make sure all students are logged in before continuing. After this step, no additional students may join the lesson',
+  '9_5':
+    'Groups of students are asked to work on a text given the initial instructions',
+  '21_5':
+    'Groups receive one or several texts from other groups, and are asked to comment/review them given the instructions',
+  '29_5':
+    'Groups see the feedback from their peers, and have the opportunity to continue revising their texts',
+  '39_5':
+    'Open the Projector View to display all the group contributions on the projector'
+};
+
 const processTemplate = (template, replacements) => {
   const result = Object.keys(replacements).reduce((acc, x) => {
     const toReplace = Number.isInteger(replacements[x])
@@ -45,7 +58,7 @@ const processTemplate = (template, replacements) => {
       : `"${replacements[x]}"`;
     return acc.replace(`"{{${x}}}"`, toReplace);
   }, template);
-  return [result, p1Instructions];
+  return [result];
 };
 
 const makeTemplate = config => {
@@ -56,7 +69,10 @@ const makeTemplate = config => {
     reviseInstructions: config.reviseInstructions || '',
     reviewCount: config.reviewCount || 1
   };
-  return processTemplate(template, replacements);
+  return [
+    processTemplate(template, replacements),
+    config.plane === 'individual' ? p1Instructions : p2Instructions
+  ];
 };
 
 const meta = {
