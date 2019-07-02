@@ -13,14 +13,12 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch,
-  Link
+  Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
 
-import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
@@ -286,6 +284,7 @@ const FROGRouter = withRouter(
           return (
             <Switch>
               <Route path="/wiki" component={WikiRouter} />
+              <Route path="/" exact component={SingleActivity} />
               <Route path="/single_activity" component={SingleActivity} />
               <Route
                 render={() => (
@@ -306,17 +305,7 @@ const FROGRouter = withRouter(
               <Route path="/:slug" component={StudentView} />
               <Route
                 render={() =>
-                  LocalSettings.follow ? (
-                    <StudentView />
-                  ) : (
-                    <h3>
-                      Welcome to FROG. You are logged in as{' '}
-                      {Meteor.user().username}. If you want to access the
-                      teacher view, go to <Link to="/teacher">/teacher</Link>,
-                      otherwise go to the /SLUG of the session you are a student
-                      of
-                    </h3>
-                  )
+                  LocalSettings.follow ? <StudentView /> : <SingleActivity />
                 }
               />
             </Switch>
@@ -335,7 +324,7 @@ const FROGRouter = withRouter(
           slug={this.props.match.params.slug}
         />
       ) : (
-        <NotLoggedIn login={this.login} />
+        <SingleActivity />
       );
     }
   }
