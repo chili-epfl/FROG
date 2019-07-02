@@ -2,14 +2,13 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
+import uuid from 'cuid';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
-import {
-  HighlightSearchText,
-  uuid,
-  highlightTargetRichText,
-  cloneDeep,
-  WikiContext
-} from 'frog-utils';
+import { HighlightSearchText } from '../HighlightSearchText';
+import { highlightTargetRichText } from '../highlightTargetRichText';
+import { cloneDeep } from '../cloneDeep';
+import { WikiContext } from '../WikiContext';
+
 import {
   isEmpty,
   get,
@@ -24,7 +23,7 @@ import {
 import Dialog from '@material-ui/core/Dialog';
 
 import { LiViewTypes, formats } from './constants';
-import LearningItemBlot from './LearningItemBlot';
+import getLearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
@@ -39,7 +38,6 @@ Quill.register('formats/wiki-link', WikiLinkBlot);
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
 // and satisfy Flow's requirements
-/* eslint-disable import/no-mutable-exports */
 let reactiveRichTextDataFn = {
   getLearningTypesObj: () => {
     throw new Error('Should never be uninitialized');
@@ -49,6 +47,10 @@ let reactiveRichTextDataFn = {
   }
 };
 
+// We pass the reactiveRichTextData object which we will mutate
+// once we receive the correct props. From then on, the Blot should
+// have access to the fully implemented methods.
+const LearningItemBlot = getLearningItemBlot(reactiveRichTextDataFn);
 LearningItemBlot.blotName = 'learning-item';
 LearningItemBlot.tagName = 'div';
 LearningItemBlot.className = 'ql-learning-item';
@@ -113,7 +115,11 @@ class ReactiveRichText extends Component<
 
   constructor(props: ReactivePropsT) {
     super(props);
-    reactiveRichTextDataFn = props.dataFn;
+
+    // We assign all values of dataFn to reactiveRichTextDataFn so that
+    // they get passed to LearningItemBlot
+    Object.assign(reactiveRichTextDataFn, props.dataFn);
+
     this.debouncedInsertNewLi = debounce(this.insertNewLi, 100, {
       leading: true,
       trailing: false
@@ -811,5 +817,4 @@ class ReactiveRichText extends Component<
 }
 
 window.q = Quill;
-export { reactiveRichTextDataFn };
 export default ReactiveRichText;

@@ -1,0 +1,2135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add categories 1`] = `
+Object {
+  "payload": Object {
+    "7RwZeTAYvBsmwkuRR": Object {
+      "data": Object {
+        "cjnztobxc000001rscwxwedf1": Object {
+          "category": undefined,
+          "id": "cjnztobxc000001rscwxwedf1",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxd000101rsubxq49rp": Object {
+          "category": undefined,
+          "id": "cjnztobxd000101rsubxq49rp",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxd000201rs6bi8xbkl": Object {
+          "category": undefined,
+          "id": "cjnztobxd000201rs6bi8xbkl",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxd000301rsukqvu1ys": Object {
+          "category": undefined,
+          "id": "cjnztobxd000301rsukqvu1ys",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "food",
+              },
+            },
+          },
+        },
+        "cjnztobxd000401rs0su1c3l3": Object {
+          "category": undefined,
+          "id": "cjnztobxd000401rs0su1c3l3",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxd000501rsrmv4r6j4": Object {
+          "category": undefined,
+          "id": "cjnztobxd000501rsrmv4r6j4",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+        "cjnztobxd000601rs9hojwqbf": Object {
+          "category": undefined,
+          "id": "cjnztobxd000601rs9hojwqbf",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "goodies",
+              },
+            },
+          },
+        },
+        "cjnztobxd000701rsdb2cyaua": Object {
+          "category": undefined,
+          "id": "cjnztobxd000701rsdb2cyaua",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "well",
+              },
+            },
+          },
+        },
+      },
+    },
+    "C3NCZvKZFg3hnhqvs": Object {
+      "data": Object {
+        "cjnztobxd000801rspqrkkqef": Object {
+          "category": "chef",
+          "id": "cjnztobxd000801rspqrkkqef",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxd000901rsgj9e2u8b": Object {
+          "category": "chef",
+          "id": "cjnztobxd000901rsgj9e2u8b",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+      },
+    },
+    "KGFGwYrruhw3fMbwv": Object {
+      "data": Object {
+        "cjnztobxd000a01rs2rz5a3f1": Object {
+          "category": "chef",
+          "id": "cjnztobxd000a01rs2rz5a3f1",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "monuments",
+              },
+            },
+          },
+        },
+        "cjnztobxd000b01rsq9rzwbnw": Object {
+          "category": "chef",
+          "id": "cjnztobxd000b01rsq9rzwbnw",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "spas",
+              },
+            },
+          },
+        },
+        "cjnztobxd000c01rs5837t1nb": Object {
+          "category": "chef",
+          "id": "cjnztobxd000c01rs5837t1nb",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "finest",
+              },
+            },
+          },
+        },
+        "cjnztobxd000d01rsos3pzk93": Object {
+          "category": "chef",
+          "id": "cjnztobxd000d01rsos3pzk93",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxd000e01rs9nwsme0q": Object {
+          "category": "chef",
+          "id": "cjnztobxd000e01rs9nwsme0q",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxd000f01rsurocaqgg": Object {
+          "category": "chef",
+          "id": "cjnztobxd000f01rsurocaqgg",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxd000g01rss2uml8sw": Object {
+          "category": "chef",
+          "id": "cjnztobxd000g01rss2uml8sw",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxd000h01rsf0buqcgv": Object {
+          "category": "chef",
+          "id": "cjnztobxd000h01rsf0buqcgv",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "festivities",
+              },
+            },
+          },
+        },
+        "cjnztobxd000i01rs063z0zp7": Object {
+          "category": "chef",
+          "id": "cjnztobxd000i01rs063z0zp7",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "knowledgeable",
+              },
+            },
+          },
+        },
+        "cjnztobxd000j01rsau307wp2": Object {
+          "category": "chef",
+          "id": "cjnztobxd000j01rsau307wp2",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxd000k01rsoje1zpzr": Object {
+          "category": "chef",
+          "id": "cjnztobxd000k01rsoje1zpzr",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+      },
+    },
+    "MMtir45Jz9SfRDnMh": Object {
+      "data": Object {
+        "cjnztobxd000l01rskmr635ff": Object {
+          "category": "cook",
+          "id": "cjnztobxd000l01rskmr635ff",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxd000m01rsfz2r2jhf": Object {
+          "category": "cook",
+          "id": "cjnztobxd000m01rsfz2r2jhf",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxd000n01rsk2dcnltm": Object {
+          "category": "cook",
+          "id": "cjnztobxd000n01rsk2dcnltm",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxd000o01rs0kfkz5s0": Object {
+          "category": "cook",
+          "id": "cjnztobxd000o01rs0kfkz5s0",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+      },
+    },
+    "RS5zQwax4MXnjcwhA": Object {
+      "data": Object {
+        "cjnztobxd000p01rsbzsma3fu": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000p01rsbzsma3fu",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxd000q01rsjuznof2f": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000q01rsjuznof2f",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxd000r01rswd8kar9r": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000r01rswd8kar9r",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxd000s01rsy1zqy1lj": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000s01rsy1zqy1lj",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+        "cjnztobxd000t01rsjofrm7dg": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000t01rsjofrm7dg",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxd000u01rs7ei9gul2": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000u01rs7ei9gul2",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "grab",
+              },
+            },
+          },
+        },
+        "cjnztobxd000v01rshq1qxp5v": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000v01rshq1qxp5v",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxd000w01rs6rq5av1v": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000w01rs6rq5av1v",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxd000x01rs0z29dwd5": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000x01rs0z29dwd5",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "hook",
+              },
+            },
+          },
+        },
+        "cjnztobxd000y01rslkp2g32u": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000y01rslkp2g32u",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+        "cjnztobxd000z01rskg6zs6cb": Object {
+          "category": "waiter",
+          "id": "cjnztobxd000z01rskg6zs6cb",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "admission",
+              },
+            },
+          },
+        },
+        "cjnztobxd001001rsp9q3nk23": Object {
+          "category": "waiter",
+          "id": "cjnztobxd001001rsp9q3nk23",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "crafts",
+              },
+            },
+          },
+        },
+        "cjnztobxd001101rsuotggtw6": Object {
+          "category": "waiter",
+          "id": "cjnztobxd001101rsuotggtw6",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "everyone",
+              },
+            },
+          },
+        },
+      },
+    },
+    "XcSgaxhb3yuDNTNZq": Object {
+      "data": Object {
+        "cjnztobxd001201rskp8v6g1p": Object {
+          "category": "chef",
+          "id": "cjnztobxd001201rskp8v6g1p",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxd001301rsqt3rqau9": Object {
+          "category": "chef",
+          "id": "cjnztobxd001301rsqt3rqau9",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxd001401rsn2eor5ut": Object {
+          "category": "chef",
+          "id": "cjnztobxd001401rsn2eor5ut",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxd001501rsp2ujheh9": Object {
+          "category": "chef",
+          "id": "cjnztobxd001501rsp2ujheh9",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+        "cjnztobxd001601rsk4g1126w": Object {
+          "category": "chef",
+          "id": "cjnztobxd001601rsk4g1126w",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "herbs",
+              },
+            },
+          },
+        },
+        "cjnztobxd001701rstk7m6xpp": Object {
+          "category": "chef",
+          "id": "cjnztobxd001701rstk7m6xpp",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxd001801rszvbtlwpz": Object {
+          "category": "chef",
+          "id": "cjnztobxd001801rszvbtlwpz",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxd001901rsq23crdjr": Object {
+          "category": "chef",
+          "id": "cjnztobxd001901rsq23crdjr",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "admission",
+              },
+            },
+          },
+        },
+        "cjnztobxd001a01rsc77ypiq9": Object {
+          "category": "chef",
+          "id": "cjnztobxd001a01rsc77ypiq9",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "restaurants",
+              },
+            },
+          },
+        },
+      },
+    },
+    "YQjgzcgQGM2ELxJwE": Object {
+      "data": Object {
+        "cjnztobxd001b01rsh4mvpzv6": Object {
+          "category": "chef",
+          "id": "cjnztobxd001b01rsh4mvpzv6",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxd001c01rs1rje7t00": Object {
+          "category": "chef",
+          "id": "cjnztobxd001c01rs1rje7t00",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxd001d01rscmgdi21m": Object {
+          "category": "chef",
+          "id": "cjnztobxd001d01rscmgdi21m",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+        "cjnztobxd001e01rsarh9qm23": Object {
+          "category": "chef",
+          "id": "cjnztobxd001e01rsarh9qm23",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.777Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "knowledgeable",
+              },
+            },
+          },
+        },
+      },
+    },
+    "ZbCnakkuhEGjzYENs": Object {
+      "data": Object {
+        "cjnztobxd001f01rsonkjs1k6": Object {
+          "category": "waiter",
+          "id": "cjnztobxd001f01rsonkjs1k6",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "exciting",
+              },
+            },
+          },
+        },
+        "cjnztobxe001g01rsylpp5wqa": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001g01rsylpp5wqa",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "experience",
+              },
+            },
+          },
+        },
+        "cjnztobxe001h01rs21aqmkhu": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001h01rs21aqmkhu",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "spas",
+              },
+            },
+          },
+        },
+        "cjnztobxe001i01rs0qn3cuzm": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001i01rs0qn3cuzm",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxe001j01rsdwnj52ps": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001j01rsdwnj52ps",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxe001k01rsbo4v6vqw": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001k01rsbo4v6vqw",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+        "cjnztobxe001l01rshjbw0g1h": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001l01rshjbw0g1h",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxe001m01rs9bhja2lt": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001m01rs9bhja2lt",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxe001n01rsyv48fbnu": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001n01rsyv48fbnu",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxe001o01rswyp6azzz": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001o01rswyp6azzz",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ex",
+              },
+            },
+          },
+        },
+        "cjnztobxe001p01rse6ycmq63": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001p01rse6ycmq63",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "citing",
+              },
+            },
+          },
+        },
+        "cjnztobxe001q01rs7gjx5dls": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001q01rs7gjx5dls",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+        "cjnztobxe001r01rs1kwbj6fe": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001r01rs1kwbj6fe",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "knowledgeable",
+              },
+            },
+          },
+        },
+        "cjnztobxe001s01rs8f7oaj3o": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001s01rs8f7oaj3o",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "goodies",
+              },
+            },
+          },
+        },
+      },
+    },
+    "bXaG7mBrMLhzpE9xi": Object {
+      "data": Object {},
+    },
+    "cF2qxcPSYLGWfwZ8e": Object {
+      "data": Object {
+        "cjnztobxe001t01rsmzx9b0dq": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001t01rsmzx9b0dq",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "relaxed",
+              },
+            },
+          },
+        },
+        "cjnztobxe001u01rs3ve7q3yh": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001u01rs3ve7q3yh",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "exciting",
+              },
+            },
+          },
+        },
+        "cjnztobxe001v01rsz3vwuzcr": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001v01rsz3vwuzcr",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "experience",
+              },
+            },
+          },
+        },
+        "cjnztobxe001w01rshdk4gv4z": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001w01rshdk4gv4z",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "spas",
+              },
+            },
+          },
+        },
+        "cjnztobxe001x01rsk73e6pev": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001x01rsk73e6pev",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "able",
+              },
+            },
+          },
+        },
+        "cjnztobxe001y01rscghjmg4a": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001y01rscghjmg4a",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxe001z01rsq6k88mad": Object {
+          "category": "waiter",
+          "id": "cjnztobxe001z01rsq6k88mad",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxe002001rs8li6cc54": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002001rs8li6cc54",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ingredients",
+              },
+            },
+          },
+        },
+        "cjnztobxe002101rsn48ik6dm": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002101rsn48ik6dm",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxe002201rsp7o1rvzg": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002201rsp7o1rvzg",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "herbs",
+              },
+            },
+          },
+        },
+        "cjnztobxe002301rs1f6lr8ql": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002301rs1f6lr8ql",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "allow",
+              },
+            },
+          },
+        },
+        "cjnztobxe002401rsur7ww8qo": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002401rsur7ww8qo",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxe002501rsmxvpzt7w": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002501rsmxvpzt7w",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxe002601rs5j4kykck": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002601rs5j4kykck",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxe002701rsox6p1tal": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002701rsox6p1tal",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "knowledgeable",
+              },
+            },
+          },
+        },
+        "cjnztobxe002801rs4gftiym0": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002801rs4gftiym0",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+      },
+    },
+    "eWWzXBLW8tbo4qFp3": Object {
+      "data": Object {},
+    },
+    "gnkSn7TXiTA9SYd8f": Object {
+      "data": Object {},
+    },
+    "iWarW8gPJR3sis3vT": Object {
+      "data": Object {
+        "cjnztobxe002901rsgo3yp6g7": Object {
+          "category": "cook",
+          "id": "cjnztobxe002901rsgo3yp6g7",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+      },
+    },
+    "pPJgig96WpR3yaLb6": Object {
+      "data": Object {
+        "cjnztobxe002a01rs3sf462qz": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002a01rs3sf462qz",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "experience",
+              },
+            },
+          },
+        },
+        "cjnztobxe002b01rsl9bsnxc6": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002b01rsl9bsnxc6",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "spas",
+              },
+            },
+          },
+        },
+        "cjnztobxe002c01rsqd5wwkmn": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002c01rsqd5wwkmn",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxe002d01rsnsew5ia8": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002d01rsnsew5ia8",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxe002e01rsuacxw92m": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002e01rsuacxw92m",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxe002f01rs91c7o1r3": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002f01rs91c7o1r3",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxe002g01rs3pybbja4": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002g01rs3pybbja4",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+        "cjnztobxe002h01rs4f2d4hre": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002h01rs4f2d4hre",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxe002i01rsu1yyavkg": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002i01rsu1yyavkg",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "allow",
+              },
+            },
+          },
+        },
+        "cjnztobxe002j01rsloslhl1l": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002j01rsloslhl1l",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "grab",
+              },
+            },
+          },
+        },
+        "cjnztobxe002k01rsi7q4ynld": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002k01rsi7q4ynld",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxe002l01rsrbrjp1vg": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002l01rsrbrjp1vg",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "throughout",
+              },
+            },
+          },
+        },
+        "cjnztobxe002m01rsy9ii3pwv": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002m01rsy9ii3pwv",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+        "cjnztobxe002n01rsd8vbtwz1": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002n01rsd8vbtwz1",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "citing",
+              },
+            },
+          },
+        },
+        "cjnztobxe002o01rsiufbz9gu": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002o01rsiufbz9gu",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ex",
+              },
+            },
+          },
+        },
+        "cjnztobxe002p01rslvvne7dv": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002p01rslvvne7dv",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "exciting",
+              },
+            },
+          },
+        },
+        "cjnztobxe002q01rsdceqgmmr": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002q01rsdceqgmmr",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxe002r01rs3paz409l": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002r01rs3paz409l",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "refreshed",
+              },
+            },
+          },
+        },
+        "cjnztobxe002s01rsmrou4efo": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002s01rsmrou4efo",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "knowledgeable",
+              },
+            },
+          },
+        },
+        "cjnztobxe002t01rsvafriyrv": Object {
+          "category": "waiter",
+          "id": "cjnztobxe002t01rsvafriyrv",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "goodies",
+              },
+            },
+          },
+        },
+      },
+    },
+    "pT7g88TndMGFuYncT": Object {
+      "data": Object {
+        "cjnztobxe002u01rstoux876w": Object {
+          "category": undefined,
+          "id": "cjnztobxe002u01rstoux876w",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.778Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "herbs",
+              },
+            },
+          },
+        },
+        "cjnztobxf002v01rs4pkribqu": Object {
+          "category": undefined,
+          "id": "cjnztobxf002v01rs4pkribqu",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+      },
+    },
+    "pa9KWNjffgAqQTX3N": Object {
+      "data": Object {
+        "cjnztobxf002w01rs3var0mzl": Object {
+          "category": "waiter",
+          "id": "cjnztobxf002w01rs3var0mzl",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxf002x01rs3pjynsjb": Object {
+          "category": "waiter",
+          "id": "cjnztobxf002x01rs3pjynsjb",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxf002y01rstudnka57": Object {
+          "category": "waiter",
+          "id": "cjnztobxf002y01rstudnka57",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxf002z01rs9tsllan0": Object {
+          "category": "waiter",
+          "id": "cjnztobxf002z01rs9tsllan0",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+        "cjnztobxf003001rs7xapgdku": Object {
+          "category": "waiter",
+          "id": "cjnztobxf003001rs7xapgdku",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxf003101rsrh32md5x": Object {
+          "category": "waiter",
+          "id": "cjnztobxf003101rsrh32md5x",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+        "cjnztobxf003201rsid9c5gpi": Object {
+          "category": "waiter",
+          "id": "cjnztobxf003201rsid9c5gpi",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "admission",
+              },
+            },
+          },
+        },
+      },
+    },
+    "qkeubQS58zZJDMMdZ": Object {
+      "data": Object {
+        "cjnztobxf003301rs168bxm53": Object {
+          "category": "cook",
+          "id": "cjnztobxf003301rs168bxm53",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxf003401rswizotzlo": Object {
+          "category": "cook",
+          "id": "cjnztobxf003401rswizotzlo",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxf003501rscj5ij04x": Object {
+          "category": "cook",
+          "id": "cjnztobxf003501rscj5ij04x",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "essential",
+              },
+            },
+          },
+        },
+        "cjnztobxf003601rsqhtipkzk": Object {
+          "category": "cook",
+          "id": "cjnztobxf003601rsqhtipkzk",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+        "cjnztobxf003701rsckg75u9c": Object {
+          "category": "cook",
+          "id": "cjnztobxf003701rsckg75u9c",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxf003801rsksia6qqo": Object {
+          "category": "cook",
+          "id": "cjnztobxf003801rsksia6qqo",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "grab",
+              },
+            },
+          },
+        },
+        "cjnztobxf003901rsej7ub8iq": Object {
+          "category": "cook",
+          "id": "cjnztobxf003901rsej7ub8iq",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxf003a01rseucm7vg9": Object {
+          "category": "cook",
+          "id": "cjnztobxf003a01rseucm7vg9",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxf003b01rs7mlaqh80": Object {
+          "category": "cook",
+          "id": "cjnztobxf003b01rs7mlaqh80",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "goodies",
+              },
+            },
+          },
+        },
+      },
+    },
+    "yNjrjBftaxbJqb5Kv": Object {
+      "data": Object {
+        "cjnztobxf003c01rswx1yrfag": Object {
+          "category": "cook",
+          "id": "cjnztobxf003c01rswx1yrfag",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxf003d01rsf7nlsllz": Object {
+          "category": "cook",
+          "id": "cjnztobxf003d01rsf7nlsllz",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "lion",
+              },
+            },
+          },
+        },
+        "cjnztobxf003e01rsa9ne22xi": Object {
+          "category": "cook",
+          "id": "cjnztobxf003e01rsa9ne22xi",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "dances",
+              },
+            },
+          },
+        },
+        "cjnztobxf003f01rs5pzcl6ql": Object {
+          "category": "cook",
+          "id": "cjnztobxf003f01rs5pzcl6ql",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "fed",
+              },
+            },
+          },
+        },
+      },
+    },
+    "yPKouhEwhoQxd8N7L": Object {
+      "data": Object {
+        "cjnztobxf003g01rsf7t6lxyh": Object {
+          "category": "cook",
+          "id": "cjnztobxf003g01rsf7t6lxyh",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "laid",
+              },
+            },
+          },
+        },
+        "cjnztobxf003h01rs6968mz0m": Object {
+          "category": "cook",
+          "id": "cjnztobxf003h01rs6968mz0m",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "spas",
+              },
+            },
+          },
+        },
+        "cjnztobxf003i01rso34xc9ry": Object {
+          "category": "cook",
+          "id": "cjnztobxf003i01rso34xc9ry",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "remedies",
+              },
+            },
+          },
+        },
+        "cjnztobxf003j01rsfjteo2te": Object {
+          "category": "cook",
+          "id": "cjnztobxf003j01rsfjteo2te",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "affordable",
+              },
+            },
+          },
+        },
+        "cjnztobxf003k01rss0qrrl4g": Object {
+          "category": "cook",
+          "id": "cjnztobxf003k01rss0qrrl4g",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "grab",
+              },
+            },
+          },
+        },
+        "cjnztobxf003l01rsy6dfzj0y": Object {
+          "category": "cook",
+          "id": "cjnztobxf003l01rsy6dfzj0y",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "healing",
+              },
+            },
+          },
+        },
+        "cjnztobxf003m01rs5lhqg8qc": Object {
+          "category": "cook",
+          "id": "cjnztobxf003m01rs5lhqg8qc",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "rewarding",
+              },
+            },
+          },
+        },
+        "cjnztobxf003n01rsu9e7iz6o": Object {
+          "category": "cook",
+          "id": "cjnztobxf003n01rsu9e7iz6o",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "ensure",
+              },
+            },
+          },
+        },
+        "cjnztobxf003o01rs6734vek5": Object {
+          "category": "cook",
+          "id": "cjnztobxf003o01rs6734vek5",
+          "li": Object {
+            "liDocument": Object {
+              "createdAt": "2018-11-02T09:34:31.779Z",
+              "createdBy": "ac-select",
+              "liType": "li-wordSelect",
+              "payload": Object {
+                "color": "#FFFF00",
+                "word": "cater",
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  "structure": "individual",
+}
+`;
+
+exports[`Add categories, actual data 1`] = `
+Object {
+  "payload": Object {
+    "all": Object {
+      "config": Object {},
+      "data": Array [
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r0018l0iz1fhuqry2",
+          "li": "cjvm7qk460017l0iz63iz8ghg",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r0019l0izp3ehqp1t",
+          "li": "cjvm7qk3v0016l0izb6kqi2eg",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001al0iz01jousfs",
+          "li": "cjvm7qk3v0015l0izdypbu02r",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001bl0izdsucd477",
+          "li": "cjvm7qk3r0011l0izmzigrnbo",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001cl0iz7wyccuua",
+          "li": "cjvm7qk3s0012l0izbpw5vk1e",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001dl0izlij1jpz4",
+          "li": "cjvm7qk3p000zl0iz9jotmdsx",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001el0iztekbvuzj",
+          "li": "cjvm7qk3u0014l0iz4qw18xqn",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001fl0izz7ont0vt",
+          "li": "cjvm7qk3t0013l0izv3sxdotq",
+        },
+        Object {
+          "category": undefined,
+          "id": "cjvm7ra5r001gl0izt9drc16p",
+          "li": "cjvm7qk3q0010l0iz9qa2o373",
+        },
+      ],
+    },
+  },
+  "structure": "all",
+}
+`;
