@@ -488,7 +488,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   // there is a link to a page that has not yet been formally created, until
   // clicked upon, but we still keep track of it.
   addNonActivePage = title => {
-    const existingPage = wikiStore.pagesByTitle[title];
+    const sanitizedTitle = sanitizeTitle(title);
+    const existingPage = wikiStore.pagesByTitle[sanitizedTitle];
     if (existingPage) {
       return { liId: existingPage.liId, pageId: existingPage.id };
     }
@@ -496,7 +497,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const liId = createNewLI(this.wikiId, liType, undefined, title);
     const pageId = addNewWikiPage(
       this.wikiDoc,
-      sanitizeTitle(title),
+      sanitizedTitle,
       false,
       liType,
       liId,
