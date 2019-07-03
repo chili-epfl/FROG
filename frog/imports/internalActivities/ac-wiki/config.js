@@ -88,7 +88,6 @@ class ConfigComponent extends React.Component<
           }}
           schema={{
             type: 'object',
-            required: ['wiki', 'page'],
             properties: {
               wiki: { type: 'string', title: 'Wiki' },
               page: {
