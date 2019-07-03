@@ -189,6 +189,23 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
+        if (query.userid) {
+          this.setState({ mode: 'loggingIn' });
+          Meteor.call('frog.userid.login', query.userid, (err, res) => {
+            if (err) {
+              this.setState({ mode: 'noSession' });
+              return;
+            }
+            subscriptionCallback(
+              err,
+              res,
+              x => this.setState({ mode: x }),
+              false
+            );
+            this.setState({ mode: 'ready' });
+          });
+          return;
+        }
         const username =
           query.login ||
           query.researchLogin ||
@@ -235,22 +252,6 @@ const FROGRouter = withRouter(
             });
           }
           if (!username && this.state.mode !== 'ready') {
-            if (query.userid) {
-              this.setState({ mode: 'loggingIn' });
-              Meteor.call('frog.userid.login', query.userid, (err, res) => {
-                if (err) {
-                  this.setState({ mode: 'noSession' });
-                  return;
-                }
-                subscriptionCallback(
-                  err,
-                  res,
-                  x => this.setState({ mode: x }),
-                  false
-                );
-                this.setState({ mode: 'ready' });
-              });
-            }
             if (!query.reset) {
               let storedLoginToken;
               try {
