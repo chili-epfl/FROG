@@ -235,20 +235,15 @@ const FROGRouter = withRouter(
             });
           }
           if (!username && this.state.mode !== 'ready') {
-            if (query.userid) {
-              this.setState({ mode: 'loggingIn' });
+            if(query.userid) {
+              this.setState({mode: 'loggingIn'});
               Meteor.call('frog.userid.login', query.userid, (err, res) => {
-                if (err) {
-                  this.setState({ mode: 'noSession' });
+                if(err) {
+                  this.setState({ mode: 'noSession'});
                   return;
                 }
-                subscriptionCallback(
-                  err,
-                  res,
-                  x => this.setState({ mode: x }),
-                  false
-                );
-                this.setState({ mode: 'ready' });
+                subscriptionCallback(err, res, x => this.setState({ mode: x }), false);
+                this.setState({ mode: 'ready'});
               });
             }
             if (!query.reset) {
