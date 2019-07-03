@@ -305,7 +305,7 @@ const FROGRouter = withRouter(
               <Route path="/wiki" component={WikiRouter} />
               <Route path="/teacher/projector/:slug" component={StudentView} />
               <Route path="/teacher/" component={TeacherContainer} />
-              <Route path="/single_activity" component={SingleActivity} />
+              <Route path="/" component={SingleActivity} />
               <Route
                 render={() => (
                   <h3>
@@ -321,8 +321,8 @@ const FROGRouter = withRouter(
               <Route path="/wiki" component={WikiRouter} />
               <Route path="/teacher/projector/:slug" component={StudentView} />
               <Route path="/teacher/" component={TeacherContainer} />
-              <Route path="/single_activity" component={SingleActivity} />
               <Route path="/:slug" component={StudentView} />
+              <Route path="/" component={SingleActivity} />
               <Route
                 render={() =>
                   LocalSettings.follow ? (

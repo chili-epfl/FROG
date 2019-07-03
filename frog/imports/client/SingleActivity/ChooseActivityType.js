@@ -37,7 +37,7 @@ function ChooseActivityType(
       <Typography variant="h5" component="h2">
         Let's start by choosing an activity type
       </Typography>
-      <GridList cols="4" spacing="8">
+      <GridList cols={4} spacing={8}>
         {list.map(x => (
           <GridListTile
             key={x.id}
