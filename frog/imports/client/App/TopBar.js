@@ -115,7 +115,7 @@ class TopBarController extends React.Component<
 > {
   routes = [
     { name: 'Graph Editor', to: '/teacher/graph' },
-    { name: 'Sessions', to: '/teacher/orchestration' },
+    { name: 'Sessions', to: '/t/' },
     {
       name: 'Activity Preview',
       to: '/teacher/preview'

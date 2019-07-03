@@ -41,8 +41,8 @@ function Finish(
       </Typography>
       <Typography variant="h4" component="h3" className={classes.padded_text}>
         Here's a secret link to your behind-the-scene view of the dashboard:{' '}
-        <Link to={'/' + url.dashboard}>
-          {BASE_URL + '/' + url.dashboard + '?userid=' + Meteor.userId()}
+        <Link to={'/' + url.dashboard + '?u=' + Meteor.userId()}>
+          {BASE_URL + '/' + url.dashboard + '?u=' + Meteor.userId()}
         </Link>
       </Typography>
     </Card>

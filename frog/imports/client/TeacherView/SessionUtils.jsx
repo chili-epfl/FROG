@@ -120,7 +120,7 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
           <MenuItem
             onClick={() => {
               this.props.history.push(
-                '/teacher/orchestration' + LocalSettings.UrlCoda
+                '/t/' + LocalSettings.UrlCoda
               );
               setTeacherSession(undefined);
             }}

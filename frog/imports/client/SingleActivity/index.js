@@ -71,7 +71,7 @@ class SingleActivity extends React.Component<{}, StateT> {
           <Finish
             url={{
               public: slug,
-              dashboard: 'teacher/orchestration/' + slug
+              dashboard: 't/' + slug
             }}
             onReturn={() => this.setState({ stage: this.state.stage - 2 })}
           />
