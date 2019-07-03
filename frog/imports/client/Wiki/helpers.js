@@ -123,10 +123,23 @@ const listPages = (wikiId: string) => {
             key =>
               wikiDoc.data.pages[key].created && wikiDoc.data.pages[key].valid
           )
-          .map(key => [wikiDoc.data.pages[key].title, key])
+          .map(key => [
+            wikiDoc.data.pages[key].title,
+            key,
+            wikiDoc.data.pages[key].plane
+          ])
       );
     })
   );
+};
+/**
+ * Function that removes the leading and trailing spaces from the given string.
+ * @param {string} title
+ * @return {string} the sanitized i.e. trimmed title with extra spaces in between words also removed
+ */
+
+const sanitizeTitle = (title: string): string => {
+  return title.replace(/\s+/g, ' ').trim();
 };
 
 export {
@@ -137,5 +150,6 @@ export {
   getDifferentPageId,
   getPageDetailsForLiId,
   listWikis,
-  listPages
+  listPages,
+  sanitizeTitle
 };
