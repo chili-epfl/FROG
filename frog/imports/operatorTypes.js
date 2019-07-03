@@ -4,9 +4,7 @@ import importAll from 'import-all.macro';
 import { type operatorPackageT, entries, values } from 'frog-utils';
 
 const packagesRaw = importAll.sync('../node_modules/op-*/src/index.js');
-const packagesRawInternal = importAll.sync(
-  './internalOperators/op-*/index.js'
-);
+const packagesRawInternal = importAll.sync('./internalOperators/op-*/index.js');
 
 const operatorsExt = entries(packagesRaw).reduce(
   (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
