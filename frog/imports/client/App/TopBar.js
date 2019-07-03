@@ -166,7 +166,9 @@ class TopBarController extends React.Component<
             </Tabs>
             <h3>
               {LocalSettings.researchLogin ? ' * ' : ''}
-              {Meteor.user().isAnonymous ? 'Anonymous Visitor' : Meteor.user().username}
+              {Meteor.user().isAnonymous
+                ? 'Anonymous Visitor'
+                : Meteor.user().username}
             </h3>
             <LogoutMenu history={this.props.history} />
           </Toolbar>

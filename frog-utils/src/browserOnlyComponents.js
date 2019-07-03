@@ -1,5 +1,5 @@
 // @flow
-/***
+/** *
  * This file specifies a number of components that should only be available when
  * frog-utils is accessed from a browser instance. If this is not the case, the
  * components will be replaced with dummy alternatives.
