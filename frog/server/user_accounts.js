@@ -81,9 +81,8 @@ Meteor.methods({
   },
   'frog.userid.login': function(userId) {
     const self = this;
-    const userDoc = Meteor.users.findOne({ '_id': userId });
-    if(!userDoc)
-    {
+    const userDoc = Meteor.users.findOne({ _id: userId });
+    if (!userDoc) {
       throw new Meteor.Error('Unable to find any user with the given userId');
     }
     const result = Accounts._loginUser(self, userId);
