@@ -286,6 +286,8 @@ const FROGRouter = withRouter(
           return (
             <Switch>
               <Route path="/wiki" component={WikiRouter} />
+              <Route path="/teacher/projector/:slug" component={StudentView} />
+              <Route path="/teacher/" component={TeacherContainer} />
               <Route path="/single_activity" component={SingleActivity} />
               <Route
                 render={() => (
