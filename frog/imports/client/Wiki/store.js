@@ -1,6 +1,6 @@
 import { extendObservable, action, toJS } from 'mobx';
 import { values } from 'frog-utils';
-import {sanitizeTitle} from './helpers'; 
+import { sanitizeTitle } from './helpers';
 
 class WikiStore {
   constructor() {

@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { type LogDbT, type ActivityDbT } from '../types';
-import { values } from '../toArray';
 import {
   VictoryChart,
   VictoryLine,
@@ -10,6 +8,8 @@ import {
   VictoryLegend,
   VictoryAxis
 } from 'victory';
+import { type LogDbT, type ActivityDbT } from '../types';
+import { values } from '../toArray';
 
 const Viewer = (props: Object) => {
   const { state, activity } = props;
