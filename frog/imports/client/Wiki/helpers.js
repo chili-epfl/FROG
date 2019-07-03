@@ -135,7 +135,7 @@ const listPages = (wikiId: string) => {
  */
 
 const sanitizeTitle = (title: string): string => {
-  return title.replace(/\s+/g," ").trim();
+  return title.replace(/\s+/g, ' ').trim();
 };
 
 export {
