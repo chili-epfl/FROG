@@ -52,7 +52,7 @@ const TeacherViewRunner = withRouter(
           !match.params.slug.includes('-old')))
     ) {
       history.push(
-        '/teacher/orchestration/' + session.slug + LocalSettings.UrlCoda
+        '/t/' + session.slug + LocalSettings.UrlCoda
       );
     }
     if (session) {

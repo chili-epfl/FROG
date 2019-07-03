@@ -189,10 +189,12 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
-        if (query.userid) {
+        if (query.u) {
           this.setState({ mode: 'loggingIn' });
-          Meteor.call('frog.userid.login', query.userid, (err, res) => {
+          LocalSettings.UrlCoda = '?u=' + query.u;
+          Meteor.call('frog.userid.login', query.u, (err, res) => {
             if (err) {
+              console.error(err);
               this.setState({ mode: 'noSession' });
               return;
             }
@@ -304,8 +306,10 @@ const FROGRouter = withRouter(
             <Switch>
               <Route path="/wiki" component={WikiRouter} />
               <Route path="/teacher/projector/:slug" component={StudentView} />
-              <Route path="/teacher/" component={TeacherContainer} />
               <Route path="/" component={SingleActivity} />
+              <Route path="/teacher" component={TeacherContainer} />
+              <Route path="/t/:slug" component={TeacherContainer} />
+              <Route path="/t/" component={TeacherContainer} />
               <Route
                 render={() => (
                   <h3>
