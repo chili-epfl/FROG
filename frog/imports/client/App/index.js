@@ -266,9 +266,8 @@ const FROGRouter = withRouter(
               }
             }
             if (
-              this.props.match.params.slug &&
-              (this.props.match.params.slug.slice(0, 4) === 'wiki' ||
-                this.props.match.params.slug.slice(0, 15) === 'single_activity')
+              !this.props.match.params.slug ||
+              this.props.match.params.slug.slice(0, 4) === 'wiki'
             ) {
               this.login({});
             } else if (this.props.match.params.slug) {
