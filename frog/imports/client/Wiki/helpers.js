@@ -131,11 +131,11 @@ const listPages = (wikiId: string) => {
 /**
  * Function that removes the leading and trailing spaces from the given string.
  * @param {string} title
- * @return {string} the sanitized i.e. trimmed title
+ * @return {string} the sanitized i.e. trimmed title with extra spaces in between words also removed
  */
 
 const sanitizeTitle = (title: string): string => {
-  return title.trim();
+  return title.replace(/\s+/g," ").trim();
 };
 
 export {
