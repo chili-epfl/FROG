@@ -91,7 +91,7 @@ class WikiContentComp extends React.Component<> {
     ) {
       this.props.changeTitle(this.props.currentPageObj.id, pageTitleString);
       this.setState({
-        pageTitleString,
+        pageTitleString: sanitizeTitle(pageTitleString),
         editingTitle: false,
         showTitleEditButton: false,
         error:

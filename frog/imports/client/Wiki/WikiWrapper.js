@@ -4,6 +4,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { toObject as queryToObject } from 'query-parse';
 import Wiki, { type PageObjT } from './index';
+import {sanitizeTitle} from './helpers'; 
 
 type PropsT = {
   location: *,
@@ -19,8 +20,8 @@ const decodePageTitle = (currentTitle: string): string => {
   if (decodeURIComponent(currentTitle) === 'undefined') {
     return 'Home';
   }
-
-  return decodeURIComponent(currentTitle);
+  const sanitizedCurrentTitle = sanitizeTitle(currentTitle)
+  return decodeURIComponent(sanitizedCurrentTitle);
 };
 
 /**

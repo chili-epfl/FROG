@@ -370,7 +370,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.props.setPage(
       {
         wikiId: this.wikiId,
-        pageTitle: newPageTitle,
+        pageTitle: sanitizeTitle(newPageTitle),
         instance: this.props.pageObj.instance
       },
       true
