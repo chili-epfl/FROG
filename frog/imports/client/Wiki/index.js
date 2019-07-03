@@ -221,7 +221,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!fullPageObj) {
       this.initialLoad = true;
-      this.createPage(pageTitle, true);
+      this.createPage(pageTitle, 3);
       return;
     }
 
