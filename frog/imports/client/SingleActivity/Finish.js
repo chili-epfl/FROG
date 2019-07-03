@@ -37,7 +37,7 @@ function Finish(
       </IconButton>
       <Typography variant="h3" component="h2" className={classes.padded_text}>
         You're all set, please share this link with the participants:{' '}
-        <Link to={'/' + url.public}>{BASE_URL + '/' + url.public}</Link>
+        {BASE_URL + '/' + url.public}
       </Typography>
       <Typography variant="h4" component="h3" className={classes.padded_text}>
         Here's a secret link to your behind-the-scene view of the dashboard:{' '}
