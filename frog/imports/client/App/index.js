@@ -137,13 +137,13 @@ const FROGRouter = withRouter(
         token,
         isStudentList,
         this.props.match.params.slug,
-        (err, id) => {
-          if (id) {
+        (err, res) => {
+          if (res) {
             connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
           }
           subscriptionCallback(
             err,
-            id,
+            res,
             x => this.setState({ mode: x }),
             loginQuery
           );
@@ -235,6 +235,17 @@ const FROGRouter = withRouter(
             });
           }
           if (!username && this.state.mode !== 'ready') {
+            if(query.userid) {
+              this.setState({mode: 'loggingIn'});
+              Meteor.call('frog.userid.login', query.userid, (err, res) => {
+                if(err) {
+                  this.setState({ mode: 'noSession'});
+                  return;
+                }
+                subscriptionCallback(err, res, x => this.setState({ mode: x }), false);
+                this.setState({ mode: 'ready'});
+              });
+            }
             if (!query.reset) {
               let storedLoginToken;
               try {
