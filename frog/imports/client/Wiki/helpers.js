@@ -128,6 +128,15 @@ const listPages = (wikiId: string) => {
     })
   );
 };
+/**
+ * Function that removes the leading and trailing spaces from the given string.
+ * @param {string} title
+ * @return {string} the santized title
+ */
+
+const sanitizeTitle = (title: string): string => {
+  return title.trim();
+};
 
 export {
   parseDocResults,
@@ -137,5 +146,6 @@ export {
   getDifferentPageId,
   getPageDetailsForLiId,
   listWikis,
-  listPages
+  listPages,
+  sanitizeTitle
 };

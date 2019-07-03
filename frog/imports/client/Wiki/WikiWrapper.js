@@ -14,6 +14,15 @@ type PropsT = {
   embed: boolean
 };
 
+// Redirects user to home if they don't specify a page and decodes the page title from the uri
+const decodePageTitle = (currentTitle: string): string => {
+  if (decodeURIComponent(currentTitle) === 'undefined') {
+    return 'Home';
+  }
+
+  return decodeURIComponent(currentTitle);
+};
+
 /**
  * Wraps the wiki for the router and handles URL changes
  */
@@ -22,27 +31,24 @@ function WikiWrapper(props: PropsT) {
     <Wiki
       pageObj={{
         wikiId: props.match.params.wikiId,
-        pageTitle: props.match.params.pageTitle,
+        pageTitle: decodePageTitle(props.match.params.pageTitle),
         instance: props.match.params.instance
       }}
       // Function to navigate to a page
       setPage={(pageObj: PageObjT, replace?: boolean) => {
+        const encodedTitle = encodeURIComponent(pageObj.pageTitle);
         if (pageObj.instance) {
           replace
             ? props.history.replace(
-                `/wiki/${pageObj.wikiId}/${pageObj.pageTitle}/${pageObj.instance}`
+                `/wiki/${pageObj.wikiId}/${encodedTitle}/${pageObj.instance}`
               )
             : props.history.push(
-                `/wiki/${pageObj.wikiId}/${pageObj.pageTitle}/${pageObj.instance}`
+                `/wiki/${pageObj.wikiId}/${encodedTitle}/${pageObj.instance}`
               );
         } else if (pageObj.pageTitle) {
           replace
-            ? props.history.replace(
-                `/wiki/${pageObj.wikiId}/${pageObj.pageTitle}`
-              )
-            : props.history.push(
-                `/wiki/${pageObj.wikiId}/${pageObj.pageTitle}`
-              );
+            ? props.history.replace(`/wiki/${pageObj.wikiId}/${encodedTitle}`)
+            : props.history.push(`/wiki/${pageObj.wikiId}/${encodedTitle}`);
         } else if (pageObj.wikiId) {
           replace
             ? props.history.replace(`/wiki/${pageObj.wikiId}`)

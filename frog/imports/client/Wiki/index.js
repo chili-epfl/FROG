@@ -15,7 +15,12 @@ import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 
 import { connection } from '../App/connection';
-import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
+import {
+  getPageTitle,
+  getDifferentPageId,
+  checkNewPageTitle,
+  sanitizeTitle
+} from './helpers';
 import {
   invalidateWikiPage,
   changeWikiPageTitle,
@@ -102,7 +107,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.decodePageTitle(this.props.pageObj.pageTitle),
+      initialPageTitle: this.props.pageObj.pageTitle,
       mode: 'document',
       docMode: query?.edit ? 'edit' : 'view',
       error: null,
@@ -143,11 +148,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle = this.decodePageTitle(this.props.pageObj.pageTitle);
+    const pageTitle = this.props.pageObj.pageTitle;
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        this.decodePageTitle(prevProps.pageObj.pageTitle) !== pageTitle) ||
+        prevProps.pageObj.pageTitle !== pageTitle) ||
       prevProps.pageObj.instance !== this.props.pageObj.instance
     ) {
       this.goToPageTitle(pageTitle, this.props.pageObj.instance);
@@ -197,25 +202,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
-  decodePageTitle = (currentTitle: string): string => {
-    if (decodeURIComponent(currentTitle) === 'undefined') {
-      this.props.setPage({
-        wikiId: this.wikiId,
-        pageTitle: 'Home'
-      });
-      return 'Home';
-    }
-
-    return decodeURIComponent(currentTitle);
-  };
-
   handleInitialLoad = () => {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
-    const pageTitle = getPageTitle(
-      parsedPages,
-      this.decodePageTitle(this.state.initialPageTitle)
-    );
+    const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
     const pageTitleLower = pageTitle.toLowerCase();
     const fullPageObj = parsedPages[pageTitleLower];
 
@@ -262,7 +252,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
         this.props.setPage({
           wikiId: this.wikiId,
-          pageTitle: encodeURIComponent(currentPageObj.title),
+          pageTitle: currentPageObj.title,
           instance:
             instanceId && instanceId !== this.getInstanceId(fullPageObj)
               ? instanceName
@@ -376,11 +366,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   changeTitle = (pageId, newPageTitle) => {
-    changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
+    changeWikiPageTitle(this.wikiDoc, pageId, sanitizeTitle(newPageTitle));
     this.props.setPage(
       {
         wikiId: this.wikiId,
-        pageTitle: encodeURIComponent(newPageTitle),
+        pageTitle: newPageTitle,
         instance: this.props.pageObj.instance
       },
       true
@@ -438,7 +428,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           this.props.setPage(
             {
               wikiId: this.wikiId,
-              pageTitle: encodeURIComponent(newCurrentPageObj.title),
+              pageTitle: newCurrentPageObj.title,
               instance:
                 instanceId && instanceId !== this.getInstanceId(fullPageObj)
                   ? instanceName
@@ -450,7 +440,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
         this.props.setPage({
           wikiId: this.wikiId,
-          pageTitle: encodeURIComponent(newCurrentPageObj.title),
+          pageTitle: newCurrentPageObj.title,
           instance:
             instanceId && instanceId !== this.getInstanceId(fullPageObj)
               ? instanceName
@@ -461,7 +451,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   goToPageTitle = (pageTitle, instanceName, side) => {
-    const pageTitleLower = pageTitle.toLowerCase();
+    const pageTitleLower = sanitizeTitle(pageTitle.toLowerCase());
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(
       wikiStore.parsedPages[pageTitleLower],
@@ -485,7 +475,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
     const pageId = addNewWikiPage(
       this.wikiDoc,
-      title,
+      sanitizeTitle(title),
       true,
       liType,
       liId,
@@ -504,7 +494,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     const liType = 'li-richText';
     const liId = createNewLI(this.wikiId, liType, undefined, title);
-    const pageId = addNewWikiPage(this.wikiDoc, title, false, liType, liId, 3);
+    const pageId = addNewWikiPage(
+      this.wikiDoc,
+      sanitizeTitle(title),
+      false,
+      liType,
+      liId,
+      3
+    );
     return { liId, pageId };
   };
 

@@ -1,5 +1,6 @@
 import { extendObservable, action, toJS } from 'mobx';
 import { values } from 'frog-utils';
+import {sanitizeTitle} from './helpers'; 
 
 class WikiStore {
   constructor() {
@@ -20,7 +21,7 @@ class WikiStore {
         // eslint-disable-next-line guard-for-in
         for (const pageId in this.pages) {
           const pageObj = this.pages[pageId];
-          pages[pageObj.title.toLowerCase()] = pageObj;
+          pages[sanitizeTitle(pageObj.title.toLowerCase())] = pageObj;
         }
         return pages;
       },
