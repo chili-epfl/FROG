@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { type LogDbT, type ActivityDbT, values } from 'frog-utils';
+import { type LogDbT, type ActivityDbT } from '../types';
+import { values } from '../toArray';
 import {
   VictoryChart,
   VictoryLine,

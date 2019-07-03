@@ -221,7 +221,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!fullPageObj) {
       this.initialLoad = true;
-      this.createPage(pageTitle, true);
+      this.createPage(pageTitle, 3);
       return;
     }
 
@@ -276,7 +276,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (!fullPageObj || fullPageObj.plane === 3) return fullPageObj;
 
     const instanceObj = fullPageObj.instances[instanceId];
-    if (!instanceObj) return null;
+    if (!instanceObj) {
+      if (fullPageObj.noNewInstances) {
+        return fullPageObj;
+      } else {
+        return null;
+      }
+    }
 
     const mergedObj = Object.assign({}, fullPageObj, instanceObj);
     return mergedObj;
@@ -301,6 +307,18 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         return instanceObj.instanceName;
     }
 
+    return null;
+  };
+
+  getInstanceNameForUser = pageObj => {
+    if (pageObj.plane === 1) return Meteor.user().username;
+    if (pageObj.plane === 2) {
+      const userId = Meteor.userId();
+      const groupNumber = findKey(pageObj.socialStructure, x =>
+        x.includes(userId)
+      );
+      return pageObj.groupingAttribute + ' ' + groupNumber;
+    }
     return null;
   };
 
@@ -386,7 +404,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           },
           () => {
             if (foreignInstanceId) return;
-            const instanceName = Meteor.user().username;
+            const instanceName = this.getInstanceNameForUser(fullPageObj);
             this.preventRenderUntilNextShareDBUpdate = true;
             this.createNewInstancePage(fullPageObj, instanceId, instanceName);
           }

@@ -6,7 +6,18 @@ const operatorsRaw = importAll.sync(
   '../node_modules/op-*/src/operatorRunner?(.js)'
 );
 
-export default entries(operatorsRaw).reduce(
+const operatorsRawInternal = importAll.sync(
+  '../imports/internalOperators/*/operatorRunner?(.js)'
+);
+
+const operatorsExt = entries(operatorsRaw).reduce(
   (acc, [k, v]) => ({ ...acc, [k.split('/')[2]]: v.default }),
   {}
 );
+
+const operatorRunners = entries(operatorsRawInternal).reduce(
+  (acc, [k, v]) => ({ ...acc, [k.split('/')[3]]: v.default }),
+  operatorsExt
+);
+
+export default operatorRunners;
