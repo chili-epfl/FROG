@@ -6,7 +6,7 @@ import { ExpandMore } from '@material-ui/icons';
 
 import type { ObjectFieldTemplatePropsT } from '../types';
 
-const generateStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(0, 3),
     borderBottom: `1px ${theme.palette.grey[300]} solid`
@@ -38,7 +38,7 @@ const generateStyles = makeStyles(theme => ({
  * @param {ObjectFieldTemplatePropsT} props
  */
 export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
-  const classes = generateStyles();
+  const classes = useStyles();
   const [expand, setExpand] = React.useState(false);
 
   const title = props.title || props.uiSchema['ui:title'];

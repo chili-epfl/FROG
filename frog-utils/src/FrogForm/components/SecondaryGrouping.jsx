@@ -5,7 +5,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 
 import type { ObjectFieldTemplatePropsT } from '../types';
 
-const generateStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(12, 1fr)',
@@ -35,7 +35,7 @@ const generateStyles = makeStyles(theme => ({
  * @param {ObjectFieldTemplatePropsT} props
  */
 export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
-  const classes = generateStyles();
+  const classes = useStyles();
 
   const title = props.title || props.uiSchema['ui:title'];
   const description = props.description;
