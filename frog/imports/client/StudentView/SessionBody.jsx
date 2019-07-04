@@ -90,7 +90,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
               className={classes.button}
               color="inherit"
               onClick={() => {}}
-              href="/t/"
+              href="/t"
               target="_blank"
             >
               Orchestration View
