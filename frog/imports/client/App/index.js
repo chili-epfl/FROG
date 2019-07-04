@@ -20,7 +20,6 @@ import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
 
-import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
@@ -267,8 +266,7 @@ const FROGRouter = withRouter(
             }
             if (
               !this.props.match.params.slug ||
-              this.props.match.params.slug.slice(0, 4) === 'wiki' ||
-              this.props.match.params.slug.slice(0, 1) === 't'
+              this.props.match.params.slug.slice(0, 4) === 'wiki'
             ) {
               this.login({});
             } else if (this.props.match.params.slug) {
@@ -354,14 +352,14 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'noSession') {
         return <h1>No such session exists</h1>;
       }
-      return this.state.mode === 'studentlist' && this.state.settings ? (
-        <StudentLogin
-          settings={this.state.settings}
-          login={this.login}
-          slug={this.props.match.params.slug}
-        />
-      ) : (
-        <NotLoggedIn login={this.login} />
+      return (
+        this.state.mode === 'studentlist' && (
+          <StudentLogin
+            settings={this.state.settings}
+            login={this.login}
+            slug={this.props.match.params.slug}
+          />
+        )
       );
     }
   }
