@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
+import { LocalSettings } from '/imports/api/settings';
 import { type PropsT } from './types';
 import { style } from './style';
 
@@ -27,6 +28,8 @@ function Finish(
   } & PropsT
 ) {
   const { url, classes } = props;
+
+  LocalSettings.UrlCoda = '?u=' + Meteor.userId();
   return (
     <Card raised className={classes.card}>
       <IconButton
@@ -37,11 +40,13 @@ function Finish(
       </IconButton>
       <Typography variant="h3" component="h2" className={classes.padded_text}>
         You're all set, please share this link with the participants:{' '}
-        <Link to={'/' + url.public}>{BASE_URL + '/' + url.public}</Link>
+        {BASE_URL + '/' + url.public}
       </Typography>
       <Typography variant="h4" component="h3" className={classes.padded_text}>
         Here's a secret link to your behind-the-scene view of the dashboard:{' '}
-        <Link to={'/' + url.dashboard}>{BASE_URL + '/' + url.dashboard}</Link>
+        <Link to={'/' + url.dashboard + '?u=' + Meteor.userId()}>
+          {BASE_URL + '/' + url.dashboard + '?u=' + Meteor.userId()}
+        </Link>
       </Typography>
     </Card>
   );

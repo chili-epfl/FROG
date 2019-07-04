@@ -60,7 +60,8 @@ class ConfigPanel extends React.Component<
             className={classes.button}
             onClick={() => this.props.onSubmit(this.state.activity)}
             disabled={
-              this.state.activity?.errors && this.state.activity?.errors.length
+              this.state.activity?.errors &&
+              !!this.state.activity?.errors.length
             }
           >
             Publish
