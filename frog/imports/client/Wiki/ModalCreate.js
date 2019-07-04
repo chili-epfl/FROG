@@ -262,7 +262,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                   'ac-gallery',
                   'ac-brainstorm',
                   'ac-quiz',
-                  'ac-ck-board'
+                  'ac-ck-board',
+                  'ac-text'
                 ]}
                 config={this.state.activityConfig?.config}
                 activityType={this.state.activityConfig?.activityType}
@@ -271,7 +272,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                   'ac-gallery': 'Core',
                   'ac-brainstorm': 'Other',
                   'ac-quiz': 'Core',
-                  'ac-ck-board': 'Core'
+                  'ac-ck-board': 'Core',
+                  'ac-text': 'Core'
                 }}
                 noOffset
                 showDelete

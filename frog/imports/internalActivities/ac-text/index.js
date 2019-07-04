@@ -42,12 +42,18 @@ export const config = {
       description: 'Specify the title and text content of the activity',
       properties: {
         title: {
-          type: 'string',
-          title: 'Title'
-        },
-        text: {
-          type: 'rte',
-          title: 'Text'
+          type: 'object',
+          description: 'The title is key, try to make it memorable',
+          properties: {
+            title: {
+              type: 'string',
+              title: 'Title'
+            },
+            text: {
+              type: 'rte',
+              title: 'Text'
+            }
+          }
         }
       }
     }
