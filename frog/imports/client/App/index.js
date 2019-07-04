@@ -13,8 +13,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch,
-  Link
+  Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -299,52 +298,21 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && user) {
-        if (user.isAnonymous)
-          return (
-            <Switch>
-              <Route path="/wiki" component={WikiRouter} />
-              <Route path="/teacher/projector/:slug" component={StudentView} />
-              <Route path="/teacher" component={TeacherContainer} />
-              <Route path="/t/:slug" component={TeacherContainer} />
-              <Route path="/t" component={TeacherContainer} />
-              <Route path="/:slug" component={StudentView} />
-              <Route path="/" component={SingleActivity} />
-              <Route
-                render={() => (
-                  <h3>
-                    Dear Guest, please register on FROG to access this page.
-                  </h3>
-                )}
-              />
-            </Switch>
-          );
-        else
-          return (
-            <Switch>
-              <Route path="/wiki" component={WikiRouter} />
-              <Route path="/teacher/projector/:slug" component={StudentView} />
-              <Route path="/teacher/" component={TeacherContainer} />
-              <Route path="/t/:slug" component={TeacherContainer} />
-              <Route path="/t" component={TeacherContainer} />
-              <Route path="/:slug" component={StudentView} />
-              <Route path="/" component={SingleActivity} />
-              <Route
-                render={() =>
-                  LocalSettings.follow ? (
-                    <StudentView />
-                  ) : (
-                    <h3>
-                      Welcome to FROG. You are logged in as{' '}
-                      {Meteor.user().username}. If you want to access the
-                      teacher view, go to <Link to="/teacher">/teacher</Link>,
-                      otherwise go to the /SLUG of the session you are a student
-                      of
-                    </h3>
-                  )
-                }
-              />
-            </Switch>
-          );
+        return (
+          <Switch>
+            <Route path="/wiki" component={WikiRouter} />
+            <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/t/:slug" component={TeacherContainer} />
+            <Route path="/t" component={TeacherContainer} />
+            <Route path="/:slug" component={StudentView} />
+            <Route
+              render={() =>
+                LocalSettings.follow ? <StudentView /> : <SingleActivity />
+              }
+            />
+          </Switch>
+        );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
