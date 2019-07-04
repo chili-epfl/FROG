@@ -265,6 +265,7 @@ class WikiContentComp extends React.Component<> {
                 >
                   {this.props.currentPageObj?.liId && (
                     <LearningItem
+                      disableDragging
                       type={this.state.docMode}
                       id={this.props.currentPageObj.liId}
                     />

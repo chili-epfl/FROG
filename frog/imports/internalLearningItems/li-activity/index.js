@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Fab } from '@material-ui/core';
 import { activityTypesObj } from '/imports/activityTypes';
-import { type LearningItemT, isBrowser } from 'frog-utils';
+import { type LearningItemT, isBrowser, uuid } from 'frog-utils';
 
 let activityRunners = {};
 let ReactiveHOC = () => undefined;
@@ -35,6 +35,26 @@ const Viewer = ({ data }) => {
   );
 };
 
+const duplicate = async (li, dataFn, meta, instanceId) => {
+  const rootRz = li.liDocument.payload.rz;
+  const acData = await new Promise(resolve => {
+    const ac = dataFn.doc.connection.get('rz', rootRz);
+    ac.fetch();
+    if (ac.type) {
+      resolve(ac.data);
+    }
+    ac.once('load', () => {
+      resolve(ac.data);
+    });
+  });
+  const rz = rootRz + '/' + instanceId;
+  const activityPointer = dataFn.doc.connection.get('rz', rz);
+  activityPointer.create(acData || {});
+  const payload = li.liDocument.payload;
+  const res = { ...payload, rz };
+  return dataFn.createLearningItem('li-activity', res, meta, true);
+};
+
 export default ({
   name: 'FROG Activity',
   id: 'li-activity',
@@ -58,5 +78,6 @@ export default ({
   search: (data, search) =>
     data.title.toLowerCase().includes(search) ||
     data.content.toLowerCase().includes(search),
-  disableDragging: true
+  disableDragging: true,
+  duplicate
 }: LearningItemT<{ title: string, content: string }>);
