@@ -26,8 +26,8 @@ import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
-import {loginUser} from '../../api/accountManagement'; 
- 
+import { loginUser } from '../../api/accountManagement';
+
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
