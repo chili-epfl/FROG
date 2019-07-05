@@ -300,6 +300,7 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'ready' && user) {
         return (
           <Switch>
+            <Route path="/duplicate" component={SingleActivity} />
             <Route path="/wiki" component={WikiRouter} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />

@@ -23,7 +23,8 @@ class ConfigPanel extends React.Component<
   {
     activityType: ActivityPackageT,
     onSubmit: Function,
-    onReturn: Function
+    onReturn: Function,
+    data?: Object
   } & PropsT,
   { activity?: ActivityDbT }
 > {
@@ -34,7 +35,8 @@ class ConfigPanel extends React.Component<
 
   render() {
     const { id, config } = this.props.activityType;
-    const { classes } = this.props;
+    const { classes, data } = this.props;
+    console.log(id, config, data);
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">

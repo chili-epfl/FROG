@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { InjectData } from 'meteor/staringatlights:inject-data';
 import Grow from '@material-ui/core/Grow';
 import TopBar from './TopBar';
 import Welcome from './Welcome';
@@ -16,13 +17,26 @@ import { type StateT } from './types';
 class SingleActivity extends React.Component<{}, StateT> {
   constructor() {
     super();
+
     this.state = {
       stage: 1
     };
   }
 
+  componentDidMount = () => {
+    InjectData.getData('duplicate', data => {
+      if (data) {
+        this.setState({
+          stage: 2,
+          activityType: data.activityType,
+          config: data.config
+        });
+      }
+    });
+  };
+
   render() {
-    const { stage, slug, activityType } = this.state;
+    const { stage, slug, config, sessionId, activityType } = this.state;
     return (
       <>
         <TopBar />
@@ -39,6 +53,7 @@ class SingleActivity extends React.Component<{}, StateT> {
         <Grow in={stage === 2} unmountOnExit>
           <ConfigPanel
             activityType={activityType}
+            data={config}
             onSubmit={conf => {
               this.setState({ stage: this.state.stage + 1, activity: conf });
               Meteor.call(
@@ -55,7 +70,8 @@ class SingleActivity extends React.Component<{}, StateT> {
                   } else {
                     this.setState({
                       stage: this.state.stage + 1,
-                      slug: res.slug
+                      slug: res.slug,
+                      sessionId: res.sessionId
                     });
                   }
                 }
@@ -69,10 +85,8 @@ class SingleActivity extends React.Component<{}, StateT> {
         </Grow>
         <Grow in={stage === 4} unmountOnExit>
           <Finish
-            url={{
-              public: slug,
-              dashboard: 't/' + slug
-            }}
+            slug={slug}
+            sessionId={sessionId}
             onReturn={() => this.setState({ stage: this.state.stage - 2 })}
           />
         </Grow>
