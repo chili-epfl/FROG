@@ -193,7 +193,6 @@ WebApp.connectHandlers.use('/duplicate/', (request, response, next) => {
   if (!session || !session.simpleConfig) {
     response.end();
   }
-  console.log('duplicate', session.simpleConfig);
   InjectData.pushData(request, 'duplicate', session.simpleConfig);
   next();
 });

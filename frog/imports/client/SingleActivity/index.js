@@ -29,7 +29,7 @@ class SingleActivity extends React.Component<{}, StateT> {
         this.setState({
           stage: 2,
           activityType: data.activityType,
-          config: data.config
+          config: data
         });
       }
     });
