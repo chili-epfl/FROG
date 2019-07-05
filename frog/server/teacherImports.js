@@ -5,13 +5,13 @@ import {
   Activities,
   Connections,
   DashboardData
-} from '../imports/api/activities.js';
-import { UploadList } from '../imports/api/openUploads.js';
-import { Operators, ExternalOperators } from '../imports/api/operators.js';
-import { Graphs } from '../imports/api/graphs.js';
-import { Sessions } from '../imports/api/sessions.js';
-import { Products } from '../imports/api/products.js';
-import { Objects } from '../imports/api/objects.js';
+} from '../imports/api/activities';
+import { UploadList } from '../imports/api/openUploads';
+import { Operators, ExternalOperators } from '../imports/api/operators';
+import { Graphs } from '../imports/api/graphs';
+import { Sessions } from '../imports/api/sessions';
+import { Products } from '../imports/api/products';
+import { Objects } from '../imports/api/objects';
 
 const teacherPublish = (publish, collection, limitation) => {
   Meteor.publish(publish, function() {

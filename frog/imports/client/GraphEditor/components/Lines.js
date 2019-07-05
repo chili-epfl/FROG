@@ -3,7 +3,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 
 import { connect, type StoreProp } from '../store';
-import Connection from '../store/connection.js';
+import Connection from '../store/connection';
 
 export const Line = observer(
   ({ connection, scaled }: { connection: Connection, scaled: boolean }) => (

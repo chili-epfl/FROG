@@ -2,7 +2,7 @@ import lodash from 'lodash';
 
 import ShareDB from 'sharedb';
 import operator from '../operatorRunner';
-import { generateReactiveFn } from '../../../../frog/imports/api/generateReactiveFn.js';
+import { generateReactiveFn } from '../../../../frog/imports/api/generateReactiveFn';
 
 lodash.shuffle = jest.fn(x => [...x].sort());
 jest.spyOn(Date, 'now').mockImplementation(() => 1479427200000);
