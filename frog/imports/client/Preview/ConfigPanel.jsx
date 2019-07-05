@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from 'frog-utils';
-import { isEqual, debounce } from 'lodash';
+import { isEqual } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -151,8 +151,6 @@ class ConfigPanel extends React.Component<*, *> {
     this.forceUpdate();
   };
 
-  onConfigChangeDebounced = debounce(this.onConfigChange, 500);
-
   shouldComponentUpdate = (nextProps: any) => {
     const { activityId, metadatas, config } = this.props;
     return (
@@ -178,7 +176,6 @@ class ConfigPanel extends React.Component<*, *> {
       setActivityTypeId
     } = this.props;
 
-    this.onConfigChangeDebounced.cancel();
     setActivityTypeId(null);
     setExample(0);
     setConfig({});
@@ -289,7 +286,7 @@ class ConfigPanel extends React.Component<*, *> {
             hidePreview
             {...{ config, setConfig, setActivityTypeId, setMetadatas }}
             activityType={activityTypeId}
-            onConfigChange={this.onConfigChangeDebounced}
+            onConfigChange={this.onConfigChange}
             onSelect={this.onSelectActivityType}
             key={reloadAPIform + activityTypeId}
           />

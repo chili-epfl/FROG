@@ -1,5 +1,5 @@
 import ShareDB from 'sharedb';
-import { generateReactiveFn } from '../../../../frog/imports/api/generateReactiveFn.js';
+import { generateReactiveFn } from '../../../../frog/imports/api/generateReactiveFn';
 import op from '../operatorRunner';
 
 jest.spyOn(Date, 'now').mockImplementation(() => 1479427200000);

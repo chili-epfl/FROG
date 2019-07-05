@@ -1,5 +1,5 @@
-import object from '../__fixtures__/object.js';
-import sumObject from '../__fixtures__/objectScore.js';
+import object from '../__fixtures__/object';
+import sumObject from '../__fixtures__/objectScore';
 import operator from '../operatorRunner';
 
 const op = operator;
