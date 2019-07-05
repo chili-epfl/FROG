@@ -63,7 +63,6 @@ export default withTracker(() => {
     'externalOperators'
   ];
 
-
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   const extOp = ExternalOperators.find({}).fetch();
   extOp.forEach(ext => {

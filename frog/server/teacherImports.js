@@ -21,11 +21,7 @@ const teacherPublish = (publish, collection, limitation) => {
 
 const teacherPublishOwn = (publish, collection) => {
   Meteor.publish(publish, function() {
-    
-      return collection.find({ ownerId: this.userId });
- 
-   
-    
+    return collection.find({ ownerId: this.userId });
   });
 };
 
@@ -57,9 +53,8 @@ export default function() {
   teacherPublish('uploadList', UploadList);
   teacherPublishOwn('graphs', Graphs, this.userId);
   teacherPublishOwn('sessions', Sessions, this.userId);
- }
+}
 
 Meteor.methods({
-
   'get.object.product': id => [Objects.findOne(id), Products.findOne(id)]
-}); 
+});
