@@ -1,15 +1,20 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 
-// profile is an object which will contain the display name that the user inputs
+/**
+ * Creates a new user account if userid is null or upgrades adds the new information to the given userid and makes the given account 'verified'.
+ * @optional: {string} userid - current user
+ * @param: {string}, email - email to be associated with the acount
+ * @param: {string}, password - password of the new account
+ * @param: {Object}, profile - user profile which consists of the DisplayName
+ */
+
 export const createAccount = (
   userid: string,
   email: string,
   password: string,
   profile: Object
 ) => {
-  // If the user is already logged in as anonymous and tries to 'upgrade' their account by providing an email and
-  // password, we update the same users information.
   const user = Meteor.user();
   if (userid && user?.isAnonymous) {
     Meteor.users.update(userid, {
@@ -26,19 +31,15 @@ export const createAccount = (
       password,
       profile
     });
+    const userId = Accounts.findUserByEmail(email);
+    Meteor.users.update(userId, {
+      $set: {
+        isAnonymous: false
+      }
+    });
   }
 };
 
-export const loginUser = (email: string, password: string) => {
-  Meteor.loginWithPassword({ email }, { password });
-};
-
-export const logoutUser = () => {
-  Meteor.logout();
-};
-
 Meteor.methods({
-  'create.account': createAccount,
-  'login.user': loginUser,
-  'logout.user': logoutUser
+  'create.account': createAccount
 });
