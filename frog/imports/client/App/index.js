@@ -312,7 +312,7 @@ const FROGRouter = withRouter(
                   ) : (
                     <h3>
                       Welcome to FROG. You are logged in as{' '}
-                      {Meteor.user().username}. If you want to access the
+                      {Meteor.user().username} If you want to access the
                       teacher view, go to <Link to="/teacher">/teacher</Link>,
                       otherwise go to the /SLUG of the session you are a student
                       of
