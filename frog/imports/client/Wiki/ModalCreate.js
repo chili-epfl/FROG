@@ -50,6 +50,9 @@ type PropsT = {
 };
 
 const styles = () => ({
+  root: {
+    width: '600px'
+  },
   formControl: {
     margin: 8
   },
@@ -172,156 +175,159 @@ class NewPageModal extends React.Component<PropsT, StateT> {
           if (e.keyCode === 13 && this.props.errorDiv !== null)
             this.handleCreate();
         }}
+        maxWidth={false}
         scroll="paper"
       >
-        <FormGroup>
-          <FormControl className={classes.formControl}>
-            <Typography variant="h6">Create New Page</Typography>
-            <TextField
-              autoFocus
-              error={errorDiv !== null}
-              id="page-title"
-              value={pageTitle}
-              onChange={this.handleTitleChange}
-              label="Page Title"
-              margin="normal"
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  this.handleCreate();
-                } else if (e.keyCode === 40) {
-                  this.setState({ expanded: true });
-                } else if (e.keyCode === 38) {
-                  this.setState({ expanded: false });
-                }
-              }}
-            />
-            {errorDiv !== null && (
-              <FormHelperText error>{errorDiv}</FormHelperText>
-            )}
-          </FormControl>
-        </FormGroup>
-        <Collapse in={expanded} timeout="auto">
-          <AppBar position="static">
-            <Tabs
-              value={this.state.currentTab}
-              indicatorColor="secondary"
-              onChange={this.handleTabs}
-              variant="fullWidth"
-            >
-              <Tab label="Settings" className={classes.tabs} />
-              <Tab label="Component" className={classes.tabs} />
-              <Tab label="Operator" className={classes.tabs} />
-            </Tabs>
-          </AppBar>
-          <DialogContent classes={{ root: classes.modalInner }}>
-            {currentTab === 0 && (
-              <FormGroup>
-                <FormControl>
-                  <Typography variant="h6">Social Plane</Typography>
-                  <Select
-                    value={this.state.socialPlane}
-                    onChange={this.handleSocialPlaneChange}
-                    id="social-plane"
-                    className={classes.selectSocialPlane}
-                  >
-                    <MenuItem value={3}>Everyone</MenuItem>
-                    <MenuItem value={1}>Each Individual</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormGroup row>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.allowView}
-                        onChange={this.handleChangeAllowView}
-                        color="primary"
-                      />
-                    }
-                    disabled={socialPlane === 'everyone'}
-                    label="Allow others to view"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.allowEdit}
-                        onChange={this.handleChangeAllowEdit}
-                        color="primary"
-                      />
-                    }
-                    disabled={socialPlane === 'everyone'}
-                    label="Allow others to edit"
-                  />
+        <div className={classes.root}>
+          <FormGroup>
+            <FormControl className={classes.formControl}>
+              <Typography variant="h6">Create New Page</Typography>
+              <TextField
+                autoFocus
+                error={errorDiv !== null}
+                id="page-title"
+                value={pageTitle}
+                onChange={this.handleTitleChange}
+                label="Page Title"
+                margin="normal"
+                onKeyDown={e => {
+                  if (e.keyCode === 13) {
+                    this.handleCreate();
+                  } else if (e.keyCode === 40) {
+                    this.setState({ expanded: true });
+                  } else if (e.keyCode === 38) {
+                    this.setState({ expanded: false });
+                  }
+                }}
+              />
+              {errorDiv !== null && (
+                <FormHelperText error>{errorDiv}</FormHelperText>
+              )}
+            </FormControl>
+          </FormGroup>
+          <Collapse in={expanded} timeout="auto">
+            <AppBar position="static">
+              <Tabs
+                value={this.state.currentTab}
+                indicatorColor="secondary"
+                onChange={this.handleTabs}
+                variant="fullWidth"
+              >
+                <Tab label="Settings" className={classes.tabs} />
+                <Tab label="Component" className={classes.tabs} />
+                <Tab label="Operator" className={classes.tabs} />
+              </Tabs>
+            </AppBar>
+            <DialogContent classes={{ root: classes.modalInner }}>
+              {currentTab === 0 && (
+                <FormGroup>
+                  <FormControl>
+                    <Typography variant="h6">Social Plane</Typography>
+                    <Select
+                      value={this.state.socialPlane}
+                      onChange={this.handleSocialPlaneChange}
+                      id="social-plane"
+                      className={classes.selectSocialPlane}
+                    >
+                      <MenuItem value={3}>Everyone</MenuItem>
+                      <MenuItem value={1}>Each Individual</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormGroup row>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={this.state.allowView}
+                          onChange={this.handleChangeAllowView}
+                          color="primary"
+                        />
+                      }
+                      disabled={socialPlane === 'everyone'}
+                      label="Allow others to view"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={this.state.allowEdit}
+                          onChange={this.handleChangeAllowEdit}
+                          color="primary"
+                        />
+                      }
+                      disabled={socialPlane === 'everyone'}
+                      label="Allow others to edit"
+                    />
+                  </FormGroup>
                 </FormGroup>
-              </FormGroup>
-            )}
-            {currentTab === 1 && (
-              <ApiForm
-                categories={['Core', 'Other']}
-                whiteList={[
-                  'li-richText',
-                  'ac-gallery',
-                  'ac-brainstorm',
-                  'ac-quiz',
-                  'ac-ck-board'
-                ]}
-                config={this.state.activityConfig?.config}
-                activityType={this.state.activityConfig?.activityType}
-                activityMapping={{
-                  'li-richText': 'Core',
-                  'ac-gallery': 'Core',
-                  'ac-brainstorm': 'Other',
-                  'ac-quiz': 'Core',
-                  'ac-ck-board': 'Core'
-                }}
-                noOffset
-                showDelete
-                onConfigChange={e => this.handleConfig(e)}
-                onSubmit={e => this.handleConfig(e)}
-              />
-            )}
-            {currentTab === 2 && (
-              <OperatorForm
-                operatorType="product"
-                config={this.state.operatorConfig?.config}
-                categories={['From the web', 'From the current page']}
-                operatorTypesList={operatorTypesList}
-                operatorMappings={{
-                  'op-twitter': 'From the web',
-                  'op-rss': 'From the web',
-                  'op-hypothesis': 'From the web',
-                  'op-aggregate': 'From the current page'
-                }}
-                onConfigChange={e => this.setState({ operatorConfig: e })}
-                onSubmit={e => this.setState({ operatorConfig: e })}
-                allOpen
-              />
-            )}
-          </DialogContent>
-        </Collapse>
-        <DialogActions>
-          <IconButton
-            className={classes.expander}
-            onClick={() => this.setState({ expanded: !expanded })}
-          >
-            {expanded ? <ExpandLess /> : <ExpandMore />}
-          </IconButton>
-          <Button
-            onClick={() => {
-              this.props.setModalOpen(false);
-              this.props.clearError();
-            }}
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => this.handleCreate()}
-            color="primary"
-            variant="contained"
-          >
-            Create
-          </Button>
-        </DialogActions>
+              )}
+              {currentTab === 1 && (
+                <ApiForm
+                  categories={['Core', 'Other']}
+                  whiteList={[
+                    'li-richText',
+                    'ac-gallery',
+                    'ac-brainstorm',
+                    'ac-quiz',
+                    'ac-ck-board'
+                  ]}
+                  config={this.state.activityConfig?.config}
+                  activityType={this.state.activityConfig?.activityType}
+                  activityMapping={{
+                    'li-richText': 'Core',
+                    'ac-gallery': 'Core',
+                    'ac-brainstorm': 'Other',
+                    'ac-quiz': 'Core',
+                    'ac-ck-board': 'Core'
+                  }}
+                  noOffset
+                  showDelete
+                  onConfigChange={e => this.handleConfig(e)}
+                  onSubmit={e => this.handleConfig(e)}
+                />
+              )}
+              {currentTab === 2 && (
+                <OperatorForm
+                  operatorType="product"
+                  config={this.state.operatorConfig?.config}
+                  categories={['From the web', 'From the current page']}
+                  operatorTypesList={operatorTypesList}
+                  operatorMappings={{
+                    'op-twitter': 'From the web',
+                    'op-rss': 'From the web',
+                    'op-hypothesis': 'From the web',
+                    'op-aggregate': 'From the current page'
+                  }}
+                  onConfigChange={e => this.setState({ operatorConfig: e })}
+                  onSubmit={e => this.setState({ operatorConfig: e })}
+                  allOpen
+                />
+              )}
+            </DialogContent>
+          </Collapse>
+          <DialogActions>
+            <IconButton
+              className={classes.expander}
+              onClick={() => this.setState({ expanded: !expanded })}
+            >
+              {expanded ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+            <Button
+              onClick={() => {
+                this.props.setModalOpen(false);
+                this.props.clearError();
+              }}
+              color="primary"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => this.handleCreate()}
+              color="primary"
+              variant="contained"
+            >
+              Create
+            </Button>
+          </DialogActions>
+        </div>
       </Dialog>
     );
   }

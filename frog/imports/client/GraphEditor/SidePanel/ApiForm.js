@@ -19,7 +19,7 @@ import DeleteButton from './DeleteButton';
 const store = new Store();
 
 const ConfigComponent = ({ activityTypeId, config, setConfig }) => {
-  const aT = activityTypesObj[activityTypeId] || templatesObj[activityTypeId]
+  const aT = activityTypesObj[activityTypeId] || templatesObj[activityTypeId];
   if (!aT || !aT.ConfigComponent) {
     return null;
   }

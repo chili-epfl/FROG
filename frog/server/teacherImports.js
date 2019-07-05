@@ -5,33 +5,23 @@ import {
   Activities,
   Connections,
   DashboardData
-} from '../imports/api/activities.js';
-import { UploadList } from '../imports/api/openUploads.js';
-import { Operators, ExternalOperators } from '../imports/api/operators.js';
-import { Graphs } from '../imports/api/graphs.js';
-import { Sessions } from '../imports/api/sessions.js';
-import { Products } from '../imports/api/products.js';
-import { Objects } from '../imports/api/objects.js';
+} from '../imports/api/activities';
+import { UploadList } from '../imports/api/openUploads';
+import { Operators, ExternalOperators } from '../imports/api/operators';
+import { Graphs } from '../imports/api/graphs';
+import { Sessions } from '../imports/api/sessions';
+import { Products } from '../imports/api/products';
+import { Objects } from '../imports/api/objects';
 
 const teacherPublish = (publish, collection, limitation) => {
   Meteor.publish(publish, function() {
-    const role = Meteor.users.findOne(this.userId)?.role;
-    if (role === 'teacher' || role === 'admin') {
-      return limitation ? collection.find({}, limitation) : collection.find({});
-    } else {
-      return this.ready();
-    }
+    return limitation ? collection.find({}, limitation) : collection.find({});
   });
 };
 
 const teacherPublishOwn = (publish, collection) => {
   Meteor.publish(publish, function() {
-    const role = Meteor.users.findOne(this.userId)?.role;
-    if (role === 'teacher' || role === 'admin') {
-      return collection.find({ ownerId: this.userId });
-    } else {
-      return this.ready();
-    }
+    return collection.find({ ownerId: this.userId });
   });
 };
 
@@ -66,7 +56,5 @@ export default function() {
 }
 
 Meteor.methods({
-  'make.teacher': userid =>
-    Meteor.users.update(userid, { $set: { role: 'teacher' } }),
   'get.object.product': id => [Objects.findOne(id), Products.findOne(id)]
 });

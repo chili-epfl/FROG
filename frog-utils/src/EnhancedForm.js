@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import Form from 'react-jsonschema-form';
+import Form from './FrogForm';
 import { isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
 import Fields from 'react-jsonschema-form-extras';

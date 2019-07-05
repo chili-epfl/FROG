@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash';
 import { activityTypesObj } from '../activityTypes';
 import { Logs } from './logs';
 import { DashboardStates } from './cache';
-import { Activities } from './activities.js';
+import { Activities } from './activities';
 
 const activityCache = {};
 

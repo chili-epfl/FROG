@@ -26,8 +26,6 @@ const doLogin = (user, self) => {
       isAnonymous: !user
     }
   });
-  const stampedLoginToken = Accounts._generateStampedLoginToken();
-  Accounts._insertLoginToken(userId, stampedLoginToken);
 
   const result = Accounts._loginUser(self, userId);
   return result;
@@ -80,6 +78,15 @@ Meteor.methods({
       }
       return doLogin(user, self);
     }
+  },
+  'frog.userid.login': function(userId) {
+    const self = this;
+    const userDoc = Meteor.users.findOne({ _id: userId });
+    if (!userDoc) {
+      throw new Meteor.Error('Unable to find any user with the given userId');
+    }
+    const result = Accounts._loginUser(self, userId);
+    return result;
   },
   'frog.session.settings': function(slug) {
     if (typeof slug !== 'string') {
