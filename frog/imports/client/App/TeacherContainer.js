@@ -63,9 +63,6 @@ export default withTracker(() => {
     'externalOperators'
   ];
 
-  if (!Meteor.user().role) {
-    Meteor.call('make.teacher', Meteor.userId());
-  }
 
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   const extOp = ExternalOperators.find({}).fetch();

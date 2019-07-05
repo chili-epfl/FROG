@@ -15,23 +15,17 @@ import { Objects } from '../imports/api/objects.js';
 
 const teacherPublish = (publish, collection, limitation) => {
   Meteor.publish(publish, function() {
-    const role = Meteor.users.findOne(this.userId)?.role;
-    if (role === 'teacher' || role === 'admin') {
-      return limitation ? collection.find({}, limitation) : collection.find({});
-    } else {
-      return this.ready();
-    }
+    return limitation ? collection.find({}, limitation) : collection.find({});
   });
 };
 
 const teacherPublishOwn = (publish, collection) => {
   Meteor.publish(publish, function() {
-    const role = Meteor.users.findOne(this.userId)?.role;
-    if (role === 'teacher' || role === 'admin') {
+    
       return collection.find({ ownerId: this.userId });
-    } else {
-      return this.ready();
-    }
+ 
+   
+    
   });
 };
 
@@ -63,10 +57,9 @@ export default function() {
   teacherPublish('uploadList', UploadList);
   teacherPublishOwn('graphs', Graphs, this.userId);
   teacherPublishOwn('sessions', Sessions, this.userId);
-}
+ }
 
 Meteor.methods({
-  'make.teacher': userid =>
-    Meteor.users.update(userid, { $set: { role: 'teacher' } }),
+
   'get.object.product': id => [Objects.findOne(id), Products.findOne(id)]
-});
+}); 
