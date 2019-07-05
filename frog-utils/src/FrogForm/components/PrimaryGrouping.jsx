@@ -68,7 +68,7 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
         <ExpandMore
           className={classes.expandIcon}
           style={{
-            transform: expand ? 'rotate(180deg)' : undefined
+            transform: expand ? 'rotate(180deg)' : 'rotate(0deg)'
           }}
         />
       </ButtonBase>
