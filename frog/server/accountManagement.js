@@ -24,8 +24,7 @@ export const createAccount = (
     Accounts.createUser({
       email,
       password,
-      profile,
-      isAnonymous: false
+      profile
     });
   }
 };
