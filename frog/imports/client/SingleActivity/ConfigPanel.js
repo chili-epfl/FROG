@@ -21,6 +21,7 @@ import { style } from './style';
  */
 class ConfigPanel extends React.Component<
   {
+    name: string,
     activityType: ActivityPackageT | string,
     onSubmit: Function,
     onReturn: Function,
@@ -45,7 +46,7 @@ class ConfigPanel extends React.Component<
           >
             <ArrowBack />
           </IconButton>
-          Edit the Activity
+          Edit {this.props.activityType?.meta?.name || ''}
         </Typography>
         <ApiForm
           activityType={id || this.props.activityType}

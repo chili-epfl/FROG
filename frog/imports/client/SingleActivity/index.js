@@ -10,6 +10,8 @@ import ConfigPanel from './ConfigPanel';
 import Loading from './Loading';
 import Finish from './Finish';
 import { type StateT } from './types';
+import { activityTypes } from '/imports/activityTypes';
+import { templatesObj } from '/imports/internalTemplates';
 
 /**
  * The main class for the Single Activity
@@ -26,9 +28,12 @@ class SingleActivity extends React.Component<{}, StateT> {
   componentDidMount = () => {
     InjectData.getData('duplicate', data => {
       if (data) {
+        const type =
+          activityTypes.find(x => x === data.activityType) ||
+          templatesObj[data.activityType];
         this.setState({
           stage: 2,
-          activityType: data.activityType,
+          activityType: type,
           config: data
         });
       }
