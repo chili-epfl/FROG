@@ -26,6 +26,7 @@ import { activityTypesObj } from '/imports/activityTypes';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
+import { TopBar } from './components/TopBar';
 
 const styles = () => ({
   side: {
@@ -237,52 +238,42 @@ class ConfigPanel extends React.Component<*, *> {
     return (
       <div className={classes.side}>
         {activityTypeId && (
-          <Grid container spacing={8} alignItems="center">
-            <Grid item xs={2}>
-              <IconButton
-                className="arrowback"
-                aria-label="back-to-preview"
-                onClick={this.backToPreview}
-              >
-                <ArrowBack />
-              </IconButton>
-            </Grid>
-            <Grid item xs={8}>
-              <Typography variant="h6">
-                {activityTypesObj[activityTypeId].meta.name}
-              </Typography>
-            </Grid>
-            <Grid item xs={2}>
-              {metadatas.uuid && displaySave && (
-                <Button
-                  color="primary"
-                  style={{ left: '-25px' }}
-                  onClick={() => {
-                    updateActivity(metadatas.uuid, {
-                      ...metadatas,
-                      data: { ...config }
-                    });
-                    this.forceUpdate();
-                  }}
-                >
-                  Save
-                </Button>
-              )}
-              <ExportButton
-                activity={{
-                  title: activityTypesObj[activityTypeId].meta.name,
-                  data: config,
-                  activityType: activityTypeId,
-                  metadatas,
-                  setMetadatas
-                }}
-                {...{ metadatas, setMetadatas }}
-                updateParent={() => this.forceUpdate()}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
+          <>
+            <TopBar
+              leftIcon={<ArrowBack />}
+              onLeftButtonClick={this.backToPreview}
+              title={activityTypesObj[activityTypeId].meta.name}
+              rightButtons={
+                <>
+                  {metadatas.uuid && displaySave && (
+                    <Button
+                      color="primary"
+                      style={{ left: '-25px' }}
+                      onClick={() => {
+                        updateActivity(metadatas.uuid, {
+                          ...metadatas,
+                          data: { ...config }
+                        });
+                        this.forceUpdate();
+                      }}
+                    >
+                      Save
+                    </Button>
+                  )}
+                  <ExportButton
+                    activity={{
+                      title: activityTypesObj[activityTypeId].meta.name,
+                      data: config,
+                      activityType: activityTypeId,
+                      metadatas,
+                      setMetadatas
+                    }}
+                    {...{ metadatas, setMetadatas }}
+                    updateParent={() => this.forceUpdate()}
+                  />
+                </>
+              }
+            />
             {metadatas.uuid && (
               <MetadataModal
                 metadatas={metadatas}
@@ -291,7 +282,7 @@ class ConfigPanel extends React.Component<*, *> {
                 setState={x => this.setState(x)}
               />
             )}
-          </Grid>
+          </>
         )}
         <div className={classes.formContainer}>
           <ApiForm
