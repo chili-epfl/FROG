@@ -22,7 +22,7 @@ import { style } from './style';
 class ConfigPanel extends React.Component<
   {
     name: string,
-    activityType: ActivityPackageT | string,
+    activityType: ActivityPackageT,
     onSubmit: Function,
     onReturn: Function,
     data?: Object
@@ -35,7 +35,7 @@ class ConfigPanel extends React.Component<
   }
 
   render() {
-    const { id, config } = this.props.activityType;
+    const { id } = this.props.activityType;
     const { classes, data } = this.props;
     return (
       <Card raised className={classes.card}>
@@ -49,8 +49,8 @@ class ConfigPanel extends React.Component<
           Edit {this.props.activityType?.meta?.name || ''}
         </Typography>
         <ApiForm
-          activityType={id || this.props.activityType}
-          config={config || data.config}
+          activityType={id}
+          config={data}
           onConfigChange={x => this.setState({ activity: x })}
           hidePreview
           noOffset

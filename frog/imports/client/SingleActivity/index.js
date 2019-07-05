@@ -29,12 +29,12 @@ class SingleActivity extends React.Component<{}, StateT> {
     InjectData.getData('duplicate', data => {
       if (data) {
         const type =
-          activityTypes.find(x => x === data.activityType) ||
+          activityTypes.find(x => x.id === data.activityType) ||
           templatesObj[data.activityType];
         this.setState({
           stage: 2,
           activityType: type,
-          config: data
+          config: data.config
         });
       }
     });
