@@ -96,9 +96,10 @@ class LogoutMenu extends React.Component<*, *> {
           <MenuItem
             onClick={() => {
               sessionStorage.removeItem('frog.sessionToken');
-              Meteor.logout();
-              this.props.history.push('/');
-              window.notReady();
+              Meteor.logout(() => {
+                this.props.history.push('/');
+                window.notReady();
+              });
             }}
           >
             Logout
@@ -189,7 +190,9 @@ class TopBarController extends React.Component<
             </Tabs>
             <h3>
               {LocalSettings.researchLogin ? ' * ' : ''}
-              {Meteor.user().username}
+              {Meteor.user().isAnonymous
+                ? 'Anonymous Visitor'
+                : Meteor.user().username}
             </h3>
             <LogoutMenu history={this.props.history} />
           </Toolbar>
