@@ -126,7 +126,7 @@ class TopBarController extends React.Component<
     super(props);
     const found = this.matchLocationPrefix();
     this.state = {
-      location: found.name || 'Graph Editor'
+      location: found?.name || 'Graph Editor'
     };
   }
 
@@ -137,7 +137,10 @@ class TopBarController extends React.Component<
         !!route.to.find(to =>
           to
             .split('/')
-            .reduce((acc, word, idx) => acc && split[idx] === word, true)
+            .reduce(
+              (acc, word, idx) => acc && (!split[idx] || split[idx] === word),
+              true
+            )
         )
     );
   };
@@ -172,7 +175,10 @@ class TopBarController extends React.Component<
                       to
                         .split('/')
                         .reduce(
-                          (acc, word, idx) => acc && splitPath[idx] === word,
+                          (acc, word, idx) =>
+                            acc &&
+                            (!splitPath[idx] || splitPath[idx] === word) ===
+                              word,
                           true
                         )
                     ) || route.to[0]) + LocalSettings.UrlCoda
