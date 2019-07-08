@@ -20,7 +20,7 @@ export const createAccount = (
     // checks for duplicate email and displays error on the console.
     if (!Accounts.findUserByEmail(email)) {
       Meteor.users.update(
-        { _id: user._id },
+        user._id,
         {
           $set: {
             emails: [{ address: email, verified: false }],
