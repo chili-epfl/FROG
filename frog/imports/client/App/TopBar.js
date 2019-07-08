@@ -111,36 +111,44 @@ class LogoutMenu extends React.Component<*, *> {
 
 class TopBarController extends React.Component<
   { classes: any, history: any, location: any },
-  {}
+  { location: string }
 > {
   routes = [
-    { name: 'Graph Editor', to: '/teacher/graph' },
-    { name: 'Sessions', to: '/teacher/orchestration' },
+    { name: 'Graph Editor', to: ['/teacher/graph'] },
+    { name: 'Sessions', to: ['/teacher/orchestration', '/t'] },
     {
       name: 'Activity Preview',
-      to: '/teacher/preview'
+      to: ['/teacher/preview']
     }
   ];
 
-  value = '/teacher/preview';
-
   constructor(props) {
     super(props);
-    const found = this.routes.filter(
-      route => props.location.pathname.indexOf(route.to) !== -1
-    )[0];
-
-    if (found !== undefined) {
-      this.value = found.to;
-    }
+    const found = this.matchLocationPrefix();
+    this.state = {
+      location: found.name || 'Graph Editor'
+    };
   }
 
+  matchLocationPrefix = () => {
+    const split = this.props.location.pathname.split('/');
+    return this.routes.find(
+      route =>
+        !!route.to.find(to =>
+          to
+            .split('/')
+            .reduce((acc, word, idx) => acc && split[idx] === word, true)
+        )
+    );
+  };
+
   handleChange = (event, value) => {
-    this.value = value;
+    this.setState({ location: value });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, location } = this.props;
+    const splitPath = location.pathname.split('/');
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -150,17 +158,26 @@ class TopBarController extends React.Component<
             </Typography>
             <Tabs
               className={classes.tabs}
-              value={this.value}
+              value={this.state.location}
               onChange={this.handleChange}
               variant="fullWidth"
             >
               {this.routes.map(route => (
                 <Tab
-                  key={route.to}
+                  key={route.name}
                   label={route.name}
                   component={Link}
-                  to={route.to + LocalSettings.UrlCoda}
-                  value={route.to}
+                  to={
+                    (route.to.find(to =>
+                      to
+                        .split('/')
+                        .reduce(
+                          (acc, word, idx) => acc && splitPath[idx] === word,
+                          true
+                        )
+                    ) || route.to[0]) + LocalSettings.UrlCoda
+                  }
+                  value={route.name}
                 />
               ))}
             </Tabs>
