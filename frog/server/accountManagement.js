@@ -36,8 +36,8 @@ export const createAccount = (
       password,
       profile
     });
-    const userId = Accounts.findUserByEmail(email);
-    Meteor.users.update(userId, {
+    const newUserId = Accounts.findUserByEmail(email);
+    Meteor.users.update(newUserId, {
       $set: {
         isAnonymous: false
       }
