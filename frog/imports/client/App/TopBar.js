@@ -110,11 +110,15 @@ class LogoutMenu extends React.Component<*, *> {
   }
 }
 
+type RouteT = {
+  name: string,
+  to: string[]
+};
 class TopBarController extends React.Component<
   { classes: any, history: any, location: any },
-  { location: string }
+  { active: string }
 > {
-  routes = [
+  routes: RouteT[] = [
     { name: 'Graph Editor', to: ['/teacher/graph'] },
     { name: 'Sessions', to: ['/teacher/orchestration', '/t'] },
     {
@@ -123,36 +127,35 @@ class TopBarController extends React.Component<
     }
   ];
 
+  splitPath = this.props.location.pathname.split('/');
+
   constructor(props) {
     super(props);
-    const found = this.matchLocationPrefix();
+    const found = this.routes.find(route => this.matchLocationPrefix(route));
     this.state = {
-      location: found?.name || 'Graph Editor'
+      active: found?.name || 'Graph Editor'
     };
   }
 
-  matchLocationPrefix = () => {
-    const split = this.props.location.pathname.split('/');
-    return this.routes.find(
-      route =>
-        !!route.to.find(to =>
-          to
-            .split('/')
-            .reduce(
-              (acc, word, idx) => acc && (!split[idx] || split[idx] === word),
-              true
-            )
+  // Returns the path which contains location path as its prefix (undefined if none have it as prefix)
+  matchLocationPrefix = (route: RouteT) => {
+    return route.to.find(to =>
+      to
+        .split('/')
+        .reduce(
+          (acc, word, idx) =>
+            acc && (!this.splitPath[idx] || this.splitPath[idx] === word),
+          true
         )
     );
   };
 
   handleChange = (event, value) => {
-    this.setState({ location: value });
+    this.setState({ active: value });
   };
 
   render() {
-    const { classes, location } = this.props;
-    const splitPath = location.pathname.split('/');
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -162,7 +165,7 @@ class TopBarController extends React.Component<
             </Typography>
             <Tabs
               className={classes.tabs}
-              value={this.state.location}
+              value={this.state.active}
               onChange={this.handleChange}
               variant="fullWidth"
             >
@@ -172,17 +175,8 @@ class TopBarController extends React.Component<
                   label={route.name}
                   component={Link}
                   to={
-                    (route.to.find(to =>
-                      to
-                        .split('/')
-                        .reduce(
-                          (acc, word, idx) =>
-                            acc &&
-                            (!splitPath[idx] || splitPath[idx] === word) ===
-                              word,
-                          true
-                        )
-                    ) || route.to[0]) + LocalSettings.UrlCoda
+                    (this.matchLocationPrefix(route) || route.to[0]) +
+                    LocalSettings.UrlCoda
                   }
                   value={route.name}
                 />
