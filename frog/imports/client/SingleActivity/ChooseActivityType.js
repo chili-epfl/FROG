@@ -45,7 +45,7 @@ function ChooseActivityType(
           <GridListTile
             key={x.id}
             classes={{ root: classes.tile }}
-            onClick={e => {
+            onClick={() => {
               onSubmit(x);
             }}
           >

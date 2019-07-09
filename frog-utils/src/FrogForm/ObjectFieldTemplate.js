@@ -29,6 +29,6 @@ export const ObjectFieldTemplate = (props: ObjectFieldTemplatePropsT) => {
     default:
       // We only provide UI elements for two levels, if we find more
       // we simply return the inline UI
-      return <>{properties.map(props => props.content)}</>;
+      return <>{properties.map(p => p.content)}</>;
   }
 };
