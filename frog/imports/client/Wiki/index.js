@@ -74,7 +74,8 @@ type WikiCompStateT = {
   noInstance: ?boolean,
   username: string,
   isAnonymous: boolean,
-  settings?: WikiSettingsT
+  settings?: WikiSettingsT,
+  isOwner?: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -140,9 +141,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
-      Mousetrap.bindGlobal('ctrl+n', () =>
-        this.setState({ createModalOpen: true })
-      );
+      Mousetrap.bindGlobal('ctrl+n', () => {
+        if (!this.state.settings?.noNewPage && !this.state.isOwner)
+          this.setState({ createModalOpen: true });
+      });
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
       Mousetrap.bindGlobal('ctrl+e', () => {
         if (!this.state.settings?.readOnly) this.setState({ docMode: 'edit' });
@@ -185,7 +187,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     wikiStore.setPages(this.wikiDoc.data.pages);
     this.setState({
       pagesData: wikiStore.pages,
-      settings: this.wikiDoc.data.settings
+      settings: this.wikiDoc.data.settings,
+      isOwner: !!this.wikiDoc.data.owners.find(x => x === Meteor.userId())
     });
 
     if (this.initialLoad) {
@@ -654,13 +657,15 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       <div style={sideNavBarStyle}>
         <h2>{this.wikiId}</h2>
         <ul>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => this.setState({ createModalOpen: true })}
-          >
-            + Create new page
-          </Button>
+          {(!this.state.settings?.limitPageCreation || this.state.isOwner) && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => this.setState({ createModalOpen: true })}
+            >
+              + Create new page
+            </Button>
+          )}
           <SearchAndFind
             key={this.state.currentPageObj?.id}
             pages={foundPages}
