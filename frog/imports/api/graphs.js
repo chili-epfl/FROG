@@ -59,7 +59,12 @@ export const createSessionFromActivity = (
     const session = Sessions.findOne(sessionId);
     const template = activityType.slice(0, 3) === 'te-';
     Sessions.update(session._id, {
-      $set: { singleActivity: !template, template, instructions }
+      $set: {
+        singleActivity: !template,
+        template,
+        instructions,
+        simpleConfig: { activityType, config, plane }
+      }
     });
     runNextActivity(session._id);
 

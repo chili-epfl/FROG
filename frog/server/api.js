@@ -186,6 +186,17 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   });
 });
 
+WebApp.connectHandlers.use('/duplicate/', (request, response, next) => {
+  const url = urlPkg.parse(request.url);
+  const sessionId = url.pathname.substring(1);
+  const session = Sessions.findOne(sessionId);
+  if (!session || !session.simpleConfig) {
+    response.end();
+  }
+  InjectData.pushData(request, 'duplicate', session.simpleConfig);
+  next();
+});
+
 WebApp.connectHandlers.use('/write/', (request, response, next) => {
   const url = urlPkg.parse(request.url);
   const instance = url.pathname.substring(1);
