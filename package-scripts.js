@@ -65,7 +65,7 @@ module.exports = {
         'Running Flow, ESLint and Jest'
       ),
       ci: fromRoot(
-        `nps -s eslint.normal cypress.ci`,
+        `nps -s eslint.normal`,
         'Running LockFiles, Flow, ESLint and Jest - jest and flow temporarily disabled'
       )
     },
