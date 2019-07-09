@@ -174,7 +174,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!this.wikiDoc.data) {
       const liId = createNewLI(this.wikiId, 'li-richText');
-      return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
+      return createNewEmptyWikiDoc(
+        this.wikiDoc,
+        this.wikiId,
+        liId,
+        Meteor.userId()
+      );
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
