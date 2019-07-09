@@ -140,7 +140,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         this.setState({ createModalOpen: true })
       );
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+      Mousetrap.bindGlobal('ctrl+e', () => {
+        if (this.state.docMode !== 'readonly')
+          this.setState({ docMode: 'edit' });
+      });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
       );
@@ -169,6 +172,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (!this.wikiDoc.data) {
       const liId = createNewLI(this.wikiId, 'li-richText');
       return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
+    }
+
+    if (this.wikiDoc.data.settings?.readOnly) {
+      this.setState({ docMode: 'readonly' });
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
@@ -706,6 +713,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
+                disableEdit={
+                  this.props.embed || this.state.docMode === 'readonly'
+                }
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
@@ -720,6 +730,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
+                  disableEdit={
+                    this.props.embed || this.state.docMode === 'readonly'
+                  }
                   embed={this.props.embed}
                 />
               )}
