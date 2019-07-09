@@ -8,8 +8,8 @@ import { Modal } from './components/Modal';
  */
 export default () => {
   return (
-    <Modal title="Wiki Archived" actions={[]}>
-      This wiki has been archived and you do not have access to its contents.
+    <Modal title="Wiki Locked" actions={[]}>
+      This wiki has been locked and you do not have access to its contents.
     </Modal>
   );
 };

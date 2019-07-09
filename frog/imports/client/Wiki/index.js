@@ -34,7 +34,7 @@ import { createNewLI } from './liDocHelpers';
 import { wikiStore } from './store';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
-import ArchivedModal from './ModalArchived';
+import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import WikiTopNavbar from './components/TopNavbar';
@@ -62,7 +62,7 @@ type WikiCompPropsT = {
 
 type WikiSettingsT = {
   readOnly: boolean,
-  archived: boolean
+  locked: boolean
 };
 type WikiCompStateT = {
   dashboardSearch: ?string,
@@ -185,10 +185,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     if (
-      this.wikiDoc.data.settings?.archived &&
+      this.wikiDoc.data.settings?.locked &&
       !this.wikiDoc.data.owners.find(x => x === Meteor.userId())
     ) {
-      this.props.showModal(<ArchivedModal />);
+      this.props.showModal(<LockedModal />);
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
