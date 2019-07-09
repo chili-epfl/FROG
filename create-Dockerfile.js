@@ -4,7 +4,6 @@ RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
 RUN mkdir -p /usr/src/frog/frog && chmod a+rwx -R /usr/src/frog
 WORKDIR /usr/src/frog
-
 RUN mkdir -p ./flow-typed
 COPY flow-typed flow-typed/
 RUN mkdir -p frog/.meteor frog/server && \\
