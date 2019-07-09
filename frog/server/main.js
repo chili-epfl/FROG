@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable prefer-arrow-func */
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
 
@@ -28,7 +27,7 @@ import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
-import { createAccount } from './accountManagement';
+import './accountManagement';
 import './redis';
 
 require('util').inspect.defaultOptions.depth = null;

@@ -42,6 +42,7 @@ class EnhancedForm extends Component<
     ) {
       this.hides = [];
       this.formData = this.props.formData;
+      // eslint-disable-next-line
       this.setState({ formData: this.props.formData });
       this.updateSchema(this.props, true);
     }

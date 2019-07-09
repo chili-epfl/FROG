@@ -18,7 +18,6 @@ export default ({
   hideModal,
   onRestorePage,
   onCreateNewPage,
-  pageId,
   pageTitle
 }: ModalDeletedPagePropsT) => {
   return (

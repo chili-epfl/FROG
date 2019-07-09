@@ -50,7 +50,7 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
   const title = props.title || props.uiSchema['ui:title'];
   const description = props.description;
 
-  const { required, readonly, properties } = props;
+  const { properties } = props;
 
   return (
     <div className={classes.root}>
@@ -74,8 +74,8 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
       </ButtonBase>
       {expand && (
         <div className={classes.fields}>
-          {properties.map(props => (
-            <div>{props.content}</div>
+          {properties.map(p => (
+            <div>{p.content}</div>
           ))}
         </div>
       )}
