@@ -1,5 +1,5 @@
-import * as React from 'React'; 
-import {Modal} from '../Wiki/components';
+import * as React from 'react'; 
+import {Modal} from '../Wiki/components/Modal';
 import SignUp from './SignUp';
 
 
@@ -8,7 +8,7 @@ type SignUpModalPropsT = {
 };
 
 
-const SignUpModal = ({hideModal }: SignUpModalPropsT) => {
+export default function SignUpModal ({hideModal }: SignUpModalPropsT) {
   return (
    <Modal
       title=""
