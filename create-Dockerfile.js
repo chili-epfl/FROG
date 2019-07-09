@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const template = `FROM node:12.6
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
@@ -15,7 +13,7 @@ COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
-RUN mkdir -p __mocks__ frog-utils/src \\
+RUN mkdir -p __mocks__ frog-utils/src 
 
 COPY package.json yarn.lock .yarnrc ./
 COPY yarn.lock yarn.lock.orig
