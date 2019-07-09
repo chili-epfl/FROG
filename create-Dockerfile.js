@@ -22,7 +22,6 @@ COPY yarn.lock yarn.lock.orig
 COPY __mocks__ ./__mocks__
 COPY *.sh linkFiles.js package-scripts.js ./
 COPY frog-utils/package.json frog-utils/
-${acopCP}
 COPY frog/package.json frog/babel.config.js frog/
 WORKDIR /usr/src/frog
 RUN /usr/src/frog/initial_setup.sh 
@@ -38,7 +37,5 @@ EXPOSE 3000
 CMD [ "npm", "start", "test.ci" ]
 `;
 
-    // eslint-disable-next-line
-    console.log(template);
-  });
-});
+// eslint-disable-next-line
+console.log(template);
