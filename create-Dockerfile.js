@@ -26,7 +26,8 @@ RUN /usr/src/frog/initial_setup.sh
 COPY frog-utils /usr/src/frog/frog-utils/
 COPY frog /usr/src/frog/frog/
 COPY *.js .*ignore *config ./
-RUN /usr/src/frog/initial_setup.sh --single
+RUN rm -rf ./frog/node_modules
+RUN /usr/src/frog/initial_setup.sh
 
 EXPOSE 3000
 CMD [ "npm", "start", "test.ci" ]
