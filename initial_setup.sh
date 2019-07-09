@@ -17,7 +17,7 @@ then
     exit 1
 fi
     
-YARN_VERSION='1.15.2'
+YARN_VERSION='1.16.0'
 if which yarn && [[ `yarn --version` == $YARN_VERSION ]]; then
     echo 'Using pre-installed global Yarn'; YARN=yarn
 else
@@ -29,7 +29,7 @@ else
 fi
 echo "Yarn: $YARN"
 
-if ! "$YARN" install; then
+if ! "$YARN" install --verbose; then
 	echo "Sorry, there seems to be something wrong, please correct the errors and try again"
 	echo "There was some error installing the required packages, please rectify the errors and try again"
     exit 1
