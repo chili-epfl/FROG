@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const template = `FROM node:10-jessie
+const template = `FROM node:12.6
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
