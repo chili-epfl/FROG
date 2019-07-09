@@ -64,10 +64,7 @@ module.exports = {
         `nps -s flow.quiet eslint jest`,
         'Running Flow, ESLint and Jest'
       ),
-      ci: fromRoot(
-        `nps -s lockfiles cypress.ci`,
-        'Running LockFiles and Cypress'
-      )
+      ci: fromRoot(`nps -s cypress.ci`, 'Running Cypress')
     },
     eslint: {
       default: fromRoot(

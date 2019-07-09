@@ -178,6 +178,7 @@ class WikiContentComp extends React.Component<> {
                 this.handleErrorClearing(e.target.value);
               }}
               aria-describedby="title-input-helper-text"
+              data-testid="wiki_page_title_editor"
             />
             {this.state.error !== null && (
               <FormHelperText id="title-input-helper-text" error>
@@ -190,7 +191,7 @@ class WikiContentComp extends React.Component<> {
           <div style={{ flex: '1', textAlign: 'right' }}>{docModeButton()}</div>
         </div>
       ) : (
-        <div style={titleDivStyle}>
+        <div style={titleDivStyle} data-testid="wiki_page_title">
           <div
             onMouseEnter={() => {
               this.setState({ showTitleEditButton: !this.props.embed });
@@ -213,7 +214,7 @@ class WikiContentComp extends React.Component<> {
 
     return (
       <WikiContext.Provider value={this.wikiContext}>
-        <div style={contentDivStyle}>
+        <div style={contentDivStyle} data-test="wiki_page_content">
           {this.props.mode === 'revisions' && (
             <Revisions doc={this.props.currentPageObj.liId} />
           )}
@@ -225,6 +226,7 @@ class WikiContentComp extends React.Component<> {
                 height: '100%',
                 padding: '10px'
               }}
+              data-test="dashboard_view"
             >
               <LIDashboard
                 wikiId={this.props.wikiId}
@@ -249,6 +251,7 @@ class WikiContentComp extends React.Component<> {
                   height: 'calc(100vh - 102px)',
                   overflow: 'hidden'
                 }}
+                data-test="document_view"
               >
                 <Paper
                   elevation={24}

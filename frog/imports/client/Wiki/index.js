@@ -630,6 +630,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 key={instanceId}
                 onClick={() => this.goToPage(pageId, null, null, instanceId)}
                 style={style}
+                data-testid="wiki_page_instance_item"
               >
                 {line}
               </li>
@@ -637,13 +638,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           });
 
     const sideNavBar = (
-      <div style={sideNavBarStyle}>
-        <h2>{this.wikiId}</h2>
-        <ul>
+      <div style={sideNavBarStyle} data-test="sidebar">
+        <h2 data-test="wiki_title">{this.wikiId}</h2>
+        <ul data-testid="wiki_pages">
           <Button
             variant="contained"
             color="primary"
             onClick={() => this.setState({ createModalOpen: true })}
+            data-testid="wiki_create_page"
           >
             + Create new page
           </Button>
@@ -664,7 +666,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         {!instancesList ? null : (
           <div style={{ paddingTop: '10px' }}>
             <b>Instances</b>
-            <ul>{instancesList}</ul>
+            <ul data-test="wiki_page_instances">{instancesList}</ul>
           </div>
         )}
       </div>
