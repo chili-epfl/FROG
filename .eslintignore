@@ -11,4 +11,4 @@ frog/imports/packages/**
 **/clientFiles/*
 **/ac/ac-autocode/src/lib/**
 cypress/**
-
+package-scripts.js
