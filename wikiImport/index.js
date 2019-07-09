@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('util').inspect.defaultOptions.depth = null;
 const fs = require('fs');
 const fetch = require('node-fetch');
@@ -5,18 +6,11 @@ const cuid = require('cuid');
 
 const wiki = process.argv[2];
 
-function msleep(n) {
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
-}
-
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
+    // eslint-disable-next-line
     await callback(array[index], index, array);
   }
-}
-
-function sleep(n) {
-  msleep(n * 1000);
 }
 
 const links = {};
@@ -41,7 +35,7 @@ const baseurl = 'https://icchilisrv3.epfl.ch';
 // const baseurl = 'http://localhost:3000';
 
 const postWiki = async (page, content) => {
-  console.log(
+  console.info(
     `Preparing fetch ${baseurl}/api/wikiSubmit?wiki=${wiki}&id=${getLink(
       page
     )}&page=${page}`
@@ -56,10 +50,9 @@ const postWiki = async (page, content) => {
       body: JSON.stringify(content)
     }
   );
-  const fe = await f.text();
 };
 
-const regexp = /\[([^\]]+)]/g;
+// const regexp = /\[([^\]]+)]/g;
 
 const tap = x => x; // console.log(x) || x;
 

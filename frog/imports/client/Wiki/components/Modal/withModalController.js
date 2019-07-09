@@ -2,11 +2,7 @@
 
 import * as React from 'react';
 
-import {
-  type ShowModalFunctionT,
-  type HideModalFunctionT,
-  type ModalParentPropsT
-} from './types';
+import { type ShowModalFunctionT, type HideModalFunctionT } from './types';
 
 /**
  * HOC that adds ability to create modals via provided prop function
@@ -36,7 +32,7 @@ export const withModalController = <T: {}>(
     const [View, updateData] = React.useState();
 
     // Updates the state with the provided View
-    const showModal = (View: React.Node) => updateData(View);
+    const showModal = (view: React.Node) => updateData(view);
 
     const hideModal = () => updateData();
 

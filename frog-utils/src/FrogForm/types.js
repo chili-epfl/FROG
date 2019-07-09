@@ -35,7 +35,7 @@ export type ObjectFieldTemplatePropsT = {
   readonly: boolean,
   required: boolean,
   title?: string,
-  uiSchema: Object
+  uiSchema: UiSchemaT
 } & FieldBasePropsT;
 
 export type FieldTemplatePropsT = {

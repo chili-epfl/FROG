@@ -1,8 +1,8 @@
-//@flow
+// @flow
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 
-type Profile = { displayName: string }
+type Profile = { displayName: string };
 
 /**
  * Creates a new user account if userid is null or upgrades adds the new information to the given userid and makes the given account 'verified'.
@@ -22,16 +22,13 @@ export const createAccount = (
   if (user?.isAnonymous) {
     // checks for duplicate email and displays error on the console.
     if (!Accounts.findUserByEmail(email)) {
-      Meteor.users.update(
-        user._id,
-        {
-          $set: {
-            emails: [{ address: email, verified: false }],
-            isAnonymous: false,
-            profile
-          }
+      Meteor.users.update(user._id, {
+        $set: {
+          emails: [{ address: email, verified: false }],
+          isAnonymous: false,
+          profile
         }
-      );
+      });
       Accounts.setPassword(user._id, password, { logout: false });
     } else {
       throw new Meteor.Error('Email already exists');
