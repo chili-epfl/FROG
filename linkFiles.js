@@ -2,7 +2,7 @@ const fs = require('fs');
 const rimraf = require('rimraf');
 
 rimraf.sync('./frog/public/clientFiles');
-fs.mkdirSync('./frog/public/clientFiles');
+fs.mkdirSync('./frog/public/clientFiles', { recursive: true });
 if (fs.existsSync('./op')) {
   fs.readdirSync('./op').forEach(x => {
     if (fs.existsSync(`./op/${x}/clientFiles`)) {
