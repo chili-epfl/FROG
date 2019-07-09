@@ -9,6 +9,11 @@ import Button from '@material-ui/core/Button';
 import { type PropsT } from './types';
 import { style } from './style';
 
+const openSignUpModal = () => {
+  this.props.showModal(
+    )
+}
+
 /**
  * Navigation bar displayed at the top
  */
@@ -21,7 +26,7 @@ function TopBar(props: PropsT) {
           FROG
         </Typography>
         <Button size="medium">Help</Button>
-        <Button size="medium">Log In/Sign Up</Button>
+        <Button size="medium" onClick>Log In/Sign Up</Button>
       </Toolbar>
     </AppBar>
   );
