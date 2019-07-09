@@ -24,8 +24,6 @@ COPY frog/package.json frog/babel.config.js frog/
 WORKDIR /usr/src/frog
 RUN /usr/src/frog/initial_setup.sh 
 
-COPY ac /usr/src/frog/ac/
-COPY op /usr/src/frog/op/
 COPY frog-utils /usr/src/frog/frog-utils/
 COPY frog /usr/src/frog/frog/
 COPY *.js .*ignore *config ./
