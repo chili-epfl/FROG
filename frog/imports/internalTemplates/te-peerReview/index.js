@@ -7,11 +7,19 @@ export const config = {
   type: 'object',
   properties: {
     plane: {
-      type: 'string',
+      type: 'object',
+      description:
+        'Students can do their writing individually or in groups. The groups will be automatically created. The students will also do the peer-reviews either individually or in groups, based on the choice made here',
       title: 'Individual or group writing',
-      enum: ['individual', 'group'],
-      default: 'individual'
+      properties: {
+        plane: {
+          type: 'string',
+          enum: ['individual', 'group'],
+          default: 'individual'
+        }
+      }
     },
+
     instructions: { type: 'rte', title: 'Initial writing prompt' },
     reviewCount: {
       title: 'How many items should each student/group review',
@@ -23,11 +31,33 @@ export const config = {
   }
 };
 
-// showAll: {
-//   type: 'boolean',
-//   title: 'Send all contributions to the projector after revising?'
-// }
-//
+// export const config = {
+//   type: 'object',
+//   properties: {
+//     general: {
+//       type: 'object',
+//       title: 'General',
+//       description: 'Specify the title and text content of the activity',
+//       properties: {
+//         title: {
+//           type: 'object',
+//           description: 'The title is key, try to make it memorable',
+//           properties: {
+//             title: {
+//               type: 'string',
+//               title: 'Title'
+//             },
+//             text: {
+//               type: 'rte',
+//               title: 'Text'
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// };
+
 const p1Instructions = {
   '7_5': 'Students are asked to work on a text given the initial instructions',
   '18_5':
@@ -77,7 +107,15 @@ const makeTemplate = conf => {
 
 const meta = {
   name: 'Peer review template',
-  shortDesc: `Students write, review their peers' contributions, and revise their own texts`
+  shortDesc: `Students write, review their peers' contributions, and revise their own texts`,
+  description:
+    'Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution. In the next stage, they receive one or several of the contributions from their peers (individuals or groups), and are asked to comment based on a review prompt. Students then receive the feedback from other students, and can continue to work on their contributions, taking into account the feedback from the other students. Finally, all contributions are sent to the projector for the teacher to discuss and debrief.'
 };
 
-export default { id: 'te-peerReview', config, meta, makeTemplate };
+export default {
+  id: 'te-peerReview',
+  config,
+  meta,
+  makeTemplate,
+  type: 'template'
+};

@@ -46,7 +46,14 @@ class ConfigPanel extends React.Component<
           >
             <ArrowBack />
           </IconButton>
-          Edit {this.props.activityType?.meta?.name || ''}
+          {this.props.activityType?.type === 'template'
+            ? `Create a lesson plan based on the ${this.props.activityType?.meta
+                ?.name || ''}`
+            : `Edit ${this.props.activityType?.meta?.name || ''}`}
+        </Typography>
+        <Typography variant="body1">
+          {this.props.activityType?.meta?.description ||
+            this.props.activityType?.meta?.shortDesc}
         </Typography>
         <ApiForm
           activityType={id}
