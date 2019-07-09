@@ -1,13 +1,6 @@
 const fs = require('fs');
 
-fs.readdir('./ac', (_, ac) => {
-  fs.readdir('./op', (__, op) => {
-    const acop = [...ac.map(x => 'ac/' + x), ...op.map(x => 'op/' + x)];
-    const acopSrc = acop.map(dir => dir + '/src').join(' \\\n');
-    const acopCP = acop
-      .map(dir => `COPY ${dir}/package.json ${dir}/`)
-      .join('\n');
-    const template = `FROM node:10-jessie
+const template = `FROM node:10-jessie
 RUN apt-get update && apt-get install -y ocaml libelf-dev
 RUN curl -sL https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
 
@@ -23,7 +16,6 @@ COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.mete
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
 RUN mkdir -p __mocks__ frog-utils/src \\
-${acopSrc}
 
 COPY package.json yarn.lock .yarnrc ./
 COPY yarn.lock yarn.lock.orig
