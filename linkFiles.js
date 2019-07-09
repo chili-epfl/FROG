@@ -23,22 +23,26 @@ if (fs.existsSync('./ac')) {
     }
   });
 }
-fs.readdirSync('./frog/imports/internalActivities').forEach(x => {
-  if (fs.existsSync(`./frog/imports/internalActivities/${x}/clientFiles`)) {
-    fs.symlinkSync(
-      `./../../../frog/imports/internalActivities/${x}/clientFiles`,
-      `./frog/public/clientFiles/${x}`
-    );
-  }
-});
-fs.readdirSync('./frog/imports/internalOperators').forEach(x => {
-  if (fs.existsSync(`./frog/imports/internalOperators/${x}/clientFiles`)) {
-    fs.symlinkSync(
-      `./../../../frog/imports/internalOperators/${x}/clientFiles`,
-      `./frog/public/clientFiles/${x}`
-    );
-  }
-});
+if (fs.existsSync('./frog/imports/internalActivities')) {
+  fs.readdirSync('./frog/imports/internalActivities').forEach(x => {
+    if (fs.existsSync(`./frog/imports/internalActivities/${x}/clientFiles`)) {
+      fs.symlinkSync(
+        `./../../../frog/imports/internalActivities/${x}/clientFiles`,
+        `./frog/public/clientFiles/${x}`
+      );
+    }
+  });
+}
+if (fs.existsSync('./frog/imports/internalOperators')) {
+  fs.readdirSync('./frog/imports/internalOperators').forEach(x => {
+    if (fs.existsSync(`./frog/imports/internalOperators/${x}/clientFiles`)) {
+      fs.symlinkSync(
+        `./../../../frog/imports/internalOperators/${x}/clientFiles`,
+        `./frog/public/clientFiles/${x}`
+      );
+    }
+  });
+}
 if (fs.existsSync(`./frog-utils/clientFiles`)) {
   fs.symlinkSync(
     `./../../../frog-utils/clientFiles`,
