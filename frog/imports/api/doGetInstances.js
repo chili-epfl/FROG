@@ -8,6 +8,8 @@ import {
   type structureDefT,
   type ActivityDbT
 } from 'frog-utils';
+import { Connections, Operators } from './activities';
+import { Products } from './products';
 
 // given an activityEntry and an objectEntry, calculates which instances
 // to create
@@ -36,4 +38,39 @@ export default (
   }
 
   return { groups, structure };
+};
+
+const f = activity => {
+  const connections = Connections.find({ 'target.id': activity._id }).fetch();
+  const connIds = connections.map(x => x._id);
+  const controlOp = Operators.find({
+    _id: { $in: connIds },
+    type: 'control'
+  }).fetch();
+  if (!controlOp) {
+    return true;
+  }
+
+  const structraw = Products.findOne(controlOp._id);
+  const struct = structraw && structraw.controlStructure;
+  if (!struct) {
+    return true;
+  }
+
+  if (struct.list && !struct.list[activityId]) {
+    return true;
+  }
+
+  const cond = struct.all ? struct.all : struct.list[activityId];
+  if (cond.structure === 'individual') {
+    const payload = cond.payload[userid];
+    if (!payload && cond.mode === 'include') {
+      return false;
+    }
+
+    if (payload && cond.mode === 'exclude') {
+      return false;
+    }
+    return true;
+  }
 };
