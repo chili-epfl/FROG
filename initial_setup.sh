@@ -29,7 +29,7 @@ else
 fi
 echo "Yarn: $YARN"
 
-if ! "$YARN" install --verbose; then
+if ! "$YARN" install; then
 	echo "Sorry, there seems to be something wrong, please correct the errors and try again"
 	echo "There was some error installing the required packages, please rectify the errors and try again"
     exit 1
