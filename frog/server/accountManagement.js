@@ -1,5 +1,8 @@
+//@flow
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+
+type Profile = { DisplayName: string }
 
 /**
  * Creates a new user account if userid is null or upgrades adds the new information to the given userid and makes the given account 'verified'.
@@ -12,7 +15,7 @@ import { Meteor } from 'meteor/meteor';
 export const createAccount = (
   email: string,
   password: string,
-  profile: Object
+  profile: Profile
 ) => {
   const user = Meteor.user();
 
