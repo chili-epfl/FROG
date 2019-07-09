@@ -27,7 +27,6 @@ export default class SearchField extends React.Component<*, *> {
       <TextField
         className={classes?.margin}
         id="search"
-        data-test="search_field"
         label={this.props.prompt || 'Search'}
         value={this.state.search}
         autoFocus={this.props.focus}

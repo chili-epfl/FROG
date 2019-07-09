@@ -638,8 +638,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           });
 
     const sideNavBar = (
-      <div style={sideNavBarStyle} data-test="sidebar">
-        <h2 data-test="wiki_title">{this.wikiId}</h2>
+      <div style={sideNavBarStyle} data-testid="sidebar">
+        <h2>{this.wikiId}</h2>
         <ul data-testid="wiki_pages">
           <Button
             variant="contained"
@@ -666,7 +666,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         {!instancesList ? null : (
           <div style={{ paddingTop: '10px' }}>
             <b>Instances</b>
-            <ul data-test="wiki_page_instances">{instancesList}</ul>
+            <ul data-testid="wiki_page_instances">{instancesList}</ul>
           </div>
         )}
       </div>

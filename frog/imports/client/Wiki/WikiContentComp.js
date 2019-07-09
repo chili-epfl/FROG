@@ -214,7 +214,7 @@ class WikiContentComp extends React.Component<> {
 
     return (
       <WikiContext.Provider value={this.wikiContext}>
-        <div style={contentDivStyle} data-test="wiki_page_content">
+        <div style={contentDivStyle} data-testid="wiki_page_content">
           {this.props.mode === 'revisions' && (
             <Revisions doc={this.props.currentPageObj.liId} />
           )}
@@ -226,7 +226,7 @@ class WikiContentComp extends React.Component<> {
                 height: '100%',
                 padding: '10px'
               }}
-              data-test="dashboard_view"
+              data-testid="dashboard_view"
             >
               <LIDashboard
                 wikiId={this.props.wikiId}
@@ -251,7 +251,7 @@ class WikiContentComp extends React.Component<> {
                   height: 'calc(100vh - 102px)',
                   overflow: 'hidden'
                 }}
-                data-test="document_view"
+                data-testid="document_view"
               >
                 <Paper
                   elevation={24}
