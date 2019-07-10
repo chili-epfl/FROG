@@ -9,7 +9,7 @@ type SignUpModalPropsT = {
 export default function SignUpModal({ hideModal }: SignUpModalPropsT) {
   return (
     <Modal title="" actions={[{ title: 'Cancel', callback: hideModal }]}>
-      <SignUp />
+      <SignUp hideModal = {hideModal} />
     </Modal>
   );
 }
