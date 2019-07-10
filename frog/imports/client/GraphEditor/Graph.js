@@ -44,14 +44,16 @@ const Graph = connect(
     isEditable,
     isSession,
     hasPanMap,
-    hasTimescale
+    hasTimescale,
+    hideOperatorsAndConnections
   }: StoreProp & {
     scaled: boolean,
     isSvg: boolean,
     isEditable: boolean,
     isSession: boolean,
     hasPanMap: boolean,
-    hasTimescale: boolean
+    hasTimescale: boolean,
+    hideOperatorsAndConnections: boolean
   }) => (
     <svg
       width="100%"
@@ -90,15 +92,17 @@ const Graph = connect(
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
-        <Lines scaled={scaled} />
+        {!hideOperatorsAndConnections && <Lines scaled={scaled} />}
         <Activities scaled={scaled} />
-        <Operators scaled={scaled} />
+        {!hideOperatorsAndConnections && <Operators scaled={scaled} />}
         {isSession && <ProgressLines scaled={scaled} />}
         {isEditable && <DragGuides />}
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
         <Activities scaled={scaled} transparent />
-        <Operators scaled={scaled} transparent />
+        {!hideOperatorsAndConnections && (
+          <Operators scaled={scaled} transparent />
+        )}
       </svg>
       {hasPanMap && <PanMap />}
       {scaled && scrollEnabled && (

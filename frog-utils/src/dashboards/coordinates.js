@@ -9,7 +9,7 @@ import {
   VictoryLabel
 } from 'victory';
 
-import { type LogDbT, type DashboardViewerPropsT } from 'frog-utils';
+import { type LogDbT, type DashboardViewerPropsT } from '../types';
 
 const target = 'labels';
 const onMouseOver = () => ({ target, mutation: p => ({ text: p.datum.name }) });

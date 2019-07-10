@@ -1,25 +1,8 @@
 // @flow
 
 import { values } from 'frog-utils';
-import { Meteor } from 'meteor/meteor';
 import { toJS } from 'mobx';
-import { findKey } from 'lodash';
-
-const getInstanceId = page => {
-  if (!page) {
-    return 'all';
-  }
-  const userId = Meteor.userId();
-  if (page.plane === 1) {
-    return userId;
-  }
-
-  if (page.plane === 2) {
-    const group = findKey(page.socialStructure, x => x.includes(userId));
-    return group || 'Other group';
-  }
-  return 'all';
-};
+import { connection } from '../App/connection';
 
 const parseDocResults = function(results: Object) {
   const pagesData = results.pages;
@@ -48,45 +31,6 @@ const parseSearch = function(search: string) {
   return attributes;
 };
 
-const parsePageObjForReactiveRichText = (
-  wikiId: string,
-  pageObj: Object,
-  alsoInstances: boolean
-) => {
-  const template = {
-    wikiId,
-    id: pageObj.id,
-    title: pageObj.title,
-    liId: pageObj.liId || pageObj.instances[getInstanceId(pageObj)]?.liId,
-    created: pageObj.created,
-    valid: pageObj.valid
-  };
-
-  if (!pageObj.plane || pageObj.plane === 3 || !alsoInstances) {
-    return template;
-  }
-  if (pageObj.plane === 1) {
-    return [
-      template,
-      ...Object.keys(pageObj.instances).map(x => ({
-        ...template,
-        title: pageObj.title + '/' + pageObj.instances[x].username,
-        instance: pageObj.instances[x].username,
-        liId: toJS(pageObj.instances[x].liId)
-      }))
-    ];
-  }
-  return [
-    template,
-    ...Object.keys(pageObj.instances).map(x => ({
-      ...template,
-      title: pageObj.title + '/' + x,
-      instance: x,
-      liId: toJS(pageObj.instances[x].liId)
-    }))
-  ];
-};
-
 const getPageTitle = (
   pages: Object,
   statePageTitle: ?string,
@@ -105,9 +49,107 @@ const getPageTitle = (
   return null;
 };
 
+const checkNewPageTitle = (parsedPages, newPageTitle) => {
+  const parsedTitle = newPageTitle.toLowerCase().trim();
+  if (parsedTitle === '') return 'Title cannot be empty';
+  if (parsedTitle.includes('/')) return 'Title cannot contain /';
+  if (parsedTitle.includes('%')) return 'Title cannot contain %';
+  if (parsedPages[parsedTitle]?.valid) return 'Title already used';
+
+  return null;
+};
+
+const getDifferentPageId = (pages, oldPageId) => {
+  for (const page of pages) {
+    if (page.id !== oldPageId) return page.id;
+  }
+
+  return null;
+};
+
+const getPageDetailsForLiId = (wikiPages, liId) => {
+  for (const pageObj of values(toJS(wikiPages))) {
+    const pageId = pageObj.id;
+    if (pageObj.plane === 3 && pageObj.liId === liId) {
+      return {
+        pageId
+      };
+    } else if (pageObj.plane === 1) {
+      for (const instanceObj of values(pageObj.instances)) {
+        const instanceId = instanceObj.instanceId;
+        if (instanceObj.liId === liId)
+          return {
+            pageId,
+            instanceId
+          };
+      }
+    }
+  }
+
+  return {};
+};
+
+// Function to get ids of all existing wikis
+const listWikis = async () => {
+  const list = await new Promise(resolve =>
+    connection.createFetchQuery('wiki_sitemap', '', null, (err, res) => {
+      if (err) {
+        throw err;
+      } else {
+        resolve(res);
+      }
+    })
+  );
+  return list.map(doc => {
+    return doc.id;
+  });
+};
+
+/**
+ * Function to get the pages of all (valid) pages in a wiki
+ * @param {string} wikiId: id of the wiki to list
+ * @return{Promise} A Promise that resolves into an array of pages in the form of [Title, ID]
+ */
+const listPages = (wikiId: string) => {
+  const wikiDoc = connection.get('wiki', wikiId);
+  return new Promise((resolve, reject) =>
+    wikiDoc.fetch(err => {
+      if (err) {
+        reject(Error('Unable to fetch the Wiki Document'));
+      }
+      resolve(
+        Object.keys(wikiDoc.data.pages)
+          .filter(
+            key =>
+              wikiDoc.data.pages[key].created && wikiDoc.data.pages[key].valid
+          )
+          .map(key => [
+            wikiDoc.data.pages[key].title,
+            key,
+            wikiDoc.data.pages[key].plane
+          ])
+      );
+    })
+  );
+};
+/**
+ * Function that removes the leading and trailing spaces from the given string.
+ * @param {string} title
+ * @return {string} the sanitized i.e. trimmed title with extra spaces in between words also removed
+ */
+
+const sanitizeTitle = (title: string): string => {
+  return title.replace(/\s+/g, ' ').trim();
+};
+
 export {
   parseDocResults,
   parseSearch,
-  parsePageObjForReactiveRichText,
-  getPageTitle
+  getPageTitle,
+  checkNewPageTitle,
+  getDifferentPageId,
+  getPageDetailsForLiId,
+  listWikis,
+  listPages,
+  sanitizeTitle
 };

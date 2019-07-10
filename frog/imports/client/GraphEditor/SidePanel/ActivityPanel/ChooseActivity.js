@@ -4,6 +4,7 @@ import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 import { activityTypes } from '/imports/activityTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
+import ReactTooltip from 'react-tooltip';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +18,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
@@ -41,7 +41,10 @@ type PropsT = {
   changesLoaded?: Function,
   setActivityTypeId?: Function,
   hideLibrary?: boolean,
-  whiteList?: string[]
+  whiteList?: string[],
+  categories?: string[],
+  activityMapping?: Object,
+  allOpen?: boolean
 };
 
 const styles = {
@@ -114,14 +117,17 @@ class ActivityCategory extends Component<any, any> {
                 onClick={() => this.props.onSelect(x)}
                 classes={{ button: classes.List }}
               >
-                <Tooltip
-                  title={x.meta.shortDesc}
-                  classes={{ tooltip: classes.Tooltip }}
-                  placement="right"
-                  interactive
-                >
-                  <ListItemText inset primary={x.meta.name} />
-                </Tooltip>
+                <ListItemText
+                  inset
+                  primary={x.meta.name}
+                  data-tip
+                  data-for={x.meta.name}
+                />
+                {x.meta.shortDesc && (
+                  <ReactTooltip place="top" delayShow={500} id={x.meta.name}>
+                    {x.meta.shortDesc}
+                  </ReactTooltip>
+                )}
               </ListItem>
             ))}
           </List>
@@ -183,14 +189,16 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             store.addHistory();
           }
         };
-    const categories = [
-      'Core tools',
-      'Single Learning Items',
-      'Discipline-specific',
-      'Simulations',
-      'Deprecated core tools',
-      'Hyper-specific'
-    ];
+    const categories = this.props.categories
+      ? this.props.categories
+      : [
+          'Core tools',
+          'Single Learning Items',
+          'Discipline-specific',
+          'Simulations',
+          'Deprecated core tools',
+          'Hyper-specific'
+        ];
     const filteredList = activityTypesFiltered
       .filter(
         x =>
@@ -201,7 +209,20 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
       )
       .sort((x: Object, y: Object) => (x.meta.name < y.meta.name ? -1 : 1));
 
-    const { classes, store } = this.props;
+    const { classes, store, allOpen, activityMapping } = this.props;
+    const defaultDisplay = (
+      items: string[],
+      categoryName: string,
+      idx: number
+    ) => (
+      <StyledActivityCategory
+        name={categoryName}
+        items={items}
+        defaultState={idx === 0 || idx === 1 || allOpen}
+        onSelect={select}
+        key={categoryName}
+      />
+    );
     return (
       <Grid>
         <div className={classes.topPanel}>
@@ -234,15 +255,20 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
         <List component="nav">
           {!this.props.store.ui.libraryOpen &&
             this.state.searchStr === '' &&
-            categories.map((x: string, idx: number) => (
-              <StyledActivityCategory
-                name={x}
-                items={filteredList.filter(y => y.meta.category === x)}
-                defaultState={idx === 0 || idx === 1}
-                onSelect={select}
-                key={x}
-              />
-            ))}
+            categories.map((x: string, idx: number) => {
+              if (activityMapping)
+                return defaultDisplay(
+                  filteredList.filter(y => activityMapping[y.id] === x),
+                  x,
+                  idx
+                );
+              else
+                return defaultDisplay(
+                  filteredList.filter(y => y.meta.category === x),
+                  x,
+                  idx
+                );
+            })}
           {!this.props.store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length !== 0 &&
@@ -252,15 +278,15 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 key={x.id}
                 onClick={() => select(x)}
                 classes={{ button: classes.List }}
+                data-tip
+                data-for={x.meta.name}
               >
-                <Tooltip
-                  title={x.meta.shortDesc}
-                  classes={{ tooltip: classes.Tooltip }}
-                  placement="right"
-                  interactive
-                >
-                  <ListItemText inset primary={x.meta.name} />
-                </Tooltip>
+                {x.meta.shortDesc && (
+                  <ReactTooltip place="top" delayShow={500} id={x.meta.name}>
+                    {x.meta.shortDesc}
+                  </ReactTooltip>
+                )}
+                <ListItemText inset primary={x.meta.name} />
               </ListItem>
             ))}
           {!this.props.store.ui.libraryOpen &&

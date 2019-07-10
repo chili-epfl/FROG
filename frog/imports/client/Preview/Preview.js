@@ -19,8 +19,8 @@ import Controls from './Controls';
 import Content from './Content';
 import ConfigPanel from './ConfigPanel';
 
+// eslint-disable-next-line import/no-mutable-exports
 export let backend = new ShareDB({
-  // eslint-disable-line import/no-mutable-exports
   disableDocAction: true,
   disableSpaceDelimitedActions: true
 });

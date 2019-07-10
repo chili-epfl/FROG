@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable prefer-arrow-func */
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
 
@@ -8,7 +7,7 @@ import { publishComposite } from 'meteor/reywood:publish-composite';
 import { uuid } from 'frog-utils';
 
 import { startShareDB } from './share-db-manager';
-import '../imports/startup/shutdown-if-env.js';
+import '../imports/startup/shutdown-if-env';
 
 import { Logs } from '../imports/api/logs';
 import teacherImports from './teacherImports';
@@ -17,17 +16,18 @@ import {
   findActivitiesMongo,
   Connections,
   DashboardData
-} from '../imports/api/activities.js';
-import { upgradeGraphMongo } from '../imports/api/graphs.js';
-import { Operators, findOperatorsMongo } from '../imports/api/operators.js';
-import { Sessions } from '../imports/api/sessions.js';
-import { Products } from '../imports/api/products.js';
-import { Objects } from '../imports/api/objects.js';
-import { GlobalSettings } from '../imports/api/settings.js';
+} from '../imports/api/activities';
+import { upgradeGraphMongo } from '../imports/api/graphs';
+import { Operators, findOperatorsMongo } from '../imports/api/operators';
+import { Sessions } from '../imports/api/sessions';
+import { Products } from '../imports/api/products';
+import { Objects } from '../imports/api/objects';
+import { GlobalSettings } from '../imports/api/settings';
 import dashboardSubscription from './dashboardSubscription';
 import './getLogMethods';
 import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
+import './accountManagement';
 import './redis';
 
 require('util').inspect.defaultOptions.depth = null;
@@ -95,7 +95,7 @@ Meteor.publish('userData', function() {
     return this.ready();
   }
   return Meteor.users.find(this.userId, {
-    fields: { username: 1, joinedSessions: 1, role: 1 }
+    fields: { username: 1, isAnonymous: 1, joinedSessions: 1, role: 1 }
   });
 });
 

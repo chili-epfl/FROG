@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
 import { activityTypesObj } from '/imports/activityTypes';
+import { templatesObj } from '/imports/internalTemplates';
 import validateConfig from '/imports/api/validateConfig';
 import { removeActivity } from '/imports/api/remoteActivities';
 import { ShowErrorsRaw, ValidButtonRaw } from '../Validator';
@@ -18,7 +19,7 @@ import DeleteButton from './DeleteButton';
 const store = new Store();
 
 const ConfigComponent = ({ activityTypeId, config, setConfig }) => {
-  const aT = activityTypesObj[activityTypeId];
+  const aT = activityTypesObj[activityTypeId] || templatesObj[activityTypeId];
   if (!aT || !aT.ConfigComponent) {
     return null;
   }
@@ -39,7 +40,8 @@ export const check = (
   setValid?: Function,
   onConfigChange?: Function
 ) => {
-  const aT = activityTypesObj[activityType];
+  const aT = activityTypesObj[activityType] || templatesObj[activityType];
+
   const valid = validateConfig(
     'activity',
     '1',
@@ -97,7 +99,7 @@ class Config extends React.Component<
         typeof props.activity.activityType === 'object'
           ? props.activity.activityType.activity_type
           : props.activity.activityType
-      ];
+      ] || templatesObj[props.activity.activityType];
   }
 
   componentDidMount() {
@@ -125,21 +127,18 @@ class Config extends React.Component<
             data={this.props.config}
             reload={this.props.reload}
             onChange={e => {
-              this.setState(
-                {
-                  formData: {
-                    ...e.formData,
-                    component: this.state.formData.component
-                  }
-                },
-                () =>
-                  check(
-                    this.aT.id,
-                    this.state.formData,
-                    this.props.setValid,
-                    this.props.onConfigChange
-                  )
+              check(
+                this.aT.id,
+                e.formData,
+                this.props.setValid,
+                this.props.onConfigChange
               );
+              this.setState({
+                formData: {
+                  ...e.formData,
+                  component: this.state.formData.component
+                }
+              });
             }}
             nodeType={this.aT}
             valid={{ social: [] }}
@@ -166,7 +165,10 @@ class Config extends React.Component<
 }
 
 type PropsT = {
-  activityType: string,
+  activityType?: string,
+  categories?: string[],
+  activityMapping?: Object,
+  allOpen?: boolean,
   config?: Object,
   hideValidator?: boolean,
   onSelect?: Function,
@@ -318,6 +320,9 @@ const ApiForm = observer(
                 setDelete={x => this.setState({ deleteOpen: x })}
                 setIdRemove={x => this.setState({ idRemove: x })}
                 whiteList={this.props.whiteList}
+                categories={this.props.categories}
+                activityMapping={this.props.activityMapping}
+                allOpen={this.props.allOpen}
                 store={store}
                 setActivityTypeId={this.props.setActivityTypeId}
                 activity={this.state.activity}

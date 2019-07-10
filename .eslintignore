@@ -5,7 +5,10 @@
 **/flow-typed/**
 templates/*
 frogapi-test/**
-frog/packages/*
+frog/packages/**
+packages/**
+frog/imports/packages/**
 **/clientFiles/*
-ac/ac-autocode/src/lib/**
-
+**/ac/ac-autocode/src/lib/**
+cypress/**
+package-scripts.js

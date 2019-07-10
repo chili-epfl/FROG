@@ -93,11 +93,12 @@ export const findOneActivityMongo = (id: string) => {
 export const addActivity = (
   activityType?: string,
   data: ?Object = {},
-  id: string,
+  id?: string,
   configVersion: ?number,
   groupingKey: ?string,
   parentId: ?string
 ) => {
+  const actId = id || uuid();
   if (id)
     updateOneActivityMongo(id, {
       $set: omitBy(
@@ -118,7 +119,7 @@ export const addActivity = (
     });
   else
     insertActivityMongo({
-      _id: uuid(),
+      _id: actId,
       parentId,
       ...(activityType
         ? {
@@ -131,6 +132,7 @@ export const addActivity = (
       groupingKey,
       createdAt: new Date()
     });
+  return actId;
 };
 
 export const removeActivityType = (id: string) => {

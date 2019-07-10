@@ -1,5 +1,5 @@
 {
-  "defaultCommandTimeout": 10000,
   "projectId": "32bbwc",
-  "modifyObstructiveCode": false
+  "baseUrl": "http://localhost:3000/",
+  "defaultCommandTimeout": 10000
 }

@@ -96,9 +96,10 @@ class LogoutMenu extends React.Component<*, *> {
           <MenuItem
             onClick={() => {
               sessionStorage.removeItem('frog.sessionToken');
-              Meteor.logout();
-              this.props.history.push('/');
-              window.notReady();
+              Meteor.logout(() => {
+                this.props.history.push('/');
+                window.notReady();
+              });
             }}
           >
             Logout
@@ -109,34 +110,48 @@ class LogoutMenu extends React.Component<*, *> {
   }
 }
 
+type RouteT = {
+  name: string,
+  to: string[]
+};
 class TopBarController extends React.Component<
   { classes: any, history: any, location: any },
-  {}
+  { active: string }
 > {
-  routes = [
-    { name: 'Graph Editor', to: '/teacher/graph' },
-    { name: 'Sessions', to: '/teacher/orchestration' },
+  routes: RouteT[] = [
+    { name: 'Graph Editor', to: ['/teacher/graph'] },
+    { name: 'Sessions', to: ['/teacher/orchestration', '/t'] },
     {
       name: 'Activity Preview',
-      to: '/teacher/preview'
+      to: ['/teacher/preview']
     }
   ];
 
-  value = '/teacher/preview';
+  splitPath = this.props.location.pathname.split('/');
 
   constructor(props) {
     super(props);
-    const found = this.routes.filter(
-      route => props.location.pathname.indexOf(route.to) !== -1
-    )[0];
-
-    if (found !== undefined) {
-      this.value = found.to;
-    }
+    const found = this.routes.find(route => this.matchLocationPrefix(route));
+    this.state = {
+      active: found?.name || 'Graph Editor'
+    };
   }
 
+  // Returns the path which contains location path as its prefix (undefined if none have it as prefix)
+  matchLocationPrefix = (route: RouteT) => {
+    return route.to.find(to =>
+      to
+        .split('/')
+        .reduce(
+          (acc, word, idx) =>
+            acc && (!this.splitPath[idx] || this.splitPath[idx] === word),
+          true
+        )
+    );
+  };
+
   handleChange = (event, value) => {
-    this.value = value;
+    this.setState({ active: value });
   };
 
   render() {
@@ -150,23 +165,28 @@ class TopBarController extends React.Component<
             </Typography>
             <Tabs
               className={classes.tabs}
-              value={this.value}
+              value={this.state.active}
               onChange={this.handleChange}
               variant="fullWidth"
             >
               {this.routes.map(route => (
                 <Tab
-                  key={route.to}
+                  key={route.name}
                   label={route.name}
                   component={Link}
-                  to={route.to + LocalSettings.UrlCoda}
-                  value={route.to}
+                  to={
+                    (this.matchLocationPrefix(route) || route.to[0]) +
+                    LocalSettings.UrlCoda
+                  }
+                  value={route.name}
                 />
               ))}
             </Tabs>
             <h3>
               {LocalSettings.researchLogin ? ' * ' : ''}
-              {Meteor.user().username}
+              {Meteor.user().isAnonymous
+                ? 'Anonymous Visitor'
+                : Meteor.user().username}
             </h3>
             <LogoutMenu history={this.props.history} />
           </Toolbar>

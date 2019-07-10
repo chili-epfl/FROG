@@ -18,7 +18,6 @@ export const GraphIdUpgrades: Object = {
     Graphs.update(graphId, { $set: { graphVersion: 1 } });
   },
   '2': ({ graphId }: { graphId: string }) => {
-    console.log('upgrading to 2', graphId);
     Activities.find({ graphId })
       .fetch()
       .filter(x => x.activityType === 'ac-single-li')

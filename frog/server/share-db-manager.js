@@ -45,6 +45,7 @@ try {
     disableSpaceDelimitedActions: true
   });
 }
+backend.addProjection('wiki_sitemap', 'wiki', { wikiId: true });
 export const serverConnection = backend.connect();
 
 export const startShareDB = () => {
@@ -60,6 +61,15 @@ export const startShareDB = () => {
         next();
       });
 
+      backend.use('query', (request, next) => {
+        if (request.query?.resetUserId) {
+          Object.assign(request.agent.custom, {
+            userId: request.query?.resetUserId
+          });
+          next('400: Userid reset successfully');
+        }
+        next();
+      });
       backend.use('submit', (request, next) => {
         request.op.m.userId = request.agent.custom.userId;
         next();
@@ -105,7 +115,7 @@ const sharedbGetRevisions = (coll, id) =>
       );
       resolve(revisions);
     })
-  ).catch(e => console.error(e));
+  ).catch(e => console.error('Trying to get ops, error', coll, id, e));
 
 const sharedbGetRevisionList = (coll, id) =>
   new Promise(resolve =>
@@ -123,12 +133,13 @@ const sharedbGetRevisionList = (coll, id) =>
           }
 
           let ts = res[0].m.ts;
+          const user = Meteor.users.findOne(res[0].m.userId)?.username;
           let contributors = {};
           let last = res.shift().create.data;
           const milestoneOpsIndices = [
             {
               data: cloneDeep(last),
-              contributors: [Meteor.users.findOne(res[0].m.userId).username],
+              contributors: [user],
               time: ts
             }
           ];
@@ -140,9 +151,12 @@ const sharedbGetRevisionList = (coll, id) =>
               if (tsDiff > 30000 || i === res.length - 1) {
                 milestoneOpsIndices.push({
                   data: cloneDeep(last),
-                  contributors: Object.keys(contributors).map(
-                    x => Meteor.users.findOne(x)?.username
-                  ),
+                  contributors: Object.keys(contributors).map(x => {
+                    const userObj = Meteor.users.findOne(x);
+                    return userObj && !userObj?.isAnonymous
+                      ? userObj.username
+                      : 'Anonymous User';
+                  }),
                   time: op.m.ts
                 });
                 contributors = {};

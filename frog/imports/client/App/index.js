@@ -13,19 +13,19 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch,
-  Link
+  Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
 
-import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
-import Wiki from '../Wiki';
+import WikiRouter from '../Wiki/WikiRouter';
+import SingleActivity from '../SingleActivity';
+import { connection } from './connection';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -59,9 +59,15 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
       );
     } else {
       Meteor.connection.setUserId(response.id);
+      connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
     }
 
-    Meteor.subscribe('userData', { onReady: () => setState('ready') });
+    Meteor.subscribe('userData', {
+      onReady: () => {
+        setState('ready');
+        connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+      }
+    });
   }
 };
 
@@ -88,7 +94,10 @@ const FROGRouter = withRouter(
       this.state = { mode: 'waiting' };
       if (Meteor.user()) {
         Meteor.subscribe('userData', {
-          onReady: () => this.setState({ mode: 'ready' })
+          onReady: () => {
+            this.setState({ mode: 'ready' });
+            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+          }
         });
       }
     }
@@ -114,7 +123,7 @@ const FROGRouter = withRouter(
       isStudentList,
       loginQuery
     }: {
-      username: string,
+      username?: string,
       token?: string,
       isStudentList?: boolean,
       loginQuery?: boolean
@@ -126,10 +135,13 @@ const FROGRouter = withRouter(
         token,
         isStudentList,
         this.props.match.params.slug,
-        (err, id) => {
+        (err, res) => {
+          if (res) {
+            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+          }
           subscriptionCallback(
             err,
-            id,
+            res,
             x => this.setState({ mode: x }),
             loginQuery
           );
@@ -147,6 +159,9 @@ const FROGRouter = withRouter(
         } else {
           Meteor.subscribe('userData', {
             onReady: () => {
+              connection.createFetchQuery('rz', {
+                resetUserId: Meteor.userId()
+              });
               this.setState({ mode: 'ready' });
             }
           });
@@ -172,6 +187,25 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
+        if (query.u) {
+          this.setState({ mode: 'loggingIn' });
+          LocalSettings.UrlCoda = '?u=' + query.u;
+          Meteor.call('frog.userid.login', query.u, (err, res) => {
+            if (err) {
+              console.error(err);
+              this.setState({ mode: 'noSession' });
+              return;
+            }
+            subscriptionCallback(
+              err,
+              res,
+              x => this.setState({ mode: x }),
+              false
+            );
+            this.setState({ mode: 'ready' });
+          });
+          return;
+        }
         const username =
           query.login ||
           query.researchLogin ||
@@ -230,9 +264,12 @@ const FROGRouter = withRouter(
               }
             }
             if (
-              this.props.match.params.slug &&
-              this.props.match.params.slug.slice(0, 4) !== 'wiki'
+              !this.props.match.params.slug ||
+              this.props.match.params.slug.slice(0, 4) === 'wiki' ||
+              this.props.match.params.slug.slice(0, 9) === 'duplicate'
             ) {
+              this.login({});
+            } else if (this.props.match.params.slug) {
               this.setState({ mode: 'loggingIn' });
               Meteor.call(
                 'frog.session.settings',
@@ -252,6 +289,7 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
         return <h1>Too late to join this session</h1>;
       }
@@ -260,27 +298,19 @@ const FROGRouter = withRouter(
         return <Redirect to={this.props.location.pathname} />;
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
-      } else if (this.state.mode === 'ready' && Meteor.user()) {
+      } else if (this.state.mode === 'ready' && user) {
         return (
           <Switch>
-            <Route path="/wiki/:wikiId/:pageTitle/:instance" component={Wiki} />
-            <Route path="/wiki/:wikiId/:pageTitle" component={Wiki} />
-            <Route path="/wiki/:wikiId" component={Wiki} />
+            <Route path="/duplicate" component={SingleActivity} />
+            <Route path="/wiki" component={WikiRouter} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/t/:slug" component={TeacherContainer} />
+            <Route path="/t" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
               render={() =>
-                LocalSettings.follow ? (
-                  <StudentView />
-                ) : (
-                  <h3>
-                    Welcome to FROG. You are logged in as{' '}
-                    {Meteor.user().username}. If you want to access the teacher
-                    view, go to <Link to="/teacher">/teacher</Link>, otherwise
-                    go to the /SLUG of the session you are a student of
-                  </h3>
-                )
+                LocalSettings.follow ? <StudentView /> : <SingleActivity />
               }
             />
           </Switch>
@@ -292,14 +322,14 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'noSession') {
         return <h1>No such session exists</h1>;
       }
-      return this.state.mode === 'studentlist' && this.state.settings ? (
-        <StudentLogin
-          settings={this.state.settings}
-          login={this.login}
-          slug={this.props.match.params.slug}
-        />
-      ) : (
-        <NotLoggedIn login={this.login} />
+      return (
+        this.state.mode === 'studentlist' && (
+          <StudentLogin
+            settings={this.state.settings}
+            login={this.login}
+            slug={this.props.match.params.slug}
+          />
+        )
       );
     }
   }

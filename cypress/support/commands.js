@@ -11,6 +11,12 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
+
+Cypress.Commands.add('visitRandomWiki', () => {
+  const uuid = Cypress._.random(0, 1e6);
+  cy.visit(`wiki/${uuid}`);
+});
+
 //
 //
 // -- This is a child command --

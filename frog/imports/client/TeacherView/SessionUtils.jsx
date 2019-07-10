@@ -119,9 +119,7 @@ class UtilsMenuRaw extends React.Component<any, { anchorEl: any }> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              this.props.history.push(
-                '/teacher/orchestration' + LocalSettings.UrlCoda
-              );
+              this.props.history.push('/t/' + LocalSettings.UrlCoda);
               setTeacherSession(undefined);
             }}
           >
@@ -177,7 +175,9 @@ const SessionUtils = ({
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.textCenter}>
-        <DashToggle visible={visible} toggleVisible={toggle} />
+        {!session.singleActivity && (
+          <DashToggle visible={visible} toggleVisible={toggle} />
+        )}
       </Grid>
       <Grid item xs={4} style={{ textAlign: 'right' }}>
         <UtilsMenu classes={classes} buttonsModel={buttonsModel} />
