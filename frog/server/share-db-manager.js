@@ -15,6 +15,7 @@ const server = http.createServer();
 
 json.type.registerSubtype(richText.type);
 ShareDB.types.register(json.type);
+ShareDB.types.defaultType = json.type;
 
 const dbUrl =
   (Meteor.settings && Meteor.settings.sharedb_dburl) ||

@@ -19,6 +19,7 @@ if (Meteor.isClient) {
 
   json0.type.registerSubtype(richText.type);
   sharedbClient.types.register(json0.type);
+  sharedbClient.types.defaultType = json0.type;
 
   socket = new ReconnectingWebSocket(shareDbUrl + '?' + Meteor.userId(), null, {
     minConnectionDelay: 1

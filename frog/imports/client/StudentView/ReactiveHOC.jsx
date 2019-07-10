@@ -11,7 +11,7 @@ import { connection } from '../App/connection';
 
 const SubscriptionCache = {};
 
-const docSubscribe = async (conn, coll, id, cb) =>
+const docSubscribe = async (conn, coll, id) =>
   new Promise(async resolve => {
     const key = `${coll}#${id}`;
     if (SubscriptionCache[key]) {
@@ -91,28 +91,31 @@ const ReactiveHOC = (
           data: rawData
         });
       } else {
-        this.doc = docSubscribe(conn || connection, collection || 'rz', docId);
+        docSubscribe(conn || connection, collection || 'rz', docId).then(e => {
+          console.log(e);
+          this.doc = e;
 
-        this.interval = window.setInterval(() => {
-          this.intervalCount += 1;
-          if (this.intervalCount > 10) {
-            this.setState({ timeout: true });
-            window.clearInterval(this.interval);
-            this.interval = undefined;
-          } else {
+          this.interval = window.setInterval(() => {
+            this.intervalCount += 1;
+            if (this.intervalCount > 10) {
+              this.setState({ timeout: true });
+              window.clearInterval(this.interval);
+              this.interval = undefined;
+            } else {
+              this.update();
+            }
+          }, 1000);
+
+          if (this.doc.type) {
             this.update();
+          } else {
+            this.doc.once('load', () => {
+              this.update();
+            });
           }
-        }, 1000);
-
-        if (this.doc.type) {
-          this.update();
-        } else {
-          this.doc.once('load', () => {
+          this.doc.on('op', () => {
             this.update();
           });
-        }
-        this.doc.on('op', () => {
-          this.update();
         });
       }
     };

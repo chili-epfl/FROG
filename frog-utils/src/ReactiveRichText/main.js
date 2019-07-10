@@ -15,7 +15,9 @@ import {
   find,
   debounce
 } from 'lodash';
+import QuillCursors from '@minervaproject/quill-cursors';
 import Dialog from '@material-ui/core/Dialog';
+
 import { HighlightSearchText } from '../HighlightSearchText';
 import { highlightTargetRichText } from '../highlightTargetRichText';
 import { cloneDeep } from '../cloneDeep';
@@ -34,6 +36,9 @@ import WikiLinkBlot from './WikiLink/WikiLinkBlot';
 Quill.register('modules/wikiLink', WikiLinkModule);
 Quill.register('modules/wikiEmbed', WikiLinkModule);
 Quill.register('formats/wiki-link', WikiLinkBlot);
+Quill.register('modules/cursors', QuillCursors);
+
+const IDMapping = {};
 
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
@@ -98,6 +103,8 @@ class ReactiveRichText extends Component<
 > {
   quillRef: any;
 
+  cursors: any;
+
   compositionStart: boolean;
 
   authorDeltaToApply: any;
@@ -154,6 +161,9 @@ class ReactiveRichText extends Component<
           // are multiple active editors in the page
           if (opPath === this.props.path) {
             editor.updateContents(operation.o);
+          }
+          if (operation.u !== this.props.userId + '/' + this.props.username) {
+            this.cursors.flashCursor(operation.u);
           }
         });
       }
@@ -233,6 +243,80 @@ class ReactiveRichText extends Component<
     }
 
     return raw;
+  };
+
+  updateCursor = range => {
+    const { path, userId, username } = this.props;
+    const doc = this.props.dataFn?.doc;
+    doc.submitPresence({
+      p: [path],
+      t: 'rich-text',
+      u: userId + '/' + (username || ''),
+      s: {
+        u: userId + '/' + (username || ''),
+        c: 0,
+        s: [[range.index, range.index + range.length]]
+      }
+    });
+  };
+
+  setUpCursors = () => {
+    const { path, userId, username } = this.props;
+    const doc = this.props.dataFn?.doc;
+    const editor = this.quillRef.getEditor();
+    const cursors = editor.getModule('cursors');
+
+    editor.on('selection-change', (range, _, source) => {
+      if (range && source === 'user') {
+        this.updateCursor(range);
+      }
+    });
+
+    doc.on('presence', (srcList, submitted) => {
+      console.log(srcList);
+      srcList.forEach(src => {
+        const presence = doc.presence[src];
+        if (!presence || !presence.p) {
+          cursors.removeCursor(IDMapping[src]);
+          return;
+        }
+        console.log(presence.p[0], [path]);
+        if (presence.p[0] !== path) {
+          cursors.removeCursor(presence.u[0]);
+          return;
+        }
+
+        if (presence.s.u) {
+          const presenceUID = presence.s.u;
+          IDMapping[src] = presenceUID;
+          if (
+            userId + '/' + username !== presenceUID &&
+            presence.s.s &&
+            presence.s.s.length > 0
+          ) {
+            // TODO: Can QuillCursors support multiple selections?
+            const sel = presence.s.s[0];
+
+            // Use Math.abs because the sharedb presence type
+            // supports reverse selections, but I don't think
+            // Quill Cursors does.
+            const len = Math.abs(sel[1] - sel[0]);
+            const min = Math.min(sel[0], sel[1]);
+
+            cursors.createCursor(
+              presenceUID,
+              presence.u.split('/')[1],
+              pickColor(presenceUID)
+            );
+            cursors.moveCursor(presenceUID, { index: min, length: len });
+            if (submitted) {
+              cursors.flashCursor(presenceUID);
+            }
+          }
+        }
+      });
+    });
+    this.cursors = cursors;
   };
 
   compositionStartHandler = () => {
@@ -328,7 +412,9 @@ class ReactiveRichText extends Component<
   sendPresence = (doc: *) => {
     doc.submitPresence(
       {
-        u: this.props.readOnly ? undefined : this.props.userId
+        u: this.props.readOnly
+          ? undefined
+          : this.props.userId + '/' + (this.props.username || '')
       },
       () => {
         doc.requestReplyPresence = false;
@@ -339,19 +425,16 @@ class ReactiveRichText extends Component<
   componentDidMount() {
     const doc = this.props.dataFn?.doc;
 
-    if (doc) {
+    if (doc && !this.props.readOnly) {
       doc.requestReplyPresence = true;
       if (doc.type) {
-        console.log(doc.type);
         this.sendPresence(doc);
+        this.setUpCursors();
       } else {
-        console.log('load');
-        doc.on(
-          'load',
-          () => console.log('loaded', doc.type) || this.sendPresence(doc)
-        );
+        doc.on('load', () => this.sendPresence(doc));
       }
     }
+
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
       if (this.props.autoFocus) {
@@ -564,9 +647,10 @@ class ReactiveRichText extends Component<
       }
 
       const op = {
-        p: this.state.path,
+        p: [this.state.path],
         t: 'rich-text',
-        o: delta.ops
+        o: delta.ops,
+        u: this.props.userId + '/' + this.props.username
       };
 
       this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
@@ -690,10 +774,13 @@ class ReactiveRichText extends Component<
               this.props.dataFn.listore.setOverCB(null);
             }}
           >
-            <Presence
-              dataFn={this.props.dataFn}
-              id={this.props.dataFn.doc.id}
-            />
+            {!isEmpty(wikiContext) && (
+              <Presence
+                dataFn={this.props.dataFn}
+                id={this.props.dataFn.doc.id}
+                userId={this.props.userId}
+              />
+            )}
             {!get(props, 'readOnly') && (
               <CustomQuillToolbar
                 id={this.toolbarId}
@@ -710,6 +797,7 @@ class ReactiveRichText extends Component<
               readOnly={get(props, 'readOnly')}
               formats={formats}
               modules={{
+                cursors: true,
                 toolbar: get(props, 'readOnly')
                   ? null
                   : {
