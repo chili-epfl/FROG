@@ -12,13 +12,16 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {type SignUpStateT } from './types'
-
-const useStyles = makeStyles(theme => ({
+import {type SignUpStateT } from './types';
+import {Meteor} from 'meteor/meteor';
+import { withStyles } from '@material-ui/styles';
+import { withTheme } from '@material-ui/styles';
+ 
+ const styles = theme  => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
-    },
+    }
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -35,20 +38,40 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+    margin: theme.spacing(3, 0, 2)
+  }
+});
 
-export default function SignUp () {
-  const classes = useStyles(); 
-  const [values, setValues] = React.useState({
-    displayName: '',
-    email:'',
-    password: ''
-  })
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
+
+ class  SignUp extends React.Component<{}, SignUpStateT> {
+  
+ 
+
+  constructor(){
+    super();
+    this.state = {
+      displayName:'',
+      email: '',
+      password:''
+
+    };
+  }
+
+   handleChange = (event: Object , type: string ) => {
+     const value = event.target.value; 
+     const nextState = {}; 
+     nextState[type] = value; 
+     this.setState(nextState); 
+   }
+  
+  handleSubmit = async (e: Object) => {
+    e.preventDefault(); 
+    Meteor.call('create.account', this.state.email , this.state.password, {displayName: this.state.displayName});
+
+  }
+  render(){
+    const {classes} = this.props; 
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,7 +82,7 @@ export default function SignUp () {
         <Typography component="h1" variant="h5">
           Create an account with FROG 
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit = {e => this.handleSubmit(e)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -70,7 +93,7 @@ export default function SignUp () {
                 fullWidth
                 id="displayName"
                 label="Display Name"
-                onChange = {handleChange}
+                onChange = {(e) => this.handleChange(e,"displayName")}
                 autoFocus
               />
             </Grid>
@@ -82,7 +105,7 @@ export default function SignUp () {
                 id="email"
                 label="Email Address"
                 name="email"
-                onChange = {handleChange}
+                onChange = {(e) => this.handleChange( e,"email")}
                 autoComplete="email"
               />
             </Grid>
@@ -95,7 +118,7 @@ export default function SignUp () {
                 label="Password"
                 type="password"
                 id="password"
-                onChange = {handleChange}
+                onChange = {(e) => this.handleChange(e,"password")}
                 autoComplete="current-password"
               />
             </Grid>
@@ -106,6 +129,7 @@ export default function SignUp () {
             variant="contained"
             color="primary"
             className={classes.submit}
+            
           >
             Sign Up
           </Button>
@@ -134,3 +158,6 @@ export default function SignUp () {
     </Container>
   );
 }
+}
+
+export default withStyles(styles)(SignUp); 
