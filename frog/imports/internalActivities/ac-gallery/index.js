@@ -11,6 +11,7 @@ import upgradeFunctions from './upgradeFunctions';
 const dataStructure = {};
 
 const mergeFunction = (object, dataFn) => {
+console.log(object)
   if (isEmpty(object.data) || !isObject(object.data)) {
     return;
   }

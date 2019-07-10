@@ -1,15 +1,18 @@
 // @flow
 import { uuid } from 'frog-utils';
+import LI from '../LearningItem';
 import { connection } from '../App/connection';
+import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { activityTypesObj } from '/imports/activityTypes';
 import { dataFn } from './wikiLearningItem';
 
 // Creates an LI entry in the 'li' collection.
-export const createNewLI = (
+export const createNewLI = async (
   wikiId: string,
   liType: string,
   activityConfig?: any,
-  pageTitle?: string
+  pageTitle?: string,
+  data?: any
 ) => {
   const meta = {
     wikiId
@@ -19,9 +22,16 @@ export const createNewLI = (
     const { activityType, config } = activityConfig;
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
-    const dS = activityTypesObj[activityType].dataStructure;
+    await new Promise(resolve => doc.subscribe(() => resolve()));
+    const dataFnRZ = generateReactiveFn(doc, LI);
+    const aT = activityTypesObj[activityType];
+    const dS = aT.dataStructure;
     const initData = typeof dS === 'function' ? dS(config) : dS;
+    console.log(initData);
     doc.create(initData || {});
+    if (data && aT.mergeFunction) {
+      aT.mergeFunction(data, dataFnRZ);
+    }
     const payload = {
       acType: activityType,
       activityData: { config },
@@ -29,7 +39,10 @@ export const createNewLI = (
       title: pageTitle,
       activityTypeTitle: activityTypesObj[activityType].meta.name
     };
-    return dataFn.createLearningItem(liType, payload, meta);
+    console.log(payload);
+    const res = dataFn.createLearningItem(liType, payload, meta, true);
+    console.log(res);
+    return res;
   }
   return dataFn.createLearningItem(liType, undefined, meta);
 };
