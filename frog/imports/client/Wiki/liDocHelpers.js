@@ -18,18 +18,18 @@ export const createNewLI = (
     // Need to create an entry for the activity in the 'rz' collection before creating the LI
     const { activityType, config } = activityConfig;
     const id = uuid();
-    const doc = connection.get('rz', id + '/all');
+    const doc = connection.get('rz', id);
     const dS = activityTypesObj[activityType].dataStructure;
     const initData = typeof dS === 'function' ? dS(config) : dS;
     doc.create(initData || {});
     const payload = {
       acType: activityType,
       activityData: { config },
-      rz: id + '/all',
+      rz: id,
       title: pageTitle,
       activityTypeTitle: activityTypesObj[activityType].meta.name
     };
-    return dataFn.createLearningItem(liType, payload, meta);
+    return dataFn.createLearningItem(liType, payload, meta, true);
   }
   return dataFn.createLearningItem(liType, undefined, meta);
 };

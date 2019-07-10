@@ -345,7 +345,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   createNewInstancePage = async (pageObj, instanceId, instanceName) => {
-    const liId = await dataFn.duplicateLI(pageObj.liId);
+    const liId = await dataFn.duplicateLI(
+      pageObj.liId,
+      undefined,
+      instanceName
+    );
     addNewInstancePage(
       this.wikiDoc,
       pageObj.id,
@@ -475,7 +479,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   // Creates a new page entry in ShareDB and navigates to it.
-  createPage = (title, socialPlane, activityConfig, operatorConfig) => {
+  createPage = async (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
       (activityConfig?.invalid && 'Activity config is not valid') ||
@@ -486,7 +490,20 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
-    const liId = createNewLI(this.wikiId, liType, activityConfig, title);
+    let data = undefined;
+    if (operatorConfig) {
+      const { operatorType, config } = operatorConfig;
+      data = await new Promise((resolve, reject) =>
+        Meteor.call('run.operator', operatorType, config, (err, res) => {
+          if (err) {
+            reject(console.error(err));
+          } else {
+            resolve(res);
+          }
+        })
+      );
+    }
+    const liId = createNewLI(this.wikiId, liType, activityConfig, title, data);
     const pageId = addNewWikiPage(
       this.wikiDoc,
       sanitizeTitle(title),

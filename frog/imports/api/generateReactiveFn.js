@@ -157,11 +157,15 @@ export class Doc {
     }
   };
 
-  duplicateLI = async (li: string | Object, meta?: Object) => {
+  duplicateLI = async (
+    li: string | Object,
+    meta?: Object,
+    instanceId?: string
+  ) => {
     if (typeof li !== 'string') {
       const liT = learningItemTypesObj[li.liDocument.liType];
       if (liT.duplicate) {
-        return liT.duplicate(li, this, this.meta);
+        return liT.duplicate(li, this, this.meta, instanceId);
       } else {
         return li;
       }
@@ -186,23 +190,6 @@ export class Doc {
       'li',
       id
     );
-    if (LIData.liType === 'li-activity') {
-      // In this case the activity also needs to be duplicated
-      const acData = await new Promise(resolve => {
-        const ac = connection.get('rz', LIData.payload.rz);
-        ac.fetch();
-        if (ac.type) {
-          resolve(ac.data);
-        }
-        ac.once('load', () => {
-          resolve(ac.data);
-        });
-      });
-      const acId = uuid();
-      const activityPointer = connection.get('rz', acId);
-      activityPointer.create(acData || {});
-      LIData.payload.rz = acId;
-    }
     const newLI = {
       ...LIData,
       createdAt: new Date(),
