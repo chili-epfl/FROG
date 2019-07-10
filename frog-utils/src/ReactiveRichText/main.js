@@ -2,14 +2,8 @@
 import '@houshuang/react-quill/dist/quill.snow.css';
 
 import React, { Component } from 'react';
+import uuid from 'cuid';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
-import {
-  HighlightSearchText,
-  uuid,
-  highlightTargetRichText,
-  cloneDeep,
-  WikiContext
-} from 'frog-utils';
 import {
   isEmpty,
   get,
@@ -22,9 +16,13 @@ import {
   debounce
 } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
+import { HighlightSearchText } from '../HighlightSearchText';
+import { highlightTargetRichText } from '../highlightTargetRichText';
+import { cloneDeep } from '../cloneDeep';
+import { WikiContext } from '../WikiContext';
 
 import { LiViewTypes, formats } from './constants';
-import LearningItemBlot from './LearningItemBlot';
+import getLearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
@@ -39,8 +37,7 @@ Quill.register('formats/wiki-link', WikiLinkBlot);
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
 // and satisfy Flow's requirements
-/* eslint-disable import/no-mutable-exports */
-let reactiveRichTextDataFn = {
+const reactiveRichTextDataFn = {
   getLearningTypesObj: () => {
     throw new Error('Should never be uninitialized');
   },
@@ -49,6 +46,10 @@ let reactiveRichTextDataFn = {
   }
 };
 
+// We pass the reactiveRichTextData object which we will mutate
+// once we receive the correct props. From then on, the Blot should
+// have access to the fully implemented methods.
+const LearningItemBlot = getLearningItemBlot(reactiveRichTextDataFn);
 LearningItemBlot.blotName = 'learning-item';
 LearningItemBlot.tagName = 'div';
 LearningItemBlot.className = 'ql-learning-item';
@@ -113,7 +114,11 @@ class ReactiveRichText extends Component<
 
   constructor(props: ReactivePropsT) {
     super(props);
-    reactiveRichTextDataFn = props.dataFn;
+
+    // We assign all values of dataFn to reactiveRichTextDataFn so that
+    // they get passed to LearningItemBlot
+    Object.assign(reactiveRichTextDataFn, props.dataFn);
+
     this.debouncedInsertNewLi = debounce(this.insertNewLi, 100, {
       leading: true,
       trailing: false
@@ -640,6 +645,8 @@ class ReactiveRichText extends Component<
       <WikiContext.Consumer>
         {wikiContext => (
           <div
+            className="reactRichText"
+            data-wiki-side={wikiContext.side || 'left'}
             style={{ height: '100%' }}
             onMouseOver={() => {
               if (this.props.dataFn.listore.dragState) {
@@ -677,23 +684,21 @@ class ReactiveRichText extends Component<
                         insertLi: this.insertNewLi,
                         image: () =>
                           this.setState({
-                            openCreator: { liType: 'li-image' }
+                            openCreator: { liType: 'li-file' }
                           }),
                         video: () =>
-                          this.setState({ openCreator: { liType: 'li-embed' } })
+                          this.setState({
+                            openCreator: { liType: 'li-embed' }
+                          })
                       }
                     },
                 wikiLink: isEmpty(wikiContext)
                   ? null
                   : {
-                      allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9]*$/,
+                      allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9_ !""$&'()*+,-.:;<=>?@#[\]^_`{|}~]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
-                        console.log(searchTerm);
-                        const values = wikiContext.getOnlyValidWikiPages(
-                          false,
-                          searchTerm.includes('/')
-                        );
+                        const values = wikiContext.getOnlyValidWikiPages();
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
@@ -704,14 +709,44 @@ class ReactiveRichText extends Component<
                             const searchLower = (
                               searchTerm || ''
                             ).toLowerCase();
+
                             if (text.indexOf(searchLower) > -1) {
                               matches.push(valueObj);
+                            } else if (
+                              valueObj.plane === 1 &&
+                              searchTerm.indexOf('/') > -1
+                            ) {
+                              const parts = searchLower.split('/');
+                              const pageTitle = parts[0];
+                              const searchInstanceName = parts[1];
+                              if (text.indexOf(pageTitle) > -1) {
+                                for (const instanceObj of Object.values(
+                                  valueObj.instances
+                                )) {
+                                  const instanceName = instanceObj.instanceName.toLowerCase();
+                                  if (
+                                    instanceName.indexOf(searchInstanceName) >
+                                    -1
+                                  ) {
+                                    const pageObj = JSON.parse(
+                                      JSON.stringify(valueObj)
+                                    );
+                                    pageObj.instanceId = instanceObj.instanceId;
+                                    pageObj.instanceName = instanceName;
+                                    pageObj.title =
+                                      valueObj.title + '/' + instanceName;
+                                    matches.push(pageObj);
+                                  }
+                                }
+                              }
                             }
                           }
 
-                          if (matches.length === 0) {
+                          if (
+                            searchTerm.indexOf('/') === -1 &&
+                            matches.length === 0
+                          ) {
                             matches.push({
-                              wikiId: wikiContext.getWikiId(),
                               title: searchTerm,
                               created: true,
                               valid: true
@@ -725,14 +760,11 @@ class ReactiveRichText extends Component<
                 wikiEmbed: isEmpty(wikiContext)
                   ? null
                   : {
-                      allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9]*$/,
+                      allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9_ !""$&'()*+,-.:;<=>?@#[\]^_`{|}~]*$/,
                       mentionDenotationChars: ['#'],
                       type: 'embed',
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages(
-                          false,
-                          searchTerm.includes('/')
-                        );
+                        const values = wikiContext.getOnlyValidWikiPages();
 
                         if (searchTerm.length === 0) {
                           renderList(values, searchTerm);
@@ -784,5 +816,4 @@ class ReactiveRichText extends Component<
 }
 
 window.q = Quill;
-export { reactiveRichTextDataFn };
 export default ReactiveRichText;

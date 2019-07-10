@@ -58,19 +58,19 @@ class RenderLearningItem extends React.Component<any, any> {
       this.Comp = () => <h3>Oops ! Incorrect LI-type</h3>;
     }
     let checkedType = type;
-    if (type === 'edit' && !liType.Editor && fallback) {
+    if (type === 'edit' && !liType?.Editor && fallback) {
       checkedType = fallback;
     }
 
-    if (checkedType === 'view' && liType.Viewer) {
-      this.Comp = liType.Viewer;
+    if (checkedType === 'view' && liType?.Viewer) {
+      this.Comp = liType?.Viewer;
     } else if (
       (checkedType === 'view' || checkedType === 'thumbView') &&
-      liType.ThumbViewer
+      liType?.ThumbViewer
     ) {
-      this.Comp = liType.ThumbViewer;
-    } else if (checkedType === 'edit' && liType.Editor) {
-      this.Comp = liType.Editor;
+      this.Comp = liType?.ThumbViewer;
+    } else if (checkedType === 'edit' && liType?.Editor) {
+      this.Comp = liType?.Editor;
     } else {
       this.Comp = () => (
         <b>
@@ -111,7 +111,7 @@ class RenderLearningItem extends React.Component<any, any> {
     if (!this.Comp) {
       return '<h2>Error</h2>';
     }
-    const liType = learningItemTypesObj[data.liType];
+    const liType = learningItemTypesObj[data.liType] || {};
     const liEmpty = liType.isEmpty;
     if (
       this.props.notEmpty &&
@@ -141,7 +141,12 @@ class RenderLearningItem extends React.Component<any, any> {
     const CompProps = (
       <div style={{ height: '100%' }}>
         <DraggableCore
-          disabled={type === 'edit' || type === 'history' || disableDragging}
+          disabled={
+            type === 'edit' ||
+            type === 'history' ||
+            disableDragging ||
+            liType.disableDragging
+          }
           offsetParent={document.body}
           onStart={e => {
             if (e.shiftKey) {

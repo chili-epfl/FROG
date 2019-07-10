@@ -6,7 +6,7 @@ import { keyBy } from 'lodash';
 
 // we're duplicating a lot of logic here from ../activityTypes and ../operatorTypes, because
 // there was an issue with circular imports leading to import { activityTypesObj } from '../activityTypes'
-// to be undefinedGkkkkkkkkkkkk
+// to be undefined
 
 const activityRunnersRaw = importAll.deferred(
   '../../node_modules/ac-*/src/ActivityRunner?(.js)'
@@ -28,7 +28,7 @@ export const activityRunnersExt = entries(activityRunnersRaw).reduce(
 );
 
 const activityRunnersRawInternal = importAll.deferred(
-  '../internalActivities/*/ActivityRunner?(.js)'
+  '../internalActivities/*/client/ActivityRunner?(.js)'
 );
 
 export const activityRunners = entries(activityRunnersRawInternal).reduce(

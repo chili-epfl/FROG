@@ -12,7 +12,8 @@ type TextInputPropsT = {
   clearOnEnter?: boolean,
   style?: Object,
   noBlur?: boolean,
-  placeholder?: string
+  placeholder?: string,
+  penOnLeft?: boolean
 };
 
 export class TextInput extends React.Component<
@@ -46,10 +47,13 @@ export class TextInput extends React.Component<
     }
   };
 
-  onSubmit = (e: any) => {
+  onSubmit = async (e: any) => {
     e.preventDefault();
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.state.value);
+      const result = await this.props.onSubmit(this.state.value);
+      if (result === false) {
+        this.setState({ value: this.props.value || '' });
+      }
     }
   };
 
@@ -125,17 +129,30 @@ export class ChangeableText extends React.Component<
         <EditComponent
           value={this.state.value}
           {...rest}
-          onSubmit={e => {
+          onSubmit={async e => {
             this.setState({ edit: false, value: e });
             if (this.props.onSubmit) {
-              this.props.onSubmit(e);
+              const result = await this.props.onSubmit(e);
+              if (result === false) {
+                this.setState({ value: this.props.value });
+                return false;
+              }
             }
           }}
         />
       );
     } else {
       return (
-        <span>
+        <span className="hoverable">
+          {this.props.penOnLeft && (
+            <i
+              role="button"
+              tabIndex={0}
+              style={{ color: 'blue' }}
+              onClick={() => this.setState({ edit: true })}
+              className={`fa fa-pencil ${onlyHover ? 'show-on-hover' : ''}`}
+            />
+          )}
           <span
             role="button"
             tabIndex={0}
@@ -144,13 +161,15 @@ export class ChangeableText extends React.Component<
             &nbsp;
             {this.state.value}
           </span>
-          <i
-            role="button"
-            tabIndex={0}
-            style={{ color: 'blue' }}
-            onClick={() => this.setState({ edit: true })}
-            className={`fa fa-pencil ${onlyHover ? 'edithover' : ''}`}
-          />
+          {!this.props.penOnLeft && (
+            <i
+              role="button"
+              tabIndex={0}
+              style={{ color: 'blue' }}
+              onClick={() => this.setState({ edit: true })}
+              className={`fa fa-pencil ${onlyHover ? 'show-on-hover' : ''}`}
+            />
+          )}
         </span>
       );
     }

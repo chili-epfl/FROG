@@ -199,7 +199,7 @@ export const SessionUtilsButtonsModel = (
           'Which wiki should pages be exported to?'
         );
         if (!whereTo) {
-          console.log('no whereto');
+          console.warn('no whereto');
           return;
         }
         Meteor.call(
@@ -207,7 +207,8 @@ export const SessionUtilsButtonsModel = (
           session._id,
           whereTo,
           Meteor.userId(),
-          () => window.alert('Graph exported')
+          err =>
+            window.alert(err ? 'Oops! something went wrong.' : 'Graph exported')
         );
       },
       text: 'Export all activities to wiki'

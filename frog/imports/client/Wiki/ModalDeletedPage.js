@@ -1,47 +1,52 @@
 // @flow
 
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
+import { Modal } from './components/Modal';
 
+type ModalDeletedPagePropsT = {
+  pageTitle: string,
+  hideModal: () => void,
+  onRestorePage: () => void,
+  onCreateNewPage: () => void
+};
+
+/**
+ * This modal allows the user to restore a page, by restoring it directly,
+ * or creating a new one.
+ */
 export default ({
-  closeModal,
-  restoreDeletedPage,
-  createNewLIForPage,
-  pageId,
+  hideModal,
+  onRestorePage,
+  onCreateNewPage,
   pageTitle
-}: Object) => {
+}: ModalDeletedPagePropsT) => {
   return (
-    <Dialog open onClose={() => closeModal()}>
-      <DialogTitle>{pageTitle}</DialogTitle>
-      <DialogContent>
-        <div
-          style={{
-            width: '600',
-            height: '600'
-          }}
-        >
-          Do you want to restore the old deleted page or create a new one?
-        </div>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={closeModal}>Cancel</Button>
-        <Button
-          style={{ color: 'blue' }}
-          onClick={() => restoreDeletedPage(pageId, pageTitle)}
-        >
-          Restore Page
-        </Button>
-        <Button
-          style={{ color: 'green' }}
-          onClick={() => createNewLIForPage(pageId, pageTitle)}
-        >
-          Create New Page
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <Modal
+      title={pageTitle}
+      actions={[
+        {
+          title: 'Cancel',
+          callback: hideModal
+        },
+        {
+          title: 'Restore page',
+          primary: true,
+          callback: () => {
+            onRestorePage();
+            hideModal();
+          }
+        },
+        {
+          title: 'Create new page',
+          primary: true,
+          callback: () => {
+            onCreateNewPage();
+            hideModal();
+          }
+        }
+      ]}
+    >
+      Do you want to restore the old deleted page or create a new one?
+    </Modal>
   );
 };

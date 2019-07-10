@@ -21,6 +21,7 @@ module.exports = {
         selector: 'ForOfStatement'
       }
     ],
+    'import/no-cycle': 'off',
     'no-alert': 'off',
     'react/no-array-index-key': 'off',
     'react/no-danger': 'off',

@@ -142,7 +142,7 @@ class Dashboard extends React.Component<any, any> {
 
   componentDidMount() {
     const query = this.props.wikiId
-      ? { wikiId: this.props.wikiId, deleted: { $ne: true } }
+      ? { wikiId: this.props.wikiId, valid: { $ne: false } }
       : this.props.sessionId
       ? { sessionId: this.props.sessionId, draft: { $ne: true } }
       : { _id: this.props.id };

@@ -186,6 +186,17 @@ WebApp.connectHandlers.use('/api/activityType', (request, response, next) => {
   });
 });
 
+WebApp.connectHandlers.use('/duplicate/', (request, response, next) => {
+  const url = urlPkg.parse(request.url);
+  const sessionId = url.pathname.substring(1);
+  const session = Sessions.findOne(sessionId);
+  if (!session || !session.simpleConfig) {
+    response.end();
+  }
+  InjectData.pushData(request, 'duplicate', session.simpleConfig);
+  next();
+});
+
 WebApp.connectHandlers.use('/write/', (request, response, next) => {
   const url = urlPkg.parse(request.url);
   const instance = url.pathname.substring(1);
@@ -552,77 +563,74 @@ iframe { height: 100%; width: 100%; }
   response.end(template);
 });
 
-WebApp.connectHandlers.use(
-  '/api/wikiSubmit',
-  async (request, response, next) => {
-    console.info(
-      'Importing page',
-      request.query?.wiki +
-        ' / ' +
-        request.query?.page +
-        ' with ID ' +
-        request.query?.id
-    );
-    try {
-      const { wiki, page, id } = request.query;
-      const { body } = request;
-      if (!wiki || !body || !page) {
-        console.info(
-          'Require wiki and body request parameters, and body payload with text content type'
-        );
-        response.end(
-          'Require wiki and body request parameters, and body payload with text content type'
-        );
-      }
-      const genericDoc = serverConnection.get('li');
-      const dataFn = generateReactiveFn(genericDoc);
-      const newId = dataFn.createLearningItem(
-        'li-richText',
-        body,
-        {
-          wikiId: wiki
-        },
-        undefined,
-        undefined,
-        id
+WebApp.connectHandlers.use('/api/wikiSubmit', async (request, response) => {
+  console.info(
+    'Importing page',
+    request.query?.wiki +
+      ' / ' +
+      request.query?.page +
+      ' with ID ' +
+      request.query?.id
+  );
+  try {
+    const { wiki, page, id } = request.query;
+    const { body } = request;
+    if (!wiki || !body || !page) {
+      console.info(
+        'Require wiki and body request parameters, and body payload with text content type'
       );
-
-      const op = {
-        p: ['pages', newId],
-        oi: {
-          liId: newId,
-          id: newId,
-          valid: true,
-          created: true,
-          title: page,
-          liType: 'li-richText',
-          plane: 3
-        }
-      };
-
-      const wikiDoc = serverConnection.get('wiki', wiki);
-      await new Promise(resolve => {
-        wikiDoc.subscribe(() => {
-          if (!wikiDoc.type) {
-            wikiDoc.create({ wikiId: wiki, pages: {} });
-          }
-          wikiDoc.submitOp(op);
-          wikiDoc.destroy();
-          resolve();
-        });
-      });
-
-      genericDoc.destroy();
-
-      response.writeHead(200);
-      response.end();
-    } catch (e) {
-      console.error(e);
-      response.writeHead(500);
-      response.end();
+      response.end(
+        'Require wiki and body request parameters, and body payload with text content type'
+      );
     }
+    const genericDoc = serverConnection.get('li');
+    const dataFn = generateReactiveFn(genericDoc);
+    const newId = dataFn.createLearningItem(
+      'li-richText',
+      body,
+      {
+        wikiId: wiki
+      },
+      undefined,
+      undefined,
+      id
+    );
+
+    const op = {
+      p: ['pages', newId],
+      oi: {
+        liId: newId,
+        id: newId,
+        valid: true,
+        created: true,
+        title: page,
+        liType: 'li-richText',
+        plane: 3
+      }
+    };
+
+    const wikiDoc = serverConnection.get('wiki', wiki);
+    await new Promise(resolve => {
+      wikiDoc.subscribe(() => {
+        if (!wikiDoc.type) {
+          wikiDoc.create({ wikiId: wiki, pages: {} });
+        }
+        wikiDoc.submitOp(op);
+        wikiDoc.destroy();
+        resolve();
+      });
+    });
+
+    genericDoc.destroy();
+
+    response.writeHead(200);
+    response.end();
+  } catch (e) {
+    console.error(e);
+    response.writeHead(500);
+    response.end();
   }
-);
+});
 
 WebApp.connectHandlers.use('/lti', (request, response, next) => {
   if (request.method !== 'POST') {

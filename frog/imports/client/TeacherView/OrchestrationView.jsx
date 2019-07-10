@@ -82,7 +82,7 @@ class OrchestrationViewController extends React.Component<any, {}> {
           <Grid item xs={12} className={classes.maybeScaled}>
             <Grid container className={classes.subroot}>
               <Grid item xs={12}>
-                {visible ? (
+                {visible || session.singleActivity ? (
                   // when the graph is turned off
                   <DashboardNav
                     session={session}

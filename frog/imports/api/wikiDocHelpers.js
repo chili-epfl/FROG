@@ -2,9 +2,10 @@ import { uuid } from 'frog-utils';
 
 export const addNewWikiPage = (
   wikiDoc,
-  pageTitle,
+  title,
   setCreated,
   liType = 'li-richText',
+  liId,
   plane,
   instances = {},
   socialStructure,
@@ -15,7 +16,8 @@ export const addNewWikiPage = (
     id: pageId,
     valid: true,
     created: setCreated || false,
-    title: pageTitle,
+    title,
+    liId,
     liType,
     plane,
     instances,
@@ -34,6 +36,27 @@ export const addNewWikiPage = (
   return pageId;
 };
 
+export const addNewInstancePage = (
+  wikiDoc,
+  pageId,
+  instanceId,
+  instanceName,
+  liId
+) => {
+  const instanceObj = {
+    instanceId,
+    instanceName,
+    liId
+  };
+
+  const op = {
+    p: ['pages', pageId, 'instances', instanceId],
+    oi: instanceObj
+  };
+
+  wikiDoc.submitOp(op);
+};
+
 export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   const op = {
     p: ['pages', pageId, 'valid'],
@@ -47,15 +70,10 @@ export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   }
 };
 
-export const changeWikiPageTitle = (
-  wikiDoc,
-  pageId,
-  oldPageTitle,
-  newPageTitle
-) => {
+export const changeWikiPageTitle = (wikiDoc, pageId, newPageTitle) => {
   const op = {
     p: ['pages', pageId, 'title'],
-    od: oldPageTitle,
+    od: null,
     oi: newPageTitle
   };
 
@@ -67,15 +85,6 @@ export const markPageAsCreated = (wikiDoc, pageId) => {
     p: ['pages', pageId, 'created'],
     od: false,
     oi: true
-  };
-
-  wikiDoc.submitOp(op);
-};
-
-export const addInstance = (wikiDoc, pageId, instanceId, liId, username) => {
-  const op = {
-    p: ['pages', pageId, 'instances', instanceId],
-    oi: { liId, username }
   };
 
   wikiDoc.submitOp(op);
@@ -99,6 +108,35 @@ export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
     p: ['pages', pageId, 'liId'],
     od: null,
     oi: newLiId
+  };
+
+  wikiDoc.submitOp(op);
+};
+
+export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId, owner) => {
+  const emptyDocValues = {
+    wikiId,
+    owners: Array.of(owner),
+    pages: {
+      home: {
+        id: 'home',
+        valid: true,
+        created: true,
+        title: 'Home',
+        liId,
+        liType: 'li-richText',
+        instances: {},
+        plane: 3
+      }
+    }
+  };
+  wikiDoc.create(emptyDocValues);
+};
+
+export const completelyDeleteWikiPage = (wikiDoc, pageId) => {
+  const op = {
+    p: ['pages', pageId],
+    od: null
   };
 
   wikiDoc.submitOp(op);

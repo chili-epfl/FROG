@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { EnhancedForm } from 'frog-utils';
-import { isEqual, debounce } from 'lodash';
+import { isEqual } from 'lodash';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { Operators, addOperator } from '/imports/api/operators';
@@ -34,15 +34,16 @@ type ConfigFormPropsT = {
 
 export default class ConfigForm extends Component<
   ConfigFormPropsT,
-  { formData: Object, id?: string, lastChange: Object }
+  { formData: Object, id?: string }
 > {
   unmounted: boolean;
+
+  lastChange = this.props.node.data;
 
   constructor(props: ConfigFormPropsT) {
     super(props);
     this.state = {
-      formData: this.props.node.data,
-      lastChange: this.props.node.data
+      formData: props.node.data
     };
   }
 
@@ -84,14 +85,9 @@ export default class ConfigForm extends Component<
 
   componentWillUnmount() {
     this.unmounted = true;
-    if (!isEqual(this.state.formData, this.state.lastChange)) {
-      this.onChangeImmediately({ formData: this.state.formData });
-    }
   }
 
-  onChange = debounce(data => this.onChangeImmediately(data), 1000);
-
-  onChangeImmediately = (data: *) => {
+  onChange = (data: *) => {
     if (this.props.onChange) {
       this.props.onChange(data);
     } else {
@@ -116,9 +112,9 @@ export default class ConfigForm extends Component<
         );
       }
       if (!this.unmounted) {
-        this.setState({ lastChange: data.formData });
+        this.lastChange = data.formData;
+        this.props.refreshValidate();
       }
-      this.props.refreshValidate();
     }
   };
 

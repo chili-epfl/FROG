@@ -7,7 +7,7 @@ const Embed = Quill.import('blots/embed');
 class WikiLinkBlot extends Embed {
   static create(data) {
     const node = super.create();
-    const WikiLink = window.wiki.WikiLink;
+    const WikiLink = window.WikiLink;
     ReactDOM.render(<WikiLink data={data} />, node);
 
     return this.setDataValues(node, data);

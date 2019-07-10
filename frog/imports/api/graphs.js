@@ -4,16 +4,74 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from 'frog-utils';
 
-import { Sessions } from './sessions';
-import { Activities, Connections, insertActivityMongo } from './activities';
+import { Sessions, addSessionFn } from './sessions';
+import { runNextActivity } from './engine';
+import { templatesObj } from '/imports/internalTemplates';
+import {
+  Activities,
+  Connections,
+  insertActivityMongo,
+  addActivity
+} from './activities';
 import { Operators, insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
   GraphIdUpgrades,
   GraphObjUpgrades
 } from './versionUpgrades';
+import { doImportGraph } from './exportGraph';
 
 export const Graphs = new Mongo.Collection('graphs');
+
+export const createSessionFromActivity = (
+  activityType: string,
+  config: Object,
+  plane: number = 3
+): {
+  slug: string,
+  sessionId: string,
+  graphId: string,
+  activityId: string
+} | void => {
+  if (Meteor.isServer) {
+    let graphId;
+    let activityId;
+    let instructions;
+    if (activityType.slice(0, 3) === 'te-') {
+      const template = templatesObj[activityType];
+      const [graphString, instr] = template.makeTemplate(config);
+      instructions = instr;
+      graphId = doImportGraph(undefined, graphString);
+    } else {
+      graphId = addGraph();
+      activityId = addActivity(activityType, config);
+      Activities.update(activityId, {
+        $set: {
+          graphId,
+          plane,
+          length: 5,
+          startTime: 5,
+          title: 'Single activity'
+        }
+      });
+    }
+    const sessionId = addSessionFn(graphId);
+    const session = Sessions.findOne(sessionId);
+    const template = activityType.slice(0, 3) === 'te-';
+    Sessions.update(session._id, {
+      $set: {
+        singleActivity: !template,
+        template,
+        instructions,
+        simpleConfig: { activityType, config, plane }
+      }
+    });
+    runNextActivity(session._id);
+
+    const slug = session.slug;
+    return { slug, sessionId, graphId, activityId };
+  }
+};
 
 const replaceFromMatching = (matching: Object, data: any) => {
   if (Array.isArray(data)) {
@@ -190,6 +248,7 @@ export const removeGraph = (graphId: string) =>
   Meteor.call('graph.flush.all', graphId);
 
 Meteor.methods({
+  'create.graph.from.activity': createSessionFromActivity,
   'graph.merge': ({
     connections,
     activities,
@@ -198,7 +257,6 @@ Meteor.methods({
     graphDuration,
     broken
   }) => {
-    console.log('graph merge', broken);
     if (Graphs.findOne(graphId)) {
       Graphs.update(graphId, { $set: { duration: graphDuration, broken } });
 

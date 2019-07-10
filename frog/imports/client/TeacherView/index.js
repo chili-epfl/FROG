@@ -51,9 +51,7 @@ const TeacherViewRunner = withRouter(
           !session.slug.includes('-old-') &&
           !match.params.slug.includes('-old')))
     ) {
-      history.push(
-        '/teacher/orchestration/' + session.slug + LocalSettings.UrlCoda
-      );
+      history.push('/t/' + session.slug + LocalSettings.UrlCoda);
     }
     if (session) {
       Meteor.subscribe('teacher.graph', session.graphId);

@@ -13,7 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 
 import { LiViewTypes } from './constants';
-import { reactiveRichTextDataFn } from './main';
 
 const styles = theme => ({
   root: {
@@ -51,10 +50,11 @@ const LIComponentRaw = ({
   classes,
   liView,
   liZoomState,
-  controls
+  controls,
+  dataFn
 }) => {
-  const learningTypesObj = reactiveRichTextDataFn.getLearningTypesObj();
-  const LearningItem = reactiveRichTextDataFn.LearningItem;
+  const learningTypesObj = dataFn.getLearningTypesObj();
+  const LearningItem = dataFn.LearningItem;
   const controlsStyle = controls ? {} : { visibility: 'hidden' };
   return (
     <div>

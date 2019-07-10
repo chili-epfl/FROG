@@ -33,31 +33,30 @@ export const PagesLinks = ({
 
       const currentPageBool = pageId === currentPage;
 
-      const style = currentPageBool
-        ? {
-            color: 'blue',
-            cursor: 'pointer'
-          }
-        : {
-            cursor: 'pointer'
-          };
+      const pageLinkStyle = {
+        fontSize: '14px',
+        marginTop: '12px',
+        backgroundColor:
+          i === index
+            ? 'cornflowerblue'
+            : currentPageBool
+            ? '#e6e6e6'
+            : undefined,
+        color: currentPageBool ? 'blue' : 'auto',
+        cursor: currentPageBool ? 'auto' : 'pointer'
+      };
       return (
-        <li
-          key={pageId}
-          style={{
-            fontSize: '14px',
-            backgroundColor: i === index ? 'cornflowerblue' : undefined
-          }}
-        >
-          <span
+        <li key={pageId}>
+          <div
+            style={pageLinkStyle}
             onClick={e => {
-              onSelect(pageTitle);
+              const sideToSend = e.shiftKey ? 'right' : 'left';
+              onSelect(pageTitle, null, sideToSend);
               e.preventDefault();
             }}
-            style={style}
           >
             <Highlight searchStr={search} text={pageTitle} />
-          </span>
+          </div>
           {currentPageBool &&
             (search.trim().length === 0 &&
               pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
@@ -161,9 +160,11 @@ export const SearchAndFind = ({
           }
           if (e.keyCode === 13) {
             e.preventDefault();
-            index === null || !filteredPages[index]?.title
-              ? onSearch(search)
-              : onSelect(filteredPages[index].title);
+            if (index === null || !filteredPages[index]?.title) {
+              onSearch(search);
+            } else {
+              onSelect(filteredPages[index].title);
+            }
           }
         }}
         onChange={e => {

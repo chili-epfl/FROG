@@ -11,7 +11,7 @@ const runOperatorFn = (oTID, data) => {
     throw new Meteor.Error('No operator or no preview');
   }
   try {
-    const product = Promise.await(operators[oTID](data || {}))
+    const product = Promise.await(operators[oTID](data || {}));
     return product;
   } catch (e) {
     return Meteor.Error('Operator error', e);

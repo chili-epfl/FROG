@@ -41,6 +41,8 @@ const WithTopBar = () => (
     <TopBar />
     <div id="everything-except-top-bar" style={styles.subroot}>
       <Switch>
+        <Route path="/t/:slug" component={TeacherView} />
+        <Route path="/t" component={TeacherView} />
         <Route path="/teacher/preview/:previewId" component={Preview} />
         <Route path="/teacher/preview" component={Preview} />
         <Route path="/teacher/orchestration/:slug" component={TeacherView} />
@@ -60,10 +62,6 @@ export default withTracker(() => {
     'globalSettings',
     'externalOperators'
   ];
-
-  if (!Meteor.user().role) {
-    Meteor.call('make.teacher', Meteor.userId());
-  }
 
   const subscriptions = collections.map(x => Meteor.subscribe(x));
   const extOp = ExternalOperators.find({}).fetch();
