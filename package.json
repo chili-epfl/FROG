@@ -7,6 +7,10 @@
     "test": "nps -s test",
     "create-package": "node createPackage.js"
   },
+  "hooks": {
+    "pre-commit": "yarn test",
+    "pre-push": "yarn test"
+  },
   "workspaces": [
     "ac/*",
     "op/*",
@@ -53,6 +57,7 @@
     "flow-classy-type-wrapper": "^1.0.2",
     "flow-copy-source": "^2.0.6",
     "flow-typed": "^2.5.2",
+    "husky": "^3.0.0",
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "jest-config": "^24.8.0",
