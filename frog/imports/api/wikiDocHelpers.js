@@ -117,6 +117,8 @@ export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId, owner) => {
   const emptyDocValues = {
     wikiId,
     owners: Array.of(owner),
+    users: Array.of(owner),
+    editors: Array.of(owner),
     pages: {
       home: {
         id: 'home',
@@ -139,5 +141,21 @@ export const completelyDeleteWikiPage = (wikiDoc, pageId) => {
     od: null
   };
 
+  wikiDoc.submitOp(op);
+};
+
+export const addUser = (wikiDoc, userid) => {
+  const op = {
+    p: ['users', 0],
+    li: userid
+  };
+  wikiDoc.submitOp(op);
+};
+
+export const addEditor = (wikiDoc, userid) => {
+  const op = {
+    p: ['editors', 0],
+    li: userid
+  };
   wikiDoc.submitOp(op);
 };

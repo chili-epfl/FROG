@@ -27,24 +27,27 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  addNewInstancePage
+  addNewInstancePage,
+  addUser,
+  addEditor
 } from '/imports/api/wikiDocHelpers';
 import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
+import {
+  Modal,
+  withModalController,
+  type ModalParentPropsT
+} from './components/Modal';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
+import PasswordModal from './ModalPassword';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
 import { dataFn } from './wikiLearningItem';
-
-import {
-  withModalController,
-  type ModalParentPropsT
-} from './components/Modal';
 
 export type PageObjT = {
   wikiId: string,
@@ -169,7 +172,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return !this.preventRenderUntilNextShareDBUpdate;
   }
 
-  loadWikiDoc = () => {
+  loadWikiDoc = async () => {
     this.preventRenderUntilNextShareDBUpdate = false;
 
     if (!this.wikiDoc.data) {
@@ -181,7 +184,40 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         Meteor.userId()
       );
     }
-
+    if (
+      this.wikiDoc.data.settings?.accessPassword &&
+      !this.wikiDoc.data.users?.find(x => x === Meteor.userId())
+    ) {
+      const passwordPromise = new Promise(resolve => {
+        this.props.showModal(
+          <PasswordModal
+            callback={resolve}
+            hideModal={this.props.hideModal}
+            actualPassword={this.wikiDoc.data.settings?.accessPassword}
+          />
+        );
+      });
+      const result = await passwordPromise;
+      if (!result) {
+        this.props.showModal(
+          <Modal
+            title="Unable to access Wiki"
+            actions={[
+              {
+                title: 'OK',
+                callback: () => {
+                  this.props.hideModal();
+                  this.loadWikiDoc();
+                }
+              }
+            ]}
+          >
+            This wiki has been password protected.
+          </Modal>
+        );
+      } else addUser(this.wikiDoc, Meteor.userId());
+      return;
+    }
     wikiStore.setPages(this.wikiDoc.data.pages);
     this.setState({
       pagesData: wikiStore.pages,
