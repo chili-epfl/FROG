@@ -26,7 +26,7 @@
     "react-jsonschema-form-extras": "^0.9.40",
     "react-rte": "^0.16.1",
     "recompose": "^0.30.0",
-    "@chilifrog/sharedb": "^3.0.1",
+    "@teamwork/sharedb": "^3.0.1",
     "sharedb-string-binding": "^1.0.0",
     "text-clipper": "^1.2.2",
     "victory": "^31.2.0",

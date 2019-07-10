@@ -1,4 +1,4 @@
-import ShareDB from '@chilifrog/sharedb';
+import ShareDB from '@teamwork/sharedb';
 import { uuid } from 'frog-utils';
 import { generateReactiveFn } from '../generateReactiveFn';
 

@@ -1,6 +1,6 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import ShareDB from '@chilifrog/sharedb';
+import ShareDB from '@teamwork/sharedb';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 

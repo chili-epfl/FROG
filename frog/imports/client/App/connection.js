@@ -15,7 +15,7 @@ if (Meteor.isClient) {
       ':3002';
 
   const ReconnectingWebSocket = require('reconnectingwebsocket');
-  const sharedbClient = require('@chilifrog/sharedb/lib/client');
+  const sharedbClient = require('@teamwork/sharedb/lib/client');
 
   json0.type.registerSubtype(richText.type);
   sharedbClient.types.register(json0.type);

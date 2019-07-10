@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import ShareDB from '@chilifrog/sharedb';
+import ShareDB from '@teamwork/sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
 import { uuid, type LearningItemComponentT, isBrowser } from 'frog-utils';

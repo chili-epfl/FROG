@@ -4,7 +4,7 @@
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
 import Modal from 'react-modal';
-import ShareDB from '@chilifrog/sharedb';
+import ShareDB from '@teamwork/sharedb';
 import Draggable from 'react-draggable';
 
 import { withStyles } from '@material-ui/core/styles';

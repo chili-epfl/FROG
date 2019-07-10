@@ -837,18 +837,6 @@
     classnames "^2.2"
     tslib "^1.9.0"
 
-"@chilifrog/sharedb@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@chilifrog/sharedb/-/sharedb-3.0.1.tgz#600cdcd78edac60657bafb060849318a23f23952"
-  integrity sha512-awTY2DoSXs06p6rLwtp0twAf1VQewAG1gxVj/7Yb+6RxxAID8VuzWrYxXP/2crXQ1p6E11JWE8PXuK+BX12lew==
-  dependencies:
-    "@minervaproject/ot-json0" "^1.1.0"
-    arraydiff "^0.1.1"
-    async "^2.6.1"
-    deep-is "^0.1.3"
-    hat "0.0.3"
-    make-error "^1.1.1"
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
@@ -1231,7 +1219,7 @@
   dependencies:
     async "^2.6.1"
 
-"@teamwork/sharedb@3.1.0":
+"@teamwork/sharedb@3.1.0", "@teamwork/sharedb@^3.0.1":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@teamwork/sharedb/-/sharedb-3.1.0.tgz#49b57e32f77e623affccdd9caacb8db808bb638e"
   integrity sha512-wXQ+1w8brHkXrdj40+z1auj54FTS02a0AVOAtFcXTFqKDFzNxP05rhg8/UmHFtZf7Jxl0dSJ/cuQEzxXxXrkjQ==
