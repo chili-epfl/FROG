@@ -6,10 +6,7 @@ import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 import copy from 'copy-to-clipboard';
 import Stringify from 'json-stringify-pretty-compact';
-import { activityTypesObj } from '/imports/activityTypes';
 
-import { connection } from '../App/connection';
-import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connect } from '../GraphEditor/store';
 import { Activities } from '/imports/api/activities';
 import { Operators } from '/imports/api/operators';
@@ -67,7 +64,7 @@ class InfoComponent extends React.Component<
     }
   }
 
-  exportWiki = (item, object) => {
+  exportWiki = item => {
     const whereTo = window.prompt(
       'Where should this be exported to? Wiki and page separated by slash'
     );

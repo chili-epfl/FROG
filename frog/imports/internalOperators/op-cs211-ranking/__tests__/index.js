@@ -23,6 +23,6 @@ test('works twice', () => {
   expect(operator(config2, object2)).toMatchSnapshot();
 });
 
-test.only('works twice', () => {
+test('works thrice', () => {
   expect(operator(config3, object3)).toEqual();
 });

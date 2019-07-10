@@ -59,6 +59,9 @@ type WikiCompPropsT = {
   query?: Object
 } & ModalParentPropsT;
 
+type WikiSettingsT = {
+  readOnly: boolean
+};
 type WikiCompStateT = {
   dashboardSearch: ?string,
   mode: string,
@@ -70,7 +73,8 @@ type WikiCompStateT = {
   urlInstance: ?string,
   noInstance: ?boolean,
   username: string,
-  isAnonymous: boolean
+  isAnonymous: boolean,
+  settings?: WikiSettingsT
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -140,7 +144,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         this.setState({ createModalOpen: true })
       );
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+      Mousetrap.bindGlobal('ctrl+e', () => {
+        if (!this.state.settings?.readOnly) this.setState({ docMode: 'edit' });
+      });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
       );
@@ -168,11 +174,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!this.wikiDoc.data) {
       const liId = createNewLI(this.wikiId, 'li-richText');
-      return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
+      return createNewEmptyWikiDoc(
+        this.wikiDoc,
+        this.wikiId,
+        liId,
+        Meteor.userId()
+      );
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
-    this.setState({ pagesData: wikiStore.pages });
+    this.setState({
+      pagesData: wikiStore.pages,
+      settings: this.wikiDoc.data.settings
+    });
 
     if (this.initialLoad) {
       return this.handleInitialLoad();
@@ -706,6 +720,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
+                disableEdit={this.props.embed || this.state.settings?.readOnly}
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
@@ -720,6 +735,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
+                  disableEdit={
+                    this.props.embed || this.state.settings?.readOnly
+                  }
                   embed={this.props.embed}
                 />
               )}

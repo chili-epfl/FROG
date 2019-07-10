@@ -6,11 +6,7 @@ import { uuid } from 'frog-utils';
 import { isEqual } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -160,9 +156,9 @@ class ConfigPanel extends React.Component<*, *> {
     );
   };
 
-  componentDidUpdate = () => {
-    this.setState({ displaySave: false });
-    const { activityTypeId, config } = this.props;
+  componentWillUpdate = props => {
+    this.setState({ displaySave: false }); // eslint-disable-line react/no-will-update-set-state
+    const { activityTypeId, config } = props;
     if (activityTypeId && config.invalid === undefined) {
       check(activityTypeId, config, () => {}, this.onConfigChange);
     }

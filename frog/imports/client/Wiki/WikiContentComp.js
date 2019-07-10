@@ -136,7 +136,8 @@ class WikiContentComp extends React.Component<> {
     const docModeButton = () => {
       if (
         this.state.docMode === 'history' ||
-        this.props.liType === 'li-activity'
+        this.props.liType === 'li-activity' ||
+        this.props.disableEdit
       )
         return null;
       if (this.state.docMode === 'view')
@@ -258,7 +259,10 @@ class WikiContentComp extends React.Component<> {
                       this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
                   }}
                   onDoubleClick={() => {
-                    if (this.state.docMode === 'view') {
+                    if (
+                      this.state.docMode === 'view' &&
+                      !this.props.disableEdit
+                    ) {
                       this.setState({ docMode: 'edit' });
                     }
                   }}
