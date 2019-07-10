@@ -265,7 +265,8 @@ const FROGRouter = withRouter(
             }
             if (
               !this.props.match.params.slug ||
-              this.props.match.params.slug.slice(0, 4) === 'wiki'
+              this.props.match.params.slug.slice(0, 4) === 'wiki' ||
+              this.props.match.params.slug.slice(0, 9) === 'duplicate'
             ) {
               this.login({});
             } else if (this.props.match.params.slug) {
@@ -300,6 +301,7 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'ready' && user) {
         return (
           <Switch>
+            <Route path="/duplicate" component={SingleActivity} />
             <Route path="/wiki" component={WikiRouter} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />

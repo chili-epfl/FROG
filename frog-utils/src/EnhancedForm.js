@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import Form from './FrogForm';
 import { isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
 import Fields from 'react-jsonschema-form-extras';
+import Form from './FrogForm';
 
 import { calculateSchema, hideConditional } from './enhancedFormUtils';
 
@@ -42,6 +42,7 @@ class EnhancedForm extends Component<
     ) {
       this.hides = [];
       this.formData = this.props.formData;
+      // eslint-disable-next-line
       this.setState({ formData: this.props.formData });
       this.updateSchema(this.props, true);
     }

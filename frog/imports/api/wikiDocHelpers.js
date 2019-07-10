@@ -113,9 +113,10 @@ export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
   wikiDoc.submitOp(op);
 };
 
-export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId) => {
+export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId, owner) => {
   const emptyDocValues = {
     wikiId,
+    owners: Array.of(owner),
     pages: {
       home: {
         id: 'home',

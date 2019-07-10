@@ -40,7 +40,7 @@ export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
   const title = props.title || props.uiSchema['ui:title'];
   const description = props.description;
 
-  const { required, readonly, properties } = props;
+  const { properties } = props;
 
   return (
     <div className={classes.root}>
@@ -48,9 +48,7 @@ export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
         <div className={classes.header}>
           {title && <Typography variant="button">{title}</Typography>}
         </div>
-        <div className={classes.fields}>
-          {properties.map(props => props.content)}
-        </div>
+        <div className={classes.fields}>{properties.map(p => p.content)}</div>
       </div>
       {description && (
         <Typography className={classes.description} variant="body2">

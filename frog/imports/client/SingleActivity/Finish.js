@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
@@ -20,14 +21,12 @@ const BASE_URL = window.location.origin;
  */
 function Finish(
   props: {
-    url: {
-      public: string,
-      dashboard: string
-    },
+    slug: string,
+    sessionId: string,
     onReturn: Function
   } & PropsT
 ) {
-  const { url, classes } = props;
+  const { slug, sessionId, classes } = props;
 
   LocalSettings.UrlCoda = '?u=' + Meteor.userId();
   return (
@@ -40,13 +39,19 @@ function Finish(
       </IconButton>
       <Typography variant="h3" component="h2" className={classes.padded_text}>
         You're all set, please share this link with the participants:{' '}
-        {BASE_URL + '/' + url.public}
+        {BASE_URL + '/' + slug}
       </Typography>
       <Typography variant="h4" component="h3" className={classes.padded_text}>
         Here's a secret link to your behind-the-scene view of the dashboard:{' '}
-        <Link to={'/' + url.dashboard + '?u=' + Meteor.userId()}>
-          {BASE_URL + '/' + url.dashboard + '?u=' + Meteor.userId()}
+        <Link to={'/t/' + slug + '?u=' + Meteor.userId()}>
+          {BASE_URL + '/t/' + slug + '?u=' + Meteor.userId()}
         </Link>
+      </Typography>
+      <Typography variant="h4" component="h3" className={classes.padded_text}>
+        Use this URL if you want to create a new copy of this activity, or share
+        with others (they will only be able to duplicate your activity/template,
+        but not access or change your data)
+        {BASE_URL + '/duplicate/' + sessionId}
       </Typography>
     </Card>
   );

@@ -39,21 +39,27 @@ function WikiWrapper(props: PropsT) {
       setPage={(pageObj: PageObjT, replace?: boolean) => {
         const encodedTitle = encodeURIComponent(pageObj.pageTitle);
         if (pageObj.instance) {
-          replace
-            ? props.history.replace(
-                `/wiki/${pageObj.wikiId}/${encodedTitle}/${pageObj.instance}`
-              )
-            : props.history.push(
-                `/wiki/${pageObj.wikiId}/${encodedTitle}/${pageObj.instance}`
-              );
+          if (replace) {
+            props.history.replace(
+              `/wiki/${pageObj.wikiId}/${encodedTitle}/${pageObj.instance}`
+            );
+          } else {
+            props.history.push(
+              `/wiki/${pageObj.wikiId}/${encodedTitle}/${pageObj.instance}`
+            );
+          }
         } else if (pageObj.pageTitle) {
-          replace
-            ? props.history.replace(`/wiki/${pageObj.wikiId}/${encodedTitle}`)
-            : props.history.push(`/wiki/${pageObj.wikiId}/${encodedTitle}`);
+          if (replace) {
+            props.history.replace(`/wiki/${pageObj.wikiId}/${encodedTitle}`);
+          } else {
+            props.history.push(`/wiki/${pageObj.wikiId}/${encodedTitle}`);
+          }
         } else if (pageObj.wikiId) {
-          replace
-            ? props.history.replace(`/wiki/${pageObj.wikiId}`)
-            : props.history.push(`/wiki/${pageObj.wikiId}`);
+          if (replace) {
+            props.history.replace(`/wiki/${pageObj.wikiId}`);
+          } else {
+            props.history.push(`/wiki/${pageObj.wikiId}`);
+          }
         }
       }}
       query={queryToObject(props.location.search.slice(1))}

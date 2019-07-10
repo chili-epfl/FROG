@@ -160,9 +160,11 @@ export const SearchAndFind = ({
           }
           if (e.keyCode === 13) {
             e.preventDefault();
-            index === null || !filteredPages[index]?.title
-              ? onSearch(search)
-              : onSelect(filteredPages[index].title);
+            if (index === null || !filteredPages[index]?.title) {
+              onSearch(search);
+            } else {
+              onSelect(filteredPages[index].title);
+            }
           }
         }}
         onChange={e => {
