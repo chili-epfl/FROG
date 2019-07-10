@@ -66,8 +66,7 @@
     "react-test-renderer": "^16.8.6",
     "regenerator-runtime": "^0.13.1",
     "rich-text": "^3.0.1",
-    "rimraf": "^2.6.3",
-    "start-server-and-test": "^1.9.1"
+    "rimraf": "^2.6.3"
   },
   "license": "ISC",
   "dependencies": {

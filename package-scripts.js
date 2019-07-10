@@ -97,11 +97,7 @@ module.exports = {
     },
     cypress: {
       default: fromRoot('cypress open', 'Starting Cypress'),
-      run: fromRoot('cypress run', 'Starting Cypress in headless mode'),
-      ci: fromRoot(
-        'start-server-and-test "QUALIA_ONE_BUNDLE_TYPE=modern NODE_OPTIONS="--max_old_space_size=8192" cd frog && meteor --allow-superuser" http://localhost:3000 "yarn start cypress.run"',
-        'Starting Cypress in CI mode. Cypress will start once the server is running.'
-      )
+      run: fromRoot('cypress run', 'Starting Cypress in headless mode')
     },
     lockfiles: fromRoot(
       'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
