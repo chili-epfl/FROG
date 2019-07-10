@@ -190,7 +190,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.setState({
       pagesData: wikiStore.pages,
       settings: this.wikiDoc.data.settings,
-      isOwner: !!this.wikiDoc.data.owners.find(x => x === Meteor.userId())
+      isOwner: this.wikiDoc.data.owners.find(x => x === Meteor.userId()) === undefined
     });
 
     if (this.initialLoad) {
