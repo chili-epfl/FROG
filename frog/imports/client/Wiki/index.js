@@ -60,7 +60,8 @@ type WikiCompPropsT = {
 } & ModalParentPropsT;
 
 type WikiSettingsT = {
-  readOnly: boolean
+  readOnly: boolean,
+  limitPageCreation: boolean
 };
 type WikiCompStateT = {
   dashboardSearch: ?string,
@@ -75,7 +76,7 @@ type WikiCompStateT = {
   username: string,
   isAnonymous: boolean,
   settings?: WikiSettingsT,
-  isOwner?: boolean
+  isOwner: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -119,7 +120,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       openCreator: false,
       createModalOpen: false,
       search: '',
-      rightSideCurrentPageObj: null
+      rightSideCurrentPageObj: null,
+      isOwner: false
     };
   }
 
@@ -142,7 +144,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
       Mousetrap.bindGlobal('ctrl+n', () => {
-        if (!this.state.settings?.noNewPage && !this.state.isOwner)
+        if (!this.state.settings?.limitPageCreation && !this.state.isOwner)
           this.setState({ createModalOpen: true });
       });
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
