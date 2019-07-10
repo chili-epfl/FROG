@@ -148,10 +148,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     const { currentTab, socialPlane, expanded, pageTitle } = this.state;
     const { classes, errorDiv } = this.props;
     let operatorTypesList = [];
-    const activityType = this.state.config?.activityType;
+    const activityType = this.state.activityConfig?.activityType;
     if (
-      activityType &&
-      activityTypesObj[activityType].meta.supportsLearningItems
+      activityTypesObj[activityType]?.meta?.supportsLearningItems
     ) {
       operatorTypesList = ['op-twitter', 'op-rss', 'op-hypothesis'];
       if (socialPlane !== 'everyone') {
