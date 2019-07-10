@@ -4,7 +4,6 @@ import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const style = {
   margin: 'auto',

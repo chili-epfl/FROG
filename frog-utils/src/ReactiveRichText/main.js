@@ -4,11 +4,6 @@ import '@houshuang/react-quill/dist/quill.snow.css';
 import React, { Component } from 'react';
 import uuid from 'cuid';
 import ReactQuill, { Quill } from '@houshuang/react-quill';
-import { HighlightSearchText } from '../HighlightSearchText';
-import { highlightTargetRichText } from '../highlightTargetRichText';
-import { cloneDeep } from '../cloneDeep';
-import { WikiContext } from '../WikiContext';
-
 import {
   isEmpty,
   get,
@@ -21,6 +16,10 @@ import {
   debounce
 } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
+import { HighlightSearchText } from '../HighlightSearchText';
+import { highlightTargetRichText } from '../highlightTargetRichText';
+import { cloneDeep } from '../cloneDeep';
+import { WikiContext } from '../WikiContext';
 
 import { LiViewTypes, formats } from './constants';
 import getLearningItemBlot from './LearningItemBlot';
@@ -38,7 +37,7 @@ Quill.register('formats/wiki-link', WikiLinkBlot);
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
 // and satisfy Flow's requirements
-let reactiveRichTextDataFn = {
+const reactiveRichTextDataFn = {
   getLearningTypesObj: () => {
     throw new Error('Should never be uninitialized');
   },

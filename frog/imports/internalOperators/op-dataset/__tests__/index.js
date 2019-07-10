@@ -1,5 +1,5 @@
 import pkg from '../operatorRunner';
-import { object, coffeeConfig, heightConfig } from '../__fixtures__/coffee.js';
+import { object, coffeeConfig, heightConfig } from '../__fixtures__/coffee';
 
 test('coffee', () => {
   expect(pkg(coffeeConfig, object)).toEqual({

@@ -8,6 +8,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import { activityTypes } from '/imports/activityTypes';
+import { templatesObj } from '/imports/internalTemplates';
 import { type PropsT } from './types';
 import { style } from './style';
 
@@ -18,9 +19,11 @@ const allowed = [
   'ac-chat',
   'ac-brainstorm',
   'ac-ranking',
-  'ac-video'
+  'ac-video',
+  'ac-text'
 ];
 const list = activityTypes.filter(x => allowed.includes(x.id));
+list.push(templatesObj['te-peerReview']);
 
 /**
  * The icon-based selection form for choosing the activity type
@@ -37,12 +40,12 @@ function ChooseActivityType(
       <Typography variant="h5" component="h2">
         Let's start by choosing an activity type
       </Typography>
-      <GridList cols="4" spacing="8">
+      <GridList cols={4} spacing={8}>
         {list.map(x => (
           <GridListTile
             key={x.id}
             classes={{ root: classes.tile }}
-            onClick={e => {
+            onClick={() => {
               onSubmit(x);
             }}
           >

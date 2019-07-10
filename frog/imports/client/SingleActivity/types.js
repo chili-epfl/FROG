@@ -6,6 +6,7 @@ export type StateT = {
   stage: number,
   activityType?: ActivityPackageT,
   activity?: ActivityDbT,
+  config?: Object,
   slug?: string
 };
 

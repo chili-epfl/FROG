@@ -17,7 +17,6 @@ type GraphViewPropsT = {
 
 const styles = {
   graphInSession: {
-    height: '400px',
     border: '1px solid black'
   }
 };
@@ -54,12 +53,21 @@ class GraphViewController extends React.Component<GraphViewPropsT, {}> {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, session } = this.props;
+    const now = (session.timeInGraph + '').replace('.', '_');
     return (
-      <div className={classes.graphInSession}>
-        <ShowInfo />
-        <Graph scaled hasTimescale isSession />
-      </div>
+      <>
+        <div
+          className={classes.graphInSession}
+          style={{ height: session.template ? '200px' : '400px' }}
+        >
+          <ShowInfo />
+          <Graph scaled hasTimescale isSession />
+        </div>
+        {session.template && session.instructions[now] && (
+          <h2>{session.instructions[now]}</h2>
+        )}
+      </>
     );
   }
 }

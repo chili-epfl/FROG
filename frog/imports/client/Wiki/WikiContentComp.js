@@ -13,7 +13,11 @@ import LIDashboard from '../Dashboard/LIDashboard';
 import Revisions from './Revisions';
 import WikiLink from './WikiLink';
 import { LearningItem } from './wikiLearningItem';
-import { getPageDetailsForLiId, checkNewPageTitle } from './helpers.js';
+import {
+  getPageDetailsForLiId,
+  checkNewPageTitle,
+  sanitizeTitle
+} from './helpers.js';
 
 class WikiContentComp extends React.Component<> {
   constructor(props) {
@@ -83,15 +87,17 @@ class WikiContentComp extends React.Component<> {
 
     if (
       error === null ||
-      pageTitleString === this.props.currentPageObj?.title
+      sanitizeTitle(pageTitleString) === this.props.currentPageObj?.title
     ) {
       this.props.changeTitle(this.props.currentPageObj.id, pageTitleString);
       this.setState({
-        pageTitleString,
+        pageTitleString: sanitizeTitle(pageTitleString),
         editingTitle: false,
         showTitleEditButton: false,
         error:
-          pageTitleString === this.props.currentPageObj?.title ? null : error
+          sanitizeTitle(pageTitleString) === this.props.currentPageObj?.title
+            ? null
+            : error
       });
     }
   };
@@ -130,7 +136,8 @@ class WikiContentComp extends React.Component<> {
     const docModeButton = () => {
       if (
         this.state.docMode === 'history' ||
-        this.props.liType === 'li-activity'
+        this.props.liType === 'li-activity' ||
+        this.props.disableEdit
       )
         return null;
       if (this.state.docMode === 'view')
@@ -252,7 +259,10 @@ class WikiContentComp extends React.Component<> {
                       this.state.docMode === 'edit' ? '#ffffff' : '#fbffe0'
                   }}
                   onDoubleClick={() => {
-                    if (this.state.docMode === 'view') {
+                    if (
+                      this.state.docMode === 'view' &&
+                      !this.props.disableEdit
+                    ) {
                       this.setState({ docMode: 'edit' });
                     }
                   }}

@@ -13,14 +13,12 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch,
-  Link
+  Switch
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
 
-import NotLoggedIn from './NotLoggedIn';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
@@ -137,13 +135,13 @@ const FROGRouter = withRouter(
         token,
         isStudentList,
         this.props.match.params.slug,
-        (err, id) => {
-          if (id) {
+        (err, res) => {
+          if (res) {
             connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
           }
           subscriptionCallback(
             err,
-            id,
+            res,
             x => this.setState({ mode: x }),
             loginQuery
           );
@@ -189,6 +187,25 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
+        if (query.u) {
+          this.setState({ mode: 'loggingIn' });
+          LocalSettings.UrlCoda = '?u=' + query.u;
+          Meteor.call('frog.userid.login', query.u, (err, res) => {
+            if (err) {
+              console.error(err);
+              this.setState({ mode: 'noSession' });
+              return;
+            }
+            subscriptionCallback(
+              err,
+              res,
+              x => this.setState({ mode: x }),
+              false
+            );
+            this.setState({ mode: 'ready' });
+          });
+          return;
+        }
         const username =
           query.login ||
           query.researchLogin ||
@@ -247,9 +264,9 @@ const FROGRouter = withRouter(
               }
             }
             if (
-              this.props.match.params.slug &&
-              (this.props.match.params.slug.slice(0, 4) === 'wiki' ||
-                this.props.match.params.slug.slice(0, 15) === 'single_activity')
+              !this.props.match.params.slug ||
+              this.props.match.params.slug.slice(0, 4) === 'wiki' ||
+              this.props.match.params.slug.slice(0, 9) === 'duplicate'
             ) {
               this.login({});
             } else if (this.props.match.params.slug) {
@@ -282,45 +299,22 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && user) {
-        if (user.isAnonymous)
-          return (
-            <Switch>
-              <Route path="/wiki" component={WikiRouter} />
-              <Route path="/single_activity" component={SingleActivity} />
-              <Route
-                render={() => (
-                  <h3>
-                    Dear Guest, please register on FROG to access this page.
-                  </h3>
-                )}
-              />
-            </Switch>
-          );
-        else
-          return (
-            <Switch>
-              <Route path="/wiki" component={WikiRouter} />
-              <Route path="/teacher/projector/:slug" component={StudentView} />
-              <Route path="/teacher/" component={TeacherContainer} />
-              <Route path="/single_activity" component={SingleActivity} />
-              <Route path="/:slug" component={StudentView} />
-              <Route
-                render={() =>
-                  LocalSettings.follow ? (
-                    <StudentView />
-                  ) : (
-                    <h3>
-                      Welcome to FROG. You are logged in as{' '}
-                      {Meteor.user().username}. If you want to access the
-                      teacher view, go to <Link to="/teacher">/teacher</Link>,
-                      otherwise go to the /SLUG of the session you are a student
-                      of
-                    </h3>
-                  )
-                }
-              />
-            </Switch>
-          );
+        return (
+          <Switch>
+            <Route path="/duplicate" component={SingleActivity} />
+            <Route path="/wiki" component={WikiRouter} />
+            <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/t/:slug" component={TeacherContainer} />
+            <Route path="/t" component={TeacherContainer} />
+            <Route path="/:slug" component={StudentView} />
+            <Route
+              render={() =>
+                LocalSettings.follow ? <StudentView /> : <SingleActivity />
+              }
+            />
+          </Switch>
+        );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
@@ -328,14 +322,14 @@ const FROGRouter = withRouter(
       if (this.state.mode === 'noSession') {
         return <h1>No such session exists</h1>;
       }
-      return this.state.mode === 'studentlist' && this.state.settings ? (
-        <StudentLogin
-          settings={this.state.settings}
-          login={this.login}
-          slug={this.props.match.params.slug}
-        />
-      ) : (
-        <NotLoggedIn login={this.login} />
+      return (
+        this.state.mode === 'studentlist' && (
+          <StudentLogin
+            settings={this.state.settings}
+            login={this.login}
+            slug={this.props.match.params.slug}
+          />
+        )
       );
     }
   }

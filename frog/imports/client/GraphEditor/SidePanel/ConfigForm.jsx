@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { EnhancedForm } from 'frog-utils';
-import { isEqual, debounce } from 'lodash';
+import { isEqual } from 'lodash';
 
 import { Activities, addActivity } from '/imports/api/activities';
 import { Operators, addOperator } from '/imports/api/operators';
@@ -85,18 +85,9 @@ export default class ConfigForm extends Component<
 
   componentWillUnmount() {
     this.unmounted = true;
-    if (!isEqual(this.state.formData, this.lastChange)) {
-      this.onChangeImmediately({ formData: this.state.formData });
-    }
   }
 
-  onChange = debounce(data => {
-    if (!this.unmounted) {
-      this.onChangeImmediately(data);
-    }
-  }, 1000);
-
-  onChangeImmediately = (data: *) => {
+  onChange = (data: *) => {
     if (this.props.onChange) {
       this.props.onChange(data);
     } else {

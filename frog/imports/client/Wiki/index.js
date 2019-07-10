@@ -15,7 +15,12 @@ import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 
 import { connection } from '../App/connection';
-import { getPageTitle, getDifferentPageId, checkNewPageTitle } from './helpers';
+import {
+  getPageTitle,
+  getDifferentPageId,
+  checkNewPageTitle,
+  sanitizeTitle
+} from './helpers';
 import {
   invalidateWikiPage,
   changeWikiPageTitle,
@@ -54,6 +59,9 @@ type WikiCompPropsT = {
   query?: Object
 } & ModalParentPropsT;
 
+type WikiSettingsT = {
+  readOnly: boolean
+};
 type WikiCompStateT = {
   dashboardSearch: ?string,
   mode: string,
@@ -65,7 +73,8 @@ type WikiCompStateT = {
   urlInstance: ?string,
   noInstance: ?boolean,
   username: string,
-  isAnonymous: boolean
+  isAnonymous: boolean,
+  settings?: WikiSettingsT
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -102,7 +111,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.decodePageTitle(this.props.pageObj.pageTitle),
+      initialPageTitle: this.props.pageObj.pageTitle,
       mode: 'document',
       docMode: query?.edit ? 'edit' : 'view',
       error: null,
@@ -135,7 +144,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         this.setState({ createModalOpen: true })
       );
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => this.setState({ docMode: 'edit' }));
+      Mousetrap.bindGlobal('ctrl+e', () => {
+        if (!this.state.settings?.readOnly) this.setState({ docMode: 'edit' });
+      });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
       );
@@ -143,11 +154,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   componentDidUpdate(prevProps) {
-    const pageTitle = this.decodePageTitle(this.props.pageObj.pageTitle);
+    const pageTitle = this.props.pageObj.pageTitle;
 
     if (
       (pageTitle !== this.state.currentPageObj?.title &&
-        this.decodePageTitle(prevProps.pageObj.pageTitle) !== pageTitle) ||
+        prevProps.pageObj.pageTitle !== pageTitle) ||
       prevProps.pageObj.instance !== this.props.pageObj.instance
     ) {
       this.goToPageTitle(pageTitle, this.props.pageObj.instance);
@@ -163,11 +174,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (!this.wikiDoc.data) {
       const liId = createNewLI(this.wikiId, 'li-richText');
-      return createNewEmptyWikiDoc(this.wikiDoc, this.wikiId, liId);
+      return createNewEmptyWikiDoc(
+        this.wikiDoc,
+        this.wikiId,
+        liId,
+        Meteor.userId()
+      );
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
-    this.setState({ pagesData: wikiStore.pages });
+    this.setState({
+      pagesData: wikiStore.pages,
+      settings: this.wikiDoc.data.settings
+    });
 
     if (this.initialLoad) {
       return this.handleInitialLoad();
@@ -197,25 +216,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
   };
 
-  decodePageTitle = (currentTitle: string): string => {
-    if (decodeURIComponent(currentTitle) === 'undefined') {
-      this.props.setPage({
-        wikiId: this.wikiId,
-        pageTitle: 'Home'
-      });
-      return 'Home';
-    }
-
-    return decodeURIComponent(currentTitle);
-  };
-
   handleInitialLoad = () => {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
-    const pageTitle = getPageTitle(
-      parsedPages,
-      this.decodePageTitle(this.state.initialPageTitle)
-    );
+    const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
     const pageTitleLower = pageTitle.toLowerCase();
     const fullPageObj = parsedPages[pageTitleLower];
 
@@ -262,7 +266,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
         this.props.setPage({
           wikiId: this.wikiId,
-          pageTitle: encodeURIComponent(currentPageObj.title),
+          pageTitle: currentPageObj.title,
           instance:
             instanceId && instanceId !== this.getInstanceId(fullPageObj)
               ? instanceName
@@ -376,11 +380,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   changeTitle = (pageId, newPageTitle) => {
-    changeWikiPageTitle(this.wikiDoc, pageId, newPageTitle);
+    changeWikiPageTitle(this.wikiDoc, pageId, sanitizeTitle(newPageTitle));
     this.props.setPage(
       {
         wikiId: this.wikiId,
-        pageTitle: encodeURIComponent(newPageTitle),
+        pageTitle: sanitizeTitle(newPageTitle),
         instance: this.props.pageObj.instance
       },
       true
@@ -438,7 +442,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           this.props.setPage(
             {
               wikiId: this.wikiId,
-              pageTitle: encodeURIComponent(newCurrentPageObj.title),
+              pageTitle: newCurrentPageObj.title,
               instance:
                 instanceId && instanceId !== this.getInstanceId(fullPageObj)
                   ? instanceName
@@ -450,7 +454,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
         this.props.setPage({
           wikiId: this.wikiId,
-          pageTitle: encodeURIComponent(newCurrentPageObj.title),
+          pageTitle: newCurrentPageObj.title,
           instance:
             instanceId && instanceId !== this.getInstanceId(fullPageObj)
               ? instanceName
@@ -461,7 +465,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   goToPageTitle = (pageTitle, instanceName, side) => {
-    const pageTitleLower = pageTitle.toLowerCase();
+    const pageTitleLower = sanitizeTitle(pageTitle.toLowerCase());
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(
       wikiStore.parsedPages[pageTitleLower],
@@ -485,7 +489,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
     const pageId = addNewWikiPage(
       this.wikiDoc,
-      title,
+      sanitizeTitle(title),
       true,
       liType,
       liId,
@@ -498,13 +502,21 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   // there is a link to a page that has not yet been formally created, until
   // clicked upon, but we still keep track of it.
   addNonActivePage = title => {
-    const existingPage = wikiStore.pagesByTitle[title];
+    const sanitizedTitle = sanitizeTitle(title);
+    const existingPage = wikiStore.pagesByTitle[sanitizedTitle];
     if (existingPage) {
       return { liId: existingPage.liId, pageId: existingPage.id };
     }
     const liType = 'li-richText';
     const liId = createNewLI(this.wikiId, liType, undefined, title);
-    const pageId = addNewWikiPage(this.wikiDoc, title, false, liType, liId, 3);
+    const pageId = addNewWikiPage(
+      this.wikiDoc,
+      sanitizedTitle,
+      false,
+      liType,
+      liId,
+      3
+    );
     return { liId, pageId };
   };
 
@@ -708,6 +720,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
+                disableEdit={this.props.embed || this.state.settings?.readOnly}
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
@@ -722,6 +735,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
+                  disableEdit={
+                    this.props.embed || this.state.settings?.readOnly
+                  }
                   embed={this.props.embed}
                 />
               )}

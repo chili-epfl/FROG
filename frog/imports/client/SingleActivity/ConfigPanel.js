@@ -21,9 +21,11 @@ import { style } from './style';
  */
 class ConfigPanel extends React.Component<
   {
+    name: string,
     activityType: ActivityPackageT,
     onSubmit: Function,
-    onReturn: Function
+    onReturn: Function,
+    data?: Object
   } & PropsT,
   { activity?: ActivityDbT }
 > {
@@ -33,8 +35,8 @@ class ConfigPanel extends React.Component<
   }
 
   render() {
-    const { id, config } = this.props.activityType;
-    const { classes } = this.props;
+    const { id } = this.props.activityType;
+    const { classes, data } = this.props;
     return (
       <Card raised className={classes.card}>
         <Typography variant="h5" component="h2">
@@ -44,11 +46,11 @@ class ConfigPanel extends React.Component<
           >
             <ArrowBack />
           </IconButton>
-          Edit the Activity
+          Edit {this.props.activityType?.meta?.name || ''}
         </Typography>
         <ApiForm
           activityType={id}
-          config={config}
+          config={data}
           onConfigChange={x => this.setState({ activity: x })}
           hidePreview
           noOffset
@@ -60,7 +62,8 @@ class ConfigPanel extends React.Component<
             className={classes.button}
             onClick={() => this.props.onSubmit(this.state.activity)}
             disabled={
-              this.state.activity?.errors && this.state.activity?.errors.length
+              this.state.activity?.errors &&
+              !!this.state.activity?.errors.length
             }
           >
             Publish
