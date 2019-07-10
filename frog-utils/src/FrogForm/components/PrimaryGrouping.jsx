@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     width: '100%',
     height: theme.spacing(10),
-    padding: theme.spacing(0, 3),
     textAlign: 'left'
   },
   badge: {
@@ -31,7 +30,6 @@ const useStyles = makeStyles(theme => ({
     transition: 'all .2s'
   },
   fields: {
-    padding: theme.spacing(0, 3),
     marginBottom: theme.spacing(3)
   }
 }));
