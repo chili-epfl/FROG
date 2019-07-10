@@ -1,4 +1,4 @@
-//@flow
+// @flow
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 
