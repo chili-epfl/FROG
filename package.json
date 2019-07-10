@@ -7,9 +7,11 @@
     "test": "nps -s test",
     "create-package": "node createPackage.js"
   },
-  "hooks": {
-    "pre-commit": "yarn test",
-    "pre-push": "yarn test"
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test",
+      "pre-push": "yarn test"
+    }
   },
   "workspaces": [
     "ac/*",
