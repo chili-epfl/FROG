@@ -5,7 +5,7 @@ import ShareDB from '@teamwork/sharedb';
 import WebSocket from 'ws';
 import WebsocketJSONStream from '@teamwork/websocket-json-stream';
 import ShareDBMongo from '@teamwork/sharedb-mongo';
-import RedisPubsub from 'sharedb-redis-pubsub';
+import RedisPubsub from '@teamwork/sharedb-redis-pubsub';
 import json from '@minervaproject/ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
 import richText from '@minervaproject/rich-text';

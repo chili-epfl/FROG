@@ -90,6 +90,7 @@
     "react-tooltip": "^3.9.2",
     "recompose": "^0.30.0",
     "reconnectingwebsocket": "^1.0.0",
+    "redis": "^2.8.0",
     "regression": "2.0.1",
     "request": "^2.88.0",
     "rws": "^0.0.1",
