@@ -92,7 +92,6 @@ const ReactiveHOC = (
         });
       } else {
         docSubscribe(conn || connection, collection || 'rz', docId).then(e => {
-          console.log(e);
           this.doc = e;
 
           this.interval = window.setInterval(() => {

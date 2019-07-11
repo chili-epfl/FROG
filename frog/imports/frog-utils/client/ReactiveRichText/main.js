@@ -159,8 +159,7 @@ class ReactiveRichText extends Component<
           const opPath = last(operation.p);
           // Ensures the ops are for exactly this editor in situations where there
           // are multiple active editors in the page
-          console.log(opPath, this.props.path, this.state.path);
-          if (opPath === this.state.path) {
+          if (opPath === this.props.path) {
             editor.updateContents(operation.o);
           }
           if (operation.u !== this.props.userId) {
@@ -247,10 +246,10 @@ class ReactiveRichText extends Component<
   };
 
   updateCursor = range => {
-    const { path, userId, username } = this.props;
+    const { userId, username } = this.props;
     const doc = this.props.dataFn?.doc;
     doc.submitPresence({
-      p: [path],
+      p: this.state.path,
       t: 'rich-text',
       u: userId + '/' + (username || ''),
       s: {
@@ -262,7 +261,7 @@ class ReactiveRichText extends Component<
   };
 
   setUpCursors = () => {
-    const { path, userId, username } = this.props;
+    const { userId, username } = this.props;
     const doc = this.props.dataFn?.doc;
     const editor = this.quillRef.getEditor();
     const cursors = editor.getModule('cursors');
@@ -274,23 +273,21 @@ class ReactiveRichText extends Component<
     });
 
     doc.on('presence', (srcList, submitted) => {
-      console.log(srcList);
       srcList.forEach(src => {
         const presence = doc.presence[src];
         if (!presence || !presence.p) {
           cursors.removeCursor(IDMapping[src]);
           return;
         }
-        console.log(presence.p[0], [path]);
-        if (presence.p[0] !== path) {
-          cursors.removeCursor(presence.u[0]);
+        if (!isEqual(presence.p, this.state.path)) {
+          cursors.removeCursor(presence.u.split('/')[0]);
           return;
         }
 
         if (presence.s.u) {
           const presenceUID = presence.s.u;
-          IDMapping[src] = presenceUID;
           const [id, name] = presenceUID.split('/');
+          IDMapping[src] = id;
           if (userId !== id && presence.s.s && presence.s.s.length > 0) {
             // TODO: Can QuillCursors support multiple selections?
             const sel = presence.s.s[0];
@@ -641,7 +638,7 @@ class ReactiveRichText extends Component<
       }
 
       const op = {
-        p: [this.state.path],
+        p: this.state.path,
         t: 'rich-text',
         o: delta.ops,
         u: this.props.userId

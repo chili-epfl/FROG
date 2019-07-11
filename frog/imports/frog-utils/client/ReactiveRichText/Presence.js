@@ -18,7 +18,6 @@ export const Presence = ({ dataFn, id, userId }) => {
     .map(x => x.u.split('/'))
     .map(x => (x[0] === userId ? 'you' : x[1]))
     .join(', ');
-  console.log(presence, users);
 
   if (users.length === 0) {
     return null;
