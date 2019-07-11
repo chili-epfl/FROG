@@ -761,7 +761,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       },
       {
-        title: 'Wiki Permissions',
+        title: 'Wiki Settings',
         icon: Tune,
         callback: () => {
           if (this.state.isOwner)
@@ -788,7 +788,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   }
                 ]}
               >
-                Only owners can change permissions.
+                Only owners can change settings.
               </Modal>
             );
         }
