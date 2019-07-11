@@ -3,7 +3,11 @@ import * as React from 'react';
 import ShareDB from '@teamwork/sharedb';
 import StringBinding from 'sharedb-string-binding';
 import { get } from 'lodash';
-import { uuid, type LearningItemComponentT, isBrowser } from '/imports/frog-utils';
+import {
+  uuid,
+  type LearningItemComponentT,
+  isBrowser
+} from '/imports/frog-utils';
 import { uploadFile } from '/imports/api/openUploads';
 import { learningItemTypesObj } from '/imports/activityTypes';
 

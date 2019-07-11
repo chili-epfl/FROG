@@ -162,8 +162,10 @@ class ReactiveRichText extends Component<
           if (opPath === this.props.path) {
             editor.updateContents(operation.o);
           }
-          if (operation.u !== this.props.userId) {
-            this.cursors.flashCursor(operation.u);
+          if (this.cursors) {
+            if (operation.u !== this.props.userId) {
+              this.cursors.flashCursor(operation.u);
+            }
           }
         });
       }
@@ -260,8 +262,8 @@ class ReactiveRichText extends Component<
     });
   };
 
-  setUpCursors = () => {
-    const { userId, username } = this.props;
+  setupCursors = () => {
+    const { userId } = this.props;
     const doc = this.props.dataFn?.doc;
     const editor = this.quillRef.getEditor();
     const cursors = editor.getModule('cursors');
@@ -400,7 +402,7 @@ class ReactiveRichText extends Component<
     }
   }
 
-  sendPresence = (doc: *) => {
+  sendPresence(doc: *) {
     doc.submitPresence(
       {
         u: this.props.readOnly
@@ -411,16 +413,18 @@ class ReactiveRichText extends Component<
         doc.requestReplyPresence = false;
       }
     );
-  };
+
+    if (!this.props.readOnly) {
+      this.setupCursors();
+    }
+  }
 
   componentDidMount() {
     const doc = this.props.dataFn?.doc;
-
-    if (doc && !this.props.readOnly) {
+    if (doc) {
       doc.requestReplyPresence = true;
       if (doc.type) {
         this.sendPresence(doc);
-        this.setUpCursors();
       } else {
         doc.on('load', () => this.sendPresence(doc));
       }

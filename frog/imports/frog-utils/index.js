@@ -5,10 +5,7 @@ export { Loadable } from './Loadable';
 
 export { isBrowser } from './isBrowser';
 
-export {
-  ReactJsonView,
-  EnhancedForm,
-} from './browserOnlyComponents';
+export { ReactJsonView, EnhancedForm } from './browserOnlyComponents';
 
 export {
   hideConditional,

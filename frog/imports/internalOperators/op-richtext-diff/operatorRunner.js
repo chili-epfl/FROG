@@ -1,4 +1,8 @@
-import { type productOperatorRunnerT, cloneDeep, uuid } from '/imports/frog-utils';
+import {
+  type productOperatorRunnerT,
+  cloneDeep,
+  uuid
+} from '/imports/frog-utils';
 import { isEmpty, omit } from 'lodash';
 import Delta from 'quill-delta';
 

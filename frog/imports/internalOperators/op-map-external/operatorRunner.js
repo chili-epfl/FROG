@@ -1,6 +1,10 @@
 // @flow
 
-import { type productOperatorRunnerT, wrapUnitAll, values } from '/imports/frog-utils';
+import {
+  type productOperatorRunnerT,
+  wrapUnitAll,
+  values
+} from '/imports/frog-utils';
 import { isObject, invert } from 'lodash';
 
 const operator = (configData, object) => {

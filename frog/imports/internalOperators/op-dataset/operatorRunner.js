@@ -1,6 +1,10 @@
 // @flow
 
-import { type productOperatorRunnerT, wrapUnitAll, values } from '/imports/frog-utils';
+import {
+  type productOperatorRunnerT,
+  wrapUnitAll,
+  values
+} from '/imports/frog-utils';
 import { isNaN } from 'lodash';
 
 const valid = x => x !== undefined && !isNaN(x);
