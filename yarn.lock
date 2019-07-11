@@ -1219,7 +1219,7 @@
   dependencies:
     async "^2.6.1"
 
-"@teamwork/sharedb@3.1.0", "@teamwork/sharedb@^3.0.1":
+"@teamwork/sharedb@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@teamwork/sharedb/-/sharedb-3.1.0.tgz#49b57e32f77e623affccdd9caacb8db808bb638e"
   integrity sha512-wXQ+1w8brHkXrdj40+z1auj54FTS02a0AVOAtFcXTFqKDFzNxP05rhg8/UmHFtZf7Jxl0dSJ/cuQEzxXxXrkjQ==
@@ -11522,7 +11522,7 @@ react-jsonschema-form-extras@^0.9.40:
     react-render-html "^0.6.0"
     selectn "^1.1.2"
 
-react-jsonschema-form@^1.2.1, react-jsonschema-form@^1.6.1:
+react-jsonschema-form@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/react-jsonschema-form/-/react-jsonschema-form-1.6.1.tgz#c7a6b37a67b2ac253df99249d242a7f3f9afabb4"
   integrity sha512-rDZjAMzI9GrG5EpBbqmhnch3jgFd9YN9U2bk8zc0PBldgGiENjo+ziIh4vseDNijPNU+07wclD5anIN23nmYxw==
