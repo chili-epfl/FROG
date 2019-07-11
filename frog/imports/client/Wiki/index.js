@@ -556,6 +556,45 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return { liId, pageId };
   };
 
+  editAccess = async () => {
+    if (
+      this.state.settings?.readOnly ||
+      (this.state.settings?.restrict === 'edit' &&
+        this.wikiDoc.data.editors.find(x => x === Meteor.userId()) ===
+          undefined)
+    ) {
+      const passwordPromise = new Promise(resolve => {
+        this.props.showModal(
+          <PasswordModal
+            callback={resolve}
+            hideModal={this.props.hideModal}
+            actualPassword={this.wikiDoc.data.settings?.password}
+          />
+        );
+      });
+      const result = await passwordPromise;
+      if (!result)
+        this.props.showModal(
+          <Modal
+            title="Unable to edit Wiki"
+            actions={[
+              {
+                title: 'OK',
+                callback: () => {
+                  this.props.hideModal();
+                }
+              }
+            ]}
+          >
+            This wiki has been password protected.
+          </Modal>
+        );
+      else addEditor(this.wikiDoc, Meteor.userId());
+      return result;
+    }
+    return true;
+  };
+
   openDeletedPageModal = (pageId, pageTitle) => {
     this.props.showModal(
       <DeletedPageModal
@@ -693,7 +732,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => this.setState({ createModalOpen: true })}
+            onClick={() =>
+              this.editAccess().then(x => {
+                if (x) this.setState({ createModalOpen: true });
+              })
+            }
           >
             + Create new page
           </Button>
@@ -756,7 +799,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
-                disableEdit={this.props.embed || this.state.settings?.readOnly}
+                checkEdit={this.editAccess}
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
@@ -771,9 +814,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
-                  disableEdit={
-                    this.props.embed || this.state.settings?.readOnly
-                  }
+                  checkEdit={this.editAccess}
                   embed={this.props.embed}
                 />
               )}

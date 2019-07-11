@@ -136,8 +136,7 @@ class WikiContentComp extends React.Component<> {
     const docModeButton = () => {
       if (
         this.state.docMode === 'history' ||
-        this.props.liType === 'li-activity' ||
-        this.props.disableEdit
+        this.props.liType === 'li-activity'
       )
         return null;
       if (this.state.docMode === 'view')
@@ -146,7 +145,9 @@ class WikiContentComp extends React.Component<> {
             style={docModeButtonStyle}
             color="primary"
             onClick={() => {
-              this.setState({ docMode: 'edit' });
+              this.props.checkEdit().then(x => {
+                if (x) this.setState({ docMode: 'edit' });
+              });
             }}
           >
             Edit Page
