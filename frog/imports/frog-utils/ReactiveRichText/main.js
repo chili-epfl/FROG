@@ -159,10 +159,11 @@ class ReactiveRichText extends Component<
           const opPath = last(operation.p);
           // Ensures the ops are for exactly this editor in situations where there
           // are multiple active editors in the page
-          if (opPath === this.props.path) {
+          console.log(opPath, this.props.path, this.state.path);
+          if (opPath === this.state.path) {
             editor.updateContents(operation.o);
           }
-          if (operation.u !== this.props.userId + '/' + this.props.username) {
+          if (operation.u !== this.props.userId) {
             this.cursors.flashCursor(operation.u);
           }
         });
@@ -289,11 +290,8 @@ class ReactiveRichText extends Component<
         if (presence.s.u) {
           const presenceUID = presence.s.u;
           IDMapping[src] = presenceUID;
-          if (
-            userId + '/' + username !== presenceUID &&
-            presence.s.s &&
-            presence.s.s.length > 0
-          ) {
+          const [id, name] = presenceUID.split('/');
+          if (userId !== id && presence.s.s && presence.s.s.length > 0) {
             // TODO: Can QuillCursors support multiple selections?
             const sel = presence.s.s[0];
 
@@ -303,14 +301,10 @@ class ReactiveRichText extends Component<
             const len = Math.abs(sel[1] - sel[0]);
             const min = Math.min(sel[0], sel[1]);
 
-            cursors.createCursor(
-              presenceUID,
-              presence.u.split('/')[1],
-              pickColor(presenceUID)
-            );
-            cursors.moveCursor(presenceUID, { index: min, length: len });
+            cursors.createCursor(id, name, pickColor(id));
+            cursors.moveCursor(id, { index: min, length: len });
             if (submitted) {
-              cursors.flashCursor(presenceUID);
+              cursors.flashCursor(id);
             }
           }
         }
@@ -650,7 +644,7 @@ class ReactiveRichText extends Component<
         p: [this.state.path],
         t: 'rich-text',
         o: delta.ops,
-        u: this.props.userId + '/' + this.props.username
+        u: this.props.userId
       };
 
       this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
