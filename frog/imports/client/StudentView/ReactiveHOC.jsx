@@ -165,8 +165,10 @@ const ReactiveHOC = (
     };
 
     componentWillUnmount = () => {
-      this.doc.removeListener('op', this.update);
-      this.doc.removeListener('load', this.update);
+      if (this.doc) {
+        this.doc.removeListener('op', this.update);
+        this.doc.removeListener('load', this.update);
+      }
       this.unmounted = true;
       if (this.interval) {
         window.clearInterval(this.interval);
