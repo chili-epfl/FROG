@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { extendObservable, action, reaction } from 'mobx';
 
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT } from '/imports/frog-utils';
 
 import { getActivitySequence } from '/imports/api/graphSequence';
 import changelog from '/imports/api/changelog';

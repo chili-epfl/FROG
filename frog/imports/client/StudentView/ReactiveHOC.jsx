@@ -2,7 +2,7 @@
 import * as React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { cloneDeep } from 'lodash';
-import { getDisplayName } from 'frog-utils';
+import { getDisplayName } from '/imports/frog-utils';
 
 import LearningItem from '/imports/client/LearningItem';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';

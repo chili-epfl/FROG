@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import JSZip from 'jszip';
 import Stringify from 'json-stringify-pretty-compact';
 import FileSaver from 'file-saver';
-import { cleanEmptyCols, type ActivityDbT, strfTime } from 'frog-utils';
+import { cleanEmptyCols, type ActivityDbT, strfTime } from '/imports/frog-utils';
 import { omit } from 'lodash';
 
 import { UploadList, downloadFile } from '/imports/api/openUploads';

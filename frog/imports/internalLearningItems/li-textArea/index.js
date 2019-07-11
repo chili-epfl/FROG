@@ -3,7 +3,7 @@ import {
   type LearningItemT,
   ReactiveText,
   HighlightSearchText
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({

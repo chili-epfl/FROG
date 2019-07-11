@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { isEmpty, omit } from 'lodash';
-import { A } from 'frog-utils';
+import { A } from '/imports/frog-utils';
 import Delta from 'quill-delta';
 
 import RenderLearningItem from '../LearningItem/RenderLearningItem';

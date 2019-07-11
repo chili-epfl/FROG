@@ -12,18 +12,16 @@ COPY frog/imports/startup/shutdown-if-env.js frog/server
 COPY frog/.meteor/packages frog/.meteor/versions frog/.meteor/release frog/.meteor/
 ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
 RUN cd /usr/src/frog/frog && METEOR_SHUTDOWN=true /usr/local/bin/meteor --once --allow-superuser; exit 0
-RUN mkdir -p __mocks__ frog-utils/src 
+RUN mkdir -p __mocks__ 
 
 COPY package.json yarn.lock .yarnrc ./
 COPY yarn.lock yarn.lock.orig
 COPY __mocks__ ./__mocks__
 COPY *.sh linkFiles.js package-scripts.js ./
-COPY frog-utils/package.json frog-utils/
 COPY frog/package.json frog/babel.config.js frog/
 WORKDIR /usr/src/frog
 RUN /usr/src/frog/initial_setup.sh 
 
-COPY frog-utils /usr/src/frog/frog-utils/
 COPY frog /usr/src/frog/frog/
 COPY *.js .*ignore *config ./
 RUN rm -rf ./frog/node_modules

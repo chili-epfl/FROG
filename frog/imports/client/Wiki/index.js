@@ -4,7 +4,7 @@ import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { values } from 'frog-utils';
+import { values } from '/imports/frog-utils';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';

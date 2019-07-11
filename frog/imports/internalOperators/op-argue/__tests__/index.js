@@ -1,6 +1,6 @@
 // @flow
 
-import { type ObjectT, type GlobalStructureT, values } from 'frog-utils';
+import { type ObjectT, type GlobalStructureT, values } from '/imports/frog-utils';
 
 import operator from '../operatorRunner';
 

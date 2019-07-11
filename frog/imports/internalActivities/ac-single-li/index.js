@@ -6,7 +6,7 @@ import {
   uuid,
   ProgressDashboard,
   values
-} from 'frog-utils';
+} from '/imports//imports/frog-utils';
 import upgradeFunctions from './upgradeFunctions';
 
 const meta = {

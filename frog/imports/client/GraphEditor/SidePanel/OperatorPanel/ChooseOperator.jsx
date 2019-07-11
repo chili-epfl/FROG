@@ -14,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import Collapse from '@material-ui/core/Collapse';
-import { type operatorPackageT, type OperatorDbT, cloneDeep } from 'frog-utils';
+import { type operatorPackageT, type OperatorDbT, cloneDeep } from '/imports/frog-utils';
 import { Operators } from '/imports/api/operators';
 import { operatorTypes, operatorTypesObj } from '/imports/operatorTypes';
 import { type StoreProp } from '../../store';

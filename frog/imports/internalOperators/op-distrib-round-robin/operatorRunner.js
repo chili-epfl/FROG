@@ -1,6 +1,6 @@
 // @flow
 
-import { type productOperatorRunnerT, getRotateable } from 'frog-utils';
+import { type productOperatorRunnerT, getRotateable } from '/imports/frog-utils';
 import { merge, range } from 'lodash';
 
 const operator = (configData, { activityData, socialStructure }) => {

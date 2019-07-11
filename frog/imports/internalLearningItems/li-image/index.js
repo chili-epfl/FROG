@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { ImageReload, type LearningItemT } from 'frog-utils';
+import { ImageReload, type LearningItemT } from '/imports/frog-utils';
 
 import ToolBar from './ToolBar';
 import { Creator } from '../li-file';

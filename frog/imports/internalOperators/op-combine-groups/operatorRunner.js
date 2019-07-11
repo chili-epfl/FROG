@@ -1,6 +1,6 @@
 // @flow
 import { shuffle, chunk, compact, range } from 'lodash';
-import { type socialOperatorRunnerT } from 'frog-utils';
+import { type socialOperatorRunnerT } from '/imports/frog-utils';
 
 const splitArray = (ary, splits) => {
   const grpsize = Math.round(ary.length / splits);

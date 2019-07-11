@@ -8,7 +8,7 @@ import {
   wrapUnitAll,
   type activityDataT,
   type productOperatorRunnerT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const parseAnnotation = a => {
   const res = {

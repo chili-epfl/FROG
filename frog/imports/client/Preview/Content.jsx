@@ -13,7 +13,7 @@ import {
   getInitialState,
   withDragDropContext,
   uuid
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LearningItem from '/imports/client/LearningItem';

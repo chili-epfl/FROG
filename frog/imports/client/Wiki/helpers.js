@@ -1,6 +1,6 @@
 // @flow
 
-import { values } from 'frog-utils';
+import { values } from '/imports/frog-utils';
 import { toJS } from 'mobx';
 import { connection } from '../App/connection';
 

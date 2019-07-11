@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
+import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
 
 export type StateT = {
   stage: number,

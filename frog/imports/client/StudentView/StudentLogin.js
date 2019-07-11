@@ -3,7 +3,7 @@ import * as React from 'react';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { isEmpty } from 'lodash';
-import { TextInput } from 'frog-utils';
+import { TextInput } from '/imports/frog-utils';
 import {
   AppBar,
   Toolbar,

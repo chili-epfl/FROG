@@ -1,7 +1,7 @@
 // @flow
 
 import importAll from 'import-all.macro';
-import { type operatorPackageT, entries, values } from 'frog-utils';
+import { type operatorPackageT, entries, values } from '/imports/frog-utils';
 
 const packagesRaw = importAll.sync('../node_modules/op-*/src/index.js');
 const packagesRawInternal = importAll.sync('./internalOperators/op-*/index.js');

@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { Accounts } from 'meteor/accounts-base';
-import { getInitialState, withDragDropContext } from 'frog-utils';
+import { getInitialState, withDragDropContext } from '/imports/frog-utils';
 import { compose, toClass } from 'recompose';
 import { withRouter } from 'react-router';
 
