@@ -35,8 +35,7 @@ const styles = {
   helperText: {
     display: 'inline',
     paddingLeft: '1vw',
-    fontSize: '1rem',
-    letterSpacing: '0.001em'
+    fontSize: '1rem'
   },
   select: {
     margin: '1vh'

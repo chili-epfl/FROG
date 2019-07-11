@@ -828,8 +828,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             variant="contained"
             color="primary"
             onClick={() =>
-              this.editAccess('createPage').then(x => {
-                if (x) this.setState({ createModalOpen: true });
+              this.editAccess('createPage').then(result => {
+                if (result) this.setState({ createModalOpen: true });
               })
             }
           >

@@ -22,7 +22,7 @@ export default ({
     callback(false);
     hideModal();
   };
-  const validatePassword = async () => {
+  const validatePassword = () => {
     if (password === actualPassword) {
       callback(true);
       hideModal();
