@@ -11,7 +11,7 @@ import {
   type ActivityDbT,
   type structureDefT,
   uuid
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';

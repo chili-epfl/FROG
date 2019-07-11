@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { get, isString } from 'lodash';
-import { Meteor } from 'meteor/meteor'
-import { type LearningItemT, ReactiveRichText } from '/imports/frog-utils';
+import { Meteor } from 'meteor/meteor';
+import { type LearningItemT } from '/imports/frog-utils';
+import ReactiveRichText from '/imports/frog-utils/ReactiveRichTextProxy';
 
 const path = 'text';
 

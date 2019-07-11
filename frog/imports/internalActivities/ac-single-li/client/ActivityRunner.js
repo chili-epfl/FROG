@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HTML, type ActivityRunnerPropsT } from '/imports//imports/frog-utils';
+import { HTML, type ActivityRunnerPropsT } from '/imports/frog-utils';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';

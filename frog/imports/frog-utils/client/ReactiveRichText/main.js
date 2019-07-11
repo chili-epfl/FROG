@@ -18,10 +18,10 @@ import {
 import QuillCursors from '@minervaproject/quill-cursors';
 import Dialog from '@material-ui/core/Dialog';
 
-import { HighlightSearchText } from '../HighlightSearchText';
-import { highlightTargetRichText } from '../highlightTargetRichText';
-import { cloneDeep } from '../cloneDeep';
-import { WikiContext } from '../WikiContext';
+import { HighlightSearchText } from '../../HighlightSearchText';
+import { highlightTargetRichText } from '../../highlightTargetRichText';
+import { cloneDeep } from '../../cloneDeep';
+import { WikiContext } from '../../WikiContext';
 
 import { LiViewTypes, formats } from './constants';
 import getLearningItemBlot from './LearningItemBlot';

@@ -2,7 +2,7 @@
 /* eslint-disable func-names */
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 import { Sessions } from '../imports/api/sessions';
 

@@ -8,7 +8,6 @@ export { isBrowser } from './isBrowser';
 export {
   ReactJsonView,
   EnhancedForm,
-  ReactiveRichText
 } from './browserOnlyComponents';
 
 export {

@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 
 import {
   type LearningItemT,
-  ReactiveText,
-  HighlightSearchText
+  HighlightSearchText,
+  ReactiveText
 } from '/imports/frog-utils';
 
 const styles = () => ({
