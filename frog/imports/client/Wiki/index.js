@@ -63,7 +63,9 @@ type WikiCompPropsT = {
 } & ModalParentPropsT;
 
 type WikiSettingsT = {
-  readOnly: boolean
+  readOnly: boolean,
+  allowPageCreation: boolean,
+  password: string
 };
 type WikiCompStateT = {
   dashboardSearch: ?string,
@@ -77,7 +79,8 @@ type WikiCompStateT = {
   noInstance: ?boolean,
   username: string,
   isAnonymous: boolean,
-  settings?: WikiSettingsT
+  settings?: WikiSettingsT,
+  isOwner: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -121,7 +124,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       openCreator: false,
       createModalOpen: false,
       search: '',
-      rightSideCurrentPageObj: null
+      rightSideCurrentPageObj: null,
+      isOwner: false
     };
   }
 
@@ -143,9 +147,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
-      Mousetrap.bindGlobal('ctrl+n', () =>
-        this.setState({ createModalOpen: true })
-      );
+      Mousetrap.bindGlobal('ctrl+n', () => {
+        this.setState({ createModalOpen: true });
+      });
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
       Mousetrap.bindGlobal('ctrl+e', () => {
         if (!this.state.settings?.readOnly) this.setState({ docMode: 'edit' });
@@ -221,7 +225,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     wikiStore.setPages(this.wikiDoc.data.pages);
     this.setState({
       pagesData: wikiStore.pages,
-      settings: this.wikiDoc.data.settings
+      settings: this.wikiDoc.data.settings,
+      isOwner:
+        this.wikiDoc.data.owners.find(x => x === Meteor.userId()) !== undefined
     });
 
     if (this.initialLoad) {
@@ -556,7 +562,27 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return { liId, pageId };
   };
 
-  editAccess = async () => {
+  editAccess = async action => {
+    if (action === 'createPage') {
+      if (this.state.settings?.allowPageCreation && !this.state.isOwner) {
+        this.props.showModal(
+          <Modal
+            title="Unable to create Page"
+            actions={[
+              {
+                title: 'OK',
+                callback: () => {
+                  this.props.hideModal();
+                }
+              }
+            ]}
+          >
+            Page creation has been restricted by the owner.
+          </Modal>
+        );
+        return false;
+      }
+    }
     if (
       this.state.settings?.readOnly ||
       (this.state.settings?.restrict === 'edit' &&
@@ -733,7 +759,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             variant="contained"
             color="primary"
             onClick={() =>
-              this.editAccess().then(x => {
+              this.editAccess('createPage').then(x => {
                 if (x) this.setState({ createModalOpen: true });
               })
             }
@@ -799,7 +825,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
-                checkEdit={this.editAccess}
+                checkEdit={() => this.editAccess('editPage')}
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
