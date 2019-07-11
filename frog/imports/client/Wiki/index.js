@@ -41,6 +41,7 @@ import {
 } from './components/Modal';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
+import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import PasswordModal from './ModalPassword';
@@ -65,7 +66,8 @@ type WikiCompPropsT = {
 type WikiSettingsT = {
   readOnly: boolean,
   allowPageCreation: boolean,
-  password: string
+  password: string,
+  locked: boolean
 };
 type WikiCompStateT = {
   dashboardSearch: ?string,
@@ -188,6 +190,16 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         Meteor.userId()
       );
     }
+
+    // Show locked modal if the wiki is locked
+    if (
+      this.wikiDoc.data.settings?.locked &&
+      !this.wikiDoc.data.owners.find(x => x === Meteor.userId())
+    ) {
+      this.props.showModal(<LockedModal />);
+      return;
+    }
+    // Ask for password if wiki access is password restricted
     if (
       this.wikiDoc.data.settings?.accessPassword &&
       !this.wikiDoc.data.users?.find(x => x === Meteor.userId())
@@ -222,6 +234,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       } else addUser(this.wikiDoc, Meteor.userId());
       return;
     }
+
     wikiStore.setPages(this.wikiDoc.data.pages);
     this.setState({
       pagesData: wikiStore.pages,
