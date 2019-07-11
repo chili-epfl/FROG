@@ -119,6 +119,12 @@ export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId, owner) => {
     owners: Array.of(owner),
     users: Array.of(owner),
     editors: Array.of(owner),
+    settings: {
+      password: '',
+      restrict: 'none',
+      allowPageCreation: true,
+      locked: false
+    },
     pages: {
       home: {
         id: 'home',
@@ -156,6 +162,15 @@ export const addEditor = (wikiDoc, userid) => {
   const op = {
     p: ['editors', 0],
     li: userid
+  };
+  wikiDoc.submitOp(op);
+};
+
+export const updateSettings = (wikiDoc, settings) => {
+  const op = {
+    p: ['settings'],
+    od: null,
+    oi: settings
   };
   wikiDoc.submitOp(op);
 };

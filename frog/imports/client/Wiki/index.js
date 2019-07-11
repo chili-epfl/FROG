@@ -13,7 +13,7 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
-
+import Tune from '@material-ui/icons/Tune';
 import { connection } from '../App/connection';
 import {
   getPageTitle,
@@ -29,7 +29,8 @@ import {
   createNewEmptyWikiDoc,
   addNewInstancePage,
   addUser,
-  addEditor
+  addEditor,
+  updateSettings
 } from '/imports/api/wikiDocHelpers';
 import { createNewLI } from './liDocHelpers';
 
@@ -45,6 +46,7 @@ import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import PasswordModal from './ModalPassword';
+import PermissionsModal from './ModalSettings';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
@@ -63,11 +65,12 @@ type WikiCompPropsT = {
   query?: Object
 } & ModalParentPropsT;
 
-type WikiSettingsT = {
+export type WikiSettingsT = {
   readOnly: boolean,
   allowPageCreation: boolean,
   password: string,
-  locked: boolean
+  locked: boolean,
+  restrict: string
 };
 type WikiCompStateT = {
   dashboardSearch: ?string,
@@ -198,10 +201,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     ) {
       this.props.showModal(<LockedModal />);
       return;
+    } else {
+      this.props.hideModal();
     }
     // Ask for password if wiki access is password restricted
     if (
-      this.wikiDoc.data.settings?.accessPassword &&
+      this.wikiDoc.data.settings?.restrict === 'view' &&
       !this.wikiDoc.data.users?.find(x => x === Meteor.userId())
     ) {
       const passwordPromise = new Promise(resolve => {
@@ -233,6 +238,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         );
       } else addUser(this.wikiDoc, Meteor.userId());
       return;
+    } else {
+      this.props.hideModal();
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
@@ -577,7 +584,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   editAccess = async action => {
     if (action === 'createPage') {
-      if (this.state.settings?.allowPageCreation && !this.state.isOwner) {
+      if (!this.state.settings?.allowPageCreation && !this.state.isOwner) {
         this.props.showModal(
           <Modal
             title="Unable to create Page"
@@ -596,11 +603,27 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         return false;
       }
     }
+    if (this.state.settings?.readOnly) {
+      this.props.showModal(
+        <Modal
+          title="Unable to edit Wiki"
+          actions={[
+            {
+              title: 'OK',
+              callback: () => {
+                this.props.hideModal();
+              }
+            }
+          ]}
+        >
+          This wiki is read only.
+        </Modal>
+      );
+      return false;
+    }
     if (
-      this.state.settings?.readOnly ||
-      (this.state.settings?.restrict === 'edit' &&
-        this.wikiDoc.data.editors.find(x => x === Meteor.userId()) ===
-          undefined)
+      this.state.settings?.restrict === 'edit' &&
+      this.wikiDoc.data.editors.find(x => x === Meteor.userId()) === undefined
     ) {
       const passwordPromise = new Promise(resolve => {
         this.props.showModal(
@@ -736,6 +759,39 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         title: 'Restore deleted page',
         icon: RestorePage,
         callback: () => this.openRestorePageModal(invalidPages)
+      },
+      {
+        title: 'Wiki Permissions',
+        icon: Tune,
+        callback: () => {
+          if (this.state.isOwner)
+            this.props.showModal(
+              <PermissionsModal
+                callback={x => {
+                  updateSettings(this.wikiDoc, x);
+                  this.props.hideModal();
+                }}
+                hideModal={this.props.hideModal}
+                currentSettings={this.wikiDoc.data.settings}
+              />
+            );
+          else
+            this.props.showModal(
+              <Modal
+                title="Unable to change Permissions"
+                actions={[
+                  {
+                    title: 'OK',
+                    callback: () => {
+                      this.props.hideModal();
+                    }
+                  }
+                ]}
+              >
+                Only owners can change permissions.
+              </Modal>
+            );
+        }
       }
     ];
 
