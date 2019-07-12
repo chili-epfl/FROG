@@ -249,7 +249,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       isOwner:
         this.wikiDoc.data.owners.find(x => x === Meteor.userId()) !== undefined
     });
-
+    if (
+      (this.wikiDoc.data.settings?.readOnly ||
+        this.wikiDoc.data.settings.restrict === 'edit') &&
+      this.wikiDoc.data.owners.find(x => x === Meteor.userId()) === undefined
+    )
+      wikiStore.setPreventPageCreation(true);
+    else wikiStore.setPreventPageCreation(false);
     if (this.initialLoad) {
       return this.handleInitialLoad();
     }
@@ -460,7 +466,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       fullPageObj,
       instanceId
     );
-
     if (!newCurrentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
@@ -603,7 +608,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         return false;
       }
     }
-    if (this.state.settings?.readOnly) {
+    if (this.state.settings?.readOnly || !this.state.isOwner) {
       this.props.showModal(
         <Modal
           title="Unable to edit Wiki"

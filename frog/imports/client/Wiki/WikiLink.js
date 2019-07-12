@@ -12,6 +12,7 @@ const WikiLink = observer(
       const { data } = this.props;
       const pageObj = wikiStore.pages[data.id];
       const noFollowLinks = wikiStore.noFollowLinks;
+      const preventPageCreation = wikiStore.preventPageCreation;
       const instanceId = data.instanceId;
 
       const style = {
@@ -48,7 +49,7 @@ const WikiLink = observer(
         return (
           <span
             ref={e => (this.ref = e)}
-            onClick={noFollowLinks ? null : createLinkFn}
+            onClick={noFollowLinks || preventPageCreation ? null : createLinkFn}
             style={style}
           >
             <b>{displayTitle}</b>
