@@ -59,16 +59,10 @@ module.exports = {
       'QUALIA_ONE_BUNDLE_TYPE=modern NODE_OPTIONS="--max_old_space_size=8192" cd frog && meteor',
       'Starting Meteor'
     ),
-    test: {
-      default: fromRoot(
-        `nps -s flow.quiet eslint jest`,
-        'Running Flow, ESLint and Jest'
-      ),
-      ci: fromRoot(
-        `nps -s eslint.normal`,
-        'Running LockFiles, Flow, ESLint and Jest - jest and flow temporarily disabled'
-      )
-    },
+    test: fromRoot(
+      `nps -s eslint.normal`,
+      'Running LockFiles, Flow, ESLint and Jest - jest and flow temporarily disabled'
+    ),
     eslint: {
       default: fromRoot(
         'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx"',
@@ -97,7 +91,15 @@ module.exports = {
     },
     cypress: {
       default: fromRoot('cypress open', 'Starting Cypress'),
+<<<<<<< HEAD
       run: fromRoot('cypress run', 'Starting Cypress in headless mode')
+=======
+      run: fromRoot('cypress run', 'Starting Cypress in headless mode'),
+      ci: fromRoot(
+        'start-server-and-test "QUALIA_ONE_BUNDLE_TYPE=modern NODE_OPTIONS="--max_old_space_size=8192" cd frog && meteor --allow-superuser" http://localhost:3000 "yarn start cypress.run"',
+        'Starting Cypress in CI mode. Cypress will start once the server is running.'
+      )
+>>>>>>> d7fa0b034a8de5f9850933f8e9de7ad438e6d642
     },
     lockfiles: fromRoot(
       'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
