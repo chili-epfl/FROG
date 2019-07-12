@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Meteor } from 'meteor/meteor';
 import { withStyles } from '@material-ui/styles';
-import { withRouter } from 'react-router';
 import {
   errorBasedOnChars,
   emailErrors,
@@ -207,5 +206,5 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     );
   }
 }
-const SignUpWithRouter = withRouter(SignUp);
-export default withStyles(styles)(SignUpWithRouter);
+
+export default withStyles(styles)(SignUp);
