@@ -3,9 +3,11 @@
 import { withTheme } from 'react-jsonschema-form';
 
 import { ObjectFieldTemplate } from './ObjectFieldTemplate';
+import { FieldTemplate } from './FieldTemplate';
 
 const customTheme = {
-  ObjectFieldTemplate
+  ObjectFieldTemplate,
+  FieldTemplate
 };
 
 /**

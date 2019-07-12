@@ -9,7 +9,12 @@ import { calculateSchema, hideConditional } from './enhancedFormUtils';
 
 const RteField = props => (
   <div key={props.reload || 'x'}>
-    <Fields.rte {...props} />
+    <Fields.rte
+      {...props}
+      name={undefined}
+      uiSchema={{ ...props.uiSchema, 'ui:title': undefined }}
+      schema={{ ...props.schema, title: undefined }}
+    />
   </div>
 );
 
