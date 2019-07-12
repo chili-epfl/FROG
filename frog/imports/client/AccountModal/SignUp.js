@@ -20,7 +20,7 @@ import {
 
 import { type SignUpStateT, type SignUpPropsT } from './types';
 
-const styles = (theme:Object) => ({
+const styles = (theme: Object) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white
@@ -47,9 +47,10 @@ const styles = (theme:Object) => ({
 const formValid = ({ formErrors, ...rest }: SignUpStateT): boolean => {
   let valid = true;
 
-  Object.values(formErrors).forEach(val => val.length > 0 && (valid = false));
-
-  Object.values(rest).forEach(val => val === null && (valid = false));
+  const formErrorsArray: Array<mixed> = Object.values(formErrors);
+  formErrorsArray.forEach(val => val.length > 0 && (valid = false));
+  const otherStateArray: Array<mixed> = Object.values(rest);
+  otherStateArray.forEach(val => val === null && (valid = false));
 
   return valid;
 };

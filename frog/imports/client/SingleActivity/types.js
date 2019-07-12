@@ -1,5 +1,5 @@
 // @flow
-
+import * as React from 'react';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
 
 export type StateT = {
