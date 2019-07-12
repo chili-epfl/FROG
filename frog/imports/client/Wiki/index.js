@@ -589,8 +589,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   editAccess = async action => {
+    if (this.state.isOwner) return true;
     if (action === 'createPage') {
-      if (!this.state.settings?.allowPageCreation && !this.state.isOwner) {
+      if (!this.state.settings?.allowPageCreation) {
         this.props.showModal(
           <Modal
             title="Unable to create Page"
@@ -609,7 +610,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         return false;
       }
     }
-    if (this.state.settings?.readOnly || !this.state.isOwner) {
+    if (this.state.settings?.readOnly) {
       this.props.showModal(
         <Modal
           title="Unable to edit Wiki"

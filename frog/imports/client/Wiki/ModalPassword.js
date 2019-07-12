@@ -43,7 +43,12 @@ export default ({
         }
       ]}
     >
-      <FormControl error={error}>
+      <FormControl
+        error={error}
+        onKeyDown={e => {
+          if (e.keyCode === 13) validatePassword();
+        }}
+      >
         <TextField
           type="password"
           margin="normal"
