@@ -199,6 +199,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.wikiDoc.data.settings?.locked &&
       !this.wikiDoc.data.owners.find(x => x === Meteor.userId())
     ) {
+      this.state.currentPageObj = null;
       this.props.showModal(<LockedModal />);
       return;
     } else {
@@ -759,46 +760,36 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       });
     }
 
-    const secondaryNavItems = [
-      {
-        title: 'Restore deleted page',
-        icon: RestorePage,
-        callback: () => this.openRestorePageModal(invalidPages)
-      },
-      {
-        title: 'Wiki Settings',
-        icon: Tune,
-        callback: () => {
-          if (this.state.isOwner)
-            this.props.showModal(
-              <PermissionsModal
-                callback={x => {
-                  updateSettings(this.wikiDoc, x);
-                  this.props.hideModal();
-                }}
-                hideModal={this.props.hideModal}
-                currentSettings={this.wikiDoc.data.settings}
-              />
-            );
-          else
-            this.props.showModal(
-              <Modal
-                title="Unable to change Permissions"
-                actions={[
-                  {
-                    title: 'OK',
-                    callback: () => {
-                      this.props.hideModal();
-                    }
-                  }
-                ]}
-              >
-                Only owners can change settings.
-              </Modal>
-            );
-        }
-      }
-    ];
+    const secondaryNavItems = this.state.isOwner
+      ? [
+          {
+            title: 'Restore deleted page',
+            icon: RestorePage,
+            callback: () => this.openRestorePageModal(invalidPages)
+          },
+          {
+            title: 'Wiki Settings',
+            icon: Tune,
+            callback: () =>
+              this.props.showModal(
+                <PermissionsModal
+                  callback={x => {
+                    updateSettings(this.wikiDoc, x);
+                    this.props.hideModal();
+                  }}
+                  hideModal={this.props.hideModal}
+                  currentSettings={this.wikiDoc.data.settings}
+                />
+              )
+          }
+        ]
+      : [
+          {
+            title: 'Restore deleted page',
+            icon: RestorePage,
+            callback: () => this.openRestorePageModal(invalidPages)
+          }
+        ];
 
     const instancesList =
       this.state.currentPageObj.plane === 3
