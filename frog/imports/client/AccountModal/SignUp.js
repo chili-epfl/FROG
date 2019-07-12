@@ -144,7 +144,6 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   error={this.state.formErrors.displayName !== ''}
                   variant="outlined"
                   required
-                  fullWidth
                   helperText={this.state.formErrors.displayName}
                   id="displayName"
                   label="Display Name"
