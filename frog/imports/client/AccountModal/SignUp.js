@@ -139,6 +139,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="fname"
+                  fullWidth
                   name="displayName"
                   error={this.state.formErrors.displayName !== ''}
                   variant="outlined"
