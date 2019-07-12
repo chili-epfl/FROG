@@ -1,15 +1,13 @@
 // @flow
 
- type FormError = {
-	displayName: string, 
-	email: string, 
-	password: string
+type FormError = {
+  displayName: string,
+  email: string,
+  password: string
 };
 export type SignUpStateT = {
   displayName: string,
   email: string,
   password: string,
   formErrors: FormError
-
-
 };
