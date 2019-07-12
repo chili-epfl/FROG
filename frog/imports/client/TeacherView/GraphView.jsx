@@ -62,7 +62,12 @@ class GraphViewController extends React.Component<GraphViewPropsT, {}> {
           style={{ height: session.template ? '200px' : '400px' }}
         >
           <ShowInfo />
-          <Graph scaled hasTimescale isSession />
+          <Graph
+            scaled
+            hasTimescale
+            isSession
+            hideOperatorsAndConnections={session.template}
+          />
         </div>
         {session.template && session.instructions[now] && (
           <h2>{session.instructions[now]}</h2>
