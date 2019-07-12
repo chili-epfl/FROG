@@ -169,8 +169,19 @@ export const addEditor = (wikiDoc, userid) => {
 export const updateSettings = (wikiDoc, settings) => {
   const op = {
     p: ['settings'],
-    od: null,
     oi: settings
   };
   wikiDoc.submitOp(op);
+  if (wikiDoc.data.password !== settings.password) {
+    const opDropEditors = {
+      p: ['editors'],
+      oi: []
+    };
+    wikiDoc.submitOp(opDropEditors);
+    const opDropUsers = {
+      p: ['users'],
+      oi: []
+    };
+    wikiDoc.submitOp(opDropUsers);
+  }
 };

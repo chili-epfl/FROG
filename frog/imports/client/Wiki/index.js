@@ -203,12 +203,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.props.showModal(<LockedModal />);
       return;
     } else {
+      this.initialLoad = true;
       this.props.hideModal();
     }
     // Ask for password if wiki access is password restricted
     if (
       this.wikiDoc.data.settings?.restrict === 'view' &&
-      !this.wikiDoc.data.users?.find(x => x === Meteor.userId())
+      !this.wikiDoc.data.users?.find(x => x === Meteor.userId()) &&
+      !this.wikiDoc.data.owners.find(x => x === Meteor.userId())
     ) {
       this.setState({ currentPageObj: null });
       const passwordPromise = new Promise(resolve => {
@@ -216,7 +218,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.wikiDoc.data.settings?.accessPassword}
+            actualPassword={this.wikiDoc.data.settings?.password}
           />
         );
       });
@@ -241,11 +243,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       } else addUser(this.wikiDoc, Meteor.userId());
       return;
     } else {
-      if (this.wikiDoc.data.settings?.restrict === 'none' &&  this.wikiDoc.data.users?.find(x => x === Meteor.userId()) === undefined)
+      if (
+        this.wikiDoc.data.users?.find(x => x === Meteor.userId()) === undefined
+      )
         addUser(this.wikiDoc, Meteor.userId());
+      this.initialLoad = true;
       this.props.hideModal();
     }
-
     wikiStore.setPages(this.wikiDoc.data.pages);
     this.setState({
       pagesData: wikiStore.pages,
