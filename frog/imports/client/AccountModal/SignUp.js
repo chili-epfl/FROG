@@ -136,7 +136,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
             noValidate
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="fname"
                   fullWidth
