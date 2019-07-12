@@ -240,6 +240,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       } else addUser(this.wikiDoc, Meteor.userId());
       return;
     } else {
+      if (!this.wikiDoc.data.users?.find(x => x === Meteor.userId()))
+        addUser(this.wikiDoc, Meteor.userId());
       this.props.hideModal();
     }
 
