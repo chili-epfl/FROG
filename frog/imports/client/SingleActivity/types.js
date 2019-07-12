@@ -10,6 +10,12 @@ export type StateT = {
   slug?: string
 };
 
+export type ShowModalFunctionT = (View: React.Node) => void;
+
+export type HideModalFunctionT = () => void;
+
 export type PropsT = {
-  classes: Object
+  classes: Object,
+  showModal: ShowModalFunctionT,
+  hideModal: HideModalFunctionT
 };

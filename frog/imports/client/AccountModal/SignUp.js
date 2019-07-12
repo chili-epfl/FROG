@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -10,15 +11,16 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Meteor } from 'meteor/meteor';
 import { withStyles } from '@material-ui/styles';
+import { withRouter } from 'react-router';
 import {
   errorBasedOnChars,
   emailErrors,
   passwordErrors
 } from './validationHelpers';
 
-import { type SignUpStateT } from './types';
+import { type SignUpStateT, type SignUpPropsT } from './types';
 
-const styles = theme => ({
+const styles = (theme:Object) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white
@@ -42,7 +44,7 @@ const styles = theme => ({
     margin: theme.spacing(3, 0, 2)
   }
 });
-const formValid = ({ formErrors, ...rest }) => {
+const formValid = ({ formErrors, ...rest }: SignUpStateT): boolean => {
   let valid = true;
 
   Object.values(formErrors).forEach(val => val.length > 0 && (valid = false));
@@ -52,7 +54,7 @@ const formValid = ({ formErrors, ...rest }) => {
   return valid;
 };
 
-class SignUp extends React.Component<{}, SignUpStateT> {
+class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   constructor() {
     super();
     this.state = {
@@ -63,12 +65,14 @@ class SignUp extends React.Component<{}, SignUpStateT> {
         displayName: '',
         email: '',
         password: ''
-      },
-      serverErrors: {}
+      }
     };
   }
 
-  handleChange = (event: Object, type: string) => {
+  handleChange = (
+    event: SyntheticInputEvent<EventTarget>,
+    type: string
+  ): void => {
     const value = event.target.value;
     const formErrors = { ...this.state.formErrors };
     switch (type) {
@@ -88,7 +92,7 @@ class SignUp extends React.Component<{}, SignUpStateT> {
     this.setState({ formErrors, [type]: value });
   };
 
-  handleSubmit = async (e: Object) => {
+  handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
     e.preventDefault();
     if (formValid(this.state)) {
       Meteor.call(
@@ -103,8 +107,8 @@ class SignUp extends React.Component<{}, SignUpStateT> {
             window.alert(error);
             this.setState({ serverErrors: error });
           } else {
-            window.alert('Success! Account created! ');
-            this.props.hideModal();
+            window.alert('Success! Account created!');
+            window.location.replace('/');
           }
         }
       );
@@ -202,5 +206,5 @@ class SignUp extends React.Component<{}, SignUpStateT> {
     );
   }
 }
-
-export default withStyles(styles)(SignUp);
+const SignUpWithRouter = withRouter(SignUp);
+export default withStyles(styles)(SignUpWithRouter);
