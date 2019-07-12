@@ -46,9 +46,9 @@ const styles = (theme: Object) => ({
 const formValid = ({ formErrors, ...rest }: SignUpStateT): boolean => {
   let valid = true;
 
-  const formErrorsArray: Array<mixed> = Object.values(formErrors);
+  const formErrorsArray: Array<string> = Object.values(formErrors);
   formErrorsArray.forEach(val => val.length > 0 && (valid = false));
-  const otherStateArray: Array<mixed> = Object.values(rest);
+  const otherStateArray: Array<string> = Object.values(rest);
   otherStateArray.forEach(val => val === null && (valid = false));
 
   return valid;
