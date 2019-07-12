@@ -10,6 +10,8 @@ import { type PropsT } from './types';
 import { style } from './style';
 import { withModalController } from '../Wiki/components/Modal';
 import SignUpModal from '../AccountModal/SignUpModal';
+import LoginModal from '../AccountModal/LoginModal';
+import {Meteor} from 'meteor/meteor'; 
 
 /**
  * Navigation bar displayed at the top
@@ -20,6 +22,9 @@ function TopBar(props: PropsT) {
   const openSignUpModal = () => {
     showModal(<SignUpModal hideModal={hideModal} />);
   };
+  const openLoginModal = () => {
+    showModal(<LoginModal hideModal={hideModal} />);
+  };
 
   return (
     <AppBar position="static" color="default">
@@ -29,7 +34,10 @@ function TopBar(props: PropsT) {
         </Typography>
         <Button size="medium">Help</Button>
         <Button size="medium" onClick={openSignUpModal}>
-          Log In/Sign Up
+         Create an account 
+        </Button>
+        <Button size="medium" onClick={openLoginModal}>
+         Login
         </Button>
       </Toolbar>
     </AppBar>

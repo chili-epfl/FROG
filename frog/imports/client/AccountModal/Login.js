@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,20 +12,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { withModalController } from '../Wiki/components/Modal';
+import { withStyles } from '@material-ui/styles';
+import {Meteor} from 'meteor/meteor'; 
 
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
-    </Typography>
-  );
-}
 
-const useStyles = makeStyles(theme => ({
+
+const styles = (theme:Object) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white
@@ -48,11 +41,40 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2)
   }
-}));
+});
 
-export default function SignIn() {
-  const classes = useStyles();
+ class Login extends React.Component<>{
+  constructor(){
+    super();
+    this.state = {
+      email: '',
+      password:''
+    }
+  }
 
+  handleChange = (
+    event: SyntheticInputEvent<EventTarget>,
+    type: string
+  ): void => {
+    const value = event.target.value; 
+   this.setState({[type]: value });
+  };
+  handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
+    e.preventDefault();
+    const {email, password} = this.state; 
+    Meteor.loginWithPassword(email, password, (error, res) => {
+      if (error){
+        window.alert("Could not login, try again!", error.reason); 
+      }
+      else {
+        window.alert("Logged in!");
+        window.location.replace("/"); 
+      }
+    }); 
+  };
+ 
+  render(){
+   const {classes} = this.props; 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -61,9 +83,9 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Log in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit = {e => this.handleSubmit(e)} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -72,6 +94,7 @@ export default function SignIn() {
             id="email"
             label="Email Address"
             name="email"
+            onChange = { e => this.handleChange(e, "email")}
             autoComplete="email"
             autoFocus
           />
@@ -81,6 +104,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
+            onChange = { e => this.handleChange(e, "password")}
             label="Password"
             type="password"
             id="password"
@@ -97,7 +121,7 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Log In 
           </Button>
           <Grid container>
             <Grid item xs>
@@ -113,9 +137,8 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <MadeWithLove />
-      </Box>
     </Container>
   );
 }
+}
+export default withStyles(styles)(Login); 
