@@ -14,8 +14,5 @@ export type SignUpStateT = {
 };
 
 export type SignUpPropsT = {
-  history: Object,
-  location: Object,
-  match: Object,
   classes: Object
 };
