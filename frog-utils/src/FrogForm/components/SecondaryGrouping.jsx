@@ -7,26 +7,18 @@ import type { ObjectFieldTemplatePropsT } from '../types';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(12, 1fr)',
-    gridColumnGap: theme.spacing(3),
     paddingBottom: theme.spacing(1)
   },
-  header: {
+  titleAndDescription: {
     display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(0.5)
   },
-  badge: {
-    marginLeft: theme.spacing(1)
-  },
-  content: {
-    gridColumnStart: 'span 8'
+  title: {
+    lineHeight: 0
   },
   description: {
     color: theme.palette.grey[700],
-    gridColumnStart: 'span 4',
-    marginBottom: theme.spacing(1)
+    paddingLeft: theme.spacing(2)
   }
 }));
 
@@ -44,17 +36,21 @@ export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.content}>
-        <div className={classes.header}>
-          {title && <Typography variant="button">{title}</Typography>}
-        </div>
-        <div className={classes.fields}>{properties.map(p => p.content)}</div>
-      </div>
-      {description && (
-        <Typography className={classes.description} variant="body2">
-          {description}
+      <div className={classes.titleAndDescription}>
+        <Typography className={classes.title} variant="button">
+          {props.title}
         </Typography>
-      )}
+        {props.description && (
+          <Typography className={classes.description} variant="body2">
+            {props.description}
+          </Typography>
+        )}
+      </div>
+      <div className={classes.fields}>
+        {properties.map(p => (
+          <div>{p.content}</div>
+        ))}
+      </div>
     </div>
   );
 };
