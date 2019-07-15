@@ -9,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import { type PropsT } from './types';
 import { style } from './style';
 import { withModalController } from '../Wiki/components/Modal';
-import SignUpModal from '/imports/client/AccountModal';
+import SignUpModal from '/imports/client/AccountModal/SignUpModal';
+
 
 /**
  * Navigation bar displayed at the top
