@@ -24,30 +24,27 @@ type ModalSettingsPropsT = {
 
 const styles = {
   group: {
-    margin: '1vh'
+    margin: '1%'
   },
   divider: {
-    margin: '2vh'
+    margin: '2%'
   },
   label: {
-    paddingTop: '2vh'
+    paddingTop: '2%'
   },
   helperText: {
     display: 'inline',
-    paddingLeft: '1vw',
+    paddingLeft: '1%',
     fontSize: '1rem'
   },
   select: {
-    margin: '1vh'
+    margin: '1%'
   }
 };
 
 export default withStyles(styles)(
   ({ callback, hideModal, currentSettings, classes }: ModalSettingsPropsT) => {
     const [settings, setSettings] = useState(currentSettings);
-    const handleChange = target => name => event => {
-      setSettings({ ...settings, [name]: event.target[target] });
-    };
     return (
       <Modal
         title="Change Wiki Settings"
@@ -63,7 +60,9 @@ export default withStyles(styles)(
           <FormControlLabel
             checked={settings.locked}
             control={<Switch color="secondary" />}
-            onChange={handleChange('checked')('locked')}
+            onChange={e =>
+              setSettings({ ...settings, locked: e.target.checked })
+            }
             label={
               <>
                 <>Lock Wiki</>
@@ -78,7 +77,9 @@ export default withStyles(styles)(
           <FormControlLabel
             checked={settings.readOnly}
             control={<Switch color="secondary" />}
-            onChange={handleChange('checked')('readOnly')}
+            onChange={e =>
+              setSettings({ ...settings, readOnly: e.target.checked })
+            }
             label={
               <>
                 <>Make the wiki read-only</>
@@ -113,7 +114,9 @@ export default withStyles(styles)(
           </InputLabel>
           <Select
             value={settings.restrict}
-            onChange={handleChange('value')('restrict')}
+            onChange={e =>
+              setSettings({ ...settings, restrict: e.target.value })
+            }
             inputProps={{
               name: 'restrict',
               id: 'access'
@@ -129,7 +132,9 @@ export default withStyles(styles)(
           </InputLabel>
           <TextField
             margin="normal"
-            onChange={handleChange('value')('password')}
+            onChange={e =>
+              setSettings({ ...settings, password: e.target.value })
+            }
             defaultValue={settings.password}
             disabled={settings.restrict === 'none'}
             className={classes.select}

@@ -218,7 +218,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.wikiDoc.data.settings?.password}
+            actualPassword={this.wikiDoc.data.settings.password}
           />
         );
       });
@@ -595,6 +595,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return { liId, pageId };
   };
 
+  /**
+   * Check / Ask for granting edit access
+   * @param {string} action - The action for which the access is being checked could be either 'createPage' or 'editPage'
+   * @return {boolean} True if access was granted false otherwise
+   */
   editAccess = async action => {
     if (this.state.isOwner) return true;
     if (action === 'createPage') {
