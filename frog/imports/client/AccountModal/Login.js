@@ -12,13 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { withModalController } from '../Wiki/components/Modal';
 import { withStyles } from '@material-ui/styles';
-import {Meteor} from 'meteor/meteor'; 
+import { Meteor } from 'meteor/meteor';
+import { withModalController } from '../Wiki/components/Modal';
 
-
-
-const styles = (theme:Object) => ({
+const styles = (theme: Object) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white
@@ -43,102 +41,106 @@ const styles = (theme:Object) => ({
   }
 });
 
- class Login extends React.Component<>{
-  constructor(){
+class Login extends React.Component<> {
+  constructor() {
     super();
     this.state = {
       email: '',
-      password:''
-    }
+      password: ''
+    };
   }
 
   handleChange = (
     event: SyntheticInputEvent<EventTarget>,
     type: string
   ): void => {
-    const value = event.target.value; 
-   this.setState({[type]: value });
+    const value = event.target.value;
+    this.setState({ [type]: value });
   };
+
   handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
     e.preventDefault();
-    const {email, password} = this.state; 
+    const { email, password } = this.state;
     Meteor.loginWithPassword(email, password, (error, res) => {
-      if (error){
-        window.alert("Could not login, try again!", error.reason); 
+      if (error) {
+        window.alert('Could not login!  ' + error);
+      } else {
+        window.alert('Logged in!');
+        window.location.replace('/');
       }
-      else {
-        window.alert("Logged in!");
-        window.location.replace("/"); 
-      }
-    }); 
+    });
   };
- 
-  render(){
-   const {classes} = this.props; 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Log in
-        </Typography>
-        <form className={classes.form} onSubmit = {e => this.handleSubmit(e)} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            onChange = { e => this.handleChange(e, "email")}
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            onChange = { e => this.handleChange(e, "password")}
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log in
+          </Typography>
+          <form
+            className={classes.form}
+            onSubmit={e => this.handleSubmit(e)}
+            noValidate
           >
-            Log In 
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              onChange={e => this.handleChange(e, 'email')}
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              onChange={e => this.handleChange(e, 'password')}
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Log In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
-  );
+          </form>
+        </div>
+      </Container>
+    );
+  }
 }
-}
-export default withStyles(styles)(Login); 
+export default withStyles(styles)(Login);
