@@ -11,7 +11,6 @@ import { style } from './style';
 import { withModalController } from '../Wiki/components/Modal';
 import SignUpModal from '/imports/client/AccountModal/SignUpModal';
 
-
 /**
  * Navigation bar displayed at the top
  */
