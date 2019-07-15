@@ -773,36 +773,29 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       });
     }
 
-    const secondaryNavItems = this.state.isOwner
-      ? [
-          {
-            title: 'Restore deleted page',
-            icon: RestorePage,
-            callback: () => this.openRestorePageModal(invalidPages)
-          },
-          {
-            title: 'Wiki Settings',
-            icon: Tune,
-            callback: () =>
-              this.props.showModal(
-                <PermissionsModal
-                  callback={x => {
-                    updateSettings(this.wikiDoc, x);
-                    this.props.hideModal();
-                  }}
-                  hideModal={this.props.hideModal}
-                  currentSettings={this.wikiDoc.data.settings}
-                />
-              )
-          }
-        ]
-      : [
-          {
-            title: 'Restore deleted page',
-            icon: RestorePage,
-            callback: () => this.openRestorePageModal(invalidPages)
-          }
-        ];
+    const secondaryNavItems = [
+      {
+        title: 'Restore deleted page',
+        icon: RestorePage,
+        callback: () => this.openRestorePageModal(invalidPages)
+      }
+    ];
+    if (this.state.isOwner)
+      secondaryNavItems.push({
+        title: 'Wiki Settings',
+        icon: Tune,
+        callback: () =>
+          this.props.showModal(
+            <PermissionsModal
+              callback={x => {
+                updateSettings(this.wikiDoc, x);
+                this.props.hideModal();
+              }}
+              hideModal={this.props.hideModal}
+              currentSettings={this.wikiDoc.data.settings}
+            />
+          )
+      });
 
     const instancesList =
       this.state.currentPageObj.plane === 3
