@@ -20,10 +20,14 @@ const useStyles = makeStyles(theme => ({
   badge: {
     marginLeft: theme.spacing(1)
   },
+  title: {
+    lineHeight: 1,
+  }
   description: {
     marginLeft: theme.spacing(2),
     color: theme.palette.grey[700],
-    flexGrow: 1
+    flexGrow: 1,
+    lineHeight: 1,
   },
   expandIcon: {
     marginLeft: theme.spacing(2),
@@ -57,7 +61,7 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
         elevation={0}
         onClick={() => setExpand(!expand)}
       >
-        {title && <Typography variant="h6">{title}</Typography>}
+        {title && <Typography className={classes.title} variant="h6">{title}</Typography>}
         {description && (
           <Typography className={classes.description} variant="body2">
             {description}

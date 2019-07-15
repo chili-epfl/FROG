@@ -14,11 +14,12 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(0.5)
   },
   title: {
-    lineHeight: 0
+    lineHeight: 1
   },
   description: {
     color: theme.palette.grey[700],
-    paddingLeft: theme.spacing(2)
+    paddingLeft: theme.spacing(2),
+    lineHeight: 1
   }
 }));
 
