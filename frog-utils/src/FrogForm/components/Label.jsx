@@ -26,7 +26,10 @@ type LabelledFieldPropsT = {
   children: React.Node | React.Node[]
 };
 
-export const Field = (props: LabelledFieldPropsT) => {
+/**
+ * Defines a labelled field, optionally showing a description if it is present
+ */
+export const Label = (props: LabelledFieldPropsT) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
