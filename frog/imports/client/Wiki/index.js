@@ -4,7 +4,7 @@ import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { values } from 'frog-utils';
+import { values, withModal, type ModalParentPropsT } from 'frog-utils';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
@@ -40,8 +40,6 @@ import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
 import { dataFn } from './wikiLearningItem';
-
-import { withModal, type ModalParentPropsT } from 'frog-utils';
 
 export type PageObjT = {
   wikiId: string,

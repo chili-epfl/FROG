@@ -7,7 +7,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
-import { Loadable } from 'frog-utils';
+import { Loadable, ModalController } from 'frog-utils';
 import queryString from 'query-string';
 import {
   BrowserRouter as Router,
@@ -26,7 +26,6 @@ import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
-import { ModalController } from 'frog-utils';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
