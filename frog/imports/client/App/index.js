@@ -26,6 +26,7 @@ import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
+import { ModalController } from 'frog-utils';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -401,12 +402,14 @@ export default class Root extends React.Component<
       return (
         <ErrorBoundary>
           {!this.state.connected && <ConnectionDiv />}
-          <Router>
-            <Switch>
-              <Route path="/:slug" component={FROGRouter} />
-              <Route component={FROGRouter} />
-            </Switch>
-          </Router>
+          <ModalController>
+            <Router>
+              <Switch>
+                <Route path="/:slug" component={FROGRouter} />
+                <Route component={FROGRouter} />
+              </Switch>
+            </Router>
+          </ModalController>
         </ErrorBoundary>
       );
     }

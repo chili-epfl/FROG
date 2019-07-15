@@ -41,10 +41,7 @@ import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
 import { dataFn } from './wikiLearningItem';
 
-import {
-  withModalController,
-  type ModalParentPropsT
-} from './components/Modal';
+import { withModal, type ModalParentPropsT } from 'frog-utils';
 
 export type PageObjT = {
   wikiId: string,
@@ -776,7 +773,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withModalController(WikiComp);
+const Wiki = withModal(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;
