@@ -29,9 +29,6 @@ const useStyles = makeStyles(theme => ({
 export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
   const classes = useStyles();
 
-  const title = props.title;
-  const description = props.description;
-
   const { properties } = props;
 
   return (
