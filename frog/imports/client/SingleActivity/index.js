@@ -26,7 +26,7 @@ class SingleActivity extends React.Component<{}, StateT> {
   }
 
   // if user wants to clone an existing activity/graph, they use a /duplicate/ call, which
-  // gets intercepted at the server level, and the appropriate data is fetched from the 
+  // gets intercepted at the server level, and the appropriate data is fetched from the
   // database and passed along. We access this data with InjectData.getData. If there
   // is such data, we directly jump to the second screen and load it with the cloned data
   componentDidMount = () => {
