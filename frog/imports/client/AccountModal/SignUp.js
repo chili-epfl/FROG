@@ -1,14 +1,16 @@
 // @flow
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import {
+  Button,
+  Link,
+  Grid,
+  LockOutlinedIcon,
+  Typography,
+  Container,
+  TextField,
+  Avatar,
+  CssBaseline
+} from '@material-ui/core';
 import { Meteor } from 'meteor/meteor';
 import { withStyles } from '@material-ui/styles';
 import {
@@ -17,7 +19,22 @@ import {
   passwordErrors
 } from './validationHelpers';
 
-import { type SignUpStateT, type SignUpPropsT } from './types';
+type FormError = {
+  displayName: string,
+  email: string,
+  password: string
+};
+
+type SignUpStateT = {
+  displayName: string,
+  email: string,
+  password: string,
+  formErrors: FormError
+};
+
+type SignUpPropsT = {
+  classes: Object
+};
 
 const styles = (theme: Object) => ({
   '@global': {
@@ -102,7 +119,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
         {
           displayName: this.state.displayName
         },
-        function(error) {
+        error => {
           if (error) {
             window.alert(error);
             this.setState({ serverErrors: error });
@@ -112,8 +129,6 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
           }
         }
       );
-    } else {
-      window.alert("Your account couldn't be created");
     }
   };
 
@@ -122,8 +137,8 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
 
     return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
+          <CssBaseline />
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -185,6 +200,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  disabled={formValid()}
                   color="primary"
                   className={classes.submit}
                 >
