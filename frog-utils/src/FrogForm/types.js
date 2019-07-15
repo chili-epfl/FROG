@@ -6,7 +6,6 @@
  */
 
 import * as React from 'react';
-import { placeholder } from '@babel/types';
 
 type Schema = {
   title?: string,
