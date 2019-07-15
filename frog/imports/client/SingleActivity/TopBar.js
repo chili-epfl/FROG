@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/styles';
-import {withRouter} from 'react-router'; 
+import { withRouter } from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -28,44 +28,42 @@ function TopBar(props: PropsT) {
     showModal(<LoginModal hideModal={hideModal} />);
   };
   const renderButtons = () => {
-  let loginButton, signUpButton,logOutButton; 
-
-  if (Meteor.user().isAnonymous)
-          {
-          
-          return (
-          <React.Fragment> 
-            <Button size = "medium" onClick = {openLoginModal}>
-          Login to another account </Button> 
-            <Button size="medium" onClick={openSignUpModal}>
-             Upgrade your account
-           </Button>
-        
-          </React.Fragment>
-          );
-        }
-        
-         else if (!Meteor.user().isAnonymous){
-         return  (
-            <React.Fragment>
-
-              <Button size="medium" onClick={() => Meteor.logout(() => {
+    if (Meteor.user().isAnonymous) {
+      return (
+        <React.Fragment>
+          <Button size="medium" onClick={openLoginModal}>
+            Login to another account{' '}
+          </Button>
+          <Button size="medium" onClick={openSignUpModal}>
+            Upgrade your account
+          </Button>
+        </React.Fragment>
+      );
+    } else if (!Meteor.user().isAnonymous) {
+      return (
+        <React.Fragment>
+          <Button
+            size="medium"
+            onClick={() =>
+              Meteor.logout(() => {
                 this.props.history.push('/');
                 window.notReady();
-              })}>
-                Logout 
-            </Button>
-             <Button size="medium" onClick={openSignUpModal}>
-             Create a new account
-            </Button>
-            <Chip label= {Meteor.user().profile.displayName} className={classes.chip} />
-          
-            </React.Fragment>
-
-            );
-        }
-
-        }
+              })
+            }
+          >
+            Logout
+          </Button>
+          <Button size="medium" onClick={openSignUpModal}>
+            Create a new account
+          </Button>
+          <Chip
+            label={Meteor.user().profile.displayName}
+            className={classes.chip}
+          />
+        </React.Fragment>
+      );
+    }
+  };
 
   return (
     <AppBar position="static" color="default">
@@ -75,7 +73,6 @@ function TopBar(props: PropsT) {
         </Typography>
         <Button size="medium">Help</Button>
         {renderButtons()}
-       
       </Toolbar>
     </AppBar>
   );

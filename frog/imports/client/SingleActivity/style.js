@@ -7,10 +7,10 @@ const style = {
     marginBottom: 16,
     padding: 16
   },
-  chip:{
-    marginTop: 10, 
-    marginBottom: 10, 
-    marginLeft: 10, 
+  chip: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10,
     marginRight: 10
   },
   welcome_card: {
