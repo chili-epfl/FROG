@@ -45,7 +45,7 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
   // We set it to true to show expanded by default
   const [expand, setExpand] = React.useState(true);
 
-  const title = props.title || props.uiSchema['ui:title'];
+  const title = props.title;
   const description = props.description;
 
   const { properties } = props;

@@ -1,22 +1,11 @@
 // @flow
+
 import React, { Component } from 'react';
 import { isEqual } from 'lodash';
 import jsonSchemaDefaults from 'json-schema-defaults';
-import Fields from 'react-jsonschema-form-extras';
 import Form from './FrogForm';
 
 import { calculateSchema, hideConditional } from './enhancedFormUtils';
-
-const RteField = props => (
-  <div key={props.reload || 'x'}>
-    <Fields.rte
-      {...props}
-      name={undefined}
-      uiSchema={{ ...props.uiSchema, 'ui:title': undefined }}
-      schema={{ ...props.schema, title: undefined }}
-    />
-  </div>
-);
 
 class EnhancedForm extends Component<
   Object,
@@ -94,9 +83,6 @@ class EnhancedForm extends Component<
         onChange={this.onChange}
         schema={this.state.schema}
         formData={this.state.formData}
-        fields={{
-          rteField: props => <RteField reload={this.props.reload} {...props} />
-        }}
       />
     ) : null;
   }
