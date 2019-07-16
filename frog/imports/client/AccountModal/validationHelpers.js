@@ -1,11 +1,11 @@
 // @flow
 export const errorBasedOnChars = (
   value: string,
-  x: number,
+  numberOfChars: number,
   type: string
 ): string => {
-  return value.length < x
-    ? `${type} has to have a minimum of ${x} characters`
+  return value.length < numberOfChars
+    ? `${type} has to have a minimum of ${numberOfChars} characters`
     : '';
 };
 

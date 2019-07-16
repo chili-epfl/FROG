@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Modal } from 'frog-utils';
 import SignUp from './SignUp';
 
-export function SignUpModal() {
+export const SignUpModal = () => {
   return (
     <Modal
       title=""
@@ -12,4 +12,4 @@ export function SignUpModal() {
       {(showModal, hideModal) => <SignUp onSignUpSuccess={hideModal} />}
     </Modal>
   );
-}
+};

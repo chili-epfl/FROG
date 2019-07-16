@@ -71,17 +71,14 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     };
   }
 
-  formValid = (formErrors: FormError): boolean => {
-    let valid = true;
+  formValid = (formErrors: FormError) => {
     if (
       formErrors.email === '' &&
       formErrors.password === '' &&
       formErrors.displayName === ''
     )
-      return valid;
-
-    valid = false;
-    return valid;
+      return true;
+    else return false;
   };
 
   clearErrors = (): void => {
@@ -91,12 +88,6 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
       password: ''
     };
     this.setState({ formErrors: formErrorsCleared });
-  };
-
-  // Hack to make sure modal doesn't jump on displaying errors
-  displayErrors = (type: string): string => {
-    if (this.state.formErrors[type] === '') return '';
-    else return this.state.formErrors[type];
   };
 
   handleChange = (
@@ -163,7 +154,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   error={this.state.formErrors.displayName !== ''}
                   variant="outlined"
                   required
-                  helperText={this.displayErrors('displayName')}
+                  helperText={this.state.formErrors.displayName}
                   id="displayName"
                   label="Display Name"
                   onChange={e => this.handleChange(e, 'displayName')}
@@ -179,7 +170,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   id="email"
                   label="Email Address"
                   name="email"
-                  helperText={this.displayErrors('email')}
+                  helperText={this.state.formErrors.email}
                   onChange={e => this.handleChange(e, 'email')}
                   autoComplete="email"
                 />
@@ -194,7 +185,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   label="Password"
                   type="password"
                   id="password"
-                  helperText={this.displayErrors('password')}
+                  helperText={this.state.formErrors.password}
                   onChange={e => this.handleChange(e, 'password')}
                   autoComplete="current-password"
                 />
