@@ -20,7 +20,7 @@ export default ({
 }: ModalDeletedPagePropsT) => {
   return (
     <AlertModal
-      title={pageTitle}
+      title={`${pageTitle} has been deleted`}
       content="Do you want to restore the old deleted page or create a new one?"
       actions={[
         {
