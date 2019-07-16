@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 1
   },
   expandIcon: {
-    marginLeft: theme.spacing(2),
+    marginLeft: 'auto',
     transition: 'all .2s'
   },
   fields: {
