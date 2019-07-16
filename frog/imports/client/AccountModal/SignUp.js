@@ -51,7 +51,7 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(2, 0, 2)
+    margin: theme.spacing(2, 0, 2, 0)
   }
 });
 
