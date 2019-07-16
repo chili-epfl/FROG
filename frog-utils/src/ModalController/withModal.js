@@ -2,12 +2,13 @@
 
 import * as React from 'react';
 
+import { useModal } from './useModal';
 import { type ShowModalFunctionT, type HideModalFunctionT } from './types';
 
 /**
  * HOC that adds ability to create modals via provided prop function
  */
-export const withModalController = <T: {}>(
+export const withModal = <T: {}>(
   Component: React.AbstractComponent<T>
 ): React.AbstractComponent<
   $Diff<
@@ -27,22 +28,9 @@ export const withModalController = <T: {}>(
       }
     >
   ) => {
-    // Initialize the state with an undefined View, this will ensure
-    // no modal gets rendered
-    const [View, updateData] = React.useState();
-
-    // Updates the state with the provided View
-    const showModal = (view: React.Node) => updateData(view);
-
-    const hideModal = () => updateData();
-
+    const [showModal, hideModal] = useModal();
     // Displays the provided Component and adds two methods to control modals to its
-    // props. Displays a modal if one is active.
-    return (
-      <>
-        {View !== undefined ? View : null}
-        <Component {...props} showModal={showModal} hideModal={hideModal} />
-      </>
-    );
+    // props.
+    return <Component {...props} showModal={showModal} hideModal={hideModal} />;
   };
 };
