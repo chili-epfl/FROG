@@ -1,5 +1,5 @@
 import { Quill } from '@houshuang/react-quill';
-import { Keys } from '/imports/frog-utils/constants';
+import { Keys } from '../constants';
 import './quill.mention.css';
 
 class WikiLinkModule {

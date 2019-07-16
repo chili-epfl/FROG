@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Modal } from 'frog-utils';
+import { Modal } from '/imports/frog-utils';
 
 type ModalRestorePropsT = {
   pages: Object,
