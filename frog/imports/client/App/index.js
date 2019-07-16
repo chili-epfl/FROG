@@ -398,6 +398,7 @@ export default class Root extends React.Component<
         </>
       );
     } else {
+      // We wrap ModalController to allow FROG to display modals
       return (
         <ErrorBoundary>
           {!this.state.connected && <ConnectionDiv />}
