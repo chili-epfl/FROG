@@ -36,7 +36,6 @@ import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
 import {
-  Modal,
   withModalController,
   type ModalParentPropsT
 } from './components/Modal';
@@ -47,16 +46,23 @@ import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import PasswordModal from './ModalPassword';
 import PermissionsModal from './ModalSettings';
+import AlertModal from './ModalAlert';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
 import { dataFn } from './wikiLearningItem';
-
-export type PageObjT = {
-  wikiId: string,
-  pageTitle?: string,
-  instance?: string
-};
+import {
+  type PageObjT,
+  type WikiSettingsT,
+  KEY_ENTER,
+  PERM_ALLOW_EVERYTHING,
+  PERM_PASSWORD_TO_EDIT,
+  PERM_PASSWORD_TO_VIEW,
+  PRIVILEGE_OWNER,
+  PRIVILEGE_EDIT,
+  PRIVILEGE_VIEW,
+  PRIVILEGE_NONE
+} from './types.js';
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -65,13 +71,6 @@ type WikiCompPropsT = {
   query?: Object
 } & ModalParentPropsT;
 
-export type WikiSettingsT = {
-  readOnly: boolean,
-  allowPageCreation: boolean,
-  password: string,
-  locked: boolean,
-  restrict: string
-};
 type WikiCompStateT = {
   dashboardSearch: ?string,
   mode: string,
@@ -85,7 +84,7 @@ type WikiCompStateT = {
   username: string,
   isAnonymous: boolean,
   settings?: WikiSettingsT,
-  isOwner: boolean
+  privilege: 'owner' | 'editor' | 'user' | 'none'
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -124,7 +123,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       currentPageObj: null,
       initialPageTitle: this.props.pageObj.pageTitle,
       mode: 'document',
-      docMode: query?.edit ? 'edit' : 'view',
+      docMode: query?.edit ? PERM_PASSWORD_TO_EDIT : PERM_PASSWORD_TO_VIEW,
       error: null,
       openCreator: false,
       createModalOpen: false,
@@ -181,36 +180,20 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return !this.preventRenderUntilNextShareDBUpdate;
   }
 
-  loadWikiDoc = async () => {
-    this.preventRenderUntilNextShareDBUpdate = false;
-
-    if (!this.wikiDoc.data) {
-      const liId = createNewLI(this.wikiId, 'li-richText');
-      return createNewEmptyWikiDoc(
-        this.wikiDoc,
-        this.wikiId,
-        liId,
-        Meteor.userId()
-      );
-    }
-
+  handleSettings = async privilege => {
     // Show locked modal if the wiki is locked
-    if (
-      this.wikiDoc.data.settings?.locked &&
-      !this.wikiDoc.data.owners.find(x => x === Meteor.userId())
-    ) {
+    if (this.wikiDoc.data.settings?.locked && privilege !== PRIVILEGE_OWNER) {
       this.setState({ currentPageObj: null });
       this.props.showModal(<LockedModal />);
-      return;
+      return false;
     } else {
       this.initialLoad = true;
       this.props.hideModal();
     }
     // Ask for password if wiki access is password restricted
     if (
-      this.wikiDoc.data.settings?.restrict === 'view' &&
-      !this.wikiDoc.data.users?.find(x => x === Meteor.userId()) &&
-      !this.wikiDoc.data.owners.find(x => x === Meteor.userId())
+      this.wikiDoc.data.settings?.restrict === PERM_PASSWORD_TO_VIEW &&
+      !privilege
     ) {
       this.setState({ currentPageObj: null });
       const passwordPromise = new Promise(resolve => {
@@ -225,48 +208,64 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       const result = await passwordPromise;
       if (!result) {
         this.props.showModal(
-          <Modal
+          <AlertModal
             title="Unable to access Wiki"
-            actions={[
-              {
-                title: 'OK',
-                callback: () => {
-                  this.props.hideModal();
-                  this.loadWikiDoc();
-                }
-              }
-            ]}
+            callback={() => {
+              this.props.hideModal();
+              this.loadWikiDoc();
+            }}
           >
             This wiki has been password protected.
-          </Modal>
+          </AlertModal>
         );
+        return false;
       } else addUser(this.wikiDoc, Meteor.userId());
-      return;
     } else {
-      if (
-        this.wikiDoc.data.users?.find(x => x === Meteor.userId()) === undefined
-      )
-        addUser(this.wikiDoc, Meteor.userId());
+      if (privilege === PRIVILEGE_VIEW) addUser(this.wikiDoc, Meteor.userId());
       this.initialLoad = true;
       this.props.hideModal();
     }
-    wikiStore.setPages(this.wikiDoc.data.pages);
-    this.setState({
-      pagesData: wikiStore.pages,
-      settings: this.wikiDoc.data.settings,
-      isOwner:
-        this.wikiDoc.data.owners.find(x => x === Meteor.userId()) !== undefined
-    });
     if (
       (this.wikiDoc.data.settings?.readOnly ||
-        this.wikiDoc.data.settings.restrict === 'edit') &&
-      this.wikiDoc.data.owners.find(x => x === Meteor.userId()) === undefined
+        this.wikiDoc.data.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
+      privilege !== PRIVILEGE_OWNER
     )
       wikiStore.setPreventPageCreation(true);
     else wikiStore.setPreventPageCreation(false);
     if (this.initialLoad) {
       return this.handleInitialLoad();
     }
+  };
+
+  getPrivilege() {
+    if (this.wikiDoc.data.owners?.find(x => x === Meteor.userId()))
+      return PRIVILEGE_OWNER;
+    if (this.wikiDoc.data.editors?.find(x => x === Meteor.userId()))
+      return PRIVILEGE_EDIT;
+    if (this.wikiDoc.data.users?.find(x => x === Meteor.userId()))
+      return PRIVILEGE_VIEW;
+    return PRIVILEGE_NONE;
+  }
+
+  loadWikiDoc = async () => {
+    this.preventRenderUntilNextShareDBUpdate = false;
+
+    if (!this.wikiDoc.data) {
+      const liId = createNewLI(this.wikiId, 'li-richText');
+      return createNewEmptyWikiDoc(
+        this.wikiDoc,
+        this.wikiId,
+        liId,
+        Meteor.userId()
+      );
+    }
+
+    wikiStore.setPages(this.wikiDoc.data.pages);
+    this.setState({
+      pagesData: wikiStore.pages,
+      settings: this.wikiDoc.data.settings,
+      privilege: this.getPrivilege()
+    });
 
     if (
       this.state.currentPageObj &&
@@ -601,48 +600,38 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
    * @return {boolean} True if access was granted false otherwise
    */
   editAccess = async action => {
-    if (this.state.isOwner) return true;
+    if (this.state.privilege === PRIVILEGE_OWNER) return true;
     if (action === 'createPage') {
       if (!this.state.settings?.allowPageCreation) {
         this.props.showModal(
-          <Modal
+          <AlertModal
             title="Unable to create Page"
-            actions={[
-              {
-                title: 'OK',
-                callback: () => {
-                  this.props.hideModal();
-                }
-              }
-            ]}
+            callback={() => {
+              this.props.hideModal();
+            }}
           >
             Page creation has been restricted by the owner.
-          </Modal>
+          </AlertModal>
         );
         return false;
       }
     }
     if (this.state.settings?.readOnly) {
       this.props.showModal(
-        <Modal
+        <AlertModal
           title="Unable to edit Wiki"
-          actions={[
-            {
-              title: 'OK',
-              callback: () => {
-                this.props.hideModal();
-              }
-            }
-          ]}
+          callback={() => {
+            this.props.hideModal();
+          }}
         >
           This wiki is read only.
-        </Modal>
+        </AlertModal>
       );
       return false;
     }
     if (
-      this.state.settings?.restrict === 'edit' &&
-      this.wikiDoc.data.editors.find(x => x === Meteor.userId()) === undefined
+      this.state.settings?.restrict === PERM_PASSWORD_TO_EDIT &&
+      this.state.privilege === PRIVILEGE_EDIT
     ) {
       const passwordPromise = new Promise(resolve => {
         this.props.showModal(
@@ -656,19 +645,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       const result = await passwordPromise;
       if (!result)
         this.props.showModal(
-          <Modal
+          <AlertModal
             title="Unable to edit Wiki"
-            actions={[
-              {
-                title: 'OK',
-                callback: () => {
-                  this.props.hideModal();
-                }
-              }
-            ]}
+            callback={() => {
+              this.props.hideModal();
+            }}
           >
             This wiki has been password protected.
-          </Modal>
+          </AlertModal>
         );
       else addEditor(this.wikiDoc, Meteor.userId());
       return result;
@@ -780,7 +764,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       }
     ];
-    if (this.state.isOwner)
+    if (this.state.privilege === PRIVILEGE_OWNER)
       secondaryNavItems.push({
         title: 'Wiki Settings',
         icon: Tune,
