@@ -182,7 +182,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   handleSettings = async privilege => {
     // Show locked modal if the wiki is locked
-    if (this.wikiDoc.data.settings?.locked && privilege !== PRIVILEGE_OWNER) {
+    if (this.state.settings?.locked && privilege !== PRIVILEGE_OWNER) {
       this.setState({ currentPageObj: null });
       this.props.showModal(<LockedModal />);
       return false;
@@ -192,8 +192,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     // Ask for password if wiki access is password restricted
     if (
-      this.wikiDoc.data.settings?.restrict === PERM_PASSWORD_TO_VIEW &&
-      !privilege
+      this.state.settings?.restrict === PERM_PASSWORD_TO_VIEW &&
+      privilege === PRIVILEGE_NONE
     ) {
       this.setState({ currentPageObj: null });
       const passwordPromise = new Promise(resolve => {
@@ -221,20 +221,18 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         return false;
       } else addUser(this.wikiDoc, Meteor.userId());
     } else {
-      if (privilege === PRIVILEGE_VIEW) addUser(this.wikiDoc, Meteor.userId());
+      if (privilege === PRIVILEGE_NONE) addUser(this.wikiDoc, Meteor.userId());
       this.initialLoad = true;
       this.props.hideModal();
     }
     if (
-      (this.wikiDoc.data.settings?.readOnly ||
+      (this.state.settings?.readOnly ||
         this.wikiDoc.data.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
       privilege !== PRIVILEGE_OWNER
     )
       wikiStore.setPreventPageCreation(true);
     else wikiStore.setPreventPageCreation(false);
-    if (this.initialLoad) {
-      return this.handleInitialLoad();
-    }
+    return true;
   };
 
   getPrivilege() {
@@ -261,11 +259,21 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     wikiStore.setPages(this.wikiDoc.data.pages);
-    this.setState({
-      pagesData: wikiStore.pages,
-      settings: this.wikiDoc.data.settings,
-      privilege: this.getPrivilege()
+    const setPrivilegePromise = new Promise(resolve => {
+      this.setState(
+        {
+          pagesData: wikiStore.pages,
+          settings: this.wikiDoc.data.settings,
+          privilege: this.getPrivilege()
+        },
+        () => this.handleSettings(this.state.privilege).then(x => resolve(x))
+      );
     });
+    const continuePrivilege = await setPrivilegePromise;
+    if (!continuePrivilege) return;
+    if (this.initialLoad) {
+      return this.handleInitialLoad();
+    }
 
     if (
       this.state.currentPageObj &&
@@ -601,22 +609,20 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
    */
   editAccess = async action => {
     if (this.state.privilege === PRIVILEGE_OWNER) return true;
-    if (action === 'createPage') {
-      if (!this.state.settings?.allowPageCreation) {
-        this.props.showModal(
-          <AlertModal
-            title="Unable to create Page"
-            callback={() => {
-              this.props.hideModal();
-            }}
-          >
-            Page creation has been restricted by the owner.
-          </AlertModal>
-        );
-        return false;
-      }
+    if (action === 'createPage' && !this.state.settings.allowPageCreation) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to create Page"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          Page creation has been restricted by the owner.
+        </AlertModal>
+      );
+      return false;
     }
-    if (this.state.settings?.readOnly) {
+    if (this.state.settings.readOnly) {
       this.props.showModal(
         <AlertModal
           title="Unable to edit Wiki"
@@ -630,8 +636,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       return false;
     }
     if (
-      this.state.settings?.restrict === PERM_PASSWORD_TO_EDIT &&
-      this.state.privilege === PRIVILEGE_EDIT
+      this.state.settings.restrict === PERM_PASSWORD_TO_EDIT &&
+      this.state.privilege !== PRIVILEGE_EDIT
     ) {
       const passwordPromise = new Promise(resolve => {
         this.props.showModal(
@@ -773,7 +779,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             <PermissionsModal
               callback={x => {
                 updateSettings(this.wikiDoc, x);
-                this.props.hideModal();
               }}
               hideModal={this.props.hideModal}
               currentSettings={this.wikiDoc.data.settings}

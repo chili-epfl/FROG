@@ -4,7 +4,7 @@ export type WikiSettingsT = {
   allowPageCreation: boolean,
   password: string,
   locked: boolean,
-  restrict: string
+  restrict: 'none' | 'edit' | 'view'
 };
 
 export type PageObjT = {
