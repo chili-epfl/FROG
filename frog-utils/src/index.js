@@ -146,5 +146,6 @@ export {
   useModal,
   withModal,
   ModalParentPropsT,
-  Modal
+  Modal,
+  AlertModal
 } from './ModalController';

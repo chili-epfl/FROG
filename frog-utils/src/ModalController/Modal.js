@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { useModal } from './useModal';
 import type { ShowModalFunctionT, HideModalFunctionT } from './types';
 
-type ActionsT = Array<{
+export type ActionsT = Array<{
   title: string,
   primary?: boolean,
   callback: () => void
