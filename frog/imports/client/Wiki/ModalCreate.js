@@ -199,6 +199,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                     this.setState({ expanded: false });
                   }
                 }}
+                data-testid="wiki_page_title_editor"
               />
               {errorDiv !== null && (
                 <FormHelperText error>{errorDiv}</FormHelperText>
@@ -323,6 +324,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               onClick={() => this.handleCreate()}
               color="primary"
               variant="contained"
+              data-testid="create_button"
             >
               Create
             </Button>
