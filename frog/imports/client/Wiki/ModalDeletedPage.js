@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
-import { Modal } from './components/Modal';
 import { useToast } from 'frog-utils';
+import { Modal } from './components/Modal';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
@@ -21,7 +21,7 @@ export default ({
   onCreateNewPage,
   pageTitle
 }: ModalDeletedPagePropsT) => {
-  const [showToast, hideToast] = useToast();
+  const [showToast] = useToast();
   return (
     <Modal
       title={pageTitle}
