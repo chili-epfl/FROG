@@ -32,7 +32,8 @@ type SignUpStateT = {
 };
 
 type SignUpPropsT = {
-  classes: Object
+  classes: Object,
+  onSignUpSuccess: () => void
 };
 
 const styles = (theme: Object) => ({
@@ -122,12 +123,12 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
         {
           displayName: this.state.displayName
         },
-        function(error) {
+        error => {
           if (error) {
             window.alert(error);
           } else {
             window.alert('Success! Account created!');
-            window.location.replace('/');
+            this.props.onSignUpSuccess();
           }
         }
       );

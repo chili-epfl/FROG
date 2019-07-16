@@ -8,17 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { type PropsT } from './types';
 import { style } from './style';
-import { withModalController } from '../Wiki/components/Modal';
-import SignUpModal from '/imports/client/AccountModal/SignUpModal';
-
+import { withModal } from 'frog-utils';
+import { SignUpModal } from '/imports/client/AccountModal';
 /**
  * Navigation bar displayed at the top
  */
 function TopBar(props: PropsT) {
-  const { classes, showModal, hideModal } = props;
+  const { classes, showModal } = props;
 
   const openSignUpModal = () => {
-    showModal(<SignUpModal hideModal={hideModal} />);
+    showModal(<SignUpModal />);
   };
 
   return (
@@ -35,5 +34,5 @@ function TopBar(props: PropsT) {
     </AppBar>
   );
 }
-const TopBarWithModal = withModalController(TopBar);
+const TopBarWithModal = withModal(TopBar);
 export default withStyles(style)(TopBarWithModal);

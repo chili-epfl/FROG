@@ -1,15 +1,15 @@
+// @flow
 import * as React from 'react';
-import { Modal, type HideModalFunctionT } from '../Wiki/components/Modal';
+import { Modal } from 'frog-utils';
 import SignUp from './SignUp';
 
-type SignUpModalPropsT = {
-  hideModal: HideModalFunctionT
-};
-
-export default function SignUpModal({ hideModal }: SignUpModalPropsT) {
+export function SignUpModal() {
   return (
-    <Modal title="" actions={[{ title: 'Cancel', callback: hideModal }]}>
-      <SignUp />
+    <Modal
+      title=""
+      actions={hideModal => [{ title: 'Cancel', callback: hideModal }]}
+    >
+      {(showModal, hideModal) => <SignUp onSignUpSuccess={hideModal} />}
     </Modal>
   );
 }
