@@ -52,7 +52,11 @@ export const Modal = (props: ModalPropsT) => {
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {actions.map(action => (
-          <Button color={action.primary && 'primary'} onClick={action.callback}>
+          <Button
+            key={action.title}
+            color={action.primary && 'primary'}
+            onClick={action.callback}
+          >
             {action.title}
           </Button>
         ))}
