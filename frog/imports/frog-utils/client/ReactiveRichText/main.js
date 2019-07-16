@@ -15,20 +15,17 @@ import {
   find,
   debounce
 } from 'lodash';
-import QuillCursors from '@minervaproject/quill-cursors';
 import Dialog from '@material-ui/core/Dialog';
-
-import { HighlightSearchText } from '../../HighlightSearchText';
-import { highlightTargetRichText } from '../../highlightTargetRichText';
-import { cloneDeep } from '../../cloneDeep';
-import { WikiContext } from '../../WikiContext';
+import { HighlightSearchText } from '../HighlightSearchText';
+import { highlightTargetRichText } from '../highlightTargetRichText';
+import { cloneDeep } from '../cloneDeep';
+import { WikiContext } from '../WikiContext';
 
 import { LiViewTypes, formats } from './constants';
 import getLearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
-import { Presence } from './Presence';
 
 import WikiLinkModule from './WikiLink/WikiLinkModule';
 import WikiLinkBlot from './WikiLink/WikiLinkBlot';
@@ -36,9 +33,6 @@ import WikiLinkBlot from './WikiLink/WikiLinkBlot';
 Quill.register('modules/wikiLink', WikiLinkModule);
 Quill.register('modules/wikiEmbed', WikiLinkModule);
 Quill.register('formats/wiki-link', WikiLinkBlot);
-Quill.register('modules/cursors', QuillCursors);
-
-const IDMapping = {};
 
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
@@ -103,8 +97,6 @@ class ReactiveRichText extends Component<
 > {
   quillRef: any;
 
-  cursors: any;
-
   compositionStart: boolean;
 
   authorDeltaToApply: any;
@@ -161,11 +153,6 @@ class ReactiveRichText extends Component<
           // are multiple active editors in the page
           if (opPath === this.props.path) {
             editor.updateContents(operation.o);
-          }
-          if (this.cursors) {
-            if (operation.u !== this.props.userId) {
-              this.cursors.flashCursor(operation.u);
-            }
           }
         });
       }
@@ -245,71 +232,6 @@ class ReactiveRichText extends Component<
     }
 
     return raw;
-  };
-
-  updateCursor = range => {
-    const { userId, username } = this.props;
-    const doc = this.props.dataFn?.doc;
-    doc.submitPresence({
-      p: this.state.path,
-      t: 'rich-text',
-      u: userId + '/' + (username || ''),
-      s: {
-        u: userId + '/' + (username || ''),
-        c: 0,
-        s: [[range.index, range.index + range.length]]
-      }
-    });
-  };
-
-  setupCursors = () => {
-    const { userId } = this.props;
-    const doc = this.props.dataFn?.doc;
-    const editor = this.quillRef.getEditor();
-    const cursors = editor.getModule('cursors');
-
-    editor.on('selection-change', (range, _, source) => {
-      if (range && source === 'user') {
-        this.updateCursor(range);
-      }
-    });
-
-    doc.on('presence', (srcList, submitted) => {
-      srcList.forEach(src => {
-        const presence = doc.presence[src];
-        if (!presence || !presence.p) {
-          cursors.removeCursor(IDMapping[src]);
-          return;
-        }
-        if (!isEqual(presence.p, this.state.path)) {
-          cursors.removeCursor(presence.u.split('/')[0]);
-          return;
-        }
-
-        if (presence.s.u) {
-          const presenceUID = presence.s.u;
-          const [id, name] = presenceUID.split('/');
-          IDMapping[src] = id;
-          if (userId !== id && presence.s.s && presence.s.s.length > 0) {
-            // TODO: Can QuillCursors support multiple selections?
-            const sel = presence.s.s[0];
-
-            // Use Math.abs because the sharedb presence type
-            // supports reverse selections, but I don't think
-            // Quill Cursors does.
-            const len = Math.abs(sel[1] - sel[0]);
-            const min = Math.min(sel[0], sel[1]);
-
-            cursors.createCursor(id, name, pickColor(id));
-            cursors.moveCursor(id, { index: min, length: len });
-            if (submitted) {
-              cursors.flashCursor(id);
-            }
-          }
-        }
-      });
-    });
-    this.cursors = cursors;
   };
 
   compositionStartHandler = () => {
@@ -402,34 +324,7 @@ class ReactiveRichText extends Component<
     }
   }
 
-  sendPresence(doc: *) {
-    doc.submitPresence(
-      {
-        u: this.props.readOnly
-          ? undefined
-          : this.props.userId + '/' + (this.props.username || '')
-      },
-      () => {
-        doc.requestReplyPresence = false;
-      }
-    );
-
-    if (!this.props.readOnly) {
-      this.setupCursors();
-    }
-  }
-
   componentDidMount() {
-    const doc = this.props.dataFn?.doc;
-    if (doc) {
-      doc.requestReplyPresence = true;
-      if (doc.type) {
-        this.sendPresence(doc);
-      } else {
-        doc.on('load', () => this.sendPresence(doc));
-      }
-    }
-
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
       if (this.props.autoFocus) {
@@ -486,12 +381,6 @@ class ReactiveRichText extends Component<
   }
 
   componentWillUnmount() {
-    const doc = this.props.dataFn?.doc;
-    if (!this.props.readOnly && doc) {
-      doc.submitPresence({
-        u: undefined
-      });
-    }
     if (!this.props.data && !this.props.rawData) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
       if (!this.props.shorten) {
@@ -644,8 +533,7 @@ class ReactiveRichText extends Component<
       const op = {
         p: this.state.path,
         t: 'rich-text',
-        o: delta.ops,
-        u: this.props.userId
+        o: delta.ops
       };
 
       this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
@@ -769,13 +657,6 @@ class ReactiveRichText extends Component<
               this.props.dataFn.listore.setOverCB(null);
             }}
           >
-            {!isEmpty(wikiContext) && (
-              <Presence
-                dataFn={this.props.dataFn}
-                id={this.props.dataFn.doc.id}
-                userId={this.props.userId}
-              />
-            )}
             {!get(props, 'readOnly') && (
               <CustomQuillToolbar
                 id={this.toolbarId}
@@ -792,7 +673,6 @@ class ReactiveRichText extends Component<
               readOnly={get(props, 'readOnly')}
               formats={formats}
               modules={{
-                cursors: true,
                 toolbar: get(props, 'readOnly')
                   ? null
                   : {
