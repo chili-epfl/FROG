@@ -67,7 +67,7 @@ class ConfigComponent extends React.Component<
 
   render() {
     return (
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: '20px' }} className="bootstrap">
         <Form
           formData={this.state.formData.component}
           onChange={e => {
