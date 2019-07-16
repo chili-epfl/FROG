@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import _ from 'loadash';
+import _ from 'lodash';
 import { type PropsT } from './types';
 import { style } from './style';
 import { withModal } from 'frog-utils';
