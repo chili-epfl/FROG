@@ -1,5 +1,5 @@
 // @flow
-import '@houshuang/react-quill/dist/quill.snow.css';
+import './quill.snow.css';
 
 import React, { Component } from 'react';
 import uuid from 'cuid';
