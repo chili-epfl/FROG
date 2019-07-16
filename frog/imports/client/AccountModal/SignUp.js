@@ -18,7 +18,7 @@ import {
   passwordErrors
 } from './validationHelpers';
 
-type FormError = {
+type FormErrorT = {
   displayName: string,
   email: string,
   password: string
@@ -28,7 +28,7 @@ type SignUpStateT = {
   displayName: string,
   email: string,
   password: string,
-  formErrors: FormError
+  formErrors: FormErrorT
 };
 
 type SignUpPropsT = {
@@ -71,7 +71,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     };
   }
 
-  formValid = (formErrors: FormError) => {
+  formValid = (formErrors: FormErrorT) => {
     if (
       formErrors.email === '' &&
       formErrors.password === '' &&
@@ -81,7 +81,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     else return false;
   };
 
-  clearErrors = (): void => {
+  clearErrors = () => {
     const formErrorsCleared = {
       displayName: '',
       email: '',
@@ -100,7 +100,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     this.setState({ [type]: value });
   };
 
-  handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
+  handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     const { formErrors, email, password, displayName } = this.state;
     formErrors.displayName = errorBasedOnChars(displayName, 1, 'Display Name');

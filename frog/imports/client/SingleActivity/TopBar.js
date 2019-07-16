@@ -6,10 +6,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import _ from 'loadash';
 import { type PropsT } from './types';
 import { style } from './style';
 import { withModal } from 'frog-utils';
 import { SignUpModal } from '/imports/client/AccountModal';
+
 /**
  * Navigation bar displayed at the top
  */
@@ -34,5 +36,7 @@ function TopBar(props: PropsT) {
     </AppBar>
   );
 }
-const TopBarWithModal = withModal(TopBar);
-export default withStyles(style)(TopBarWithModal);
+export default _.flow(
+  withModal,
+  withStyles(style)
+)(TopBar);
