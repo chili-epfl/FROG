@@ -83,7 +83,7 @@ type WikiCompStateT = {
   noInstance: ?boolean,
   username: string,
   isAnonymous: boolean,
-  settings?: WikiSettingsT,
+  settings: WikiSettingsT,
   privilege: 'owner' | 'editor' | 'user' | 'none'
 };
 
@@ -156,7 +156,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       });
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
       Mousetrap.bindGlobal('ctrl+e', () => {
-        if (!this.state.settings?.readOnly) this.setState({ docMode: 'edit' });
+        if (!this.state.settings.readOnly) this.setState({ docMode: 'edit' });
       });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
@@ -182,7 +182,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   handleSettings = async privilege => {
     // Show locked modal if the wiki is locked
-    if (this.state.settings?.locked && privilege !== PRIVILEGE_OWNER) {
+    if (this.state.settings.locked && privilege !== PRIVILEGE_OWNER) {
       this.setState({ currentPageObj: null });
       this.props.showModal(<LockedModal />);
       return false;
@@ -192,7 +192,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     // Ask for password if wiki access is password restricted
     if (
-      this.state.settings?.restrict === PERM_PASSWORD_TO_VIEW &&
+      this.state.settings.restrict === PERM_PASSWORD_TO_VIEW &&
       privilege === PRIVILEGE_NONE
     ) {
       this.setState({ currentPageObj: null });
@@ -226,7 +226,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.props.hideModal();
     }
     if (
-      (this.state.settings?.readOnly ||
+      (this.state.settings.readOnly ||
         this.wikiDoc.data.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
       privilege !== PRIVILEGE_OWNER
     )
@@ -263,7 +263,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.setState(
         {
           pagesData: wikiStore.pages,
-          settings: this.wikiDoc.data.settings,
+          settings: this.wikiDoc.data.settings || {
+            readOnly: false,
+            allowPageCreation: true,
+            password: '',
+            locked: false,
+            restrict: PERM_ALLOW_EVERYTHING
+          },
           privilege: this.getPrivilege()
         },
         () => this.handleSettings(this.state.privilege).then(x => resolve(x))
@@ -644,7 +650,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.wikiDoc.data.settings?.password}
+            actualPassword={this.wikiDoc.data.settings.password}
           />
         );
       });
