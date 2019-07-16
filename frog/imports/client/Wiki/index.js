@@ -4,7 +4,7 @@ import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { values } from 'frog-utils';
+import { values, withModal, type ModalParentPropsT } from 'frog-utils';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
@@ -40,11 +40,6 @@ import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
 import { dataFn } from './wikiLearningItem';
-
-import {
-  withModalController,
-  type ModalParentPropsT
-} from './components/Modal';
 
 export type PageObjT = {
   wikiId: string,
@@ -776,7 +771,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withModalController(WikiComp);
+const Wiki = withModal(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;

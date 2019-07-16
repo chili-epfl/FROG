@@ -7,7 +7,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
-import { Loadable } from 'frog-utils';
+import { Loadable, ModalController } from 'frog-utils';
 import queryString from 'query-string';
 import {
   BrowserRouter as Router,
@@ -398,15 +398,18 @@ export default class Root extends React.Component<
         </>
       );
     } else {
+      // We wrap ModalController to allow FROG to display modals
       return (
         <ErrorBoundary>
           {!this.state.connected && <ConnectionDiv />}
-          <Router>
-            <Switch>
-              <Route path="/:slug" component={FROGRouter} />
-              <Route component={FROGRouter} />
-            </Switch>
-          </Router>
+          <ModalController>
+            <Router>
+              <Switch>
+                <Route path="/:slug" component={FROGRouter} />
+                <Route component={FROGRouter} />
+              </Switch>
+            </Router>
+          </ModalController>
         </ErrorBoundary>
       );
     }
