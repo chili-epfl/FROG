@@ -73,7 +73,7 @@ const Revisions = ({ doc }) => {
   }, []);
 
   return (
-    <div>
+    <div data-testid="wiki_view_revision">
       <div style={{ height: '150px', overflow: 'auto' }}>
         {revisions.map((x, i) => {
           return (
