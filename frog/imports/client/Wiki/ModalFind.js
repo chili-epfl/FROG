@@ -46,7 +46,7 @@ export const PagesLinks = ({
         cursor: currentPageBool ? 'auto' : 'pointer'
       };
       return (
-        <li key={pageId}>
+        <li key={pageId} data-testid="wiki_page_item">
           <div
             style={pageLinkStyle}
             onClick={e => {

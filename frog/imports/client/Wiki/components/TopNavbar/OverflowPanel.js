@@ -42,7 +42,6 @@ export default class OverflowPanel extends React.Component<
     return (
       <React.Fragment>
         <IconButton
-          data-test="overflow-button"
           aria-owns={anchorEl ? 'overflow-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
@@ -51,7 +50,6 @@ export default class OverflowPanel extends React.Component<
         </IconButton>
         <Menu
           id="overflow-menu"
-          data-test="overflow-menu"
           anchorEl={anchorEl}
           open={anchorEl !== null}
           onClose={this.handleClose}
@@ -60,7 +58,6 @@ export default class OverflowPanel extends React.Component<
             const Icon = item.icon;
             return (
               <MenuItem
-                data-test="overflow-item"
                 key={index}
                 onClick={() => {
                   if (item.callback !== undefined) {

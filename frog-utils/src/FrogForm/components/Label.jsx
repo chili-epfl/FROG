@@ -1,19 +1,18 @@
 // @flow
 
 import * as React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
-
-import type { ObjectFieldTemplatePropsT } from '../types';
+import { Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingBottom: theme.spacing(1)
+    padding: theme.spacing(1, 0)
   },
   titleAndDescription: {
     display: 'flex',
     marginBottom: theme.spacing(0.5)
   },
   title: {
+    fontWeight: 700,
     lineHeight: 1
   },
   description: {
@@ -23,20 +22,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+type LabelledFieldPropsT = {
+  label: string,
+  description?: string,
+  children: React.Node | React.Node[]
+};
+
 /**
- * Provides second-level navigation inside a Form element
- * @param {ObjectFieldTemplatePropsT} props
+ * Defines a labelled field, optionally showing a description if it is present
  */
-export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
+export const Label = (props: LabelledFieldPropsT) => {
   const classes = useStyles();
-
-  const { properties } = props;
-
   return (
     <div className={classes.root}>
       <div className={classes.titleAndDescription}>
-        <Typography className={classes.title} variant="button">
-          {props.title}
+        <Typography className={classes.title} variant="body2">
+          {props.label}
         </Typography>
         {props.description && (
           <Typography className={classes.description} variant="body2">
@@ -44,11 +45,7 @@ export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
           </Typography>
         )}
       </div>
-      <div className={classes.fields}>
-        {properties.map(p => (
-          <div>{p.content}</div>
-        ))}
-      </div>
+      {props.children}
     </div>
   );
 };

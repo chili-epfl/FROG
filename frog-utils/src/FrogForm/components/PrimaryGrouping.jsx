@@ -15,23 +15,25 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     width: '100%',
     height: theme.spacing(10),
-    padding: theme.spacing(0, 3),
     textAlign: 'left'
   },
   badge: {
     marginLeft: theme.spacing(1)
   },
+  title: {
+    lineHeight: 1
+  },
   description: {
     marginLeft: theme.spacing(2),
     color: theme.palette.grey[700],
-    flexGrow: 1
+    flexGrow: 1,
+    lineHeight: 1
   },
   expandIcon: {
     marginLeft: theme.spacing(2),
     transition: 'all .2s'
   },
   fields: {
-    padding: theme.spacing(0, 3),
     marginBottom: theme.spacing(3)
   }
 }));
@@ -47,7 +49,7 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
   // We set it to true to show expanded by default
   const [expand, setExpand] = React.useState(true);
 
-  const title = props.title || props.uiSchema['ui:title'];
+  const title = props.title;
   const description = props.description;
 
   const { properties } = props;
@@ -59,7 +61,11 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
         elevation={0}
         onClick={() => setExpand(!expand)}
       >
-        {title && <Typography variant="h6">{title}</Typography>}
+        {title && (
+          <Typography className={classes.title} variant="h6">
+            {title}
+          </Typography>
+        )}
         {description && (
           <Typography className={classes.description} variant="body2">
             {description}
