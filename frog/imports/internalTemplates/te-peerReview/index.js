@@ -6,57 +6,68 @@ import p2 from './p2';
 export const config = {
   type: 'object',
   properties: {
-    plane: {
+    general: {
       type: 'object',
-      description:
-        'Students can do their writing individually or in groups. The groups will be automatically created. The students will also do the peer-reviews either individually or in groups, based on the choice made here',
-      title: 'Individual or group writing',
+      title: 'General settings',
+      description: '',
       properties: {
         plane: {
+          description:
+            'Students can do their writing individually or in groups. The groups will be automatically created. The students will also do the peer-reviews either individually or in groups, based on the choice made here',
+          title: 'Individual or group writing',
           type: 'string',
           enum: ['individual', 'group'],
           default: 'individual'
         }
       }
     },
-
-    instructions: { type: 'rte', title: 'Initial writing prompt' },
-    reviewCount: {
-      title: 'How many items should each student/group review',
-      type: 'number',
-      default: 1
+    first: {
+      type: 'object',
+      title: 'First phase, authoring',
+      description: 'Students are asked to write, individually or in groups',
+      properties: {
+        instructions: {
+          type: 'rte',
+          title: 'Initial writing prompt'
+        }
+      }
     },
-    reviewPrompt: { title: 'Review prompt', type: 'rte' },
-    reviseInstructions: { title: 'Revision prompt', type: 'rte' }
+    second: {
+      type: 'object',
+      title: 'Second phase, peer-review',
+      description:
+        'Students see one or several written products from other students, and are asked to review/provide feedback according to a prompt',
+      properties: {
+        reviewCount: {
+          title: 'Review count',
+          description: 'How many items should each student/group review',
+          type: 'number',
+          default: 1
+        },
+        reviewPrompt: {
+          title: 'Review prompt',
+          type: 'rte',
+          description:
+            'Prompt shown to students when they are providing feedback'
+        }
+      }
+    },
+    third: {
+      type: 'object',
+      title: 'Third phase, revision',
+      description:
+        'Students see the feedback from other students/groups, and are able to continue revising their own texts',
+      properties: {
+        reviseInstructions: {
+          title: 'Revision prompt',
+          type: 'rte',
+          description:
+            'Prompt shown to students when they are revising their own products'
+        }
+      }
+    }
   }
 };
-
-// export const config = {
-//   type: 'object',
-//   properties: {
-//     general: {
-//       type: 'object',
-//       title: 'General',
-//       description: 'Specify the title and text content of the activity',
-//       properties: {
-//         title: {
-//           type: 'object',
-//           description: 'The title is key, try to make it memorable',
-//           properties: {
-//             title: {
-//               type: 'string',
-//               title: 'Title'
-//             },
-//             text: {
-//               type: 'rte',
-//               title: 'Text'
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// };
 
 const p1Instructions = {
   '7_5': 'Students are asked to work on a text given the initial instructions',
@@ -92,24 +103,32 @@ const processTemplate = (template, replacements) => {
 };
 
 const makeTemplate = conf => {
-  const template = JSON.stringify(conf.plane === 'individual' ? p1 : p2);
+  const template = JSON.stringify(
+    conf.general.plane === 'individual' ? p1 : p2
+  );
   const replacements = {
-    instructions: conf.instructions || '',
-    reviewPrompt: conf.reviewPrompt || '',
-    reviseInstructions: conf.reviseInstructions || '',
-    reviewCount: conf.reviewCount || 1
+    instructions: conf.first.instructions || '',
+    reviewPrompt: conf.second.reviewPrompt || '',
+    reviseInstructions: conf.third.reviseInstructions || '',
+    reviewCount: conf.second.reviewCount || 1
   };
   return [
     processTemplate(template, replacements),
-    conf.plane === 'individual' ? p1Instructions : p2Instructions
+    conf.general.plane === 'individual' ? p1Instructions : p2Instructions
   ];
 };
 
 const meta = {
   name: 'Peer review template',
   shortDesc: `Students write, review their peers' contributions, and revise their own texts`,
-  description:
-    'Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution. In the next stage, they receive one or several of the contributions from their peers (individuals or groups), and are asked to comment based on a review prompt. Students then receive the feedback from other students, and can continue to work on their contributions, taking into account the feedback from the other students. Finally, all contributions are sent to the projector for the teacher to discuss and debrief.'
+  description: `This template generates a peer review flow with four stages:
+    
+ - **Stage 1**: Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution
+ - **Stage 2**: In the next stage, they receive one or several of the contributions from their peers (individuals or groups), and are asked to comment based on a review prompt.
+ - **Stage 3**: Students then receive the feedback from other students, and can continue to work on their contributions, taking into account the feedback from the other students
+ - **Stage 4**: Finally, all contributions are sent to the projector for the teacher to discuss and debrief.
+
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview.png)`
 };
 
 export default {

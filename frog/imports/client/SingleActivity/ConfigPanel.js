@@ -3,6 +3,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import { type ActivityPackageT, type ActivityDbT } from 'frog-utils';
+import Markdown from 'markdown-to-jsx';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
@@ -51,9 +52,11 @@ class ConfigPanel extends React.Component<
                 ?.name || ''}`
             : `Edit ${this.props.activityType?.meta?.name || ''}`}
         </Typography>
-        <Typography variant="body1">
-          {this.props.activityType?.meta?.description ||
-            this.props.activityType?.meta?.shortDesc}
+        <Typography variant="body1" style={{ padding: '20px' }}>
+          <Markdown>
+            {this.props.activityType?.meta?.description ||
+              this.props.activityType?.meta?.shortDesc}
+          </Markdown>
         </Typography>
         <ApiForm
           activityType={id}
