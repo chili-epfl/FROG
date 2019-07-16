@@ -9722,6 +9722,16 @@ normalize.css@^8.0.0:
   resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
   integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
+notistack@^0.8.8:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/notistack/-/notistack-0.8.8.tgz#8b0e138420040b20bc1e3eec7033d96d763eb773"
+  integrity sha512-PBv2SvHipPr4FEx9+szmIT+gMC4ica7HT8t73N/ZaXC94pEArb0rI8GtroSVi7n4XkI/Nbo1ODeilQjYT2d8dQ==
+  dependencies:
+    classnames "^2.2.6"
+    hoist-non-react-statics "^3.3.0"
+    prop-types "^15.7.2"
+    react-is "^16.8.6"
+
 npm-bundled@^1.0.1:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.6.tgz#e7ba9aadcef962bb61248f91721cd932b3fe6bdd"

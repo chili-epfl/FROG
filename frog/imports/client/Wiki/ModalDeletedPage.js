@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Modal } from './components/Modal';
+import { useToast } from 'frog-utils';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
@@ -20,6 +21,7 @@ export default ({
   onCreateNewPage,
   pageTitle
 }: ModalDeletedPagePropsT) => {
+  const [showToast, hideToast] = useToast();
   return (
     <Modal
       title={pageTitle}
@@ -33,6 +35,7 @@ export default ({
           primary: true,
           callback: () => {
             onRestorePage();
+            showToast('Page restored', 'success');
             hideModal();
           }
         },
@@ -41,6 +44,7 @@ export default ({
           primary: true,
           callback: () => {
             onCreateNewPage();
+            showToast('New page created', 'success');
             hideModal();
           }
         }
