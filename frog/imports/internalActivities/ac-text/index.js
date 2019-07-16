@@ -51,7 +51,9 @@ export const config = {
           properties: {
             title: {
               type: 'string',
-              title: 'Title'
+              title: 'Title',
+              description:
+                'Showing a long description here to see how it renders. Normally, everything should wrap correctly without any problem, if you know what I mean'
             },
             text: {
               type: 'rte',
