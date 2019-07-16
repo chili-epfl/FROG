@@ -32,11 +32,15 @@ export const Modal = (props: ModalPropsT) => {
 
   const { title } = props;
 
+  // User can provide a function accepting show/hideModal, or can pass React nodes
+  // directly
   const children =
     typeof props.children === 'function'
       ? props.children(showModal, hideModal)
       : props.children;
 
+  // User can provide a function accepting show/hideModal, or can pass actions
+  // directly
   const actions =
     typeof props.actions === 'function'
       ? props.actions(hideModal)

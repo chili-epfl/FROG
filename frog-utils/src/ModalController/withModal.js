@@ -6,7 +6,7 @@ import { useModal } from './useModal';
 import { type ShowModalFunctionT, type HideModalFunctionT } from './types';
 
 /**
- * HOC that adds ability to create modals via provided prop function
+ * HOC that adds ability to create/hide modals via provided prop functions
  */
 export const withModal = <T: {}>(
   Component: React.AbstractComponent<T>

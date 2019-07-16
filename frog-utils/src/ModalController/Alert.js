@@ -9,6 +9,7 @@ type AlertModalPropsT = {
   actions: ActionsT
 };
 
+/** Displays a simple modal, consisting of a title and content, plus a couple actions */
 export const AlertModal = (props: AlertModalPropsT) => (
   <Modal
     title={props.title}
