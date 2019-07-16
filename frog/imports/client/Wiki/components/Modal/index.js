@@ -2,4 +2,4 @@
 
 export { withModalController } from './withModalController';
 export { Modal } from './Modal';
-export { ModalParentPropsT } from './types';
+export { ModalParentPropsT, HideModalFunctionT } from './types';

@@ -1,16 +1,15 @@
 // @flow
 import React from 'react';
 import {
+  Avatar,
   Button,
+  TextField,
   Link,
   Grid,
-  LockOutlinedIcon,
-  Typography,
   Container,
-  TextField,
-  Avatar,
-  CssBaseline
+  Typography
 } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Meteor } from 'meteor/meteor';
 import { withStyles } from '@material-ui/styles';
 import {
@@ -37,13 +36,8 @@ type SignUpPropsT = {
 };
 
 const styles = (theme: Object) => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -57,19 +51,9 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2)
   }
 });
-const formValid = ({ formErrors, ...rest }: SignUpStateT): boolean => {
-  let valid = true;
-
-  const formErrorsArray: Array<string> = Object.values(formErrors);
-  formErrorsArray.forEach(val => val.length > 0 && (valid = false));
-  const otherStateArray: Array<string> = Object.values(rest);
-  otherStateArray.forEach(val => val === null && (valid = false));
-
-  return valid;
-};
 
 class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   constructor() {
@@ -86,32 +70,51 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     };
   }
 
+  formValid = (formErrors: FormError): boolean => {
+    let valid = true;
+    if (
+      formErrors.email === '' &&
+      formErrors.password === '' &&
+      formErrors.displayName === ''
+    )
+      return valid;
+
+    valid = false;
+    return valid;
+  };
+
+  clearErrors = (): void => {
+    const formErrorsCleared = {
+      displayName: '',
+      email: '',
+      password: ''
+    };
+    this.setState({ formErrors: formErrorsCleared });
+  };
+
+  // Hack to make sure modal doesn't jump on displaying errors
+  displayErrors = (type: string): string => {
+    if (this.state.formErrors[type] === '') return '';
+    else return this.state.formErrors[type];
+  };
+
   handleChange = (
     event: SyntheticInputEvent<EventTarget>,
     type: string
   ): void => {
+    this.clearErrors();
     const value = event.target.value;
-    const formErrors = { ...this.state.formErrors };
-    switch (type) {
-      case 'displayName':
-        formErrors.displayName = errorBasedOnChars(value, 1, 'Display Name');
-        break;
-      case 'email':
-        formErrors.email = emailErrors(value);
-        break;
-      case 'password':
-        formErrors.password = passwordErrors(value);
-        break;
-      default:
-        break;
-    }
 
-    this.setState({ formErrors, [type]: value });
+    this.setState({ [type]: value });
   };
 
   handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
     e.preventDefault();
-    if (formValid(this.state)) {
+    const { formErrors, email, password, displayName } = this.state;
+    formErrors.displayName = errorBasedOnChars(displayName, 1, 'Display Name');
+    formErrors.email = emailErrors(email);
+    formErrors.password = passwordErrors(password);
+    if (this.formValid(formErrors)) {
       Meteor.call(
         'create.account',
         this.state.email,
@@ -119,16 +122,17 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
         {
           displayName: this.state.displayName
         },
-        error => {
+        function(error) {
           if (error) {
             window.alert(error);
-            this.setState({ serverErrors: error });
           } else {
             window.alert('Success! Account created!');
             window.location.replace('/');
           }
         }
       );
+    } else {
+      this.setState({ formErrors });
     }
   };
 
@@ -138,7 +142,6 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     return (
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
-          <CssBaseline />
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -150,7 +153,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
             onSubmit={e => this.handleSubmit(e)}
             noValidate
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="fname"
@@ -159,7 +162,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   error={this.state.formErrors.displayName !== ''}
                   variant="outlined"
                   required
-                  helperText={this.state.formErrors.displayName}
+                  helperText={this.displayErrors('displayName')}
                   id="displayName"
                   label="Display Name"
                   onChange={e => this.handleChange(e, 'displayName')}
@@ -175,7 +178,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   id="email"
                   label="Email Address"
                   name="email"
-                  helperText={this.state.formErrors.email}
+                  helperText={this.displayErrors('email')}
                   onChange={e => this.handleChange(e, 'email')}
                   autoComplete="email"
                 />
@@ -190,7 +193,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   label="Password"
                   type="password"
                   id="password"
-                  helperText={this.state.formErrors.password}
+                  helperText={this.displayErrors('password')}
                   onChange={e => this.handleChange(e, 'password')}
                   autoComplete="current-password"
                 />
@@ -200,7 +203,6 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  disabled={formValid()}
                   color="primary"
                   className={classes.submit}
                 >
