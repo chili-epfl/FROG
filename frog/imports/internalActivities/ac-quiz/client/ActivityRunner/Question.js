@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { HTML, ReactiveText } from 'frog-utils';
+import { HTML, ReactiveText } from '/imports/frog-utils';
 
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';

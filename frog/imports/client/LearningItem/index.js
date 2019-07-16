@@ -1,6 +1,10 @@
 // @flow
 import * as React from 'react';
-import { type LIComponentPropsT, type LearningItemT, uuid } from 'frog-utils';
+import {
+  type LIComponentPropsT,
+  type LearningItemT,
+  uuid
+} from '/imports/frog-utils';
 import { omit, isEqual } from 'lodash';
 import { Doc } from '/imports/api/generateReactiveFn';
 import { learningItemTypesObj } from '/imports/activityTypes';

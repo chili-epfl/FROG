@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { defaultConfig, uuid } from 'frog-utils';
+import { defaultConfig, uuid } from '/imports/frog-utils';
 import { isEmpty, omit } from 'lodash';
 
 import Preview, { connection, restartBackend } from './Preview';

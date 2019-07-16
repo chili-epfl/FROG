@@ -3,7 +3,7 @@ import sumObject from '../__fixtures__/objectScore';
 import operator from '../operatorRunner';
 
 const op = operator;
-jest.mock('frog-utils', () =>
+jest.mock('/imports/frog-utils', () =>
   require.requireActual('../../../../__mocks__/frog-utils.js')
 );
 

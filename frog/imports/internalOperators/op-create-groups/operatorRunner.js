@@ -1,6 +1,6 @@
 // @flow
 import { shuffle, chunk, compact } from 'lodash';
-import { type socialOperatorRunnerT } from 'frog-utils';
+import { type socialOperatorRunnerT } from '/imports/frog-utils';
 
 const operator = (configData, object) => {
   const { globalStructure } = object;

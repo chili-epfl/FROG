@@ -1,5 +1,5 @@
 // @flow
-import { focusRole, type socialOperatorRunnerT } from 'frog-utils';
+import { focusRole, type socialOperatorRunnerT } from '/imports/frog-utils';
 
 const operator = (
   configData,

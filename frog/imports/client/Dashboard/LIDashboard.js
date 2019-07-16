@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Meteor } from 'meteor/meteor';
-import { SearchField } from 'frog-utils';
+import { SearchField } from '/imports/frog-utils';
 import {
   Paper,
   Button,

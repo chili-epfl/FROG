@@ -5,7 +5,7 @@ import {
   highlightSearchHTML,
   HighlightSearchText,
   withVisibility
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { Fab } from '@material-ui/core';
 import Play from '@material-ui/icons/PlayCircleFilled';
 import Stop from '@material-ui/icons/Stop';

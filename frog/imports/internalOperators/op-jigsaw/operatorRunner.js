@@ -5,7 +5,7 @@ import {
   focusStudent,
   getRotateable,
   type socialOperatorRunnerT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const operator = (configData, object) => {
   const { globalStructure, socialStructure } = object;
