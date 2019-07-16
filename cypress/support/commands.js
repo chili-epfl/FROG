@@ -12,6 +12,8 @@
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
 
+import '@testing-library/cypress/add-commands';
+
 Cypress.Commands.add('visitRandomWiki', () => {
   const uuid = Cypress._.random(0, 1e6);
   cy.visit(`wiki/${uuid}`);

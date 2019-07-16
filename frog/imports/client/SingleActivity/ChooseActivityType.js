@@ -20,7 +20,8 @@ const allowed = [
   'ac-brainstorm',
   'ac-ranking',
   'ac-video',
-  'ac-text'
+  'ac-select',
+  'ac-prez'
 ];
 const list = activityTypes.filter(x => allowed.includes(x.id));
 list.push(templatesObj['te-peerReview']);

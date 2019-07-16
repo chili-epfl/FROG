@@ -17,7 +17,6 @@ export default (props: PrimaryButtonPropsT) => {
 
   return (
     <div
-      data-test="primary-button"
       style={{
         display: 'flex',
         flex: 'auto',
