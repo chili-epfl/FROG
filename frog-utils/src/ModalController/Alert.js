@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
+import { DialogContentText } from '@material-ui/core';
 import { Modal, type ActionsT } from './Modal';
 
 type AlertModalPropsT = {
-  title: string,
+  title?: string,
   content: string,
   actions: ActionsT
 };
@@ -23,6 +24,6 @@ export const AlertModal = (props: AlertModalPropsT) => (
       }))
     }
   >
-    {props.content}
+    <DialogContentText>{props.content}</DialogContentText>
   </Modal>
 );

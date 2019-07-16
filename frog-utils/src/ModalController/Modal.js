@@ -16,7 +16,7 @@ export type ActionsT = Array<{
 }>;
 
 type ModalPropsT = {
-  title: string,
+  title?: string,
   children:
     | ((
         showModal: ShowModalFunctionT,
@@ -48,7 +48,7 @@ export const Modal = (props: ModalPropsT) => {
 
   return (
     <>
-      <DialogTitle>{title}</DialogTitle>
+      {title && <DialogTitle>{title}</DialogTitle>}
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {actions.map(action => (
