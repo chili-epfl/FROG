@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Modal } from './components/Modal';
+import { Modal } from '/imports/frog-utils';
 
 /**
  * This modal displays an error message when accessing an archived wiki

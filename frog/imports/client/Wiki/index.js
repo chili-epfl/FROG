@@ -35,10 +35,6 @@ import {
 import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
-import {
-  withModalController,
-  type ModalParentPropsT
-} from './components/Modal';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
 import LockedModal from './ModalLocked';

@@ -1,5 +1,5 @@
 // @flow
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 import { type WikiSettingsT } from '/imports/client/Wiki/types';
 
 export const addNewWikiPage = (
