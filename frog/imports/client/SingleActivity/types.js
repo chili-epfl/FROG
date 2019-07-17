@@ -5,7 +5,7 @@ import {
   type ActivityDbT,
   type ShowModalFunctionT,
   type HideModalFunctionT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 export type StateT = {
   stage: number,
