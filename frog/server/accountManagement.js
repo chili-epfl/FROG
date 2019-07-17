@@ -22,56 +22,60 @@ export const createAccount = (
   password: string,
   profile: Profile
 ) => {
-  if (
-    password !== '' &&
-    password &&
-    (email !== '' && email) &&
-    (profile.displayName && profile.displayName !== '')
-  ) {
-    // Validate input params
+  try {
     if (
-      passwordErrors(password) !== '' ||
-      emailErrors(email) !== '' ||
-      errorBasedOnChars(profile.displayName, 1, 'Display Name') !== ''
+      password !== '' &&
+      password &&
+      (email !== '' && email) &&
+      (profile.displayName && profile.displayName !== '')
     ) {
-      throw new Meteor.Error(
-        passwordErrors(password) +
-          '  ' +
-          emailErrors(email) +
-          '  ' +
-          errorBasedOnChars(profile.displayName, 1, 'Display Name')
-      );
-    } else if (!Accounts.findUserByEmail(email)) {
-      const user = Meteor.user();
+      // Validate input params
+      if (
+        passwordErrors(password) !== '' ||
+        emailErrors(email) !== '' ||
+        errorBasedOnChars(profile.displayName, 1, 'Display Name') !== ''
+      ) {
+        throw new Meteor.Error(
+          passwordErrors(password) +
+            '  ' +
+            emailErrors(email) +
+            '  ' +
+            errorBasedOnChars(profile.displayName, 1, 'Display Name')
+        );
+      } else if (!Accounts.findUserByEmail(email)) {
+        const user = Meteor.user();
 
-      if (user?.isAnonymous) {
-        // checks for duplicate email and displays error on the console.
+        if (user?.isAnonymous) {
+          // checks for duplicate email and displays error on the console.
 
-        Meteor.users.update(user._id, {
-          $set: {
-            emails: [{ address: email, verified: false }],
-            isAnonymous: false,
+          Meteor.users.update(user._id, {
+            $set: {
+              emails: [{ address: email, verified: false }],
+              isAnonymous: false,
+              profile
+            }
+          });
+          Accounts.setPassword(user._id, password, { logout: false });
+        } else {
+          Accounts.createUser({
+            email,
+            password,
             profile
-          }
-        });
-        Accounts.setPassword(user._id, password, { logout: false });
+          });
+          const newUserId = Accounts.findUserByEmail(email);
+          Meteor.users.update(newUserId, {
+            $set: {
+              isAnonymous: false
+            }
+          });
+        }
       } else {
-        Accounts.createUser({
-          email,
-          password,
-          profile
-        });
-        const newUserId = Accounts.findUserByEmail(email);
-        Meteor.users.update(newUserId, {
-          $set: {
-            isAnonymous: false
-          }
-        });
+        throw new Meteor.Error('Email already exists');
       }
     } else {
-      throw new Meteor.Error('Email already exists');
+      throw new Meteor.Error('Invalid arguments');
     }
-  } else {
+  } catch (e) {
     throw new Meteor.Error('Invalid arguments');
   }
 };
