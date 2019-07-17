@@ -16,7 +16,7 @@ import {
   errorBasedOnChars,
   emailErrors,
   passwordErrors
-} from './validationHelpers';
+} from '/imports/frog-utils/validationHelpers';
 
 type FormErrorT = {
   displayName: string,

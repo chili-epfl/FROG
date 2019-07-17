@@ -5,7 +5,7 @@ import {
   errorBasedOnChars,
   emailErrors,
   passwordErrors
-} from '/imports/client/AccountModal';
+} from '/imports/frog-utils/validationHelpers';
 
 type Profile = { displayName: string };
 
