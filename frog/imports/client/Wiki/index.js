@@ -186,7 +186,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.setState({ currentPageObj: null });
       this.props.showModal(<LockedModal />);
       return false;
-    } else {
+    } else if (!this.state.currentPageObj) {
       this.initialLoad = true;
       this.props.hideModal();
     }
@@ -222,8 +222,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       } else addUser(this.wikiDoc, Meteor.userId());
     } else {
       if (privilege === PRIVILEGE_NONE) addUser(this.wikiDoc, Meteor.userId());
-      this.initialLoad = true;
-      this.props.hideModal();
+      if (!this.state.currentPageObj) {
+        this.initialLoad = true;
+        this.props.hideModal();
+      }
     }
     if (
       (this.state.settings.readOnly ||
@@ -306,6 +308,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   handleInitialLoad = () => {
+    if (!this.initialLoad) console.error('error');
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);

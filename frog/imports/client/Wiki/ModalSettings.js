@@ -72,13 +72,8 @@ function ModalSettings({
   const [currentTab, changeTab] = useState(0);
   const [open, changeState] = useState(true);
   React.useEffect(() => {
-    if (
-      settings.locked !== currentSettings.locked ||
-      settings.readOnly !== currentSettings.readOnly ||
-      settings.allowPageCreation !== currentSettings.allowPageCreation
-    )
-      callback(settings);
-  });
+    callback(settings);
+  }, [settings.locked, settings.readOnly, settings.allowPageCreation]);
   return (
     <Dialog open={open}>
       <DialogTitle>Change Wiki Settings</DialogTitle>
@@ -98,9 +93,10 @@ function ModalSettings({
               <FormControlLabel
                 checked={settings.locked}
                 control={<Switch color="secondary" />}
-                onChange={e =>
-                  setSettings({ ...settings, locked: e.target.checked })
-                }
+                onChange={e => {
+                  setSettings({ ...settings, locked: e.target.checked });
+                  callback(settings);
+                }}
                 label={
                   <>
                     <>Lock Wiki</>
