@@ -198,7 +198,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.wikiDoc.data.settings.password}
+            actualPassword={this.state.settings.password}
           />
         );
       });
@@ -223,7 +223,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     if (
       ((this.state.settings.readOnly ||
-        this.wikiDoc.data.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
+        this.state.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
         privilege !== PRIVILEGE_OWNER) ||
       (!this.state.settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
     )
@@ -647,7 +647,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.wikiDoc.data.settings.password}
+            actualPassword={this.state.settings.password}
           />
         );
       });
@@ -784,7 +784,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 updateSettings(this.wikiDoc, x);
               }}
               hideModal={this.props.hideModal}
-              currentSettings={this.wikiDoc.data.settings}
+              currentSettings={this.state.settings}
             />
           )
       });
@@ -890,6 +890,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
                 checkEdit={() => this.editAccess('editPage')}
+                settings={this.state.settings}
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (

@@ -133,10 +133,7 @@ class WikiContentComp extends React.Component<> {
       lineHeight: '1.2'
     };
 
-    if (
-      this.props.wikiDoc.data.settings.readOnly &&
-      this.state.docMode === 'edit'
-    ) {
+    if (this.props.settings.readOnly && this.state.docMode === 'edit') {
       this.setState({ docMode: 'view' }, () => {
         this.props.checkEdit().then(x => {
           if (x) this.setState({ docMode: 'edit' });
