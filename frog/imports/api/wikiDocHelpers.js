@@ -196,3 +196,18 @@ export const updateSettings = (wikiDoc: Object, settings: WikiSettingsT) => {
   };
   wikiDoc.submitOp(op);
 };
+
+export const upgradeWikiWithoutSettings = (wikiDoc: Object) => {
+  const settings = {
+    readOnly: false,
+    allowPageCreation: true,
+    password: '',
+    locked: false,
+    restrict: 'none'
+  };
+  const op = {
+    p: ['settings'],
+    oi: settings
+  };
+  wikiDoc.submitOp(op);
+};

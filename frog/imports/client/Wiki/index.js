@@ -30,7 +30,8 @@ import {
   addNewInstancePage,
   addUser,
   addEditor,
-  updateSettings
+  updateSettings,
+  upgradeWikiWithoutSettings
 } from '/imports/api/wikiDocHelpers';
 import { createNewLI } from './liDocHelpers';
 
@@ -254,19 +255,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         Meteor.userId()
       );
     }
-
+    if (!this.wikiDoc.data.settings) upgradeWikiWithoutSettings(this.wikiDoc);
     wikiStore.setPages(this.wikiDoc.data.pages);
     const setPrivilegePromise = new Promise(resolve => {
       this.setState(
         {
           pagesData: wikiStore.pages,
-          settings: this.wikiDoc.data.settings || {
-            readOnly: false,
-            allowPageCreation: true,
-            password: '',
-            locked: false,
-            restrict: PERM_ALLOW_EVERYTHING
-          },
+          settings: this.wikiDoc.data.settings,
           privilege: this.getPrivilege()
         },
         () => this.handleSettings(this.state.privilege).then(x => resolve(x))
