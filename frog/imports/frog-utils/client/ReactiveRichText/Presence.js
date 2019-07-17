@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { cloneDeep, isEmpty } from 'lodash';
+import { cloneDeep, isEmpty, uniqBy } from 'lodash';
+
+import { pickColor } from './helpers';
 
 export const Presence = ({ dataFn, id, userId }) => {
   const [presence, setPresence] = React.useState({});
@@ -17,14 +19,17 @@ export const Presence = ({ dataFn, id, userId }) => {
 
   const userList = Object.values(presence)
     .filter(x => !isEmpty(x.u))
-    .map(x => x.u.split('/'))
-    .map(x => (x[0] === userId ? 'you' : x[1]));
-  const users = [...new Set(userList)].join(', ');
+    .map(x => x.u.split('/'));
+  const users = uniqBy(userList, x => x[0]).map((user, i) => [
+    i > 0 && ', ',
+    <span key={user[0]} style={{ color: pickColor(user[0]) }}>
+      {user[0] === userId ? 'you' : user[1]}
+    </span>
+  ]);
 
   if (users.length === 0) {
     return null;
   }
 
-  //return <div>Currently editing: {users}</div>;
-  return <div>{JSON.stringify(presence)}</div>;
+  return <div>Currently editing: {users}</div>;
 };
