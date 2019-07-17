@@ -189,7 +189,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     // Ask for password if wiki access is password restricted
     if (
       this.state.settings.restrict === PERM_PASSWORD_TO_VIEW &&
-      privilege === PRIVILEGE_NONE
+      privilege !== PRIVILEGE_VIEW &&
+      privilege !== PRIVILEGE_OWNER
     ) {
       this.setState({ currentPageObj: null });
       const passwordPromise = new Promise(resolve => {
@@ -216,12 +217,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         );
         return false;
       } else addUser(this.wikiDoc, Meteor.userId());
-    } else {
-      if (privilege === PRIVILEGE_NONE) addUser(this.wikiDoc, Meteor.userId());
-      if (!this.state.currentPageObj) {
-        this.initialLoad = true;
-        this.props.hideModal();
-      }
+    } else if (!this.state.currentPageObj) {
+      this.initialLoad = true;
+      this.props.hideModal();
     }
     if (
       ((this.state.settings.readOnly ||

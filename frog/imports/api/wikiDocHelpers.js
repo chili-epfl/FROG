@@ -184,12 +184,15 @@ function invalidateUsers(wikiDoc: Object) {
 }
 
 export const updateSettings = (wikiDoc: Object, settings: WikiSettingsT) => {
+  if (
+    wikiDoc.data.settings.password !== settings.password ||
+    wikiDoc.data.settings.restrict !== settings.restrict
+  ) {
+    invalidateUsers(wikiDoc);
+  }
   const op = {
     p: ['settings'],
     oi: settings
   };
   wikiDoc.submitOp(op);
-  if (wikiDoc.data.password !== settings.password) {
-    invalidateUsers(wikiDoc);
-  }
 };
