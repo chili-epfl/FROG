@@ -24,8 +24,13 @@ export const createAccount = (
 ) => {
   if (
     password !== '' &&
-    email !== '' &&
-    (profile.displayName && profile.displayName !== '')
+    password !== null &&
+    password !== undefined &&
+    (email !== '' && email !== null && email !== undefined) &&
+    (profile.displayName &&
+      (profile.displayName !== '' &&
+        profile.displayName !== null &&
+        profile.displayName !== undefined))
   ) {
     // Validate input params
     if (
