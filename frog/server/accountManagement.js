@@ -22,7 +22,7 @@ export const createAccount = (
   password: string,
   profile: Profile
 ) => {
-  if (password !== '' && email !== '' && profile.displayName !== '') {
+  if (password !== '' && email !== '' && (profile.displayName && profile.displayName !== '')) {
     // Validate input params
     if (
       passwordErrors(password) !== '' ||
