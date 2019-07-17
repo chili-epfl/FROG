@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Mongo } from 'meteor/mongo';
 import { DDP } from 'meteor/ddp-client';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT } from '/imports/frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import doGetInstances from '/imports/api/doGetInstances';

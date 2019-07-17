@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { ChangeableText } from 'frog-utils';
+import { ChangeableText } from '/imports/frog-utils';
 import PrimaryButton from './PrimaryButton';
 import OverflowPanel from './OverflowPanel';
 

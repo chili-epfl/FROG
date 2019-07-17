@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { EnhancedForm } from 'frog-utils';
+import { EnhancedForm } from '/imports/frog-utils';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

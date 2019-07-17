@@ -1,4 +1,4 @@
-import { type LearningItemT } from 'frog-utils';
+import { type LearningItemT } from '/imports/frog-utils';
 import Viewer from './hypothesis';
 
 export default ({

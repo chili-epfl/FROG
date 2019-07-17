@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { type LearningItemT, values, HTML } from 'frog-utils';
+import { type LearningItemT, values, HTML } from '/imports/frog-utils';
 
 const FlexViewer = ({ LearningItem, data, type }) => (
   <div>

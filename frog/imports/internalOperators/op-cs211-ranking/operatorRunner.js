@@ -4,7 +4,7 @@ import {
   entries,
   wrapUnitAll,
   type productOperatorRunnerT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { compact } from 'lodash';
 
 const aryToObj = ary => compact(ary).reduce((acc, x) => ({ ...acc, ...x }), {});

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withVisibility } from 'frog-utils';
+import { withVisibility } from '/imports/frog-utils';
 import { compose, withState } from 'recompose';
 
 import { withStyles } from '@material-ui/core/styles';

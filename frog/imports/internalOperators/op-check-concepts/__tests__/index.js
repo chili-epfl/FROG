@@ -1,4 +1,4 @@
-import { type activityDataT, chainUpgrades } from 'frog-utils';
+import { type activityDataT, chainUpgrades } from '/imports/frog-utils';
 
 import operator from '../operatorRunner';
 import pkg from '../index';

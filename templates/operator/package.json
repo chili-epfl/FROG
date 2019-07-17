@@ -8,9 +8,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "frog-utils": "1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "nps": "5.9.3"
   }
