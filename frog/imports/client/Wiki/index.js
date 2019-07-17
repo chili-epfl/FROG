@@ -224,9 +224,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       }
     }
     if (
-      (this.state.settings.readOnly ||
+      ((this.state.settings.readOnly ||
         this.wikiDoc.data.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
-      privilege !== PRIVILEGE_OWNER
+        privilege !== PRIVILEGE_OWNER) ||
+      (!this.state.settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
     )
       wikiStore.setPreventPageCreation(true);
     else wikiStore.setPreventPageCreation(false);
@@ -304,7 +305,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   handleInitialLoad = () => {
-    if (!this.initialLoad) console.error('error');
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
@@ -906,7 +906,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
-                  checkEdit={this.editAccess}
+                  checkEdit={() => this.editAccess('editPage')}
                   embed={this.props.embed}
                 />
               )}
@@ -931,7 +931,17 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         )}
         {this.state.createModalOpen && (
           <CreateModal
-            onCreate={this.createPage}
+            onCreate={(title, socialPlane, activityConfig, operatorConfig) =>
+              this.editAccess('createPage').then(x => {
+                if (x)
+                  this.createPage(
+                    title,
+                    socialPlane,
+                    activityConfig,
+                    operatorConfig
+                  );
+              })
+            }
             setModalOpen={e => this.setState({ createModalOpen: e })}
             clearError={() => this.setState({ error: null })}
             errorDiv={this.state.error}

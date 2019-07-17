@@ -133,6 +133,17 @@ class WikiContentComp extends React.Component<> {
       lineHeight: '1.2'
     };
 
+    if (
+      this.props.wikiDoc.data.settings.readOnly &&
+      this.state.docMode === 'edit'
+    ) {
+      this.setState({ docMode: 'view' }, () => {
+        this.props.checkEdit().then(x => {
+          if (x) this.setState({ docMode: 'edit' });
+        });
+      });
+    }
+
     const docModeButton = () => {
       if (
         this.state.docMode === 'history' ||
@@ -267,7 +278,9 @@ class WikiContentComp extends React.Component<> {
                       this.state.docMode === 'view' &&
                       !this.props.disableEdit
                     ) {
-                      this.setState({ docMode: 'edit' });
+                      this.props.checkEdit().then(x => {
+                        if (x) this.setState({ docMode: 'edit' });
+                      });
                     }
                   }}
                 >
