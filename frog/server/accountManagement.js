@@ -39,7 +39,7 @@ export const createAccount = (
   password: string,
   profile: Profile
 ) => {
-  if (password && email && profile.displayName) {
+  if (password !== '' && email !== '' && profile.displayName !== '') {
     // Validate input params
     if (
       passwordErrors(password) !== '' ||
@@ -48,9 +48,9 @@ export const createAccount = (
     ) {
       throw new Meteor.Error(
         passwordErrors(password) +
-          '\n' +
+          '  ' +
           emailErrors(email) +
-          '\n' +
+          '  ' +
           errorBasedOnChars(profile.displayName, 1, 'Display Name')
       );
     } else if (!Accounts.findUserByEmail(email)) {
@@ -83,6 +83,8 @@ export const createAccount = (
     } else {
       throw new Meteor.Error('Email already exists');
     }
+  } else {
+    throw new Meteor.Error('Invalid arguments');
   }
 };
 
