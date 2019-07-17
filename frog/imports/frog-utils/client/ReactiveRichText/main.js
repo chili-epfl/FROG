@@ -38,8 +38,6 @@ Quill.register('modules/wikiEmbed', WikiLinkModule);
 Quill.register('formats/wiki-link', WikiLinkBlot);
 Quill.register('modules/cursors', QuillCursors);
 
-const IDMapping = {};
-
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
 // and satisfy Flow's requirements
@@ -163,7 +161,7 @@ class ReactiveRichText extends Component<
             editor.updateContents(operation.o);
           }
           if (this.cursors) {
-            if (operation.u !== this.props.userId) {
+            if (operation.u !== this.props.dataFn?.doc?.connection?.id) {
               this.cursors.flashCursor(operation.u);
             }
           }
@@ -188,58 +186,6 @@ class ReactiveRichText extends Component<
       )
     );
 
-    // if (this.props.readOnly) {
-    //   const ops = cloneDeep(raw.ops);
-    //   if (!ops) {
-    //     return raw;
-    //   }
-    //   while (true) {
-    //     const [tail] = ops.slice(-1);
-    //     if (!tail) {
-    //       break;
-    //     }
-    //     if (typeof tail.insert !== 'string') {
-    //       break;
-    //     }
-    //     if (tail.insert.trim() !== '') {
-    //       break;
-    //     }
-    //     ops.pop();
-    //   }
-
-    //   const [tail1] = ops.slice(-1);
-    //   if (tail1) {
-    //     if (typeof tail1.insert === 'string') {
-    //       ops[ops.length - 1].insert = tail1.insert.trimEnd() + '\n';
-    //     }
-    //   }
-
-    //   while (true) {
-    //     const [hd] = ops.slice(0, 1);
-    //     if (!hd) {
-    //       break;
-    //     }
-    //     if (typeof hd.insert !== 'string') {
-    //       break;
-    //     }
-    //     if (hd.insert.trim() !== '') {
-    //       break;
-    //     }
-    //     ops.shift();
-    //   }
-
-    //   const [head1] = ops.slice(0, 1);
-    //   if (head1) {
-    //     if (typeof head1.insert === 'string') {
-    //       ops[0].insert = head1.insert.trimStart();
-    //     }
-    //   }
-    //   if (ops.slice(-1).insert !== '\n') {
-    //     ops.push({ insert: '\n' });
-    //   }
-    //   raw.ops = ops;
-    // }
-
     if (this.props.search) {
       raw = highlightTargetRichText(raw, this.props.search);
     }
@@ -263,7 +209,6 @@ class ReactiveRichText extends Component<
   };
 
   setupCursors = () => {
-    const { userId } = this.props;
     const doc = this.props.dataFn?.doc;
     const editor = this.quillRef.getEditor();
     const cursors = editor.getModule('cursors');
@@ -274,23 +219,43 @@ class ReactiveRichText extends Component<
       }
     });
 
-    doc.on('presence', (srcList, submitted) => {
-      srcList.forEach(src => {
-        const presence = doc.presence[src];
-        if (!presence || !presence.p) {
-          cursors.removeCursor(IDMapping[src]);
-          return;
-        }
-        if (!isEqual(presence.p, this.state.path)) {
-          cursors.removeCursor(presence.u.split('/')[0]);
-          return;
-        }
+    doc.on('presence', this.handlePresenceUpdate);
+
+    // we might already have presence, because the doc was loaded in read-only,
+    // so we should render shared cursors initially
+    this.handlePresenceUpdate(Object.keys(doc.presence));
+
+    this.cursors = cursors;
+  };
+
+  handlePresenceUpdate = (srcList, submitted) => {
+    const doc = this.props.dataFn?.doc;
+    const myDocId = doc?.connection?.id;
+    const editor = this.quillRef.getEditor();
+    const cursors = editor.getModule('cursors');
+
+    srcList.forEach(src => {
+      const presence = doc.presence[src];
+      if (!presence || !presence.p) {
+        cursors.removeCursor(src);
+        return;
+      }
+      if (!isEqual(presence.p, this.state.path)) {
+        cursors.removeCursor(src);
+        return;
+      }
+
+      if (presence.u) {
+        const presenceUID = presence.u;
+        const [id, name] = presenceUID.split('/');
 
         if (presence.s.u) {
-          const presenceUID = presence.s.u;
-          const [id, name] = presenceUID.split('/');
-          IDMapping[src] = id;
-          if (userId !== id && presence.s.s && presence.s.s.length > 0) {
+          if (
+            src !== myDocId &&
+            src !== '' &&
+            presence.s.s &&
+            presence.s.s.length > 0
+          ) {
             // TODO: Can QuillCursors support multiple selections?
             const sel = presence.s.s[0];
 
@@ -300,16 +265,15 @@ class ReactiveRichText extends Component<
             const len = Math.abs(sel[1] - sel[0]);
             const min = Math.min(sel[0], sel[1]);
 
-            cursors.createCursor(id, name, pickColor(id));
-            cursors.moveCursor(id, { index: min, length: len });
+            cursors.createCursor(src, name, pickColor(id));
+            cursors.moveCursor(src, { index: min, length: len });
             if (submitted) {
-              cursors.flashCursor(id);
+              cursors.flashCursor(src);
             }
           }
         }
-      });
+      }
     });
-    this.cursors = cursors;
   };
 
   compositionStartHandler = () => {
@@ -645,7 +609,7 @@ class ReactiveRichText extends Component<
         p: this.state.path,
         t: 'rich-text',
         o: delta.ops,
-        u: this.props.userId
+        u: this.props.dataFn?.doc?.connection?.id
       };
 
       this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
