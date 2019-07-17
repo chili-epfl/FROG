@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Modal } from '/imports/frog-utils';
 
-
 type ModalRestorePropsT = {
   pages: Object,
   onSelect: (pageId: string) => void,
