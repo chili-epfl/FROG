@@ -7,11 +7,13 @@ class WikiStore {
     extendObservable(this, {
       pages: {},
       noFollowLinks: false,
-
+      preventPageCreation: false,
       setNoFollowLinks: action(e => {
         this.noFollowLinks = e;
       }),
-
+      setPreventPageCreation: action(e => {
+        this.preventPageCreation = e;
+      }),
       setPages: action(e => {
         this.pages = e;
       }),

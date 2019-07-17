@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Modal } from '/imports/frog-utils';
+import { Modal } from '/imports/client/UIComponents/ModalController';
 import SignUp from './SignUp';
 
 export const SignUpModal = () => {

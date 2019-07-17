@@ -3,7 +3,7 @@
 import { type ActivityDbT } from '/imports/frog-utils';
 import { Graphs } from './graphs';
 import { Sessions } from './sessions';
-import 'core-js/fn/array/flat-map';
+import 'core-js/es/array/flat-map';
 
 export const calculateNextOpen = (
   timeInGraph: number,
