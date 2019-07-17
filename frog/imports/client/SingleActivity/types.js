@@ -1,6 +1,11 @@
 // @flow
 
-import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
+import {
+  type ActivityPackageT,
+  type ActivityDbT,
+  type ShowModalFunctionT,
+  type HideModalFunctionT
+} from '/imports/frog-utils';
 
 export type StateT = {
   stage: number,
@@ -11,5 +16,7 @@ export type StateT = {
 };
 
 export type PropsT = {
-  classes: Object
+  classes: Object,
+  showModal: ShowModalFunctionT,
+  hideModal: HideModalFunctionT
 };
