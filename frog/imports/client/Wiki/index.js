@@ -479,6 +479,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.setState({ error });
       return;
     }
+    this.setState({ createModalOpen: false });
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
