@@ -45,6 +45,13 @@ class WikiContentComp extends React.Component<> {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.settings.readOnly && this.state.docMode === 'edit') {
+      this.setState({ docMode: 'view' }, () => {
+        this.props.checkEdit().then(x => {
+          if (x) this.setState({ docMode: 'edit' });
+        });
+      });
+    }
     if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
@@ -132,14 +139,6 @@ class WikiContentComp extends React.Component<> {
     const titleStyle = {
       lineHeight: '1.2'
     };
-
-    if (this.props.settings.readOnly && this.state.docMode === 'edit') {
-      this.setState({ docMode: 'view' }, () => {
-        this.props.checkEdit().then(x => {
-          if (x) this.setState({ docMode: 'edit' });
-        });
-      });
-    }
 
     const docModeButton = () => {
       if (

@@ -901,6 +901,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
                   checkEdit={() => this.editAccess('editPage')}
+                  settings={this.state.settings}
                   embed={this.props.embed}
                 />
               )}
