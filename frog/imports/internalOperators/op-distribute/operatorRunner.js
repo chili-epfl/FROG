@@ -1,6 +1,6 @@
 // @flow
 import { shuffle, compact } from 'lodash';
-import { type productOperatorRunnerT, uuid } from 'frog-utils';
+import { type productOperatorRunnerT, uuid } from '/imports/frog-utils';
 
 const operator = async (configData, object, dataFn) => {
   const { globalStructure, socialStructure, activityData } = object;

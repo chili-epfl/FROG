@@ -1,6 +1,6 @@
 import { Validator } from 'jsonschema';
 import { compact } from 'lodash';
-import { calculateHides } from 'frog-utils';
+import { calculateHides } from '/imports/frog-utils';
 
 const v = new Validator();
 

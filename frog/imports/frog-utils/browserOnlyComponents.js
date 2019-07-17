@@ -16,7 +16,3 @@ export const ReactJsonView = isBrowser
 export const EnhancedForm = isBrowser
   ? require('./EnhancedForm.js').default // eslint-disable-line global-require
   : () => <p>Node</p>; // React component to make Flow happy, will never be shown
-
-export const ReactiveRichText = isBrowser
-  ? require('./ReactiveRichText/main').default // eslint-disable-line global-require
-  : () => <p>Node</p>; // React component to make Flow happy, will never be shown

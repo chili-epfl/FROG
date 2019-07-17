@@ -1,6 +1,6 @@
 // @flow
 
-import type { controlOperatorT } from 'frog-utils';
+import type { controlOperatorT } from '/imports/frog-utils';
 
 const meta = {
   name: 'Select activity based on past performance',

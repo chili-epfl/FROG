@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shorten, A, highlightSearchHTML } from 'frog-utils';
+import { shorten, A, highlightSearchHTML } from '/imports/frog-utils';
 import Markdown from 'markdown-to-jsx';
 
 export const Annotation = ({

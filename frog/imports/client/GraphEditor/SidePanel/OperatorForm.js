@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 import jsonSchemaDefaults from 'json-schema-defaults';
-import { hideConditional } from 'frog-utils';
+import { hideConditional } from '/imports/frog-utils';
 import { observer } from 'mobx-react';
-import type { OperatorDbT } from 'frog-utils';
+import type { OperatorDbT } from '/imports/frog-utils';
 import { extendObservable, action } from 'mobx';
 import FlexView from 'react-flexview';
 import { operatorTypesObj } from '/imports/operatorTypes';

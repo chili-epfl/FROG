@@ -4,7 +4,7 @@ import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { values } from 'frog-utils';
+import { values, withModal, type ModalParentPropsT } from '/imports/frog-utils';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
@@ -947,7 +947,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withModalController(WikiComp);
+const Wiki = withModal(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;

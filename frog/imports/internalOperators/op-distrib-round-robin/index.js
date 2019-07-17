@@ -1,6 +1,6 @@
 // @flow
 
-import type { productOperatorT } from 'frog-utils';
+import type { productOperatorT } from '/imports/frog-utils';
 
 const meta = {
   name: 'Distribute to other individuals or other groups',

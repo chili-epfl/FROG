@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { type LearningItemT } from 'frog-utils';
+import { type LearningItemT } from '/imports/frog-utils';
 import ReactTweet from '@houshuang/react-tweet';
 
 const ThumbViewer = ({ data }) => <ReactTweet data={data} />;

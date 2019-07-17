@@ -1,6 +1,6 @@
 import { omitBy, isNil } from 'lodash';
 
-import { uuid, chainUpgrades } from 'frog-utils';
+import { uuid, chainUpgrades } from '/imports/frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { Activities, addActivity } from '/imports/api/activities';

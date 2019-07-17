@@ -7,7 +7,7 @@ import {
   type GlobalStructureT,
   type structureDefT,
   type ActivityDbT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 // given an activityEntry and an objectEntry, calculates which instances
 // to create

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { EnhancedForm } from 'frog-utils';
+import { EnhancedForm } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 
 import { Activities, addActivity } from '/imports/api/activities';

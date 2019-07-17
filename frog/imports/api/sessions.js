@@ -1,7 +1,7 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid, getSlug, values } from 'frog-utils';
+import { uuid, getSlug, values } from '/imports/frog-utils';
 import { difference } from 'lodash';
 
 import { Activities, Connections } from './activities';

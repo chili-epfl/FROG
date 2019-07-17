@@ -1,8 +1,8 @@
 // @flow
 
 import { Meteor } from 'meteor/meteor';
-import richText from 'rich-text';
-import json0 from 'ot-json0';
+import richText from '@minervaproject/rich-text';
+import json0 from '@minervaproject/ot-json0';
 
 let socket;
 let _connection;
@@ -15,10 +15,11 @@ if (Meteor.isClient) {
       ':3002';
 
   const ReconnectingWebSocket = require('reconnectingwebsocket');
-  const sharedbClient = require('sharedb/lib/client');
+  const sharedbClient = require('@teamwork/sharedb/lib/client');
 
   json0.type.registerSubtype(richText.type);
   sharedbClient.types.register(json0.type);
+  sharedbClient.types.defaultType = json0.type;
 
   socket = new ReconnectingWebSocket(shareDbUrl + '?' + Meteor.userId(), null, {
     minConnectionDelay: 1

@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { hideConditional, type ActivityDbT } from 'frog-utils';
+import { hideConditional, type ActivityDbT } from '/imports/frog-utils';
 import { extendObservable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import jsonSchemaDefaults from 'json-schema-defaults';

@@ -11,7 +11,7 @@ import {
   type ActivityPackageT,
   type ActivityDbT,
   focusRole
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import { connection } from './Preview';
 import { mergeLog, createDashboards } from '/imports/api/mergeLogData';

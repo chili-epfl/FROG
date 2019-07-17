@@ -12,7 +12,7 @@ import InsertLink from '@material-ui/icons/InsertLink';
 import NoteAdd from '@material-ui/icons/NoteAdd';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddCircle from '@material-ui/icons/AddCircle';
-import { type LearningItemT, values } from 'frog-utils';
+import { type LearningItemT, values } from '/imports/frog-utils';
 
 import { connect, listore } from './store';
 import { learningItemTypesObj } from '/imports/activityTypes';

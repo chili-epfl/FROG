@@ -1,7 +1,7 @@
 import operator from '../operatorRunner';
 import { obj, prod } from '../__fixtures__';
 
-jest.mock('frog-utils', () =>
+jest.mock('/imports/frog-utils', () =>
   require.requireActual('../../../../__mocks__/frog-utils')
 );
 

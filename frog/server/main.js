@@ -4,7 +4,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { publishComposite } from 'meteor/reywood:publish-composite';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 import { startShareDB } from './share-db-manager';
 import '../imports/startup/shutdown-if-env';

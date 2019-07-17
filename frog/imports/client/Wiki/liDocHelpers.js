@@ -1,5 +1,5 @@
 // @flow
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 import { connection } from '../App/connection';
 import { activityTypesObj } from '/imports/activityTypes';
 import { dataFn } from './wikiLearningItem';

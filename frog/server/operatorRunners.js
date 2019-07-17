@@ -1,6 +1,6 @@
 // @flow
 import importAll from 'import-all.macro';
-import { entries } from 'frog-utils';
+import { entries } from '/imports/frog-utils';
 
 const operatorsRaw = importAll.sync(
   '../node_modules/op-*/src/operatorRunner?(.js)'

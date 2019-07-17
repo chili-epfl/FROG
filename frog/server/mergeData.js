@@ -1,6 +1,6 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
-import ShareDB from 'sharedb';
+import ShareDB from '@teamwork/sharedb';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 
@@ -11,7 +11,7 @@ import {
   type ActivityDbT,
   type structureDefT,
   uuid
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { Activities } from '../imports/api/activities';
 import { Objects } from '../imports/api/objects';
 import doGetInstances from '../imports/api/doGetInstances';

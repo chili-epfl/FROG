@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import styled from 'styled-components';
 
-import { msToString } from 'frog-utils';
+import { msToString } from '/imports/frog-utils';
 
 const Countdown = ({ session, currentTime }) => {
   const secondsLeft =
