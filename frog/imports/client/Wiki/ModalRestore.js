@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Modal } from '/imports/frog-utils';
+import { Button } from '/imports/client/UIComponents/Button';
 
 type ModalRestorePropsT = {
   pages: Object,
@@ -15,6 +16,7 @@ const ModalRestore = ({ hideModal, pages, onSelect }: ModalRestorePropsT) => {
       title="Select a page to restore"
       actions={[{ title: 'Cancel', callback: hideModal }]}
     >
+      <Button title="hello" />
       <ul>
         {pages.map(pageObj => {
           const pageId = pageObj.id;

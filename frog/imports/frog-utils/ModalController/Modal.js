@@ -4,7 +4,7 @@ import * as React from 'react';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Button } from 'frog-ui';
+import Button from '@material-ui/core/Button';
 
 import { useModal } from './useModal';
 import type { ShowModalFunctionT, HideModalFunctionT } from './types';
@@ -52,7 +52,13 @@ export const Modal = (props: ModalPropsT) => {
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {actions.map(action => (
-          <Button title="It works!">{action.title}</Button>
+          <Button
+            key={action.title}
+            color={action.primary && 'primary'}
+            onClick={action.callback}
+          >
+            {action.title}
+          </Button>
         ))}
       </DialogActions>
     </>

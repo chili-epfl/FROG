@@ -93,6 +93,7 @@ module.exports = {
       default: fromRoot('cypress open', 'Starting Cypress'),
       run: fromRoot('cypress run', 'Starting Cypress in headless mode')
     },
+    storybook: fromRoot('start-storybook -p 6006', 'Starting Storybook'),
     lockfiles: fromRoot(
       'cmp --silent yarn.lock yarn.lock.orig || (echo Error: yarn.lock is modified after a fresh install; exit 1)'
     ),
