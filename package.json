@@ -15,7 +15,7 @@
   "workspaces": [
     "ac/*",
     "op/*",
-    "frog-utils",
+    "frog-ui",
     "frog",
     "templates/activity",
     "templates/operator"
