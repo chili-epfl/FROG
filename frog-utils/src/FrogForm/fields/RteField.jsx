@@ -17,8 +17,13 @@ export const RteField = (props: CustomFieldPropsT) => {
       <Fields.rte
         {...props}
         name={undefined}
-        uiSchema={{ ...props.uiSchema, 'ui:title': undefined }}
-        schema={{ ...props.schema, title: undefined }}
+        description={undefined}
+        uiSchema={{
+          ...props.uiSchema,
+          'ui:title': undefined,
+          'ui:description': undefined
+        }}
+        schema={{ ...props.schema, title: undefined, description: undefined }}
       />
     </Label>
   );
