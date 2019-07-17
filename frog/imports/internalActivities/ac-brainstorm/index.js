@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, uuid, values } from 'frog-utils';
+import { type ActivityPackageT, uuid, values } from '/imports/frog-utils';
 import { isObject, isEmpty } from 'lodash';
 import upgradeFunctions from './upgradeFunctions';
 

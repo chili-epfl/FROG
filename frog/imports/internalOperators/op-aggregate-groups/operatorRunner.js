@@ -1,6 +1,6 @@
 // @flow
 
-import { type productOperatorRunnerT } from 'frog-utils';
+import { type productOperatorRunnerT } from '/imports/frog-utils';
 import { isObject } from 'lodash';
 
 const operator = (config, { activityData: data, socialStructure }) => {

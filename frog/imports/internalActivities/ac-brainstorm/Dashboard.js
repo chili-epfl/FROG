@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Chart } from 'react-google-charts';
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT } from '/imports/frog-utils';
 
 const Viewer = ({
   state,

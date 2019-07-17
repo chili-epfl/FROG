@@ -1,6 +1,9 @@
 // @flow
 import { chunk } from 'lodash';
-import { type socialStructureT, type socialOperatorRunnerT } from 'frog-utils';
+import {
+  type socialStructureT,
+  type socialOperatorRunnerT
+} from '/imports/frog-utils';
 
 // Function that computes our optimization goal given a list of distances
 const M = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);

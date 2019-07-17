@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { ReactiveRichText } from 'frog-utils';
+import ReactiveRichText from '/imports/frog-utils/ReactiveRichTextProxy';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { connection } from '/imports/client/App/connection';
 

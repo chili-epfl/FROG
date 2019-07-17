@@ -6,7 +6,7 @@ import FlexView from 'react-flexview';
 import { yellow, red, lightGreen } from '@material-ui/core/colors';
 import { compact } from 'lodash';
 
-import { ChangeableText } from 'frog-utils';
+import { ChangeableText } from '/imports/frog-utils';
 
 import { removeOperatorType } from '/imports/api/operators';
 import { operatorTypesObj } from '/imports/operatorTypes';

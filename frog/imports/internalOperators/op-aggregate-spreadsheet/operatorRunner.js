@@ -1,6 +1,6 @@
 // @flow
 
-import { type productOperatorRunnerT, wrapUnitAll } from 'frog-utils';
+import { type productOperatorRunnerT, wrapUnitAll } from '/imports/frog-utils';
 
 const alphabet = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 

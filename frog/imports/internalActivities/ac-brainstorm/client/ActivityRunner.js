@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { values, type ActivityRunnerPropsT } from 'frog-utils';
+import { values, type ActivityRunnerPropsT } from '/imports/frog-utils';
 import FlipMove from 'react-flip-move';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';

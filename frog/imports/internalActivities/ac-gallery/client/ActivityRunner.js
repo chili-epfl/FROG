@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Mousetrap from 'mousetrap';
-import type { ActivityRunnerPropsT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from '/imports/frog-utils';
 
 import ThumbList from './components/ThumbList';
 import TopBar from './components/TopBar';

@@ -6,7 +6,7 @@ import {
   values,
   type LearningItemT,
   cloneDeep
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import { operatorTypes } from './operatorTypes';
 

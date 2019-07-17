@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { AlertModal } from 'frog-utils';
+import { AlertModal } from '/imports/frog-utils';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
@@ -20,7 +20,11 @@ export default ({
 }: ModalDeletedPagePropsT) => {
   return (
     <AlertModal
+<<<<<<< HEAD
       title={pageTitle}
+=======
+      title={`${pageTitle} has been deleted`}
+>>>>>>> 9725f9c027bb1793dea12baea5d9cad53946fc01
       content="Do you want to restore the old deleted page or create a new one?"
       actions={[
         {

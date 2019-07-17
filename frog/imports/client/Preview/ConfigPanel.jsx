@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';

@@ -5,7 +5,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Collapse } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 import { uploadFile } from '/imports/api/openUploads';
 
 const Header = ({ display, setState }) => (

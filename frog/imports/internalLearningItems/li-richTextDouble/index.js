@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { ReactiveRichText } from 'frog-utils';
+import { Meteor } from 'meteor/meteor';
+import ReactiveRichText from '/imports/frog-utils/ReactiveRichTextProxy';
 
 export class FlexViewer extends React.Component<*, *> {
   render() {
@@ -16,6 +17,8 @@ export class FlexViewer extends React.Component<*, *> {
           readOnly
           dataFn={dataFn}
           search={search}
+          username={Meteor.user()?.username}
+          userId={this.props.userId}
         />
         <h2>Second text</h2>
         <ReactiveRichText
@@ -26,6 +29,8 @@ export class FlexViewer extends React.Component<*, *> {
           readOnly
           dataFn={dataFn}
           search={search}
+          username={Meteor.user()?.username}
+          userId={this.props.userId}
         />
       </div>
     );
@@ -50,6 +55,7 @@ export class Editor extends React.Component<*, *> {
       <div>
         <h2>First text</h2>
         <ReactiveRichText
+          username={Meteor.user()?.username}
           userId={this.props.userId}
           ref={this.ref}
           path="text"
@@ -57,6 +63,7 @@ export class Editor extends React.Component<*, *> {
         />
         <h2>Second text</h2>
         <ReactiveRichText
+          username={Meteor.user()?.username}
           userId={this.props.userId}
           ref={this.ref}
           path="text2"

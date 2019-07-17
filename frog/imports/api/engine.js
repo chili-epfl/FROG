@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT } from '/imports/frog-utils';
 
 import { Activities, Connections } from './activities';
 import { Products } from './products';

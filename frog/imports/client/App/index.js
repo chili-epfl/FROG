@@ -7,7 +7,7 @@ import { InjectData } from 'meteor/staringatlights:inject-data';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
-import { Loadable, ModalController } from 'frog-utils';
+import { Loadable, ModalController } from '/imports/frog-utils';
 import queryString from 'query-string';
 import {
   BrowserRouter as Router,

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT } from '/imports/frog-utils';
 import { isEqual, isEmpty } from 'lodash';
 
 import { withStyles } from '@material-ui/core/styles';

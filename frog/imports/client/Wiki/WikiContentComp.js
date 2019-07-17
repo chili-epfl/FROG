@@ -1,5 +1,5 @@
 import React from 'react';
-import { WikiContext } from 'frog-utils';
+import { WikiContext } from '/imports/frog-utils';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 
 import Button from '@material-ui/core/Button';
