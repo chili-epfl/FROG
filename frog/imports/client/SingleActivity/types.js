@@ -7,6 +7,7 @@ import {
   type HideModalFunctionT
 } from 'frog-utils';
 
+
 export type StateT = {
   stage: number,
   activityType?: ActivityPackageT,

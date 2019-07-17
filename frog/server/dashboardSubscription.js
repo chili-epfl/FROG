@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { set } from 'lodash';
-import { uuid, cloneDeep, values, type ActivityDbT } from 'frog-utils';
+import { uuid, cloneDeep, values, type ActivityDbT } from '/imports/frog-utils';
 
 import { activityTypesObj } from '../imports/activityTypes';
 import { DashboardData, Activities } from '../imports/api/activities';

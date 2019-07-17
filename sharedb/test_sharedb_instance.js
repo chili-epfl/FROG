@@ -9,7 +9,7 @@ if (process.argv.length < 3) {
 
 const failed = () => console.log('WS failed');
 const WebSocket = require('ws');
-const ShareDB = require('sharedb/lib/client');
+const ShareDB = require('@teamwork/sharedb/lib/client');
 
 const socket = new WebSocket(process.argv[2]);
 const connection = new ShareDB.Connection(socket);

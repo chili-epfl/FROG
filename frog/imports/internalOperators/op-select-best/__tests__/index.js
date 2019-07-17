@@ -1,6 +1,6 @@
 import operator from '../operatorRunner';
 
-jest.mock('frog-utils', () =>
+jest.mock('/imports/frog-utils', () =>
   require.requireActual('../../../../__mocks__/frog-utils')
 );
 

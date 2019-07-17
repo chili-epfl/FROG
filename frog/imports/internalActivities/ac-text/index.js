@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT } from '/imports/frog-utils';
 
 export const meta = {
   name: 'Text Component',

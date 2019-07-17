@@ -1,6 +1,6 @@
 // @flow
 import { Mongo } from 'meteor/mongo';
-import { chainUpgrades, uuid } from 'frog-utils';
+import { chainUpgrades, uuid } from '/imports/frog-utils';
 
 import { operatorTypesObj } from '/imports/operatorTypes';
 

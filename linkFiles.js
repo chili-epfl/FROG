@@ -43,9 +43,9 @@ if (fs.existsSync('./frog/imports/internalOperators')) {
     }
   });
 }
-if (fs.existsSync(`./frog-utils/clientFiles`)) {
+if (fs.existsSync(`./frog/imports/frog-utils/clientFiles`)) {
   fs.symlinkSync(
-    `./../../../frog-utils/clientFiles`,
+    `./../../../frog/imports/frog-utils/clientFiles`,
     `./frog/public/clientFiles/frog-utils`
   );
 }

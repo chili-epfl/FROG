@@ -2,7 +2,7 @@
 
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 import Stringify from 'json-stable-stringify';
 
 import { Logs } from './logs';

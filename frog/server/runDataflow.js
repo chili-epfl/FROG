@@ -6,7 +6,7 @@ import {
   type ObjectT,
   type GlobalStructureT,
   type socialStructureT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Sessions } from '/imports/api/sessions';

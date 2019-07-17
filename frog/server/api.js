@@ -2,7 +2,7 @@ import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';

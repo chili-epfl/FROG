@@ -3,7 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-import { type LogT, type LogDbT } from 'frog-utils';
+import { type LogT, type LogDbT } from '/imports/frog-utils';
 import { LocalSettings } from './settings';
 
 export const Logs = new Mongo.Collection('logs');

@@ -1,6 +1,6 @@
 // @flow
 
-import type { controlOperatorT } from 'frog-utils';
+import type { controlOperatorT } from '/imports/frog-utils';
 
 import { config, configUI } from './config';
 

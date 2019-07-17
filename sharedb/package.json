@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sharedb": "^1.0.0-beta.7",
-    "sharedb-mongo": "^1.0.0-beta.4",
+    "@chilifrog/sharedb": "^1.0.0-beta.7",
+    "@chilifrog/sharedb-mongo": "^1.0.0-beta.4",
     "sharedb-redis-pubsub": "^1.0.0-beta.1",
-    "websocket-json-stream": "^0.0.3",
+    "@teamwork/websocket-json-stream": "^0.0.3",
     "ws": "^3.2.0"
   }
 }
