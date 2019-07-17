@@ -72,13 +72,11 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   }
 
   formValid = (formErrors: FormErrorT) => {
-    if (
+    return (
       formErrors.email === '' &&
       formErrors.password === '' &&
       formErrors.displayName === ''
-    )
-      return true;
-    else return false;
+    );
   };
 
   clearErrors = () => {

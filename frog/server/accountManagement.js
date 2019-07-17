@@ -1,30 +1,13 @@
 // @flow
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import {
+  errorBasedOnChars,
+  emailErrors,
+  passwordErrors
+} from '/imports/client/AccountModal';
 
 type Profile = { displayName: string };
-
-const errorBasedOnChars = (
-  value: string,
-  numberOfChars: number,
-  type: string
-) => {
-  return value.length < numberOfChars
-    ? `${type} has to have a minimum of ${numberOfChars} characters`
-    : '';
-};
-
-const emailErrors = (email: string) => {
-  const emailRegex = RegExp(
-    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-  );
-  if (email.length === 0)
-    return 'This field is required, please enter an email address';
-  return emailRegex.test(email) ? '' : 'invalid email address';
-};
-const passwordErrors = (password: string) => {
-  return errorBasedOnChars(password, 5, 'password');
-};
 
 /**
  * Creates a new user account if userid is null or upgrades adds the new information to the given userid and makes the given account 'verified'.
