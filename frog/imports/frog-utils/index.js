@@ -136,12 +136,3 @@ export { WikiContext } from './WikiContext';
 export { EmbedlyCache, getEmbedlyCache } from './EmbedlyCache';
 
 export { getRotateable } from './getRotateable';
-
-export {
-  ModalController,
-  useModal,
-  withModal,
-  ModalParentPropsT,
-  Modal,
-  AlertModal
-} from './ModalController';

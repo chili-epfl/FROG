@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { AlertModal } from '/imports/frog-utils';
+import { AlertModal } from '/imports/client/UIComponents/ModalController';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
