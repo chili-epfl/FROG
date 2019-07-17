@@ -9,7 +9,7 @@ import {
   type ActivityPackageT,
   type LogDbT,
   isBrowser
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { CircularProgress } from '@material-ui/core/CircularProgress';
 
 import { createDashboards } from '/imports/api/mergeLogData';

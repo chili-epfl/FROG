@@ -1,6 +1,6 @@
 // @flow
 
-import { chainUpgrades } from 'frog-utils';
+import { chainUpgrades } from '/imports/frog-utils';
 import { GraphObjUpgrades } from '../versionUpgrades';
 
 test('graph versioning test 1', () => {

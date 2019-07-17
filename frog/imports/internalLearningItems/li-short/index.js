@@ -6,7 +6,7 @@ import {
   TextInput,
   ReactiveText,
   HighlightSearchText
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const styles = () => ({
   button: {

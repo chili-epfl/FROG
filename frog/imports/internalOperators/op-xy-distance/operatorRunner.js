@@ -1,5 +1,8 @@
 // @flow
-import { type productOperatorRunnerT, type activityDataT } from 'frog-utils';
+import {
+  type productOperatorRunnerT,
+  type activityDataT
+} from '/imports/frog-utils';
 
 const operator = (_, object) => {
   const {

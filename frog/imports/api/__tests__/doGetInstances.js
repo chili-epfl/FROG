@@ -5,7 +5,7 @@ import {
   type GlobalStructureT,
   type activityDataT,
   type socialStructureT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import doGetInstances from '../doGetInstances';
 
 const students = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];

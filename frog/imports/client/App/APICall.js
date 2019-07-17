@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { DocHead } from 'meteor/kadira:dochead';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { createLogger } from '/imports/api/logs';

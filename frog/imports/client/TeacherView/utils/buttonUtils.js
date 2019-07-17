@@ -14,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Meteor } from 'meteor/meteor';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 import {
   removeAllUsers,

@@ -7,7 +7,7 @@ import {
   uuid,
   type MongoT,
   type DashboardDataDbT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 

@@ -1,5 +1,5 @@
 // @flow
-import { type socialOperatorT } from 'frog-utils';
+import { type socialOperatorT } from '/imports/frog-utils';
 
 const meta = {
   name: 'Assign group by name',

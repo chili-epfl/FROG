@@ -1,14 +1,15 @@
 // @flow
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import {
+  Avatar,
+  Button,
+  TextField,
+  Link,
+  Grid,
+  Container,
+  Typography
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import { Meteor } from 'meteor/meteor';
 import { withStyles } from '@material-ui/styles';
 import {
@@ -17,16 +18,27 @@ import {
   passwordErrors
 } from './validationHelpers';
 
-import { type SignUpStateT, type SignUpPropsT } from './types';
+type FormErrorT = {
+  displayName: string,
+  email: string,
+  password: string
+};
+
+type SignUpStateT = {
+  displayName: string,
+  email: string,
+  password: string,
+  formErrors: FormErrorT
+};
+
+type SignUpPropsT = {
+  classes: Object,
+  onSignUpSuccess: () => void
+};
 
 const styles = (theme: Object) => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -40,19 +52,9 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2, 0)
   }
 });
-const formValid = ({ formErrors, ...rest }: SignUpStateT): boolean => {
-  let valid = true;
-
-  const formErrorsArray: Array<string> = Object.values(formErrors);
-  formErrorsArray.forEach(val => val.length > 0 && (valid = false));
-  const otherStateArray: Array<string> = Object.values(rest);
-  otherStateArray.forEach(val => val === null && (valid = false));
-
-  return valid;
-};
 
 class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   constructor() {
@@ -69,32 +71,42 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     };
   }
 
+  formValid = (formErrors: FormErrorT) => {
+    if (
+      formErrors.email === '' &&
+      formErrors.password === '' &&
+      formErrors.displayName === ''
+    )
+      return true;
+    else return false;
+  };
+
+  clearErrors = () => {
+    const formErrorsCleared = {
+      displayName: '',
+      email: '',
+      password: ''
+    };
+    this.setState({ formErrors: formErrorsCleared });
+  };
+
   handleChange = (
     event: SyntheticInputEvent<EventTarget>,
     type: string
   ): void => {
+    this.clearErrors();
     const value = event.target.value;
-    const formErrors = { ...this.state.formErrors };
-    switch (type) {
-      case 'displayName':
-        formErrors.displayName = errorBasedOnChars(value, 1, 'Display Name');
-        break;
-      case 'email':
-        formErrors.email = emailErrors(value);
-        break;
-      case 'password':
-        formErrors.password = passwordErrors(value);
-        break;
-      default:
-        break;
-    }
 
-    this.setState({ formErrors, [type]: value });
+    this.setState({ [type]: value });
   };
 
-  handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
+  handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    if (formValid(this.state)) {
+    const { formErrors, email, password, displayName } = this.state;
+    formErrors.displayName = errorBasedOnChars(displayName, 1, 'Display Name');
+    formErrors.email = emailErrors(email);
+    formErrors.password = passwordErrors(password);
+    if (this.formValid(formErrors)) {
       Meteor.call(
         'create.account',
         this.state.email,
@@ -102,18 +114,17 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
         {
           displayName: this.state.displayName
         },
-        function(error) {
+        error => {
           if (error) {
             window.alert(error);
-            this.setState({ serverErrors: error });
           } else {
             window.alert('Success! Account created!');
-            window.location.replace('/');
+            this.props.onSignUpSuccess();
           }
         }
       );
     } else {
-      window.alert("Your account couldn't be created");
+      this.setState({ formErrors });
     }
   };
 
@@ -122,7 +133,6 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
 
     return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -135,7 +145,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
             onSubmit={e => this.handleSubmit(e)}
             noValidate
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="fname"

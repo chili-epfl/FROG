@@ -1,11 +1,10 @@
 // @flow
 
 import React from 'react';
-import { Modal } from './components/Modal';
+import { AlertModal } from '/imports/frog-utils';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
-  hideModal: () => void,
   onRestorePage: () => void,
   onCreateNewPage: () => void
 };
@@ -15,25 +14,24 @@ type ModalDeletedPagePropsT = {
  * or creating a new one.
  */
 export default ({
-  hideModal,
   onRestorePage,
   onCreateNewPage,
   pageTitle
 }: ModalDeletedPagePropsT) => {
   return (
-    <Modal
-      title={pageTitle}
+    <AlertModal
+      title={`${pageTitle} has been deleted`}
+      content="Do you want to restore the old deleted page or create a new one?"
       actions={[
         {
           title: 'Cancel',
-          callback: hideModal
+          callback: () => {}
         },
         {
           title: 'Restore page',
           primary: true,
           callback: () => {
             onRestorePage();
-            hideModal();
           }
         },
         {
@@ -41,12 +39,9 @@ export default ({
           primary: true,
           callback: () => {
             onCreateNewPage();
-            hideModal();
           }
         }
       ]}
-    >
-      Do you want to restore the old deleted page or create a new one?
-    </Modal>
+    />
   );
 };

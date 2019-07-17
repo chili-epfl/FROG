@@ -1,4 +1,8 @@
-import { focusStudent, values, type productOperatorRunnerT } from 'frog-utils';
+import {
+  focusStudent,
+  values,
+  type productOperatorRunnerT
+} from '/imports/frog-utils';
 
 const operator = (configData, object) => {
   const { socialStructure, activityData } = object;

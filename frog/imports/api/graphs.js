@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { uuid, chainUpgrades } from 'frog-utils';
+import { uuid, chainUpgrades } from '/imports/frog-utils';
 
 import { Sessions, addSessionFn } from './sessions';
 import { runNextActivity } from './engine';

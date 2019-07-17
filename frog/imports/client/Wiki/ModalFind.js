@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
-import { SearchField, Highlight } from 'frog-utils';
+import { SearchField, Highlight } from '/imports/frog-utils';
 import { orderBy } from 'lodash';
 
 export const PagesLinks = ({
@@ -46,7 +46,7 @@ export const PagesLinks = ({
         cursor: currentPageBool ? 'auto' : 'pointer'
       };
       return (
-        <li key={pageId}>
+        <li key={pageId} data-testid="wiki_page_item">
           <div
             style={pageLinkStyle}
             onClick={e => {

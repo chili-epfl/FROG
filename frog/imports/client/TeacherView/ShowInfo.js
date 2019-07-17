@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Inspector, A } from 'frog-utils';
+import { Inspector, A } from '/imports/frog-utils';
 import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 import copy from 'copy-to-clipboard';

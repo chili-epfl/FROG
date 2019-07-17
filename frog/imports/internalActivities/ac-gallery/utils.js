@@ -1,7 +1,7 @@
 // @flow
 
 import resizeImg from '@houshuang/resize-img';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 const uploadBufferWithThumbnail = (
   imageBuffer,

@@ -3,7 +3,7 @@
 
 // import { operator } from '../index';
 
-// jest.mock('frog-utils', () => {
+// jest.mock('/imports/frog-utils', () => {
 //   const createUUID = () => {
 //     let cntr = -1;
 //     return () => {
@@ -12,7 +12,7 @@
 //     };
 //   };
 //   const uuid = createUUID();
-//   const frogutils = require.requireActual('frog-utils');
+//   const frogutils = require.requireActual('/imports/frog-utils');
 //   return { ...frogutils, uuid };
 // });
 

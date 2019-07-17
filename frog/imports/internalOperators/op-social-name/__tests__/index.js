@@ -1,6 +1,6 @@
 // @flow
 
-import { wrapUnitAll } from 'frog-utils';
+import { wrapUnitAll } from '/imports/frog-utils';
 import { compact } from 'lodash';
 import operator from '../operatorRunner';
 import pkg from '../index';

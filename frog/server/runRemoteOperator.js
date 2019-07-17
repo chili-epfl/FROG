@@ -2,7 +2,7 @@
 
 import redis from 'redis';
 import { Meteor } from 'meteor/meteor';
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 export default (operatorType: string) => (
   data: any,

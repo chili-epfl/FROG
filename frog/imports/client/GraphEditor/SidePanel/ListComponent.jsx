@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 
-import { Highlight } from 'frog-utils';
+import { Highlight } from '/imports/frog-utils';
 
 const styles = {
   iconButtonRoot: {

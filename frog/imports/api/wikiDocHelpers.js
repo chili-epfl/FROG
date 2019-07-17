@@ -1,4 +1,4 @@
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 export const addNewWikiPage = (
   wikiDoc,

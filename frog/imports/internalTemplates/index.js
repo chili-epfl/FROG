@@ -1,6 +1,6 @@
 // @flow
 
-import { values } from 'frog-utils';
+import { values } from '/imports/frog-utils';
 import peerReview from './te-peerReview';
 
 export const templatesObj = { 'te-peerReview': peerReview };

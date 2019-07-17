@@ -2,7 +2,7 @@ import * as React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Dialog, List, Paper, DialogTitle } from '@material-ui/core';
 import { Meteor } from 'meteor/meteor';
-import { entries } from 'frog-utils';
+import { entries } from '/imports/frog-utils';
 import { isEmpty } from 'lodash';
 
 import { activityRunners } from '/imports/client/activityRunners';

@@ -5,11 +5,7 @@ export { Loadable } from './Loadable';
 
 export { isBrowser } from './isBrowser';
 
-export {
-  ReactJsonView,
-  EnhancedForm,
-  ReactiveRichText
-} from './browserOnlyComponents';
+export { ReactJsonView, EnhancedForm } from './browserOnlyComponents';
 
 export {
   hideConditional,
@@ -140,3 +136,12 @@ export { WikiContext } from './WikiContext';
 export { EmbedlyCache, getEmbedlyCache } from './EmbedlyCache';
 
 export { getRotateable } from './getRotateable';
+
+export {
+  ModalController,
+  useModal,
+  withModal,
+  ModalParentPropsT,
+  Modal,
+  AlertModal
+} from './ModalController';
