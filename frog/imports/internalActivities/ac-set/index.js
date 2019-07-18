@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, ProgressDashboard } from 'frog-utils';
+import { type ActivityPackageT, ProgressDashboard } from '/imports/frog-utils';
 
 const meta = {
   name: 'Learn the rule of SET',

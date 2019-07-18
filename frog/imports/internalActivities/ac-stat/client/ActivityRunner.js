@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerPropsT, values } from 'frog-utils';
+import { type ActivityRunnerPropsT, values } from '/imports/frog-utils';
 import { omit } from 'lodash';
 
 import DataGraph from './Components/DataGraph';

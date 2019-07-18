@@ -8,7 +8,7 @@ import {
   type DashboardViewerPropsT,
   ProgressDashboard,
   LeaderBoard
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const Viewer = ({ state }: DashboardViewerPropsT) => {
   const { results } = state;

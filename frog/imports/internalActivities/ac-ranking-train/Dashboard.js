@@ -1,6 +1,6 @@
 // @flow
 
-import { CoordinatesDashboard, ProgressDashboard } from 'frog-utils';
+import { CoordinatesDashboard, ProgressDashboard } from '/imports/frog-utils';
 
 export const getXYFromRanking = (answers: Object, config: Object) => {
   // the hardcoded coordinates of each option

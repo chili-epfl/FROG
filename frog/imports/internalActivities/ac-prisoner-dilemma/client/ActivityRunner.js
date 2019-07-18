@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerT, type ActivityRunnerPropsT } from '/imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
 import Scoreboard from './Scoreboard';

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 const Main = styled.div`
   display: flex;

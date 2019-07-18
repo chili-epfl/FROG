@@ -5,7 +5,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
 import { set } from 'lodash';
 
-import { colorRange as color, type LogDbT } from 'frog-utils';
+import { colorRange as color, type LogDbT } from '/imports/frog-utils';
 
 const styles = () => ({
   main: {

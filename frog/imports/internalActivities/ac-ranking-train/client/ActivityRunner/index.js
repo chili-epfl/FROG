@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { HTML } from 'frog-utils';
+import { HTML } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 import { Grid } from '@material-ui/core';
 

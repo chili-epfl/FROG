@@ -1,6 +1,6 @@
 // @flow
 
-import { uuid } from 'frog-utils';
+import { uuid } from '/imports/frog-utils';
 
 const meta = {
   name: 'Embedded website',

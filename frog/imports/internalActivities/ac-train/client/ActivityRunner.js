@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import seededShuffle from 'seededshuffle';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';

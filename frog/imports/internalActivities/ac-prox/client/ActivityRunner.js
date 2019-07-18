@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 import HasNoGroupPanel from './NoGroupPanel';
 import HasGroupPanel from './GroupPanel';

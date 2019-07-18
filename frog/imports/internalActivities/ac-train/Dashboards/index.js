@@ -11,7 +11,7 @@ import {
   type DashboardT,
   ProgressDashboard,
   LeaderBoard
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import MeanPerInterface from './MeanPerInterface';
 import MeanPerTryForEachInterface from './MeanPerTryForEachInterface';

@@ -1,6 +1,6 @@
 // import { join } from 'path';
 // import { readFileSync } from 'fs';
-// import { inMemoryReactive } from 'frog-utils';
+// import { inMemoryReactive } from '/imports/frog-utils';
 
 // import dashboard from '../Dashboard';
 

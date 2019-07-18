@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, values } from 'frog-utils';
+import { type ActivityPackageT, values } from '/imports/frog-utils';
 import { isEmpty, isObject } from 'lodash';
 import meta from './meta';
 

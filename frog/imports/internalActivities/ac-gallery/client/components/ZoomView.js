@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Mousetrap from 'mousetrap';
-import { ReactiveText } from '/imports/frog-utils';
+import { ReactiveText } from '/imports//imports/frog-utils';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';

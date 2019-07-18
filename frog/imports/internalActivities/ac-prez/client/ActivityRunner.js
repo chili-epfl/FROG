@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 import PDF from './PDF';
 
 class Prez extends Component<ActivityRunnerPropsT> {

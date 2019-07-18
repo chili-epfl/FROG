@@ -1,4 +1,4 @@
-import { notUnicodeLetter } from 'frog-utils';
+import { notUnicodeLetter } from '/imports/frog-utils';
 
 const RegexpCache = {};
 

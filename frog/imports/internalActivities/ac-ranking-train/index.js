@@ -1,4 +1,4 @@
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT } from '/imports/frog-utils';
 import { sortBy } from 'lodash';
 
 import { config, configUI } from './config';

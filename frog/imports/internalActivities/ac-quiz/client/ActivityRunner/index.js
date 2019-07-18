@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { type ActivityRunnerPropsT, HTML } from '/imports/frog-utils';
+import { type ActivityRunnerPropsT, HTML } from '/imports//imports/frog-utils';
 
 import Quiz from './Quiz';
 

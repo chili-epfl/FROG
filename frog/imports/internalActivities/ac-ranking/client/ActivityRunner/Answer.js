@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { A } from 'frog-utils';
+import { A } from '/imports/frog-utils';
 import { findKey } from 'lodash';
 import { Badge, Glyphicon, ListGroupItem } from 'react-bootstrap';
 

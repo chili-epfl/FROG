@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 import Header from './Header';
 import Editor from './Editor';

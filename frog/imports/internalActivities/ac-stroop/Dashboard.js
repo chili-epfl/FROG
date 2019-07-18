@@ -9,7 +9,7 @@ import {
   type DashboardT,
   ProgressDashboard,
   LeaderBoard
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const Viewer = ({ state }: DashboardViewerPropsT) => {
   const { consistent, inconsistent } = state;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT, flattenOne, ReactiveText } from 'frog-utils';
+import { type ActivityRunnerT, flattenOne, ReactiveText } from '/imports/frog-utils';
 import './react-datasheet.css';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';

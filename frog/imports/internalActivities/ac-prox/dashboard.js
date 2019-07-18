@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { CountChart, type LogDbT } from 'frog-utils';
+import { CountChart, type LogDbT } from '/imports/frog-utils';
 import { sum } from 'lodash';
 
 const Viewer = ({ state }: Object) => {

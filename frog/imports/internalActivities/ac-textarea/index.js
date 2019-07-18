@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, uuid } from 'frog-utils';
+import { type ActivityPackageT, uuid } from '/imports/frog-utils';
 import { compact } from 'lodash';
 
 const meta = {

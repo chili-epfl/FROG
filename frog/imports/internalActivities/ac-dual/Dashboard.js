@@ -7,7 +7,7 @@ import {
   type LogDbT,
   type DashboardViewerPropsT,
   ProgressDashboard
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const options = (title, yLabel, xLabel, xmin, xmax) => ({
   bar: { groupWidth: '90%' },

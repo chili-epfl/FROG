@@ -5,7 +5,7 @@ import {
   type ActivityRunnerT,
   unicodeLetter,
   notUnicodeLetter
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { times, compact, isEmpty } from 'lodash';
 
 import Highlighter from './Highlighter';

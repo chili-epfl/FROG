@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, uuid, values } from 'frog-utils';
+import { type ActivityPackageT, uuid, values } from '/imports/frog-utils';
 
 import dashboards from './dashboards';
 import liType from './liType';

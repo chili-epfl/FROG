@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactPlayer from 'react-player';
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   ref: any;

@@ -3,7 +3,7 @@ import Mousetrap from 'mousetrap';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { type ActivityRunnerPropsT } from 'frog-utils';
+import { type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 import { styles, texts, CountDownTimer } from './ActivityUtils';
 

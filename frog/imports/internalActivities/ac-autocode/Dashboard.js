@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { type LogDbT } from 'frog-utils';
+import { type LogDbT } from '/imports/frog-utils';
 import {
   VictoryBar,
   VictoryChart,

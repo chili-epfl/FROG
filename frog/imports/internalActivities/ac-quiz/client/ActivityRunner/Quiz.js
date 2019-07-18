@@ -4,7 +4,7 @@ import * as React from 'react';
 import seededShuffle from 'seededshuffle';
 import { withState } from 'recompose';
 
-import { type ActivityRunnerPropsT } from '/imports/frog-utils';
+import { type ActivityRunnerPropsT } from '/imports//imports/frog-utils';
 
 import Question from './Question';
 import BottomNav from './BottomNav';

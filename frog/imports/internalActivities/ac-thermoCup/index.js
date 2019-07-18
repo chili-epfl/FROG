@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT } from 'frog-utils';
+import { type ActivityPackageT } from '/imports/frog-utils';
 
 const meta = {
   name: 'Simulate thermo cup',

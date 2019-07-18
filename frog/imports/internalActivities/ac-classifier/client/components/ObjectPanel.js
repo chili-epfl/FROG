@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { TableView, TreeView, toTableData } from 'frog-utils';
+import { TableView, TreeView, toTableData } from '/imports/frog-utils';
 
 import { getType } from '../ActivityRunner';
 

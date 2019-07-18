@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { isEqual } from 'lodash';
-import { SearchField } from '/imports/frog-utils';
+import { SearchField } from '/imports//imports/frog-utils';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';

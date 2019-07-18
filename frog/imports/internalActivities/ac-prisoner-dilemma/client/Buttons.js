@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT } from '/imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 

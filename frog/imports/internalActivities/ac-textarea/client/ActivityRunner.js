@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactiveText } from 'frog-utils';
+import { ReactiveText } from '/imports/frog-utils';
 
 // the actual component that the student sees
 const ActivityRunner = ({ activityData, dataFn }) => {

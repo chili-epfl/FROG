@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import * as React from 'react';
-import { type ActivityDbT } from 'frog-utils';
+import { type ActivityDbT } from '/imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 
 import Table from '@material-ui/core/Table';

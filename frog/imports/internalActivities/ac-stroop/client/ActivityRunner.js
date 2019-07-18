@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerPropsT, TimedComponent } from 'frog-utils';
+import { type ActivityRunnerPropsT, TimedComponent } from '/imports/frog-utils';
 import { withState } from 'recompose';
 import Mousetrap from 'mousetrap';
 import { Button, LinearProgress } from '@material-ui/core';

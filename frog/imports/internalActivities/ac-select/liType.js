@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { type LearningItemT } from 'frog-utils';
+import { type LearningItemT } from '/imports/frog-utils';
 
 const ThumbViewer = ({ data }) => (
   <div

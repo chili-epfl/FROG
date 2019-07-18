@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActivityPackageT, values } from 'frog-utils';
+import { type ActivityPackageT, values } from '/imports/frog-utils';
 
 import upgradeFunctions from './upgradeFunctions';
 import meta from './meta';

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withDragDropContext } from 'frog-utils';
+import { withDragDropContext } from '/imports/frog-utils';
 import update from 'immutability-helper';
 import { zipObject, map } from 'lodash';
 import { compose } from 'recompose';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { ActivityRunnerPropsT } from 'frog-utils';
+import type { ActivityRunnerPropsT } from '/imports/frog-utils';
 
 const ActivityRunner = ({ activityData, data }: ActivityRunnerPropsT) => {
   let url = activityData.config.url;

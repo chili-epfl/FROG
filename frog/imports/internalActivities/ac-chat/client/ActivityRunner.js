@@ -8,7 +8,7 @@ import {
   type ActivityRunnerT,
   uuid,
   values
-} from '/imports/frog-utils';
+} from '/imports//imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextInput from './TextInput';

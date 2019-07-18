@@ -4,7 +4,7 @@ import * as React from 'react';
 import { shuffle } from 'lodash';
 import { withState, compose } from 'recompose';
 import styled from 'styled-components';
-import { type ActivityRunnerPropsT, type LogT } from 'frog-utils';
+import { type ActivityRunnerPropsT, type LogT } from '/imports/frog-utils';
 
 const Main = styled.div`
   display: flex;

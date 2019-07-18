@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { TimedComponent, HTML } from 'frog-utils';
+import { TimedComponent, HTML } from '/imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 

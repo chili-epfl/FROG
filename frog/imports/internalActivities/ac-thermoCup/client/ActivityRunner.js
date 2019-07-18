@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerT } from 'frog-utils';
+import { type ActivityRunnerT } from '/imports/frog-utils';
 import html2canvas from 'html2canvas';
 import Canvas2Buffer from 'canvas-to-buffer';
 import { throttle } from 'lodash';

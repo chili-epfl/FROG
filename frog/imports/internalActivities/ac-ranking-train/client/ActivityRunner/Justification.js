@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { ReactiveText, type ActivityRunnerPropsT } from 'frog-utils';
+import { ReactiveText, type ActivityRunnerPropsT } from '/imports/frog-utils';
 
 export default (props: ActivityRunnerPropsT) => {
   const {

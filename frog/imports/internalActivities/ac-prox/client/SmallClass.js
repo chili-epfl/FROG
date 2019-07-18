@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { A } from 'frog-utils';
+import { A } from '/imports/frog-utils';
 import { isEmpty } from 'lodash';
 
 const Runner = ({
