@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import ResizeAware from 'react-resize-aware';
-import { type ActivityRunnerPropsT, values } from '/imports//imports/frog-utils';
+import { type ActivityRunnerPropsT, values } from '/imports/frog-utils';
 import { Paper } from '@material-ui/core';
 
 import ObservationContainer from './obs_container';

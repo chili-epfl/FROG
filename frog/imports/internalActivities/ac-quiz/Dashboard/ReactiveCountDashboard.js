@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 
-import { type ActivityDbT, entries, values } from '/imports//imports/frog-utils';
+import { type ActivityDbT, entries, values } from '/imports/frog-utils';
 import { reverse } from 'lodash';
 import Viewer from './ViewerCount';
 

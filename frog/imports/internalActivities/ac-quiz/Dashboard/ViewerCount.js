@@ -10,7 +10,7 @@ import {
 } from 'victory';
 import { isEmpty } from 'lodash';
 
-import { HTML } from '/imports//imports/frog-utils';
+import { HTML } from '/imports/frog-utils';
 
 import { Paper, List, ListItem } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';

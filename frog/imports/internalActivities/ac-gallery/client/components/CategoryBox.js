@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { type LogT } from '/imports//imports/frog-utils';
+import { type LogT } from '/imports/frog-utils';
 
 const styles = () => ({
   container: {

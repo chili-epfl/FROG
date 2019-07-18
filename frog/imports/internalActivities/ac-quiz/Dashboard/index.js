@@ -4,7 +4,7 @@ import {
   ProgressDashboard,
   LeaderBoard,
   CoordinatesDashboard
-} from '/imports//imports/frog-utils';
+} from '/imports/frog-utils';
 
 import ReactiveCountDashboard from './ReactiveCountDashboard';
 

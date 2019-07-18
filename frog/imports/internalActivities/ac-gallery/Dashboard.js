@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { CountChart, type LogDbT, type DashboardT } from '/imports//imports/frog-utils';
+import { CountChart, type LogDbT, type DashboardT } from '/imports/frog-utils';
 import leaderboard from './Leaderboard';
 
 const actionTypes = ['dragdrop-upload', 'webcam-upload', 'vote', 'zoom'];
