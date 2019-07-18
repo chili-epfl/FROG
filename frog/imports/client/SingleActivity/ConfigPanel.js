@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
-import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
+import Markdown from 'markdown-to-jsx';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+
+import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import { type PropsT } from './types';
 import { style } from './style';
@@ -46,7 +48,16 @@ class ConfigPanel extends React.Component<
           >
             <ArrowBack />
           </IconButton>
-          Edit {this.props.activityType?.meta?.name || ''}
+          {this.props.activityType?.type === 'template'
+            ? `Create a lesson plan based on the ${this.props.activityType?.meta
+                ?.name || ''}`
+            : `Edit ${this.props.activityType?.meta?.name || ''}`}
+        </Typography>
+        <Typography variant="body1" style={{ padding: '20px' }}>
+          <Markdown>
+            {this.props.activityType?.meta?.description ||
+              this.props.activityType?.meta?.shortDesc}
+          </Markdown>
         </Typography>
         <ApiForm
           activityType={id}

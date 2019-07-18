@@ -5,4 +5,4 @@ export { useModal } from './useModal';
 export { withModal } from './withModal';
 export { Modal } from './Modal';
 export { AlertModal } from './Alert';
-export { ModalParentPropsT } from './types';
+export type { ModalParentPropsT } from './types';
