@@ -42,7 +42,7 @@ type StateT = {
 
 type PropsT = {
   classes: Object,
-  onCreate: Function,
+  onSubmit: Function,
   setModalOpen: Function,
   clearError: Function,
   errorDiv: any,
@@ -131,7 +131,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       activityConfig,
       operatorConfig
     } = this.state;
-    this.props.onCreate(pageTitle, socialPlane, activityConfig, operatorConfig);
+    this.props.onSubmit(pageTitle, socialPlane, activityConfig, operatorConfig);
   };
 
   // Clears error messages if the user tries to create a page with an empty title and then types in a new title

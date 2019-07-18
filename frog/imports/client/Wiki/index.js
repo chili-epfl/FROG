@@ -40,7 +40,7 @@ import {
 import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
-import CreateModal from './ModalCreate';
+import PageSettings from './ModalPageSettings';
 import DeletedPageModal from './ModalDeletedPage';
 import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
@@ -930,8 +930,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           />
         )}
         {this.state.createModalOpen && (
-          <CreateModal
-            onCreate={(title, socialPlane, activityConfig, operatorConfig) =>
+          <PageSettings
+            onSubmit={(title, socialPlane, activityConfig, operatorConfig) =>
               this.editAccess('createPage').then(x => {
                 if (x)
                   this.createPage(
