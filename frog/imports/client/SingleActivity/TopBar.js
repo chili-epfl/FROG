@@ -10,7 +10,7 @@ import _ from 'lodash';
 import { type PropsT } from './types';
 import { style } from './style';
 import { withModal } from '/imports/frog-utils';
-import AccountModal  from '/imports/client/AccountModal/AccountModal';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
 
 /**
  * Navigation bar displayed at the top
@@ -19,12 +19,12 @@ function TopBar(props: PropsT) {
   const { classes, showModal } = props;
 
   const openSignUpModal = () => {
-    showModal(<AccountModal formToShow = "signup" />);
+    showModal(<AccountModal formToShow="signup" />);
   };
 
   const openLoginModal = () => {
-    showModal(<AccountModal formToShow = "login" />)
-  }
+    showModal(<AccountModal formToShow="login" />);
+  };
   return (
     <AppBar position="static" color="default">
       <Toolbar classes={{ root: classes.navbar }}>
@@ -33,7 +33,7 @@ function TopBar(props: PropsT) {
         </Typography>
         <Button size="medium">Help</Button>
         <Button size="medium" onClick={openSignUpModal}>
-          Sign Up 
+          Sign Up
         </Button>
         <Button size="medium" onClick={openLoginModal}>
           Login

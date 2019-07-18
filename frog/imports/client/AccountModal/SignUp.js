@@ -34,7 +34,7 @@ type SignUpStateT = {
 type SignUpPropsT = {
   classes: Object,
   onSignUpSuccess: () => void,
-  openLoginForm: () => void 
+  openLoginForm: () => void
 };
 
 const styles = (theme: Object) => ({
@@ -206,7 +206,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
 
             <Grid container justify="flex-end">
               <Grid item>
-                <Link onClick = {this.props.openLoginForm} variant="body2">
+                <Link onClick={this.props.openLoginForm} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

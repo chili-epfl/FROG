@@ -63,7 +63,7 @@ class Login extends React.Component<> {
         window.alert('Could not login!  ' + error);
       } else {
         window.alert('Logged in!');
-        this.props.onLoginSuccess(); 
+        this.props.onLoginSuccess();
       }
     });
   };
@@ -129,7 +129,7 @@ class Login extends React.Component<> {
                 </Link>
               </Grid>
               <Grid item>
-                <Link onClick = {this.props.openSignUpForm} variant="body2">
+                <Link onClick={this.props.openSignUpForm} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
