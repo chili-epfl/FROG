@@ -8,8 +8,8 @@ import {
 } from '/imports/frog-utils';
 import { times, compact, isEmpty } from 'lodash';
 
-import Highlighter from './Highlighter';
-import ColorSelect from './ColorSelect';
+import Highlighter from '../Highlighter';
+import ColorSelect from '../ColorSelect';
 
 const TextToColor = text => {
   const c = Number(
