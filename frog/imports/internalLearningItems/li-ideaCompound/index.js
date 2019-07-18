@@ -6,7 +6,7 @@ import {
   ReactiveText,
   ReactiveRichText,
   HighlightSearchText
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { get, isString } from 'lodash';
 
 const FlexViewer = ({ LearningItem, data, search, dataFn, type }) => {

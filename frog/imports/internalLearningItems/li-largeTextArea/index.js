@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { type LearningItemT } from 'frog-utils';
+import { type LearningItemT } from '/imports/frog-utils';
 import TextArea from '../li-textArea';
 
 export default ({

@@ -1,5 +1,9 @@
 // @flow
-import { wrapUnitAll, type productOperatorRunnerT, values } from 'frog-utils';
+import {
+  wrapUnitAll,
+  type productOperatorRunnerT,
+  values
+} from '/imports/frog-utils';
 import { orderBy, groupBy, sumBy } from 'lodash';
 import stringify from 'json-stable-stringify';
 

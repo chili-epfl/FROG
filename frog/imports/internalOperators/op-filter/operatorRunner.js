@@ -1,5 +1,5 @@
 // @flow
-import { type productOperatorRunnerT } from 'frog-utils';
+import { type productOperatorRunnerT } from '/imports/frog-utils';
 
 const XOR = (a, b) => (a && !b) || (!a && b);
 

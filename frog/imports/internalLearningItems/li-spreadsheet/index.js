@@ -6,7 +6,7 @@ import {
   flattenOne,
   ReactiveText,
   type LearningItemT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import mathjs from 'mathjs';
 import { assign, each } from 'lodash';
 import Datasheet from 'react-datasheet';

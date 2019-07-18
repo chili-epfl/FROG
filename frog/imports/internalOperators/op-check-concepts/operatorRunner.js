@@ -1,5 +1,5 @@
 // @flow
-import { type productOperatorRunnerT } from 'frog-utils';
+import { type productOperatorRunnerT } from '/imports/frog-utils';
 
 const mapData = (aD, fn) => {
   const payload = aD.payload;

@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react';
-import { useToast } from 'frog-utils';
-import { Modal } from './components/Modal';
+import { AlertModal } from '/imports/client/UIComponents/ModalController';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
-  hideModal: () => void,
   onRestorePage: () => void,
   onCreateNewPage: () => void
 };
@@ -16,27 +14,24 @@ type ModalDeletedPagePropsT = {
  * or creating a new one.
  */
 export default ({
-  hideModal,
   onRestorePage,
   onCreateNewPage,
   pageTitle
 }: ModalDeletedPagePropsT) => {
-  const [showToast] = useToast();
   return (
-    <Modal
-      title={pageTitle}
+    <AlertModal
+      title={`${pageTitle} has been deleted`}
+      content="Do you want to restore the old deleted page or create a new one?"
       actions={[
         {
           title: 'Cancel',
-          callback: hideModal
+          callback: () => {}
         },
         {
           title: 'Restore page',
           primary: true,
           callback: () => {
             onRestorePage();
-            showToast('Page restored', 'success');
-            hideModal();
           }
         },
         {
@@ -44,13 +39,9 @@ export default ({
           primary: true,
           callback: () => {
             onCreateNewPage();
-            showToast('New page created', 'success');
-            hideModal();
           }
         }
       ]}
-    >
-      Do you want to restore the old deleted page or create a new one?
-    </Modal>
+    />
   );
 };

@@ -5,7 +5,7 @@ import {
   type productOperatorRunnerT,
   flattenOne,
   type activityDataT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { isEmpty } from 'lodash';
 import feedread from '@houshuang/davefeedread';
 

@@ -3,7 +3,8 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { toObject as queryToObject } from 'query-parse';
-import Wiki, { type PageObjT } from './index';
+import Wiki from './index';
+import { type PageObjT } from './types';
 import { sanitizeTitle } from './helpers';
 
 type PropsT = {

@@ -4,7 +4,7 @@ import {
   type socialStructureT,
   focusStudent,
   type socialOperatorRunnerT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 // Function that computes our optimization goal given a list of distances
 const M = values => values.reduce((acc, x) => acc + Math.sqrt(x), 0);

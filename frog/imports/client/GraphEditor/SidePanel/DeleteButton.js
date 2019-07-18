@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withVisibility } from 'frog-utils';
+import { withVisibility } from '/imports/frog-utils';
 import { IconButton } from './index';
 
 export default withVisibility(

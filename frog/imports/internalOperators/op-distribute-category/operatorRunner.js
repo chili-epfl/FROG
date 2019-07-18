@@ -1,6 +1,6 @@
 // @flow
 import { sample } from 'lodash';
-import { focusStudent, type productOperatorRunnerT } from 'frog-utils';
+import { focusStudent, type productOperatorRunnerT } from '/imports/frog-utils';
 
 const checkObject = obj =>
   obj &&

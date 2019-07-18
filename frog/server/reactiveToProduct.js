@@ -1,6 +1,6 @@
 // @flow
 
-import { type activityDataT, type ActivityPackageT } from 'frog-utils';
+import { type activityDataT, type ActivityPackageT } from '/imports/frog-utils';
 import { Meteor } from 'meteor/meteor';
 
 import { Activities } from '../imports/api/activities';

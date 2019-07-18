@@ -1,7 +1,9 @@
-import { uuid } from 'frog-utils';
+// @flow
+import { uuid } from '/imports/frog-utils';
+import { type WikiSettingsT } from '/imports/client/Wiki/types';
 
 export const addNewWikiPage = (
-  wikiDoc,
+  wikiDoc: Object,
   title,
   setCreated,
   liType = 'li-richText',
@@ -37,7 +39,7 @@ export const addNewWikiPage = (
 };
 
 export const addNewInstancePage = (
-  wikiDoc,
+  wikiDoc: Object,
   pageId,
   instanceId,
   instanceName,
@@ -57,7 +59,7 @@ export const addNewInstancePage = (
   wikiDoc.submitOp(op);
 };
 
-export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
+export const invalidateWikiPage = (wikiDoc: Object, pageId, cb) => {
   const op = {
     p: ['pages', pageId, 'valid'],
     od: true,
@@ -70,7 +72,7 @@ export const invalidateWikiPage = (wikiDoc, pageId, cb) => {
   }
 };
 
-export const changeWikiPageTitle = (wikiDoc, pageId, newPageTitle) => {
+export const changeWikiPageTitle = (wikiDoc: Object, pageId, newPageTitle) => {
   const op = {
     p: ['pages', pageId, 'title'],
     od: null,
@@ -80,7 +82,7 @@ export const changeWikiPageTitle = (wikiDoc, pageId, newPageTitle) => {
   wikiDoc.submitOp(op);
 };
 
-export const markPageAsCreated = (wikiDoc, pageId) => {
+export const markPageAsCreated = (wikiDoc: Object, pageId) => {
   const op = {
     p: ['pages', pageId, 'created'],
     od: false,
@@ -90,7 +92,7 @@ export const markPageAsCreated = (wikiDoc, pageId) => {
   wikiDoc.submitOp(op);
 };
 
-export const restoreWikiPage = (wikiDoc, pageId, cb) => {
+export const restoreWikiPage = (wikiDoc: Object, pageId, cb) => {
   const op = {
     p: ['pages', pageId, 'valid'],
     od: false,
@@ -103,7 +105,7 @@ export const restoreWikiPage = (wikiDoc, pageId, cb) => {
   }
 };
 
-export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
+export const changeWikiPageLI = (wikiDoc: Object, pageId, newLiId) => {
   const op = {
     p: ['pages', pageId, 'liId'],
     od: null,
@@ -113,10 +115,18 @@ export const changeWikiPageLI = (wikiDoc, pageId, newLiId) => {
   wikiDoc.submitOp(op);
 };
 
-export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId, owner) => {
+export const createNewEmptyWikiDoc = (wikiDoc: Object, wikiId, liId, owner) => {
   const emptyDocValues = {
     wikiId,
     owners: Array.of(owner),
+    users: Array.of(owner),
+    editors: Array.of(owner),
+    settings: {
+      password: '',
+      restrict: 'none',
+      allowPageCreation: true,
+      locked: false
+    },
     pages: {
       home: {
         id: 'home',
@@ -133,11 +143,71 @@ export const createNewEmptyWikiDoc = (wikiDoc, wikiId, liId, owner) => {
   wikiDoc.create(emptyDocValues);
 };
 
-export const completelyDeleteWikiPage = (wikiDoc, pageId) => {
+export const completelyDeleteWikiPage = (wikiDoc: Object, pageId) => {
   const op = {
     p: ['pages', pageId],
     od: null
   };
 
+  wikiDoc.submitOp(op);
+};
+
+// Adds the userid to the list of users in the wiki
+export const addUser = (wikiDoc: Object, userid: string) => {
+  const op = {
+    p: ['users', 0],
+    li: userid
+  };
+  wikiDoc.submitOp(op);
+};
+
+// Adds the userid to the list of editors in the wiki
+export const addEditor = (wikiDoc: Object, userid: string) => {
+  const op = {
+    p: ['editors', 0],
+    li: userid
+  };
+  wikiDoc.submitOp(op);
+};
+
+function invalidateUsers(wikiDoc: Object) {
+  const opDropEditors = {
+    p: ['editors'],
+    oi: []
+  };
+  wikiDoc.submitOp(opDropEditors);
+  const opDropUsers = {
+    p: ['users'],
+    oi: []
+  };
+  wikiDoc.submitOp(opDropUsers);
+}
+
+export const updateSettings = (wikiDoc: Object, settings: WikiSettingsT) => {
+  if (
+    wikiDoc.data.settings.password !== settings.password ||
+    wikiDoc.data.settings.restrict !== settings.restrict
+  ) {
+    invalidateUsers(wikiDoc);
+  }
+  const op = {
+    p: ['settings'],
+    oi: settings
+  };
+  wikiDoc.submitOp(op);
+};
+
+export const upgradeWikiWithoutSettings = (wikiDoc: Object) => {
+  const settings = {
+    readOnly: false,
+    allowPageCreation: true,
+    password: '',
+    locked: false,
+    restrict: 'none'
+  };
+  const op = {
+    p: ['settings'],
+    oi: settings
+  };
   wikiDoc.submitOp(op);
 };

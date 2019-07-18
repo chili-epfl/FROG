@@ -4,7 +4,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent, getMergedExtractedUnit } from 'frog-utils';
+import { focusStudent, getMergedExtractedUnit } from '/imports/frog-utils';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { activityRunners } from '/imports/client/activityRunners';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { WikiContext } from 'frog-utils';
+import { WikiContext } from '/imports/frog-utils';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 
 import Button from '@material-ui/core/Button';
@@ -45,6 +45,13 @@ class WikiContentComp extends React.Component<> {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.settings.readOnly && this.state.docMode === 'edit') {
+      this.setState({ docMode: 'view' }, () => {
+        this.props.checkEdit().then(x => {
+          if (x) this.setState({ docMode: 'edit' });
+        });
+      });
+    }
     if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
@@ -136,8 +143,7 @@ class WikiContentComp extends React.Component<> {
     const docModeButton = () => {
       if (
         this.state.docMode === 'history' ||
-        this.props.liType === 'li-activity' ||
-        this.props.disableEdit
+        this.props.liType === 'li-activity'
       )
         return null;
       if (this.state.docMode === 'view')
@@ -146,7 +152,9 @@ class WikiContentComp extends React.Component<> {
             style={docModeButtonStyle}
             color="primary"
             onClick={() => {
-              this.setState({ docMode: 'edit' });
+              this.props.checkEdit().then(x => {
+                if (x) this.setState({ docMode: 'edit' });
+              });
             }}
           >
             Edit Page
@@ -266,7 +274,9 @@ class WikiContentComp extends React.Component<> {
                       this.state.docMode === 'view' &&
                       !this.props.disableEdit
                     ) {
-                      this.setState({ docMode: 'edit' });
+                      this.props.checkEdit().then(x => {
+                        if (x) this.setState({ docMode: 'edit' });
+                      });
                     }
                   }}
                 >

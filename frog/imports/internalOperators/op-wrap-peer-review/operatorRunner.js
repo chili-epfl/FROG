@@ -5,7 +5,7 @@ import {
   uuid,
   getRotateable,
   cloneDeep
-} from 'frog-utils';
+} from '/imports/frog-utils';
 import { range, merge, set } from 'lodash';
 
 const createLI = (dataFn, item, litype, from, prompt, distribute) => {

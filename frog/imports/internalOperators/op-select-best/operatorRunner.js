@@ -1,6 +1,6 @@
 // @flow
 
-import { type productOperatorRunnerT, uuid } from 'frog-utils';
+import { type productOperatorRunnerT, uuid } from '/imports/frog-utils';
 import { cloneDeep, orderBy } from 'lodash';
 
 const operator = (configData, { activityData }) => {

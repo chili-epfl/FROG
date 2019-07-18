@@ -2,10 +2,10 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-const sharedb = require('sharedb');
+const sharedb = require('@chilifrog/sharedb');
 const WebSocket = require('ws');
-const WebsocketJSONStream = require('websocket-json-stream');
-const shareDBMongo = require('sharedb-mongo');
+const WebsocketJSONStream = require('@teamwork/websocket-json-stream');
+const shareDBMongo = require('@chilifrog/sharedb-mongo');
 const http = require('http');
 const RedisPubsub = require('sharedb-redis-pubsub');
 

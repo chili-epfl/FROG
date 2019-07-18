@@ -4,7 +4,11 @@ import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { values } from 'frog-utils';
+import { values } from '/imports/frog-utils';
+import {
+  withModal,
+  type ModalParentPropsT
+} from '/imports/client/UIComponents/ModalController';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
@@ -13,7 +17,7 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import ImportContacts from '@material-ui/icons/ImportContacts';
 import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
-
+import Tune from '@material-ui/icons/Tune';
 import { connection } from '../App/connection';
 import {
   getPageTitle,
@@ -27,30 +31,39 @@ import {
   restoreWikiPage,
   changeWikiPageLI,
   createNewEmptyWikiDoc,
-  addNewInstancePage
+  addNewInstancePage,
+  addUser,
+  addEditor,
+  updateSettings,
+  upgradeWikiWithoutSettings
 } from '/imports/api/wikiDocHelpers';
 import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
 import CreateModal from './ModalCreate';
 import DeletedPageModal from './ModalDeletedPage';
+import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
+import PasswordModal from './ModalPassword';
+import PermissionsModal from './ModalSettings';
+import AlertModal from './ModalAlert';
 import WikiTopNavbar from './components/TopNavbar';
 import WikiContentComp from './WikiContentComp';
 import { addNewWikiPage } from '../../api/wikiDocHelpers';
 import { dataFn } from './wikiLearningItem';
-
 import {
-  withModalController,
-  type ModalParentPropsT
-} from './components/Modal';
-
-export type PageObjT = {
-  wikiId: string,
-  pageTitle?: string,
-  instance?: string
-};
+  type PageObjT,
+  type WikiSettingsT,
+  KEY_ENTER,
+  PERM_ALLOW_EVERYTHING,
+  PERM_PASSWORD_TO_EDIT,
+  PERM_PASSWORD_TO_VIEW,
+  PRIVILEGE_OWNER,
+  PRIVILEGE_EDIT,
+  PRIVILEGE_VIEW,
+  PRIVILEGE_NONE
+} from './types.js';
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -59,9 +72,6 @@ type WikiCompPropsT = {
   query?: Object
 } & ModalParentPropsT;
 
-type WikiSettingsT = {
-  readOnly: boolean
-};
 type WikiCompStateT = {
   dashboardSearch: ?string,
   mode: string,
@@ -74,7 +84,8 @@ type WikiCompStateT = {
   noInstance: ?boolean,
   username: string,
   isAnonymous: boolean,
-  settings?: WikiSettingsT
+  settings: WikiSettingsT,
+  privilege: 'owner' | 'editor' | 'user' | 'none'
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -113,12 +124,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       currentPageObj: null,
       initialPageTitle: this.props.pageObj.pageTitle,
       mode: 'document',
-      docMode: query?.edit ? 'edit' : 'view',
+      docMode: query?.edit ? PERM_PASSWORD_TO_EDIT : PERM_PASSWORD_TO_VIEW,
       error: null,
       openCreator: false,
       createModalOpen: false,
       search: '',
-      rightSideCurrentPageObj: null
+      rightSideCurrentPageObj: null,
+      isOwner: false
     };
   }
 
@@ -140,12 +152,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
-      Mousetrap.bindGlobal('ctrl+n', () =>
-        this.setState({ createModalOpen: true })
-      );
+      Mousetrap.bindGlobal('ctrl+n', () => {
+        this.setState({ createModalOpen: true });
+      });
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
       Mousetrap.bindGlobal('ctrl+e', () => {
-        if (!this.state.settings?.readOnly) this.setState({ docMode: 'edit' });
+        if (!this.state.settings.readOnly) this.setState({ docMode: 'edit' });
       });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
@@ -169,7 +181,73 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     return !this.preventRenderUntilNextShareDBUpdate;
   }
 
-  loadWikiDoc = () => {
+  handleSettings = async privilege => {
+    // Show locked modal if the wiki is locked
+    if (this.state.settings.locked && privilege !== PRIVILEGE_OWNER) {
+      this.setState({ currentPageObj: null });
+      this.props.showModal(<LockedModal />);
+      return false;
+    } else if (!this.state.currentPageObj) {
+      this.initialLoad = true;
+      this.props.hideModal();
+    }
+    // Ask for password if wiki access is password restricted
+    if (
+      this.state.settings.restrict === PERM_PASSWORD_TO_VIEW &&
+      privilege !== PRIVILEGE_VIEW &&
+      privilege !== PRIVILEGE_OWNER
+    ) {
+      this.setState({ currentPageObj: null });
+      const passwordPromise = new Promise(resolve => {
+        this.props.showModal(
+          <PasswordModal
+            callback={resolve}
+            hideModal={this.props.hideModal}
+            actualPassword={this.state.settings.password}
+          />
+        );
+      });
+      const result = await passwordPromise;
+      if (!result) {
+        this.props.showModal(
+          <AlertModal
+            title="Unable to access Wiki"
+            callback={() => {
+              this.props.hideModal();
+              this.loadWikiDoc();
+            }}
+          >
+            This wiki has been password protected.
+          </AlertModal>
+        );
+        return false;
+      } else addUser(this.wikiDoc, Meteor.userId());
+    } else if (!this.state.currentPageObj) {
+      this.initialLoad = true;
+      this.props.hideModal();
+    }
+    if (
+      ((this.state.settings.readOnly ||
+        this.state.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
+        privilege !== PRIVILEGE_OWNER) ||
+      (!this.state.settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
+    )
+      wikiStore.setPreventPageCreation(true);
+    else wikiStore.setPreventPageCreation(false);
+    return true;
+  };
+
+  getPrivilege() {
+    if (this.wikiDoc.data.owners?.find(x => x === Meteor.userId()))
+      return PRIVILEGE_OWNER;
+    if (this.wikiDoc.data.editors?.find(x => x === Meteor.userId()))
+      return PRIVILEGE_EDIT;
+    if (this.wikiDoc.data.users?.find(x => x === Meteor.userId()))
+      return PRIVILEGE_VIEW;
+    return PRIVILEGE_NONE;
+  }
+
+  loadWikiDoc = async () => {
     this.preventRenderUntilNextShareDBUpdate = false;
 
     if (!this.wikiDoc.data) {
@@ -181,13 +259,20 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         Meteor.userId()
       );
     }
-
+    if (!this.wikiDoc.data.settings) upgradeWikiWithoutSettings(this.wikiDoc);
     wikiStore.setPages(this.wikiDoc.data.pages);
-    this.setState({
-      pagesData: wikiStore.pages,
-      settings: this.wikiDoc.data.settings
+    const setPrivilegePromise = new Promise(resolve => {
+      this.setState(
+        {
+          pagesData: wikiStore.pages,
+          settings: this.wikiDoc.data.settings,
+          privilege: this.getPrivilege()
+        },
+        () => this.handleSettings(this.state.privilege).then(x => resolve(x))
+      );
     });
-
+    const continuePrivilege = await setPrivilegePromise;
+    if (!continuePrivilege) return;
     if (this.initialLoad) {
       return this.handleInitialLoad();
     }
@@ -398,7 +483,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       fullPageObj,
       instanceId
     );
-
     if (!newCurrentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
@@ -484,6 +568,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.setState({ error });
       return;
     }
+    this.setState({ createModalOpen: false });
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
@@ -518,6 +603,70 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       3
     );
     return { liId, pageId };
+  };
+
+  /**
+   * Check / Ask for granting edit access
+   * @param {string} action - The action for which the access is being checked could be either 'createPage' or 'editPage'
+   * @return {boolean} True if access was granted false otherwise
+   */
+  editAccess = async action => {
+    if (this.state.privilege === PRIVILEGE_OWNER) return true;
+    if (action === 'createPage' && !this.state.settings.allowPageCreation) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to create Page"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          Page creation has been restricted by the owner.
+        </AlertModal>
+      );
+      return false;
+    }
+    if (this.state.settings.readOnly) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to edit Wiki"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          This wiki is read only.
+        </AlertModal>
+      );
+      return false;
+    }
+    if (
+      this.state.settings.restrict === PERM_PASSWORD_TO_EDIT &&
+      this.state.privilege !== PRIVILEGE_EDIT
+    ) {
+      const passwordPromise = new Promise(resolve => {
+        this.props.showModal(
+          <PasswordModal
+            callback={resolve}
+            hideModal={this.props.hideModal}
+            actualPassword={this.state.settings.password}
+          />
+        );
+      });
+      const result = await passwordPromise;
+      if (!result)
+        this.props.showModal(
+          <AlertModal
+            title="Unable to edit Wiki"
+            callback={() => {
+              this.props.hideModal();
+            }}
+          >
+            This wiki has been password protected.
+          </AlertModal>
+        );
+      else addEditor(this.wikiDoc, Meteor.userId());
+      return result;
+    }
+    return true;
   };
 
   openDeletedPageModal = (pageId, pageTitle) => {
@@ -624,6 +773,21 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       }
     ];
+    if (this.state.privilege === PRIVILEGE_OWNER)
+      secondaryNavItems.push({
+        title: 'Wiki Settings',
+        icon: Tune,
+        callback: () =>
+          this.props.showModal(
+            <PermissionsModal
+              callback={x => {
+                updateSettings(this.wikiDoc, x);
+              }}
+              hideModal={this.props.hideModal}
+              currentSettings={this.state.settings}
+            />
+          )
+      });
 
     const instancesList =
       this.state.currentPageObj.plane === 3
@@ -658,8 +822,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => this.setState({ createModalOpen: true })}
-            data-testid="wiki_create_page"
+            onClick={() =>
+              this.editAccess('createPage').then(result => {
+                if (result) this.setState({ createModalOpen: true });
+              })
+            }
           >
             + Create new page
           </Button>
@@ -722,7 +889,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 goToPage={this.goToPage}
                 dashboardSearch={this.state.dashboardSearch}
                 side={this.state.mode === 'splitview' ? 'left' : null}
-                disableEdit={this.props.embed || this.state.settings?.readOnly}
+                checkEdit={() => this.editAccess('editPage')}
+                settings={this.state.settings}
                 embed={this.props.embed}
               />
               {this.state.mode === 'splitview' && (
@@ -737,9 +905,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                   goToPage={this.goToPage}
                   dashboardSearch={this.state.dashboardSearch}
                   side="right"
-                  disableEdit={
-                    this.props.embed || this.state.settings?.readOnly
-                  }
+                  checkEdit={() => this.editAccess('editPage')}
+                  settings={this.state.settings}
                   embed={this.props.embed}
                 />
               )}
@@ -764,7 +931,17 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         )}
         {this.state.createModalOpen && (
           <CreateModal
-            onCreate={this.createPage}
+            onCreate={(title, socialPlane, activityConfig, operatorConfig) =>
+              this.editAccess('createPage').then(x => {
+                if (x)
+                  this.createPage(
+                    title,
+                    socialPlane,
+                    activityConfig,
+                    operatorConfig
+                  );
+              })
+            }
             setModalOpen={e => this.setState({ createModalOpen: e })}
             clearError={() => this.setState({ error: null })}
             errorDiv={this.state.error}
@@ -776,7 +953,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withModalController(WikiComp);
+const Wiki = withModal(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;

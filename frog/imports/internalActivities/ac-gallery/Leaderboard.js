@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 
-import { values } from 'frog-utils';
+import { values } from '/imports/frog-utils';
 import * as React from 'react';
 
 const Viewer = ({ state, LearningItem }) => (

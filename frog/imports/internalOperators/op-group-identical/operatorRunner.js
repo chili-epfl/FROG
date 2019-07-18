@@ -1,6 +1,6 @@
 // @flow
 import Stringify from 'json-stable-stringify';
-import { type socialOperatorRunnerT } from 'frog-utils';
+import { type socialOperatorRunnerT } from '/imports/frog-utils';
 
 const operator = (configData, object) => {
   const { activityData } = object;

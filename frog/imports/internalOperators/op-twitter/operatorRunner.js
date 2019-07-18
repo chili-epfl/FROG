@@ -6,7 +6,7 @@ import {
   wrapUnitAll,
   flattenOne,
   type productOperatorRunnerT
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 const operator = (configData: Object) => {
   const client = new Twitter({

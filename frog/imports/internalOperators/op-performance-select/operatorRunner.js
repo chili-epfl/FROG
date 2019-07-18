@@ -1,5 +1,5 @@
 // @flow
-import { type controlOperatorRunnerT } from 'frog-utils';
+import { type controlOperatorRunnerT } from '/imports/frog-utils';
 
 const operator = (configData, object) => {
   const isHighPerformer = configData.use_percentage

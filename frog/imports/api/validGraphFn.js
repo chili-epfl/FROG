@@ -1,6 +1,6 @@
 // @flow
 import { compact, flatMap } from 'lodash';
-import { hideConditional } from 'frog-utils';
+import { hideConditional } from '/imports/frog-utils';
 
 import { activityTypes, activityTypesObj } from '../activityTypes';
 import { operatorTypes, operatorTypesObj } from '../operatorTypes';

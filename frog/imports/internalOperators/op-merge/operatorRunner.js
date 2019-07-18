@@ -1,6 +1,6 @@
 // @flow
 
-import { type productOperatorRunnerT, values } from 'frog-utils';
+import { type productOperatorRunnerT, values } from '/imports/frog-utils';
 import { isEmpty } from 'lodash';
 
 const operator = (_, { activityData }) => {

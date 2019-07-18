@@ -43,9 +43,19 @@ if (fs.existsSync('./frog/imports/internalOperators')) {
     }
   });
 }
-if (fs.existsSync(`./frog-utils/clientFiles`)) {
+if (fs.existsSync('./frog/imports/internalTemplates')) {
+  fs.readdirSync('./frog/imports/internalTemplates').forEach(x => {
+    if (fs.existsSync(`./frog/imports/internalTemplates/${x}/clientFiles`)) {
+      fs.symlinkSync(
+        `./../../../frog/imports/internalTemplates/${x}/clientFiles`,
+        `./frog/public/clientFiles/${x}`
+      );
+    }
+  });
+}
+if (fs.existsSync(`./frog/imports/frog-utils/clientFiles`)) {
   fs.symlinkSync(
-    `./../../../frog-utils/clientFiles`,
+    `./../../../frog/imports/frog-utils/clientFiles`,
     `./frog/public/clientFiles/frog-utils`
   );
 }

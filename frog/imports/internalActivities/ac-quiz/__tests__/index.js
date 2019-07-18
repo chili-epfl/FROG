@@ -1,4 +1,4 @@
-import { chainUpgrades } from 'frog-utils';
+import { chainUpgrades } from '/imports/frog-utils';
 import pkg from '../index';
 
 test('all correct formatProduct', () => {

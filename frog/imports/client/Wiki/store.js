@@ -1,5 +1,5 @@
 import { extendObservable, action, toJS } from 'mobx';
-import { values } from 'frog-utils';
+import { values } from '/imports/frog-utils';
 import { sanitizeTitle } from './helpers';
 
 class WikiStore {
@@ -7,11 +7,13 @@ class WikiStore {
     extendObservable(this, {
       pages: {},
       noFollowLinks: false,
-
+      preventPageCreation: false,
       setNoFollowLinks: action(e => {
         this.noFollowLinks = e;
       }),
-
+      setPreventPageCreation: action(e => {
+        this.preventPageCreation = e;
+      }),
       setPages: action(e => {
         this.pages = e;
       }),

@@ -4,7 +4,7 @@ import {
   type productOperatorRunnerT,
   cloneDeep,
   focusStudent
-} from 'frog-utils';
+} from '/imports/frog-utils';
 
 import { isObject } from 'lodash';
 
