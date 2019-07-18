@@ -9,10 +9,8 @@ import Button from '@material-ui/core/Button';
 import _ from 'lodash';
 import { type PropsT } from './types';
 import { style } from './style';
-import { withModal } from '/imports/frog-utils';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { withModal } from '/imports/client/UIComponents/ModalController';
-
 
 /**
  * Navigation bar displayed at the top
