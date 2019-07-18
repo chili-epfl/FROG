@@ -43,7 +43,7 @@ type StateT = {
 type PropsT = {
   classes: Object,
   onSubmit: Function,
-  setModalOpen: Function,
+  hideModal: Function,
   clearError: Function,
   errorDiv: any,
   wikiId: string
@@ -158,19 +158,14 @@ class NewPageModal extends React.Component<PropsT, StateT> {
         operatorTypesList.push('op-aggregate');
       }
     }
-
     return (
       <Dialog
-        open={this.state.open}
+        open
         onExited={() => {
-          this.props.setModalOpen(false);
+          this.props.hideModal();
           this.props.clearError();
         }}
-        onEnter={() => {
-          this.props.setModalOpen(true);
-          this.props.clearError();
-        }}
-        onEscapeKeyDown={() => this.props.setModalOpen(false)}
+        onEscapeKeyDown={() => this.props.hideModal()}
         onKeyDown={e => {
           if (e.keyCode === 13 && this.props.errorDiv !== null)
             this.handleCreate();
@@ -313,7 +308,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             </IconButton>
             <Button
               onClick={() => {
-                this.props.setModalOpen(false);
+                this.props.hideModal();
                 this.props.clearError();
               }}
               color="primary"
