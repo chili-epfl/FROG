@@ -8,7 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { SpecificGuideline } from './Guidelines';
 import Interface from './Interface';
-import mergeLog from './mergeLog';
+import mergeLog from '../mergeLog';
 
 const styles = {
   main: {
