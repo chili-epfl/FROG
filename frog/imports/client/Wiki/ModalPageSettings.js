@@ -129,10 +129,22 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       pageTitle,
       socialPlane,
       activityConfig,
-      operatorConfig
+      operatorConfig,
+      allowView,
+      allowEdit
     } = this.state;
+    const pageSettings = {
+      allowView,
+      allowEdit
+    };
     this.props
-      .onSubmit(pageTitle, socialPlane, activityConfig, operatorConfig)
+      .onSubmit(
+        pageTitle,
+        socialPlane,
+        activityConfig,
+        operatorConfig,
+        pageSettings
+      )
       .then(error => {
         this.setState({ ...this.state, error });
         if (!error) this.props.hideModal();
@@ -222,6 +234,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                   </FormControl>
                   <FormGroup row>
                     <FormControlLabel
+                      disabled={this.state.socialPlane !== 1}
                       control={
                         <Checkbox
                           checked={this.state.allowView}
@@ -229,10 +242,10 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                           color="primary"
                         />
                       }
-                      disabled={socialPlane === 'everyone'}
                       label="Allow others to view"
                     />
                     <FormControlLabel
+                      disabled={this.state.socialPlane !== 1}
                       control={
                         <Checkbox
                           checked={this.state.allowEdit}
@@ -240,7 +253,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                           color="primary"
                         />
                       }
-                      disabled={socialPlane === 'everyone'}
                       label="Allow others to edit"
                     />
                   </FormGroup>
