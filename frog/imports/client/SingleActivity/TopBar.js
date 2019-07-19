@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import _ from 'lodash';
 import { type PropsT } from './types';
 import { style } from './style';
-import { withModal } from '/imports/client/UIComponents/ModalController';
+import { withModal } from '/imports/ui/Modal';
 import { SignUpModal } from '/imports/client/AccountModal';
 
 /**

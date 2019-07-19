@@ -5,10 +5,7 @@ import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values } from '/imports/frog-utils';
-import {
-  withModal,
-  type ModalParentPropsT
-} from '/imports/client/UIComponents/ModalController';
+import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
