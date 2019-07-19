@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { AlertModal } from '/imports/client/UIComponents/ModalController';
+import { AlertModal } from '/imports/ui/Modal';
 
 type ModalDeletedPagePropsT = {
   pageTitle: string,
