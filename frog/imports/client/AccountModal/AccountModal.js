@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Modal, withModal } from '/imports/client/UIComponents/ModalController';
+import { Modal, withModal } from '/imports/client/ui/ModalController';
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';

@@ -10,7 +10,7 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
-import { useModal } from '/imports/client/UIComponents/ModalController';
+import { useModal } from '/imports/client/ui/ModalController';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
