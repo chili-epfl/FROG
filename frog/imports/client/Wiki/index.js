@@ -561,10 +561,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       (activityConfig?.invalid && 'Activity config is not valid') ||
       (operatorConfig?.invalid && 'Operator config is not valid');
     if (error) {
-      this.setState({ error });
-      return;
+      return error;
     }
-    this.setState({ createModalOpen: false });
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
@@ -692,19 +690,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         this.props.showModal(
           <PageSettings
             onSubmit={(title, socialPlane, activityConfig, operatorConfig) =>
-              this.editAccess('createPage').then(x => {
-                if (x)
-                  this.createPage(
-                    title,
-                    socialPlane,
-                    activityConfig,
-                    operatorConfig
-                  );
-              })
+              new Promise(resolve =>
+                this.editAccess('createPage').then(x => {
+                  if (x) {
+                    const res = this.createPage(
+                      title,
+                      socialPlane,
+                      activityConfig,
+                      operatorConfig
+                    );
+                    if (typeof res === 'string') resolve(res);
+                    else resolve(null);
+                  }
+                  resolve(null);
+                })
+              )
             }
             hideModal={this.props.hideModal}
-            clearError={() => this.setState({ error: null })}
-            errorDiv={this.state.error}
             wikiId={this.wikiId}
           />
         );

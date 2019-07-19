@@ -37,7 +37,8 @@ type StateT = {
   allowView: boolean,
   allowEdit: boolean,
   activityConfig?: Object,
-  operatorConfig?: Object
+  operatorConfig?: Object,
+  error: ?string
 };
 
 type PropsT = {
@@ -45,7 +46,6 @@ type PropsT = {
   onSubmit: Function,
   hideModal: Function,
   clearError: Function,
-  errorDiv: any,
   wikiId: string
 };
 
@@ -87,13 +87,13 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       expanded: false,
       socialPlane: 3,
       allowView: true,
-      allowEdit: true
+      allowEdit: true,
+      error: null
     };
   }
 
   handleTitleChange = (e: any) => {
-    this.handleErrorClearing(e.target.value);
-    this.setState({ pageTitle: e.target.value });
+    this.setState({ pageTitle: e.target.value, error: null });
   };
 
   handleTabs = (e: any, value: number) => {
@@ -131,22 +131,17 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       activityConfig,
       operatorConfig
     } = this.state;
-    this.props.onSubmit(pageTitle, socialPlane, activityConfig, operatorConfig);
+    this.props
+      .onSubmit(pageTitle, socialPlane, activityConfig, operatorConfig)
+      .then(error => {
+        this.setState({ ...this.state, error });
+        if (!error) this.props.hideModal();
+      });
   };
 
-  // Clears error messages if the user tries to create a page with an empty title and then types in a new title
-  handleErrorClearing(currentTitle: string) {
-    if (
-      currentTitle === '' ||
-      (currentTitle.length > 0 &&
-        this.props.errorDiv === 'Title cannot be empty')
-    )
-      this.props.clearError();
-  }
-
   render() {
-    const { currentTab, socialPlane, expanded, pageTitle } = this.state;
-    const { classes, errorDiv } = this.props;
+    const { currentTab, socialPlane, expanded, pageTitle, error } = this.state;
+    const { classes } = this.props;
     let operatorTypesList = [];
     const activityType = this.state.config?.activityType;
     if (
@@ -161,10 +156,6 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open
-        onExited={() => {
-          this.props.hideModal();
-          this.props.clearError();
-        }}
         onEscapeKeyDown={() => this.props.hideModal()}
         onKeyDown={e => {
           if (e.keyCode === 13 && this.props.errorDiv !== null)
@@ -179,7 +170,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               <Typography variant="h6">Create New Page</Typography>
               <TextField
                 autoFocus
-                error={errorDiv !== null}
+                error={error !== null}
                 id="page-title"
                 value={pageTitle}
                 onChange={this.handleTitleChange}
@@ -196,8 +187,8 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 }}
                 data-testid="wiki_page_title_editor"
               />
-              {errorDiv !== null && (
-                <FormHelperText error>{errorDiv}</FormHelperText>
+              {this.state.error !== null && (
+                <FormHelperText error>{error}</FormHelperText>
               )}
             </FormControl>
           </FormGroup>
@@ -306,13 +297,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             >
               {expanded ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
-            <Button
-              onClick={() => {
-                this.props.hideModal();
-                this.props.clearError();
-              }}
-              color="primary"
-            >
+            <Button onClick={this.props.hideModal} color="primary">
               Cancel
             </Button>
             <Button
