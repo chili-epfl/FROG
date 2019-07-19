@@ -310,6 +310,8 @@ const FROGRouter = withRouter(
             <Route path="/t" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
+              path="/"
+              exact
               render={() =>
                 LocalSettings.follow ? <StudentView /> : <SingleActivity />
               }

@@ -2,18 +2,18 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import _ from 'lodash';
+import {
+  Avatar,
+  Chip,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button
+} from '@material-ui/core';
+import { useModal } from '/imports/client/UIComponents/ModalController';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-import { useModal } from '/imports/client/UIComponents/ModalController';
-
 /**
  * Navigation bar displayed at the top
  */
@@ -21,6 +21,7 @@ import { useModal } from '/imports/client/UIComponents/ModalController';
 function TopBar(props: PropsT) {
   const [showModal] = useModal();
   const { classes } = props;
+  const user = Meteor.user();
 
   const openSignUpModal = () => {
     showModal(<AccountModal formToDisplay="signup" />);
@@ -36,7 +37,7 @@ function TopBar(props: PropsT) {
         <Typography variant="h6" color="inherit" className={classes.logo}>
           FROG
         </Typography>
-        {Meteor.user().isAnonymous || !Meteor.user() ? (
+        {user.isAnonymous || !user ? (
           <>
             <Button size="medium" onClick={openSignUpModal}>
               Create a verified account
@@ -51,17 +52,16 @@ function TopBar(props: PropsT) {
               size="medium"
               onClick={() => {
                 sessionStorage.removeItem('frog.sessionToken');
+
                 Meteor.logout();
-                window.location.reload();
+                window.location.replace('/');
               }}
             >
               Logout
             </Button>
             <Chip
-              avatar={
-                <Avatar>{Meteor.user().profile.displayName.charAt(0)}</Avatar>
-              }
-              label={Meteor.user().profile.displayName}
+              avatar={<Avatar>{user.profile.displayName.charAt(0)}</Avatar>}
+              label={user.profile.displayName}
             />
           </>
         )}
