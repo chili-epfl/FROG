@@ -1,6 +1,10 @@
 // @flow
 
-import { type ActivityPackageT, getRotateable, cloneDeep } from '/imports/frog-utils';
+import {
+  type ActivityPackageT,
+  getRotateable,
+  cloneDeep
+} from '/imports/frog-utils';
 import dashboards from './dashboard.js';
 
 const meta = {

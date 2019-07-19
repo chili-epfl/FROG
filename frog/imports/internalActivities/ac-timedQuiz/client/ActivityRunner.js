@@ -1,7 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { type ActivityRunnerPropsT, TimedComponent, HTML } from '/imports/frog-utils';
+import {
+  type ActivityRunnerPropsT,
+  TimedComponent,
+  HTML
+} from '/imports/frog-utils';
 import { ProgressBar, Button } from 'react-bootstrap';
 import { withState } from 'recompose';
 import { shuffle } from 'lodash';
