@@ -1,26 +1,19 @@
 import * as React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import {
+  Avatar,
+  Button,
+  TextField,
+  Link,
+  Grid,
+  Typography,
+  Container
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/styles';
-import { Meteor } from 'meteor/meteor';
 
 const styles = (theme: Object) => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -34,11 +27,24 @@ const styles = (theme: Object) => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2, 0)
+  },
+  signupLink: {
+    cursor: 'pointer'
   }
 });
+type LoginStateT = {
+  email: string,
+  password: string
+};
 
-class Login extends React.Component<> {
+type LoginPropsT = {
+  classes: Object,
+  OnLogin: (email: string, password: string) => void,
+  openSignUpForm: () => void
+};
+
+class Login extends React.Component<LoginStateT, LoginPropsT> {
   constructor() {
     super();
     this.state = {
@@ -47,38 +53,31 @@ class Login extends React.Component<> {
     };
   }
 
-  handleChange = (
-    event: SyntheticInputEvent<EventTarget>,
-    type: string
-  ): void => {
+  handleChange = (event: SyntheticInputEvent<EventTarget>, type: string) => {
     const value = event.target.value;
     this.setState({ [type]: value });
   };
 
-  handleSubmit = (e: SyntheticEvent<EventTarget>): void => {
+  handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     const { email, password } = this.state;
-    Meteor.loginWithPassword(email, password, error => {
-      if (error) {
-        window.alert('Could not login!  ' + error);
-      } else {
-        window.alert('Logged in!');
-        this.props.onLoginSuccess();
-      }
-    });
+    if (email === '' || password === '')
+      window.alert('Please fill out all fields');
+    else {
+      this.props.onLogin(email, password);
+    }
   };
 
   render() {
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in
+            Log in to FROG
           </Typography>
           <form
             className={classes.form}
@@ -109,10 +108,6 @@ class Login extends React.Component<> {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -129,7 +124,11 @@ class Login extends React.Component<> {
                 </Link>
               </Grid>
               <Grid item>
-                <Link onClick={this.props.openSignUpForm} variant="body2">
+                <Link
+                  onClick={this.props.openSignUpForm}
+                  className={classes.signupLink}
+                  variant="body2"
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

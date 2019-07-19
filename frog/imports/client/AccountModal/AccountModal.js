@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Modal } from '/imports/frog-utils';
+import { Modal, withModal } from '/imports/client/UIComponents/ModalController';
+import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
 
@@ -11,7 +12,7 @@ type AccountModalPropsT = {
   formToDisplay: string
 };
 
-export default class AccountModal extends React.Component<
+class AccountModal extends React.Component<
   AccountModalStateT,
   AccountModalPropsT
 > {
@@ -30,24 +31,56 @@ export default class AccountModal extends React.Component<
     this.setState({ formToDisplay: 'login' });
   };
 
-  chooseModal = (showModal, hideModal) => {
+  onCreateAccount = (email: string, password: string, displayName: string) => {
+    Meteor.call(
+      'create.account',
+      email,
+      password,
+      {
+        displayName
+      },
+      error => {
+        if (error && error.error === 'mongo-error') {
+          window.alert(error.reason);
+        } else {
+          window.alert('Success! Account created!');
+          this.props.hideModal();
+        }
+      }
+    );
+  };
+
+  onLogin = (email: string, password: string) => {
+    Meteor.loginWithPassword(email, password, error => {
+      if (error) {
+        window.alert('Could not login!  ' + error);
+      } else {
+        window.alert('Logged in!');
+        this.props.hideModal();
+      }
+    });
+  };
+
+  chooseModal = () => {
     if (
       this.state.formToDisplay === 'signup' ||
-      this.props.formToShow === 'signup'
+      this.props.formToDisplay === 'signup'
     )
       return (
         <SignUp
-          onSignUpSuccess={hideModal}
           openLoginForm={this.openLoginForm}
+          onCreateAccount={(email, password, displayName) =>
+            this.onCreateAccount(email, password, displayName)
+          }
         />
       );
     else if (
       this.state.formToDisplay === 'login' ||
-      this.props.formToShow === 'login'
+      this.props.formToDisplay === 'login'
     )
       return (
         <Login
-          onLoginSuccess={hideModal}
+          onLogin={(email, password) => this.onLogin(email, password)}
           openSignUpForm={this.openSignUpForm}
         />
       );
@@ -64,3 +97,5 @@ export default class AccountModal extends React.Component<
     );
   }
 }
+
+export default withModal(AccountModal);

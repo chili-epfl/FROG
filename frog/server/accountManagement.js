@@ -70,13 +70,13 @@ export const createAccount = (
           });
         }
       } else {
-        throw new Meteor.Error('Email already exists');
+        throw new Meteor.Error('dup-email', 'Email already exists');
       }
     } else {
-      throw new Meteor.Error('Invalid arguments');
+      throw new Meteor.Error('invalid-args', 'Invalid arguments');
     }
   } catch (e) {
-    throw new Meteor.Error('Invalid arguments');
+    throw new Meteor.Error('mongo-error', '' + e);
   }
 };
 

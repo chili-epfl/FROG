@@ -10,7 +10,6 @@ import {
   Typography
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Meteor } from 'meteor/meteor';
 import { withStyles } from '@material-ui/styles';
 import {
   errorBasedOnChars,
@@ -33,7 +32,11 @@ type SignUpStateT = {
 
 type SignUpPropsT = {
   classes: Object,
-  onSignUpSuccess: () => void,
+  onCreateAccount: (
+    email: string,
+    password: string,
+    displayName: string
+  ) => void,
   openLoginForm: () => void
 };
 
@@ -54,6 +57,9 @@ const styles = (theme: Object) => ({
   },
   submit: {
     margin: theme.spacing(2, 0, 2, 0)
+  },
+  loginLink: {
+    cursor: 'pointer'
   }
 });
 
@@ -89,10 +95,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     this.setState({ formErrors: formErrorsCleared });
   };
 
-  handleChange = (
-    event: SyntheticInputEvent<EventTarget>,
-    type: string
-  ): void => {
+  handleChange = (event: SyntheticInputEvent<EventTarget>, type: string) => {
     this.clearErrors();
     const value = event.target.value;
 
@@ -106,22 +109,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
     formErrors.email = emailErrors(email);
     formErrors.password = passwordErrors(password);
     if (this.formValid(formErrors)) {
-      Meteor.call(
-        'create.account',
-        this.state.email,
-        this.state.password,
-        {
-          displayName: this.state.displayName
-        },
-        error => {
-          if (error) {
-            window.alert(error);
-          } else {
-            window.alert('Success! Account created!');
-            this.props.onSignUpSuccess();
-          }
-        }
-      );
+      this.props.onCreateAccount(email, password, displayName);
     } else {
       this.setState({ formErrors });
     }
@@ -204,7 +192,11 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
 
             <Grid container justify="flex-end">
               <Grid item>
-                <Link onClick={this.props.openLoginForm} variant="body2">
+                <Link
+                  className={classes.loginLink}
+                  onClick={this.props.openLoginForm}
+                  variant="body2"
+                >
                   Already have an account? Sign in
                 </Link>
               </Grid>
