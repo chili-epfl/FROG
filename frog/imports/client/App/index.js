@@ -8,8 +8,8 @@ import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
 import { Loadable } from '/imports/frog-utils';
-import { ToastController } from 'frog-utils';
-import { ModalController } from '/imports/client/UIComponents/ModalController';
+import { ToastController } from '/imports/ui/Toast';
+import { ModalController } from '/imports/ui/Modal';
 import queryString from 'query-string';
 import {
   BrowserRouter as Router,
@@ -401,7 +401,7 @@ export default class Root extends React.Component<
       );
     } else {
       // We wrap ModalController to allow FROG to display modals
-      // We wrap ToastController to allow FROG to display modals
+      // We wrap ToastController to allow FROG to display toasts
       return (
         <ErrorBoundary>
           {!this.state.connected && <ConnectionDiv />}

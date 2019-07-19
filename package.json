@@ -81,7 +81,6 @@
   "license": "ISC",
   "dependencies": {
     "eslint-plugin-jest": "^22.7.1",
-    "notistack": "^0.8.8",
     "yarn": "^1.16.0"
   }
 }
