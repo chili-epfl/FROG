@@ -4,7 +4,7 @@ import { HTML } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 import { Grid } from '@material-ui/core';
 
-import Dashboard from '../Dashboards';
+import Dashboard from '../../Dashboards';
 
 import AnswerList from './AnswerList';
 import AddAnswer from './AddAnswer';

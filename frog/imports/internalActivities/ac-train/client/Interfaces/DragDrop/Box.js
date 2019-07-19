@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { capitalizeFirstLetter } from '../../ActivityUtils';
+import { capitalizeFirstLetter } from '../../../ActivityUtils';
 
 const styles = {
   button: {

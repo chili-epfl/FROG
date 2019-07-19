@@ -6,7 +6,7 @@ import { isEqual, omit } from 'lodash';
 
 import { Form, Command, DragDrop, MapInterface } from './Interfaces';
 import TicketStatus from './TicketStatus';
-import { getCommandForTicket, generateTicket } from './ActivityUtils';
+import { getCommandForTicket, generateTicket } from '../ActivityUtils';
 
 const RunActivity = props => {
   switch (props.whichInterface) {

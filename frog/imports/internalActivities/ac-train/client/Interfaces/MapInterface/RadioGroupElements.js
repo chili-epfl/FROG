@@ -16,7 +16,7 @@ import {
   TRAVELDIRECTION,
   WANTBIKE,
   capitalizeFirstLetter
-} from '../../ActivityUtils';
+} from '../../../ActivityUtils';
 
 const styles = (theme: Object) => ({
   formControls: {

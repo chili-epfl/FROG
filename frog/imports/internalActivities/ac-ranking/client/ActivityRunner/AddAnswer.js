@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
 
-import { getXYFromRanking } from '../Dashboard';
+import { getXYFromRanking } from '../../Dashboard';
 
 const blue = '#337ab7';
 

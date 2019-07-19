@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { DropTarget } from 'react-dnd';
 import { compose } from 'recompose';
-import { capitalizeFirstLetter } from '../../ActivityUtils';
+import { capitalizeFirstLetter } from '../../../ActivityUtils';
 
 const styles = theme => ({
   paper: theme.mixins.gutters({

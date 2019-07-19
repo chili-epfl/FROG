@@ -20,7 +20,7 @@ import {
   WANTBIKE,
   TRAVELDIRECTION,
   capitalizeFirstLetter
-} from '../ActivityUtils';
+} from '../../ActivityUtils';
 
 const ALL = [
   { id: 'from', values: CITIES },

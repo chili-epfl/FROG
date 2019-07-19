@@ -13,7 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 
 import Actions from './Actions';
-import { commandDataStructure } from '../ActivityUtils';
+import { commandDataStructure } from '../../ActivityUtils';
 
 const styles = {
   card: {

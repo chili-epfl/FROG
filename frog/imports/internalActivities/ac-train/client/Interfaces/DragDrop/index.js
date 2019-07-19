@@ -17,7 +17,7 @@ import {
   TRAVELDIRECTION,
   WANTBIKE,
   capitalizeFirstLetter
-} from '../../ActivityUtils';
+} from '../../../ActivityUtils';
 import Actions from '../Actions';
 import DropElements from './DropElements';
 import ItemTypes from './ItemTypes';
