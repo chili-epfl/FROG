@@ -55,7 +55,6 @@ class AccountModal extends React.Component<
       if (error) {
         window.alert('Could not login!  ' + error);
       } else {
-        window.alert('Logged in!');
         this.props.hideModal();
       }
     });
