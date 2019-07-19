@@ -10,11 +10,10 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
-import { useModal } from '/imports/client/ui/ModalController';
+import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-import { withModal } from '/imports/ui/Modal';
 
 /**
  * Navigation bar displayed at the top

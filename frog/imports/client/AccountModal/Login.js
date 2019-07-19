@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
-import {withToast} from '/imports/client/ui/Toast'; 
 
 const styles = (theme: Object) => ({
   paper: {

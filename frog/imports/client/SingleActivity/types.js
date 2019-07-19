@@ -1,9 +1,7 @@
 // @flow
 
+import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
 import {
-  type ActivityPackageT,
-  type ActivityDbT } from '/imports/frog-utils'; 
-  import {
   type ShowModalFunctionT,
   type HideModalFunctionT
 } from '/imports/ui/Modal/types';
