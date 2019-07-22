@@ -60,38 +60,22 @@ class AccountModal extends React.Component<
     });
   };
 
-  chooseModal = () => {
-    if (
-      this.state.formToDisplay === 'signup' ||
-      this.props.formToDisplay === 'signup'
-    )
-      return (
-        <SignUp
-          openLoginForm={this.openLoginForm}
-          onCreateAccount={(email, password, displayName) =>
-            this.onCreateAccount(email, password, displayName)
-          }
-        />
-      );
-    else if (
-      this.state.formToDisplay === 'login' ||
-      this.props.formToDisplay === 'login'
-    )
-      return (
-        <Login
-          onLogin={(email, password) => this.onLogin(email, password)}
-          openSignUpForm={this.openSignUpForm}
-        />
-      );
-  };
-
   render() {
+    const toRender = this.state?.formToDisplay || this.props.formToDisplay;
+
     return (
       <Modal
         title=""
         actions={hideModal => [{ title: 'Cancel', callback: hideModal }]}
       >
-        {this.chooseModal}
+        {toRender === 'signup' ? (
+          <SignUp
+            openLoginForm={this.openLoginForm}
+            onCreateAccount={this.onCreateAccount}
+          />
+        ) : (
+          <Login onLogin={this.onLogin} openSignUpForm={this.openSignUpForm} />
+        )}
       </Modal>
     );
   }
