@@ -9,6 +9,7 @@ export const addNewWikiPage = (
   liType = 'li-richText',
   liId,
   plane,
+  pageSettings,
   instances = {},
   socialStructure,
   noNewInstances
@@ -22,6 +23,7 @@ export const addNewWikiPage = (
     liId,
     liType,
     plane,
+    pageSettings,
     instances,
     noNewInstances
   };
