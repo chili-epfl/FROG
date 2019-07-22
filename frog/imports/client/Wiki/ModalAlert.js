@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Modal } from '/imports/frog-utils';
+import { Modal } from '/imports/ui/Modal';
 
 type ModalAlertPropsT = {
   title: string,
