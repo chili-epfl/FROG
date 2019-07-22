@@ -40,7 +40,7 @@ class AccountModal extends React.Component<
         displayName
       },
       error => {
-        if (error && error.error === 'mongo-error') {
+        if (error && error.error === 'dup-email') {
           window.alert(error.reason);
         } else {
           window.alert('Success! Account created!');

@@ -38,7 +38,7 @@ function TopBar(props: PropsT) {
         <Typography variant="h6" color="inherit" className={classes.logo}>
           FROG
         </Typography>
-        {user.isAnonymous || !user ? (
+        {user.isAnonymous || !user.emails || !user ? (
           <>
             <Button size="medium" onClick={openSignUpModal}>
               Create a verified account
