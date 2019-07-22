@@ -39,7 +39,7 @@ export const createAccount = (
           '  ' +
           emailErrors(email) +
           '  ' +
-          errorBasedOnChars(profile.displayName, 1, 'Display Name')
+          errorBasedOnChars(profile?.displayName, 1, 'Display Name')
       );
     } else if (!Accounts.findUserByEmail(email)) {
       const user = Meteor.user();
