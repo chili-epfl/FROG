@@ -5,10 +5,7 @@ import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values } from '/imports/frog-utils';
-import {
-  withModal,
-  type ModalParentPropsT
-} from '/imports/ui/Modal';
+import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
 
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
@@ -479,6 +476,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       fullPageObj,
       instanceId
     );
+    if (
+      fullPageObj.pageSettings !== undefined &&
+      !fullPageObj.pageSettings.allowView &&
+      instanceId !== Meteor.userId()
+    ) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to view Page Instance"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          Viewing other instances has been restricted by the owner.
+        </AlertModal>
+      );
+      return;
+    }
     if (!newCurrentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
@@ -555,7 +569,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   // Creates a new page entry in ShareDB and navigates to it.
-  createPage = (title, socialPlane, activityConfig, operatorConfig, pageSettings) => {
+  createPage = (
+    title,
+    socialPlane,
+    activityConfig,
+    operatorConfig,
+    pageSettings
+  ) => {
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
       (activityConfig?.invalid && 'Activity config is not valid') ||
@@ -690,7 +710,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       if (result)
         this.props.showModal(
           <PageSettings
-            onSubmit={(title, socialPlane, activityConfig, operatorConfig, pageSettings) =>
+            onSubmit={(
+              title,
+              socialPlane,
+              activityConfig,
+              operatorConfig,
+              pageSettings
+            ) =>
               new Promise(resolve =>
                 this.editAccess('createPage').then(x => {
                   if (x) {
