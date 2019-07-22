@@ -552,13 +552,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   // Creates a new page entry in ShareDB and navigates to it.
-  createPage = (
-    title,
-    socialPlane,
-    activityConfig,
-    operatorConfig,
-    pageSettings
-  ) => {
+  createPage = (title, socialPlane, activityConfig, operatorConfig) => {
     const error =
       checkNewPageTitle(wikiStore.parsedPages, title) ||
       (activityConfig?.invalid && 'Activity config is not valid') ||
@@ -575,8 +569,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       true,
       liType,
       liId,
-      socialPlane,
-      pageSettings
+      socialPlane
     );
     this.goToPage(pageId);
     return { pageId, liId };
