@@ -37,7 +37,7 @@ import {
 import { createNewLI } from './liDocHelpers';
 
 import { wikiStore } from './store';
-import CreateModal from './ModalCreate';
+import PageSettings from './ModalPageSettings';
 import DeletedPageModal from './ModalDeletedPage';
 import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
@@ -74,7 +74,6 @@ type WikiCompStateT = {
   mode: string,
   error: ?string,
   openCreator: ?Object,
-  createModalOpen: boolean,
   findModalOpen: boolean,
   search: '',
   urlInstance: ?string,
@@ -124,7 +123,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       docMode: query?.edit ? PERM_PASSWORD_TO_EDIT : PERM_PASSWORD_TO_VIEW,
       error: null,
       openCreator: false,
-      createModalOpen: false,
       search: '',
       rightSideCurrentPageObj: null,
       isOwner: false
@@ -149,9 +147,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
-      Mousetrap.bindGlobal('ctrl+n', () => {
-        this.setState({ createModalOpen: true });
-      });
+      Mousetrap.bindGlobal('ctrl+n', this.createPageModal);
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
       Mousetrap.bindGlobal('ctrl+e', () => {
         if (!this.state.settings.readOnly) this.setState({ docMode: 'edit' });
@@ -562,10 +558,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       (activityConfig?.invalid && 'Activity config is not valid') ||
       (operatorConfig?.invalid && 'Operator config is not valid');
     if (error) {
-      this.setState({ error });
-      return;
+      return error;
     }
-    this.setState({ createModalOpen: false });
     this.preventRenderUntilNextShareDBUpdate = true;
     const liType = activityConfig ? 'li-activity' : 'li-richText';
     const liId = createNewLI(this.wikiId, liType, activityConfig, title);
@@ -686,6 +680,41 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       />
     );
   };
+
+  createPageModal = () =>
+    this.editAccess('createPage').then(result => {
+      if (result)
+        this.props.showModal(
+          <PageSettings
+            onSubmit={(
+              title,
+              socialPlane,
+              activityConfig,
+              operatorConfig,
+              pageSettings
+            ) =>
+              new Promise(resolve =>
+                this.editAccess('createPage').then(x => {
+                  if (x) {
+                    const res = this.createPage(
+                      title,
+                      socialPlane,
+                      activityConfig,
+                      operatorConfig,
+                      pageSettings
+                    );
+                    if (typeof res === 'string') resolve(res);
+                    else resolve(null);
+                  }
+                  resolve(null);
+                })
+              )
+            }
+            hideModal={this.props.hideModal}
+            wikiId={this.wikiId}
+          />
+        );
+    });
 
   render() {
     if (!this.state.currentPageObj) return null;
@@ -819,11 +848,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <Button
             variant="contained"
             color="primary"
-            onClick={() =>
-              this.editAccess('createPage').then(result => {
-                if (result) this.setState({ createModalOpen: true });
-              })
-            }
+            onClick={this.createPageModal}
           >
             + Create new page
           </Button>
@@ -924,25 +949,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 mode: 'dashboard'
               })
             }
-          />
-        )}
-        {this.state.createModalOpen && (
-          <CreateModal
-            onCreate={(title, socialPlane, activityConfig, operatorConfig) =>
-              this.editAccess('createPage').then(x => {
-                if (x)
-                  this.createPage(
-                    title,
-                    socialPlane,
-                    activityConfig,
-                    operatorConfig
-                  );
-              })
-            }
-            setModalOpen={e => this.setState({ createModalOpen: e })}
-            clearError={() => this.setState({ error: null })}
-            errorDiv={this.state.error}
-            wikiId={this.wikiId}
           />
         )}
       </div>
