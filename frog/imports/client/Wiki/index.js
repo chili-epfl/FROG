@@ -307,14 +307,31 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       return;
     }
 
-    const instanceId =
+    let instanceId =
       this.getInstanceIdForName(fullPageObj, this.props.pageObj.instance) ||
       this.getInstanceId(fullPageObj);
+    if (
+      fullPageObj.pageSettings !== undefined &&
+      !fullPageObj.pageSettings.allowView &&
+      instanceId !== Meteor.userId() &&
+      this.state.privilege !== PRIVILEGE_OWNER
+    ) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to view Page Instance"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          Viewing other instances has been restricted by the owner.
+        </AlertModal>
+      );
+      instanceId = Meteor.userId();
+    }
     const currentPageObj = this.getProperCurrentPageObj(
       fullPageObj,
       instanceId
     );
-
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
@@ -479,7 +496,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (
       fullPageObj.pageSettings !== undefined &&
       !fullPageObj.pageSettings.allowView &&
-      instanceId !== Meteor.userId()
+      instanceId !== Meteor.userId() &&
+      this.state.privilege !== PRIVILEGE_OWNER
     ) {
       this.props.showModal(
         <AlertModal
@@ -636,6 +654,29 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           }}
         >
           Page creation has been restricted by the owner.
+        </AlertModal>
+      );
+      return false;
+    }
+    const fullPageObj = this.state.currentPageObj;
+    const instanceId =
+      this.getInstanceIdForName(fullPageObj, this.props.pageObj.instance) ||
+      this.getInstanceId(fullPageObj);
+    if (
+      instanceId &&
+      fullPageObj.pageSettings !== undefined &&
+      !fullPageObj.pageSettings.allowEdit &&
+      instanceId !== Meteor.userId() &&
+      this.state.privilege !== PRIVILEGE_OWNER
+    ) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to edit Page Instance"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          The page creator has disabled editing other peoples instances.
         </AlertModal>
       );
       return false;

@@ -245,7 +245,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                       label="Allow others to view"
                     />
                     <FormControlLabel
-                      disabled={this.state.socialPlane !== 1}
+                      disabled={
+                        this.state.socialPlane !== 1 || !this.state.allowView
+                      }
                       control={
                         <Checkbox
                           checked={this.state.allowEdit}
