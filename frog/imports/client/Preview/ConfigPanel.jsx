@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import {getUsername} from '/imports/api/users'; 
+import { getUsername } from '/imports/api/users';
 import { uuid } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 

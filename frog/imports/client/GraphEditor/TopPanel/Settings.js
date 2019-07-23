@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -28,7 +27,7 @@ import {
 } from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
-import {getUsername} from '/imports/api/users'; 
+import { getUsername } from '/imports/api/users';
 
 import {
   exportGraph,
@@ -116,7 +115,7 @@ const MenuItemDeleteFromServer = ({
 }) =>
   !LibraryStates.graphList.find(x => x.uuid === parentId) ||
   LibraryStates.graphList.find(x => x.uuid === parentId).owner_id ===
-   getUsername()? (
+    getUsername() ? (
     <MenuItem
       onClick={() => {
         if (setIdRemove) setIdRemove({ type: 'graph', id: parentId });
@@ -219,8 +218,7 @@ class GraphActionMenu extends React.Component<*, *> {
           <MenuItem
             onClick={() => {
               importGraph(store);
-              import { getUsername } from '../../../api/users';
-this.handleClose();
+              this.handleClose();
             }}
           >
             <ImportExport className={classes.leftIcon} aria-hidden="true" />

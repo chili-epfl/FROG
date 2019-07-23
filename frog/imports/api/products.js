@@ -1,7 +1,7 @@
 // @flow
 
 import { Mongo } from 'meteor/mongo';
-import {getUsername} from '/imports/api/users'; 
+import { getUsername } from '/imports/api/users';
 import { uuid } from '/imports/frog-utils';
 import Stringify from 'json-stable-stringify';
 
@@ -33,7 +33,7 @@ export const addProduct = (
     userId,
     ...data,
     groupId,
-    username: getUsername(), 
+    username: getUsername(),
     createdAt: new Date()
   });
 };

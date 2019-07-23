@@ -146,8 +146,7 @@ export const loadActivityMetaData = (id: string, callback: ?Function) => {
 };
 
 export const importAct = (id, activityId, callback, onSelect) => {
-  fetch(Remotimport { getUsername } from '/imports/api/users';
-eServer + '?uuid=eq.' + id)
+  fetch(RemoteServer + '?uuid=eq.' + id)
     .then(e => e.json())
     .then(e => {
       addActivity(

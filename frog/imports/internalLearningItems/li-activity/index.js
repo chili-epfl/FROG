@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Fab } from '@material-ui/core';
 import { activityTypesObj } from '/imports/activityTypes';
 import { type LearningItemT, isBrowser } from '/imports/frog-utils';
-import {getUsername} from '/imports/api/users'; 
+import { getUsername } from '/imports/api/users';
 
 let activityRunners = {};
 let ReactiveHOC = () => undefined;

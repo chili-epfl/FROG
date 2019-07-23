@@ -1,5 +1,5 @@
-import {getUsername} from './users';
 import { omitBy, isNil } from 'lodash';
+import { getUsername } from './users';
 
 import { uuid } from '/imports/frog-utils';
 import { Graphs } from '/imports/api/graphs';
@@ -81,7 +81,7 @@ export const collectGraphs = (callback: ?Function) =>
   fetch(
     RemoteServer +
       '?select=uuid,title,description,tags,timestamp,owner_id&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
-      getUsername()+
+      getUsername() +
       ')'
   )
     .then(e => e.json())
