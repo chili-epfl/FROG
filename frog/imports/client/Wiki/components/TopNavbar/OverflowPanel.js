@@ -42,6 +42,7 @@ export default class OverflowPanel extends React.Component<
     return (
       <React.Fragment>
         <IconButton
+          data-testid="secondary-menu-button"
           aria-owns={anchorEl ? 'overflow-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
