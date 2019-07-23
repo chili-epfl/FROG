@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { TopBar } from '.';
 import { Edit, PlayCircleFilled, PlayArrow } from '@material-ui/icons';
+import { TopBar } from '.';
 
 const SimpleWrapper = () => {
   const [currentTab, setCurrentTab] = React.useState(0);

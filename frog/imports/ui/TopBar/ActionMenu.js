@@ -14,7 +14,7 @@ import { MoreVert } from '@material-ui/icons';
 
 import type { TopBarActionT } from './types';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   root: {
     display: 'flex'
   }

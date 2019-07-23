@@ -5,7 +5,7 @@ import { Tabs, Tab, Tooltip, makeStyles } from '@material-ui/core';
 
 import type { TopBarViewT } from './types';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   tab: {
     // the default value is too large for our use-case
     minWidth: 0
