@@ -36,14 +36,14 @@ const getUser = (user: User) => {
 };
 
 /**
- * Returns whether the given user is verified i.e. has an email. If no user is provided then will return whether the current user is verified. 
+ * Returns whether the given user is verified i.e. has an email. If no user is provided then will return whether the current user is verified.
  *
  * @param: {User=} user
  */
 
 export const isVerifiedUser = (user: User) => {
   if (!user) {
-  	// returns true if the emails field exists
+    // returns true if the emails field exists
     return !!Meteor.user().emails;
   } else {
     const { id, userObj } = user;
