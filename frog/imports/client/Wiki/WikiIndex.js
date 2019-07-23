@@ -27,9 +27,9 @@ class Index extends React.Component<null, StateT> {
 
   render() {
     return (
-      <List>
+      <List data-testid="wiki-links">
         {this.state.list.map(id => (
-          <Link to={'/wiki/' + id} key={id}>
+          <Link data-testid="wiki-link" to={'/wiki/' + id} key={id}>
             <ListItem button>
               <ListItemText primary={id} />
             </ListItem>
