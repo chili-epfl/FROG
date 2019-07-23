@@ -21,6 +21,7 @@ import { logLogin } from '/imports/api/logs';
 import { Sessions } from '/imports/api/sessions';
 import Runner from './Runner';
 import Countdown from './Countdown';
+import { getUsername } from '/imports/api/users';
 
 let loggedIn = false;
 
@@ -82,7 +83,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
               color="inherit"
               className={classes.flex}
             >
-              {Meteor.user().username}
+              {getUsername}
             </Typography>
           )}
           {Meteor.userId() === session.ownerId && (

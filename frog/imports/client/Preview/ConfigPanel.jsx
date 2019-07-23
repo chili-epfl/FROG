@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Meteor } from 'meteor/meteor';
+import {getUsername} from '/imports/api/users'; 
 import { uuid } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 
@@ -130,7 +130,7 @@ class ConfigPanel extends React.Component<*, *> {
       setActivityTypeId
     } = this.props;
     if (
-      metadatas.owner_id === Meteor.user().username &&
+      metadatas.owner_id === getUsername() &&
       JSON.stringify(e.config) !== JSON.stringify(config)
     ) {
       this.setState({ displaySave: true });

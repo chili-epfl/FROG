@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,6 +15,7 @@ import 'react-tagsinput/react-tagsinput.css'; // If using WebPack and style-load
 import { sendActivity, updateActivity } from '/imports/api/remoteActivities';
 import { sendGraph, updateGraph } from '/imports/api/remoteGraphs';
 import { Graphs } from '/imports/api/graphs';
+import { getUsername } from '/imports/api/users';
 
 type StateT = {
   title: string,
@@ -40,7 +40,7 @@ export default class ExportModal extends Component<Object, StateT> {
       this.setState({
         ...nextProps.metadatas,
         is_public:
-          nextProps.metadatas.owner_id === Meteor.user().username
+          nextProps.metadatas.owner_id === getUsername()
             ? nextProps.metadatas.is_public
             : false
       });
@@ -126,7 +126,7 @@ export default class ExportModal extends Component<Object, StateT> {
             Save as new
           </Button>
           {this.props.metadatas &&
-            this.props.metadatas.owner_id === Meteor.user().username &&
+            this.props.metadatas.owner_id === getUsername() &&
             ((this.props.activity && this.props.activity.parentId) ||
               (this.props.exportType === 'graph' &&
                 Graphs.findOne(this.props.graphId).parentId)) && (

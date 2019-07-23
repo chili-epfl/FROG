@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
-import { Meteor } from 'meteor/meteor';
+import {getUsername} from '/imports/api/users'; 
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -184,9 +184,7 @@ class TopBarController extends React.Component<
             </Tabs>
             <h3>
               {LocalSettings.researchLogin ? ' * ' : ''}
-              {Meteor.user().isAnonymous
-                ? 'Anonymous Visitor'
-                : Meteor.user().username}
+              {getUsername()}
             </h3>
             <LogoutMenu history={this.props.history} />
           </Toolbar>

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Fab } from '@material-ui/core';
 import { activityTypesObj } from '/imports/activityTypes';
 import { type LearningItemT, isBrowser } from '/imports/frog-utils';
+import {getUsername} from '/imports/api/users'; 
 
 let activityRunners = {};
 let ReactiveHOC = () => undefined;
@@ -23,9 +24,9 @@ const Viewer = ({ data }) => {
         activityType={activityType.id}
         activityData={data.activityData || {}}
         activityId={data.rz}
-        username={Meteor.user().username}
+        username={getUsername()}
         userid={Meteor.userId()}
-        userInfo={{ name: Meteor.user().username, id: Meteor.userId() }}
+        userInfo={{ name: getUsername(), id: Meteor.userId() }}
         stream={() => undefined}
         logger={() => undefined}
         groupingValue={{}}

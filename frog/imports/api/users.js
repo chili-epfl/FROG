@@ -1,7 +1,8 @@
 import {Meteor} from 'meteor/meteor'; 
 // user id and user is optional if not supplied will use the current user 
-export const getUsername = (userid, user) =>  {
-	const selectedUser = Meteor.user.findOne(userid) || user || Meteor.user(); 
+export const getUsername = (user) =>  {
+	const {id, userObj} = user; 
+	const selectedUser = Meteor.users.findOne(id) || userObj || Meteor.user(); 
 	if (selectedUser){
     if (selectedUser.isAnonymous) return "Anonymous User";
 	else if (selectedUser.emails) return selectedUser.profile.displayName; 
@@ -12,11 +13,16 @@ export const getUsername = (userid, user) =>  {
 
 }
 // user id and user are optional. If both are null then will return the current user. 
-export const getUser = (userid, user) => {
-	return Meteor.users().findOne(userid) || user || Meteor.user(); 
+export const getUser = (user) => {
+	const {id, userObj} = user; 
+	return Meteor.users.findOne(id) || userObj || Meteor.user(); 
 }
 
-export const isVerifiedUser = (userid, user) => {
-	if (Meteor.users().findOne(userid)?.emails || user?.emails
+export const isVerifiedUser = (user) => {
+	const {id, userObj} = user; 
+	if (Meteor.users.findOne(id).emails || userObj.emails || Meteor.user().emails){
+	    return true; 
+	}
+	return false; 
 }
 
