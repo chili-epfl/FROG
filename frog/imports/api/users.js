@@ -1,3 +1,4 @@
+// @flow
 import { Meteor } from 'meteor/meteor';
 
 type User = {
@@ -5,7 +6,12 @@ type User = {
   userObj?: mixed
 };
 
-// user id and user is optional if not supplied will use the current user
+/**
+ * Returns the appropriate username based on the type of user. If no user is passed then will return the current user's username
+ *
+ * @param: {User=} user
+ */
+
 export const getUsername = (user: User) => {
   const selectedUser = getUser(user);
   if (selectedUser) {
@@ -16,7 +22,11 @@ export const getUsername = (user: User) => {
   return 'No user logged in';
 };
 
-// user id and user are optional. If both are null then will return the current user.
+/**
+ * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
+ *
+ * @param: {User=} user
+ */
 const getUser = (user: User) => {
   if (!user) return Meteor.user();
   else {
@@ -25,8 +35,15 @@ const getUser = (user: User) => {
   }
 };
 
+/**
+ * Returns whether the given user is verified i.e. has an email. If no user is provided then will return whether the current user is verified. 
+ *
+ * @param: {User=} user
+ */
+
 export const isVerifiedUser = (user: User) => {
   if (!user) {
+  	// returns true if the emails field exists
     return !!Meteor.user().emails;
   } else {
     const { id, userObj } = user;
