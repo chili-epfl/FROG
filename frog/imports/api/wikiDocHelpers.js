@@ -1,6 +1,9 @@
 // @flow
 import { uuid } from '/imports/frog-utils';
-import { type WikiSettingsT } from '/imports/client/Wiki/types';
+import {
+  type WikiSettingsT,
+  type PageSettingsT
+} from '/imports/client/Wiki/types';
 
 export const addNewWikiPage = (
   wikiDoc: Object,
@@ -196,6 +199,25 @@ export const updateSettings = (wikiDoc: Object, settings: WikiSettingsT) => {
     p: ['settings'],
     oi: settings
   };
+  wikiDoc.submitOp(op);
+};
+
+export const updatePageSettings = (
+  wikiDoc: Object,
+  pageId: string,
+  socialPlane: number,
+  pageSettings: PageSettingsT
+) => {
+  const opChangePlane = {
+    p: ['pages', pageId, 'plane'],
+    oi: socialPlane
+  }
+  wikiDoc.submitOp(opChangePlane);
+  const op = {
+    p: ['pages', pageId, 'pageSettings'],
+    oi: pageSettings
+  };
+
   wikiDoc.submitOp(op);
 };
 

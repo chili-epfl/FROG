@@ -7,6 +7,13 @@ export type WikiSettingsT = {
   restrict: 'none' | 'edit' | 'view'
 };
 
+export type PageSettingsT = {
+  allowView: boolean,
+  allowEdit: boolean,
+  readOnly: boolean,
+  hidden: boolean
+};
+
 export type PageObjT = {
   wikiId: string,
   pageTitle?: string,

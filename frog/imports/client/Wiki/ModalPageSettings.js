@@ -26,6 +26,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { activityTypesObj } from '/imports/activityTypes';
+import { type PageSettingsT } from './types';
 
 type StateT = {
   currentTab: number,
@@ -34,8 +35,7 @@ type StateT = {
   socialPlane: number,
   open: boolean,
   expanded: boolean,
-  allowView: boolean,
-  allowEdit: boolean,
+  pageSettings: PageSettingsT,
   activityConfig?: Object,
   operatorConfig?: Object,
   error: ?string
@@ -46,7 +46,12 @@ type PropsT = {
   onSubmit: Function,
   hideModal: Function,
   clearError: Function,
-  wikiId: string
+  isOwner: boolean,
+  wikiId: string,
+  pageSettings?: PageSettingsT,
+  title: string,
+  socialPlane: number,
+  action: 'edit' | 'create'
 };
 
 const styles = () => ({
@@ -81,13 +86,17 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     super(props);
     this.state = {
       currentTab: 0,
-      pageTitle: '',
+      pageTitle: this.props.title || '',
       pageTitleValid: true,
       open: true,
       expanded: false,
-      socialPlane: 3,
-      allowView: true,
-      allowEdit: true,
+      socialPlane: this.props.socialPlane || 3,
+      pageSettings: this.props.pageSettings || {
+        allowView: true,
+        allowEdit: true,
+        readOnly: false,
+        hidden: false
+      },
       error: null
     };
   }
@@ -101,42 +110,38 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleSocialPlaneChange = (e: any) => {
-    if (e.target.value === 'everyone') {
+    if (e.target.value === 3) {
       this.setState({
-        socialPlane: e.target.value,
-        allowView: true,
-        allowEdit: true
+        socialPlane: 3,
+        pageSettings: {
+          ...this.state.pageSettings,
+          allowView: true,
+          allowEdit: true
+        }
       });
     } else {
       this.setState({ socialPlane: e.target.value });
     }
   };
 
-  handleChangeAllowView = () => {
-    this.setState({ allowView: !this.state.allowView });
-  };
-
-  handleChangeAllowEdit = () => {
-    this.setState({ allowEdit: !this.state.allowEdit });
-  };
+  handleCheckbox = target => e =>
+    this.setState({
+      ...this.state,
+      pageSettings: { ...this.state.pageSettings, [target]: e.target.checked }
+    });
 
   handleConfig = conf => {
     this.setState({ activityConfig: conf });
   };
 
-  handleCreate = () => {
+  handleSubmit = () => {
     const {
       pageTitle,
       socialPlane,
       activityConfig,
       operatorConfig,
-      allowView,
-      allowEdit
+      pageSettings
     } = this.state;
-    const pageSettings = {
-      allowView,
-      allowEdit
-    };
     this.props
       .onSubmit(
         pageTitle,
@@ -153,7 +158,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle, error } = this.state;
-    const { classes } = this.props;
+    const { classes, isOwner } = this.props;
     let operatorTypesList = [];
     const activityType = this.state.config?.activityType;
     if (
@@ -179,7 +184,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
         <div className={classes.root}>
           <FormGroup>
             <FormControl className={classes.formControl}>
-              <Typography variant="h6">Create New Page</Typography>
+              <Typography variant="h6">
+                {this.props.action === 'create'
+                  ? 'Create New Page'
+                  : 'Edit Page Settings'}
+              </Typography>
               <TextField
                 autoFocus
                 error={error !== null}
@@ -204,61 +213,96 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               )}
             </FormControl>
           </FormGroup>
-          <Collapse in={expanded} timeout="auto">
-            <AppBar position="static">
-              <Tabs
-                value={this.state.currentTab}
-                indicatorColor="secondary"
-                onChange={this.handleTabs}
-                variant="fullWidth"
-              >
-                <Tab label="Settings" className={classes.tabs} />
-                <Tab label="Component" className={classes.tabs} />
-                <Tab label="Operator" className={classes.tabs} />
-              </Tabs>
-            </AppBar>
+          <Collapse
+            in={expanded || this.props.action === 'edit'}
+            timeout="auto"
+          >
+            {this.props.action === 'create' && (
+              <AppBar position="static">
+                <Tabs
+                  value={this.state.currentTab}
+                  indicatorColor="secondary"
+                  onChange={this.handleTabs}
+                  variant="fullWidth"
+                >
+                  <Tab label="Settings" className={classes.tabs} />
+                  <Tab label="Component" className={classes.tabs} />
+                  <Tab label="Operator" className={classes.tabs} />
+                </Tabs>
+              </AppBar>
+            )}
             <DialogContent classes={{ root: classes.modalInner }}>
               {currentTab === 0 && (
-                <FormGroup>
-                  <FormControl>
-                    <Typography variant="h6">Social Plane</Typography>
-                    <Select
-                      value={this.state.socialPlane}
-                      onChange={this.handleSocialPlaneChange}
-                      id="social-plane"
-                      className={classes.selectSocialPlane}
-                    >
-                      <MenuItem value={3}>Everyone</MenuItem>
-                      <MenuItem value={1}>Each Individual</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <FormGroup row>
-                    <FormControlLabel
-                      disabled={this.state.socialPlane !== 1}
-                      control={
-                        <Checkbox
-                          checked={this.state.allowView}
-                          onChange={this.handleChangeAllowView}
-                          color="primary"
-                        />
-                      }
-                      label="Allow others to view"
-                    />
-                    <FormControlLabel
-                      disabled={
-                        this.state.socialPlane !== 1 || !this.state.allowView
-                      }
-                      control={
-                        <Checkbox
-                          checked={this.state.allowEdit}
-                          onChange={this.handleChangeAllowEdit}
-                          color="primary"
-                        />
-                      }
-                      label="Allow others to edit"
-                    />
+                <>
+                  <FormGroup>
+                    <FormControl>
+                      <Typography variant="h6">Social Plane</Typography>
+                      <Select
+                        value={this.state.socialPlane}
+                        onChange={this.handleSocialPlaneChange}
+                        id="social-plane"
+                        className={classes.selectSocialPlane}
+                      >
+                        <MenuItem value={3}>Everyone</MenuItem>
+                        <MenuItem value={1}>Each Individual</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormGroup row>
+                      <FormControlLabel
+                        disabled={this.state.socialPlane !== 1}
+                        control={
+                          <Checkbox
+                            checked={this.state.pageSettings.allowView}
+                            onChange={this.handleCheckbox('allowView')}
+                            color="primary"
+                          />
+                        }
+                        label="Allow others to view"
+                      />
+                      <FormControlLabel
+                        disabled={
+                          this.state.socialPlane !== 1 ||
+                          !this.state.pageSettings.allowView
+                        }
+                        control={
+                          <Checkbox
+                            checked={this.state.pageSettings.allowEdit}
+                            onChange={this.handleCheckbox('allowEdit')}
+                            color="primary"
+                          />
+                        }
+                        label="Allow others to edit"
+                      />
+                    </FormGroup>
                   </FormGroup>
-                </FormGroup>
+                  {isOwner && (
+                    <FormGroup>
+                      <Typography variant="h6">Page Settings</Typography>
+                      <FormGroup row>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={this.state.pageSettings.readOnly}
+                              onChange={this.handleCheckbox('readOnly')}
+                              color="primary"
+                            />
+                          }
+                          label="Read-Only"
+                        />
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={this.state.pageSettings.hidden}
+                              onChange={this.handleCheckbox('hidden')}
+                              color="primary"
+                            />
+                          }
+                          label="Hidden"
+                        />
+                      </FormGroup>
+                    </FormGroup>
+                  )}
+                </>
               )}
               {currentTab === 1 && (
                 <ApiForm
@@ -315,12 +359,12 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               Cancel
             </Button>
             <Button
-              onClick={() => this.handleCreate()}
+              onClick={() => this.handleSubmit()}
               color="primary"
               variant="contained"
               data-testid="create_button"
             >
-              Create
+              {this.props.action === 'create' ? 'Create' : 'Apply'}
             </Button>
           </DialogActions>
         </div>
