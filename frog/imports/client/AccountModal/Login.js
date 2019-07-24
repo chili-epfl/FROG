@@ -1,4 +1,5 @@
 import * as React from 'react';
+import _ from 'lodash'; 
 import {
   Avatar,
   Button,
@@ -62,14 +63,14 @@ class Login extends React.Component<LoginStateT, LoginPropsT> {
     e.preventDefault();
     const { email, password } = this.state;
     if (email === '' || password === '')
-      window.alert('Please fill out all fields');
+      this.props.showToast('Please fill out all fields','error',[]);
     else {
       this.props.onLogin(email, password);
     }
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes} = this.props;
     return (
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
@@ -139,4 +140,4 @@ class Login extends React.Component<LoginStateT, LoginPropsT> {
     );
   }
 }
-export default withStyles(styles)(Login);
+export default _.flow([withStyles(styles), withToast])(Login);
