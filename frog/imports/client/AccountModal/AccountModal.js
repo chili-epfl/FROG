@@ -1,7 +1,8 @@
 // @flow
-import _ from 'lodash'; 
+import _ from 'lodash';
 import * as React from 'react';
 import { Modal, withModal } from '/imports/ui/Modal';
+import { withToast } from '/imports/ui/Toast';
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
@@ -42,9 +43,9 @@ class AccountModal extends React.Component<
       },
       error => {
         if (error) {
-          this.props.showToast(error.reason,'error',[]);
+          this.props.showToast(error.reason, 'error');
         } else {
-          this.props.showToast('Success! Account created!', 'success',[]);
+          this.props.showToast('Success! Account created!', 'success');
           this.props.hideModal();
         }
       }
@@ -54,7 +55,7 @@ class AccountModal extends React.Component<
   onLogin = (email: string, password: string) => {
     Meteor.loginWithPassword(email, password, error => {
       if (error) {
-        this.props.showToast('Could not login!  ' + error,'error',[] );
+        this.props.showToast('Could not login!  ' + error, 'error');
       } else {
         this.props.hideModal();
       }
@@ -82,4 +83,7 @@ class AccountModal extends React.Component<
   }
 }
 
-export default _.flow([withModal, withToast])(AccountModal);
+export default _.flow(
+  withModal,
+  withToast
+)(AccountModal);

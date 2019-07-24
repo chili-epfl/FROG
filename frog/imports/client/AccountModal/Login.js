@@ -1,5 +1,5 @@
 import * as React from 'react';
-import _ from 'lodash'; 
+import _ from 'lodash';
 import {
   Avatar,
   Button,
@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
+import { withToast } from '/imports/ui/Toast';
 
 const styles = (theme: Object) => ({
   paper: {
@@ -63,14 +64,14 @@ class Login extends React.Component<LoginStateT, LoginPropsT> {
     e.preventDefault();
     const { email, password } = this.state;
     if (email === '' || password === '')
-      this.props.showToast('Please fill out all fields','error',[]);
+      this.props.showToast('Please fill out all fields', 'error');
     else {
       this.props.onLogin(email, password);
     }
   };
 
   render() {
-    const { classes} = this.props;
+    const { classes } = this.props;
     return (
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
@@ -140,4 +141,7 @@ class Login extends React.Component<LoginStateT, LoginPropsT> {
     );
   }
 }
-export default _.flow([withStyles(styles), withToast])(Login);
+export default _.flow(
+  withStyles(styles),
+  withToast
+)(Login);
