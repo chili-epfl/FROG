@@ -28,3 +28,9 @@ export const PRIVILEGE_OWNER = 'owner';
 export const PRIVILEGE_EDIT = 'editor';
 export const PRIVILEGE_VIEW = 'user';
 export const PRIVILEGE_NONE = 'none';
+export const DEFAULT_PAGE_SETTINGS = {
+  allowView: true,
+  allowEdit: true,
+  readOnly: false,
+  hidden: false
+};

@@ -23,10 +23,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Collapse from '@material-ui/core/Collapse';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
+import { Promise } from 'q';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { activityTypesObj } from '/imports/activityTypes';
-import { type PageSettingsT } from './types';
+import {
+  type PageSettingsT,
+  DEFAULT_PAGE_SETTINGS
+} from '/imports/api/wikiTypes';
 
 type StateT = {
   currentTab: number,
@@ -43,9 +47,14 @@ type StateT = {
 
 type PropsT = {
   classes: Object,
-  onSubmit: Function,
-  hideModal: Function,
-  clearError: Function,
+  onSubmit: (
+    title: string,
+    socialPlane: number,
+    activityConfig: Object,
+    operatorConfig: Object,
+    pageSettings: PageSettingsT
+  ) => Promise,
+  hideModal: () => void,
   isOwner: boolean,
   wikiId: string,
   pageSettings?: PageSettingsT,
@@ -81,7 +90,7 @@ const styles = () => ({
   }
 });
 
-class NewPageModal extends React.Component<PropsT, StateT> {
+class PageSettingsModal extends React.Component<PropsT, StateT> {
   constructor(props: PropsT) {
     super(props);
     this.state = {
@@ -91,12 +100,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
       open: true,
       expanded: false,
       socialPlane: this.props.socialPlane || 3,
-      pageSettings: this.props.pageSettings || {
-        allowView: true,
-        allowEdit: true,
-        readOnly: false,
-        hidden: false
-      },
+      pageSettings: this.props.pageSettings || DEFAULT_PAGE_SETTINGS,
       error: null
     };
   }
@@ -158,7 +162,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle, error } = this.state;
-    const { classes, isOwner } = this.props;
+    const { classes, isOwner, action } = this.props;
     let operatorTypesList = [];
     const activityType = this.state.config?.activityType;
     if (
@@ -173,10 +177,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open
-        onEscapeKeyDown={() => this.props.hideModal()}
+        onEscapeKeyDown={this.props.hideModal}
         onKeyDown={e => {
-          if (e.keyCode === 13 && this.props.errorDiv !== null)
-            this.handleCreate();
+          if (e.keyCode === 13 && error !== null) this.handleCreate();
         }}
         maxWidth={false}
         scroll="paper"
@@ -185,9 +188,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
           <FormGroup>
             <FormControl className={classes.formControl}>
               <Typography variant="h6">
-                {this.props.action === 'create'
-                  ? 'Create New Page'
-                  : 'Edit Page Settings'}
+                {action === 'create' ? 'Create New Page' : 'Edit Page Settings'}
               </Typography>
               <TextField
                 autoFocus
@@ -208,16 +209,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 }}
                 data-testid="wiki_page_title_editor"
               />
-              {this.state.error !== null && (
-                <FormHelperText error>{error}</FormHelperText>
-              )}
+              {error !== null && <FormHelperText error>{error}</FormHelperText>}
             </FormControl>
           </FormGroup>
-          <Collapse
-            in={expanded || this.props.action === 'edit'}
-            timeout="auto"
-          >
-            {this.props.action === 'create' && (
+          <Collapse in={expanded || action === 'edit'} timeout="auto">
+            {action === 'create' && (
               <AppBar position="static">
                 <Tabs
                   value={this.state.currentTab}
@@ -349,12 +345,14 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             </DialogContent>
           </Collapse>
           <DialogActions>
-            <IconButton
-              className={classes.expander}
-              onClick={() => this.setState({ expanded: !expanded })}
-            >
-              {expanded ? <ExpandLess /> : <ExpandMore />}
-            </IconButton>
+            {action === 'create' && (
+              <IconButton
+                className={classes.expander}
+                onClick={() => this.setState({ expanded: !expanded })}
+              >
+                {expanded ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
+            )}
             <Button onClick={this.props.hideModal} color="primary">
               Cancel
             </Button>
@@ -364,7 +362,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
               variant="contained"
               data-testid="create_button"
             >
-              {this.props.action === 'create' ? 'Create' : 'Apply'}
+              {action === 'create' ? 'Create' : 'Apply'}
             </Button>
           </DialogActions>
         </div>
@@ -373,4 +371,4 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   }
 }
 
-export default withStyles(styles)(NewPageModal);
+export default withStyles(styles)(PageSettingsModal);

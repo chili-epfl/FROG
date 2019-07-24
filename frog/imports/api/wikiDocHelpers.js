@@ -1,21 +1,18 @@
 // @flow
 import { uuid } from '/imports/frog-utils';
-import {
-  type WikiSettingsT,
-  type PageSettingsT
-} from '/imports/client/Wiki/types';
+import { type WikiSettingsT, type PageSettingsT } from '/imports/api/wikiTypes';
 
 export const addNewWikiPage = (
   wikiDoc: Object,
-  title,
-  setCreated,
-  liType = 'li-richText',
-  liId,
-  plane,
-  pageSettings,
-  instances = {},
-  socialStructure,
-  noNewInstances
+  title: string,
+  setCreated: boolean,
+  liType: string = 'li-richText',
+  liId: string,
+  plane: number,
+  pageSettings: PageSettingsT,
+  instances: Object = {},
+  socialStructure: Object,
+  noNewInstances: boolean
 ) => {
   const pageId = uuid();
   const obj = {

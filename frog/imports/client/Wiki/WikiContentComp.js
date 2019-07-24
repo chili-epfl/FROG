@@ -54,10 +54,12 @@ class WikiContentComp extends React.Component<> {
         error: null
       });
     }
+    // After changing page, set the mode to view until we have checked
+    // that the user is allowed to edit or not
     if (this.state.docMode === 'edit') {
       this.setState({ docMode: 'view' }, () => {
-        this.props.checkEdit().then(x => {
-          if (x) this.setState({ docMode: 'edit' });
+        this.props.checkEdit().then(result => {
+          if (result) this.setState({ docMode: 'edit' });
         });
       });
     }

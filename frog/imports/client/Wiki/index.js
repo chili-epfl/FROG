@@ -62,7 +62,7 @@ import {
   PRIVILEGE_EDIT,
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
-} from './types.js';
+} from '/imports/api/wikiTypes';
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -282,6 +282,23 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       );
       currentPageObj.instances = newPageObj.instances;
       currentPageObj.pageSettings = newPageObj.pageSettings;
+      if (
+        newPageObj.pageSettings !== undefined &&
+        newPageObj.pageSettings.hidden &&
+        this.getPrivilege() !== PRIVILEGE_OWNER
+      ) {
+        this.props.showModal(
+          <AlertModal
+            title="Unable to view Page"
+            callback={() => {
+              this.props.hideModal();
+            }}
+          >
+            This page is hidden by the owner.
+          </AlertModal>
+        );
+        this.goToPage('home');
+      }
       this.setState({
         currentPageObj
       });
@@ -326,7 +343,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         </AlertModal>
       );
       fullPageObj = parsedPages['home'];
-      return;
     }
 
     let instanceId =
@@ -697,26 +713,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       );
       return false;
     }
-    const fullPageObj = this.state.currentPageObj;
-    const instanceId = this.state.currentPageObj.instanceId;
-    if (
-      instanceId &&
-      fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowEdit &&
-      instanceId !== Meteor.userId()
-    ) {
-      this.props.showModal(
-        <AlertModal
-          title="Unable to edit Page Instance"
-          callback={() => {
-            this.props.hideModal();
-          }}
-        >
-          The page creator has disabled editing other peoples instances.
-        </AlertModal>
-      );
-      return false;
-    }
     if (this.state.settings.readOnly) {
       this.props.showModal(
         <AlertModal
@@ -730,22 +726,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       );
       return false;
     }
-    if (
-      this.state.currentPageObj.pageSettings !== undefined &&
-      this.state.currentPageObj.pageSettings.readOnly
-    ) {
-      this.props.showModal(
-        <AlertModal
-          title="Unable to edit Page"
-          callback={() => {
-            this.props.hideModal();
-          }}
-        >
-          This page is read only.
-        </AlertModal>
-      );
-      return false;
-    }
+
     if (
       this.state.settings.restrict === PERM_PASSWORD_TO_EDIT &&
       this.state.privilege !== PRIVILEGE_EDIT
@@ -773,6 +754,42 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         );
       else addEditor(this.wikiDoc, Meteor.userId());
       return result;
+    }
+    const fullPageObj = this.state.currentPageObj;
+    const instanceId = this.state.currentPageObj.instanceId;
+    if (
+      instanceId &&
+      fullPageObj.pageSettings !== undefined &&
+      !fullPageObj.pageSettings.allowEdit &&
+      instanceId !== Meteor.userId()
+    ) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to edit Page Instance"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          The page creator has disabled editing other peoples instances.
+        </AlertModal>
+      );
+      return false;
+    }
+    if (
+      this.state.currentPageObj.pageSettings !== undefined &&
+      this.state.currentPageObj.pageSettings.readOnly
+    ) {
+      this.props.showModal(
+        <AlertModal
+          title="Unable to edit Page"
+          callback={() => {
+            this.props.hideModal();
+          }}
+        >
+          This page is read only.
+        </AlertModal>
+      );
+      return false;
     }
     return true;
   };
@@ -952,8 +969,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 operatorConfig,
                 pageSettings
               ) => {
-                if (title !== this.state.currentPageObj.title)
+                if (title !== this.state.currentPageObj.title) {
+                  const error = checkNewPageTitle(wikiStore.parsedPage, title);
+                  if (error) return error;
                   this.changeTitle(this.state.currentPageObj.id, title);
+                }
                 updatePageSettings(
                   this.wikiDoc,
                   this.state.currentPageObj.id,
