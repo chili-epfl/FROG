@@ -211,7 +211,7 @@ export const updatePageSettings = (
   const opChangePlane = {
     p: ['pages', pageId, 'plane'],
     oi: socialPlane
-  }
+  };
   wikiDoc.submitOp(opChangePlane);
   const op = {
     p: ['pages', pageId, 'pageSettings'],

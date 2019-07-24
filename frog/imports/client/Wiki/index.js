@@ -16,7 +16,6 @@ import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 import Tune from '@material-ui/icons/Tune';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
-import { number } from 'prop-types';
 import { connection } from '../App/connection';
 import {
   getPageTitle,
