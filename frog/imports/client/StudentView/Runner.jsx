@@ -61,7 +61,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     (isTeacher && activity.plane === 2 ? '' : groupingValue) +
     ')';
   if (activity.plane === 1) {
-    title = `(individual/${getUsername})`;
+    title = `(individual/${getUsername()})`;
   }
 
   const config = activity.data;
@@ -118,7 +118,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
           readOnly
         }}
         activityId={activity._id}
-        username={getUsername}
+        username={getUsername()}
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
         instanceMembers={instanceMembers}

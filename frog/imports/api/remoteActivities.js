@@ -51,7 +51,7 @@ export const collectActivities = (callback: ?Function) =>
   fetch(
     RemoteServer +
       '?select=uuid,title,description,tags,activity_type,owner_id,timestamp,is_public&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
-      getUsername +
+      getUsername() +
       ')'
   )
     .then(e => e.json())

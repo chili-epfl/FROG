@@ -83,7 +83,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
               color="inherit"
               className={classes.flex}
             >
-              {getUsername}
+              {getUsername()}
             </Typography>
           )}
           {Meteor.userId() === session.ownerId && (
