@@ -86,6 +86,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     super(props);
     this.state = {
       currentTab: 0,
+
       pageTitle: this.props.title || '',
       pageTitleValid: true,
       open: true,
@@ -110,6 +111,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleSocialPlaneChange = (e: any) => {
+
     if (e.target.value === 3) {
       this.setState({
         socialPlane: 3,
