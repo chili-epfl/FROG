@@ -14,7 +14,7 @@ import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-import {getUsername} from '/imports/api/users'; 
+import { getUsername } from '/imports/api/users';
 /**
  * Navigation bar displayed at the top
  */
@@ -53,7 +53,6 @@ function TopBar(props: PropsT) {
               size="medium"
               onClick={() => {
                 sessionStorage.removeItem('frog.sessionToken');
-
                 Meteor.logout();
                 window.location.replace('/');
               }}

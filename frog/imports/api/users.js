@@ -29,10 +29,10 @@ export const getUsername = (user: User) => {
  */
 const getUser = (user: User) => {
   // object spread to allow destructure a null object
-  const {id, userObj} = {...user};
+  const { id, userObj } = { ...user };
   if (id) return Meteor.users.findOne(id);
-  else if(userObj) return userObj; 
-  else  return Meteor.user(); 
+  else if (userObj) return userObj;
+  else return Meteor.user();
 };
 
 /**
@@ -42,11 +42,9 @@ const getUser = (user: User) => {
  */
 
 export const isVerifiedUser = (user: User) => {
-   const selectedUser = getUser(user); 
-   const {id, userObj} = selectedUser; 
-   if (id) return !!(Meteor.users.findOne(id).emails)
-   else if (userObj) return !!(userObj.emails);
-   else 
-    return !!(selectedUser.emails); 
-
+  const selectedUser = getUser(user);
+  const { id, userObj } = selectedUser;
+  if (id) return !!Meteor.users.findOne(id).emails;
+  else if (userObj) return !!userObj.emails;
+  else return !!selectedUser.emails;
 };
