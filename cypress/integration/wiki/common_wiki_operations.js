@@ -1,19 +1,31 @@
+import { Scenario, Given, When, Then } from '../../gherkin';
+
 describe('Common Wiki Operations', () => {
-  beforeEach(() => cy.visitRandomWiki());
-  it('Open a new wiki', () => {
-    cy.getByTestId('wiki_page_title').contains('Home');
-    cy.location('pathname').should('match', /\/Home$/);
+  Scenario('Creating a new wiki', () => {
+    When(`We go to a random wiki page`, () => {
+      cy.visitRandomWiki();
+    });
+    Then('A new wiki should be created with one page: Home', () => {
+      cy.getByTestId('wiki_page_title').contains('Home');
+      cy.location('pathname').should('match', /\/Home$/);
+    });
+    Then('Wiki settings should be available', () => {
+      cy.getByTestId('secondary-menu-button').click();
+      cy.get('#overflow-menu').contains('Wiki Settings');
+    });
   });
 
-  it('Create a new wiki page', () => {
-    cy.getByTestId('wiki_create_page')
-      .click()
-      .get('#page-title')
-      .type('Test page')
-      .getByTestId('create_button')
-      .click();
-
-    cy.getByTestId('wiki_page_title').contains('Test page');
-    cy.location('pathname').should('match', /\/Test%20page$/);
+  Scenario('Wiki Lists', () => {
+    Given('A wiki already has been created', () => {
+      cy.visitRandomWiki();
+    });
+    When('We visit http://localhost:3000/wiki', () => {
+      cy.visit('/wiki');
+    });
+    Then('A list of wikis should be displayed', () => {
+      cy.getByTestId('wiki-links').within(() => {
+        cy.getAllByTestId('wiki-link');
+      });
+    });
   });
 });

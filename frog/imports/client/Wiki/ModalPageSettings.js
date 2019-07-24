@@ -95,6 +95,7 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
     super(props);
     this.state = {
       currentTab: 0,
+
       pageTitle: this.props.title || '',
       pageTitleValid: true,
       open: true,
