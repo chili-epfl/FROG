@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { findKey } from 'lodash';
+import { findKey, flow } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-
+import { Meteor } from 'meteor/meteor';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -15,6 +15,9 @@ import ImportContacts from '@material-ui/icons/ImportContacts';
 import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 import Tune from '@material-ui/icons/Tune';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import { withRouter } from 'react-router';
 import { connection } from '../App/connection';
 import {
   getPageTitle,
@@ -815,6 +818,32 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           )
       });
 
+    if (Meteor.user().isAnonymous || !Meteor.user().emails || !Meteor.user()) {
+      secondaryNavItems.push({
+        title: 'Create an account',
+        icon: LockOutlinedIcon,
+        callback: () =>
+          this.props.showModal(<AccountModal formToDisplay="signup" />)
+      });
+      secondaryNavItems.push({
+        title: 'Login',
+        icon: LockOutlinedIcon,
+        callback: () =>
+          this.props.showModal(<AccountModal formToDisplay="login" />)
+      });
+    } else {
+      secondaryNavItems.push({
+        title: 'Logout',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          sessionStorage.removeItem('frog.sessionToken');
+          window.alert('Logged out!');
+          window.location.reload();
+          Meteor.logout();
+        }
+      });
+    }
+
     const instancesList =
       this.state.currentPageObj.plane === 3
         ? null
@@ -956,7 +985,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = withModal(WikiComp);
+const Wiki = flow(
+  withModal,
+  withRouter
+)(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;
