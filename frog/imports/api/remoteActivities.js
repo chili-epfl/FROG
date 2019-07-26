@@ -5,6 +5,7 @@ import { uuid, chainUpgrades } from '/imports/frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import { Activities, addActivity } from '/imports/api/activities';
 import { LibraryStates } from './cache';
+import { getUsername } from './users';
 
 const RemoteServer =
   Meteor.settings.public.remoteServer ||
@@ -50,7 +51,7 @@ export const collectActivities = (callback: ?Function) =>
   fetch(
     RemoteServer +
       '?select=uuid,title,description,tags,activity_type,owner_id,timestamp,is_public&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
-      Meteor.user().username +
+      getUsername() +
       ')'
   )
     .then(e => e.json())
@@ -74,7 +75,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   const act = {
     title: state.title,
     description: state.description,
-    owner_id: Meteor.user().username,
+    owner_id: getUsername(),
     config: activityTypesObj[props.activity.activityType].upgradeFunctions
       ? chainUpgrades(
           activityTypesObj[props.activity.activityType].upgradeFunctions,
@@ -102,7 +103,7 @@ export const sendActivity = (state: Object, props: Object, id: string) => {
   LibraryStates.activityList.push({
     uuid: newId,
     title: state.title,
-    owner_id: Meteor.user().username,
+    owner_id: getUsername(),
     description: state.description,
     tags: state.tags
   });
