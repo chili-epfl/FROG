@@ -10,6 +10,7 @@ import { Graphs } from '../imports/api/graphs';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Products } from '../imports/api/products';
 import { serverConnection } from './share-db-manager';
+import { getUsername } from '/imports/api/users';
 
 declare var Promise: any;
 
@@ -32,13 +33,13 @@ const formatResults = (
     let product;
     if (formatProduct) {
       const user = users.find(x => x._id === instance);
-      const username = user && user.username;
+      const username = getUsername({ userObj: user });
       try {
         product = formatProduct(
           config,
           data,
           instance,
-          username,
+          username || '',
           object,
           plane
         );
@@ -53,7 +54,7 @@ const formatResults = (
             config,
             initData,
             instance,
-            username,
+            username || '',
             object,
             plane
           );

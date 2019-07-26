@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
 import { omitBy, isNil } from 'lodash';
+import { getUsername } from './users';
 
 import { uuid } from '/imports/frog-utils';
 import { Graphs } from '/imports/api/graphs';
@@ -81,7 +81,7 @@ export const collectGraphs = (callback: ?Function) =>
   fetch(
     RemoteServer +
       '?select=uuid,title,description,tags,timestamp,owner_id&deleted=not.is.true&or=(is_public.not.is.false,owner_id.eq.' +
-      Meteor.user().username +
+      getUsername() +
       ')'
   )
     .then(e => e.json())
@@ -107,7 +107,7 @@ export const sendGraph = (state: Object, props: Object) => {
     description: state.description,
     tags: '{' + state.tags.join(',') + '}',
     parent_id: Graphs.findOne(props.graphId).parentId,
-    owner_id: Meteor.user().username,
+    owner_id: getUsername(),
     is_public: state.public,
     uuid: newId,
     graph: graphToString(props.graphId)
@@ -125,7 +125,7 @@ export const sendGraph = (state: Object, props: Object) => {
   LibraryStates.graphList.push({
     uuid: newId,
     title: state.title,
-    owner_id: Meteor.user().username,
+    owner_id: getUsername(),
     description: state.description,
     tags: state.tags,
     timestamp: new Date()

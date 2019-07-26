@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Meteor } from 'meteor/meteor';
 import Stop from '@material-ui/icons/Stop';
 import Pause from '@material-ui/icons/Pause';
 import SkipNext from '@material-ui/icons/SkipNext';
@@ -11,7 +11,6 @@ import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Meteor } from 'meteor/meteor';
 
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { uuid } from '/imports/frog-utils';

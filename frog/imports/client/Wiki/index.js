@@ -6,7 +6,7 @@ import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-import { Meteor } from 'meteor/meteor';
+import { getUsername } from '/imports/api/users';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -113,9 +113,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
     this.state = {
-      username: Meteor.user().isAnonymous
-        ? 'Anonymous User'
-        : Meteor.user().username,
+      username: getUsername(),
       isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
@@ -321,7 +319,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        const instanceName = Meteor.user().username;
+        const instanceName = getUsername();
         this.createNewInstancePage(fullPageObj, instanceId, instanceName);
       }
       return;
@@ -396,7 +394,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   getInstanceNameForUser = pageObj => {
-    if (pageObj.plane === 1) return Meteor.user().username;
+    if (pageObj.plane === 1) return getUsername();
     if (pageObj.plane === 2) {
       const userId = Meteor.userId();
       const groupNumber = findKey(pageObj.socialStructure, x =>
