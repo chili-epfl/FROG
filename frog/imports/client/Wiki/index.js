@@ -113,7 +113,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
     this.state = {
-      username: getUsername(),
       isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
@@ -818,7 +817,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (Meteor.user().isAnonymous || !Meteor.user().emails || !Meteor.user()) {
       secondaryNavItems.push({
-        title: 'Create an account',
+        title: 'Upgrade to a verified account',
         icon: LockOutlinedIcon,
         callback: () =>
           this.props.showModal(<AccountModal formToDisplay="signup" />)
@@ -835,9 +834,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         icon: LockOutlinedIcon,
         callback: () => {
           sessionStorage.removeItem('frog.sessionToken');
-          window.alert('Logged out!');
-          window.location.reload();
-          Meteor.logout();
+           Meteor.logout(() => window.location.reload());
+         
         }
       });
     }
@@ -908,20 +906,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <div style={contentDivStyle}>
             {!this.props.embed && (
               <WikiTopNavbar
-                username={this.state.username}
+                username={getUsername()}
                 isAnonymous={this.state.isAnonymous}
-                changeUsername={async e => {
-                  const err = await new Promise(resolve =>
-                    Meteor.call('change.username', e, error => resolve(error))
-                  );
-                  if (err?.error === 'User already exists') {
-                    window.alert('Username already exists');
-                    return false;
-                  } else {
-                    this.setState({ username: e, isAnonymous: false });
-                    return true;
-                  }
-                }}
                 primaryNavItems={primaryNavItems}
                 secondaryNavItems={secondaryNavItems}
               />

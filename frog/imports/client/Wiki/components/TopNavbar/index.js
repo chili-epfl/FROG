@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { ChangeableText } from '/imports/frog-utils';
+import {Chip,Avatar} from '@material-ui/core'; 
 import PrimaryButton from './PrimaryButton';
 import OverflowPanel from './OverflowPanel';
 
@@ -53,11 +53,9 @@ const TopNavbar = (props: TopNavBarPropsT) => {
         <PrimaryButton key={index} {...item} />
       ))}
       <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>
-        <ChangeableText
-          penOnLeft
-          onlyHover
-          value={username}
-          onSubmit={changeUsername}
+       <Chip
+              avatar={<Avatar>{username.charAt(0)}</Avatar>}
+              label={username}
         />
       </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
