@@ -9,6 +9,7 @@ import RedisPubsub from '@teamwork/sharedb-redis-pubsub';
 import json from '@minervaproject/ot-json0';
 import { cloneDeep, isEmpty } from 'lodash';
 import richText from '@minervaproject/rich-text';
+import { getUsername } from '/imports/api/users';
 
 declare var Promise: any;
 const server = http.createServer();
@@ -134,7 +135,7 @@ const sharedbGetRevisionList = (coll, id) =>
           }
 
           let ts = res[0].m.ts;
-          const user = Meteor.users.findOne(res[0].m.userId)?.username;
+          const user = getUsername({ id: res[0].m.userId });
           let contributors = {};
           let last = res.shift().create.data;
           const milestoneOpsIndices = [
@@ -153,10 +154,7 @@ const sharedbGetRevisionList = (coll, id) =>
                 milestoneOpsIndices.push({
                   data: cloneDeep(last),
                   contributors: Object.keys(contributors).map(x => {
-                    const userObj = Meteor.users.findOne(x);
-                    return userObj && !userObj?.isAnonymous
-                      ? userObj.username
-                      : 'Anonymous User';
+                    return getUsername({ id: x });
                   }),
                   time: op.m.ts
                 });

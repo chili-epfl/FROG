@@ -2,6 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import FileSaver from 'file-saver';
 import { Activities } from '/imports/api/activities';
+import { getUsername } from '/imports/api/users';
 
 const userIds = {};
 
@@ -32,7 +33,9 @@ const userLookup = userId => {
   if (userobj && userobj.username === 'teacher') {
     ret = ['teacher', 'teacher'];
   } else {
-    ret = userobj ? [userobj.userid || '', userobj.username] : [userId, ''];
+    ret = userobj
+      ? [userobj.userid || '', getUsername({ userObj: userobj })]
+      : [userId, ''];
   }
   userIds[userId] = ret;
   return ret;
