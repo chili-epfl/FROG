@@ -20,6 +20,7 @@ import { getActivitySequence } from '/imports/api/graphSequence';
 import { graphToString } from '/imports/api/exportGraph';
 import downloadLog from './downloadLog';
 import exportGraphPNG from '../../GraphEditor/utils/exportPicture';
+import { getUsername } from '/imports/api/users';
 
 const userIds = {};
 
@@ -32,7 +33,9 @@ const userLookup = (userId: string): [string, string] => {
     return cache;
   }
   const userobj = Meteor.users.findOne(userId);
-  const ret = userobj ? [userobj.userid || '', userobj.username] : [userId, ''];
+  const ret = userobj
+    ? [userobj.userid || '', getUsername({ userObj: userobj })]
+    : [userId, ''];
   userIds[userId] = ret;
   return ret;
 };

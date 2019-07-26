@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 
 type User = {
   id?: string,
-  userObj?: mixed
+  userObj?: { _id: string, emails: ?(string[]) }
 };
 
 /**
@@ -12,14 +12,14 @@ type User = {
  * @param: {User=} user
  */
 
-export const getUsername = (user: User) => {
+export const getUsername = (user: User): ?string => {
   const selectedUser = getUser(user);
   if (selectedUser) {
     if (selectedUser.isAnonymous) return 'Anonymous User';
     else if (selectedUser.emails) return selectedUser.profile.displayName;
     else if (selectedUser.username) return selectedUser.username;
   }
-  return 'No user logged in';
+  return undefined;
 };
 
 /**
@@ -27,7 +27,7 @@ export const getUsername = (user: User) => {
  *
  * @param: {User=} user
  */
-const getUser = (user: User) => {
+const getUser = (user: User): ?userObj => {
   // object spread to allow destructure a null object
   const { id, userObj } = { ...user };
   if (id) return Meteor.users.findOne(id);
