@@ -834,8 +834,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         icon: LockOutlinedIcon,
         callback: () => {
           sessionStorage.removeItem('frog.sessionToken');
-           Meteor.logout(() => window.location.reload());
-         
+          Meteor.logout(() => window.location.reload());
         }
       });
     }

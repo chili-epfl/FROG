@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import {Chip,Avatar} from '@material-ui/core'; 
+import { Chip, Avatar } from '@material-ui/core';
 import PrimaryButton from './PrimaryButton';
 import OverflowPanel from './OverflowPanel';
 
@@ -32,13 +32,7 @@ type TopNavBarPropsT = {
  * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
  */
 const TopNavbar = (props: TopNavBarPropsT) => {
-  const {
-    username,
-    isAnonymous,
-    primaryNavItems,
-    secondaryNavItems,
-    changeUsername
-  } = props;
+  const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
 
   return (
     <div
@@ -53,10 +47,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
         <PrimaryButton key={index} {...item} />
       ))}
       <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>
-       <Chip
-              avatar={<Avatar>{username.charAt(0)}</Avatar>}
-              label={username}
-        />
+        <Chip avatar={<Avatar>{username.charAt(0)}</Avatar>} label={username} />
       </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
