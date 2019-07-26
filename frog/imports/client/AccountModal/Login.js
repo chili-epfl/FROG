@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
-import { withToast } from '/imports/ui/Toast';
+import { useToast } from '/imports/ui/Toast';
 
 const styles = (theme: Object) => ({
   paper: {
@@ -35,10 +35,6 @@ const styles = (theme: Object) => ({
     cursor: 'pointer'
   }
 });
-type LoginStateT = {
-  email: string,
-  password: string
-};
 
 type LoginPropsT = {
   classes: Object,
@@ -46,102 +42,96 @@ type LoginPropsT = {
   openSignUpForm: () => void
 };
 
-class Login extends React.Component<LoginStateT, LoginPropsT> {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: ''
-    };
-  }
+const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
+  const [showToast] = useToast();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const setters = { email: setEmail, password: setPassword };
 
-  handleChange = (event: SyntheticInputEvent<EventTarget>, type: string) => {
+  const handleChange = (
+    event: SyntheticInputEvent<EventTarget>,
+    type: string
+  ) => {
     const value = event.target.value;
-    this.setState({ [type]: value });
+    setters[type](value);
   };
 
-  handleSubmit = (e: SyntheticEvent<EventTarget>) => {
+  const handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    const { email, password } = this.state;
     if (email === '' || password === '')
-      this.props.showToast('Please fill out all fields', 'error');
+      showToast('Please fill out all fields', 'error');
     else {
-      this.props.onLogin(email, password);
+      onLogin(email, password);
     }
   };
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in to FROG
-          </Typography>
-          <form
-            className={classes.form}
-            onSubmit={e => this.handleSubmit(e)}
-            noValidate
+  return (
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Log in to FROG
+        </Typography>
+        <form
+          className={classes.form}
+          onSubmit={e => handleSubmit(e)}
+          noValidate
+        >
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            onChange={e => this.handleChange(e, 'email')}
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            onChange={e => handleChange(e, 'password')}
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
           >
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              onChange={e => this.handleChange(e, 'email')}
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              onChange={e => this.handleChange(e, 'password')}
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Log In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link
-                  onClick={this.props.openSignUpForm}
-                  className={classes.signupLink}
-                  variant="body2"
-                >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+            Log In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-          </form>
-        </div>
-      </Container>
-    );
-  }
-}
-export default _.flow(
-  withStyles(styles),
-  withToast
-)(Login);
+            <Grid item>
+              <Link
+                onClick={openSignUpForm}
+                className={classes.signupLink}
+                variant="body2"
+              >
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
+  );
+};
+
+export default withStyles(styles)(Login);
