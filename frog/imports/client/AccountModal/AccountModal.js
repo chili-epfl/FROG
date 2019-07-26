@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { Modal, withModal } from '/imports/ui/Modal';
-import { withToast } from '/imports/ui/Toast';
+import {withToast} from '/imports/ui/Toast'; 
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
@@ -63,8 +63,8 @@ class AccountModal extends React.Component<
   };
 
   render() {
+   
     const toRender = this.state?.formToDisplay || this.props.formToDisplay;
-
     return (
       <Modal
         title=""
@@ -82,8 +82,4 @@ class AccountModal extends React.Component<
     );
   }
 }
-
-export default _.flow(
-  withModal,
-  withToast
-)(AccountModal);
+export default _.flow(withModal, withToast)(AccountModal); 

@@ -24,7 +24,7 @@ function TopBar(props: PropsT) {
   const { classes } = props;
   const user = Meteor.user();
 
-  const openSignUpModal = () => {
+  const openSignUpModal = () => { 
     showModal(<AccountModal formToDisplay="signup" />);
   };
 

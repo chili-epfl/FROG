@@ -141,7 +141,6 @@ class Login extends React.Component<LoginStateT, LoginPropsT> {
     );
   }
 }
-export default _.flow(
-  withStyles(styles),
-  withToast
-)(Login);
+const LoginWithStyles = withStyles(styles)(Login);
+const LoginwithToast = withToast(LoginWithStyles); 
+export default LoginwithToast; 
