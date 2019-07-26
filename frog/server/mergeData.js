@@ -1,5 +1,5 @@
 // @flow
-import { Meteor } from 'meteor/meteor';
+import { getUsername } from '/imports/api/users';
 import ShareDB from '@teamwork/sharedb';
 import { cloneDeep } from 'lodash';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
@@ -276,7 +276,7 @@ export const ensureReactive = (sessionId: string, studentId: string) => {
       });
       Objects.update(ac._id, {
         $set: {
-          ['globalStructure.students.' + studentId]: Meteor.user().username
+          ['globalStructure.students.' + studentId]: getUsername()
         }
       });
     }

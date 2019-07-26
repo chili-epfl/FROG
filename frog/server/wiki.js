@@ -11,6 +11,7 @@ import {
   createNewEmptyWikiDoc,
   addNewWikiPage
 } from '/imports/api/wikiDocHelpers';
+import { getUsername } from '/imports/api/users';
 
 import { serverConnection as connection } from './share-db-manager';
 
@@ -76,7 +77,7 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
         liId: newId,
         instanceName: item.groupingKey
           ? item.groupingKey + ' ' + x
-          : Meteor.users.findOne(x)?.username,
+          : getUsername({ id: x }),
         instanceId: x
       };
       return acc;
