@@ -87,7 +87,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             id="email"
             label="Email Address"
             name="email"
-            onChange={e => this.handleChange(e, 'email')}
+            onChange={e => handleChange(e, 'email')}
             autoComplete="email"
             autoFocus
           />
