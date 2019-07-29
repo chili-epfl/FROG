@@ -1,11 +1,10 @@
 // @flow
 
+import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
 import {
-  type ActivityPackageT,
-  type ActivityDbT,
   type ShowModalFunctionT,
   type HideModalFunctionT
-} from '/imports/frog-utils';
+} from '/imports/ui/Modal/types';
 
 export type StateT = {
   stage: number,

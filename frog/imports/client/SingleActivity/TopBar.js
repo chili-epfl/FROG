@@ -2,24 +2,34 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import _ from 'lodash';
+import {
+  Avatar,
+  Chip,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button
+} from '@material-ui/core';
+import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
-import { withModal } from '/imports/client/UIComponents/ModalController';
-import { SignUpModal } from '/imports/client/AccountModal';
-
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import { getUsername } from '/imports/api/users';
 /**
  * Navigation bar displayed at the top
  */
+
 function TopBar(props: PropsT) {
-  const { classes, showModal } = props;
+  const [showModal] = useModal();
+  const { classes } = props;
+  const user = Meteor.user();
 
   const openSignUpModal = () => {
-    showModal(<SignUpModal />);
+    showModal(<AccountModal formToDisplay="signup" />);
+  };
+
+  const openLoginModal = () => {
+    showModal(<AccountModal formToDisplay="login" />);
   };
 
   return (
@@ -28,15 +38,35 @@ function TopBar(props: PropsT) {
         <Typography variant="h6" color="inherit" className={classes.logo}>
           FROG
         </Typography>
-        <Button size="medium">Help</Button>
-        <Button size="medium" onClick={openSignUpModal}>
-          Log In/Sign Up
-        </Button>
+        {user.isAnonymous || !user ? (
+          <>
+            <Button size="medium" onClick={openSignUpModal}>
+              Create a verified account
+            </Button>
+            <Button size="medium" onClick={openLoginModal}>
+              Login
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              size="medium"
+              onClick={() => {
+                sessionStorage.removeItem('frog.sessionToken');
+                Meteor.logout();
+                window.location.replace('/');
+              }}
+            >
+              Logout
+            </Button>
+            <Chip
+              avatar={<Avatar>{getUsername().charAt(0)}</Avatar>}
+              label={getUsername()}
+            />
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
 }
-export default _.flow(
-  withModal,
-  withStyles(style)
-)(TopBar);
+export default withStyles(style)(TopBar);
