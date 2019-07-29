@@ -1,5 +1,4 @@
 import * as React from 'react';
-import _ from 'lodash';
 import {
   Avatar,
   Button,
@@ -11,7 +10,6 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
-import { useToast } from '/imports/ui/Toast';
 
 const styles = (theme: Object) => ({
   paper: {
@@ -43,39 +41,39 @@ type LoginPropsT = {
 };
 
 const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
-  const [showToast] = useToast();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errors, setErrors] = React.useState({
     email: '',
-    password:''
-  })
-  const setters = { email: setEmail, password: setPassword};
+    password: ''
+  });
+  const setters = { email: setEmail, password: setPassword };
 
   const handleChange = (
     event: SyntheticInputEvent<EventTarget>,
     type: string
   ) => {
-    switch(type){
-      case 'email': setErrors({...errors, email:''});
-                    break; 
-      case 'password': setErrors({...errors,password:''});
-                      break; 
-
+    switch (type) {
+      case 'email':
+        setErrors({ ...errors, email: '' });
+        break;
+      case 'password':
+        setErrors({ ...errors, password: '' });
+        break;
+      default:
+        break;
     }
-    
+
     const value = event.target.value;
     setters[type](value);
   };
 
   const handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    if (email === '')
-       setErrors({...errors,email:'Email cannot be empty'})
+    if (email === '') setErrors({ ...errors, email: 'Email cannot be empty' });
     if (password === '')
-        setErrors({...errors,password:'Password cannot be empty'});
-    if (errors.email === '' && errors.password === '')
-    {
+      setErrors({ ...errors, password: 'Password cannot be empty' });
+    if (errors.email === '' && errors.password === '') {
       onLogin(email, password);
     }
   };
@@ -105,8 +103,8 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             onChange={e => handleChange(e, 'email')}
             autoComplete="email"
             autoFocus
-            error = {errors.email !== ''}
-            helperText = {errors.email}
+            error={errors.email !== ''}
+            helperText={errors.email}
           />
           <TextField
             variant="outlined"
@@ -119,8 +117,8 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             type="password"
             id="password"
             autoComplete="current-password"
-            error = {errors.password !== ''}
-            helperText = {errors.password || errors.formError}
+            error={errors.password !== ''}
+            helperText={errors.password || errors.formError}
           />
           <Button
             type="submit"
