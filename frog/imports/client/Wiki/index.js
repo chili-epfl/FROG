@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { findKey, flow } from 'lodash';
+import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-import { getUsername } from '/imports/api/users';
+import { getUsername, isVerifiedUser } from '/imports/api/users';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -63,7 +63,7 @@ import {
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
 } from './types.js';
-import {isVerifiedUser} from '/imports/api/users'; 
+
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
   pageObj: PageObjT,
@@ -814,7 +814,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           )
       });
 
-    if (Meteor.user().isAnonymous || !isVerifiedUser()|| !Meteor.user()) {
+    if (Meteor.user().isAnonymous || !isVerifiedUser() || !Meteor.user()) {
       secondaryNavItems.push({
         title: 'Upgrade to a verified account',
         icon: LockOutlinedIcon,
