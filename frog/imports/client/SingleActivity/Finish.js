@@ -12,6 +12,7 @@ import { LocalSettings } from '/imports/api/settings';
 import { type PropsT } from './types';
 import { style } from './style';
 
+import { useToast } from '/imports/ui/Toast';
 const BASE_URL = window.location.origin;
 
 /**
@@ -27,8 +28,10 @@ function Finish(
   } & PropsT
 ) {
   const { slug, sessionId, classes } = props;
+  const [showToast] = useToast();
 
   LocalSettings.UrlCoda = '?u=' + Meteor.userId();
+  showToast('Hello', 'error');
   return (
     <Card raised className={classes.card}>
       <IconButton

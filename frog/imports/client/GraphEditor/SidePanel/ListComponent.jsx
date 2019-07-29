@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 
 import Grid from '@material-ui/core/Grid';
 import { Fab, IconButton } from '@material-ui/core';
@@ -15,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 
 import { Highlight } from '/imports/frog-utils';
+import { getUsername } from '/imports/api/users';
 
 const styles = {
   iconButtonRoot: {
@@ -131,7 +131,7 @@ const ListItems = ({
                 <Fab
                   aria-label="Delete"
                   color="secondary"
-                  disabled={Meteor.user().username !== object.owner_id}
+                  disabled={getUsername() !== object.owner_id}
                   onClick={() => {
                     setIdRemove({ type: 'activity', id: object.id });
                     setDelete(true);

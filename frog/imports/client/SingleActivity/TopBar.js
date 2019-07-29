@@ -14,7 +14,7 @@ import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-
+import { getUsername } from '/imports/api/users';
 /**
  * Navigation bar displayed at the top
  */
@@ -38,7 +38,7 @@ function TopBar(props: PropsT) {
         <Typography variant="h6" color="inherit" className={classes.logo}>
           FROG
         </Typography>
-        {user.isAnonymous || !user.emails || !user ? (
+        {user.isAnonymous || !user ? (
           <>
             <Button size="medium" onClick={openSignUpModal}>
               Create a verified account
@@ -53,7 +53,6 @@ function TopBar(props: PropsT) {
               size="medium"
               onClick={() => {
                 sessionStorage.removeItem('frog.sessionToken');
-
                 Meteor.logout();
                 window.location.replace('/');
               }}
@@ -61,8 +60,8 @@ function TopBar(props: PropsT) {
               Logout
             </Button>
             <Chip
-              avatar={<Avatar>{user.profile.displayName.charAt(0)}</Avatar>}
-              label={user.profile.displayName}
+              avatar={<Avatar>{getUsername().charAt(0)}</Avatar>}
+              label={getUsername()}
             />
           </>
         )}
