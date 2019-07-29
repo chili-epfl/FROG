@@ -940,7 +940,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       }
     ];
-  
 
     if (this.getPrivilege() === PRIVILEGE_OWNER) {
       secondaryNavItems.push({
