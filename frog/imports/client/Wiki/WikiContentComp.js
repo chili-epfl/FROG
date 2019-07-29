@@ -45,13 +45,6 @@ class WikiContentComp extends React.Component<> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.settings.readOnly && this.state.docMode === 'edit') {
-      this.setState({ docMode: 'view' }, () => {
-        this.props.checkEdit().then(x => {
-          if (x) this.setState({ docMode: 'edit' });
-        });
-      });
-    }
     if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
       this.setState({
         docMode: 'view',
@@ -59,6 +52,24 @@ class WikiContentComp extends React.Component<> {
         editingTitle: false,
         showTitleEditButton: false,
         error: null
+      });
+    } else if (
+      nextProps.currentPageObj.title !== this.props.currentPageObj.title
+    ) {
+      this.setState({ pageTitleString: nextProps.currentPageObj.title });
+    } else if (
+      nextProps.currentPageObj.hidden !== this.props.currentPageObj.hidden
+    ) {
+      this.setState({ hidden: nextProps.currentPageObj.hidden });
+    }
+
+    // After changing page, set the mode to view until we have checked
+    // that the user is allowed to edit or not
+    if (this.state.docMode === 'edit') {
+      this.setState({ docMode: 'view' }, () => {
+        this.props.checkEdit().then(result => {
+          if (result) this.setState({ docMode: 'edit' });
+        });
       });
     }
   }
@@ -280,7 +291,7 @@ class WikiContentComp extends React.Component<> {
                     }
                   }}
                 >
-                  {this.props.currentPageObj?.liId && (
+                  {this.props.currentPageObj?.liId && !this.props.hidden && (
                     <LearningItem
                       type={this.state.docMode}
                       id={this.props.currentPageObj.liId}

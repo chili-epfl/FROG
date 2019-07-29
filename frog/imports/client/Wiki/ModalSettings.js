@@ -23,7 +23,7 @@ import {
   PERM_ALLOW_EVERYTHING,
   PERM_PASSWORD_TO_EDIT,
   PERM_PASSWORD_TO_VIEW
-} from './types';
+} from '/imports/api/wikiTypes';
 
 type ModalSettingsPropsT = {
   callback: WikiSettingsT => void,

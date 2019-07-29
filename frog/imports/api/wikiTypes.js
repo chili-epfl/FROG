@@ -7,6 +7,13 @@ export type WikiSettingsT = {
   restrict: 'none' | 'edit' | 'view'
 };
 
+export type PageSettingsT = {
+  allowView: boolean,
+  allowEdit: boolean,
+  readOnly: boolean,
+  hidden: boolean
+};
+
 export type PageObjT = {
   wikiId: string,
   pageTitle?: string,
@@ -21,3 +28,9 @@ export const PRIVILEGE_OWNER = 'owner';
 export const PRIVILEGE_EDIT = 'editor';
 export const PRIVILEGE_VIEW = 'user';
 export const PRIVILEGE_NONE = 'none';
+export const DEFAULT_PAGE_SETTINGS = {
+  allowView: true,
+  allowEdit: false,
+  readOnly: false,
+  hidden: false
+};
