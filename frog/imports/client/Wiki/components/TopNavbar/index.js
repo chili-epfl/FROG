@@ -37,7 +37,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
   const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
   const [showModal] = useModal();
   /* eslint-disable no-unused-expressions */
-  const displayAnonymousModal = () => {
+  const displayModal= () => {
     isAnonymous ? showModal(<AccountModal formToDisplay="signup" />) : null;
   };
 
@@ -57,7 +57,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
         <Chip
           avatar={<Avatar>{username.charAt(0)}</Avatar>}
           label={username}
-          onClick={displayAnonymousModal}
+          onClick={displayModal}
         />
       </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
