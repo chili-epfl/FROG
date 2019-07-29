@@ -15,7 +15,7 @@ export const ToastController = (props: ToastControllerPropsT) => (
     maxSnack={3}
     dense={false}
     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-    autoHideDuration={2000}
+    autoHideDuration={5000}
   >
     {props.children}
   </SnackbarProvider>
