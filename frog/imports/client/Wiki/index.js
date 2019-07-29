@@ -114,6 +114,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
     this.state = {
+<<<<<<< HEAD
+=======
+      username: getUsername(undefined, true),
+>>>>>>> 0684e5a3adbf34c6d9eab4792c000e502f3076d7
       isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
@@ -372,7 +376,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        const instanceName = getUsername();
+        const instanceName = getUsername(undefined, true);
         this.createNewInstancePage(fullPageObj, instanceId, instanceName);
       }
       return;
@@ -447,7 +451,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   getInstanceNameForUser = pageObj => {
-    if (pageObj.plane === 1) return getUsername();
+    if (pageObj.plane === 1) return getUsername(undefined, true);
     if (pageObj.plane === 2) {
       const userId = Meteor.userId();
       const groupNumber = findKey(pageObj.socialStructure, x =>
