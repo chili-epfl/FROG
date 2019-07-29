@@ -30,7 +30,7 @@ export const PRIVILEGE_VIEW = 'user';
 export const PRIVILEGE_NONE = 'none';
 export const DEFAULT_PAGE_SETTINGS = {
   allowView: true,
-  allowEdit: true,
+  allowEdit: false,
   readOnly: false,
   hidden: false
 };

@@ -285,6 +285,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         newPageObj.pageSettings.hidden &&
         this.getPrivilege() !== PRIVILEGE_OWNER
       ) {
+        this.goToPage('home');
         this.props.showModal(
           <AlertModal
             title="Unable to view Page"
@@ -295,7 +296,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             This page is hidden by the owner.
           </AlertModal>
         );
-        this.goToPage('home');
       }
       this.setState({
         currentPageObj
@@ -326,8 +326,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
 
     if (
-      fullPageObj.pageSettings !== undefined &&
-      fullPageObj.pageSettings.hidden &&
+      fullPageObj.pageSettings?.hidden &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
       this.props.showModal(
@@ -845,7 +844,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             isOwner={this.state.privilege === PRIVILEGE_OWNER}
             hideModal={this.props.hideModal}
             wikiId={this.wikiId}
-            pageSettings={this.state.currentPageObj.pageSettings}
             action="create"
           />
         );
@@ -968,7 +966,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
                 pageSettings
               ) => {
                 if (title !== this.state.currentPageObj.title) {
-                  const error = checkNewPageTitle(wikiStore.parsedPage, title);
+                  const error = checkNewPageTitle(wikiStore.parsedPages, title);
                   if (error) return error;
                   this.changeTitle(this.state.currentPageObj.id, title);
                 }
@@ -1079,6 +1077,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             )}
             <div style={wikiPagesDivContainerStyle}>
               <WikiContentComp
+                hidden={
+                  this.state.currentPageObj.pageSettings?.hidden &&
+                  this.state.privilege !== PRIVILEGE_OWNER
+                }
                 wikiId={this.wikiId}
                 wikiDoc={this.wikiDoc}
                 currentPageObj={this.state.currentPageObj}
@@ -1095,6 +1097,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
               />
               {this.state.mode === 'splitview' && (
                 <WikiContentComp
+                  hidden={
+                    this.state.rightSideCurrentPageObj.pageSettings?.hidden &&
+                    this.state.privilege !== PRIVILEGE_OWNER
+                  }
                   wikiId={this.wikiId}
                   wikiDoc={this.wikiDoc}
                   currentPageObj={this.state.rightSideCurrentPageObj}

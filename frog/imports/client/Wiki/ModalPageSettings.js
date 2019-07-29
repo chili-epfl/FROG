@@ -180,7 +180,9 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
         open
         onEscapeKeyDown={this.props.hideModal}
         onKeyDown={e => {
-          if (e.keyCode === 13 && error !== null) this.handleCreate();
+          if (e.keyCode === 13 && error === null) {
+            this.handleSubmit();
+          }
         }}
         maxWidth={false}
         scroll="paper"
@@ -201,7 +203,7 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
                 margin="normal"
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    this.handleCreate();
+                    this.handleSubmit();
                   } else if (e.keyCode === 40) {
                     this.setState({ expanded: true });
                   } else if (e.keyCode === 38) {
@@ -224,7 +226,6 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
                 >
                   <Tab label="Settings" className={classes.tabs} />
                   <Tab label="Component" className={classes.tabs} />
-                  <Tab label="Operator" className={classes.tabs} />
                 </Tabs>
               </AppBar>
             )}
@@ -232,7 +233,7 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
               {currentTab === 0 && (
                 <>
                   <FormGroup>
-                    <FormControl>
+                    <FormControl disabled={action !== 'create'}>
                       <Typography variant="h6">Social Plane</Typography>
                       <Select
                         value={this.state.socialPlane}
@@ -277,6 +278,7 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
                       <Typography variant="h6">Page Settings</Typography>
                       <FormGroup row>
                         <FormControlLabel
+                          disabled={this.state.pageSettings.hidden}
                           control={
                             <Checkbox
                               checked={this.state.pageSettings.readOnly}
