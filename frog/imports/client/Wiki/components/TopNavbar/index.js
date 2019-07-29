@@ -57,7 +57,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
         <Chip
           avatar={<Avatar>{username.charAt(0)}</Avatar>}
           label={username}
-          onClick={displayModal}
+          onClick={isAnonymous ? displayModal : null}
         />
       </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
