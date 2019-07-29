@@ -1283,18 +1283,18 @@
   dependencies:
     pngjs "^3.2.0"
 
-"@houshuang/react-quill@^1.3.2":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@houshuang/react-quill/-/react-quill-1.3.2.tgz#0d44c5e208e69a46def10f3ed1af3777e87975cf"
-  integrity sha512-gp56PumPyXCeHafo6TuAcfe56HWmODiuELSwXGrFxbA2imzgiVWlz38mQPwfP0hh2RCVeOLe94XAfi15IPtKbQ==
+"@houshuang/react-quill@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@houshuang/react-quill/-/react-quill-1.4.0.tgz#2f2b46b5270609e3197b3ba5b567b72c99933e9b"
+  integrity sha512-tPhFi6xidf5De6L1SFNTW5YNfl3FwLsxMmVwQbb2SckfT3Ntpdp5BCxZgQo97ACPYKNrVgfmlAwKb9HkH4Rg2w==
   dependencies:
-    "@types/quill" "*"
-    "@types/react" "*"
-    create-react-class "^15.6.0"
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
-    quill "^1.2.6"
-    react-dom-factories "^1.0.0"
+    "@types/quill" "2.0.2"
+    "@types/react" "16.8.23"
+    create-react-class "^15.6.3"
+    lodash "^4.17.14"
+    prop-types "^15.7.2"
+    quill "^1.3.6"
+    react-dom-factories "^1.0.2"
 
 "@houshuang/react-tweet@1.7.2":
   version "1.7.2"
@@ -1554,17 +1554,17 @@
   resolved "https://registry.yarnpkg.com/@minervaproject/ot-json0/-/ot-json0-1.1.2.tgz#d1f30c6ed92734bc270d3fe42e2f5d3dcc224e13"
   integrity sha512-jcubnU5OreNzddR4ClgOR9wf/uN+xurL+xcLco3M23DtsrQBdWk8WqM6DMKcsCsSmE3FpfnJkZwQmUPE7VgU4A==
 
-"@minervaproject/quill-cursors@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@minervaproject/quill-cursors/-/quill-cursors-2.1.0.tgz#e2aab6702cfb81b7d110e40f73878a35a0a5c2ef"
-  integrity sha512-+Ga0xO5CEcLnYFff6II9eWCGqn7GzOEPFGH9pXnVsBsPPaHw0g++aT9Bj/x8+1Ty9dkqFfmaUqn3wcZyQeWSWA==
+"@minervaproject/quill-cursors@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@minervaproject/quill-cursors/-/quill-cursors-2.1.2.tgz#9a084ce17c50fa6a6ae7f238a5940ea5a170e758"
+  integrity sha512-LlUEBOeEufght4k23GmFQIzm5wVkMqCrPPUyOqKmdPlqiv6NRRZpxqVHjYYpx1F/7Hal/Rf/WLktVpC8/bY7tw==
 
-"@minervaproject/rich-text@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@minervaproject/rich-text/-/rich-text-3.1.0.tgz#1709278f7a9311dc506c9e4c3df95fc4ca96c991"
-  integrity sha512-UeQ9/PN/3C4YpOzKgcDJLDq1ccTn56F/q1gLRtIEitG++LsvYSZdTAF8RpXU7XsJpEcQ1ev/DviHq+TV7s6KoQ==
+"@minervaproject/rich-text@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@minervaproject/rich-text/-/rich-text-4.0.0.tgz#5eb85d33b4db9568df0b3da4385420a7c48e8e12"
+  integrity sha512-q2isYwunpjI4MTNSCvYgOEpenHNbzIcnrETNiC+rsyrq455OTZtskTztdQHgWqJ7e8RIJZQr/2zbFs5ge921bg==
   dependencies:
-    quill-delta "^3.2.0"
+    quill-delta "^4.2.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -2186,7 +2186,7 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@types/quill@*":
+"@types/quill@2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@types/quill/-/quill-2.0.2.tgz#38c8b03157ec95d83f557890039ecd650548d1a7"
   integrity sha512-Jkv4xYj9Y+1juXTEh2FV5L1XaEHXBaSLZweGBtzqDvTbFNh0kWPxH2JHogGNC3pyOLY02HydZ5A6AA5BS0LCaQ==
@@ -2201,7 +2201,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
+"@types/react@*", "@types/react@16.8.23":
   version "16.8.23"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.23.tgz#ec6be3ceed6353a20948169b6cb4c97b65b97ad2"
   integrity sha512-abkEOIeljniUN9qB5onp++g0EY38h7atnDHxwKUFz1r3VH1+yG1OKi2sNPTyObL40goBmfKFpdii2lEzwLX1cA==
@@ -5473,7 +5473,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.6.0, create-react-class@^15.6.3:
+create-react-class@^15.6.3:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
@@ -13359,7 +13359,7 @@ quill-delta@^3.2.0, quill-delta@^3.6.2:
     extend "^3.0.2"
     fast-diff "1.1.2"
 
-quill-delta@^4.0.1:
+quill-delta@^4.0.1, quill-delta@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/quill-delta/-/quill-delta-4.2.1.tgz#ad4f191cdf3be5079c5dc3991b9603a5cc0db69a"
   integrity sha512-Y2nksOj6Q+4hizre8n0dml76vLNGK4/y86EoI1d7rv6EL1bx7DPDYRmqQMPu1UqFQO/uQuVHQ3fOmm4ZSzWrfA==
@@ -13368,7 +13368,7 @@ quill-delta@^4.0.1:
     extend "^3.0.2"
     fast-diff "1.2.0"
 
-quill@^1.2.6:
+quill@^1.3.6:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/quill/-/quill-1.3.6.tgz#99f4de1fee85925a0d7d4163b6d8328f23317a4d"
   integrity sha512-K0mvhimWZN6s+9OQ249CH2IEPZ9JmkFuCQeHAOQax3EZ2nDJ3wfGh59mnlQaZV2i7u8eFarx6wAtvQKgShojug==
@@ -13720,7 +13720,7 @@ react-docgen@^4.1.0:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom-factories@^1.0.0:
+react-dom-factories@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.2.tgz#eb7705c4db36fb501b3aa38ff759616aa0ff96e0"
   integrity sha1-63cFxNs2+1AbOqOP91lhaqD/luA=
