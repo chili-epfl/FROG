@@ -17,7 +17,6 @@ import RestorePage from '@material-ui/icons/RestorePage';
 import Tune from '@material-ui/icons/Tune';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-import { withRouter } from 'react-router';
 import { connection } from '../App/connection';
 import {
   getPageTitle,
@@ -64,7 +63,7 @@ import {
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
 } from './types.js';
-
+import {isVerifiedUser} from '/imports/api/users'; 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
   pageObj: PageObjT,
@@ -815,7 +814,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           )
       });
 
-    if (Meteor.user().isAnonymous || !Meteor.user().emails || !Meteor.user()) {
+    if (Meteor.user().isAnonymous || !isVerifiedUser()|| !Meteor.user()) {
       secondaryNavItems.push({
         title: 'Upgrade to a verified account',
         icon: LockOutlinedIcon,
@@ -968,10 +967,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 }
 
-const Wiki = flow(
-  withModal,
-  withRouter
-)(WikiComp);
+const Wiki = withModal(WikiComp);
 Wiki.displayName = 'Wiki';
 
 export default Wiki;
