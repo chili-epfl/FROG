@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { toObject as queryToObject } from 'query-parse';
 import Wiki from './index';
-import { type PageObjT } from './types';
+import { type PageObjT } from '/imports/api/wikiTypes';
 import { sanitizeTitle } from './helpers';
 
 type PropsT = {

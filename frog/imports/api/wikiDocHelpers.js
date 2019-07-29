@@ -1,17 +1,18 @@
 // @flow
 import { uuid } from '/imports/frog-utils';
-import { type WikiSettingsT } from '/imports/client/Wiki/types';
+import { type WikiSettingsT, type PageSettingsT } from '/imports/api/wikiTypes';
 
 export const addNewWikiPage = (
   wikiDoc: Object,
-  title,
-  setCreated,
-  liType = 'li-richText',
-  liId,
-  plane,
-  instances = {},
-  socialStructure,
-  noNewInstances
+  title: string,
+  setCreated: boolean,
+  liType: string = 'li-richText',
+  liId: string,
+  plane: number,
+  pageSettings: PageSettingsT,
+  instances: Object = {},
+  socialStructure: Object,
+  noNewInstances: boolean
 ) => {
   const pageId = uuid();
   const obj = {
@@ -22,6 +23,7 @@ export const addNewWikiPage = (
     liId,
     liType,
     plane,
+    pageSettings,
     instances,
     noNewInstances
   };
@@ -194,6 +196,25 @@ export const updateSettings = (wikiDoc: Object, settings: WikiSettingsT) => {
     p: ['settings'],
     oi: settings
   };
+  wikiDoc.submitOp(op);
+};
+
+export const updatePageSettings = (
+  wikiDoc: Object,
+  pageId: string,
+  socialPlane: number,
+  pageSettings: PageSettingsT
+) => {
+  const opChangePlane = {
+    p: ['pages', pageId, 'plane'],
+    oi: socialPlane
+  };
+  wikiDoc.submitOp(opChangePlane);
+  const op = {
+    p: ['pages', pageId, 'pageSettings'],
+    oi: pageSettings
+  };
+
   wikiDoc.submitOp(op);
 };
 

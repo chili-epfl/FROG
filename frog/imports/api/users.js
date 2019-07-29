@@ -1,6 +1,9 @@
 // @flow
 import { Meteor } from 'meteor/meteor';
 
+import { hashCode } from '/imports/frog-utils';
+import animals from './animals';
+
 type User = {
   id?: string,
   userObj?: { _id: string, emails: ?(string[]) }
@@ -12,10 +15,16 @@ type User = {
  * @param: {User=} user
  */
 
-export const getUsername = (user: User): ?string => {
+const getAnimalAnonymous = (userId: string): string => {
+  const animal = animals[Math.abs(hashCode(userId)) % 286];
+  return 'Anonymous ' + animal;
+};
+
+export const getUsername = (user: User, wiki: boolean = false): ?string => {
   const selectedUser = getUser(user);
   if (selectedUser) {
-    if (selectedUser.isAnonymous) return 'Anonymous User';
+    if (selectedUser.isAnonymous)
+      return wiki ? getAnimalAnonymous(selectedUser._id) : 'Anonymous User';
     else if (selectedUser.emails) return selectedUser.profile.displayName;
     else if (selectedUser.username) return selectedUser.username;
   }
