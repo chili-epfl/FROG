@@ -1085,7 +1085,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <div style={contentDivStyle}>
             {!this.props.embed && (
               <WikiTopNavbar
-                username={getUsername()}
+                username={getUsername(undefined,true)}
                 isAnonymous={Meteor.user().isAnonymous}
                 primaryNavItems={primaryNavItems}
                 secondaryNavItems={secondaryNavItems}
