@@ -135,4 +135,3 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
 };
 
 export default withStyles(styles)(Login);
-

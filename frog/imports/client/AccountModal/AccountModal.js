@@ -3,7 +3,6 @@ import _ from 'lodash';
 import * as React from 'react';
 import { Modal, useModal } from '/imports/ui/Modal';
 import { useToast } from '/imports/ui/Toast';
->>>>>>> a554d328fb7f68212f050b290d3221679455d6e8
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
@@ -71,4 +70,3 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
 };
 
 export default AccountModal;
-

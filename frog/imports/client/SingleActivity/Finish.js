@@ -13,6 +13,7 @@ import { type PropsT } from './types';
 import { style } from './style';
 
 import { useToast } from '/imports/ui/Toast';
+
 const BASE_URL = window.location.origin;
 
 /**
