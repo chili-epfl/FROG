@@ -939,7 +939,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       }
     ];
-    if (this.state.privilege === PRIVILEGE_OWNER) {
+    // called loadWikiDoc to update privilage when the user changes
+
+    if (this.getPrivilege() === PRIVILEGE_OWNER) {
       secondaryNavItems.push({
         title: 'Wiki Settings',
         icon: Tune,
@@ -995,7 +997,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
     if (Meteor.user().isAnonymous || !isVerifiedUser() || !Meteor.user()) {
       secondaryNavItems.push({
-        title: 'Upgrade to a verified account',
+        title: 'Create an account',
         icon: LockOutlinedIcon,
         callback: () =>
           this.props.showModal(<AccountModal formToDisplay="signup" />)
@@ -1084,7 +1086,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             {!this.props.embed && (
               <WikiTopNavbar
                 username={getUsername()}
-                isAnonymous={this.state.isAnonymous}
+                isAnonymous={Meteor.user().isAnonymous}
                 primaryNavItems={primaryNavItems}
                 secondaryNavItems={secondaryNavItems}
               />

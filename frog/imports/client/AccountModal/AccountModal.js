@@ -44,6 +44,7 @@ class AccountModal extends React.Component<
           window.alert(error.reason);
         } else {
           window.alert('Success! Account created!');
+
           this.props.hideModal();
         }
       }

@@ -3,6 +3,8 @@
 import * as React from 'react';
 
 import { Chip, Avatar } from '@material-ui/core';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import { useModal } from '/imports/ui/Modal';
 import PrimaryButton from './PrimaryButton';
 import OverflowPanel from './OverflowPanel';
 
@@ -33,6 +35,11 @@ type TopNavBarPropsT = {
  */
 const TopNavbar = (props: TopNavBarPropsT) => {
   const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
+  const [showModal] = useModal();
+  /* eslint-disable no-unused-expressions */
+  const displayAnonymousModal = () => {
+    isAnonymous ? showModal(<AccountModal formToDisplay="signup" />) : null;
+  };
 
   return (
     <div
@@ -47,7 +54,11 @@ const TopNavbar = (props: TopNavBarPropsT) => {
         <PrimaryButton key={index} {...item} />
       ))}
       <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>
-        <Chip avatar={<Avatar>{username.charAt(0)}</Avatar>} label={username} />
+        <Chip
+          avatar={<Avatar>{username.charAt(0)}</Avatar>}
+          label={username}
+          onClick={displayAnonymousModal}
+        />
       </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
