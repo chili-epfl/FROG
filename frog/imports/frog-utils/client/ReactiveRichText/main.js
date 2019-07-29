@@ -217,7 +217,6 @@ class ReactiveRichText extends Component<
         this.updateCursor(range);
       }
     });
-    this.updateCursor({ index: 0, length: 0 });
 
     doc.on('presence', (srcList, submitted) =>
       this.handlePresenceUpdate(srcList, submitted, this)
