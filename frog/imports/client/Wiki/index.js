@@ -285,16 +285,17 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         newPageObj.pageSettings.hidden &&
         this.getPrivilege() !== PRIVILEGE_OWNER
       ) {
-        this.goToPage('home');
-        this.props.showModal(
-          <AlertModal
-            title="Unable to view Page"
-            callback={() => {
-              this.props.hideModal();
-            }}
-          >
-            This page is hidden by the owner.
-          </AlertModal>
+        this.goToPageTitle('Home', () =>
+          this.props.showModal(
+            <AlertModal
+              title="Unable to view Page"
+              callback={() => {
+                this.props.hideModal();
+              }}
+            >
+              This page is hidden by the owner.
+            </AlertModal>
+          )
         );
       }
       this.setState({
@@ -628,14 +629,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     );
   };
 
-  goToPageTitle = (pageTitle, instanceName, side) => {
+  goToPageTitle = (pageTitle, instanceName, side, cb) => {
     const pageTitleLower = sanitizeTitle(pageTitle.toLowerCase());
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(
       wikiStore.parsedPages[pageTitleLower],
       instanceName
     );
-    this.goToPage(pageId, null, side, instanceId);
+    this.goToPage(pageId, cb, side, instanceId);
   };
 
   // Creates a new page entry in ShareDB and navigates to it.
