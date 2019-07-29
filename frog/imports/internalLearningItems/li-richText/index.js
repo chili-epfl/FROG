@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { get, isString } from 'lodash';
-import { Meteor } from 'meteor/meteor';
 import { type LearningItemT } from '/imports/frog-utils';
 import ReactiveRichText from '/imports/frog-utils/ReactiveRichTextProxy';
+import { getUsername } from '/imports/api/users';
 
 const path = 'text';
 
@@ -38,7 +38,7 @@ export class Editor extends React.Component<*, *> {
           path={path}
           dataFn={dataFn}
           autoFocus
-          username={Meteor.user()?.username}
+          username={getUsername(undefined, true)}
         />
       </div>
     );
