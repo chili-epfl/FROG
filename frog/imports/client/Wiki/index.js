@@ -114,10 +114,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
     this.state = {
-<<<<<<< HEAD
-=======
       username: getUsername(undefined, true),
->>>>>>> 0684e5a3adbf34c6d9eab4792c000e502f3076d7
       isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
@@ -943,7 +940,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       }
     ];
-    // called loadWikiDoc to update privilage when the user changes
+  
 
     if (this.getPrivilege() === PRIVILEGE_OWNER) {
       secondaryNavItems.push({
