@@ -37,7 +37,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
   const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
   const [showModal] = useModal();
   /* eslint-disable no-unused-expressions */
-  const displayModal= () => {
+  const displayModal = () => {
     isAnonymous ? showModal(<AccountModal formToDisplay="signup" />) : null;
   };
 
