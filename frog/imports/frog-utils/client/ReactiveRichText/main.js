@@ -120,7 +120,6 @@ class ReactiveRichText extends Component<
 
   constructor(props: ReactivePropsT) {
     super(props);
-
     // We assign all values of dataFn to reactiveRichTextDataFn so that
     // they get passed to LearningItemBlot
     Object.assign(reactiveRichTextDataFn, props.dataFn);
@@ -209,7 +208,7 @@ class ReactiveRichText extends Component<
   };
 
   setupCursors = () => {
-    const doc = this.props.dataFn?.doc;
+    const doc = this.props.dataFn.doc;
     const editor = this.quillRef.getEditor();
     const cursors = editor.getModule('cursors');
 
@@ -219,19 +218,25 @@ class ReactiveRichText extends Component<
       }
     });
 
-    doc.on('presence', this.handlePresenceUpdate);
+    doc.on('presence', (srcList, submitted) =>
+      this.handlePresenceUpdate(srcList, submitted, this)
+    );
 
     // we might already have presence, because the doc was loaded in read-only,
     // so we should render shared cursors initially
-    this.handlePresenceUpdate(Object.keys(doc.presence));
+    this.handlePresenceUpdate(Object.keys(doc.presence), undefined, this);
 
     this.cursors = cursors;
   };
 
-  handlePresenceUpdate = (srcList, submitted) => {
-    const doc = this.props.dataFn?.doc;
-    const myDocId = doc?.connection?.id;
-    const editor = this.quillRef.getEditor();
+  handlePresenceUpdate(srcList, submitted, that) {
+    if (!that.quillRef) {
+      console.warn('No Quillref');
+      return;
+    }
+    const doc = that.props.dataFn.doc;
+    const myDocId = doc.connection.id;
+    const editor = that.quillRef.getEditor();
     const cursors = editor.getModule('cursors');
 
     srcList.forEach(src => {
@@ -240,41 +245,39 @@ class ReactiveRichText extends Component<
         cursors.removeCursor(src);
         return;
       }
-      if (!isEqual(presence.p, this.state.path)) {
+      if (!isEqual(presence.p, that.state.path)) {
         cursors.removeCursor(src);
         return;
       }
-
       if (presence.u) {
         const presenceUID = presence.u;
         const [id, name] = presenceUID.split('/');
 
-        if (presence.s.u) {
-          if (
-            src !== myDocId &&
-            src !== '' &&
-            presence.s.s &&
-            presence.s.s.length > 0
-          ) {
-            // TODO: Can QuillCursors support multiple selections?
-            const sel = presence.s.s[0];
+        if (
+          presence.s.u &&
+          src !== myDocId &&
+          src !== '' &&
+          presence.s.s &&
+          presence.s.s.length > 0
+        ) {
+          // TODO: Can QuillCursors support multiple selections?
+          const sel = presence.s.s[0];
 
-            // Use Math.abs because the sharedb presence type
-            // supports reverse selections, but I don't think
-            // Quill Cursors does.
-            const len = Math.abs(sel[1] - sel[0]);
-            const min = Math.min(sel[0], sel[1]);
+          // Use Math.abs because the sharedb presence type
+          // supports reverse selections, but I don't think
+          // Quill Cursors does.
+          const len = Math.abs(sel[1] - sel[0]);
+          const min = Math.min(sel[0], sel[1]);
 
-            cursors.createCursor(src, name, pickColor(id));
-            cursors.moveCursor(src, { index: min, length: len });
-            if (submitted) {
-              cursors.flashCursor(src);
-            }
+          cursors.createCursor(src, name, pickColor(id));
+          cursors.moveCursor(src, { index: min, length: len });
+          if (submitted) {
+            cursors.flashCursor(src);
           }
         }
       }
     });
-  };
+  }
 
   compositionStartHandler = () => {
     this.compositionStart = true;
@@ -390,7 +393,7 @@ class ReactiveRichText extends Component<
       if (doc.type) {
         this.sendPresence(doc);
       } else {
-        doc.on('load', () => this.sendPresence(doc));
+        doc.once('load', () => this.sendPresence(doc));
       }
     }
 
@@ -451,11 +454,15 @@ class ReactiveRichText extends Component<
 
   componentWillUnmount() {
     const doc = this.props.dataFn?.doc;
-    if (!this.props.readOnly && doc) {
-      doc.submitPresence({
-        u: undefined
-      });
+    if (doc) {
+      if (!this.props.readOnly) {
+        doc.submitPresence({
+          u: undefined
+        });
+      }
+      doc.removeListener('presence', this.handlePresenceUpdate);
     }
+
     if (!this.props.data && !this.props.rawData) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
       if (!this.props.shorten) {
