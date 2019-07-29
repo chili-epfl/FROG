@@ -6,7 +6,7 @@ import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-import { getUsername } from '/imports/api/users';
+import { getUsername, isVerifiedUser } from '/imports/api/users';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -15,6 +15,8 @@ import ImportContacts from '@material-ui/icons/ImportContacts';
 import Delete from '@material-ui/icons/Delete';
 import RestorePage from '@material-ui/icons/RestorePage';
 import Tune from '@material-ui/icons/Tune';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
 import { connection } from '../App/connection';
 import {
@@ -938,7 +940,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => this.openRestorePageModal(invalidPages)
       }
     ];
-    if (this.state.privilege === PRIVILEGE_OWNER) {
+
+    if (this.getPrivilege() === PRIVILEGE_OWNER) {
       secondaryNavItems.push({
         title: 'Wiki Settings',
         icon: Tune,
@@ -988,6 +991,30 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
               action="edit"
             />
           );
+        }
+      });
+    }
+
+    if (Meteor.user().isAnonymous || !isVerifiedUser() || !Meteor.user()) {
+      secondaryNavItems.push({
+        title: 'Create an account',
+        icon: LockOutlinedIcon,
+        callback: () =>
+          this.props.showModal(<AccountModal formToDisplay="signup" />)
+      });
+      secondaryNavItems.push({
+        title: 'Login',
+        icon: LockOutlinedIcon,
+        callback: () =>
+          this.props.showModal(<AccountModal formToDisplay="login" />)
+      });
+    } else {
+      secondaryNavItems.push({
+        title: 'Logout',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          sessionStorage.removeItem('frog.sessionToken');
+          Meteor.logout(() => window.location.reload());
         }
       });
     }
@@ -1058,20 +1085,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <div style={contentDivStyle}>
             {!this.props.embed && (
               <WikiTopNavbar
-                username={this.state.username}
-                isAnonymous={this.state.isAnonymous}
-                changeUsername={async e => {
-                  const err = await new Promise(resolve =>
-                    Meteor.call('change.username', e, error => resolve(error))
-                  );
-                  if (err?.error === 'User already exists') {
-                    window.alert('Username already exists');
-                    return false;
-                  } else {
-                    this.setState({ username: e, isAnonymous: false });
-                    return true;
-                  }
-                }}
+                username={getUsername(undefined, true)}
+                isAnonymous={Meteor.user().isAnonymous}
                 primaryNavItems={primaryNavItems}
                 secondaryNavItems={secondaryNavItems}
               />
