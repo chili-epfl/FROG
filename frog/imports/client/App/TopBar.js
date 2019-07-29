@@ -23,14 +23,13 @@ import { LocalSettings } from '/imports/api/settings';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    // marginTop: theme.spacing.unit * 3,
     backgroundColor: theme.palette.background.paper
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing()
   },
   toolbar: {
     minHeight: '48px',

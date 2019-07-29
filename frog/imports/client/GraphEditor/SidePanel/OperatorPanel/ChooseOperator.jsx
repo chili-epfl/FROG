@@ -205,7 +205,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
           <Grid item>
             <Typography variant="h4">Select Operator</Typography>
           </Grid>
-          <Grid container spacing={8} alignItems="flex-end" item>
+          <Grid container spacing={1} alignItems="flex-end" item>
             <Grid item>
               <Search fontSize="inherit" />
             </Grid>

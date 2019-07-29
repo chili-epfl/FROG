@@ -5,7 +5,7 @@ import { activityTypesObj } from '/imports/activityTypes';
 import { dataFn } from './wikiLearningItem';
 
 // Creates an LI entry in the 'li' collection.
-export const createNewLI = (
+export const createNewLI = async (
   wikiId: string,
   liType: string,
   activityConfig?: any,
@@ -14,12 +14,27 @@ export const createNewLI = (
   const meta = {
     wikiId
   };
+  console.log(activityConfig, liType);
   if (liType === 'li-activity') {
     // Need to create an entry for the activity in the 'rz' collection before creating the LI
     const { activityType, config } = activityConfig;
+
+    let dS = activityTypesObj[activityType]?.dataStructure || {};
+
+    if (activityType.slice(0, 3) == 'op-') {
+      dS = await new Promise((resolve, reject) =>
+        Meteor.call('run.operator', activityType, config, (err, res) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(res);
+          }
+        })
+      );
+    }
+
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
-    const dS = activityTypesObj[activityType].dataStructure;
     const initData = typeof dS === 'function' ? dS(config) : dS;
     doc.create(initData || {});
     const payload = {

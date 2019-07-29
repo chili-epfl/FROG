@@ -27,12 +27,12 @@ const styles = theme => ({
     marginRight: 10
   },
   button: {
-    marginTop: theme.spacing.unit / 2,
+    marginTop: theme.spacing(0.5),
     padding: 3,
     width: 35
   },
   textField: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
     paddingRight: 0,
     width: 200
   },
@@ -43,7 +43,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   durationTextField: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
     paddingRight: 0,
     width: 65
   }

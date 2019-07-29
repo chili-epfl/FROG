@@ -25,7 +25,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing()
   }
 });
 

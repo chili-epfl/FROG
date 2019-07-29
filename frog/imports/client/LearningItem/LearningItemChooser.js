@@ -20,7 +20,7 @@ import LearningItem from './index';
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   dialog: {
     width: '600px',
