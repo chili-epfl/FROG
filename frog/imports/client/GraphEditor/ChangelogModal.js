@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import changelog, { updateChangelogVersion } from '/imports/api/changelog';
 import { withStyles } from '@material-ui/core/styles';
 
-
 const styles = {
   paper: {
     width: '750px',
