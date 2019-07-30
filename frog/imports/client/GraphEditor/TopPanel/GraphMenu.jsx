@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';

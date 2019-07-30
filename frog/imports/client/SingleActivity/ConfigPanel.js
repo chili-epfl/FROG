@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Markdown from 'markdown-to-jsx';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';

@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Search from '@material-ui/icons/Search';
 import Cloud from '@material-ui/icons/Cloud';
 import ExpandLess from '@material-ui/icons/ExpandLess';

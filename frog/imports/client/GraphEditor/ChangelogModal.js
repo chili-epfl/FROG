@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import changelog, { updateChangelogVersion } from '/imports/api/changelog';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = {
   paper: {

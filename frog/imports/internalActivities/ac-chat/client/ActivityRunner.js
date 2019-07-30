@@ -9,7 +9,7 @@ import {
   uuid,
   values
 } from '/imports/frog-utils';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import TextInput from './TextInput';
 

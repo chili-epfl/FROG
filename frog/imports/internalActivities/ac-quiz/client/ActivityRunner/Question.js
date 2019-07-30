@@ -3,7 +3,7 @@
 import React from 'react';
 import { HTML, ReactiveText } from '/imports/frog-utils';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

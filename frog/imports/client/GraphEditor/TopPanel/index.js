@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import GraphMenu from './GraphMenu';
 import { UndoButton, HelpButton, ConfigMenu } from './Settings';
