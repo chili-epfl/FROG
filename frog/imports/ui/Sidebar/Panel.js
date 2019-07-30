@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { Typography } from '@material-ui/core';
 import { PanelButton } from './PanelButton';
-import { MoreVert, Search } from '@material-ui/icons';
+import { MoreVert, Search, Minimize } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -14,7 +14,7 @@ const useStyle = makeStyles(theme => ({
   },
   titleBar: {
     width: '100%',
-    height: '48px',
+    height: '32px',
     padding: theme.spacing(0, 1, 0, 1),
 
     display: 'flex',
@@ -41,7 +41,7 @@ export const Panel = (props: PanelPropsT) => {
           <Typography className={classes.title} variant="overline">
             {props.title}
           </Typography>
-          <PanelButton icon={<Search />} />
+          <PanelButton icon={<Minimize />} />
           <PanelButton icon={<MoreVert />} />
         </div>
       )}
