@@ -9,18 +9,17 @@ import { connect } from '../../store';
 import EditClass from './EditOperator';
 import ChooseOperatorTypeComp from './ChooseOperator';
 
-const EditOperator = connect(EditClass);
-const ChooseOperatorType = connect(ChooseOperatorTypeComp);
-
-export default withTracker(({ id }) => ({
-  operator: Operators.findOne(id)
-}))(({ operator }) => {
-  if (!operator) {
-    return null;
-  }
-  if (operator.operatorType) {
-    return <EditOperator operator={operator} />;
-  } else {
-    return <ChooseOperatorType operator={operator} />;
-  }
-});
+export default connect(
+  withTracker(({ id }) => ({
+    operator: Operators.findOne(id)
+  }))(({ operator, store }) => {
+    if (!operator) {
+      return null;
+    }
+    if (operator.operatorType) {
+      return <EditClass operator={operator} store={store} />;
+    } else {
+      return <ChooseOperatorTypeComp operator={operator} store={store} />;
+    }
+  })
+);

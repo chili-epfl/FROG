@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
+import { withStyles } from '@material-ui/styles';
 import Search from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -77,8 +78,7 @@ class OperatorCategory extends Component<any, any> {
   };
 
   render() {
-    const { name, items } = this.props;
-    const classes = {};
+    const { name, items, classes } = this.props;
     return (
       <>
         <ListItem button onClick={this.handleClick} key={name}>
@@ -116,8 +116,7 @@ class OperatorCategory extends Component<any, any> {
     );
   }
 }
-const StyledOperatorCategory = OperatorCategory;
-// const StyledOperatorCategory = withStyles(styles)(OperatorCategory);
+const StyledOperatorCategory = withStyles(styles)(OperatorCategory);
 
 class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   constructor(props: PropsT) {
@@ -199,8 +198,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
       filteredList.find(op => op.meta.category === x)
     );
 
-    // const { classes } = this.props;
-    const { classes } = {};
+    const { classes } = this.props;
     return (
       <Grid>
         <div className={classes.topPanel}>
@@ -266,5 +264,4 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
   }
 }
 
-// export default withStyles(styles)(ChooseOperatorTypeComp);
-export default ChooseOperatorTypeComp;
+export default withStyles(styles)(ChooseOperatorTypeComp);
