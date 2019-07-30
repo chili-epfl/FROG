@@ -4,7 +4,7 @@ import {
   ReactiveText,
   HighlightSearchText
 } from '/imports/frog-utils';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = () => ({
   button: {

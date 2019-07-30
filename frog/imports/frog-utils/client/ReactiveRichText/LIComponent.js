@@ -10,15 +10,15 @@ import Save from '@material-ui/icons/Save';
 import Close from '@material-ui/icons/Close';
 import Create from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import { LiViewTypes } from './constants';
 
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     overflow: 'auto'
   },
   button: {

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { type ActivityPackageT, type ActivityDbT } from '/imports/frog-utils';
 import { activityTypes } from '/imports/activityTypes';
+import { operatorTypes } from '/imports/operatorTypes';
 import { addActivity } from '/imports/api/activities';
 import jsonSchemaDefaults from 'json-schema-defaults';
 import ReactTooltip from 'react-tooltip';
@@ -10,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Search from '@material-ui/icons/Search';
 import Cloud from '@material-ui/icons/Cloud';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -166,7 +167,9 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
   render() {
     const whiteList = this.props.whiteList;
     const types = whiteList
-      ? activityTypes.filter(x => whiteList.includes(x.id))
+      ? activityTypes
+          .concat(operatorTypes)
+          .filter(x => whiteList.includes(x.id))
       : activityTypes;
     const activityTypesFiltered = this.props.onlyHasPreview
       ? types.filter(x => x.meta.exampleData !== undefined)
@@ -229,7 +232,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           <Grid item>
             <Typography variant="h4">Select Activity Type</Typography>
           </Grid>
-          <Grid container spacing={16} alignItems="flex-end" item>
+          <Grid container spacing={2} alignItems="flex-end" item>
             <Grid item>
               <Search fontSize="inherit" />
             </Grid>
