@@ -28,6 +28,7 @@ import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
+import { getUsername } from '/imports/api/users';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -291,6 +292,13 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      if (window.location.hostname.slice(0, 6) === 'learn.') {
+        return (
+          <div>
+            You are logged in as {getUsername()}. <h1>Enter SLUG</h1>
+          </div>
+        );
+      }
       const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
         return <h1>Too late to join this session</h1>;
