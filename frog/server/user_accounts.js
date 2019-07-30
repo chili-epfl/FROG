@@ -3,7 +3,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
-
+import { isVerifiedUser } from '/imports/api/users';
 import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
@@ -47,6 +47,8 @@ const cleanStudentList = studentList =>
 Meteor.methods({
   'frog.username.login': function(user, token, isStudentList, slug) {
     const self = this;
+    const userObj = Meteor.users.findOne({ username: user });
+
     if (
       !isStudentList &&
       process.env.NODE_ENV === 'production' &&
@@ -76,7 +78,11 @@ Meteor.methods({
           }
         }
       }
-      return doLogin(user, self);
+      if (!isVerifiedUser({ userObj })) {
+        return doLogin(user, self);
+      } else {
+        return 'NOTVALID';
+      }
     }
   },
   'frog.userid.login': function(userId) {
