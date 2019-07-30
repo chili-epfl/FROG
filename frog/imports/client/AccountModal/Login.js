@@ -43,37 +43,23 @@ type LoginPropsT = {
 const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [errors, setErrors] = React.useState({
-    email: '',
-    password: ''
-  });
+  const [error, setError] = React.useState('');
   const setters = { email: setEmail, password: setPassword };
 
   const handleChange = (
     event: SyntheticInputEvent<EventTarget>,
     type: string
   ) => {
-    switch (type) {
-      case 'email':
-        setErrors({ ...errors, email: '' });
-        break;
-      case 'password':
-        setErrors({ ...errors, password: '' });
-        break;
-      default:
-        break;
-    }
-
+    setError('');
     const value = event.target.value;
     setters[type](value);
   };
 
   const handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    if (email === '') setErrors({ ...errors, email: 'Email cannot be empty' });
-    if (password === '')
-      setErrors({ ...errors, password: 'Password cannot be empty' });
-    if (errors.email === '' && errors.password === '') {
+    if (email === '' || password === '') {
+      setError('Please fill out all fields');
+    } else {
       onLogin(email, password);
     }
   };
@@ -103,8 +89,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             onChange={e => handleChange(e, 'email')}
             autoComplete="email"
             autoFocus
-            error={errors.email !== ''}
-            helperText={errors.email}
+            error={error !== ''}
           />
           <TextField
             variant="outlined"
@@ -117,8 +102,8 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             type="password"
             id="password"
             autoComplete="current-password"
-            error={errors.password !== ''}
-            helperText={errors.password || errors.formError}
+            error={error !== ''}
+            helperText={error}
           />
           <Button
             type="submit"
@@ -126,6 +111,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={error !== ''}
           >
             Log In
           </Button>

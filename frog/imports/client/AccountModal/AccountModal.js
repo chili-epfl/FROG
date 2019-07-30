@@ -9,9 +9,10 @@ import Login from './Login';
 
 const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
   const [form, setForm] = React.useState(null);
-  const [showToast] = useToast();
+  const [showToast, hideToast] = useToast();
   const [_1, hideModal] = useModal();
-
+  let errorLoginToastKey = '';
+  let errorSignUpToastKey = '';
   const openSignUpForm = () => {
     setForm('signup');
   };
@@ -34,7 +35,7 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
       },
       error => {
         if (error) {
-          showToast(error.reason, 'error');
+          errorSignUpToastKey = showToast(error.reason, 'error');
         } else {
           showToast('Success! Account created!', 'success');
           hideModal();
@@ -46,17 +47,24 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
   const onLogin = (email: string, password: string) => {
     Meteor.loginWithPassword(email, password, error => {
       if (error) {
-        showToast('Could not login!  ' + error, 'error');
+        errorLoginToastKey = showToast('Could not login!  ' + error, 'error');
       } else {
         hideModal();
       }
     });
   };
 
+  const modalCallback = () => {
+    // hides the toast which has the same key as the parameter
+    hideToast(errorLoginToastKey);
+    hideToast(errorSignUpToastKey);
+    hideModal();
+  };
+
   const toRender = form || formToDisplay;
 
   return (
-    <Modal title="" actions={hmodal => [{ title: 'Cancel', callback: hmodal }]}>
+    <Modal title="" actions={[{ title: 'Cancel', callback: modalCallback }]}>
       {toRender === 'signup' ? (
         <SignUp
           openLoginForm={openLoginForm}
