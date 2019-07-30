@@ -3,7 +3,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
