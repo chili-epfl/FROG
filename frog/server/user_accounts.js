@@ -45,16 +45,11 @@ const cleanStudentList = studentList =>
     : '';
 
 Meteor.methods({
-  'frog.username.login': function(user, token, isStudentList, slug) {
+  'frog.username.login': function(username, token, isStudentList, slug) {
     const self = this;
-    const userObj = Meteor.users.findOne({ username: user });
+    const userObj = Meteor.users.findOne({ username });
 
-    if (
-      !isStudentList &&
-      process.env.NODE_ENV === 'production' &&
-      !Meteor.settings.public.friendlyProduction &&
-      token !== Meteor.settings.token
-    ) {
+    if (!isStudentList && userObj && isVerifiedUser({ userObj })) {
       return 'NOTVALID';
     } else {
       if (isStudentList) {
@@ -66,23 +61,20 @@ Meteor.methods({
             !studentlist
               .split('\n')
               .map(x => x.toUpperCase())
-              .includes(user.toUpperCase())
+              .includes(username.toUpperCase())
           ) {
             Sessions.update(session._id, {
               $set: {
                 'settings.studentlist': cleanStudentList(
-                  studentlist + '\n' + user
+                  studentlist + '\n' + username
                 )
               }
             });
           }
         }
       }
-      if (!isVerifiedUser({ userObj })) {
-        return doLogin(user, self);
-      } else {
-        return 'NOTVALID';
-      }
+
+      return doLogin(username, self);
     }
   },
   'frog.userid.login': function(userId) {
