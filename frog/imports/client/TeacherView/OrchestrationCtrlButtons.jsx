@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { LocalSettings } from '/imports/api/settings';
 import {
   ControlButton,

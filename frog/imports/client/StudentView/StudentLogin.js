@@ -11,7 +11,7 @@ import {
   Typography,
   IconButton
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Frog from '../App/Frog';
 
 const splitList = (liststr: string) => {

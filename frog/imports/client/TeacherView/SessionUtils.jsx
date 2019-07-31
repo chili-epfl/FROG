@@ -4,7 +4,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Meteor } from 'meteor/meteor';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';

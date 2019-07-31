@@ -71,9 +71,11 @@ function ModalSettings({
   const [settings, setSettings] = useState(currentSettings);
   const [currentTab, changeTab] = useState(0);
   const [open, changeState] = useState(true);
+
   React.useEffect(() => {
     callback(settings);
   }, [settings.locked, settings.readOnly, settings.allowPageCreation]);
+
   return (
     <Dialog open={open}>
       <DialogTitle>Change Wiki Settings</DialogTitle>

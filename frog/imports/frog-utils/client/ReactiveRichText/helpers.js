@@ -9,8 +9,10 @@ const hashCode = (str = '') => {
   return hash;
 };
 
+// we use the multiple modulos to ensure that the hue is always within 0-360, since
+// some functions (tinycolor2 in quill-cursors) does not accept negative hue values
 const pickColor = (str: string) => {
-  return `hsl(${hashCode(str) % 360}, 100%, 30%)`;
+  return `hsl(${((hashCode(str) % 360) + 360) % 360}, 100%, 30%)`;
 };
 
 export { pickColor };

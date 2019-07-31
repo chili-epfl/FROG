@@ -5,7 +5,7 @@ import { getUsername } from '/imports/api/users';
 import { uuid } from '/imports/frog-utils';
 import { isEqual } from 'lodash';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
