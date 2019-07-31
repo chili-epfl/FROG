@@ -33,10 +33,10 @@ const styles = theme => ({
     color: 'white'
   },
   rightIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing()
   },
   formControl: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     minWidth: 120
   },
   dialogContainer: {

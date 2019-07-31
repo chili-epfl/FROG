@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withVisibility } from '/imports/frog-utils';
 import { compose, withState } from 'recompose';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';

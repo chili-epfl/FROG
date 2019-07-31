@@ -4,7 +4,7 @@ import * as React from 'react';
 import Fab from '@material-ui/core/Fab';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import { Provider } from 'mobx-react';
 import { isEqual, omit } from 'lodash';
@@ -20,7 +20,7 @@ import LearningItem from './index';
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   dialog: {
     width: '600px',

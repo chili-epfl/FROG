@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withState } from 'recompose';
 import { orderBy } from 'lodash';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

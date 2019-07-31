@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import jsonSchemaDefaults from 'json-schema-defaults';
 
 import { activityTypesObj } from '/imports/activityTypes';
+import { operatorTypesObj } from '/imports/operatorTypes';
 import { templatesObj } from '/imports/internalTemplates';
 import validateConfig from '/imports/api/validateConfig';
 import { removeActivity } from '/imports/api/remoteActivities';
@@ -19,7 +20,10 @@ import DeleteButton from './DeleteButton';
 const store = new Store();
 
 const ConfigComponent = ({ activityTypeId, config, setConfig }) => {
-  const aT = activityTypesObj[activityTypeId] || templatesObj[activityTypeId];
+  const aT =
+    activityTypesObj[activityTypeId] ||
+    templatesObj[activityTypeId] ||
+    operatorTypesObj[activityTypeId];
   if (!aT || !aT.ConfigComponent) {
     return null;
   }
@@ -40,7 +44,10 @@ export const check = (
   setValid?: Function,
   onConfigChange?: Function
 ) => {
-  const aT = activityTypesObj[activityType] || templatesObj[activityType];
+  const aT =
+    activityTypesObj[activityType] ||
+    templatesObj[activityType] ||
+    operatorTypesObj[activityType];
 
   const valid = validateConfig(
     'activity',
@@ -99,7 +106,9 @@ class Config extends React.Component<
         typeof props.activity.activityType === 'object'
           ? props.activity.activityType.activity_type
           : props.activity.activityType
-      ] || templatesObj[props.activity.activityType];
+      ] ||
+      templatesObj[props.activity.activityType] ||
+      operatorTypesObj[props.activity.activityType];
   }
 
   componentDidMount() {

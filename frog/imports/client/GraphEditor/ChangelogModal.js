@@ -6,13 +6,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import changelog, { updateChangelogVersion } from '/imports/api/changelog';
-import { withStyles } from '@material-ui/core/styles';
-
-const Transition = props => <Slide direction="up" {...props} />;
+import { withStyles } from '@material-ui/styles';
 
 const styles = {
   paper: {
@@ -44,7 +41,6 @@ class HelpModal extends React.Component<*, *> {
       <Dialog
         open={this.props.show}
         onClose={this.props.hide}
-        TransitionComponent={Transition}
         classes={{ paper: classes.paper }}
       >
         <AppBar className={classes.appBar}>

@@ -9,7 +9,8 @@ export const createNewLI = (
   wikiId: string,
   liType: string,
   activityConfig?: any,
-  pageTitle?: string
+  pageTitle?: string,
+  opData: any
 ) => {
   const meta = {
     wikiId
@@ -17,14 +18,18 @@ export const createNewLI = (
   if (liType === 'li-activity') {
     // Need to create an entry for the activity in the 'rz' collection before creating the LI
     const { activityType, config } = activityConfig;
+
+    const dS = opData || activityTypesObj[activityType]?.dataStructure;
+
     const id = uuid();
     const doc = connection.get('rz', id + '/all');
-    const dS = activityTypesObj[activityType].dataStructure;
     const initData = typeof dS === 'function' ? dS(config) : dS;
     doc.create(initData || {});
     const payload = {
       acType: activityType,
-      activityData: { config },
+      activityData: {
+        config
+      },
       rz: id + '/all',
       title: pageTitle,
       activityTypeTitle: activityTypesObj[activityType].meta.name
