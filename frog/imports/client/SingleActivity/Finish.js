@@ -29,6 +29,7 @@ function Finish(
   const { slug, sessionId, classes } = props;
 
   LocalSettings.UrlCoda = '?u=' + Meteor.userId();
+
   return (
     <Card raised className={classes.card}>
       <IconButton
