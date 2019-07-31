@@ -3,10 +3,8 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
-import { Panel } from './Panel';
-import { Header } from './Header';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   root: {
     width: '250px',
     height: '100%',

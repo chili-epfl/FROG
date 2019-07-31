@@ -1,10 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
-import { Typography } from '@material-ui/core';
-import { MoreVert, Search, Minimize } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
   root: {
