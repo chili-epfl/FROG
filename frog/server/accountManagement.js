@@ -30,7 +30,6 @@ export const createAccount = (
     (email !== '' && email) &&
     (profile?.displayName && profile?.displayName !== '')
   ) {
-    
     if (
       passwordErrors(password) !== '' ||
       emailErrors(email) !== '' ||
@@ -45,11 +44,10 @@ export const createAccount = (
       );
     } else if (!Accounts.findUserByEmail(email)) {
       const user = Meteor.user();
-      // if the user is anonymous or a legacy user we want to simply add the email and password to their 
-      // account. This allows them to keep the graphs and activities they created when they didn't have an 
-      // account. Else we just create a new account 
+      // if the user is anonymous or a legacy user we want to simply add the email and password to their
+      // account. This allows them to keep the graphs and activities they created when they didn't have an
+      // account. Else we just create a new account
       if (user?.isAnonymous || (user.username && !isVerifiedUser())) {
-  
         Meteor.users.update(user._id, {
           $set: {
             emails: [{ address: email, verified: false }],

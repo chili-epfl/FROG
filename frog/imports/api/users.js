@@ -36,6 +36,7 @@ export const getUsername = (user: User, wiki: boolean = false): ?string => {
  */
 export const userType = (user: User): string => {
   const selectedUser = getUser(user);
+  // if there is no user logged in then we treat it the same as anonymous
   if (!selectedUser) return 'Anonymous';
   else if (selectedUser.isAnonymous) return 'Anonymous';
   else if (isVerifiedUser({ selectedUser })) return 'Verified';
