@@ -75,7 +75,7 @@ wss.on(
   'connection',
   Meteor.bindEnvironment((ws, req) => {
     const id = req.url.split('?')[1];
-    console.log('connection ', id);
+    console.info('connection ', id);
     Connections[id] = ws;
     ws.on(
       'message',
@@ -84,10 +84,9 @@ wss.on(
         try {
           const unique = UniqueIds.findOne(id);
           const logmsg = JSON.parse(data);
-          console.log(logmsg);
           logmsg.activityId = unique.activityId;
           logmsg.activityType = 'ac-cellulo';
-          console.log(logmsg);
+          console.info('log msg:', logmsg);
           Meteor.call('merge.log', logmsg);
         } catch (e) {
           ws.send(e.message);

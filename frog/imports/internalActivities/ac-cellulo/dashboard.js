@@ -21,7 +21,6 @@ const Viewer = ({ sendMsg, state, activity }) => (
 const prepareDataForDisplay = state => state;
 
 const mergeLog = (state, log) => {
-  console.log('Merging log message', log);
   state.push(log);
 };
 

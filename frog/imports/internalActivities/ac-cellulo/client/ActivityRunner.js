@@ -4,7 +4,7 @@ import * as React from 'react';
 import { type ActivityRunnerT } from 'frog-utils';
 
 // the actual component that the student sees
-const ActivityRunner = ({ logger, activityData, data, dataFn, userInfo }) => (
+const ActivityRunner = ({ activityData }) => (
   <div>{JSON.stringify(activityData)}</div>
 );
 
