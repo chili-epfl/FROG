@@ -14,7 +14,7 @@ import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-import { getUsername, userType } from '/imports/api/users';
+import { getUsername, getUserType } from '/imports/api/users';
 /**
  * Navigation bar displayed at the top
  */
@@ -37,7 +37,7 @@ function TopBar(props: PropsT) {
         <Typography variant="h6" color="inherit" className={classes.logo}>
           FROG
         </Typography>
-        {userType() === 'Anonymous' && (
+        {getUserType() === 'Anonymous' && (
           <>
             <Button size="medium" onClick={openSignUpModal}>
               Create an account
@@ -47,7 +47,7 @@ function TopBar(props: PropsT) {
             </Button>
           </>
         )}
-        {userType() === 'Verified' && (
+        {getUserType() === 'Verified' && (
           <>
             <Button
               size="medium"
@@ -64,7 +64,7 @@ function TopBar(props: PropsT) {
             />
           </>
         )}
-        {userType() === 'Legacy' && (
+        {getUserType() === 'Legacy' && (
           <>
             <Button
               size="medium"
