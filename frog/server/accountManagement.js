@@ -23,13 +23,14 @@ export const createAccount = (
   password: string,
   profile: Profile
 ) => {
+  // Validate input params to prevent incorrect data from the console/client.
   if (
     password !== '' &&
     password &&
     (email !== '' && email) &&
     (profile?.displayName && profile?.displayName !== '')
   ) {
-    // Validate input params
+    
     if (
       passwordErrors(password) !== '' ||
       emailErrors(email) !== '' ||
@@ -44,10 +45,11 @@ export const createAccount = (
       );
     } else if (!Accounts.findUserByEmail(email)) {
       const user = Meteor.user();
-
+      // if the user is anonymous or a legacy user we want to simply add the email and password to their 
+      // account. This allows them to keep the graphs and activities they created when they didn't have an 
+      // account. Else we just create a new account 
       if (user?.isAnonymous || (user.username && !isVerifiedUser())) {
-        // checks for duplicate email and displays error on the console.
-
+  
         Meteor.users.update(user._id, {
           $set: {
             emails: [{ address: email, verified: false }],
@@ -69,6 +71,7 @@ export const createAccount = (
           }
         });
       }
+      // error handling
     } else {
       throw new Meteor.Error('dup-email', 'Email already exists');
     }
