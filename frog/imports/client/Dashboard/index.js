@@ -63,6 +63,7 @@ const RawDashboardComp = ({
         activity,
         instances,
         object,
+        sendMsg: msg => Meteor.call('ws.send', activity.data.uniqueId, msg),
         LearningItem: dataFn.LearningItem
       }}
     />

@@ -16,6 +16,7 @@ export const Connections = new Mongo.Collection('connections');
 export const DashboardData: MongoT<DashboardDataDbT> = new Mongo.Collection(
   'dashboard_data'
 );
+export const UniqueIds = new Mongo.Collection('unique_ids');
 
 const extractUpgradedActivityConfig = (activity: Object) => ({
   ...activity,

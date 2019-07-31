@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Viewer = ({ state, activity }) => (
+const Viewer = ({ sendMsg, state, activity }) => (
   <div>
     <div>
       <h3>Activity info: </h3>
@@ -12,6 +12,9 @@ const Viewer = ({ state, activity }) => (
         <li key={i}>{JSON.stringify(x)}</li>
       ))}
     </div>
+    <button onClick={() => sendMsg('hello from dashboard ' + Date.now())}>
+      Click to send msg
+    </button>
   </div>
 );
 
