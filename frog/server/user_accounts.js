@@ -48,7 +48,8 @@ Meteor.methods({
   'frog.username.login': function(username, token, isStudentList, slug) {
     const self = this;
     const userObj = Meteor.users.findOne({ username });
-
+    // for anonymous login 
+    if(username=== null) return doLogin(username, self); 
     if (!isStudentList && userObj && isVerifiedUser({ userObj })) {
       return 'NOTVALID';
     } else {
