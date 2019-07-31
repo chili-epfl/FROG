@@ -4,13 +4,11 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 import { Typography } from '@material-ui/core';
-import { PanelButton } from './PanelButton';
 import { MoreVert, Search, Minimize } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
   root: {
-    width: '100%',
-    borderBottom: `solid 1px ${grey[300]}`
+    width: '100%'
   },
   titleBar: {
     width: '100%',
@@ -32,6 +30,10 @@ type PanelPropsT = {
   children?: React.Node | React.Node[]
 };
 
+/**
+ * Encapsulate custom content with a title. Used with the
+ * sidebar component
+ */
 export const Panel = (props: PanelPropsT) => {
   const classes = useStyle();
   return (
@@ -41,8 +43,6 @@ export const Panel = (props: PanelPropsT) => {
           <Typography className={classes.title} variant="overline">
             {props.title}
           </Typography>
-          <PanelButton icon={<Minimize />} />
-          <PanelButton icon={<MoreVert />} />
         </div>
       )}
       {props.children && (
