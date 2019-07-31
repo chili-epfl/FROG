@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -305,22 +305,28 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
               )}
               {currentTab === 1 && (
                 <ApiForm
-                  categories={['Core', 'Other']}
+                  categories={['Core', 'From the web']}
                   whiteList={[
                     'li-richText',
                     'ac-gallery',
                     'ac-brainstorm',
                     'ac-quiz',
-                    'ac-ck-board'
+                    'ac-ck-board',
+                    'op-twitter',
+                    'op-rss',
+                    'op-hypothesis'
                   ]}
                   config={this.state.activityConfig?.config}
                   activityType={this.state.activityConfig?.activityType}
                   activityMapping={{
                     'li-richText': 'Core',
                     'ac-gallery': 'Core',
-                    'ac-brainstorm': 'Other',
+                    'ac-brainstorm': 'Core',
                     'ac-quiz': 'Core',
-                    'ac-ck-board': 'Core'
+                    'ac-ck-board': 'Core',
+                    'op-twitter': 'From the web',
+                    'op-rss': 'From the web',
+                    'op-hypothesis': 'From the web'
                   }}
                   noOffset
                   showDelete

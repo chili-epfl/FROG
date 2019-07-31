@@ -3,7 +3,7 @@
 import React from 'react';
 import { HTML, ReactiveText } from '/imports/frog-utils';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -22,7 +22,7 @@ const styles = theme => ({
     margin: '4px'
   },
   formControl: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   header: {
     backgroundColor: '#ddd',

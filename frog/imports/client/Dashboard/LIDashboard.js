@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { Meteor } from 'meteor/meteor';
 import { SearchField } from '/imports/frog-utils';
 import {
