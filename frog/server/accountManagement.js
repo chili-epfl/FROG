@@ -6,7 +6,7 @@ import {
   emailErrors,
   passwordErrors
 } from '/imports/frog-utils/validationHelpers';
-import { isVerifiedUser } from '/imports/api/users';
+import { getUserType } from '/imports/api/users';
 
 type Profile = { displayName: string };
 
@@ -47,7 +47,10 @@ export const createAccount = (
       // if the user is anonymous or a legacy user we want to simply add the email and password to their
       // account. This allows them to keep the graphs and activities they created when they didn't have an
       // account. Else we just create a new account
-      if (user?.isAnonymous || (user.username && !isVerifiedUser())) {
+      if (
+        getUserType({ meteorUser: user }) === 'Anonymous' ||
+        getUserType({ meteorUser: user }) === 'Legacy'
+      ) {
         Meteor.users.update(user._id, {
           $set: {
             emails: [{ address: email, verified: false }],
