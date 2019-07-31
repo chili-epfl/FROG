@@ -28,7 +28,10 @@ const getAnimalAnonymous = (userId: string): string => {
  * @param: {User=} user
  */
 
-export const getUsername = (user?: UserObj, wiki?: boolean = false): string => {
+export const getUsername = (
+  user?: UserObj,
+  wiki?: boolean = false
+): ?string => {
   const selectedUser = getUser(user);
   if (selectedUser) {
     if (selectedUser.isAnonymous)
@@ -36,7 +39,7 @@ export const getUsername = (user?: UserObj, wiki?: boolean = false): string => {
     else if (selectedUser.emails) return selectedUser.profile.displayName;
     else if (selectedUser.username) return selectedUser.username;
   }
-  return 'No user logged in';
+  return undefined;
 };
 /**
  * Returns the type of the given user if the user is passed or the current user

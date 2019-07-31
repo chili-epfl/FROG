@@ -1062,7 +1062,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         title: 'Upgrade your account',
         icon: LockOutlinedIcon,
         callback: () => {
-          this.props.showModal(<AccountModal formToDisplay="login" />);
+          this.props.showModal(<AccountModal formToDisplay="signup" />);
         }
       });
 
