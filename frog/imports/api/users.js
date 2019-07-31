@@ -30,7 +30,17 @@ export const getUsername = (user: User, wiki: boolean = false): ?string => {
   }
   return undefined;
 };
-
+/**
+ * Returns the type of the given user if the user is passed or the current user
+ * @param: {User=} user
+ */
+export const userType = (user: User): string => {
+  const selectedUser = getUser(user);
+  if (!selectedUser) return 'Anonymous';
+  else if (selectedUser.isAnonymous) return 'Anonymous';
+  else if (isVerifiedUser({ selectedUser })) return 'Verified';
+  else if (selectedUser.username) return 'Legacy';
+};
 /**
  * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
  *

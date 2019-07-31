@@ -6,6 +6,7 @@ import {
   emailErrors,
   passwordErrors
 } from '/imports/frog-utils/validationHelpers';
+import { isVerifiedUser } from '/imports/api/users';
 
 type Profile = { displayName: string };
 
@@ -44,7 +45,7 @@ export const createAccount = (
     } else if (!Accounts.findUserByEmail(email)) {
       const user = Meteor.user();
 
-      if (user?.isAnonymous) {
+      if (user?.isAnonymous || (user.username && !isVerifiedUser())) {
         // checks for duplicate email and displays error on the console.
 
         Meteor.users.update(user._id, {
