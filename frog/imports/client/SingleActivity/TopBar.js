@@ -53,8 +53,7 @@ function TopBar(props: PropsT) {
               size="medium"
               onClick={() => {
                 sessionStorage.removeItem('frog.sessionToken');
-                Meteor.logout();
-                window.location.replace('/');
+                Meteor.logout(() => window.location.replace('/'));
               }}
             >
               Logout
