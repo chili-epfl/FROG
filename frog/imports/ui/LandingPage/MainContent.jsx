@@ -5,9 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Bookmark from '@material-ui/icons/Bookmark'
+import Bookmark from '@material-ui/icons/Bookmark';
 import { ContentListItem } from './ContentListItem';
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,12 +31,17 @@ const MainContent = ({ itemList, title, action, overflowitems }) => {
             <Button color="primary"> {action} </Button>
           </Paper>
         </Grid>
-       <Grid item xs= {12}>
-        <List>
-          {itemList.map(item => 
-           <ContentListItem itemTitle = {item} itemIcon = {Bookmark} status = "Ready" overflowitems = {overflowitems}/>)}
-             
-        </List>
+        <Grid item xs={12}>
+          <List>
+            {itemList.map(item => (
+              <ContentListItem
+                itemTitle={item}
+                itemIcon={Bookmark}
+                status="Ready"
+                overflowitems={overflowitems}
+              />
+            ))}
+          </List>
         </Grid>
       </Grid>
     </div>
