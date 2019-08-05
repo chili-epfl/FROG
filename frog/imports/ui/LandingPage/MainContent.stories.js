@@ -11,8 +11,8 @@ const overflowitems = [
 storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent
     itemList={['Session 1 ', 'Session 2', 'Session 3']}
-    title="Sessions view"
-    action="Add new session"
+    title="My Sessions"
+    action="Some action"
     overflowitems={overflowitems}
   />
 ));

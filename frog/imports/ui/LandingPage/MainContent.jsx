@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 type MainContentPropsT = {
   itemList: Array<string>,
   title: string,
-  action: string,
+  action?: string,
   overflowitems: Array<{
     title: string,
     icon: React.ComponentType<*>,
