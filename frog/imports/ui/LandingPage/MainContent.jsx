@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +21,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MainContent = ({ itemList, title, action, overflowitems }) => {
+type MainContentPropsT = {
+  itemList: Array<string>, 
+  title: string, 
+  action: string, 
+  overflowitems:  Array<{
+    title: string,
+    icon: React.ComponentType<*>,
+    callback?: () => void
+  }>
+}
+
+const MainContent = ({ itemList, title, action, overflowitems }: MainContentPropsT) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
