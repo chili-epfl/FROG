@@ -36,11 +36,10 @@ type MainContentPropsT = {
 };
 
 const MainContent = ({
-  itemList,
+  children,
   title,
   action,
-  itemIcon,
-  overflowitems
+
 }: MainContentPropsT) => {
   const classes = useStyles();
   return (
@@ -53,16 +52,7 @@ const MainContent = ({
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <List>
-            {itemList.map(item => (
-              <ContentListItem
-                itemTitle={item.itemTitle}
-                itemIcon={itemIcon}
-                status={item.status ? item.status : null}
-                overflowitems={overflowitems}
-              />
-            ))}
-          </List>
+          {children}
         </Grid>
       </Grid>
     </div>

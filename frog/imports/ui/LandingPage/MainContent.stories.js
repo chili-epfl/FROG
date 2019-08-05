@@ -10,6 +10,7 @@ import {
   Create
 } from '@material-ui/icons';
 import MainContent from './MainContent';
+import { ContentListItem } from './ContentListItem';
 
 const overflowitems = [
   { title: 'Share', icon: Share, callback: null },
@@ -21,29 +22,34 @@ const overflowitemsdraft = [
   { title: 'Edit', icon: Create, callback: null },
   { title: 'Delete', icon: Delete, callback: null }
 ];
+const itemList=[
+  { itemTitle: 'Session 1 ', status: 'Ready' },
+  { itemTitle: 'Session 2', status: 'Running' },
+  { itemTitle: 'Session 3', status: 'Complete' }
+]; 
+const itemListDrafts = [
+  { itemTitle: 'Draft 1' },
+  { itemTitle: 'Draft 2' },
+  { itemTitle: 'Draft 3' }
+];
 storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent
-    itemList={[
-      { itemTitle: 'Session 1 ', status: 'Ready' },
-      { itemTitle: 'Session 2', status: 'Running' },
-      { itemTitle: 'Session 3', status: 'Complete' }
-    ]}
     title="My Sessions"
     action="Some action"
-    itemIcon={Bookmark}
-    overflowitems={overflowitems}
-  />
+  >
+  {itemList.map(({itemTitle,status }) => 
+  <ContentListItem itemTitle = {itemTitle} itemIcon = {Bookmark} status = {status} overflowitems = {overflowitems}/>)}
+</MainContent>
+
 ));
 storiesOf('Drafts view', module).add('MainContent', () => (
   <MainContent
-    itemList={[
-      { itemTitle: 'Draft 1 ' },
-      { itemTitle: 'Draft 2' },
-      { itemTitle: 'Draft 3' }
-    ]}
     title="My drafts"
     action="Create new graph"
-    itemIcon={ShowChart}
-    overflowitems={overflowitemsdraft}
-  />
+  >
+  {itemListDrafts.map(({itemTitle }) => 
+  <ContentListItem itemTitle = {itemTitle} itemIcon = {ShowChart} status = {null} overflowitems = {overflowitemsdraft}/>)}
+</MainContent>
+
+
 ));
