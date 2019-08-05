@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import { ContentListItem } from './ContentListItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,12 +34,7 @@ type MainContentPropsT = {
   }>
 };
 
-const MainContent = ({
-  children,
-  title,
-  action,
-
-}: MainContentPropsT) => {
+const MainContent = ({ children, title, action }: MainContentPropsT) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -52,7 +46,7 @@ const MainContent = ({
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          {children}
+          <List>{children}</List>
         </Grid>
       </Grid>
     </div>

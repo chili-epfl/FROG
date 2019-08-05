@@ -22,34 +22,37 @@ const overflowitemsdraft = [
   { title: 'Edit', icon: Create, callback: null },
   { title: 'Delete', icon: Delete, callback: null }
 ];
-const itemList=[
+const itemList = [
   { itemTitle: 'Session 1 ', status: 'Ready' },
   { itemTitle: 'Session 2', status: 'Running' },
   { itemTitle: 'Session 3', status: 'Complete' }
-]; 
+];
 const itemListDrafts = [
   { itemTitle: 'Draft 1' },
   { itemTitle: 'Draft 2' },
   { itemTitle: 'Draft 3' }
 ];
 storiesOf('Sessions view', module).add('MainContent', () => (
-  <MainContent
-    title="My Sessions"
-    action="Some action"
-  >
-  {itemList.map(({itemTitle,status }) => 
-  <ContentListItem itemTitle = {itemTitle} itemIcon = {Bookmark} status = {status} overflowitems = {overflowitems}/>)}
-</MainContent>
-
+  <MainContent title="My Sessions" action="Some action">
+    {itemList.map(({ itemTitle, status }) => (
+      <ContentListItem
+        itemTitle={itemTitle}
+        itemIcon={Bookmark}
+        status={status}
+        overflowitems={overflowitems}
+      />
+    ))}
+  </MainContent>
 ));
 storiesOf('Drafts view', module).add('MainContent', () => (
-  <MainContent
-    title="My drafts"
-    action="Create new graph"
-  >
-  {itemListDrafts.map(({itemTitle }) => 
-  <ContentListItem itemTitle = {itemTitle} itemIcon = {ShowChart} status = {null} overflowitems = {overflowitemsdraft}/>)}
-</MainContent>
-
-
+  <MainContent title="My drafts" action="Create new graph">
+    {itemListDrafts.map(({ itemTitle }) => (
+      <ContentListItem
+        itemTitle={itemTitle}
+        itemIcon={ShowChart}
+        status={null}
+        overflowitems={overflowitemsdraft}
+      />
+    ))}
+  </MainContent>
 ));
