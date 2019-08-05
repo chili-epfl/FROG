@@ -12,11 +12,16 @@ const useStyle = makeStyles(() => ({
 
     display: 'flex',
     flexFlow: 'column nowrap'
+  },
+  content: {
+    flexGrow: 1
   }
 }));
 
 type SidebarPropsT = {
-  children: React.Node[]
+  header?: React.Node,
+  children?: React.Node[],
+  footer?: React.Node
 };
 
 /**
@@ -24,5 +29,13 @@ type SidebarPropsT = {
  */
 export const Sidebar = (props: SidebarPropsT) => {
   const classes = useStyle();
-  return <div className={classes.root}>{props.children}</div>;
+  return (
+    <div className={classes.root}>
+      {props.header && <div>{props.header}</div>}
+      {props.children && (
+        <div className={classes.content}>{props.children}</div>
+      )}
+      {props.footer && <div>{props.footer}</div>}
+    </div>
+  );
 };
