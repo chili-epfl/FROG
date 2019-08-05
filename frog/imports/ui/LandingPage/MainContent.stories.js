@@ -50,7 +50,6 @@ storiesOf('Drafts view', module).add('MainContent', () => (
       <ContentListItem
         itemTitle={itemTitle}
         itemIcon={ShowChart}
-        status={null}
         overflowitems={overflowitemsdraft}
       />
     ))}

@@ -8,7 +8,7 @@ import OverflowPanel from '../components/OverflowPanel';
 type ContentListItemPropsT = {
   itemTitle: string,
   itemIcon: React.ComponentType<*>,
-  status: 'Ready' | 'Running' | 'Complete' | null,
+  status?: 'Ready' | 'Running' | 'Complete',
   overflowitems: Array<{
     title: string,
     icon: React.ComponentType<*>,
@@ -24,7 +24,7 @@ export const ContentListItem = ({
   const Icon = itemIcon;
 
   return (
-    <ListItem divider>
+    <ListItem divider button>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
