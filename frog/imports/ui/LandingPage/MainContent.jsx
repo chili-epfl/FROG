@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Bookmark from '@material-ui/icons/Bookmark';
 import { ContentListItem } from './ContentListItem';
 
 const useStyles = makeStyles(theme => ({
@@ -22,9 +21,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type MainContentPropsT = {
-  itemList: Array<string>,
+  itemList: Array<{itemTitle: string, status?: 'Ready' | 'Running' | 'Complete'} >,
   title: string,
   action?: string,
+  itemIcon: React.ComponentType<*>,
   overflowitems: Array<{
     title: string,
     icon: React.ComponentType<*>,
@@ -36,6 +36,7 @@ const MainContent = ({
   itemList,
   title,
   action,
+  itemIcon, 
   overflowitems
 }: MainContentPropsT) => {
   const classes = useStyles();
@@ -52,9 +53,9 @@ const MainContent = ({
           <List>
             {itemList.map(item => (
               <ContentListItem
-                itemTitle={item}
-                itemIcon={Bookmark}
-                status="Ready"
+                itemTitle={item.itemTitle}
+                itemIcon={itemIcon}
+                status = {item.status ? item.status : null}
                 overflowitems={overflowitems}
               />
             ))}
