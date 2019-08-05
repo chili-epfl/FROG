@@ -21,7 +21,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type MainContentPropsT = {
-  itemList: Array<{itemTitle: string, status?: 'Ready' | 'Running' | 'Complete'} >,
+  itemList: Array<{
+    itemTitle: string,
+    status?: 'Ready' | 'Running' | 'Complete'
+  }>,
   title: string,
   action?: string,
   itemIcon: React.ComponentType<*>,
@@ -36,7 +39,7 @@ const MainContent = ({
   itemList,
   title,
   action,
-  itemIcon, 
+  itemIcon,
   overflowitems
 }: MainContentPropsT) => {
   const classes = useStyles();
@@ -55,7 +58,7 @@ const MainContent = ({
               <ContentListItem
                 itemTitle={item.itemTitle}
                 itemIcon={itemIcon}
-                status = {item.status ? item.status : null}
+                status={item.status ? item.status : null}
                 overflowitems={overflowitems}
               />
             ))}

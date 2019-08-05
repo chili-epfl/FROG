@@ -10,7 +10,7 @@ type ContentListItemPropsT = {
   itemIcon: React.ComponentType<*>,
   status: 'Ready' | 'Running' | 'Complete' | null,
   overflowitems: Array<{
-    title: string, 
+    title: string,
     icon: React.ComponentType<*>,
     callback?: () => void
   }>
