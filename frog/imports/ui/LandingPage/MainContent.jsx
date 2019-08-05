@@ -22,17 +22,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type MainContentPropsT = {
-  itemList: Array<string>, 
-  title: string, 
-  action: string, 
-  overflowitems:  Array<{
+  itemList: Array<string>,
+  title: string,
+  action: string,
+  overflowitems: Array<{
     title: string,
     icon: React.ComponentType<*>,
     callback?: () => void
   }>
-}
+};
 
-const MainContent = ({ itemList, title, action, overflowitems }: MainContentPropsT) => {
+const MainContent = ({
+  itemList,
+  title,
+  action,
+  overflowitems
+}: MainContentPropsT) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>

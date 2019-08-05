@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import OverflowPanel from '../components/OverflowPanel';
 
 type ContentListItemPropsT = {
-  itemTitle: string, 
+  itemTitle: string,
   itemIcon: React.ComponentType<*>,
   status: 'Ready' | 'Running' | 'Complete',
   overflowitems: Array<{
@@ -14,7 +14,7 @@ type ContentListItemPropsT = {
     icon: React.ComponentType<*>,
     callback?: () => void
   }>
-}
+};
 export const ContentListItem = ({
   itemTitle,
   itemIcon,
