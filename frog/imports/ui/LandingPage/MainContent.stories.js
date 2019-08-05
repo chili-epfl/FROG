@@ -9,7 +9,7 @@ import {
   PlayArrow,
   Create
 } from '@material-ui/icons';
-import List from '@material-ui/core/List'; 
+import List from '@material-ui/core/List';
 import MainContent from './MainContent';
 import { ContentListItem } from './ContentListItem';
 
@@ -37,13 +37,13 @@ storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent title="My Sessions" action="Some action">
     {itemList.map(({ itemTitle, status }) => (
       <List>
-      <ContentListItem
-        itemTitle={itemTitle}
-        itemIcon={Bookmark}
-        status={status}
-        overflowitems={overflowitems}
-      />
-      </List> 
+        <ContentListItem
+          itemTitle={itemTitle}
+          itemIcon={Bookmark}
+          status={status}
+          overflowitems={overflowitems}
+        />
+      </List>
     ))}
   </MainContent>
 ));
@@ -51,12 +51,12 @@ storiesOf('Drafts view', module).add('MainContent', () => (
   <MainContent title="My drafts" action="Create new graph">
     {itemListDrafts.map(({ itemTitle }) => (
       <List>
-      <ContentListItem
-        itemTitle={itemTitle}
-        itemIcon={ShowChart}
-        overflowitems={overflowitemsdraft}
-      />
-      </List> 
+        <ContentListItem
+          itemTitle={itemTitle}
+          itemIcon={ShowChart}
+          overflowitems={overflowitemsdraft}
+        />
+      </List>
     ))}
   </MainContent>
 ));

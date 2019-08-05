@@ -21,11 +21,16 @@ const useStyles = makeStyles(theme => ({
 type MainContentPropsT = {
   title: string,
   action?: string,
-  callback?: () => void, 
+  callback?: () => void,
   children: React.Node | React.Node[]
 };
 
-const MainContent = ({title, action, callback,  children }: MainContentPropsT) => {
+const MainContent = ({
+  title,
+  action,
+  callback,
+  children
+}: MainContentPropsT) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -33,7 +38,10 @@ const MainContent = ({title, action, callback,  children }: MainContentPropsT) =
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <Typography variant="h5"> {title} </Typography>
-            <Button color="primary" onClick = {callback}> {action} </Button>
+            <Button color="primary" onClick={callback}>
+              {' '}
+              {action}{' '}
+            </Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>
