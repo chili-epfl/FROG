@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Settings from '@material-ui/icons/Settings';
+import { MoreVert } from '@material-ui/icons';
 
 type OverflowPanelPropsT = {
   overflowElements: Array<{
@@ -47,7 +47,7 @@ export default class OverflowPanel extends React.Component<
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <Settings />
+          <MoreVert />
         </IconButton>
         <Menu
           id="overflow-menu"

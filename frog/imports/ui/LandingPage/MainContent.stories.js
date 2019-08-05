@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import MainContent from './MainContent';
+import {Delete,Share,Forward } from '@material-ui/icons'; 
 
-storiesOf('MainContentLandingPage', module).add('MainContent', () => (
+const overflowitems = [ {title: 'Share', icon: Share, callback: null}, {title: 'Clone', icon: Forward, callback: null}, {title: 'Delete', icon: Delete, callback: null}]
+storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent
-    itemList={['Tweets 1', 'Tweets 2', 'Tweets 3']}
+    itemList={['Session 1 ', 'Session 2', 'Session 3']}
     title="Sessions view"
     action="Add new session"
+    overflowitems = {overflowitems}
   />
 ));

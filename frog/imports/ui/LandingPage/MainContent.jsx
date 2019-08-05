@@ -1,14 +1,13 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import FolderIcon from '@material-ui/icons/Folder';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
+import Bookmark from '@material-ui/icons/Bookmark'
+import { ContentListItem } from './ContentListItem';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MainContent = ({ itemList, title, action }) => {
+const MainContent = ({ itemList, title, action, overflowitems }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -33,19 +32,13 @@ const MainContent = ({ itemList, title, action }) => {
             <Button color="primary"> {action} </Button>
           </Paper>
         </Grid>
-
+       <Grid item xs= {12}>
         <List>
-          {itemList.map(item => {
-            return (
-              <ListItem>
-                <ListItemIcon>
-                  <FolderIcon />
-                </ListItemIcon>
-                <ListItemText primary={item} />
-              </ListItem>
-            );
-          })}
+          {itemList.map(item => 
+           <ContentListItem itemTitle = {item} itemIcon = {Bookmark} status = "Ready" overflowitems = {overflowitems}/>)}
+             
         </List>
+        </Grid>
       </Grid>
     </div>
   );
