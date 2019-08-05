@@ -8,7 +8,6 @@ import {
   Typography,
   ListItemIcon
 } from '@material-ui/core';
-import { Inbox } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
   root: {
