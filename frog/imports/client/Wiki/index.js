@@ -48,6 +48,7 @@ import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import PasswordModal from './ModalPassword';
+import ChangePasswordModal from '/imports/client/AccountModal/ChangePasswordModal';
 import PermissionsModal from './ModalSettings';
 import AlertModal from './ModalAlert';
 import WikiTopNavbar from './components/TopNavbar';
@@ -1057,11 +1058,11 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           Meteor.logout(() => window.location.reload());
         }
       });
-        secondaryNavItems.push({
+      secondaryNavItems.push({
         title: 'Reset password',
         icon: LockOutlinedIcon,
         callback: () => {
-          this.props.showModal(<ChangePasswordModal />); 
+          this.props.showModal(<ChangePasswordModal />);
         }
       });
     } else if (getUserType() === 'Legacy') {

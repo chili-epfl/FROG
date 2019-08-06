@@ -11,9 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useToast } from '/imports/ui/Toast';
-import {
-  passwordErrors
-} from '/imports/frog-utils/validationHelpers';
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -34,18 +32,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
- const ChangePasswordForm = ({onResetPassword}) => {
+const ChangePasswordForm = ({ onResetPassword }) => {
   const classes = useStyles();
   const [showToast, _1] = useToast();
   const [values, setValues] = React.useState({
     oldPassword: '',
-    newPassword:'',
-    confirmNewPassword:'',
-    showPassword:false
+    newPassword: '',
+    confirmNewPassword: '',
+    showPassword: false
+  });
 
-
-  })
- 
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -53,15 +52,12 @@ const useStyles = makeStyles(theme => ({
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
-  const handleSubmit =  event => {
-    event.preventDefault(); 
-    if (values.newPassword === values.confirmNewPassword)  {
-      onResetPassword(values.oldPassword, values.newPassword); 
-    }
-    else 
-      showToast('Please make sure your new password matches', 'error'); 
-  
-  }; 
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (values.newPassword === values.confirmNewPassword) {
+      onResetPassword(values.oldPassword, values.newPassword);
+    } else showToast('Please make sure your new password matches', 'error');
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,13 +68,13 @@ const useStyles = makeStyles(theme => ({
         <Typography component="h1" variant="h5">
           Reset password
         </Typography>
-        <form className={classes.form} onSubmit = {handleSubmit} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            onChange = {handleChange('oldPassword')}
+            onChange={handleChange('oldPassword')}
             id="oldpassword"
             label="Old password "
             name="oldpassword"
@@ -97,13 +93,13 @@ const useStyles = makeStyles(theme => ({
                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              ),
+              )
             }}
           />
           <TextField
             variant="outlined"
             margin="normal"
-            onChange = {handleChange('newPassword')}
+            onChange={handleChange('newPassword')}
             required
             fullWidth
             name="newpassword"
@@ -122,7 +118,7 @@ const useStyles = makeStyles(theme => ({
                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              ),
+              )
             }}
           />
           <TextField
@@ -130,7 +126,7 @@ const useStyles = makeStyles(theme => ({
             margin="normal"
             required
             fullWidth
-            onChange = {handleChange('confirmNewPassword')}
+            onChange={handleChange('confirmNewPassword')}
             name="confirmnewpassword"
             label="Confirm new password"
             type={values.showPassword ? 'text' : 'password'}
@@ -147,7 +143,7 @@ const useStyles = makeStyles(theme => ({
                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              ),
+              )
             }}
           />
           <Button
@@ -164,4 +160,4 @@ const useStyles = makeStyles(theme => ({
     </Container>
   );
 };
-export default ChangePasswordForm; 
+export default ChangePasswordForm;

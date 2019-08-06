@@ -10,14 +10,14 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'; 
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import ChangePasswordModal from '../AccountModal/ChangePasswordModal';
 import { getUsername, getUserType } from '/imports/api/users';
-import OverflowPanel from '/imports/ui/components/OverflowPanel'; 
+import OverflowPanel from '/imports/ui/components/OverflowPanel';
 
 /**
  * Navigation bar displayed at the top
@@ -35,9 +35,15 @@ function TopBar(props: PropsT) {
     showModal(<AccountModal formToDisplay="login" />);
   };
   const openResetPasswordModal = () => {
-    showModal(<ChangePasswordModal />)
-  }
-  const overflowItems = [{title: 'Reset Password', icon: LockOutlinedIcon, callback: openResetPasswordModal}]; 
+    showModal(<ChangePasswordModal />);
+  };
+  const overflowItems = [
+    {
+      title: 'Reset Password',
+      icon: LockOutlinedIcon,
+      callback: openResetPasswordModal
+    }
+  ];
 
   return (
     <AppBar position="static" color="default">
@@ -57,7 +63,7 @@ function TopBar(props: PropsT) {
         )}
         {getUserType() === 'Verified' && (
           <>
-          <OverflowPanel overflowElements = {overflowItems} /> 
+            <OverflowPanel overflowElements={overflowItems} />
             <Button
               size="medium"
               onClick={() => {
