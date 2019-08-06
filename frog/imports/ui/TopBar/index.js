@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { AppBar, makeStyles } from '@material-ui/core';
 
-import { Navigation } from './Navigation';
+import { Breadcrumb } from './Breadcrumb';
 import { ActionMenu } from './ActionMenu';
+import { PlayArrow } from '@material-ui/icons';
 import type { TopBarViewT, TopBarActionT } from './types';
 
 const useStyle = makeStyles(theme => ({
@@ -22,18 +23,8 @@ const useStyle = makeStyles(theme => ({
 }));
 
 type TopBarPropsT = {
-  /**
-   * Indicate which view is active, so we know which tab to highlight
-   */
-  currentView?: number,
-  /**
-   * The views to display as tabs
-   */
-  views?: TopBarViewT[],
-  /**
-   * Callback when the user selects another view tab
-   */
-  onViewChange?: (index: number) => void,
+  icon?: React.Element<*>,
+  paths: string[],
   /**
    * These actions are displayed inside the TopBar itself. We
    * recommend not including more than 3 primary actions.
@@ -55,14 +46,9 @@ export const TopBar = (props: TopBarPropsT) => {
       classes={{ root: classes.appBarRoot }}
       color="default"
       elevation={0}
+      position="static"
     >
-      {props.views && (
-        <Navigation
-          currentView={props.currentView || 0}
-          views={props.views}
-          onChange={props.onViewChange}
-        />
-      )}
+      <Breadcrumb icon={props.icon} paths={props.paths} />
       <div className={classes.actions}>
         {(props.primaryActions || props.secondaryActions) && (
           <ActionMenu

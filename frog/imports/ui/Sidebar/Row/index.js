@@ -55,6 +55,8 @@ const useStyle = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
 
+    color: '#333',
+
     '&:hover': {
       background: 'rgba(0,0,0,0.1)'
     },

@@ -3,26 +3,15 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Edit, PlayCircleFilled, PlayArrow } from '@material-ui/icons';
+import { Edit, PlayCircleFilled, PlayArrow, Details } from '@material-ui/icons';
 import { TopBar } from '.';
 
 const SimpleWrapper = () => {
   const [currentTab, setCurrentTab] = React.useState(0);
   return (
     <TopBar
-      currentView={currentTab}
-      views={[
-        {
-          id: 'edit',
-          title: 'Edit graph',
-          icon: <Edit />
-        },
-        {
-          id: 'orchestrate',
-          title: 'Run session',
-          icon: <PlayCircleFilled />
-        }
-      ]}
+      icon={<Details />}
+      paths={['Recent']}
       primaryActions={[
         {
           id: 'start',
