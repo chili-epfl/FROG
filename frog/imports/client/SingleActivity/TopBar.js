@@ -14,8 +14,8 @@ import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
-import { getUsername } from '/imports/api/users';
 import ChangePasswordModal from '../AccountModal/ChangePasswordModal';
+import { getUsername, getUserType } from '/imports/api/users';
 
 /**
  * Navigation bar displayed at the top
@@ -24,7 +24,6 @@ import ChangePasswordModal from '../AccountModal/ChangePasswordModal';
 function TopBar(props: PropsT) {
   const [showModal] = useModal();
   const { classes } = props;
-  const user = Meteor.user();
 
   const openSignUpModal = () => {
     showModal(<AccountModal formToDisplay="signup" />);
@@ -43,16 +42,17 @@ function TopBar(props: PropsT) {
         <Typography variant="h6" color="inherit" className={classes.logo}>
           FROG
         </Typography>
-        {user.isAnonymous || !user ? (
+        {getUserType() === 'Anonymous' && (
           <>
             <Button size="medium" onClick={openSignUpModal}>
-              Create a verified account
+              Create an account
             </Button>
             <Button size="medium" onClick={openLoginModal}>
               Login
             </Button>
           </>
-        ) : (
+        )}
+        {getUserType() === 'Verified' && (
           <>
             <Button
               size="medium"
@@ -67,6 +67,28 @@ function TopBar(props: PropsT) {
               size="medium"
               onClick={openResetPasswordModal}>
               Reset password 
+            </Button>
+            <Chip
+              avatar={<Avatar>{getUsername().charAt(0)}</Avatar>}
+              label={getUsername()}
+            />
+          </>
+        )}
+        {getUserType() === 'Legacy' && (
+          <>
+            <Button
+              size="medium"
+              onClick={() => {
+                sessionStorage.removeItem('frog.sessionToken');
+                Meteor.logout();
+                window.location.replace('/');
+              }}
+            >
+              Logout
+            </Button>
+
+            <Button size="medium" onClick={openSignUpModal}>
+              Upgrade your account
             </Button>
             <Chip
               avatar={<Avatar>{getUsername().charAt(0)}</Avatar>}
