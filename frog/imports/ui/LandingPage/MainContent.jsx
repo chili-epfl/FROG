@@ -39,8 +39,7 @@ const MainContent = ({
           <Paper className={classes.paper}>
             <Typography variant="h5"> {title} </Typography>
             <Button color="primary" onClick={callback}>
-              {' '}
-              {action}{' '}
+              {action}
             </Button>
           </Paper>
         </Grid>
