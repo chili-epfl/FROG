@@ -5,6 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import  FilterListIcon from '@material-ui/icons/FilterList'; 
+import SearchIcon from '@material-ui/icons/Search';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem'; 
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +19,14 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  icons: {
+    display:'flex', 
+    alignItems: 'center', 
+    justifyContent:'space-evenly'
+  },
+  filter: {
+    pointer: 'cursor'
   }
 }));
 
@@ -32,15 +44,42 @@ const MainContent = ({
   children
 }: MainContentPropsT) => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} elevation = {0}>
             <Typography variant="h5"> {title} </Typography>
+            <div className = {classes.icons}>
             <Button color="primary" onClick={callback}>
               {action}
             </Button>
+            
+            <SearchIcon/>
+            <FilterListIcon className = {classes.filter} onClick = {handleClick}/>
+            <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Ready</MenuItem>
+        <MenuItem onClick={handleClose}>Running</MenuItem>
+        <MenuItem onClick={handleClose}>Complete</MenuItem>
+      </Menu>
+
+            </div>
           </Paper>
         </Grid>
         <Grid item xs={12}>
