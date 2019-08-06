@@ -35,28 +35,28 @@ const itemListDrafts = [
 ];
 storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent title="My Sessions" action="Some action">
-    {itemList.map(({ itemTitle, status }) => (
-      <List>
+    <List>
+      {itemList.map(({ itemTitle, status }) => (
         <ContentListItem
           itemTitle={itemTitle}
           itemIcon={Bookmark}
           status={status}
           overflowitems={overflowitems}
         />
-      </List>
-    ))}
+      ))}
+    </List>
   </MainContent>
 ));
 storiesOf('Drafts view', module).add('MainContent', () => (
   <MainContent title="My drafts" action="Create new graph">
-    {itemListDrafts.map(({ itemTitle }) => (
-      <List>
+    <List>
+      {itemListDrafts.map(({ itemTitle }) => (
         <ContentListItem
           itemTitle={itemTitle}
           itemIcon={ShowChart}
           overflowitems={overflowitemsdraft}
         />
-      </List>
-    ))}
+      ))}
+    </List>
   </MainContent>
 ));
