@@ -7,8 +7,13 @@ import {
   Details,
   Edit,
   People,
-  ExpandMore
+  ExpandMore,
+  Share,
+  Forward,
+  Delete,
+  Bookmark
 } from '@material-ui/icons';
+import List from '@material-ui/core/List';
 
 import { BaseLayout } from '.';
 import { Sidebar } from '../Sidebar';
@@ -16,6 +21,20 @@ import { TopBar } from '../TopBar';
 import { Logo } from '../Logo';
 import { Row } from '../Sidebar/Row';
 import { Panel } from '../Sidebar/Panel';
+import MainContent from '../LandingPage/MainContent';
+import { ContentListItem } from '../LandingPage/ContentListItem';
+
+const itemList = [
+  { itemTitle: 'Session 1 ', status: 'Ready' },
+  { itemTitle: 'Session 2', status: 'Running' },
+  { itemTitle: 'Session 3', status: 'Complete' }
+];
+
+const overflowitems = [
+  { title: 'Share', icon: Share, callback: null },
+  { title: 'Clone', icon: Forward, callback: null },
+  { title: 'Delete', icon: Delete, callback: null }
+];
 
 storiesOf('BaseLayout', module).add('simple', () => (
   <BaseLayout>
@@ -28,9 +47,9 @@ storiesOf('BaseLayout', module).add('simple', () => (
         variant="large"
       />
       <Panel>
-        <Row leftIcon={<Details />} text="Recent" active />
+        <Row leftIcon={<Details />} text="Recent" />
         <Row leftIcon={<Edit />} text="My Drafts" />
-        <Row leftIcon={<PlayArrow />} text="My Sessions" />
+        <Row leftIcon={<PlayArrow />} text="My Sessions" active />
       </Panel>
       <Panel title="Classes">
         <Row text="PHYS 170" />
@@ -40,8 +59,8 @@ storiesOf('BaseLayout', module).add('simple', () => (
     </Sidebar>
     <div>
       <TopBar
-        icon={<Details />}
-        paths={['Recent']}
+        icon={<PlayArrow />}
+        paths={['My Sessions']}
         primaryActions={[
           {
             id: 'start',
@@ -56,15 +75,27 @@ storiesOf('BaseLayout', module).add('simple', () => (
         secondaryActions={[
           {
             id: 'start',
-            title: 'Start session',
+            title: 'Some other action',
             icon: <PlayArrow />
           },
           {
             id: 'projector',
-            title: 'Open projector view'
+            title: 'Another action'
           }
         ]}
       />
+      <MainContent>
+        <List>
+          {itemList.map(({ itemTitle, status }) => (
+            <ContentListItem
+              itemTitle={itemTitle}
+              itemIcon={Bookmark}
+              status={status}
+              overflowitems={overflowitems}
+            />
+          ))}
+        </List>
+      </MainContent>
     </div>
   </BaseLayout>
 ));
