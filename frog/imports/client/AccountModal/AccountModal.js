@@ -1,37 +1,31 @@
 // @flow
+import _ from 'lodash';
 import * as React from 'react';
-import { Modal, withModal } from '/imports/ui/Modal';
+import { Modal, useModal } from '/imports/ui/Modal';
+import { useToast } from '/imports/ui/Toast';
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
 
-type AccountModalStateT = {
-  formToDisplay: string
-};
-type AccountModalPropsT = {
-  formToDisplay: string
-};
-
-class AccountModal extends React.Component<
-  AccountModalStateT,
-  AccountModalPropsT
-> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formToDisplay: null
-    };
-  }
-
-  openSignUpForm = () => {
-    this.setState({ formToDisplay: 'signup' });
+const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
+  const [form, setForm] = React.useState(null);
+  const [showToast, hideToast] = useToast();
+  const [_1, hideModal] = useModal();
+  let errorLoginToastKey = '';
+  let errorSignUpToastKey = '';
+  const openSignUpForm = () => {
+    setForm('signup');
   };
 
-  openLoginForm = () => {
-    this.setState({ formToDisplay: 'login' });
+  const openLoginForm = () => {
+    setForm('login');
   };
 
-  onCreateAccount = (email: string, password: string, displayName: string) => {
+  const onCreateAccount = (
+    email: string,
+    password: string,
+    displayName: string
+  ) => {
     Meteor.call(
       'create.account',
       email,
@@ -41,44 +35,46 @@ class AccountModal extends React.Component<
       },
       error => {
         if (error) {
-          window.alert(error.reason);
+          errorSignUpToastKey = showToast(error.reason, 'error');
         } else {
-          window.alert('Success! Account created!');
-          this.props.hideModal();
+          showToast('Success! Account created!', 'success');
+          hideModal();
         }
       }
     );
   };
 
-  onLogin = (email: string, password: string) => {
+  const onLogin = (email: string, password: string) => {
     Meteor.loginWithPassword(email, password, error => {
       if (error) {
-        window.alert('Could not login!  ' + error);
+        errorLoginToastKey = showToast('Could not login!  ' + error, 'error');
       } else {
-        this.props.hideModal();
+        hideModal();
       }
     });
   };
 
-  render() {
-    const toRender = this.state?.formToDisplay || this.props.formToDisplay;
+  const modalCallback = () => {
+    // hides the toast which has the same key as the parameter
+    hideToast(errorLoginToastKey);
+    hideToast(errorSignUpToastKey);
+    hideModal();
+  };
 
-    return (
-      <Modal
-        title=""
-        actions={hideModal => [{ title: 'Cancel', callback: hideModal }]}
-      >
-        {toRender === 'signup' ? (
-          <SignUp
-            openLoginForm={this.openLoginForm}
-            onCreateAccount={this.onCreateAccount}
-          />
-        ) : (
-          <Login onLogin={this.onLogin} openSignUpForm={this.openSignUpForm} />
-        )}
-      </Modal>
-    );
-  }
-}
+  const toRender = form || formToDisplay;
 
-export default withModal(AccountModal);
+  return (
+    <Modal title="" actions={[{ title: 'Cancel', callback: modalCallback }]}>
+      {toRender === 'signup' ? (
+        <SignUp
+          openLoginForm={openLoginForm}
+          onCreateAccount={onCreateAccount}
+        />
+      ) : (
+        <Login onLogin={onLogin} openSignUpForm={openSignUpForm} />
+      )}
+    </Modal>
+  );
+};
+
+export default AccountModal;
