@@ -1,8 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { makeStyles, Typography, ButtonBase, Avatar } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import { makeStyles, Typography } from '@material-ui/core';
 
 const variants = {
   default: {

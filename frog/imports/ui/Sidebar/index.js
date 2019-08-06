@@ -2,9 +2,8 @@
 
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
-import grey from '@material-ui/core/colors/grey';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   root: {
     width: '250px',
     height: '100%',

@@ -5,8 +5,7 @@ import { AppBar, makeStyles } from '@material-ui/core';
 
 import { Breadcrumb } from './Breadcrumb';
 import { ActionMenu } from './ActionMenu';
-import { PlayArrow } from '@material-ui/icons';
-import type { TopBarViewT, TopBarActionT } from './types';
+import type { TopBarActionT } from './types';
 
 const useStyle = makeStyles(theme => ({
   appBarRoot: {

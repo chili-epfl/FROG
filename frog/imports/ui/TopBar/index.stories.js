@@ -3,11 +3,10 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Edit, PlayCircleFilled, PlayArrow, Details } from '@material-ui/icons';
+import { PlayArrow, Details } from '@material-ui/icons';
 import { TopBar } from '.';
 
 const SimpleWrapper = () => {
-  const [currentTab, setCurrentTab] = React.useState(0);
   return (
     <TopBar
       icon={<Details />}
@@ -38,10 +37,6 @@ const SimpleWrapper = () => {
           callback: action('action_callback')
         }
       ]}
-      onViewChange={i => {
-        setCurrentTab(i);
-        action('tab_change')(i);
-      }}
     />
   );
 };

@@ -28,9 +28,9 @@ storiesOf('BaseLayout', module).add('simple', () => (
         variant="large"
       />
       <Panel>
-        <Row leftIcon={<Details />} text="Recent" />
+        <Row leftIcon={<Details />} text="Recent" active />
         <Row leftIcon={<Edit />} text="My Drafts" />
-        <Row leftIcon={<PlayArrow />} text="My Sessions" active />
+        <Row leftIcon={<PlayArrow />} text="My Sessions" />
       </Panel>
       <Panel title="Classes">
         <Row text="PHYS 170" />
