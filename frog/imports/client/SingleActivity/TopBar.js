@@ -15,6 +15,8 @@ import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { getUsername } from '/imports/api/users';
+import ChangePasswordModal from '../AccountModal/ChangePasswordModal';
+
 /**
  * Navigation bar displayed at the top
  */
@@ -31,6 +33,9 @@ function TopBar(props: PropsT) {
   const openLoginModal = () => {
     showModal(<AccountModal formToDisplay="login" />);
   };
+  const openResetPasswordModal = () => {
+    showModal(<ChangePasswordModal />)
+  }
 
   return (
     <AppBar position="static" color="default">
@@ -57,6 +62,11 @@ function TopBar(props: PropsT) {
               }}
             >
               Logout
+            </Button>
+            <Button
+              size="medium"
+              onClick={openResetPasswordModal}>
+              Reset password 
             </Button>
             <Chip
               avatar={<Avatar>{getUsername().charAt(0)}</Avatar>}
