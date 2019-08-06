@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,9 +23,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Collapse from '@material-ui/core/Collapse';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
+import { Promise } from 'q';
 import ApiForm from '../GraphEditor/SidePanel/ApiForm';
 import OperatorForm from '../GraphEditor/SidePanel/OperatorForm';
 import { activityTypesObj } from '/imports/activityTypes';
+import {
+  type PageSettingsT,
+  DEFAULT_PAGE_SETTINGS
+} from '/imports/api/wikiTypes';
 
 type StateT = {
   currentTab: number,
@@ -34,8 +39,7 @@ type StateT = {
   socialPlane: number,
   open: boolean,
   expanded: boolean,
-  allowView: boolean,
-  allowEdit: boolean,
+  pageSettings: PageSettingsT,
   activityConfig?: Object,
   operatorConfig?: Object,
   error: ?string
@@ -43,10 +47,20 @@ type StateT = {
 
 type PropsT = {
   classes: Object,
-  onSubmit: Function,
-  hideModal: Function,
-  clearError: Function,
-  wikiId: string
+  onSubmit: (
+    title: string,
+    socialPlane: number,
+    activityConfig: Object,
+    operatorConfig: Object,
+    pageSettings: PageSettingsT
+  ) => Promise,
+  hideModal: () => void,
+  isOwner: boolean,
+  wikiId: string,
+  pageSettings?: PageSettingsT,
+  title: string,
+  socialPlane: number,
+  action: 'edit' | 'create'
 };
 
 const styles = () => ({
@@ -76,18 +90,18 @@ const styles = () => ({
   }
 });
 
-class NewPageModal extends React.Component<PropsT, StateT> {
+class PageSettingsModal extends React.Component<PropsT, StateT> {
   constructor(props: PropsT) {
     super(props);
     this.state = {
       currentTab: 0,
-      pageTitle: '',
+
+      pageTitle: this.props.title || '',
       pageTitleValid: true,
       open: true,
       expanded: false,
-      socialPlane: 3,
-      allowView: true,
-      allowEdit: true,
+      socialPlane: this.props.socialPlane || 3,
+      pageSettings: this.props.pageSettings || DEFAULT_PAGE_SETTINGS,
       error: null
     };
   }
@@ -101,42 +115,38 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   };
 
   handleSocialPlaneChange = (e: any) => {
-    if (e.target.value === 'everyone') {
+    if (e.target.value === 3) {
       this.setState({
-        socialPlane: e.target.value,
-        allowView: true,
-        allowEdit: true
+        socialPlane: 3,
+        pageSettings: {
+          ...this.state.pageSettings,
+          allowView: true,
+          allowEdit: true
+        }
       });
     } else {
       this.setState({ socialPlane: e.target.value });
     }
   };
 
-  handleChangeAllowView = () => {
-    this.setState({ allowView: !this.state.allowView });
-  };
-
-  handleChangeAllowEdit = () => {
-    this.setState({ allowEdit: !this.state.allowEdit });
-  };
+  handleCheckbox = target => e =>
+    this.setState({
+      ...this.state,
+      pageSettings: { ...this.state.pageSettings, [target]: e.target.checked }
+    });
 
   handleConfig = conf => {
     this.setState({ activityConfig: conf });
   };
 
-  handleCreate = () => {
+  handleSubmit = () => {
     const {
       pageTitle,
       socialPlane,
       activityConfig,
       operatorConfig,
-      allowView,
-      allowEdit
+      pageSettings
     } = this.state;
-    const pageSettings = {
-      allowView,
-      allowEdit
-    };
     this.props
       .onSubmit(
         pageTitle,
@@ -153,7 +163,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
 
   render() {
     const { currentTab, socialPlane, expanded, pageTitle, error } = this.state;
-    const { classes } = this.props;
+    const { classes, isOwner, action } = this.props;
     let operatorTypesList = [];
     const activityType = this.state.config?.activityType;
     if (
@@ -168,10 +178,11 @@ class NewPageModal extends React.Component<PropsT, StateT> {
     return (
       <Dialog
         open
-        onEscapeKeyDown={() => this.props.hideModal()}
+        onEscapeKeyDown={this.props.hideModal}
         onKeyDown={e => {
-          if (e.keyCode === 13 && this.props.errorDiv !== null)
-            this.handleCreate();
+          if (e.keyCode === 13 && error === null) {
+            this.handleSubmit();
+          }
         }}
         maxWidth={false}
         scroll="paper"
@@ -179,7 +190,9 @@ class NewPageModal extends React.Component<PropsT, StateT> {
         <div className={classes.root}>
           <FormGroup>
             <FormControl className={classes.formControl}>
-              <Typography variant="h6">Create New Page</Typography>
+              <Typography variant="h6">
+                {action === 'create' ? 'Create New Page' : 'Edit Page Settings'}
+              </Typography>
               <TextField
                 autoFocus
                 error={error !== null}
@@ -190,7 +203,7 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 margin="normal"
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    this.handleCreate();
+                    this.handleSubmit();
                   } else if (e.keyCode === 40) {
                     this.setState({ expanded: true });
                   } else if (e.keyCode === 38) {
@@ -199,83 +212,121 @@ class NewPageModal extends React.Component<PropsT, StateT> {
                 }}
                 data-testid="wiki_page_title_editor"
               />
-              {this.state.error !== null && (
-                <FormHelperText error>{error}</FormHelperText>
-              )}
+              {error !== null && <FormHelperText error>{error}</FormHelperText>}
             </FormControl>
           </FormGroup>
-          <Collapse in={expanded} timeout="auto">
-            <AppBar position="static">
-              <Tabs
-                value={this.state.currentTab}
-                indicatorColor="secondary"
-                onChange={this.handleTabs}
-                variant="fullWidth"
-              >
-                <Tab label="Settings" className={classes.tabs} />
-                <Tab label="Component" className={classes.tabs} />
-                <Tab label="Operator" className={classes.tabs} />
-              </Tabs>
-            </AppBar>
+          <Collapse in={expanded || action === 'edit'} timeout="auto">
+            {action === 'create' && (
+              <AppBar position="static">
+                <Tabs
+                  value={this.state.currentTab}
+                  indicatorColor="secondary"
+                  onChange={this.handleTabs}
+                  variant="fullWidth"
+                >
+                  <Tab label="Settings" className={classes.tabs} />
+                  <Tab label="Component" className={classes.tabs} />
+                </Tabs>
+              </AppBar>
+            )}
             <DialogContent classes={{ root: classes.modalInner }}>
               {currentTab === 0 && (
-                <FormGroup>
-                  <FormControl>
-                    <Typography variant="h6">Social Plane</Typography>
-                    <Select
-                      value={this.state.socialPlane}
-                      onChange={this.handleSocialPlaneChange}
-                      id="social-plane"
-                      className={classes.selectSocialPlane}
-                    >
-                      <MenuItem value={3}>Everyone</MenuItem>
-                      <MenuItem value={1}>Each Individual</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <FormGroup row>
-                    <FormControlLabel
-                      disabled={this.state.socialPlane !== 1}
-                      control={
-                        <Checkbox
-                          checked={this.state.allowView}
-                          onChange={this.handleChangeAllowView}
-                          color="primary"
-                        />
-                      }
-                      label="Allow others to view"
-                    />
-                    <FormControlLabel
-                      disabled={this.state.socialPlane !== 1}
-                      control={
-                        <Checkbox
-                          checked={this.state.allowEdit}
-                          onChange={this.handleChangeAllowEdit}
-                          color="primary"
-                        />
-                      }
-                      label="Allow others to edit"
-                    />
+                <>
+                  <FormGroup>
+                    <FormControl disabled={action !== 'create'}>
+                      <Typography variant="h6">Social Plane</Typography>
+                      <Select
+                        value={this.state.socialPlane}
+                        onChange={this.handleSocialPlaneChange}
+                        id="social-plane"
+                        className={classes.selectSocialPlane}
+                      >
+                        <MenuItem value={3}>Everyone</MenuItem>
+                        <MenuItem value={1}>Each Individual</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormGroup row>
+                      <FormControlLabel
+                        disabled={this.state.socialPlane !== 1}
+                        control={
+                          <Checkbox
+                            checked={this.state.pageSettings.allowView}
+                            onChange={this.handleCheckbox('allowView')}
+                            color="primary"
+                          />
+                        }
+                        label="Allow others to view"
+                      />
+                      <FormControlLabel
+                        disabled={
+                          this.state.socialPlane !== 1 ||
+                          !this.state.pageSettings.allowView
+                        }
+                        control={
+                          <Checkbox
+                            checked={this.state.pageSettings.allowEdit}
+                            onChange={this.handleCheckbox('allowEdit')}
+                            color="primary"
+                          />
+                        }
+                        label="Allow others to edit"
+                      />
+                    </FormGroup>
                   </FormGroup>
-                </FormGroup>
+                  {isOwner && (
+                    <FormGroup>
+                      <Typography variant="h6">Page Settings</Typography>
+                      <FormGroup row>
+                        <FormControlLabel
+                          disabled={this.state.pageSettings.hidden}
+                          control={
+                            <Checkbox
+                              checked={this.state.pageSettings.readOnly}
+                              onChange={this.handleCheckbox('readOnly')}
+                              color="primary"
+                            />
+                          }
+                          label="Read-Only"
+                        />
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={this.state.pageSettings.hidden}
+                              onChange={this.handleCheckbox('hidden')}
+                              color="primary"
+                            />
+                          }
+                          label="Hidden"
+                        />
+                      </FormGroup>
+                    </FormGroup>
+                  )}
+                </>
               )}
               {currentTab === 1 && (
                 <ApiForm
-                  categories={['Core', 'Other']}
+                  categories={['Core', 'From the web']}
                   whiteList={[
                     'li-richText',
                     'ac-gallery',
                     'ac-brainstorm',
                     'ac-quiz',
-                    'ac-ck-board'
+                    'ac-ck-board',
+                    'op-twitter',
+                    'op-rss',
+                    'op-hypothesis'
                   ]}
                   config={this.state.activityConfig?.config}
                   activityType={this.state.activityConfig?.activityType}
                   activityMapping={{
                     'li-richText': 'Core',
                     'ac-gallery': 'Core',
-                    'ac-brainstorm': 'Other',
+                    'ac-brainstorm': 'Core',
                     'ac-quiz': 'Core',
-                    'ac-ck-board': 'Core'
+                    'ac-ck-board': 'Core',
+                    'op-twitter': 'From the web',
+                    'op-rss': 'From the web',
+                    'op-hypothesis': 'From the web'
                   }}
                   noOffset
                   showDelete
@@ -303,22 +354,24 @@ class NewPageModal extends React.Component<PropsT, StateT> {
             </DialogContent>
           </Collapse>
           <DialogActions>
-            <IconButton
-              className={classes.expander}
-              onClick={() => this.setState({ expanded: !expanded })}
-            >
-              {expanded ? <ExpandLess /> : <ExpandMore />}
-            </IconButton>
+            {action === 'create' && (
+              <IconButton
+                className={classes.expander}
+                onClick={() => this.setState({ expanded: !expanded })}
+              >
+                {expanded ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
+            )}
             <Button onClick={this.props.hideModal} color="primary">
               Cancel
             </Button>
             <Button
-              onClick={() => this.handleCreate()}
+              onClick={() => this.handleSubmit()}
               color="primary"
               variant="contained"
               data-testid="create_button"
             >
-              Create
+              {action === 'create' ? 'Create' : 'Apply'}
             </Button>
           </DialogActions>
         </div>
@@ -327,4 +380,4 @@ class NewPageModal extends React.Component<PropsT, StateT> {
   }
 }
 
-export default withStyles(styles)(NewPageModal);
+export default withStyles(styles)(PageSettingsModal);

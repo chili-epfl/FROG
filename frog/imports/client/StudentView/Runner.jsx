@@ -13,6 +13,7 @@ import { Objects } from '/imports/api/objects';
 import { LocalSettings } from '/imports/api/settings';
 import { Sessions } from '/imports/api/sessions';
 import ReactiveHOC from './ReactiveHOC';
+import { getUsername } from '/imports/api/users';
 
 const getStructure = activity => {
   if (activity.plane === 1) {
@@ -60,7 +61,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     (isTeacher && activity.plane === 2 ? '' : groupingValue) +
     ')';
   if (activity.plane === 1) {
-    title = `(individual/${Meteor.user().username})`;
+    title = `(individual/${getUsername()})`;
   }
 
   const config = activity.data;
@@ -117,7 +118,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
           readOnly
         }}
         activityId={activity._id}
-        username={Meteor.user().username}
+        username={getUsername()}
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
         instanceMembers={instanceMembers}

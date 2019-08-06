@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
+import WebSocket from 'ws';
 
 import { uuid } from '/imports/frog-utils';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
@@ -62,6 +63,31 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 };
 
 const InstanceDone = {};
+
+const wss = new WebSocket.Server({
+  port: 10000
+});
+
+const Connections = {};
+
+wss.on('connection', (ws, req) => {
+  const id = req.url.split('?')[1];
+  Connections[id] = ws;
+  ws.on('message', data => {
+    console.info('received', data);
+    ws.send('received ' + data);
+  });
+});
+
+const wsSend = (id, msg) => {
+  if (Connections[id]) {
+    Connections[id].send(msg);
+  } else {
+    throw 'No such websocket id';
+  }
+};
+
+Meteor.methods({ 'ws.send': wsSend });
 
 WebApp.connectHandlers.use('', (request, response, next) => {
   if (request.headers?.host === 'frogwrite.ch') {

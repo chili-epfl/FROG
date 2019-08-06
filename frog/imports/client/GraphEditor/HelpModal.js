@@ -9,10 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
-import Slide from '@material-ui/core/Slide';
-import { withStyles } from '@material-ui/core/styles';
-
-const Transition = props => <Slide direction="up" {...props} />;
+import { withStyles } from '@material-ui/styles';
 
 const styles = {
   paper: {
@@ -23,12 +20,7 @@ const styles = {
 };
 
 const HelpModal = ({ show, hide, classes }: Object) => (
-  <Dialog
-    open={show}
-    onClose={hide}
-    TransitionComponent={Transition}
-    classes={{ paper: classes.paper }}
-  >
+  <Dialog open={show} onClose={hide} classes={{ paper: classes.paper }}>
     <AppBar className={classes.appBar}>
       <Toolbar>
         <IconButton color="inherit" onClick={hide} aria-label="Close">

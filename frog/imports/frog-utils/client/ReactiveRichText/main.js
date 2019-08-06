@@ -1,5 +1,5 @@
 // @flow
-import '@houshuang/react-quill/dist/quill.snow.css';
+import './quill.snow.css';
 
 import React, { Component } from 'react';
 import uuid from 'cuid';
@@ -15,7 +15,9 @@ import {
   find,
   debounce
 } from 'lodash';
+import QuillCursors from '@minervaproject/quill-cursors';
 import Dialog from '@material-ui/core/Dialog';
+
 import { HighlightSearchText } from '/imports/frog-utils/HighlightSearchText';
 import { highlightTargetRichText } from '/imports/frog-utils/highlightTargetRichText';
 import { cloneDeep } from '/imports/frog-utils/cloneDeep';
@@ -26,6 +28,7 @@ import getLearningItemBlot from './LearningItemBlot';
 import CustomQuillClipboard from './CustomQuillClipboard';
 import CustomQuillToolbar from './CustomQuillToolbar';
 import { pickColor } from './helpers';
+import { Presence } from './Presence';
 
 import WikiLinkModule from './WikiLink/WikiLinkModule';
 import WikiLinkBlot from './WikiLink/WikiLinkBlot';
@@ -33,6 +36,7 @@ import WikiLinkBlot from './WikiLink/WikiLinkBlot';
 Quill.register('modules/wikiLink', WikiLinkModule);
 Quill.register('modules/wikiEmbed', WikiLinkModule);
 Quill.register('formats/wiki-link', WikiLinkBlot);
+Quill.register('modules/cursors', QuillCursors);
 
 // The below placeholder object is used to pass the parameters from the 'dataFn' prop
 // from the main component to other ones. Generic definition to understand the structure
@@ -97,6 +101,8 @@ class ReactiveRichText extends Component<
 > {
   quillRef: any;
 
+  cursors: any;
+
   compositionStart: boolean;
 
   authorDeltaToApply: any;
@@ -114,7 +120,6 @@ class ReactiveRichText extends Component<
 
   constructor(props: ReactivePropsT) {
     super(props);
-
     // We assign all values of dataFn to reactiveRichTextDataFn so that
     // they get passed to LearningItemBlot
     Object.assign(reactiveRichTextDataFn, props.dataFn);
@@ -154,6 +159,11 @@ class ReactiveRichText extends Component<
           if (opPath === this.props.path) {
             editor.updateContents(operation.o);
           }
+          if (this.cursors) {
+            if (operation.u !== this.props.dataFn?.doc?.connection?.id) {
+              this.cursors.flashCursor(operation.u);
+            }
+          }
         });
       }
     }
@@ -175,64 +185,99 @@ class ReactiveRichText extends Component<
       )
     );
 
-    // if (this.props.readOnly) {
-    //   const ops = cloneDeep(raw.ops);
-    //   if (!ops) {
-    //     return raw;
-    //   }
-    //   while (true) {
-    //     const [tail] = ops.slice(-1);
-    //     if (!tail) {
-    //       break;
-    //     }
-    //     if (typeof tail.insert !== 'string') {
-    //       break;
-    //     }
-    //     if (tail.insert.trim() !== '') {
-    //       break;
-    //     }
-    //     ops.pop();
-    //   }
-
-    //   const [tail1] = ops.slice(-1);
-    //   if (tail1) {
-    //     if (typeof tail1.insert === 'string') {
-    //       ops[ops.length - 1].insert = tail1.insert.trimEnd() + '\n';
-    //     }
-    //   }
-
-    //   while (true) {
-    //     const [hd] = ops.slice(0, 1);
-    //     if (!hd) {
-    //       break;
-    //     }
-    //     if (typeof hd.insert !== 'string') {
-    //       break;
-    //     }
-    //     if (hd.insert.trim() !== '') {
-    //       break;
-    //     }
-    //     ops.shift();
-    //   }
-
-    //   const [head1] = ops.slice(0, 1);
-    //   if (head1) {
-    //     if (typeof head1.insert === 'string') {
-    //       ops[0].insert = head1.insert.trimStart();
-    //     }
-    //   }
-    //   if (ops.slice(-1).insert !== '\n') {
-    //     ops.push({ insert: '\n' });
-    //   }
-    //   raw.ops = ops;
-    // }
-
     if (this.props.search) {
       raw = highlightTargetRichText(raw, this.props.search);
     }
 
     return raw;
   };
+
+  updateCursor = range => {
+    const { userId, username } = this.props;
+    const doc = this.props.dataFn?.doc;
+    doc.submitPresence({
+      p: this.state.path,
+      t: 'rich-text',
+      u: userId + '/' + (username || ''),
+      s: {
+        u: userId + '/' + (username || ''),
+        c: 0,
+        s: [[range.index, range.index + range.length]]
+      }
+    });
+  };
+
+  setupCursors = () => {
+    const doc = this.props.dataFn.doc;
+    const editor = this.quillRef.getEditor();
+    const cursors = editor.getModule('cursors');
+
+    editor.on('selection-change', (range, _, source) => {
+      if (range && source === 'user') {
+        this.updateCursor(range);
+      }
+    });
+
+    doc.on('presence', (srcList, submitted) =>
+      this.handlePresenceUpdate(srcList, submitted, this)
+    );
+
+    // we might already have presence, because the doc was loaded in read-only,
+    // so we should render shared cursors initially
+    this.handlePresenceUpdate(Object.keys(doc.presence), undefined, this);
+
+    this.cursors = cursors;
+  };
+
+  handlePresenceUpdate(srcList, submitted, that) {
+    if (!that.quillRef) {
+      console.warn('No Quillref');
+      return;
+    }
+    const doc = that.props.dataFn.doc;
+    const myDocId = doc.connection.id;
+    const editor = that.quillRef.getEditor();
+    const cursors = editor.getModule('cursors');
+
+    srcList.forEach(src => {
+      const presence = doc.presence[src];
+      if (!presence || !presence.p) {
+        cursors.removeCursor(src);
+        return;
+      }
+      if (!isEqual(presence.p, that.state.path)) {
+        cursors.removeCursor(src);
+        return;
+      }
+      if (presence.u) {
+        const presenceUID = presence.u;
+        const [id, name] = presenceUID.split('/');
+
+        if (
+          presence.s.u &&
+          src !== myDocId &&
+          src !== '' &&
+          presence.s.s &&
+          presence.s.s.length > 0
+        ) {
+          // TODO: Can QuillCursors support multiple selections?
+          const sel = presence.s.s[0];
+
+          // Use Math.abs because the sharedb presence type
+          // supports reverse selections, but I don't think
+          // Quill Cursors does.
+          const len = Math.abs(sel[1] - sel[0]);
+          const min = Math.min(sel[0], sel[1]);
+
+          cursors.createCursor(src, name, pickColor(id));
+          cursors.moveCursor(src, { index: min, length: len });
+          if (submitted) {
+            cursors.flashCursor(src);
+          }
+        }
+      }
+    });
+  }
 
   compositionStartHandler = () => {
     this.compositionStart = true;
@@ -324,7 +369,34 @@ class ReactiveRichText extends Component<
     }
   }
 
+  sendPresence(doc: *) {
+    doc.submitPresence(
+      {
+        u: this.props.readOnly
+          ? undefined
+          : this.props.userId + '/' + (this.props.username || '')
+      },
+      () => {
+        doc.requestReplyPresence = false;
+      }
+    );
+
+    if (!this.props.readOnly) {
+      this.setupCursors();
+    }
+  }
+
   componentDidMount() {
+    const doc = this.props.dataFn?.doc;
+    if (doc) {
+      doc.requestReplyPresence = true;
+      if (doc.type) {
+        this.sendPresence(doc);
+      } else {
+        doc.once('load', () => this.sendPresence(doc));
+      }
+    }
+
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
       if (this.props.autoFocus) {
@@ -381,6 +453,16 @@ class ReactiveRichText extends Component<
   }
 
   componentWillUnmount() {
+    const doc = this.props.dataFn?.doc;
+    if (doc) {
+      if (!this.props.readOnly) {
+        doc.submitPresence({
+          u: undefined
+        });
+      }
+      doc.removeListener('presence', this.handlePresenceUpdate);
+    }
+
     if (!this.props.data && !this.props.rawData) {
       this.props.dataFn.doc.removeListener('op', this.opListener);
       if (!this.props.shorten) {
@@ -533,7 +615,8 @@ class ReactiveRichText extends Component<
       const op = {
         p: this.state.path,
         t: 'rich-text',
-        o: delta.ops
+        o: delta.ops,
+        u: this.props.dataFn?.doc?.connection?.id
       };
 
       this.props.dataFn.doc.submitOp([op], { source: this.quillRef });
@@ -657,6 +740,13 @@ class ReactiveRichText extends Component<
               this.props.dataFn.listore.setOverCB(null);
             }}
           >
+            {!isEmpty(wikiContext) && (
+              <Presence
+                dataFn={this.props.dataFn}
+                id={this.props.dataFn.doc.id}
+                userId={this.props.userId}
+              />
+            )}
             {!get(props, 'readOnly') && (
               <CustomQuillToolbar
                 id={this.toolbarId}
@@ -673,6 +763,7 @@ class ReactiveRichText extends Component<
               readOnly={get(props, 'readOnly')}
               formats={formats}
               modules={{
+                cursors: true,
                 toolbar: get(props, 'readOnly')
                   ? null
                   : {

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';

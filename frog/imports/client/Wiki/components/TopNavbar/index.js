@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 
-import { ChangeableText } from '/imports/frog-utils';
+import { Chip, Avatar } from '@material-ui/core';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import { useModal } from '/imports/ui/Modal';
 import PrimaryButton from './PrimaryButton';
-import OverflowPanel from './OverflowPanel';
+import OverflowPanel from '/imports/ui/components/OverflowPanel';
 
 type TopNavBarPropsT = {
   username: string,
@@ -32,13 +34,12 @@ type TopNavBarPropsT = {
  * Controls can be primary (displayed horizontally), or secondary (displayed in a dropdown).
  */
 const TopNavbar = (props: TopNavBarPropsT) => {
-  const {
-    username,
-    isAnonymous,
-    primaryNavItems,
-    secondaryNavItems,
-    changeUsername
-  } = props;
+  const { username, isAnonymous, primaryNavItems, secondaryNavItems } = props;
+  const [showModal] = useModal();
+  /* eslint-disable no-unused-expressions */
+  const displayModal = () => {
+    isAnonymous ? showModal(<AccountModal formToDisplay="signup" />) : null;
+  };
 
   return (
     <div
@@ -53,11 +54,10 @@ const TopNavbar = (props: TopNavBarPropsT) => {
         <PrimaryButton key={index} {...item} />
       ))}
       <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>
-        <ChangeableText
-          penOnLeft
-          onlyHover
-          value={username}
-          onSubmit={changeUsername}
+        <Chip
+          avatar={<Avatar>{username.charAt(0)}</Avatar>}
+          label={username}
+          onClick={isAnonymous ? displayModal : null}
         />
       </PrimaryButton>
       <OverflowPanel overflowElements={secondaryNavItems} />

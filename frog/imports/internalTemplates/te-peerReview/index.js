@@ -104,17 +104,17 @@ const processTemplate = (template, replacements) => {
 
 const makeTemplate = conf => {
   const template = JSON.stringify(
-    conf.general.plane === 'individual' ? p1 : p2
+    conf.general?.plane === 'individual' ? p1 : p2
   );
   const replacements = {
-    instructions: conf.first.instructions || '',
-    reviewPrompt: conf.second.reviewPrompt || '',
-    reviseInstructions: conf.third.reviseInstructions || '',
-    reviewCount: conf.second.reviewCount || 1
+    instructions: conf.first?.instructions || '',
+    reviewPrompt: conf.second?.reviewPrompt || '',
+    reviseInstructions: conf.third?.reviseInstructions || '',
+    reviewCount: conf.second?.reviewCount || 1
   };
   return [
     processTemplate(template, replacements),
-    conf.general.plane === 'individual' ? p1Instructions : p2Instructions
+    conf.general?.plane === 'individual' ? p1Instructions : p2Instructions
   ];
 };
 

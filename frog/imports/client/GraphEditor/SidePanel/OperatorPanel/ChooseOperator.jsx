@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Search from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -205,7 +205,7 @@ class ChooseOperatorTypeComp extends Component<PropsT, StateT> {
           <Grid item>
             <Typography variant="h4">Select Operator</Typography>
           </Grid>
-          <Grid container spacing={8} alignItems="flex-end" item>
+          <Grid container spacing={1} alignItems="flex-end" item>
             <Grid item>
               <Search fontSize="inherit" />
             </Grid>

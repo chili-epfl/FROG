@@ -1,13 +1,12 @@
 // @flow
 
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Undo from '@material-ui/icons/Undo';
 import Add from '@material-ui/icons/Add';
 import FileCopy from '@material-ui/icons/FileCopy';
@@ -28,6 +27,7 @@ import {
 } from '/imports/api/graphs';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
+import { getUsername } from '/imports/api/users';
 
 import {
   exportGraph,
@@ -50,26 +50,26 @@ const styles = theme => ({
     pointerEvents: 'none'
   },
   undoButton: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
     padding: 3,
     width: 35
   },
   helpButton: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
     padding: 3,
     width: 35,
     marginRight: 70
   },
   button: {
-    marginTop: theme.spacing.unit / 2,
+    marginTop: theme.spacing(0.5),
     padding: 3,
     width: 35
   },
   leftIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing()
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing()
   }
 });
 
@@ -115,7 +115,7 @@ const MenuItemDeleteFromServer = ({
 }) =>
   !LibraryStates.graphList.find(x => x.uuid === parentId) ||
   LibraryStates.graphList.find(x => x.uuid === parentId).owner_id ===
-    Meteor.user().username ? (
+    getUsername() ? (
     <MenuItem
       onClick={() => {
         if (setIdRemove) setIdRemove({ type: 'graph', id: parentId });

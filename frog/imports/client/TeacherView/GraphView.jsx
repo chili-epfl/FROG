@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Provider } from 'mobx-react';
 import { isEqual } from 'lodash';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import ShowInfo from './ShowInfo';
 import Graph from '../GraphEditor/Graph';

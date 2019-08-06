@@ -3,9 +3,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { compose } from 'recompose';
-import { Meteor } from 'meteor/meteor';
+import { getUsername } from '/imports/api/users';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,14 +23,13 @@ import { LocalSettings } from '/imports/api/settings';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    // marginTop: theme.spacing.unit * 3,
     backgroundColor: theme.palette.background.paper
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing()
   },
   toolbar: {
     minHeight: '48px',
@@ -184,9 +183,7 @@ class TopBarController extends React.Component<
             </Tabs>
             <h3>
               {LocalSettings.researchLogin ? ' * ' : ''}
-              {Meteor.user().isAnonymous
-                ? 'Anonymous Visitor'
-                : Meteor.user().username}
+              {getUsername()}
             </h3>
             <LogoutMenu history={this.props.history} />
           </Toolbar>

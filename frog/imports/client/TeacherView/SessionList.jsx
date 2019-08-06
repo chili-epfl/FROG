@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -25,11 +25,11 @@ const styles = theme => ({
     display: 'flex'
   },
   formControl: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     minWidth: 250
   },
   button: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     width: 35
   },
   title: {
@@ -76,7 +76,7 @@ class SessionAdmin extends React.Component<
     return (
       <div className={classes.root}>
         <form autoComplete="off" className={classes.root}>
-          <Grid container styles={classes.root} justify="center" spacing={8}>
+          <Grid container styles={classes.root} justify="center" spacing={1}>
             {graphs && graphs.length ? (
               <Grid item>
                 <div className={classes.root}>

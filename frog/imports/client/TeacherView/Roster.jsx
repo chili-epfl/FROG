@@ -19,7 +19,7 @@ import FormControl from '@material-ui/core/FormControl';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Delete from '@material-ui/icons/Delete';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { Sessions } from '/imports/api/sessions';
 
 import styles from './styles';
