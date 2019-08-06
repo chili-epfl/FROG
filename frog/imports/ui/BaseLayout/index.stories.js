@@ -42,7 +42,7 @@ storiesOf('BaseLayout', module).add('simple', () => (
       <Logo />
       <Row
         leftIcon={<People />}
-        text="Quentin Golsteyn"
+        text="John Doe"
         rightIcon={<ExpandMore />}
         variant="large"
       />
