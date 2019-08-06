@@ -2,28 +2,37 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { List } from '@material-ui/core';
-import { Restore, Edit, PlayArrow } from '@material-ui/icons';
+import {
+  Details,
+  Edit,
+  PlayArrow,
+  ExpandMore,
+  People
+} from '@material-ui/icons';
 import { Sidebar } from '.';
-import { Header } from './Header';
+
+import { Logo } from '../Logo';
+import { Row } from './Row';
 import { Panel } from './Panel';
-import { SidebarListItem } from './ListItem';
 
 storiesOf('Sidebar', module).add('simple', () => (
-  <Sidebar header={<Header title="Lecture #1" subtitle="Quentin Golsteyn" />}>
-    <Panel title="Private">
-      <List>
-        <SidebarListItem title="Recent" icon={<Restore />} />
-        <SidebarListItem title="My Drafts" icon={<Edit />} />
-        <SidebarListItem title="My Sessions" icon={<PlayArrow />} selected />
-      </List>
+  <Sidebar>
+    <Logo />
+    <Row
+      leftIcon={<People />}
+      text="Quentin Golsteyn"
+      rightIcon={<ExpandMore />}
+      variant="large"
+    />
+    <Panel>
+      <Row leftIcon={<Details />} text="Recent" />
+      <Row leftIcon={<Edit />} text="My Drafts" />
+      <Row leftIcon={<PlayArrow />} text="My Sessions" active />
     </Panel>
     <Panel title="Classes">
-      <List>
-        <SidebarListItem title="PHYS 170" />
-        <SidebarListItem title="PHYS 157" />
-        <SidebarListItem title="PHYS 158" />
-      </List>
+      <Row text="PHYS 170" />
+      <Row text="ELEC 221" />
+      <Row text="CPSC 430" />
     </Panel>
   </Sidebar>
 ));

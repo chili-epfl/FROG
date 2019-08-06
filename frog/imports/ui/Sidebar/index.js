@@ -4,14 +4,18 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles(theme => ({
   root: {
     width: '250px',
     height: '100%',
-    background: grey[100],
+    background: 'white',
 
     display: 'flex',
-    flexFlow: 'column nowrap'
+    flexFlow: 'column nowrap',
+
+    borderRight: '1px solid #EAEAEA',
+
+    userSelect: 'none'
   },
   content: {
     flexGrow: 1

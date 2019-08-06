@@ -2,30 +2,18 @@
 
 import * as React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import grey from '@material-ui/core/colors/grey';
+import { Row } from '../Row';
 
 const useStyle = makeStyles(theme => ({
   root: {
-    width: '100%'
-  },
-  titleBar: {
     width: '100%',
-    height: '32px',
-    padding: theme.spacing(0, 1, 0, 1),
-
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    alignItems: 'center'
-  },
-  title: {
-    flexGrow: 1,
-    color: grey[500]
+    paddingTop: theme.spacing(2)
   }
 }));
 
 type PanelPropsT = {
   title?: string,
-  children?: React.Node | React.Node[]
+  children?: React.Element<*> | React.Element<*>[]
 };
 
 /**
@@ -36,13 +24,7 @@ export const Panel = (props: PanelPropsT) => {
   const classes = useStyle();
   return (
     <div className={classes.root}>
-      {props.title && (
-        <div className={classes.titleBar}>
-          <Typography className={classes.title} variant="overline">
-            {props.title}
-          </Typography>
-        </div>
-      )}
+      {props.title && <Row text={props.title} variant="header" />}
       {props.children && (
         <div className={classes.content}>{props.children}</div>
       )}
