@@ -1057,6 +1057,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           Meteor.logout(() => window.location.reload());
         }
       });
+        secondaryNavItems.push({
+        title: 'Reset password',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<ChangePasswordModal />); 
+        }
+      });
     } else if (getUserType() === 'Legacy') {
       secondaryNavItems.push({
         title: 'Upgrade your account',

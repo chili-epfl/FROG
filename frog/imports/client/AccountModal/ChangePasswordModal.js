@@ -19,8 +19,11 @@ const ChangePasswordModal = () => {
           Accounts.changePassword(oldPassword, newPassword, (err, res) => {
               if (err)
               showToast(err.reason, 'error')
-              else
-              showToast('Success! Password changed', 'success'); 
+              else{
+                showToast('Success! Password changed', 'success'); 
+                hideModal(); 
+              }
+              
           })
 
       }; 

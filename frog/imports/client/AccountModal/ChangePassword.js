@@ -11,10 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useToast } from '/imports/ui/Toast';
-
+import {
+  passwordErrors
+} from '/imports/frog-utils/validationHelpers';
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -39,14 +41,12 @@ const useStyles = makeStyles(theme => ({
     oldPassword: '',
     newPassword:'',
     confirmNewPassword:'',
-    showPassword:true
+    showPassword:false
 
 
   })
-  const handleChange = prop => event => {
-    
-    setValues({ ...values, [prop]: event.target.value });
-  };
+ 
+
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
@@ -55,12 +55,11 @@ const useStyles = makeStyles(theme => ({
   };
   const handleSubmit =  event => {
     event.preventDefault(); 
-    if (values.newPassword === values.confirmNewPassword) {
+    if (values.newPassword === values.confirmNewPassword)  {
       onResetPassword(values.oldPassword, values.newPassword); 
     }
-    else {
-      showToast('Please make sure your new password matches', 'error');
-    }
+    else 
+      showToast('Please make sure your new password matches', 'error'); 
   
   }; 
 
