@@ -3,7 +3,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
-import { isVerifiedUser } from '/imports/api/users';
+import { getUserType } from '/imports/api/users';
 import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
@@ -50,7 +50,11 @@ Meteor.methods({
     const userObj = Meteor.users.findOne({ username });
     // for anonymous login
     if (username === null) return doLogin(username, self);
-    if (!isStudentList && userObj && isVerifiedUser({ userObj })) {
+    if (
+      !isStudentList &&
+      userObj &&
+      getUserType({ meteorUser: userObj }) === 'Verified'
+    ) {
       return 'NOTVALID';
     } else {
       if (isStudentList) {
