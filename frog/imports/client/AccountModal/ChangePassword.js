@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-expressions */
+// disable no-unused-expressions for flow typing state when using hooks
+// @flow
 import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useToast } from '/imports/ui/Toast';
+import { passwordErrors } from '/imports/frog-utils/validationHelpers';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -32,7 +36,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ChangePasswordForm = ({ onResetPassword }) => {
+type ChangePasswordFormPropsT = {
+  onResetPassword: (oldPassword: string, newPassword: string) => void
+};
+type ChangePasswordFormStateT = {
+  oldPassword: string,
+  newPassword: string,
+  confirmNewPassword: string,
+  showPassword: boolean
+};
+
+const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
   const classes = useStyles();
   const [showToast, _1] = useToast();
   const [values, setValues] = React.useState({
@@ -41,6 +55,7 @@ const ChangePasswordForm = ({ onResetPassword }) => {
     confirmNewPassword: '',
     showPassword: false
   });
+  (values: ChangePasswordFormStateT);
 
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value });
@@ -55,7 +70,11 @@ const ChangePasswordForm = ({ onResetPassword }) => {
   const handleSubmit = event => {
     event.preventDefault();
     if (values.newPassword === values.confirmNewPassword) {
-      onResetPassword(values.oldPassword, values.newPassword);
+      if (passwordErrors(values.newPassword) !== '')
+        showToast(passwordErrors(values.newPassword), 'error');
+      else {
+        onResetPassword(values.oldPassword, values.newPassword);
+      }
     } else showToast('Please make sure your new password matches', 'error');
   };
 
@@ -66,7 +85,7 @@ const ChangePasswordForm = ({ onResetPassword }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Reset password
+          Change password
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
