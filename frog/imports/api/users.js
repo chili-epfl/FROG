@@ -72,7 +72,7 @@ const getUser = (user?: UserObj): ?MeteorUser => {
  * @param: {User=} user
  */
 
-export const isVerifiedUser = (user?: UserObj): boolean => {
+const isVerifiedUser = (user?: UserObj): boolean => {
   const selectedUser = getUser(user);
   if (selectedUser) return !!selectedUser.emails;
   else return false;
