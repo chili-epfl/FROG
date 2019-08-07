@@ -49,7 +49,6 @@ export const getUserType = (user?: UserObj): UserType => {
   const selectedUser = getUser(user);
   // if there is no user logged in then we treat it the same as anonymous
   if (!selectedUser || selectedUser.isAnonymous) return 'Anonymous';
-  // eslint-disable-next-line no-extra-boolean-cast
   else if (isVerifiedUser({ meteorUser: selectedUser })) return 'Verified';
   else if (selectedUser.username) return 'Legacy';
   else return 'No user logged in';
