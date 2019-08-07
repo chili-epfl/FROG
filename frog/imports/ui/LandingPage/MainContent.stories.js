@@ -12,9 +12,9 @@ import {
 } from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
+import { Divider } from '@material-ui/core';
 import MainContent from './MainContent';
 import { ContentListItem } from './ContentListItem';
-import { Divider } from '@material-ui/core';
 
 const overflowitems = [
   { title: 'Share', icon: Share, callback: null },
@@ -40,10 +40,8 @@ const itemListClasses = [
   { itemTitle: 'Monday', status: 'Ready' },
   { itemTitle: 'Wednesday', status: 'Running' },
   { itemTitle: 'Friday', status: 'Complete' },
-  {itemTitle: 'Wiki', status:'chilifrog.ch/wiki/XKCD'}
-
-
-]; 
+  { itemTitle: 'Wiki', status: 'chilifrog.ch/wiki/XKCD' }
+];
 storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent title="My Sessions" action="Some action">
     <List>
@@ -73,23 +71,30 @@ storiesOf('Drafts view', module).add('MainContent', () => (
 ));
 
 storiesOf('Class view', module).add('MainContent', () => (
-  <MainContent  action="Create new graph">
-    <Typography variant = "h5" >Sessions </Typography>
-    <Divider/>
+  <MainContent action="Create new graph">
+    <Typography variant="h5">Sessions </Typography>
+    <Divider />
     <List>
-      {itemListClasses.map(({ itemTitle,status }) => 
+      {itemListClasses.map(({ itemTitle, status }) => (
         <ContentListItem
           itemTitle={itemTitle}
-          status = {status}
+          status={status}
           itemIcon={Bookmark}
           overflowitems={overflowitems}
         />
-      )}
+      ))}
     </List>
-    <Typography variant = "h5" >Student information </Typography>
-    <Divider/>
+    <Typography variant="h5">Student information </Typography>
+    <Divider />
     <List>
-    <ContentListItem itemTitle = 'Number of students' status = '200' itemIcon = {ChromeReaderMode} overflowitems = {[ { title: 'View student list', icon: ChromeReaderMode, callback: null }]} />
+      <ContentListItem
+        itemTitle="Number of students"
+        status="200"
+        itemIcon={ChromeReaderMode}
+        overflowitems={[
+          { title: 'View student list', icon: ChromeReaderMode, callback: null }
+        ]}
+      />
     </List>
   </MainContent>
 ));
