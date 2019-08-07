@@ -7,13 +7,13 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import SearchIcon from '@material-ui/icons/Search';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
   paper: {
-    padding: theme.spacing(1),
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'
@@ -35,7 +35,7 @@ type MainContentPropsT = {
   children: React.Node | React.Node[]
 };
 
-const MainContent = ({ children }: MainContentPropsT) => {
+const MainContent = ({ children, title}: MainContentPropsT) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
