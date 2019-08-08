@@ -49,6 +49,7 @@ import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import PasswordModal from './ModalPassword';
 import ChangePasswordModal from '/imports/client/AccountModal/ChangePasswordModal';
+import ChangeDisplayNameModal from '/imports/client/AccountModal/ChangeDisplayNameModal';
 import PermissionsModal from './ModalSettings';
 import AlertModal from './ModalAlert';
 import WikiTopNavbar from './components/TopNavbar';
@@ -1063,6 +1064,13 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         icon: LockOutlinedIcon,
         callback: () => {
           this.props.showModal(<ChangePasswordModal />);
+        }
+      });
+      secondaryNavItems.push({
+        title: 'Change display name',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<ChangeDisplayNameModal />);
         }
       });
     } else if (getUserType() === 'Legacy') {

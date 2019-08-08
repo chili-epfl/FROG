@@ -18,7 +18,6 @@ const ChangeDisplayNameModal = () => {
     Meteor.call('change.displayname', newDisplayName, err => {
       if (err) showToast(err.reason, 'error');
       else {
-        showToast('Success! Display name changed', 'success');
         hideModal();
       }
     });
