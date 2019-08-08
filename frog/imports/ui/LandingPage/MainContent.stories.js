@@ -7,14 +7,12 @@ import {
   Bookmark,
   ShowChart,
   PlayArrow,
-  Create,
-  ChromeReaderMode
+  Create
 } from '@material-ui/icons';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import { Divider } from '@material-ui/core';
 import MainContent from './MainContent';
 import { ContentListItem } from './ContentListItem';
+import { ClassView } from './ClassView';
 
 const overflowitems = [
   { title: 'Share', icon: Share, callback: null },
@@ -39,8 +37,54 @@ const itemListDrafts = [
 const itemListClasses = [
   { itemTitle: 'Monday', status: 'Ready' },
   { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' }
+];
+const largeNumberofSessions = [
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
   { itemTitle: 'Friday', status: 'Complete' },
-  { itemTitle: 'Wiki', status: 'chilifrog.ch/wiki/XKCD' }
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' }
 ];
 storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent title="My Sessions" action="Some action">
@@ -74,30 +118,18 @@ storiesOf('Drafts view', module).add('MainContent', () => (
 ));
 
 storiesOf('Class view', module).add('MainContent', () => (
-  <MainContent title="Class Slug: XKCD">
-    <Typography variant="h5">Sessions </Typography>
-    <Divider />
-    <List>
-      {itemListClasses.map(({ itemTitle, status }) => (
-        <ContentListItem
-          itemTitle={itemTitle}
-          status={status}
-          itemIcon={Bookmark}
-          overflowitems={overflowitems}
-        />
-      ))}
-    </List>
-    <Typography variant="h5">Student information </Typography>
-    <Divider />
-    <List>
-      <ContentListItem
-        itemTitle="Number of students"
-        status="200"
-        itemIcon={ChromeReaderMode}
-        overflowitems={[
-          { title: 'View student list', icon: ChromeReaderMode, callback: null }
-        ]}
-      />
-    </List>
-  </MainContent>
+  <ClassView
+    sessionsList={itemListClasses}
+    wikiInfo={{ title: 'Class discussions and notes', pagesCount: '9' }}
+    overflowitems={overflowitems}
+    numberOfStudents={30}
+  />
+));
+storiesOf('Class view', module).add('Lots of sessions', () => (
+  <ClassView
+    sessionsList={largeNumberofSessions}
+    wikiInfo={{ title: 'Class discussions and notes', pagesCount: '9' }}
+    overflowitems={overflowitems}
+    numberOfStudents={30}
+  />
 ));
