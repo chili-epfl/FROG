@@ -7,32 +7,42 @@ import {
   Edit,
   PlayArrow,
   ExpandMore,
-  People
+  People,
+  Add,
+  SubdirectoryArrowRight,
+  ArrowDownward,
+  ArrowRight
 } from '@material-ui/icons';
 import { Sidebar } from '.';
 
 import { Logo } from '../Logo';
-import { Row } from './Row';
+import { RowButton } from '../Button/RowButton';
 import { Panel } from './Panel';
 
 storiesOf('Sidebar', module).add('simple', () => (
-  <Sidebar>
-    <Logo />
-    <Row
-      leftIcon={<People />}
-      text="Quentin Golsteyn"
-      rightIcon={<ExpandMore />}
-      variant="large"
-    />
+  <Sidebar
+    header={<Logo />}
+    footer={
+      <RowButton icon={<Add />} text="Create a new session" size="large" />
+    }
+  >
     <Panel>
-      <Row leftIcon={<Details />} text="Recent" />
-      <Row leftIcon={<Edit />} text="My Drafts" />
-      <Row leftIcon={<PlayArrow />} text="My Sessions" active />
+      <RowButton
+        icon={<Details fontSize="small" />}
+        text="Recent"
+        variant="primary"
+      />
+      <RowButton icon={<Edit fontSize="small" />} text="My Drafts" />
+      <RowButton
+        icon={<PlayArrow fontSize="small" />}
+        text="My Sessions"
+        active
+      />
     </Panel>
     <Panel title="Classes">
-      <Row text="PHYS 170" />
-      <Row text="ELEC 221" />
-      <Row text="CPSC 430" />
+      <RowButton icon={<ArrowRight fontSize="small" />} text="2019" />
+      <RowButton icon={<ArrowRight fontSize="small" />} text="2018" />
+      <RowButton icon={<ArrowRight fontSize="small" />} text="2017" />
     </Panel>
   </Sidebar>
 ));

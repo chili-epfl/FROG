@@ -24,7 +24,7 @@ export type TopBarActionT = {
   /**
    * If specified, the title will be displayed as a tooltip
    */
-  icon?: React.Node,
+  icon?: React.Element<*>,
   /**
    * Shown inside the button if no icon is specified, or as a tooltip
    */

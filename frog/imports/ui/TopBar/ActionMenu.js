@@ -4,19 +4,20 @@ import * as React from 'react';
 import {
   IconButton,
   makeStyles,
-  Button,
   Tooltip,
   Menu,
   MenuItem,
   ListItemIcon
 } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
+import { MinimalButton } from '../Button';
 
 import type { TopBarActionT } from './types';
 
 const useStyle = makeStyles(() => ({
   root: {
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'center'
   }
 }));
 
@@ -35,17 +36,9 @@ export const ActionMenu = (props: ActionMenuPropsT) => {
   return (
     <div className={classes.root}>
       {props.primaryActions &&
-        props.primaryActions.map(action =>
-          action.icon ? (
-            <Tooltip key={action.id} title={action.title}>
-              <IconButton onClick={action.callback}>{action.icon}</IconButton>
-            </Tooltip>
-          ) : (
-            <Button key={action.id} onClick={action.callback}>
-              {action.title}
-            </Button>
-          )
-        )}
+        props.primaryActions.map(action => (
+          <MinimalButton text={action.title || ''} icon={action.icon} />
+        ))}
       {props.secondaryActions && (
         <>
           <IconButton onClick={event => setAnchorEl(event.currentTarget)}>
