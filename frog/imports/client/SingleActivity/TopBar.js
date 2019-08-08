@@ -16,6 +16,7 @@ import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import ChangePasswordModal from '../AccountModal/ChangePasswordModal';
+import ChangeDisplayNameModal from '../AccountModal/ChangeDisplayNameModal';
 import { getUsername, getUserType } from '/imports/api/users';
 import OverflowPanel from '/imports/ui/components/OverflowPanel';
 
@@ -37,11 +38,19 @@ function TopBar(props: PropsT) {
   const openResetPasswordModal = () => {
     showModal(<ChangePasswordModal />);
   };
+  const openChangeDisplayNameModal = () => {
+    showModal(<ChangeDisplayNameModal />);
+  };
   const overflowItems = [
     {
       title: 'Reset Password',
       icon: LockOutlinedIcon,
       callback: openResetPasswordModal
+    },
+    {
+      title: 'Change Display Name',
+      icon: LockOutlinedIcon,
+      callback: openChangeDisplayNameModal
     }
   ];
 

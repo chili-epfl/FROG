@@ -81,6 +81,22 @@ export const createAccount = (
   }
 };
 
+export const changeDisplayName = (newDisplayName: string) => {
+  if (
+    getUserType() === 'Verified' &&
+    errorBasedOnChars(newDisplayName, 1, 'Display Name') === ''
+  ) {
+    Meteor.users.update(Meteor.user()._id, {
+      $set: {
+        profile: { displayName: newDisplayName }
+      }
+    });
+  } else {
+    throw new Meteor.Error('error', 'Could not change display name');
+  }
+};
+
 Meteor.methods({
-  'create.account': createAccount
+  'create.account': createAccount,
+  'change.displayname': changeDisplayName
 });
