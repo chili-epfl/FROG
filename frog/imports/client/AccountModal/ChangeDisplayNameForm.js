@@ -53,7 +53,7 @@ const ChangeDisplayNameForm = ({
   };
 
   return (
-     <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -86,8 +86,7 @@ const ChangeDisplayNameForm = ({
           </Button>
         </form>
       </div>
-      </Container>
-
+    </Container>
   );
 };
 export default ChangeDisplayNameForm;
