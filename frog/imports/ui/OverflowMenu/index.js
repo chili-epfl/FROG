@@ -1,12 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { MoreVert } from '@material-ui/icons';
-import { Popover, Paper } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 
 type OverflowMenuPropsT = {
   button: React.Element<*>,

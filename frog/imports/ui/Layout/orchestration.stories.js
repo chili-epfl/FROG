@@ -2,59 +2,63 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import {
-  PlayArrow,
   Details,
-  Add,
   Edit,
   ArrowDropDown,
   MoreVert,
   People,
   OpenInNew,
   Pause,
-  SkipNext
+  SkipNext,
+  SupervisedUserCircle
 } from '@material-ui/icons';
 import { SidebarLayout } from './SidebarLayout';
 import { Breadcrumb } from '../Breadcrumb';
 import { MinimalButton, RowButton, MinimalIconButton } from '../Button';
 import { TopBar } from '../TopBar';
 import { Sidebar, Panel } from '../Sidebar';
+import { Title } from '../Sidebar/Panel/Title';
 import { Logo } from '../Logo';
 import { OverflowMenu } from '../OverflowMenu';
+import { ActivityStatus } from '../ActivityStatus';
 
 const SimpleWrapper = () => {
   return (
     <SidebarLayout
       sidebar={
-        <Sidebar header={<Logo />}>
-          <Panel>
-            <RowButton
-              icon={<Pause fontSize="small" />}
-              text="Pause sessions"
-            />
-            <RowButton
-              icon={<SkipNext fontSize="small" />}
-              text="Go to next activity"
-            />
-          </Panel>
+        <Sidebar
+          header={
+            <>
+              <Logo />
+              <RowButton
+                icon={<Pause fontSize="small" />}
+                text="Pause sessions"
+              />
+              <RowButton
+                icon={<SkipNext fontSize="small" />}
+                text="Go to next activity"
+              />
+            </>
+          }
+        >
           <Panel title="Activities">
             <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
+              icon={<ActivityStatus status="completed" />}
               text="Waiting for students"
             />
             <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
+              icon={<ActivityStatus status="completed" />}
               text="Brainstorming"
             />
             <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
+              icon={<ActivityStatus status="active" />}
               text="Rich Text"
               variant="primary"
             />
-            <RowButton icon={<ArrowDropDown fontSize="small" />} text="Vote" />
+            <RowButton icon={<ActivityStatus status="pending" />} text="Vote" />
             <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
+              icon={<ActivityStatus status="pending" />}
               text="Reflect"
             />
           </Panel>
@@ -100,10 +104,23 @@ const SimpleWrapper = () => {
           }
           actions={
             <>
-              <MinimalButton
-                icon={<OpenInNew fontSize="small" />}
-                text="Open orchestration view"
-              />
+              <OverflowMenu
+                button={
+                  <MinimalButton
+                    icon={<OpenInNew fontSize="small" />}
+                    text="View activity"
+                  />
+                }
+              >
+                <RowButton
+                  icon={<People fontSize="small" />}
+                  text="As a teacher"
+                />
+                <RowButton
+                  icon={<People fontSize="small" />}
+                  text="As a student"
+                />
+              </OverflowMenu>
               <OverflowMenu
                 button={
                   <MinimalIconButton icon={<MoreVert fontSize="small" />} />
@@ -120,8 +137,22 @@ const SimpleWrapper = () => {
                 <RowButton
                   icon={<OpenInNew fontSize="small" />}
                   text="Export to SVG"
-                  onClick={() => console.log('test')}
                 />
+              </OverflowMenu>
+              <OverflowMenu
+                button={
+                  <MinimalIconButton
+                    icon={<SupervisedUserCircle fontSize="small" />}
+                  />
+                }
+              >
+                <Title text="Logged in as Rachit" />
+                <RowButton icon={<People fontSize="small" />} text="Profile" />
+                <RowButton
+                  icon={<Edit fontSize="small" />}
+                  text="Customize FROG"
+                />
+                <RowButton text="Logout" />
               </OverflowMenu>
             </>
           }

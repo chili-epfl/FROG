@@ -2,17 +2,7 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import {
-  Details,
-  Edit,
-  PlayArrow,
-  ExpandMore,
-  People,
-  Add,
-  SubdirectoryArrowRight,
-  ArrowDownward,
-  ArrowRight
-} from '@material-ui/icons';
+import { Details, Edit, PlayArrow, Add, ArrowRight } from '@material-ui/icons';
 import { Sidebar } from '.';
 
 import { Logo } from '../Logo';

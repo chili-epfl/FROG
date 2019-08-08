@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { PlayArrow, Details } from '@material-ui/icons';
+import { Details } from '@material-ui/icons';
 import { TopBar } from '.';
 import { Breadcrumb } from '../Breadcrumb';
 import { MinimalButton } from '../Button';
