@@ -47,12 +47,13 @@ storiesOf('Sessions view', module).add('MainContent', () => (
     <List>
       {itemList.map(({ itemTitle, status }, key) => (
         <ContentListItem
-          key = {key}
+          key={key}
           itemTitle={itemTitle}
           itemIcon={Bookmark}
           status={status}
           overflowitems={overflowitems}
-          callback = {() => console.log('hello',key)}
+          // eslint-disable-next-line no-console
+          callback={() => console.log('hello', key)}
         />
       ))}
     </List>
@@ -73,7 +74,7 @@ storiesOf('Drafts view', module).add('MainContent', () => (
 ));
 
 storiesOf('Class view', module).add('MainContent', () => (
-  <MainContent title = "Class Slug: XKCD">
+  <MainContent title="Class Slug: XKCD">
     <Typography variant="h5">Sessions </Typography>
     <Divider />
     <List>

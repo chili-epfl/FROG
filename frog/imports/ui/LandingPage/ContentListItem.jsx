@@ -25,18 +25,13 @@ export const ContentListItem = ({
   const Icon = itemIcon;
 
   return (
-    
-    <ListItem divider button onClick = {callback}>
+    <ListItem divider button onClick={callback}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
       <ListItemText primary={itemTitle} divider secondary={status} />
 
-    
       <OverflowPanel overflowElements={overflowitems} />
-    
     </ListItem>
-   
- 
   );
 };

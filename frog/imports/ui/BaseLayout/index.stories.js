@@ -14,7 +14,7 @@ import {
   ChromeReaderMode,
   Bookmark
 } from '@material-ui/icons';
-import {List,Typography,Divider} from '@material-ui/core';
+import { List, Typography, Divider } from '@material-ui/core';
 
 import { BaseLayout } from '.';
 import { Sidebar } from '../Sidebar';
@@ -86,33 +86,37 @@ storiesOf('BaseLayout', module).add('simple', () => (
           }
         ]}
       />
-  
-  <MainContent title = "Class Slug: XKCD">
-    <Typography variant="h5">Sessions </Typography>
-    <Divider />
-    <List>
-      {itemListClasses.map(({ itemTitle, status }) => (
-        <ContentListItem
-          itemTitle={itemTitle}
-          status={status}
-          itemIcon={Bookmark}
-          overflowitems={overflowitems}
-        />
-      ))}
-    </List>
-    <Typography variant="h5">Student information </Typography>
-    <Divider />
-    <List>
-      <ContentListItem
-        itemTitle="Number of students"
-        status="200"
-        itemIcon={ChromeReaderMode}
-        overflowitems={[
-          { title: 'View student list', icon: ChromeReaderMode, callback: null }
-        ]}
-      />
-    </List>
-  </MainContent>
+
+      <MainContent title="Class Slug: XKCD">
+        <Typography variant="h5">Sessions </Typography>
+        <Divider />
+        <List>
+          {itemListClasses.map(({ itemTitle, status }) => (
+            <ContentListItem
+              itemTitle={itemTitle}
+              status={status}
+              itemIcon={Bookmark}
+              overflowitems={overflowitems}
+            />
+          ))}
+        </List>
+        <Typography variant="h5">Student information </Typography>
+        <Divider />
+        <List>
+          <ContentListItem
+            itemTitle="Number of students"
+            status="200"
+            itemIcon={ChromeReaderMode}
+            overflowitems={[
+              {
+                title: 'View student list',
+                icon: ChromeReaderMode,
+                callback: null
+              }
+            ]}
+          />
+        </List>
+      </MainContent>
     </div>
   </BaseLayout>
 ));
