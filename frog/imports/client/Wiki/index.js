@@ -1059,7 +1059,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
       });
       secondaryNavItems.push({
-        title: 'Reset password',
+        title: 'Change password',
         icon: LockOutlinedIcon,
         callback: () => {
           this.props.showModal(<ChangePasswordModal />);

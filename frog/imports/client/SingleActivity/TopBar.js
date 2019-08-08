@@ -39,7 +39,7 @@ function TopBar(props: PropsT) {
   };
   const overflowItems = [
     {
-      title: 'Reset Password',
+      title: 'Change Password',
       icon: LockOutlinedIcon,
       callback: openResetPasswordModal
     }
