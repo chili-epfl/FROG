@@ -52,8 +52,6 @@ const getUser = (user: User): ?userObj => {
 
 export const isVerifiedUser = (user: User) => {
   const selectedUser = getUser(user);
-  const { id, userObj } = selectedUser;
-  if (id) return !!Meteor.users.findOne(id).emails;
-  else if (userObj) return !!userObj.emails;
-  else return !!selectedUser.emails;
+  if (selectedUser) return !!selectedUser.emails;
+  else return false;
 };
