@@ -16,9 +16,6 @@ const useStyle = makeStyles(() => ({
 
     userSelect: 'none'
   },
-  header: {
-    borderBottom: '1px solid #EAEAEA'
-  },
   content: {
     flexGrow: 1
   },
