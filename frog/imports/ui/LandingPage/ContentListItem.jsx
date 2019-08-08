@@ -19,18 +19,24 @@ export const ContentListItem = ({
   itemTitle,
   itemIcon,
   status,
-  overflowitems
+  overflowitems,
+  callback
 }: ContentListItemPropsT) => {
   const Icon = itemIcon;
 
   return (
-    <ListItem divider button>
+    
+    <ListItem divider button onClick = {callback}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
       <ListItemText primary={itemTitle} divider secondary={status} />
 
+    
       <OverflowPanel overflowElements={overflowitems} />
+    
     </ListItem>
+   
+ 
   );
 };

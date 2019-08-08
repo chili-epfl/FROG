@@ -7,6 +7,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import SearchIcon from '@material-ui/icons/Search';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import  {Typography, Button}  from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,14 +16,13 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(1),
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   icons: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-evenly'
-  },
+    justifyContent: 'space-between'},
   filter: {
     pointer: 'cursor'
   }
@@ -30,12 +30,12 @@ const useStyles = makeStyles(theme => ({
 
 type MainContentPropsT = {
   title?: string,
-  action?: string,
+  action?: string, 
   callback?: () => void,
   children: React.Node | React.Node[]
 };
 
-const MainContent = ({ children }: MainContentPropsT) => {
+const MainContent = ({ children, title,callback,action}: MainContentPropsT) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -52,8 +52,12 @@ const MainContent = ({ children }: MainContentPropsT) => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper} elevation={0}>
+            <div className = {classes.icon}>
             <SearchIcon />
-            <FilterListIcon className={classes.filter} onClick={handleClick} />
+           <FilterListIcon className={classes.filter} onClick={handleClick} />
+           {action ? <Button color = "primary" onClick = {callback}> {action} </Button> : <></>} 
+           </div>
+           <Typography variant = "h5">{title}</Typography> 
             <Menu
               id="simple-menu"
               anchorEl={anchorEl}
@@ -65,6 +69,9 @@ const MainContent = ({ children }: MainContentPropsT) => {
               <MenuItem onClick={handleClose}>Running</MenuItem>
               <MenuItem onClick={handleClose}>Complete</MenuItem>
             </Menu>
+            
+          
+
           </Paper>
         </Grid>
         <Grid item xs={12}>

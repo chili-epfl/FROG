@@ -45,12 +45,14 @@ const itemListClasses = [
 storiesOf('Sessions view', module).add('MainContent', () => (
   <MainContent title="My Sessions" action="Some action">
     <List>
-      {itemList.map(({ itemTitle, status }) => (
+      {itemList.map(({ itemTitle, status }, key) => (
         <ContentListItem
+          key = {key}
           itemTitle={itemTitle}
           itemIcon={Bookmark}
           status={status}
           overflowitems={overflowitems}
+          callback = {() => console.log('hello',key)}
         />
       ))}
     </List>
@@ -71,7 +73,7 @@ storiesOf('Drafts view', module).add('MainContent', () => (
 ));
 
 storiesOf('Class view', module).add('MainContent', () => (
-  <MainContent action="Create new graph">
+  <MainContent title = "Class Slug: XKCD">
     <Typography variant="h5">Sessions </Typography>
     <Divider />
     <List>

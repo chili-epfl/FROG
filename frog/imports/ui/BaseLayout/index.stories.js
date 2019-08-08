@@ -11,9 +11,10 @@ import {
   Share,
   Forward,
   Delete,
+  ChromeReaderMode,
   Bookmark
 } from '@material-ui/icons';
-import List from '@material-ui/core/List';
+import {List,Typography,Divider} from '@material-ui/core';
 
 import { BaseLayout } from '.';
 import { Sidebar } from '../Sidebar';
@@ -24,10 +25,11 @@ import { Panel } from '../Sidebar/Panel';
 import MainContent from '../LandingPage/MainContent';
 import { ContentListItem } from '../LandingPage/ContentListItem';
 
-const itemList = [
-  { itemTitle: 'Session 1 ', status: 'Ready' },
-  { itemTitle: 'Session 2', status: 'Running' },
-  { itemTitle: 'Session 3', status: 'Complete' }
+const itemListClasses = [
+  { itemTitle: 'Monday', status: 'Ready' },
+  { itemTitle: 'Wednesday', status: 'Running' },
+  { itemTitle: 'Friday', status: 'Complete' },
+  { itemTitle: 'Wiki', status: 'chilifrog.ch/wiki/XKCD' }
 ];
 
 const overflowitems = [
@@ -49,10 +51,10 @@ storiesOf('BaseLayout', module).add('simple', () => (
       <Panel>
         <Row leftIcon={<Details />} text="Recent" />
         <Row leftIcon={<Edit />} text="My Drafts" />
-        <Row leftIcon={<PlayArrow />} text="My Sessions" active />
+        <Row leftIcon={<PlayArrow />} text="My Sessions" />
       </Panel>
       <Panel title="Classes">
-        <Row text="PHYS 170" />
+        <Row text="PHYS 170" active />
         <Row text="ELEC 221" />
         <Row text="CPSC 430" />
       </Panel>
@@ -60,7 +62,7 @@ storiesOf('BaseLayout', module).add('simple', () => (
     <div>
       <TopBar
         icon={<PlayArrow />}
-        paths={['My Sessions']}
+        paths={['Classes/PHYS 117']}
         primaryActions={[
           {
             id: 'start',
@@ -84,18 +86,33 @@ storiesOf('BaseLayout', module).add('simple', () => (
           }
         ]}
       />
-      <MainContent>
-        <List>
-          {itemList.map(({ itemTitle, status }) => (
-            <ContentListItem
-              itemTitle={itemTitle}
-              itemIcon={Bookmark}
-              status={status}
-              overflowitems={overflowitems}
-            />
-          ))}
-        </List>
-      </MainContent>
+  
+  <MainContent title = "Class Slug: XKCD">
+    <Typography variant="h5">Sessions </Typography>
+    <Divider />
+    <List>
+      {itemListClasses.map(({ itemTitle, status }) => (
+        <ContentListItem
+          itemTitle={itemTitle}
+          status={status}
+          itemIcon={Bookmark}
+          overflowitems={overflowitems}
+        />
+      ))}
+    </List>
+    <Typography variant="h5">Student information </Typography>
+    <Divider />
+    <List>
+      <ContentListItem
+        itemTitle="Number of students"
+        status="200"
+        itemIcon={ChromeReaderMode}
+        overflowitems={[
+          { title: 'View student list', icon: ChromeReaderMode, callback: null }
+        ]}
+      />
+    </List>
+  </MainContent>
     </div>
   </BaseLayout>
 ));
