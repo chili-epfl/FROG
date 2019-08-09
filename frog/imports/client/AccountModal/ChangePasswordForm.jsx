@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-// disable no-unused-expressions for flow typing state when using hooks
 // @flow
 import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,7 +11,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useToast } from '/imports/ui/Toast';
 import { passwordErrors } from '/imports/frog-utils/validationHelpers';
 
 const useStyles = makeStyles(theme => ({
@@ -39,31 +36,24 @@ const useStyles = makeStyles(theme => ({
 type ChangePasswordFormPropsT = {
   onChangePassword: (oldPassword: string, newPassword: string) => void
 };
-type ChangePasswordFormStateT = {
-  oldPassword: string,
-  newPassword: string,
-  confirmNewPassword: string,
-  showPassword: boolean
-};
 
 const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
   const classes = useStyles();
-  const [showToast] = useToast();
   const [values, setValues] = React.useState({
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
     showPassword: false
   });
- 
- const [errors, setErrors] = React.useState({
-  oldPassword: '', 
-  newPassword: '', 
-  confirmNewPassword: ''
- })
+
+  const [errors, setErrors] = React.useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmNewPassword: ''
+  });
 
   const handleChange = prop => event => {
-    setErrors({...errors, [prop]:''})
+    setErrors({ ...errors, [prop]: '' });
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -75,23 +65,25 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
   };
   const handleSubmit = event => {
     event.preventDefault();
-    const formValid = (values.oldPassword !=='' && values.newPassword === values.confirmNewPassword && passwordErrors(values.newPassword) === '') 
-    if (formValid){
-      onChangePassword(values.oldPassword, values.newPassword); 
-    }
-    else {
-       if (values.oldPassword === ''){
-       setErrors({...errors, oldPassword: 'Old password cannot be empty'}); 
-       }
-      
-     if (values.newPassword !== values.confirmNewPassword)
-      setErrors({...errors, confirmNewPassword: 'Password does not match'}); 
-    if (passwordErrors(values.newPassword) !== '')
-        setErrors({...errors, newPassword: 'New ' + passwordErrors(values.newPassword)})
+    const formValid =
+      values.oldPassword !== '' &&
+      values.newPassword === values.confirmNewPassword &&
+      passwordErrors(values.newPassword) === '';
+    if (formValid) {
+      onChangePassword(values.oldPassword, values.newPassword);
+    } else {
+      if (values.oldPassword === '') {
+        setErrors({ ...errors, oldPassword: 'Old password cannot be empty' });
+      }
 
+      if (values.newPassword !== values.confirmNewPassword)
+        setErrors({ ...errors, confirmNewPassword: 'Password does not match' });
+      if (passwordErrors(values.newPassword) !== '')
+        setErrors({
+          ...errors,
+          newPassword: 'New ' + passwordErrors(values.newPassword)
+        });
     }
-   
-
   };
 
   return (
@@ -108,8 +100,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
             variant="outlined"
             margin="normal"
             required
-            error = {errors.oldPassword !== ''}
-            helperText = {errors.oldPassword}
+            error={errors.oldPassword !== ''}
+            helperText={errors.oldPassword}
             fullWidth
             onChange={handleChange('oldPassword')}
             id="oldpassword"
@@ -141,8 +133,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
             fullWidth
             name="newpassword"
             label="New Password"
-            error = {errors.newPassword !== ''}
-            helperText = {errors.newPassword}
+            error={errors.newPassword !== ''}
+            helperText={errors.newPassword}
             type={values.showPassword ? 'text' : 'password'}
             id="newpassword"
             InputProps={{

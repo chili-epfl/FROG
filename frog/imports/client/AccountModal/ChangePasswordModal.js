@@ -6,7 +6,7 @@ import ChangePasswordForm from './ChangePasswordForm';
 
 const ChangePasswordModal = () => {
   const [showToast, hideToast] = useToast();
-  const [_1, hideModal] = useModal();
+  const [hideModal] = useModal();
 
   const modalCallback = () => {
     // hides the toast which has the same key as the parameter
@@ -17,13 +17,13 @@ const ChangePasswordModal = () => {
   const onChangePassword = (oldPassword, newPassword) => {
     Accounts.changePassword(oldPassword, newPassword, err => {
       if (err) {
-        if(err.error === 403){
-          showToast('The old password that you entered is incorrect, please try again', 'error'); 
-        }
-        else 
-         showToast(err.reason, 'error');
-      }
-      else {
+        if (err.error === 403) {
+          showToast(
+            'The old password that you entered is incorrect, please try again',
+            'error'
+          );
+        } else showToast(err.reason, 'error');
+      } else {
         showToast('Success! Password changed', 'success');
         hideModal();
       }
