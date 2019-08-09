@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-expressions */
-// disable no-unused-expressions for flow typing state when using hooks
+
 // @flow
 import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,7 +12,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useToast } from '/imports/ui/Toast';
 import { passwordErrors } from '/imports/frog-utils/validationHelpers';
 
 const useStyles = makeStyles(theme => ({
@@ -32,34 +30,31 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2, 0)
   }
 }));
 
 type ChangePasswordFormPropsT = {
   onChangePassword: (oldPassword: string, newPassword: string) => void
 };
-type ChangePasswordFormStateT = {
-  oldPassword: string,
-  newPassword: string,
-  confirmNewPassword: string,
-  showPassword: boolean
-};
 
 const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
   const classes = useStyles();
-  const [showToast, _1] = useToast();
   const [values, setValues] = React.useState({
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
     showPassword: false
   });
-  const [error, setError] = React.useState('');
-  (values: ChangePasswordFormStateT);
+
+  const [errors, setErrors] = React.useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmNewPassword: ''
+  });
 
   const handleChange = prop => event => {
-    setError('');
+    setErrors({ ...errors, [prop]: '' });
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -71,14 +66,24 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
   };
   const handleSubmit = event => {
     event.preventDefault();
-    if (values.newPassword === values.confirmNewPassword) {
-      if (passwordErrors(values.newPassword) !== '')
-        showToast('New ' + passwordErrors(values.newPassword), 'error');
-      else {
-        onChangePassword(values.oldPassword, values.newPassword);
-      }
+    const formValid =
+      values.oldPassword !== '' &&
+      values.newPassword === values.confirmNewPassword &&
+      passwordErrors(values.newPassword) === '';
+    if (formValid) {
+      onChangePassword(values.oldPassword, values.newPassword);
     } else {
-      setError('Passwords do not match');
+      if (values.oldPassword === '') {
+        setErrors({ ...errors, oldPassword: 'Old password cannot be empty' });
+      }
+
+      if (values.newPassword !== values.confirmNewPassword)
+        setErrors({ ...errors, confirmNewPassword: 'Password does not match' });
+      if (passwordErrors(values.newPassword) !== '')
+        setErrors({
+          ...errors,
+          newPassword: 'New ' + passwordErrors(values.newPassword)
+        });
     }
   };
 
@@ -96,6 +101,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
             variant="outlined"
             margin="normal"
             required
+            error={errors.oldPassword !== ''}
+            helperText={errors.oldPassword}
             fullWidth
             onChange={handleChange('oldPassword')}
             id="oldpassword"
@@ -127,6 +134,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
             fullWidth
             name="newpassword"
             label="New Password"
+            error={errors.newPassword !== ''}
+            helperText={errors.newPassword}
             type={values.showPassword ? 'text' : 'password'}
             id="newpassword"
             InputProps={{
@@ -153,8 +162,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
             name="confirmnewpassword"
             label="Confirm new password"
             type={values.showPassword ? 'text' : 'password'}
-            error={error !== ''}
-            helperText={error}
+            error={errors.confirmNewPassword !== ''}
+            helperText={errors.confirmNewPassword}
             id="confirmnewpassword"
             InputProps={{
               endAdornment: (
