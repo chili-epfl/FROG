@@ -55,11 +55,11 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
     confirmNewPassword: '',
     showPassword: false
   });
-  const [error, setError] = React.useState(''); 
+  const [error, setError] = React.useState('');
   (values: ChangePasswordFormStateT);
 
   const handleChange = prop => event => {
-    setError(''); 
+    setError('');
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -78,9 +78,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
         onChangePassword(values.oldPassword, values.newPassword);
       }
     } else {
-      setError('Passwords do not match'); 
-        
-    };
+      setError('Passwords do not match');
+    }
   };
 
   return (
@@ -154,8 +153,8 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
             name="confirmnewpassword"
             label="Confirm new password"
             type={values.showPassword ? 'text' : 'password'}
-            error = {error !== ''}
-            helperText = {error}
+            error={error !== ''}
+            helperText={error}
             id="confirmnewpassword"
             InputProps={{
               endAdornment: (

@@ -1062,7 +1062,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         title: 'View/Edit profile',
         icon: LockOutlinedIcon,
         callback: () => {
-          this.props.showModal(<PersonalProfileModal/>);
+          this.props.showModal(<PersonalProfileModal />);
         }
       });
     } else if (getUserType() === 'Legacy') {

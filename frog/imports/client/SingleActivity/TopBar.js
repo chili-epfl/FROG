@@ -35,8 +35,8 @@ function TopBar(props: PropsT) {
     showModal(<AccountModal formToDisplay="login" />);
   };
   const openPersonalProfileModal = () => {
-    showModal (<PersonalProfileModal />)
-  }
+    showModal(<PersonalProfileModal />);
+  };
   const overflowItems = [
     {
       title: 'View/Edit Profile',
