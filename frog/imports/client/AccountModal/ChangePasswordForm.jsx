@@ -32,12 +32,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2, 0)
   }
 }));
 
 type ChangePasswordFormPropsT = {
-  onResetPassword: (oldPassword: string, newPassword: string) => void
+  onChangePassword: (oldPassword: string, newPassword: string) => void
 };
 type ChangePasswordFormStateT = {
   oldPassword: string,
@@ -46,18 +46,24 @@ type ChangePasswordFormStateT = {
   showPassword: boolean
 };
 
-const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
+const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
   const classes = useStyles();
-  const [showToast, _1] = useToast();
+  const [showToast] = useToast();
   const [values, setValues] = React.useState({
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
     showPassword: false
   });
-  (values: ChangePasswordFormStateT);
+ 
+ const [errors, setErrors] = React.useState({
+  oldPassword: '', 
+  newPassword: '', 
+  confirmNewPassword: ''
+ })
 
   const handleChange = prop => event => {
+    setErrors({...errors, [prop]:''})
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -69,13 +75,23 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
   };
   const handleSubmit = event => {
     event.preventDefault();
-    if (values.newPassword === values.confirmNewPassword) {
-      if (passwordErrors(values.newPassword) !== '')
-        showToast(passwordErrors(values.newPassword), 'error');
-      else {
-        onResetPassword(values.oldPassword, values.newPassword);
-      }
-    } else showToast('Please make sure your new password matches', 'error');
+    const formValid = (values.oldPassword !=='' && values.newPassword === values.confirmNewPassword && passwordErrors(values.newPassword) === '') 
+    if (formValid){
+      onChangePassword(values.oldPassword, values.newPassword); 
+    }
+    else {
+       if (values.oldPassword === ''){
+       setErrors({...errors, oldPassword: 'Old password cannot be empty'}); 
+       }
+      
+     if (values.newPassword !== values.confirmNewPassword)
+      setErrors({...errors, confirmNewPassword: 'Password does not match'}); 
+    if (passwordErrors(values.newPassword) !== '')
+        setErrors({...errors, newPassword: 'New ' + passwordErrors(values.newPassword)})
+
+    }
+   
+
   };
 
   return (
@@ -92,6 +108,8 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
             variant="outlined"
             margin="normal"
             required
+            error = {errors.oldPassword !== ''}
+            helperText = {errors.oldPassword}
             fullWidth
             onChange={handleChange('oldPassword')}
             id="oldpassword"
@@ -123,6 +141,8 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
             fullWidth
             name="newpassword"
             label="New Password"
+            error = {errors.newPassword !== ''}
+            helperText = {errors.newPassword}
             type={values.showPassword ? 'text' : 'password'}
             id="newpassword"
             InputProps={{
@@ -149,6 +169,8 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
             name="confirmnewpassword"
             label="Confirm new password"
             type={values.showPassword ? 'text' : 'password'}
+            error={errors.confirmNewPassword !== ''}
+            helperText={errors.confirmNewPassword}
             id="confirmnewpassword"
             InputProps={{
               endAdornment: (
@@ -172,7 +194,7 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
             color="primary"
             className={classes.submit}
           >
-            Reset password
+            Change Password
           </Button>
         </form>
       </div>

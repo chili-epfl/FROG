@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Modal, useModal } from '/imports/ui/Modal';
 import { useToast } from '/imports/ui/Toast';
 import { Accounts } from 'meteor/accounts-base';
-import ChangePasswordForm from './ChangePassword';
+import ChangePasswordForm from './ChangePasswordForm';
 
 const ChangePasswordModal = () => {
   const [showToast, hideToast] = useToast();
@@ -14,9 +14,15 @@ const ChangePasswordModal = () => {
     hideModal();
   };
 
-  const onResetPassword = (oldPassword, newPassword) => {
+  const onChangePassword = (oldPassword, newPassword) => {
     Accounts.changePassword(oldPassword, newPassword, err => {
-      if (err) showToast(err.reason, 'error');
+      if (err) {
+        if(err.error === 403){
+          showToast('The old password that you entered is incorrect, please try again', 'error'); 
+        }
+        else 
+         showToast(err.reason, 'error');
+      }
       else {
         showToast('Success! Password changed', 'success');
         hideModal();
@@ -26,7 +32,7 @@ const ChangePasswordModal = () => {
 
   return (
     <Modal title="" actions={[{ title: 'Cancel', callback: modalCallback }]}>
-      <ChangePasswordForm onResetPassword={onResetPassword} />
+      <ChangePasswordForm onChangePassword={onChangePassword} />
     </Modal>
   );
 };
