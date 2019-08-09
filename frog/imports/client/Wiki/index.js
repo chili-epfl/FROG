@@ -48,8 +48,6 @@ import LockedModal from './ModalLocked';
 import FindModal, { SearchAndFind } from './ModalFind';
 import RestoreModal from './ModalRestore';
 import PasswordModal from './ModalPassword';
-import ChangePasswordModal from '/imports/client/AccountModal/ChangePasswordModal';
-import ChangeDisplayNameModal from '/imports/client/AccountModal/ChangeDisplayNameModal';
 import PermissionsModal from './ModalSettings';
 import AlertModal from './ModalAlert';
 import WikiTopNavbar from './components/TopNavbar';
@@ -68,6 +66,7 @@ import {
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
 } from '/imports/api/wikiTypes';
+import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -1060,17 +1059,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
       });
       secondaryNavItems.push({
-        title: 'Reset password',
+        title: 'View/Edit profile',
         icon: LockOutlinedIcon,
         callback: () => {
-          this.props.showModal(<ChangePasswordModal />);
-        }
-      });
-      secondaryNavItems.push({
-        title: 'Change display name',
-        icon: LockOutlinedIcon,
-        callback: () => {
-          this.props.showModal(<ChangeDisplayNameModal />);
+          this.props.showModal(<PersonalProfileModal/>);
         }
       });
     } else if (getUserType() === 'Legacy') {

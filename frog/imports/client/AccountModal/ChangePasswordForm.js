@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type ChangePasswordFormPropsT = {
-  onResetPassword: (oldPassword: string, newPassword: string) => void
+  onChangePassword: (oldPassword: string, newPassword: string) => void
 };
 type ChangePasswordFormStateT = {
   oldPassword: string,
@@ -46,7 +46,7 @@ type ChangePasswordFormStateT = {
   showPassword: boolean
 };
 
-const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
+const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
   const classes = useStyles();
   const [showToast, _1] = useToast();
   const [values, setValues] = React.useState({
@@ -55,9 +55,11 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
     confirmNewPassword: '',
     showPassword: false
   });
+  const [error, setError] = React.useState(''); 
   (values: ChangePasswordFormStateT);
 
   const handleChange = prop => event => {
+    setError(''); 
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -71,11 +73,14 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
     event.preventDefault();
     if (values.newPassword === values.confirmNewPassword) {
       if (passwordErrors(values.newPassword) !== '')
-        showToast(passwordErrors(values.newPassword), 'error');
+        showToast('New ' + passwordErrors(values.newPassword), 'error');
       else {
-        onResetPassword(values.oldPassword, values.newPassword);
+        onChangePassword(values.oldPassword, values.newPassword);
       }
-    } else showToast('Please make sure your new password matches', 'error');
+    } else {
+      setError('Passwords do not match'); 
+        
+    };
   };
 
   return (
@@ -149,6 +154,8 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
             name="confirmnewpassword"
             label="Confirm new password"
             type={values.showPassword ? 'text' : 'password'}
+            error = {error !== ''}
+            helperText = {error}
             id="confirmnewpassword"
             InputProps={{
               endAdornment: (
@@ -172,7 +179,7 @@ const ChangePasswordForm = ({ onResetPassword }: ChangePasswordFormPropsT) => {
             color="primary"
             className={classes.submit}
           >
-            Reset password
+            Change Password
           </Button>
         </form>
       </div>
