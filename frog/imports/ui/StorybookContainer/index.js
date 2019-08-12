@@ -23,12 +23,8 @@ const useStyle = makeStyles(() => ({
 type StorybookContainerPropsT = {
   width?: number,
   height?: number,
-<<<<<<< HEAD
-  children: React.Node | React.Node[]
-=======
   padding?: number,
   children: React.Element<*> | React.Element<*>[]
->>>>>>> cf54266f13f273a46fc131cb3072d9c9ba7bf8ce
 };
 
 export const StorybookContainer = (props: StorybookContainerPropsT) => {

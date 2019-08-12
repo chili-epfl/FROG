@@ -7,7 +7,6 @@ import { TopBar } from '.';
 import { Breadcrumb } from '../Breadcrumb';
 import { Button } from '../Button';
 
-
 const SimpleWrapper = () => {
   return (
     <TopBar

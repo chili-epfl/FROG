@@ -21,23 +21,9 @@ const useStyle = makeStyles(theme => ({
 }));
 
 type TopBarPropsT = {
-<<<<<<< HEAD
-  icon?: React.Element<*>,
-  paths: string[],
-  /**
-   * These actions are displayed inside the TopBar itself. We
-   * recommend not including more than 3 primary actions.
-   */
-  primaryActions?: TopBarActionT[],
-  /**
-   * These actions are displayed inside an overflow panel.
-   */
-  secondaryActions?: TopBarActionT[]
-=======
   navigation?: React.Element<*>,
   actions?: React.Element<*>,
   variant?: 'minimal' | 'default'
->>>>>>> cf54266f13f273a46fc131cb3072d9c9ba7bf8ce
 };
 
 /**
@@ -56,6 +42,5 @@ export const TopBar = (props: TopBarPropsT) => {
       <div className={classes.navigation}>{props.navigation}</div>
       <div className={classes.actions}>{props.actions}</div>
     </div>
-
   );
 };

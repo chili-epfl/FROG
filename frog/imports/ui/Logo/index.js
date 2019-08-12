@@ -42,7 +42,7 @@ const LogoSVG = () => (
         <rect width="32" height="32" fill="white" />
       </clipPath>
     </defs>
->>>>>>> cf54266f13f273a46fc131cb3072d9c9ba7bf8ce
+    >>>>>>> cf54266f13f273a46fc131cb3072d9c9ba7bf8ce
   </svg>
 );
 
