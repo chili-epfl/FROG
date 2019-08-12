@@ -10,14 +10,16 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {Edit , MoreVert} from '@material-ui/icons';
 import { useModal } from '/imports/ui/Modal';
 import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { getUsername, getUserType } from '/imports/api/users';
-import OverflowPanel from '/imports/ui/components/OverflowPanel';
+import {OverflowMenu} from '/imports/ui/OverflowMenu';
 import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
+import {RowButton} from '/imports/ui/RowItems'; 
+import {Button as OverflowButton}  from '/imports/ui/Button'; 
 
 /**
  * Navigation bar displayed at the top
@@ -37,13 +39,7 @@ function TopBar(props: PropsT) {
   const openPersonalProfileModal = () => {
     showModal(<PersonalProfileModal />);
   };
-  const overflowItems = [
-    {
-      title: 'View/Edit Profile',
-      icon: LockOutlinedIcon,
-      callback: openPersonalProfileModal
-    }
-  ];
+
 
   return (
     <AppBar position="static" color="default">
@@ -63,7 +59,9 @@ function TopBar(props: PropsT) {
         )}
         {getUserType() === 'Verified' && (
           <>
-            <OverflowPanel overflowElements={overflowItems} />
+            <OverflowMenu button = {<OverflowButton variant = 'minimal' icon = {<MoreVert />}/>}>
+            <RowButton onClick = {openPersonalProfileModal} icon = {<Edit fontSize = "small"/>}> View/Edit Profile </RowButton> 
+            </OverflowMenu>
             <Button
               size="medium"
               onClick={() => {
