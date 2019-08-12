@@ -1066,8 +1066,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           this.props.showModal(<PersonalProfileModal />);
         }
       });
-
-
     } else if (getUserType() === 'Legacy') {
       secondaryNavItems.push({
         title: 'Upgrade your account',
