@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import { Create } from '@material-ui/icons';
+import { Create, Inbox } from '@material-ui/icons';
 import { getUsername, getEmail } from '/imports/api/users';
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,7 @@ export const PersonalProfileForm = ({
           </ExpansionPanel>
           <ExpansionPanel expanded={false}>
             <ExpansionPanelSummary
-              expandIcon={<Create />}
+              expandIcon={<Inbox />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
