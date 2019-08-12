@@ -34,7 +34,7 @@ const userLookup = (userId: string): [string, string] => {
   }
   const userobj = Meteor.users.findOne(userId);
   const ret = userobj
-    ? [userobj.userid || '', getUsername({ userObj: userobj })]
+    ? [userobj.userid || '', getUsername({ meteorUser: userobj })]
     : [userId, ''];
   userIds[userId] = ret;
   return ret;

@@ -7,7 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values, entries } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-import { getUsername, isVerifiedUser } from '/imports/api/users';
+import { getUsername, getUserType } from '/imports/api/users';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -1035,8 +1035,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
       });
     }
-
-    if (Meteor.user().isAnonymous || !isVerifiedUser() || !Meteor.user()) {
+    if (getUserType() === 'Anonymous') {
       secondaryNavItems.push({
         title: 'Create an account',
         icon: LockOutlinedIcon,
@@ -1049,7 +1048,24 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () =>
           this.props.showModal(<AccountModal formToDisplay="login" />)
       });
-    } else {
+    } else if (getUserType() === 'Verified') {
+      secondaryNavItems.push({
+        title: 'Logout',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          sessionStorage.removeItem('frog.sessionToken');
+          Meteor.logout(() => window.location.reload());
+        }
+      });
+    } else if (getUserType() === 'Legacy') {
+      secondaryNavItems.push({
+        title: 'Upgrade your account',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<AccountModal formToDisplay="signup" />);
+        }
+      });
+
       secondaryNavItems.push({
         title: 'Logout',
         icon: LockOutlinedIcon,

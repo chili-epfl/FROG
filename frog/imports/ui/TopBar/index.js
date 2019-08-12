@@ -1,27 +1,27 @@
 // @flow
 
 import * as React from 'react';
-import { AppBar, makeStyles } from '@material-ui/core';
-
-import { Breadcrumb } from './Breadcrumb';
-import { ActionMenu } from './ActionMenu';
-import type { TopBarActionT } from './types';
+import { makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
-  appBarRoot: {
+  root: {
+    height: '48px',
     display: 'flex',
-    alignItems: 'center',
     flexFlow: 'row nowrap',
-    padding: theme.spacing(0, 1),
+    alignItems: 'center',
+    padding: theme.spacing(0, 2),
     background: 'white'
   },
-
   actions: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
     marginLeft: 'auto'
   }
 }));
 
 type TopBarPropsT = {
+<<<<<<< HEAD
   icon?: React.Element<*>,
   paths: string[],
   /**
@@ -33,6 +33,11 @@ type TopBarPropsT = {
    * These actions are displayed inside an overflow panel.
    */
   secondaryActions?: TopBarActionT[]
+=======
+  navigation?: React.Element<*>,
+  actions?: React.Element<*>,
+  variant?: 'minimal' | 'default'
+>>>>>>> cf54266f13f273a46fc131cb3072d9c9ba7bf8ce
 };
 
 /**
@@ -41,21 +46,16 @@ type TopBarPropsT = {
 export const TopBar = (props: TopBarPropsT) => {
   const classes = useStyle();
   return (
-    <AppBar
-      classes={{ root: classes.appBarRoot }}
-      color="default"
-      elevation={0}
-      position="static"
+    <div
+      className={classes.root}
+      style={{
+        borderBottom:
+          props.variant === 'minimal' ? undefined : '1px solid #EAEAEA'
+      }}
     >
-      <Breadcrumb icon={props.icon} paths={props.paths} />
-      <div className={classes.actions}>
-        {(props.primaryActions || props.secondaryActions) && (
-          <ActionMenu
-            primaryActions={props.primaryActions}
-            secondaryActions={props.secondaryActions}
-          />
-        )}
-      </div>
-    </AppBar>
+      <div className={classes.navigation}>{props.navigation}</div>
+      <div className={classes.actions}>{props.actions}</div>
+    </div>
+
   );
 };

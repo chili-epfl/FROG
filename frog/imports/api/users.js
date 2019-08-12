@@ -4,9 +4,22 @@ import { Meteor } from 'meteor/meteor';
 import { hashCode } from '/imports/frog-utils';
 import animals from './animals';
 
-type User = {
+type MeteorUser = {
+  _id: string,
+  emails?: string[],
+  username: string,
+  isAnonymous: boolean,
+  profile?: { displayName: string }
+};
+type UserObj = {
   id?: string,
-  userObj?: { _id: string, emails: ?(string[]) }
+  meteorUser?: MeteorUser
+};
+type UserType = 'Anonymous' | 'Verified' | 'Legacy' | 'No user logged in';
+
+const getAnimalAnonymous = (userId: string): string => {
+  const animal = animals[Math.abs(hashCode(userId)) % 286];
+  return 'Anonymous ' + animal;
 };
 
 /**
@@ -15,12 +28,10 @@ type User = {
  * @param: {User=} user
  */
 
-const getAnimalAnonymous = (userId: string): string => {
-  const animal = animals[Math.abs(hashCode(userId)) % 286];
-  return 'Anonymous ' + animal;
-};
-
-export const getUsername = (user: User, wiki: boolean = false): ?string => {
+export const getUsername = (
+  user?: UserObj,
+  wiki?: boolean = false
+): ?string => {
   const selectedUser = getUser(user);
   if (selectedUser) {
     if (selectedUser.isAnonymous)
@@ -30,17 +41,28 @@ export const getUsername = (user: User, wiki: boolean = false): ?string => {
   }
   return undefined;
 };
-
 /**
- * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
- *
+ * Returns the type of the given user if the user is passed or the current user
  * @param: {User=} user
  */
-const getUser = (user: User): ?userObj => {
+export const getUserType = (user?: UserObj): UserType => {
+  const selectedUser = getUser(user);
+  // if there is no user logged in then we treat it the same as anonymous
+  if (!selectedUser || selectedUser.isAnonymous) return 'Anonymous';
+  else if (isVerifiedUser({ meteorUser: selectedUser })) return 'Verified';
+  else if (selectedUser.username) return 'Legacy';
+  else return 'No user logged in';
+};
+/**
+ * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
+ * If there is no user logged in, returns undefined.
+ * @param: {User=} user
+ */
+const getUser = (user?: UserObj): ?MeteorUser => {
   // object spread to allow destructure a null object
-  const { id, userObj } = { ...user };
+  const { id, meteorUser } = { ...user };
   if (id) return Meteor.users.findOne(id);
-  else if (userObj) return userObj;
+  else if (meteorUser) return meteorUser;
   else return Meteor.user();
 };
 
@@ -50,10 +72,8 @@ const getUser = (user: User): ?userObj => {
  * @param: {User=} user
  */
 
-export const isVerifiedUser = (user: User) => {
+const isVerifiedUser = (user?: UserObj): boolean => {
   const selectedUser = getUser(user);
-  const { id, userObj } = selectedUser;
-  if (id) return !!Meteor.users.findOne(id).emails;
-  else if (userObj) return !!userObj.emails;
-  else return !!selectedUser.emails;
+  if (selectedUser) return !!selectedUser.emails;
+  else return false;
 };
