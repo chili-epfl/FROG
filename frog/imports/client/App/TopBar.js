@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/styles';
 import { compose } from 'recompose';
 import { getUsername } from '/imports/api/users';
-
+import { Meteor } from 'meteor/meteor';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';

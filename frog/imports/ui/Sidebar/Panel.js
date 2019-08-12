@@ -2,12 +2,15 @@
 
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
-import { Row } from '../Row';
 
 const useStyle = makeStyles(theme => ({
   root: {
     width: '100%',
-    paddingTop: theme.spacing(2)
+    paddingTop: theme.spacing(1),
+
+    '&:last-child': {
+      paddingBottom: theme.spacing(1)
+    }
   }
 }));
 
@@ -22,12 +25,5 @@ type PanelPropsT = {
  */
 export const Panel = (props: PanelPropsT) => {
   const classes = useStyle();
-  return (
-    <div className={classes.root}>
-      {props.title && <Row text={props.title} variant="header" />}
-      {props.children && (
-        <div className={classes.content}>{props.children}</div>
-      )}
-    </div>
-  );
+  return <div className={classes.root}>{props.children}</div>;
 };

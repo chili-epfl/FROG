@@ -15,14 +15,16 @@ const useStyle = makeStyles(() => ({
   },
   content: {
     background: 'white',
-    border: `1px ${grey[300]} solid`
+    border: `1px ${grey[300]} solid`,
+    marginRight: '-1px'
   }
 }));
 
 type StorybookContainerPropsT = {
   width?: number,
   height?: number,
-  children: React.Node | React.Node[]
+  padding?: number,
+  children: React.Element<*> | React.Element<*>[]
 };
 
 export const StorybookContainer = (props: StorybookContainerPropsT) => {
@@ -30,12 +32,31 @@ export const StorybookContainer = (props: StorybookContainerPropsT) => {
 
   return (
     <div className={classes.root}>
-      <div
-        className={classes.content}
-        style={{ width: props.width, height: props.height }}
-      >
-        {props.children}
-      </div>
+      {Array.isArray(props.children) ? (
+        props.children.map(child => (
+          <div
+            className={classes.content}
+            style={{
+              width: props.width,
+              height: props.height,
+              padding: props.padding
+            }}
+          >
+            {child}
+          </div>
+        ))
+      ) : (
+        <div
+          className={classes.content}
+          style={{
+            width: props.width,
+            height: props.height,
+            padding: props.padding
+          }}
+        >
+          {props.children}
+        </div>
+      )}
     </div>
   );
 };

@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
+import { getUsername, getUserType } from '/imports/api/users';
 import {
   errorBasedOnChars,
   emailErrors,
@@ -67,7 +68,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   constructor() {
     super();
     this.state = {
-      displayName: '',
+      displayName: getUserType() === 'Legacy' ? getUsername() : '',
       email: '',
       password: '',
       formErrors: {
@@ -124,9 +125,17 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Create an account with FROG
-          </Typography>
+
+          {getUserType() === 'Legacy' ? (
+            <Typography component="h1" variant="h6">
+              Upgrade your account to verified
+            </Typography>
+          ) : (
+            <Typography component="h1" variant="h5">
+              Create an account
+            </Typography>
+          )}
+
           <form
             className={classes.form}
             onSubmit={e => this.handleSubmit(e)}
@@ -137,6 +146,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                 <TextField
                   autoComplete="fname"
                   fullWidth
+                  defaultValue={this.state.displayName}
                   name="displayName"
                   error={this.state.formErrors.displayName !== ''}
                   variant="outlined"
@@ -178,15 +188,27 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Sign Up
-                </Button>
+                {getUserType() === 'Legacy' ? (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Upgrade now!
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Sign Up
+                  </Button>
+                )}
               </Grid>
             </Grid>
 
