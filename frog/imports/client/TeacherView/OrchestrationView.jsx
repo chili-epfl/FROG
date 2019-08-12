@@ -16,6 +16,7 @@ import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import SettingsModal from './SettingsModal';
 import { teacherLogger } from '/imports/api/logs';
 import { LocalSettings } from '/imports/api/settings';
+import StepsController from './Components/StepsController';
 
 const styles = {
   root: {
@@ -56,7 +57,8 @@ class OrchestrationViewController extends React.Component<any, {}> {
       toggleVisibility,
       settingsOpen,
       setSettingsOpen,
-      classes
+      classes,
+      activities
     } = this.props;
     return (
       <React.Fragment>
@@ -96,6 +98,10 @@ class OrchestrationViewController extends React.Component<any, {}> {
                   </Card>
                 )}
               </Grid>
+              <StepsController
+                activities={activities}
+                openActivities={session.openActivities}
+              />
               <Grid item xs={12} className={classes.buttonsToBottom}>
                 <OrchestrationCtrlButtons session={session} />
               </Grid>

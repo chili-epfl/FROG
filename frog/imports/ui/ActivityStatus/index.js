@@ -55,8 +55,10 @@ const useStyle = makeStyles(() => ({
   }
 }));
 
-type ActivityStatusPropsT = {
-  status: 'pending' | 'active' | 'completed' | 'error'
+export type ActivityStatusT = 'pending' | 'active' | 'completed' | 'error';
+
+export type ActivityStatusPropsT = {
+  status: ActivityStatusT
 };
 
 export const ActivityStatus = (props: ActivityStatusPropsT) => {
