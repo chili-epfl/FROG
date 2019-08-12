@@ -6,7 +6,7 @@ import { Chip, Avatar } from '@material-ui/core';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { useModal } from '/imports/ui/Modal';
 import PrimaryButton from './PrimaryButton';
-import OverflowPanel from '/imports/ui/components/OverflowPanel';
+import OverflowPanel from './OverflowPanel';
 
 type TopNavBarPropsT = {
   username: string,
@@ -60,7 +60,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
           onClick={isAnonymous ? displayModal : null}
         />
       </PrimaryButton>
-      <OverflowPanel overflowElements={secondaryNavItems} />
+      <OverflowMenu overflowElements={secondaryNavItems} />
     </div>
   );
 };
