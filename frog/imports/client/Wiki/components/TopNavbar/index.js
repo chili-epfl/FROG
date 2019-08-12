@@ -6,14 +6,10 @@ import { Chip, Avatar } from '@material-ui/core';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { useModal } from '/imports/ui/Modal';
 import PrimaryButton from './PrimaryButton';
-<<<<<<< HEAD
-import OverflowPanel from '/imports/ui/components/OverflowPanel';
-=======
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowButton } from '/imports/ui/RowItems';
 import { MoreVert } from '@material-ui/icons';
 import { Button } from '/imports/ui/Button';
->>>>>>> 78e824077c0306e309b3114489e6d3f4d1e0db0d
 
 type TopNavBarPropsT = {
   username: string,
