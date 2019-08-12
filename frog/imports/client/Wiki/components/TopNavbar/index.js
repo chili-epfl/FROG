@@ -6,7 +6,14 @@ import { Chip, Avatar } from '@material-ui/core';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { useModal } from '/imports/ui/Modal';
 import PrimaryButton from './PrimaryButton';
+<<<<<<< HEAD
 import OverflowPanel from '/imports/ui/components/OverflowPanel';
+=======
+import { OverflowMenu } from '/imports/ui/OverflowMenu';
+import { RowButton } from '/imports/ui/RowItems';
+import { MoreVert } from '@material-ui/icons';
+import { Button } from '/imports/ui/Button';
+>>>>>>> 78e824077c0306e309b3114489e6d3f4d1e0db0d
 
 type TopNavBarPropsT = {
   username: string,
@@ -60,7 +67,20 @@ const TopNavbar = (props: TopNavBarPropsT) => {
           onClick={isAnonymous ? displayModal : null}
         />
       </PrimaryButton>
-      <OverflowPanel overflowElements={secondaryNavItems} />
+      <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
+        {secondaryNavItems.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <RowButton
+              key={index}
+              onClick={item.callback}
+              icon={<Icon fontSize="small" />}
+            >
+              {item.title}
+            </RowButton>
+          );
+        })}
+      </OverflowMenu>
     </div>
   );
 };

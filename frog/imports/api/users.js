@@ -66,6 +66,13 @@ const getUser = (user?: UserObj): ?MeteorUser => {
   else return Meteor.user();
 };
 
+export const getEmail = (user?: UserObj): string => {
+  const selectedUser = getUser(user);
+  if (selectedUser && isVerifiedUser({ meteorUser: selectedUser })) {
+    return selectedUser.emails[0].address;
+  } else return '';
+};
+
 /**
  * Returns whether the given user is verified i.e. has an email. If no user is provided then will return whether the current user is verified.
  *
