@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { hashCode } from '/imports/frog-utils';
 import animals from './animals';
 
+
 type MeteorUser = {
   _id: string,
   emails?: string[],

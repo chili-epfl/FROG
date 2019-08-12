@@ -6,6 +6,9 @@ import { useToast } from '/imports/ui/Toast';
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
+import { getUserType} from '/imports/api/users';
+import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
+
 
 const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
   const [form, setForm] = React.useState(null);
@@ -36,11 +39,15 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
       error => {
         if (error) {
           errorSignUpToastKey = showToast(error.reason, 'error');
-        } else {
+        } 
+        else  {
           showToast('Success! Account created!', 'success');
           hideModal();
         }
-      }
+          
+        
+        }
+      
     );
   };
 
@@ -49,6 +56,7 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
       if (error) {
         errorLoginToastKey = showToast('Could not login!  ' + error, 'error');
       } else {
+        resetShareDBConnection(); 
         hideModal();
       }
     });
