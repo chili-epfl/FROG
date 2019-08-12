@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 
@@ -51,4 +53,3 @@ export const Breadcrumb = (props: BreadcrumbProps) => {
       ))}
     </div>
   );
-};
