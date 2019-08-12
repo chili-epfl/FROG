@@ -5,23 +5,18 @@ import { makeStyles, Typography, ButtonBase } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(0, 1, 0, 0),
+    width: '100%',
+    padding: theme.spacing(0, 2, 0, 0),
 
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     textAlign: 'start',
 
-    borderRadius: theme.shape.borderRadius,
-
     color: '#333',
     overflow: 'hidden',
 
-    '&.variant-default': {
-      border: '1px solid #EAEAEA'
-    },
-    '&.variant-minimal': {},
-    '&.variant-primary': {
+    '&.active': {
       color: 'white',
       background: '#31BFAE'
     },
@@ -38,19 +33,25 @@ const useStyle = makeStyles(theme => ({
     }
   },
   icon: {
+    width: '16px',
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(2)
   },
   rightIcon: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(2)
   },
   text: {
     fontSize: '14px',
-    lineHeight: 1,
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(2),
+    flexGrow: 1,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap'
   },
   hover: {
     position: 'absolute',
@@ -69,39 +70,37 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-type ButtonProps = {
+type RowButtonProps = {
   disabled?: boolean,
-  variant?: 'default' | 'minimal' | 'primary',
+  active?: boolean,
   size?: 'default' | 'large',
   icon?: React.Element<*>,
   rightIcon?: React.Element<*>,
-  text?: string,
   onClick?: (e: Event) => void,
-  children?: string
+  children: string
 };
 
-export const Button = (props: ButtonProps) => {
+export const RowButton = (props: RowButtonProps) => {
   const classes = useStyle();
 
-  const { variant, size, disabled } = props;
+  const { active, size, disabled } = props;
 
   return (
     <ButtonBase
       className={`
         ${classes.root} 
-        variant-${variant || 'default'} 
         size-${size || 'default'}
-        ${disabled ? 'disabled' : 'active'}
+        ${disabled ? 'disabled' : ''}
+        ${active ? 'active' : ''}
       `}
+      active={active}
       disabled={disabled}
       onClick={props.onClick}
     >
-      {props.icon && <div className={classes.icon}>{props.icon}</div>}
-      {props.children && (
-        <Typography className={classes.text} variant="body1">
-          {props.children}
-        </Typography>
-      )}
+      <div className={classes.icon}>{props.icon}</div>
+      <Typography className={classes.text} variant="body1">
+        {props.children}
+      </Typography>
       {props.rightIcon && (
         <div className={classes.rightIcon}>{props.rightIcon}</div>
       )}

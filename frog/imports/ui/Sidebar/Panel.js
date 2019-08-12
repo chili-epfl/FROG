@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
-import { Title } from './Title';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -26,12 +25,5 @@ type PanelPropsT = {
  */
 export const Panel = (props: PanelPropsT) => {
   const classes = useStyle();
-  return (
-    <div className={classes.root}>
-      {props.title && <Title text={props.title} />}
-      {props.children && (
-        <div className={classes.content}>{props.children}</div>
-      )}
-    </div>
-  );
+  return <div className={classes.root}>{props.children}</div>;
 };

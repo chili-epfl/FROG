@@ -8,6 +8,7 @@ const useStyle = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     color: '#333',
+    overflow: 'hidden',
 
     '& *': {
       marginRight: theme.spacing(1)
@@ -15,6 +16,13 @@ const useStyle = makeStyles(theme => ({
     '& *:last-child': {
       marginRight: 0
     }
+  },
+  icon: {
+    width: '16px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: theme.spacing(2)
   },
   text: {
     fontSize: '14px'
@@ -30,13 +38,7 @@ export const Breadcrumb = (props: BreadcrumbProps) => {
   const classes = useStyle();
   return (
     <div className={classes.root}>
-      {props.icon &&
-        React.cloneElement(props.icon, {
-          style: {
-            width: '16px',
-            height: '16px'
-          }
-        })}
+      {props.icon && <div className={classes.icon}>{props.icon}</div>}
       {props.paths.map((path, index) => (
         <>
           {index !== 0 && (

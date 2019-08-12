@@ -5,14 +5,15 @@ import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
-    position: 'relative',
     width: '100%',
+    height: '32px',
     padding: theme.spacing(0, 2),
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     textAlign: 'start',
-    color: '#888'
+    color: '#888',
+    userSelect: 'none'
   },
   text: {
     fontSize: '12px',
@@ -22,22 +23,16 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-type TitleProps = {
-  size?: 'large' | 'default',
-  text: string
+type RowTitleProps = {
+  children: string
 };
 
-export const Title = (props: TitleProps) => {
+export const RowTitle = (props: RowTitleProps) => {
   const classes = useStyle();
   return (
-    <div
-      className={classes.root}
-      style={{
-        height: props.size === 'large' ? '48px' : '32px'
-      }}
-    >
+    <div className={classes.root} onClick={e => e.stopPropagation()}>
       <Typography className={classes.text} variant="body1">
-        {props.text}
+        {props.children}
       </Typography>
     </div>
   );

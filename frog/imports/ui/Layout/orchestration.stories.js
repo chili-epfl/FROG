@@ -11,14 +11,16 @@ import {
   OpenInNew,
   Pause,
   SkipNext,
-  SupervisedUserCircle
+  SupervisedUserCircle,
+  NavigateNext,
+  Widgets
 } from '@material-ui/icons';
 import { SidebarLayout } from './SidebarLayout';
 import { Breadcrumb } from '../Breadcrumb';
-import { MinimalButton, RowButton, MinimalIconButton } from '../Button';
+import { Button } from '../Button';
 import { TopBar } from '../TopBar';
 import { Sidebar, Panel } from '../Sidebar';
-import { Title } from '../Sidebar/Panel/Title';
+import { RowButton, RowTitle, RowDivider } from '../RowItems';
 import { Logo } from '../Logo';
 import { OverflowMenu } from '../OverflowMenu';
 import { ActivityStatus } from '../ActivityStatus';
@@ -31,132 +33,114 @@ const SimpleWrapper = () => {
           header={
             <>
               <Logo />
-              <RowButton
-                icon={<Pause fontSize="small" />}
-                text="Pause sessions"
-              />
-              <RowButton
-                icon={<SkipNext fontSize="small" />}
-                text="Go to next activity"
-              />
+              <RowButton icon={<Pause fontSize="small" />}>
+                Pause Session
+              </RowButton>
+              <RowButton icon={<SkipNext fontSize="small" />}>
+                Next Activity
+              </RowButton>
             </>
           }
         >
-          <Panel title="Activities">
+          <Panel>
+            <RowTitle>Activities</RowTitle>
             <RowButton
               icon={<ActivityStatus status="completed" />}
-              text="Waiting for students"
-            />
+              rightIcon={<NavigateNext fontSize="small" />}
+            >
+              Waiting for students
+            </RowButton>
             <RowButton
               icon={<ActivityStatus status="completed" />}
-              text="Brainstorming"
-            />
+              variant="primary"
+              rightIcon={<NavigateNext fontSize="small" />}
+            >
+              Brainstorming
+            </RowButton>
             <RowButton
               icon={<ActivityStatus status="active" />}
-              text="Rich Text"
-              variant="primary"
-            />
-            <RowButton icon={<ActivityStatus status="pending" />} text="Vote" />
+              rightIcon={<NavigateNext fontSize="small" />}
+            >
+              Rich Text
+            </RowButton>
+            <RowButton icon={<ActivityStatus status="pending" />} disabled>
+              Vote
+            </RowButton>
             <RowButton
               icon={<ActivityStatus status="pending" />}
               text="Reflect"
-            />
+              disabled
+            >
+              Reflect
+            </RowButton>
           </Panel>
-          <Panel title="Students - by group">
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group A"
-            />
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group B"
-            />
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group C"
-            />
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group D"
-            />
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group E"
-            />
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group F"
-            />
-            <RowButton
-              icon={<ArrowDropDown fontSize="small" />}
-              text="Group G"
-            />
+          <Panel>
+            <RowTitle>Students - by group</RowTitle>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group A
+            </RowButton>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group B
+            </RowButton>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group C
+            </RowButton>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group D
+            </RowButton>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group E
+            </RowButton>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group F
+            </RowButton>
+            <RowButton icon={<ArrowDropDown fontSize="small" />}>
+              Group G
+            </RowButton>
           </Panel>
         </Sidebar>
       }
       content={
-        <TopBar
-          navigation={
-            <Breadcrumb
-              icon={<Details />}
-              paths={['Lecture #1', 'Rich Text']}
-            />
-          }
-          actions={
-            <>
-              <OverflowMenu
-                button={
-                  <MinimalButton
-                    icon={<OpenInNew fontSize="small" />}
-                    text="View activity"
-                  />
-                }
+        <>
+          <TopBar
+            navigation={
+              <Breadcrumb
+                icon={<ActivityStatus status="active" />}
+                paths={['Lecture #1', 'Rich Text']}
+              />
+            }
+            actions={
+              <>
+                <OverflowMenu
+                  button={
+                    <Button icon={<SupervisedUserCircle fontSize="small" />} />
+                  }
+                >
+                  <RowTitle>Logged in as Rachit</RowTitle>
+                  <RowButton icon={<Edit fontSize="small" />}>
+                    Edit Profile
+                  </RowButton>
+                  <RowButton icon={<Widgets fontSize="small" />}>
+                    View personal wiki
+                  </RowButton>
+                  <RowDivider />
+                  <RowButton>Logout</RowButton>
+                </OverflowMenu>
+              </>
+            }
+          />
+          <TopBar
+            variant="minimal"
+            actions={
+              <Button
+                icon={<SupervisedUserCircle fontSize="small" />}
+                rightIcon={<ArrowDropDown fontSize="small" />}
               >
-                <RowButton
-                  icon={<People fontSize="small" />}
-                  text="As a teacher"
-                />
-                <RowButton
-                  icon={<People fontSize="small" />}
-                  text="As a student"
-                />
-              </OverflowMenu>
-              <OverflowMenu
-                button={
-                  <MinimalIconButton icon={<MoreVert fontSize="small" />} />
-                }
-              >
-                <RowButton
-                  icon={<Edit fontSize="small" />}
-                  text="Customize interface"
-                />
-                <RowButton
-                  icon={<People fontSize="small" />}
-                  text="Edit classroom"
-                />
-                <RowButton
-                  icon={<OpenInNew fontSize="small" />}
-                  text="Export to SVG"
-                />
-              </OverflowMenu>
-              <OverflowMenu
-                button={
-                  <MinimalIconButton
-                    icon={<SupervisedUserCircle fontSize="small" />}
-                  />
-                }
-              >
-                <Title text="Logged in as Rachit" />
-                <RowButton icon={<People fontSize="small" />} text="Profile" />
-                <RowButton
-                  icon={<Edit fontSize="small" />}
-                  text="Customize FROG"
-                />
-                <RowButton text="Logout" />
-              </OverflowMenu>
-            </>
-          }
-        />
+                Filter by group
+              </Button>
+            }
+          />
+        </>
       }
     />
   );

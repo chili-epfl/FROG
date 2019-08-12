@@ -35,11 +35,11 @@ export const OverflowMenu = (props: OverflowMenuPropsT) => {
           horizontal: 'left'
         }}
         transformOrigin={{
-          vertical: 'top',
+          vertical: -4,
           horizontal: 'left'
         }}
       >
-        <div style={{ width: '200px', padding: '8px 0' }} onClick={handleClose}>
+        <div style={{ width: '200px' }} onClick={handleClose}>
           {props.children}
         </div>
       </Popover>

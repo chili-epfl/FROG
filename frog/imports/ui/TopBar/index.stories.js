@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import { Details } from '@material-ui/icons';
 import { TopBar } from '.';
 import { Breadcrumb } from '../Breadcrumb';
-import { MinimalButton } from '../Button';
+import { Button } from '../Button';
 
 const SimpleWrapper = () => {
   return (
@@ -13,7 +13,7 @@ const SimpleWrapper = () => {
       navigation={<Breadcrumb icon={<Details />} paths={['Recent']} />}
       actions={
         <>
-          <MinimalButton text="Clear recents" />
+          <Button>Clear recents</Button>
         </>
       }
     />
