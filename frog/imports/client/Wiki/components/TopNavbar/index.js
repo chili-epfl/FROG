@@ -60,7 +60,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
           onClick={isAnonymous ? displayModal : null}
         />
       </PrimaryButton>
-      <OverflowMenu overflowElements={secondaryNavItems} />
+      <OverflowPanel overflowElements={secondaryNavItems} />
     </div>
   );
 };
