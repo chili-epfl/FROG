@@ -53,3 +53,4 @@ export const Breadcrumb = (props: BreadcrumbProps) => {
       ))}
     </div>
   );
+};
