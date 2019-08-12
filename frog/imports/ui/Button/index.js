@@ -96,6 +96,7 @@ export const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={props.onClick}
     >
+      <span className={classes.hover} />
       {props.icon && <div className={classes.icon}>{props.icon}</div>}
       {props.children && (
         <Typography className={classes.text} variant="body1">
@@ -105,7 +106,6 @@ export const Button = (props: ButtonProps) => {
       {props.rightIcon && (
         <div className={classes.rightIcon}>{props.rightIcon}</div>
       )}
-      <span className={classes.hover} />
     </ButtonBase>
   );
 };

@@ -12,6 +12,11 @@ const useStyle = makeStyles(theme => ({
     padding: theme.spacing(0, 2),
     background: 'white'
   },
+  navigation: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center'
+  },
   actions: {
     height: '100%',
     display: 'flex',

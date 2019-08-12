@@ -37,12 +37,14 @@ const useStyle = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    userSelect: 'all',
     marginLeft: theme.spacing(2)
   },
   rightIcon: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    userSelect: 'all',
     marginLeft: theme.spacing(2)
   },
   text: {
@@ -97,14 +99,21 @@ export const RowButton = (props: RowButtonProps) => {
       disabled={disabled}
       onClick={props.onClick}
     >
+      <span className={classes.hover} />
       <div className={classes.icon}>{props.icon}</div>
       <Typography className={classes.text} variant="body1">
         {props.children}
       </Typography>
       {props.rightIcon && (
-        <div className={classes.rightIcon}>{props.rightIcon}</div>
+        <div
+          className={classes.rightIcon}
+          onMouseDown={e => {
+            e.stopPropagation();
+          }}
+        >
+          {props.rightIcon}
+        </div>
       )}
-      <span className={classes.hover} />
     </ButtonBase>
   );
 };

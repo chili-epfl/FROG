@@ -11,6 +11,13 @@ const useStyle = makeStyles(() => ({
     gridTemplateRows: '1fr',
     gridTemplateColumns: '250px 1fr',
     background: 'white'
+  },
+  sidebar: {
+    borderRight: '1px solid #EAEAEA',
+    position: 'relative',
+  },
+  content: {
+    position: 'relative',
   }
 }));
 
@@ -26,8 +33,8 @@ export const SidebarLayout = (props: SidebarLayoutPropsT) => {
   const classes = useStyle();
   return (
     <div className={classes.root}>
-      <div>{props.sidebar}</div>
-      <div>{props.content}</div>
+      <div className={classes.sidebar}>{props.sidebar}</div>
+      <div className={classes.content}>{props.content}</div>
     </div>
   );
 };
