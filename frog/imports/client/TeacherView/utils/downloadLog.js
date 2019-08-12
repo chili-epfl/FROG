@@ -34,7 +34,7 @@ const userLookup = userId => {
     ret = ['teacher', 'teacher'];
   } else {
     ret = userobj
-      ? [userobj.userid || '', getUsername({ userObj: userobj })]
+      ? [userobj.userid || '', getUsername({ meteorUser: userobj })]
       : [userId, ''];
   }
   userIds[userId] = ret;
