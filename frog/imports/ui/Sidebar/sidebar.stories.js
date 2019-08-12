@@ -5,7 +5,6 @@ import { storiesOf } from '@storybook/react';
 import { PlayArrow } from '@material-ui/icons';
 
 import { Sidebar, Panel } from '.';
-import { StorybookContainer } from '../StorybookContainer';
 import { Logo } from '../Logo';
 import { RowTitle, RowButton } from '../RowItems';
 

@@ -3,12 +3,8 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  Details,
   Edit,
   ArrowDropDown,
-  MoreVert,
-  People,
-  OpenInNew,
   Pause,
   SkipNext,
   SupervisedUserCircle,
