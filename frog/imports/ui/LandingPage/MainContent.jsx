@@ -1,13 +1,7 @@
 // @flow
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import SearchIcon from '@material-ui/icons/Search';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,22 +30,8 @@ type MainContentPropsT = {
   children: React.Node | React.Node[]
 };
 
-const MainContent = ({
-  children,
-  title,
-  callback,
-  action
-}: MainContentPropsT) => {
+const MainContent = ({ children }: MainContentPropsT) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
 
   return (
     <div className={classes.root}>
