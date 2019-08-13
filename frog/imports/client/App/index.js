@@ -415,16 +415,16 @@ export default class Root extends React.Component<
       return (
         <ErrorBoundary>
           {!this.state.connected && <ConnectionDiv />}
-          <ModalController>
-            <ToastController>
+          <ToastController>
+            <ModalController>
               <Router>
                 <Switch>
                   <Route path="/:slug" component={FROGRouter} />
                   <Route component={FROGRouter} />
                 </Switch>
               </Router>
-            </ToastController>
-          </ModalController>
+            </ModalController>
+          </ToastController>
         </ErrorBoundary>
       );
     }

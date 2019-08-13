@@ -65,7 +65,7 @@ const safeDecode = (query, field, msg, response, returnUndef) => {
 const InstanceDone = {};
 
 const wss = new WebSocket.Server({
-  port: 9000
+  port: 10000
 });
 
 const Connections = {};

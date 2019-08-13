@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import ShareDB from '@teamwork/sharedb';
 import Draggable from 'react-draggable';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';

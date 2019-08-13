@@ -4,7 +4,7 @@ import * as React from 'react';
 import { isEqual } from 'lodash';
 import { SearchField } from '/imports/frog-utils';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import StarBorder from '@material-ui/icons/StarBorder';
 import FormGroup from '@material-ui/core/FormGroup';

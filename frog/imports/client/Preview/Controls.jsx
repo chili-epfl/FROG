@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import { Fab, Button } from '@material-ui/core';
 import { uuid } from '/imports/frog-utils';

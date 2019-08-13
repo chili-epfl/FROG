@@ -79,5 +79,6 @@ export default ({
       .join('')
       .toLowerCase()
       .includes(search);
-  }
+  },
+  disableDragging: true
 }: LearningItemT<{ title: string, content: string }>);

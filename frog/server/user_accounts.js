@@ -3,7 +3,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
-
+import { getUserType } from '/imports/api/users';
 import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
@@ -45,13 +45,15 @@ const cleanStudentList = studentList =>
     : '';
 
 Meteor.methods({
-  'frog.username.login': function(user, token, isStudentList, slug) {
+  'frog.username.login': function(username, token, isStudentList, slug) {
     const self = this;
+    const userObj = Meteor.users.findOne({ username });
+    // for anonymous login
+    if (username === null) return doLogin(username, self);
     if (
       !isStudentList &&
-      process.env.NODE_ENV === 'production' &&
-      !Meteor.settings.public.friendlyProduction &&
-      token !== Meteor.settings.token
+      userObj &&
+      getUserType({ meteorUser: userObj }) === 'Verified'
     ) {
       return 'NOTVALID';
     } else {
@@ -64,19 +66,20 @@ Meteor.methods({
             !studentlist
               .split('\n')
               .map(x => x.toUpperCase())
-              .includes(user.toUpperCase())
+              .includes(username.toUpperCase())
           ) {
             Sessions.update(session._id, {
               $set: {
                 'settings.studentlist': cleanStudentList(
-                  studentlist + '\n' + user
+                  studentlist + '\n' + username
                 )
               }
             });
           }
         }
       }
-      return doLogin(user, self);
+
+      return doLogin(username, self);
     }
   },
   'frog.userid.login': function(userId) {

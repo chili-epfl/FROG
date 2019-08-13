@@ -3,10 +3,11 @@
 import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
+import { Meteor } from 'meteor/meteor';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
-import { values } from '/imports/frog-utils';
+import { values, entries } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-import { getUsername, isVerifiedUser } from '/imports/api/users';
+import { getUsername, getUserType } from '/imports/api/users';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -65,6 +66,7 @@ import {
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
 } from '/imports/api/wikiTypes';
+import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -642,7 +644,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   // Creates a new page entry in ShareDB and navigates to it.
-  createPage = (
+  createPage = async (
     title,
     socialPlane,
     activityConfig,
@@ -657,8 +659,48 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       return error;
     }
     this.preventRenderUntilNextShareDBUpdate = true;
+
+    let opData;
+    if (activityConfig && activityConfig.activityType.slice(0, 3) === 'op-') {
+      const rawData = await new Promise(resolve =>
+        Meteor.call(
+          'run.operator',
+          activityConfig.activityType,
+          activityConfig.config,
+          (err, res) => {
+            if (err) {
+              return 'Operator failed to run';
+            } else {
+              resolve(res);
+            }
+          }
+        )
+      );
+
+      opData = entries(rawData.payload.all.data).reduce(
+        (acc, [k, v]) => ({
+          ...acc,
+          [k]: { ...v, votes: {}, categories: [] }
+        }),
+        {}
+      );
+
+      activityConfig.activityType = 'ac-gallery';
+      activityConfig.config = {
+        canVote: true,
+        canSearch: true,
+        canBookmark: true
+      };
+    }
+
     const liType = activityConfig ? 'li-activity' : 'li-richText';
-    const liId = createNewLI(this.wikiId, liType, activityConfig, title);
+    const liId = createNewLI(
+      this.wikiId,
+      liType,
+      activityConfig,
+      title,
+      opData
+    );
     const pageId = addNewWikiPage(
       this.wikiDoc,
       sanitizeTitle(title),
@@ -828,9 +870,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
               pageSettings
             ) =>
               new Promise(resolve =>
-                this.editAccess('createPage').then(x => {
+                this.editAccess('createPage').then(async x => {
                   if (x) {
-                    const res = this.createPage(
+                    const res = await this.createPage(
                       title,
                       socialPlane,
                       activityConfig,
@@ -994,8 +1036,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
       });
     }
-
-    if (Meteor.user().isAnonymous || !isVerifiedUser() || !Meteor.user()) {
+    if (getUserType() === 'Anonymous') {
       secondaryNavItems.push({
         title: 'Create an account',
         icon: LockOutlinedIcon,
@@ -1008,7 +1049,32 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () =>
           this.props.showModal(<AccountModal formToDisplay="login" />)
       });
-    } else {
+    } else if (getUserType() === 'Verified') {
+      secondaryNavItems.push({
+        title: 'Logout',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          sessionStorage.removeItem('frog.sessionToken');
+          Meteor.logout(() => window.location.reload());
+        }
+      });
+
+      secondaryNavItems.push({
+        title: 'View/Edit profile',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<PersonalProfileModal />);
+        }
+      });
+    } else if (getUserType() === 'Legacy') {
+      secondaryNavItems.push({
+        title: 'Upgrade your account',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<AccountModal formToDisplay="signup" />);
+        }
+      });
+
       secondaryNavItems.push({
         title: 'Logout',
         icon: LockOutlinedIcon,
