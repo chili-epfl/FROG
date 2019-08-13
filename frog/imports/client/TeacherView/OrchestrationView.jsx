@@ -101,6 +101,7 @@ class OrchestrationViewController extends React.Component<any, {}> {
               <StepsController
                 activities={activities}
                 openActivities={session.openActivities}
+                timeInGraph={session.timeInGraph}
               />
               <Grid item xs={12} className={classes.buttonsToBottom}>
                 <OrchestrationCtrlButtons session={session} />
