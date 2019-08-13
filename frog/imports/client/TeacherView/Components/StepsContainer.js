@@ -6,12 +6,7 @@ import { Activities } from '/imports/api/activities';
 import { getActivitySequence } from '/imports/api/graphSequence';
 import Steps from './Steps';
 
-const StepsContainer = ({
-  session,
-  activities,
-  openActivities,
-  timeInGraph
-}) => {
+const StepsContainer = ({ activities, openActivities, timeInGraph }) => {
   const sequence = getActivitySequence(activities);
 
   // Either we are on an activity, or we are either at the beginning or end of the sequence

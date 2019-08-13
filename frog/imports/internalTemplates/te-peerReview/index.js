@@ -103,7 +103,6 @@ const processTemplate = (template, replacements) => {
 };
 
 const makeTemplate = conf => {
-  console.log(conf);
   const template = JSON.stringify(conf.general?.plane === 'group' ? p2 : p1);
   const replacements = {
     instructions: conf.first?.instructions || '',

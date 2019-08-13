@@ -41,7 +41,6 @@ export const extractUnit = (
   attributeValue: string,
   socialStructure?: socialStructureT
 ): dataUnitStructT => {
-  console.log(data, activityStructure, attributeValue, socialStructure);
   if (!data) {
     return { data: null, config: {} };
   } else if (data.structure === 'all') {

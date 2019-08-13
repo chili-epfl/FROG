@@ -5,15 +5,6 @@ import { withVisibility } from '/imports/frog-utils';
 import { compose, withState } from 'recompose';
 
 import { withStyles } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
-
-import GraphView from './GraphView';
-import DashboardNav from '../Dashboard/DashboardNav';
-import SessionUtils from './SessionUtils';
-import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
-import SettingsModal from './SettingsModal';
 import { teacherLogger } from '/imports/api/logs';
 import { LocalSettings } from '/imports/api/settings';
 import OrchestrationContainer from './Components/OrchestrationContainer';
@@ -50,22 +41,8 @@ class OrchestrationViewController extends React.Component<any, {}> {
   }
 
   render() {
-    const {
-      session,
-      token,
-      visible,
-      toggleVisibility,
-      settingsOpen,
-      setSettingsOpen,
-      classes,
-      activities
-    } = this.props;
-    return (
-      <OrchestrationContainer
-        activities={activities}
-        session={session}
-      />
-    );
+    const { session, activities } = this.props;
+    return <OrchestrationContainer activities={activities} session={session} />;
   }
 }
 

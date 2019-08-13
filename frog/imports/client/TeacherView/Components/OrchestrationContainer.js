@@ -6,7 +6,6 @@ import {
   Pause,
   SkipNext,
   SupervisedUserCircle,
-  NavigateNext,
   Widgets
 } from '@material-ui/icons';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';

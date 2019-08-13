@@ -61,7 +61,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     (isTeacher && activity.plane === 2 ? '' : groupingValue) +
     ')';
   if (activity.plane === 1) {
-    title = `(individual/${getUsername()||''})`;
+    title = `(individual/${getUsername() || ''})`;
   }
 
   const config = activity.data;
@@ -256,7 +256,6 @@ export class RunActivity extends React.Component<PropsT, {}> {
 }
 
 export default withTracker(({ activity }) => {
-  console.log(activity);
   const object = Objects.findOne(activity._id);
   return { object, activity };
 })(Runner);
