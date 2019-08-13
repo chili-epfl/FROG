@@ -39,8 +39,7 @@ export const ContentListItem = ({
           const ListIcon = item.icon;
           return (
             <RowButton key={index} icon={<ListIcon fontSize="small" />}>
-              {' '}
-              {item.title}{' '}
+              {item.title}
             </RowButton>
           );
         })}
