@@ -57,36 +57,6 @@ const MainContent = ({
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper} elevation={0}>
-            <div className={classes.icon}>
-              <SearchIcon />
-              <FilterListIcon
-                className={classes.filter}
-                onClick={handleClick}
-              />
-              {action ? (
-                <Button color="primary" onClick={callback}>
-                  {action}
-                </Button>
-              ) : (
-                <></>
-              )}
-            </div>
-            <Typography variant="h5">{title}</Typography>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Ready</MenuItem>
-              <MenuItem onClick={handleClose}>Running</MenuItem>
-              <MenuItem onClick={handleClose}>Complete</MenuItem>
-            </Menu>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
           {children}
         </Grid>
       </Grid>
