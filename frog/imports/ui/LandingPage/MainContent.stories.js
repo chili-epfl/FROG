@@ -15,7 +15,7 @@ import { ContentListItem } from './ContentListItem';
 import { ClassView } from './ClassView';
 
 const overflowitems = [
-  { title: 'Share', icon: Share, callback: null },
+  { title: 'Share', icon: Share , callback: null },
   { title: 'Clone', icon: Forward, callback: null },
   { title: 'Delete', icon: Delete, callback: null }
 ];

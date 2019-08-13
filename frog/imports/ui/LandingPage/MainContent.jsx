@@ -66,8 +66,7 @@ const MainContent = ({
               />
               {action ? (
                 <Button color="primary" onClick={callback}>
-                  {' '}
-                  {action}{' '}
+                  {action}
                 </Button>
               ) : (
                 <></>

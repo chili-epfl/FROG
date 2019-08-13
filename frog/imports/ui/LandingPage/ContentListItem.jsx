@@ -3,7 +3,11 @@ import * as React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import OverflowPanel from '../components/OverflowPanel';
+import {MoreVert} from '@material-ui/icons'; 
+import {OverflowMenu} from '../OverflowMenu';
+import {RowButton} from '../RowItems'; 
+import {Button} from '../Button'; 
+
 
 type ContentListItemPropsT = {
   itemTitle: string,
@@ -31,7 +35,14 @@ export const ContentListItem = ({
       </ListItemIcon>
       <ListItemText primary={itemTitle} divider secondary={status} />
 
-      <OverflowPanel overflowElements={overflowitems} />
+     <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
+         {overflowitems.map((item,index) => {
+           const ListIcon = item.icon; 
+          return (
+          <RowButton key = {index} icon = {<ListIcon fontSize = "small" />}> {item.title} </RowButton>
+          ); 
+         })}
+        </OverflowMenu>
     </ListItem>
   );
 };
