@@ -16,7 +16,7 @@ import OrchestrationCtrlButtons from './OrchestrationCtrlButtons';
 import SettingsModal from './SettingsModal';
 import { teacherLogger } from '/imports/api/logs';
 import { LocalSettings } from '/imports/api/settings';
-import StepsController from './Components/StepsController';
+import OrchestrationContainer from './Components/OrchestrationContainer';
 
 const styles = {
   root: {
@@ -61,62 +61,10 @@ class OrchestrationViewController extends React.Component<any, {}> {
       activities
     } = this.props;
     return (
-      <React.Fragment>
-        <Grid container className={classes.root}>
-          <Grid item xs={12}>
-            <SessionUtils
-              session={session}
-              toggle={() => {
-                teacherLogger(
-                  session._id,
-                  visible
-                    ? 'teacher.toggleGraphView'
-                    : 'teacher.toggleDashboardView'
-                );
-                toggleVisibility();
-              }}
-              visible={visible}
-              token={token}
-              openSettings={() => setSettingsOpen(true)}
-            />
-          </Grid>
-
-          <Grid item xs={12} className={classes.maybeScaled}>
-            <Grid container className={classes.subroot}>
-              <Grid item xs={12}>
-                {visible || session.singleActivity ? (
-                  // when the graph is turned off
-                  <DashboardNav
-                    session={session}
-                    openActivities={session.openActivities}
-                  />
-                ) : (
-                  <Card>
-                    <CardContent>
-                      <GraphView session={session} />
-                    </CardContent>
-                  </Card>
-                )}
-              </Grid>
-              <StepsController
-                activities={activities}
-                openActivities={session.openActivities}
-                timeInGraph={session.timeInGraph}
-              />
-              <Grid item xs={12} className={classes.buttonsToBottom}>
-                <OrchestrationCtrlButtons session={session} />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-
-        {settingsOpen && (
-          <SettingsModal
-            session={session}
-            onClose={() => setSettingsOpen(false)}
-          />
-        )}
-      </React.Fragment>
+      <OrchestrationContainer
+        activities={activities}
+        session={session}
+      />
     );
   }
 }

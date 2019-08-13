@@ -56,6 +56,15 @@ const TeacherViewRunner = withRouter(
     if (session) {
       Meteor.subscribe('teacher.graph', session.graphId);
       Meteor.subscribe('session.students', session.slug);
+      Meteor.subscribe('session_activities', session.slug);
+      if (
+        !(
+          Meteor.user().joinedSessions &&
+          Meteor.user().joinedSessions.includes(session.slug)
+        )
+      ) {
+        Meteor.call('session.join', session.slug);
+      }
     }
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();

@@ -6,7 +6,7 @@ import { Activities } from '/imports/api/activities';
 import { getActivitySequence } from '/imports/api/graphSequence';
 import Steps from './Steps';
 
-const StepsController = ({
+const StepsContainer = ({
   session,
   activities,
   openActivities,
@@ -47,8 +47,7 @@ const StepsController = ({
     }
   }
 
-  console.log(steps);
   return <Steps steps={steps} />;
 };
 
-export default StepsController;
+export default StepsContainer;

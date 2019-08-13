@@ -108,7 +108,7 @@ const runDataflow = (
   const globalStructure: { studentIds: string[], students: Object } = {
     studentIds: eligibleStudents.map(student => student._id),
     students: eligibleStudents.reduce(
-      (acc, x) => ({ ...acc, [x._id]: getUsername({ userObj: x }) }),
+      (acc, x) => ({ ...acc, [x._id]: getUsername({ meteorUser: x }) }),
       {}
     )
   };

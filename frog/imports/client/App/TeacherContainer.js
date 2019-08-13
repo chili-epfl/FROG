@@ -30,6 +30,10 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
       <Switch>
         <Route path="/teacher/graph/:graphId" component={GraphEditor} />
         <Route path="/teacher/graph" component={GraphEditor} />
+        <Route path="/t/:slug" component={TeacherView} />
+        <Route path="/t" component={TeacherView} />
+        <Route path="/teacher/orchestration/:slug" component={TeacherView} />
+        <Route path="/teacher/orchestration" component={TeacherView} />
         <Route component={WithTopBar} />
       </Switch>
     </div>
@@ -41,12 +45,8 @@ const WithTopBar = () => (
     <TopBar />
     <div id="everything-except-top-bar" style={styles.subroot}>
       <Switch>
-        <Route path="/t/:slug" component={TeacherView} />
-        <Route path="/t" component={TeacherView} />
         <Route path="/teacher/preview/:previewId" component={Preview} />
         <Route path="/teacher/preview" component={Preview} />
-        <Route path="/teacher/orchestration/:slug" component={TeacherView} />
-        <Route path="/teacher/orchestration" component={TeacherView} />
         <Route path="/teacher/graph/:graphId" component={GraphEditor} />
         <Route path="/teacher/graph" component={GraphEditor} />
         <Route component={GraphEditor} />

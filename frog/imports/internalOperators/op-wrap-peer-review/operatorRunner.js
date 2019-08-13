@@ -41,6 +41,9 @@ const renew = (oldObj, dataFn) => {
 };
 
 const operator = (configData, { activityData }, dataFn) => {
+  if (!activityData.payload) {
+    return activityData;
+  }
   const instances = Object.keys(activityData.payload);
   const { structure } = activityData;
 

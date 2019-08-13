@@ -41,13 +41,14 @@ export const extractUnit = (
   attributeValue: string,
   socialStructure?: socialStructureT
 ): dataUnitStructT => {
+  console.log(data, activityStructure, attributeValue, socialStructure);
   if (!data) {
     return { data: null, config: {} };
   } else if (data.structure === 'all') {
-    return data.payload.all;
+    return data.payload?.all;
   } else if (data.structure === 'individual') {
     if (activityStructure === 'individual') {
-      return data.payload[attributeValue];
+      return data?.payload?.[attributeValue];
     }
     throw logFirst(
       'Cannot provide individually mapped product to an activity above plane 1'

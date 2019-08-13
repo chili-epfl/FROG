@@ -3,6 +3,8 @@
 import React from 'react';
 import { InjectData } from 'meteor/staringatlights:inject-data';
 import Grow from '@material-ui/core/Grow';
+import { withRouter } from 'react-router';
+
 import TopBar from './TopBar';
 import Welcome from './Welcome';
 import ChooseActivityType from './ChooseActivityType';
@@ -16,7 +18,7 @@ import { templatesObj } from '/imports/internalTemplates';
 /**
  * The main class for the Single Activity
  */
-class SingleActivity extends React.Component<{}, StateT> {
+class SingleActivity extends React.Component<{ history: any }, StateT> {
   constructor() {
     super();
 
@@ -77,11 +79,7 @@ class SingleActivity extends React.Component<{}, StateT> {
                     );
                     this.setState({ stage: this.state.stage - 1 });
                   } else {
-                    this.setState({
-                      stage: this.state.stage + 1,
-                      slug: res.slug,
-                      sessionId: res.sessionId
-                    });
+                    this.props.history.push('/t/' + res.slug);
                   }
                 }
               );
@@ -103,4 +101,4 @@ class SingleActivity extends React.Component<{}, StateT> {
     );
   }
 }
-export default SingleActivity;
+export default withRouter(SingleActivity);

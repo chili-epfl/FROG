@@ -19,66 +19,59 @@ declare var Promise: any;
 
 const cleanId = id => id.split('/')[1];
 
-const formatResults = (
-  plane,
-  results,
-  formatProduct,
-  config,
-  initData,
-  users,
-  object,
-  ownerId
-) => {
-  const format = (data, instance) => {
-    let product;
-    if (formatProduct) {
-      const user = users.find(x => x._id === instance);
-      const username = getUsername({ userObj: user });
-      try {
-        product = formatProduct(
-          config,
-          data,
-          instance,
-          username || '',
-          object,
-          plane
-        );
-      } catch (error) {
-        console.error(
-          'Err: Failed to run formatProduct with reactive data',
-          error
-        );
-        console.error(error);
+const formatResults = Meteor.bindEnvironment(
+  (plane, results, formatProduct, config, initData, users, object, ownerId) => {
+    const format = Meteor.bindEnvironment((data, instance) => {
+      let product;
+      if (formatProduct) {
+        const user = users.find(x => x._id === instance);
+        const username = getUsername({ meteorUser: user });
         try {
           product = formatProduct(
             config,
-            initData,
+            data,
             instance,
             username || '',
             object,
             plane
           );
-        } catch (err) {
+        } catch (error) {
           console.error(
-            'Err: Failed to run formatProduct with initialData',
+            'Err: Failed to run formatProduct with reactive data',
             error
           );
-          product = {};
+          console.error(error);
+          try {
+            product = formatProduct(
+              config,
+              initData,
+              instance,
+              username || '',
+              object,
+              plane
+            );
+          } catch (err) {
+            console.error(
+              'Err: Failed to run formatProduct with initialData',
+              error
+            );
+            product = {};
+          }
         }
+      } else {
+        product = data;
       }
-    } else {
-      product = data;
-    }
-    return product;
-  };
+      return product;
+    });
 
-  return results
-    .filter(plane > 3 || (x => cleanId(x.id) !== ownerId))
-    .reduce((acc, k) => {
-      acc[cleanId(k.id)] = { data: format(k.data, cleanId(k.id)) };
-      return acc;
-    }, {});
-};
+    return results
+      .filter(plane > 3 || (x => cleanId(x.id) !== ownerId))
+      .reduce((acc, k) => {
+        acc[cleanId(k.id)] = { data: format(k.data, cleanId(k.id)) };
+        return acc;
+      }, {});
+  }
+);
 
 export const getActivityDataFromReactive = (
   activityId: string

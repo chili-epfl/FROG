@@ -54,6 +54,7 @@ const configUI = {
 };
 
 const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
+  console.log(obj, data);
   let empty = true;
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
