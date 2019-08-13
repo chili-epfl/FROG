@@ -66,6 +66,7 @@ import {
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
 } from '/imports/api/wikiTypes';
+import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 
 type WikiCompPropsT = {
@@ -1055,7 +1056,10 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         icon: LockOutlinedIcon,
         callback: () => {
           sessionStorage.removeItem('frog.sessionToken');
-          Meteor.logout(() => window.location.reload());
+          Meteor.logout(() => {
+            resetShareDBConnection();
+            window.location.reload();
+          });
         }
       });
 
