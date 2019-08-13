@@ -1,5 +1,5 @@
-import {connection} from './connection'; 
+import { connection } from './connection';
 
 export const resetShareDBConnection = () => {
-	   connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
-}
+  connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+};

@@ -1057,8 +1057,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () => {
           sessionStorage.removeItem('frog.sessionToken');
           Meteor.logout(() => {
-            resetShareDBConnection(); 
-            window.location.reload(); 
+            resetShareDBConnection();
+            window.location.reload();
           });
         }
       });
