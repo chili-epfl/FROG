@@ -67,6 +67,7 @@ import {
   PRIVILEGE_NONE
 } from '/imports/api/wikiTypes';
 import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
+import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 
 type WikiCompPropsT = {
   setPage?: (pageobj: PageObjT, replace: boolean) => void,
@@ -1059,6 +1060,14 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
             resetShareDBConnection(); 
             window.location.reload(); 
           });
+        }
+      });
+
+      secondaryNavItems.push({
+        title: 'View/Edit profile',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<PersonalProfileModal />);
         }
       });
     } else if (getUserType() === 'Legacy') {
