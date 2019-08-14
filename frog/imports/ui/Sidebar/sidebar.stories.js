@@ -9,7 +9,7 @@ import { Logo } from '../Logo';
 import { RowTitle, RowButton } from '../RowItems';
 
 storiesOf('Sidebar', module).add('with row items', () => (
-  <Sidebar header={<Logo />}>
+  <Sidebar header={<Logo />} footer = {<RowButton icon = {<PlayArrow/>}> Create now </RowButton>}>
     <Panel>
       <RowButton>Row button without icons</RowButton>
       <RowButton icon={<PlayArrow fontSize="small" />}>

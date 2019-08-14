@@ -42,12 +42,12 @@ const draftOverflowItems = [
   { title: 'Edit', icon: Create, callback: null },
   { title: 'Delete', icon: Delete, callback: null }
 ];
-export const RecentsPage = ({ sessionsList, draftsList, classList }) => {
+export const RecentsPage = ({ sessionsList, draftsList }) => {
   const classes = useStyles();
   return (
     <MainContent>
       <div className={classes.root}>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           <Grid item xs={6}>
             <Paper className={classes.paper} elevation={0}>
               <Typography variant="h5" align="left">
@@ -55,16 +55,17 @@ export const RecentsPage = ({ sessionsList, draftsList, classList }) => {
               </Typography>
 
               <List>
-                {draftsList.map(({ itemTitle }) => (
+                {draftsList.map(({ itemTitle , itemType, itemDate}) => (
                   <ContentListItem
                     itemTitle={itemTitle}
                     itemIcon={ShowChart}
+                    itemDate = {itemDate}
+                    itemType = {itemType}
                     overflowitems={draftOverflowItems}
                   />
                 ))}
               </List>
               <Button icon={<MoreHoriz />} variant="minimal">
-                {' '}
                 More
               </Button>
             </Paper>
@@ -77,11 +78,14 @@ export const RecentsPage = ({ sessionsList, draftsList, classList }) => {
               </Typography>
 
               <List>
-                {sessionsList.map(({ itemTitle, status }) => (
+                {sessionsList.map(({itemIcon, itemTitle,itemType, itemDate, status }) => (
                   <ContentListItem
+                    itemIcon={itemIcon}
                     itemTitle={itemTitle}
+                    itemType = {itemType}
+                    itemDate = {itemDate}
                     status={status}
-                    itemIcon={Bookmark}
+             
                     overflowitems={sessionOverflowItems}
                   />
                 ))}
@@ -92,26 +96,6 @@ export const RecentsPage = ({ sessionsList, draftsList, classList }) => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12}>
-            <Paper className={classes.paper} elevation={0}>
-              <Typography variant="h5">
-                <ChromeReaderMode /> Classes
-              </Typography>
-
-              <List>
-                {classList.map(({ title }) => (
-                  <ContentListItem
-                    itemTitle={title}
-                    itemIcon={ChromeReaderMode}
-                    overflowitems={draftOverflowItems}
-                  />
-                ))}
-              </List>
-              <Button icon={<MoreHoriz />} variant="minimal">
-                More
-              </Button>
-            </Paper>
-          </Grid>
         </Grid>
       </div>
     </MainContent>

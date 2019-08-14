@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { OverflowMenu } from '../OverflowMenu';
 import { RowButton } from '../RowItems';
 import { Button } from '../Button';
+import { ListItemSecondaryAction } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +29,8 @@ const useStyles = makeStyles(theme => ({
 type ContentListItemPropsT = {
   itemTitle: string,
   itemIcon: React.ComponentType<*>,
+  itemType: string, 
+  dateCreated: string, 
   status?: 'Ready' | 'Running' | 'Complete',
   overflowitems: Array<{
     title: string,
@@ -38,6 +41,8 @@ type ContentListItemPropsT = {
 export const ContentListItem = ({
   itemTitle,
   itemIcon,
+  itemType, 
+  dateCreated, 
   status,
   overflowitems,
   callback
@@ -46,34 +51,21 @@ export const ContentListItem = ({
   const classes = useStyles();
 
   return (
-    <ListItem divider button onClick={callback}>
+    <ListItem alignItems = 'flex-start' divider button onClick={callback}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
 
-      <ListItemText primary={itemTitle} divider />
+      <ListItemText primary={itemTitle} secondary = { status ? (status + '   |    ' + itemType) : itemType} divider />
+       
       <Typography
         className={classes.items}
         color="textSecondary"
         variant="body2"
       >
-        {status}
+        {dateCreated}
       </Typography>
-
-      <Typography
-        className={classes.items}
-        color="textSecondary"
-        variant="body2"
-      >
-        Template 1
-      </Typography>
-      <Typography
-        className={classes.items}
-        color="textSecondary"
-        variant="body2"
-      >
-        21/07/2019
-      </Typography>
+      <ListItemSecondaryAction>
       <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
         {overflowitems.map((item, index) => {
           const ListIcon = item.icon;
@@ -84,6 +76,7 @@ export const ContentListItem = ({
           );
         })}
       </OverflowMenu>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };

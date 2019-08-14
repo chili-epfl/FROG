@@ -2,11 +2,15 @@ import * as React from 'react';
 import {
   AccessTimeOutlined,
   Bookmark,
+  Bookmarks,
   ShowChart,
-  ChromeReaderMode
+  ChromeReaderMode,
+  SupervisedUserCircle,
+  ArrowDropDown
+
 } from '@material-ui/icons';
 import { storiesOf } from '@storybook/react';
-import { Typography } from '@material-ui/core';
+import { Typography} from '@material-ui/core';
 import { Sidebar, Panel } from '../Sidebar';
 import { Logo } from '../Logo';
 import { SidebarLayout } from '../Layout/SidebarLayout';
@@ -15,32 +19,28 @@ import { RowButton } from '../RowItems/RowButton';
 import { TopBar } from '../TopBar';
 import { Breadcrumb } from '../Breadcrumb';
 import { RecentsPage } from './index';
+import { Button } from '../Button/index';
 
 const sessionsList = [
-  { itemTitle: 'Session 1 ', status: 'Ready' },
-  { itemTitle: 'Session 2', status: 'Running' },
-  { itemTitle: 'Session 3', status: 'Complete' },
-  { itemTitle: 'Session 1 ', status: 'Ready' },
-  { itemTitle: 'Session 2', status: 'Running' },
-  { itemTitle: 'Session 3', status: 'Complete' }
+  {itemIcon: ShowChart,  itemTitle: 'Session 1 ', status: 'Ready', itemType: 'Custom graph', dateCreated: '21/07/2019' },
+  {itemIcon: Bookmarks,  itemTitle: 'Session 2 ', status: 'Complete', itemType: 'Peer review template', dateCreated: '1/08/2019' },
+  {itemIcon: Bookmark,   itemTitle: 'Session 3', status: 'Running', itemType: 'Chat', dateCreated: '21/07/2019' },
+  {itemIcon: ShowChart,  itemTitle: 'Session 4 ', status: 'Ready', itemType: 'Custom graph', dateCreated: '21/07/2019' },
+  {itemIcon: Bookmarks,  itemTitle: 'Session 5', status: 'Complete', itemType: 'Peer review template', dateCreated: '1/08/2019' },
+  {itemIcon: Bookmark,   itemTitle: 'Session 6', status: 'Running', itemType: 'Chat', dateCreated: '21/07/2019' }
+  
 ];
 const draftsList = [
-  { itemTitle: 'Draft 1' },
-  { itemTitle: 'Draft 2' },
-  { itemTitle: 'Draft 3' },
-  { itemTitle: 'Draft 4' },
-  { itemTitle: 'Draft 5' },
-  { itemTitle: 'Draft 6' }
+  { itemTitle: 'Draft 1', itemType: 'Custom graph 1 ', dateCreated: '5/08/2019' },
+  { itemTitle: 'Draft 2', itemType: 'Custom graph 2', dateCreated: '5/08/2019' },
+  { itemTitle: 'Draft 3', itemType: 'Custom graph 432', dateCreated: '5/08/2019' },
+  { itemTitle: 'Draft 4', itemType: 'Some graph', dateCreated: '5/08/2019' },
+  { itemTitle: 'Draft 5', itemType: 'Custom graph dev test', dateCreated: '5/08/2019' },
+  { itemTitle: 'Draft 6', itemType: 'G1', dateCreated: '5/08/2019' }
+ 
+ 
 ];
 
-const classList = [
-  { title: 'PHYS 117' },
-  { title: 'CPSC 340' },
-  { title: 'ECON 400' },
-  { title: 'PHYS 117' },
-  { title: 'CPSC 340' },
-  { title: 'ECON 400' }
-];
 
 const Wrapper = () => {
   return (
@@ -54,11 +54,13 @@ const Wrapper = () => {
                 <Typography variant="h6"> Dashboard </Typography>
               </>
             }
+            footer = {
+              <RowButton active > Create using Wizard </RowButton> 
+            }
           >
             <Panel>
               <RowButton active icon={<AccessTimeOutlined />}>
-                {' '}
-                Recents{' '}
+                Recents
               </RowButton>
               <RowButton icon={<Bookmark />}> Sessions </RowButton>
               <RowButton icon={<ShowChart />}> Drafts </RowButton>
@@ -81,13 +83,26 @@ const Wrapper = () => {
                 />
               }
             />
-            <RecentsPage
+             <TopBar
+            variant="minimal"
+            actions={
+              <Button
+                icon={<SupervisedUserCircle fontSize="small" />}
+                rightIcon={<ArrowDropDown fontSize="small" />}
+              >
+                Filter by date
+              </Button>
+            }
+          />
+        <RecentsPage
               sessionsList={sessionsList}
               draftsList={draftsList}
-              classList={classList}
             />
+        
+            
           </>
         }
+       
       />
     </>
   );
