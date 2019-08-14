@@ -25,6 +25,7 @@ const allowed = [
 ];
 const list = activityTypes.filter(x => allowed.includes(x.id));
 list.push(templatesObj['te-peerReview']);
+list.push(templatesObj['te-writing']);
 
 /**
  * The icon-based selection form for choosing the activity type
