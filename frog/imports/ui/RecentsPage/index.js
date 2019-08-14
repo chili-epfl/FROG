@@ -8,7 +8,6 @@ import {
   Delete,
   PlayArrow,
   Create,
-  ChromeReaderMode,
   ShowChart,
   MoreHoriz
 } from '@material-ui/icons';
@@ -55,12 +54,12 @@ export const RecentsPage = ({ sessionsList, draftsList }) => {
               </Typography>
 
               <List>
-                {draftsList.map(({ itemTitle , itemType, itemDate}) => (
+                {draftsList.map(({ itemTitle, itemType, itemDate }) => (
                   <ContentListItem
                     itemTitle={itemTitle}
                     itemIcon={ShowChart}
-                    itemDate = {itemDate}
-                    itemType = {itemType}
+                    itemDate={itemDate}
+                    itemType={itemType}
                     overflowitems={draftOverflowItems}
                   />
                 ))}
@@ -78,24 +77,24 @@ export const RecentsPage = ({ sessionsList, draftsList }) => {
               </Typography>
 
               <List>
-                {sessionsList.map(({itemIcon, itemTitle,itemType, itemDate, status }) => (
-                  <ContentListItem
-                    itemIcon={itemIcon}
-                    itemTitle={itemTitle}
-                    itemType = {itemType}
-                    itemDate = {itemDate}
-                    status={status}
-             
-                    overflowitems={sessionOverflowItems}
-                  />
-                ))}
+                {sessionsList.map(
+                  ({ itemIcon, itemTitle, itemType, itemDate, status }) => (
+                    <ContentListItem
+                      itemIcon={itemIcon}
+                      itemTitle={itemTitle}
+                      itemType={itemType}
+                      itemDate={itemDate}
+                      status={status}
+                      overflowitems={sessionOverflowItems}
+                    />
+                  )
+                )}
               </List>
               <Button icon={<MoreHoriz />} variant="minimal">
                 More
               </Button>
             </Paper>
           </Grid>
-
         </Grid>
       </div>
     </MainContent>
