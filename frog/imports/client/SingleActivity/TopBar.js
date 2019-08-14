@@ -16,6 +16,7 @@ import { type PropsT } from './types';
 import { style } from './style';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { getUsername, getUserType } from '/imports/api/users';
+import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 import { RowButton } from '/imports/ui/RowItems';
@@ -65,15 +66,17 @@ function TopBar(props: PropsT) {
                 onClick={openPersonalProfileModal}
                 icon={<Edit fontSize="small" />}
               >
-                {' '}
-                View/Edit Profile{' '}
+                View/Edit Profile
               </RowButton>
             </OverflowMenu>
             <Button
               size="medium"
               onClick={() => {
                 sessionStorage.removeItem('frog.sessionToken');
-                Meteor.logout(() => window.location.replace('/'));
+                Meteor.logout(() => {
+                  resetShareDBConnection();
+                  window.location.replace('/');
+                });
               }}
             >
               Logout
@@ -90,8 +93,11 @@ function TopBar(props: PropsT) {
               size="medium"
               onClick={() => {
                 sessionStorage.removeItem('frog.sessionToken');
-                Meteor.logout();
-                window.location.replace('/');
+
+                Meteor.logout(() => {
+                  resetShareDBConnection();
+                  window.location.replace('/');
+                });
               }}
             >
               Logout
