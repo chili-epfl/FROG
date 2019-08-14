@@ -4,6 +4,7 @@ import { type ActivityPackageT, uuid, values } from '/imports/frog-utils';
 import { isObject } from 'lodash';
 
 import { meta, config, configUI } from './meta';
+import upgradeFunctions from './upgradeFunctions';
 
 const dataStructure = {};
 
@@ -59,11 +60,11 @@ const formatProduct = (configData: Object, item: Object) => {
     coordinates
   };
 };
-
 export default ({
   id: 'ac-ck-board',
   type: 'react-component',
-  configVersion: 1,
+  configVersion: 2,
+  upgradeFunctions,
   meta,
   config,
   configUI,
