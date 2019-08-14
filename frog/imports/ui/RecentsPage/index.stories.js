@@ -134,7 +134,11 @@ const draftsList = [
 const Wrapper = () => {
   return (
     <DashboardSideBar>
-      <RecentsPage sessionsList={sessionsList} draftsList={draftsList} />
+      <RecentsPage
+        sessionsList={sessionsList}
+        draftsList={draftsList}
+        actionCallback={null}
+      />
     </DashboardSideBar>
   );
 };

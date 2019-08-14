@@ -11,7 +11,7 @@ type MainContentPropsT = {
 
 export const MainContent = ({ children }: MainContentPropsT) => {
   return (
-    <Grid container spacing={3}>
+    <Grid container>
       <Grid item xs={12}>
         {children}
       </Grid>

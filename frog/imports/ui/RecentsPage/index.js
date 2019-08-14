@@ -19,24 +19,28 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   }
 }));
-const RecentsPagePropsT = {
+
+type RecentsPagePropsT = {
   sessionsList: SessionListT,
-  draftsList: DraftsListT
+  draftsList: DraftsListT,
+  actionCallback: () => void
 };
+
 export const RecentsPage = ({
   sessionsList,
-  draftsList
+  draftsList,
+  actionCallback
 }: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
-    <Grid container spacing={3}>
+    <Grid container>
       <Grid item xs={6}>
         <Paper className={classes.paper} elevation={0}>
           <div className={classes.buttonRows}>
             <Typography variant="h5" align="left">
               <ShowChart /> Drafts
             </Typography>
-            <Button icon={<Add />} variant="primary">
+            <Button icon={<Add />} callback={actionCallback} variant="primary">
               Create a new graph
             </Button>
           </div>
