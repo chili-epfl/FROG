@@ -156,7 +156,7 @@ const SessionUtils = ({
   if (root === 'http://localhost:3000') {
     learnRoot = 'http://learn.chilifrog-local.com:3000';
   } else {
-    learnRoot = 'https://learn.chilifrog.com';
+    learnRoot = 'https://learn.chilifrog.ch';
   }
   return (
     <Grid container alignItems="center">

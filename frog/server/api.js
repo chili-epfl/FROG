@@ -527,7 +527,7 @@ WebApp.connectHandlers.use('/multiFollow', (request, response) => {
   if (root === 'http://localhost:3000') {
     learnRoot = 'http://learn.chilifrog-local.com:3000';
   } else {
-    learnRoot = 'https://learn.chilifrog.com';
+    learnRoot = 'https://learn.chilifrog.ch';
   }
   const url = require('url').parse(request.url);
   const layout = url.query ? extractParam(url.query, 'layout') : '';

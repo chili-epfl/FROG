@@ -46,7 +46,7 @@ const url = Meteor.absoluteUrl();
 const learnUrl =
   url === 'http://localhost:3000/'
     ? 'http://learn.chilifrog-local.com:3000'
-    : 'https://learn.chilifrog.com';
+    : 'https://learn.chilifrog.ch';
 
 export const OrchestrationButtonsModel = (session, classes) => ({
   start: {
