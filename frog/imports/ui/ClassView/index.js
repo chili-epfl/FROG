@@ -11,8 +11,10 @@ import {
   Button
 } from '@material-ui/core';
 import { Bookmark, ChromeReaderMode } from '@material-ui/icons';
-import { ContentListItem } from './ContentListItem';
-import MainContent from './MainContent';
+import {SessionListT } from '../RecentsPage/types'; 
+import { ContentListItem } from '../ListItem';
+import {MainContent} from '../MainContent';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,12 +37,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+type ClassViewPropsT = {
+  sessionsList: SessionListT, 
+  wikiInfo: {title: string, pagesCount: number}, 
+  numberOfStudents: number 
+}
 export const ClassView = ({
   sessionsList,
   wikiInfo,
-  overflowitems,
   numberOfStudents
-}) => {
+}: ClassViewPropsT) => {
   const classes = useStyles();
   return (
     <MainContent title="Class Slug: XKCD">
@@ -49,17 +55,20 @@ export const ClassView = ({
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <Typography variant="h5">
-                {' '}
-                <Bookmark /> Sessions{' '}
+                <Bookmark /> Sessions
               </Typography>
 
               <List className={classes.list}>
-                {sessionsList.map(({ itemTitle, status }) => (
+                {sessionsList.map(({ itemIcon,itemTitle, status, itemType, dateCreated, callback, secondaryActions}, index) => (
                   <ContentListItem
+                    key = {index}
                     itemTitle={itemTitle}
+                    itemIcon={itemIcon}
                     status={status}
-                    itemIcon={Bookmark}
-                    overflowitems={overflowitems}
+                    itemType = {itemType}
+                    dateCreated = {dateCreated}
+                    secondaryActions={secondaryActions}
+                    callback = {callback}
                   />
                 ))}
               </List>
@@ -78,8 +87,7 @@ export const ClassView = ({
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary">
-                    {' '}
-                    Visit{' '}
+                    Visit
                   </Button>
                 </CardActions>
               </Card>
@@ -99,8 +107,7 @@ export const ClassView = ({
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary">
-                    {' '}
-                    View student list{' '}
+                    View student list
                   </Button>
                 </CardActions>
               </Card>

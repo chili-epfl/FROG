@@ -3,70 +3,71 @@ import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
 import {
   Bookmark,
-  Share,
-  Forward,
-  Delete,
-  PlayArrow,
-  Create,
   ShowChart,
-  MoreHoriz
+  MoreHoriz,
+  Add 
 } from '@material-ui/icons';
-import { ContentListItem } from '../LandingPage/ContentListItem';
-import MainContent from '../LandingPage/MainContent';
+import {SessionListT, DraftsListT} from './types'; 
+import { ContentListItem } from '../ListItem';
+import {MainContent} from '../MainContent';
 import { Button } from '../Button';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'left',
     color: theme.palette.text.primary
   },
-  card: {
-    minWidth: 275
-  },
-  title: {
-    fontSize: 20
+  buttonRows: {
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center'
+
   }
 }));
-const sessionOverflowItems = [
-  { title: 'Share', icon: Share, callback: null },
-  { title: 'Clone', icon: Forward, callback: null },
-  { title: 'Delete', icon: Delete, callback: null }
-];
-const draftOverflowItems = [
-  { title: 'Run', icon: PlayArrow, callback: null },
-  { title: 'Edit', icon: Create, callback: null },
-  { title: 'Delete', icon: Delete, callback: null }
-];
-export const RecentsPage = ({ sessionsList, draftsList }) => {
+const RecentsPagePropsT = {
+  sessionsList: SessionListT, 
+  draftsList: DraftsListT
+}
+export const RecentsPage = ({ sessionsList, draftsList }: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
     <MainContent>
-      <div className={classes.root}>
-        <Grid container spacing={2}>
+     
+        
           <Grid item xs={6}>
             <Paper className={classes.paper} elevation={0}>
+              <div className = {classes.buttonRows}>
               <Typography variant="h5" align="left">
-                <ShowChart /> Drafts
+                <ShowChart /> Drafts  
               </Typography>
+              <Button icon={<Add />}  variant="primary">
+                Create a new graph
+                </Button>  
+             
+              
+              </div>
 
               <List>
-                {draftsList.map(({ itemTitle, itemType, itemDate }) => (
+                {draftsList.map(({ itemIcon, itemTitle, itemType, dateCreated,callback, secondaryActions}, index) => (
                   <ContentListItem
+                    key = {index}
                     itemTitle={itemTitle}
-                    itemIcon={ShowChart}
-                    itemDate={itemDate}
+                    itemIcon={itemIcon}
                     itemType={itemType}
-                    overflowitems={draftOverflowItems}
+                    dateCreated={dateCreated}
+                    callback = {callback}
+                    
+                    secondaryActions={secondaryActions}
                   />
                 ))}
               </List>
+              <div className = {classes.buttonRows}>
               <Button icon={<MoreHoriz />} variant="minimal">
                 More
               </Button>
+             
+            </div>
             </Paper>
           </Grid>
 
@@ -78,25 +79,28 @@ export const RecentsPage = ({ sessionsList, draftsList }) => {
 
               <List>
                 {sessionsList.map(
-                  ({ itemIcon, itemTitle, itemType, itemDate, status }) => (
+                  ({ itemIcon, itemTitle, status, itemType, dateCreated,callback,secondaryActions}, index) => (
                     <ContentListItem
+                      key = {index}
                       itemIcon={itemIcon}
                       itemTitle={itemTitle}
                       itemType={itemType}
-                      itemDate={itemDate}
+                      dateCreated={dateCreated}
                       status={status}
-                      overflowitems={sessionOverflowItems}
-                    />
+                      callback = {callback}
+                      secondaryActions = {secondaryActions}
+                     />
                   )
                 )}
               </List>
               <Button icon={<MoreHoriz />} variant="minimal">
                 More
               </Button>
+             
             </Paper>
           </Grid>
-        </Grid>
-      </div>
+     
+     
     </MainContent>
   );
 };

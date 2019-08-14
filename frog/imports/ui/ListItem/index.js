@@ -27,12 +27,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type ContentListItemPropsT = {
-  itemTitle: string,
+  itemTitle?: string,
   itemIcon: React.ComponentType<*>,
+  status?: 'Ready' | 'Running' | 'Complete',
   itemType: string,
   dateCreated: string,
-  status?: 'Ready' | 'Running' | 'Complete',
-  overflowitems: Array<{
+  callback: () => void, 
+  secondaryActions: Array<{
     title: string,
     icon: React.ComponentType<*>,
     callback?: () => void
@@ -41,13 +42,14 @@ type ContentListItemPropsT = {
 export const ContentListItem = ({
   itemTitle,
   itemIcon,
-  itemType,
-  dateCreated,
-  status,
-  overflowitems,
-  callback
+  status, 
+  itemType, 
+  dateCreated, 
+  callback, 
+  secondaryActions
+
 }: ContentListItemPropsT) => {
-  const Icon = itemIcon;
+  const Icon = itemIcon || "div";
   const classes = useStyles();
 
   return (
@@ -71,10 +73,10 @@ export const ContentListItem = ({
       </Typography>
       <ListItemSecondaryAction>
         <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
-          {overflowitems.map((item, index) => {
-            const ListIcon = item.icon;
+          {secondaryActions.map((item, index) => {
+           const ListIcon = item.icon
             return (
-              <RowButton key={index} icon={<ListIcon fontSize="small" />}>
+              <RowButton key={index} icon={<ListIcon />}>
                 {item.title}
               </RowButton>
             );
