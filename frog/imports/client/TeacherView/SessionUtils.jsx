@@ -148,6 +148,16 @@ const SessionUtils = ({
     openSettings
   );
 
+  let root = Meteor.absoluteUrl();
+  if (root.slice(-1) === '/') {
+    root = root.slice(0, -1);
+  }
+  let learnRoot;
+  if (root === 'http://localhost:3000') {
+    learnRoot = 'http://learn.chilifrog-local.com:3000';
+  } else {
+    learnRoot = 'https://learn.chilifrog.com';
+  }
   return (
     <Grid container alignItems="center">
       <Grid item xs={4} className={classes.textCenter}>
@@ -165,11 +175,7 @@ const SessionUtils = ({
           {session?.settings?.loginByName !== false && (
             <>
               {' '}
-              -{' '}
-              <a href={`${Meteor.absoluteUrl()}${session.slug}`}>
-                {' '}
-                Student login link
-              </a>
+              - <a href={`${learnRoot}/${session.slug}`}> Student login link</a>
             </>
           )}
         </Typography>
