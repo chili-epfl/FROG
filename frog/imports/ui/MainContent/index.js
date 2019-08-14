@@ -2,7 +2,6 @@
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 
-
 type MainContentPropsT = {
   title?: string,
   action?: string,
@@ -11,17 +10,11 @@ type MainContentPropsT = {
 };
 
 export const MainContent = ({ children }: MainContentPropsT) => {
-
-
   return (
-   
-      <Grid container spacing = {3}>
-        
-          {children}
-        
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        {children}
       </Grid>
-
+    </Grid>
   );
 };
-
-

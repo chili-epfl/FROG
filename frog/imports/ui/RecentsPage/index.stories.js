@@ -4,17 +4,15 @@ import {
   Bookmark,
   Bookmarks,
   ShowChart,
-  Share, 
-  Forward, 
+  Share,
+  Forward,
   Delete,
-  PlayArrow, 
+  PlayArrow,
   Create
-
 } from '@material-ui/icons';
 import { storiesOf } from '@storybook/react';
 import { DashboardSideBar } from '../DashboardSideBar';
 import { RecentsPage } from '.';
-
 
 const overflowitems = [
   { title: 'Share', icon: Share, callback: null },
@@ -32,8 +30,8 @@ const sessionsList = [
     itemTitle: 'Session 1 ',
     status: 'Ready',
     itemType: 'Custom graph',
-    dateCreated: '21/07/2019', 
-    callback: null, 
+    dateCreated: '21/07/2019',
+    callback: null,
     secondaryActions: overflowitems
   },
   {
@@ -42,7 +40,7 @@ const sessionsList = [
     status: 'Complete',
     itemType: 'Peer review template',
     dateCreated: '1/08/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitems
   },
   {
@@ -51,7 +49,7 @@ const sessionsList = [
     status: 'Running',
     itemType: 'Chat',
     dateCreated: '21/07/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitems
   },
   {
@@ -60,7 +58,7 @@ const sessionsList = [
     status: 'Ready',
     itemType: 'Custom graph',
     dateCreated: '21/07/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitems
   },
   {
@@ -69,7 +67,7 @@ const sessionsList = [
     status: 'Complete',
     itemType: 'Peer review template',
     dateCreated: '1/08/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitems
   },
   {
@@ -78,16 +76,17 @@ const sessionsList = [
     status: 'Running',
     itemType: 'Chat',
     dateCreated: '21/07/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitems
   }
 ];
 const draftsList = [
-  {  itemIcon: ShowChart, 
+  {
+    itemIcon: ShowChart,
     itemTitle: 'Draft 1',
     itemType: 'Custom graph 1 ',
     dateCreated: '5/08/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitemsdraft
   },
   {
@@ -95,7 +94,7 @@ const draftsList = [
     itemTitle: 'Draft 2',
     itemType: 'Custom graph 2',
     dateCreated: '5/08/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitemsdraft
   },
   {
@@ -103,38 +102,44 @@ const draftsList = [
     itemTitle: 'Draft 3',
     itemType: 'Custom graph 432',
     dateCreated: '5/08/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitemsdraft
   },
-  { itemIcon: ShowChart,
-    itemTitle: 'Draft 4', itemType: 'Some graph', dateCreated: '5/08/2019',
-  callback: null, 
-  secondaryActions: overflowitemsdraft },
-  {itemIcon: ShowChart,
+  {
+    itemIcon: ShowChart,
+    itemTitle: 'Draft 4',
+    itemType: 'Some graph',
+    dateCreated: '5/08/2019',
+    callback: null,
+    secondaryActions: overflowitemsdraft
+  },
+  {
+    itemIcon: ShowChart,
     itemTitle: 'Draft 5',
     itemType: 'Custom graph dev test',
     dateCreated: '5/08/2019',
-    callback: null, 
+    callback: null,
     secondaryActions: overflowitemsdraft
   },
-  { itemIcon: ShowChart,
-    itemTitle: 'Draft 6', 
+  {
+    itemIcon: ShowChart,
+    itemTitle: 'Draft 6',
     itemType: 'G1',
     dateCreated: '5/08/2019',
-   callback: null , 
-   secondaryActions: overflowitemsdraft
+    callback: null,
+    secondaryActions: overflowitemsdraft
   }
 ];
 
 const Wrapper = () => {
   return (
-  
     <DashboardSideBar>
-      <RecentsPage sessionsList = {sessionsList} draftsList = {draftsList} />
+      <RecentsPage sessionsList={sessionsList} draftsList={draftsList} />
     </DashboardSideBar>
-
   );
 };
 
-
-storiesOf('Recents View with sidebar ', module).add('recents-page-with-sidebar', () => <Wrapper />);
+storiesOf('Recents View with sidebar ', module).add(
+  'recents-page-with-sidebar',
+  () => <Wrapper />
+);

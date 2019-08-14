@@ -1,15 +1,10 @@
+// @flow
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
-import {
-  Bookmark,
-  ShowChart,
-  MoreHoriz,
-  Add 
-} from '@material-ui/icons';
-import {SessionListT, DraftsListT} from './types'; 
+import { Bookmark, ShowChart, MoreHoriz, Add } from '@material-ui/icons';
+import { SessionListT, DraftsListT } from '../Types/types';
 import { ContentListItem } from '../ListItem';
-import {MainContent} from '../MainContent';
 import { Button } from '../Button';
 
 const useStyles = makeStyles(theme => ({
@@ -19,88 +14,104 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary
   },
   buttonRows: {
-    display: 'flex', 
-    justifyContent: 'space-between', 
+    display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center'
-
   }
 }));
 const RecentsPagePropsT = {
-  sessionsList: SessionListT, 
+  sessionsList: SessionListT,
   draftsList: DraftsListT
-}
-export const RecentsPage = ({ sessionsList, draftsList }: RecentsPagePropsT) => {
+};
+export const RecentsPage = ({
+  sessionsList,
+  draftsList
+}: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
-    <MainContent>
-     
-        
-          <Grid item xs={6}>
-            <Paper className={classes.paper} elevation={0}>
-              <div className = {classes.buttonRows}>
-              <Typography variant="h5" align="left">
-                <ShowChart /> Drafts  
-              </Typography>
-              <Button icon={<Add />}  variant="primary">
-                Create a new graph
-                </Button>  
-             
-              
-              </div>
+    <Grid container spacing={3}>
+      <Grid item xs={6}>
+        <Paper className={classes.paper} elevation={0}>
+          <div className={classes.buttonRows}>
+            <Typography variant="h5" align="left">
+              <ShowChart /> Drafts
+            </Typography>
+            <Button icon={<Add />} variant="primary">
+              Create a new graph
+            </Button>
+          </div>
 
-              <List>
-                {draftsList.map(({ itemIcon, itemTitle, itemType, dateCreated,callback, secondaryActions}, index) => (
-                  <ContentListItem
-                    key = {index}
-                    itemTitle={itemTitle}
-                    itemIcon={itemIcon}
-                    itemType={itemType}
-                    dateCreated={dateCreated}
-                    callback = {callback}
-                    
-                    secondaryActions={secondaryActions}
-                  />
-                ))}
-              </List>
-              <div className = {classes.buttonRows}>
-              <Button icon={<MoreHoriz />} variant="minimal">
-                More
-              </Button>
-             
-            </div>
-            </Paper>
-          </Grid>
+          <List>
+            {draftsList.map(
+              (
+                {
+                  itemIcon,
+                  itemTitle,
+                  itemType,
+                  dateCreated,
+                  callback,
+                  secondaryActions
+                },
+                index
+              ) => (
+                <ContentListItem
+                  key={index}
+                  itemTitle={itemTitle}
+                  itemIcon={itemIcon}
+                  itemType={itemType}
+                  dateCreated={dateCreated}
+                  callback={callback}
+                  secondaryActions={secondaryActions}
+                />
+              )
+            )}
+          </List>
+          <div className={classes.buttonRows}>
+            <Button icon={<MoreHoriz />} variant="minimal">
+              More
+            </Button>
+          </div>
+        </Paper>
+      </Grid>
 
-          <Grid item xs={6}>
-            <Paper className={classes.paper} elevation={0}>
-              <Typography variant="h5">
-                <Bookmark /> Sessions
-              </Typography>
+      <Grid item xs={6}>
+        <Paper className={classes.paper} elevation={0}>
+          <Typography variant="h5">
+            <Bookmark /> Sessions
+          </Typography>
 
-              <List>
-                {sessionsList.map(
-                  ({ itemIcon, itemTitle, status, itemType, dateCreated,callback,secondaryActions}, index) => (
-                    <ContentListItem
-                      key = {index}
-                      itemIcon={itemIcon}
-                      itemTitle={itemTitle}
-                      itemType={itemType}
-                      dateCreated={dateCreated}
-                      status={status}
-                      callback = {callback}
-                      secondaryActions = {secondaryActions}
-                     />
-                  )
-                )}
-              </List>
-              <Button icon={<MoreHoriz />} variant="minimal">
-                More
-              </Button>
-             
-            </Paper>
-          </Grid>
-     
-     
-    </MainContent>
+          <List>
+            {sessionsList.map(
+              (
+                {
+                  itemIcon,
+                  itemTitle,
+                  status,
+                  itemType,
+                  dateCreated,
+                  callback,
+                  secondaryActions
+                },
+                index
+              ) => (
+                <ContentListItem
+                  key={index}
+                  itemIcon={itemIcon}
+                  itemTitle={itemTitle}
+                  itemType={itemType}
+                  dateCreated={dateCreated}
+                  status={status}
+                  callback={callback}
+                  secondaryActions={secondaryActions}
+                />
+              )
+            )}
+          </List>
+          <Button icon={<MoreHoriz />} variant="minimal">
+            More
+          </Button>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };

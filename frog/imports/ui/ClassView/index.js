@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -11,10 +12,9 @@ import {
   Button
 } from '@material-ui/core';
 import { Bookmark, ChromeReaderMode } from '@material-ui/icons';
-import {SessionListT } from '../RecentsPage/types'; 
+import { SessionListT } from '../Types/types';
 import { ContentListItem } from '../ListItem';
-import {MainContent} from '../MainContent';
-
+import { MainContent } from '../MainContent';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,10 +38,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type ClassViewPropsT = {
-  sessionsList: SessionListT, 
-  wikiInfo: {title: string, pagesCount: number}, 
-  numberOfStudents: number 
-}
+  sessionsList: SessionListT,
+  wikiInfo: { title: string, pagesCount: number },
+  numberOfStudents: number
+};
 export const ClassView = ({
   sessionsList,
   wikiInfo,
@@ -59,18 +59,31 @@ export const ClassView = ({
               </Typography>
 
               <List className={classes.list}>
-                {sessionsList.map(({ itemIcon,itemTitle, status, itemType, dateCreated, callback, secondaryActions}, index) => (
-                  <ContentListItem
-                    key = {index}
-                    itemTitle={itemTitle}
-                    itemIcon={itemIcon}
-                    status={status}
-                    itemType = {itemType}
-                    dateCreated = {dateCreated}
-                    secondaryActions={secondaryActions}
-                    callback = {callback}
-                  />
-                ))}
+                {sessionsList.map(
+                  (
+                    {
+                      itemIcon,
+                      itemTitle,
+                      status,
+                      itemType,
+                      dateCreated,
+                      callback,
+                      secondaryActions
+                    },
+                    index
+                  ) => (
+                    <ContentListItem
+                      key={index}
+                      itemTitle={itemTitle}
+                      itemIcon={itemIcon}
+                      status={status}
+                      itemType={itemType}
+                      dateCreated={dateCreated}
+                      secondaryActions={secondaryActions}
+                      callback={callback}
+                    />
+                  )
+                )}
               </List>
             </Paper>
           </Grid>

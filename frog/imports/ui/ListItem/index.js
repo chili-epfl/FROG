@@ -32,7 +32,7 @@ type ContentListItemPropsT = {
   status?: 'Ready' | 'Running' | 'Complete',
   itemType: string,
   dateCreated: string,
-  callback: () => void, 
+  callback: () => void,
   secondaryActions: Array<{
     title: string,
     icon: React.ComponentType<*>,
@@ -42,14 +42,13 @@ type ContentListItemPropsT = {
 export const ContentListItem = ({
   itemTitle,
   itemIcon,
-  status, 
-  itemType, 
-  dateCreated, 
-  callback, 
+  status,
+  itemType,
+  dateCreated,
+  callback,
   secondaryActions
-
 }: ContentListItemPropsT) => {
-  const Icon = itemIcon || "div";
+  const Icon = itemIcon || 'div';
   const classes = useStyles();
 
   return (
@@ -74,7 +73,7 @@ export const ContentListItem = ({
       <ListItemSecondaryAction>
         <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
           {secondaryActions.map((item, index) => {
-           const ListIcon = item.icon
+            const ListIcon = item.icon;
             return (
               <RowButton key={index} icon={<ListIcon />}>
                 {item.title}
