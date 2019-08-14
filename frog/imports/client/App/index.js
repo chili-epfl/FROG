@@ -292,13 +292,7 @@ const FROGRouter = withRouter(
     };
 
     render() {
-      if (window.location.hostname.slice(0, 6) === 'learn.') {
-        return (
-          <div>
-            You are logged in as {getUsername()}. <h1>Enter SLUG</h1>
-          </div>
-        );
-      }
+      const learnUrl = window.location.hostname.slice(0, 6) === 'learn.';
       const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
         return <h1>Too late to join this session</h1>;
@@ -309,7 +303,12 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && user) {
-        return (
+        return learnUrl ? (
+          <Switch>
+            <Route path="/:slug" component={StudentView} />
+            <Route path="/" exact render={() => <h1>Please enter SLUG</h1>} />
+          </Switch>
+        ) : (
           <Switch>
             <Route path="/duplicate" component={SingleActivity} />
             <Route path="/wiki" component={WikiRouter} />
@@ -317,14 +316,7 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/t/:slug" component={TeacherContainer} />
             <Route path="/t" component={TeacherContainer} />
-            <Route path="/:slug" component={StudentView} />
-            <Route
-              path="/"
-              exact
-              render={() =>
-                LocalSettings.follow ? <StudentView /> : <SingleActivity />
-              }
-            />
+            <Route path="/" render={() => <SingleActivity />} />
           </Switch>
         );
       }
@@ -335,7 +327,8 @@ const FROGRouter = withRouter(
         return <h1>No such session exists</h1>;
       }
       return (
-        this.state.mode === 'studentlist' && (
+        this.state.mode === 'studentlist' &&
+        learnUrl && (
           <StudentLogin
             settings={this.state.settings}
             login={this.login}
