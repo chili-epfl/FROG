@@ -20,11 +20,12 @@ import {
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
-
+import { DashboardRouter } from '/imports/client/UserDashboard/DashboardRouter';
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
+import { RootSwitcher } from './RootSwitcher';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
@@ -324,7 +325,11 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/t/:slug" component={TeacherContainer} />
             <Route path="/t" component={TeacherContainer} />
-            <Route path="/" render={() => <SingleActivity />} />
+            <Route path="/dashboard" component={<DashboardRouter />} />
+            <Route
+              path="/"
+              render={({ history }) => <RootSwitcher history={history} />}
+            />
           </Switch>
         );
       }

@@ -16,9 +16,23 @@ import { TopBar } from '../TopBar';
 import { Breadcrumb } from '../Breadcrumb';
 
 type DashBoardSideBarPropsT = {
-  children: React.Node | React.Node[]
+  children: React.Node | React.Node[],
+  callbackSessionsView: () => void,
+  callbackDraftsView: () => void,
+  callbackRecentsView: () => void,
+  sessionsActive: boolean,
+  draftsActive: boolean,
+  recentsActive: boolean
 };
-export const DashboardSideBar = ({ children }: DashBoardSideBarPropsT) => {
+export const DashboardSideBar = ({
+  callbackRecentsView,
+  callbackSessionsView,
+  callbackDraftsView,
+  sessionsActive,
+  draftsActive,
+  recentsActive,
+  children
+}: DashBoardSideBarPropsT) => {
   return (
     <>
       <SidebarLayout
@@ -33,11 +47,29 @@ export const DashboardSideBar = ({ children }: DashBoardSideBarPropsT) => {
             footer={<RowButton active> Create using Wizard </RowButton>}
           >
             <Panel>
-              <RowButton active icon={<AccessTimeOutlined />}>
+              <RowButton
+                onClick={callbackRecentsView}
+                active={recentsActive}
+                icon={<AccessTimeOutlined />}
+              >
                 Recents
               </RowButton>
-              <RowButton icon={<Bookmark />}> Sessions </RowButton>
-              <RowButton icon={<ShowChart />}> Drafts </RowButton>
+              <RowButton
+                icon={<Bookmark />}
+                active={sessionsActive}
+                onClick={callbackSessionsView}
+              >
+                {' '}
+                Sessions{' '}
+              </RowButton>
+              <RowButton
+                icon={<ShowChart />}
+                active={draftsActive}
+                onClick={callbackDraftsView}
+              >
+                {' '}
+                Drafts{' '}
+              </RowButton>
               <RowTitle> Classes </RowTitle>
               <Panel>
                 <RowButton icon={<ChromeReaderMode />}>PHYS 117 </RowButton>
