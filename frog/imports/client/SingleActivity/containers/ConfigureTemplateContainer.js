@@ -3,13 +3,14 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 
+import { CircularProgress } from '@material-ui/core';
 import { NavigateNext, NavigateBefore } from '@material-ui/icons';
 
 import ApiForm from '/imports/client/GraphEditor/SidePanel/ApiForm';
 import { Button } from '/imports/ui/Button';
 import { TopBar } from '/imports/ui/TopBar';
 
-import { store, type TemplateListingT, getTemplates } from '../store';
+import { store } from '../store';
 import { ConfigureTemplate } from '../components/steps/ConfigureTemplate';
 
 export const ConfigureTemplateContainer = observer(() => {
@@ -50,6 +51,7 @@ export const ConfigureTemplateContainer = observer(() => {
               onClick={() => {
                 store.prevStep();
               }}
+              disabled={store.loading}
             >
               Back
             </Button>
@@ -57,11 +59,17 @@ export const ConfigureTemplateContainer = observer(() => {
           actions={
             <Button
               variant="primary"
-              rightIcon={<NavigateNext />}
-              disabled={
-                store.templateConfig?.error &&
-                !!store.templateConfig?.errors.length
+              rightIcon={
+                store.loading ? <CircularProgress /> : <NavigateNext />
               }
+              disabled={
+                store.loading ||
+                (store.templateConfig?.error &&
+                  !!store.templateConfig?.errors.length)
+              }
+              onClick={() => {
+                store.createSession();
+              }}
             >
               Create
             </Button>

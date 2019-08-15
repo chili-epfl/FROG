@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { Clear } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 
 import { ItemGrid } from '/imports/ui/ItemGrid';

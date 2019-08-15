@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 
-import { Clear, ArrowBack } from '@material-ui/icons';
+import { Clear } from '@material-ui/icons';
 
 import { Logo } from '/imports/ui/Logo';
 import { Button } from '/imports/ui/Button';

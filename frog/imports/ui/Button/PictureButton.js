@@ -106,7 +106,7 @@ export const PictureButton = (props: PictureButtonProps) => {
       style={{ height: props.height }}
     >
       <span className={classes.hover} />
-      <img className={classes.img} src={props.src} />
+      <img className={classes.img} src={props.src} alt="" />
       <div className={classes.row}>
         {props.icon && <div className={classes.icon}>{props.icon}</div>}
         {props.children && (

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   root: {
     width: '100%',
     display: 'grid',

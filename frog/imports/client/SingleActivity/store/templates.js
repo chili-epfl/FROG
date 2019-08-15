@@ -1,6 +1,6 @@
 // @flow
-import { activityTypes, activityTypesObj } from '/imports/activityTypes';
-import { templateTypes, templatesObj } from '/imports/internalTemplates';
+import { activityTypes } from '/imports/activityTypes';
+import { templateTypes } from '/imports/internalTemplates';
 
 // You can add the permitted activities for the single activity here
 const availableSingleActivities = [
