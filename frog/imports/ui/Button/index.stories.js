@@ -5,9 +5,9 @@ import { storiesOf } from '@storybook/react';
 import { PlayArrow, ArrowDropDown } from '@material-ui/icons';
 
 import { Button } from '.';
-import { StorybookContainer } from '../StorybookContainer';
+import { StorybookContainer } from '/imports/ui/StorybookContainer';
 
-storiesOf('Button', module)
+storiesOf('UI/Button', module)
   .add('with text only', () => (
     <StorybookContainer padding={16}>
       <Button>Hello World!</Button>

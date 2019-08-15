@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import { StorybookContainer } from '.';
 
-storiesOf('StorybookContainer', module)
+storiesOf('UI/StorybookContainer', module)
   .add('simple', () => (
     <StorybookContainer width={500} height={200}>
       <div>Hello World!</div>

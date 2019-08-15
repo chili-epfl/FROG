@@ -45,7 +45,7 @@ const ToastWrapper = (props: { actions?: ActionT[] }) => {
   );
 };
 
-storiesOf('Toast', module)
+storiesOf('UI/Toast', module)
   .addDecorator(storyFn => <ToastController>{storyFn()}</ToastController>)
   .add('simple', () => <ToastWrapper />)
   .add('withActions', () => (

@@ -86,7 +86,7 @@ const largeNumberofSessions = [
   { itemTitle: 'Wednesday', status: 'Running' },
   { itemTitle: 'Friday', status: 'Complete' }
 ];
-storiesOf('Sessions view', module).add('MainContent', () => (
+storiesOf('App/Dashboard/Sessions view', module).add('MainContent', () => (
   <MainContent title="My Sessions" action="Some action">
     <List>
       {itemList.map(({ itemTitle, status }, key) => (
@@ -103,7 +103,7 @@ storiesOf('Sessions view', module).add('MainContent', () => (
     </List>
   </MainContent>
 ));
-storiesOf('Drafts view', module).add('MainContent', () => (
+storiesOf('App/Dashboard/Drafts view', module).add('MainContent', () => (
   <MainContent title="My drafts" action="Create new graph">
     <List>
       {itemListDrafts.map(({ itemTitle }) => (
@@ -117,7 +117,7 @@ storiesOf('Drafts view', module).add('MainContent', () => (
   </MainContent>
 ));
 
-storiesOf('Class view', module).add('MainContent', () => (
+storiesOf('App/Dashboard/Class view', module).add('MainContent', () => (
   <ClassView
     sessionsList={itemListClasses}
     wikiInfo={{ title: 'Class discussions and notes', pagesCount: '9' }}
@@ -125,7 +125,7 @@ storiesOf('Class view', module).add('MainContent', () => (
     numberOfStudents={30}
   />
 ));
-storiesOf('Class view', module).add('Lots of sessions', () => (
+storiesOf('App/Dashboard/Class view', module).add('Lots of sessions', () => (
   <ClassView
     sessionsList={largeNumberofSessions}
     wikiInfo={{ title: 'Class discussions and notes', pagesCount: '9' }}
