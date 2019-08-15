@@ -33,13 +33,12 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
             mapItem={item => (
               <PictureButton
                 key={item.id}
-                height="150px"
-                src={item.imageSrc}
+                text={item.name}
                 onClick={() => {
                   props.onSelect(item);
                 }}
               >
-                {item.name}
+                <img src={item.imageSrc} alt="" />
               </PictureButton>
             )}
           />

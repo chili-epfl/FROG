@@ -36,9 +36,13 @@ class Store {
   };
 
   @action
+  setLoading = (loading: boolean) => {
+    this.loading = loading;
+  };
+
   createSession = () => {
+    this.setLoading(true);
     if (this.templateConfig) {
-      this.loading = true;
       Meteor.call(
         'create.graph.from.activity',
         this.templateConfig.activityType,
@@ -46,7 +50,7 @@ class Store {
         3,
         (err, result) => {
           if (err) {
-            this.loading = false;
+            this.setLoading(false);
             window.alert('Could not create your activity, please try later.');
           } else {
             const slug = result.slug;

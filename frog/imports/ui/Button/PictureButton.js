@@ -11,52 +11,16 @@ const useStyle = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     color: '#333',
     overflow: 'hidden',
-
-    '&.variant-default': {
-      border: '1px solid #EAEAEA'
-    },
-    '&.variant-minimal': {},
-    '&.variant-primary': {
-      color: 'white',
-      background: '#31BFAE'
-    },
+    border: '1px solid #EAEAEA',
 
     '&.disabled': {
       opacity: 0.5
     }
   },
-  img: {
-    flexGrow: 1
-  },
-  row: {
-    padding: theme.spacing(0, 1, 0, 0),
-
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    textAlign: 'start',
-
-    '.size-default &': {
-      height: '32px'
-    },
-    '.size-large &': {
-      height: '48px'
-    }
-  },
-  icon: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: theme.spacing(1)
-  },
-  rightIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: theme.spacing(1)
-  },
   text: {
-    fontSize: '14px',
-    lineHeight: 1,
-    marginLeft: theme.spacing(1)
+    width: '100%',
+    textAlign: 'center',
+    padding: theme.spacing(1)
   },
   hover: {
     position: 'absolute',
@@ -76,47 +40,30 @@ const useStyle = makeStyles(theme => ({
 }));
 
 type PictureButtonProps = {
-  height?: string,
-  src?: string,
   disabled?: boolean,
-  variant?: 'default' | 'minimal' | 'primary',
-  size?: 'default' | 'large',
-  icon?: React.Element<*>,
-  rightIcon?: React.Element<*>,
   text?: string,
   onClick?: (e: Event) => void,
-  children?: string
+  children?: React.Element<*>
 };
 
 export const PictureButton = (props: PictureButtonProps) => {
   const classes = useStyle();
 
-  const { variant, size, disabled } = props;
+  const { disabled } = props;
 
   return (
     <ButtonBase
       className={`
         ${classes.root} 
-        variant-${variant || 'default'} 
-        size-${size || 'default'}
         ${disabled ? 'disabled' : 'active'}
       `}
       disabled={disabled}
       onClick={props.onClick}
-      style={{ height: props.height }}
     >
       <span className={classes.hover} />
-      <img className={classes.img} src={props.src} alt="" />
-      <div className={classes.row}>
-        {props.icon && <div className={classes.icon}>{props.icon}</div>}
-        {props.children && (
-          <Typography className={classes.text} variant="body1">
-            {props.children}
-          </Typography>
-        )}
-        {props.rightIcon && (
-          <div className={classes.rightIcon}>{props.rightIcon}</div>
-        )}
+      {props.children}
+      <div className={classes.text}>
+        <Typography>{props.text}</Typography>
       </div>
     </ButtonBase>
   );

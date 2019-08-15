@@ -3,12 +3,12 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 
-import { CircularProgress } from '@material-ui/core';
 import { NavigateNext, NavigateBefore } from '@material-ui/icons';
 
 import ApiForm from '/imports/client/GraphEditor/SidePanel/ApiForm';
 import { Button } from '/imports/ui/Button';
 import { TopBar } from '/imports/ui/TopBar';
+import { Progress } from '/imports/ui/Progress';
 
 import { store } from '../store';
 import { ConfigureTemplate } from '../components/steps/ConfigureTemplate';
@@ -60,7 +60,7 @@ export const ConfigureTemplateContainer = observer(() => {
             <Button
               variant="primary"
               rightIcon={
-                store.loading ? <CircularProgress /> : <NavigateNext />
+                store.loading ? <Progress size="small" /> : <NavigateNext />
               }
               disabled={
                 store.loading ||
