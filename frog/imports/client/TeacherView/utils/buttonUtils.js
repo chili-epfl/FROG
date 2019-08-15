@@ -42,6 +42,12 @@ const throttledNext = sessionId => {
   nextActivity(sessionId);
 };
 
+const url = Meteor.absoluteUrl();
+const learnUrl =
+  url === 'http://localhost:3000/'
+    ? 'http://learn.chilifrog-local.com:3000'
+    : 'https://learn.chilifrog.ch';
+
 export const OrchestrationButtonsModel = (session, classes) => ({
   start: {
     tooltip: {
@@ -223,7 +229,7 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () =>
         window.open(
-          `/${session.slug}?followLogin=Chen Li&follow=${
+          `${learnUrl}/${session.slug}?followLogin=Chen Li&follow=${
             Meteor.user().username
           }`,
           uuid()
@@ -235,7 +241,7 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () => {
         ['Chen Li', 'Joanna', 'Marius'].forEach(x =>
-          window.open(`/${session.slug}?debugLogin=${x}`, uuid())
+          window.open(`${learnUrl}/${session.slug}?debugLogin=${x}`, uuid())
         );
       },
       text: 'Open 3 student windows'
@@ -244,7 +250,10 @@ export const SessionUtilsButtonsModel = (
   open4win: {
     button: {
       onClick: () =>
-        window.open(`/multiFollow/${Meteor.user().username}`, uuid()),
+        window.open(
+          `${learnUrl}/multiFollow/${Meteor.user().username}`,
+          uuid()
+        ),
       text: 'Open 4 students'
     }
   },
@@ -252,7 +261,10 @@ export const SessionUtilsButtonsModel = (
   open4morewin: {
     button: {
       onClick: () =>
-        window.open(`/multiFollow/${Meteor.user().username}?more=true`, uuid()),
+        window.open(
+          `${learnUrl}/multiFollow/${Meteor.user().username}?more=true`,
+          uuid()
+        ),
       text: 'Open 4 more students'
     }
   },
@@ -260,7 +272,7 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () =>
         window.open(
-          `/multiFollow/${Meteor.user().username}?layout=3+1`,
+          `${learnUrl}/multiFollow/${Meteor.user().username}?layout=3+1`,
           uuid()
         ),
       text: 'Open 3 students+teacher'
@@ -270,7 +282,7 @@ export const SessionUtilsButtonsModel = (
     button: {
       onClick: () =>
         window.open(
-          `/multiFollow/${Meteor.user().username}?layout=2+1+1`,
+          `${learnUrl}/multiFollow/${Meteor.user().username}?layout=2+1+1`,
           uuid()
         ),
       text: 'Open 2 students+teacher+projector'

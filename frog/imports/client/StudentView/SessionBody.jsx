@@ -101,7 +101,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
             className={classes.button}
             color="inherit"
             onClick={() => {
-              history.push('/' + session.slug);
+              history.push('/');
               Meteor.logout();
               Accounts._unstoreLoginToken();
               window.notReady();

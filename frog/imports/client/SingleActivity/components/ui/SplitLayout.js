@@ -15,13 +15,17 @@ const useStyle = makeStyles(theme => ({
 
 type SplitLayoutPropsT = {
   left?: React.Element<*>,
-  right?: React.Element<*>
+  right?: React.Element<*>,
+  size?: number
 };
 
 export const SplitLayout = (props: SplitLayoutPropsT) => {
   const classes = useStyle();
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{ gridTemplateColumns: `${props.size || 1}fr 1fr` }}
+    >
       <div className={classes.left}>{props.left}</div>
       <div className={classes.right}>{props.right}</div>
     </div>

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyle = makeStyles(theme => ({
   root: {
     width: '100%',
+    minHeight: '100%',
 
     display: 'grid',
     gridTemplateRows: '1fr',

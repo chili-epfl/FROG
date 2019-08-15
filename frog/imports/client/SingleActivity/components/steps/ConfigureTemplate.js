@@ -1,14 +1,16 @@
 // @flow
 
 import * as React from 'react';
+import Markdown from 'markdown-to-jsx';
 
 import { Typography } from '@material-ui/core';
+
 import { SplitLayout } from '../ui/SplitLayout';
 
 type ConfigureTemplatePropsT = {
   name: string,
+  shortDesc: string,
   description: string,
-  longDescription: string,
   children: React.Element<*>
 };
 
@@ -31,10 +33,11 @@ export const ConfigureTemplate = (props: ConfigureTemplatePropsT) => (
         textAlign: 'center'
       }}
     >
-      {props.description}
+      {props.shortDesc}
     </Typography>
     <SplitLayout
-      left={
+      left={props.children}
+      right={
         <>
           <Typography
             variant="h2"
@@ -46,10 +49,12 @@ export const ConfigureTemplate = (props: ConfigureTemplatePropsT) => (
           >
             {props.name}
           </Typography>
-          <Typography variant="body2">{props.longDescription}</Typography>
+          <Typography variant="body2">
+            <Markdown>{props.description || props.shortDesc}</Markdown>
+          </Typography>
         </>
       }
-      right={props.children}
+      size={3}
     />
   </>
 );

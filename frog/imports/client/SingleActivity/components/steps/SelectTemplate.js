@@ -35,6 +35,7 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
               <PictureButton
                 key={item.id}
                 height="150px"
+                src={item.imageSrc}
                 onClick={() => {
                   props.onSelect(item);
                 }}

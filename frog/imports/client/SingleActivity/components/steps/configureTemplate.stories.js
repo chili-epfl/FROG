@@ -8,8 +8,8 @@ import { ConfigureTemplate } from './ConfigureTemplate';
 
 const exampleConfiguration = {
   name: 'Rich Text',
-  description: 'This activity is a rich text component',
-  longDescription: 'This is a very long description. Like very very long.'
+  shortDesc: 'This activity is a rich text component',
+  description: 'This is a very long description. Like very very long.'
 };
 
 storiesOf('App/SingleActivity', module).add('configure template', () => (
