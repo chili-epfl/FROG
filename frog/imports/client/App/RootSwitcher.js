@@ -4,7 +4,7 @@ import { LandingPage } from '/imports/ui/LandingPage';
 import SingleActivity from '../SingleActivity';
 import { DashboardContentContainer } from '/imports/client/UserDashboard/containers/DashboardContentContainer';
 
-export const RootSwitcher = ({ history }) => {
+export const RootSwitcher = ({history}) => {
   switch (getUserType()) {
     case 'Anonymous':
       return <LandingPage />;

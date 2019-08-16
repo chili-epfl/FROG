@@ -23,13 +23,17 @@ const useStyles = makeStyles(theme => ({
 type RecentsPagePropsT = {
   sessionsList: SessionListT,
   draftsList: DraftsListT,
-  actionCallback: () => void
+  actionCallback: () => void,
+  moreCallbackSessions: () => void,
+  moreCallbackDrafts: () => void
 };
 
 export const RecentsPage = ({
   sessionsList,
   draftsList,
-  actionCallback
+  actionCallback,
+  moreCallbackDrafts, 
+  moreCallbackSessions
 }: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
@@ -40,7 +44,7 @@ export const RecentsPage = ({
             <Typography variant="h5" align="left">
               <ShowChart /> Drafts
             </Typography>
-            <Button icon={<Add />} callback={actionCallback} variant="primary">
+            <Button icon={<Add />} onClick={actionCallback} variant="primary">
               Create a new graph
             </Button>
           </div>
@@ -71,7 +75,7 @@ export const RecentsPage = ({
             )}
           </List>
           <div className={classes.buttonRows}>
-            <Button icon={<MoreHoriz />} variant="minimal">
+            <Button onClick = {moreCallbackDrafts} icon={<MoreHoriz />} variant="minimal">
               More
             </Button>
           </div>
@@ -111,7 +115,7 @@ export const RecentsPage = ({
               )
             )}
           </List>
-          <Button icon={<MoreHoriz />} variant="minimal">
+          <Button onClick = {moreCallbackSessions}  icon={<MoreHoriz />} variant="minimal">
             More
           </Button>
         </Paper>
