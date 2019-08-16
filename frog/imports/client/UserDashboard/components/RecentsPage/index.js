@@ -32,7 +32,7 @@ export const RecentsPage = ({
   sessionsList,
   draftsList,
   actionCallback,
-  moreCallbackDrafts, 
+  moreCallbackDrafts,
   moreCallbackSessions
 }: RecentsPagePropsT) => {
   const classes = useStyles();
@@ -75,7 +75,11 @@ export const RecentsPage = ({
             )}
           </List>
           <div className={classes.buttonRows}>
-            <Button onClick = {moreCallbackDrafts} icon={<MoreHoriz />} variant="minimal">
+            <Button
+              onClick={moreCallbackDrafts}
+              icon={<MoreHoriz />}
+              variant="minimal"
+            >
               More
             </Button>
           </div>
@@ -115,7 +119,11 @@ export const RecentsPage = ({
               )
             )}
           </List>
-          <Button onClick = {moreCallbackSessions}  icon={<MoreHoriz />} variant="minimal">
+          <Button
+            onClick={moreCallbackSessions}
+            icon={<MoreHoriz />}
+            variant="minimal"
+          >
             More
           </Button>
         </Paper>

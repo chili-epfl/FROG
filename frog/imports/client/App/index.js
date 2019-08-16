@@ -324,10 +324,7 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/t/:slug" component={TeacherContainer} />
             <Route path="/t" component={TeacherContainer} />
-            <Route
-              path="/"
-              render={(props) => <RootSwitcher {...props} />}
-            />
+            <Route path="/" render={props => <RootSwitcher {...props} />} />
           </Switch>
         );
       }

@@ -47,8 +47,8 @@ export const DashboardContentContainer = ({ history }) => {
             sessionsList={sessionsList}
             draftsList={draftsList}
             actionCallback={() => history.push('/teacher')}
-            moreCallbackSessions = {onSelectSessionsView}
-            moreCallbackDrafts = {onSelectDraftsView}
+            moreCallbackSessions={onSelectSessionsView}
+            moreCallbackDrafts={onSelectDraftsView}
           />
         );
       case 'Sessions':
@@ -63,8 +63,8 @@ export const DashboardContentContainer = ({ history }) => {
             sessionsList={sessionsList}
             draftsList={draftsList}
             actionCallback={() => history.push('/teacher')}
-            moreCallbackSessions = {onSelectSessionsView}
-            moreCallbackDrafts = {onSelectDraftsView}
+            moreCallbackSessions={onSelectSessionsView}
+            moreCallbackDrafts={onSelectDraftsView}
           />
         );
     }
