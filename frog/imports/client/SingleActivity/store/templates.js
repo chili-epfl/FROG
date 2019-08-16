@@ -1,6 +1,6 @@
 // @flow
 import { activityTypes } from '/imports/activityTypes';
-import { templateTypes } from '/imports/internalTemplates';
+import { templateTypes, templatesObj } from '/imports/internalTemplates';
 
 // You can add the permitted activities for the single activity here
 const availableSingleActivities = [
@@ -15,7 +15,6 @@ const availableSingleActivities = [
 ];
 
 export type TemplateListingT = {
-  type: 'singleActivity' | 'template',
   id: string,
   name: string,
   shortDesc: string,
@@ -27,7 +26,6 @@ export const getTemplates = (): [TemplateListingT[], TemplateListingT[]] => {
   const singleActivityListings = activityTypes
     .filter(x => availableSingleActivities.includes(x.id))
     .map(singleActivity => ({
-      type: 'singleActivity',
       id: singleActivity.id,
       name: singleActivity.meta.name,
       shortDesc: singleActivity.meta.shortDesc,
@@ -36,7 +34,6 @@ export const getTemplates = (): [TemplateListingT[], TemplateListingT[]] => {
     }));
 
   const templateListings = templateTypes.map(template => ({
-    type: 'template',
     id: template.id,
     name: template.meta.name,
     shortDesc: template.meta.shortDesc,
@@ -44,4 +41,16 @@ export const getTemplates = (): [TemplateListingT[], TemplateListingT[]] => {
   }));
 
   return [singleActivityListings, templateListings];
+};
+
+export const getTemplateById = (id: string): TemplateListingT => {
+  const data =
+    activityTypes.find(activity => activity.id === id) || templatesObj[id];
+
+  return {
+    id,
+    name: data.meta.name,
+    shortDesc: data.meta.shortDesc,
+    description: data.meta.description
+  };
 };

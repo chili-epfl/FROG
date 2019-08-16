@@ -10,11 +10,11 @@ import { Button } from '/imports/ui/Button';
 import { TopBar } from '/imports/ui/TopBar';
 import { Progress } from '/imports/ui/Progress';
 
-import { store } from '../store';
+import { store, STEP_SELECT_TEMPLATE } from '../store';
 import { ConfigureTemplate } from '../components/steps/ConfigureTemplate';
 
 export const ConfigureTemplateContainer = observer(() => {
-  const listing = store.selectedTemplateListing;
+  const listing = store.templateListing;
   if (!listing) {
     throw new Error('Listing cannot be undefined');
   }
@@ -28,7 +28,10 @@ export const ConfigureTemplateContainer = observer(() => {
       >
         <ApiForm
           activityType={listing.id}
-          onConfigChange={data => store.setTemplateConfig(data)}
+          data={store.templateConfig}
+          onConfigChange={data => {
+            store.setTemplateConfig(data.config);
+          }}
           hidePreview
           noOffset
         />
@@ -49,7 +52,7 @@ export const ConfigureTemplateContainer = observer(() => {
             <Button
               icon={<NavigateBefore />}
               onClick={() => {
-                store.prevStep();
+                store.setCurrentStep(STEP_SELECT_TEMPLATE);
               }}
               disabled={store.loading}
             >
@@ -62,11 +65,7 @@ export const ConfigureTemplateContainer = observer(() => {
               rightIcon={
                 store.loading ? <Progress size="small" /> : <NavigateNext />
               }
-              disabled={
-                store.loading ||
-                (store.templateConfig?.error &&
-                  !!store.templateConfig?.errors.length)
-              }
+              disabled={store.loading || store.templateConfig?.invalid}
               onClick={() => {
                 store.createSession();
               }}

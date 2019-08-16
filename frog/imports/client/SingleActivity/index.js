@@ -8,7 +8,7 @@ import { Clear } from '@material-ui/icons';
 import { Logo } from '/imports/ui/Logo';
 import { Button } from '/imports/ui/Button';
 
-import { store } from './store';
+import { store, STEP_SELECT_TEMPLATE, STEP_CONFIGURE_TEMPLATE } from './store';
 import { BaseLayout } from './components/ui/BaseLayout';
 import { SelectTemplateContainer } from './containers/SelectTemplateContainer';
 import { ConfigureTemplateContainer } from './containers/ConfigureTemplateContainer';
@@ -16,10 +16,10 @@ import { ConfigureTemplateContainer } from './containers/ConfigureTemplateContai
 const SingleActivity = observer(() => {
   let CurrentStep;
   switch (store.currentStep) {
-    case 0:
+    case STEP_SELECT_TEMPLATE:
       CurrentStep = SelectTemplateContainer;
       break;
-    case 1:
+    case STEP_CONFIGURE_TEMPLATE:
       CurrentStep = ConfigureTemplateContainer;
       break;
     default:
