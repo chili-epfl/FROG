@@ -1,28 +1,60 @@
 import * as React from 'react';
-import { DashboardSideBar } from '/imports/ui/DashboardSideBar';
+import { DashboardSideBar } from '../components/DashboardSideBar';
 import { store } from '../store/store';
+import { RecentsPage } from '../components/RecentsPage';
+import { DraftsPage } from '../components/DraftsPage';
+import { SessionsPage } from '../components/SessionsPage';
 
-export const DashboardContentContainer = props => {
+
+export const DashboardContentContainer = ({history}) => {
   const [selectedPage, setSelectedPage] = React.useState({
     sessionsView: false,
     draftsView: false,
-    recentsView: false
+    recentsView: true 
   });
+  const sessionsList = store.getSessionsList(); 
+  const draftsList = store.getDraftsList(); 
+ 
   const onSelectRecentsView = () => {
-    props.history.push('/recents');
     store.setActive('Recents');
-    setSelectedPage(...selectedPage, { recentsView: true });
+    setSelectedPage({ sessionsView:false, draftsView: false,  recentsView: true });
   };
   const onSelectSessionsView = () => {
-    props.history.push('/sessions');
     store.setActive('Sessions');
-    setSelectedPage(...selectedPage, { sessionsView: true });
+    setSelectedPage({ sessionsView: true, recentsView: false, draftsView: false });
   };
   const onSelectDraftsView = () => {
-    props.history.push('/drafts');
     store.setActive('Drafts');
-    setSelectedPage(...selectedPage, { draftsView: true });
+    setSelectedPage({sessionsView: false,  draftsView: true , recentsView: false });
   };
+
+  const ComponentToRender = () => {
+    switch(store.currentPage) {
+      case 'Recents': return (
+        <RecentsPage sessionsList = {sessionsList}
+        draftsList = {draftsList} actionCallback = {() => history.push('/teacher') } />
+         
+      )
+      case 'Sessions': return (
+        <SessionsPage sessionsList = {sessionsList} />
+
+      )
+
+      case 'Drafts': return (
+        <DraftsPage draftsList = {draftsList} />
+
+
+      )
+
+      default: return (
+        <RecentsPage sessionsList = {sessionsList}
+        draftsList = {draftsList} actionCallback = {() => history.push('/teacher')} />
+
+      )
+    }
+  }
+
+
 
   return (
     <DashboardSideBar
@@ -33,7 +65,7 @@ export const DashboardContentContainer = props => {
       draftsActive={selectedPage.draftsView}
       recentsActive={selectedPage.recentsView}
     >
-      {props.content}
+      <ComponentToRender/>
     </DashboardSideBar>
   );
 };

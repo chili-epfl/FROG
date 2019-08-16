@@ -133,7 +133,7 @@ const draftsList = [
 class Store {
   @observable currentPage = '';
 
-  @observable sessionsList: SessionsListT = sessionsList;
+  @observable sessionsList: SessionsListT = sessionsList ;
 
   @observable draftsList: DraftsListT = draftsList;
 

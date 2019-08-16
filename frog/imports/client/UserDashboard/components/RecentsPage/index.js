@@ -3,9 +3,9 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
 import { Bookmark, ShowChart, MoreHoriz, Add } from '@material-ui/icons';
-import { SessionListT, DraftsListT } from '../Types/types';
-import { ContentListItem } from '../ListItem';
-import { Button } from '../Button';
+import { SessionListT, DraftsListT } from '/imports/ui/Types/types';
+import { ContentListItem } from '/imports/ui/ListItem';
+import { Button } from '/imports/ui/Button';
 
 const useStyles = makeStyles(theme => ({
   paper: {

@@ -7,13 +7,13 @@ import {
   ChromeReaderMode
 } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
-import { Sidebar, Panel } from '../Sidebar';
-import { Logo } from '../Logo';
-import { SidebarLayout } from '../Layout/SidebarLayout';
-import { RowTitle } from '../RowItems/RowTitle';
-import { RowButton } from '../RowItems/RowButton';
-import { TopBar } from '../TopBar';
-import { Breadcrumb } from '../Breadcrumb';
+import { Sidebar, Panel } from '../../../../ui/Sidebar';
+import { Logo } from '../../../../ui/Logo';
+import { SidebarLayout } from '../../../../ui/Layout/SidebarLayout';
+import { RowTitle } from '../../../../ui/RowItems/RowTitle';
+import { RowButton } from '../../../../ui/RowItems/RowButton';
+import { TopBar } from '../../../../ui/TopBar';
+import { Breadcrumb } from '../../../../ui/Breadcrumb';
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],

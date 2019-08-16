@@ -2,22 +2,20 @@ import * as React from 'react';
 import { getUserType } from '/imports/api/users';
 import { LandingPage } from '/imports/ui/LandingPage';
 import SingleActivity from '../SingleActivity';
-import { DashboardRouter } from '/imports/client/UserDashboard/DashboardRouter';
+import { DashboardContentContainer } from '/imports/client/UserDashboard/containers/DashboardContentContainer';
 
 export const RootSwitcher = ({ history }) => {
   switch (getUserType()) {
     case 'Anonymous':
-      return <LandingPage />;
+      return (<LandingPage />); 
 
     case 'Verified':
-      history.push('/dashboard');
-      return <DashboardRouter />;
+      return (<DashboardContentContainer history = {history} />);
 
     case 'Legacy ':
-      history.push('/dashboard');
-      return <DashboardRouter />;
+      return (<DashboardContentContainer history = {history} />);
 
     default:
-      return <SingleActivity />;
+      return( <SingleActivity />);
   }
 };
