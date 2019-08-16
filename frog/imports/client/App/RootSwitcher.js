@@ -7,15 +7,15 @@ import { DashboardContentContainer } from '/imports/client/UserDashboard/contain
 export const RootSwitcher = ({ history }) => {
   switch (getUserType()) {
     case 'Anonymous':
-      return (<LandingPage />); 
+      return <LandingPage />;
 
     case 'Verified':
-      return (<DashboardContentContainer history = {history} />);
+      return <DashboardContentContainer history={history} />;
 
     case 'Legacy ':
-      return (<DashboardContentContainer history = {history} />);
+      return <DashboardContentContainer history={history} />;
 
     default:
-      return( <SingleActivity />);
+      return <SingleActivity />;
   }
 };

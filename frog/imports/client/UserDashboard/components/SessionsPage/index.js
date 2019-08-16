@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
-import { Bookmark} from '@material-ui/icons';
+import { Bookmark } from '@material-ui/icons';
 import { SessionListT } from '/imports/ui/Types/types';
 import { ContentListItem } from '/imports/ui/ListItem';
 
@@ -18,20 +18,15 @@ type SessionsPagePropsT = {
   sessionsList: SessionListT
 };
 
-export const SessionsPage = ({
-  sessionsList
-}: SessionsPagePropsT) => {
+export const SessionsPage = ({ sessionsList }: SessionsPagePropsT) => {
   const classes = useStyles();
   return (
     <Grid container>
       <Grid item xs={12}>
         <Paper className={classes.paper} elevation={0}>
-         
-            <Typography variant="h5" align="left">
-              <Bookmark /> Sessions
-            </Typography>
-          
-    
+          <Typography variant="h5" align="left">
+            <Bookmark /> Sessions
+          </Typography>
 
           <List>
             {sessionsList.map(
@@ -60,8 +55,6 @@ export const SessionsPage = ({
           </List>
         </Paper>
       </Grid>
-
-    
     </Grid>
   );
 };
