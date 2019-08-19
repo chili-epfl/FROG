@@ -42,22 +42,16 @@ const getSessionStatus = (session): meteorSessionObjectT => {
   else if (session.state === 'FINISHED') return 'Complete';
 };
 
+const getSessionTitle = (session): meteorSessionObjectT => {
+  if (session.singleActivity) return session.simpleConfig.activityType;
+  else if (session.template) return session.simpleConfig.activityType;
+  else return session.name;
+};
+
 const getSessionTypeInfo = (session): meteorSessionObjectT => {
-  if (session.singleActivity)
-    return (
-      'Single Activity: ' +
-      session.simpleConfig.activityType +
-      '  | Slug: ' +
-      session.slug
-    );
-  else if (session.template)
-    return (
-      'Template : ' +
-      session.simpleConfig.activityType +
-      '  | Slug: ' +
-      session.slug
-    );
-  else return 'Graph | Slug: ' + session.slug;
+  if (session.singleActivity) return `Single Activity | Slug: ${session.slug}`;
+  else if (session.template) return `Template | Slug: ${session.slug}`;
+  else return `Graph | Slug: ${session.slug}`;
 };
 
 export const parseDraftData = (
@@ -84,7 +78,7 @@ export const parseSessionData = (
   sessionsList.map(item => {
     resArray.push({
       itemIcon: getSessionIcon(item),
-      itemTitle: item.name,
+      itemTitle: getSessionTitle(item),
       status: getSessionStatus(item),
       itemType: getSessionTypeInfo(item),
       dateCreated: parseEpocDate(item.startedAt),
