@@ -4,7 +4,6 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
   Edit,
-  ArrowDropDown,
   Pause,
   SkipNext,
   SupervisedUserCircle,
@@ -37,9 +36,15 @@ const SimpleWrapper = () => {
               </RowButton>
             </>
           }
+          footer={
+            <Panel>
+              <RowTitle>Instructions</RowTitle>
+              <div style={{ height: '300px' }} />
+            </Panel>
+          }
         >
           <Panel>
-            <RowTitle>Activities</RowTitle>
+            <RowTitle>Steps</RowTitle>
             <RowButton
               icon={<ActivityStatus status="completed" />}
               rightIcon={<NavigateNext fontSize="small" />}
@@ -68,30 +73,6 @@ const SimpleWrapper = () => {
               disabled
             >
               Reflect
-            </RowButton>
-          </Panel>
-          <Panel>
-            <RowTitle>Students - by group</RowTitle>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group A
-            </RowButton>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group B
-            </RowButton>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group C
-            </RowButton>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group D
-            </RowButton>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group E
-            </RowButton>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group F
-            </RowButton>
-            <RowButton icon={<ArrowDropDown fontSize="small" />}>
-              Group G
             </RowButton>
           </Panel>
         </Sidebar>
@@ -125,23 +106,23 @@ const SimpleWrapper = () => {
               </>
             }
           />
-          <TopBar
-            variant="minimal"
-            actions={
-              <Button
-                icon={<SupervisedUserCircle fontSize="small" />}
-                rightIcon={<ArrowDropDown fontSize="small" />}
-              >
-                Filter by group
-              </Button>
-            }
-          />
         </>
+      }
+      extra={
+        <TopBar
+          variant="minimal"
+          navigation={
+            <>
+              <Button variant="primary">Graph</Button>
+              <Button variant="minimal">Instruction</Button>
+            </>
+          }
+        />
       }
     />
   );
 };
 
-storiesOf('Layout/SidebarLayout', module).add('orchestration', () => (
+storiesOf('UI/Layout/SidebarLayout', module).add('orchestration', () => (
   <SimpleWrapper />
 ));
