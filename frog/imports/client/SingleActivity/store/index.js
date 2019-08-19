@@ -73,7 +73,7 @@ class Store {
           (err, result) => {
             if (err) {
               this.setLoading(false);
-              window.alert('Could not create your activity, please try later.');
+              window.alert('Could not create your activity, please try again later.');
             } else {
               const slug = result.slug;
               window.location.replace(

@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core';
 const useStyle = makeStyles(() => ({
   root: {
     width: '100%',
+    maxWidth: '1024px',
+    margin: '0 auto',
+
     display: 'grid',
     gridTemplateRows: '1fr',
     gridTemplateColumns: '1fr 1fr',

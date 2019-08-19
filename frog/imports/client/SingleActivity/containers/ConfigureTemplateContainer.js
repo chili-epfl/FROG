@@ -40,40 +40,47 @@ export const ConfigureTemplateContainer = observer(() => {
         style={{
           position: 'fixed',
           width: '100%',
-          padding: '0 64px',
           bottom: 0,
           left: 0,
           zIndex: 900
         }}
       >
-        <TopBar
-          size="large"
-          navigation={
-            <Button
-              icon={<NavigateBefore />}
-              onClick={() => {
-                store.setCurrentStep(STEP_SELECT_TEMPLATE);
-              }}
-              disabled={store.loading}
-            >
-              Back
-            </Button>
-          }
-          actions={
-            <Button
-              variant="primary"
-              rightIcon={
-                store.loading ? <Progress size="small" /> : <NavigateNext />
-              }
-              disabled={store.loading || store.templateConfig?.invalid}
-              onClick={() => {
-                store.createSession();
-              }}
-            >
-              Create
-            </Button>
-          }
-        />
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '1024px',
+            margin: '0 auto'
+          }}
+        >
+          <TopBar
+            size="large"
+            navigation={
+              <Button
+                icon={<NavigateBefore />}
+                onClick={() => {
+                  store.setCurrentStep(STEP_SELECT_TEMPLATE);
+                }}
+                disabled={store.loading}
+              >
+                Back
+              </Button>
+            }
+            actions={
+              <Button
+                variant="primary"
+                rightIcon={
+                  store.loading ? <Progress size="small" /> : <NavigateNext />
+                }
+                disabled={store.loading || store.templateConfig?.invalid}
+                onClick={() => {
+                  store.createSession();
+                }}
+              >
+                Create
+              </Button>
+            }
+          />
+        </div>
       </div>
     </>
   );
