@@ -34,7 +34,7 @@ const SingleActivity = observer(history => {
       left={<Logo />}
       right={
         <div style={{ marginTop: '16px' }}>
-          <Button variant="minimal" icon={<Clear />} />
+          <Button variant="minimal" icon={<Clear />} onClick={() => history.push("/")} />
         </div>
       }
     >

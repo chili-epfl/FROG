@@ -50,8 +50,7 @@ export const RecentsPage = ({
           </div>
 
           <List>
-            {draftsList.map(
-              (
+            {draftsList.map((
                 {
                   itemIcon,
                   itemTitle,
@@ -61,7 +60,7 @@ export const RecentsPage = ({
                   secondaryActions
                 },
                 index
-              ) => (
+              ) => {return (
                 <ContentListItem
                   key={index}
                   itemTitle={itemTitle}
@@ -71,7 +70,7 @@ export const RecentsPage = ({
                   callback={callback}
                   secondaryActions={secondaryActions}
                 />
-              )
+              )}
             )}
           </List>
           <div className={classes.buttonRows}>
@@ -92,7 +91,7 @@ export const RecentsPage = ({
             <Bookmark /> Sessions
           </Typography>
 
-          <List>
+          <List dense = {true}>
             {sessionsList.map(
               (
                 {

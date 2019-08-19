@@ -30,10 +30,10 @@ type ContentListItemPropsT = {
   itemTitle?: string,
   itemIcon: React.ComponentType<*>,
   status?: 'Ready' | 'Running' | 'Complete',
-  itemType: string,
+  itemType?: string,
   dateCreated: string,
   callback: () => void,
-  secondaryActions: Array<{
+  secondaryActions?: Array<{
     title: string,
     icon: React.ComponentType<*>,
     callback?: () => void
@@ -52,15 +52,15 @@ export const ContentListItem = ({
   const classes = useStyles();
 
   return (
-    <ListItem alignItems="flex-start" divider button onClick={callback}>
+    <ListItem alignItems="flex-start" divider = {true} button onClick={callback}  >
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
 
       <ListItemText
         primary={itemTitle}
-        secondary={status ? status + '   |    ' + itemType : itemType}
-        divider
+        secondary={status ? status + '   |    ' + itemType : (itemType ? itemType : " ")}
+        divider = {true}
       />
 
       <Typography
@@ -70,7 +70,9 @@ export const ContentListItem = ({
       >
         {dateCreated}
       </Typography>
+      {secondaryActions && 
       <ListItemSecondaryAction>
+
         <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
           {secondaryActions.map((item, index) => {
             const ListIcon = item.icon;
@@ -81,7 +83,7 @@ export const ContentListItem = ({
             );
           })}
         </OverflowMenu>
-      </ListItemSecondaryAction>
+      </ListItemSecondaryAction> }
     </ListItem>
   );
 };

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { getUserType } from '/imports/api/users';
 import { LandingPage } from '/imports/ui/LandingPage';
 import SingleActivity from '../SingleActivity';
-import { DashboardContentContainer } from '/imports/client/UserDashboard/containers/DashboardContentContainer';
+import  DashboardDataContainer  from '/imports/client/UserDashboard/containers/DashboardDataContainer';
 
 export const RootSwitcher = ({ history }) => {
   switch (getUserType()) {
@@ -10,10 +10,10 @@ export const RootSwitcher = ({ history }) => {
       return <LandingPage />;
 
     case 'Verified':
-      return <DashboardContentContainer history={history} />;
+      return <DashboardDataContainer history={history} />;
 
     case 'Legacy ':
-      return <DashboardContentContainer history={history} />;
+      return <DashboardDataContainer history={history} />;
 
     default:
       return <SingleActivity />;

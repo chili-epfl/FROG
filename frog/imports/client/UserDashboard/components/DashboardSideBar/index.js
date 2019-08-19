@@ -3,14 +3,12 @@ import * as React from 'react';
 import {
   AccessTimeOutlined,
   Bookmark,
-  ShowChart,
-  ChromeReaderMode
+  ShowChart
 } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 import { Sidebar, Panel } from '../../../../ui/Sidebar';
 import { Logo } from '../../../../ui/Logo';
 import { SidebarLayout } from '../../../../ui/Layout/SidebarLayout';
-import { RowTitle } from '../../../../ui/RowItems/RowTitle';
 import { RowButton } from '../../../../ui/RowItems/RowButton';
 import { TopBar } from '../../../../ui/TopBar';
 import { Breadcrumb } from '../../../../ui/Breadcrumb';
@@ -31,6 +29,7 @@ export const DashboardSideBar = ({
   sessionsActive,
   draftsActive,
   recentsActive,
+  history, 
   children
 }: DashBoardSideBarPropsT) => {
   return (
@@ -44,7 +43,7 @@ export const DashboardSideBar = ({
                 <Typography variant="h6"> Dashboard </Typography>
               </>
             }
-            footer={<RowButton active> Create using Wizard </RowButton>}
+            footer={<RowButton active onClick = {() => history.push('/single')}> Create using Wizard </RowButton>}
           >
             <Panel>
               <RowButton
@@ -59,23 +58,15 @@ export const DashboardSideBar = ({
                 active={sessionsActive}
                 onClick={callbackSessionsView}
               >
-                {' '}
-                Sessions{' '}
+               Sessions
               </RowButton>
               <RowButton
                 icon={<ShowChart />}
                 active={draftsActive}
                 onClick={callbackDraftsView}
               >
-                {' '}
-                Drafts{' '}
+               Drafts
               </RowButton>
-              <RowTitle> Classes </RowTitle>
-              <Panel>
-                <RowButton icon={<ChromeReaderMode />}>PHYS 117 </RowButton>
-                <RowButton icon={<ChromeReaderMode />}>ECON 101 </RowButton>
-                <RowButton icon={<ChromeReaderMode />}>CS 340 </RowButton>
-              </Panel>
             </Panel>
           </Sidebar>
         }

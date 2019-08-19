@@ -7,6 +7,8 @@ import { Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ExternalOperators } from '/imports/api/operators';
 import { operatorTypesObj, operatorTypes } from '/imports/operatorTypes';
+import { RootSwitcher } from './RootSwitcher';
+import SingleActivity from  '/imports/client/SingleActivity'; 
 import TeacherView from '../TeacherView';
 import GraphEditor from '../GraphEditor';
 import Preview from '../Preview';
@@ -27,6 +29,8 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
   return (
     <div id="app">
       <Switch>
+        <Route path = "/" exact component = {RootSwitcher} />
+        <Route path = "/single" exact component = {SingleActivity} />
         <Route path="/teacher/graph/:graphId" component={GraphEditor} />
         <Route path="/teacher/graph" component={GraphEditor} />
         <Route component={WithTopBar} />
