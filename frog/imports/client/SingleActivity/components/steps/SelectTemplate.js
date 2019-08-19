@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { Typography } from '@material-ui/core';
+import { Typography, makeStyles } from '@material-ui/core';
 
 import { ItemGrid } from '/imports/ui/ItemGrid';
 import { PictureButton } from '/imports/ui/Button/PictureButton';
@@ -11,6 +11,13 @@ import { RowButton, RowDivider } from '/imports/ui/RowItems';
 import { type TemplateListingT } from '../../store';
 import { SplitLayout } from '../ui/SplitLayout';
 
+const useStyle = makeStyles(() => ({
+  title: {
+    marginBottom: '16px',
+    fontSize: '1.5em'
+  }
+}));
+
 type SelectTemplatePropsT = {
   availableSingleActivityTemplates: TemplateListingT[],
   availableGraphTemplates: TemplateListingT[],
@@ -18,14 +25,12 @@ type SelectTemplatePropsT = {
 };
 
 export const SelectTemplate = (props: SelectTemplatePropsT) => {
+  const classes = useStyle();
   return (
     <SplitLayout
       left={
         <>
-          <Typography
-            variant="h2"
-            style={{ marginBottom: '32px', fontSize: '1.5em' }}
-          >
+          <Typography className={classes.title} variant="h2">
             Select a single activity
           </Typography>
           <ItemGrid
@@ -46,16 +51,13 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
       }
       right={
         <>
-          <Typography
-            variant="h2"
-            style={{ marginBottom: '32px', fontSize: '1.5em' }}
-          >
+          <Typography className={classes.title} variant="h2">
             or select a template
           </Typography>
+          <RowDivider />
           {props.availableGraphTemplates.map(item => (
-            <>
+            <React.Fragment key={item.id}>
               <RowButton
-                key={item.id}
                 size="large"
                 onClick={() => {
                   props.onSelect(item);
@@ -64,10 +66,11 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
                 {item.name}
               </RowButton>
               <RowDivider />
-            </>
+            </React.Fragment>
           ))}
         </>
       }
+      rightPanelSize="1fr"
     />
   );
 };
