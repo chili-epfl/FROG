@@ -81,7 +81,7 @@ export const PrimaryGrouping = (props: ObjectFieldTemplatePropsT) => {
       {expand && (
         <div className={classes.fields}>
           {properties.map(p => (
-            <div>{p.content}</div>
+            <div key={p.name}>{p.content}</div>
           ))}
         </div>
       )}

@@ -5,12 +5,26 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
-    height: '48px',
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
     padding: theme.spacing(0, 2),
-    background: 'white'
+    background: 'white',
+
+    '&.size-default': {
+      height: '48px'
+    },
+    '&.size-large': {
+      height: '64px'
+    },
+    '&.size-xLarge': {
+      height: '96px'
+    }
+  },
+  navigation: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center'
   },
   actions: {
     height: '100%',
@@ -23,6 +37,7 @@ const useStyle = makeStyles(theme => ({
 type TopBarPropsT = {
   navigation?: React.Element<*>,
   actions?: React.Element<*>,
+  size?: 'default' | 'large' | 'xLarge',
   variant?: 'minimal' | 'default'
 };
 
@@ -33,7 +48,7 @@ export const TopBar = (props: TopBarPropsT) => {
   const classes = useStyle();
   return (
     <div
-      className={classes.root}
+      className={`${classes.root} size-${props.size || 'default'}`}
       style={{
         borderBottom:
           props.variant === 'minimal' ? undefined : '1px solid #EAEAEA'

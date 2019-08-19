@@ -5,18 +5,23 @@ import { makeStyles, Typography, ButtonBase } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
-    width: '100%',
-    padding: theme.spacing(0, 2, 0, 0),
+    padding: theme.spacing(0, 1, 0, 0),
 
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     textAlign: 'start',
 
+    borderRadius: theme.shape.borderRadius,
+
     color: '#333',
     overflow: 'hidden',
 
-    '&.active': {
+    '&.variant-default': {
+      border: '1px solid #EAEAEA'
+    },
+    '&.variant-minimal': {},
+    '&.variant-primary': {
       color: 'white',
       background: '#31BFAE'
     },
@@ -33,27 +38,19 @@ const useStyle = makeStyles(theme => ({
     }
   },
   icon: {
-    width: '16px',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    userSelect: 'all',
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(1)
   },
   rightIcon: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    userSelect: 'all',
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(1)
   },
   text: {
     fontSize: '14px',
-    marginLeft: theme.spacing(2),
-    flexGrow: 1,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap'
+    lineHeight: 1,
+    marginLeft: theme.spacing(1)
   },
   hover: {
     position: 'absolute',
@@ -72,47 +69,41 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-type RowButtonProps = {
+type ButtonProps = {
   disabled?: boolean,
-  active?: boolean,
+  variant?: 'default' | 'minimal' | 'primary',
   size?: 'default' | 'large',
   icon?: React.Element<*>,
   rightIcon?: React.Element<*>,
   onClick?: (e: Event) => void,
-  children: string
+  children?: string
 };
 
-export const RowButton = (props: RowButtonProps) => {
+export const Button = (props: ButtonProps) => {
   const classes = useStyle();
 
-  const { active, size, disabled } = props;
+  const { variant, size, disabled } = props;
 
   return (
     <ButtonBase
       className={`
         ${classes.root} 
+        variant-${variant || 'default'} 
         size-${size || 'default'}
-        ${disabled ? 'disabled' : ''}
-        ${active ? 'active' : ''}
+        ${disabled ? 'disabled' : 'active'}
       `}
-      active={active}
       disabled={disabled}
       onClick={props.onClick}
     >
       <span className={classes.hover} />
-      <div className={classes.icon}>{props.icon}</div>
-      <Typography className={classes.text} variant="body1">
-        {props.children}
-      </Typography>
+      {props.icon && <div className={classes.icon}>{props.icon}</div>}
+      {props.children && (
+        <Typography className={classes.text} variant="body1">
+          {props.children}
+        </Typography>
+      )}
       {props.rightIcon && (
-        <div
-          className={classes.rightIcon}
-          onMouseDown={e => {
-            e.stopPropagation();
-          }}
-        >
-          {props.rightIcon}
-        </div>
+        <div className={classes.rightIcon}>{props.rightIcon}</div>
       )}
     </ButtonBase>
   );

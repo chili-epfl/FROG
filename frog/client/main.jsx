@@ -8,6 +8,11 @@ import Buffer from 'buffer';
 import App from '/imports/client/App';
 
 const theme = createMuiTheme({
+  palette: {
+    background: {
+      default: 'white'
+    }
+  },
   typography: {
     useNextVariants: true
   }
