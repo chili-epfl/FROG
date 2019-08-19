@@ -50,18 +50,15 @@ export const ContentListItem = ({
 }: ContentListItemPropsT) => {
   const Icon = itemIcon || 'div';
   const classes = useStyles();
+  const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
 
   return (
-    <ListItem alignItems="flex-start" divider = {true} button onClick={callback}  >
+    <ListItem alignItems="flex-start" divider button onClick={callback}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
 
-      <ListItemText
-        primary={itemTitle}
-        secondary={status ? status + '   |    ' + itemType : (itemType ? itemType : " ")}
-        divider = {true}
-      />
+      <ListItemText primary={itemTitle} secondary={secondaryText} divider />
 
       <Typography
         className={classes.items}
@@ -70,20 +67,22 @@ export const ContentListItem = ({
       >
         {dateCreated}
       </Typography>
-      {secondaryActions && 
-      <ListItemSecondaryAction>
-
-        <OverflowMenu button={<Button variant="minimal" icon={<MoreVert />} />}>
-          {secondaryActions.map((item, index) => {
-            const ListIcon = item.icon;
-            return (
-              <RowButton key={index} icon={<ListIcon />}>
-                {item.title}
-              </RowButton>
-            );
-          })}
-        </OverflowMenu>
-      </ListItemSecondaryAction> }
+      {secondaryActions && (
+        <ListItemSecondaryAction>
+          <OverflowMenu
+            button={<Button variant="minimal" icon={<MoreVert />} />}
+          >
+            {secondaryActions.map((item, index) => {
+              const ListIcon = item.icon;
+              return (
+                <RowButton key={index} icon={<ListIcon />}>
+                  {item.title}
+                </RowButton>
+              );
+            })}
+          </OverflowMenu>
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };

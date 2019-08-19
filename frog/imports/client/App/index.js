@@ -24,7 +24,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
-import SingleActivity from '/imports/client/SingleActivity'; 
+import SingleActivity from '/imports/client/SingleActivity';
 import WikiRouter from '../Wiki/WikiRouter';
 import { connection } from './connection';
 import LearnLandingPage from './LearnLanding';
@@ -37,8 +37,7 @@ const TeacherContainer = Loadable({
 });
 const APICall = Loadable({
   loader: () => import('./APICall'),
-  loading: () =>import { SingleActivity } from '/imports/client/SingleActivity';
- null,
+  loading: () => null,
   serverSideRequirePath: path.resolve(__dirname, './APICall'),
   componentDescription: 'API Call'
 });
@@ -324,9 +323,8 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/t/:slug" component={TeacherContainer} />
             <Route path="/t" component={TeacherContainer} />
-            <Route path = "/single" component = {SingleActivity} />
-            <Route path="/" exact  component={TeacherContainer} />
-
+            <Route path="/single" component={SingleActivity} />
+            <Route path="/" exact component={TeacherContainer} />
           </Switch>
         );
       }

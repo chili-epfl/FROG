@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { getUserType } from '/imports/api/users';
-import { LandingPage } from '/imports/ui/LandingPage';
+import LandingPage from '/imports/ui/LandingPage';
 import SingleActivity from '../SingleActivity';
-import  DashboardDataContainer  from '/imports/client/UserDashboard/containers/DashboardDataContainer';
+import DashboardDataContainer from '/imports/client/UserDashboard/containers/DashboardDataContainer';
 
 export const RootSwitcher = ({ history }) => {
   switch (getUserType()) {

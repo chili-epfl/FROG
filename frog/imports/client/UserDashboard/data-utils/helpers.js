@@ -1,81 +1,95 @@
-import {
-    Bookmark,
-    Bookmarks,
-    ShowChart,
-    Share,
-    Forward,
-    Delete,
-    PlayArrow,
-    Create
-  } from '@material-ui/icons';
+/* eslint-disable array-callback-return */
+import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
 
-  export const parseDate = date => {
-      return date.getDate() + "/" + (date.getMonth() + 1).toString + "/" + date.getFullYear(); 
+type meteorSessionObjectT = {
+  _id: string,
+  name: string,
+  startedAt: string,
+  singleActivity: boolean,
+  template: boolean,
+  state: 'READY' | 'PAUSED' | 'STARTED' | 'FINISHED',
+  slug: string,
+  simpleConfig: { activityType: string }
+};
+type meteorDraftObjectT = {
+  name: string,
+  createdAt: Date,
+  _id: string
+};
+type meteorDraftsList = Array<meteorDraftObjectT>;
 
-  }
+type meteorSessionsListT = Array<meteorSessionObjectT>;
 
-  const parseEpocDate = epoc => {
-      const date = new Date(epoc); 
-      return parseDate(date); 
-  }
+export const parseDate = (date): Date => {
+  return `${date.getDate()} /${date.getMonth() + 1} / ${date.getFullYear()}`;
+};
 
-  const getSessionIcon = session => {
-     if (session.singleActivity)
-     return Bookmark
-     else if (session.template)
-     return Bookmarks; 
-     else
-     return ShowChart
-  }
+const parseEpocDate = (epoc): string => {
+  const date = new Date(epoc);
+  return parseDate(date);
+};
 
-  const getSessionStatus = session => {
-      if (session.status === 'READY')
-      return "Ready";
-      else if (session.status === 'PAUSED')
-      return "Paused"; 
-      else if (session.status === "STARTED")
-      return "Running"; 
-      else if (session.status === "FINISHED")
-      return "Complete";
-      
-  }
+const getSessionIcon = (session): meteorSessionObjectT => {
+  if (session.singleActivity) return Bookmark;
+  else if (session.template) return Bookmarks;
+  else return ShowChart;
+};
 
-  const getSessionTypeInfo = session  => {
-      if (session.singleActivity)
-      return "Single Activity: " + session.name + "  | Slug: " + session.slug; 
-      else if (session.template)
-      return "Template : " + session.name + "  | Slug: " + session.slug; 
-      else 
-      return "Graph | Slug: " + session.slug; 
-  }
+const getSessionStatus = (session): meteorSessionObjectT => {
+  if (session.state === 'READY') return 'Ready';
+  else if (session.state === 'PAUSED') return 'Paused';
+  else if (session.state === 'STARTED') return 'Running';
+  else if (session.state === 'FINISHED') return 'Complete';
+};
 
+const getSessionTypeInfo = (session): meteorSessionObjectT => {
+  if (session.singleActivity)
+    return (
+      'Single Activity: ' +
+      session.simpleConfig.activityType +
+      '  | Slug: ' +
+      session.slug
+    );
+  else if (session.template)
+    return (
+      'Template : ' +
+      session.simpleConfig.activityType +
+      '  | Slug: ' +
+      session.slug
+    );
+  else return 'Graph | Slug: ' + session.slug;
+};
 
-  export const parseDraftData = (draftsList, history) => {
-    const resArray = [];
-    draftsList.map( item => {
-        resArray.push({
-            itemIcon: ShowChart, 
-            itemName: item.name, 
-            dateCreated: parseDate(item.date),
-            callback: () =>  history.push("/teacher/graph/" + item._id)
-        })
+export const parseDraftData = (
+  draftsList: meteorDraftsList,
+  history: Object
+) => {
+  const resArray = [];
+  draftsList.map(item => {
+    resArray.push({
+      itemIcon: ShowChart,
+      itemTitle: item.name,
+      dateCreated: parseDate(item.createdAt),
+      callback: () => history.push(`/teacher/graph/${item._id}`)
+    });
+  });
+  return resArray;
+};
 
-    })
-    return resArray; 
-}
-
-export const parseSessionData = (sessionsList, history) => {
-    const resArray = [];
-    sessionsList.map( item => {
-        resArray.push({
-            itemIcon: getSessionIcon(item), 
-            itemName: item.name, 
-            status: getSessionStatus(item), 
-            itemType: getSessionTypeInfo(item), 
-            dateCreated: parseEpocDate(item.createdAt),
-            callback: () =>  history.push("/t/" + item.slug)
-        })
-
-    })
-    return resArray; 
-}
+export const parseSessionData = (
+  sessionsList: meteorSessionsListT,
+  history: Object
+) => {
+  const resArray = [];
+  sessionsList.map(item => {
+    resArray.push({
+      itemIcon: getSessionIcon(item),
+      itemTitle: item.name,
+      status: getSessionStatus(item),
+      itemType: getSessionTypeInfo(item),
+      dateCreated: parseEpocDate(item.startedAt),
+      callback: () => history.push(`t/${item.slug}`)
+    });
+  });
+  return resArray;
+};

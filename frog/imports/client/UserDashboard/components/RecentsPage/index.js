@@ -50,7 +50,8 @@ export const RecentsPage = ({
           </div>
 
           <List>
-            {draftsList.map((
+            {draftsList.map(
+              (
                 {
                   itemIcon,
                   itemTitle,
@@ -60,17 +61,19 @@ export const RecentsPage = ({
                   secondaryActions
                 },
                 index
-              ) => {return (
-                <ContentListItem
-                  key={index}
-                  itemTitle={itemTitle}
-                  itemIcon={itemIcon}
-                  itemType={itemType}
-                  dateCreated={dateCreated}
-                  callback={callback}
-                  secondaryActions={secondaryActions}
-                />
-              )}
+              ) => {
+                return (
+                  <ContentListItem
+                    key={index}
+                    itemTitle={itemTitle}
+                    itemIcon={itemIcon}
+                    itemType={itemType}
+                    dateCreated={dateCreated}
+                    callback={callback}
+                    secondaryActions={secondaryActions}
+                  />
+                );
+              }
             )}
           </List>
           <div className={classes.buttonRows}>
@@ -91,7 +94,7 @@ export const RecentsPage = ({
             <Bookmark /> Sessions
           </Typography>
 
-          <List dense = {true}>
+          <List dense>
             {sessionsList.map(
               (
                 {

@@ -1,15 +1,10 @@
 // @flow
 import * as React from 'react';
-import {
-  AccessTimeOutlined,
-  Bookmark,
-  ShowChart
-} from '@material-ui/icons';
-import { Typography } from '@material-ui/core';
+import { AccessTimeOutlined, Bookmark, ShowChart } from '@material-ui/icons';
 import { Sidebar, Panel } from '../../../../ui/Sidebar';
 import { Logo } from '../../../../ui/Logo';
 import { SidebarLayout } from '../../../../ui/Layout/SidebarLayout';
-import { RowButton } from '../../../../ui/RowItems/RowButton';
+import { RowButton, RowTitle } from '../../../../ui/RowItems';
 import { TopBar } from '../../../../ui/TopBar';
 import { Breadcrumb } from '../../../../ui/Breadcrumb';
 
@@ -29,7 +24,7 @@ export const DashboardSideBar = ({
   sessionsActive,
   draftsActive,
   recentsActive,
-  history, 
+  history,
   children
 }: DashBoardSideBarPropsT) => {
   return (
@@ -40,10 +35,15 @@ export const DashboardSideBar = ({
             header={
               <>
                 <Logo />
-                <Typography variant="h6"> Dashboard </Typography>
+                <RowTitle> Dashboard </RowTitle>
               </>
             }
-            footer={<RowButton active onClick = {() => history.push('/single')}> Create using Wizard </RowButton>}
+            footer={
+              <RowButton active onClick={() => history.push('/single')}>
+                {' '}
+                Create using Wizard{' '}
+              </RowButton>
+            }
           >
             <Panel>
               <RowButton
@@ -58,14 +58,14 @@ export const DashboardSideBar = ({
                 active={sessionsActive}
                 onClick={callbackSessionsView}
               >
-               Sessions
+                Sessions
               </RowButton>
               <RowButton
                 icon={<ShowChart />}
                 active={draftsActive}
                 onClick={callbackDraftsView}
               >
-               Drafts
+                Drafts
               </RowButton>
             </Panel>
           </Sidebar>
