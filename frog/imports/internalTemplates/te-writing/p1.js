@@ -19,6 +19,7 @@ export default {
       configVersion: 1,
       data: {
         instructions: '{{instructions}}',
+        useInstructionsForCategory: '{{useInstructions}}',
         allowEditing: true,
         openIncomingInEdit: true,
         liTypeEditor: 'li-richText'

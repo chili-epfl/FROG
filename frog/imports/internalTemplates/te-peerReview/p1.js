@@ -69,7 +69,7 @@ export default {
       activityType: 'ac-gallery',
       configVersion: 1,
       data: { expand: true, showUserName: true },
-      participationMode: 'projector'
+      participationMode: '{{participationMode}}',
     }
   ],
   operators: [

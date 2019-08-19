@@ -1,6 +1,6 @@
 // @flow
 
-import { isObject } from 'lodash';
+import { isObject, isBoolean } from 'lodash';
 
 import p1 from './p1';
 import p2 from './p2';
@@ -25,7 +25,7 @@ export const config = {
     },
     first: {
       type: 'object',
-      title: 'First phase, authoring',
+      title: 'Stage 1, authoring',
       description: 'Students are asked to write, individually or in groups',
       properties: {
         instructionAry: {
@@ -40,7 +40,7 @@ export const config = {
     },
     second: {
       type: 'object',
-      title: 'Second phase, debrief',
+      title: 'Stage 2, debrief',
       description:
         "Written products are shown on the projector, and optionally on students' screens",
       properties: {
@@ -84,7 +84,7 @@ const processTemplate = (template, replacements) => {
   const result = Object.keys(replacements).reduce((acc, x) => {
     const toReplace = Number.isInteger(replacements[x])
       ? replacements[x]
-      : isObject(replacements[x])
+      : isObject(replacements[x]) || isBoolean(replacements[x])
       ? JSON.stringify(replacements[x])
       : `"${replacements[x]}"`;
     return acc.replace(`"{{${x}}}"`, toReplace);
@@ -110,6 +110,9 @@ const makeTemplate = conf => {
   const replacements = {
     numGroups: conf.first?.instructionAry?.length || 1,
     participationMode: conf.second?.alsoShowStudents ? 'everyone' : 'projector',
+    useInstructions:
+      conf.first?.instructionAry?.length &&
+      conf.first.instructionAry.length > 1,
     matchings
   };
   const ret = [
@@ -117,16 +120,16 @@ const makeTemplate = conf => {
     conf.general?.plane === 'individual' ? p1Instructions : p2Instructions
   ];
 
-  console.log(ret);
   return ret;
 };
 
 const meta = {
-  name: 'Peer review template',
-  shortDesc: `Students write, review their peers' contributions, and revise their own texts`,
-  description: `This template generates a peer review flow with four stages:
+  name: 'Writing and sharing',
+  shortDesc: `Students write individually or in groups, and share with the whole class`,
+  description: `
     
- - **Stage 1**: Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution`
+ - **Stage 1**: Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution. Optionally, different students get different prompts.
+ - **Stage 2**: All contributions are shown on the projector, and optionally on the students' screens.`
 };
 
 export default {

@@ -55,15 +55,25 @@ const configUI = {
 
 const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
   let empty = true;
+  const category = obj.config.useInstructionsForCategory
+    ? obj.config.category
+    : undefined;
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
     if (li) {
       if (obj.config.duplicateLI) {
         const newLI = await dataFn.duplicateLI(li);
-        dataFn.objInsert({ ...values(obj.data)[0], li: newLI });
+        dataFn.objInsert({
+          ...values(obj.data)[0],
+          li: newLI,
+          category
+        });
         empty = false;
       } else {
-        dataFn.objInsert(values(obj.data)[0]);
+        dataFn.objInsert({
+          ...values(obj.data)[0],
+          category
+        });
         empty = false;
       }
     }
@@ -71,7 +81,7 @@ const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
   if (empty && obj.config.liTypeEditor && !data.li) {
     const newLI = dataFn.createLearningItem(obj.config.liTypeEditor);
     if (newLI) {
-      dataFn.objInsert({ li: newLI });
+      dataFn.objInsert({ li: newLI, category });
     }
   }
 };
