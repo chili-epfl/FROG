@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { observer } from 'mobx-react';
+import { withRouter } from 'react-router';
 
 import { Clear } from '@material-ui/icons';
 
@@ -13,7 +14,9 @@ import { BaseLayout } from './components/ui/BaseLayout';
 import { SelectTemplateContainer } from './containers/SelectTemplateContainer';
 import { ConfigureTemplateContainer } from './containers/ConfigureTemplateContainer';
 
-const SingleActivity = observer(() => {
+const SingleActivity = observer(history => {
+  React.useEffect(() => store.setHistory(history), []);
+
   let CurrentStep;
   switch (store.currentStep) {
     case STEP_SELECT_TEMPLATE:
@@ -40,4 +43,4 @@ const SingleActivity = observer(() => {
   );
 });
 
-export default SingleActivity;
+export default withRouter(SingleActivity);

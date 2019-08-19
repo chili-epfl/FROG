@@ -27,6 +27,8 @@ class Store {
 
   @observable loading: boolean = false;
 
+  history: any;
+
   constructor() {
     // if user wants to clone an existing activity/graph, they use a /duplicate/ call, which
     // gets intercepted at the server level, and the appropriate data is fetched from the
@@ -61,6 +63,10 @@ class Store {
     this.loading = loading;
   };
 
+  @action setHistory = ({ history }: any) => {
+    this.history = history;
+  };
+
   createSession = () => {
     this.setLoading(true);
     if (this.templateListing && this.templateConfig) {
@@ -78,9 +84,7 @@ class Store {
               );
             } else {
               const slug = result.slug;
-              window.location.replace(
-                `${BASE_URL}/t/${slug}?u=${Meteor.userId()}`
-              );
+              this.history.push(`/t/${slug}`);
             }
           }
         );
