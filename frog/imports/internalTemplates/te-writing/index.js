@@ -1,16 +1,9 @@
 // @flow
 
+import { isObject } from 'lodash';
+
 import p1 from './p1';
 import p2 from './p2';
-
-// instructions
-// participationMode
-// numGroups int
-// matchings ary
-//           { socialValue: '1', configValue: 'Hello' },
-//           { socialValue: '2', configValue: 'Hello2' }
-
-// p2 groupSize int
 
 export const config = {
   type: 'object',
@@ -35,9 +28,13 @@ export const config = {
       title: 'First phase, authoring',
       description: 'Students are asked to write, individually or in groups',
       properties: {
-        instructions: {
-          type: 'rte',
-          title: 'Initial writing prompt'
+        instructionAry: {
+          type: 'array',
+          default: [''],
+          minItems: 1,
+          title:
+            'Initial writing prompt. If you add several prompts, each student will be randomly assigned a prompt',
+          items: { type: 'rte', default: '' }
         }
       }
     },
@@ -52,6 +49,14 @@ export const config = {
           type: 'boolean'
         }
       }
+    }
+  }
+};
+
+const configUI = {
+  'first.instructionAry': {
+    'ui:options': {
+      orderable: false
     }
   }
 };
@@ -79,6 +84,8 @@ const processTemplate = (template, replacements) => {
   const result = Object.keys(replacements).reduce((acc, x) => {
     const toReplace = Number.isInteger(replacements[x])
       ? replacements[x]
+      : isObject(replacements[x])
+      ? JSON.stringify(replacements[x])
       : `"${replacements[x]}"`;
     return acc.replace(`"{{${x}}}"`, toReplace);
   }, template);
@@ -89,16 +96,29 @@ const makeTemplate = conf => {
   const template = JSON.stringify(
     conf.general?.plane === 'individual' ? p1 : p2
   );
+
+  let matchings;
+  if (conf.first?.instructionAry) {
+    matchings = conf.first.instructionAry.reduce((acc, inst, i) => {
+      acc.push({ socialValue: i + 1 + '', configValue: inst });
+      return acc;
+    }, []);
+  } else {
+    matchings = { '1': '' };
+  }
+
   const replacements = {
-    instructions: conf.first?.instructions || '',
-    reviewPrompt: conf.second?.reviewPrompt || '',
-    reviseInstructions: conf.third?.reviseInstructions || '',
-    reviewCount: conf.second?.reviewCount || 1
+    numGroups: conf.first?.instructionAry?.length || 1,
+    participationMode: conf.second?.alsoShowStudents ? 'everyone' : 'projector',
+    matchings
   };
-  return [
+  const ret = [
     processTemplate(template, replacements),
     conf.general?.plane === 'individual' ? p1Instructions : p2Instructions
   ];
+
+  console.log(ret);
+  return ret;
 };
 
 const meta = {
@@ -106,17 +126,13 @@ const meta = {
   shortDesc: `Students write, review their peers' contributions, and revise their own texts`,
   description: `This template generates a peer review flow with four stages:
     
- - **Stage 1**: Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution
- - **Stage 2**: In the next stage, they receive one or several of the contributions from their peers (individuals or groups), and are asked to comment based on a review prompt.
- - **Stage 3**: Students then receive the feedback from other students, and can continue to work on their contributions, taking into account the feedback from the other students
- - **Stage 4**: Finally, all contributions are sent to the projector for the teacher to discuss and debrief.
-
- ![Screenshots](/clientFiles/te-peerReview/te-peerReview.png)`
+ - **Stage 1**: Students (individually or in random groups) are presented with a writing prompt, and can use a rich-text editor to write their contribution`
 };
 
 export default {
   id: 'te-writing',
   config,
+  configUI,
   meta,
   makeTemplate,
   type: 'template'
