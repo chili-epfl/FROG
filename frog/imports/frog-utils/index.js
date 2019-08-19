@@ -59,6 +59,7 @@ export type {
   ActivityRunnerT,
   ActivityRunnerPropsT,
   ActivityPackageT,
+  TemplatePackageT,
   productOperatorT,
   socialOperatorT,
   operatorPackageT,

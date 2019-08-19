@@ -5,14 +5,11 @@ import { storiesOf } from '@storybook/react';
 import { PlayArrow } from '@material-ui/icons';
 
 import { Sidebar, Panel } from '.';
-import { Logo } from '../Logo';
-import { RowTitle, RowButton } from '../RowItems';
+import { Logo } from '/imports/ui/Logo';
+import { RowTitle, RowButton } from '/imports/ui/RowItems';
 
-storiesOf('Sidebar', module).add('with row items', () => (
-  <Sidebar
-    header={<Logo />}
-    footer={<RowButton icon={<PlayArrow />}> Create now </RowButton>}
-  >
+storiesOf('UI/Sidebar', module).add('with row items', () => (
+  <Sidebar header={<Logo />}>
     <Panel>
       <RowButton>Row button without icons</RowButton>
       <RowButton icon={<PlayArrow fontSize="small" />}>

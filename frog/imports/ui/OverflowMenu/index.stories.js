@@ -5,11 +5,11 @@ import { storiesOf } from '@storybook/react';
 import { MoreVert, Edit, Widgets } from '@material-ui/icons';
 
 import { OverflowMenu } from '.';
-import { StorybookContainer } from '../StorybookContainer';
-import { Button } from '../Button';
-import { RowTitle, RowDivider, RowButton } from '../RowItems';
+import { StorybookContainer } from '/imports/ui/StorybookContainer';
+import { Button } from '/imports/ui/Button';
+import { RowTitle, RowDivider, RowButton } from '/imports/ui/RowItems';
 
-storiesOf('OverflowMenu', module).add('with row items', () => (
+storiesOf('UI/OverflowMenu', module).add('with row items', () => (
   <StorybookContainer padding={16}>
     <OverflowMenu button={<Button icon={<MoreVert />} />}>
       <RowTitle>Logged in as Rachit</RowTitle>

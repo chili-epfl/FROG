@@ -174,6 +174,19 @@ export type ActivityPackageT = {
   LearningItems?: LearningItemT<*>[]
 };
 
+export type TemplatePackageT = {
+  id: string,
+  config: Object,
+  type: string,
+  meta: {
+    name: string,
+    shortName?: string,
+    shortDesc: string,
+    description: string
+  },
+  makeTemplate: () => Object
+};
+
 export type DashboardT = {
   displayCondition?: string | ((obj: Object) => boolean),
   Viewer: React.ComponentType<DashboardViewerPropsT>,

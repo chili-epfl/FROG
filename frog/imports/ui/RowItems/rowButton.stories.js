@@ -5,9 +5,9 @@ import { storiesOf } from '@storybook/react';
 import { PlayArrow, NavigateNext } from '@material-ui/icons';
 
 import { RowButton } from '.';
-import { StorybookContainer } from '../StorybookContainer';
+import { StorybookContainer } from '/imports/ui/StorybookContainer';
 
-storiesOf('RowItems/RowButton', module)
+storiesOf('UI/RowItems/RowButton', module)
   .add('with text only', () => (
     <StorybookContainer width={250}>
       <RowButton>Hello World!</RowButton>
