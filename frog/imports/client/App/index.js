@@ -28,6 +28,7 @@ import { LocalSettings } from '/imports/api/settings';
 import WikiRouter from '../Wiki/WikiRouter';
 import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
+import LearnLandingPage from './LearnLanding';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -291,9 +292,12 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      const learnUrl = window.location.hostname.slice(0, 6) === 'learn.';
       const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
-        return <h1>Too late to join this session</h1>;
+        return (
+          <LearnLandingPage errorMessage="Too late to join this session" />
+        );
       }
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
@@ -301,7 +305,18 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && user) {
-        return (
+        return learnUrl ? (
+          <Switch>
+            <Route path="/:slug" component={StudentView} />
+            <Route
+              path="/"
+              exact
+              render={() =>
+                LocalSettings.follow ? <StudentView /> : <LearnLandingPage />
+              }
+            />
+          </Switch>
+        ) : (
           <Switch>
             <Route path="/duplicate" component={SingleActivity} />
             <Route path="/wiki" component={WikiRouter} />
@@ -309,25 +324,19 @@ const FROGRouter = withRouter(
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/t/:slug" component={TeacherContainer} />
             <Route path="/t" component={TeacherContainer} />
-            <Route path="/:slug" component={StudentView} />
-            <Route
-              path="/"
-              exact
-              render={() =>
-                LocalSettings.follow ? <StudentView /> : <SingleActivity />
-              }
-            />
+            <Route path="/" render={() => <SingleActivity />} />
           </Switch>
         );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
       }
-      if (this.state.mode === 'noSession') {
-        return <h1>No such session exists</h1>;
+      if (this.state.mode === 'noSession' && learnUrl) {
+        return <LearnLandingPage errorMessage="This session does not exist" />;
       }
       return (
-        this.state.mode === 'studentlist' && (
+        this.state.mode === 'studentlist' &&
+        learnUrl && (
           <StudentLogin
             settings={this.state.settings}
             login={this.login}
