@@ -79,9 +79,11 @@ export const Footer = () => {
           <Typography variant="body2" className={classes.link}>
             Developers
           </Typography>
-          <Typography variant="body2" className={classes.link}>
-            Github
-          </Typography>
+          <a href="https://github.com/chili-epfl/frog">
+            <Typography variant="body2" className={classes.link}>
+              Github
+            </Typography>
+          </a>
           <Typography variant="body2" className={classes.link}>
             Research
           </Typography>

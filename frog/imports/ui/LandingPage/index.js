@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { makeStyles, Container, Typography, Button } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
+import { withRouter } from 'react-router';
+
+import { useModal } from '/imports/ui/Modal';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { StepRow } from './StepRow';
 import { ActivityCard } from './ActivityCard';
 import { primaryColor, primaryColorDark } from './constants';
-import { withRouter } from 'react-router';
-import { useModal } from '/imports/ui/Modal';
-import AccountModal from '/imports/client/AccountModal/AccountModal';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -197,28 +198,36 @@ const LandingPage = ({ history }) => {
         </Typography>
         <div className={classes.activities}>
           <ActivityCard
+            onClick={() => history.push('/wizard/ac-quiz')}
             imageURL="https://picsum.photos/100"
             title="Questionnaire"
           />
           <ActivityCard
+            onClick={() => history.push('/wizard/ac-ck-board')}
             imageURL="https://picsum.photos/101"
-            title="Knowledge Board"
+            title="Idea board"
           />
           <ActivityCard
             imageURL="https://picsum.photos/102"
-            title="Student Discussions"
+            title="Chat"
+            onClick={() => history.push('/wizard/ac-chat')}
           />
           <ActivityCard
+            onClick={() => history.push('/wizard/ac-brainstorm')}
             imageURL="https://picsum.photos/103"
             title="Brainstorm Ideas"
           />
           <ActivityCard
+            onClick={() => history.push('/wizard/te-peerReview')}
             imageURL="https://picsum.photos/104"
             title="Peer Review Activity"
           />
         </div>
         <div className={classes.alignCenterDiv}>
-          <Button className={classes.whiteButton}>
+          <Button
+            className={classes.whiteButton}
+            onClick={() => history.push('/wizard')}
+          >
             Learn more about activities
           </Button>
         </div>
