@@ -19,7 +19,7 @@ export default ({
   transparent,
   title
 }: Object) => {
-  const stroke = selected ? '#ff9900' : 'transparent';
+  const stroke = selected ? '#B7E2DD' : 'transparent';
   let icon;
   switch (type) {
     case 'social':

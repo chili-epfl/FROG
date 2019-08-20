@@ -77,7 +77,7 @@ const Graph = connect(
         <rect
           x={0}
           y={0}
-          fill="#f2e6a6"
+          fill="#D9E5F0"
           width={scaled ? graphWidth * scale : graphWidth * 4}
           height={200}
           onClick={canvasClick}
@@ -85,7 +85,7 @@ const Graph = connect(
         <rect
           x={0}
           y={200}
-          fill="#fcf9e9"
+          fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
           height={400}

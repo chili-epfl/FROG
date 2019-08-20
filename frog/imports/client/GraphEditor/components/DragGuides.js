@@ -28,8 +28,8 @@ const VerticalLine = ({ x }) => (
 const ShadedBox = ({ x, current }) => (
   <rect
     stroke="transparent"
-    fill="#f9f3d2"
-    fillOpacity={0.3}
+    fill="#CDDEEF"
+    fillOpacity={0.2}
     x={Math.min(current, x)}
     y={0}
     width={Math.abs(x - current)}

@@ -60,15 +60,15 @@ export default class Elem {
           return 'white';
         }
         if (this.highlighted) {
-          return 'yellow';
+          return '#7AD2C8';
         }
         switch (this.state) {
           case 'computing':
-            return '#ffff00';
+            return '#E8D77E';
           case 'computed':
-            return '#72FF70';
+            return '#7AD2C8';
           case 'error':
-            return '#ff0000';
+            return '#E04E4E';
           default:
             return 'white';
         }
@@ -88,9 +88,9 @@ export default class Elem {
           return 'grey';
         }
         if (errors.find(x => x.type === 'missingType')) {
-          return '#e6e8fc';
+          return '#D9E5F0';
         }
-        return '#C72616';
+        return '#E04E4E';
       }
     });
   }
