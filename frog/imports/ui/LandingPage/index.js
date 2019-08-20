@@ -150,11 +150,7 @@ export const LandingPage = () => {
           complete control over the progress of the class and all it takes is
           three steps.
         </Typography>
-        <Button
-          disableFocusRipple
-          disableRipple
-          className={classes.lineButton}
-        >
+        <Button disableFocusRipple disableRipple className={classes.lineButton}>
           Try it out now
         </Button>
       </Container>
@@ -167,7 +163,7 @@ export const LandingPage = () => {
         </Typography>
       </Container>
       <Container className={classes.section}>
-        <Typography align="center'"className={classes.titleBlue}>
+        <Typography align="center" className={classes.titleBlue}>
           How it works
         </Typography>
         <div className={classes.stepsWrapper}>
@@ -203,7 +199,7 @@ export const LandingPage = () => {
       </Container>
       <Container className={`${classes.section} ${classes.gradientSection}`}>
         <Typography
-          variant='h2'
+          variant="h2"
           className={`${classes.title} ${classes.whiteh2}`}
         >
           Start by creating a learning environment

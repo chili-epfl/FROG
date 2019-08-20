@@ -61,7 +61,7 @@ export const Header = (props: HeaderProps) => {
         <Button className={classes.link}>About</Button>
         <Button className={classes.link}>How it Works</Button>
         <Button
-          variant='contained'
+          variant="contained"
           className={classes.button}
           onClick={() => {
             props.openSignin();
