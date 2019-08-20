@@ -1,6 +1,8 @@
 // @flow
 
+import * as _ from 'lodash';
 import * as React from 'react';
+import { withRouter, Prompt } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import { NavigateNext, NavigateBefore } from '@material-ui/icons';
@@ -10,78 +12,109 @@ import { Button } from '/imports/ui/Button';
 import { TopBar } from '/imports/ui/TopBar';
 import { Progress } from '/imports/ui/Progress';
 
-import { store, STEP_SELECT_TEMPLATE } from '../store';
+import {
+  goToTemplateSelect,
+  getTemplateId,
+  goToOrchestration
+} from '../store/navigation';
+import { getTemplateById } from '../store/templates';
+import { createSession } from '../store/session';
+
 import { ConfigureTemplate } from '../components/steps/ConfigureTemplate';
 
-export const ConfigureTemplateContainer = observer(() => {
-  const listing = store.templateListing;
-  if (!listing) {
-    throw new Error('Listing cannot be undefined');
-  }
+export const ConfigureTemplateContainer = _.flow(withRouter)(
+  ({ history, match }) => {
+    const templateId = getTemplateId(match.url);
 
-  return (
-    <>
-      <ConfigureTemplate
-        name={listing.name}
-        shortDesc={listing.shortDesc}
-        description={listing.description}
-      >
-        <ApiForm
-          activityType={listing.id}
-          data={store.templateConfig}
-          onConfigChange={data => {
-            store.setTemplateConfig(data.config);
-          }}
-          hidePreview
-          noOffset
+    const listing = React.useMemo(() => getTemplateById(templateId), [
+      templateId
+    ]);
+
+    const [numberOfEdits, setNumberOfEdits] = React.useState(0);
+    const [config, setConfig] = React.useState(undefined);
+    const [waitingForSessionCreation, setWaiting] = React.useState(false);
+
+    const onSubmit = () => {
+      setWaiting(true);
+      createSession(templateId, config).then((slug, err) => {
+        if (err) {
+          window.alert(err);
+        } else {
+          goToOrchestration(history, slug);
+        }
+      });
+    };
+
+    return (
+      <>
+        <Prompt
+          when={numberOfEdits > 1 && !waitingForSessionCreation}
+          message="If you leave this page, your draft configuration will be lost. Are you sure you want to leave this page?"
         />
-      </ConfigureTemplate>
-      <div
-        style={{
-          position: 'fixed',
-          width: '100%',
-          bottom: 0,
-          left: 0,
-          zIndex: 900
-        }}
-      >
+        <ConfigureTemplate
+          name={listing.name}
+          shortDesc={listing.shortDesc}
+          description={listing.description}
+        >
+          <ApiForm
+            activityType={listing.id}
+            onConfigChange={data => {
+              setNumberOfEdits(numberOfEdits + 1);
+              setConfig(data.config);
+            }}
+            hidePreview
+            noOffset
+          />
+        </ConfigureTemplate>
         <div
           style={{
+            position: 'fixed',
             width: '100%',
-            maxWidth: '1024px',
-            margin: '0 auto'
+            bottom: 0,
+            left: 0,
+            zIndex: 900
           }}
         >
-          <TopBar
-            size="large"
-            navigation={
-              <Button
-                icon={<NavigateBefore />}
-                onClick={() => {
-                  store.setCurrentStep(STEP_SELECT_TEMPLATE);
-                }}
-                disabled={store.loading}
-              >
-                Back
-              </Button>
-            }
-            actions={
-              <Button
-                variant="primary"
-                rightIcon={
-                  store.loading ? <Progress size="small" /> : <NavigateNext />
-                }
-                disabled={store.loading || store.templateConfig?.invalid}
-                onClick={() => {
-                  store.createSession();
-                }}
-              >
-                Create
-              </Button>
-            }
-          />
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '1024px',
+              margin: '0 auto'
+            }}
+          >
+            <TopBar
+              size="large"
+              navigation={
+                <Button
+                  icon={<NavigateBefore />}
+                  onClick={() => {
+                    goToTemplateSelect(history);
+                  }}
+                  disabled={waitingForSessionCreation}
+                >
+                  Back
+                </Button>
+              }
+              actions={
+                <Button
+                  variant="primary"
+                  rightIcon={
+                    waitingForSessionCreation ? (
+                      <Progress size="small" />
+                    ) : (
+                      <NavigateNext />
+                    )
+                  }
+                  disabled={waitingForSessionCreation || config?.invalid}
+                  onClick={onSubmit}
+                >
+                  Create
+                </Button>
+              }
+            />
+          </div>
         </div>
-      </div>
-    </>
-  );
-});
+      </>
+    );
+  }
+);

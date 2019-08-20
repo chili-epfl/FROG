@@ -1,22 +1,20 @@
 // @flow
 
+import * as _ from 'lodash';
 import * as React from 'react';
+import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
 
-import {
-  store,
-  type TemplateListingT,
-  getTemplates,
-  STEP_CONFIGURE_TEMPLATE
-} from '../store';
+import { goToTemplateConfig } from '../store/navigation';
+import { getTemplates, type TemplateListingT } from '../store/templates';
+
 import { SelectTemplate } from '../components/steps/SelectTemplate';
 
-export const SelectTemplateContainer = observer(() => {
+export const SelectTemplateContainer = _.flow(withRouter)(({ history }) => {
   const availableTemplates = React.useMemo(getTemplates, [getTemplates]);
 
   const onSelect = (item: TemplateListingT) => {
-    store.setTemplateListing(item);
-    store.setCurrentStep(STEP_CONFIGURE_TEMPLATE);
+    goToTemplateConfig(history, item.id);
   };
 
   return (
