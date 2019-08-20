@@ -67,6 +67,10 @@ class Store {
     this.history = history;
   };
 
+  goBackToHomepage = () => {
+    this.history.push('/');
+  };
+
   createSession = () => {
     this.setLoading(true);
     if (this.templateListing && this.templateConfig) {

@@ -129,6 +129,7 @@ export const LandingPage = ({ history }) => {
     setEvent({ ...event, [prop]: val });
   };
 
+const LandingPage = ({ history }) => {
   const [showModal] = useModal();
   const openLoginModal = () => {
     showModal(<AccountModal formToDisplay="login" />);
