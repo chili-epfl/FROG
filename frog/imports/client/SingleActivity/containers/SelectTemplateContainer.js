@@ -3,7 +3,6 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import { withRouter } from 'react-router';
-import { observer } from 'mobx-react';
 
 import { goToTemplateConfig } from '../store/navigation';
 import { getTemplates, type TemplateListingT } from '../store/templates';

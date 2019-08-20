@@ -2,7 +2,6 @@
 
 import * as _ from 'lodash';
 import * as React from 'react';
-import { observer } from 'mobx-react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 
 import { Clear } from '@material-ui/icons';

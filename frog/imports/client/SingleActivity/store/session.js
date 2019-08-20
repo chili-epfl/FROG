@@ -12,7 +12,11 @@ export const createSession = (templateId: string, templateConfig: any) => {
         3,
         (err, result) => {
           if (err) {
-            reject('Could not create your activity, please try again later.');
+            reject(
+              new Error(
+                'Could not create your activity, please try again later.'
+              )
+            );
           } else {
             const slug = result.slug;
             resolve(slug);
@@ -20,7 +24,9 @@ export const createSession = (templateId: string, templateConfig: any) => {
         }
       );
     } else {
-      reject('Could not create session, the configuration has errors');
+      reject(
+        new Error('Could not create session, the configuration has errors')
+      );
     }
   });
 };

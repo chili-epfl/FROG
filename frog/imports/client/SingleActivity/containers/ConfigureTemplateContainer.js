@@ -3,7 +3,6 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import { withRouter, Prompt } from 'react-router-dom';
-import { observer } from 'mobx-react';
 
 import { NavigateNext, NavigateBefore } from '@material-ui/icons';
 
@@ -38,7 +37,7 @@ export const ConfigureTemplateContainer = _.flow(withRouter)(
       setWaiting(true);
       createSession(templateId, config).then((slug, err) => {
         if (err) {
-          window.alert(err);
+          window.alert(err.message);
         } else {
           goToOrchestration(history, slug);
         }
