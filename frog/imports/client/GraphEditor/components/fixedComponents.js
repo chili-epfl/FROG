@@ -39,7 +39,7 @@ export const LevelLines = connect(
     scaled
   }: StoreProp & { scaled: boolean }) => (
     <g>
-      {[1, 2, 3, 4].map(plane => (
+      {[1, 2, 3].map(plane => (
         <g key={plane}>
           <line
             x1={0}

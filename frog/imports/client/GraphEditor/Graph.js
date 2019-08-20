@@ -76,19 +76,11 @@ const Graph = connect(
       >
         <rect
           x={0}
-          y={0}
-          fill="#D9E5F0"
-          width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={200}
-          onClick={canvasClick}
-        />
-        <rect
-          x={0}
           y={200}
           fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={400}
+          height={300}
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
@@ -97,7 +89,6 @@ const Graph = connect(
         {!hideOperatorsAndConnections && <Operators scaled={scaled} />}
         {isSession && <ProgressLines scaled={scaled} />}
         {isEditable && <DragGuides />}
-        {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
         <Activities scaled={scaled} transparent />
         {!hideOperatorsAndConnections && (
