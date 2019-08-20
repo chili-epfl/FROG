@@ -303,24 +303,11 @@ const LandingPage = ({ history }) => {
         </Typography>
         <div className={classes.activities}>
           <ActivityCard
-<<<<<<< HEAD
-=======
             onClick={() => history.push('/wizard/ac-quiz')}
->>>>>>> develop
             imageURL="https://picsum.photos/100"
             title="Questionnaire"
           />
           <ActivityCard
-<<<<<<< HEAD
-            imageURL="https://picsum.photos/101"
-            title="Knowledge Board"
-          />
-          <ActivityCard
-            imageURL="https://picsum.photos/102"
-            title="Student Discussions"
-          />
-          <ActivityCard
-=======
             onClick={() => history.push('/wizard/ac-ck-board')}
             imageURL="https://picsum.photos/101"
             title="Idea board"
@@ -332,28 +319,20 @@ const LandingPage = ({ history }) => {
           />
           <ActivityCard
             onClick={() => history.push('/wizard/ac-brainstorm')}
->>>>>>> develop
             imageURL="https://picsum.photos/103"
             title="Brainstorm Ideas"
           />
           <ActivityCard
-<<<<<<< HEAD
-=======
             onClick={() => history.push('/wizard/te-peerReview')}
->>>>>>> develop
             imageURL="https://picsum.photos/104"
             title="Peer Review Activity"
           />
         </div>
         <div className={classes.alignCenterDiv}>
-<<<<<<< HEAD
-          <Button className={classes.whiteButton}>
-=======
           <Button
             className={classes.whiteButton}
             onClick={() => history.push('/wizard')}
           >
->>>>>>> develop
             Learn more about activities
           </Button>
         </div>
