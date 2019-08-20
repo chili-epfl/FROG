@@ -3,9 +3,9 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
 import { Bookmark, ShowChart, MoreHoriz, Add } from '@material-ui/icons';
-import { SessionListT, DraftsListT } from '../Types/types';
-import { ContentListItem } from '../ListItem';
-import { Button } from '../Button';
+import { SessionListT, DraftsListT } from '/imports/ui/Types/types';
+import { ContentListItem } from '/imports/ui/ListItem';
+import { Button } from '/imports/ui/Button';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -23,13 +23,17 @@ const useStyles = makeStyles(theme => ({
 type RecentsPagePropsT = {
   sessionsList: SessionListT,
   draftsList: DraftsListT,
-  actionCallback: () => void
+  actionCallback: () => void,
+  moreCallbackSessions: () => void,
+  moreCallbackDrafts: () => void
 };
 
 export const RecentsPage = ({
   sessionsList,
   draftsList,
-  actionCallback
+  actionCallback,
+  moreCallbackDrafts,
+  moreCallbackSessions
 }: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
@@ -40,7 +44,7 @@ export const RecentsPage = ({
             <Typography variant="h5" align="left">
               <ShowChart /> Drafts
             </Typography>
-            <Button icon={<Add />} callback={actionCallback} variant="primary">
+            <Button icon={<Add />} onClick={actionCallback} variant="primary">
               Create a new graph
             </Button>
           </div>
@@ -57,21 +61,27 @@ export const RecentsPage = ({
                   secondaryActions
                 },
                 index
-              ) => (
-                <ContentListItem
-                  key={index}
-                  itemTitle={itemTitle}
-                  itemIcon={itemIcon}
-                  itemType={itemType}
-                  dateCreated={dateCreated}
-                  callback={callback}
-                  secondaryActions={secondaryActions}
-                />
-              )
+              ) => {
+                return (
+                  <ContentListItem
+                    key={index}
+                    itemTitle={itemTitle}
+                    itemIcon={itemIcon}
+                    itemType={itemType}
+                    dateCreated={dateCreated}
+                    callback={callback}
+                    secondaryActions={secondaryActions}
+                  />
+                );
+              }
             )}
           </List>
           <div className={classes.buttonRows}>
-            <Button icon={<MoreHoriz />} variant="minimal">
+            <Button
+              onClick={moreCallbackDrafts}
+              icon={<MoreHoriz />}
+              variant="minimal"
+            >
               More
             </Button>
           </div>
@@ -84,7 +94,7 @@ export const RecentsPage = ({
             <Bookmark /> Sessions
           </Typography>
 
-          <List>
+          <List dense>
             {sessionsList.map(
               (
                 {
@@ -111,7 +121,11 @@ export const RecentsPage = ({
               )
             )}
           </List>
-          <Button icon={<MoreHoriz />} variant="minimal">
+          <Button
+            onClick={moreCallbackSessions}
+            icon={<MoreHoriz />}
+            variant="minimal"
+          >
             More
           </Button>
         </Paper>
