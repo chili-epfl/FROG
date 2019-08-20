@@ -141,10 +141,10 @@ export const LandingPage = () => {
         ''
       )}
       <Container className={classes.section}>
-        <Typography variant='h1' className={classes.title}>
+        <Typography variant="h1" className={classes.title}>
           The community platform to augment your in classroom experience
         </Typography>
-        <Typography variant='body1' className={classes.paragraph}>
+        <Typography variant="body1" className={classes.paragraph}>
           FROG is a tool to improve the way you present your lecture. You can
           use these activities to make your classroom interactive while having
           complete control over the progress of the class and all it takes is
@@ -159,21 +159,21 @@ export const LandingPage = () => {
         </Button>
       </Container>
       <Container className={classes.section}>
-        <Typography align='center' className={classes.subtitle}>
+        <Typography align="center" className={classes.subtitle}>
           For Educators
         </Typography>
-        <Typography align='center' className={classes.titleBlue}>
+        <Typography align="center" className={classes.titleBlue}>
           Built for your way of teaching
         </Typography>
       </Container>
       <Container className={classes.section}>
-        <Typography align='center' className={classes.titleBlue}>
+        <Typography align="center'"className={classes.titleBlue}>
           How it works
         </Typography>
         <div className={classes.stepsWrapper}>
           <StepRow
-            imageURL='https://picsum.photos/200'
-            title='Create your class schedule'
+            imageURL="https://picsum.photos/200"
+            title="Create your class schedule"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -181,9 +181,9 @@ export const LandingPage = () => {
             aliquip ex ea commodo consequat.
           </StepRow>
           <StepRow
-            imageURL='https://picsum.photos/300'
-            title='Plan and Customize Student Activities'
-            variant='reverse'
+            imageURL="https://picsum.photos/300"
+            title="Plan and Customize Student Activities"
+            variant="reverse"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -191,8 +191,8 @@ export const LandingPage = () => {
             aliquip ex ea commodo consequat.
           </StepRow>
           <StepRow
-            imageURL='https://picsum.photos/400'
-            title='Start your session and monitor progress'
+            imageURL="https://picsum.photos/400"
+            title="Start your session and monitor progress"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -210,24 +210,24 @@ export const LandingPage = () => {
         </Typography>
         <div className={classes.activities}>
           <ActivityCard
-            imageURL='https://picsum.photos/100'
-            title='Questionnaire'
+            imageURL="https://picsum.photos/100"
+            title="Questionnaire"
           />
           <ActivityCard
-            imageURL='https://picsum.photos/101'
-            title='Knowledge Board'
+            imageURL="https://picsum.photos/101"
+            title="Knowledge Board"
           />
           <ActivityCard
-            imageURL='https://picsum.photos/102'
-            title='Student Discussions'
+            imageURL="https://picsum.photos/102"
+            title="Student Discussions"
           />
           <ActivityCard
-            imageURL='https://picsum.photos/103'
-            title='Brainstorm Ideas'
+            imageURL="https://picsum.photos/103"
+            title="Brainstorm Ideas"
           />
           <ActivityCard
-            imageURL='https://picsum.photos/104'
-            title='Peer Review Activity'
+            imageURL="https://picsum.photos/104"
+            title="Peer Review Activity"
           />
         </div>
         <div className={classes.alignCenterDiv}>

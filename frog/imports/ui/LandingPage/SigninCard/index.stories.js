@@ -3,19 +3,19 @@ import { storiesOf } from '@storybook/react';
 import { SigninCard } from '.';
 
 const onSignEnter = (email, password) => {
-  console.log(`Sign in using email: ${email} and password: ${password}`);
+  console.info(`Sign in using email: ${email} and password: ${password}`);
 };
 
 const onForgotPassword = () => {
-  console.log(`Forgot Password`);
+  console.info(`Forgot Password`);
 };
 
 const onCreateAccount = () => {
-  console.log(`Create New Account`);
+  console.info(`Create New Account`);
 };
 
 const closeSignin = () => {
-  console.log(`Closed`);
+  console.info(`Closed`);
 };
 
 storiesOf('Frog Landing Page/Sign In Card', module).add('Simple', () => (

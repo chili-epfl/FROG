@@ -62,43 +62,43 @@ export const Footer = () => {
     <footer className={classes.root}>
       <div className={classes.linksWrapper}>
         <div className={classes.col}>
-          <Typography variant='body2' className={classes.linksTitle}>
+          <Typography variant="body2" className={classes.linksTitle}>
             Frog
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             About
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             Team
           </Typography>
         </div>
         <div className={classes.col}>
-          <Typography variant='body2' className={classes.linksTitle}>
+          <Typography variant="body2" className={classes.linksTitle}>
             Communities
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             Developers
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             Github
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             Research
           </Typography>
         </div>
         <div className={classes.col}>
-          <Typography variant='body2' className={classes.linksTitle}>
+          <Typography variant="body2" className={classes.linksTitle}>
             Useful Links
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             Help
           </Typography>
-          <Typography variant='body2' className={classes.link}>
+          <Typography variant="body2" className={classes.link}>
             FAQs
           </Typography>
         </div>
       </div>
-      <Typography variant='body2' className={classes.footerText}>
+      <Typography variant="body2" className={classes.footerText}>
         FROG 2019
       </Typography>
     </footer>

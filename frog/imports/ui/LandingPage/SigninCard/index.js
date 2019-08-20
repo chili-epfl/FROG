@@ -113,7 +113,7 @@ export const SigninCard = (props: SigninCardProps) => {
       <div className={classes.blackScreen} />
       <div className={classes.root}>
         <IconButton
-          aria-label='close sign-in panel'
+          aria-label="close sign-in panel"
           onClick={() => {
             props.closeSignin();
           }}
@@ -121,33 +121,33 @@ export const SigninCard = (props: SigninCardProps) => {
         >
           <Close />
         </IconButton>
-        <Typography variant='h5' className={classes.title}>
+        <Typography variant="h5" className={classes.title}>
           Sign In
         </Typography>
         <form className={classes.form}>
           <TextField
-            label='E-mail'
-            variant='outlined'
+            label="E-mail"
+            variant="outlined"
             className={classes.input}
             value={values.email}
             onChange={handleChange('email')}
-            margin='normal'
-            placeholder='E-mail'
+            margin="normal"
+            placeholder="E-mail"
           />
           <TextField
             className={classes.input}
-            variant='outlined'
+            variant="outlined"
             type={values.showPassword ? 'text' : 'password'}
-            label='Password'
+            label="Password"
             value={values.password}
             onChange={handleChange('password')}
-            placeholder='Password'
+            placeholder="Password"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <IconButton
-                    edge='end'
-                    aria-label='toggle password visibility'
+                    edge="end"
+                    aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                   >
@@ -158,8 +158,8 @@ export const SigninCard = (props: SigninCardProps) => {
             }}
           />
           <Button
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             className={`${classes.button} ${classes.filled}`}
             onClick={() => {
               props.onSignEnter(values.email, values.password);

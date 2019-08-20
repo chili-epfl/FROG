@@ -13,8 +13,8 @@ const container = {
 storiesOf('Frog Landing Page/Activity Card', module).add('Simple', () => (
   <div style={container}>
     <ActivityCard
-      imageURL='https://picsum.photos/100'
-      title='Activity Card Title'
+      imageURL="https://picsum.photos/100"
+      title="Activity Card Title"
     />
   </div>
 ));
