@@ -74,11 +74,11 @@ const Graph = connect(
       >
         <rect
           x={0}
-          y={200}
+          y={130}
           fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={300}
+          height='150px'
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
@@ -86,7 +86,6 @@ const Graph = connect(
         <Activities scaled={scaled} />
         {!hideOperatorsAndConnections && <Operators scaled={scaled} />}
         {isSession && <ProgressLines scaled={scaled} />}
-        {isEditable && <DragGuides />}
         {isEditable && scrollEnabled && <DragLine />}
         <Activities scaled={scaled} transparent />
         {!hideOperatorsAndConnections && (

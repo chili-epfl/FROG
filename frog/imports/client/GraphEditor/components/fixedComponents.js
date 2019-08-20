@@ -43,9 +43,9 @@ export const LevelLines = connect(
         <g key={plane}>
           <line
             x1={0}
-            y1={(5 - plane) * 100 + 65}
+            y1={(5 - plane) * 50 + 65}
             x2={graphWidth * (scaled ? scale : 4)}
-            y2={(5 - plane) * 100 + 65}
+            y2={(5 - plane) * 50 + 65}
             stroke="grey"
             strokeWidth={5 - plane === 1 ? 2 : 1}
             strokeDasharray={5 - plane === 1 ? '10,10' : '5,5'}
@@ -53,7 +53,7 @@ export const LevelLines = connect(
           <rect
             onDoubleClick={e => onDoubleClick(plane, e)}
             x={0}
-            y={(5 - plane) * 100 + 45}
+            y={(5 - plane) * 50 + 45}
             width={graphWidth * (scaled ? scale : 4)}
             fill="transparent"
             height={40}
