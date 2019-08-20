@@ -11,7 +11,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
-    padding: theme.spacing(1,0)
+    padding: theme.spacing(1)
   }
 });
 
