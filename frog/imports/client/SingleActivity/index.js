@@ -28,11 +28,7 @@ const SingleActivity = _.flow(withRouter)(({ history }) => {
           <Button
             variant="minimal"
             icon={<Clear />}
-<<<<<<< HEAD
             onClick={() => goToHomepage(history)}
-=======
-            onClick={() => store.goBackToHomepage()}
->>>>>>> 0c9113ce85cf9b6448d0acb3f84a280ceda75e19
           />
         </div>
       }
