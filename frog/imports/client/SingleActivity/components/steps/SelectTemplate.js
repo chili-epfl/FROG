@@ -8,7 +8,7 @@ import { ItemGrid } from '/imports/ui/ItemGrid';
 import { PictureButton } from '/imports/ui/Button/PictureButton';
 import { RowButton, RowDivider } from '/imports/ui/RowItems';
 
-import { type TemplateListingT } from '../../store';
+import { type TemplateListingT } from '../../store/templates';
 import { SplitLayout } from '../ui/SplitLayout';
 
 const useStyle = makeStyles(() => ({
