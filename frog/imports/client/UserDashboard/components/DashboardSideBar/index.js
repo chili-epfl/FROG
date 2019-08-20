@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-boolean-value */
 // @flow
 import * as React from 'react';
 import { AccessTimeOutlined, Bookmark, ShowChart } from '@material-ui/icons';
-import { Sidebar, Panel } from '../../../../ui/Sidebar';
-import { Logo } from '../../../../ui/Logo';
-import { SidebarLayout } from '../../../../ui/Layout/SidebarLayout';
-import { RowButton, RowTitle } from '../../../../ui/RowItems';
-import { TopBar } from '../../../../ui/TopBar';
-import { Breadcrumb } from '../../../../ui/Breadcrumb';
+import { Sidebar, Panel } from '/imports/ui/Sidebar';
+import { Logo } from '/imports/ui/Logo';
+import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
+import { RowButton, RowTitle } from '/imports/ui/RowItems';
+import { TopBar } from '/imports/ui/TopBar';
+import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],

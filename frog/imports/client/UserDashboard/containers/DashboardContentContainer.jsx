@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { DashboardSideBar } from '../components/DashboardSideBar';
-import { RecentsPage } from '../components/RecentsPage';
-import { DraftsPage } from '../components/DraftsPage';
-import { SessionsPage } from '../components/SessionsPage';
+import { DashboardSideBar } from '/imports/client/UserDashboard/components/DashboardSideBar';
+import { RecentsPage } from '/imports/client/UserDashboard/components/RecentsPage';
+import { DraftsPage } from '/imports/client/UserDashboard/components/DraftsPage';
+import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsPage';
 import { DraftsListT, SessionsListT } from '/imports/ui/Types/types';
 
 type DashboardContentContainerPropsT = {
