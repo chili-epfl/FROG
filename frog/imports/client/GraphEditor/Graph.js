@@ -7,7 +7,7 @@ import Activities from './Activities';
 import Operators from './Operators';
 
 import Lines, { DragLine } from './components/Lines';
-import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
+import { LevelLines, PanMap } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
 import DragGuides from './components/DragGuides';
 import ProgressLines from './components/ProgressLines';
@@ -44,7 +44,6 @@ const Graph = connect(
     isEditable,
     isSession,
     hasPanMap,
-    hasTimescale,
     hideOperatorsAndConnections
   }: StoreProp & {
     scaled: boolean,
@@ -52,7 +51,6 @@ const Graph = connect(
     isEditable: boolean,
     isSession: boolean,
     hasPanMap: boolean,
-    hasTimescale: boolean,
     hideOperatorsAndConnections: boolean
   }) => (
     <svg
