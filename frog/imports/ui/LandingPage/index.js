@@ -5,16 +5,13 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { StepRow } from './StepRow';
 import { ActivityCard } from './ActivityCard';
-import { SigninCard } from './SigninCard';
 import { primaryColor, primaryColorDark } from './constants';
-
 import { withRouter } from 'react-router';
 import { useModal } from '/imports/ui/Modal';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 
 
-const useStyle = makeStyles(theme => ({
-  root: {
+const useStyle = makeStyles(theme => ({  root: {
     flexGrow: 1,
     overflow: 'hidden'
   },
@@ -121,14 +118,6 @@ const useStyle = makeStyles(theme => ({
 const LandingPage = ({ history }) => {
   const classes = useStyle();
 
-  const [event, setEvent] = React.useState({
-    showCard: false
-  });
-
-  const handleEventChange = (prop, val) => {
-    setEvent({ ...event, [prop]: val });
-  };
-
   const [showModal] = useModal();
 
   const openLoginModal = () => {
@@ -137,17 +126,7 @@ const LandingPage = ({ history }) => {
 
   return (
     <div className={classes.root}>
-      <Header
-        openSignin={openLoginModal}/>
-      {/* {event.showCard ? (
-        <SigninCard
-          closeSignin={() => {
-            handleEventChange('showCard', false);
-          }}
-        />
-      ) : (
-        ''
-      )} */}
+      <Header openSignin={openLoginModal}/>
       <Container className={classes.section}>
         <Typography variant="h1" className={classes.title}>
           The community platform to augment your in classroom experience
