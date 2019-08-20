@@ -130,6 +130,7 @@ const LandingPage = ({ history }) => {
   };
 
   const [showModal] = useModal();
+
   const openLoginModal = () => {
     showModal(<AccountModal formToDisplay="login" />);
   };
@@ -137,11 +138,7 @@ const LandingPage = ({ history }) => {
   return (
     <div className={classes.root}>
       <Header
-        openSignin={() => {
-          //handleEventChange('showCard', true);
-          {openLoginModal}
-        }}
-      />
+        openSignin={openLoginModal}/>
       {/* {event.showCard ? (
         <SigninCard
           closeSignin={() => {
