@@ -118,7 +118,7 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-export const LandingPage = ({ history }) => {
+const LandingPage = ({ history }) => {
   const classes = useStyle();
 
   const [event, setEvent] = React.useState({
@@ -129,7 +129,6 @@ export const LandingPage = ({ history }) => {
     setEvent({ ...event, [prop]: val });
   };
 
-const LandingPage = ({ history }) => {
   const [showModal] = useModal();
   const openLoginModal = () => {
     showModal(<AccountModal formToDisplay="login" />);
