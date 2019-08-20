@@ -1,33 +1,24 @@
 // @flow
 
+import * as _ from 'lodash';
 import * as React from 'react';
-import { observer } from 'mobx-react';
-import { withRouter } from 'react-router';
+import { withRouter, Route, Switch } from 'react-router-dom';
 
 import { Clear } from '@material-ui/icons';
 
 import { Logo } from '/imports/ui/Logo';
 import { Button } from '/imports/ui/Button';
 
-import { store, STEP_SELECT_TEMPLATE, STEP_CONFIGURE_TEMPLATE } from './store';
+import { goToHomepage } from './store/navigation';
+import { getTemplates } from './store/templates';
+
 import { BaseLayout } from './components/ui/BaseLayout';
+
 import { SelectTemplateContainer } from './containers/SelectTemplateContainer';
 import { ConfigureTemplateContainer } from './containers/ConfigureTemplateContainer';
 
-const SingleActivity = observer(history => {
-  React.useEffect(() => store.setHistory(history), []);
-
-  let CurrentStep;
-  switch (store.currentStep) {
-    case STEP_SELECT_TEMPLATE:
-      CurrentStep = SelectTemplateContainer;
-      break;
-    case STEP_CONFIGURE_TEMPLATE:
-      CurrentStep = ConfigureTemplateContainer;
-      break;
-    default:
-      throw new Error('Invalid step number');
-  }
+const SingleActivity = _.flow(withRouter)(({ history }) => {
+  const availableTemplates = React.useMemo(getTemplates, [getTemplates]);
 
   return (
     <BaseLayout
@@ -37,14 +28,23 @@ const SingleActivity = observer(history => {
           <Button
             variant="minimal"
             icon={<Clear />}
-            onClick={() => store.goBackToHomepage()}
+            onClick={() => goToHomepage(history)}
           />
         </div>
       }
     >
-      <CurrentStep />
+      <Switch>
+        <Route
+          path={[
+            ...availableTemplates[0].map(listing => `/wizard/${listing.id}`),
+            ...availableTemplates[1].map(listing => `/wizard/${listing.id}`)
+          ]}
+          component={ConfigureTemplateContainer}
+        />
+        <Route component={SelectTemplateContainer} />
+      </Switch>
     </BaseLayout>
   );
 });
 
-export default withRouter(SingleActivity);
+export default SingleActivity;

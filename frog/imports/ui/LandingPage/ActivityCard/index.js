@@ -57,7 +57,7 @@ type ActivityCardProps = {
 export const ActivityCard = (props: ActivityCardProps) => {
   const classes = useStyle();
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={props.onClick}>
       <div className={classes.imgContainer}>
         <img src={props.imageURL} className={classes.img} alt={props.title} />
       </div>

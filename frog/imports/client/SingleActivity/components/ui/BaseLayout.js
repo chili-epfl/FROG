@@ -28,9 +28,9 @@ const useStyle = makeStyles(theme => ({
 }));
 
 type BaseLayoutPropsT = {
-  left?: React.Element<*>,
-  children?: React.Element<*>,
-  right?: React.Element<*>
+  left?: React.Element<*> | React.Element<*>[],
+  children?: React.Element<*> | React.Element<*>[],
+  right?: React.Element<*> | React.Element<*>[]
 };
 
 export const BaseLayout = (props: BaseLayoutPropsT) => {

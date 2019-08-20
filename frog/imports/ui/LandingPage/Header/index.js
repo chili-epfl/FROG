@@ -58,8 +58,10 @@ export const Header = (props: HeaderProps) => {
     <header className={classes.root}>
       <Typography className={classes.logo}>Frog</Typography>
       <div>
-        <Button className={classes.link}>About</Button>
-        <Button className={classes.link}>How it Works</Button>
+        <a href="https://froglearning.wordpress.com">
+          <Button className={classes.link}>About</Button>
+          <Button className={classes.link}>How it Works</Button>
+        </a>
         <Button
           variant="contained"
           className={classes.button}
