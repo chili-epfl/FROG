@@ -118,9 +118,8 @@ const useStyle = makeStyles(theme => ({
 
 const LandingPage = ({ history }) => {
   const classes = useStyle();
-
   const [showModal] = useModal();
-
+  
   const openLoginModal = () => {
     showModal(<AccountModal formToDisplay="login" />);
   };
