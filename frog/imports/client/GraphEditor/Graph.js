@@ -9,7 +9,6 @@ import Operators from './Operators';
 import Lines, { DragLine } from './components/Lines';
 import { LevelLines, PanMap } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
-import DragGuides from './components/DragGuides';
 import ProgressLines from './components/ProgressLines';
 import { ErrorList } from './Validator';
 
@@ -78,7 +77,7 @@ const Graph = connect(
           fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height='150px'
+          height="150px"
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
