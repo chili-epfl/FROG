@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nps -s",
     "test": "nps -s test",
-    "create-package": "node createPackage.js"
+    "create-package": "node createPackage.js",
+    "storybook": "start-storybook"
   },
   "husky": {
     "hooks": {
