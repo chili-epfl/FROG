@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 // @flow
 import * as React from 'react';
 import { AccessTimeOutlined, Bookmark, ShowChart } from '@material-ui/icons';
@@ -39,9 +40,8 @@ export const DashboardSideBar = ({
               </>
             }
             footer={
-              <RowButton active onClick={() => history.push('/single')}>
-                {' '}
-                Create using Wizard{' '}
+              <RowButton active onClick={() => history.push('/wizard')}>
+                Create using Wizard
               </RowButton>
             }
           >

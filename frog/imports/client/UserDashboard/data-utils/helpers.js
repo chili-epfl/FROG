@@ -1,5 +1,7 @@
 /* eslint-disable array-callback-return */
 import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
+import { activityTypesObj } from '/imports/activityTypes';
+import { templatesObj } from '/imports/internalTemplates';
 
 type meteorSessionObjectT = {
   _id: string,
@@ -43,8 +45,10 @@ const getSessionStatus = (session): meteorSessionObjectT => {
 };
 
 const getSessionTitle = (session): meteorSessionObjectT => {
-  if (session.singleActivity) return session.simpleConfig.activityType;
-  else if (session.template) return session.simpleConfig.activityType;
+  if (session.singleActivity)
+    return activityTypesObj[session.simpleConfig.activityType].meta.name;
+  else if (session.template)
+    return templatesObj[session.simpleConfig.activityType].meta.name;
   else return session.name;
 };
 
@@ -64,6 +68,7 @@ export const parseDraftData = (
       itemIcon: ShowChart,
       itemTitle: item.name,
       dateCreated: parseDate(item.createdAt),
+      dateObj: item.createdAt,
       callback: () => history.push(`/teacher/graph/${item._id}`)
     });
   });
@@ -82,6 +87,7 @@ export const parseSessionData = (
       status: getSessionStatus(item),
       itemType: getSessionTypeInfo(item),
       dateCreated: parseEpocDate(item.startedAt),
+      dateObj: new Date(item.startedAt),
       callback: () => history.push(`t/${item.slug}`)
     });
   });

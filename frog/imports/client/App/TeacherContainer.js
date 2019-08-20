@@ -30,7 +30,7 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
     <div id="app">
       <Switch>
         <Route path="/" exact component={RootSwitcher} />
-        <Route path="/single" exact component={SingleActivity} />
+        <Route path="/wizard" exact component={SingleActivity} />
         <Route path="/teacher/graph/:graphId" component={GraphEditor} />
         <Route path="/teacher/graph" component={GraphEditor} />
         <Route component={WithTopBar} />

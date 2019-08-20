@@ -12,7 +12,7 @@ const LandingPage = ({ history }) => {
   return (
     <>
       <h1 align="center"> Welcome to FROG - this is a temp landing page </h1>
-      <Button variant="primary" onClick={() => history.push('/single')}>
+      <Button variant="primary" onClick={() => history.push('/wizard')}>
         CREATE YOUR FIRST ACTIVITY NOW!
       </Button>
       <Button variant="primary" onClick={openLoginModal}>

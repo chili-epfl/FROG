@@ -35,6 +35,7 @@ export const SessionsPage = ({ sessionsList }: SessionsPagePropsT) => {
                   itemIcon,
                   itemTitle,
                   itemType,
+                  status,
                   dateCreated,
                   callback,
                   secondaryActions
@@ -45,6 +46,7 @@ export const SessionsPage = ({ sessionsList }: SessionsPagePropsT) => {
                   key={index}
                   itemTitle={itemTitle}
                   itemIcon={itemIcon}
+                  status={status}
                   itemType={itemType}
                   dateCreated={dateCreated}
                   callback={callback}

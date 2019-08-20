@@ -47,29 +47,40 @@ export const DashboardContentContainer = ({
     });
   };
 
+  const sortList = (list): SessionListT | DraftsListT => {
+    return list.sort((a, b) => b.dateObj - a.dateObj);
+  };
+  // use cached values if the input array is the same
+  const sortedSessionsList = React.useMemo(() => sortList(sessionsList), [
+    sessionsList
+  ]);
+  const sortedDraftsList = React.useMemo(() => sortList(draftsList), [
+    draftsList
+  ]);
+
   const ComponentToRender = () => {
     switch (activePage) {
       case 'Recents':
         return (
           <RecentsPage
-            sessionsList={sessionsList.slice(0, 6)}
-            draftsList={draftsList.slice(0, 6)}
+            sessionsList={sortedSessionsList.slice(0, 6)}
+            draftsList={sortedDraftsList.slice(0, 6)}
             actionCallback={() => history.push('/teacher')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
           />
         );
       case 'Sessions':
-        return <SessionsPage sessionsList={sessionsList} />;
+        return <SessionsPage sessionsList={sortedSessionsList} />;
 
       case 'Drafts':
-        return <DraftsPage draftsList={draftsList} />;
+        return <DraftsPage draftsList={sortedDraftsList} />;
 
       default:
         return (
           <RecentsPage
-            sessionsList={sessionsList.slice(0, 6)}
-            draftsList={draftsList.slice(0, 6)}
+            sessionsList={sortedSessionsList.slice(0, 6)}
+            draftsList={sortedDraftsList.slice(0, 6)}
             actionCallback={() => history.push('/teacher')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}

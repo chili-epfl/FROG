@@ -53,7 +53,7 @@ export const ContentListItem = ({
   const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
 
   return (
-    <ListItem alignItems="flex-start" divider button onClick={callback}>
+    <ListItem alignItems="flex-start" divider="true" button onClick={callback}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
