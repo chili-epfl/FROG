@@ -8,6 +8,11 @@ import { ActivityCard } from './ActivityCard';
 import { SigninCard } from './SigninCard';
 import { primaryColor, primaryColorDark } from './constants';
 
+import { withRouter } from 'react-router';
+import { useModal } from '/imports/ui/Modal';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+
+
 const useStyle = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -113,7 +118,7 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-export const LandingPage = () => {
+export const LandingPage = ({ history }) => {
   const classes = useStyle();
 
   const [event, setEvent] = React.useState({
@@ -124,14 +129,20 @@ export const LandingPage = () => {
     setEvent({ ...event, [prop]: val });
   };
 
+  const [showModal] = useModal();
+  const openLoginModal = () => {
+    showModal(<AccountModal formToDisplay="login" />);
+  };
+
   return (
     <div className={classes.root}>
       <Header
         openSignin={() => {
-          handleEventChange('showCard', true);
+          //handleEventChange('showCard', true);
+          {openLoginModal}
         }}
       />
-      {event.showCard ? (
+      {/* {event.showCard ? (
         <SigninCard
           closeSignin={() => {
             handleEventChange('showCard', false);
@@ -139,7 +150,7 @@ export const LandingPage = () => {
         />
       ) : (
         ''
-      )}
+      )} */}
       <Container className={classes.section}>
         <Typography variant="h1" className={classes.title}>
           The community platform to augment your in classroom experience
@@ -150,7 +161,7 @@ export const LandingPage = () => {
           complete control over the progress of the class and all it takes is
           three steps.
         </Typography>
-        <Button disableFocusRipple disableRipple className={classes.lineButton}>
+        <Button disableFocusRipple disableRipple className={classes.lineButton} onClick={() => history.push('/wizard')}>
           Try it out now
         </Button>
       </Container>
@@ -236,3 +247,5 @@ export const LandingPage = () => {
     </div>
   );
 };
+
+export default withRouter(LandingPage);
