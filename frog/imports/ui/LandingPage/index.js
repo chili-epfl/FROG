@@ -10,7 +10,6 @@ import { withRouter } from 'react-router';
 import { useModal } from '/imports/ui/Modal';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 
-
 const useStyle = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -119,14 +118,14 @@ const useStyle = makeStyles(theme => ({
 const LandingPage = ({ history }) => {
   const classes = useStyle();
   const [showModal] = useModal();
-  
+
   const openLoginModal = () => {
     showModal(<AccountModal formToDisplay="login" />);
   };
 
   return (
-    <div className={classes.root}> 
-      <Header openSignin={openLoginModal}/>
+    <div className={classes.root}>
+      <Header openSignin={openLoginModal} />
       <Container className={classes.section}>
         <Typography variant="h1" className={classes.title}>
           The community platform to augment your in classroom experience
@@ -138,10 +137,11 @@ const LandingPage = ({ history }) => {
           three steps.
         </Typography>
         <Button
-        disableFocusRipple
-        disableRipple
-        className={classes.lineButton}
-        onClick={() => history.push('/wizard')}>
+          disableFocusRipple
+          disableRipple
+          className={classes.lineButton}
+          onClick={() => history.push('/wizard')}
+        >
           Try it out now
         </Button>
       </Container>
