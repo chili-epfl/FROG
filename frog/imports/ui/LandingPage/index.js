@@ -11,7 +11,8 @@ import { useModal } from '/imports/ui/Modal';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 
 
-const useStyle = makeStyles(theme => ({  root: {
+const useStyle = makeStyles(theme => ({
+  root: {
     flexGrow: 1,
     overflow: 'hidden'
   },
@@ -125,7 +126,7 @@ const LandingPage = ({ history }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root}> 
       <Header openSignin={openLoginModal}/>
       <Container className={classes.section}>
         <Typography variant="h1" className={classes.title}>
@@ -137,7 +138,11 @@ const LandingPage = ({ history }) => {
           complete control over the progress of the class and all it takes is
           three steps.
         </Typography>
-        <Button disableFocusRipple disableRipple className={classes.lineButton} onClick={() => history.push('/wizard')}>
+        <Button
+        disableFocusRipple
+        disableRipple
+        className={classes.lineButton}
+        onClick={() => history.push('/wizard')}>
           Try it out now
         </Button>
       </Container>
