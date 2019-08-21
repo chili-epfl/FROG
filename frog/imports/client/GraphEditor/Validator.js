@@ -145,7 +145,7 @@ export const ValidButtonRaw = ({
     <circle
       cx="17"
       cy="17"
-      r="12"
+      r="8"
       stroke="transparent"
       fill={errorColor || graphErrorColor}
       onMouseOver={() => setShowErrors(activityId || true)}
