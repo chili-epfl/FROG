@@ -14,6 +14,7 @@ import { Breadcrumb } from '/imports/ui/Breadcrumb';
 type OrchestrationLayoutProps = {
   sessionSteps: React.Element<*>,
   orchestrationControl: React.Element<*>,
+  slugButton: React.Element<*>,
   children: React.Element<*>
 };
 
@@ -29,7 +30,10 @@ const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
       }
       content={
         <>
-          <TopBar navigation={<Breadcrumb paths={['Button', 'Stuff']} />} />
+          <TopBar
+            navigation={<Breadcrumb paths={['Button', 'Stuff']} />}
+            actions={<>{props.slugButton}</>}
+          />
           {props.children}
         </>
       }

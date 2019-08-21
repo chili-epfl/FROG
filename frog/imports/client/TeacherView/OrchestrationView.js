@@ -7,6 +7,7 @@ import OrchestrationLayout from './components/OrchestrationLayout';
 
 import { SessionControlContainer } from './containers/SessionControlContainer';
 import { StepsContainer } from './containers/StepsContainer';
+import { SlugContainer } from './containers/SlugContainer';
 
 type OrchestrationViewPropsT = {
   session: Object,
@@ -21,6 +22,7 @@ export const OrchestrationView = (props: OrchestrationViewPropsT) => (
     <OrchestrationLayout
       orchestrationControl={<SessionControlContainer />}
       sessionSteps={<StepsContainer />}
+      slugButton={<SlugContainer />}
     >
       <div />
     </OrchestrationLayout>
