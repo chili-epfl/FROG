@@ -102,7 +102,7 @@ class ActivityComponent extends Component<Object> {
               style={{ overflow: 'hidden' }}
               width={width + x - 20}
             >
-              <text x={x + 10} y={activity.y + 18} font-size="15">
+              <text x={x + 10} y={activity.y + 18} fontSize="15">
                 {activity.title}
               </text>
             </svg>
