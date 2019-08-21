@@ -4,7 +4,7 @@ import { type TopBarWrapperPropsT } from './types';
 import { Meteor } from 'meteor/meteor';
 import { TopBar } from '/imports/ui/TopBar';
 import { getUsername } from '/imports/api/users';
-import AccountModal from '/imports/client/AccountModal';
+import { AccountModal } from '/imports/client/AccountModal';
 import { useModal } from '/imports/ui/Modal';
 import { SupervisedUserCircle } from '@material-ui/icons';
 import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
