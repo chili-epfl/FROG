@@ -4,6 +4,7 @@ import { RecentsPage } from '/imports/client/UserDashboard/components/RecentsPag
 import { DraftsPage } from '/imports/client/UserDashboard/components/DraftsPage';
 import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsPage';
 import { DraftsListT, SessionsListT } from '/imports/ui/Types/types';
+import { TopBarWrapper } from '/imports/containers/TopBarWrapper/TopBarWrapper';
 
 type DashboardContentContainerPropsT = {
   history: Object,
@@ -90,6 +91,7 @@ export const DashboardContentContainer = ({
   };
 
   return (
+    
     <DashboardSideBar
       callbackSessionsView={onSelectSessionsView}
       callbackRecentsView={onSelectRecentsView}
@@ -99,7 +101,11 @@ export const DashboardContentContainer = ({
       recentsActive={selectedPage.recentsView}
       history={history}
     >
+      <>
+      <TopBarWrapper title = "Dashboard"/>
       <ComponentToRender />
+      </>
     </DashboardSideBar>
+   
   );
 };
