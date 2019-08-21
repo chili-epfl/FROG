@@ -12,10 +12,10 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
         x={x - 1}
         y={y - 1}
         width={width + 2}
-        stroke="#ff9900"
+        stroke="#B7E2DD"
         strokeWidth={3}
         rx={11}
-        height={15}
+        height={28}
       />
     )}
     <rect
@@ -26,7 +26,7 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
       stroke={strokeColor}
       strokeWidth={1}
       rx={10}
-      height={15}
+      height={26}
     />
   </g>
 );
@@ -102,17 +102,17 @@ class ActivityComponent extends Component<Object> {
               style={{ overflow: 'hidden' }}
               width={width + x - 20}
             >
-              <text x={x + 3} y={activity.y + 10}>
+              <text x={x + 10} y={activity.y + 18} font-size="15">
                 {activity.title}
               </text>
             </svg>
             <circle
               data-tip={activity.title}
-              cx={x + width - 10}
-              cy={activity.y + 5}
-              r={5}
-              fill="transparent"
-              stroke="black"
+              cx={x + width - 14}
+              cy={activity.y + 12}
+              r={4}
+              fill="#CDDEEF"
+              stroke="transparent"
             />
             <DraggableCore
               onStart={() => startDragging(activity)}

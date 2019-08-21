@@ -36,7 +36,7 @@ const styles = () => ({
   root: {
     overflowX: 'auto'
   },
-  editor: { height: 600 },
+  editor: { height: 600, background: '#EAF1F8' },
   editorWithPanMap: { height: 150 }
 });
 

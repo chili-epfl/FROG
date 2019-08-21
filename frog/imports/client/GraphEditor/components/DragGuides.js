@@ -29,7 +29,7 @@ const ShadedBox = ({ x, current }) => (
   <rect
     stroke="transparent"
     fill="#CDDEEF"
-    fillOpacity={0.2}
+    fillOpacity={0}
     x={Math.min(current, x)}
     y={0}
     width={Math.abs(x - current)}

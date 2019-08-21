@@ -60,13 +60,13 @@ export default class Elem {
           return 'white';
         }
         if (this.highlighted) {
-          return '#7AD2C8';
+          return '#CCEEEA';
         }
         switch (this.state) {
           case 'computing':
             return '#E8D77E';
           case 'computed':
-            return '#7AD2C8';
+            return '#CCEEEA';
           case 'error':
             return '#E04E4E';
           default:
@@ -85,7 +85,7 @@ export default class Elem {
       get strokeColor(): string {
         const errors = store.graphErrors.filter(x => x.id === this.id);
         if (errors.length === 0) {
-          return 'grey';
+          return '#626B75';
         }
         if (errors.find(x => x.type === 'missingType')) {
           return '#D9E5F0';

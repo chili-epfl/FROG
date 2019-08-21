@@ -57,6 +57,7 @@ const Graph = connect(
       height="100%"
       onMouseMove={mousemove}
       onWheel={scrollMouse}
+      fill="#3E4A57"
     >
       <svg
         viewBox={
@@ -77,7 +78,7 @@ const Graph = connect(
           fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height="150px"
+          height="350px"
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />

@@ -11,7 +11,7 @@ export const Line = observer(
       <path
         d={scaled ? connection.pathScaled : connection.path}
         fill="transparent"
-        stroke={connection.selected ? '#B7E2DD' : 'grey'}
+        stroke={connection.selected ? '#CDDEEF' : '#85B7F2'}
         strokeWidth="2"
       />
       <path
@@ -36,7 +36,7 @@ export const DragLine = connect(
       return null;
     }
     return (
-      <path d={dragPath} fill="transparent" stroke="grey" strokeWidth="2" />
+      <path d={dragPath} fill="transparent" stroke="#CDDEEF" strokeWidth="2" />
     );
   }
 );
