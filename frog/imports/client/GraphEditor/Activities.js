@@ -111,8 +111,9 @@ class ActivityComponent extends Component<Object> {
               cx={x + width - 14}
               cy={activity.y + 12}
               r={4}
-              fill="#CDDEEF"
-              stroke="transparent"
+              fill="transparent"
+              stroke="#CDDEEF"
+              strokeWidth="1"
             />
             <DraggableCore
               onStart={() => startDragging(activity)}

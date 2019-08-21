@@ -11,7 +11,7 @@ export const Line = observer(
       <path
         d={scaled ? connection.pathScaled : connection.path}
         fill="transparent"
-        stroke={connection.selected ? '#CDDEEF' : '#85B7F2'}
+        stroke={connection.selected ? '#CDDEEF' : '#31BFAE'}
         strokeWidth="2"
       />
       <path
