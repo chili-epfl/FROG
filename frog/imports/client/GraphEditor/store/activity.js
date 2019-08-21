@@ -301,7 +301,7 @@ export default class Activity extends Elem {
 
       get y(): number {
         const offset = store.activityStore.activityOffsets[this.id];
-        return (5 - this.plane) * 75 + 50 - offset * 15;
+        return (5 - this.plane) * 75 + 50 - offset * 30;
       },
 
       get endTime(): number {
