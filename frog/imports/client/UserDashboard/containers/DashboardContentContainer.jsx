@@ -99,7 +99,6 @@ export const DashboardContentContainer = ({
       recentsActive={selectedPage.recentsView}
       activePage={activePage}
       history={history}
-      activePage={activePage}
     >
       <ComponentToRender />
     </DashboardSideBar>
