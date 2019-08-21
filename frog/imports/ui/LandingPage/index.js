@@ -168,16 +168,17 @@ const LandingPage = ({ history }) => {
         </Typography>
         <div className={classes.alignCenterDiv}>
           <iframe
+            title="Video Tutorial"
             style={{
               width: '50vw',
               minWidth: '300px',
               height: 'calc((9/16)*50vw)'
             }}
             src="https://www.youtube.com/embed/ctAEhsjFKpw"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+            allowFullScreen
+          />
         </div>
       </Container>
       <Container className={classes.section}>
