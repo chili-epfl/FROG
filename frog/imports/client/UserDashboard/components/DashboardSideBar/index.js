@@ -7,6 +7,7 @@ import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { RowButton, RowTitle } from '/imports/ui/RowItems';
 import { TopBar } from '/imports/ui/TopBar';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
+import  TopBarWrapper  from '/imports/client/UserDashboard/TopBarWrapper/TopBarWrapper';
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
@@ -25,6 +26,7 @@ export const DashboardSideBar = ({
   draftsActive,
   recentsActive,
   history,
+  activePage, 
   children
 }: DashBoardSideBarPropsT) => {
   return (
@@ -71,14 +73,7 @@ export const DashboardSideBar = ({
         }
         content={
           <>
-            <TopBar
-              navigation={
-                <Breadcrumb
-                  icon={<AccessTimeOutlined fontSize="small" />}
-                  paths={['Recents']}
-                />
-              }
-            />
+            <TopBarWrapper title = {activePage}/>
 
             {children}
           </>

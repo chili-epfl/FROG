@@ -1,6 +1,6 @@
 // @flow 
 import * as React from 'react'; 
-import {TopBarAccountsWrapper} from './TopBarAccountsWrapper'; 
+import TopBarAccountsWrapper from './TopBarAccountsWrapper'; 
 import {type TopBarWrapperPropsT, type MenuItemT } from './types'; 
 
 export const TopBarWrapper = ({title, menuItems}: TopBarWrapperPropsT)=> {
