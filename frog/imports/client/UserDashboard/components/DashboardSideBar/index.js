@@ -14,7 +14,9 @@ type DashBoardSideBarPropsT = {
   callbackRecentsView: () => void,
   sessionsActive: boolean,
   draftsActive: boolean,
-  recentsActive: boolean
+  recentsActive: boolean,
+  history: RouterHistory,
+  activePage: string
 };
 export const DashboardSideBar = ({
   callbackRecentsView,

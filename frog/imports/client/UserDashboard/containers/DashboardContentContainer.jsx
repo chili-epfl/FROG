@@ -6,7 +6,7 @@ import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsP
 import { DraftsListT, SessionsListT } from '/imports/ui/Types/types';
 
 type DashboardContentContainerPropsT = {
-  history: Object,
+  history: RouterHistory,
   draftsList: DraftsListT,
   sessionsList: SessionsListT
 };
@@ -63,8 +63,8 @@ export const DashboardContentContainer = ({
       case 'Recents':
         return (
           <RecentsPage
-            sessionsList={sortedSessionsList.slice(0, 6)}
-            draftsList={sortedDraftsList.slice(0, 6)}
+            sessionsList={sortedSessionsList}
+            draftsList={sortedDraftsList}
             actionCallback={() => history.push('/teacher')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
@@ -79,8 +79,8 @@ export const DashboardContentContainer = ({
       default:
         return (
           <RecentsPage
-            sessionsList={sortedSessionsList.slice(0, 6)}
-            draftsList={sortedDraftsList.slice(0, 6)}
+            sessionsList={sortedSessionsList}
+            draftsList={sortedDraftsList}
             actionCallback={() => history.push('/teacher')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
@@ -97,6 +97,7 @@ export const DashboardContentContainer = ({
       sessionsActive={selectedPage.sessionsView}
       draftsActive={selectedPage.draftsView}
       recentsActive={selectedPage.recentsView}
+      activePage={activePage}
       history={history}
       activePage={activePage}
     >

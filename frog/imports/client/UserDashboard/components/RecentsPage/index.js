@@ -50,33 +50,35 @@ export const RecentsPage = ({
           </div>
 
           <List>
-            {draftsList.map(
-              (
-                {
-                  itemIcon,
-                  itemTitle,
-                  itemType,
-                  dateCreated,
-                  callback,
-                  secondaryActions
-                },
-                index
-              ) => {
-                return (
-                  <ContentListItem
-                    key={index}
-                    itemTitle={itemTitle}
-                    itemIcon={itemIcon}
-                    itemType={itemType}
-                    dateCreated={dateCreated}
-                    callback={callback}
-                    secondaryActions={secondaryActions}
-                  />
-                );
-              }
-            )}
+            {draftsList
+              .slice(0, 6)
+              .map(
+                (
+                  {
+                    itemIcon,
+                    itemTitle,
+                    itemType,
+                    dateCreated,
+                    callback,
+                    secondaryActions
+                  },
+                  index
+                ) => {
+                  return (
+                    <ContentListItem
+                      key={index}
+                      itemTitle={itemTitle}
+                      itemIcon={itemIcon}
+                      itemType={itemType}
+                      dateCreated={dateCreated}
+                      callback={callback}
+                      secondaryActions={secondaryActions}
+                    />
+                  );
+                }
+              )}
           </List>
-          <div className={classes.buttonRows}>
+          {draftsList.length > 6 && (
             <Button
               onClick={moreCallbackDrafts}
               icon={<MoreHoriz />}
@@ -84,7 +86,7 @@ export const RecentsPage = ({
             >
               More
             </Button>
-          </div>
+          )}
         </Paper>
       </Grid>
 
@@ -95,39 +97,43 @@ export const RecentsPage = ({
           </Typography>
 
           <List dense>
-            {sessionsList.map(
-              (
-                {
-                  itemIcon,
-                  itemTitle,
-                  status,
-                  itemType,
-                  dateCreated,
-                  callback,
-                  secondaryActions
-                },
-                index
-              ) => (
-                <ContentListItem
-                  key={index}
-                  itemIcon={itemIcon}
-                  itemTitle={itemTitle}
-                  itemType={itemType}
-                  dateCreated={dateCreated}
-                  status={status}
-                  callback={callback}
-                  secondaryActions={secondaryActions}
-                />
-              )
-            )}
+            {sessionsList
+              .slice(0, 6)
+              .map(
+                (
+                  {
+                    itemIcon,
+                    itemTitle,
+                    status,
+                    itemType,
+                    dateCreated,
+                    callback,
+                    secondaryActions
+                  },
+                  index
+                ) => (
+                  <ContentListItem
+                    key={index}
+                    itemIcon={itemIcon}
+                    itemTitle={itemTitle}
+                    itemType={itemType}
+                    dateCreated={dateCreated}
+                    status={status}
+                    callback={callback}
+                    secondaryActions={secondaryActions}
+                  />
+                )
+              )}
           </List>
-          <Button
-            onClick={moreCallbackSessions}
-            icon={<MoreHoriz />}
-            variant="minimal"
-          >
-            More
-          </Button>
+          {sessionsList.length > 6 && (
+            <Button
+              onClick={moreCallbackSessions}
+              icon={<MoreHoriz />}
+              variant="minimal"
+            >
+              More
+            </Button>
+          )}
         </Paper>
       </Grid>
     </Grid>
