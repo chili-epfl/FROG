@@ -166,6 +166,19 @@ const LandingPage = ({ history }) => {
         <Typography align="center" className={classes.titleColor}>
           Built for your way of teaching
         </Typography>
+        <div className={classes.alignCenterDiv}>
+          <iframe
+            style={{
+              width: '50vw',
+              minWidth: '300px',
+              height: 'calc((9/16)*50vw)'
+            }}
+            src="https://www.youtube.com/embed/ctAEhsjFKpw"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
       </Container>
       <Container className={classes.section}>
         <Typography align="center" className={classes.titleColor}>
