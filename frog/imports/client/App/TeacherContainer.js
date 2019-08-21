@@ -12,15 +12,6 @@ import SingleActivity from '/imports/client/SingleActivity';
 import TeacherView from '../TeacherView';
 import GraphEditor from '../GraphEditor';
 import Preview from '../Preview';
-import TopBar from './TopBar';
-
-const styles = {
-  subroot: {
-    overflow: 'hidden',
-    height: '100%',
-    width: '100%'
-  }
-};
 
 const TeacherContainer = ({ ready }: { ready: boolean }) => {
   if (!ready) {

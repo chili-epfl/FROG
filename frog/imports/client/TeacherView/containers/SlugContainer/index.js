@@ -3,11 +3,12 @@
 import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 
+import { Tooltip } from '@material-ui/core';
+import { OpenInNew } from '@material-ui/icons';
+
 import { Button } from '/imports/ui/Button';
 
 import { OrchestrationContext } from '../../context';
-import { OpenInNew } from '@material-ui/icons';
-import { Tooltip } from '@material-ui/core';
 
 export const SlugContainer = () => {
   const session = React.useContext(OrchestrationContext);

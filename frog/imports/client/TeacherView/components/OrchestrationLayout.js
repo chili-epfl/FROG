@@ -2,12 +2,9 @@
 
 import * as React from 'react';
 
-import { Clear } from '@material-ui/icons';
-
 import { Sidebar } from '/imports/ui/Sidebar';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { Logo } from '/imports/ui/Logo';
-import { RowButton } from '/imports/ui/RowItems';
 import { TopBar } from '/imports/ui/TopBar';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 

@@ -1,10 +1,6 @@
 // @flow
 
-import {
-  removeAllUsers,
-  updateSessionState,
-  restartSession
-} from '/imports/api/sessions';
+import { updateSessionState } from '/imports/api/sessions';
 import { nextActivity, goBack } from '/imports/api/engine';
 import { teacherLogger } from '/imports/api/logs';
 
