@@ -63,11 +63,7 @@ export const ControlButton = (props: ControlButtonProps) => {
   const Icon = variant.icon;
 
   return (
-    <RowButton
-      size="large"
-      icon={<Icon fontSize="small" />}
-      onClick={props.onClick}
-    >
+    <RowButton icon={<Icon fontSize="small" />} onClick={props.onClick}>
       {title}
     </RowButton>
   );

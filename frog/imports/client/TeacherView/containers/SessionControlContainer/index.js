@@ -7,24 +7,19 @@ import { ControlButton } from './ControlButton';
 import { OrchestrationContext } from '../../context';
 
 export const SessionControlContainer = () => {
-  const { sessionState, sessionControl } = React.useContext(
-    OrchestrationContext
-  );
+  const session = React.useContext(OrchestrationContext);
 
   return (
     <>
-      {sessionState.isWaitingForStudents ? (
-        <ControlButton variant="start" onClick={sessionControl.startSession} />
+      {session.isWaitingForStudents ? (
+        <ControlButton variant="start" onClick={session.start} />
       ) : (
-        <ControlButton variant="next" onClick={sessionControl.next} />
+        <ControlButton variant="next" onClick={session.next} />
       )}
-      {sessionState.isPaused ? (
-        <ControlButton
-          variant="continue"
-          onClick={sessionControl.continueSession}
-        />
+      {session.isPaused ? (
+        <ControlButton variant="continue" onClick={session.continue} />
       ) : (
-        <ControlButton variant="pause" onClick={sessionControl.pauseSession} />
+        <ControlButton variant="pause" onClick={session.pause} />
       )}
     </>
   );

@@ -11,13 +11,13 @@ import { teacherLogger } from '/imports/api/logs';
 import { TimeSync } from 'meteor/mizzao:timesync';
 
 export const orchestrationControl = (session: Object) => ({
-  startSession: () => nextActivity(session._id),
-  stopSession: () => updateSessionState(session._id, 'STOPPED'),
-  continueSession: () => {
+  start: () => nextActivity(session._id),
+  stop: () => updateSessionState(session._id, 'STOPPED'),
+  continue: () => {
     teacherLogger(session._id, 'teacher.pause-resume');
     updateSessionState(session._id, 'STARTED', TimeSync.serverTime());
   },
-  pauseSession: () => {
+  pause: () => {
     teacherLogger(session._id, 'teacher.pause');
     updateSessionState(session._id, 'PAUSED', TimeSync.serverTime());
   },

@@ -12,6 +12,7 @@ import { TopBar } from '/imports/ui/TopBar';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
 type OrchestrationLayoutProps = {
+  sessionSteps: React.Element<*>,
   orchestrationControl: React.Element<*>,
   children: React.Element<*>
 };
@@ -23,6 +24,7 @@ const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
         <Sidebar>
           <Logo />
           {props.orchestrationControl}
+          {props.sessionSteps}
         </Sidebar>
       }
       content={
