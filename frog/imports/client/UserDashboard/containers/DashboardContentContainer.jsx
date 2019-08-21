@@ -5,7 +5,6 @@ import { DraftsPage } from '/imports/client/UserDashboard/components/DraftsPage'
 import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsPage';
 import { DraftsListT, SessionsListT } from '/imports/ui/Types/types';
 
-
 type DashboardContentContainerPropsT = {
   history: Object,
   draftsList: DraftsListT,
@@ -91,7 +90,6 @@ export const DashboardContentContainer = ({
   };
 
   return (
-    
     <DashboardSideBar
       callbackSessionsView={onSelectSessionsView}
       callbackRecentsView={onSelectRecentsView}
@@ -100,12 +98,9 @@ export const DashboardContentContainer = ({
       draftsActive={selectedPage.draftsView}
       recentsActive={selectedPage.recentsView}
       history={history}
-      activePage = {activePage}
+      activePage={activePage}
     >
-     
       <ComponentToRender />
-    
     </DashboardSideBar>
-   
   );
 };
