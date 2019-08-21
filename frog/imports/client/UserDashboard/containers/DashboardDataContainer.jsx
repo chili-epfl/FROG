@@ -10,7 +10,7 @@ import {
 import { DraftsListT, SessionListT } from '/imports/ui/Types/types';
 
 type DashboardDataContainerPropT = {
-  history: Object,
+  history: RouterHistory,
   draftsList: DraftsListT,
   sessionsList: SessionListT
 };
