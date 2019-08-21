@@ -77,12 +77,10 @@ const TopBarAccountsWrapper = ({ title }: TopBarWrapperPropsT) => {
               <Button variant="minimal" icon={<SupervisedUserCircle />} />
             }
           >
-            
-              <RowTitle>Logged in as {getUsername()} </RowTitle>
-              <RowDivider />
-              <RowButton onClick={openSignUpModal}> Sign Up </RowButton>
-              <RowButton onClick={doLogout}> Logout </RowButton>
-            
+            <RowTitle>Logged in as {getUsername()} </RowTitle>
+            <RowDivider />
+            <RowButton onClick={openSignUpModal}> Sign Up </RowButton>
+            <RowButton onClick={doLogout}> Logout </RowButton>
           </OverflowMenu>
         </>
       }
