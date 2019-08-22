@@ -13,8 +13,6 @@ export const DashboardContainer = () => {
     return null;
   }
   const currentActiveActivity = Activities.findOne(currentActiveSteps[0]._id);
-  console.log(currentActiveActivity);
-  console.log(!activityTypesObj[currentActiveActivity.activityType].dashboards);
   const aT = activityTypesObj[(currentActiveActivity?.activityType)];
   if (
     !currentActiveActivity ||
