@@ -41,6 +41,9 @@ export const LevelLines = connect(
     <g>
       {[1, 2, 3].map(plane => (
         <g key={plane}>
+          <text x="5" y={plane * (350 / 4) - 10} fill="#8698AB">
+            {['Class', 'Group', 'Individual'][plane - 1]}
+          </text>
           <line
             x1={0}
             y1={plane * (350 / 4)}
