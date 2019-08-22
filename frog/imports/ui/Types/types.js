@@ -4,6 +4,7 @@ export type SessionObjectT = {
   status: 'Ready' | 'Running' | 'Complete',
   itemType: string,
   dateCreated: string,
+  dateObj?: Date,
   callback: () => void,
   secondaryActions: Array<SecondaryActionT>
 };
@@ -12,6 +13,7 @@ export type DraftObjectT = {
   itemIcon: React.ComponentType<*>,
   itemType: string,
   dateCreated: string,
+  dateObj?: Date,
   callback: () => void,
   secondaryActions: Array<SecondaryActionT>
 };

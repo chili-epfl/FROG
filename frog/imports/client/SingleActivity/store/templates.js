@@ -3,7 +3,7 @@ import { activityTypes } from '/imports/activityTypes';
 import { templateTypes, templatesObj } from '/imports/internalTemplates';
 
 // You can add the permitted activities for the single activity here
-const availableSingleActivities = [
+export const availableSingleActivities = [
   'ac-quiz',
   'ac-ck-board',
   'ac-chat',

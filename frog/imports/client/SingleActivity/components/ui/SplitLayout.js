@@ -13,6 +13,9 @@ const useStyle = makeStyles(() => ({
     gridTemplateRows: '1fr',
     gridTemplateColumns: '1fr 1fr',
     gridGap: '64px'
+  },
+  left: {
+    position: 'relative'
   }
 }));
 
