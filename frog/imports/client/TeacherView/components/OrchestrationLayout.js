@@ -21,7 +21,7 @@ type OrchestrationLayoutProps = {
   sessionSteps: React.Element<*>,
   studentView: React.Element<*>,
   orchestrationControl: React.Element<*>,
-  slugButton: React.Element<*>,
+  topBar: React.Element<*>,
   graphView: React.Element<*>,
   children: React.Element<*>
 };
@@ -40,7 +40,7 @@ const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
       }
       content={
         <div className={classes.contentWrapper}>
-          <TopBar actions={<>{props.slugButton}</>} />
+          {props.topBar}
           {props.children}
         </div>
       }

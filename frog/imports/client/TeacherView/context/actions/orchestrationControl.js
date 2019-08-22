@@ -1,6 +1,10 @@
 // @flow
 
-import { updateSessionState } from '/imports/api/sessions';
+import {
+  updateSessionState,
+  restartSession,
+  removeAllUsers
+} from '/imports/api/sessions';
 import { nextActivity, goBack } from '/imports/api/engine';
 import { teacherLogger } from '/imports/api/logs';
 
@@ -26,5 +30,7 @@ export const orchestrationControl = (session: Object) => ({
       return;
     }
     goBack(session._id);
-  }
+  },
+  restart: () => restartSession(session),
+  removeAllUsers: () => removeAllUsers(session)
 });

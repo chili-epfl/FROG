@@ -7,7 +7,7 @@ import OrchestrationLayout from './components/OrchestrationLayout';
 
 import { SessionControlContainer } from './containers/SessionControlContainer';
 import { StepsContainer } from './containers/StepsContainer';
-import { SlugContainer } from './containers/SlugContainer';
+import { TopBarContainer } from './containers/TopBarContainer';
 import GraphView from './GraphView';
 import { DashboardReactiveWrapper } from '../Dashboard';
 import { StudentContainer } from './containers/StudentContainer';
@@ -15,7 +15,8 @@ import { StudentContainer } from './containers/StudentContainer';
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
-  students: Object
+  students: Object,
+  token: Object
 };
 
 export const OrchestrationView = (props: OrchestrationViewPropsT) => {
@@ -28,12 +29,13 @@ export const OrchestrationView = (props: OrchestrationViewPropsT) => {
       session={props.session}
       activities={props.activities}
       students={props.students}
+      token={props.token}
     >
       <OrchestrationLayout
         orchestrationControl={<SessionControlContainer />}
         sessionSteps={<StepsContainer onClick={setCurrentActivity} />}
         studentView={<StudentContainer onClick={() => {}} />}
-        slugButton={<SlugContainer />}
+        topBar={<TopBarContainer />}
         graphView={<GraphView session={props.session} />}
       >
         {currentActivity !== 'welcome' && activityToDash ? (
