@@ -41,7 +41,14 @@ export default function() {
   Meteor.publish('session.students', slug =>
     Meteor.users.find(
       { joinedSessions: slug },
-      { fields: { username: 1, joinedSessions: 1, role: 1 } }
+      {
+        fields: {
+          username: 1,
+          joinedSessions: 1,
+          role: 1,
+          'profile.displayName': 1
+        }
+      }
     )
   );
 

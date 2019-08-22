@@ -10,7 +10,7 @@ import App from '/imports/client/App';
 const theme = createMuiTheme({
   palette: {
     background: {
-      default: 'white'
+      default: '#fff'
     }
   },
   typography: {
