@@ -2,11 +2,21 @@
 
 import * as React from 'react';
 
+import { makeStyles } from '@material-ui/core';
+
 import { Sidebar } from '/imports/ui/Sidebar';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { Logo } from '/imports/ui/Logo';
 import { TopBar } from '/imports/ui/TopBar';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
+
+const useStyle = makeStyles(() => ({
+  contentWrapper: {
+    height: '100%',
+    display: 'flex',
+    flexFlow: 'column nowrap'
+  }
+}));
 
 type OrchestrationLayoutProps = {
   sessionSteps: React.Element<*>,
@@ -16,6 +26,7 @@ type OrchestrationLayoutProps = {
 };
 
 const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
+  const classes = useStyle();
   return (
     <SidebarLayout
       sidebar={
@@ -26,13 +37,10 @@ const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
         </Sidebar>
       }
       content={
-        <>
-          <TopBar
-            navigation={<Breadcrumb paths={['Button', 'Stuff']} />}
-            actions={<>{props.slugButton}</>}
-          />
+        <div className={classes.contentWrapper}>
+          <TopBar actions={<>{props.slugButton}</>} />
           {props.children}
-        </>
+        </div>
       }
     />
   );

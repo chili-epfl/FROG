@@ -8,14 +8,23 @@ import { RowTitle, RowButton } from '/imports/ui/RowItems';
 
 import { OrchestrationContext } from '../../context';
 
-export const StepsContainer = () => {
+type StepsContainerPropsT = {
+  onClick: (id: string) => void
+};
+
+export const StepsContainer = (props: StepsContainerPropsT) => {
   const session = React.useContext(OrchestrationContext);
 
   return (
     <Panel>
       <RowTitle>Steps</RowTitle>
       {session.steps.map(step => (
-        <RowButton icon={<ActivityStatus status={step.status} />}>
+        <RowButton
+          key={step._id}
+          icon={<ActivityStatus status={step.status} />}
+          onClick={() => props.onClick(step._id)}
+          disabled={step.status === 'pending'}
+        >
           {step.title}
         </RowButton>
       ))}

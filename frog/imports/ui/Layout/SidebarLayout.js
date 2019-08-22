@@ -21,7 +21,8 @@ const useStyle = makeStyles(() => ({
   content: {
     gridColumn: 2,
     gridRow: 1,
-    position: 'relative'
+    position: 'relative',
+    overflow: 'auto'
   },
   extra: {
     gridColumn: 2,
