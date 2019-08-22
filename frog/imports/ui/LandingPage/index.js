@@ -20,25 +20,30 @@ const useStyle = makeStyles(theme => ({
     width: '100%',
     maxWidth: '100%',
     padding: theme.spacing(10, 6),
-    color: blueGrey[800],
+    color: blueGrey[800]
+  },
+  introSection: {
+    padding: theme.spacing(10, 0),
+    backgroundColor: '#FFF',
     marginTop: theme.spacing(8) // Header Placeholder
   },
   title: {
-    width: '60%',
+    width: '50%',
     minWidth: '300px',
     fontWeight: '400',
-    fontSize: '2.75rem',
-    marginBottom: theme.spacing(4)
+    fontSize: '3.25rem',
+    textAlign: 'center',
+    color: blueGrey[900]
   },
-  titleBlue: {
+  titleColor: {
     fontWeight: '500',
-    fontSize: '1.75rem',
+    fontSize: '2.25rem',
     color: primaryColor,
     marginBottom: theme.spacing(4)
   },
   subtitle: {
     fontWeight: '500',
-    fontSize: '1rem',
+    fontSize: '1.4rem',
     textTransform: 'uppercase',
     color: blueGrey[200],
     letterSpacing: '5px',
@@ -48,20 +53,23 @@ const useStyle = makeStyles(theme => ({
     width: '60%',
     minWidth: '300px',
     fontWeight: '400',
-    fontSize: '1rem',
-    color: blueGrey[400],
+    fontSize: '1.4rem',
+    color: blueGrey[300],
     lineHeight: '2',
+    textAlign: 'center',
     margin: theme.spacing(2, 0)
   },
   lineButton: {
     color: primaryColor,
     textTransform: 'none',
-    fontSize: '1rem',
+    fontSize: '1.25rem',
     padding: theme.spacing(0.25),
     fontWeight: '600',
     boxShadow: '0 0 0 transparent',
     borderBottom: `2px solid ${primaryColor}`,
     borderRadius: '0',
+    cursor: 'pointer',
+
     '&:hover': {
       background: 'none'
     },
@@ -80,7 +88,7 @@ const useStyle = makeStyles(theme => ({
   },
   whiteh2: {
     color: '#FFF',
-    fontSize: '1.6rem',
+    fontSize: '2rem',
     textAlign: 'center',
     width: '100%'
   },
@@ -96,7 +104,7 @@ const useStyle = makeStyles(theme => ({
     color: primaryColor,
     background: '#FFF',
     textTransform: 'none',
-    fontSize: '0.8rem',
+    fontSize: '1rem',
     padding: theme.spacing(1, 3.5),
     fontWeight: '500',
     boxShadow: '0 0 0 transparent',
@@ -110,6 +118,7 @@ const useStyle = makeStyles(theme => ({
     }
   },
   alignCenterDiv: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap'
@@ -127,7 +136,9 @@ const LandingPage = ({ history }) => {
   return (
     <div className={classes.root}>
       <Header openSignin={openLoginModal} />
-      <Container className={classes.section}>
+      <Container
+        className={`${classes.section} ${classes.alignCenterDiv} ${classes.introSection}`}
+      >
         <Typography variant="h1" className={classes.title}>
           The community platform to augment your in classroom experience
         </Typography>
@@ -137,39 +148,52 @@ const LandingPage = ({ history }) => {
           complete control over the progress of the class and all it takes is
           three steps.
         </Typography>
-        <Button
-          disableFocusRipple
-          disableRipple
-          className={classes.lineButton}
-          onClick={() => history.push('/wizard')}
-        >
-          Try it out now
-        </Button>
+        <div className={classes.alignCenterDiv}>
+          <Button
+            disableFocusRipple
+            disableRipple
+            className={classes.lineButton}
+            onClick={() => history.push('/wizard')}
+          >
+            Try it out now
+          </Button>
+        </div>
       </Container>
       <Container className={classes.section}>
         <Typography align="center" className={classes.subtitle}>
           For Educators
         </Typography>
-        <Typography align="center" className={classes.titleBlue}>
+        <Typography align="center" className={classes.titleColor}>
           Built for your way of teaching
         </Typography>
+        <div className={classes.alignCenterDiv}>
+          <iframe
+            title="Video Tutorial"
+            style={{
+              width: '50vw',
+              minWidth: '300px',
+              height: 'calc((9/16)*50vw)'
+            }}
+            src="https://www.youtube.com/embed/ctAEhsjFKpw"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
       </Container>
       <Container className={classes.section}>
-        <Typography align="center" className={classes.titleBlue}>
+        <Typography align="center" className={classes.titleColor}>
           How it works
         </Typography>
         <div className={classes.stepsWrapper}>
-          <StepRow
-            imageURL="https://picsum.photos/200"
-            title="Create your class schedule"
-          >
+          <StepRow imageURL="Step1Icon.png" title="Create your class schedule">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
           </StepRow>
           <StepRow
-            imageURL="https://picsum.photos/300"
+            imageURL="Step2Icon.png"
             title="Plan and Customize Student Activities"
             variant="reverse"
           >
@@ -179,7 +203,7 @@ const LandingPage = ({ history }) => {
             aliquip ex ea commodo consequat.
           </StepRow>
           <StepRow
-            imageURL="https://picsum.photos/400"
+            imageURL="Step3Icon.png"
             title="Start your session and monitor progress"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -199,27 +223,27 @@ const LandingPage = ({ history }) => {
         <div className={classes.activities}>
           <ActivityCard
             onClick={() => history.push('/wizard/ac-quiz')}
-            imageURL="https://picsum.photos/100"
+            imageURL="Question.png"
             title="Questionnaire"
           />
           <ActivityCard
             onClick={() => history.push('/wizard/ac-ck-board')}
-            imageURL="https://picsum.photos/101"
+            imageURL="IdeaBoard.png"
             title="Idea board"
           />
           <ActivityCard
-            imageURL="https://picsum.photos/102"
+            imageURL="Chat.png"
             title="Chat"
             onClick={() => history.push('/wizard/ac-chat')}
           />
           <ActivityCard
             onClick={() => history.push('/wizard/ac-brainstorm')}
-            imageURL="https://picsum.photos/103"
+            imageURL="Brainstorm.png"
             title="Brainstorm Ideas"
           />
           <ActivityCard
             onClick={() => history.push('/wizard/te-peerReview')}
-            imageURL="https://picsum.photos/104"
+            imageURL="PeerReview.png"
             title="Peer Review Activity"
           />
         </div>

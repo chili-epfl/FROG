@@ -26,7 +26,7 @@ const useStyle = makeStyles(theme => ({
     margin: theme.spacing(1)
   },
   linksTitle: {
-    fontSize: '0.75rem',
+    fontSize: '0.85rem',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '500',
@@ -34,7 +34,7 @@ const useStyle = makeStyles(theme => ({
     color: blueGrey[200]
   },
   link: {
-    fontSize: '1rem',
+    fontSize: '1.1rem',
     margin: theme.spacing(1.5, 0),
     color: blueGrey[900],
     cursor: 'pointer',

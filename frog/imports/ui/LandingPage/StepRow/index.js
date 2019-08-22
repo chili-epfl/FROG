@@ -35,13 +35,13 @@ const useStyle = makeStyles(theme => ({
     margin: theme.spacing(5)
   },
   title: {
-    fontSize: '1.4rem',
+    fontSize: '1.75rem',
     fontWeight: '500',
     color: blueGrey[900],
     marginBottom: theme.spacing(1)
   },
   content: {
-    fontSize: '.9rem',
+    fontSize: '1rem',
     color: blueGrey[400],
     lineHeight: '2'
   }
