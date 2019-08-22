@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core';
 import { Sidebar } from '/imports/ui/Sidebar';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { Logo } from '/imports/ui/Logo';
-import { TopBar } from '/imports/ui/TopBar';
 
 const useStyle = makeStyles(() => ({
   contentWrapper: {

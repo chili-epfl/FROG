@@ -1,6 +1,4 @@
 // @flow
-
-import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
 
 import {

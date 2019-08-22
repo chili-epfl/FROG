@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { ArrowForwardIos, Person } from '@material-ui/icons';
+import { Person } from '@material-ui/icons';
 
 import { Panel } from '/imports/ui/Sidebar';
 import { RowTitle, RowButton } from '/imports/ui/RowItems';

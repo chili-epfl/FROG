@@ -50,8 +50,6 @@ const OrchestrationRunner = withRouter(
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
-    console.log(students);
-
     return {
       sessions: Sessions.find().fetch(),
       session,
