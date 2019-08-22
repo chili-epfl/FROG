@@ -7,12 +7,14 @@ import GraphMenu from './GraphMenu';
 import { UndoButton, HelpButton, ConfigMenu } from './Settings';
 import ExpandButton from '../SidePanel/ExpandButton';
 
-const styles = {
+const styles = theme => ({
   root: {
     display: 'flex',
-    flexDirection: 'row'
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: theme.spacing(0.5)
   }
-};
+});
 
 const TopPanel = ({ classes, ...props }: Object) => (
   <div className={classes.root}>
