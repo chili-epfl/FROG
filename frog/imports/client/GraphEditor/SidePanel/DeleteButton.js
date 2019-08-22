@@ -33,6 +33,7 @@ export default withVisibility(
               setVisibility(false);
               onConfirmation();
             }}
+            style={{ background: 'none' }}
           >
             Delete
           </Button>

@@ -29,7 +29,7 @@ const ScrollField = connect(
         <rect
           onMouseEnter={() => scrollInterval(direction)}
           onMouseOut={cancelScroll}
-          fill="#999955"
+          fill="#CDDEEF"
           fillOpacity="0.2"
           stroke="transparent"
           x={x}

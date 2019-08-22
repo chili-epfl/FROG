@@ -7,9 +7,8 @@ import Activities from './Activities';
 import Operators from './Operators';
 
 import Lines, { DragLine } from './components/Lines';
-import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
+import { LevelLines, PanMap } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
-import DragGuides from './components/DragGuides';
 import ProgressLines from './components/ProgressLines';
 import { ErrorList } from './Validator';
 
@@ -44,7 +43,6 @@ const Graph = connect(
     isEditable,
     isSession,
     hasPanMap,
-    hasTimescale,
     hideOperatorsAndConnections
   }: StoreProp & {
     scaled: boolean,
@@ -52,7 +50,6 @@ const Graph = connect(
     isEditable: boolean,
     isSession: boolean,
     hasPanMap: boolean,
-    hasTimescale: boolean,
     hideOperatorsAndConnections: boolean
   }) => (
     <svg
@@ -60,12 +57,13 @@ const Graph = connect(
       height="100%"
       onMouseMove={mousemove}
       onWheel={scrollMouse}
+      fill="#3E4A57"
     >
       <svg
         viewBox={
           scaled
-            ? [panOffset, 0, graphWidth, 600].join(' ')
-            : [0, 0, 4 * graphWidth, 600].join(' ')
+            ? [panOffset, 0, graphWidth, 350].join(' ')
+            : [0, 0, 4 * graphWidth, 350].join(' ')
         }
         preserveAspectRatio="none"
         ref={ref => {
@@ -77,18 +75,10 @@ const Graph = connect(
         <rect
           x={0}
           y={0}
-          fill="#f2e6a6"
-          width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={200}
-          onClick={canvasClick}
-        />
-        <rect
-          x={0}
-          y={200}
-          fill="#fcf9e9"
+          fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={400}
+          height="350px"
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
@@ -96,8 +86,6 @@ const Graph = connect(
         <Activities scaled={scaled} />
         {!hideOperatorsAndConnections && <Operators scaled={scaled} />}
         {isSession && <ProgressLines scaled={scaled} />}
-        {isEditable && <DragGuides />}
-        {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
         <Activities scaled={scaled} transparent />
         {!hideOperatorsAndConnections && (

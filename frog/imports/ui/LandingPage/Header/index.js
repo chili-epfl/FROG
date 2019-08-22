@@ -20,7 +20,7 @@ const useStyle = makeStyles(theme => ({
   },
   logo: {
     fontWeight: '600',
-    fontSize: '16px',
+    fontSize: '1.25rem',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     color: primaryColor
@@ -29,12 +29,14 @@ const useStyle = makeStyles(theme => ({
     color: blueGrey[900],
     fontWeight: 500,
     textTransform: 'capitalize',
+    fontSize: '1rem',
     margin: theme.spacing(0, 1)
   },
   button: {
     color: '#FFF',
     fontWeight: 500,
     textTransform: 'capitalize',
+    fontSize: '1rem',
     margin: theme.spacing(0, 1),
     background: primaryColor,
     boxShadow: '0 0 0 transparent',
