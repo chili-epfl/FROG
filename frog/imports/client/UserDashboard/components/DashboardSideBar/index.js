@@ -15,7 +15,9 @@ type DashBoardSideBarPropsT = {
   callbackRecentsView: () => void,
   sessionsActive: boolean,
   draftsActive: boolean,
-  recentsActive: boolean
+  recentsActive: boolean,
+  history: RouterHistory,
+  activePage: string
 };
 export const DashboardSideBar = ({
   callbackRecentsView,
@@ -25,6 +27,7 @@ export const DashboardSideBar = ({
   draftsActive,
   recentsActive,
   history,
+  activePage,
   children
 }: DashBoardSideBarPropsT) => {
   return (
@@ -71,14 +74,7 @@ export const DashboardSideBar = ({
         }
         content={
           <>
-            <TopBar
-              navigation={
-                <Breadcrumb
-                  icon={<AccessTimeOutlined fontSize="small" />}
-                  paths={['Recents']}
-                />
-              }
-            />
+            <TopBar navigation={<Breadcrumb paths={[activePage]} />} />
 
             {children}
           </>
