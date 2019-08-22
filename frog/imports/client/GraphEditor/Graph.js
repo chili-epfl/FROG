@@ -8,7 +8,7 @@ import Operators from './Operators';
 
 import Lines, { DragLine } from './components/Lines';
 import { LevelLines, PanMap } from './components/fixedComponents';
-//import ScrollFields from './components/ScrollFields';
+import ScrollFields from './components/ScrollFields';
 import ProgressLines from './components/ProgressLines';
 import { ErrorList } from './Validator';
 
@@ -93,9 +93,9 @@ const Graph = connect(
         )}
       </svg>
       {hasPanMap && <PanMap />}
-      {/* {scaled && scrollEnabled && (
+      {scaled && scrollEnabled && (
         <ScrollFields width={graphWidth} height={600} />
-      )} */}
+      )}
       {!hasPanMap && <ErrorList />}
     </svg>
   )
