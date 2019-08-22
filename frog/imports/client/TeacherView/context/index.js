@@ -19,6 +19,7 @@ export const OrchestrationContext = React.createContext<OrchestrationModelT>(
 type OrchestrationContextProviderPropsT = {
   session?: Object,
   activities?: Object,
+  students?: Object,
   children: React.Element<*> | React.Element<*>[]
 };
 
@@ -28,15 +29,16 @@ export const OrchestrationContextProvider = (
   const orchestrationModel = React.useMemo(
     () => ({
       ...actions(props.session),
-      ...selectors(props.session, props.activities)
+      ...selectors(props.session, props.activities, props.students)
     }),
-    [props.session, props.activities]
+    [props.session, props.activities, props.students]
   );
 
   return (
     <OrchestrationContext.Provider value={orchestrationModel}>
       {props.session !== undefined &&
         props.activities !== undefined &&
+        props.students !== undefined &&
         props.children}
     </OrchestrationContext.Provider>
   );

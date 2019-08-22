@@ -2,8 +2,14 @@
 
 import { sessionState } from './sessionState';
 import { steps } from './steps';
+import { studentState } from './students';
 
-export const selectors = (session: Object, activities: Object) => ({
+export const selectors = (
+  session: Object,
+  activities: Object,
+  students: Object
+) => ({
   ...sessionState(session),
-  ...steps(session, activities)
+  ...steps(session, activities),
+  ...studentState(students)
 });

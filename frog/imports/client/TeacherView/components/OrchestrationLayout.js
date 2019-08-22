@@ -19,6 +19,7 @@ const useStyle = makeStyles(() => ({
 
 type OrchestrationLayoutProps = {
   sessionSteps: React.Element<*>,
+  studentView: React.Element<*>,
   orchestrationControl: React.Element<*>,
   slugButton: React.Element<*>,
   graphView: React.Element<*>,
@@ -34,6 +35,7 @@ const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
           <Logo />
           {props.orchestrationControl}
           {props.sessionSteps}
+          {props.studentView}
         </Sidebar>
       }
       content={

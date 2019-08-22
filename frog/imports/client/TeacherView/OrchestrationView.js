@@ -10,10 +10,12 @@ import { StepsContainer } from './containers/StepsContainer';
 import { SlugContainer } from './containers/SlugContainer';
 import GraphView from './GraphView';
 import { DashboardReactiveWrapper } from '../Dashboard';
+import { StudentContainer } from './containers/StudentContainer';
 
 type OrchestrationViewPropsT = {
   session: Object,
-  activities: Object
+  activities: Object,
+  students: Object
 };
 
 export const OrchestrationView = (props: OrchestrationViewPropsT) => {
@@ -25,10 +27,12 @@ export const OrchestrationView = (props: OrchestrationViewPropsT) => {
     <OrchestrationContextProvider
       session={props.session}
       activities={props.activities}
+      students={props.students}
     >
       <OrchestrationLayout
         orchestrationControl={<SessionControlContainer />}
         sessionSteps={<StepsContainer onClick={setCurrentActivity} />}
+        studentView={<StudentContainer onClick={() => {}} />}
         slugButton={<SlugContainer />}
         graphView={<GraphView session={props.session} />}
       >
