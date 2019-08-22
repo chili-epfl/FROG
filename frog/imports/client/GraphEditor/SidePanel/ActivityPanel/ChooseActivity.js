@@ -9,8 +9,6 @@ import ReactTooltip from 'react-tooltip';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
-import { Button } from '../../../../ui/Button';
 import { Cloud, Close } from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/styles';
@@ -21,6 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
+import { Button } from '../../../../ui/Button';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 
