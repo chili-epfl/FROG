@@ -62,8 +62,8 @@ const Graph = connect(
       <svg
         viewBox={
           scaled
-            ? [panOffset, 0, graphWidth, 600].join(' ')
-            : [0, 0, 4 * graphWidth, 600].join(' ')
+            ? [panOffset, 0, graphWidth, 350].join(' ')
+            : [0, 0, 4 * graphWidth, 350].join(' ')
         }
         preserveAspectRatio="none"
         ref={ref => {
@@ -74,7 +74,7 @@ const Graph = connect(
       >
         <rect
           x={0}
-          y={130}
+          y={0}
           fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
@@ -93,9 +93,9 @@ const Graph = connect(
         )}
       </svg>
       {hasPanMap && <PanMap />}
-      {scaled && scrollEnabled && (
+      {/* {scaled && scrollEnabled && (
         <ScrollFields width={graphWidth} height={600} />
-      )}
+      )} */}
       {!hasPanMap && <ErrorList />}
     </svg>
   )

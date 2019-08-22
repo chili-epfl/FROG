@@ -12,8 +12,8 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
         x={x - 1}
         y={y - 1}
         width={width + 2}
-        stroke="#B7E2DD"
-        strokeWidth={3}
+        stroke="#31BFAE"
+        strokeWidth={4}
         rx={11}
         height={28}
       />

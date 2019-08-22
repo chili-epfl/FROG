@@ -33,7 +33,7 @@ const styles = () => ({
     height: 'calc(100vh - 48px)',
     overflowX: 'auto'
   },
-  editor: { height: 600, background: '#EAF1F8' },
+  editor: { height: 350, background: '#EAF1F8' },
   editorWithPanMap: { height: 150 }
 });
 
