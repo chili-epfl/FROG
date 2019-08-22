@@ -8,7 +8,7 @@ import Operators from './Operators';
 
 import Lines, { DragLine } from './components/Lines';
 import { LevelLines, PanMap } from './components/fixedComponents';
-import ScrollFields from './components/ScrollFields';
+//import ScrollFields from './components/ScrollFields';
 import ProgressLines from './components/ProgressLines';
 import { ErrorList } from './Validator';
 
