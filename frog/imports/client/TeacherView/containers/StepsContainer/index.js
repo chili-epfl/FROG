@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 
+import { ArrowForwardIos } from '@material-ui/icons';
+
 import { Panel } from '/imports/ui/Sidebar';
 import { ActivityStatus } from '/imports/ui/ActivityStatus';
 import { RowTitle, RowButton } from '/imports/ui/RowItems';
@@ -22,6 +24,13 @@ export const StepsContainer = (props: StepsContainerPropsT) => {
         <RowButton
           key={step._id}
           icon={<ActivityStatus status={step.status} />}
+          rightIcon={
+            step.status !== 'pending' ? (
+              <ArrowForwardIos fontSize="small" />
+            ) : (
+              undefined
+            )
+          }
           onClick={() => props.onClick(step._id)}
           disabled={step.status === 'pending'}
         >

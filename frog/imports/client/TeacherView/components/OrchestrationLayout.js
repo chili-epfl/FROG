@@ -22,6 +22,7 @@ type OrchestrationLayoutProps = {
   sessionSteps: React.Element<*>,
   orchestrationControl: React.Element<*>,
   slugButton: React.Element<*>,
+  graphView: React.Element<*>,
   children: React.Element<*>
 };
 
@@ -42,6 +43,7 @@ const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
           {props.children}
         </div>
       }
+      extra={props.graphView}
     />
   );
 };

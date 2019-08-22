@@ -27,7 +27,8 @@ const useStyle = makeStyles(() => ({
   extra: {
     gridColumn: 2,
     gridRow: 2,
-    borderTop: '1px solid #EAEAEA'
+    borderTop: '1px solid #EAEAEA',
+    overflow: 'auto'
   }
 }));
 
