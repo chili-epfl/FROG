@@ -36,7 +36,6 @@ type SidebarLayoutPropsT = {
   extra?: React.Element<*>
 };
 
-
 export const SidebarLayout = (props: SidebarLayoutPropsT) => {
   const classes = useStyle();
   return (

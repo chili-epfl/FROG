@@ -31,7 +31,7 @@ export const DashboardSideBar = ({
 }: DashBoardSideBarPropsT) => {
   return (
     <>
-   <TopBarWrapper title={activePage} />
+      <TopBarWrapper title={activePage} />
       <SidebarLayout
         sidebar={
           <Sidebar
@@ -72,12 +72,7 @@ export const DashboardSideBar = ({
             </Panel>
           </Sidebar>
         }
-        content={
-         
-            <>
-            {children}
-          </>
-        }
+        content={<>{children}</>}
       />
     </>
   );
