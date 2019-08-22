@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type DraftsPagePropsT = {
-  sessionsList: DraftsListT
+  draftsList: DraftsListT
 };
 
 export const DraftsPage = ({ draftsList }: DraftsPagePropsT) => {

@@ -5,7 +5,7 @@ import { Sidebar, Panel } from '/imports/ui/Sidebar';
 import { Logo } from '/imports/ui/Logo';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { RowButton, RowTitle } from '/imports/ui/RowItems';
-import {TopBarWrapper} from '/imports/client/UserDashboard/TopBarWrapper/TopBarWrapper';
+import { TopBarWrapper } from '/imports/client/UserDashboard/TopBarWrapper/TopBarWrapper';
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
@@ -14,7 +14,9 @@ type DashBoardSideBarPropsT = {
   callbackRecentsView: () => void,
   sessionsActive: boolean,
   draftsActive: boolean,
-  recentsActive: boolean
+  recentsActive: boolean,
+  history: RouterHistory,
+  activePage: string
 };
 export const DashboardSideBar = ({
   callbackRecentsView,
