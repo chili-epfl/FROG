@@ -8,7 +8,6 @@ import { Sidebar } from '/imports/ui/Sidebar';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { Logo } from '/imports/ui/Logo';
 import { TopBar } from '/imports/ui/TopBar';
-import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
 const useStyle = makeStyles(() => ({
   contentWrapper: {

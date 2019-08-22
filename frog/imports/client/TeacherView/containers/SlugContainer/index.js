@@ -16,7 +16,7 @@ import {
 
 import { Button } from '/imports/ui/Button';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
-import { RowTitle, RowDivider, RowButton } from '/imports/ui/RowItems';
+import { RowDivider, RowButton } from '/imports/ui/RowItems';
 
 import { OrchestrationContext } from '../../context';
 
