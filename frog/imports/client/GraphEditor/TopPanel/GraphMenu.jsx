@@ -27,9 +27,8 @@ const styles = theme => ({
     marginRight: 10
   },
   button: {
-    marginTop: theme.spacing(0.5),
-    padding: 3,
-    width: 35
+    margin: theme.spacing(0.5),
+    padding: theme.spacing(1)
   },
   textField: {
     marginTop: theme.spacing(),
@@ -81,7 +80,7 @@ const Duration = withStyles(styles)(
           endAdornment: <InputAdornment position="end">min</InputAdornment>
         }}
       />
-      <Tooltip id="tooltip-top" title="edit graph duration" placement="top">
+      <Tooltip id="tooltip-top" title="edit graph duration">
         <IconButton
           className={classes.button}
           color={editState ? 'secondary' : 'primary'}
@@ -156,7 +155,7 @@ const GraphNameSelector = withStyles(styles)(
           )}
         </TextField>
       )}
-      <Tooltip id="tooltip-top" title="edit graph name" placement="top">
+      <Tooltip id="tooltip-top" title="edit graph name">
         <IconButton
           className={classes.button}
           color={editState ? 'secondary' : 'primary'}

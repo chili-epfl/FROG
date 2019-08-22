@@ -10,8 +10,9 @@ import ExpandButton from '../SidePanel/ExpandButton';
 const styles = theme => ({
   root: {
     display: 'flex',
+    alignItems: 'center',
     flexDirection: 'row',
-    padding: theme.spacing(1)
+    padding: theme.spacing(0.5)
   }
 });
 

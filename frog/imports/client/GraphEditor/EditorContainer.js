@@ -12,10 +12,6 @@ import { removeActivity } from '/imports/api/remoteActivities';
 import { storeTemplateData } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
-import { Edit, SupervisedUserCircle, Widgets } from '@material-ui/icons';
-import { RowButton, RowTitle, RowDivider } from '/imports/ui/RowItems';
-import { OverflowMenu } from '/imports/ui/OverflowMenu';
-import { ActivityStatus } from '/imports/ui/ActivityStatus';
 import { connect } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
@@ -26,14 +22,15 @@ import ModalExport from './RemoteControllers/ModalExport';
 import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
 
+import TopPanel from './TopPanel';
 import Preview from '../Preview';
 import OperatorPreview from '../Preview/OperatorPreview';
-import { TopBar } from '/imports/ui/TopBar';
-import { Breadcrumb } from '/imports/ui/Breadcrumb';
-import { Button } from '/imports/ui/Button';
+import TopBar from '../App/TopBar';
 
 const styles = () => ({
   root: {
+    marginTop: '48px',
+    height: 'calc(100vh - 48px)',
     overflowX: 'auto'
   },
   editor: { height: 600, background: '#EAF1F8' },
@@ -102,35 +99,17 @@ class Editor extends React.Component<Object, StateT> {
     const setIdRemove = val => this.setState({ idRemove: val });
     return (
       <div className={classes.root}>
-        <TopBar
-          navigation={
-            <Breadcrumb
-              icon={<ActivityStatus status="active" />}
-              paths={['Lecture #1', 'Rich Text']}
-            />
-          }
-          actions={
-            <>
-              <OverflowMenu
-                button={
-                  <Button icon={<SupervisedUserCircle fontSize="small" />} />
-                }
-              >
-                <RowTitle>Logged in as Rachit</RowTitle>
-                <RowButton icon={<Edit fontSize="small" />}>
-                  Edit Profile
-                </RowButton>
-                <RowButton icon={<Widgets fontSize="small" />}>
-                  View personal wiki
-                </RowButton>
-                <RowDivider />
-                <RowButton>Logout</RowButton>
-              </OverflowMenu>
-            </>
-          }
-        />
+        <TopBar />
         <Grid container>
           <Grid item xs={12}>
+            <TopPanel
+              openExport={() => this.setState({ exportOpen: true })}
+              openImport={() => this.setState({ importOpen: true })}
+              {...{
+                setDelete,
+                setIdRemove
+              }}
+            />
             <ModalExport
               exportType="graph"
               modalOpen={this.state.exportOpen}

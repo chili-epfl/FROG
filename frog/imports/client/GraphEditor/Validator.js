@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { wordWrap } from '/imports/frog-utils';
-import { blue } from '@material-ui/core/colors';
 
 import { connect } from './store';
 
@@ -15,19 +14,11 @@ const ListError = ({ errors, maxLength }) => {
         const k = lines;
         lines += textlines.length;
         return [
-          <text
-            x="90"
-            y={40 + 20 * k}
-            key={k + 'dot'}
-            fill={x.severity === 'error' ? 'red' : 'orange'}
-          >
-            •
-          </text>,
           <g key={k + 'g'}>
             {textlines.map((line, y) => (
               <text
-                x="100"
-                y={40 + 20 * (k + y)}
+                x="95"
+                y={25 + 20 * (k + y)}
                 key={k + line}
                 fill={x.severity === 'error' ? 'red' : 'orange'}
               >
@@ -101,13 +92,12 @@ export const ShowErrorsRaw = ({
       <g>
         <rect
           x="80"
-          y="20"
-          rx="20"
-          ry={5 + 5 * textLength}
+          y="5"
+          rx="5"
+          ry="5"
           width={6.5 * maxLength}
           height={5 + 22 * textLength}
           fill="#FFFFFF"
-          stroke="#CA1A1A"
         />
         <ListError errors={errors} maxLength={maxLength} />
       </g>
@@ -129,8 +119,8 @@ export const ValidButtonRaw = ({
   noOffset?: boolean
 }) => (
   <svg
-    width="34px"
-    height="34px"
+    width="24px"
+    height="24px"
     style={
       noOffset
         ? {}
@@ -143,8 +133,8 @@ export const ValidButtonRaw = ({
     }
   >
     <circle
-      cx="17"
-      cy="17"
+      cx="12"
+      cy="12"
       r="12"
       stroke="transparent"
       fill={errorColor || graphErrorColor}
@@ -162,21 +152,23 @@ export const ValidButton = connect(
     errorColor,
     activityId
   }) => (
-    <svg width="34px" height="34px" style={{ overflow: 'visible' }}>
+    <svg
+      width="24px"
+      height="24px"
+      style={{ overflow: 'visible', cursor: 'pointer' }}
+    >
       <circle
-        cx="17"
-        cy="17"
-        r="15"
-        stroke={blue[500]}
-        strokeWidth="3"
+        cx="12"
+        cy="12"
+        r="10"
         fill={errorColor || graphErrorColor}
         onMouseOver={() => setShowErrors(activityId || true)}
         onMouseOut={() => setShowErrors(false)}
       />
       <circle
-        cx="17"
-        cy="17"
-        r="14"
+        cx="12"
+        cy="12"
+        r="12"
         stroke="white"
         fill="none"
         strokeWidth="2"

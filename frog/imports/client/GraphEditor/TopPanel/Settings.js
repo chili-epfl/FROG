@@ -50,20 +50,15 @@ const styles = theme => ({
     pointerEvents: 'none'
   },
   undoButton: {
-    marginTop: theme.spacing(),
-    padding: 3,
-    width: 35
+    padding: theme.spacing(1),
+    margin: 5
   },
   helpButton: {
-    marginTop: theme.spacing(),
-    padding: 3,
-    width: 35,
-    marginRight: 70
+    padding: theme.spacing(1),
+    margin: 5
   },
   button: {
-    marginTop: theme.spacing(0.5),
-    padding: 3,
-    width: 35
+    padding: theme.spacing(1)
   },
   leftIcon: {
     marginRight: theme.spacing()
@@ -75,7 +70,7 @@ const styles = theme => ({
 
 const HelpButtonComponent = ({ classes, store: { ui } }) => (
   <div className={classes.root}>
-    <Tooltip id="tooltip-top" title="Show instructions" placement="top">
+    <Tooltip id="tooltip-top" title="Show instructions">
       <Button
         onClick={() => ui.setShowHelpModal(true)}
         color="primary"
@@ -90,11 +85,7 @@ const HelpButtonComponent = ({ classes, store: { ui } }) => (
 
 const UndoButtonComponent = ({ classes, store: { undo } }) => (
   <div className={classes.root}>
-    <Tooltip
-      id="tooltip-top"
-      title="undo the last graph action"
-      placement="top"
-    >
+    <Tooltip id="tooltip-top" title="undo the last graph action">
       <Button onClick={undo} color="primary" className={classes.undoButton}>
         UNDO
         <Undo className={classes.rightIcon} />

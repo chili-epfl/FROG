@@ -22,8 +22,11 @@ import { LocalSettings } from '/imports/api/settings';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    flexGrow: 1
+  },
+  appbar: {
+    background: '#31BFAE',
+    boxShadow: '0 0 10px rgba(0,0,0,0.05)'
   },
   button: {
     margin: theme.spacing()
@@ -35,8 +38,19 @@ const styles = theme => ({
     minHeight: '48px',
     height: '48px'
   },
+  toolbarHeading: {
+    fontSize: '1.25rem',
+    fontWeight: '500',
+    color: '#FFF',
+    marginRight: '20px'
+  },
   tabs: {
     flexGrow: 1
+  },
+  tab: {
+    fontSize: '1.1rem',
+    textTransform: 'capitalize',
+    color: '#FFF'
   }
 });
 
@@ -157,22 +171,28 @@ class TopBarController extends React.Component<
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="fixed">
+        <AppBar position="fixed" color="inherit" className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
-            <Typography type="subheading" color="inherit">
+            <Typography
+              type="subheading"
+              color="inherit"
+              className={classes.toolbarHeading}
+            >
               Teacher View
             </Typography>
             <Tabs
               className={classes.tabs}
               value={this.state.active}
               onChange={this.handleChange}
-              variant="fullWidth"
+              indicatorColor="primary"
+              centered="true"
             >
               {this.routes.map(route => (
                 <Tab
                   key={route.name}
                   label={route.name}
                   component={Link}
+                  className={classes.tab}
                   to={
                     (this.matchLocationPrefix(route) || route.to[0]) +
                     LocalSettings.UrlCoda
@@ -181,7 +201,14 @@ class TopBarController extends React.Component<
                 />
               ))}
             </Tabs>
-            <h3>
+            <h3
+              style={{
+                color: '#FFF',
+                marginRight: '10px',
+                fontWeight: '400',
+                fontSize: '1rem'
+              }}
+            >
               {LocalSettings.researchLogin ? ' * ' : ''}
               {getUsername()}
             </h3>
