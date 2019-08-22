@@ -23,7 +23,7 @@ const useStyle = makeStyles(theme => ({
     color: blueGrey[800]
   },
   introSection: {
-    padding: theme.spacing(12, 0),
+    padding: theme.spacing(10, 0),
     backgroundColor: '#FFF',
     marginTop: theme.spacing(8) // Header Placeholder
   },

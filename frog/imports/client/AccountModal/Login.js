@@ -30,10 +30,10 @@ const styles = (theme: Object) => ({
   },
   submit: {
     background: primaryColor,
-    margin: theme.spacing(2, 0, 2, 0),
+    margin: theme.spacing(2, 0),
     padding: theme.spacing(2),
     boxShadow: '0 5px 20px rgba(0,0,0,0.05)',
-    transition: '.5s ease',
+    transition: '.25s ease',
     cursor: 'pointer',
 
     '&:hover': {
