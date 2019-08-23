@@ -10,7 +10,7 @@ import { StorybookContainer } from '/imports/ui/StorybookContainer';
 storiesOf('UI/RowItems/RowButton', module)
   .add('with text only', () => (
     <StorybookContainer width={250}>
-      <RowButton> Hello World!</RowButton>
+      <RowButton>Hello World!</RowButton>
     </StorybookContainer>
   ))
   .add('with left icon', () => (

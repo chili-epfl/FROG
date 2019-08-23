@@ -1,19 +1,22 @@
 // @flow
 import * as React from 'react';
-import { type TopBarWrapperPropsT } from './types';
 import { Meteor } from 'meteor/meteor';
-import { TopBar } from '/imports/ui/TopBar';
-import { getUsername, getUserType } from '/imports/api/users';
-import AccountModal from '/imports/client/AccountModal/AccountModal';
-import { useModal } from '/imports/ui/Modal';
 import { SupervisedUserCircle, Edit } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
-import { RowButton, RowDivider, RowTitle } from '/imports/ui/RowItems';
+import { TopBar } from '/imports/ui/TopBar';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
-
 import { Button } from '/imports/ui/Button';
+import { useModal } from '/imports/ui/Modal';
+import { RowButton, RowDivider, RowTitle } from '/imports/ui/RowItems';
+import { getUsername, getUserType } from '/imports/api/users';
+import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { PersonalProfileModal } from '/imports/client/AccountModal/PersonalProfileModal';
+
+type TopBarWrapperPropsT = {
+  navigation: React.Element<*>,
+  actions: React.Element<*>
+};
 
 export const TopBarAccountsWrapper = ({
   navigation,
@@ -93,7 +96,7 @@ export const TopBarAccountsWrapper = ({
             )}
           </OverflowMenu>
 
-          <React.Fragment>{actions}</React.Fragment>
+          <>{actions}</>
         </>
       }
     />

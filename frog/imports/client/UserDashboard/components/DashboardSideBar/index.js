@@ -5,7 +5,7 @@ import { Sidebar, Panel } from '/imports/ui/Sidebar';
 import { Logo } from '/imports/ui/Logo';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { RowButton, RowTitle } from '/imports/ui/RowItems';
-import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper/TopBarAccountsWrapper';
+import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
 type DashBoardSideBarPropsT = {
