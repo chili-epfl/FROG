@@ -13,7 +13,7 @@ import {
 } from '@material-ui/icons';
 
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
-import { TopBar } from '/imports/ui/TopBar';
+import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Button } from '/imports/ui/Button';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowDivider, RowButton } from '/imports/ui/RowItems';
@@ -36,7 +36,7 @@ export const TopBarContainer = () => {
   };
 
   return (
-    <TopBar
+    <TopBarAccountsWrapper
       navigation={<Breadcrumb paths={[session.slug]} />}
       actions={
         <OverflowMenu
