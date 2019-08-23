@@ -11,6 +11,7 @@ import { TopBarContainer } from './containers/TopBarContainer';
 import GraphView from './GraphView';
 import { DashboardReactiveWrapper } from '../Dashboard';
 import { StudentContainer } from './containers/StudentContainer';
+import { WelcomeView } from './components/WelcomeView';
 
 type OrchestrationViewPropsT = {
   session: Object,
@@ -44,7 +45,7 @@ export const OrchestrationView = (props: OrchestrationViewPropsT) => {
             activity={activityToDash}
           />
         ) : (
-          <div />
+          <WelcomeView slug={props.session.slug} />
         )}
       </OrchestrationLayout>
     </OrchestrationContextProvider>
