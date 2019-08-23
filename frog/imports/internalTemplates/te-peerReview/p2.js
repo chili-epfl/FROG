@@ -80,7 +80,7 @@ export default {
       activityType: 'ac-gallery',
       configVersion: 1,
       data: { expand: true, showUserName: true },
-      participationMode: 'projector',
+      participationMode: '{{participationMode}}',
       actualStartingTime: '2019-07-02T09:39:25.336Z'
     },
     {

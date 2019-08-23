@@ -33,7 +33,7 @@ const formatResults = (
     let product;
     if (formatProduct) {
       const user = users.find(x => x._id === instance);
-      const username = getUsername({ userObj: user });
+      const username = getUsername({ meteorUser: user });
       try {
         product = formatProduct(
           config,
@@ -100,12 +100,12 @@ export const getActivityDataFromReactive = (
       'rz',
       { _id: { $regex: '^' + activityId } },
       null,
-      (err, results) => {
+      async (err, results) => {
         if (err) {
           reject(err);
         } else {
           resolve(
-            formatResults(
+            await formatResults(
               activity.plane,
               results,
               aT.formatProduct,
