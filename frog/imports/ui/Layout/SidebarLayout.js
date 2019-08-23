@@ -21,12 +21,14 @@ const useStyle = makeStyles(() => ({
   content: {
     gridColumn: 2,
     gridRow: 1,
-    position: 'relative'
+    position: 'relative',
+    overflow: 'auto'
   },
   extra: {
     gridColumn: 2,
     gridRow: 2,
-    borderTop: '1px solid #EAEAEA'
+    borderTop: '1px solid #EAEAEA',
+    overflow: 'auto'
   }
 }));
 
