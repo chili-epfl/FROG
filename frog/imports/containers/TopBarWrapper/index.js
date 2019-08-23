@@ -50,6 +50,8 @@ export const TopBarAccountsWrapper = ({
       navigation={navigation}
       actions={
         <>
+          <>{actions}</>
+
           <OverflowMenu
             button={
               <Button variant="minimal" icon={<SupervisedUserCircle />} />
@@ -95,8 +97,6 @@ export const TopBarAccountsWrapper = ({
               </React.Fragment>
             )}
           </OverflowMenu>
-
-          <>{actions}</>
         </>
       }
     />

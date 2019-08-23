@@ -65,7 +65,7 @@ export const DashboardContentContainer = ({
           <RecentsPage
             sessionsList={sortedSessionsList}
             draftsList={sortedDraftsList}
-            actionCallback={() => history.push('/teacher')}
+            actionCallback={() => history.push('/teacher/graph/new')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
           />

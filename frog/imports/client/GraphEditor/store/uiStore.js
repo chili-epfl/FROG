@@ -116,7 +116,7 @@ export default class uiStore {
     const user = Meteor.user();
 
     extendObservable(this, {
-      sidepanelOpen: false,
+      sidepanelOpen: true,
       svgRef: null,
       scale: 1,
       windowWidth: 1000,
