@@ -36,9 +36,6 @@ type SidebarLayoutPropsT = {
   extra?: React.Element<*>
 };
 
-/**
- * TopBar provides UI knobs to show navigation and important actions
- */
 export const SidebarLayout = (props: SidebarLayoutPropsT) => {
   const classes = useStyle();
   return (
