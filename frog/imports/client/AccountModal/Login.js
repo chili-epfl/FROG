@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
+import { blueGrey } from '@material-ui/core/colors';
+import { primaryColor, primaryColorDark } from '../../ui/LandingPage/constants';
 
 const styles = (theme: Object) => ({
   paper: {
@@ -20,17 +22,28 @@ const styles = (theme: Object) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: primaryColor
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(2, 0, 2, 0)
+    background: primaryColor,
+    margin: theme.spacing(2, 0),
+    padding: theme.spacing(2),
+    boxShadow: '0 5px 20px rgba(0,0,0,0.05)',
+    transition: '.25s ease',
+    cursor: 'pointer',
+
+    '&:hover': {
+      background: primaryColorDark
+    }
   },
-  signupLink: {
-    cursor: 'pointer'
+  link: {
+    cursor: 'pointer',
+    color: blueGrey[300],
+    fontSize: '1rem'
   }
 });
 
@@ -117,14 +130,14 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2" className={classes.link}>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
               <Link
                 onClick={openSignUpForm}
-                className={classes.signupLink}
+                className={classes.link}
                 variant="body2"
               >
                 {"Don't have an account? Sign Up"}

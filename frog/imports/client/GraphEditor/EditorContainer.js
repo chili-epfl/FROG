@@ -12,7 +12,6 @@ import { removeActivity } from '/imports/api/remoteActivities';
 import { storeTemplateData } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
-
 import { connect } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
@@ -34,7 +33,7 @@ const styles = () => ({
     height: 'calc(100vh - 48px)',
     overflowX: 'auto'
   },
-  editor: { height: 600 },
+  editor: { height: 350, background: '#EAF1F8' },
   editorWithPanMap: { height: 150 }
 });
 
@@ -45,9 +44,6 @@ const EditorPanel = withStyles(styles)(({ classes }) => (
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-    <div className={classes.editorWithPanMap}>
-      <Graph hasPanMap />
-    </div>
   </React.Fragment>
 ));
 

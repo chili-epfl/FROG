@@ -5,7 +5,7 @@ import { Sidebar, Panel } from '/imports/ui/Sidebar';
 import { Logo } from '/imports/ui/Logo';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
 import { RowButton, RowTitle } from '/imports/ui/RowItems';
-import { TopBar } from '/imports/ui/TopBar';
+import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
 type DashBoardSideBarPropsT = {
@@ -31,7 +31,7 @@ export const DashboardSideBar = ({
   children
 }: DashBoardSideBarPropsT) => {
   return (
-    <>
+    <React.Fragment>
       <SidebarLayout
         sidebar={
           <Sidebar
@@ -74,12 +74,14 @@ export const DashboardSideBar = ({
         }
         content={
           <>
-            <TopBar navigation={<Breadcrumb paths={[activePage]} />} />
-
+            <TopBarAccountsWrapper
+              navigation={<Breadcrumb paths={[`Dashboard/${activePage}`]} />}
+              actions={<></>}
+            />
             {children}
           </>
         }
       />
-    </>
+    </React.Fragment>
   );
 };

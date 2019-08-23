@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import { blueGrey } from '@material-ui/core/colors';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -13,7 +12,7 @@ const useStyle = makeStyles(theme => ({
     cursor: 'pointer',
 
     '&:hover': {
-      background: 'rgba(255,255,255,.1)'
+      background: 'rgba(255,255,255,.2)'
     },
     '&:active': {
       transform: 'scale(0.95)'
@@ -23,23 +22,22 @@ const useStyle = makeStyles(theme => ({
     position: 'relative',
     left: '50%',
     transform: 'translate(-50%,0)',
-    height: '80px',
-    width: '80px',
+    height: '75px',
+    width: '75px',
     borderRadius: '100%',
-    overflow: 'hidden',
-    background: blueGrey[100]
+    overflow: 'hidden'
   },
   img: {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    height: '100%',
-    width: '100%',
+    height: '50%',
+    width: '50%',
     transform: 'translate(-50%,-50%)'
   },
   title: {
     width: '80%',
-    fontSize: '1rem',
+    fontSize: '1.15rem',
     fontWeight: '400',
     color: '#FFF',
     margin: `0 auto`,

@@ -11,11 +11,12 @@ export default connect(
       ui: { sidepanelOpen, setSidepanelOpen }
     }
   }) => (
-    <Tooltip id="tooltip-top" title="show the activity menu" placement="top">
+    <Tooltip id="tooltip-top" title="show the activity menu">
       <Switch
         checked={sidepanelOpen}
         onChange={() => setSidepanelOpen(!sidepanelOpen)}
         aria-label="showSidePanel"
+        color="primary"
       />
     </Tooltip>
   )
