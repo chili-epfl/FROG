@@ -44,9 +44,7 @@ export const RecentsPage = ({
             <Typography variant="h5" align="left">
               <ShowChart /> Drafts
             </Typography>
-            <Button icon={<Add />} onClick={actionCallback} variant="primary">
-              Create a new graph
-            </Button>
+            <Button icon={<Add />} onClick={actionCallback} variant="primary" />
           </div>
 
           <List>
