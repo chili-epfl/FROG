@@ -114,6 +114,9 @@ class Editor extends React.Component<Object, StateT> {
           }
           actions={
             <TopPanel
+              graphId={store.graphId}
+              history={history}
+              errors={store.graphErrors}
               openExport={() => this.setState({ exportOpen: true })}
               openImport={() => this.setState({ importOpen: true })}
               {...{

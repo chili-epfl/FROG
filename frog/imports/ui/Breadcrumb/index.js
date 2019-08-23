@@ -42,7 +42,7 @@ export const Breadcrumb = (props: BreadcrumbProps) => {
       {props.paths.map((path, index) => (
         <>
           {index !== 0 && (
-            <Typography key={path} className={classes.text} variant="body1">
+            <Typography key={path+'/'} className={classes.text} variant="body1">
               /
             </Typography>
           )}
