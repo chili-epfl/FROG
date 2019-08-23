@@ -124,7 +124,7 @@ const makeTemplate = conf => {
     reviewPrompt: conf.second?.reviewPrompt || '',
     reviseInstructions: conf.third?.reviseInstructions || '',
     reviewCount: conf.second?.reviewCount || 1,
-    participationMode: conf.fourth?.alsoShowStudents ? 'everyone' : 'projector',
+    participationMode: conf.fourth?.alsoShowStudents ? 'everyone' : 'projector'
   };
   return [
     processTemplate(template, replacements),
