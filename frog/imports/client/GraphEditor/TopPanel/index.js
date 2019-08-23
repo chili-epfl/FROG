@@ -2,25 +2,46 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
+import { UndoButton, ConfigMenu } from './Settings';
+import { ValidButton } from '/imports/client/GraphEditor/Validator';
+import { Button } from '/imports/ui/Button';
+import { addSession, setTeacherSession, Sessions } from '/imports/api/sessions';
+import { Graphs } from '/imports/api/graphs';
 
-import GraphMenu from './GraphMenu';
-import { UndoButton, HelpButton, ConfigMenu } from './Settings';
-import ExpandButton from '../SidePanel/ExpandButton';
-
-const styles = {
+const styles = theme => ({
   root: {
     display: 'flex',
-    flexDirection: 'row'
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: theme.spacing(0.5)
+  }
+});
+
+const publish = async (graphId, history) => {
+  const sessionId = await addSession(graphId);
+  const session = Sessions.findOne(sessionId);
+  if (session) {
+    Graphs.update(graphId, { $set: { published: true } });
+    await setTeacherSession(sessionId);
+    history.push('/t/' + session.slug);
   }
 };
 
-const TopPanel = ({ classes, ...props }: Object) => (
+const TopPanel = ({ classes, graphId, errors, history, ...props }: Object) => (
   <div className={classes.root}>
-    <ConfigMenu {...props} />
-    <GraphMenu />
-    <HelpButton />
     <UndoButton />
-    <ExpandButton />
+    <Button
+      onClick={() => {
+        // don't publish if there are errors
+        if (errors.length === 0) {
+          publish(graphId, history);
+        }
+      }}
+      rightIcon={<ValidButton />}
+    >
+      Publish
+    </Button>
+    <ConfigMenu {...props} />
   </div>
 );
 

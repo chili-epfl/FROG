@@ -50,20 +50,15 @@ const styles = theme => ({
     pointerEvents: 'none'
   },
   undoButton: {
-    marginTop: theme.spacing(),
-    padding: 3,
-    width: 35
+    padding: theme.spacing(1),
+    margin: 5
   },
   helpButton: {
-    marginTop: theme.spacing(),
-    padding: 3,
-    width: 35,
-    marginRight: 70
+    padding: theme.spacing(1),
+    margin: 5
   },
   button: {
-    marginTop: theme.spacing(0.5),
-    padding: 3,
-    width: 35
+    padding: theme.spacing(1)
   },
   leftIcon: {
     marginRight: theme.spacing()
@@ -73,28 +68,9 @@ const styles = theme => ({
   }
 });
 
-const HelpButtonComponent = ({ classes, store: { ui } }) => (
-  <div className={classes.root}>
-    <Tooltip id="tooltip-top" title="Show instructions" placement="top">
-      <Button
-        onClick={() => ui.setShowHelpModal(true)}
-        color="primary"
-        className={classes.helpButton}
-      >
-        HELP
-        <Help className={classes.rightIcon} />
-      </Button>
-    </Tooltip>
-  </div>
-);
-
 const UndoButtonComponent = ({ classes, store: { undo } }) => (
   <div className={classes.root}>
-    <Tooltip
-      id="tooltip-top"
-      title="undo the last graph action"
-      placement="top"
-    >
+    <Tooltip id="tooltip-top" title="undo the last graph action">
       <Button onClick={undo} color="primary" className={classes.undoButton}>
         UNDO
         <Undo className={classes.rightIcon} />
@@ -104,7 +80,6 @@ const UndoButtonComponent = ({ classes, store: { undo } }) => (
 );
 
 export const UndoButton = withStyles(styles)(connect(UndoButtonComponent));
-export const HelpButton = withStyles(styles)(connect(HelpButtonComponent));
 
 const MenuItemDeleteFromServer = ({
   setIdRemove,
@@ -149,7 +124,7 @@ class GraphActionMenu extends React.Component<*, *> {
       setIdRemove,
       store: {
         graphId,
-        ui: { setSidepanelOpen }
+        ui: { setSidepanelOpen, setShowHelpModal }
       }
     } = this.props;
     const { anchorEl } = this.state;
@@ -226,7 +201,7 @@ class GraphActionMenu extends React.Component<*, *> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setSidepanelOpen(false);
+              setSidepanelOpen(true);
               this.props.openImport();
               this.handleClose();
             }}
@@ -264,6 +239,10 @@ class GraphActionMenu extends React.Component<*, *> {
           >
             <Timeline className={classes.leftIcon} aria-hidden="true" />
             Export Graph to the Server
+          </MenuItem>
+          <MenuItem onClick={() => setShowHelpModal(true)}>
+            <Help className={classes.leftIcon} aria-hidden="true" />
+            Help
           </MenuItem>
           <MenuItemDeleteFromServer
             {...{ setIdRemove, parentId, setDelete, classes }}

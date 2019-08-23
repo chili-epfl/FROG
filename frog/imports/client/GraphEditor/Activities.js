@@ -12,10 +12,10 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
         x={x - 1}
         y={y - 1}
         width={width + 2}
-        stroke="#ff9900"
-        strokeWidth={3}
+        stroke="#31BFAE"
+        strokeWidth={4}
         rx={11}
-        height={32}
+        height={28}
       />
     )}
     <rect
@@ -26,7 +26,7 @@ const Box = ({ x, y, width, selected, strokeColor, color }) => (
       stroke={strokeColor}
       strokeWidth={1}
       rx={10}
-      height={30}
+      height={26}
     />
   </g>
 );
@@ -75,7 +75,7 @@ class ActivityComponent extends Component<Object> {
               fill="transparent"
               stroke="transparent"
               width={width > 20 ? width - 20 : width}
-              height={30}
+              height={25}
               style={!readOnly && { cursor: 'move' }}
               onMouseOver={activity.onOver}
               onMouseLeave={activity.onLeave}
@@ -102,17 +102,18 @@ class ActivityComponent extends Component<Object> {
               style={{ overflow: 'hidden' }}
               width={width + x - 20}
             >
-              <text x={x + 3} y={activity.y + 20}>
+              <text x={x + 10} y={activity.y + 18} fontSize="15">
                 {activity.title}
               </text>
             </svg>
             <circle
               data-tip={activity.title}
-              cx={x + width - 10}
-              cy={activity.y + 15}
-              r={5}
+              cx={x + width - 14}
+              cy={activity.y + 12}
+              r={4}
               fill="transparent"
-              stroke="black"
+              stroke="#CDDEEF"
+              strokeWidth="1"
             />
             <DraggableCore
               onStart={() => startDragging(activity)}
@@ -121,7 +122,7 @@ class ActivityComponent extends Component<Object> {
               <circle
                 data-tip={activity.title}
                 cx={x + width - 10}
-                cy={activity.y + 15}
+                cy={activity.y + 5}
                 r={10}
                 fill="transparent"
                 stroke="transparent"
@@ -140,7 +141,7 @@ class ActivityComponent extends Component<Object> {
                 x={x + width - 5}
                 y={activity.y}
                 width={5}
-                height={30}
+                height={25}
                 style={!readOnly && { cursor: 'ew-resize' }}
               />
             </DraggableCore>
