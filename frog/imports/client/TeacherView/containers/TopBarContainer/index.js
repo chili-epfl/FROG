@@ -17,11 +17,23 @@ import { TopBar } from '/imports/ui/TopBar';
 import { Button } from '/imports/ui/Button';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowDivider, RowButton } from '/imports/ui/RowItems';
+import { useModal } from '/imports/ui/Modal';
 
 import { OrchestrationContext } from '../../context';
+import { SettingsModal } from './SettingsModal';
 
 export const TopBarContainer = () => {
+  const [showModal] = useModal();
   const session = React.useContext(OrchestrationContext);
+
+  const showSettingsModal = () => {
+    showModal(
+      <SettingsModal
+        currentSettings={session.settings}
+        onChange={settings => session.updateSettings(settings)}
+      />
+    );
+  };
 
   return (
     <TopBar
@@ -32,7 +44,10 @@ export const TopBarContainer = () => {
             <Button variant="minimal" icon={<MoreVert fontSize="small" />} />
           }
         >
-          <RowButton icon={<Settings fontSize="small" />}>
+          <RowButton
+            icon={<Settings fontSize="small" />}
+            onClick={showSettingsModal}
+          >
             Session Settings
           </RowButton>
           <RowDivider />
