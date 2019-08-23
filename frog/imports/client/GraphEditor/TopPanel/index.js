@@ -2,10 +2,9 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
-
-import GraphMenu from './GraphMenu';
-import { UndoButton, HelpButton, ConfigMenu } from './Settings';
-import ExpandButton from '../SidePanel/ExpandButton';
+import { UndoButton, ConfigMenu } from './Settings';
+import { ValidButton } from '/imports/client/GraphEditor/Validator';
+import { Button } from '/imports/ui/Button';
 
 const styles = theme => ({
   root: {
@@ -18,11 +17,9 @@ const styles = theme => ({
 
 const TopPanel = ({ classes, ...props }: Object) => (
   <div className={classes.root}>
-    <ConfigMenu {...props} />
-    <GraphMenu />
-    <HelpButton />
     <UndoButton />
-    <ExpandButton />
+    <Button rightIcon={<ValidButton />}> Publish </Button>
+    <ConfigMenu {...props} />
   </div>
 );
 

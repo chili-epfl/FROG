@@ -68,21 +68,6 @@ const styles = theme => ({
   }
 });
 
-const HelpButtonComponent = ({ classes, store: { ui } }) => (
-  <div className={classes.root}>
-    <Tooltip id="tooltip-top" title="Show instructions">
-      <Button
-        onClick={() => ui.setShowHelpModal(true)}
-        color="primary"
-        className={classes.helpButton}
-      >
-        HELP
-        <Help className={classes.rightIcon} />
-      </Button>
-    </Tooltip>
-  </div>
-);
-
 const UndoButtonComponent = ({ classes, store: { undo } }) => (
   <div className={classes.root}>
     <Tooltip id="tooltip-top" title="undo the last graph action">
@@ -95,7 +80,6 @@ const UndoButtonComponent = ({ classes, store: { undo } }) => (
 );
 
 export const UndoButton = withStyles(styles)(connect(UndoButtonComponent));
-export const HelpButton = withStyles(styles)(connect(HelpButtonComponent));
 
 const MenuItemDeleteFromServer = ({
   setIdRemove,
@@ -140,7 +124,7 @@ class GraphActionMenu extends React.Component<*, *> {
       setIdRemove,
       store: {
         graphId,
-        ui: { setSidepanelOpen }
+        ui: { setSidepanelOpen, setShowHelpModal }
       }
     } = this.props;
     const { anchorEl } = this.state;
@@ -217,7 +201,7 @@ class GraphActionMenu extends React.Component<*, *> {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setSidepanelOpen(false);
+              setSidepanelOpen(true);
               this.props.openImport();
               this.handleClose();
             }}
@@ -255,6 +239,10 @@ class GraphActionMenu extends React.Component<*, *> {
           >
             <Timeline className={classes.leftIcon} aria-hidden="true" />
             Export Graph to the Server
+          </MenuItem>
+          <MenuItem onClick={() => setShowHelpModal(true)}>
+            <Help className={classes.leftIcon} aria-hidden="true" />
+            Help
           </MenuItem>
           <MenuItemDeleteFromServer
             {...{ setIdRemove, parentId, setDelete, classes }}
