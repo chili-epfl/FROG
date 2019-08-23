@@ -1,6 +1,12 @@
 // @flow
 import * as React from 'react';
-import { AccessTimeOutlined, Bookmark, ShowChart } from '@material-ui/icons';
+import {
+  AccessTimeOutlined,
+  Bookmark,
+  ShowChart,
+  Add,
+  KeyboardArrowRight
+} from '@material-ui/icons';
 import { Sidebar, Panel } from '/imports/ui/Sidebar';
 import { Logo } from '/imports/ui/Logo';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
@@ -39,12 +45,15 @@ export const DashboardSideBar = ({
               <>
                 <Logo />
                 <RowTitle> Dashboard </RowTitle>
+
+                <RowButton
+                  size="large"
+                  icon={<Add fontSize="small" />}
+                  onClick={() => history.push('/wizard')}
+                >
+                  Create using Wizard
+                </RowButton>
               </>
-            }
-            footer={
-              <RowButton active onClick={() => history.push('/wizard')}>
-                Create using Wizard
-              </RowButton>
             }
           >
             <Panel>
@@ -52,6 +61,7 @@ export const DashboardSideBar = ({
                 onClick={callbackRecentsView}
                 active={recentsActive}
                 icon={<AccessTimeOutlined />}
+                rightIcon={<KeyboardArrowRight fontSize="small" />}
               >
                 Recents
               </RowButton>
@@ -59,6 +69,7 @@ export const DashboardSideBar = ({
                 icon={<Bookmark />}
                 active={sessionsActive}
                 onClick={callbackSessionsView}
+                rightIcon={<KeyboardArrowRight fontSize="small" />}
               >
                 Sessions
               </RowButton>
@@ -66,6 +77,7 @@ export const DashboardSideBar = ({
                 icon={<ShowChart />}
                 active={draftsActive}
                 onClick={callbackDraftsView}
+                rightIcon={<KeyboardArrowRight fontSize="small" />}
               >
                 Drafts
               </RowButton>
