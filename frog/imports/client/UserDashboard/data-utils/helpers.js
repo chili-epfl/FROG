@@ -58,38 +58,27 @@ const getSessionTypeInfo = (session): meteorSessionObjectT => {
   else return `Graph | Slug: ${session.slug}`;
 };
 
-export const parseDraftData = (
-  draftsList: meteorDraftsList,
-  history: Object
-) => {
-  const resArray = [];
-  draftsList.map(item => {
-    resArray.push({
+export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
+  draftsList
+    .filter(x => !x.published && !x.sessionGraph)
+    .map(item => ({
       itemIcon: ShowChart,
       itemTitle: item.name,
       dateCreated: parseDate(item.createdAt),
       dateObj: item.createdAt,
       callback: () => history.push(`/teacher/graph/${item._id}`)
-    });
-  });
-  return resArray;
-};
+    }));
 
 export const parseSessionData = (
   sessionsList: meteorSessionsListT,
   history: Object
-) => {
-  const resArray = [];
-  sessionsList.map(item => {
-    resArray.push({
-      itemIcon: getSessionIcon(item),
-      itemTitle: getSessionTitle(item),
-      status: getSessionStatus(item),
-      itemType: getSessionTypeInfo(item),
-      dateCreated: parseEpocDate(item.startedAt),
-      dateObj: new Date(item.startedAt),
-      callback: () => history.push(`t/${item.slug}`)
-    });
-  });
-  return resArray;
-};
+) =>
+  sessionsList.map(item => ({
+    itemIcon: getSessionIcon(item),
+    itemTitle: getSessionTitle(item),
+    status: getSessionStatus(item),
+    itemType: getSessionTypeInfo(item),
+    dateCreated: parseEpocDate(item.startedAt),
+    dateObj: new Date(item.startedAt),
+    callback: () => history.push(`t/${item.slug}`)
+  }));
