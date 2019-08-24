@@ -10,7 +10,6 @@ import { Graphs } from '../imports/api/graphs';
 import doGetInstances from '../imports/api/doGetInstances';
 import { Products } from '../imports/api/products';
 import { serverConnection } from './share-db-manager';
-import { getUsername } from '/imports/api/users';
 
 declare var Promise: any;
 
@@ -33,7 +32,7 @@ const formatResults = (
     let product;
     if (formatProduct) {
       const user = users.find(x => x._id === instance);
-      const username = getUsername({ meteorUser: user });
+      const username = user?.username;
       try {
         product = formatProduct(
           config,
