@@ -5,8 +5,7 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 
 import { Sidebar } from '/imports/ui/Sidebar';
-import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
-import { Logo } from '/imports/ui/Logo';
+import { PopupLayout } from '/imports/ui/Layout/PopupLayout';
 
 const useStyle = makeStyles(() => ({
   contentWrapper: {
@@ -28,21 +27,16 @@ type OrchestrationLayoutProps = {
 const OrchestrationLayout = (props: OrchestrationLayoutProps) => {
   const classes = useStyle();
   return (
-    <SidebarLayout
+    <PopupLayout
+      header={props.topBar}
       sidebar={
         <Sidebar>
-          <Logo />
           {props.orchestrationControl}
           {props.sessionSteps}
           {props.studentView}
         </Sidebar>
       }
-      content={
-        <div className={classes.contentWrapper}>
-          {props.topBar}
-          {props.children}
-        </div>
-      }
+      content={<div className={classes.contentWrapper}>{props.children}</div>}
       extra={props.graphView}
     />
   );

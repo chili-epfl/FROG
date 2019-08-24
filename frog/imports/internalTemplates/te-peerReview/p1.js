@@ -1,7 +1,7 @@
 export default {
   graph: {
     _id: 'cjxlll7f4003jg5ixog2uvq71',
-    name: '#Peer review   (4)',
+    name: 'Peer review',
     ownerId: 'NqjebGBP8qbpQrYev',
     createdAt: '2019-07-02T09:16:25.936Z',
     graphVersion: 2,
