@@ -37,7 +37,12 @@ export const TopBarContainer = () => {
 
   return (
     <TopBarAccountsWrapper
-      navigation={<Breadcrumb paths={[session.slug]} />}
+      navigation={
+        <>
+          <Button variant="minimal" icon={<Clear fontSize="small" />} />
+          <Breadcrumb paths={[session.slug]} />
+        </>
+      }
       actions={
         <OverflowMenu
           button={

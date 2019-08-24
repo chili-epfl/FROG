@@ -6,6 +6,7 @@ import { Person } from '@material-ui/icons';
 
 import { Panel } from '/imports/ui/Sidebar';
 import { RowTitle, RowButton } from '/imports/ui/RowItems';
+import { ExpandableList } from '/imports/ui/ExpandableList';
 
 import { OrchestrationContext } from '../../context';
 
@@ -19,15 +20,18 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
   return (
     <Panel>
       <RowTitle>Students</RowTitle>
-      {session.students.map(student => (
-        <RowButton
-          key={student._id}
-          icon={<Person fontSize="small" />}
-          onClick={() => props.onClick(student._id)}
-        >
-          {student.username}
-        </RowButton>
-      ))}
+      <ExpandableList title="Group A">
+        {session.students.map(student => (
+          <RowButton
+            key={student._id}
+            icon={<Person fontSize="small" />}
+            onClick={() => props.onClick(student._id)}
+            disabled
+          >
+            {student.username}
+          </RowButton>
+        ))}
+      </ExpandableList>
     </Panel>
   );
 };

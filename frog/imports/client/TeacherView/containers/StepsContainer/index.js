@@ -11,6 +11,7 @@ import { RowTitle, RowButton } from '/imports/ui/RowItems';
 import { OrchestrationContext } from '../../context';
 
 type StepsContainerPropsT = {
+  activeId: string,
   onClick: (id: string) => void
 };
 
@@ -33,6 +34,7 @@ export const StepsContainer = (props: StepsContainerPropsT) => {
           }
           onClick={() => props.onClick(step._id)}
           disabled={step.status === 'pending'}
+          active={step._id === props.activeId}
         >
           {step.title}
         </RowButton>

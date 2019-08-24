@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 
+import { Panel } from '/imports/ui/Sidebar';
+
 import { ControlButton } from './ControlButton';
 
 import { OrchestrationContext } from '../../context';
@@ -10,7 +12,7 @@ export const SessionControlContainer = () => {
   const session = React.useContext(OrchestrationContext);
 
   return (
-    <>
+    <Panel>
       {session.isWaitingForStudents ? (
         <ControlButton variant="start" onClick={session.start} />
       ) : (
@@ -21,6 +23,6 @@ export const SessionControlContainer = () => {
       ) : (
         <ControlButton variant="pause" onClick={session.pause} />
       )}
-    </>
+    </Panel>
   );
 };
