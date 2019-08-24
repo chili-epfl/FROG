@@ -4,14 +4,14 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router';
 
+import { OrchestrationView } from './OrchestrationView';
+
 import { GlobalSettings, LocalSettings } from '/imports/api/settings';
 import { Activities } from '/imports/api/activities';
 import { Graphs } from '/imports/api/graphs';
 import { Sessions } from '/imports/api/sessions';
 
-import { OrchestrationView } from './OrchestrationView';
-
-const OrchestrationRunner = withRouter(
+const TeacherViewRunner = withRouter(
   withTracker(({ match, history }) => {
     const user = Meteor.user();
     let session;
@@ -44,6 +44,15 @@ const OrchestrationRunner = withRouter(
     if (session) {
       Meteor.subscribe('teacher.graph', session.graphId);
       Meteor.subscribe('session.students', session.slug);
+      Meteor.subscribe('session_activities', session.slug);
+      if (
+        !(
+          Meteor.user().joinedSessions &&
+          Meteor.user().joinedSessions.includes(session.slug)
+        )
+      ) {
+        Meteor.call('session.join', session.slug);
+      }
     }
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
@@ -62,4 +71,5 @@ const OrchestrationRunner = withRouter(
   })(OrchestrationView)
 );
 
-export default OrchestrationRunner;
+TeacherViewRunner.displayName = 'TeacherViewRunner';
+export default TeacherViewRunner;

@@ -95,7 +95,6 @@ export const RowButton = (props: RowButtonProps) => {
         ${disabled ? 'disabled' : ''}
         ${active ? 'active' : ''}
       `}
-      active={active}
       disabled={disabled}
       onClick={props.onClick}
     >

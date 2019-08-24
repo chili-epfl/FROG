@@ -232,25 +232,29 @@ const mergeData = (
   if (!group) {
     createDashboards(activity);
 
-    if (createGroups[0]) {
-      const session = Sessions.findOne(sessionId);
-      const owner = session.ownerId;
-      Promise.await(
-        mergeOneInstance(
-          owner,
-          activity,
-          initData,
-          mergeFunction,
-          activityData,
-          structure,
-          object,
-          undefined,
-          undefined,
-          sessionId,
-          createGroups[0]
-        )
-      );
-    }
+    const session = Sessions.findOne(sessionId);
+    const owner = session.ownerId;
+    const hasInstance = createGroups.length > 0;
+    Promise.await(
+      mergeOneInstance(
+        owner,
+        activity,
+        initData,
+        mergeFunction,
+        activityData,
+        structure,
+        object,
+        !hasInstance
+          ? {
+              data: null,
+              config: activity.data
+            }
+          : undefined,
+        undefined,
+        sessionId,
+        hasInstance ? createGroups[0] : undefined
+      )
+    );
   }
 };
 

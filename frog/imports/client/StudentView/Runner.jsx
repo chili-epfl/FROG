@@ -61,30 +61,34 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     (isTeacher && activity.plane === 2 ? '' : groupingValue) +
     ')';
   if (activity.plane === 1) {
-    title = `(individual/${getUsername()})`;
+    title = `(individual/${getUsername() || ''})`;
   }
 
   const config = activity.data;
 
   // if teacher is previewing p1/p2 activity, grab data from first instance
   const activityStructure = getStructure(activity);
+  let activityData;
   if (
     groupingValue !== 'all' &&
     isTeacher &&
     object.globalStructure.studentIds.length === 0
   ) {
-    return <h1>Cannot preview activity when no students are in session</h1>;
+    activityData = {
+      data: activityTypesObj[activity.activityType].dataStructure || {},
+      config: activity.data
+    };
+  } else {
+    activityData = getMergedExtractedUnit(
+      config,
+      object.activityData,
+      activityStructure,
+      groupingValue !== 'all' && isTeacher
+        ? Object.keys(object.activityData.payload)[0]
+        : groupingValue,
+      object.socialStructure
+    );
   }
-
-  const activityData = getMergedExtractedUnit(
-    config,
-    object.activityData,
-    activityStructure,
-    groupingValue !== 'all' && isTeacher
-      ? Object.keys(object.activityData.payload)[0]
-      : groupingValue,
-    object.socialStructure
-  );
 
   const stream = value => {
     Meteor.call('stream', activity, groupingValue, value);

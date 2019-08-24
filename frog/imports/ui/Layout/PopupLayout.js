@@ -48,9 +48,7 @@ export const PopupLayout = (props: PopupLayoutPropsT) => {
       <div className={classes.header}>{props.header}</div>
       <div className={classes.sidebar}>{props.sidebar}</div>
       <div className={classes.content}>{props.content}</div>
-      <div className={classes.extra}>
-        {props.extra}>{props.extra}
-      </div>
+      <div className={classes.extra}>{props.extra}</div>
     </div>
   );
 };
