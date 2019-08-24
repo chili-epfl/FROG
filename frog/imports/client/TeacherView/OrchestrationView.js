@@ -34,7 +34,12 @@ export const OrchestrationView = (props: OrchestrationViewPropsT) => {
     >
       <OrchestrationLayout
         orchestrationControl={<SessionControlContainer />}
-        sessionSteps={<StepsContainer onClick={setCurrentActivity} />}
+        sessionSteps={
+          <StepsContainer
+            activeId={currentActivity}
+            onClick={setCurrentActivity}
+          />
+        }
         studentView={<StudentContainer onClick={() => {}} />}
         topBar={<TopBarContainer />}
         graphView={<GraphView session={props.session} />}

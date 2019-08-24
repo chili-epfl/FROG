@@ -31,10 +31,12 @@ export default function() {
     if (!graph || !graph.ownerId === this.userID) {
       return this.ready();
     }
+    const act = Activities.find({ graphId });
     return [
       Activities.find({ graphId }),
       Operators.find({ graphId }),
-      Connections.find({ graphId })
+      Connections.find({ graphId }),
+      Objects.find({ _id: { $in: act.map(x => x._id) } })
     ];
   });
 
