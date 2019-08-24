@@ -7,11 +7,12 @@ import { RowButton } from '/imports/ui/RowItems';
 
 type ExpandableListPropsT = {
   title: string,
+  expanded?: boolean,
   children: React.Element<*> | React.Element<*>[]
 };
 
 export const ExpandableList = (props: ExpandableListPropsT) => {
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = React.useState(props.expanded || false);
 
   return (
     <div>

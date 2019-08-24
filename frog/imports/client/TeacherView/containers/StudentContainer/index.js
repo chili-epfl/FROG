@@ -36,7 +36,11 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
 
   const groupsView = groups
     ? Object.keys(groups).map((key: string) => (
-        <ExpandableList key={key} title={key}>
+        <ExpandableList
+          expanded={Object.keys(groups)?.length < 5}
+          key={key}
+          title={key}
+        >
           {groups[key].map(id =>
             studentsByKey[id] ? (
               <RowButton
