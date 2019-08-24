@@ -242,7 +242,7 @@ export default class uiStore {
 
       updateGraphWidth: action(() => {
         const oldPan = this.panTime;
-        //const boxWidth = this.sidepanelOpen ? 400 : 0;
+        // const boxWidth = this.sidepanelOpen ? 400 : 0;
         this.graphWidth = this.windowWidth; // - boxWidth;
         this.panx = timeToPx(oldPan, this.scale) / this.scale;
       }),
