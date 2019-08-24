@@ -51,7 +51,10 @@ const styles = {
   }
 };
 
-const ActivityContainer = ({ activities, sessionId }) => {
+export const ActivityContainer = ({ activities, sessionId }) => {
+  if (activities.length === 0) {
+    return 'No activity';
+  }
   if (activities.length === 1) {
     return <Runner activity={activities[0]} sessionId={sessionId} single />;
   } else {
@@ -101,7 +104,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
             className={classes.button}
             color="inherit"
             onClick={() => {
-              history.push('/');
+              history.push('/' + session.slug);
               Meteor.logout();
               Accounts._unstoreLoginToken();
               window.notReady();
@@ -166,7 +169,7 @@ class SessionBodyController extends React.Component<
   }
 }
 
-const SessionBody = compose(
+export const SessionBody = compose(
   withDragDropContext,
   toClass
 )(SessionBodyController);
