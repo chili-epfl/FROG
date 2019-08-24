@@ -126,7 +126,7 @@ const makeTemplate = conf => {
   };
   return [
     processTemplate(template, replacements),
-    conf.general?.plane === 'individual' ? p1Instructions : p2Instructions
+    conf.general?.plane === 'group' ? p2Instructions : p1Instructions
   ];
 };
 

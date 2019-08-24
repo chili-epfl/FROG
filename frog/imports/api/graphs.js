@@ -66,7 +66,6 @@ export const createSessionFromActivity = (
         simpleConfig: { activityType, config, plane }
       }
     });
-    runNextActivity(session._id);
 
     const slug = session.slug;
     return { slug, sessionId, graphId, activityId };

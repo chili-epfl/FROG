@@ -42,7 +42,7 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
           title={key}
         >
           {groups[key].map(id =>
-            studentsByKey[id] ? (
+            id !== session.ownerId && studentsByKey[id] ? (
               <RowButton
                 key={studentsByKey[id]}
                 icon={<Person fontSize="small" />}
@@ -60,16 +60,18 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
     return (
       <Panel>
         <RowTitle>Students</RowTitle>
-        {session.students.map(student => (
-          <RowButton
-            key={student._id}
-            icon={<Person fontSize="small" />}
-            onClick={() => props.onClick(student._id)}
-            disabled
-          >
-            {student.username}
-          </RowButton>
-        ))}
+        {session.students.map(student =>
+          student._id !== session.ownerId ? (
+            <RowButton
+              key={student._id}
+              icon={<Person fontSize="small" />}
+              onClick={() => props.onClick(student._id)}
+              disabled
+            >
+              {student.username}
+            </RowButton>
+          ) : null
+        )}
       </Panel>
     );
   } else {

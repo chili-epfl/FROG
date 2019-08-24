@@ -59,7 +59,7 @@ class GraphViewController extends React.Component<GraphViewPropsT, {}> {
       <>
         <div
           className={classes.graphInSession}
-          style={{ height: session.template ? '200px' : '400px' }}
+          style={{ height: session.template ? '200px' : '250px' }}
         >
           <ShowInfo />
           <Graph
