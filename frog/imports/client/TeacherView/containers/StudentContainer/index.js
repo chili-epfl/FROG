@@ -25,13 +25,13 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
   }
   const activity = Activities.findOne(currentActiveSteps[0]._id);
 
-  let groups = undefined;
+  let groups;
   if (activity.plane === 2) {
     const object = Objects.findOne(currentActiveSteps[0]._id);
     groups = object?.socialStructure[activity?.groupingKey];
   }
 
-  let studentsByKey = {};
+  const studentsByKey = {};
   session.students.forEach(student => (studentsByKey[student._id] = student));
 
   const groupsView = groups
