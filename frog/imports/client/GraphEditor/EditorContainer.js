@@ -168,7 +168,6 @@ class Editor extends React.Component<Object, StateT> {
                   setIdRemove
                 }}
               />
-              <Grid></Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
