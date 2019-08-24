@@ -18,19 +18,44 @@ type StepsContainerPropsT = {
 
 export const StudentContainer = (props: StepsContainerPropsT) => {
   const session = React.useContext(OrchestrationContext);
+
   const currentActiveSteps = session.steps.filter(x => x.status === 'active');
   if (currentActiveSteps.length === 0) {
     return null;
   }
   const activity = Activities.findOne(currentActiveSteps[0]._id);
+
+  let groups = undefined;
   if (activity.plane === 2) {
     const object = Objects.findOne(currentActiveSteps[0]._id);
-    console.info(object?.socialStructure[activity?.groupingKey]);
+    groups = object?.socialStructure[activity?.groupingKey];
   }
-  return (
-    <Panel>
-      <RowTitle>Students</RowTitle>
-      <ExpandableList title="Group A">
+
+  let studentsByKey = {};
+  session.students.forEach(student => (studentsByKey[student._id] = student));
+
+  const groupsView = groups
+    ? Object.keys(groups).map((key: string) => (
+        <ExpandableList key={key} title={key}>
+          {groups[key].map(id =>
+            studentsByKey[id] ? (
+              <RowButton
+                key={studentsByKey[id]}
+                icon={<Person fontSize="small" />}
+                disabled
+              >
+                {studentsByKey[id].username}
+              </RowButton>
+            ) : null
+          )}
+        </ExpandableList>
+      ))
+    : [];
+
+  if (groupsView.length === 0) {
+    return (
+      <Panel>
+        <RowTitle>Students</RowTitle>
         {session.students.map(student => (
           <RowButton
             key={student._id}
@@ -41,7 +66,14 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
             {student.username}
           </RowButton>
         ))}
-      </ExpandableList>
-    </Panel>
-  );
+      </Panel>
+    );
+  } else {
+    return (
+      <Panel>
+        <RowTitle>Groups</RowTitle>
+        {groupsView}
+      </Panel>
+    );
+  }
 };

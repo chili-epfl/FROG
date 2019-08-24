@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import {
   OpenInNew,
@@ -22,7 +23,7 @@ import { useModal } from '/imports/ui/Modal';
 import { OrchestrationContext } from '../../context';
 import { SettingsModal } from './SettingsModal';
 
-export const TopBarContainer = () => {
+export const TopBarContainer = withRouter(({ history }) => {
   const [showModal] = useModal();
   const session = React.useContext(OrchestrationContext);
 
@@ -39,7 +40,11 @@ export const TopBarContainer = () => {
     <TopBarAccountsWrapper
       navigation={
         <>
-          <Button variant="minimal" icon={<Clear fontSize="small" />} />
+          <Button
+            variant="minimal"
+            icon={<Clear fontSize="small" />}
+            onClick={() => history.push('/')}
+          />
           <Breadcrumb paths={[session.slug]} />
         </>
       }
@@ -108,4 +113,4 @@ export const TopBarContainer = () => {
       }
     />
   );
-};
+});
