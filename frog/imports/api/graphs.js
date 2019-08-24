@@ -5,7 +5,6 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from '/imports/frog-utils';
 
 import { Sessions, addSessionFn } from './sessions';
-import { runNextActivity } from './engine';
 import { templatesObj } from '/imports/internalTemplates';
 import {
   Activities,
