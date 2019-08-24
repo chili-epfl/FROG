@@ -12,10 +12,10 @@ import OperatorPanel from './OperatorPanel';
 
 const styles = {
   root: {
-    height: 'calc(100vh - 112px)',
+    height: 'calc(100vh - 48px - 300px)',
     backgroundColor: '#ffffff',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    width: '500px',
+    borderRight: '1px solid #EAEAEA',
+    width: '400px',
     overflowX: 'auto'
   },
   helperContainer: {
@@ -34,9 +34,9 @@ const SideBarHelperText = ({ classes }) => (
       <Typography variant="h6" align="center" gutterBottom>
         Select an activity or an operator to configure it.
       </Typography>
-      <Typography variant="subtitle1" align="center">
+      {/* <Typography variant="subtitle1" align="center">
         Press the <kbd>w</kbd> key to toggle the sidebar.
-      </Typography>
+      </Typography> */}
     </div>
   </Grid>
 );

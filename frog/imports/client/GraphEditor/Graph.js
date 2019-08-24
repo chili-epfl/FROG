@@ -62,8 +62,8 @@ const Graph = connect(
       <svg
         viewBox={
           scaled
-            ? [panOffset, 0, graphWidth, 350].join(' ')
-            : [0, 0, 4 * graphWidth, 350].join(' ')
+            ? [panOffset, 0, graphWidth, 300].join(' ')
+            : [0, 0, 4 * graphWidth, 300].join(' ')
         }
         preserveAspectRatio="none"
         ref={ref => {
@@ -78,7 +78,7 @@ const Graph = connect(
           fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height="350px"
+          height="300px"
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />

@@ -35,7 +35,7 @@ const styles = () => ({
     height: '100vh',
     overflowX: 'auto'
   },
-  editor: { height: 350, background: '#EAF1F8' },
+  editor: { height: 300, background: '#EAF1F8' },
   editorWithPanMap: { height: 150 }
 });
 
@@ -159,9 +159,6 @@ class Editor extends React.Component<Object, StateT> {
           </Grid>
           <Grid item xs={12}>
             <Grid container id="graph-editor">
-              <Grid item xs>
-                <EditorPanel />
-              </Grid>
               <SidePanel
                 madeChanges={() => this.setState({ locallyChanged: true })}
                 locallyChanged={this.state.locallyChanged}
@@ -171,6 +168,11 @@ class Editor extends React.Component<Object, StateT> {
                   setIdRemove
                 }}
               />
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid item xs>
+              <EditorPanel />
             </Grid>
           </Grid>
         </Grid>
