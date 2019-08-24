@@ -24,7 +24,7 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
   const activity = Activities.findOne(currentActiveSteps[0]._id);
   if (activity.plane === 2) {
     const object = Objects.findOne(currentActiveSteps[0]._id);
-    console.log(object?.socialStructure[activity?.groupingKey]);
+    console.info(object?.socialStructure[activity?.groupingKey]);
   }
   return (
     <Panel>
