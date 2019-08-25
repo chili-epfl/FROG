@@ -11,6 +11,13 @@ const useStyle = makeStyles(() => ({
     gridTemplateRows: '48px 1fr 250px',
     gridTemplateColumns: '250px 1fr'
   },
+  rootWithoutGraph: {
+    width: '100%',
+    height: '100%',
+    display: 'grid',
+    gridTemplateRows: '48px 1fr',
+    gridTemplateColumns: '250px 1fr'
+  },
   header: {
     gridColumn: '1 / 3',
     gridRow: 1,
@@ -44,11 +51,11 @@ type PopupLayoutPropsT = {
 export const PopupLayout = (props: PopupLayoutPropsT) => {
   const classes = useStyle();
   return (
-    <div className={classes.root}>
+    <div className={props.extra ? classes.root : classes.rootWithoutGraph}>
       <div className={classes.header}>{props.header}</div>
       <div className={classes.sidebar}>{props.sidebar}</div>
       <div className={classes.content}>{props.content}</div>
-      <div className={classes.extra}>{props.extra}</div>
+      {props.extra ? <div className={classes.extra}>{props.extra}</div> : null}
     </div>
   );
 };
