@@ -27,7 +27,18 @@ const styles = theme => ({
     height: 'calc(100% - 48px)',
     overflow: 'auto'
   },
-  tabs: { minWidth: '0px', paddingLeft: '0px', paddingRight: '0px' }
+  appbar: {
+    boxShadow: '0 0 0px transparent',
+    borderBottom: '1px solid #EAEAEA'
+  },
+  tabs: {
+    minWidth: '0px',
+    paddingLeft: '0px',
+    paddingRight: '0px',
+    margin: theme.spacing(0, 1),
+    textTransform: 'capitalize',
+    fontSize: '1.1rem'
+  }
 });
 
 type PropsT = {
@@ -56,7 +67,7 @@ class DashboardRaw extends React.Component<PropsT, { which: number }> {
     const { which } = this.state;
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" color="default" className={classes.appbar}>
           <Tabs
             classes={{ root: classes.tabs }}
             value={selected !== undefined ? selected : which}
