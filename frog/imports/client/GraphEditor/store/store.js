@@ -262,7 +262,7 @@ export default class Store {
         this.history = [];
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
-        this.ui.setSidepanelOpen(false);
+        this.ui.setSidepanelOpen(true);
       }),
 
       addHistory: action(() => {

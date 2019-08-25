@@ -112,7 +112,7 @@ class ChatController extends React.Component<StyledPropsT> {
     return (
       <div className={classes.root}>
         {activityData.config.title && (
-          <h4 className={classes.header}>{activityData.config.title}</h4>
+          <h2 className={classes.header}>{activityData.config.title}</h2>
         )}
         {instanceMembers && !isEmpty(instanceMembers) && (
           <p>Group members: {instanceMembers.join(', ')}</p>
