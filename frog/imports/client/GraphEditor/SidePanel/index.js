@@ -12,7 +12,7 @@ import OperatorPanel from './OperatorPanel';
 
 const styles = {
   root: {
-    height: 'calc(100vh - 48px - 300px)',
+    height: 'calc(100vh - 50px - 300px)',
     backgroundColor: '#ffffff',
     borderRight: '1px solid #EAEAEA',
     width: '400px',

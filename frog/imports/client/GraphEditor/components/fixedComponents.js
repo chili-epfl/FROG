@@ -41,14 +41,14 @@ export const LevelLines = connect(
     <g>
       {[1, 2, 3].map(plane => (
         <g key={plane}>
-          <text x="5" y={plane * (300 / 4) - 10} fill="#8698AB">
-            {['Class', 'Group', 'Individual'][plane - 1]}
+          <text x="5" y={300 * (1 - plane / 4) - 5} fill="#8698AB">
+            {['Individual', 'Group', 'Class'][plane - 1]}
           </text>
           <line
             x1={0}
-            y1={plane * (300 / 4)}
+            y1={300 * (1 - plane / 4)}
             x2={graphWidth * (scaled ? scale : 4)}
-            y2={plane * (300 / 4)}
+            y2={300 * (1 - plane / 4)}
             stroke="#8698AB"
             strokeWidth={5 - plane === 1 ? 2 : 1}
             strokeDasharray={5 - plane === 1 ? '10,10' : '5,5'}
@@ -56,7 +56,7 @@ export const LevelLines = connect(
           <rect
             onDoubleClick={e => onDoubleClick(plane, e)}
             x={0}
-            y={plane * (300 / 4) - 14}
+            y={300 * (1 - plane / 4) - 14}
             width={graphWidth * (scaled ? scale : 4)}
             fill="transparent"
             height={28}
