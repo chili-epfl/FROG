@@ -4,6 +4,9 @@ import { type productOperatorRunnerT, values, uuid } from '/imports/frog-utils';
 import { isObject } from 'lodash';
 
 const operator = (configData, { activityData }) => {
+  if (!activityData.payload) {
+    return activityData;
+  }
   let structure = 'all';
 
   const studentReturns = {};

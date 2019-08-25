@@ -5,7 +5,6 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from '/imports/frog-utils';
 
 import { Sessions, addSessionFn } from './sessions';
-import { runNextActivity } from './engine';
 import { templatesObj } from '/imports/internalTemplates';
 import {
   Activities,
@@ -66,7 +65,6 @@ export const createSessionFromActivity = (
         simpleConfig: { activityType, config, plane }
       }
     });
-    runNextActivity(session._id);
 
     const slug = session.slug;
     return { slug, sessionId, graphId, activityId };
