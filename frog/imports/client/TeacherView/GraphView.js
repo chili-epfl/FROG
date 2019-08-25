@@ -17,7 +17,7 @@ type GraphViewPropsT = {
 
 const styles = {
   graphInSession: {
-    border: '1px solid black'
+    border: '1px solid #CDDEEF'
   }
 };
 
@@ -59,7 +59,7 @@ class GraphViewController extends React.Component<GraphViewPropsT, {}> {
       <>
         <div
           className={classes.graphInSession}
-          style={{ height: session.template ? '200px' : '250px' }}
+          style={{ height: session.template ? '200px' : 'calc(250px - 2px)' }}
         >
           <ShowInfo />
           <Graph

@@ -169,7 +169,7 @@ class SessionBodyController extends React.Component<
   }
 }
 
-export const SessionBody = compose(
+const SessionBody = compose(
   withDragDropContext,
   toClass
 )(SessionBodyController);

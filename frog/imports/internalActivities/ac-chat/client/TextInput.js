@@ -9,7 +9,8 @@ const styles = {
     padding: '20px',
     borderRadius: '5px',
     border: '1px solid lightgrey',
-    resize: 'none'
+    resize: 'none',
+    width: '100%'
   }
 };
 
@@ -41,12 +42,12 @@ class TextInput extends Component<Object, TextInputStateT> {
     return (
       <textarea
         rows="2"
-        cols="50"
         type="text"
         className={this.props.classes.textInput}
         value={this.state.value}
         onChange={this.handleChange}
         onKeyPress={this.onKeyPress}
+        placeholder="Type your message"
       />
     );
   }
