@@ -35,7 +35,7 @@ const styles = () => ({
     height: '100vh',
     overflowX: 'auto'
   },
-  editor: { height: 300, background: '#EAF1F8' },
+  editor: { height: 298, background: '#EAF1F8' },
   editorWithPanMap: { height: 150 }
 });
 
