@@ -18,29 +18,12 @@ type StepsContainerPropsT = {
 
 export const StudentContainer = (props: StepsContainerPropsT) => {
   const session = React.useContext(OrchestrationContext);
-<<<<<<< HEAD
-=======
 
->>>>>>> develop
   const currentActiveSteps = session.steps.filter(x => x.status === 'active');
   if (currentActiveSteps.length === 0) {
     return null;
   }
   const activity = Activities.findOne(currentActiveSteps[0]._id);
-<<<<<<< HEAD
-  if (activity.plane === 2) {
-    const object = Objects.findOne(currentActiveSteps[0]._id);
-    console.info(object?.socialStructure[activity?.groupingKey]);
-  }
-  return (
-    <Panel>
-      <RowTitle>Students</RowTitle>
-      {session.students.map(student => (
-        <RowButton
-          key={student._id}
-          icon={<Person fontSize="small" />}
-          onClick={() => props.onClick(student._id)}
-=======
 
   let groups;
   if (activity.plane === 2) {
@@ -57,7 +40,6 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
           expanded={Object.keys(groups)?.length < 5}
           key={key}
           title={key}
->>>>>>> develop
         >
           {groups[key].map(id =>
             id !== session.ownerId && studentsByKey[id] ? (
