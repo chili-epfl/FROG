@@ -35,7 +35,18 @@ const styles = () => ({
     overflowX: 'auto'
   },
   editor: { height: 298, background: '#EAF1F8' },
-  editorWithPanMap: { height: 150 }
+  editorWithPanMap: { height: 150 },
+  graphEditorWrapper: {
+    display: 'flex'
+  },
+  preview: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    width: 'calc(100vw - 400px)',
+    height: 'calc(100vh - 50px - 300px)',
+    overflow: 'auto'
+  }
 });
 
 const EditorPanel = withStyles(styles)(({ classes }) => (
@@ -143,31 +154,33 @@ class Editor extends React.Component<Object, StateT> {
             />
           </Grid>
           <Grid item xs={12}>
-            <Grid container id="graph-editor">
-              <SidePanel
-                madeChanges={() => this.setState({ locallyChanged: true })}
-                locallyChanged={this.state.locallyChanged}
-                changesLoaded={() => this.setState({ locallyChanged: true })}
-                {...{
-                  setDelete,
-                  setIdRemove
-                }}
-              />
-            </Grid>
-            <Grid container id="graph-editor">
-              {activityToPreview ? (
-                <Preview
-                  activityTypeId={activityToPreview.activityType}
-                  graphEditor
-                  config={activityToPreview.data}
-                  template={activityToPreview.template}
-                  storeTemplateFn={data => {
-                    storeTemplateData(activityToPreview._id, data);
-                    window.alert('Template stored/updated');
+            <div className={classes.graphEditorWrapper}>
+              <div>
+                <SidePanel
+                  madeChanges={() => this.setState({ locallyChanged: true })}
+                  locallyChanged={this.state.locallyChanged}
+                  changesLoaded={() => this.setState({ locallyChanged: true })}
+                  {...{
+                    setDelete,
+                    setIdRemove
                   }}
                 />
-              ) : null}
-            </Grid>
+              </div>
+              <div className={classes.preview}>
+                {activityToPreview ? (
+                  <Preview
+                    activityTypeId={activityToPreview.activityType}
+                    graphEditor
+                    config={activityToPreview.data}
+                    template={activityToPreview.template}
+                    storeTemplateFn={data => {
+                      storeTemplateData(activityToPreview._id, data);
+                      window.alert('Template stored/updated');
+                    }}
+                  />
+                ) : null}
+              </div>
+            </div>
           </Grid>
           <Grid item xs={12}>
             <Grid item xs>
