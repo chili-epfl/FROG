@@ -75,8 +75,8 @@ export const ContentListItem = ({
       parseInt(timeNowSplit[0], 10) - parseInt(timeThenSplit[0], 10);
     const diffMinutes =
       parseInt(timeNowSplit[1], 10) - parseInt(timeThenSplit[1], 10);
-    const diffSeconds =
-      parseInt(timeNowSplit[2], 10) - parseInt(timeThenSplit[2], 10);
+    // const diffSeconds =
+    //   parseInt(timeNowSplit[2], 10) - parseInt(timeThenSplit[2], 10);
     if (diffYear > 0) {
       return `${diffYear} year${diffYear > 1 ? 's' : ''} ago`;
     } else if (diffMonth > 0) {
