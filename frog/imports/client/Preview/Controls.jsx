@@ -20,8 +20,10 @@ import { addDefaultExample } from './index';
 
 const styles = () => ({
   root: {
-    padding: '4px',
-    margin: '4px'
+    padding: '8px',
+    margin: '4px',
+    boxShadow: '0px 0px 0px rgba(0,0,0,0)',
+    border: '1px solid #EAEAEA'
   },
   closeButton: {
     float: 'right',
@@ -174,7 +176,7 @@ export default withStyles(styles)((props: Object) => {
       )}
 
       {storeTemplateFn ? (
-        <div style={{ layout: 'flex' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <span>
             <Icon
               onClick={calculateAndStore}
@@ -188,12 +190,16 @@ export default withStyles(styles)((props: Object) => {
               tooltip="Reset reactive data"
             />
           </span>
-          <span
-            alignSelf="center"
-            style={{ width: '100%', textAlign: 'center' }}
+          <p
+            style={{
+              width: 'calc(100% - 40px)',
+              textAlign: 'center',
+              fontSize: '1.1rem',
+              margin: '0'
+            }}
           >
             Activity preview
-          </span>
+          </p>
         </div>
       ) : (
         <>
