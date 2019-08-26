@@ -166,9 +166,7 @@ const RawEditActivity = ({
                 {`Type: ${activityType.meta.name}
                          (${activity.activityType})`}
                 <br />
-                {`Starting after ${graphActivity.startTime} min., running for ${
-                  graphActivity.length
-                } min.`}
+                {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
               </i>
               {activity.template && !isEmpty(activity.template) && (
                 <>
