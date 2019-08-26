@@ -45,12 +45,12 @@ class PreviewPage extends React.Component<any, any> {
     super(props);
 
     restartBackend();
-    if (this.props.modal) {
+    if (this.props.graphEditor) {
       this.state = {
         ...defaultState,
         activityTypeId: this.props.activityTypeId,
         config: { ...this.props.config },
-        modal: true,
+        graphEditor: true,
         dismiss: this.props.dismiss,
         reloadActivity: uuid()
       };
@@ -132,7 +132,7 @@ class PreviewPage extends React.Component<any, any> {
   }
 
   render() {
-    if (!this.props.modal) {
+    if (!this.props.graphEditor) {
       sessionStorage.setItem(
         'previewstate',
         JSON.stringify(omit(this.state, 'modal'))
@@ -143,6 +143,7 @@ class PreviewPage extends React.Component<any, any> {
         storeTemplateFn={this.props.storeTemplateFn}
         template={this.props.template}
         {...{ ...this.state, ...this.setStates }}
+        config={this.props.config || this.state.config}
       />
     );
   }
