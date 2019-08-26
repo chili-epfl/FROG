@@ -10,7 +10,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 import { removeActivity } from '/imports/api/remoteActivities';
-import { storeTemplateData, Activities } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
 import { connect } from './store';
@@ -24,7 +23,7 @@ import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
 import { withRouter } from 'react-router';
 import TopPanel from './TopPanel';
-import Preview from '../Preview';
+import PreviewPanel from './PreviewPanel';
 import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 import { Button } from '/imports/ui/Button';
@@ -82,8 +81,6 @@ class Editor extends React.Component<Object, StateT> {
     const { classes, store, history } = this.props;
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
-    const activityToPreview =
-      store.ui.selected && Activities.findOne(store.ui.selected.id);
     return (
       <div className={classes.root}>
         <TopBarAccountsWrapper
@@ -154,19 +151,8 @@ class Editor extends React.Component<Object, StateT> {
                 }}
               />
             </Grid>
-            <Grid container id="graph-editor">
-              {activityToPreview ? (
-                <Preview
-                  activityTypeId={activityToPreview.activityType}
-                  graphEditor
-                  config={activityToPreview.data}
-                  template={activityToPreview.template}
-                  storeTemplateFn={data => {
-                    storeTemplateData(activityToPreview._id, data);
-                    window.alert('Template stored/updated');
-                  }}
-                />
-              ) : null}
+            <Grid container id="preview">
+              <PreviewPanel />
             </Grid>
           </Grid>
           <Grid item xs={12}>
@@ -200,8 +186,3 @@ const RawGraph = ({ store }) => (
 );
 
 export default connect(RawGraph);
-
-// <OperatorPreview
-//   operatorTypeId={store.ui.selected.operatorTypeId}
-//   config={store.ui.selected.config}
-// />

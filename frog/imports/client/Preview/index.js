@@ -143,6 +143,7 @@ class PreviewPage extends React.Component<any, any> {
         storeTemplateFn={this.props.storeTemplateFn}
         template={this.props.template}
         {...{ ...this.state, ...this.setStates }}
+        config={this.props.config || this.state.config}
       />
     );
   }
