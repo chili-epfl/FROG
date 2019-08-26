@@ -163,24 +163,38 @@ export default withStyles(styles)((props: Object) => {
 
   return (
     <Paper className={classes.root}>
-      <Fab onClick={_dismiss} className={classes.closeButton} data-tip="Close">
-        <CloseIcon />
-      </Fab>
+      {!storeTemplateFn && (
+        <Fab
+          onClick={_dismiss}
+          className={classes.closeButton}
+          data-tip="Close"
+        >
+          <CloseIcon />
+        </Fab>
+      )}
 
       {storeTemplateFn ? (
-        <>
-          <Icon
-            onClick={calculateAndStore}
-            icon="fa fa-floppy-o"
-            tooltip="Store data as template for the activity"
-            color="#3d76b8"
-          />
-          <Icon
-            onClick={refresh}
-            icon="fa fa-refresh"
-            tooltip="Reset reactive data"
-          />
-        </>
+        <div style={{ layout: 'flex' }}>
+          <span>
+            <Icon
+              onClick={calculateAndStore}
+              icon="fa fa-floppy-o"
+              tooltip="Store data as template for the activity"
+              color="#3d76b8"
+            />
+            <Icon
+              onClick={refresh}
+              icon="fa fa-refresh"
+              tooltip="Reset reactive data"
+            />
+          </span>
+          <span
+            alignSelf="center"
+            style={{ width: '100%', textAlign: 'center' }}
+          >
+            Activity preview
+          </span>
+        </div>
       ) : (
         <>
           <div>
