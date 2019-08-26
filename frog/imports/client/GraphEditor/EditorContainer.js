@@ -10,6 +10,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 import { removeActivity } from '/imports/api/remoteActivities';
+import { Activities } from '/imports/api/activities';
 import { storeTemplateData } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
@@ -81,24 +82,11 @@ class Editor extends React.Component<Object, StateT> {
 
   render() {
     const { classes, store, history } = this.props;
-    const show = this.props.store.ui.showPreview;
-    if (show && show.activityTypeId) {
-      return (
-        <Preview
-          modal
-          activityTypeId={show.activityTypeId}
-          config={show.config}
-          template={show.template}
-          storeTemplateFn={data => {
-            storeTemplateData(show.activityId, data);
-            window.alert('Template stored/updated');
-          }}
-          dismiss={() => store.ui.setShowPreview(false)}
-        />
-      );
-    }
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
+    const activityToPreview =
+      store.ui.selected && Activities.findOne(store.ui.selected.id);
+    console.log(store.ui.selected, activityToPreview);
     return (
       <div className={classes.root}>
         <TopBarAccountsWrapper
@@ -169,6 +157,20 @@ class Editor extends React.Component<Object, StateT> {
                 }}
               />
             </Grid>
+            <Grid container id="graph-editor">
+              {activityToPreview ? (
+                <Preview
+                  activityTypeId={activityToPreview.activityType}
+                  graphEditor
+                  config={activityToPreview.data}
+                  template={activityToPreview.template}
+                  storeTemplateFn={data => {
+                    storeTemplateData(activityToPreview._id, data);
+                    window.alert('Template stored/updated');
+                  }}
+                />
+              ) : null}
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid item xs>
@@ -184,13 +186,6 @@ class Editor extends React.Component<Object, StateT> {
           show={store.ui.showChangelogModal}
           hide={() => store.ui.setShowChangelogModal(false)}
         />
-        {show && show.operatorTypeId && (
-          <OperatorPreview
-            operatorTypeId={show.operatorTypeId}
-            config={show.config}
-            dismiss={() => this.props.store.ui.setShowPreview(null)}
-          />
-        )}
       </div>
     );
   }
@@ -208,3 +203,8 @@ const RawGraph = ({ store }) => (
 );
 
 export default connect(RawGraph);
+
+// <OperatorPreview
+//   operatorTypeId={store.ui.selected.operatorTypeId}
+//   config={store.ui.selected.config}
+// />

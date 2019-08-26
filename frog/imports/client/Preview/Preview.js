@@ -94,8 +94,7 @@ const StatelessPreview = (props: Object) => {
   const {
     delay,
     activityTypeId,
-    modal,
-    dismiss,
+    graphEditor,
     showLogs,
     fullWindow,
     showDashExample,
@@ -143,20 +142,15 @@ const StatelessPreview = (props: Object) => {
     </div>
   );
 
-  const ModalP = (
-    <Modal
-      ariaHideApp={false}
-      contentLabel={'Preview of ' + activityTypeId}
-      isOpen
-      onRequestClose={dismiss}
-    >
+  const GraphEditorP = (
+    <div>
       <Controls {...props} classes={undefined} />
       {PreviewContent}
       <ReactTooltip delayShow={300} place="right" />
-    </Modal>
+    </div>
   );
 
-  return fullWindow ? FullWindowP : modal ? ModalP : NoModalP;
+  return fullWindow ? FullWindowP : graphEditor ? GraphEditorP : NoModalP;
 };
 
 export default withStyles(styles)(StatelessPreview);
