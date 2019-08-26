@@ -80,10 +80,6 @@ const bindKeys = () => {
   Mousetrap.bind('p', () => store.operatorStore.place('product'));
   Mousetrap.bind('z', store.activityStore.organize);
   Mousetrap.bind('r', store.activityStore.resize);
-  Mousetrap.bind('w', e => {
-    store.ui.toggleSidepanelOpen();
-    e.preventDefault();
-  });
   Mousetrap.bind('a', () => store.activityStore.newActivityAbove());
   Mousetrap.bind('1', () => store.activityStore.newActivityAbove(1));
   Mousetrap.bind('2', () => store.activityStore.newActivityAbove(2));

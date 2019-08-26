@@ -37,7 +37,7 @@ const HelpModal = ({ show, hide, classes }: Object) => (
       </h4>
       <h4>Adding activities</h4>
       Double-click on one of the three plane lines to add activities. Choose the
-      kind of activity, and configure it, in the right sidebar.
+      kind of activity, and configure it.
       <h4>Renaming activities</h4>
       Double-click on an activity to rename it.
       <h4>Moving or resizing activities</h4>
@@ -62,7 +62,7 @@ const HelpModal = ({ show, hide, classes }: Object) => (
       operator, or C for a control operator (the mouse must be over the main
       graph view). An operator will appear attached to the mouse. Move the mouse
       to where you want to locate the operator, and click to place it. When you
-      select an operator, you can configure it in the right sidebar. Shift+click
+      select an operator, you can configure it. Shift+click
       and drag on the operator to reposition it.
       <h4>Connections</h4>
       To create a connection from an activity, move the mouse cursor to the
