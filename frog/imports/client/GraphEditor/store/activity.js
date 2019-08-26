@@ -139,10 +139,10 @@ export default class Activity extends Elem {
         this.data = newact.data;
         this.plane = newact.plane;
         this.activityType = newact.activityType;
-        this.debouncedSetDataDelayed(newact.data);
-        const elem = document.getElementById('configForm');
-        if (elem) {
-          elem.focus();
+        const errors = store.graphErrors.filter(x => x.id === this.id);
+        const error = errors.filter(x => x.severity === 'error');
+        if (!error) {
+          this.debouncedSetDataDelayed(newact.data);
         }
       }),
 

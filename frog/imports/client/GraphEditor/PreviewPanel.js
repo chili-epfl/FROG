@@ -10,7 +10,7 @@ const PreviewPanel = ({
   }
 }) => {
   const activityToPreview = selected && Activities.findOne(selected.id);
-  return activityToPreview ? (
+  return activityToPreview && selected.activityType ? (
     <Preview
       activityTypeId={activityToPreview.activityType}
       graphEditor

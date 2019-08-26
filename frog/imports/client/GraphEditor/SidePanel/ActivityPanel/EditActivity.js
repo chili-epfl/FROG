@@ -167,7 +167,9 @@ const RawEditActivity = ({
                 {`Type: ${activityType.meta.name}
                          (${activity.activityType})`}
                 <br />
-                {`Starting after ${graphActivity.startTime} min., running for ${graphActivity.length} min.`}
+                {`Starting after ${graphActivity.startTime} min., running for ${
+                  graphActivity.length
+                } min.`}
               </i>
               {activity.template && !isEmpty(activity.template) && (
                 <>
@@ -224,18 +226,6 @@ const RawEditActivity = ({
             <ValidButton activityId={activity._id} errorColor={errorColor} />
             {errorColor === lightGreen[500] && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <IconButton
-                  icon="glyphicon glyphicon-eye-open"
-                  tooltip="Preview"
-                  onClick={() => {
-                    store.ui.setShowPreview({
-                      activityTypeId: activity.activityType,
-                      activityId: activity._id,
-                      config: activity.data,
-                      template: activity.template
-                    });
-                  }}
-                />
                 <ExportButton {...{ activity, madeChanges }} />
               </div>
             )}

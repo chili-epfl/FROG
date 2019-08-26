@@ -46,7 +46,7 @@ export default connect(
         <Operator
           type={state.operatorType}
           x={coords[0] - 25}
-          y={coords[1] - 25}
+          y={coords[1] - 70}
           onClick={addOperator}
         />
       );
