@@ -25,7 +25,6 @@ import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
 import ExportButton from './ExportButton';
 import { SelectAttributeWidget } from '../FormUtils';
-import { IconButton } from '../index';
 import ConfigForm from '../ConfigForm';
 import DeleteButton from '../DeleteButton';
 
