@@ -25,7 +25,6 @@ import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
 import ExportButton from './ExportButton';
 import { SelectAttributeWidget } from '../FormUtils';
-import { IconButton } from '../index';
 import ConfigForm from '../ConfigForm';
 import DeleteButton from '../DeleteButton';
 
@@ -224,18 +223,6 @@ const RawEditActivity = ({
             <ValidButton activityId={activity._id} errorColor={errorColor} />
             {errorColor === lightGreen[500] && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <IconButton
-                  icon="glyphicon glyphicon-eye-open"
-                  tooltip="Preview"
-                  onClick={() => {
-                    store.ui.setShowPreview({
-                      activityTypeId: activity.activityType,
-                      activityId: activity._id,
-                      config: activity.data,
-                      template: activity.template
-                    });
-                  }}
-                />
                 <ExportButton {...{ activity, madeChanges }} />
               </div>
             )}
