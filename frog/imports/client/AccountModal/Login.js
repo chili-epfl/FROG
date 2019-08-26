@@ -137,7 +137,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
                 variant="body2"
                 className={classes.link}
                 onClick={() => {
-                  Meteor.call('send.password.reminder', email, (res, err) => {
+                  Meteor.call('send.password.reminder', email, err => {
                     if (err) {
                       showToast(
                         'Could not find user with that email. Please try to enter another email in the email field above',

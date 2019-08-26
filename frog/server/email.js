@@ -8,7 +8,7 @@ let mailjetServer;
 const sendReminder = email => {
   const user = Accounts.findUserByEmail(email);
   if (!user) {
-    return Meteor.Error('No such user');
+    throw new Meteor.Error('No such user');
   }
 
   const password = uuid();
