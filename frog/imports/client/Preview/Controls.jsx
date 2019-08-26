@@ -20,8 +20,10 @@ import { addDefaultExample } from './index';
 
 const styles = () => ({
   root: {
-    padding: '4px',
-    margin: '4px'
+    padding: '8px',
+    margin: '4px',
+    boxShadow: '0px 0px 0px rgba(0,0,0,0)',
+    border: '1px solid #EAEAEA'
   },
   closeButton: {
     float: 'right',
@@ -163,24 +165,42 @@ export default withStyles(styles)((props: Object) => {
 
   return (
     <Paper className={classes.root}>
-      <Fab onClick={_dismiss} className={classes.closeButton} data-tip="Close">
-        <CloseIcon />
-      </Fab>
+      {!storeTemplateFn && (
+        <Fab
+          onClick={_dismiss}
+          className={classes.closeButton}
+          data-tip="Close"
+        >
+          <CloseIcon />
+        </Fab>
+      )}
 
       {storeTemplateFn ? (
-        <>
-          <Icon
-            onClick={calculateAndStore}
-            icon="fa fa-floppy-o"
-            tooltip="Store data as template for the activity"
-            color="#3d76b8"
-          />
-          <Icon
-            onClick={refresh}
-            icon="fa fa-refresh"
-            tooltip="Reset reactive data"
-          />
-        </>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span>
+            <Icon
+              onClick={calculateAndStore}
+              icon="fa fa-floppy-o"
+              tooltip="Store data as template for the activity"
+              color="#3d76b8"
+            />
+            <Icon
+              onClick={refresh}
+              icon="fa fa-refresh"
+              tooltip="Reset reactive data"
+            />
+          </span>
+          <p
+            style={{
+              width: 'calc(100% - 40px)',
+              textAlign: 'center',
+              fontSize: '1.1rem',
+              margin: '0'
+            }}
+          >
+            Activity preview
+          </p>
+        </div>
       ) : (
         <>
           <div>

@@ -400,7 +400,9 @@ class ReactiveRichText extends Component<
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
       if (this.props.autoFocus) {
-        this.quillRef.focus();
+        // disabling for now, until we can figure out how to avoid problems
+        // in the graph editor
+        // this.quillRef.focus();
       }
       if (editor) {
         // LI blots in existing content always trigger a change with source 'user'
