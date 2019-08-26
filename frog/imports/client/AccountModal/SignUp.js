@@ -106,7 +106,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   handleSubmit = (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     const { formErrors, email, password, displayName } = this.state;
-    formErrors.displayName = errorBasedOnChars(displayName, 1, 'Display Name');
+    formErrors.displayName = errorBasedOnChars(displayName, 1, 'Name');
     formErrors.email = emailErrors(email);
     formErrors.password = passwordErrors(password);
     if (this.formValid(formErrors)) {
@@ -153,7 +153,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
                   required
                   helperText={this.state.formErrors.displayName}
                   id="displayName"
-                  label="Display Name"
+                  label="Name"
                   onChange={e => this.handleChange(e, 'displayName')}
                   autoFocus
                 />

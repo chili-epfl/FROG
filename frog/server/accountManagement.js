@@ -33,14 +33,14 @@ export const createAccount = (
     if (
       passwordErrors(password) !== '' ||
       emailErrors(email) !== '' ||
-      errorBasedOnChars(profile?.displayName, 1, 'Display Name') !== ''
+      errorBasedOnChars(profile?.displayName, 1, 'Name') !== ''
     ) {
       throw new Meteor.Error(
         passwordErrors(password) +
           '  ' +
           emailErrors(email) +
           '  ' +
-          errorBasedOnChars(profile?.displayName, 1, 'Display Name')
+          errorBasedOnChars(profile?.displayName, 1, 'Name')
       );
     } else if (!Accounts.findUserByEmail(email)) {
       const user = Meteor.user();
@@ -84,7 +84,7 @@ export const createAccount = (
 export const changeDisplayName = (newDisplayName: string) => {
   if (
     getUserType() === 'Verified' &&
-    errorBasedOnChars(newDisplayName, 1, 'Display Name') === ''
+    errorBasedOnChars(newDisplayName, 1, 'Name') === ''
   ) {
     Meteor.users.update(Meteor.user()._id, {
       $set: {
@@ -92,7 +92,7 @@ export const changeDisplayName = (newDisplayName: string) => {
       }
     });
   } else {
-    throw new Meteor.Error('error', 'Could not change display name');
+    throw new Meteor.Error('error', 'Could not change name');
   }
 };
 

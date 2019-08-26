@@ -48,8 +48,7 @@ export const PersonalProfileForm = ({
           Personal Profile
         </Typography>
         <Typography variant="subtitle1" align="center" gutterBottom>
-          Basic info like your display name, email and password that you use in
-          FROG
+          Basic info like your name, email and password that you use in FROG
         </Typography>
         <div className={classes.root}>
           <ExpansionPanel expanded={false}>
@@ -59,7 +58,7 @@ export const PersonalProfileForm = ({
               id="panel1bh-header"
               onClick={openDisplayNameForm}
             >
-              <Typography className={classes.heading}>Display Name</Typography>
+              <Typography className={classes.heading}>Name</Typography>
               <Typography className={classes.secondaryHeading}>
                 {getUsername()}
               </Typography>
