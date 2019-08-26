@@ -40,20 +40,16 @@ export const Breadcrumb = (props: BreadcrumbProps) => {
     <div className={classes.root}>
       {props.icon && <div className={classes.icon}>{props.icon}</div>}
       {props.paths.map((path, index) => (
-        <>
+        <React.Fragment key={path + '/' + index}>
           {index !== 0 && (
-            <Typography
-              key={path + '/'}
-              className={classes.text}
-              variant="body1"
-            >
+            <Typography className={classes.text} variant="body1">
               /
             </Typography>
           )}
-          <Typography key={path} className={classes.text} variant="body1">
+          <Typography className={classes.text} variant="body1">
             {path}
           </Typography>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

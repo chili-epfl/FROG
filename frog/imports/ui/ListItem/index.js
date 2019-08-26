@@ -98,7 +98,7 @@ export const ContentListItem = ({
         <Icon />
       </ListItemIcon>
 
-      <ListItemText primary={itemTitle} secondary={secondaryText} divider />
+      <ListItemText primary={itemTitle} secondary={secondaryText} />
 
       <Typography
         className={classes.items}

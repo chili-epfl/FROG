@@ -17,6 +17,9 @@ storiesOf('UI/OverflowMenu', module).add('with row items', () => (
       <RowButton icon={<Widgets fontSize="small" />}>
         View personal wiki
       </RowButton>
+      <RowButton icon={<Widgets fontSize="small" />}>
+        Open advanced graph editor
+      </RowButton>
       <RowDivider />
       <RowButton>Logout</RowButton>
     </OverflowMenu>

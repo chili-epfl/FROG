@@ -39,7 +39,7 @@ export const OverflowMenu = (props: OverflowMenuPropsT) => {
           horizontal: 'left'
         }}
       >
-        <div style={{ width: '200px' }} onClick={handleClose}>
+        <div style={{ width: '250px' }} onClick={handleClose}>
           {props.children}
         </div>
       </Popover>

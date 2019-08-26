@@ -12,6 +12,7 @@ import {
   insertActivityMongo,
   addActivity
 } from './activities';
+import { activityTypesObj } from '/imports/activityTypes';
 import { Operators, insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
@@ -43,6 +44,7 @@ export const createSessionFromActivity = (
       graphId = doImportGraph(undefined, graphString);
     } else {
       graphId = addGraph();
+      Graphs.update(graphId, { $set: { published: true } });
       activityId = addActivity(activityType, config);
       Activities.update(activityId, {
         $set: {
@@ -50,7 +52,7 @@ export const createSessionFromActivity = (
           plane,
           length: 5,
           startTime: 5,
-          title: 'Single activity'
+          title: activityTypesObj[activityType].meta.name
         }
       });
     }

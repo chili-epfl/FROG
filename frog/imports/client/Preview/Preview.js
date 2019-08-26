@@ -36,7 +36,6 @@ export const restartBackend = () => {
 const styles = {
   main: {
     display: 'flex',
-    marginTop: '48px',
     height: 'calc(100vh - 48px)'
   },
   noModal: {
