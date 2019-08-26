@@ -128,7 +128,6 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       />
     </div>
   );
-  console.log(Torun);
 
   if (single) {
     return Torun;

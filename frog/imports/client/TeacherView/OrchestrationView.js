@@ -6,7 +6,7 @@ import { OrchestrationContextProvider } from './context';
 import OrchestrationLayout from './components/OrchestrationLayout';
 
 import { withDragDropContext } from '/imports/frog-utils';
-import { toClass, compose } from 'recompose';
+import { compose } from 'recompose';
 import { Activities } from '/imports/api/activities';
 import { SessionControlContainer } from './containers/SessionControlContainer';
 import { StepsContainer } from './containers/StepsContainer';
@@ -82,6 +82,6 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   );
 };
 
-export const OrchestrationView = compose(
-  withDragDropContext,
-)(OrchestrationViewRaw);
+export const OrchestrationView = compose(withDragDropContext)(
+  OrchestrationViewRaw
+);
