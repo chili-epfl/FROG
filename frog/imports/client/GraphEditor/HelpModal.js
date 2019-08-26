@@ -62,8 +62,8 @@ const HelpModal = ({ show, hide, classes }: Object) => (
       operator, or C for a control operator (the mouse must be over the main
       graph view). An operator will appear attached to the mouse. Move the mouse
       to where you want to locate the operator, and click to place it. When you
-      select an operator, you can configure it. Shift+click
-      and drag on the operator to reposition it.
+      select an operator, you can configure it. Shift+click and drag on the
+      operator to reposition it.
       <h4>Connections</h4>
       To create a connection from an activity, move the mouse cursor to the
       small circle at the right side of the box, until the mouse cursor becomes

@@ -10,8 +10,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 import { removeActivity } from '/imports/api/remoteActivities';
-import { Activities } from '/imports/api/activities';
-import { storeTemplateData } from '/imports/api/activities';
+import { storeTemplateData, Activities } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
 import { connect } from './store';
@@ -26,7 +25,6 @@ import ModalDelete from './RemoteControllers/ModalDelete';
 import { withRouter } from 'react-router';
 import TopPanel from './TopPanel';
 import Preview from '../Preview';
-import OperatorPreview from '../Preview/OperatorPreview';
 import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 import { Button } from '/imports/ui/Button';
@@ -86,7 +84,6 @@ class Editor extends React.Component<Object, StateT> {
     const setIdRemove = val => this.setState({ idRemove: val });
     const activityToPreview =
       store.ui.selected && Activities.findOne(store.ui.selected.id);
-    console.log(store.ui.selected, activityToPreview);
     return (
       <div className={classes.root}>
         <TopBarAccountsWrapper
