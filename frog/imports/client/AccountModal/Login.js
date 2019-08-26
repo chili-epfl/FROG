@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
 import { blueGrey } from '@material-ui/core/colors';
 import { primaryColor, primaryColorDark } from '../../ui/LandingPage/constants';
+import { useToast } from '/imports/ui/Toast';
 
 const styles = (theme: Object) => ({
   paper: {
@@ -58,6 +59,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const setters = { email: setEmail, password: setPassword };
+  const [showToast] = useToast();
 
   const handleChange = (
     event: SyntheticInputEvent<EventTarget>,
@@ -130,7 +132,26 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2" className={classes.link}>
+              <Link
+                href="#"
+                variant="body2"
+                className={classes.link}
+                onClick={() => {
+                  Meteor.call('send.password.reminder', email, (res, err) => {
+                    if (err) {
+                      showToast(
+                        'Could not find user with that email. Please try to enter another email in the email field above',
+                        'error'
+                      );
+                    } else {
+                      showToast(
+                        'Sent a message to your e-mail address with a new password. Please check your spam folder if you have not received it within a few minutes. Use the new password to log in, and then change the password.',
+                        'success'
+                      );
+                    }
+                  });
+                }}
+              >
                 Forgot password?
               </Link>
             </Grid>

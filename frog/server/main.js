@@ -29,6 +29,7 @@ import { activityTypesObj } from '../imports/activityTypes';
 import initExternalOperators from './externalOperators';
 import './accountManagement';
 import './redis';
+import './email';
 
 require('util').inspect.defaultOptions.depth = null;
 
