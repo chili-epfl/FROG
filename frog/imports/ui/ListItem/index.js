@@ -53,12 +53,12 @@ export const ContentListItem = ({
   const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
 
   const DateToMoments = dateThen => {
-    dateThenParse = dateThen.split('/');
-    dateNow = new Date().toLocaleDateString();
-    dateNowParse = dateNow.split('/');
-    diffYear = parseInt(dateNowParse[2]) - parseInt(dateThenParse[2]);
-    diffMonth = parseInt(dateNowParse[1]) - parseInt(dateThenParse[1]);
-    diffDate = parseInt(dateNowParse[0]) - parseInt(dateThenParse[0]);
+    let dateThenParse = dateThen.split('/');
+    let dateNow = new Date().toLocaleDateString();
+    let dateNowParse = dateNow.split('/');
+    let diffYear = parseInt(dateNowParse[2]) - parseInt(dateThenParse[2]);
+    let diffMonth = parseInt(dateNowParse[1]) - parseInt(dateThenParse[1]);
+    let diffDate = parseInt(dateNowParse[0]) - parseInt(dateThenParse[0]);
     if (diffYear > 0) {
       return `${diffYear} year${diffYear > 1 ? 's' : ''} ago`;
     } else if (diffMonth > 0) {
