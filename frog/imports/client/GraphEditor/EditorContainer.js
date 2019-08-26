@@ -40,9 +40,8 @@ const styles = () => ({
     display: 'flex'
   },
   preview: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    position: 'relative',
+    padding: '25px',
     width: 'calc(100vw - 400px)',
     height: 'calc(100vh - 50px - 300px)',
     overflow: 'auto'
