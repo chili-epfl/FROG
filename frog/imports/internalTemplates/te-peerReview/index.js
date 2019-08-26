@@ -140,7 +140,10 @@ const meta = {
  - **Stage 3**: Students then receive the feedback from other students, and can continue to work on their contributions, taking into account the feedback from the other students
  - **Stage 4**: Finally, all contributions are sent to the projector for the teacher to discuss and debrief.
 
- ![Screenshots](/clientFiles/te-peerReview/te-peerReview.png)`
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-1.png)
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-2.png)
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-3.png)
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-4.png)`
 };
 
 export default {

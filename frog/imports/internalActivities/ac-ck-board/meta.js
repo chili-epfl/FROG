@@ -36,14 +36,16 @@ const data = {
 };
 
 export const meta = {
-  name: 'Common Knowledge board',
+  name: 'Idea board',
   mode: 'collab',
   shortDesc: '2D board for placing items',
   category: 'Core tools',
   supportsLearningItems: true,
   description: `All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.
     
- ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board.png)`,
+ ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board-1.png)
+ ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board-2.png)
+ ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board-3.png)`,
   exampleData: [
     {
       title: 'Board',
