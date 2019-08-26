@@ -9,8 +9,11 @@ import {
   OpenInNew,
   MoreVert
 } from '@material-ui/icons';
-import { Button } from '/imports/ui/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
+import { Button } from '/imports/ui/Button';
+import Fab from '@material-ui/core/Fab';
+import Autofix from '/imports/ui/Icons/Autofix';
 import { Sidebar, Panel } from '/imports/ui/Sidebar';
 import { Logo } from '/imports/ui/Logo';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
@@ -18,6 +21,16 @@ import { RowButton } from '/imports/ui/RowItems';
 import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
+
+const useStyles = makeStyles(theme => ({
+  fab: {
+    backgroundColor: '#31bfae',
+    color: '#FFFFFF',
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2)
+  }
+}));
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
@@ -43,6 +56,8 @@ export const DashboardSideBar = ({
   showDrafts,
   children
 }: DashBoardSideBarPropsT) => {
+  const classes = useStyles();
+
   return (
     <React.Fragment>
       <SidebarLayout
@@ -57,7 +72,7 @@ export const DashboardSideBar = ({
                   icon={<Add fontSize="small" />}
                   onClick={() => history.push('/wizard')}
                 >
-                  Create using Wizard
+                  Create with Wizard
                 </RowButton>
               </>
             }
@@ -126,6 +141,16 @@ export const DashboardSideBar = ({
           </>
         }
       />
+      <Fab
+        className={classes.fab}
+        variant="extended"
+        size="large"
+        aria-label="delete"
+        onClick={() => history.push('/wizard')}
+      >
+        <Autofix style={{ marginRight: '10px' }} />
+        Create with wizard
+      </Fab>
     </React.Fragment>
   );
 };
