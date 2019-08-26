@@ -142,9 +142,10 @@ const StatelessPreview = (props: Object) => {
   );
 
   const GraphEditorP = (
-    <div>
+    <div style={{ width: '100%' }}>
       <Controls {...props} classes={undefined} />
-      {PreviewContent}
+      {/* Subtracting Controls Height */}
+      <div style={{ height: 'calc(100% - 44px)' }}>{PreviewContent}</div>
       <ReactTooltip delayShow={300} place="right" />
     </div>
   );
