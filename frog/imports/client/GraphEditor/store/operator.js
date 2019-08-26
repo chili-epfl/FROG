@@ -82,7 +82,7 @@ export default class Operator extends Elem {
 
     extendObservable(this, {
       time,
-      y,
+      y: Math.min(Math.max(25, y), 280),
       id: id || cuid(),
       type,
       klass: 'operator',
