@@ -52,6 +52,24 @@ export const ContentListItem = ({
   const classes = useStyles();
   const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
 
+  const DateToMoments = dateThen => {
+    dateThenParse = dateThen.split('/');
+    dateNow = new Date().toLocaleDateString();
+    dateNowParse = dateNow.split('/');
+    diffYear = parseInt(dateNowParse[2]) - parseInt(dateThenParse[2]);
+    diffMonth = parseInt(dateNowParse[1]) - parseInt(dateThenParse[1]);
+    diffDate = parseInt(dateNowParse[0]) - parseInt(dateThenParse[0]);
+    if (diffYear > 0) {
+      return `${diffYear} year${diffYear > 1 ? 's' : ''} ago`;
+    } else if (diffMonth > 0) {
+      return `${diffMonth} month${diffMonth > 1 ? 's' : ''} ago`;
+    } else if (diffDate > 0) {
+      return `${diffDate} day${diffDate > 1 ? 's' : ''} ago`;
+    } else {
+      return `Today`;
+    }
+  };
+
   return (
     <ListItem alignItems="flex-start" divider button onClick={callback}>
       <ListItemIcon>
@@ -65,7 +83,7 @@ export const ContentListItem = ({
         color="textSecondary"
         variant="body2"
       >
-        {dateCreated}
+        {DateToMoments(dateCreated)}
       </Typography>
       {secondaryActions && (
         <ListItemSecondaryAction>
