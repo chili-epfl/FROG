@@ -20,7 +20,9 @@ export const DashboardContentContainer = ({
     draftsView: false,
     recentsView: true
   });
-  const [activePage, setActivePage] = React.useState('Recents');
+  const [activePage, setActivePage] = React.useState(
+    draftsList.length === 0 ? 'Sessions' : 'Recents'
+  );
 
   const onSelectRecentsView = () => {
     setActivePage('Recents');
@@ -94,11 +96,12 @@ export const DashboardContentContainer = ({
       callbackSessionsView={onSelectSessionsView}
       callbackRecentsView={onSelectRecentsView}
       callbackDraftsView={onSelectDraftsView}
-      sessionsActive={selectedPage.sessionsView}
+      sessionsActive={draftsList.length === 0 || selectedPage.sessionsView}
       draftsActive={selectedPage.draftsView}
       recentsActive={selectedPage.recentsView}
       activePage={activePage}
       history={history}
+      showDrafts={draftsList.length > 0}
     >
       <ComponentToRender />
     </DashboardSideBar>

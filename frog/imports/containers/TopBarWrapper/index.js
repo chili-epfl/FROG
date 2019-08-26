@@ -1,8 +1,12 @@
 // @flow
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { withRouter } from 'react-router-dom';
 import { SupervisedUserCircle, Edit } from '@material-ui/icons';
+import Clear from '@material-ui/icons/Clear';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Breadcrumb } from '/imports/ui/Breadcrumb';
+
 import { TopBar } from '/imports/ui/TopBar';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { Button } from '/imports/ui/Button';
@@ -102,3 +106,19 @@ export const TopBarAccountsWrapper = ({
     />
   );
 };
+
+export const SimpleTopBar = withRouter(({ title, history }) => (
+  <TopBarAccountsWrapper
+    actions={<></>}
+    navigation={
+      <>
+        <Button
+          variant="minimal"
+          icon={<Clear />}
+          onClick={() => history.push('/')}
+        />
+        <Breadcrumb paths={[title]} />
+      </>
+    }
+  />
+));

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { defaultConfig, uuid } from '/imports/frog-utils';
 import { isEmpty, omit } from 'lodash';
 
+import { SimpleTopBar } from '/imports/containers/TopBarWrapper';
 import Preview, { connection, restartBackend } from './Preview';
 import { activityTypesObj } from '/imports/activityTypes';
 import ErrorWrapper from './ErrorWrapper';
@@ -139,12 +140,15 @@ class PreviewPage extends React.Component<any, any> {
       );
     }
     return (
-      <Preview
-        storeTemplateFn={this.props.storeTemplateFn}
-        template={this.props.template}
-        {...{ ...this.state, ...this.setStates }}
-        config={this.props.config || this.state.config}
-      />
+      <>
+        <SimpleTopBar title="Advanced Preview" />
+        <Preview
+          storeTemplateFn={this.props.storeTemplateFn}
+          template={this.props.template}
+          {...{ ...this.state, ...this.setStates }}
+          config={this.props.config || this.state.config}
+        />
+      </>
     );
   }
 }

@@ -38,55 +38,61 @@ export const RecentsPage = ({
   const classes = useStyles();
   return (
     <Grid container>
-      <Grid item xs={6}>
-        <Paper className={classes.paper} elevation={0}>
-          <div className={classes.buttonRows}>
-            <Typography variant="h5" align="left">
-              <ShowChart /> Drafts
-            </Typography>
-            <Button icon={<Add />} onClick={actionCallback} variant="primary" />
-          </div>
+      {draftsList.length > 0 && (
+        <Grid item xs={6}>
+          <Paper className={classes.paper} elevation={0}>
+            <div className={classes.buttonRows}>
+              <Typography variant="h5" align="left">
+                <ShowChart /> Drafts
+              </Typography>
+              <Button
+                icon={<Add />}
+                onClick={actionCallback}
+                variant="primary"
+              />
+            </div>
 
-          <List>
-            {draftsList
-              .slice(0, 6)
-              .map(
-                (
-                  {
-                    itemIcon,
-                    itemTitle,
-                    itemType,
-                    dateCreated,
-                    callback,
-                    secondaryActions
-                  },
-                  index
-                ) => {
-                  return (
-                    <ContentListItem
-                      key={index}
-                      itemTitle={itemTitle}
-                      itemIcon={itemIcon}
-                      itemType={itemType}
-                      dateCreated={dateCreated}
-                      callback={callback}
-                      secondaryActions={secondaryActions}
-                    />
-                  );
-                }
-              )}
-          </List>
-          {draftsList.length > 6 && (
-            <Button
-              onClick={moreCallbackDrafts}
-              icon={<MoreHoriz />}
-              variant="minimal"
-            >
-              More
-            </Button>
-          )}
-        </Paper>
-      </Grid>
+            <List>
+              {draftsList
+                .slice(0, 6)
+                .map(
+                  (
+                    {
+                      itemIcon,
+                      itemTitle,
+                      itemType,
+                      dateCreated,
+                      callback,
+                      secondaryActions
+                    },
+                    index
+                  ) => {
+                    return (
+                      <ContentListItem
+                        key={index}
+                        itemTitle={itemTitle}
+                        itemIcon={itemIcon}
+                        itemType={itemType}
+                        dateCreated={dateCreated}
+                        callback={callback}
+                        secondaryActions={secondaryActions}
+                      />
+                    );
+                  }
+                )}
+            </List>
+            {draftsList.length > 6 && (
+              <Button
+                onClick={moreCallbackDrafts}
+                icon={<MoreHoriz />}
+                variant="minimal"
+              >
+                More
+              </Button>
+            )}
+          </Paper>
+        </Grid>
+      )}
 
       <Grid item xs={6}>
         <Paper className={classes.paper} elevation={0}>
