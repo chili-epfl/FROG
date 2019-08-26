@@ -44,6 +44,11 @@ const styles = () => ({
     width: 'calc(100vw - 400px)',
     height: 'calc(100vh - 50px - 300px)',
     overflow: 'auto'
+  },
+  previewContainer: {
+    width: '100%',
+    height: '100%',
+    display: 'flex'
   }
 });
 
@@ -163,7 +168,9 @@ class Editor extends React.Component<Object, StateT> {
                 />
               </div>
               <div className={classes.preview}>
-                <PreviewPanel />
+                <div className={classes.previewContainer}>
+                  <PreviewPanel />
+                </div>
               </div>
             </div>
           </Grid>
