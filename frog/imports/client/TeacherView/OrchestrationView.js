@@ -5,6 +5,8 @@ import { OrchestrationContextProvider } from './context';
 
 import OrchestrationLayout from './components/OrchestrationLayout';
 
+import { withDragDropContext } from '/imports/frog-utils';
+import { compose } from 'recompose';
 import { Activities } from '/imports/api/activities';
 import { SessionControlContainer } from './containers/SessionControlContainer';
 import { StepsContainer } from './containers/StepsContainer';
@@ -22,7 +24,7 @@ type OrchestrationViewPropsT = {
   token: Object
 };
 
-export const OrchestrationView = (props: OrchestrationViewPropsT) => {
+const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const [currentActivity, setCurrentActivity] = React.useState('welcome');
 
   const activityToDash = props.activities?.find(a => a._id === currentActivity);
@@ -79,3 +81,7 @@ export const OrchestrationView = (props: OrchestrationViewPropsT) => {
     </OrchestrationContextProvider>
   );
 };
+
+export const OrchestrationView = compose(withDragDropContext)(
+  OrchestrationViewRaw
+);

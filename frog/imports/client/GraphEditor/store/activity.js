@@ -2,6 +2,7 @@
 
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
+import { debounce } from 'lodash';
 
 import { store } from './index';
 import Elem from './elemClass';
@@ -20,6 +21,14 @@ export default class Activity extends Elem {
   over: boolean;
 
   data: Object;
+
+  dataDelayed: Object;
+
+  setDataDelayed: Object => void;
+
+  setDataDelayedNow: Object => void;
+
+  debouncedSetDataDelayed: Object => void;
 
   activityType: string;
 
@@ -114,8 +123,13 @@ export default class Activity extends Elem {
       klass: 'activity',
       state,
       data: data || {},
+      dataDelayed: data || {},
       activityType,
       wasMoved: false,
+
+      setDataDelayedNow: action((config: Object) => {
+        this.dataDelayed = config;
+      }),
 
       update: action((newact: $Shape<Activity>) => {
         this.length = newact.length;
@@ -125,6 +139,11 @@ export default class Activity extends Elem {
         this.data = newact.data;
         this.plane = newact.plane;
         this.activityType = newact.activityType;
+        const errors = store.graphErrors.filter(x => x.id === this.id);
+        const error = errors.filter(x => x.severity === 'error');
+        if (!error) {
+          this.debouncedSetDataDelayed(newact.data);
+        }
       }),
 
       rename: action((newname: string) => {
@@ -367,4 +386,10 @@ export default class Activity extends Elem {
       }
     });
   }
+
+  setDataDelayed = (config: Object) => {
+    this.setDataDelayedNow(config);
+  };
+
+  debouncedSetDataDelayed = debounce(this.setDataDelayed, 1000);
 }

@@ -5,14 +5,32 @@ import {
   Bookmark,
   ShowChart,
   Add,
-  KeyboardArrowRight
+  KeyboardArrowRight,
+  OpenInNew,
+  MoreVert
 } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { Button } from '/imports/ui/Button';
+import Fab from '@material-ui/core/Fab';
+import Autofix from '/imports/ui/Icons/Autofix';
 import { Sidebar, Panel } from '/imports/ui/Sidebar';
 import { Logo } from '/imports/ui/Logo';
 import { SidebarLayout } from '/imports/ui/Layout/SidebarLayout';
-import { RowButton, RowTitle } from '/imports/ui/RowItems';
+import { RowButton } from '/imports/ui/RowItems';
 import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
+import { OverflowMenu } from '/imports/ui/OverflowMenu';
+
+const useStyles = makeStyles(theme => ({
+  fab: {
+    backgroundColor: '#31bfae',
+    color: '#FFFFFF',
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2)
+  }
+}));
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
@@ -22,8 +40,9 @@ type DashBoardSideBarPropsT = {
   sessionsActive: boolean,
   draftsActive: boolean,
   recentsActive: boolean,
-  history: RouterHistory,
-  activePage: string
+  activePage: string,
+  history: any,
+  showDrafts: boolean
 };
 export const DashboardSideBar = ({
   callbackRecentsView,
@@ -34,8 +53,11 @@ export const DashboardSideBar = ({
   recentsActive,
   history,
   activePage,
+  showDrafts,
   children
 }: DashBoardSideBarPropsT) => {
+  const classes = useStyles();
+
   return (
     <React.Fragment>
       <SidebarLayout
@@ -44,27 +66,38 @@ export const DashboardSideBar = ({
             header={
               <>
                 <Logo />
-                <RowTitle> Dashboard </RowTitle>
 
                 <RowButton
                   size="large"
                   icon={<Add fontSize="small" />}
                   onClick={() => history.push('/wizard')}
                 >
-                  Create using Wizard
+                  Create with Wizard
                 </RowButton>
               </>
             }
           >
             <Panel>
-              <RowButton
-                onClick={callbackRecentsView}
-                active={recentsActive}
-                icon={<AccessTimeOutlined />}
-                rightIcon={<KeyboardArrowRight fontSize="small" />}
-              >
-                Recents
-              </RowButton>
+              {showDrafts && (
+                <>
+                  <RowButton
+                    onClick={callbackRecentsView}
+                    active={recentsActive}
+                    icon={<AccessTimeOutlined />}
+                    rightIcon={<KeyboardArrowRight fontSize="small" />}
+                  >
+                    Recents
+                  </RowButton>
+                  <RowButton
+                    icon={<ShowChart />}
+                    active={draftsActive}
+                    onClick={callbackDraftsView}
+                    rightIcon={<KeyboardArrowRight fontSize="small" />}
+                  >
+                    Drafts
+                  </RowButton>
+                </>
+              )}
               <RowButton
                 icon={<Bookmark />}
                 active={sessionsActive}
@@ -73,27 +106,51 @@ export const DashboardSideBar = ({
               >
                 Sessions
               </RowButton>
-              <RowButton
-                icon={<ShowChart />}
-                active={draftsActive}
-                onClick={callbackDraftsView}
-                rightIcon={<KeyboardArrowRight fontSize="small" />}
-              >
-                Drafts
-              </RowButton>
             </Panel>
           </Sidebar>
         }
         content={
           <>
             <TopBarAccountsWrapper
-              navigation={<Breadcrumb paths={[`Dashboard/${activePage}`]} />}
-              actions={<></>}
+              navigation={<Breadcrumb paths={[`${activePage}`]} />}
+              actions={
+                <OverflowMenu
+                  button={
+                    <Button
+                      variant="minimal"
+                      icon={<MoreVert fontSize="small" />}
+                    />
+                  }
+                >
+                  <RowButton
+                    icon={<OpenInNew fontSize="small" />}
+                    onClick={() => history.push('/teacher/graph/new')}
+                  >
+                    Advanced graph editor
+                  </RowButton>
+                  <RowButton
+                    icon={<OpenInNew fontSize="small" />}
+                    onClick={() => history.push('/teacher/preview')}
+                  >
+                    Advanced preview
+                  </RowButton>
+                </OverflowMenu>
+              }
             />
             {children}
           </>
         }
       />
+      <Fab
+        className={classes.fab}
+        variant="extended"
+        size="large"
+        aria-label="delete"
+        onClick={() => history.push('/wizard')}
+      >
+        <Autofix style={{ marginRight: '10px' }} />
+        Create with wizard
+      </Fab>
     </React.Fragment>
   );
 };

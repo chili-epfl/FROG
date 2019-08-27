@@ -3,7 +3,6 @@
 
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
-import Modal from 'react-modal';
 import ShareDB from '@teamwork/sharedb';
 import Draggable from 'react-draggable';
 
@@ -37,7 +36,6 @@ export const restartBackend = () => {
 const styles = {
   main: {
     display: 'flex',
-    marginTop: '48px',
     height: 'calc(100vh - 48px)'
   },
   noModal: {
@@ -94,8 +92,7 @@ const StatelessPreview = (props: Object) => {
   const {
     delay,
     activityTypeId,
-    modal,
-    dismiss,
+    graphEditor,
     showLogs,
     fullWindow,
     showDashExample,
@@ -143,20 +140,16 @@ const StatelessPreview = (props: Object) => {
     </div>
   );
 
-  const ModalP = (
-    <Modal
-      ariaHideApp={false}
-      contentLabel={'Preview of ' + activityTypeId}
-      isOpen
-      onRequestClose={dismiss}
-    >
+  const GraphEditorP = (
+    <div style={{ width: '100%' }}>
       <Controls {...props} classes={undefined} />
-      {PreviewContent}
+      {/* Subtracting Controls Height */}
+      <div style={{ height: 'calc(100% - 44px)' }}>{PreviewContent}</div>
       <ReactTooltip delayShow={300} place="right" />
-    </Modal>
+    </div>
   );
 
-  return fullWindow ? FullWindowP : modal ? ModalP : NoModalP;
+  return fullWindow ? FullWindowP : graphEditor ? GraphEditorP : NoModalP;
 };
 
 export default withStyles(styles)(StatelessPreview);

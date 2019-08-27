@@ -45,10 +45,10 @@ const ChangeDisplayNameForm = ({
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (errorBasedOnChars(newDisplayName, 1, 'Display Name') === '')
+    if (errorBasedOnChars(newDisplayName, 1, 'Name') === '')
       onChangeDisplayName(newDisplayName);
     else {
-      showToast(errorBasedOnChars(newDisplayName, 1, 'Display Name'), 'error');
+      showToast(errorBasedOnChars(newDisplayName, 1, 'Name'), 'error');
     }
   };
 
@@ -69,7 +69,7 @@ const ChangeDisplayNameForm = ({
             fullWidth
             onChange={() => setNewDisplayName(event.target.value)}
             id="newDisplayName"
-            label="New Display Name"
+            label="New Name"
             name="newDisplayName"
             autoComplete="name"
             autoFocus
