@@ -6,7 +6,8 @@ export default {
     createdAt: '2019-07-02T09:16:25.936Z',
     graphVersion: 2,
     broken: false,
-    duration: 60
+    duration: 60,
+    templateGraph: true
   },
   activities: [
     {
