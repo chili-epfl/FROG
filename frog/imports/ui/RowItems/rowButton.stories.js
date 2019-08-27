@@ -67,4 +67,16 @@ storiesOf('UI/RowItems/RowButton', module)
         Hello World!
       </RowButton>
     </StorybookContainer>
+  ))
+  .add('with auto sizing', () => (
+    <StorybookContainer width={250}>
+      <RowButton
+        size="auto"
+        icon={<PlayArrow fontSize="small" />}
+        rightIcon={<NavigateNext fontSize="small" />}
+      >
+        Hello World!
+        <p style={{ margin: '4px 0px', color: '#555' }}>Description</p>
+      </RowButton>
+    </StorybookContainer>
   ));

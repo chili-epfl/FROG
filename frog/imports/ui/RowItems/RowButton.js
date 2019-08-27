@@ -30,6 +30,9 @@ const useStyle = makeStyles(theme => ({
 
     '&.disabled': {
       opacity: 0.5
+    },
+    '&.size-auto': {
+      padding: theme.spacing(2, 2, 2, 0)
     }
   },
   icon: {
@@ -75,7 +78,7 @@ const useStyle = makeStyles(theme => ({
 type RowButtonProps = {
   disabled?: boolean,
   active?: boolean,
-  size?: 'default' | 'large',
+  size?: 'default' | 'large' | 'auto',
   icon?: React.Element<*>,
   rightIcon?: React.Element<*>,
   onClick?: (e: Event) => void,
@@ -99,7 +102,7 @@ export const RowButton = (props: RowButtonProps) => {
       onClick={props.onClick}
     >
       <span className={classes.hover} />
-      <div className={classes.icon}>{props.icon}</div>
+      {props.icon && <div className={classes.icon}>{props.icon}</div>}
       <Typography className={classes.text} variant="body1">
         {props.children}
       </Typography>
