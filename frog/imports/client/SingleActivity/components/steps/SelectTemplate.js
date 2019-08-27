@@ -63,9 +63,15 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
                   props.onSelect(item);
                 }}
               >
-                {item.name}
+                <span style={{ fontWeight: 600 }}>{item.name}</span>
                 {item.shortDesc && (
-                  <p style={{ margin: '4px 0px 0px 0px', color: '#777' }}>
+                  <p
+                    style={{
+                      fontWeight: 'normal',
+                      margin: '4px 0px 0px 0px',
+                      color: '#777'
+                    }}
+                  >
                     {item.shortDesc}
                   </p>
                 )}
