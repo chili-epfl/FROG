@@ -10,7 +10,7 @@ import Lines, { DragLine } from './components/Lines';
 import { LevelLines, PanMap } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
 import ProgressLines from './components/ProgressLines';
-import { ErrorList } from './Validator';
+// import { ErrorList } from './Validator';
 
 const scrollMouse = e => {
   e.preventDefault();
