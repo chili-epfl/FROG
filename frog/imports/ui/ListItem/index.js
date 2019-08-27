@@ -53,42 +53,46 @@ export const ContentListItem = ({
   const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
 
   const DateToMoments = moment => {
-    const dateThen = moment.split(' ')[1];
-    const timeThen = moment.split(' ')[0];
-    const dateThenSplit = dateThen.split('/');
-    const timeThenSplit = timeThen.split(':');
-    const date = new Date();
-    const dateNow = date.toLocaleDateString();
-    const timeNowSplit = [
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds()
-    ];
-    const dateNowSplit = dateNow.split('/');
-    const diffYear =
-      parseInt(dateNowSplit[2], 10) - parseInt(dateThenSplit[2], 10);
-    const diffMonth =
-      parseInt(dateNowSplit[1], 10) - parseInt(dateThenSplit[1], 10);
-    const diffDate =
-      parseInt(dateNowSplit[0], 10) - parseInt(dateThenSplit[0], 10);
-    const diffHours =
-      parseInt(timeNowSplit[0], 10) - parseInt(timeThenSplit[0], 10);
-    const diffMinutes =
-      parseInt(timeNowSplit[1], 10) - parseInt(timeThenSplit[1], 10);
-    // const diffSeconds =
-    //   parseInt(timeNowSplit[2], 10) - parseInt(timeThenSplit[2], 10);
-    if (diffYear > 0) {
-      return `${diffYear} year${diffYear > 1 ? 's' : ''} ago`;
-    } else if (diffMonth > 0) {
-      return `${diffMonth} month${diffMonth > 1 ? 's' : ''} ago`;
-    } else if (diffDate > 0) {
-      return `${diffDate} day${diffDate > 1 ? 's' : ''} ago`;
-    } else if (diffHours > 0) {
-      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    } else if (diffMinutes > 0) {
-      return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
-    } else {
-      return `a few seconds ago`;
+    try {
+      const dateThen = moment.split(' ')[1];
+      const timeThen = moment.split(' ')[0];
+      const dateThenSplit = dateThen.split('/');
+      const timeThenSplit = timeThen.split(':');
+      const date = new Date();
+      const dateNow = date.toLocaleDateString();
+      const timeNowSplit = [
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds()
+      ];
+      const dateNowSplit = dateNow.split('/');
+      const diffYear =
+        parseInt(dateNowSplit[2], 10) - parseInt(dateThenSplit[2], 10);
+      const diffMonth =
+        parseInt(dateNowSplit[1], 10) - parseInt(dateThenSplit[1], 10);
+      const diffDate =
+        parseInt(dateNowSplit[0], 10) - parseInt(dateThenSplit[0], 10);
+      const diffHours =
+        parseInt(timeNowSplit[0], 10) - parseInt(timeThenSplit[0], 10);
+      const diffMinutes =
+        parseInt(timeNowSplit[1], 10) - parseInt(timeThenSplit[1], 10);
+      // const diffSeconds =
+      //   parseInt(timeNowSplit[2], 10) - parseInt(timeThenSplit[2], 10);
+      if (diffYear > 0) {
+        return `${diffYear} year${diffYear > 1 ? 's' : ''} ago`;
+      } else if (diffMonth > 0) {
+        return `${diffMonth} month${diffMonth > 1 ? 's' : ''} ago`;
+      } else if (diffDate > 0) {
+        return `${diffDate} day${diffDate > 1 ? 's' : ''} ago`;
+      } else if (diffHours > 0) {
+        return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+      } else if (diffMinutes > 0) {
+        return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+      } else {
+        return `a few seconds ago`;
+      }
+    } catch (err) {
+      return moment;
     }
   };
 
