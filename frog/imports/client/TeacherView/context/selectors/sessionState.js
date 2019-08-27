@@ -5,5 +5,6 @@ export const sessionState = (session: Object) => ({
   isWaitingForStudents: session.timeInGraph === -1,
   isPaused: session.state === 'PAUSED',
   settings: session.settings,
-  ownerId: session.ownerId
+  ownerId: session.ownerId,
+  singleActivity: session.singleActivity
 });
