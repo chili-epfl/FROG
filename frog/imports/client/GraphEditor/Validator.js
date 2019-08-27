@@ -17,8 +17,8 @@ const ListError = ({ errors, maxLength }) => {
           <g key={k + 'g'}>
             {textlines.map((line, y) => (
               <text
-                x="95"
-                y={25 + 20 * (k + y)}
+                x="0"
+                y={15 + 20 * (k + y)}
                 key={k + line}
                 fill={x.severity === 'error' ? 'red' : 'orange'}
               >
@@ -40,7 +40,8 @@ export const ErrorList = connect(
       activityStore: { all: activities },
       operatorStore: { all: operators }
     },
-    activityId
+    activityId,
+    offset
   }) => {
     // component not open
     if (showErrors !== true && showErrors !== activityId) {
@@ -67,7 +68,13 @@ export const ErrorList = connect(
     } else {
       errors = graphErrors.filter(x => x.id === activityId);
     }
-    return <ShowErrorsRaw errors={errors} global={showErrors === true} />;
+    return (
+      <ShowErrorsRaw
+        errors={errors}
+        global={showErrors === true}
+        offset={offset}
+      />
+    );
   }
 );
 
@@ -75,10 +82,12 @@ ErrorList.displayName = 'ErrorList';
 
 export const ShowErrorsRaw = ({
   errors,
-  global
+  global,
+  offset
 }: {
   errors: Object[],
-  global?: boolean
+  global?: boolean,
+  offset?: boolean
 }) => {
   if (errors.length === 0) {
     return null;
@@ -91,8 +100,8 @@ export const ShowErrorsRaw = ({
     <svg style={{ overflow: 'visible' }}>
       <g>
         <rect
-          x="80"
-          y="5"
+          x={offset ? '0' : '80'}
+          y={offset ? '0' : '5'}
           rx="5"
           ry="5"
           width={6.5 * maxLength}

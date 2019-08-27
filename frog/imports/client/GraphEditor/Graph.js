@@ -96,7 +96,7 @@ const Graph = connect(
       {scaled && scrollEnabled && (
         <ScrollFields width={graphWidth} height={600} />
       )}
-      {!hasPanMap && <ErrorList />}
+      {/* {!hasPanMap && <ErrorList />} */}
     </svg>
   )
 );

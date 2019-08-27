@@ -5,6 +5,7 @@ import { makeStyles, Typography, ButtonBase } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
+    position: 'relative',
     padding: theme.spacing(0, 1, 0, 0),
 
     display: 'flex',
@@ -16,6 +17,8 @@ const useStyle = makeStyles(theme => ({
 
     color: '#333',
     overflow: 'hidden',
+
+    transition: '.2s all',
 
     '&.variant-default': {
       border: '1px solid #EAEAEA'
@@ -35,6 +38,12 @@ const useStyle = makeStyles(theme => ({
 
     '&.disabled': {
       opacity: 0.5
+    },
+    '&:hover': {
+      background: 'rgba(0,0,0,0.1)'
+    },
+    '&.variant-primary:hover': {
+      background: 'rgba(255,255,255,0.1)'
     }
   },
   icon: {
@@ -62,6 +71,7 @@ const useStyle = makeStyles(theme => ({
     transition: '.2s all',
     opacity: 0,
     background: 'currentColor',
+    pointerEvents: 'none',
 
     '&:hover': {
       opacity: 0.1

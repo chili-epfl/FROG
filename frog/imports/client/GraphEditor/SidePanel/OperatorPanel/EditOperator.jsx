@@ -26,7 +26,7 @@ const TopPanel = ({
   canPreview
 }) => (
   <div style={{ backgroundColor: '#eee' }}>
-    <div style={{ position: 'absolute', left: -40 }}>
+    <div style={{ position: 'absolute', left: -40, overflow: 'visible' }}>
       <ErrorList activityId={operator._id} />
     </div>
     <FlexView>

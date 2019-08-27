@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
+    position: 'relative',
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
