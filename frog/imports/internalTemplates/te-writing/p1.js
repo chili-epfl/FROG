@@ -39,20 +39,6 @@ export default {
       data: { expand: true, showUserName: true },
       participationMode: '{{participationMode}}',
       actualStartingTime: '2019-08-14T12:56:04.700Z'
-    },
-    {
-      _id: 'cjzb9cktv000401rs1qxl0tci',
-      length: 5,
-      plane: 3,
-      startTime: 2,
-      title: 'Waiting message',
-      activityType: 'ac-text',
-      configVersion: 1,
-      data: {
-        text: '<p>Please wait until the teacher begins the activity</p>'
-      },
-      actualStartingTime: '2019-08-14T12:55:33.482Z',
-      actualClosingTime: '2019-08-14T12:55:50.596Z'
     }
   ],
   operators: [
@@ -91,7 +77,7 @@ export default {
         socialAttribute: 'group',
         path: 'instructions',
         provideDefault: true,
-        defaultValue: 'Hello',
+        defaultValue: 'Instructions',
         matchings: '{{matchings}}'
       },
       configVersion: 1

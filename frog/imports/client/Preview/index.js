@@ -141,7 +141,7 @@ class PreviewPage extends React.Component<any, any> {
     }
     return (
       <>
-        <SimpleTopBar title="Advanced Preview" />
+        {!this.props.graphEditor && <SimpleTopBar title="Advanced Preview" />}
         <Preview
           storeTemplateFn={this.props.storeTemplateFn}
           template={this.props.template}
