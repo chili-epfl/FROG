@@ -36,7 +36,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const socStructure = focusStudent(object.socialStructure);
   const studentSoc = socStructure[Meteor.userId()];
   const instanceMembers =
-    !isTeacher && activity.plane === 2
+    !isTeacher && activity.plane === 2 && studentSoc
       ? object.socialStructure[activity.groupingKey][
           studentSoc[activity.groupingKey]
         ]

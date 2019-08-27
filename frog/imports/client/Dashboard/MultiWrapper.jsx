@@ -156,8 +156,8 @@ const MultiWrapper = (props: {
       }
       return cond(activity.data);
     });
-  if (aT.meta?.supportsLearningItems) {
-    dashNames.push('Learning Items');
+  if (aT.meta?.supportsLearningItems && aT.id !== 'ac-chat') {
+    dashNames.push('Content');
   }
   if (isEmpty(dashNames)) {
     return null;

@@ -42,7 +42,7 @@ const RawDashboardComp = ({
   ready,
   object
 }: DashboardCompPropsT) => {
-  if (name === 'Learning Items') {
+  if (name === 'Content') {
     return <LIDashboard activityId={activity._id} />;
   }
   if (!ready && !state) {
