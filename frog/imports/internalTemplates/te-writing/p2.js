@@ -70,7 +70,7 @@ export default {
       operatorType: 'op-create-groups',
       title: 'Create groups',
       data: {
-        groupsize: '{{groupSize}}',
+        groupsize: 2,
         strategy: 'minimum',
         grouping: 'group'
       },

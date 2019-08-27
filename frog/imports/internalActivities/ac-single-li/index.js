@@ -56,7 +56,7 @@ const configUI = {
 const mergeFunction = async (obj: Object, dataFn: Object, data: Object) => {
   let empty = true;
   const category = obj.config.useInstructionsForCategory
-    ? obj.config.category
+    ? obj.config.instructions
     : undefined;
   if (!isEmpty(obj.data) && isObject(obj.data)) {
     const li = values(obj.data)?.[0]?.li;
