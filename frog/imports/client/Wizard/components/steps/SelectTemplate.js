@@ -65,15 +65,17 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
               >
                 <span style={{ fontWeight: 600 }}>{item.name}</span>
                 {item.shortDesc && (
-                  <p
-                    style={{
-                      fontWeight: 'normal',
-                      margin: '4px 0px 0px 0px',
-                      color: '#777'
-                    }}
-                  >
-                    {item.shortDesc}
-                  </p>
+                  <>
+                    <br />
+                    <span
+                      style={{
+                        fontWeight: 'normal',
+                        color: '#777'
+                      }}
+                    >
+                      {item.shortDesc}
+                    </span>
+                  </>
                 )}
               </RowButton>
               <RowDivider />

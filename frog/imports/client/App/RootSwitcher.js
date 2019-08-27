@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getUserType } from '/imports/api/users';
 import LandingPage from '/imports/ui/LandingPage';
-import SingleActivity from '../SingleActivity';
+import Wizard from '/imports/ui/Wizard';
 import DashboardDataContainer from '/imports/client/UserDashboard/containers/DashboardDataContainer';
 
 export const RootSwitcher = ({ history }) => {
@@ -16,6 +16,6 @@ export const RootSwitcher = ({ history }) => {
       return <DashboardDataContainer history={history} />;
 
     default:
-      return <SingleActivity />;
+      return <Wizard />;
   }
 };
