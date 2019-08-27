@@ -15,23 +15,27 @@ import { RowButton } from '/imports/ui/RowItems';
 
 const variants = {
   start: {
-    title: 'Start the current session',
+    title: 'Start the session',
     icon: PlayArrow
   },
   stop: {
-    title: 'Stop the current session',
+    title: 'Stop the session',
     icon: Stop
   },
   continue: {
-    title: 'Continue the current session',
+    title: 'Continue the session',
     icon: PlayArrow
   },
   pause: {
-    title: 'Pause the current session',
+    title: 'Pause the session',
     icon: Pause
   },
   next: {
     title: 'Next Activity',
+    icon: SkipNext
+  },
+  close: {
+    title: 'Close the activity',
     icon: SkipNext
   },
   prev: {
@@ -52,7 +56,8 @@ type ControlButtonProps = {
     | 'pause'
     | 'next'
     | 'prev'
-    | 'restart',
+    | 'restart'
+    | 'close',
   onClick: () => void
 };
 

@@ -15,6 +15,8 @@ export const SessionControlContainer = () => {
     <Panel>
       {session.isWaitingForStudents ? (
         <ControlButton variant="start" onClick={session.start} />
+      ) : session.singleActivity ? (
+        <ControlButton variant="close" onClick={session.next} />
       ) : (
         <ControlButton variant="next" onClick={session.next} />
       )}
