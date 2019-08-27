@@ -11944,24 +11944,6 @@ npmlog@^4.0.2, npmlog@^4.1.2:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nps@5.9.3:
-  version "5.9.3"
-  resolved "https://registry.yarnpkg.com/nps/-/nps-5.9.3.tgz#5e50f13b7b44e8c8e972d5c843454f97cc63d3a3"
-  integrity sha512-ocOFKD3dlvWPQz4h1qaeh+dzj0NALrZbCN80+o2RBPXrVUC+Se62MF6t/xnd4ZYzym6We6RAU+SvOp0WCeyjlQ==
-  dependencies:
-    arrify "^1.0.1"
-    chalk "^2.0.1"
-    common-tags "^1.4.0"
-    find-up "^2.1.0"
-    js-yaml "^3.9.0"
-    lodash "^4.17.4"
-    manage-path "^2.0.0"
-    prefix-matches "^1.0.1"
-    readline-sync "^1.4.7"
-    spawn-command-with-kill "^1.0.0"
-    type-detect "^4.0.3"
-    yargs "^8.0.2"
-
 nps@^5.9.3:
   version "5.9.5"
   resolved "https://registry.yarnpkg.com/nps/-/nps-5.9.5.tgz#cb091b2a3ea8b68f9282159e0d3d3877b19820de"
