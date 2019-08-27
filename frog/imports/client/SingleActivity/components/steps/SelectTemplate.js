@@ -58,12 +58,23 @@ export const SelectTemplate = (props: SelectTemplatePropsT) => {
           {props.availableGraphTemplates.map(item => (
             <React.Fragment key={item.id}>
               <RowButton
-                size="large"
+                size="auto"
                 onClick={() => {
                   props.onSelect(item);
                 }}
               >
-                {item.name}
+                <span style={{ fontWeight: 600 }}>{item.name}</span>
+                {item.shortDesc && (
+                  <p
+                    style={{
+                      fontWeight: 'normal',
+                      margin: '4px 0px 0px 0px',
+                      color: '#777'
+                    }}
+                  >
+                    {item.shortDesc}
+                  </p>
+                )}
               </RowButton>
               <RowDivider />
             </React.Fragment>
