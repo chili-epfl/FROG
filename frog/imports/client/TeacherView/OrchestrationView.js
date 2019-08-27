@@ -70,7 +70,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
             <ConcludedView />
           ) : (
             <ActivityContainer
-              session={props.session}
+              sessionId={props.session._id}
               activities={currentActivities}
             />
           )

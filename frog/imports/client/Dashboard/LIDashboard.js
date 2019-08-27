@@ -227,6 +227,19 @@ class Dashboard extends React.Component<any, any> {
         </div>
         <div className={classes.masonry}>
           {res.map(liObj => {
+            let owner;
+            if (liObj.createdByInstance) {
+              const inst = liObj.createdByInstance;
+              if (inst.individual) {
+                owner = Meteor.users.findOne(inst.individual)?.username;
+              } else if (!inst.all) {
+                const keys = Object.keys(liObj.createdByInstance);
+                if (keys.length > 0) {
+                  const key = keys[0];
+                  owner = `${key}: ${inst[key]}`;
+                }
+              }
+            }
             return (
               <LearningItem
                 search={this.state.search}
@@ -246,6 +259,7 @@ class Dashboard extends React.Component<any, any> {
                     }
                   >
                     {props.children}
+                    {owner && <i>{owner}</i>}
                   </Paper>
                 )}
               />

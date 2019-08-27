@@ -119,8 +119,12 @@ export const mergeOneInstance = async (
                 sessionId
               };
               const groupingKey = activity.groupingKey;
-              if (groupingKey) {
+              if (activity.plane === 2) {
                 meta.createdByInstance = { [groupingKey]: grouping };
+              } else if (activity.plane === 1) {
+                meta.createdByInstance = { individual: grouping };
+              } else {
+                meta.createdByInstance = { all: 'all' };
               }
 
               const dataFn = generateReactiveFn(
