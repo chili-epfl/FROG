@@ -58,9 +58,7 @@ const configUI = {
   'first.instructionAry': {
     'ui:options': {
       orderable: false
-    }
-  },
-  'first.instructionAry': {
+    },
     conditional: formData => formData.general?.plane !== 'group'
   },
   'first.instructions': {
