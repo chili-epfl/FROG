@@ -38,12 +38,6 @@ const useStyle = makeStyles(theme => ({
 
     '&.disabled': {
       opacity: 0.5
-    },
-    '&:hover': {
-      background: 'rgba(0,0,0,0.1)'
-    },
-    '&.variant-primary:hover': {
-      background: 'rgba(255,255,255,0.1)'
     }
   },
   icon: {
@@ -71,16 +65,19 @@ const useStyle = makeStyles(theme => ({
     transition: '.2s all',
     opacity: 0,
     background: 'currentColor',
-    pointerEvents: 'none',
 
     '&:hover': {
       opacity: 0.1
     }
+  },
+  disableDirectHover: {
+    pointerEvents: 'none'
   }
 }));
 
 type ButtonProps = {
   disabled?: boolean,
+  disabledHover?: boolean,
   variant?: 'default' | 'minimal' | 'primary',
   size?: 'default' | 'large',
   icon?: React.Element<*>,
@@ -105,7 +102,11 @@ export const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={props.onClick}
     >
-      <span className={classes.hover} />
+      <span
+        className={`${classes.hover} ${
+          props.disabledHover ? classes.disableDirectHover : null
+        }`}
+      />
       {props.icon && <div className={classes.icon}>{props.icon}</div>}
       {props.children && (
         <Typography className={classes.text} variant="body1">

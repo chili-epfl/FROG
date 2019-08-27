@@ -18,10 +18,10 @@ const styles = theme => ({
   },
   errors: {
     position: 'absolute',
-    top: '100%',
+    top: 'calc(100% + 5px)',
     right: '0',
-    padding: '10px',
-    background: '#EEE'
+    pointerEvents: 'none',
+    zIndex: '1000'
   }
 });
 
@@ -46,12 +46,13 @@ const TopPanel = ({ classes, graphId, errors, history, ...props }: Object) => (
         }
       }}
       rightIcon={<ValidButton />}
+      disabledHover="true"
     >
       Publish
     </Button>
     <ConfigMenu {...props} />
     <div className={classes.errors}>
-      <ErrorList />
+      <ErrorList offset="true" />
     </div>
   </div>
 );

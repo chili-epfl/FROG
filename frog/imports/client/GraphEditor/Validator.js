@@ -17,8 +17,8 @@ const ListError = ({ errors, maxLength }) => {
           <g key={k + 'g'}>
             {textlines.map((line, y) => (
               <text
-                x="0"
-                y={15 + 20 * (k + y)}
+                x={maxLength === 130 ? 20 : 70 + 20}
+                y={20 + 20 * (k + y)}
                 key={k + line}
                 fill={x.severity === 'error' ? 'red' : 'orange'}
               >
@@ -97,16 +97,20 @@ export const ShowErrorsRaw = ({
     .map(x => wordWrap(x.err, maxLength))
     .reduce((acc, x) => acc + x.length, 0);
   return (
-    <svg style={{ overflow: 'visible' }}>
+    <svg
+      width={6.5 * maxLength}
+      style={{ overflow: 'visible', width: `${6.5 * maxLength}px` }}
+    >
       <g>
         <rect
           x={offset ? '0' : '80'}
-          y={offset ? '0' : '5'}
+          y={offset ? '0' : '0'}
           rx="5"
           ry="5"
           width={6.5 * maxLength}
           height={5 + 22 * textLength}
           fill="#FFFFFF"
+          stroke="#EAEAEA"
         />
         <ListError errors={errors} maxLength={maxLength} />
       </g>
@@ -132,12 +136,13 @@ export const ValidButtonRaw = ({
     height="24px"
     style={
       noOffset
-        ? {}
+        ? { zIndex: '100' }
         : {
             overflow: 'visible',
             position: 'fixed',
             top: 60,
-            left: 250
+            left: 250,
+            zIndex: '100'
           }
     }
   >
