@@ -8,11 +8,6 @@
     "create-package": "node createPackage.js",
     "storybook": "start-storybook"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn test"
-    }
-  },
   "workspaces": [
     "ac/*",
     "op/*",

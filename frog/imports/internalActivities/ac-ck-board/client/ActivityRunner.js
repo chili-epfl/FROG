@@ -51,8 +51,8 @@ class Board extends React.Component<*, *> {
       return null;
     }
 
-    const canDragOwn = !config.learningItems?.studentEditOthers;
-    const canDragOthers = !config.learningItems?.studentEditOwn;
+    const canDragOwn = !config.studentEditOthers;
+    const canDragOthers = !config.studentEditOwn;
     return (
       <div
         style={{
@@ -62,7 +62,7 @@ class Board extends React.Component<*, *> {
           overflow: 'hidden'
         }}
       >
-        {config.learningItems?.allowCreate && (
+        {config.allowCreate && (
           <div
             style={{
               zIndex: 9,
@@ -76,7 +76,7 @@ class Board extends React.Component<*, *> {
               <LearningItem
                 type="create"
                 autoInsert
-                liType={config.learningItems?.liType}
+                liType={config.onlySpecificLI && config.liType}
                 meta={{
                   coords: [
                     Math.random() * 650 + 150,
@@ -89,17 +89,17 @@ class Board extends React.Component<*, *> {
             </Paper>
           </div>
         )}
-        {config.board?.image && (
+        {config.image && (
           <img
-            src={config.board?.imageurl}
+            src={config.imageurl}
             alt="Background"
             style={{ width: width + 'px', height: height + 'px' }}
           />
         )}
-        {!config.board?.image && (
+        {!config.image && (
           <div style={{ width: width + 'px', height: height + 'px' }} />
         )}
-        {config.board?.quadrants && (
+        {config.quadrants && (
           <Quadrants config={config} width={width} height={height} />
         )}
         {width &&
@@ -114,10 +114,10 @@ class Board extends React.Component<*, *> {
                   id={y.li}
                   render={({ zoomable, children }) => (
                     <ObservationContainer
-                      hasQuadrants={config.board?.quadrants}
+                      hasQuadrants={config.quadrants}
                       setXY={(_, ui) => setXY(y.id, ui)}
                       openInfoFn={() => this.setState({ info: y.li })}
-                      allowDelete={config.learningItems?.allowDelete}
+                      allowDelete={config.allowDelete}
                       deleteFn={() => {
                         if (
                           window.confirm('Do you want to delete this item?')
@@ -134,7 +134,7 @@ class Board extends React.Component<*, *> {
                         y.userid === userInfo.id ? canDragOwn : canDragOthers
                       }
                       username={y.username}
-                      showUsername={config.learningItems?.showUsername}
+                      showUsername={config.showUsername}
                       canZoom={zoomable}
                     >
                       {children}
@@ -155,17 +155,15 @@ class Board extends React.Component<*, *> {
 
 export default (props: ActivityRunnerPropsT) => (
   <>
-    {props.activityData.config.general?.title && (
+    {props.activityData.config.title && (
       <h2 style={{ marginBlockEnd: '0px', marginBlockStart: '0px' }}>
-        {props.activityData.config.general?.title}
+        {props.activityData.config.title}
       </h2>
     )}
     <ResizeAware
       style={{
         position: 'relative',
-        height: props.activityData.config.general?.title
-          ? 'calc(100% - 20px)'
-          : '100%',
+        height: props.activityData.config.title ? 'calc(100% - 20px)' : '100%',
         width: '95%'
       }}
     >
