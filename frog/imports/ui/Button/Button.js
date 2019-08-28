@@ -5,6 +5,7 @@ import { makeStyles, Typography, ButtonBase } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   root: {
+    position: 'relative',
     padding: theme.spacing(0, 1, 0, 0),
 
     display: 'flex',
@@ -16,6 +17,8 @@ const useStyle = makeStyles(theme => ({
 
     color: '#333',
     overflow: 'hidden',
+
+    transition: '.2s all',
 
     '&.variant-default': {
       border: '1px solid #EAEAEA'
@@ -70,11 +73,15 @@ const useStyle = makeStyles(theme => ({
     '&:hover': {
       opacity: 0.1
     }
+  },
+  disableDirectHover: {
+    pointerEvents: 'none'
   }
 }));
 
 type ButtonProps = {
   disabled?: boolean,
+  disabledHover?: boolean,
   variant?: 'default' | 'minimal' | 'primary' | 'raised',
   size?: 'default' | 'large',
   icon?: React.Element<*>,
@@ -99,7 +106,11 @@ export const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={props.onClick}
     >
-      <span className={classes.hover} />
+      <span
+        className={`${classes.hover} ${
+          props.disabledHover ? classes.disableDirectHover : null
+        }`}
+      />
       {props.icon && <div className={classes.icon}>{props.icon}</div>}
       {props.children && (
         <Typography className={classes.text} variant="body1">

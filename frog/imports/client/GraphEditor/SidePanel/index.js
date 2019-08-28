@@ -48,7 +48,10 @@ export const IconButton = ({ icon, onClick, tooltip }: Object) => (
       data-tip={tooltip}
       onClick={onClick}
     >
-      <span className={icon} style={{ verticalAlign: 'top' }} />
+      <span
+        className={icon}
+        style={{ position: 'static', verticalAlign: 'top' }}
+      />
     </Button>
   </div>
 );

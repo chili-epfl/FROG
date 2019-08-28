@@ -3,17 +3,25 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import { UndoButton, ConfigMenu } from './Settings';
-import { ValidButton } from '/imports/client/GraphEditor/Validator';
+import { ValidButton, ErrorList } from '/imports/client/GraphEditor/Validator';
 import { Button } from '/imports/ui/Button';
 import { addSession, setTeacherSession, Sessions } from '/imports/api/sessions';
 import { Graphs } from '/imports/api/graphs';
 
 const styles = theme => ({
   root: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     padding: theme.spacing(0.5)
+  },
+  errors: {
+    position: 'absolute',
+    top: 'calc(100% + 5px)',
+    right: '0',
+    pointerEvents: 'none',
+    zIndex: '1000'
   }
 });
 
@@ -38,10 +46,14 @@ const TopPanel = ({ classes, graphId, errors, history, ...props }: Object) => (
         }
       }}
       rightIcon={<ValidButton />}
+      disabledHover="true"
     >
       Publish
     </Button>
     <ConfigMenu {...props} />
+    <div className={classes.errors}>
+      <ErrorList offset="true" />
+    </div>
   </div>
 );
 
