@@ -220,7 +220,9 @@ const RawEditActivity = ({
               right: '2px'
             }}
           >
-            <ValidButton activityId={activity._id} errorColor={errorColor} />
+            <div style={{ zIndex: '1000', position: 'relative', left: '5px' }}>
+              <ValidButton activityId={activity._id} errorColor={errorColor} />
+            </div>
             {errorColor === lightGreen[500] && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ExportButton {...{ activity, madeChanges }} />
