@@ -94,11 +94,6 @@ export const TimeScale = connect(
                   stroke="#8698AB"
                 />
               ) : null}
-              {i % divider === 0 ? (
-                <text x={x - 15} y={540}>
-                  {i + ' min.'}
-                </text>
-              ) : null}
             </g>
           );
         })}

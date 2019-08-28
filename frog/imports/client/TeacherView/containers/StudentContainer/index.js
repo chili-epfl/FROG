@@ -43,11 +43,7 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
         >
           {groups[key].map(id =>
             id !== session.ownerId && studentsByKey[id] ? (
-              <RowButton
-                key={studentsByKey[id]}
-                icon={<Person fontSize="small" />}
-                disabled
-              >
+              <RowButton key={id} icon={<Person fontSize="small" />} disabled>
                 {studentsByKey[id].username}
               </RowButton>
             ) : null

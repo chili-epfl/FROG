@@ -10,7 +10,8 @@ import { PreviewView } from '../../components/PreviewView';
 import { OrchestrationContext } from '../../context';
 
 type PreviewContainerPropsT = {
-  currentActivity: string
+  currentActivity: string,
+  paused: boolean
 };
 
 export const PreviewContainer = (props: PreviewContainerPropsT) => {
@@ -29,6 +30,7 @@ export const PreviewContainer = (props: PreviewContainerPropsT) => {
       }
     >
       <ActivityContainer
+        paused={props.paused}
         sessionId={session.id}
         activities={props.currentActivity}
       />

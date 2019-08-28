@@ -68,7 +68,10 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
           ) : props.session.openActivities?.length === 0 ? (
             <ConcludedView />
           ) : (
-            <PreviewContainer currentActivity={currentActivities} />
+            <PreviewContainer
+              currentActivity={currentActivities}
+              paused={props.session.state === 'PAUSED'}
+            />
           )
         ) : (
           <WelcomeView slug={props.session.slug} />

@@ -51,28 +51,25 @@ const styles = {
   }
 };
 
-export const ActivityContainer = ({ activities, sessionId }) => {
+export const ActivityContainer = ({ activities, sessionId, paused }) => {
   if (activities.length === 0) {
     return 'No activity';
   }
-  if (activities.length === 1) {
-    return <Runner activity={activities[0]} sessionId={sessionId} single />;
-  } else {
-    return (
-      <MosaicWithoutDragDropContext
-        renderTile={(activityId, path) => (
-          <Runner
-            activity={activities.find(x => x._id === activityId)}
-            path={path}
-            sessionId={sessionId}
-          />
-        )}
-        initialValue={getInitialState(
-          sortBy(activities, 'title').map(x => x._id)
-        )}
-      />
-    );
-  }
+  return (
+    <MosaicWithoutDragDropContext
+      renderTile={(activityId, path) => (
+        <Runner
+          activity={activities.find(x => x._id === activityId)}
+          path={path}
+          sessionId={sessionId}
+          paused={paused}
+        />
+      )}
+      initialValue={getInitialState(
+        sortBy(activities, 'title').map(x => x._id)
+      )}
+    />
+  );
 };
 
 const StudentView = withRouter(({ activities, session, classes, history }) => (
