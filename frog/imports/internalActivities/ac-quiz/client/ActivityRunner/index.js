@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import { type ActivityRunnerPropsT, HTML } from '/imports/frog-utils';

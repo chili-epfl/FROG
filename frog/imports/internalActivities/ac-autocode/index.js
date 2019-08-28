@@ -1,0 +1,47 @@
+// @flow
+
+import { type ActivityPackageT } from '/imports/frog-utils';
+import dashboards from './Dashboard';
+import {
+  config,
+  configUI,
+  validateConfig,
+  exampleConfig0,
+  exampleConfig1,
+  exampleConfig2,
+  exampleConfig3
+} from './config';
+
+const meta = {
+  // the description when choosing the type of an activity
+  name: 'Auto-graded coding',
+  shortName: 'Coding',
+  type: 'react-component',
+  shortDesc: 'Autograded code snippets',
+  description:
+    'Students upload code which is tested against teacher-designed tests',
+  category: 'Discipline-specific',
+  exampleData: [exampleConfig0, exampleConfig1, exampleConfig2, exampleConfig3]
+};
+
+// default empty reactive datastructure, typically either an empty object or array
+const dataStructure = {};
+
+// receives incoming data, and merges it with the reactive data using dataFn.*
+const mergeFunction = (obj, dataFn) => {
+  const template = obj.config.template || '"Write your code here"';
+  dataFn.objInsert(template, 'code');
+};
+
+export default ({
+  id: 'ac-autocode',
+  type: 'react-component',
+  configVersion: 1,
+  meta,
+  config,
+  configUI,
+  validateConfig,
+  dashboards,
+  dataStructure,
+  mergeFunction
+}: ActivityPackageT);
