@@ -91,7 +91,7 @@ export default class ConnectionStore {
           source: store.state.draggingFrom.dragPointFromScaled,
           target: {
             X: store.ui.socialCoordsScaled[0],
-            Y: store.ui.socialCoordsScaled[1] - 45,
+            Y: store.ui.socialCoordsScaled[1] - 90,
             dX: 0,
             dY: 0
           }
