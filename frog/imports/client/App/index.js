@@ -24,7 +24,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
-import SingleActivity from '/imports/client/SingleActivity';
+import Wizard from '/imports/client/Wizard';
 import WikiRouter from '../Wiki/WikiRouter';
 import { connection } from './connection';
 import LearnLandingPage from './LearnLanding';
@@ -317,13 +317,13 @@ const FROGRouter = withRouter(
           </Switch>
         ) : (
           <Switch>
-            <Route path="/duplicate" component={SingleActivity} />
+            <Route path="/duplicate" component={Wizard} />
             <Route path="/wiki" component={WikiRouter} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
             <Route path="/teacher/" component={TeacherContainer} />
             <Route path="/t/:slug" component={TeacherContainer} />
             <Route path="/t" component={TeacherContainer} />
-            <Route path="/wizard" component={SingleActivity} />
+            <Route path="/wizard" component={Wizard} />
             <Route path="/" exact component={TeacherContainer} />
           </Switch>
         );
