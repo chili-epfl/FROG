@@ -47,9 +47,9 @@ const getSessionStatus = (session): meteorSessionObjectT => {
 
 const getSessionTitle = (session): meteorSessionObjectT => {
   if (session.singleActivity)
-    return activityTypesObj[session.simpleConfig.activityType].meta.name;
+    return activityTypesObj[session.simpleConfig.activityType]?.meta?.name;
   else if (session.template)
-    return templatesObj[session.simpleConfig.activityType].meta.name;
+    return templatesObj[session.simpleConfig.activityType]?.meta?.name;
   else return session.name;
 };
 
@@ -61,7 +61,7 @@ const getSessionTypeInfo = (session): meteorSessionObjectT => {
 
 export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
   draftsList
-    .filter(x => !x.published && !x.sessionGraph)
+    .filter(x => !x.published && !x.sessionGraph && !x.templateGraph)
     .map(item => ({
       itemIcon: ShowChart,
       itemTitle: item.name,

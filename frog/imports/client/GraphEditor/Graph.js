@@ -23,7 +23,7 @@ const scrollMouse = e => {
 
 const mousemove = e => {
   // Subtracting Graph Editor's position from the top of the screen
-  store.ui.socialMove(e.clientX, e.clientY - (screen.height - 300 - 100));
+  store.ui.socialMove(e.clientX, e.clientY - (window.innerHeight - 300 - 100));
 };
 
 const Graph = connect(

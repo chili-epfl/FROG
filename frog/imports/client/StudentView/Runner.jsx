@@ -12,6 +12,8 @@ import { createLogger } from '/imports/api/logs';
 import { Objects } from '/imports/api/objects';
 import { LocalSettings } from '/imports/api/settings';
 import { Sessions } from '/imports/api/sessions';
+import { getUsername } from '/imports/api/users';
+
 import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {
@@ -24,19 +26,24 @@ const getStructure = activity => {
   }
 };
 
-const Runner = ({ path, activity, sessionId, object, single }) => {
+const Runner = ({ path, activity, sessionId, object, paused }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
   if (!object) {
     return null;
   }
-  const isTeacher = Meteor.userId() === Sessions.findOne(sessionId)?.ownerId;
+  const session = Sessions.findOne(sessionId);
+  if (!session) {
+    console.error('No session');
+    return null;
+  }
+  const isTeacher = Meteor.userId() === session.ownerId;
 
   const socStructure = focusStudent(object.socialStructure);
   const studentSoc = socStructure[Meteor.userId()];
   const instanceMembers =
-    !isTeacher && activity.plane === 2
+    !isTeacher && activity.plane === 2 && studentSoc
       ? object.socialStructure[activity.groupingKey][
           studentSoc[activity.groupingKey]
         ]
@@ -54,13 +61,22 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
-  let title =
-    '(' +
-    groupingStr +
-    (isTeacher && activity.plane === 2 ? '' : groupingValue) +
-    ')';
+  let title = '(' + groupingStr + groupingValue + ')';
+  // only specify grouping key if it differs from "group"
+  if (activity.plane === 2 && isTeacher) {
+    title = `(Group activity${
+      activity.groupingKey !== 'group'
+        ? `, grouped by ${activity.groupingKey}`
+        : ''
+    }, PREVIEW)`;
+  }
   if (activity.plane === 1) {
-    title = `(individual/${Meteor.user().username || ''})`;
+    title = isTeacher
+      ? '(Individual activity, PREVIEW)'
+      : `(individual/${getUsername() || ''})`;
+  }
+  if (activity.plane === 3) {
+    title = '(Whole class)';
   }
 
   const config = activity.data;
@@ -121,7 +137,7 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
           readOnly
         }}
         activityId={activity._id}
-        username={Meteor.user().username}
+        username={getUsername()}
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
         instanceMembers={instanceMembers}
@@ -129,21 +145,17 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     </div>
   );
 
-  if (single) {
-    return Torun;
-  } else {
-    return (
-      <MosaicWindow
-        toolbarControls={[<div key={1} />]}
-        draggable={false}
-        key={activity._id}
-        path={path}
-        title={activity.title + ' ' + title}
-      >
-        {Torun}
-      </MosaicWindow>
-    );
-  }
+  return (
+    <MosaicWindow
+      toolbarControls={[<div key={1} />]}
+      draggable={false}
+      key={activity._id}
+      path={path}
+      title={activity.title + ' ' + title + (paused ? ' - PAUSED' : '')}
+    >
+      {Torun}
+    </MosaicWindow>
+  );
 };
 
 type PropsT = {

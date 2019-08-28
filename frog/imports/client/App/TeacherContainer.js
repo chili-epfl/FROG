@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { ExternalOperators } from '/imports/api/operators';
 import { operatorTypesObj, operatorTypes } from '/imports/operatorTypes';
 import { RootSwitcher } from './RootSwitcher';
-import SingleActivity from '/imports/client/SingleActivity';
+import Wizard from '/imports/client/Wizard';
 import TeacherView from '../TeacherView';
 import GraphEditor from '../GraphEditor';
 import Preview from '../Preview';
@@ -21,7 +21,7 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
     <div id="app">
       <Switch>
         <Route path="/" exact component={RootSwitcher} />
-        <Route path="/wizard" exact component={SingleActivity} />
+        <Route path="/wizard" exact component={Wizard} />
         <Route path="/t/:slug" component={TeacherView} />
         <Route path="/t" component={TeacherView} />
         <Route path="/teacher/preview/:previewId" component={Preview} />

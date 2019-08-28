@@ -21,7 +21,7 @@ const generateSteps = (session: Object, activities: Object): SessionStep[] => {
   // Either we are on an activity, or we are either at the beginning or end of the sequence
   const placeInSeq = !isEmpty(openActivities)
     ? sequence[openActivities[0]]
-    : timeInGraph > 1
+    : timeInGraph > 1 || Number.isNaN(timeInGraph)
     ? 999
     : 0;
   const maxSeq = Object.keys(sequence).reduce(
@@ -40,7 +40,10 @@ const generateSteps = (session: Object, activities: Object): SessionStep[] => {
       if (openActivities.includes(acts[0])) {
         status = 'active';
       }
-      if (sequence[acts[0]] < placeInSeq) {
+      if (
+        sequence[acts[0]] < placeInSeq ||
+        (openActivities.length === 0 && timeInGraph > 0)
+      ) {
         status = 'completed';
       }
       steps.push({

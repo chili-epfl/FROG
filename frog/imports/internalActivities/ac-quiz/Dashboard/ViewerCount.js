@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash';
 import { HTML } from '/imports/frog-utils';
 
 import { Paper, List, ListItem } from '@material-ui/core';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
   root: {

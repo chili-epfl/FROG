@@ -196,7 +196,7 @@ class ImageList extends React.Component<*, *> {
 }
 
 const CategoryList = ({ categories, setCategory, logger }) => (
-  <div>
+  <div style={{ display: 'flex' }}>
     {Object.keys(categories).map(category => (
       <CategoryBox
         key={JSON.stringify(category)}

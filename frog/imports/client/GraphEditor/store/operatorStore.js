@@ -97,7 +97,7 @@ export default class OperatorStore {
           this.all.push(
             new Operator(
               store.ui.socialCoordsTime[0],
-              store.ui.socialCoordsTime[1],
+              store.ui.socialCoordsTime[1] - 95,
               store.state.operatorType
             )
           );

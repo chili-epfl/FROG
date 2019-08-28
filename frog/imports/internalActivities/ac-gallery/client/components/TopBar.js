@@ -3,6 +3,7 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import styled from 'styled-components';
+import { HTML } from '/imports/frog-utils';
 
 const Main = styled.div`
   height: 90px;
@@ -38,8 +39,7 @@ const TopBar = ({
                 <span className="glyphicon glyphicon-arrow-left" />{' '}
               </button>
             )}
-            <span style={{ margin: '5px', fontSize: 'large' }}>Library :</span>
-            <DropdownButton title={category} id="dropdown-basic-0">
+            <DropdownButton title="Categories" id="dropdown-basic-0">
               {categories
                 .filter(x => x !== category)
                 .map(y => (
@@ -51,7 +51,7 @@ const TopBar = ({
                       setCategory(y);
                     }}
                   >
-                    {y}
+                    <HTML html={y} />
                   </MenuItem>
                 ))}
             </DropdownButton>

@@ -28,6 +28,7 @@ export const config = {
       title: 'Stage 1, authoring',
       description: 'Students are asked to write, individually or in groups',
       properties: {
+        instructions: { type: 'string', title: 'Initial writing propmpt' },
         instructionAry: {
           type: 'array',
           default: [''],
@@ -57,7 +58,11 @@ const configUI = {
   'first.instructionAry': {
     'ui:options': {
       orderable: false
-    }
+    },
+    conditional: formData => formData.general?.plane !== 'group'
+  },
+  'first.instructions': {
+    conditional: formData => formData.general?.plane === 'group'
   }
 };
 
@@ -93,9 +98,7 @@ const processTemplate = (template, replacements) => {
 };
 
 const makeTemplate = conf => {
-  const template = JSON.stringify(
-    conf.general?.plane === 'individual' ? p1 : p2
-  );
+  const template = JSON.stringify(conf.general?.plane === 'group' ? p2 : p1);
 
   let matchings;
   if (conf.first?.instructionAry) {
@@ -104,12 +107,13 @@ const makeTemplate = conf => {
       return acc;
     }, []);
   } else {
-    matchings = { '1': '' };
+    matchings = [{ socialValue: '1', configValue: '<p></p>' }];
   }
 
   const replacements = {
     numGroups: conf.first?.instructionAry?.length || 1,
     participationMode: conf.second?.alsoShowStudents ? 'everyone' : 'projector',
+    instructions: conf.first?.instructions,
     useInstructions:
       conf.first?.instructionAry?.length &&
       conf.first.instructionAry.length > 1,
@@ -117,7 +121,7 @@ const makeTemplate = conf => {
   };
   const ret = [
     processTemplate(template, replacements),
-    conf.general?.plane === 'individual' ? p1Instructions : p2Instructions
+    conf.general?.plane === 'group' ? p2Instructions : p1Instructions
   ];
 
   return ret;
