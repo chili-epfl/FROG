@@ -3,6 +3,7 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { Clear } from '@material-ui/icons';
 
@@ -16,6 +17,12 @@ import { BaseLayout } from './components/ui/BaseLayout';
 
 import { SelectTemplateContainer } from './containers/SelectTemplateContainer';
 import { ConfigureTemplateContainer } from './containers/ConfigureTemplateContainer';
+
+// Patch for propTypes issue with react-router
+Route.propTypes = {
+  ...Route.propTypes,
+  path: PropTypes.oneOfType([PropTypes.array, PropTypes.string])
+};
 
 const SingleActivity = _.flow(withRouter)(({ history }) => {
   const availableTemplates = React.useMemo(getTemplates, [getTemplates]);
