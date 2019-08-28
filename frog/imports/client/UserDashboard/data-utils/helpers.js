@@ -47,9 +47,9 @@ const getSessionStatus = (session): meteorSessionObjectT => {
 
 const getSessionTitle = (session): meteorSessionObjectT => {
   if (session.singleActivity)
-    return activityTypesObj[session.simpleConfig.activityType].meta.name;
+    return activityTypesObj[session.simpleConfig.activityType]?.meta?.name;
   else if (session.template)
-    return templatesObj[session.simpleConfig.activityType].meta.name;
+    return templatesObj[session.simpleConfig.activityType]?.meta?.name;
   else return session.name;
 };
 
