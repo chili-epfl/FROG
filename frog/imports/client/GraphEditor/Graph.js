@@ -59,8 +59,6 @@ const Graph = connect(
       height="100%"
       onMouseMove={mousemove}
       onScroll={e => e.preventDefault()}
-      onMousewheel={e => e.preventDefault()}
-      onDOMMouseScroll={e => e.preventDefault()}
       onWheel={scrollMouse}
       fill="#3E4A57"
     >
