@@ -14,6 +14,7 @@ import { TopBarContainer } from './containers/TopBarContainer';
 import GraphView from './GraphView';
 import { DashboardReactiveWrapper } from '../Dashboard';
 import { StudentContainer } from './containers/StudentContainer';
+import { PreviewView } from './components/PreviewView';
 import { WelcomeView, ConcludedView } from './components/WelcomeView';
 import { ActivityContainer } from '/imports/client/StudentView/SessionBody';
 
@@ -69,10 +70,12 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
           ) : props.session.openActivities?.length === 0 ? (
             <ConcludedView />
           ) : (
-            <ActivityContainer
-              sessionId={props.session._id}
-              activities={currentActivities}
-            />
+            <PreviewView>
+              <ActivityContainer
+                sessionId={props.session._id}
+                activities={currentActivities}
+              />
+            </PreviewView>
           )
         ) : (
           <WelcomeView slug={props.session.slug} />
