@@ -9,7 +9,6 @@ const useStyle = makeStyles(theme => ({
     flexFlow: 'row nowrap',
     alignItems: 'center',
     padding: theme.spacing(0, 2),
-    background: 'white',
 
     '&.size-default': {
       height: '48px'
@@ -19,6 +18,13 @@ const useStyle = makeStyles(theme => ({
     },
     '&.size-xLarge': {
       height: '96px'
+    },
+
+    '&.color-white': {
+      background: 'white'
+    },
+    '&.color-transparent': {
+      background: 'transparent'
     }
   },
   navigation: {
@@ -38,7 +44,8 @@ type TopBarPropsT = {
   navigation?: React.Element<*>,
   actions?: React.Element<*>,
   size?: 'default' | 'large' | 'xLarge',
-  variant?: 'minimal' | 'default'
+  variant?: 'minimal' | 'default',
+  color?: 'white' | 'transparent'
 };
 
 /**
@@ -48,7 +55,8 @@ export const TopBar = (props: TopBarPropsT) => {
   const classes = useStyle();
   return (
     <div
-      className={`${classes.root} size-${props.size || 'default'}`}
+      className={`${classes.root} size-${props.size ||
+        'default'} color-${props.color || 'white'}`}
       style={{
         borderBottom:
           props.variant === 'minimal' ? undefined : '1px solid #EAEAEA'

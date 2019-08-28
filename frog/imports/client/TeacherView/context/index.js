@@ -20,7 +20,6 @@ type OrchestrationContextProviderPropsT = {
   session?: Object,
   activities?: Object,
   students?: Object,
-  token?: Object,
   children: React.Element<*> | React.Element<*>[]
 };
 
@@ -29,7 +28,7 @@ export const OrchestrationContextProvider = (
 ) => {
   const orchestrationModel = React.useMemo(
     () => ({
-      ...actions(props.session, props.token),
+      ...actions(props.session),
       ...selectors(props.session, props.activities, props.students)
     }),
     [props.session, props.activities, props.students]
