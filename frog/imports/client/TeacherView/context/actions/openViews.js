@@ -20,8 +20,5 @@ export const openViews = (session: Object) => ({
     ),
   open4Students: () =>
     window.open(`${learnUrl}/multiFollow/${Meteor.user().username}`, uuid()),
-  openProjector: () =>
-    window.open(
-      `/teacher/projector/${session.slug}`
-    )
+  openProjector: () => window.open(`/teacher/projector/${session.slug}`)
 });

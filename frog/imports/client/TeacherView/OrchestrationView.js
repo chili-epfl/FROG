@@ -1,27 +1,27 @@
 // @flow
 
 import * as React from 'react';
-import { OrchestrationContextProvider } from './context';
-
-import OrchestrationLayout from './components/OrchestrationLayout';
+import { compose } from 'recompose';
 
 import { withDragDropContext } from '/imports/frog-utils';
-import { compose } from 'recompose';
 import { Activities } from '/imports/api/activities';
+
+import { OrchestrationContextProvider } from './context';
+import OrchestrationLayout from './components/OrchestrationLayout';
+import { WelcomeView, ConcludedView } from './components/WelcomeView';
 import { SessionControlContainer } from './containers/SessionControlContainer';
 import { StepsContainer } from './containers/StepsContainer';
 import { TopBarContainer } from './containers/TopBarContainer';
-import GraphView from './GraphView';
-import { DashboardReactiveWrapper } from '../Dashboard';
 import { StudentContainer } from './containers/StudentContainer';
-import { PreviewView } from './components/PreviewView';
-import { WelcomeView, ConcludedView } from './components/WelcomeView';
 import { PreviewContainer } from './containers/PreviewContainer';
+import GraphView from './GraphView';
+
+import { DashboardReactiveWrapper } from '../Dashboard';
 
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
-  students: Object,
+  students: Object
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
