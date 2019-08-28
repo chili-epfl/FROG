@@ -72,6 +72,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
             <ActivityContainer
               sessionId={props.session._id}
               activities={currentActivities}
+              paused={props.session.state === 'PAUSED'}
             />
           )
         ) : (

@@ -26,14 +26,19 @@ const getStructure = activity => {
   }
 };
 
-const Runner = ({ path, activity, sessionId, object, single }) => {
+const Runner = ({ path, activity, sessionId, object, paused }) => {
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
   if (!object) {
     return null;
   }
-  const isTeacher = Meteor.userId() === Sessions.findOne(sessionId)?.ownerId;
+  const session = Sessions.findOne(sessionId);
+  if (!session) {
+    console.error('No session');
+    return null;
+  }
+  const isTeacher = Meteor.userId() === session.ownerId;
 
   const socStructure = focusStudent(object.socialStructure);
   const studentSoc = socStructure[Meteor.userId()];
@@ -56,13 +61,22 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
-  let title =
-    '(' +
-    groupingStr +
-    (isTeacher && activity.plane === 2 ? '' : groupingValue) +
-    ')';
+  let title = '(' + groupingStr + groupingValue + ')';
+  // only specify grouping key if it differs from "group"
+  if (activity.plane === 2 && isTeacher) {
+    title = `(Group activity${
+      activity.groupingKey !== 'group'
+        ? `, grouped by ${activity.groupingKey}`
+        : ''
+    }, PREVIEW)`;
+  }
   if (activity.plane === 1) {
-    title = `(individual/${getUsername()}|| ''})`;
+    title = isTeacher
+      ? '(Individual activity, PREVIEW)'
+      : `(individual/${getUsername() || ''})`;
+  }
+  if (activity.plane === 3) {
+    title = '(Whole class)';
   }
 
   const config = activity.data;
@@ -131,21 +145,17 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     </div>
   );
 
-  if (single) {
-    return Torun;
-  } else {
-    return (
-      <MosaicWindow
-        toolbarControls={[<div key={1} />]}
-        draggable={false}
-        key={activity._id}
-        path={path}
-        title={activity.title + ' ' + title}
-      >
-        {Torun}
-      </MosaicWindow>
-    );
-  }
+  return (
+    <MosaicWindow
+      toolbarControls={[<div key={1} />]}
+      draggable={false}
+      key={activity._id}
+      path={path}
+      title={activity.title + ' ' + title + (paused ? ' - PAUSED' : '')}
+    >
+      {Torun}
+    </MosaicWindow>
+  );
 };
 
 type PropsT = {
