@@ -16,13 +16,12 @@ import { DashboardReactiveWrapper } from '../Dashboard';
 import { StudentContainer } from './containers/StudentContainer';
 import { PreviewView } from './components/PreviewView';
 import { WelcomeView, ConcludedView } from './components/WelcomeView';
-import { ActivityContainer } from '/imports/client/StudentView/SessionBody';
+import { PreviewContainer } from './containers/PreviewContainer';
 
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
   students: Object,
-  token: Object
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
@@ -44,7 +43,6 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
       session={props.session}
       activities={props.activities}
       students={props.students}
-      token={props.token}
     >
       <OrchestrationLayout
         orchestrationControl={<SessionControlContainer />}
@@ -70,12 +68,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
           ) : props.session.openActivities?.length === 0 ? (
             <ConcludedView />
           ) : (
-            <PreviewView>
-              <ActivityContainer
-                sessionId={props.session._id}
-                activities={currentActivities}
-              />
-            </PreviewView>
+            <PreviewContainer currentActivity={currentActivities} />
           )
         ) : (
           <WelcomeView slug={props.session.slug} />

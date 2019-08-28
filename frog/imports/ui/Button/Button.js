@@ -25,6 +25,10 @@ const useStyle = makeStyles(theme => ({
       color: 'white',
       background: '#31BFAE'
     },
+    '&.variant-raised': {
+      background: 'white',
+      boxShadow: theme.shadows[2]
+    },
 
     '&.size-default': {
       height: '32px'
@@ -71,7 +75,7 @@ const useStyle = makeStyles(theme => ({
 
 type ButtonProps = {
   disabled?: boolean,
-  variant?: 'default' | 'minimal' | 'primary',
+  variant?: 'default' | 'minimal' | 'primary' | 'raised',
   size?: 'default' | 'large',
   icon?: React.Element<*>,
   rightIcon?: React.Element<*>,

@@ -5,9 +5,9 @@ import { openViews } from './openViews';
 import { exportActions } from './exportActions';
 import { settingActions } from './settingActions';
 
-export const actions = (session: Object, token: Object) => ({
+export const actions = (session: Object) => ({
   ...orchestrationControl(session),
-  ...openViews(session, token),
+  ...openViews(session),
   ...exportActions(session),
   ...settingActions(session)
 });
