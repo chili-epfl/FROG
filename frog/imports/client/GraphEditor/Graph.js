@@ -7,7 +7,7 @@ import Activities from './Activities';
 import Operators from './Operators';
 
 import Lines, { DragLine } from './components/Lines';
-import { LevelLines, PanMap } from './components/fixedComponents';
+import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
 import ProgressLines from './components/ProgressLines';
 // import { ErrorList } from './Validator';
@@ -42,11 +42,13 @@ const Graph = connect(
     isSvg,
     isEditable,
     isSession,
+    hasTimescale,
     hasPanMap,
     hideOperatorsAndConnections
   }: StoreProp & {
     scaled: boolean,
     isSvg: boolean,
+    hasTimescale: boolean,
     isEditable: boolean,
     isSession: boolean,
     hasPanMap: boolean,
@@ -56,6 +58,9 @@ const Graph = connect(
       width="100%"
       height="100%"
       onMouseMove={mousemove}
+      onScroll={e => e.preventDefault()}
+      onMousewheel={e => e.preventDefault()}
+      onDOMMouseScroll={e => e.preventDefault()}
       onWheel={scrollMouse}
       fill="#3E4A57"
     >
@@ -86,6 +91,8 @@ const Graph = connect(
         <Activities scaled={scaled} />
         {!hideOperatorsAndConnections && <Operators scaled={scaled} />}
         {isSession && <ProgressLines scaled={scaled} />}
+
+        {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
         <Activities scaled={scaled} transparent />
         {!hideOperatorsAndConnections && (

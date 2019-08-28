@@ -13,6 +13,7 @@ storiesOf('UI/Button', module)
       <Button>Hello World!</Button>
       <Button variant="minimal">Hello World!</Button>
       <Button variant="primary">Hello World!</Button>
+      <Button variant="raised">Hello World!</Button>
     </StorybookContainer>
   ))
   .add('with icon only', () => (
@@ -20,6 +21,7 @@ storiesOf('UI/Button', module)
       <Button icon={<PlayArrow fontSize="small" />} />
       <Button icon={<PlayArrow fontSize="small" />} variant="minimal" />
       <Button icon={<PlayArrow fontSize="small" />} variant="primary" />
+      <Button icon={<PlayArrow fontSize="small" />} variant="raised" />
     </StorybookContainer>
   ))
   .add('with left icon', () => (
@@ -29,6 +31,9 @@ storiesOf('UI/Button', module)
         Hello World!
       </Button>
       <Button icon={<PlayArrow fontSize="small" />} variant="primary">
+        Hello World!
+      </Button>
+      <Button icon={<PlayArrow fontSize="small" />} variant="raised">
         Hello World!
       </Button>
     </StorybookContainer>
@@ -42,6 +47,9 @@ storiesOf('UI/Button', module)
         Hello World!
       </Button>
       <Button rightIcon={<ArrowDropDown fontSize="small" />} variant="primary">
+        Hello World!
+      </Button>
+      <Button rightIcon={<ArrowDropDown fontSize="small" />} variant="raised">
         Hello World!
       </Button>
     </StorybookContainer>
@@ -65,6 +73,13 @@ storiesOf('UI/Button', module)
         icon={<PlayArrow fontSize="small" />}
         rightIcon={<ArrowDropDown fontSize="small" />}
         variant="primary"
+      >
+        Hello World!
+      </Button>
+      <Button
+        icon={<PlayArrow fontSize="small" />}
+        rightIcon={<ArrowDropDown fontSize="small" />}
+        variant="raised"
       >
         Hello World!
       </Button>
@@ -95,6 +110,15 @@ storiesOf('UI/Button', module)
       >
         Hello World!
       </Button>
+
+      <Button
+        size="large"
+        icon={<PlayArrow fontSize="small" />}
+        rightIcon={<ArrowDropDown fontSize="small" />}
+        variant="raised"
+      >
+        Hello World!
+      </Button>
     </StorybookContainer>
   ))
   .add('disabled', () => (
@@ -118,6 +142,14 @@ storiesOf('UI/Button', module)
         icon={<PlayArrow fontSize="small" />}
         rightIcon={<ArrowDropDown fontSize="small" />}
         variant="primary"
+        disabled
+      >
+        Hello World!
+      </Button>
+      <Button
+        icon={<PlayArrow fontSize="small" />}
+        rightIcon={<ArrowDropDown fontSize="small" />}
+        variant="raised"
         disabled
       >
         Hello World!
