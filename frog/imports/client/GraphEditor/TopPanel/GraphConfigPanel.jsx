@@ -6,7 +6,7 @@ import { ChangeableText } from '/imports/frog-utils';
 
 import { connect, store } from '../store';
 import { Graphs, renameGraph } from '/imports/api/graphs';
-import { ValidButton } from '../Validator';
+import { ValidButton, ErrorList } from '../Validator';
 
 const Config = ({ graph }) => (
   <div style={{ textAlign: 'center' }} className="bootstrap">
@@ -53,6 +53,7 @@ export default connect(({ store: { graphId } }) => (
     }}
   >
     <ValidButton />
+    <ErrorList />
     <GraphConfigPanel graphId={graphId} />
   </div>
 ));

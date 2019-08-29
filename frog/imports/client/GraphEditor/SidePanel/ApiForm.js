@@ -392,14 +392,14 @@ const Errors = observer(({ noOffset }) => (
           noOffset
             ? {
                 position: 'absolute',
-                top: '0px',
-                left: '0px',
+                top: '10px',
+                right: '60px',
                 zIndex: 99
               }
             : {
                 position: 'absolute',
-                left: '0px',
-                top: '120px',
+                right: '0px',
+                top: '50px',
                 zIndex: 99
               }
         }

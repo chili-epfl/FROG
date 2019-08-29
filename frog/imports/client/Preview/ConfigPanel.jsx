@@ -23,6 +23,7 @@ import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 import { TopBar } from './components/TopBar';
+import { relative } from 'path';
 
 const styles = () => ({
   side: {
@@ -41,6 +42,7 @@ const styles = () => ({
     padding: '10px'
   },
   formContainer: {
+    position: 'relative',
     flex: '1 0 0px',
     overflow: 'auto'
   }
