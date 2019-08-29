@@ -23,7 +23,7 @@ import { initDashboardDocuments } from './dashboardInPreviewAPI';
 import { addDefaultExample } from './index';
 import ExportButton from '../GraphEditor/SidePanel/ActivityPanel/ExportButton';
 import { TopBar } from './components/TopBar';
-import { relative } from 'path';
+// import { relative } from 'path';
 
 const styles = () => ({
   side: {
