@@ -8,7 +8,15 @@ const useStyle = makeStyles(() => ({
     width: '100%',
     height: '100%',
     display: 'grid',
-    gridTemplateRows: '1fr 250px',
+    gridTemplateRows: '48px 1fr 250px',
+    gridTemplateColumns: '250px 1fr',
+    background: 'white'
+  },
+  rootWithoutExtra: {
+    width: '100%',
+    height: '100%',
+    display: 'grid',
+    gridTemplateRows: '48px 1fr',
     gridTemplateColumns: '250px 1fr',
     background: 'white'
   },
@@ -18,15 +26,21 @@ const useStyle = makeStyles(() => ({
     borderRight: '1px solid #EAEAEA',
     position: 'relative'
   },
-  content: {
+  contentTopBar: {
     gridColumn: 2,
     gridRow: 1,
     position: 'relative',
     overflow: 'auto'
   },
-  extra: {
+  content: {
     gridColumn: 2,
     gridRow: 2,
+    position: 'relative',
+    overflow: 'auto'
+  },
+  extra: {
+    gridColumn: 2,
+    gridRow: 3,
     borderTop: '1px solid #EAEAEA',
     overflow: 'auto'
   }
@@ -35,14 +49,16 @@ const useStyle = makeStyles(() => ({
 type SidebarLayoutPropsT = {
   sidebar?: React.Element<*>,
   content?: React.Element<*>,
+  contentTopBar?: React.Element<*>,
   extra?: React.Element<*>
 };
 
 export const SidebarLayout = (props: SidebarLayoutPropsT) => {
   const classes = useStyle();
   return (
-    <div className={classes.root}>
+    <div className={`${props.extra ? classes.root : classes.rootWithoutExtra}`}>
       <div className={classes.sidebar}>{props.sidebar}</div>
+      <div className={classes.contentTopBar}>{props.contentTopBar}</div>
       <div className={classes.content}>{props.content}</div>
       <div className={classes.extra}>{props.extra}</div>
     </div>
