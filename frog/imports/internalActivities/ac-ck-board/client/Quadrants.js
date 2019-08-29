@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = () => ({
   topLeft: {
@@ -46,10 +46,10 @@ const Quadrants = ({
   classes: Object
 }) => (
   <div className={classes.container}>
-    <div className={classes.topLeft}>{config.quadrant1}</div>
-    <div className={classes.topRight}>{config.quadrant2}</div>
-    <div className={classes.bottomLeft}>{config.quadrant3}</div>
-    <div className={classes.bottomRight}>{config.quadrant4}</div>
+    <div className={classes.topLeft}>{config.board?.quadrant1}</div>
+    <div className={classes.topRight}>{config.board?.quadrant2}</div>
+    <div className={classes.bottomLeft}>{config.board?.quadrant3}</div>
+    <div className={classes.bottomRight}>{config.board?.quadrant4}</div>
   </div>
 );
 
