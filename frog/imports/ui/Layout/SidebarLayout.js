@@ -60,7 +60,7 @@ export const SidebarLayout = (props: SidebarLayoutPropsT) => {
       <div className={classes.sidebar}>{props.sidebar}</div>
       <div className={classes.contentTopBar}>{props.contentTopBar}</div>
       <div className={classes.content}>{props.content}</div>
-      <div className={classes.extra}>{props.extra}</div>
+      {props.extra ? <div className={classes.extra}>{props.extra}</div> : null}
     </div>
   );
 };
