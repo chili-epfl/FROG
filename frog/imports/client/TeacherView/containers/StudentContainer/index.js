@@ -62,7 +62,6 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
               key={student._id}
               icon={<Person fontSize="small" />}
               onClick={() => props.onClick(student._id)}
-              disabled
             >
               {student.username}
             </RowButton>
