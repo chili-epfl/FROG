@@ -22,6 +22,7 @@
     "@minervaproject/ot-json0": "^1.1.0",
     "@minervaproject/quill-cursors": "^2.1.2",
     "@minervaproject/rich-text": "^4.0.0",
+    "@sentry/browser": "^5.6.3",
     "@teamwork/sharedb": "3.1.0",
     "@teamwork/sharedb-mongo": "3.0.0",
     "@teamwork/sharedb-redis-pubsub": "^3.0.0",
