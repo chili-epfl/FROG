@@ -142,10 +142,10 @@ export const ValidButtonRaw = ({
       noOffset
         ? { zIndex: '100' }
         : {
-            overflow: 'visible',
-            position: 'fixed',
-            top: 60,
-            left: 250,
+            // overflow: 'visible',
+            // position: 'fixed',
+            // top: 60,
+            // left: 250,
             zIndex: '100'
           }
     }

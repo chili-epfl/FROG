@@ -41,6 +41,7 @@ const styles = () => ({
     padding: '10px'
   },
   formContainer: {
+    position: 'relative',
     flex: '1 0 0px',
     overflow: 'auto'
   }
