@@ -54,7 +54,7 @@ const changeUser = () => {
   connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
   Sentry.configureScope(scope => {
     scope.setUser({
-      email: Meteor.user()?.profile?.email?.[0] || Meteor.userId()
+      email: Meteor.user()?.emails?.[0]?.address || Meteor.userId()
     });
   });
 };

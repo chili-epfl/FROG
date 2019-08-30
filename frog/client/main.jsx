@@ -11,6 +11,7 @@ Sentry.init({
   dsn: 'https://59d972c46140436a8bd7094bd6e3eb82@sentry.io/214223',
   release: Meteor.gitCommitHash,
   environment: process.env.NODE_ENV,
+  debug: true,
   beforeSend(event, hint) {
     const error = hint.originalException;
     if (error?.message && error.message.match(/Userid reset successfully/i)) {
