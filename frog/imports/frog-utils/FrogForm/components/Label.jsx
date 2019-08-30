@@ -5,11 +5,11 @@ import { Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(1, 0)
+    marginTop: theme.spacing(1)
   },
   titleAndDescription: {
     display: 'flex',
-    marginBottom: theme.spacing(0.5)
+    marginBottom: theme.spacing(1)
   },
   title: {
     fontWeight: 700,
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 type LabelledFieldPropsT = {
   label: string,
   description?: string,
-  children: React.Node | React.Node[]
+  children: React.Element<*> | React.Element<*>[]
 };
 
 /**
