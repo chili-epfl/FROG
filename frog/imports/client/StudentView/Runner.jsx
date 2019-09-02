@@ -4,8 +4,9 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent, getMergedExtractedUnit } from '/imports/frog-utils';
+import * as Sentry from '@sentry/browser';
 
+import { focusStudent, getMergedExtractedUnit } from '/imports/frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import { activityRunners } from '/imports/client/activityRunners';
 import { createLogger } from '/imports/api/logs';
@@ -27,6 +28,10 @@ const getStructure = activity => {
 };
 
 const Runner = ({ path, activity, sessionId, object, paused }) => {
+  Sentry.addBreadcrumb({
+    category: 'studentview',
+    data: { activity, sessionId, object }
+  });
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
@@ -111,6 +116,15 @@ const Runner = ({ path, activity, sessionId, object, paused }) => {
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
   const readOnly = activity.participationMode === 'readonly' && !isTeacher;
+  Sentry.addBreadcrumb({
+    category: 'studentview',
+    data: {
+      activityData,
+      groupingKey: activity.groupingKey,
+      groupingValue,
+      readOnly
+    }
+  });
 
   const Torun = (
     <div
@@ -209,6 +223,10 @@ export class RunActivity extends React.Component<PropsT, {}> {
     }
 
     const RunComp = activityRunners[activityType.id];
+    if (!RunComp) {
+      Sentry.captureException('No valid activity id ' + activityType.id);
+      return <h1>'Not valid activity id ' + activityType.id</h1>;
+    }
     RunComp.displayName = activityType.id;
     const formatProduct = LocalSettings.api
       ? activityType.formatProduct

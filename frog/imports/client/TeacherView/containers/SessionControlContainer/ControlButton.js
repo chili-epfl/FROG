@@ -8,7 +8,8 @@ import {
   Pause,
   SkipNext,
   Rewind,
-  Refresh
+  Refresh,
+  Clear
 } from '@material-ui/icons';
 
 import { RowButton } from '/imports/ui/RowItems';
@@ -36,7 +37,7 @@ const variants = {
   },
   close: {
     title: 'Close the activity',
-    icon: SkipNext
+    icon: Clear
   },
   prev: {
     title: 'Previous Activity',

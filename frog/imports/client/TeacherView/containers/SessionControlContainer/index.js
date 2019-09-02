@@ -15,15 +15,19 @@ export const SessionControlContainer = () => {
     <Panel>
       {session.isWaitingForStudents ? (
         <ControlButton variant="start" onClick={session.start} />
-      ) : session.singleActivity ? (
-        <ControlButton variant="close" onClick={session.next} />
-      ) : (
-        <ControlButton variant="next" onClick={session.next} />
-      )}
-      {session.isPaused ? (
-        <ControlButton variant="continue" onClick={session.continue} />
-      ) : (
-        <ControlButton variant="pause" onClick={session.pause} />
+      ) : session.isDone ? null : (
+        <>
+          {session.singleActivity ? (
+            <ControlButton variant="close" onClick={session.next} />
+          ) : (
+            <ControlButton variant="next" onClick={session.next} />
+          )}
+          {session.isPaused ? (
+            <ControlButton variant="continue" onClick={session.continue} />
+          ) : (
+            <ControlButton variant="pause" onClick={session.pause} />
+          )}
+        </>
       )}
     </Panel>
   );
