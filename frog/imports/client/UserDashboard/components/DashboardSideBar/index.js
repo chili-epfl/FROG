@@ -109,7 +109,7 @@ export const DashboardSideBar = ({
             </Panel>
           </Sidebar>
         }
-        content={
+        contentTopBar={
           <>
             <TopBarAccountsWrapper
               navigation={<Breadcrumb paths={[`${activePage}`]} />}
@@ -137,9 +137,9 @@ export const DashboardSideBar = ({
                 </OverflowMenu>
               }
             />
-            {children}
           </>
         }
+        content={<>{children}</>}
       />
       <Fab
         className={classes.fab}

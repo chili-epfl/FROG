@@ -77,7 +77,7 @@ const SimpleWrapper = () => {
           </Panel>
         </Sidebar>
       }
-      content={
+      contentTopBar={
         <>
           <TopBar
             navigation={
@@ -108,6 +108,7 @@ const SimpleWrapper = () => {
           />
         </>
       }
+      content={<></>}
       extra={
         <TopBar
           variant="minimal"
