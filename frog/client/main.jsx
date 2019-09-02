@@ -4,8 +4,21 @@ import { render } from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Buffer from 'buffer';
-
+import * as Sentry from '@sentry/browser';
 import App from '/imports/client/App';
+
+Sentry.init({
+  dsn: 'https://59d972c46140436a8bd7094bd6e3eb82@sentry.io/214223',
+  release: Meteor.gitCommitHash,
+  environment: process.env.NODE_ENV,
+  beforeSend(event, hint) {
+    const error = hint.originalException;
+    if (error?.message && error.message.match(/Userid reset successfully/i)) {
+      return null;
+    }
+    return event;
+  }
+});
 
 const theme = createMuiTheme({
   palette: {

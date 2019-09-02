@@ -45,8 +45,8 @@ export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
         )}
       </div>
       <div className={classes.fields}>
-        {properties.map(p => (
-          <div>{p.content}</div>
+        {properties.map((p, i) => (
+          <div key={i}>{p.content}</div>
         ))}
       </div>
     </div>

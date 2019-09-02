@@ -4,6 +4,7 @@ import path from 'path';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { InjectData } from 'meteor/staringatlights:inject-data';
+import * as Sentry from '@sentry/browser';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
@@ -49,6 +50,15 @@ try {
   console.error('Initializing local storage', e);
 }
 
+const changeUser = () => {
+  connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+  Sentry.configureScope(scope => {
+    scope.setUser({
+      email: Meteor.user()?.emails?.[0]?.address || Meteor.userId()
+    });
+  });
+};
+
 const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
@@ -61,13 +71,13 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
       );
     } else {
       Meteor.connection.setUserId(response.id);
-      connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+      changeUser();
     }
 
     Meteor.subscribe('userData', {
       onReady: () => {
         setState('ready');
-        connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+        changeUser();
       }
     });
   }
@@ -98,7 +108,7 @@ const FROGRouter = withRouter(
         Meteor.subscribe('userData', {
           onReady: () => {
             this.setState({ mode: 'ready' });
-            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+            changeUser();
           }
         });
       }
@@ -139,7 +149,7 @@ const FROGRouter = withRouter(
         this.props.match.params.slug,
         (err, res) => {
           if (res) {
-            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+            changeUser();
           }
           subscriptionCallback(
             err,
@@ -161,9 +171,7 @@ const FROGRouter = withRouter(
         } else {
           Meteor.subscribe('userData', {
             onReady: () => {
-              connection.createFetchQuery('rz', {
-                resetUserId: Meteor.userId()
-              });
+              changeUser();
               this.setState({ mode: 'ready' });
             }
           });

@@ -3,6 +3,7 @@
 import { isEmpty, isEqual, sortBy } from 'lodash';
 import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
+import * as Sentry from '@sentry/browser';
 
 import valid from '/imports/api/validGraphFn';
 import {
@@ -199,6 +200,10 @@ export default class Store {
       }),
       // should check for new global version of graph
       setId: action((id: string, readOnly: boolean = false) => {
+        Sentry.addBreadcrumb({
+          category: 'graph',
+          message: 'SetId ' + id
+        });
         const desiredUrl = `${this.url}/${id}`;
         if (
           this.browserHistory &&

@@ -136,6 +136,9 @@ const RawEditActivity = ({
   }
 
   const activityType = activityTypesObj[activity.activityType];
+  if (!activityType) {
+    return <h3>No such installed activity type {activity.activityType}</h3>;
+  }
   const otherActivityIds = store.activityStore.all.filter(
     a => a.id !== activity._id
   );
