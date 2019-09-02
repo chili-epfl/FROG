@@ -4,7 +4,11 @@ import Form from 'react-jsonschema-form';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { type LearningItemT, ReactiveText } from '/import/frog-utils';
+import {
+  type LearningItemT,
+  ReactiveText,
+  TextInput
+} from '/imports/frog-utils';
 
 const styles = () => ({
   button: {
@@ -47,40 +51,46 @@ const Editor = withStyles(styles)(({ dataFn, classes }) => (
   </div>
 ));
 
-const schema = {
-  type: 'object',
-  properties: {
-    topic: {
-      type: 'string',
-      title: 'What is the topic?'
-    },
-    content: {
-      type: 'string',
-      title: 'What is the difficulty you encountered?'
-    }
-  }
-};
+const Creator = withStyles(styles)(({ createLearningItem }) => {
+  const [content, setContent] = React.useState('');
+  const [difficulty, setDifficulty] = React.useState('');
 
-const Creator = withStyles(styles)(({ createLearningItem, classes }) => (
-  <div className="bootstrap">
-    <Form
-      schema={schema}
-      formData={{}}
-      onSubmit={e => {
-        if (e.formData && e.formData.topic && e.formData.content) {
-          createLearningItem('li-cs411-learn-topic', {
-            topic: e.formData.topic,
-            content: e.formData.content
-          });
-        }
-      }}
-    >
-      <Button className={classes.button} type="submit">
-        Add Topic
-      </Button>
-    </Form>
-  </div>
-));
+  const onSubmit = () => {
+    if (content.length > 0 && difficulty.length > 0) {
+      createLearningItem('li-cs411-learn-topic', {
+        topic: content,
+        content: difficulty
+      });
+    }
+  };
+  return (
+    <div style={{ padding: '5px' }}>
+      <div style={{ display: 'flex' }}>
+        <p style={{ marginRight: '10px' }}>What is the topic?</p>
+        <TextInput noBlur value={content} onChange={e => setContent(e)} focus />
+      </div>
+      <div style={{ display: 'flex' }}>
+        <p style={{ marginRight: '10px' }}>Why was it difficult?</p>
+        <TextInput
+          noBlur
+          value={difficulty}
+          onChange={e => setDifficulty(e)}
+          onSubmit={onSubmit}
+        />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button
+          style={{ marginTop: '10px' }}
+          variant="contained"
+          color="primary"
+          onClick={onSubmit}
+        >
+          Add
+        </Button>
+      </div>
+    </div>
+  );
+});
 
 export default ({
   name: 'Learning Topic',
