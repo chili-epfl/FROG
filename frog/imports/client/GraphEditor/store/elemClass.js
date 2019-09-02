@@ -1,6 +1,7 @@
 // @flow
 
 import { extendObservable, action } from 'mobx';
+import * as Sentry from '@sentry/browser';
 import { store } from './index';
 import Activity from './activity';
 
@@ -22,6 +23,11 @@ export default class Elem {
   constructor() {
     extendObservable(this, {
       select: action(() => {
+        Sentry.addBreadcrumb({
+          category: 'graph',
+          message: 'Selected ' + this.klass,
+          data: { class: this.klass, id: this.id, title: this.title }
+        });
         store.ui.setLibraryOpen(false);
         if (store.state.mode === 'readOnly') {
           if (this.klass !== 'connection') {

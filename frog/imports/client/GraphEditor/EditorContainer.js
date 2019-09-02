@@ -132,7 +132,7 @@ class Editor extends React.Component<Object, StateT> {
               graphId={store.graphId}
               graphName={store}
               metadatas={LibraryStates.graphList.find(
-                x => x.uuid === Graphs.findOne(store.graphId).parentId
+                x => x.uuid === Graphs.findOne(store.graphId)?.parentId
               )}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
