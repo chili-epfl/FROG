@@ -4,7 +4,7 @@ import Form from 'react-jsonschema-form';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { type LearningItemT, ReactiveText } from 'frog-utils';
+import { type LearningItemT, ReactiveText } from '/import/frog-utils';
 
 const styles = () => ({
   button: {
