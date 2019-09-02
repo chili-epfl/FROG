@@ -20,15 +20,8 @@ const styles = () => ({
   }
 });
 
-const ThumbViewer = ({ data }) => (
-  <div>
-    <b>{data.topic}</b>
-    <br />
-  </div>
-);
-
 const Viewer = ({ data }) => (
-  <div>
+  <div style={{ fontSize: '1.5em' }}>
     <b>{data.topic}</b>
     <br />
     {data.content.split('\n').map((line, i) => (
@@ -96,8 +89,7 @@ export default ({
   name: 'Learning Topic',
   id: 'li-cs411-learn-topic',
   dataStructure: { topic: '', content: '' },
-  ThumbViewer,
-  Viewer,
+  ThumbViewer: Viewer,
   Creator,
   Editor
 }: LearningItemT<{ topic: string, content: string }>);
