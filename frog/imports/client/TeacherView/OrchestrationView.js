@@ -3,8 +3,12 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 
+import { getUserType } from '/imports/api/users';
 import { withDragDropContext } from '/imports/frog-utils';
 import { Activities } from '/imports/api/activities';
+
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import Dialog from '@material-ui/core/Dialog';
 
 import { OrchestrationContextProvider } from './context';
 import OrchestrationLayout from './components/OrchestrationLayout';
@@ -21,7 +25,8 @@ import { DashboardReactiveWrapper } from '../Dashboard';
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
-  students: Object
+  students: Object,
+  history: Array<any>
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
@@ -44,6 +49,11 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
       activities={props.activities}
       students={props.students}
     >
+      {getUserType() == 'Anonymous' ? (
+        <Dialog open>
+          <AccountModal formToDisplay="login" variant="guest" />
+        </Dialog>
+      ) : null}
       <OrchestrationLayout
         orchestrationControl={<SessionControlContainer />}
         sessionSteps={
