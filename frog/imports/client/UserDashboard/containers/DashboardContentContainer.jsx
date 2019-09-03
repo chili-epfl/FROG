@@ -76,7 +76,12 @@ export const DashboardContentContainer = ({
         return <SessionsPage sessionsList={sortedSessionsList} />;
 
       case 'Drafts':
-        return <DraftsPage draftsList={sortedDraftsList} />;
+        return (
+          <DraftsPage
+            draftsList={sortedDraftsList}
+            actionCallback={() => history.push('/teacher/graph/new')}
+          />
+        );
 
       default:
         return (
