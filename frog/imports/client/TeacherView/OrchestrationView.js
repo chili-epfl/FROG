@@ -57,7 +57,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
       {getUserType() == 'Anonymous' ? (
         <Dialog open={open} onClose={handleClose}>
           <AccountModal
-            formToDisplay="login"
+            formToDisplay="signup"
             closeModal={handleClose}
             variant="guest"
           />
