@@ -8,7 +8,15 @@ import SignUp from './SignUp';
 import Login from './Login';
 import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 
-const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
+const AccountModal = ({
+  formToDisplay,
+  closeModal,
+  variant
+}: {
+  formToDisplay: string,
+  closeModal?: () => void,
+  variant?: 'guest' | 'default'
+}) => {
   const [form, setForm] = React.useState(null);
   const [showToast, hideToast] = useToast();
   const [_1, hideModal] = useModal();
@@ -66,7 +74,15 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
   const toRender = form || formToDisplay;
 
   return (
-    <Modal title="" actions={[{ title: 'Cancel', callback: modalCallback }]}>
+    <Modal
+      title=""
+      actions={[
+        {
+          title: variant == 'guest' ? 'Continue as Guest' : 'Cancel',
+          callback: variant == 'guest' ? closeModal : modalCallback
+        }
+      ]}
+    >
       {toRender === 'signup' ? (
         <SignUp
           openLoginForm={openLoginForm}
