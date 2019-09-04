@@ -73,13 +73,23 @@ const AccountModal = ({
 
   const toRender = form || formToDisplay;
 
+  const getActionValues = () => {
+    switch (variant) {
+      case 'guest':
+        return { title: 'Continue as Guest', callback: closeModal };
+        break;
+      default:
+        return { title: 'Cancel', callback: modalCallback };
+    }
+  };
+
   return (
     <Modal
       title=""
       actions={[
         {
-          title: variant == 'guest' ? 'Continue as Guest' : 'Cancel',
-          callback: variant == 'guest' ? closeModal : modalCallback
+          title: getActionValues().title,
+          callback: getActionValues().callback
         }
       ]}
     >
