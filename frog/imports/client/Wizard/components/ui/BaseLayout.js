@@ -36,16 +36,14 @@ type BaseLayoutPropsT = {
 export const BaseLayout = (props: BaseLayoutPropsT) => {
   const classes = useStyle();
   return (
-    <>
-      <div className={classes.root}>
-        <div className={classes.border}>
-          <div className={classes.innerBorder}>{props.left}</div>
-        </div>
-        <div className={classes.children}>{props.children}</div>
-        <div className={classes.border}>
-          <div className={classes.innerBorder}>{props.right}</div>
-        </div>
+    <div className={classes.root}>
+      <div className={classes.border}>
+        <div className={classes.innerBorder}>{props.left}</div>
       </div>
-    </>
+      <div className={classes.children}>{props.children}</div>
+      <div className={classes.border}>
+        <div className={classes.innerBorder}>{props.right}</div>
+      </div>
+    </div>
   );
 };
