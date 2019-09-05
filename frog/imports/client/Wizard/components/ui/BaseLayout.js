@@ -2,6 +2,9 @@
 
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import Dialog from '@material-ui/core/Dialog';
+import { getUserType } from '/imports/api/users';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -35,15 +38,25 @@ type BaseLayoutPropsT = {
 
 export const BaseLayout = (props: BaseLayoutPropsT) => {
   const classes = useStyle();
+  const user = getUserType();
+  const upgrade =
+    user == 'Legacy' ? (
+      <Dialog open>
+        <AccountModal formToDisplay="signup" variant="legacy" />
+      </Dialog>
+    ) : null;
   return (
-    <div className={classes.root}>
-      <div className={classes.border}>
-        <div className={classes.innerBorder}>{props.left}</div>
+    <>
+      {upgrade}
+      <div className={classes.root}>
+        <div className={classes.border}>
+          <div className={classes.innerBorder}>{props.left}</div>
+        </div>
+        <div className={classes.children}>{props.children}</div>
+        <div className={classes.border}>
+          <div className={classes.innerBorder}>{props.right}</div>
+        </div>
       </div>
-      <div className={classes.children}>{props.children}</div>
-      <div className={classes.border}>
-        <div className={classes.innerBorder}>{props.right}</div>
-      </div>
-    </div>
+    </>
   );
 };
