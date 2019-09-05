@@ -10,9 +10,6 @@ import changelog from '/imports/api/changelog';
 import { store } from './store';
 import { assignGraph } from '/imports/api/graphs';
 import EditorContainer from './EditorContainer';
-import AccountModal from '/imports/client/AccountModal/AccountModal';
-import Dialog from '@material-ui/core/Dialog';
-import { getUserType } from '/imports/api/users';
 
 class AppClass extends React.Component<*, *> {
   componentWillMount() {
@@ -53,11 +50,6 @@ class AppClass extends React.Component<*, *> {
   render() {
     return (
       <Provider store={store}>
-        {getUserType() === 'Legacy' ? (
-          <Dialog open>
-            <AccountModal formToDisplay="signup" variant="legacy" />
-          </Dialog>
-        ) : null}
         <div id="graph" style={{ height: '100%', overflow: 'hidden' }}>
           <EditorContainer />
         </div>

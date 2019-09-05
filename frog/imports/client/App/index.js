@@ -30,6 +30,10 @@ import WikiRouter from '../Wiki/WikiRouter';
 import { connection } from './connection';
 import LearnLandingPage from './LearnLanding';
 
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import Dialog from '@material-ui/core/Dialog';
+import { getUserType } from '/imports/api/users';
+
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
@@ -314,6 +318,11 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'ready' && user) {
         return learnUrl ? (
           <Switch>
+            {getUserType() === 'Legacy' ? (
+              <Dialog open>
+                <AccountModal formToDisplay="signup" variant="legacy" />
+              </Dialog>
+            ) : null}
             <Route path="/:slug" component={StudentView} />
             <Route
               path="/"
@@ -325,6 +334,11 @@ const FROGRouter = withRouter(
           </Switch>
         ) : (
           <Switch>
+            {getUserType() === 'Legacy' ? (
+              <Dialog open>
+                <AccountModal formToDisplay="signup" variant="legacy" />
+              </Dialog>
+            ) : null}
             <Route path="/duplicate" component={Wizard} />
             <Route path="/wiki" component={WikiRouter} />
             <Route path="/teacher/projector/:slug" component={StudentView} />
