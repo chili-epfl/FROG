@@ -15,7 +15,7 @@ const AccountModal = ({
 }: {
   formToDisplay: string,
   closeModal?: () => void,
-  variant?: 'guest' | 'default'
+  variant?: 'guest' | 'legacy' | 'default'
 }) => {
   const [form, setForm] = React.useState(null);
   const [showToast, hideToast] = useToast();
@@ -73,16 +73,20 @@ const AccountModal = ({
 
   const toRender = form || formToDisplay;
 
+  const getActionValues = () => {
+    switch (variant) {
+      case 'guest':
+        return [{ title: 'Continue as Guest', callback: closeModal }];
+        break;
+      case 'legacy':
+        return [{}];
+      default:
+        return [{ title: 'Cancel', callback: modalCallback }];
+    }
+  };
+
   return (
-    <Modal
-      title=""
-      actions={[
-        {
-          title: variant == 'guest' ? 'Continue as Guest' : 'Cancel',
-          callback: variant == 'guest' ? closeModal : modalCallback
-        }
-      ]}
-    >
+    <Modal title="" actions={getActionValues()}>
       {toRender === 'signup' ? (
         <SignUp
           openLoginForm={openLoginForm}

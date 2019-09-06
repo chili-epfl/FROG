@@ -12,7 +12,7 @@ export const RootSwitcher = ({ history }) => {
     case 'Verified':
       return <DashboardDataContainer history={history} />;
 
-    case 'Legacy ':
+    case 'Legacy':
       return <DashboardDataContainer history={history} />;
 
     default:
