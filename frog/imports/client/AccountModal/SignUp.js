@@ -128,7 +128,12 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
 
           {getUserType() === 'Legacy' ? (
             <Typography component="h1" variant="h6">
-              Upgrade your account to verified
+              FROG has changed its account system. We now require each user to
+              supply a password and e-mail address. After adding this
+              information, you will be able to access all your old graphs and
+              sessions. In the future, you will no longer be able to log-in
+              using ?login=, and should instead click Log in, and use your
+              e-mail address.
             </Typography>
           ) : (
             <Typography component="h1" variant="h5">
