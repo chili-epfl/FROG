@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 
 import { withDragDropContext } from '/imports/frog-utils';
 import { Activities } from '/imports/api/activities';
+import { withRouter } from 'react-router';
 
 import { getUserType } from '/imports/api/users';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
@@ -54,11 +55,17 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
       activities={props.activities}
       students={props.students}
     >
-      {getUserType() == 'Anonymous' ? (
+      {getUserType() === 'Anonymous' &&
+      !window.location.search.includes('?u=') ? (
         <Dialog open={open} onClose={handleClose}>
           <AccountModal
             formToDisplay="signup"
-            closeModal={handleClose}
+            closeModal={() => {
+              props.history.push(
+                `/t/${props.session.slug}?u=${Meteor.userId()}`
+              );
+              handleClose();
+            }}
             variant="guest"
           />
         </Dialog>
@@ -100,6 +107,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   );
 };
 
-export const OrchestrationView = compose(withDragDropContext)(
-  OrchestrationViewRaw
-);
+export const OrchestrationView = compose(
+  withDragDropContext,
+  withRouter
+)(OrchestrationViewRaw);
