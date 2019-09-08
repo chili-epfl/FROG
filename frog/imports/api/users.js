@@ -28,14 +28,16 @@ const getAnimalAnonymous = (userId: string): string => {
  * @param: {User=} user
  */
 
-export const getUsername = (
-  user?: UserObj,
-  wiki?: boolean = false
-): ?string => {
+export const getUsername = (user, opts = {}) => {
+  const { wiki, activityRunner } = opts;
   const selectedUser = getUser(user);
   if (selectedUser) {
     if (selectedUser.isAnonymous)
-      return wiki ? getAnimalAnonymous(selectedUser._id) : 'Anonymous User';
+      return wiki
+        ? getAnimalAnonymous(selectedUser._id)
+        : activityRunner
+        ? 'Teacher'
+        : 'Anonymous User';
     else if (selectedUser.emails) return selectedUser.profile.displayName;
     else if (selectedUser.username) return selectedUser.username;
   }

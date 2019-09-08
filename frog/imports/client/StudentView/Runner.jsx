@@ -78,7 +78,8 @@ const Runner = ({ path, activity, sessionId, object, paused }) => {
   if (activity.plane === 1) {
     title = isTeacher
       ? '(Individual activity, PREVIEW)'
-      : `(individual/${getUsername() || ''})`;
+      : `(individual/${getUsername(undefined, { activityRunner: true }) ||
+          ''})`;
   }
   if (activity.plane === 3) {
     title = '(Whole class)';
@@ -151,7 +152,7 @@ const Runner = ({ path, activity, sessionId, object, paused }) => {
           readOnly
         }}
         activityId={activity._id}
-        username={getUsername()}
+        username={getUsername(undefined, { activityRunner: true })}
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
         instanceMembers={instanceMembers}
