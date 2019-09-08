@@ -318,11 +318,6 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'ready' && user) {
         return learnUrl ? (
           <Switch>
-            {getUserType() === 'Legacy' ? (
-              <Dialog open>
-                <AccountModal formToDisplay="signup" variant="legacy" />
-              </Dialog>
-            ) : null}
             <Route path="/:slug" component={StudentView} />
             <Route
               path="/"
