@@ -19,6 +19,8 @@ export const SessionControlContainer = () => {
         <>
           {session.singleActivity ? (
             <ControlButton variant="close" onClick={session.next} />
+          ) : session.lastActivity ? (
+            <ControlButton variant="closeSession" onClick={session.next} />
           ) : (
             <ControlButton variant="next" onClick={session.next} />
           )}

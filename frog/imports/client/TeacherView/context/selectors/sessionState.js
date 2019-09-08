@@ -8,5 +8,6 @@ export const sessionState = (session: Object) => ({
   isDone: session.openActivities?.length === 0,
   settings: session.settings,
   ownerId: session.ownerId,
-  singleActivity: session.singleActivity
+  singleActivity: session.singleActivity,
+  lastActivity: session.lastActivity
 });

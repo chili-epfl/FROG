@@ -39,6 +39,10 @@ const variants = {
     title: 'Close the activity',
     icon: Clear
   },
+  closeSession: {
+    title: 'Close the session',
+    icon: Clear
+  },
   prev: {
     title: 'Previous Activity',
     icon: Rewind
