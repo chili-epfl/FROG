@@ -141,7 +141,7 @@ export default class Activity extends Elem {
         this.activityType = newact.activityType;
         const errors = store.graphErrors.filter(x => x.id === this.id);
         const error = errors.filter(x => x.severity === 'error');
-        if (!error) {
+        if (error.length === 0) {
           this.debouncedSetDataDelayed(newact.data);
         }
       }),

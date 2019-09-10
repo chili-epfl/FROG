@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { compose, toClass } from 'recompose';
 import { uniq } from 'lodash';
+import { toJS } from 'mobx';
 
 import {
   MosaicWithoutDragDropContext,
@@ -74,13 +75,17 @@ export const initActivityDocuments = (
         );
         const initData =
           typeof activityType.dataStructure === 'function'
-            ? activityType.dataStructure(config)
+            ? activityType.dataStructure(toJS(config))
             : activityType.dataStructure;
         const data =
           example === -1 || example === undefined
             ? cloneDeep(initData)
             : exs[example].data;
-        mergeFunction(cloneDeep({ data, config }), dataFn, dataFn.doc.data);
+        mergeFunction(
+          cloneDeep({ data, config: toJS(config) }),
+          dataFn,
+          dataFn.doc.data
+        );
       }
     };
 
@@ -91,7 +96,7 @@ export const initActivityDocuments = (
         if (!doc.type) {
           const initData =
             typeof activityType.dataStructure === 'function'
-              ? activityType.dataStructure(config)
+              ? activityType.dataStructure(toJS(config))
               : activityType.dataStructure;
           doc.create(cloneDeep(initData) || {});
           runMergeFunction(doc);
@@ -109,7 +114,7 @@ export const initActivityDocuments = (
 
       const initData =
         typeof activityType.dataStructure === 'function'
-          ? activityType.dataStructure(config)
+          ? activityType.dataStructure(toJS(config))
           : activityType.dataStructure;
       dataFn.objInsert(cloneDeep(initData) || {}, []);
       runMergeFunction(doc);
@@ -149,7 +154,7 @@ const ContentController = ({
   const exData = examples[example] && cloneDeep(examples[example]);
   // $FlowFixMe
   const data = exData && (exData.data ? exData.data : undefined);
-  const activityData = { data, config };
+  const activityData = { data, config: toJS(config) };
 
   const Run = ({ name, instance }) => {
     if (activityType.meta.preview === false) {
@@ -159,7 +164,7 @@ const ContentController = ({
     const formatProduct = activityType.formatProduct;
 
     const transform = formatProduct
-      ? x => formatProduct(config || {}, x, instance, name)
+      ? x => formatProduct(toJS(config) || {}, x, instance, name)
       : undefined;
 
     const ActivityToRun = ReactiveHOC(
@@ -181,7 +186,7 @@ const ContentController = ({
       activityType.id,
       getUserId(name),
       plane,
-      config
+      toJS(config)
     );
     logger({ type: 'activityDidMount' });
     return (
