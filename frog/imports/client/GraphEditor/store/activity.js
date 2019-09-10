@@ -2,7 +2,8 @@
 
 import { extendObservable, action } from 'mobx';
 import cuid from 'cuid';
-import { debounce } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
+import { toJS } from 'mobx';
 
 import { store } from './index';
 import Elem from './elemClass';
@@ -142,7 +143,11 @@ export default class Activity extends Elem {
         const errors = store.graphErrors.filter(x => x.id === this.id);
         const error = errors.filter(x => x.severity === 'error');
         if (error.length === 0) {
-          this.debouncedSetDataDelayed(newact.data);
+          if (isEmpty(toJS(this.dataDelayed))) {
+            this.setDataDelayedNow(newact.data);
+          } else {
+            this.debouncedSetDataDelayed(newact.data);
+          }
         }
       }),
 
