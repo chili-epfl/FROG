@@ -174,7 +174,7 @@ const LandingPage = ({ history }) => {
               minWidth: '300px',
               height: 'calc((9/16)*50vw)'
             }}
-            src="https://www.youtube.com/embed/ctAEhsjFKpw"
+            src="https://www.youtube.com/embed/N2v13ZLb7IY"
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
