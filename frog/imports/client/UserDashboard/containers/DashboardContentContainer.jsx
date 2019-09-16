@@ -2,18 +2,25 @@ import * as React from 'react';
 import { DashboardSideBar } from '/imports/client/UserDashboard/components/DashboardSideBar';
 import { RecentsPage } from '/imports/client/UserDashboard/components/RecentsPage';
 import { DraftsPage } from '/imports/client/UserDashboard/components/DraftsPage';
+import { TemplatesPage } from '/imports/client/UserDashboard/components/TemplatesPage';
 import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsPage';
-import { DraftsListT, SessionsListT } from '/imports/ui/Types/types';
+import {
+  DraftsListT,
+  SessionListT,
+  TemplatesListT
+} from '/imports/ui/Types/types';
 
 type DashboardContentContainerPropsT = {
   history: RouterHistory,
   draftsList: DraftsListT,
-  sessionsList: SessionsListT
+  sessionsList: SessionListT,
+  templatesList: TemplatesListT
 };
 export const DashboardContentContainer = ({
   history,
   draftsList,
-  sessionsList
+  sessionsList,
+  templatesList
 }: DashboardContentContainerPropsT) => {
   const [selectedPage, setSelectedPage] = React.useState({
     sessionsView: false,
@@ -62,7 +69,7 @@ export const DashboardContentContainer = ({
     });
   };
 
-  const sortList = (list): SessionListT | DraftsListT => {
+  const sortList = (list): SessionListT | DraftsListT | TemplatesListT => {
     return list.sort((a, b) => b.dateObj - a.dateObj);
   };
   // use cached values if the input array is the same
@@ -71,6 +78,9 @@ export const DashboardContentContainer = ({
   ]);
   const sortedDraftsList = React.useMemo(() => sortList(draftsList), [
     draftsList
+  ]);
+  const sortedTemplatesList = React.useMemo(() => sortList(templatesList), [
+    templatesList
   ]);
 
   const ComponentToRender = () => {
@@ -95,6 +105,9 @@ export const DashboardContentContainer = ({
             actionCallback={() => history.push('/teacher/graph/new')}
           />
         );
+
+      case 'Templates':
+        return <TemplatesPage templatesList={sortedTemplatesList} />;
 
       default:
         return (

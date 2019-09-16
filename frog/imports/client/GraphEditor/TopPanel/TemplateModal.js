@@ -43,7 +43,7 @@ const TemplateModal = (props: TemplateModalProps) => {
 
   return (
     <Dialog open={props.open}>
-      <DialogTitle>New Template</DialogTitle>
+      <DialogTitle>Save as Template</DialogTitle>
       <DialogContent>
         <TextField
           variant="outlined"
@@ -72,7 +72,7 @@ const TemplateModal = (props: TemplateModalProps) => {
             props.onSubmit(values.name);
           }}
         >
-          Create Template
+          Save
         </Button>
       </DialogContent>
       <DialogActions>

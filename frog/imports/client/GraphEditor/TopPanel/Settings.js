@@ -27,6 +27,7 @@ import {
   removeGraph,
   Graphs
 } from '/imports/api/graphs';
+import { addTemplate } from '/imports/api/templates';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
 import { getUsername } from '/imports/api/users';
@@ -144,7 +145,9 @@ class GraphActionMenu extends React.Component<*, *> {
     const parentId = graph?.parentId;
     const sessionId = graph?.sessionId;
     const submitTemplate = templateName => {
-      console.log(templateName);
+      addTemplate(templateName, graphId);
+      console.log('Added');
+      this.handleClose();
     };
 
     return (
@@ -190,7 +193,7 @@ class GraphActionMenu extends React.Component<*, *> {
                 className={classes.leftIcon}
                 aria-hidden="true"
               />
-              Create Template
+              Save as Template
             </MenuItem>
             <MenuItem
               onClick={() => {
