@@ -18,6 +18,7 @@ export const DashboardContentContainer = ({
   const [selectedPage, setSelectedPage] = React.useState({
     sessionsView: false,
     draftsView: false,
+    templatesView: false,
     recentsView: true
   });
   const [activePage, setActivePage] = React.useState(
@@ -29,6 +30,7 @@ export const DashboardContentContainer = ({
     setSelectedPage({
       sessionsView: false,
       draftsView: false,
+      templatesView: false,
       recentsView: true
     });
   };
@@ -37,6 +39,7 @@ export const DashboardContentContainer = ({
     setSelectedPage({
       sessionsView: true,
       recentsView: false,
+      templatesView: false,
       draftsView: false
     });
   };
@@ -45,6 +48,16 @@ export const DashboardContentContainer = ({
     setSelectedPage({
       sessionsView: false,
       draftsView: true,
+      templatesView: false,
+      recentsView: false
+    });
+  };
+  const onSelectTemplatesView = () => {
+    setActivePage('Templates');
+    setSelectedPage({
+      sessionsView: false,
+      draftsView: false,
+      templatesView: true,
       recentsView: false
     });
   };
@@ -101,9 +114,11 @@ export const DashboardContentContainer = ({
       callbackSessionsView={onSelectSessionsView}
       callbackRecentsView={onSelectRecentsView}
       callbackDraftsView={onSelectDraftsView}
+      callbackTemplatesView={onSelectTemplatesView}
       sessionsActive={draftsList.length === 0 || selectedPage.sessionsView}
       draftsActive={selectedPage.draftsView}
       recentsActive={selectedPage.recentsView}
+      templatesActive={selectedPage.templatesView}
       activePage={activePage}
       history={history}
       showDrafts={draftsList.length > 0}

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import { withStyles } from '@material-ui/styles';
 import Undo from '@material-ui/icons/Undo';
 import Add from '@material-ui/icons/Add';
+import DescriptionIcon from '@material-ui/icons/Description';
 import FileCopy from '@material-ui/icons/FileCopy';
 import Delete from '@material-ui/icons/Delete';
 import ExitToApp from '@material-ui/icons/ExitToApp';
@@ -18,6 +19,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Help from '@material-ui/icons/Help';
+import TemplateModal from './TemplateModal';
 
 import {
   addGraph,
@@ -106,6 +108,7 @@ const MenuItemDeleteFromServer = ({
 class GraphActionMenu extends React.Component<*, *> {
   state = {
     open: false,
+    openTemplateModal: false,
     anchorEl: null
   };
 
@@ -115,6 +118,14 @@ class GraphActionMenu extends React.Component<*, *> {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+  };
+
+  handleTemplateModalOpen = () => {
+    this.setState({ openTemplateModal: true });
+  };
+
+  handleTemplateModalClose = () => {
+    this.setState({ openTemplateModal: false });
   };
 
   render() {
@@ -132,124 +143,148 @@ class GraphActionMenu extends React.Component<*, *> {
     const graph = Graphs.findOne(graphId);
     const parentId = graph?.parentId;
     const sessionId = graph?.sessionId;
+    const submitTemplate = templateName => {
+      console.log(templateName);
+    };
+
     return (
-      <div className={classes.root}>
-        <IconButton
-          aria-owns={open ? 'menu-list' : null}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-          color="primary"
-          className={classes.button}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          open={open}
-          anchorEl={anchorEl}
-          onClose={this.handleClose}
-          id="menu-list"
-        >
-          <MenuItem
-            onClick={() => {
-              store.setId(addGraph());
-              this.handleClose();
-            }}
+      <>
+        <div className={classes.root}>
+          <TemplateModal
+            open={this.state.openTemplateModal}
+            callback={this.handleTemplateModalClose}
+            onSubmit={submitTemplate}
+          />
+          <IconButton
+            aria-owns={open ? 'menu-list' : null}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+            color="primary"
+            className={classes.button}
           >
-            <Add className={classes.leftIcon} aria-hidden="true" />
-            Add New Graph
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              duplicateGraph(store, graphId);
-              this.handleClose();
-            }}
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            open={open}
+            anchorEl={anchorEl}
+            onClose={this.handleClose}
+            id="menu-list"
           >
-            <FileCopy className={classes.leftIcon} aria-hidden="true" />
-            Duplicate Graph
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              submitRemoveGraph(graphId);
-              this.handleClose();
-            }}
-          >
-            <Delete className={classes.leftIcon} aria-hidden="true" />
-            Delete Current Graph
-          </MenuItem>
-          {sessionId && (
             <MenuItem
               onClick={() => {
+                store.setId(addGraph());
                 this.handleClose();
-                Graphs.update(graph._id, {
-                  $set: { name: graph.name.replace(/^#+/, '') },
-                  $unset: { sessionId: '' }
-                });
               }}
             >
-              <ExitToApp className={classes.leftIcon} aria-hidden="true" />
-              Make Top Level Graph
+              <Add className={classes.leftIcon} aria-hidden="true" />
+              Add New Graph
             </MenuItem>
-          )}
-          <MenuItem
-            onClick={() => {
-              importGraph(store);
-              this.handleClose();
-            }}
-          >
-            <ImportExport className={classes.leftIcon} aria-hidden="true" />
-            Import Graph from File
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setSidepanelOpen(true);
-              this.props.openImport();
-              this.handleClose();
-            }}
-          >
-            <ImportExport className={classes.leftIcon} aria-hidden="true" />
-            Import Graph from the Server
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              exportGraph(store);
-              this.handleClose();
-            }}
-          >
-            <Timeline className={classes.leftIcon} aria-hidden="true" />
-            Export Graph as File
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              exportPicture();
-              this.handleClose();
-            }}
-          >
-            <Image className={classes.leftIcon} aria-hidden="true" />
-            Export Graph as Image
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              parentId
-                ? loadGraphMetaData(parentId, () => {
-                    this.props.openExport();
-                    this.handleClose();
-                  })
-                : this.props.openExport()
-            }
-          >
-            <Timeline className={classes.leftIcon} aria-hidden="true" />
-            Export Graph to the Server
-          </MenuItem>
-          <MenuItem onClick={() => setShowHelpModal(true)}>
-            <Help className={classes.leftIcon} aria-hidden="true" />
-            Help
-          </MenuItem>
-          <MenuItemDeleteFromServer
-            {...{ setIdRemove, parentId, setDelete, classes }}
-            handleClose={this.handleClose}
-          />
-        </Menu>
-      </div>
+            <MenuItem
+              onClick={() => {
+                this.handleTemplateModalOpen();
+                //store.setId(addTemplate());
+                this.handleClose();
+              }}
+            >
+              <DescriptionIcon
+                className={classes.leftIcon}
+                aria-hidden="true"
+              />
+              Create Template
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                duplicateGraph(store, graphId);
+                this.handleClose();
+              }}
+            >
+              <FileCopy className={classes.leftIcon} aria-hidden="true" />
+              Duplicate Graph
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                submitRemoveGraph(graphId);
+                this.handleClose();
+              }}
+            >
+              <Delete className={classes.leftIcon} aria-hidden="true" />
+              Delete Current Graph
+            </MenuItem>
+            {sessionId && (
+              <MenuItem
+                onClick={() => {
+                  this.handleClose();
+                  Graphs.update(graph._id, {
+                    $set: { name: graph.name.replace(/^#+/, '') },
+                    $unset: { sessionId: '' }
+                  });
+                }}
+              >
+                <ExitToApp className={classes.leftIcon} aria-hidden="true" />
+                Make Top Level Graph
+              </MenuItem>
+            )}
+            <MenuItem
+              onClick={() => {
+                importGraph(store);
+                this.handleClose();
+              }}
+            >
+              <ImportExport className={classes.leftIcon} aria-hidden="true" />
+              Import Graph from File
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setSidepanelOpen(true);
+                this.props.openImport();
+                this.handleClose();
+              }}
+            >
+              <ImportExport className={classes.leftIcon} aria-hidden="true" />
+              Import Graph from the Server
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                exportGraph(store);
+                this.handleClose();
+              }}
+            >
+              <Timeline className={classes.leftIcon} aria-hidden="true" />
+              Export Graph as File
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                exportPicture();
+                this.handleClose();
+              }}
+            >
+              <Image className={classes.leftIcon} aria-hidden="true" />
+              Export Graph as Image
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                parentId
+                  ? loadGraphMetaData(parentId, () => {
+                      this.props.openExport();
+                      this.handleClose();
+                    })
+                  : this.props.openExport()
+              }
+            >
+              <Timeline className={classes.leftIcon} aria-hidden="true" />
+              Export Graph to the Server
+            </MenuItem>
+            <MenuItem onClick={() => setShowHelpModal(true)}>
+              <Help className={classes.leftIcon} aria-hidden="true" />
+              Help
+            </MenuItem>
+            <MenuItemDeleteFromServer
+              {...{ setIdRemove, parentId, setDelete, classes }}
+              handleClose={this.handleClose}
+            />
+          </Menu>
+        </div>
+      </>
     );
   }
 }
