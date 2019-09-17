@@ -39,6 +39,7 @@ const TeacherContainer = ({ ready }: { ready: boolean }) => {
 export default withTracker(() => {
   const collections = [
     'graphs',
+    'templates',
     'sessions',
     'globalSettings',
     'externalOperators'

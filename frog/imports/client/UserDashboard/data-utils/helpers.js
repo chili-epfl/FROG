@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
+import DescriptionIcon from '@material-ui/icons/Description';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
 
@@ -103,5 +104,7 @@ export const parseTemplateData = (
     itemTitle: item.name,
     dateCreated: parseDate(item.createdAt),
     dateObj: item.createdAt,
-    callback: () => history.push(`t/${item.graphId}`)
+    callback: () => {
+      history.push(`/teacher/graph/${item.graphId}`);
+    }
   }));

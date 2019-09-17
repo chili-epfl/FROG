@@ -144,9 +144,9 @@ class GraphActionMenu extends React.Component<*, *> {
     const graph = Graphs.findOne(graphId);
     const parentId = graph?.parentId;
     const sessionId = graph?.sessionId;
+
     const submitTemplate = templateName => {
       addTemplate(templateName, graphId);
-      console.log('Added');
       this.handleClose();
     };
 
