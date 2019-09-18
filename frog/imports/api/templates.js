@@ -1,38 +1,54 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { uuid } from '/imports/frog-utils';
-import { Graphs, addGraph } from './graphs';
-import { Operators } from './operators';
-import { Activities, Connections } from './activities';
+import { Graphs } from './graphs';
 
 export const Templates = new Mongo.Collection('templates');
 
-export const addTemplate = (name, graphId) => {
+export const addTemplate = (name, graph) => {
   const templateId = uuid();
   Templates.insert({
     name: name,
-    graphId: graphId,
+    graph: graph,
     _id: templateId,
-    templateId: templateId,
     ownerId: Meteor.userId(),
     createdAt: new Date()
   });
-  console.info(`Added ${templateId}`);
 };
 
 export const findTemplate = id => {
-  const template = Templates.findOne(id);
-  return template;
+  if (id) {
+    const template = Templates.findOne(id);
+    return template;
+  }
+  return null;
 };
 
-export const addTemplateGraph = (graphId, templateId) => {
-  const graph = Graphs.findOne(graphId);
-  const activities = Activities.find({ graphId }).fetch();
+export const updateTemplate = (id, graph) => {
+  try {
+    const template = Templates.findAndModify({
+      query: { _id: id },
+      update: { graph: graph }
+    });
+    return template;
+  } catch (err) {
+    window.alert('Error updating template');
+    console.warn('Error updating template');
+  }
+};
 
-  const newGraphId = addGraph({
-    graph: { ...graph, sessionGraph: true, name: graph.name },
-    activities,
-    operators: Operators.find({ graphId }).fetch(),
-    connections: Connections.find({ graphId }).fetch()
+export const removeTemplate = id => {
+  Templates.remove({ _id: id });
+  Graphs.update(
+    { templateSource: id },
+    { templateSource: null },
+    { multi: true }
+  );
+};
+
+export const clearAllTemplates = () => {
+  const templatesList = Templates.find({}).fetch();
+  templatesList.map(item => {
+    Templates.remove({ _id: item._id });
   });
 };

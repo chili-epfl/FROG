@@ -27,7 +27,12 @@ import {
   removeGraph,
   Graphs
 } from '/imports/api/graphs';
-import { addTemplate } from '/imports/api/templates';
+import {
+  addTemplate,
+  findTemplate,
+  updateTemplate,
+  removeTemplate
+} from '/imports/api/templates';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
 import { getUsername } from '/imports/api/users';
@@ -35,7 +40,8 @@ import { getUsername } from '/imports/api/users';
 import {
   exportGraph,
   importGraph,
-  duplicateGraph
+  duplicateGraph,
+  graphToString
 } from '/imports/api/exportGraph';
 import { connect, store } from '../store';
 import exportPicture from '../utils/exportPicture';
@@ -126,7 +132,7 @@ class GraphActionMenu extends React.Component<*, *> {
   };
 
   handleTemplateModalClose = () => {
-    this.setState({ openTemplateModal: false });
+    this.setState({ openTemplateModal: false, anchorEl: null });
   };
 
   render() {
@@ -136,6 +142,7 @@ class GraphActionMenu extends React.Component<*, *> {
       setIdRemove,
       store: {
         graphId,
+        templateSource,
         ui: { setSidepanelOpen, setShowHelpModal }
       }
     } = this.props;
@@ -145,10 +152,13 @@ class GraphActionMenu extends React.Component<*, *> {
     const parentId = graph?.parentId;
     const sessionId = graph?.sessionId;
 
-    const submitTemplate = templateName => {
-      addTemplate(templateName, graphId);
-      this.handleClose();
+    const submitTemplate = (templateName, graph) => {
+      const graphObj = JSON.parse(graphToString(graph));
+      addTemplate(templateName, graphObj);
+      this.handleTemplateModalClose();
     };
+
+    const template = findTemplate(templateSource);
 
     return (
       <>
@@ -157,6 +167,7 @@ class GraphActionMenu extends React.Component<*, *> {
             open={this.state.openTemplateModal}
             callback={this.handleTemplateModalClose}
             onSubmit={submitTemplate}
+            graph={graphId}
           />
           <IconButton
             aria-owns={open ? 'menu-list' : null}
@@ -182,19 +193,45 @@ class GraphActionMenu extends React.Component<*, *> {
               <Add className={classes.leftIcon} aria-hidden="true" />
               Add New Graph
             </MenuItem>
-            <MenuItem
-              onClick={() => {
-                this.handleTemplateModalOpen();
-                //store.setId(addTemplate());
-                this.handleClose();
-              }}
-            >
-              <DescriptionIcon
-                className={classes.leftIcon}
-                aria-hidden="true"
-              />
-              Save as Template
-            </MenuItem>
+            {template ? (
+              <>
+                <MenuItem
+                  onClick={() => {
+                    const graphObj = JSON.parse(graphToString(graph));
+                    updateTemplate(templateSource, graphObj);
+                    this.handleClose();
+                  }}
+                >
+                  <DescriptionIcon
+                    className={classes.leftIcon}
+                    aria-hidden="true"
+                  />
+                  Update Template
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    removeTemplate(templateSource);
+                    this.handleClose();
+                  }}
+                >
+                  <Delete className={classes.leftIcon} aria-hidden="true" />
+                  Delete Template
+                </MenuItem>
+              </>
+            ) : (
+              <MenuItem
+                onClick={() => {
+                  this.handleTemplateModalOpen();
+                  this.handleClose();
+                }}
+              >
+                <DescriptionIcon
+                  className={classes.leftIcon}
+                  aria-hidden="true"
+                />
+                Save as Template
+              </MenuItem>
+            )}
             <MenuItem
               onClick={() => {
                 duplicateGraph(store, graphId);

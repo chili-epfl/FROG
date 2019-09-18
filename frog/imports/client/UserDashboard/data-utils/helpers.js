@@ -3,6 +3,8 @@ import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
+import { store } from '../../GraphEditor/store';
+import { addGraph } from '/imports/api/graphs';
 
 type meteorSessionObjectT = {
   _id: string,
@@ -105,6 +107,8 @@ export const parseTemplateData = (
     dateCreated: parseDate(item.createdAt),
     dateObj: item.createdAt,
     callback: () => {
-      history.push(`/teacher/graph/${item.graphId}`);
+      history.push(`/teacher/graph/`);
+      const newGraphId = addGraph({ ...item.graph, templateSource: item._id });
+      store.setId(newGraphId);
     }
   }));

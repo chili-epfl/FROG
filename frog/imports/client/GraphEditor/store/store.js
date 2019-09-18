@@ -104,6 +104,8 @@ export default class Store {
 
   graphId: string;
 
+  templateSource: string;
+
   _graphDuration: number;
 
   graphDuration: number;
@@ -139,6 +141,7 @@ export default class Store {
       session: new Session(),
       ui: new UI(),
       graphId: '',
+      templateSource: null,
       graphErrors: [],
       valid: undefined,
       _graphDuration: 60,
@@ -268,6 +271,11 @@ export default class Store {
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(true);
+        this.templateSource = graph
+          ? graph.templateSource
+            ? graph.templateSource
+            : null
+          : null;
       }),
 
       addHistory: action(() => {

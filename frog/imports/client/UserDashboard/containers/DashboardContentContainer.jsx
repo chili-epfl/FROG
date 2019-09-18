@@ -9,6 +9,7 @@ import {
   SessionListT,
   TemplatesListT
 } from '/imports/ui/Types/types';
+import { clearAllTemplates } from '/imports/api/templates';
 
 type DashboardContentContainerPropsT = {
   history: RouterHistory,
@@ -107,7 +108,12 @@ export const DashboardContentContainer = ({
         );
 
       case 'Templates':
-        return <TemplatesPage templatesList={sortedTemplatesList} />;
+        return (
+          <TemplatesPage
+            templatesList={sortedTemplatesList}
+            actionCallback={() => clearAllTemplates()}
+          />
+        );
 
       default:
         return (

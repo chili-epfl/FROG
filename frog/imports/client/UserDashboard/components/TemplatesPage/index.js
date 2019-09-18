@@ -5,6 +5,7 @@ import { List, Grid, Typography, Paper } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { TemplatesListT } from '/imports/ui/Types/types';
 import { ContentListItem } from '/imports/ui/ListItem';
+import { Button } from '/imports/ui/Button';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -20,10 +21,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type TemplatesPagePropsT = {
-  templatesList: TemplatesListT
+  templatesList: TemplatesListT,
+  actionCallback: () => void
 };
 
-export const TemplatesPage = ({ templatesList }: TemplatesPagePropsT) => {
+export const TemplatesPage = ({
+  templatesList,
+  actionCallback
+}: TemplatesPagePropsT) => {
   const classes = useStyles();
   return (
     <Grid container>
@@ -33,6 +38,9 @@ export const TemplatesPage = ({ templatesList }: TemplatesPagePropsT) => {
             <Typography variant="h5" align="left">
               <DescriptionIcon /> Templates
             </Typography>
+            <Button onClick={actionCallback} variant="primary">
+              Delete All
+            </Button>
           </div>
 
           <List>

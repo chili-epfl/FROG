@@ -145,7 +145,12 @@ export const addGraph = (graphObj?: Object): string => {
     _id: graphId,
     name,
     ownerId: Meteor.userId(),
-    createdAt: new Date()
+    createdAt: new Date(),
+    templateSource: graphObj
+      ? graphObj.templateSource
+        ? graphObj.templateSource
+        : null
+      : null
   });
   if (!graphObjTmp) {
     return graphId;

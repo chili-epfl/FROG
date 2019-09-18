@@ -27,7 +27,8 @@ const useStyle = makeStyles(theme => ({
 type TemplateModalProps = {
   open: boolean,
   callback: () => void,
-  onSubmit: (name: string) => void
+  onSubmit: (name: string, graphId: string) => void,
+  graph: string
 };
 
 const TemplateModal = (props: TemplateModalProps) => {
@@ -55,7 +56,7 @@ const TemplateModal = (props: TemplateModalProps) => {
           onChange={handleChange('name')}
           onKeyDown={e => {
             if (e.keyCode === 13) {
-              props.onSubmit(values.name);
+              props.onSubmit(values.name, props.graph);
             }
           }}
           name="name"
@@ -69,7 +70,7 @@ const TemplateModal = (props: TemplateModalProps) => {
           color="primary"
           className={classes.submit}
           onClick={() => {
-            props.onSubmit(values.name);
+            props.onSubmit(values.name, props.graph);
           }}
         >
           Save
