@@ -106,6 +106,8 @@ export default class Store {
 
   templateSource: string;
 
+  templateOpenFlag: boolean;
+
   _graphDuration: number;
 
   graphDuration: number;
@@ -142,6 +144,7 @@ export default class Store {
       ui: new UI(),
       graphId: '',
       templateSource: null,
+      templateOpenFlag: false,
       graphErrors: [],
       valid: undefined,
       _graphDuration: 60,
@@ -271,11 +274,15 @@ export default class Store {
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
         this.ui.setSidepanelOpen(true);
-        this.templateSource = graph
-          ? graph.templateSource
-            ? graph.templateSource
-            : null
-          : null;
+        this.templateSource = graph ? graph.templateSource : null;
+      }),
+
+      setTemplateSource: action(templateId => {
+        this.templateSource = templateId;
+      }),
+
+      setTemplateOpenFlag: action(flag => {
+        this.templateOpenFlag = flag;
       }),
 
       addHistory: action(() => {

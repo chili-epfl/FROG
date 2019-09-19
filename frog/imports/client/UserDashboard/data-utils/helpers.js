@@ -110,5 +110,6 @@ export const parseTemplateData = (
       history.push(`/teacher/graph/`);
       const newGraphId = addGraph({ ...item.graph, templateSource: item._id });
       store.setId(newGraphId);
+      store.setTemplateOpenFlag(true);
     }
   }));

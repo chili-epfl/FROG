@@ -20,11 +20,13 @@ import Timeline from '@material-ui/icons/Timeline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Help from '@material-ui/icons/Help';
 import TemplateModal from './TemplateModal';
+import SnackbarMessage from './Snackbar';
 
 import {
   addGraph,
   assignGraph,
   removeGraph,
+  setGraphTemplate,
   Graphs
 } from '/imports/api/graphs';
 import {
@@ -116,7 +118,14 @@ class GraphActionMenu extends React.Component<*, *> {
   state = {
     open: false,
     openTemplateModal: false,
-    anchorEl: null
+    anchorEl: null,
+    snackbarOpen: store.templateOpenFlag ? true : false,
+    snackbarMessageVal: {
+      message: store.templateOpenFlag
+        ? 'Created a new graph based on template'
+        : 'Welcome to Graph Editor',
+      variant: 'info'
+    }
   };
 
   handleClick = event => {
@@ -133,6 +142,24 @@ class GraphActionMenu extends React.Component<*, *> {
 
   handleTemplateModalClose = () => {
     this.setState({ openTemplateModal: false, anchorEl: null });
+  };
+
+  handleSnackbarOpen = (message, variant) => {
+    this.setState({
+      snackbarOpen: true,
+      snackbarMessageVal: { message, variant }
+    });
+  };
+
+  handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ snackbarOpen: false });
+
+    if (store.templateOpenFlag) {
+      store.setTemplateOpenFlag(false);
+    }
   };
 
   render() {
@@ -154,8 +181,14 @@ class GraphActionMenu extends React.Component<*, *> {
 
     const submitTemplate = (templateName, graph) => {
       const graphObj = JSON.parse(graphToString(graph));
-      addTemplate(templateName, graphObj);
+      const templateId = addTemplate(templateName, graphObj);
+      setGraphTemplate(graph, templateId);
+      store.setTemplateSource(templateId);
       this.handleTemplateModalClose();
+      this.handleSnackbarOpen(
+        `New Template: ${templateName} added!`,
+        'success'
+      );
     };
 
     const template = findTemplate(templateSource);
@@ -169,6 +202,12 @@ class GraphActionMenu extends React.Component<*, *> {
             onSubmit={submitTemplate}
             graph={graphId}
           />
+          <SnackbarMessage
+            open={this.state.snackbarOpen}
+            handleClose={this.handleSnackbarClose}
+            message={this.state.snackbarMessageVal.message}
+            variant={this.state.snackbarMessageVal.variant}
+          ></SnackbarMessage>
           <IconButton
             aria-owns={open ? 'menu-list' : null}
             aria-haspopup="true"
@@ -197,7 +236,14 @@ class GraphActionMenu extends React.Component<*, *> {
               <MenuItem
                 onClick={() => {
                   const graphObj = JSON.parse(graphToString(graphId));
-                  updateTemplate(templateSource, graphObj);
+                  if (updateTemplate(templateSource, graphObj)) {
+                    this.handleSnackbarOpen('Templated updated!', 'success');
+                  } else {
+                    this.handleSnackbarOpen(
+                      'Error updating template!',
+                      'error'
+                    );
+                  }
                   this.handleClose();
                 }}
               >
@@ -224,7 +270,14 @@ class GraphActionMenu extends React.Component<*, *> {
             {template ? (
               <MenuItem
                 onClick={() => {
-                  removeTemplate(templateSource);
+                  if (removeTemplate(templateSource)) {
+                    this.handleSnackbarOpen('Templated deleted!', 'success');
+                  } else {
+                    this.handleSnackbarOpen(
+                      'Error deleting template!',
+                      'error'
+                    );
+                  }
                   this.handleClose();
                 }}
               >

@@ -14,14 +14,11 @@ export const addTemplate = (name, graph) => {
     ownerId: Meteor.userId(),
     createdAt: new Date()
   });
+  return templateId;
 };
 
 export const findTemplate = id => {
-  if (id) {
-    const template = Templates.findOne(id);
-    return template;
-  }
-  return null;
+  return Templates.findOne(id);
 };
 
 export const updateTemplate = (id, graph) => {
@@ -33,7 +30,7 @@ export const updateTemplate = (id, graph) => {
     );
     return template;
   } catch (err) {
-    console.warn(err);
+    console.warn(`Error updating template. Error Log: ${err}`);
     return false;
   }
 };
@@ -43,12 +40,12 @@ export const removeTemplate = id => {
     Templates.remove({ _id: id });
     Graphs.update(
       { templateSource: id },
-      { templateSource: null },
+      { $set: { templateSource: null } },
       { multi: true }
     );
     return true;
   } catch (err) {
-    console.warn(err);
+    console.warn(`Error deleting template. Error Log: ${err}`);
     return false;
   }
 };
