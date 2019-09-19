@@ -26,24 +26,31 @@ export const findTemplate = id => {
 
 export const updateTemplate = (id, graph) => {
   try {
-    const template = Templates.findAndModify({
-      query: { _id: id },
-      update: { graph: graph }
-    });
+    const doc = Templates.findOne(id);
+    const template = Templates.update(
+      { _id: doc._id },
+      { $set: { graph: graph } }
+    );
     return template;
   } catch (err) {
-    window.alert('Error updating template');
-    console.warn('Error updating template');
+    console.warn(err);
+    return false;
   }
 };
 
 export const removeTemplate = id => {
-  Templates.remove({ _id: id });
-  Graphs.update(
-    { templateSource: id },
-    { templateSource: null },
-    { multi: true }
-  );
+  try {
+    Templates.remove({ _id: id });
+    Graphs.update(
+      { templateSource: id },
+      { templateSource: null },
+      { multi: true }
+    );
+    return true;
+  } catch (err) {
+    console.warn(err);
+    return false;
+  }
 };
 
 export const clearAllTemplates = () => {

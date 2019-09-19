@@ -141,6 +141,7 @@ export const DashboardContentContainer = ({
       activePage={activePage}
       history={history}
       showDrafts={draftsList.length > 0}
+      showTemplates={templatesList.length > 0}
     >
       <ComponentToRender />
     </DashboardSideBar>

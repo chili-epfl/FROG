@@ -38,9 +38,6 @@ export const TemplatesPage = ({
             <Typography variant="h5" align="left">
               <DescriptionIcon /> Templates
             </Typography>
-            <Button onClick={actionCallback} variant="primary">
-              Delete All
-            </Button>
           </div>
 
           <List>

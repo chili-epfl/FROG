@@ -194,30 +194,19 @@ class GraphActionMenu extends React.Component<*, *> {
               Add New Graph
             </MenuItem>
             {template ? (
-              <>
-                <MenuItem
-                  onClick={() => {
-                    const graphObj = JSON.parse(graphToString(graph));
-                    updateTemplate(templateSource, graphObj);
-                    this.handleClose();
-                  }}
-                >
-                  <DescriptionIcon
-                    className={classes.leftIcon}
-                    aria-hidden="true"
-                  />
-                  Update Template
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    removeTemplate(templateSource);
-                    this.handleClose();
-                  }}
-                >
-                  <Delete className={classes.leftIcon} aria-hidden="true" />
-                  Delete Template
-                </MenuItem>
-              </>
+              <MenuItem
+                onClick={() => {
+                  const graphObj = JSON.parse(graphToString(graphId));
+                  updateTemplate(templateSource, graphObj);
+                  this.handleClose();
+                }}
+              >
+                <DescriptionIcon
+                  className={classes.leftIcon}
+                  aria-hidden="true"
+                />
+                Update Template
+              </MenuItem>
             ) : (
               <MenuItem
                 onClick={() => {
@@ -232,6 +221,17 @@ class GraphActionMenu extends React.Component<*, *> {
                 Save as Template
               </MenuItem>
             )}
+            {template ? (
+              <MenuItem
+                onClick={() => {
+                  removeTemplate(templateSource);
+                  this.handleClose();
+                }}
+              >
+                <Delete className={classes.leftIcon} aria-hidden="true" />
+                Delete Template
+              </MenuItem>
+            ) : null}
             <MenuItem
               onClick={() => {
                 duplicateGraph(store, graphId);

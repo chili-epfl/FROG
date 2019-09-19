@@ -45,7 +45,8 @@ type DashBoardSideBarPropsT = {
   recentsActive: boolean,
   activePage: string,
   history: any,
-  showDrafts: boolean
+  showDrafts: boolean,
+  showTemplates: boolean
 };
 export const DashboardSideBar = ({
   callbackRecentsView,
@@ -59,6 +60,7 @@ export const DashboardSideBar = ({
   history,
   activePage,
   showDrafts,
+  showTemplates,
   children
 }: DashBoardSideBarPropsT) => {
   const classes = useStyles();
@@ -111,14 +113,16 @@ export const DashboardSideBar = ({
               >
                 Sessions
               </RowButton>
-              <RowButton
-                icon={<DescriptionIcon />}
-                active={templatesActive}
-                onClick={callbackTemplatesView}
-                rightIcon={<KeyboardArrowRight fontSize="small" />}
-              >
-                Templates
-              </RowButton>
+              {showTemplates && (
+                <RowButton
+                  icon={<DescriptionIcon />}
+                  active={templatesActive}
+                  onClick={callbackTemplatesView}
+                  rightIcon={<KeyboardArrowRight fontSize="small" />}
+                >
+                  Templates
+                </RowButton>
+              )}
             </Panel>
           </Sidebar>
         }
