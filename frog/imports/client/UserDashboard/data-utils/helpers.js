@@ -1,10 +1,12 @@
 /* eslint-disable array-callback-return */
 import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
 import DescriptionIcon from '@material-ui/icons/Description';
+import ArchiveIcon from '@material-ui/icons/Archive';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
 import { store } from '../../GraphEditor/store';
-import { addGraph } from '/imports/api/graphs';
+import { addGraph, setArchiveStatus } from '/imports/api/graphs';
+import { setSessionArchive } from '/imports/api/sessions';
 
 type meteorSessionObjectT = {
   _id: string,
@@ -24,7 +26,7 @@ type meteorDraftObjectT = {
 
 type meteorTemplateObjectT = {
   name: string,
-  graphId: string,
+  graph: object,
   createdAt: Date,
   _id: string
 };
@@ -80,7 +82,17 @@ export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
       itemTitle: item.name,
       dateCreated: parseDate(item.createdAt),
       dateObj: item.createdAt,
-      callback: () => history.push(`/teacher/graph/${item._id}`)
+      callback: () => history.push(`/teacher/graph/${item._id}`),
+      secondaryActions: [
+        {
+          icon: ArchiveIcon,
+          title: item.archived ? 'Unarchive' : 'Archive',
+          action: () =>
+            item.archived
+              ? setArchiveStatus(item._id, null)
+              : setArchiveStatus(item._id, true)
+        }
+      ]
     }));
 
 export const parseSessionData = (
@@ -94,7 +106,17 @@ export const parseSessionData = (
     itemType: getSessionTypeInfo(item),
     dateCreated: parseEpocDate(item.startedAt),
     dateObj: new Date(item.startedAt),
-    callback: () => history.push(`t/${item.slug}`)
+    callback: () => history.push(`t/${item.slug}`),
+    secondaryActions: [
+      {
+        icon: ArchiveIcon,
+        title: item.archived ? 'Unarchive' : 'Archive',
+        action: () =>
+          item.archived
+            ? setSessionArchive(item._id, null)
+            : setSessionArchive(item._id, true)
+      }
+    ]
   }));
 
 export const parseTemplateData = (

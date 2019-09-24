@@ -3,11 +3,13 @@ import { DashboardSideBar } from '/imports/client/UserDashboard/components/Dashb
 import { RecentsPage } from '/imports/client/UserDashboard/components/RecentsPage';
 import { DraftsPage } from '/imports/client/UserDashboard/components/DraftsPage';
 import { TemplatesPage } from '/imports/client/UserDashboard/components/TemplatesPage';
+import { ArchivesPage } from '/imports/client/UserDashboard/components/ArchivesPage';
 import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsPage';
 import {
   DraftsListT,
   SessionListT,
-  TemplatesListT
+  TemplatesListT,
+  ArchivesListT
 } from '/imports/ui/Types/types';
 import { clearAllTemplates } from '/imports/api/templates';
 
@@ -15,19 +17,22 @@ type DashboardContentContainerPropsT = {
   history: RouterHistory,
   draftsList: DraftsListT,
   sessionsList: SessionListT,
-  templatesList: TemplatesListT
+  templatesList: TemplatesListT,
+  archivesList: ArchivesListT
 };
 export const DashboardContentContainer = ({
   history,
   draftsList,
   sessionsList,
-  templatesList
+  templatesList,
+  archivesList
 }: DashboardContentContainerPropsT) => {
   const [selectedPage, setSelectedPage] = React.useState({
     sessionsView: false,
     draftsView: false,
     templatesView: false,
-    recentsView: true
+    recentsView: true,
+    archivesView: false
   });
   const [activePage, setActivePage] = React.useState(
     draftsList.length === 0 ? 'Sessions' : 'Recents'
@@ -39,7 +44,8 @@ export const DashboardContentContainer = ({
       sessionsView: false,
       draftsView: false,
       templatesView: false,
-      recentsView: true
+      recentsView: true,
+      archivesView: false
     });
   };
   const onSelectSessionsView = () => {
@@ -48,7 +54,8 @@ export const DashboardContentContainer = ({
       sessionsView: true,
       recentsView: false,
       templatesView: false,
-      draftsView: false
+      draftsView: false,
+      archivesView: false
     });
   };
   const onSelectDraftsView = () => {
@@ -57,7 +64,8 @@ export const DashboardContentContainer = ({
       sessionsView: false,
       draftsView: true,
       templatesView: false,
-      recentsView: false
+      recentsView: false,
+      archivesView: false
     });
   };
   const onSelectTemplatesView = () => {
@@ -66,7 +74,19 @@ export const DashboardContentContainer = ({
       sessionsView: false,
       draftsView: false,
       templatesView: true,
-      recentsView: false
+      recentsView: false,
+      archivesView: false
+    });
+  };
+
+  const onSelectArchivesView = () => {
+    setActivePage('Archives');
+    setSelectedPage({
+      sessionsView: false,
+      draftsView: false,
+      templatesView: false,
+      recentsView: false,
+      archivesView: true
     });
   };
 
@@ -82,6 +102,9 @@ export const DashboardContentContainer = ({
   ]);
   const sortedTemplatesList = React.useMemo(() => sortList(templatesList), [
     templatesList
+  ]);
+  const sortedArchivesList = React.useMemo(() => sortList(archivesList), [
+    archivesList
   ]);
 
   const ComponentToRender = () => {
@@ -115,6 +138,9 @@ export const DashboardContentContainer = ({
           />
         );
 
+      case 'Archives':
+        return <ArchivesPage archivesList={sortedArchivesList} />;
+
       default:
         return (
           <RecentsPage
@@ -134,14 +160,17 @@ export const DashboardContentContainer = ({
       callbackRecentsView={onSelectRecentsView}
       callbackDraftsView={onSelectDraftsView}
       callbackTemplatesView={onSelectTemplatesView}
+      callbackArchivesView={onSelectArchivesView}
       sessionsActive={draftsList.length === 0 || selectedPage.sessionsView}
       draftsActive={selectedPage.draftsView}
       recentsActive={selectedPage.recentsView}
       templatesActive={selectedPage.templatesView}
+      archivesActive={selectedPage.archivesView}
       activePage={activePage}
       history={history}
       showDrafts={draftsList.length > 0}
       showTemplates={templatesList.length > 0}
+      showArchives={archivesList.length > 0}
     >
       <ComponentToRender />
     </DashboardSideBar>

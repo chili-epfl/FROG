@@ -146,7 +146,8 @@ export const addGraph = (graphObj?: Object): string => {
     name,
     ownerId: Meteor.userId(),
     createdAt: new Date(),
-    templateSource: graphObj ? graphObj.templateSource : null
+    templateSource: graphObj ? graphObj.templateSource : null,
+    archived: null
   });
   if (!graphObjTmp) {
     return graphId;
@@ -215,6 +216,10 @@ export const renameGraph = (graphId: string, name: string) =>
 
 export const setGraphTemplate = (graphId: string, templateId: string) =>
   Graphs.update(graphId, { $set: { templateSource: templateId } });
+
+export const setArchiveStatus = (graphId: string, val: boolean) => {
+  Graphs.update(graphId, { $set: { archived: val } });
+};
 
 // updating graph from graph editor
 export const mergeGraph = (mergeObj: Object) => {

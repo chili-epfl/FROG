@@ -12,39 +12,59 @@ import {
 import {
   DraftsListT,
   SessionListT,
-  TemplatesListT
+  TemplatesListT,
+  ArchivesListT
 } from '/imports/ui/Types/types';
 
 type DashboardDataContainerPropT = {
   history: RouterHistory,
   draftsList: DraftsListT,
   sessionsList: SessionListT,
-  templatesList: TemplatesListT
+  templatesList: TemplatesListT,
+  archivesListTemplates: ArchivesListT,
+  archivesListSessions: ArchivesListT
 };
 
 const DashboardDataContainer = ({
   history,
   draftsList,
   sessionsList,
-  templatesList
+  templatesList,
+  archivesListSessions,
+  archivesListTemplates
 }: DashboardDataContainerPropT) => {
   const parsedDraftsList = parseDraftData(draftsList, history);
   const parsedSessionsList = parseSessionData(sessionsList, history);
   const parsedTemplatesList = parseTemplateData(templatesList, history);
+  const parsedArchivesList = [
+    ...parseDraftData(archivesListTemplates, history),
+    ...parseSessionData(archivesListSessions, history)
+  ];
   return (
     <DashboardContentContainer
       history={history}
       draftsList={parsedDraftsList}
       sessionsList={parsedSessionsList}
       templatesList={parsedTemplatesList}
+      archivesList={parsedArchivesList}
     />
   );
 };
 
 export default withTracker(props => {
-  const draftsList = Graphs.find({}).fetch();
-  const sessionsList = Sessions.find({}).fetch();
+  const draftsList = Graphs.find({ archived: null }).fetch();
+  const sessionsList = Sessions.find({ archived: null }).fetch();
   const templatesList = Templates.find({}).fetch();
 
-  return { ...props, draftsList, sessionsList, templatesList };
+  const archivesListTemplates = Graphs.find({ archived: true }).fetch();
+  const archivesListSessions = Sessions.find({ archived: true }).fetch();
+
+  return {
+    ...props,
+    draftsList,
+    sessionsList,
+    templatesList,
+    archivesListSessions,
+    archivesListTemplates
+  };
 })(DashboardDataContainer);

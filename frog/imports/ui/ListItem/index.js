@@ -10,6 +10,7 @@ import { ListItemSecondaryAction } from '@material-ui/core';
 import { OverflowMenu } from '../OverflowMenu';
 import { RowButton } from '../RowItems';
 import { Button } from '../Button';
+import ArchiveIcon from '@material-ui/icons/Archive';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -119,7 +120,11 @@ export const ContentListItem = ({
             {secondaryActions.map((item, index) => {
               const ListIcon = item.icon;
               return (
-                <RowButton key={index} icon={<ListIcon />}>
+                <RowButton
+                  key={index}
+                  icon={<ListIcon />}
+                  onClick={item.action}
+                >
                   {item.title}
                 </RowButton>
               );
