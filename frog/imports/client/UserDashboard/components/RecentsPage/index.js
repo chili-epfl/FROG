@@ -3,7 +3,12 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
 import { Bookmark, ShowChart, MoreHoriz, Add } from '@material-ui/icons';
-import { SessionListT, DraftsListT } from '/imports/ui/Types/types';
+import DescriptionIcon from '@material-ui/icons/Description';
+import {
+  SessionListT,
+  DraftsListT,
+  TemplatesListT
+} from '/imports/ui/Types/types';
 import { ContentListItem } from '/imports/ui/ListItem';
 import { Button } from '/imports/ui/Button';
 
@@ -23,67 +28,120 @@ const useStyles = makeStyles(theme => ({
 type RecentsPagePropsT = {
   sessionsList: SessionListT,
   draftsList: DraftsListT,
+  templatesList: TemplatesListT,
   actionCallback: () => void,
   moreCallbackSessions: () => void,
-  moreCallbackDrafts: () => void
+  moreCallbackDrafts: () => void,
+  moreCallbackTemplates: () => void
 };
 
 export const RecentsPage = ({
   sessionsList,
   draftsList,
+  templatesList,
   actionCallback,
   moreCallbackDrafts,
-  moreCallbackSessions
+  moreCallbackSessions,
+  moreCallbackTemplates
 }: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
-    <Grid container>
-      {draftsList.length > 0 && (
+    <>
+      <Grid container>
+        {draftsList.length > 0 && (
+          <Grid item xs={6}>
+            <Paper className={classes.paper} elevation={0}>
+              <div className={classes.buttonRows}>
+                <Typography variant="h5" align="left">
+                  <ShowChart /> Drafts
+                </Typography>
+                <Button
+                  icon={<Add />}
+                  onClick={actionCallback}
+                  variant="primary"
+                />
+              </div>
+
+              <List>
+                {draftsList
+                  .slice(0, 6)
+                  .map(
+                    (
+                      {
+                        itemIcon,
+                        itemTitle,
+                        itemType,
+                        dateCreated,
+                        callback,
+                        secondaryActions
+                      },
+                      index
+                    ) => {
+                      return (
+                        <ContentListItem
+                          key={index}
+                          itemTitle={itemTitle}
+                          itemIcon={itemIcon}
+                          itemType={itemType}
+                          dateCreated={dateCreated}
+                          callback={callback}
+                          secondaryActions={secondaryActions}
+                        />
+                      );
+                    }
+                  )}
+              </List>
+              {draftsList.length > 6 && (
+                <Button
+                  onClick={moreCallbackDrafts}
+                  icon={<MoreHoriz />}
+                  variant="minimal"
+                >
+                  More
+                </Button>
+              )}
+            </Paper>
+          </Grid>
+        )}
+
         <Grid item xs={6}>
           <Paper className={classes.paper} elevation={0}>
-            <div className={classes.buttonRows}>
-              <Typography variant="h5" align="left">
-                <ShowChart /> Drafts
-              </Typography>
-              <Button
-                icon={<Add />}
-                onClick={actionCallback}
-                variant="primary"
-              />
-            </div>
+            <Typography variant="h5">
+              <Bookmark /> Sessions
+            </Typography>
 
-            <List>
-              {draftsList
+            <List dense>
+              {sessionsList
                 .slice(0, 6)
                 .map(
                   (
                     {
                       itemIcon,
                       itemTitle,
+                      status,
                       itemType,
                       dateCreated,
                       callback,
                       secondaryActions
                     },
                     index
-                  ) => {
-                    return (
-                      <ContentListItem
-                        key={index}
-                        itemTitle={itemTitle}
-                        itemIcon={itemIcon}
-                        itemType={itemType}
-                        dateCreated={dateCreated}
-                        callback={callback}
-                        secondaryActions={secondaryActions}
-                      />
-                    );
-                  }
+                  ) => (
+                    <ContentListItem
+                      key={index}
+                      itemIcon={itemIcon}
+                      itemTitle={itemTitle}
+                      itemType={itemType}
+                      dateCreated={dateCreated}
+                      status={status}
+                      callback={callback}
+                      secondaryActions={secondaryActions}
+                    />
+                  )
                 )}
             </List>
-            {draftsList.length > 6 && (
+            {sessionsList.length > 6 && (
               <Button
-                onClick={moreCallbackDrafts}
+                onClick={moreCallbackSessions}
                 icon={<MoreHoriz />}
                 variant="minimal"
               >
@@ -92,54 +150,59 @@ export const RecentsPage = ({
             )}
           </Paper>
         </Grid>
-      )}
-
-      <Grid item xs={6}>
-        <Paper className={classes.paper} elevation={0}>
-          <Typography variant="h5">
-            <Bookmark /> Sessions
-          </Typography>
-
-          <List dense>
-            {sessionsList
-              .slice(0, 6)
-              .map(
-                (
-                  {
-                    itemIcon,
-                    itemTitle,
-                    status,
-                    itemType,
-                    dateCreated,
-                    callback,
-                    secondaryActions
-                  },
-                  index
-                ) => (
-                  <ContentListItem
-                    key={index}
-                    itemIcon={itemIcon}
-                    itemTitle={itemTitle}
-                    itemType={itemType}
-                    dateCreated={dateCreated}
-                    status={status}
-                    callback={callback}
-                    secondaryActions={secondaryActions}
-                  />
-                )
-              )}
-          </List>
-          {sessionsList.length > 6 && (
-            <Button
-              onClick={moreCallbackSessions}
-              icon={<MoreHoriz />}
-              variant="minimal"
-            >
-              More
-            </Button>
-          )}
-        </Paper>
       </Grid>
-    </Grid>
+      <Grid container>
+        {templatesList.length > 0 && (
+          <Grid item xs={6}>
+            <Paper className={classes.paper} elevation={0}>
+              <div className={classes.buttonRows}>
+                <Typography variant="h5" align="left">
+                  <DescriptionIcon /> Templates
+                </Typography>
+              </div>
+
+              <List>
+                {templatesList
+                  .slice(0, 6)
+                  .map(
+                    (
+                      {
+                        itemIcon,
+                        itemTitle,
+                        itemType,
+                        dateCreated,
+                        callback,
+                        secondaryActions
+                      },
+                      index
+                    ) => {
+                      return (
+                        <ContentListItem
+                          key={index}
+                          itemTitle={itemTitle}
+                          itemIcon={itemIcon}
+                          itemType={itemType}
+                          dateCreated={dateCreated}
+                          callback={callback}
+                          secondaryActions={secondaryActions}
+                        />
+                      );
+                    }
+                  )}
+              </List>
+              {templatesList.length > 6 && (
+                <Button
+                  onClick={moreCallbackTemplates}
+                  icon={<MoreHoriz />}
+                  variant="minimal"
+                >
+                  More
+                </Button>
+              )}
+            </Paper>
+          </Grid>
+        )}
+      </Grid>
+    </>
   );
 };

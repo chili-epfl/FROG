@@ -30,34 +30,39 @@ const DashboardDataContainer = ({
   draftsList,
   sessionsList,
   templatesList,
+  archivesListDrafts,
   archivesListSessions,
   archivesListTemplates
 }: DashboardDataContainerPropT) => {
   const parsedDraftsList = parseDraftData(draftsList, history);
   const parsedSessionsList = parseSessionData(sessionsList, history);
   const parsedTemplatesList = parseTemplateData(templatesList, history);
-  const parsedArchivesList = [
-    ...parseDraftData(archivesListTemplates, history),
-    ...parseSessionData(archivesListSessions, history)
-  ];
+  const parsedArchives = {
+    drafts: parseDraftData(archivesListDrafts, history),
+    sessions: parseSessionData(archivesListSessions, history),
+    templates: parseTemplateData(archivesListTemplates, history)
+  };
   return (
     <DashboardContentContainer
       history={history}
       draftsList={parsedDraftsList}
       sessionsList={parsedSessionsList}
       templatesList={parsedTemplatesList}
-      archivesList={parsedArchivesList}
+      archives={parsedArchives}
     />
   );
 };
 
 export default withTracker(props => {
-  const draftsList = Graphs.find({ archived: null }).fetch();
-  const sessionsList = Sessions.find({ archived: null }).fetch();
-  const templatesList = Templates.find({}).fetch();
+  const draftsList = Graphs.find({ uiStatus: 'active' }).fetch();
+  const sessionsList = Sessions.find({ uiStatus: 'active' }).fetch();
+  const templatesList = Templates.find({ uiStatus: 'active' }).fetch();
 
-  const archivesListTemplates = Graphs.find({ archived: true }).fetch();
-  const archivesListSessions = Sessions.find({ archived: true }).fetch();
+  const archivesListTemplates = Templates.find({
+    uiStatus: 'archived'
+  }).fetch();
+  const archivesListSessions = Sessions.find({ uiStatus: 'archived' }).fetch();
+  const archivesListDrafts = Graphs.find({ uiStatus: 'archived' }).fetch();
 
   return {
     ...props,
@@ -65,6 +70,7 @@ export default withTracker(props => {
     sessionsList,
     templatesList,
     archivesListSessions,
-    archivesListTemplates
+    archivesListTemplates,
+    archivesListDrafts
   };
 })(DashboardDataContainer);

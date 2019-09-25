@@ -77,8 +77,8 @@ Meteor.methods({
 export const removeAllUsers = (session: string) =>
   Meteor.call('remove.all.users', session);
 
-export const setSessionArchive = (sessionId: string, val: boolean) => {
-  Sessions.update(sessionId, { $set: { archived: val } });
+export const setSessionUIStatus = (sessionId: string, val: boolean) => {
+  Sessions.update(sessionId, { $set: { uiStatus: val } });
 };
 
 export const setTeacherSession = (sessionId: ?string) => {
@@ -282,7 +282,7 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
       pausedAt: null,
       openActivities: [],
       slug: newSlug,
-      archived: null
+      uiStatus: 'active'
     });
     updateNextOpenActivities(sessionId, -1, activities);
     Graphs.update(copyGraphId, { $set: { sessionId } });

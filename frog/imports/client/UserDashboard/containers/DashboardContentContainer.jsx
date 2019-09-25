@@ -8,8 +8,7 @@ import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsP
 import {
   DraftsListT,
   SessionListT,
-  TemplatesListT,
-  ArchivesListT
+  TemplatesListT
 } from '/imports/ui/Types/types';
 import { clearAllTemplates } from '/imports/api/templates';
 
@@ -18,14 +17,14 @@ type DashboardContentContainerPropsT = {
   draftsList: DraftsListT,
   sessionsList: SessionListT,
   templatesList: TemplatesListT,
-  archivesList: ArchivesListT
+  archives: Object
 };
 export const DashboardContentContainer = ({
   history,
   draftsList,
   sessionsList,
   templatesList,
-  archivesList
+  archives
 }: DashboardContentContainerPropsT) => {
   const [selectedPage, setSelectedPage] = React.useState({
     sessionsView: false,
@@ -103,9 +102,17 @@ export const DashboardContentContainer = ({
   const sortedTemplatesList = React.useMemo(() => sortList(templatesList), [
     templatesList
   ]);
-  const sortedArchivesList = React.useMemo(() => sortList(archivesList), [
-    archivesList
+  const sortedArchivesDrafts = React.useMemo(() => sortList(archives.drafts), [
+    archives.drafts
   ]);
+  const sortedArchivesSessions = React.useMemo(
+    () => sortList(archives.sessions),
+    [archives.sessions]
+  );
+  const sortedArchivesTemplates = React.useMemo(
+    () => sortList(archives.templates),
+    [archives.templates]
+  );
 
   const ComponentToRender = () => {
     switch (activePage) {
@@ -114,9 +121,11 @@ export const DashboardContentContainer = ({
           <RecentsPage
             sessionsList={sortedSessionsList}
             draftsList={sortedDraftsList}
+            templatesList={sortedTemplatesList}
             actionCallback={() => history.push('/teacher/graph/new')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
+            moreCallbackDrafts={onSelectTemplatesView}
           />
         );
       case 'Sessions':
@@ -139,7 +148,13 @@ export const DashboardContentContainer = ({
         );
 
       case 'Archives':
-        return <ArchivesPage archivesList={sortedArchivesList} />;
+        return (
+          <ArchivesPage
+            archivesDrafts={sortedArchivesDrafts}
+            archivesSessions={sortedArchivesSessions}
+            archivesTemplates={sortedArchivesTemplates}
+          />
+        );
 
       default:
         return (
@@ -170,7 +185,11 @@ export const DashboardContentContainer = ({
       history={history}
       showDrafts={draftsList.length > 0}
       showTemplates={templatesList.length > 0}
-      showArchives={archivesList.length > 0}
+      showArchives={
+        archives.drafts.length > 0 ||
+        archives.sessions.length > 0 ||
+        archives.templates.length > 0
+      }
     >
       <ComponentToRender />
     </DashboardSideBar>

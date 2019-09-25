@@ -6,8 +6,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
 import { store } from '../../GraphEditor/store';
-import { addGraph, setArchiveStatus } from '/imports/api/graphs';
-import { setSessionArchive } from '/imports/api/sessions';
+import { addGraph, setGraphUIStatus } from '/imports/api/graphs';
+import { setSessionUIStatus } from '/imports/api/sessions';
+import { setTemplateUIStatus } from '/imports/api/templates';
 
 type meteorSessionObjectT = {
   _id: string,
@@ -84,26 +85,27 @@ export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
       dateCreated: parseDate(item.createdAt),
       dateObj: item.createdAt,
       callback: () => history.push(`/teacher/graph/${item._id}`),
-      secondaryActions: item.archived
-        ? [
-            {
-              icon: ArchiveIcon,
-              title: 'Unarchive',
-              action: () => setArchiveStatus(item._id, null)
-            },
-            {
-              icon: DeleteIcon,
-              title: 'Delete',
-              action: () => setArchiveStatus(item._id, null)
-            }
-          ]
-        : [
-            {
-              icon: ArchiveIcon,
-              title: 'Archive',
-              action: () => setArchiveStatus(item._id, true)
-            }
-          ]
+      secondaryActions:
+        item.uiStatus == 'archived'
+          ? [
+              {
+                icon: ArchiveIcon,
+                title: 'Unarchive',
+                action: () => setGraphUIStatus(item._id, 'active')
+              },
+              {
+                icon: DeleteIcon,
+                title: 'Delete',
+                action: () => setGraphUIStatus(item._id, 'deleted')
+              }
+            ]
+          : [
+              {
+                icon: ArchiveIcon,
+                title: 'Archive',
+                action: () => setGraphUIStatus(item._id, 'archived')
+              }
+            ]
     }));
 
 export const parseSessionData = (
@@ -118,26 +120,27 @@ export const parseSessionData = (
     dateCreated: parseEpocDate(item.startedAt),
     dateObj: new Date(item.startedAt),
     callback: () => history.push(`t/${item.slug}`),
-    secondaryActions: item.archived
-      ? [
-          {
-            icon: ArchiveIcon,
-            title: 'Unarchive',
-            action: () => setSessionArchive(item._id, null)
-          },
-          {
-            icon: DeleteIcon,
-            title: 'Delete',
-            action: () => setSessionArchive(item._id, null)
-          }
-        ]
-      : [
-          {
-            icon: ArchiveIcon,
-            title: 'Archive',
-            action: () => setSessionArchive(item._id, true)
-          }
-        ]
+    secondaryActions:
+      item.uiStatus == 'archived'
+        ? [
+            {
+              icon: ArchiveIcon,
+              title: 'Unarchive',
+              action: () => setSessionUIStatus(item._id, 'active')
+            },
+            {
+              icon: DeleteIcon,
+              title: 'Delete',
+              action: () => setSessionUIStatus(item._id, 'deleted')
+            }
+          ]
+        : [
+            {
+              icon: ArchiveIcon,
+              title: 'Archive',
+              action: () => setSessionUIStatus(item._id, 'archived')
+            }
+          ]
   }));
 
 export const parseTemplateData = (
@@ -154,5 +157,26 @@ export const parseTemplateData = (
       const newGraphId = addGraph({ ...item.graph, templateSource: item._id });
       store.setId(newGraphId);
       store.setTemplateOpenFlag(true);
-    }
+    },
+    secondaryActions:
+      item.uiStatus == 'archived'
+        ? [
+            {
+              icon: ArchiveIcon,
+              title: 'Unarchive',
+              action: () => setTemplateUIStatus(item._id, 'active')
+            },
+            {
+              icon: DeleteIcon,
+              title: 'Delete',
+              action: () => setTemplateUIStatus(item._id, 'deleted')
+            }
+          ]
+        : [
+            {
+              icon: ArchiveIcon,
+              title: 'Archive',
+              action: () => setTemplateUIStatus(item._id, 'archived')
+            }
+          ]
   }));

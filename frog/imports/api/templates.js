@@ -12,7 +12,8 @@ export const addTemplate = (name, graph) => {
     graph: graph,
     _id: templateId,
     ownerId: Meteor.userId(),
-    createdAt: new Date()
+    createdAt: new Date(),
+    uiStatus: 'active'
   });
   return templateId;
 };
@@ -33,6 +34,11 @@ export const updateTemplate = (id, graph) => {
     console.warn(`Error updating template. Error Log: ${err}`);
     return false;
   }
+};
+
+export const setTemplateUIStatus = (id, statusVal) => {
+  const doc = Templates.findOne(id);
+  Templates.update({ _id: doc._id }, { $set: { uiStatus: statusVal } });
 };
 
 export const removeTemplate = id => {
