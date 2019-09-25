@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
-import DescriptionIcon from '@material-ui/icons/Description';
+import ArchiveIcon from '@material-ui/icons/Archive';
 import { ArchivesListT } from '/imports/ui/Types/types';
 import { ContentListItem } from '/imports/ui/ListItem';
 import { Button } from '/imports/ui/Button';
@@ -36,7 +36,7 @@ export const ArchivesPage = ({
         <Paper className={classes.paper} elevation={0}>
           <div className={classes.buttonRows}>
             <Typography variant="h5" align="left">
-              <DescriptionIcon /> Archives
+              <ArchiveIcon /> Archives
             </Typography>
           </div>
 

@@ -2,6 +2,7 @@
 import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ArchiveIcon from '@material-ui/icons/Archive';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
 import { store } from '../../GraphEditor/store';
@@ -83,16 +84,26 @@ export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
       dateCreated: parseDate(item.createdAt),
       dateObj: item.createdAt,
       callback: () => history.push(`/teacher/graph/${item._id}`),
-      secondaryActions: [
-        {
-          icon: ArchiveIcon,
-          title: item.archived ? 'Unarchive' : 'Archive',
-          action: () =>
-            item.archived
-              ? setArchiveStatus(item._id, null)
-              : setArchiveStatus(item._id, true)
-        }
-      ]
+      secondaryActions: item.archived
+        ? [
+            {
+              icon: ArchiveIcon,
+              title: 'Unarchive',
+              action: () => setArchiveStatus(item._id, null)
+            },
+            {
+              icon: DeleteIcon,
+              title: 'Delete',
+              action: () => setArchiveStatus(item._id, null)
+            }
+          ]
+        : [
+            {
+              icon: ArchiveIcon,
+              title: 'Archive',
+              action: () => setArchiveStatus(item._id, true)
+            }
+          ]
     }));
 
 export const parseSessionData = (
@@ -107,16 +118,26 @@ export const parseSessionData = (
     dateCreated: parseEpocDate(item.startedAt),
     dateObj: new Date(item.startedAt),
     callback: () => history.push(`t/${item.slug}`),
-    secondaryActions: [
-      {
-        icon: ArchiveIcon,
-        title: item.archived ? 'Unarchive' : 'Archive',
-        action: () =>
-          item.archived
-            ? setSessionArchive(item._id, null)
-            : setSessionArchive(item._id, true)
-      }
-    ]
+    secondaryActions: item.archived
+      ? [
+          {
+            icon: ArchiveIcon,
+            title: 'Unarchive',
+            action: () => setSessionArchive(item._id, null)
+          },
+          {
+            icon: DeleteIcon,
+            title: 'Delete',
+            action: () => setSessionArchive(item._id, null)
+          }
+        ]
+      : [
+          {
+            icon: ArchiveIcon,
+            title: 'Archive',
+            action: () => setSessionArchive(item._id, true)
+          }
+        ]
   }));
 
 export const parseTemplateData = (
