@@ -135,11 +135,11 @@ export const findOneGraphMongo = (id: string) => {
   }
 };
 
-export const addGraph = (graphObj?: Object): string => {
+export const addGraph = (graphObj?: Object, nameVal?: String): string => {
   const graphObjTmp = graphObj && graphObj.graph && upgradeGraph(graphObj);
   const graphId = uuid();
-  const name =
-    (graphObjTmp && graphObjTmp.graph && graphObjTmp.graph.name) || 'Unnamed';
+  let name = graphObjTmp.graph.name ? graphObjTmp.graph.name : 'Unnamed';
+  name = nameVal ? nameVal : 'Unnamed';
   insertGraphMongo({
     ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,

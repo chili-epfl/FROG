@@ -108,7 +108,10 @@ export const parseTemplateData = (
     dateObj: item.createdAt,
     callback: () => {
       history.push(`/teacher/graph/`);
-      const newGraphId = addGraph({ ...item.graph, templateSource: item._id });
+      const newGraphId = addGraph(
+        { ...item.graph, templateSource: item._id },
+        item.name
+      );
       store.setId(newGraphId);
       store.setTemplateOpenFlag(true);
     }
