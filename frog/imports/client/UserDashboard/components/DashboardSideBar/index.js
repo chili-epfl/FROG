@@ -93,6 +93,19 @@ export const DashboardSideBar = ({
                 </RowButton>
               </>
             }
+            footer={
+              showArchives && (
+                <Panel>
+                  <RowButton
+                    active={archivesActive}
+                    icon={<ArchiveIcon />}
+                    onClick={callbackArchivesView}
+                  >
+                    Archive
+                  </RowButton>
+                </Panel>
+              )
+            }
           >
             <Panel>
               {showDrafts && (
@@ -134,17 +147,6 @@ export const DashboardSideBar = ({
                 </RowButton>
               )}
             </Panel>
-            {showArchives && (
-              <Panel>
-                <RowButton
-                  active={archivesActive}
-                  icon={<ArchiveIcon />}
-                  onClick={callbackArchivesView}
-                >
-                  Archive
-                </RowButton>
-              </Panel>
-            )}
           </Sidebar>
         }
         contentTopBar={

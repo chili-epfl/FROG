@@ -8,7 +8,7 @@ import { MoreVert } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItemSecondaryAction } from '@material-ui/core';
 import { OverflowMenu } from '../OverflowMenu';
-import { RowButton } from '../RowItems';
+import { RowButton, RowTitle } from '../RowItems';
 import { Button } from '../Button';
 import ArchiveIcon from '@material-ui/icons/Archive';
 
@@ -117,6 +117,7 @@ export const ContentListItem = ({
           <OverflowMenu
             button={<Button variant="minimal" icon={<MoreVert />} />}
           >
+            <RowTitle>Actions</RowTitle>
             {secondaryActions.map((item, index) => {
               const ListIcon = item.icon;
               return (
