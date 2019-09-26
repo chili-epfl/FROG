@@ -37,7 +37,8 @@ export const updateTemplate = (id, graph) => {
 
 export const removeTemplate = id => {
   try {
-    Templates.remove({ _id: id });
+    const doc = Templates.findOne(id);
+    Templates.remove({ _id: doc._id });
     Graphs.update(
       { templateSource: id },
       { $set: { templateSource: null } },
