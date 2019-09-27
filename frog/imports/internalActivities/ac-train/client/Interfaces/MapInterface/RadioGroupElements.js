@@ -25,7 +25,7 @@ const styles = (theme: Object) => ({
     padding: '100px'
   },
   group: {
-    margin: `${theme.spacing()}px 0`
+    margin: `${theme.spacing(1)}px 0`
   }
 });
 
