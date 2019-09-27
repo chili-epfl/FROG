@@ -12,8 +12,8 @@ const clean = obj => {
   return ret;
 };
 
-export const graphToString = graphId => {
-  return Stringify({
+export const graphToString = graphId =>
+  Stringify({
     graph: omit(findOneGraphMongo(graphId), 'sessionId'),
     activities: findActivitiesMongo({ graphId }).map(x => clean(x)),
     operators: findOperatorsMongo({ graphId }).map(x => clean(x)),
@@ -21,7 +21,6 @@ export const graphToString = graphId => {
       .fetch()
       .map(x => clean(x))
   });
-};
 
 const cleanFilename = s =>
   s.replace(/[^a-z0-9_-]/gi, '_').replace(/_{2,}/g, '_');
