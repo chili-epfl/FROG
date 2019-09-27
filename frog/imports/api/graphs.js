@@ -138,20 +138,14 @@ export const findOneGraphMongo = (id: string) => {
 export const addGraph = (graphObj?: Object, nameVal?: String): string => {
   const graphObjTmp = graphObj && graphObj.graph && upgradeGraph(graphObj);
   const graphId = uuid();
-  let name =
-    graphObjTmp && graphObjTmp.graph
-      ? graphObjTmp.graph.name
-        ? graphObjTmp.graph.name
-        : 'Unnamed'
-      : 'Unnamed';
-  name = nameVal ? nameVal : 'Unnamed';
+  const name = graphObjTmp?.graph?.name || nameVal || 'Unnamed';
   insertGraphMongo({
     ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
     ownerId: Meteor.userId(),
     createdAt: new Date(),
-    templateSource: graphObj ? graphObj.templateSource : null
+    templateSource: graphObj?.templateSource
   });
   if (!graphObjTmp) {
     return graphId;

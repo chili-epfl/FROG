@@ -22,12 +22,10 @@ const useStyles = makeStyles(theme => ({
 
 type TemplatesPagePropsT = {
   templatesList: TemplatesListT,
-  actionCallback: () => void
 };
 
 export const TemplatesPage = ({
   templatesList,
-  actionCallback
 }: TemplatesPagePropsT) => {
   const classes = useStyles();
   return (
