@@ -31,7 +31,7 @@ const styles = theme => ({
     padding: '100px'
   },
   margin: {
-    margin: theme.spacing()
+    margin: theme.spacing(1)
   },
   withoutLabel: {
     marginTop: theme.spacing(3)
