@@ -22,7 +22,7 @@ const styles = theme => ({
     margin: '4px'
   },
   formControl: {
-    margin: theme.spacing()
+    margin: theme.spacing(1)
   },
   header: {
     backgroundColor: '#ddd',
