@@ -9,6 +9,7 @@ import {
 import { UploadList } from '../imports/api/openUploads';
 import { Operators, ExternalOperators } from '../imports/api/operators';
 import { Graphs } from '../imports/api/graphs';
+import { Templates } from '../imports/api/templates';
 import { Sessions } from '../imports/api/sessions';
 import { Products } from '../imports/api/products';
 import { Objects } from '../imports/api/objects';
@@ -61,6 +62,7 @@ export default function() {
   teacherPublish('connections', Connections);
   teacherPublish('uploadList', UploadList);
   teacherPublishOwn('graphs', Graphs, this.userId);
+  teacherPublishOwn('templates', Templates, this.userId);
   teacherPublishOwn('sessions', Sessions, this.userId);
 }
 

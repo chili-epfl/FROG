@@ -9,6 +9,7 @@ import {
   OpenInNew,
   MoreVert
 } from '@material-ui/icons';
+import DescriptionIcon from '@material-ui/icons/Description';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from '/imports/ui/Button';
@@ -36,24 +37,30 @@ type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
   callbackSessionsView: () => void,
   callbackDraftsView: () => void,
+  callbackTemplatesView: () => void,
   callbackRecentsView: () => void,
   sessionsActive: boolean,
   draftsActive: boolean,
+  templatesActive: Boolean,
   recentsActive: boolean,
   activePage: string,
   history: any,
-  showDrafts: boolean
+  showDrafts: boolean,
+  showTemplates: boolean
 };
 export const DashboardSideBar = ({
   callbackRecentsView,
   callbackSessionsView,
   callbackDraftsView,
+  callbackTemplatesView,
   sessionsActive,
   draftsActive,
+  templatesActive,
   recentsActive,
   history,
   activePage,
   showDrafts,
+  showTemplates,
   children
 }: DashBoardSideBarPropsT) => {
   const classes = useStyles();
@@ -106,6 +113,16 @@ export const DashboardSideBar = ({
               >
                 Sessions
               </RowButton>
+              {showTemplates && (
+                <RowButton
+                  icon={<DescriptionIcon />}
+                  active={templatesActive}
+                  onClick={callbackTemplatesView}
+                  rightIcon={<KeyboardArrowRight fontSize="small" />}
+                >
+                  Templates
+                </RowButton>
+              )}
             </Panel>
           </Sidebar>
         }

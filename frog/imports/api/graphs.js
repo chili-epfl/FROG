@@ -135,17 +135,17 @@ export const findOneGraphMongo = (id: string) => {
   }
 };
 
-export const addGraph = (graphObj?: Object): string => {
+export const addGraph = (graphObj?: Object, nameVal?: String): string => {
   const graphObjTmp = graphObj && graphObj.graph && upgradeGraph(graphObj);
   const graphId = uuid();
-  const name =
-    (graphObjTmp && graphObjTmp.graph && graphObjTmp.graph.name) || 'Unnamed';
+  const name = graphObjTmp?.graph?.name || nameVal || 'Unnamed';
   insertGraphMongo({
     ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
     ownerId: Meteor.userId(),
-    createdAt: new Date()
+    createdAt: new Date(),
+    templateSource: graphObj?.templateSource
   });
   if (!graphObjTmp) {
     return graphId;
@@ -211,6 +211,9 @@ export const addGraph = (graphObj?: Object): string => {
 
 export const renameGraph = (graphId: string, name: string) =>
   Graphs.update(graphId, { $set: { name } });
+
+export const setGraphTemplate = (graphId: string, templateId: string) =>
+  Graphs.update(graphId, { $set: { templateSource: templateId } });
 
 // updating graph from graph editor
 export const mergeGraph = (mergeObj: Object) => {

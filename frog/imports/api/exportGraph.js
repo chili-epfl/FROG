@@ -34,8 +34,9 @@ export const exportGraph = (store: Object) => {
   FileSaver.saveAs(blob, fname + '.frog', true);
 };
 
-export const duplicateGraph = (store, graphId) =>
+export const duplicateGraph = (store, graphId) => {
   doImportGraph(store, { target: { result: graphToString(graphId) } });
+};
 
 export const doImportGraph = (
   store?: Object,

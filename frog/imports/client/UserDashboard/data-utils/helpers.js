@@ -1,7 +1,10 @@
 /* eslint-disable array-callback-return */
 import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
+import DescriptionIcon from '@material-ui/icons/Description';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
+import { store } from '../../GraphEditor/store';
+import { addGraph } from '/imports/api/graphs';
 
 type meteorSessionObjectT = {
   _id: string,
@@ -18,9 +21,19 @@ type meteorDraftObjectT = {
   createdAt: Date,
   _id: string
 };
+
+type meteorTemplateObjectT = {
+  name: string,
+  graphId: string,
+  createdAt: Date,
+  _id: string
+};
+
 type meteorDraftsList = Array<meteorDraftObjectT>;
 
 type meteorSessionsListT = Array<meteorSessionObjectT>;
+
+type meteorTemplatesList = Array<meteorTemplateObjectT>;
 
 export const parseDate = (date): Date => {
   return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}/${date.getMonth() +
@@ -47,9 +60,9 @@ const getSessionStatus = (session): meteorSessionObjectT => {
 
 const getSessionTitle = (session): meteorSessionObjectT => {
   if (session.singleActivity)
-    return activityTypesObj[session.simpleConfig?.activityType]?.meta?.name;
+    return activityTypesObj[(session.simpleConfig?.activityType)]?.meta?.name;
   else if (session.template)
-    return templatesObj[session.simpleConfig?.activityType]?.meta?.name;
+    return templatesObj[(session.simpleConfig?.activityType)]?.meta?.name;
   else return session.name;
 };
 
@@ -82,4 +95,24 @@ export const parseSessionData = (
     dateCreated: parseEpocDate(item.startedAt),
     dateObj: new Date(item.startedAt),
     callback: () => history.push(`t/${item.slug}`)
+  }));
+
+export const parseTemplateData = (
+  templateList: meteorTemplatesList,
+  history: Object
+) =>
+  templateList.map(item => ({
+    itemIcon: DescriptionIcon,
+    itemTitle: item.name,
+    dateCreated: parseDate(item.createdAt),
+    dateObj: item.createdAt,
+    callback: () => {
+      history.push(`/teacher/graph/`);
+      const newGraphId = addGraph(
+        { ...item.graph, templateSource: item._id },
+        item.name
+      );
+      store.setId(newGraphId);
+      store.setTemplateOpenFlag(true);
+    }
   }));

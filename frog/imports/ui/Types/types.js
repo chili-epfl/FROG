@@ -18,6 +18,16 @@ export type DraftObjectT = {
   secondaryActions: Array<SecondaryActionT>
 };
 
+export type TemplateObjectT = {
+  itemTitle?: string,
+  itemIcon: React.ComponentType<*>,
+  itemType: string,
+  dateCreated: string,
+  dateObj?: Date,
+  callback: () => void,
+  secondaryActions: Array<SecondaryActionT>
+};
+
 export type SecondaryActionT = {
   title: string,
   icon: React.ComponentType<*>,
@@ -26,3 +36,4 @@ export type SecondaryActionT = {
 
 export type SessionListT = Array<SessionObjectT>;
 export type DraftsListT = Array<DraftObjectT>;
+export type TemplatesListT = Array<TemplateObjectT>;
