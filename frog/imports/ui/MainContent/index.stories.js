@@ -92,7 +92,8 @@ const draftsList = [
     itemType: 'Custom graph 1 ',
     dateCreated: '5/08/2019',
     callback: null,
-    secondaryActions: secondaryActionsDrafts
+    secondaryActions: secondaryActionsDrafts,
+    isPublished: true
   },
   {
     itemIcon: ShowChart,
@@ -100,7 +101,8 @@ const draftsList = [
     itemType: 'Custom graph 2',
     dateCreated: '5/08/2019',
     callback: null,
-    secondaryActions: secondaryActionsDrafts
+    secondaryActions: secondaryActionsDrafts,
+    isPublished: false
   },
   {
     itemIcon: ShowChart,
@@ -108,7 +110,8 @@ const draftsList = [
     itemType: 'Custom graph 432',
     dateCreated: '5/08/2019',
     callback: null,
-    secondaryActions: secondaryActionsDrafts
+    secondaryActions: secondaryActionsDrafts,
+    isPublished: true
   },
   {
     itemIcon: ShowChart,
@@ -170,17 +173,9 @@ storiesOf('Sessions view', module).add('MainContent', () => (
 storiesOf('Drafts view', module).add('MainContent', () => (
   <MainContent title="My drafts" action="Create new graph">
     <List>
-      {draftsList.map(
-        ({ itemTitle, secondaryActions, itemIcon, itemType, dateCreated }) => (
-          <ContentListItem
-            itemTitle={itemTitle}
-            itemIcon={itemIcon}
-            itemType={itemType}
-            dateCreated={dateCreated}
-            secondaryActions={secondaryActions}
-          />
-        )
-      )}
+      {draftsList.map(props => (
+        <ContentListItem {...props} />
+      ))}
     </List>
   </MainContent>
 ));
