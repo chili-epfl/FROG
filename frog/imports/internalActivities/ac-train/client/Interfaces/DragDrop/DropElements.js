@@ -12,7 +12,7 @@ const styles = theme => ({
   paper: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     height: '100px'
   })
 });
