@@ -116,10 +116,8 @@ class Editor extends React.Component<Object, StateT> {
               errors={store.graphErrors}
               openExport={() => this.setState({ exportOpen: true })}
               openImport={() => this.setState({ importOpen: true })}
-              {...{
-                setDelete,
-                setIdRemove
-              }}
+              setDelete={setDelete}
+              setIdRemove={setIdRemove}
             />
           }
         />
