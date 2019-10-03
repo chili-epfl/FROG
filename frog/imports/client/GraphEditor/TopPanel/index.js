@@ -46,7 +46,7 @@ const RenameBox = withStyles(styles)(({ classes, graphId }) => {
       className={classes.rename}
       type="text"
       defaultValue={Graphs.findOne(graphId).name || 'none'}
-      onChange={e => renameGraph(graphId, e.target.value)}
+      onBlur={e => renameGraph(graphId, e.target.value)}
     />
   );
 });
