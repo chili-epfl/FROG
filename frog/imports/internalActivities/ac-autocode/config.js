@@ -7,8 +7,7 @@ export const config = {
     language: {
       type: 'string',
       title: 'Language',
-      enum: ['python', 'javascript'],
-      default: 'javascript'
+      enum: ['python', 'javascript', 'HTML']
     },
     title: {
       type: 'string',
@@ -56,6 +55,13 @@ export const config = {
 
 export const validateConfig = [
   (data: Object): null | { field?: string, err: string } =>
+    data.language
+      ? null
+      : {
+          field: 'language',
+          err: 'You must select a programming language for the activity'
+        },
+  (data: Object): null | { field?: string, err: string } =>
     data.tests && data.tests.length > 0 && !data.solution
       ? {
           field: 'solution',
@@ -69,7 +75,9 @@ export const configUI = {
     'ui:widget': 'textarea'
   },
   solution: {
-    'ui:widget': 'textarea'
+    'ui:widget': 'textarea',
+    conditional: (formData: Object) =>
+      formData.language === 'python' || formData.language === 'javascript'
   },
   tests: {
     items: {
@@ -84,7 +92,9 @@ export const configUI = {
       postCode: {
         'ui:widget': 'textarea'
       }
-    }
+    },
+    conditional: (formData: Object) =>
+      formData.language === 'python' || formData.language === 'javascript'
   }
 };
 
@@ -222,6 +232,27 @@ export const exampleConfig3 = {
         postCode: 'console.log(double(1234567890))'
       }
     ]
+  },
+  data: {}
+};
+
+export const exampleConfig4 = {
+  title: 'HTML exercise',
+  config: {
+    language: 'HTML',
+    title: 'Learn HTML',
+    guidelines: 'Write a title and a subtitle',
+    template: `<html>
+    <style>
+    h1 { 
+        color:red;
+    }
+    </style>
+    <div>
+        <h1 style="border-bottom:2px solid black">Write title here</h1>
+        <h3 style="margin-left:24px">Write subtitle here</h3>
+    </div>
+</html>`
   },
   data: {}
 };

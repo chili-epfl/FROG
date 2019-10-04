@@ -8,6 +8,7 @@ import Header from './Header';
 import Editor from './Editor';
 import TestPanel from './TestPanel';
 import makeRunCode from './MakeRunCode';
+import HTMLrenderer from './HTMLrenderer';
 
 const Main = styled.div`
   display: flex;
@@ -21,26 +22,32 @@ class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   handleError: Function;
 
   componentDidMount() {
-    const { runCode, handleError } = makeRunCode(
-      this.props.activityData.config.language
-    );
-    this.runCode = runCode;
-    this.handleError = handleError;
-    this.forceUpdate();
+    const { language } = this.props.activityData.config;
+    if (language === 'python' || language === 'javascript') {
+      const { runCode, handleError } = makeRunCode(language);
+      this.runCode = runCode;
+      this.handleError = handleError;
+      this.forceUpdate();
+    }
   }
 
   render() {
+    console.log(this.props);
     const { config } = this.props.activityData;
+    const { code } = this.props.data;
     return (
       <Main>
         <Header config={config} style={{ width: '100%' }} />
         <Editor {...this.props} />
-        <TestPanel
-          tests={config.tests}
-          runCode={this.runCode}
-          handleError={this.handleError}
-          {...this.props}
-        />
+        {config.language !== 'HTML' && (
+          <TestPanel
+            tests={config.tests}
+            runCode={this.runCode}
+            handleError={this.handleError}
+            {...this.props}
+          />
+        )}
+        {config.language === 'HTML' && <HTMLrenderer code={code} />}
       </Main>
     );
   }
