@@ -31,10 +31,10 @@ const styles = theme => ({
     padding: '100px'
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   },
   withoutLabel: {
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing(3)
   },
   buy: {
     marginLeft: 'auto'
@@ -42,7 +42,7 @@ const styles = theme => ({
   paper: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     height: '100px'
   })
 });

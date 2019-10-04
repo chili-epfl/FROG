@@ -61,33 +61,9 @@ export const RecentsPage = ({
             </div>
 
             <List>
-              {draftsList
-                .slice(0, 6)
-                .map(
-                  (
-                    {
-                      itemIcon,
-                      itemTitle,
-                      itemType,
-                      dateCreated,
-                      callback,
-                      secondaryActions
-                    },
-                    index
-                  ) => {
-                    return (
-                      <ContentListItem
-                        key={index}
-                        itemTitle={itemTitle}
-                        itemIcon={itemIcon}
-                        itemType={itemType}
-                        dateCreated={dateCreated}
-                        callback={callback}
-                        secondaryActions={secondaryActions}
-                      />
-                    );
-                  }
-                )}
+              {draftsList.slice(0, 6).map((props, index) => {
+                return <ContentListItem key={index} {...props} />;
+              })}
             </List>
             {draftsList.length > 6 && (
               <Button

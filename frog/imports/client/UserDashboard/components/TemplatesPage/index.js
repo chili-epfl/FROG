@@ -21,13 +21,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type TemplatesPagePropsT = {
-  templatesList: TemplatesListT,
-  actionCallback: () => void
+  templatesList: TemplatesListT
 };
 
 export const TemplatesPage = ({
-  templatesList,
-  actionCallback
+  templatesList
 }: TemplatesPagePropsT) => {
   const classes = useStyles();
   return (

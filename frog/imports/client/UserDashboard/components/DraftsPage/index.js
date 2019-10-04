@@ -42,29 +42,9 @@ export const DraftsPage = ({
           </div>
 
           <List>
-            {draftsList.map(
-              (
-                {
-                  itemIcon,
-                  itemTitle,
-                  itemType,
-                  dateCreated,
-                  callback,
-                  secondaryActions
-                },
-                index
-              ) => (
-                <ContentListItem
-                  key={index}
-                  itemTitle={itemTitle}
-                  itemIcon={itemIcon}
-                  itemType={itemType}
-                  dateCreated={dateCreated}
-                  callback={callback}
-                  secondaryActions={secondaryActions}
-                />
-              )
-            )}
+            {draftsList.map((props, index) => (
+              <ContentListItem key={index} {...props} />
+            ))}
           </List>
         </Paper>
       </Grid>

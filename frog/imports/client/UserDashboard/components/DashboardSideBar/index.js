@@ -54,6 +54,7 @@ type DashBoardSideBarPropsT = {
   showDrafts: boolean,
   showTemplates: boolean,
   showArchives: boolean
+  showTemplates: boolean
 };
 export const DashboardSideBar = ({
   callbackRecentsView,

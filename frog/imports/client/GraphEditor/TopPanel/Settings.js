@@ -32,8 +32,7 @@ import {
 import {
   addTemplate,
   findTemplate,
-  updateTemplate,
-  removeTemplate
+  updateTemplate
 } from '/imports/api/templates';
 import { loadGraphMetaData } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
@@ -99,8 +98,9 @@ const MenuItemDeleteFromServer = ({
   classes,
   handleClose
 }) =>
-  !LibraryStates.graphList.find(x => x.uuid === parentId) ||
-  LibraryStates.graphList.find(x => x.uuid === parentId).owner_id ===
+  parentId &&
+  LibraryStates.graphList.find(x => x.uuid === parentId) &&
+  LibraryStates.graphList.find(x => x.uuid === parentId)?.owner_id ===
     getUsername() ? (
     <MenuItem
       onClick={() => {
@@ -119,7 +119,7 @@ class GraphActionMenu extends React.Component<*, *> {
     open: false,
     openTemplateModal: false,
     anchorEl: null,
-    snackbarOpen: store.templateOpenFlag ? true : false,
+    snackbarOpen: !!store.templateOpenFlag,
     snackbarMessageVal: {
       message: store.templateOpenFlag
         ? 'Created a new graph based on template'
@@ -179,10 +179,11 @@ class GraphActionMenu extends React.Component<*, *> {
     const parentId = graph?.parentId;
     const sessionId = graph?.sessionId;
 
-    const submitTemplate = (templateName, graph) => {
-      const graphObj = JSON.parse(graphToString(graph));
+    const submitTemplate = templateName => {
+      const graphObj = JSON.parse(graphToString(graphId));
+      graphObj.graph.name = templateName;
       const templateId = addTemplate(templateName, graphObj);
-      setGraphTemplate(graph, templateId);
+      setGraphTemplate(graphId, templateId);
       store.setTemplateSource(templateId);
       this.handleTemplateModalClose();
       this.handleSnackbarOpen(
@@ -196,18 +197,21 @@ class GraphActionMenu extends React.Component<*, *> {
     return (
       <>
         <div className={classes.root}>
-          <TemplateModal
-            open={this.state.openTemplateModal}
-            callback={this.handleTemplateModalClose}
-            onSubmit={submitTemplate}
-            graph={graphId}
-          />
+          {this.state.openTemplateModal && (
+            <TemplateModal
+              open={this.state.openTemplateModal}
+              callback={this.handleTemplateModalClose}
+              onSubmit={submitTemplate}
+              graphId={graphId}
+              graphName={graph.name}
+            />
+          )}
           <SnackbarMessage
             open={this.state.snackbarOpen}
             handleClose={this.handleSnackbarClose}
             message={this.state.snackbarMessageVal.message}
             variant={this.state.snackbarMessageVal.variant}
-          ></SnackbarMessage>
+          />
           <IconButton
             aria-owns={open ? 'menu-list' : null}
             aria-haspopup="true"
@@ -267,24 +271,6 @@ class GraphActionMenu extends React.Component<*, *> {
                 Save as Template
               </MenuItem>
             )}
-            {template ? (
-              <MenuItem
-                onClick={() => {
-                  if (removeTemplate(templateSource)) {
-                    this.handleSnackbarOpen('Templated deleted!', 'success');
-                  } else {
-                    this.handleSnackbarOpen(
-                      'Error deleting template!',
-                      'error'
-                    );
-                  }
-                  this.handleClose();
-                }}
-              >
-                <Delete className={classes.leftIcon} aria-hidden="true" />
-                Delete Template
-              </MenuItem>
-            ) : null}
             <MenuItem
               onClick={() => {
                 duplicateGraph(store, graphId);
@@ -367,14 +353,14 @@ class GraphActionMenu extends React.Component<*, *> {
               <Timeline className={classes.leftIcon} aria-hidden="true" />
               Export Graph to the Server
             </MenuItem>
-            <MenuItem onClick={() => setShowHelpModal(true)}>
-              <Help className={classes.leftIcon} aria-hidden="true" />
-              Help
-            </MenuItem>
             <MenuItemDeleteFromServer
               {...{ setIdRemove, parentId, setDelete, classes }}
               handleClose={this.handleClose}
             />
+            <MenuItem onClick={() => setShowHelpModal(true)}>
+              <Help className={classes.leftIcon} aria-hidden="true" />
+              Help
+            </MenuItem>
           </Menu>
         </div>
       </>

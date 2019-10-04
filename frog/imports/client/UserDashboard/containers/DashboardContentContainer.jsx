@@ -125,7 +125,7 @@ export const DashboardContentContainer = ({
             actionCallback={() => history.push('/teacher/graph/new')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
-            moreCallbackDrafts={onSelectTemplatesView}
+            moreCallbackTemplates={onSelectTemplatesView}
           />
         );
       case 'Sessions':
@@ -161,9 +161,11 @@ export const DashboardContentContainer = ({
           <RecentsPage
             sessionsList={sortedSessionsList}
             draftsList={sortedDraftsList}
+            templatesList={sortedTemplatesList}
             actionCallback={() => history.push('/teacher')}
             moreCallbackSessions={onSelectSessionsView}
             moreCallbackDrafts={onSelectDraftsView}
+            moreCallbackTemplates={onSelectTemplatesView}
           />
         );
     }

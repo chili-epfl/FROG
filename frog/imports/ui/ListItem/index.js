@@ -38,7 +38,8 @@ type ContentListItemPropsT = {
     title: string,
     icon: React.ComponentType<*>,
     callback?: () => void
-  }>
+  }>,
+  isPublished?: boolean
 };
 export const ContentListItem = ({
   itemTitle,
@@ -47,7 +48,8 @@ export const ContentListItem = ({
   itemType,
   dateCreated,
   callback,
-  secondaryActions
+  secondaryActions,
+  isPublished
 }: ContentListItemPropsT) => {
   const Icon = itemIcon || 'div';
   const classes = useStyles();
@@ -105,6 +107,16 @@ export const ContentListItem = ({
 
       <ListItemText primary={itemTitle} secondary={secondaryText} />
 
+      {isPublished && (
+        <Typography
+          className={classes.items}
+          color="textSecondary"
+          variant="body2"
+        >
+          Published
+        </Typography>
+      )}
+
       <Typography
         className={classes.items}
         color="textSecondary"
@@ -112,6 +124,7 @@ export const ContentListItem = ({
       >
         {DateToMoments(dateCreated)}
       </Typography>
+
       {secondaryActions && (
         <ListItemSecondaryAction>
           <OverflowMenu

@@ -78,7 +78,7 @@ const getSessionTypeInfo = (session): meteorSessionObjectT => {
 
 export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
   draftsList
-    .filter(x => !x.published && !x.sessionGraph && !x.templateGraph)
+    .filter(x => !x.sessionGraph && !x.templateGraph)
     .map(item => ({
       itemIcon: ShowChart,
       itemTitle: item.name,
@@ -179,4 +179,24 @@ export const parseTemplateData = (
               action: () => setTemplateUIStatus(item._id, 'archived')
             }
           ]
+  }));
+
+export const parseTemplateData = (
+  templateList: meteorTemplatesList,
+  history: Object
+) =>
+  templateList.map(item => ({
+    itemIcon: DescriptionIcon,
+    itemTitle: item.name,
+    dateCreated: parseDate(item.createdAt),
+    dateObj: item.createdAt,
+    callback: () => {
+      history.push(`/teacher/graph/`);
+      const newGraphId = addGraph(
+        { ...item.graph, templateSource: item._id },
+        item.name
+      );
+      store.setId(newGraphId);
+      store.setTemplateOpenFlag(true);
+    }
   }));

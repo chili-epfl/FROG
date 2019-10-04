@@ -12,8 +12,7 @@ import {
 import {
   DraftsListT,
   SessionListT,
-  TemplatesListT,
-  ArchivesListT
+  TemplatesListT
 } from '/imports/ui/Types/types';
 
 type DashboardDataContainerPropT = {
@@ -21,8 +20,8 @@ type DashboardDataContainerPropT = {
   draftsList: DraftsListT,
   sessionsList: SessionListT,
   templatesList: TemplatesListT,
-  archivesListTemplates: ArchivesListT,
-  archivesListSessions: ArchivesListT
+  archivesListTemplates: TemplatesListT,
+  archivesListSessions: SessionListT
 };
 
 const DashboardDataContainer = ({

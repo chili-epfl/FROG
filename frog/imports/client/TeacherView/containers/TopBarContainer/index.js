@@ -87,7 +87,10 @@ export const TopBarContainer = withRouter(({ history }) => {
             Open 4 students
           </RowButton>
           <RowDivider />
-          <RowButton icon={<SaveAlt fontSize="small" />}>
+          <RowButton
+            icon={<SaveAlt fontSize="small" />}
+            onClick={session.exportSession}
+          >
             Export session
           </RowButton>
           <RowButton

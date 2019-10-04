@@ -28,17 +28,6 @@ export type TemplateObjectT = {
   secondaryActions: Array<SecondaryActionT>
 };
 
-export type ArchiveObjectT = {
-  itemTitle?: string,
-  itemIcon: React.ComponentType<*>,
-  status?: 'Ready' | 'Running' | 'Complete',
-  itemType: string,
-  dateCreated: string,
-  dateObj?: Date,
-  callback: () => void,
-  secondaryActions: Array<SecondaryActionT>
-};
-
 export type SecondaryActionT = {
   title: string,
   icon: React.ComponentType<*>,
@@ -48,4 +37,3 @@ export type SecondaryActionT = {
 export type SessionListT = Array<SessionObjectT>;
 export type DraftsListT = Array<DraftObjectT>;
 export type TemplatesListT = Array<TemplateObjectT>;
-export type ArchivesListT = Array<ArchiveObjectT>;
