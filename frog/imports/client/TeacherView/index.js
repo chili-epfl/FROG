@@ -14,6 +14,7 @@ import { Sessions } from '/imports/api/sessions';
 const TeacherViewRunner = withRouter(
   withTracker(({ match, history }) => {
     const user = Meteor.user();
+    let session;
     if (match?.params?.slug) {
       session = Sessions.findOne({
         slug: match.params.slug
