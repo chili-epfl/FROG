@@ -154,7 +154,10 @@ export const parseTemplateData = (
     dateObj: item.createdAt,
     callback: () => {
       history.push(`/teacher/graph/`);
-      const newGraphId = addGraph({ ...item.graph, templateSource: item._id });
+      const newGraphId = addGraph(
+        { ...item.graph, templateSource: item._id },
+        item.name
+      );
       store.setId(newGraphId);
       store.setTemplateOpenFlag(true);
     },
@@ -179,24 +182,4 @@ export const parseTemplateData = (
               action: () => setTemplateUIStatus(item._id, 'archived')
             }
           ]
-  }));
-
-export const parseTemplateData = (
-  templateList: meteorTemplatesList,
-  history: Object
-) =>
-  templateList.map(item => ({
-    itemIcon: DescriptionIcon,
-    itemTitle: item.name,
-    dateCreated: parseDate(item.createdAt),
-    dateObj: item.createdAt,
-    callback: () => {
-      history.push(`/teacher/graph/`);
-      const newGraphId = addGraph(
-        { ...item.graph, templateSource: item._id },
-        item.name
-      );
-      store.setId(newGraphId);
-      store.setTemplateOpenFlag(true);
-    }
   }));
