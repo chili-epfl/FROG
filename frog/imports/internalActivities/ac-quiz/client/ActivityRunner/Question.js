@@ -22,7 +22,7 @@ const styles = theme => ({
     margin: '4px'
   },
   formControl: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   },
   header: {
     backgroundColor: '#ddd',
@@ -70,7 +70,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
   <FormControl component="fieldset" className={classes.formControl}>
     <RadioGroup
       aria-label="answers"
-      value={Object.keys(data).find(k => data[k] === true)}
+      value={Object.keys(data).find(k => data[k] === true) || ''}
       name="answers"
       onChange={e => onChange(e.target.value)}
     >
@@ -78,6 +78,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
         <FormControlLabel
           key={idx}
           value={idx.toString()}
+          checked={!!data[idx]}
           classes={{ root: classes.text }}
           control={<Radio classes={{ root: classes.check }} />}
           label={<HTML html={choice} />}

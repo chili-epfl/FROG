@@ -6,7 +6,7 @@ import { UndoButton, ConfigMenu } from './Settings';
 import { ValidButton, ErrorList } from '/imports/client/GraphEditor/Validator';
 import { Button } from '/imports/ui/Button';
 import { addSession, setTeacherSession, Sessions } from '/imports/api/sessions';
-import { Graphs } from '/imports/api/graphs';
+import { Graphs, renameGraph } from '/imports/api/graphs';
 
 const styles = theme => ({
   root: {
@@ -22,6 +22,11 @@ const styles = theme => ({
     right: '0',
     pointerEvents: 'none',
     zIndex: '1000'
+  },
+  rename: {
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    padding: '6px'
   }
 });
 
@@ -35,8 +40,20 @@ const publish = async (graphId, history) => {
   }
 };
 
+const RenameBox = withStyles(styles)(({ classes, graphId }) => {
+  return (
+    <input
+      className={classes.rename}
+      type="text"
+      defaultValue={Graphs.findOne(graphId).name || 'none'}
+      onBlur={e => renameGraph(graphId, e.target.value)}
+    />
+  );
+});
+
 const TopPanel = ({ classes, graphId, errors, history, ...props }: Object) => (
   <div className={classes.root}>
+    <RenameBox graphId={graphId} />
     <UndoButton />
     <Button
       onClick={() => {

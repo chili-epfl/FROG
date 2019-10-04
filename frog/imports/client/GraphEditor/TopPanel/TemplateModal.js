@@ -28,18 +28,21 @@ type TemplateModalProps = {
   open: boolean,
   callback: () => void,
   onSubmit: (name: string, graphId: string) => void,
-  graph: string
+  graphId: string,
+  graphName: string
 };
 
 const TemplateModal = (props: TemplateModalProps) => {
   const classes = useStyle();
 
+  const { graphName } = props;
+  const name = graphName && graphName !== 'Unnamed' ? graphName : '';
   const [values, setValues] = React.useState({
-    name: ''
+    name
   });
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
+  const handleChange = attr => event => {
+    setValues({ ...values, [attr]: event.target.value });
   };
 
   return (
@@ -52,6 +55,7 @@ const TemplateModal = (props: TemplateModalProps) => {
           required
           fullWidth
           id="name"
+          defaultValue={values.name}
           label="Template Name"
           onChange={handleChange('name')}
           onKeyDown={e => {
