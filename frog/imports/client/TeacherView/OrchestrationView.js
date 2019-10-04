@@ -31,6 +31,7 @@ type OrchestrationViewPropsT = {
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const [currentActivity, setCurrentActivity] = React.useState('welcome');
+  const [open, setOpen] = React.useState(true);
 
   const activityToDash = props.activities?.find(a => a._id === currentActivity);
   if (!props.session) {
@@ -42,8 +43,6 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const ready = !currentActivities.some(x => x === undefined);
   const toggle = id =>
     currentActivity === id ? setCurrentActivity(null) : setCurrentActivity(id);
-
-  const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
     setOpen(false);

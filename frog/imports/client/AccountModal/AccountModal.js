@@ -77,7 +77,6 @@ const AccountModal = ({
     switch (variant) {
       case 'guest':
         return [{ title: 'Continue as Guest', callback: closeModal }];
-        break;
       case 'legacy':
         return [{}];
       default:

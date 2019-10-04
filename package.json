@@ -9,11 +9,7 @@
     "storybook": "start-storybook"
   },
   "workspaces": [
-    "ac/*",
-    "op/*",
-    "frog",
-    "templates/activity",
-    "templates/operator"
+    "frog"
   ],
   "devDependencies": {
     "@babel/cli": "7.2.3",
