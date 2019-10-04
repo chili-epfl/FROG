@@ -49,6 +49,23 @@ export const config = {
           }
         }
       }
+    },
+    theme: {
+      type: 'string',
+      title: 'Editor Theme',
+      enum: [
+        'monokai',
+        'github',
+        'tomorrow',
+        'kuroir',
+        'twilight',
+        'textmate',
+        'xcode',
+        'solarized_dark',
+        'solarized_light',
+        'terminal'
+      ],
+      default: 'kuroir'
     }
   }
 };
@@ -122,7 +139,8 @@ export const exampleConfig0 = {
         preCode: '',
         postCode: 'print double(1234567890)'
       }
-    ]
+    ],
+    theme: 'kuroir'
   },
   data: {}
 };
@@ -158,7 +176,8 @@ export const exampleConfig1 = {
         preCode: 'a=[]',
         postCode: 'print b'
       }
-    ]
+    ],
+    theme: 'kuroir'
   },
   data: {}
 };
@@ -202,7 +221,8 @@ export const exampleConfig2 = {
         preCode: 'N=1474',
         postCode: ''
       }
-    ]
+    ],
+    theme: 'kuroir'
   },
   data: {}
 };
@@ -231,7 +251,8 @@ export const exampleConfig3 = {
         preCode: '',
         postCode: 'console.log(double(1234567890))'
       }
-    ]
+    ],
+    theme: 'kuroir'
   },
   data: {}
 };
@@ -252,7 +273,8 @@ export const exampleConfig4 = {
         <h1 style="border-bottom:2px solid black">Write title here</h1>
         <h3 style="margin-left:24px">Write subtitle here</h3>
     </div>
-</html>`
+</html>`,
+    theme: 'kuroir'
   },
   data: {}
 };

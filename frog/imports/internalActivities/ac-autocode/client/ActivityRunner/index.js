@@ -1,8 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import styled from 'styled-components';
 import { type ActivityRunnerPropsT } from '/imports/frog-utils';
+import { withStyles } from '@material-ui/core/styles';
 
 import Header from './Header';
 import Editor from './Editor';
@@ -10,13 +10,21 @@ import TestPanel from './TestPanel';
 import makeRunCode from './MakeRunCode';
 import HTMLrenderer from './HTMLrenderer';
 
-const Main = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  overflow: auto;
-`;
+const styles = {
+  root: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto'
+  },
+  main: {
+    display: 'flex',
+    flexFlow: 'row wrap'
+  }
+};
 
-class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
+class ActivityRunner extends React.Component<
+  ActivityRunnerPropsT & { classes: Object }
+> {
   runCode: Function;
 
   handleError: Function;
@@ -32,25 +40,27 @@ class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   }
 
   render() {
-    console.log(this.props);
-    const { config } = this.props.activityData;
-    const { code } = this.props.data;
+    const { classes, ...props } = this.props;
+    const { config } = props.activityData;
+    const { code } = props.data;
     return (
-      <Main>
-        <Header config={config} style={{ width: '100%' }} />
-        <Editor {...this.props} />
-        {config.language !== 'HTML' && (
-          <TestPanel
-            tests={config.tests}
-            runCode={this.runCode}
-            handleError={this.handleError}
-            {...this.props}
-          />
-        )}
-        {config.language === 'HTML' && <HTMLrenderer code={code} />}
-      </Main>
+      <div className={classes.root}>
+        <Header config={config} />
+        <div className={classes.main}>
+          <Editor {...props} />
+          {config.language !== 'HTML' && (
+            <TestPanel
+              tests={config.tests}
+              runCode={this.runCode}
+              handleError={this.handleError}
+              {...props}
+            />
+          )}
+          {config.language === 'HTML' && <HTMLrenderer code={code} />}
+        </div>
+      </div>
     );
   }
 }
 
-export default ActivityRunner;
+export default withStyles(styles)(ActivityRunner);
