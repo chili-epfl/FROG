@@ -10,6 +10,7 @@ import {
   MoreVert
 } from '@material-ui/icons';
 import DescriptionIcon from '@material-ui/icons/Description';
+import ArchiveIcon from '@material-ui/icons/Archive';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from '/imports/ui/Button';
@@ -30,6 +31,9 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2)
+  },
+  panelMargin: {
+    marginTop: theme.spacing(4)
   }
 }));
 
@@ -38,29 +42,35 @@ type DashBoardSideBarPropsT = {
   callbackSessionsView: () => void,
   callbackDraftsView: () => void,
   callbackTemplatesView: () => void,
+  callbackArchivesView: () => void,
   callbackRecentsView: () => void,
   sessionsActive: boolean,
   draftsActive: boolean,
   templatesActive: Boolean,
   recentsActive: boolean,
+  archivesActive: boolean,
   activePage: string,
   history: any,
   showDrafts: boolean,
-  showTemplates: boolean
+  showTemplates: boolean,
+  showArchives: boolean
 };
 export const DashboardSideBar = ({
   callbackRecentsView,
   callbackSessionsView,
   callbackDraftsView,
   callbackTemplatesView,
+  callbackArchivesView,
   sessionsActive,
   draftsActive,
   templatesActive,
   recentsActive,
+  archivesActive,
   history,
   activePage,
   showDrafts,
   showTemplates,
+  showArchives,
   children
 }: DashBoardSideBarPropsT) => {
   const classes = useStyles();
@@ -82,6 +92,19 @@ export const DashboardSideBar = ({
                   Create with Wizard
                 </RowButton>
               </>
+            }
+            footer={
+              showArchives && (
+                <Panel>
+                  <RowButton
+                    active={archivesActive}
+                    icon={<ArchiveIcon />}
+                    onClick={callbackArchivesView}
+                  >
+                    Archive
+                  </RowButton>
+                </Panel>
+              )
             }
           >
             <Panel>
