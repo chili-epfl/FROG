@@ -193,7 +193,7 @@ type PropsT = {
   whiteList?: string[],
   noOffset?: boolean,
   onSubmit?: Function,
-  showSubmit: any
+  showSubmit?: any
 };
 
 class State {

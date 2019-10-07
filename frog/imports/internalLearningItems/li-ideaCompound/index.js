@@ -4,9 +4,9 @@ import * as React from 'react';
 import {
   type LearningItemT,
   ReactiveText,
-  ReactiveRichText,
   HighlightSearchText
 } from '/imports/frog-utils';
+import ReactiveRichText from '/imports/frog-utils/ReactiveRichTextProxy';
 import { get, isString } from 'lodash';
 
 const FlexViewer = ({ LearningItem, data, search, dataFn, type }) => {

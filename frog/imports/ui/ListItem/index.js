@@ -52,7 +52,11 @@ export const ContentListItem = ({
 }: ContentListItemPropsT) => {
   const Icon = itemIcon || 'div';
   const classes = useStyles();
-  const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
+  const secondaryText = status
+    ? itemType
+      ? `${status} | ${itemType}`
+      : ''
+    : itemType;
 
   const DateToMoments = moment => {
     try {

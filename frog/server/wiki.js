@@ -37,7 +37,13 @@ const exportSessionWiki = (sessionId, wiki, userId) => {
   });
 };
 
-export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
+export const importWikiFromFROG = async (
+  item: Object,
+  object: Object,
+  wiki: string,
+  page: string,
+  userId: string
+) => {
   const instances = await new Promise(resolve =>
     connection.createFetchQuery(
       'rz',
@@ -97,6 +103,11 @@ export const importWikiFromFROG = async (item, object, wiki, page, userId) => {
       'li-activity',
       instanceData.all?.liId || instanceData[userId]?.liId || null,
       item.plane,
+      // I added {} here. The call to addNewWikiPAge was missing an
+      // argument and had following arguments in the wrong places
+      // Surprising that it was at all working!
+      // $FlowFixMe
+      {},
       item.plane === 3
         ? undefined
         : Object.keys(instanceData)
