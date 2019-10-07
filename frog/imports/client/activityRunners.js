@@ -1,7 +1,14 @@
 // @flow
 
 import importAll from 'import-all.macro';
-import { Loadable, entries, values } from '/imports/frog-utils';
+import {
+  Loadable,
+  entries,
+  values,
+  type operatorPackageT,
+  type ActivityPackageT,
+  type LearningItemT
+} from '/imports/frog-utils';
 import { keyBy } from 'lodash';
 
 // we're duplicating a lot of logic here from ../activityTypes and ../operatorTypes, because

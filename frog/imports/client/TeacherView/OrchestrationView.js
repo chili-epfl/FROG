@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { compose } from 'recompose';
 
 import { withDragDropContext } from '/imports/frog-utils';

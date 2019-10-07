@@ -103,9 +103,7 @@ class InfoComponent extends React.Component<
 
           {object && (
             <li>
-              <A onClick={() => this.exportWiki(item, object)}>
-                Export to wiki page
-              </A>
+              <A onClick={() => this.exportWiki(item)}>Export to wiki page</A>
             </li>
           )}
           <li>

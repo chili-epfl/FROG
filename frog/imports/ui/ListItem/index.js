@@ -10,7 +10,6 @@ import { ListItemSecondaryAction } from '@material-ui/core';
 import { OverflowMenu } from '../OverflowMenu';
 import { RowButton, RowTitle } from '../RowItems';
 import { Button } from '../Button';
-import ArchiveIcon from '@material-ui/icons/Archive';
 
 const useStyles = makeStyles(theme => ({
   root: {

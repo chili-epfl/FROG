@@ -110,7 +110,7 @@ const listWikis = async () => {
  * @param {string} wikiId: id of the wiki to list
  * @return{Promise} A Promise that resolves into an array of pages in the form of [Title, ID]
  */
-const listPages = (wikiId: string) => {
+const listPages = (wikiId: string): Promise<any> => {
   const wikiDoc = connection.get('wiki', wikiId);
   return new Promise((resolve, reject) =>
     wikiDoc.fetch(err => {

@@ -86,7 +86,9 @@ type ConfigPropsT = {
   activity: ActivityDbT,
   onConfigChange?: Function,
   setValid: Function,
-  reload?: string
+  reload?: string,
+  onSubmit?: Function,
+  showSubmit: any
 };
 
 class Config extends React.Component<
@@ -174,7 +176,7 @@ class Config extends React.Component<
 }
 
 type PropsT = {
-  activityType?: string,
+  activityType: string,
   categories?: string[],
   activityMapping?: Object,
   allOpen?: boolean,
@@ -189,7 +191,9 @@ type PropsT = {
   setActivityTypeId?: string,
   hideLibrary?: boolean,
   whiteList?: string[],
-  noOffset?: boolean
+  noOffset?: boolean,
+  onSubmit?: Function,
+  showSubmit: any
 };
 
 class State {

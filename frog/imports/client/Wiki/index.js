@@ -81,18 +81,23 @@ type WikiCompStateT = {
   mode: string,
   error: ?string,
   openCreator: ?Object,
-  findModalOpen: boolean,
+  findModalOpen?: boolean,
   search: '',
-  urlInstance: ?string,
-  noInstance: ?boolean,
-  username: string,
+  urlInstance?: string,
+  noInstance?: boolean,
+  username: ?string,
   isAnonymous: boolean,
-  settings: WikiSettingsT,
-  privilege: 'owner' | 'editor' | 'user' | 'none'
+  settings: WikiSettingsT | Object,
+  privilege?: 'owner' | 'editor' | 'user' | 'none',
+  currentPageObj?: Object,
+  docMode: string,
+  pageData: Object
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   wikiDoc: Object = {};
+
+  wikiId: string;
 
   config: Object = {};
 
@@ -130,7 +135,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       openCreator: false,
       search: '',
       rightSideCurrentPageObj: null,
-      isOwner: false
+      isOwner: false,
+      settings: {}
     };
   }
 
@@ -155,7 +161,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       Mousetrap.bindGlobal('ctrl+n', this.createPageModal);
       Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
       Mousetrap.bindGlobal('ctrl+e', () => {
-        if (!this.state.settings.readOnly) this.setState({ docMode: 'edit' });
+        const { settings } = this.state;
+        if (!settings.readOnly) this.setState({ docMode: 'edit' });
       });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
@@ -180,8 +187,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   handleSettings = async privilege => {
+    const { settings } = this.state;
     // Show locked modal if the wiki is locked
-    if (this.state.settings.locked && privilege !== PRIVILEGE_OWNER) {
+    if (settings.locked && privilege !== PRIVILEGE_OWNER) {
       this.setState({ currentPageObj: null });
       this.props.showModal(<LockedModal />);
       return false;
@@ -191,7 +199,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     // Ask for password if wiki access is password restricted
     if (
-      this.state.settings.restrict === PERM_PASSWORD_TO_VIEW &&
+      settings.restrict === PERM_PASSWORD_TO_VIEW &&
       privilege !== PRIVILEGE_VIEW &&
       privilege !== PRIVILEGE_OWNER
     ) {
@@ -201,7 +209,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.state.settings.password}
+            actualPassword={settings && settings.password}
           />
         );
       });
@@ -225,10 +233,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.props.hideModal();
     }
     if (
-      ((this.state.settings.readOnly ||
-        this.state.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
+      ((settings.readOnly || settings.restrict === PERM_PASSWORD_TO_EDIT) &&
         privilege !== PRIVILEGE_OWNER) ||
-      (!this.state.settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
+      (!settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
     )
       wikiStore.setPreventPageCreation(true);
     else wikiStore.setPreventPageCreation(false);
