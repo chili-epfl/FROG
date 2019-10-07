@@ -2,14 +2,13 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
-import { Bookmark, ShowChart, MoreHoriz, Add } from '@material-ui/icons';
+import { Bookmark, ShowChart } from '@material-ui/icons';
 import {
   SessionListT,
   archivesDraftsT,
   archivesTemplatesT
 } from '/imports/ui/Types/types';
 import { ContentListItem } from '/imports/ui/ListItem';
-import { Button } from '/imports/ui/Button';
 import DescriptionIcon from '@material-ui/icons/Description';
 
 const useStyles = makeStyles(theme => ({
@@ -27,16 +26,14 @@ const useStyles = makeStyles(theme => ({
 
 type ArchivesPagePropsT = {
   archivesSessions: SessionListT,
-  archivesDrafts: DraftsListT,
-  archivesTemplates: TemplatesListT,
-  actionCallback: () => void
+  archivesDrafts: archivesDraftsT,
+  archivesTemplates: archivesTemplatesT
 };
 
 export const ArchivesPage = ({
   archivesSessions,
   archivesDrafts,
-  archivesTemplates,
-  actionCallback
+  archivesTemplates
 }: ArchivesPagePropsT) => {
   const classes = useStyles();
   return (
@@ -53,39 +50,12 @@ export const ArchivesPage = ({
               <Typography variant="h5" align="left">
                 <ShowChart /> Drafts
               </Typography>
-              <Button
-                icon={<Add />}
-                onClick={actionCallback}
-                variant="primary"
-              />
             </div>
 
             <List>
-              {archivesDrafts.map(
-                (
-                  {
-                    itemIcon,
-                    itemTitle,
-                    itemType,
-                    dateCreated,
-                    callback,
-                    secondaryActions
-                  },
-                  index
-                ) => {
-                  return (
-                    <ContentListItem
-                      key={index}
-                      itemTitle={itemTitle}
-                      itemIcon={itemIcon}
-                      itemType={itemType}
-                      dateCreated={dateCreated}
-                      callback={callback}
-                      secondaryActions={secondaryActions}
-                    />
-                  );
-                }
-              )}
+              {archivesDrafts.map((props, index) => {
+                return <ContentListItem key={index} {...props} />;
+              })}
             </List>
           </Paper>
         </Grid>
@@ -145,31 +115,9 @@ export const ArchivesPage = ({
             </div>
 
             <List>
-              {archivesTemplates.map(
-                (
-                  {
-                    itemIcon,
-                    itemTitle,
-                    itemType,
-                    dateCreated,
-                    callback,
-                    secondaryActions
-                  },
-                  index
-                ) => {
-                  return (
-                    <ContentListItem
-                      key={index}
-                      itemTitle={itemTitle}
-                      itemIcon={itemIcon}
-                      itemType={itemType}
-                      dateCreated={dateCreated}
-                      callback={callback}
-                      secondaryActions={secondaryActions}
-                    />
-                  );
-                }
-              )}
+              {archivesTemplates.map((props, index) => {
+                return <ContentListItem key={index} {...props} />;
+              })}
             </List>
           </Paper>
         </Grid>
