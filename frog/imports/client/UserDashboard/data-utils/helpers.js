@@ -1,10 +1,14 @@
 /* eslint-disable array-callback-return */
 import { Bookmark, Bookmarks, ShowChart } from '@material-ui/icons';
 import DescriptionIcon from '@material-ui/icons/Description';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { activityTypesObj } from '/imports/activityTypes';
 import { templatesObj } from '/imports/internalTemplates';
 import { store } from '../../GraphEditor/store';
-import { addGraph } from '/imports/api/graphs';
+import { addGraph, setGraphUIStatus } from '/imports/api/graphs';
+import { setSessionUIStatus } from '/imports/api/sessions';
+import { setTemplateUIStatus } from '/imports/api/templates';
 
 type meteorSessionObjectT = {
   _id: string,
@@ -24,7 +28,7 @@ type meteorDraftObjectT = {
 
 type meteorTemplateObjectT = {
   name: string,
-  graphId: string,
+  graph: object,
   createdAt: Date,
   _id: string
 };
@@ -81,7 +85,27 @@ export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
       dateCreated: parseDate(item.createdAt),
       dateObj: item.createdAt,
       callback: () => history.push(`/teacher/graph/${item._id}`),
-      isPublished: item.published
+      secondaryActions:
+        item.uiStatus == 'archived'
+          ? [
+              {
+                icon: ArchiveIcon,
+                title: 'Unarchive',
+                action: () => setGraphUIStatus(item._id, 'active')
+              },
+              {
+                icon: DeleteIcon,
+                title: 'Delete',
+                action: () => setGraphUIStatus(item._id, 'deleted')
+              }
+            ]
+          : [
+              {
+                icon: ArchiveIcon,
+                title: 'Archive',
+                action: () => setGraphUIStatus(item._id, 'archived')
+              }
+            ]
     }));
 
 export const parseSessionData = (
@@ -95,7 +119,28 @@ export const parseSessionData = (
     itemType: getSessionTypeInfo(item),
     dateCreated: parseEpocDate(item.startedAt),
     dateObj: new Date(item.startedAt),
-    callback: () => history.push(`t/${item.slug}`)
+    callback: () => history.push(`t/${item.slug}`),
+    secondaryActions:
+      item.uiStatus == 'archived'
+        ? [
+            {
+              icon: ArchiveIcon,
+              title: 'Unarchive',
+              action: () => setSessionUIStatus(item._id, 'active')
+            },
+            {
+              icon: DeleteIcon,
+              title: 'Delete',
+              action: () => setSessionUIStatus(item._id, 'deleted')
+            }
+          ]
+        : [
+            {
+              icon: ArchiveIcon,
+              title: 'Archive',
+              action: () => setSessionUIStatus(item._id, 'archived')
+            }
+          ]
   }));
 
 export const parseTemplateData = (
@@ -115,5 +160,26 @@ export const parseTemplateData = (
       );
       store.setId(newGraphId);
       store.setTemplateOpenFlag(true);
-    }
+    },
+    secondaryActions:
+      item.uiStatus == 'archived'
+        ? [
+            {
+              icon: ArchiveIcon,
+              title: 'Unarchive',
+              action: () => setTemplateUIStatus(item._id, 'active')
+            },
+            {
+              icon: DeleteIcon,
+              title: 'Delete',
+              action: () => setTemplateUIStatus(item._id, 'deleted')
+            }
+          ]
+        : [
+            {
+              icon: ArchiveIcon,
+              title: 'Archive',
+              action: () => setTemplateUIStatus(item._id, 'archived')
+            }
+          ]
   }));

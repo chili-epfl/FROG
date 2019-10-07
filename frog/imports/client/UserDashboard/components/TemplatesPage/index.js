@@ -21,11 +21,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type TemplatesPagePropsT = {
-  templatesList: TemplatesListT,
+  templatesList: TemplatesListT
 };
 
 export const TemplatesPage = ({
-  templatesList,
+  templatesList
 }: TemplatesPagePropsT) => {
   const classes = useStyles();
   return (

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import ErrorPage from '.';
 
-storiesOf('Error Page', module).add('Graph', () => (
+storiesOf('Error Page', module).add('Default', () => (
   <ErrorPage title="404 Graph" message="This graph does not exist" />
 ));
 
