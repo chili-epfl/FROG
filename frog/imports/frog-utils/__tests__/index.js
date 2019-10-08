@@ -1,8 +1,6 @@
 import { getRotateable, flattenOne, splitPathObject } from '..';
 
-jest.mock('..', () =>
-  require.requireActual('../../../__mocks__/frog-utils.js')
-);
+jest.mock('..', () => require.requireActual('/../__mocks__/frog-utils.js'));
 
 test('flattenOne', () => {
   expect(flattenOne([1, 2, 3])).toEqual([1, 2, 3]);
