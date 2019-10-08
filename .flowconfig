@@ -24,6 +24,10 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 [libs]
 .*node_modules/fbjs/flow/lib
 
+[declarations]
+<PROJECT_ROOT>/flow-typed/npm/material-ui_v1.x.x.js
+<PROJECT_ROOT>/node_modules/mobx/lib/mobx.js.flow
+
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important
 .*/.meteor/local/build/main.js
