@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/browser';
 
 class ErrorWrapper extends React.Component<
   { children: any },
-  { error: any, retries: number }
+  { error: any, retries: number, eventId: ?string }
 > {
   state = { eventId: undefined, retries: 0, error: null };
 

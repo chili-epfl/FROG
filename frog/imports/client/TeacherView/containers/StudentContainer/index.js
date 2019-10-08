@@ -25,7 +25,7 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
   }
   const activity = Activities.findOne(currentActiveSteps[0]._id);
 
-  let groups;
+  let groups = {};
   if (activity.plane === 2) {
     const object = Objects.findOne(currentActiveSteps[0]._id);
     groups = object?.socialStructure[activity?.groupingKey];
@@ -37,7 +37,7 @@ export const StudentContainer = (props: StepsContainerPropsT) => {
   const groupsView = groups
     ? Object.keys(groups).map((key: string) => (
         <ExpandableList
-          expanded={Object.keys(groups)?.length < 5}
+          expanded={Object.keys(groups).length < 5}
           key={key}
           title={key}
         >

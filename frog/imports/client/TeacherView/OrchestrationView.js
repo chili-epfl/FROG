@@ -27,14 +27,17 @@ import { DashboardReactiveWrapper } from '../Dashboard';
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
-  students: Object
+  students: Object,
+  history: Object
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const [currentActivity, setCurrentActivity] = React.useState('welcome');
   const [open, setOpen] = React.useState(true);
 
-  const activityToDash = props.activities?.find(a => a._id === currentActivity);
+  const activityToDash = props.activities
+    ? props.activities.find(a => a._id === currentActivity)
+    : null;
   if (!props.session) {
     return null;
   }
@@ -49,14 +52,16 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
     setOpen(false);
   };
 
+  const showAccountModal =
+    getUserType() === 'Anonymous' && !window.location.search.includes('?u=');
+
   return (
     <OrchestrationContextProvider
       session={props.session}
       activities={props.activities}
       students={props.students}
     >
-      {getUserType() === 'Anonymous' &&
-      !window.location.search.includes('?u=') ? (
+      {showAccountModal ? (
         <Dialog open={open} onClose={handleClose}>
           <AccountModal
             formToDisplay="signup"

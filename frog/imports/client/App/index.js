@@ -331,7 +331,11 @@ const FROGRouter = withRouter(
           <Switch>
             {getUserType() === 'Legacy' ? (
               <Dialog open>
-                <AccountModal formToDisplay="signup" variant="legacy" />
+                <AccountModal
+                  formToDisplay="signup"
+                  variant="legacy"
+                  closeModal={() => {}}
+                />
               </Dialog>
             ) : null}
             <Route path="/duplicate" component={Wizard} />

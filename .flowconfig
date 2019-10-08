@@ -52,5 +52,5 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/cypress/*
 .*node_modules/react-draggable/lib/*
 .*/.meteor/.*/package.json
-packages/.*
+<PROJECT_ROOT>/packages/.*
 frogapi-test

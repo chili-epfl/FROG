@@ -140,6 +140,8 @@ export const ContentListItem = ({
                 <RowButton
                   key={index}
                   icon={<ListIcon />}
+                  // Should it be `item.callback` as specified in the type definition ?
+                  // $FlowFixMe
                   onClick={item.action}
                 >
                   {item.title}

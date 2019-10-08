@@ -62,6 +62,7 @@ type ControlButtonProps = {
     | 'next'
     | 'prev'
     | 'restart'
+    | 'closeSession'
     | 'close',
   onClick: () => void
 };

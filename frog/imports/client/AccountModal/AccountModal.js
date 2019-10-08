@@ -14,7 +14,7 @@ const AccountModal = ({
   variant
 }: {
   formToDisplay: string,
-  closeModal?: () => void,
+  closeModal: Function,
   variant?: 'guest' | 'legacy' | 'default'
 }) => {
   const [form, setForm] = React.useState(null);
@@ -78,7 +78,7 @@ const AccountModal = ({
       case 'guest':
         return [{ title: 'Continue as Guest', callback: closeModal }];
       case 'legacy':
-        return [{}];
+        return [];
       default:
         return [{ title: 'Cancel', callback: modalCallback }];
     }

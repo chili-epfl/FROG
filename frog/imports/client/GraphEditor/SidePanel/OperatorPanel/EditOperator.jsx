@@ -95,7 +95,7 @@ export default ({
 }) => {
   const graphOperator = all.find(act => act.id === operator._id);
   const operatorType = operatorTypesObj[operator.operatorType];
-  if (!graphOperator || !operatorType) return;
+  if (!graphOperator || !operatorType) return null;
 
   let errorColor;
   const errors = graphErrors.filter(x => x.id === operator._id);
