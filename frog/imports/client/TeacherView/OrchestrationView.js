@@ -28,31 +28,33 @@ import ErrorPage from '/imports/ui/ErrorPage';
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
-  students: Object
+  students: Object,
+  error: String
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const [currentActivity, setCurrentActivity] = React.useState('welcome');
 
   const activityToDash = props.activities?.find(a => a._id === currentActivity);
-  if (!props.session) {
-    return null;
+
+  let currentActivities, ready, toggle;
+
+  if (props.session) {
+    currentActivities = props.session.openActivities.map(x =>
+      Activities.findOne(x)
+    );
+    ready = !currentActivities.some(x => x === undefined);
+    toggle = id =>
+      currentActivity === id
+        ? setCurrentActivity(null)
+        : setCurrentActivity(id);
   }
-  const currentActivities = props.session.openActivities.map(x =>
-    Activities.findOne(x)
-  );
-  const ready = !currentActivities.some(x => x === undefined);
-  const toggle = id =>
-    currentActivity === id ? setCurrentActivity(null) : setCurrentActivity(id);
 
   const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  console.log(props.session);
-  console.log(props.error);
 
   return (
     <>
@@ -112,7 +114,11 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
           </OrchestrationLayout>
         </OrchestrationContextProvider>
       ) : (
-        <ErrorPage title="Error" message={props.error} />
+        <ErrorPage
+          title="Error"
+          message={props.error}
+          history={props.history}
+        />
       )}
     </>
   );
