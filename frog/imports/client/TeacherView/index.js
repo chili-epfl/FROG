@@ -15,7 +15,6 @@ const TeacherViewRunner = withRouter(
   withTracker(({ match, history }) => {
     const user = Meteor.user();
     let session;
-
     if (match?.params?.slug) {
       session = Sessions.findOne({
         slug: match.params.slug
@@ -61,9 +60,8 @@ const TeacherViewRunner = withRouter(
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
     let error;
-
     if (!session) {
-      error = 'Session not found';
+      error = 'This session does not exist.';
     }
 
     return {

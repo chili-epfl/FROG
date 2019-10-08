@@ -22,7 +22,6 @@ import { PreviewContainer } from './containers/PreviewContainer';
 import GraphView from './GraphView';
 
 import { DashboardReactiveWrapper } from '../Dashboard';
-
 import ErrorPage from '/imports/ui/ErrorPage';
 
 type OrchestrationViewPropsT = {
@@ -38,7 +37,6 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const activityToDash = props.activities?.find(a => a._id === currentActivity);
 
   let currentActivities, ready, toggle;
-
   if (props.session) {
     currentActivities = props.session.openActivities.map(x =>
       Activities.findOne(x)
