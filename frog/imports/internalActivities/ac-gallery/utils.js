@@ -59,7 +59,7 @@ export default (
   stream(imageId, [imageId, 'key']);
   const filename = file.name;
 
-  fr.onloadend = loaded => {
+  fr.onloadend = (loaded: Object) => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);
     uploadBufferWithThumbnail(
       imageBuffer,

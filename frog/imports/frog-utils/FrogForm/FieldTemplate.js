@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { Label } from './components/Label';
 import type { FieldTemplatePropsT } from './types';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   '@global': {
     '.field-array legend': {
       fontSize: '1.2em !important',

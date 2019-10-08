@@ -184,7 +184,7 @@ export type TemplatePackageT = {
     shortDesc: string,
     description: string
   },
-  makeTemplate: () => Object
+  makeTemplate: (config: Object) => Object
 };
 
 export type DashboardT = {

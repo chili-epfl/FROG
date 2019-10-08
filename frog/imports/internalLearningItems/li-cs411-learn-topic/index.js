@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Form from 'react-jsonschema-form';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';

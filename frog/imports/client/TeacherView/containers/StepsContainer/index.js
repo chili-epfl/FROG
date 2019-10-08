@@ -11,7 +11,7 @@ import { RowTitle, RowButton } from '/imports/ui/RowItems';
 import { OrchestrationContext } from '../../context';
 
 type StepsContainerPropsT = {
-  activeId: string,
+  activeId: ?string,
   onClick: (id: string) => void
 };
 

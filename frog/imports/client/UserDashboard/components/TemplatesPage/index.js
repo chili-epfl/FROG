@@ -5,7 +5,6 @@ import { List, Grid, Typography, Paper } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { TemplatesListT } from '/imports/ui/Types/types';
 import { ContentListItem } from '/imports/ui/ListItem';
-import { Button } from '/imports/ui/Button';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -24,9 +23,7 @@ type TemplatesPagePropsT = {
   templatesList: TemplatesListT
 };
 
-export const TemplatesPage = ({
-  templatesList
-}: TemplatesPagePropsT) => {
+export const TemplatesPage = ({ templatesList }: TemplatesPagePropsT) => {
   const classes = useStyles();
   return (
     <Grid container>

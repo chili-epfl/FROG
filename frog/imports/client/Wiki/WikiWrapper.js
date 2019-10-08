@@ -29,15 +29,20 @@ const decodePageTitle = (currentTitle: string): string => {
  * Wraps the wiki for the router and handles URL changes
  */
 function WikiWrapper(props: PropsT) {
+  const { wikiId, pageTitle, instance } = props.match.params;
   return (
     <Wiki
       pageObj={{
-        wikiId: props.match.params.wikiId,
-        pageTitle: decodePageTitle(props.match.params.pageTitle),
-        instance: props.match.params.instance
+        wikiId,
+        // What should be the behaviour when pageTitle is undefined?
+        // $FlowFixMe
+        pageTitle: decodePageTitle(pageTitle),
+        instance
       }}
       // Function to navigate to a page
       setPage={(pageObj: PageObjT, replace?: boolean) => {
+        // What should be the behaviour when pageTitle is undefined?
+        // $FlowFixMe
         const encodedTitle = encodeURIComponent(pageObj.pageTitle);
         if (pageObj.instance) {
           if (replace) {

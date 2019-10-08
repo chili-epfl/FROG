@@ -100,7 +100,7 @@ const MenuItemDeleteFromServer = ({
 }) =>
   parentId &&
   LibraryStates.graphList.find(x => x.uuid === parentId) &&
-  LibraryStates.graphList.find(x => x.uuid === parentId)?.owner_id ===
+  LibraryStates.graphList.find(x => x.uuid === parentId)?.owner_id === // eslint-disable-line
     getUsername() ? (
     <MenuItem
       onClick={() => {

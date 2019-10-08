@@ -63,7 +63,7 @@ export default (
   const imageId = uuid();
   const filename = file.name;
 
-  fr.onloadend = loaded => {
+  fr.onloadend = (loaded: Object) => {
     const imageBuffer = Buffer.from(loaded.currentTarget.result);
     uploadBufferWithThumbnail(
       imageBuffer,
