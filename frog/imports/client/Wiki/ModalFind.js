@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -24,7 +24,7 @@ export const PagesLinks = ({
   search: string,
   index: ?number,
   onSelect: Function
-}) =>
+}): React.Element<*>[] =>
   pages
     .filter(x => !x.title.includes('/'))
     .map((pageObj, i) => {

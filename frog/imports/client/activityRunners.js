@@ -1,7 +1,14 @@
 // @flow
 
 import importAll from 'import-all.macro';
-import { Loadable, entries, values } from '/imports/frog-utils';
+import {
+  Loadable,
+  entries,
+  values,
+  type operatorPackageT,
+  type ActivityPackageT,
+  type LearningItemT
+} from '/imports/frog-utils';
 import { keyBy } from 'lodash';
 
 // we're duplicating a lot of logic here from ../activityTypes and ../operatorTypes, because
@@ -11,6 +18,7 @@ import { keyBy } from 'lodash';
 const activityRunnersRaw = importAll.deferred(
   '../../node_modules/ac-*/src/ActivityRunner?(.js)'
 );
+
 export const activityRunnersExt = entries(activityRunnersRaw).reduce(
   (acc, [k, v]) => {
     const ac = k.split('/')[3];
@@ -31,21 +39,20 @@ const activityRunnersRawInternal = importAll.deferred(
   '../internalActivities/*/client/ActivityRunner?(.js)'
 );
 
-export const activityRunners = entries(activityRunnersRawInternal).reduce(
-  (acc, [k, v]) => {
-    const ac = k.split('/')[2];
-    return {
-      ...acc,
-      [ac]: Loadable({
-        loader: v,
-        loading: () => null,
-        serverSideRequirePath: k,
-        componentDescription: ac
-      })
-    };
-  },
-  activityRunnersExt
-);
+export const activityRunners: Object = entries(
+  activityRunnersRawInternal
+).reduce((acc, [k, v]) => {
+  const ac = k.split('/')[2];
+  return {
+    ...acc,
+    [ac]: Loadable({
+      loader: v,
+      loading: () => null,
+      serverSideRequirePath: k,
+      componentDescription: ac
+    })
+  };
+}, activityRunnersExt);
 
 const operatorPackagesRaw = importAll.sync(
   '../../node_modules/op-*/src/index.js'

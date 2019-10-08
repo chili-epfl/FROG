@@ -24,7 +24,7 @@ import { getUsername } from '/imports/api/users';
 
 const userIds = {};
 
-const userLookup = (userId: string): [string, string] => {
+const userLookup = (userId: string): [string, ?string] => {
   if (userId === 'instanceId') {
     return ['userid', 'username'];
   }

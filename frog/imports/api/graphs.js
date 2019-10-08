@@ -35,7 +35,7 @@ export const createSessionFromActivity = (
 } | void => {
   if (Meteor.isServer) {
     let graphId;
-    let activityId;
+    let activityId = '';
     let instructions;
     if (activityType.slice(0, 3) === 'te-') {
       const template = templatesObj[activityType];

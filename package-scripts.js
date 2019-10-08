@@ -60,8 +60,8 @@ module.exports = {
       'Starting Meteor'
     ),
     test: fromRoot(
-      `nps -s eslint.normal`,
-      'Running LockFiles, Flow, ESLint and Jest - jest and flow temporarily disabled'
+      `nps -s lockfiles eslint.normal flow jest`,
+      'Running LockFiles, Flow, ESLint and Jest'
     ),
     eslint: {
       default: fromRoot(
@@ -73,11 +73,11 @@ module.exports = {
         'Running ESLint in Fix mode'
       ),
       normal: fromRoot(
-        'eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
+        'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx frog/',
         'Running ESLint in normal mode'
       ),
       normalfix: fromRoot(
-        'eslint --fix --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
+        'eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx frog/',
         'Running ESLint in normal fix mode'
       )
     },

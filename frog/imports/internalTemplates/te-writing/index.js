@@ -59,10 +59,10 @@ const configUI = {
     'ui:options': {
       orderable: false
     },
-    conditional: formData => formData.general?.plane !== 'group'
+    conditional: (formData: Object) => formData.general?.plane !== 'group'
   },
   'first.instructions': {
-    conditional: formData => formData.general?.plane === 'group'
+    conditional: (formData: Object) => formData.general?.plane === 'group'
   }
 };
 
@@ -87,17 +87,17 @@ const p2Instructions = {
 
 const processTemplate = (template, replacements) => {
   const result = Object.keys(replacements).reduce((acc, x) => {
-    const toReplace = Number.isInteger(replacements[x])
-      ? replacements[x]
-      : isObject(replacements[x]) || isBoolean(replacements[x])
-      ? JSON.stringify(replacements[x])
-      : `"${replacements[x]}"`;
+    const val = replacements[x];
+    const toReplace =
+      isObject(val) || isBoolean(val) || Array.isArray(val)
+        ? JSON.stringify(val)
+        : `"${val}"`;
     return acc.replace(`"{{${x}}}"`, toReplace);
   }, template);
   return [result];
 };
 
-const makeTemplate = conf => {
+const makeTemplate = (conf: Object) => {
   const template = JSON.stringify(conf.general?.plane === 'group' ? p2 : p1);
 
   let matchings;
@@ -119,12 +119,10 @@ const makeTemplate = conf => {
       conf.first.instructionAry.length > 1,
     matchings
   };
-  const ret = [
+  return [
     processTemplate(template, replacements),
     conf.general?.plane === 'group' ? p2Instructions : p1Instructions
   ];
-
-  return ret;
 };
 
 const meta = {

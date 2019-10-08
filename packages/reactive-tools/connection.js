@@ -3,7 +3,7 @@
 import richText from 'rich-text';
 import json0 from 'ot-json0';
 import ReconnectingWebSocket from 'reconnectingwebsocket';
-import sharedbClient from 'sharedb/lib/client';
+import sharedbClient from '@teamwork/sharedb/lib/client';
 
 let socket;
 let _connection;

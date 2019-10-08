@@ -18,7 +18,7 @@ export const findTemplate = id => Templates.findOne(id);
 
 export const updateTemplate = (id, graph) =>
   Templates.update(id, { $set: { graph } });
-  
+
 export const setTemplateUIStatus = (id, statusVal) => {
   Templates.update(id, { $set: { uiStatus: statusVal } });
 };
@@ -30,5 +30,4 @@ export const removeTemplate = id => {
     { $set: { templateSource: null } },
     { multi: true }
   );
-
 };

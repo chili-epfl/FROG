@@ -68,7 +68,7 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
   constructor() {
     super();
     this.state = {
-      displayName: getUserType() === 'Legacy' ? getUsername() : '',
+      displayName: getUserType() === 'Legacy' ? getUsername() || '' : '',
       email: '',
       password: '',
       formErrors: {

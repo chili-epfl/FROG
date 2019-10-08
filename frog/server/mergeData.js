@@ -1,4 +1,6 @@
 // @flow
+import { Meteor } from 'meteor/meteor';
+
 import { getUsername } from '/imports/api/users';
 import ShareDB from '@teamwork/sharedb';
 import { cloneDeep } from 'lodash';
@@ -118,7 +120,7 @@ export const mergeOneInstance = async (
                 createdInActivity: activity._id,
                 sessionId
               };
-              const groupingKey = activity.groupingKey;
+              const groupingKey = activity.groupingKey || 'missingGroupingKey';
               if (activity.plane === 2) {
                 meta.createdByInstance = { [groupingKey]: grouping };
               } else if (activity.plane === 1) {

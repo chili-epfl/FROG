@@ -1,7 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { TextInput, getEmbedlyCache } from '/imports/frog-utils';
+import {
+  TextInput,
+  getEmbedlyCache,
+  type LearningItemT
+} from '/imports/frog-utils';
 import { throttle } from 'lodash';
 
 class Creator extends React.Component<*, *> {

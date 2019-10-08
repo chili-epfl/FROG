@@ -41,7 +41,6 @@ const ChangeDisplayNameForm = ({
   const classes = useStyles();
   const [showToast, _1] = useToast();
   const [newDisplayName, setNewDisplayName] = React.useState('');
-  (newDisplayName: string);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -67,7 +66,7 @@ const ChangeDisplayNameForm = ({
             margin="normal"
             required
             fullWidth
-            onChange={() => setNewDisplayName(event.target.value)}
+            onChange={e => setNewDisplayName(e.target.value)}
             id="newDisplayName"
             label="New Name"
             name="newDisplayName"

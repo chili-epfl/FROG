@@ -20,7 +20,7 @@ type OrchestrationContextProviderPropsT = {
   session?: Object,
   activities?: Object,
   students?: Object,
-  children: React.Element<*> | React.Element<*>[]
+  children: React.ChildrenArray<?React.Element<*>>
 };
 
 export const OrchestrationContextProvider = (

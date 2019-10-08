@@ -1,9 +1,12 @@
 // @flow
 import * as React from 'react';
 import jsonSchemaDefaults from 'json-schema-defaults';
-import { hideConditional } from '/imports/frog-utils';
+import {
+  hideConditional,
+  type OperatorDbT,
+  type operatorPackageT
+} from '/imports/frog-utils';
 import { observer } from 'mobx-react';
-import type { OperatorDbT } from '/imports/frog-utils';
 import { extendObservable, action } from 'mobx';
 import FlexView from 'react-flexview';
 import { operatorTypesObj } from '/imports/operatorTypes';
@@ -53,12 +56,16 @@ type PropsT = {
   onConfigChange: Function,
   operatorTypesList?: Object,
   operatorMappings?: Object,
-  categories?: string[]
+  categories?: string[],
+  config: Object
 };
 
 type StateT = {
-  operator: OperatorDbT,
-  test: boolean
+  operator?: OperatorDbT,
+  operatorType: ?operatorPackageT,
+  test?: boolean,
+  deleteOpen: boolean,
+  formData: ?Object
 };
 
 class State {
@@ -93,6 +100,8 @@ const OperatorForm = observer(
         deleteOpen: false,
         formData: props.config
       };
+      // Is this an error ? Should it be state.formData
+      // $FlowFixMe
       if (props.formData) {
         check(
           this.state.operatorType.id,
@@ -132,7 +141,7 @@ const OperatorForm = observer(
               <ConfigForm
                 node={{
                   _id: 1,
-                  operatorType: this.state.operatorType.id,
+                  operatorType: this.state.operatorType?.id,
                   data: this.state.formData || {}
                 }}
                 data={this.state.formData}
@@ -177,12 +186,13 @@ const OperatorForm = observer(
                   formData: jsonSchemaDefaults(op.config)
                 },
                 () => {
-                  check(
-                    this.state.operatorType.id,
-                    this.state.formData,
-                    state.setValid,
-                    this.props.onConfigChange
-                  );
+                  if (this.state.operatorType)
+                    check(
+                      this.state.operatorType.id,
+                      this.state.formData,
+                      state.setValid,
+                      this.props.onConfigChange
+                    );
                 }
               );
             }}
