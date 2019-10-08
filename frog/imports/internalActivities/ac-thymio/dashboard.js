@@ -5,18 +5,17 @@ import {
   VictoryChart,
   VictoryLabel,
   VictoryAxis,
-  VictoryTheme,
-  VictoryLine
+  VictoryTheme
 } from 'victory';
 const Viewer = ({ sendMsg, state, activity }) => {
-  console.log('hello');
   const sampleData = [];
   for (var j = 0; j < Object.keys(state).length; j++) {
     sampleData.push({
-      x: 'Team ' + JSON.stringify(j + 1),
+      x: j + 1,
       y: state[j + 1][state[j + 1]['length'] - 1].LastTargetBattery + 2
     });
   }
+
   const sampleData1 = [];
   for (var i = 0; i < state[1]['length']; i++) {
     sampleData1.push({
@@ -26,23 +25,21 @@ const Viewer = ({ sendMsg, state, activity }) => {
   }
   //console.log(state.SEND[0]);
   return (
-    <div style={{ maxWidth: 500 }}>
+    <div>
       <h1>Classroom Summary</h1>
       <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
-        <VictoryAxis label="Time (ms)" />
-        <VictoryAxis offsetX={25} />
-        <VictoryAxis dependentAxis offsetX={225} />
         <VictoryBar style={{ data: { fill: '#c43a31' } }} data={sampleData} />
       </VictoryChart>
+
       <h1>List of Groups</h1>
       <h2>Group first</h2>
-      <VictoryChart>
-        <VictoryLine data={sampleData1} />
+      <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+        <VictoryBar style={{ data: { fill: '#c43a31' } }} data={sampleData1} />
       </VictoryChart>
       {/* {state.logList.map((x, i) => (
           <li key={i}>{JSON.stringify(x)}</li>
         ))} */}
-
+      <button onClick={() => sendMsg('waiting')}>Pause robots</button>
       <button onClick={() => sendMsg('alarm')}>Alarm</button>
     </div>
   );
@@ -56,7 +53,7 @@ const mergeLog = (state, log) => {
     state[log.ID.TeamNumber] = [];
   }
   state[log.ID.TeamNumber].push(log.Payload);
-  console.log(state);
+  console.log(Object.keys(state).length);
 };
 
 const initData = {};

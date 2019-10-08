@@ -84,6 +84,7 @@ wss.on(
         try {
           const unique = UniqueIds.findOne(id);
           const logmsg = JSON.parse(data);
+          if (!unique) throw("UniqueId not found")
           logmsg.activityId = unique.activityId;
           logmsg.activityType = 'ac-cellulo';
           console.info('log msg:', logmsg);
