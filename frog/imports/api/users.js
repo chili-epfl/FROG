@@ -74,7 +74,7 @@ export const getEmail = (user?: UserObj): string => {
   if (selectedUser && isVerifiedUser({ meteorUser: selectedUser })) {
     const { emails } = selectedUser;
     if (emails) return emails[0] || '';
-  } 
+  }
   return '';
 };
 
