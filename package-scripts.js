@@ -60,8 +60,8 @@ module.exports = {
       'Starting Meteor'
     ),
     test: fromRoot(
-      `nps -s eslint.normal flow`,
-      'Running LockFiles, Flow, ESLint and Jest - jest temporarily disabled'
+      `nps -s lockfiles eslint.normal flow jest`,
+      'Running LockFiles, Flow, ESLint and Jest'
     ),
     eslint: {
       default: fromRoot(
