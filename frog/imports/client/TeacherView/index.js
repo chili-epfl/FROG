@@ -15,6 +15,7 @@ const TeacherViewRunner = withRouter(
   withTracker(({ match, history }) => {
     const user = Meteor.user();
     let session;
+
     if (match?.params?.slug) {
       session = Sessions.findOne({
         slug: match.params.slug
@@ -59,6 +60,12 @@ const TeacherViewRunner = withRouter(
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
+    let error;
+
+    if (!session) {
+      error = 'Session not found';
+    }
+
     return {
       sessions: Sessions.find().fetch(),
       session,
@@ -66,7 +73,8 @@ const TeacherViewRunner = withRouter(
       activities,
       token: GlobalSettings.findOne('token'),
       students,
-      user
+      user,
+      error
     };
   })(OrchestrationView)
 );
