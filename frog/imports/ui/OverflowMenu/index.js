@@ -5,7 +5,7 @@ import { Popover } from '@material-ui/core';
 
 type OverflowMenuPropsT = {
   button: React.Element<*>,
-  children: React.ChildrenArray<React.Element<*>>
+  children: React.ChildrenArray<boolean | React.Element<*>>
 };
 
 type OverflowPanelStateT = HTMLElement | null;

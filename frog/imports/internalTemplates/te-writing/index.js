@@ -87,11 +87,11 @@ const p2Instructions = {
 
 const processTemplate = (template, replacements) => {
   const result = Object.keys(replacements).reduce((acc, x) => {
-    const toReplace = Number.isInteger(replacements[x])
-      ? replacements[x]
-      : isObject(replacements[x]) || isBoolean(replacements[x])
-      ? JSON.stringify(replacements[x])
-      : `"${replacements[x]}"`;
+    const val = replacements[x];
+    const toReplace =
+      isObject(val) || isBoolean(val) || Array.isArray(val)
+        ? JSON.stringify(val)
+        : `"${val}"`;
     return acc.replace(`"{{${x}}}"`, toReplace);
   }, template);
   return [result];

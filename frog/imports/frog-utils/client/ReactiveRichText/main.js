@@ -231,7 +231,7 @@ class ReactiveRichText extends Component<
     this.cursors = cursors;
   };
 
-  handlePresenceUpdate(srcList: string[], submitted: boolean, that: Object) {
+  handlePresenceUpdate(srcList: string[], submitted: ?boolean, that: Object) {
     if (!that.quillRef) {
       console.warn('No Quillref');
       return;

@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
@@ -70,7 +68,7 @@ import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnecti
 import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 
 type WikiCompPropsT = {
-  setPage?: (pageobj: PageObjT, replace: boolean) => void,
+  setPage?: (pageobj: PageObjT, replace?: boolean) => void,
   pageObj: PageObjT,
   embed?: boolean,
   query?: Object
@@ -91,7 +89,13 @@ type WikiCompStateT = {
   privilege?: 'owner' | 'editor' | 'user' | 'none',
   currentPageObj?: Object,
   docMode: string,
-  pageData: Object
+  pagesData: ?any,
+  initialPageTitle: string,
+  deletedPageModalOpen?: boolean,
+  currentDeletedPageId?: string,
+  currentDeletedPageTitle?: string,
+  rightSideCurrentPageObj?: any,
+  createModalOpen?: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
@@ -128,7 +132,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.props.pageObj.pageTitle,
+      initialPageTitle: this.props.pageObj.pageTitle || '',
       mode: 'document',
       docMode: query?.edit ? PERM_PASSWORD_TO_EDIT : PERM_PASSWORD_TO_VIEW,
       error: null,
@@ -178,7 +182,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         prevProps.pageObj.pageTitle !== pageTitle) ||
       prevProps.pageObj.instance !== this.props.pageObj.instance
     ) {
-      this.goToPageTitle(pageTitle, this.props.pageObj.instance);
+      this.goToPageTitle(pageTitle || '', this.props.pageObj.instance);
     }
   }
 
@@ -243,12 +247,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   getPrivilege() {
-    if (this.wikiDoc.data.owners?.find(x => x === Meteor.userId()))
+    const { owners, editors, users } = this.wikiDoc.data;
+    if (owners && owners.find(x => x === Meteor.userId()))
       return PRIVILEGE_OWNER;
-    if (this.wikiDoc.data.editors?.find(x => x === Meteor.userId()))
+    if (editors && editors.find(x => x === Meteor.userId()))
       return PRIVILEGE_EDIT;
-    if (this.wikiDoc.data.users?.find(x => x === Meteor.userId()))
-      return PRIVILEGE_VIEW;
+    if (users && users.find(x => x === Meteor.userId())) return PRIVILEGE_VIEW;
     return PRIVILEGE_NONE;
   }
 
@@ -329,7 +333,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
-    const pageTitleLower = pageTitle.toLowerCase();
+    const pageTitleLower = (pageTitle || '').toLowerCase();
     let fullPageObj = parsedPages[pageTitleLower];
 
     if (!fullPageObj) {
@@ -406,15 +410,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         currentPageObj
       },
       () => {
-        const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
-        this.props.setPage({
-          wikiId: this.wikiId,
-          pageTitle: currentPageObj.title,
-          instance:
-            instanceId && instanceId !== this.getInstanceId(fullPageObj)
-              ? instanceName
-              : null
-        });
+        const instanceName =
+          this.getInstanceNameForId(fullPageObj, instanceId) || '';
+        const instance =
+          instanceId && instanceId !== this.getInstanceId(fullPageObj)
+            ? instanceName
+            : '';
+        if (this.props.setPage) {
+          this.props.setPage({
+            wikiId: this.wikiId,
+            pageTitle: currentPageObj.title,
+            instance
+          });
+        }
       }
     );
   };
@@ -492,8 +500,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     addNewInstancePage(
       this.wikiDoc,
       pageObj.id,
-      instanceId,
-      instanceName,
+      instanceId || 'noInstanceId',
+      instanceName || 'noInstanceName',
       liId
     );
     return {
@@ -524,6 +532,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, sanitizeTitle(newPageTitle));
+    // $FlowFixMe
     this.props.setPage(
       {
         wikiId: this.wikiId,
@@ -615,33 +624,26 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         if (!newCurrentPageObj || side === 'right') return;
 
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
-        if (cb) {
+        if (this.props.setPage) {
+          const instance =
+            instanceId && instanceId !== this.getInstanceId(fullPageObj)
+              ? instanceName || ''
+              : '';
           this.props.setPage(
             {
               wikiId: this.wikiId,
               pageTitle: newCurrentPageObj.title,
-              instance:
-                instanceId && instanceId !== this.getInstanceId(fullPageObj)
-                  ? instanceName
-                  : null
+              instance
             },
             true
           );
-          return cb();
         }
-        this.props.setPage({
-          wikiId: this.wikiId,
-          pageTitle: newCurrentPageObj.title,
-          instance:
-            instanceId && instanceId !== this.getInstanceId(fullPageObj)
-              ? instanceName
-              : null
-        });
+        if (cb) return cb();
       }
     );
   };
 
-  goToPageTitle = (pageTitle, instanceName, side, cb) => {
+  goToPageTitle = (pageTitle: string, instanceName, side, cb) => {
     const pageTitleLower = sanitizeTitle(pageTitle.toLowerCase());
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(

@@ -49,7 +49,7 @@ const getPageTitle = (
   return null;
 };
 
-const checkNewPageTitle = (parsedPages, newPageTitle) => {
+const checkNewPageTitle = (parsedPages: any, newPageTitle: any) => {
   const parsedTitle = newPageTitle.toLowerCase().trim();
   if (parsedTitle === '') return 'Title cannot be empty';
   if (parsedTitle.includes('/')) return 'Title cannot contain /';
@@ -59,7 +59,7 @@ const checkNewPageTitle = (parsedPages, newPageTitle) => {
   return null;
 };
 
-const getDifferentPageId = (pages, oldPageId) => {
+const getDifferentPageId = (pages: Object, oldPageId: string) => {
   for (const page of pages) {
     if (page.id !== oldPageId) return page.id;
   }
@@ -67,7 +67,7 @@ const getDifferentPageId = (pages, oldPageId) => {
   return null;
 };
 
-const getPageDetailsForLiId = (wikiPages, liId) => {
+const getPageDetailsForLiId = (wikiPages: any, liId: string) => {
   for (const pageObj of values(toJS(wikiPages))) {
     const pageId = pageObj.id;
     if (pageObj.plane === 3 && pageObj.liId === liId) {

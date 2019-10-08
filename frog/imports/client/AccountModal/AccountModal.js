@@ -14,7 +14,7 @@ const AccountModal = ({
   variant
 }: {
   formToDisplay: string,
-  closeModal: Function,
+  closeModal?: Function,
   variant?: 'guest' | 'legacy' | 'default'
 }) => {
   const [form, setForm] = React.useState(null);

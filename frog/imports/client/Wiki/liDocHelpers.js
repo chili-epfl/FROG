@@ -17,7 +17,7 @@ export const createNewLI = (
   };
   if (liType === 'li-activity') {
     // Need to create an entry for the activity in the 'rz' collection before creating the LI
-    const { activityType, config } = activityConfig;
+    const { activityType, config } = activityConfig || {};
 
     const dS = opData || activityTypesObj[activityType]?.dataStructure;
 

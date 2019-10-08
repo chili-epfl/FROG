@@ -9,7 +9,7 @@ import {
 import ReactiveRichText from '/imports/frog-utils/ReactiveRichTextProxy';
 import { get, isString } from 'lodash';
 
-const FlexViewer = ({ LearningItem, data, search, dataFn, type }) => {
+const FlexViewer = ({ LearningItem, data, search, dataFn, type }: Object) => {
   const shouldShorten = type === 'thumbView';
 
   return (
