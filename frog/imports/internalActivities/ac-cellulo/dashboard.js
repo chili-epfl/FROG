@@ -14,130 +14,133 @@ import { object } from 'prop-types';
 import { format } from 'url';
 
 const Viewer = ({ sendMsg, state, activity }) => {
-  let nrulesall = {};
-  let nblocksall = {};
+  console.log(state);
 
-  for (let i = 0; i < state.length; i++) {
-    if (!(state[i]['ID'] in nrulesall)) {
-      nrulesall[state[i]['ID']] = [];
-    }
-    nrulesall[state[i]['ID']].push(state[i]['nrules']);
-    if (!(state[i]['ID'] in nblocksall)) {
-      nblocksall[state[i]['ID']] = [];
-    }
-    nblocksall[state[i]['ID']].push(state[i]['nblocks']);
+  let warningAgg = [];
+  for (let i = 0; i < warningsList.length; i++) {
+    warningAgg.push({ x: warningsList[i], y: state.tempAgg.warnings[i] });
   }
 
-  var index = [];
-  // build the index
-  for (var x in nrulesall) {
-    index.push(x);
+  let errorAgg = [];
+  for (let i = 0; i < errorsList.length; i++) {
+    errorAgg.push({ x: errorsList[i], y: state.tempAgg.errors[i] });
   }
 
-
-  let activity1 = 'deactive';
-
-  for (let i = 1; i < nrulesall.length - 10; i++) {
-    if (
-      nrulesall[nrulesall.length - 1] !== nrulesall[nrulesall.length - 1 - i]
-    ) {
-      activity1 = 'active';
-      break;
-    }
-  }
-  
-  const tags = ['tag1', 'tag2', 'tag3'];
-  function renderTags() {
-    if (tags.length === 0) return <p>There are no tags!</p>;
-    return (
-      <ul>
-        {' '}
-        {tags.map(tagr => (
-          <li key={tagr}>{tagr}</li>
-        ))}
-      </ul>
-    );
-  }
   return (
-    /* <div>
-      <h1>Number of blocks over time for Group1</h1>
-      <div style={{ maxWidth: 400, maxHeight: 400, backgroundColor: 'red' }}>
-        <VictoryChart>
-          <VictoryLine data={sampledata} />
-        </VictoryChart>
-      </div>
-      <div>
-        Summary Of Group activity
-        <h3>Group 1 {activity1}</h3>
-        <h3>Group 2 {activity1}</h3>
-        <h3>Group 3 {activity1}</h3>
-      </div>
-      <button onClick={() => sendMsg('')}>Click to send msg</button>
-    </div>
- */
-
-    <div>
+    <div style={{ maxWidth: 500 }}>
       <h1>Summary Of Group progress</h1>
-      <img src={imageUrl} alt="" />
-      <MyNiceLookingVisualization state={state} />
+
+      <VictoryChart>
+        domainPadding={10}
+        <VictoryBar horizontal barRatio={0.8} data={warningAgg} />
+      </VictoryChart>
+
+      <VictoryChart>
+        <VictoryBar data={errorAgg} />
+      </VictoryChart>
+
       <h2>List of Students</h2>
-      <div>{renderTags()}</div>
-      <span style={{ fontSize: 30 }} className="badge badge-warning">
-        {MyNiceLookingVisualization(state)}
-      </span>
-      <div style={{ maxWidth: 200, maxHeight: 200, backgroundColor: 'green' }}>
-        <h3> Group 1 {activity1}</h3>
-        <VictoryChart>
-          <VictoryLine data={nrulesall[index[3]]} />
-        </VictoryChart>
 
-        <VictoryChart>
-          <VictoryLine data={nblocksall[index[3]]} />
-        </VictoryChart>
-      </div>
-      <div style={{ maxWidth: 200, maxHeight: 200, backgroundColor: 'red' }}>
-        <h3>Group 2 {activity1}</h3>
-        <VictoryChart>
-          <VictoryLine data={nrulesall[index[1]]} />
-        </VictoryChart>
-      </div>
-
-      {true && (
-        <VictoryChart>
-          <VictoryLine data={nrulesall[index[1]]} />
-        </VictoryChart>
-      )}
       <button className="btn btn-secondary">Increment</button>
     </div>
   );
 };
-const MyNiceLookingVisualization = ({ state }) => (
-  <div>
-    <h3>yuyggfggu</h3>
-  </div>
-);
-const prepareDataForDisplay = state => state;
-const mergeLog = (state, log) => {
 
+const prepareDataForDisplay = state => {
+  return state;
+};
+const errorsList = [
+  'Duplicate event',
+  'Missing action block',
+  'Missing event block',
+  'Duplicate action blocks'
+];
+const warningsList = [
+  'No sensor specified',
+  'No proximity sensor specified',
+  'No ground sensor specified'
+];
+const cmdsList = [
+  'vpl:save',
+  'vpl:advanced',
+  'vpl:run',
+  'vpl:stop',
+  'vpl:exportToHTML'
+];
+let Timestamp = 0;
+let temp = {};
+let currentID = 0;
+let curTime = -1;
+const mergeLog = (state, log) => {
+  temp = {};
+  curTime += 1;
   if (log['type'] === 'log') {
-    if (log['data']['type'] === 'vpl-changed') {
-      let temp = {  
-        ID: log['sender'].sessionid,
-        nrules: log['data']['data'].nrules,
-        nblocks: log['data']['data'].nblocks
-        warning: log['data']['data'].warning
-        error: log['data']['data'].error
-      };
-      state.push(temp);
+    if (!state.studentsList.includes(log['sender'].sessionid)) {
+      state.tempInd.push({
+        errors: new Array(errorsList.length).fill(0),
+        warnings: new Array(warningsList.length).fill(0),
+        cmds: new Array(cmdsList.length).fill(0)
+      });
+      state.studentsList.push(log['sender'].sessionid);
+      currentID = state.studentsList.length - 1;
+    } else {
+      currentID = state.studentsList.indexOf(log['sender'].sessionid);
+    }
+    switch (log['data']['type']) {
+      case 'vpl-changed':
+        temp = {
+          nrules: log['data']['data'].nrules,
+          nblocks: log['data']['data'].nblocks
+        };
+
+        if (log['data']['data'].warning !== null) {
+          temp.warning = log['data']['data'].warning;
+          state.tempAgg.warnings[warningsList.indexOf(temp.warning)] += 1;
+          state.tempInd[currentID].warnings[
+            warningsList.indexOf(temp.warning)
+          ] += 1;
+        }
+
+        if (log['data']['data'].error !== null) {
+          temp.error = log['data']['data'].error;
+          state.Time.error[curTime] = log.timestamp;
+          state.tempAgg.errors[errorsList.indexOf(temp.error)] += 1;
+          state.tempInd[currentID].errors[errorsList.indexOf(temp.error)] += 1;
+        }
+
+        break;
+      case 'cmd':
+        temp = {
+          cmd: log['data']['data'].cmd,
+          selected: log['data']['data'].selected
+        };
+        console.log(temp.cmd);
+        state.tempAgg.cmds[cmdsList.indexOf(temp.cmd)] += 1;
+        break;
+      case 'drop':
+        temp = {
+          cmd: log['data']['data'].cmd
+        };
+        break;
+      default:
     }
   }
-  // esltint-disable-next-line no-console
-};
 
+  console.log(state);
+};
+const maxTime = 10;
 export default {
-  initData: [],
+  initData: {
+    Time: { error: new Array(maxTime).fill(0) },
+    studentsList: [],
+    tempAgg: {
+      errors: new Array(errorsList.length).fill(new Array(maxTime).fill(0)),
+      warnings: new Array(warningsList.length).fill(0),
+      cmds: new Array(cmdsList.length).fill(0)
+    },
+    tempInd: []
+  },
   mergeLog,
   prepareDataForDisplay,
   Viewer
 };
-
