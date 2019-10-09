@@ -9,7 +9,8 @@ import {
   exampleConfig0,
   exampleConfig1,
   exampleConfig2,
-  exampleConfig3
+  exampleConfig3,
+  exampleConfig4
 } from './config';
 
 const meta = {
@@ -21,7 +22,13 @@ const meta = {
   description:
     'Students upload code which is tested against teacher-designed tests',
   category: 'Discipline-specific',
-  exampleData: [exampleConfig0, exampleConfig1, exampleConfig2, exampleConfig3]
+  exampleData: [
+    exampleConfig0,
+    exampleConfig1,
+    exampleConfig2,
+    exampleConfig3,
+    exampleConfig4
+  ]
 };
 
 // default empty reactive datastructure, typically either an empty object or array

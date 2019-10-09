@@ -6,20 +6,29 @@ type EditorPropsT = {
   dataFn: any
 };
 
+const style = {
+  flex: '1 0 360px',
+  height: '420px',
+  margin: '2px solid black'
+};
+
 export default class Editor extends Component<EditorPropsT> {
   constructor(props: Object) {
     super(props);
-    this.mode = props.activityData.config.language;
-    switch (props.activityData.config.language) {
-      case 'python':
-        require('brace/mode/python');
-        break;
-      case 'javascript':
-      default:
-        require('brace/mode/javascript');
-        break;
-    }
-    require('brace/theme/textmate');
+    const { language, theme } = props.activityData.config;
+    if (language === 'python') require('brace/mode/python');
+    if (language === 'javascript') require('brace/mode/javascript');
+    if (language === 'HTML') require('brace/mode/html');
+    if (theme === 'monokai') require('brace/theme/monokai');
+    if (theme === 'github') require('brace/theme/github');
+    if (theme === 'tomorrow') require('brace/theme/tomorrow');
+    if (theme === 'kuroir') require('brace/theme/kuroir');
+    if (theme === 'twilight') require('brace/theme/twilight');
+    if (theme === 'textmate') require('brace/theme/textmate');
+    if (theme === 'xcode') require('brace/theme/xcode');
+    if (theme === 'solarized_dark') require('brace/theme/solarized_dark');
+    if (theme === 'solarized_light') require('brace/theme/solarized_light');
+    if (theme === 'terminal') require('brace/theme/terminal');
     require('brace/ext/language_tools');
   }
 
@@ -28,15 +37,16 @@ export default class Editor extends Component<EditorPropsT> {
   };
 
   render() {
+    const { language, theme } = this.props.activityData.config;
     return (
       <Ace
         editorProps={{
           $blockScrolling: Infinity
         }}
         id="yourcode"
-        style={{ width: '600px', height: '750px' }}
-        mode={this.props.activityData.config.language || 'javascript'}
-        theme="textmate"
+        style={style}
+        mode={(language && language.toLowerCase()) || 'javascript'}
+        theme={theme}
         highlightActiveLine
         value={this.props.data.code}
         onChange={this.onChange}
