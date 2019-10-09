@@ -3,7 +3,8 @@
 import * as React from 'react';
 
 type PrimaryButtonPropsT = {
-  title: string,
+  children?: React.Element<*>,
+  title?: string,
   active?: boolean,
   icon?: React.ComponentType<*>,
   callback?: () => void,

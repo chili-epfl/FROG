@@ -104,7 +104,7 @@ export default class Store {
 
   graphId: string;
 
-  templateSource: string;
+  templateSource: ?string;
 
   templateOpenFlag: boolean;
 
@@ -133,6 +133,10 @@ export default class Store {
   setSession: any => void;
 
   deleteSelected: (?boolean) => void;
+
+  setTemplateOpenFlag: Function;
+
+  setTemplateSource: Function;
 
   constructor() {
     extendObservable(this, {

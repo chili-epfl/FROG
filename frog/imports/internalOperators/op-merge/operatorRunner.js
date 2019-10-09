@@ -1,10 +1,20 @@
 // @flow
 
-import { type productOperatorRunnerT, values } from '/imports/frog-utils';
+import {
+  type productOperatorRunnerT,
+  type activityDataT,
+  values
+} from '/imports/frog-utils';
 import { isEmpty } from 'lodash';
 
-const operator = (_, { activityData }) => {
+const operator = (
+  _,
+  { activityData }: { activityData: activityDataT }
+): activityDataT => {
   const hasMultipleIn = !activityData.payload;
+  // Looks like the type definitions do not handle the way
+  // we allow multiple inputs to an operator.
+  // $FlowFixMe
   const products = hasMultipleIn ? values(activityData) : [activityData];
   const arrayProd = products.reduce((acc, x) => {
     Object.keys(x.payload).forEach(i => {
@@ -25,6 +35,7 @@ const operator = (_, { activityData }) => {
     return acc;
   }, {});
   return {
+    // $FlowFixMe
     structure: products[0].structure,
     payload
   };

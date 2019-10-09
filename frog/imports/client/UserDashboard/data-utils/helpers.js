@@ -86,7 +86,7 @@ export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
       dateObj: item.createdAt,
       callback: () => history.push(`/teacher/graph/${item._id}`),
       secondaryActions:
-        item.uiStatus == 'archived'
+        item.uiStatus === 'archived'
           ? [
               {
                 icon: ArchiveIcon,
@@ -121,7 +121,7 @@ export const parseSessionData = (
     dateObj: new Date(item.startedAt),
     callback: () => history.push(`t/${item.slug}`),
     secondaryActions:
-      item.uiStatus == 'archived'
+      item.uiStatus === 'archived'
         ? [
             {
               icon: ArchiveIcon,
@@ -162,7 +162,7 @@ export const parseTemplateData = (
       store.setTemplateOpenFlag(true);
     },
     secondaryActions:
-      item.uiStatus == 'archived'
+      item.uiStatus === 'archived'
         ? [
             {
               icon: ArchiveIcon,

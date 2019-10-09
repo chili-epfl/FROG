@@ -20,6 +20,8 @@ export default class Elem {
 
   remove: boolean => void;
 
+  title: string;
+
   constructor() {
     extendObservable(this, {
       select: action(() => {

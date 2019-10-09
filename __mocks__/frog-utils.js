@@ -1,5 +1,5 @@
 function mockFunctions() {
-  const original = require.requireActual('frog-utils');
+  const original = require.requireActual('frog/imports/frog-utils');
   return {
     ...original,
     uuid: (() => {

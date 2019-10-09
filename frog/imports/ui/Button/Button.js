@@ -108,7 +108,7 @@ export const Button = (props: ButtonProps) => {
     >
       <span
         className={`${classes.hover} ${
-          props.disabledHover ? classes.disableDirectHover : null
+          props.disabledHover ? classes.disableDirectHover : ''
         }`}
       />
       {props.icon && <div className={classes.icon}>{props.icon}</div>}

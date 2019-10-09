@@ -4,7 +4,7 @@ import React from 'react';
 import FlexView from 'react-flexview';
 import { FormGroup, FormControl } from 'react-bootstrap';
 
-export default ({ formContext, onChange, value = '' }) => {
+export default ({ formContext, onChange, value = '' }: Object) => {
   const options = formContext.options.filter(
     x => x !== formContext.groupingKey
   );

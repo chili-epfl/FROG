@@ -1,8 +1,12 @@
 /* eslint-disable */
-require("regenerator-runtime/runtime");
+require('regenerator-runtime/runtime');
 
 module.exports = {
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    'packages/reactive-tools/test.js'
+  ],
   moduleNameMapper: {
     '^meteor/(.*)$': '<rootDir>/frog/lib/fakeMeteor',
     '^/(.*)$': '<rootDir>/frog/$1',

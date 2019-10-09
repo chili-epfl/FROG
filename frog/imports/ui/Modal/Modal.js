@@ -12,7 +12,7 @@ import type { ShowModalFunctionT, HideModalFunctionT } from './types';
 export type ActionsT = Array<{
   title: string,
   primary?: boolean,
-  callback: () => void
+  callback: ?Function
 }>;
 
 type ModalPropsT = {

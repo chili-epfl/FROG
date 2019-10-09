@@ -49,6 +49,7 @@ export const TopBarContainer = withRouter(({ history }) => {
         </>
       }
       actions={
+        // $FlowFixMe
         <OverflowMenu
           button={
             <Button variant="minimal" icon={<MoreVert fontSize="small" />} />

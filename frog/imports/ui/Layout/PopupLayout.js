@@ -59,7 +59,7 @@ type PopupLayoutPropsT = {
   header?: React.Element<*>,
   sidebar?: React.Element<*>,
   content?: React.Element<*>,
-  extra?: React.Element<*>
+  extra?: ?React.Element<*>
 };
 
 export const PopupLayout = (props: PopupLayoutPropsT) => {

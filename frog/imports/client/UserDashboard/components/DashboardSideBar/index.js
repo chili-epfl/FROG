@@ -152,8 +152,10 @@ export const DashboardSideBar = ({
         contentTopBar={
           <>
             <TopBarAccountsWrapper
+              // $FlowFixMe
               navigation={<Breadcrumb paths={[`${activePage}`]} />}
               actions={
+                // $FlowFixMe
                 <OverflowMenu
                   button={
                     <Button

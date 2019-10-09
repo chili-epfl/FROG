@@ -51,7 +51,11 @@ const styles = {
   }
 };
 
-export const ActivityContainer = ({ activities, sessionId, paused }) => {
+export const ActivityContainer = ({
+  activities,
+  sessionId,
+  paused
+}: Object) => {
   if (activities.length === 0) {
     return 'No activity';
   }

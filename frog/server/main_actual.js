@@ -31,6 +31,7 @@ import './accountManagement';
 import './redis';
 import './email';
 
+// $FlowFixMe
 require('util').inspect.defaultOptions.depth = null;
 
 console.info('Meteor settings', Meteor.settings);
