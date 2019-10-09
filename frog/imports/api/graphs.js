@@ -44,7 +44,7 @@ export const createSessionFromActivity = (
       graphId = doImportGraph(undefined, graphString);
     } else {
       graphId = addGraph();
-      Graphs.update(graphId, { $set: { published: true } });
+      Graphs.update(graphId, { $set: { published: true, wizardGraph: true } });
       activityId = addActivity(activityType, config);
       Activities.update(activityId, {
         $set: {
