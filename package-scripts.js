@@ -64,6 +64,10 @@ module.exports = {
       'Running LockFiles, Flow, ESLint and Jest'
     ),
     eslint: {
+      fast: fromRoot(
+        'fastlint --glob "frog/**/*.{js,jsx}" --working-copy origin/develop --print0 | xargs -0 ls -d 2>/dev/null | xargs -0 eslint -c .eslintrc-prettier.js',
+        'Running EslintFast'
+      ),
       default: fromRoot(
         'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx"',
         'Running ESLint'
