@@ -34,6 +34,7 @@ type TemplateModalProps = {
 
 const TemplateModal = (props: TemplateModalProps) => {
   const classes = useStyle();
+
   const { graphName } = props;
   const name = graphName && graphName !== 'Unnamed' ? graphName : '';
   const [values, setValues] = React.useState({

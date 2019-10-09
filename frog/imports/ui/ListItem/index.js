@@ -8,7 +8,7 @@ import { MoreVert } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItemSecondaryAction } from '@material-ui/core';
 import { OverflowMenu } from '../OverflowMenu';
-import { RowButton } from '../RowItems';
+import { RowButton, RowTitle } from '../RowItems';
 import { Button } from '../Button';
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +52,11 @@ export const ContentListItem = ({
 }: ContentListItemPropsT) => {
   const Icon = itemIcon || 'div';
   const classes = useStyles();
-  const secondaryText = status ? `${status} | ${itemType}` : itemType || ' ';
+  const secondaryText = status
+    ? itemType
+      ? `${status} | ${itemType}`
+      : ''
+    : itemType;
 
   const DateToMoments = moment => {
     try {
@@ -129,10 +133,17 @@ export const ContentListItem = ({
           <OverflowMenu
             button={<Button variant="minimal" icon={<MoreVert />} />}
           >
+            <RowTitle>Actions</RowTitle>
             {secondaryActions.map((item, index) => {
               const ListIcon = item.icon;
               return (
-                <RowButton key={index} icon={<ListIcon />}>
+                <RowButton
+                  key={index}
+                  icon={<ListIcon />}
+                  // Should it be `item.callback` as specified in the type definition ?
+                  // $FlowFixMe
+                  onClick={item.action}
+                >
                   {item.title}
                 </RowButton>
               );

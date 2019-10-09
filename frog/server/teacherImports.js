@@ -22,7 +22,10 @@ const teacherPublish = (publish, collection, limitation) => {
 
 const teacherPublishOwn = (publish, collection) => {
   Meteor.publish(publish, function() {
-    return collection.find({ ownerId: this.userId });
+    return collection.find({
+      ownerId: this.userId,
+      uiStatus: { $ne: 'deleted' }
+    });
   });
 };
 

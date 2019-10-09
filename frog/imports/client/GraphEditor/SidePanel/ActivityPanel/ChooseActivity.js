@@ -226,6 +226,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
         key={categoryName}
       />
     );
+
+    if (!store || !store.ui) return null;
     return (
       <Grid>
         <div className={classes.topPanel}>
@@ -261,7 +263,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
           </Grid>
         </div>
         <List component="nav">
-          {!this.props.store.ui.libraryOpen &&
+          {!store.ui.libraryOpen &&
             this.state.searchStr === '' &&
             categories.map((x: string, idx: number) => {
               if (activityMapping)
@@ -277,7 +279,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                   idx
                 );
             })}
-          {!this.props.store.ui.libraryOpen &&
+          {!store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length !== 0 &&
             filteredList.map(x => (
@@ -297,7 +299,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 <ListItemText inset primary={x.meta.name} />
               </ListItem>
             ))}
-          {!this.props.store.ui.libraryOpen &&
+          {!store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length === 0 && (
               <ListItem key="no-match-search">
@@ -307,7 +309,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 />
               </ListItem>
             )}
-          {this.props.store.ui.libraryOpen && (
+          {store.ui.libraryOpen && (
             <Library
               key="library"
               libraryType="activity"
@@ -315,7 +317,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
               setActivityTypeId={this.props.setActivityTypeId}
-              store={this.props.store}
+              store={store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}
               onSelect={this.props.onSelect}

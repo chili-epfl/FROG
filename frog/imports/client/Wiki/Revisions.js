@@ -54,7 +54,7 @@ const toDate = ts => {
     1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`;
 };
 
-const Revisions = ({ doc }) => {
+const Revisions = ({ doc }: Object) => {
   const [revisions, setRevisions] = React.useState([]);
   const [diffFrom, setDiffFrom] = React.useState(undefined);
   const [diffTo, setDiffTo] = React.useState(undefined);

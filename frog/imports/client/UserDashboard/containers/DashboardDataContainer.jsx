@@ -19,32 +19,57 @@ type DashboardDataContainerPropT = {
   history: RouterHistory,
   draftsList: DraftsListT,
   sessionsList: SessionListT,
-  templatesList: TemplatesListT
+  templatesList: TemplatesListT,
+  archivesListTemplates: TemplatesListT,
+  archivesListSessions: SessionListT
 };
 
 const DashboardDataContainer = ({
   history,
   draftsList,
   sessionsList,
-  templatesList
+  templatesList,
+  archivesListDrafts,
+  archivesListSessions,
+  archivesListTemplates
 }: DashboardDataContainerPropT) => {
   const parsedDraftsList = parseDraftData(draftsList, history);
   const parsedSessionsList = parseSessionData(sessionsList, history);
   const parsedTemplatesList = parseTemplateData(templatesList, history);
+  const parsedArchives = {
+    drafts: parseDraftData(archivesListDrafts, history),
+    sessions: parseSessionData(archivesListSessions, history),
+    templates: parseTemplateData(archivesListTemplates, history)
+  };
   return (
     <DashboardContentContainer
       history={history}
       draftsList={parsedDraftsList}
       sessionsList={parsedSessionsList}
       templatesList={parsedTemplatesList}
+      archives={parsedArchives}
     />
   );
 };
 
 export default withTracker(props => {
-  const draftsList = Graphs.find({}).fetch();
-  const sessionsList = Sessions.find({}).fetch();
-  const templatesList = Templates.find({}).fetch();
+  const draftsList = Graphs.find({ uiStatus: 'active' }).fetch();
+  const sessionsList = Sessions.find({ uiStatus: 'active' }).fetch();
+  const templatesList = Templates.find({ uiStatus: 'active' }).fetch();
 
-  return { ...props, draftsList, sessionsList, templatesList };
+  const archivesListTemplates = Templates.find({
+    uiStatus: 'archived'
+  }).fetch();
+  const archivesListSessions = Sessions.find({ uiStatus: 'archived' }).fetch();
+  const archivesListDrafts = Graphs.find({ uiStatus: 'archived' }).fetch();
+
+  return {
+    ...props,
+    draftsList,
+    sessionsList,
+    templatesList,
+    archivesListSessions,
+    archivesListTemplates,
+    archivesListDrafts
+  };
 })(DashboardDataContainer);

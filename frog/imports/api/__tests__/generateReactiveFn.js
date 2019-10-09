@@ -3,7 +3,7 @@ import { uuid } from '/imports/frog-utils';
 import { generateReactiveFn } from '../generateReactiveFn';
 
 jest.mock('/imports/frog-utils', () =>
-  require.requireActual('../../../../__mocks__//imports/frog-utils')
+  require.requireActual('/../__mocks__/frog-utils')
 );
 
 const share = new ShareDB();

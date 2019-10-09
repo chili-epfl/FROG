@@ -28,7 +28,7 @@ const getAnimalAnonymous = (userId: string): string => {
  * @param: {User=} user
  */
 
-export const getUsername = (user, opts = {}) => {
+export const getUsername = (user?: UserObj, opts: Object = {}): ?string => {
   const { wiki, activityRunner } = opts;
   const selectedUser = getUser(user);
   if (selectedUser) {
@@ -38,7 +38,8 @@ export const getUsername = (user, opts = {}) => {
         : activityRunner
         ? 'Teacher'
         : 'Anonymous User';
-    else if (selectedUser.emails) return selectedUser.profile.displayName;
+    else if (selectedUser.emails && selectedUser.profile)
+      return selectedUser.profile.displayName;
     else if (selectedUser.username) return selectedUser.username;
   }
   return undefined;
@@ -71,8 +72,10 @@ const getUser = (user?: UserObj): ?MeteorUser => {
 export const getEmail = (user?: UserObj): string => {
   const selectedUser = getUser(user);
   if (selectedUser && isVerifiedUser({ meteorUser: selectedUser })) {
-    return selectedUser.emails[0].address;
-  } else return '';
+    const { emails } = selectedUser;
+    if (emails) return emails[0] || '';
+  }
+  return '';
 };
 
 /**

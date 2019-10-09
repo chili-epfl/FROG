@@ -177,7 +177,7 @@ type PropsT = {
   reactiveId: string,
   logger: Function,
   activityData?: Object | null,
-  username: string,
+  username: ?string,
   userid: string,
   stream: Function,
   groupingKey: string,
