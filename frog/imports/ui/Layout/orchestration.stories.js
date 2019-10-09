@@ -19,6 +19,7 @@ import { RowButton, RowTitle, RowDivider } from '../RowItems';
 import { Logo } from '../Logo';
 import { OverflowMenu } from '../OverflowMenu';
 import { ActivityStatus } from '../ActivityStatus';
+import { PopupLayout } from './PopupLayout';
 
 const SimpleWrapper = () => {
   return (
@@ -124,6 +125,13 @@ const SimpleWrapper = () => {
   );
 };
 
-storiesOf('UI/Layout/SidebarLayout', module).add('orchestration', () => (
-  <SimpleWrapper />
+storiesOf('UI/Layout', module).add('SidebarLayout', () => <SimpleWrapper />);
+
+storiesOf('UI/Layout', module).add('PopupLayout', () => (
+  <PopupLayout
+    header={<div style={{ height: '100%', background: '#eee' }}>Header</div>}
+    sidebar={<div style={{ height: '100%', background: '#ddd' }}>SideBar</div>}
+    content={<div style={{ height: '100%', background: '#ccc' }}>Content</div>}
+    extra={<div style={{ height: '100%', background: '#bbb' }}>Extra</div>}
+  />
 ));
