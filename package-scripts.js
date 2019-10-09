@@ -60,17 +60,17 @@ module.exports = {
       'Starting Meteor'
     ),
     test: fromRoot(
-      `nps -s lockfiles eslint.fast flow jest`,
+      `nps -s lockfiles eslint flow jest`,
       'Running LockFiles, Flow, ESLint and Jest'
     ),
     eslint: {
       default: fromRoot(
         'fastlint --working-copy --delimiter "\n" origin/develop --glob "frog/**/*.{js,jsx}" | xargs ls -d 2>/dev/null | xargs eslint --cache -c .eslintrc-prettier.js',
-        'Running EslintFast'
+        'Running Eslint'
       ),
       fix: fromRoot(
         'fastlint --working-copy --delimiter "\n" origin/develop --glob "frog/**/*.{js,jsx}" | xargs ls -d 2>/dev/null | xargs eslint --fix --cache -c .eslintrc-prettier.js',
-        'Running EslintFast'
+        'Running Eslint in fix mode'
       ),
       normal: fromRoot(
         'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx frog/',
