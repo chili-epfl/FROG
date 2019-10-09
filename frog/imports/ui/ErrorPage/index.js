@@ -34,7 +34,8 @@ const useStyle = makeStyles(theme => ({
 
 type ErrorPageProps = {
   message?: string,
-  title?: string
+  title?: string,
+  history: any
 };
 
 const ErrorPage = (props: ErrorPageProps) => {
@@ -48,7 +49,7 @@ const ErrorPage = (props: ErrorPageProps) => {
         <div className={classes.buttonWrapper}>
           <Button
             onClick={() => {
-              history.push('/');
+              props.history.push('/');
             }}
           >
             Back to Home

@@ -59,6 +59,11 @@ const TeacherViewRunner = withRouter(
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
+    let error;
+    if (!session) {
+      error = 'This session does not exist.';
+    }
+
     return {
       sessions: Sessions.find().fetch(),
       session,
@@ -66,7 +71,8 @@ const TeacherViewRunner = withRouter(
       activities,
       token: GlobalSettings.findOne('token'),
       students,
-      user
+      user,
+      error
     };
   })(OrchestrationView)
 );

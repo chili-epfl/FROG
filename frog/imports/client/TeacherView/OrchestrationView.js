@@ -23,11 +23,13 @@ import { PreviewContainer } from './containers/PreviewContainer';
 import GraphView from './GraphView';
 
 import { DashboardReactiveWrapper } from '../Dashboard';
+import ErrorPage from '/imports/ui/ErrorPage';
 
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
   students: Object,
+  error: String,
   history: Object
 };
 
@@ -38,8 +40,11 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const activityToDash = props.activities
     ? props.activities.find(a => a._id === currentActivity)
     : null;
+
   if (!props.session) {
-    return null;
+    return (
+      <ErrorPage title="Error" message={props.error} history={props.history} />
+    );
   }
   const currentActivities = props.session.openActivities.map(x =>
     Activities.findOne(x)
@@ -48,9 +53,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const toggle = id =>
     currentActivity === id ? setCurrentActivity(null) : setCurrentActivity(id);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const showAccountModal =
     getUserType() === 'Anonymous' && !window.location.search.includes('?u=');
