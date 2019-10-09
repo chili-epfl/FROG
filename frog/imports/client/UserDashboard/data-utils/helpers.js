@@ -78,7 +78,7 @@ const getSessionTypeInfo = (session): meteorSessionObjectT => {
 
 export const parseDraftData = (draftsList: meteorDraftsList, history: Object) =>
   draftsList
-    .filter(x => !x.sessionGraph && !x.templateGraph)
+    .filter(x => !x.sessionGraph && !x.templateGraph && !x.wizardGraph)
     .map(item => ({
       itemIcon: ShowChart,
       itemTitle: item.name,
