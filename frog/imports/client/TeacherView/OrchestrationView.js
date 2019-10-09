@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { compose } from 'recompose';
 
 import { withDragDropContext } from '/imports/frog-utils';
@@ -26,13 +27,17 @@ import { DashboardReactiveWrapper } from '../Dashboard';
 type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
-  students: Object
+  students: Object,
+  history: Object
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const [currentActivity, setCurrentActivity] = React.useState('welcome');
+  const [open, setOpen] = React.useState(true);
 
-  const activityToDash = props.activities?.find(a => a._id === currentActivity);
+  const activityToDash = props.activities
+    ? props.activities.find(a => a._id === currentActivity)
+    : null;
   if (!props.session) {
     return null;
   }
@@ -43,11 +48,12 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
   const toggle = id =>
     currentActivity === id ? setCurrentActivity(null) : setCurrentActivity(id);
 
-  const [open, setOpen] = React.useState(true);
-
   const handleClose = () => {
     setOpen(false);
   };
+
+  const showAccountModal =
+    getUserType() === 'Anonymous' && !window.location.search.includes('?u=');
 
   return (
     <OrchestrationContextProvider
@@ -55,8 +61,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
       activities={props.activities}
       students={props.students}
     >
-      {getUserType() === 'Anonymous' &&
-      !window.location.search.includes('?u=') ? (
+      {showAccountModal ? (
         <Dialog open={open} onClose={handleClose}>
           <AccountModal
             formToDisplay="signup"

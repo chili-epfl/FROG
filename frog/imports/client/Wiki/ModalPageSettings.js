@@ -42,7 +42,8 @@ type StateT = {
   pageSettings: PageSettingsT,
   activityConfig?: Object,
   operatorConfig?: Object,
-  error: ?string
+  error: ?string,
+  config?: Object
 };
 
 type PropsT = {
@@ -317,7 +318,7 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
                     'op-hypothesis'
                   ]}
                   config={this.state.activityConfig?.config}
-                  activityType={this.state.activityConfig?.activityType}
+                  activityType={this.state.activityConfig?.activityType || ''}
                   activityMapping={{
                     'li-richText': 'Core',
                     'ac-gallery': 'Core',

@@ -31,7 +31,8 @@ type RecentsPagePropsT = {
   templatesList: TemplatesListT,
   actionCallback: () => void,
   moreCallbackSessions: () => void,
-  moreCallbackDrafts: () => void
+  moreCallbackDrafts: () => void,
+  moreCallbackTemplates: () => void
 };
 
 export const RecentsPage = ({

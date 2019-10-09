@@ -1,7 +1,7 @@
 import operator from '../operatorRunner';
 
 jest.mock('/imports/frog-utils', () =>
-  require.requireActual('../../../../__mocks__/frog-utils')
+  require.requireActual('/../__mocks__/frog-utils')
 );
 
 const object2 = {

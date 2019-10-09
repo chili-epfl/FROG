@@ -4,7 +4,7 @@ import operator from '../operatorRunner';
 
 const op = operator;
 jest.mock('/imports/frog-utils', () =>
-  require.requireActual('../../../../__mocks__/frog-utils.js')
+  require.requireActual('/../__mocks__/frog-utils.js')
 );
 
 test('Aggregate unique', () =>

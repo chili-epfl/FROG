@@ -20,7 +20,7 @@ type OrchestrationLayoutProps = {
   studentView: React.Element<*>,
   orchestrationControl: React.Element<*>,
   topBar: React.Element<*>,
-  graphView: React.Element<*>,
+  graphView: ?React.Element<*>,
   children: React.Element<*>
 };
 

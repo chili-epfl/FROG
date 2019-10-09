@@ -1,9 +1,8 @@
 // @flow
 
-import { extendObservable, action } from 'mobx';
+import { extendObservable, action, toJS } from 'mobx';
 import cuid from 'cuid';
 import { debounce, isEmpty } from 'lodash';
-import { toJS } from 'mobx';
 
 import { store } from './index';
 import Elem from './elemClass';

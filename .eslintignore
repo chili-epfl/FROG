@@ -9,6 +9,6 @@ frog/packages/**
 packages/**
 frog/imports/packages/**
 **/clientFiles/*
-**/ac/ac-autocode/src/lib/**
+**/frog/imports/internalActivities/ac-autocode/client/lib/**
 cypress/**
 package-scripts.js
