@@ -19,12 +19,14 @@ import { PersonalProfileModal } from '/imports/client/AccountModal/PersonalProfi
 
 type TopBarWrapperPropsT = {
   navigation: React.Element<*>,
-  actions: React.Element<*>
+  actions: React.Element<*>,
+  history: Object
 };
 
-export const TopBarAccountsWrapper = ({
+const TopBarWrapper = ({
   navigation,
-  actions
+  actions,
+  history
 }: TopBarWrapperPropsT) => {
   const [showModal] = useModal();
 
@@ -40,6 +42,7 @@ export const TopBarAccountsWrapper = ({
     sessionStorage.removeItem('frog.sessionToken');
     Meteor.logout(() => {
       resetShareDBConnection();
+      history.push('/');
       window.location.reload();
     });
   };
@@ -106,6 +109,8 @@ export const TopBarAccountsWrapper = ({
     />
   );
 };
+
+export const TopBarAccountsWrapper = withRouter(TopBarWrapper);
 
 export const SimpleTopBar = withRouter(({ title, history }) => (
   <TopBarAccountsWrapper
