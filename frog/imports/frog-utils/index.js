@@ -82,8 +82,6 @@ export { CountChart } from './DashboardComponents/CountChart';
 
 export { default as withDragDropContext } from './withDragDropContext';
 
-const xyz = 123;
-
 export {
   default as TableView,
   toTableData

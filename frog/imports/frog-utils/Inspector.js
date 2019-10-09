@@ -4,6 +4,8 @@ import * as React from 'react';
 
 import { ReactJsonView } from './browserOnlyComponents';
 
+const abc = 'abc';
+
 export const Inspector = ({ data }: { data: Object | Object[] }) =>
   data ? (
     <ReactJsonView
