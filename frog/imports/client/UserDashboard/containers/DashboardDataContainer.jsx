@@ -53,9 +53,10 @@ const DashboardDataContainer = ({
 };
 
 export default withTracker(props => {
-  const draftsList = Graphs.find({ uiStatus: 'active' }).fetch();
-  const sessionsList = Sessions.find({ uiStatus: 'active' }).fetch();
-  const templatesList = Templates.find({ uiStatus: 'active' }).fetch();
+  const notArchived = { uiStatus: { $ne: 'archived' } };
+  const draftsList = Graphs.find(notArchived).fetch();
+  const sessionsList = Sessions.find(notArchived).fetch();
+  const templatesList = Templates.find(notArchived).fetch();
 
   const archivesListTemplates = Templates.find({
     uiStatus: 'archived'
