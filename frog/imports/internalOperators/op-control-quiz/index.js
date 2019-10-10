@@ -2,7 +2,7 @@
 
 import type { controlOperatorT } from '/imports/frog-utils';
 
-import { config, configUI } from './config';
+import { config, configUI, validateConfig } from './config';
 
 const meta = {
   name: 'Quiz->Control',
@@ -17,5 +17,6 @@ export default ({
   configVersion: 1,
   config,
   configUI,
-  meta
+  meta,
+  validateConfig
 }: controlOperatorT);

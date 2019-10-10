@@ -1,83 +1,38 @@
 export const config = {
   type: 'object',
-  required: ['who', 'social'],
   properties: {
-    applytoall: {
-      type: 'boolean',
-      title: 'Apply to all activities?',
-      default: true
-    },
-    social: {
-      type: 'socialAttribute',
-      title: 'Social attribute'
-    },
-    individuals: {
-      type: 'boolean',
-      title: 'Apply to individuals instead of groups'
-    },
-    includeexclude: {
+    mode: {
       type: 'string',
       title: 'Include or exclude students',
       enum: ['include', 'exclude'],
       default: 'include'
     },
-    who: {
-      type: 'string',
-      title: 'List of individuals/groups to include/exclude, separated by comma'
+    questionIndex: {
+      type: 'number',
+      title: 'What is the question index of the quiz?'
     },
-    rules: {
-      title: 'Rules',
-      type: 'array',
-      items: {
-        type: 'object',
-        title: 'New Rule',
-        required: ['activity', 'who'],
-        properties: {
-          activity: {
-            type: 'targetActivity',
-            title: 'Applies to which activity'
-          },
-          includeexclude: {
-            type: 'string',
-            title: 'Include or exclude individuals',
-            enum: ['include', 'exclude'],
-            default: 'include'
-          },
-          who: {
-            type: 'string',
-            title:
-              'List of individuals/groups to include/exclude, separated by comma'
-          }
-        }
-      }
+    answer: {
+      type: 'string',
+      title: 'What answer should be matched'
     }
   }
 };
 
-export const configUI = {
-  rules: {
-    conditional: formdata => !formdata.applytoall
-  },
-  social: { conditional: formdata => !formdata.individuals },
-  includeexclude: { conditional: 'applytoall' },
-  who: { conditional: 'applytoall' }
-};
+export const configUI = {};
 
 export const validateConfig = [
-  data => {
-    if (data.rules.map(rule => rule.activity === '')) {
-      return {
-        field: 'activity',
-        err: 'No activity fields can be empty, remove the rule'
-      };
-    }
-  },
-  data => {
-    if (data.rules.map(rule => rule.activity === '')) {
-      return {
-        field: 'activity',
-        err: 'No activity fields can be empty, remove the rule'
-      };
-    }
-  }
+  ({ questionIndex }) =>
+    questionIndex === undefined || questionIndex < 0
+      ? {
+          field: 'Question Index',
+          err: 'The question index is wrong'
+        }
+      : null,
+  ({ answer }) =>
+    !answer
+      ? {
+          field: 'Answer',
+          err: 'You must specify an answer'
+        }
+      : null
 ];
