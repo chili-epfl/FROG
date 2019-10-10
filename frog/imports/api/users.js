@@ -69,6 +69,10 @@ const getUser = (user?: UserObj): ?MeteorUser => {
   else return Meteor.user();
 };
 
+export const getAllUsers = () => {
+  return Meteor.users.find().fetch();
+};
+
 export const getEmail = (user?: UserObj): string => {
   const selectedUser = getUser(user);
   if (selectedUser && isVerifiedUser({ meteorUser: selectedUser })) {
