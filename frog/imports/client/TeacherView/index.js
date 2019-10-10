@@ -56,10 +56,12 @@ const TeacherViewRunner = withRouter(
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
-    let error = {};
+    let error = { title: 'Error', message: '' };
     if (!session) {
-      error['title'] = 'Session Not Found';
-      error['message'] = 'This session does not exist.';
+      error = {
+        title: 'Session Not Found',
+        message: 'This session does not exist'
+      };
     }
 
     return {
