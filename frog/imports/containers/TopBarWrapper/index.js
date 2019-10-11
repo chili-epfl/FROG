@@ -2,11 +2,7 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
-import {
-  SupervisedUserCircle,
-  Edit,
-  ClearAllTwoTone
-} from '@material-ui/icons';
+import { SupervisedUserCircle, Edit, Clear } from '@material-ui/icons';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
@@ -16,7 +12,7 @@ import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { Button } from '/imports/ui/Button';
 import { useModal } from '/imports/ui/Modal';
 import { RowButton, RowDivider, RowTitle } from '/imports/ui/RowItems';
-import { getUsername, getUserType } from '/imports/api/users';
+import { getUsername, getUserType, checkUserAdmin } from '/imports/api/users';
 import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { PersonalProfileModal } from '/imports/client/AccountModal/PersonalProfileModal';
@@ -46,7 +42,10 @@ const TopBarWrapper = ({
   };
 
   const adminImpersonate = (id: string) => {
-    alert(`Impersonating userID: ${id}`);
+    if (checkUserAdmin()) {
+      history.push(`?u=${id}`);
+      window.location.reload();
+    }
   };
 
   const openSignUpModal = () => {
@@ -107,9 +106,14 @@ const TopBarWrapper = ({
                   <RowButton onClick={openPersonalProfileModal} icon={<Edit />}>
                     Edit your profile
                   </RowButton>
-                  <RowButton onClick={openAdminModal} icon={<AccountBoxIcon />}>
-                    Impersonate User
-                  </RowButton>
+                  {checkUserAdmin() && (
+                    <RowButton
+                      onClick={openAdminModal}
+                      icon={<AccountBoxIcon />}
+                    >
+                      Impersonate User
+                    </RowButton>
+                  )}
                   <RowButton onClick={doLogout} icon={<LockOutlinedIcon />}>
                     Logout
                   </RowButton>
@@ -133,7 +137,7 @@ const TopBarWrapper = ({
           </>
         }
       />
-      {adminModal && (
+      {checkUserAdmin() && adminModal && (
         <UsersListModal
           open={adminModal}
           closeModal={closeAdminModal}

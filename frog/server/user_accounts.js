@@ -82,6 +82,10 @@ Meteor.methods({
       return doLogin(username, self);
     }
   },
+  'frog.users.all': function() {
+    const userList = Meteor.users.find().fetch();
+    return userList;
+  },
   'frog.userid.login': function(userId) {
     const self = this;
     const userDoc = Meteor.users.findOne({ _id: userId });

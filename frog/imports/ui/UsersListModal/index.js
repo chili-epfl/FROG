@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
   Button,
   TextField,
@@ -8,8 +9,8 @@ import {
   DialogContent,
   Typography
 } from '@material-ui/core';
-import { getAllUsers } from '/imports/api/users';
 import { RowButton } from '/imports/ui/RowItems';
+import { Meteor } from 'meteor/meteor';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -35,8 +36,24 @@ type UsersListModalProps = {
 
 const UsersListModal = (props: UsersListModalProps) => {
   const classes = useStyle();
-  const userList = getAllUsers();
-  const [value, setValue] = React.useState({ list: userList });
+  const [value, setValue] = React.useState({
+    list: [],
+    completeList: [],
+    message: 'Loading'
+  });
+
+  useEffect(() => {
+    Meteor.call('frog.users.all', (err, res) => {
+      if (err) {
+        console.info(err);
+        setValue({ ...value, message: 'Error Loading Users' });
+      } else if (res.length > 0) {
+        setValue({ list: res, completeList: res, message: 'Success' });
+      } else {
+        setValue({ ...value, message: 'No results' });
+      }
+    });
+  }, []);
 
   const parseUsername = user => {
     if (user.isAnonymous) {
@@ -51,6 +68,7 @@ const UsersListModal = (props: UsersListModalProps) => {
   };
 
   const handleChange = attr => event => {
+    const userList = value.completeList;
     const searchQuery = event.target.value.toLowerCase();
     if (searchQuery.length > 0) {
       const filteredList = userList.filter(item => {
@@ -82,21 +100,27 @@ const UsersListModal = (props: UsersListModalProps) => {
           onChange={handleChange('list')}
         />
         <div className={classes.userListWrapper}>
-          {value.list.length > 0 ? (
-            value.list.map(user => (
-              <RowButton
-                key={user._id}
-                size="large"
-                onClick={() => {
-                  props.impersonate(user._id);
-                }}
-              >
-                {parseUsername(user)}
+          {value.message == 'Success' ? (
+            value.list?.length > 0 ? (
+              value.list.map(user => (
+                <RowButton
+                  key={user._id}
+                  size="large"
+                  onClick={() => {
+                    props.impersonate(user._id);
+                  }}
+                >
+                  {parseUsername(user)}
+                </RowButton>
+              ))
+            ) : (
+              <RowButton size="large" disabled={true}>
+                No users found
               </RowButton>
-            ))
+            )
           ) : (
             <RowButton size="large" disabled={true}>
-              No users found
+              {value.message}
             </RowButton>
           )}
         </div>
