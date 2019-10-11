@@ -1,3 +1,5 @@
+// @flow
+
 export const config = {
   type: 'object',
   properties: {
