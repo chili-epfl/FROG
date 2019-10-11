@@ -23,14 +23,14 @@ export const config = {
 export const configUI = {};
 
 export const validateConfig = [
-  ({ questionIndex }) =>
+  ({ questionIndex }: Object) =>
     questionIndex === undefined || questionIndex < 0
       ? {
           field: 'Question Index',
           err: 'The question index is wrong'
         }
       : null,
-  ({ answer }) =>
+  ({ answer }: Object) =>
     !answer
       ? {
           field: 'Answer',

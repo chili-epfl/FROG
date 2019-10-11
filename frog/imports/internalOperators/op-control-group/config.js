@@ -58,15 +58,15 @@ export const config = {
 
 export const configUI = {
   rules: {
-    conditional: formdata => !formdata.applytoall
+    conditional: (formdata: Object) => !formdata.applytoall
   },
-  social: { conditional: formdata => !formdata.individuals },
+  social: { conditional: (formdata: Object) => !formdata.individuals },
   includeexclude: { conditional: 'applytoall' },
   who: { conditional: 'applytoall' }
 };
 
 export const validateConfig = [
-  data => {
+  (data: Object) => {
     if (data.rules.map(rule => rule.activity === '')) {
       return {
         field: 'activity',
@@ -74,7 +74,7 @@ export const validateConfig = [
       };
     }
   },
-  data => {
+  (data: Object) => {
     if (data.rules.map(rule => rule.activity === '')) {
       return {
         field: 'activity',
