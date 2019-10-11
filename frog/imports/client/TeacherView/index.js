@@ -29,9 +29,6 @@ const TeacherViewRunner = withRouter(
       }
     }
 
-    if (!session) {
-      session = user.profile && Sessions.findOne(user.profile.controlSession);
-    }
     if (
       session &&
       (!match.params.slug ||
@@ -59,9 +56,12 @@ const TeacherViewRunner = withRouter(
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
 
-    let error;
+    let error = { title: 'Error', message: '' };
     if (!session) {
-      error = 'This session does not exist.';
+      error = {
+        title: 'Session Not Found',
+        message: 'This session does not exist'
+      };
     }
 
     return {
