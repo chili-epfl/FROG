@@ -245,7 +245,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
             groupingKey,
             username,
             undefined,
-            undefined
+            -1
           )
       : undefined;
 

@@ -408,5 +408,6 @@ export type LearningItemT<T> = {
     search: string,
     dataFn: Object,
     isPlayback?: boolean
-  ) => boolean
+  ) => boolean,
+  disableDragging?: boolean
 };

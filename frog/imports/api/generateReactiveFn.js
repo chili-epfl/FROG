@@ -101,9 +101,7 @@ export class Doc {
     predefinedId?: string
   ): ?(string | Object) {
     const id = predefinedId || uuid();
-    const properPayload =
-      // $FlowFixMe
-      payload || learningItemTypesObj[liType].liDataStructure;
+    const properPayload = payload || learningItemTypesObj[liType].dataStructure;
     if (!properPayload) {
       return null;
     }
@@ -336,7 +334,6 @@ export class Doc {
     if (typeof path === 'string' || typeof path === 'number') {
       return data[[path]];
     }
-    // $FlowFixMe
     return path.reduce((acc, x) => acc[[x]], data);
   }
 }

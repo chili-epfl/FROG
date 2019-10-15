@@ -1,3 +1,5 @@
+// @flow
+
 import importAll from 'import-all.macro';
 import { keyBy, omit } from 'lodash';
 import {
@@ -38,7 +40,7 @@ export const learningItemTypesObj: {
 
 const acSingleLI = activityTypesObj['ac-single-li'];
 const activityLIs = entries(learningItemTypesObj)
-  .filter(([_, v]) => v.Creator || (v.liDataStructure && v.Editor))
+  .filter(([_, v]) => v.Creator || (v.dataStructure && v.Editor))
   .reduce((acc, [k, v]) => {
     const x = cloneDeep(v);
     x.meta = {

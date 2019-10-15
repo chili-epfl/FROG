@@ -169,7 +169,7 @@ const ContentController = ({
     const formatProduct = activityType.formatProduct;
 
     const transform = formatProduct
-      ? x => formatProduct(toJS(config) || {}, x, instance, name)
+      ? x => formatProduct(toJS(config) || {}, x, instance, name, {}, plane)
       : undefined;
 
     const ActivityToRun = ReactiveHOC(

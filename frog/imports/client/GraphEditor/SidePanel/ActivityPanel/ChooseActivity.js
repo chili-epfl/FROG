@@ -166,7 +166,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
 
   render() {
     const { whiteList } = this.props;
-    const types = whiteList
+    const types: Object[] = whiteList
       ? activityTypes
           .concat(operatorTypes)
           .filter(x => whiteList.includes(x.id))
