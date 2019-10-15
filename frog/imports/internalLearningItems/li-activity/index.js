@@ -16,8 +16,8 @@ const Viewer = ({ data }) => {
   if (!data.acType)
     return (
       <p>
-        No activity type has been selected. This Learning Item is not usable
-        with a sessions.
+        No activity type has been selected. This Learning Item is not usable in
+        a session.
       </p>
     );
 
