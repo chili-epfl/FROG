@@ -147,7 +147,10 @@ const ContentController = ({
     return <p>The config is invalid</p>;
   }
 
-  const RunComp = activityRunners[activityType.id];
+  const acRunnerId = activityType.id.startsWith('li-')
+    ? 'ac-single-li'
+    : activityType.id;
+  const RunComp = activityRunners[acRunnerId];
   if (!RunComp) {
     return <h1>No activity runner available for this activity type</h1>;
   }

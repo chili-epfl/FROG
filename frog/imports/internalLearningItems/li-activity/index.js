@@ -13,6 +13,14 @@ if (isBrowser) {
 }
 
 const Viewer = ({ data }) => {
+  if (!data.acType)
+    return (
+      <p>
+        No activity type has been selected. This Learning Item is not usable
+        with a sessions.
+      </p>
+    );
+
   const activityType = activityTypesObj[data.acType];
   const ActivityToRun = ReactiveHOC(data.rz, undefined)(
     activityRunners[data.acType]

@@ -225,8 +225,10 @@ export class RunActivity extends React.Component<PropsT, {}> {
       meta.createdByInstance = { [groupingKey]: groupingValue };
     }
 
-    const RunComp = activityRunners[activityType.id];
-    console.log(activityType.id, activityRunners);
+    const acRunnerId = activityType.id.startsWith('li-')
+      ? 'ac-single-li'
+      : activityType.id;
+    const RunComp = activityRunners[acRunnerId];
     if (!RunComp) {
       Sentry.captureException('No valid activity id ' + activityType.id);
       return <h1>'Not valid activity id ' + activityType.id</h1>;
