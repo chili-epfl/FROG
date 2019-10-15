@@ -152,7 +152,9 @@ const Runner = ({ path, activity, sessionId, object, paused }) => {
           readOnly
         }}
         activityId={activity._id}
-        username={getUsername(undefined, { activityRunner: true })}
+        username={
+          getUsername(undefined, { activityRunner: true }) || 'No Username'
+        }
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
         instanceMembers={instanceMembers}
@@ -177,7 +179,7 @@ type PropsT = {
   reactiveId: string,
   logger: Function,
   activityData?: Object | null,
-  username: ?string,
+  username: string,
   userid: string,
   stream: Function,
   groupingKey: string,
@@ -224,6 +226,7 @@ export class RunActivity extends React.Component<PropsT, {}> {
     }
 
     const RunComp = activityRunners[activityType.id];
+    console.log(activityType.id, activityRunners);
     if (!RunComp) {
       Sentry.captureException('No valid activity id ' + activityType.id);
       return <h1>'Not valid activity id ' + activityType.id</h1>;
@@ -238,7 +241,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
             this.props.activityData?.config || {},
             x,
             groupingKey,
-            username
+            username,
+            undefined,
+            undefined
           )
       : undefined;
 
