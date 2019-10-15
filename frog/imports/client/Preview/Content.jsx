@@ -148,11 +148,13 @@ const ContentController = ({
   }
 
   const RunComp = activityRunners[activityType.id];
+  if (!RunComp) {
+    return <h1>No activity runner available for this activity type</h1>;
+  }
   RunComp.displayName = activityType.id;
 
   const examples = addDefaultExample(activityType);
   const exData = examples[example] && cloneDeep(examples[example]);
-  // $FlowFixMe
   const data = exData && (exData.data ? exData.data : undefined);
   const activityData = { data, config: toJS(config) };
 
