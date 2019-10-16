@@ -10,10 +10,18 @@ const PreviewPanel = ({
     ui: { selected }
   }
 }) => {
-  const activityToPreview = selected && Activities.findOne(selected.id);
-  return activityToPreview &&
-    selected.activityType &&
-    activityTypesObj[selected.activityType]?.meta?.preview !== false ? (
+  if (!selected) return null;
+  const activityToPreview = Activities.findOne(selected.id);
+  if (!activityToPreview) return <p>Nothing to preview</p>;
+  if (!selected.activityType) return null;
+  const aTO = activityTypesObj[selected.activityType];
+  if (
+    aTO.validateConfig &&
+    aTO.validateConfig.find(f => f(selected.dataDelayed))
+  )
+    return <p>The config is invalid</p>;
+
+  return aTO && aTO?.meta?.preview !== false ? (
     <Preview
       activityTypeId={activityToPreview.activityType}
       graphEditor
