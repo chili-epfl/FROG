@@ -4,9 +4,11 @@ import { Meteor } from 'meteor/meteor';
 import { hashCode } from '/imports/frog-utils';
 import animals from './animals';
 
+type EmailT = { address: string, verified: boolean };
+
 type MeteorUser = {
   _id: string,
-  emails?: string[],
+  emails?: EmailT[],
   username: string,
   isAnonymous: boolean,
   profile?: { displayName: string }
@@ -73,7 +75,7 @@ export const getEmail = (user?: UserObj): string => {
   const selectedUser = getUser(user);
   if (selectedUser && isVerifiedUser({ meteorUser: selectedUser })) {
     const { emails } = selectedUser;
-    if (emails) return emails[0] || '';
+    if (emails) return emails[0]?.address || '';
   }
   return '';
 };
