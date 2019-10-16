@@ -7,7 +7,7 @@ import TextArea from '../li-textArea';
 export default ({
   name: 'Large text area',
   id: 'li-largeTextArea',
-  liDataStructure: { text: '' },
+  dataStructure: { text: '' },
   ThumbViewer: TextArea.ThumbViewer,
   Viewer: props => <TextArea.Viewer {...props} large />,
   Editor: props => <TextArea.Editor {...props} large />,

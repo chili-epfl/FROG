@@ -1,18 +1,37 @@
+// @flow
+
 import * as React from 'react';
+import { Meteor } from 'meteor/meteor';
 
 import { Fab } from '@material-ui/core';
 import { activityTypesObj } from '/imports/activityTypes';
 import { type LearningItemT, isBrowser } from '/imports/frog-utils';
 import { getUsername } from '/imports/api/users';
 
+type liDataT = {
+  acType: string,
+  rz: string,
+  acTypeTitle: string,
+  activityData: ?Object,
+  title: ?string
+};
+
 let activityRunners = {};
-let ReactiveHOC = () => undefined;
+let ReactiveHOC;
 if (isBrowser) {
   activityRunners = require('/imports/client/activityRunners').activityRunners;
   ReactiveHOC = require('/imports/client/StudentView/ReactiveHOC').default;
 }
 
-const Viewer = ({ data }) => {
+const Viewer = ({ data }: { data: liDataT }) => {
+  if (!data.acType) {
+    return <p>No activity type has been selected.</p>;
+  }
+
+  if (!ReactiveHOC) {
+    return <p>Could not import Reactive Component</p>;
+  }
+
   const activityType = activityTypesObj[data.acType];
   const ActivityToRun = ReactiveHOC(data.rz, undefined)(
     activityRunners[data.acType]
@@ -39,14 +58,14 @@ const Viewer = ({ data }) => {
 export default ({
   name: 'FROG Activity',
   id: 'li-activity',
-  liDataStructure: {
+  dataStructure: {
     acType: '',
     rz: '',
     acTypeTitle: '',
     activityData: undefined,
     title: undefined
   },
-  ThumbViewer: ({ data }) => (
+  ThumbViewer: ({ data }: { data: liDataT }) => (
     <div>
       <Fab color="primary">
         <i style={{ fontSize: '2em' }} className="fa fa-table" />
@@ -60,4 +79,4 @@ export default ({
     data.title.toLowerCase().includes(search) ||
     data.content.toLowerCase().includes(search),
   disableDragging: true
-}: LearningItemT<{ title: string, content: string }>);
+}: LearningItemT<liDataT>);

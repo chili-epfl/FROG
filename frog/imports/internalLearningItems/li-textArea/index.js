@@ -38,7 +38,7 @@ const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
 export default ({
   name: 'Text area',
   id: 'li-textArea',
-  liDataStructure: { text: '' },
+  dataStructure: { text: '' },
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,
