@@ -3,7 +3,6 @@
 import { type ActivityPackageT } from 'frog-utils';
 import defaultDashboard from './dashboard';
 
-
 const meta = {
   name: 'Cellulo test activity',
   shortDesc: 'New activity, no description available',
@@ -32,6 +31,6 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboards: { default: defaultDashboard },
+  dashboards: { default: defaultDashboard, default3: defaultDashboard },
   dataStructure
 }: ActivityPackageT);

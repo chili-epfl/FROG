@@ -6,6 +6,7 @@
     "start": "nps"
   },
   "dependencies": {
+    "@mobsya/thymio-api": "0.10.2",
     "@babel/runtime": "^7.3.1",
     "@blueprintjs/core": "^3.10.0",
     "@blueprintjs/icons": "^3.4.0",

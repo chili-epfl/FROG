@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+import stuff from '@mobsya/thymio-api';
+
+console.log(stuff);
+
 import {
   VictoryBar,
   VictoryGroup,
@@ -14,8 +18,6 @@ import { object } from 'prop-types';
 import { format } from 'url';
 
 const Viewer = ({ sendMsg, state, activity }) => {
-  console.log(state);
-
   let warningAgg = [];
   for (let i = 0; i < warningsList.length; i++) {
     warningAgg.push({ x: warningsList[i], y: state.tempAgg.warnings[i] });
@@ -27,21 +29,15 @@ const Viewer = ({ sendMsg, state, activity }) => {
   }
 
   return (
-    <div style={{ maxWidth: 500 }}>
-      <h1>Summary Of Group progress</h1>
+    <div>
+      <h1> style={{ backgroundColor: 'lightblue' }} Classroom Summary</h1>
+      <h2>Learning activity: Line Following</h2>
 
-      <VictoryChart>
-        domainPadding={10}
-        <VictoryBar horizontal barRatio={0.8} data={warningAgg} />
-      </VictoryChart>
+      <div style={{ top: 100, left: 1000, width: '50%' }}>
+        <h2>Students' list</h2>
 
-      <VictoryChart>
-        <VictoryBar data={errorAgg} />
-      </VictoryChart>
-
-      <h2>List of Students</h2>
-
-      <button className="btn btn-secondary">Increment</button>
+        <button className="btn btn-secondary">Increment</button>
+      </div>
     </div>
   );
 };
