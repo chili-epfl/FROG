@@ -70,7 +70,10 @@ const bindKeys = () => {
       store.ui.unselect();
     }
   });
-  Mousetrap.bind('backspace', () => store.deleteSelected(false));
+  Mousetrap.bind('backspace', e => {
+    e.preventDefault();
+    store.deleteSelected(false);
+  });
   Mousetrap.bind('shift+backspace', () => store.deleteSelected(true));
   Mousetrap.bind('?', () => store.ui.setShowHelpModal(true));
   Mousetrap.bind('!', () => store.ui.setShowChangelogModal(true));
