@@ -1,8 +1,20 @@
 import * as React from 'react';
 
-import stuff from '@mobsya/thymio-api';
+import {
+  createClient,
+  Node,
+  NodeStatus,
+  Request,
+  setup
+} from '@mobsya/thymio-api';
 
-console.log(stuff);
+console.log({
+  createClient,
+  Node,
+  NodeStatus,
+  Request,
+  setup
+});
 
 import {
   VictoryBar,

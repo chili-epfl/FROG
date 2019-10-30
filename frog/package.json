@@ -6,7 +6,6 @@
     "start": "nps"
   },
   "dependencies": {
-    "@mobsya/thymio-api": "0.10.2",
     "@babel/runtime": "^7.3.1",
     "@blueprintjs/core": "^3.10.0",
     "@blueprintjs/icons": "^3.4.0",
@@ -21,6 +20,7 @@
     "@minervaproject/ot-json0": "^1.1.0",
     "@minervaproject/quill-cursors": "^2.1.2",
     "@minervaproject/rich-text": "^4.0.0",
+    "@mobsya/thymio-api": "^0.10.2",
     "@teamwork/sharedb": "3.1.0",
     "@teamwork/sharedb-mongo": "3.0.0",
     "@teamwork/sharedb-redis-pubsub": "^3.0.0",
