@@ -30,7 +30,8 @@ type OrchestrationViewPropsT = {
   activities: Object,
   students: Object,
   error: String,
-  history: Object
+  history: Object,
+  token?: String
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {

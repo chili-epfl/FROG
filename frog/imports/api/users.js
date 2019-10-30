@@ -10,7 +10,7 @@ type MeteorUser = {
   username: string,
   isAnonymous: boolean,
   profile?: { displayName: string },
-  isAdmin: boolean
+  isAdmin?: boolean
 };
 type UserObj = {
   id?: string,

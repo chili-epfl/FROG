@@ -134,5 +134,12 @@ Meteor.methods({
         isAnonymous: false
       }
     });
+  },
+  'make.admin': token => {
+    if (token === Meteor.settings.token) {
+      Meteor.users.update(Meteor.userId(), { $set: { isAdmin: true } });
+      return 'Success';
+    }
+    return 'Fail';
   }
 });

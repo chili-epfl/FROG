@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import {
   Button,
   TextField,
@@ -42,7 +41,7 @@ const UsersListModal = (props: UsersListModalProps) => {
     message: 'Loading'
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     Meteor.call('frog.users.all', (err, res) => {
       if (err) {
         console.info(err);
@@ -100,7 +99,7 @@ const UsersListModal = (props: UsersListModalProps) => {
           onChange={handleChange('list')}
         />
         <div className={classes.userListWrapper}>
-          {value.message == 'Success' ? (
+          {value.message === 'Success' ? (
             value.list?.length > 0 ? (
               value.list.map(user => (
                 <RowButton
@@ -114,12 +113,12 @@ const UsersListModal = (props: UsersListModalProps) => {
                 </RowButton>
               ))
             ) : (
-              <RowButton size="large" disabled={true}>
+              <RowButton size="large" disabled>
                 No users found
               </RowButton>
             )
           ) : (
-            <RowButton size="large" disabled={true}>
+            <RowButton size="large" disabled>
               {value.message}
             </RowButton>
           )}
