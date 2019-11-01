@@ -19,6 +19,7 @@ import { Button } from '/imports/ui/Button';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowDivider, RowButton } from '/imports/ui/RowItems';
 import { useModal } from '/imports/ui/Modal';
+import { getSessionTypeInfo } from '../../../UserDashboard/data-utils/helpers';
 
 import { OrchestrationContext } from '../../context';
 import { SettingsModal } from './SettingsModal';
@@ -34,6 +35,26 @@ export const TopBarContainer = withRouter(({ history }) => {
         onChange={settings => session.updateSettings(settings)}
       />
     );
+  };
+
+  const cloneSession = () => {
+    const sessionType = getSessionTypeInfo(session)
+      .split('|')[0]
+      .trim();
+    console.info(sessionType);
+    switch (sessionType) {
+      case 'Single Activity':
+        console.info(session);
+        break;
+      case 'Template':
+        console.info(session);
+        break;
+      case 'Graph':
+        console.info(session);
+        break;
+      default:
+        alert('Error: Unknown Session Type for Cloning');
+    }
   };
 
   return (
@@ -60,6 +81,12 @@ export const TopBarContainer = withRouter(({ history }) => {
             onClick={showSettingsModal}
           >
             Session Settings
+          </RowButton>
+          <RowButton
+            icon={<Settings fontSize="small" />}
+            onClick={cloneSession}
+          >
+            Clone Session
           </RowButton>
           <RowDivider />
           <RowButton
