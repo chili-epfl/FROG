@@ -9,6 +9,7 @@ import {
   Restore,
   Clear,
   SaveAlt,
+  LibraryAdd,
   CloudDownload,
   Cast
 } from '@material-ui/icons';
@@ -83,7 +84,7 @@ export const TopBarContainer = withRouter(({ history }) => {
             Session Settings
           </RowButton>
           <RowButton
-            icon={<Settings fontSize="small" />}
+            icon={<LibraryAdd fontSize="small" />}
             onClick={cloneSession}
           >
             Clone Session
