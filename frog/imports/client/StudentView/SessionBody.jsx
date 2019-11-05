@@ -25,7 +25,7 @@ import { getUsername } from '/imports/api/users';
 
 let loggedIn = false;
 
-const styles = {
+const styles = theme => ({
   root: {
     display: 'flex',
     flexGrow: 1,
@@ -33,12 +33,20 @@ const styles = {
     width: '100%',
     overflow: 'auto'
   },
+  appbar: {
+    borderBottom: '1px solid #EEE',
+    boxShadow: 'none'
+  },
   toolbar: {
     minHeight: 48,
-    height: 48
+    height: 48,
+    background: '#FFF'
   },
-  flex: {
-    flex: 1
+  userTitle: {
+    flex: 1,
+    fontSize: '1.5em',
+    fontWeight: '500',
+    color: '#000'
   },
   mainContent: {
     width: '100%',
@@ -48,8 +56,17 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  button: {
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    fontSize: '1.1em',
+    color: '#444'
+  },
+  message: {
+    padding: theme.spacing(3)
   }
-};
+});
 
 export const ActivityContainer = ({
   activities,
@@ -79,14 +96,10 @@ export const ActivityContainer = ({
 const StudentView = withRouter(({ activities, session, classes, history }) => (
   <div className={classes.root}>
     <div className={classes.navbar}>
-      <AppBar>
+      <AppBar className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
           {Meteor.user() && (
-            <Typography
-              type="subheading"
-              color="inherit"
-              className={classes.flex}
-            >
+            <Typography type="h6" color="inherit" className={classes.userTitle}>
               {getUsername()}
             </Typography>
           )}
@@ -95,7 +108,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
               className={classes.button}
               color="inherit"
               onClick={() => {}}
-              href="/t"
+              href={`/t/${session.slug}`}
               target="_blank"
             >
               Orchestration View
@@ -105,7 +118,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
             className={classes.button}
             color="inherit"
             onClick={() => {
-              history.push('/' + session.slug);
+              history.push('/');
               Meteor.logout();
               Accounts._unstoreLoginToken();
               window.notReady();
@@ -120,17 +133,33 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
       {(() => {
         if (!activities || activities.length === 0) {
           if (session.state === 'READY' || session.state === 'CREATED') {
-            return <h1>Waiting for teacher to start the session</h1>;
+            return (
+              <Typography variant="h4" className={classes.message}>
+                Waiting for teacher to start the session
+              </Typography>
+            );
           }
           if (session.state === 'STARTED') {
-            return <h1>No activity right now</h1>;
+            return (
+              <Typography variant="h4" className={classes.message}>
+                No activity right now
+              </Typography>
+            );
           }
           if (session.state === 'FINISHED') {
-            return <h1>Session finished</h1>;
+            return (
+              <Typography variant="h4" className={classes.message}>
+                Session finished
+              </Typography>
+            );
           }
         }
         if (session.state === 'PAUSED') {
-          return <h1>Paused</h1>;
+          return (
+            <Typography variant="h4" className={classes.message}>
+              Paused
+            </Typography>
+          );
         }
         return (
           <ActivityContainer activities={activities} sessionId={session._id} />
