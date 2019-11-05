@@ -2,9 +2,8 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-
-import { ActivitySplitWindow } from '.';
 import { Typography } from '@material-ui/core';
+import { ActivitySplitWindow } from '.';
 
 storiesOf('UI/ActivitySplitWindow', module)
   .add('one window', () => (

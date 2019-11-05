@@ -74,7 +74,7 @@ export const ActivitySplitWindow = (props: ActivitySplitWindowProps) => {
           );
         })}
       {split === 1 && <div className={classes.window}>{children}</div>}
-      {split === 0 && <div className={classes.window}></div>}
+      {split === 0 && <div className={classes.window} />}
     </div>
   );
 };
