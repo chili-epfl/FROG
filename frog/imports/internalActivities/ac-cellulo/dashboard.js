@@ -19,6 +19,7 @@ const NumberTeams = 2;
 const mergeLog = (state, log) => {
   console.log(log);
   state.position.x[log.ID.TeamNumber] = log.Payload.positionx;
+  state.position.y[log.ID.TeamNumber] = log.Payload.positiony;
   console.log(state);
 };
 export default {
