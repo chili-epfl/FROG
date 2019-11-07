@@ -5,10 +5,9 @@ const Viewer = ({ sendMsg, state, activity }) => {
   //console.log(state.SEND[0]);
   return (
     <div style={{ maxWidth: 500 }}>
-      <h1>Classroom Summary</h1>
+      <h1>Classroom Summary of Robots movement</h1>
 
-      <h1>List of Groups</h1>
-      <h2>Group first</h2>
+      <h1>Aggregated heatmap</h1>
 
       <button onClick={() => sendMsg('alarm')}>Alarm</button>
     </div>
@@ -16,13 +15,22 @@ const Viewer = ({ sendMsg, state, activity }) => {
 };
 
 const prepareDataForDisplay = state => state;
-
+const NumberTeams = 2;
 const mergeLog = (state, log) => {
-  //console.log(log.ID["TeamNumber"]);
-
   console.log(log);
+  state.position.x[log.ID.TeamNumber] = log.Payload.positionx;
+  console.log(state);
 };
-
-const initData = {};
-
-export default { initData, mergeLog, prepareDataForDisplay, Viewer };
+export default {
+  initData: {
+    studentsList: [],
+    position: {
+      x: new Array(NumberTeams).fill(0),
+      y: new Array(NumberTeams).fill(0),
+      theta: new Array(NumberTeams).fill(0)
+    }
+  },
+  mergeLog,
+  prepareDataForDisplay,
+  Viewer
+};
