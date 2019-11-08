@@ -10,7 +10,8 @@ import {
   Clear,
   SaveAlt,
   CloudDownload,
-  Cast
+  Cast,
+  ArrowBack
 } from '@material-ui/icons';
 
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
@@ -42,7 +43,7 @@ export const TopBarContainer = withRouter(({ history }) => {
         <>
           <Button
             variant="minimal"
-            icon={<Clear fontSize="small" />}
+            icon={<ArrowBack fontSize="small" />}
             onClick={() => history.push('/')}
           />
           <Breadcrumb paths={[session.slug]} />
