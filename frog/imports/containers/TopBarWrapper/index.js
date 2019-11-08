@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
-import { SupervisedUserCircle, Edit } from '@material-ui/icons';
-import { ArrowBack } from '@material-ui/icons';
+import { SupervisedUserCircle, Edit, ArrowBack } from '@material-ui/icons';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
