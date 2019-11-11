@@ -81,6 +81,7 @@
     "react-dom": "^16.8.0",
     "react-draggable": "^3.1.1",
     "react-dropzone": "^8.0.4",
+    "react-dynamic-charts": "^1.0.5",
     "react-flexview": "^4.0.3",
     "react-flip-move": "^3.0.3",
     "react-fontawesome": "^1.3.1",

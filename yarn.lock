@@ -13764,6 +13764,11 @@ react-dropzone@^8.0.4:
     prop-types "^15.6.2"
     prop-types-extra "^1.1.0"
 
+react-dynamic-charts@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-dynamic-charts/-/react-dynamic-charts-1.0.5.tgz#54dcc31a32954e0a8ff77533df455673620c92f8"
+  integrity sha512-4IFZnw7hXFK+mg3cIdTu6BE4gCmR+ZzGYYoF7CtyNjfhdSBmbeyRpZitJxUftsmpJEG/H3yVnultoUMyQa/Jzg==
+
 react-error-overlay@^5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
