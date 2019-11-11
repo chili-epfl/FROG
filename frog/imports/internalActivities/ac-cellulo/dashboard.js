@@ -59,7 +59,8 @@ const Viewer = ({ sendMsg, state, activity }) => {
   return (
     <div>
       <HeatMap Data={state.gridTable} />
-      <img src="/clientFiles/ac-cellulo/logo.svg" alt="Logo" />;<h1>Aggregated heatmap</h1>
+
+      <h1>Aggregated heatmap</h1>
       <button onClick={() => sendMsg('alarm')}>Alarm</button>
     </div>
   );
