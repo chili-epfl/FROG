@@ -96,9 +96,7 @@ export const mergeOneInstance = async (
             'load',
             Meteor.bindEnvironment(async () => {
               try {
-                doc.create(
-                  newInitData !== undefined ? cloneDeep(newInitData) : {}
-                );
+                doc.create(newInitData ? cloneDeep(newInitData) : {});
               } catch (e) {
                 // eslint-disable-next-line no-console
                 console.error(
