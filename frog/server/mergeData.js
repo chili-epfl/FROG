@@ -1,4 +1,5 @@
 // @flow
+
 import { Meteor } from 'meteor/meteor';
 
 import { getUsername } from '/imports/api/users';
@@ -52,7 +53,7 @@ const duplicateLIs = (rz, lis) => {
 export const mergeOneInstance = async (
   grouping: string,
   activity: ActivityDbT,
-  dataStructure: any,
+  initData: Object,
   mergeFunction: ?Function,
   activityData: Object,
   structure: structureDefT,
@@ -63,17 +64,15 @@ export const mergeOneInstance = async (
   onBehalfOf?: string
 ) => {
   let data;
-  let newDataStructure = dataStructure;
+  let newInitData = initData;
   if (
     activity.template &&
     activity.template.duplicate &&
     activity.template.lis
   ) {
-    newDataStructure = duplicateLIs(
-      activity.template.rz,
-      activity.template.lis
-    );
+    newInitData = duplicateLIs(activity.template.rz, activity.template.lis);
   }
+
   if (mergeFunction) {
     const instanceActivityData =
       providedInstanceActivityData !== undefined // allows it to be null and still picked up
@@ -98,9 +97,7 @@ export const mergeOneInstance = async (
             Meteor.bindEnvironment(async () => {
               try {
                 doc.create(
-                  newDataStructure !== undefined
-                    ? cloneDeep(newDataStructure)
-                    : {}
+                  newInitData !== undefined ? cloneDeep(newInitData) : {}
                 );
               } catch (e) {
                 // eslint-disable-next-line no-console
@@ -158,7 +155,7 @@ export const mergeOneInstance = async (
       );
     }
   } else {
-    data = newDataStructure || {};
+    data = newInitData || {};
   }
 
   const serverDoc = serverConnection.get(

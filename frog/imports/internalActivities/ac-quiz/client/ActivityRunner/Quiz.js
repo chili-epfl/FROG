@@ -29,6 +29,7 @@ const Quiz = ({
   const { config } = activityData;
 
   const questionsWithIndex = config.questions.map((x, i) => [x, i]);
+
   const questions = ['questions', 'both'].includes(config.shuffle)
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
