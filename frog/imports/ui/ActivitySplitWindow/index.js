@@ -22,6 +22,26 @@ const useStyle = makeStyles(theme => ({
     background: '#EEE',
     padding: theme.spacing(0.5)
   },
+  rootGrid: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateAreas: '"one two" "one three"',
+    height: '100%',
+    width: '100%',
+    background: '#EEE',
+
+    '& > div:nth-child(1)': {
+      gridArea: 'one'
+    },
+    '& > div:nth-child(2)': {
+      gridArea: 'two',
+      marginBottom: '0',
+      marginRight: theme.spacing(1)
+    },
+    '& > div:nth-child(3)': {
+      gridArea: 'three'
+    }
+  },
   window: {
     flex: 1,
     background: '#FFF',
@@ -55,7 +75,15 @@ export const ActivitySplitWindow = (props: ActivitySplitWindowProps) => {
   const split = children ? (children.length ? children.length : 1) : 0;
 
   return (
-    <div className={split >= 4 ? classes.rootWrap : classes.root}>
+    <div
+      className={
+        split >= 4
+          ? classes.rootWrap
+          : split === 3
+          ? classes.rootGrid
+          : classes.root
+      }
+    >
       {split >= 4 &&
         children.map((child, index) => {
           return (
