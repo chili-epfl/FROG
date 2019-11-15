@@ -15,6 +15,7 @@ import requestFun from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
+import { UniqueIds } from '/imports/api/activities';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
@@ -70,14 +71,31 @@ const wss = new WebSocket.Server({
 
 const Connections = {};
 
-wss.on('connection', (ws, req) => {
-  const id = req.url.split('?')[1];
-  Connections[id] = ws;
-  ws.on('message', data => {
-    console.info('received', data);
-    ws.send('received ' + data);
-  });
-});
+wss.on(
+  'connection',
+  Meteor.bindEnvironment((ws, req) => {
+    const id = req.url.split('?')[1];
+    console.info('connection ', id);
+    Connections[id] = ws;
+    ws.on(
+      'message',
+      Meteor.bindEnvironment(data => {
+        console.info('received', data);
+        try {
+          const unique = UniqueIds.findOne(id);
+          const logmsg = JSON.parse(data);
+          logmsg.activityId = unique.activityId;
+          logmsg.activityType = 'ac-cellulo';
+          console.info('log msg:', logmsg);
+          Meteor.call('merge.log', logmsg);
+        } catch (e) {
+          ws.send(e.message);
+          console.error(e);
+        }
+      })
+    );
+  })
+);
 
 const wsSend = (id, msg) => {
   if (Connections[id]) {
