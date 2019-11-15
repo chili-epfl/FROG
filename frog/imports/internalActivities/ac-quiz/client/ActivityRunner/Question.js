@@ -13,7 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { condShuffle } from './Quiz';
-import { computeProgress, computeCoordinates } from '../../utils';
+import { computeProgress, computeCoordinates, computeScore } from '../../utils';
 
 const styles = theme => ({
   root: {
@@ -164,10 +164,11 @@ export default withStyles(styles)(
 
       const newProgress = computeProgress(configQuestions, newForm);
       const newCoordinates = computeCoordinates(configQuestions, newForm);
+      const newScore = computeScore(configQuestions, newForm);
 
       logger([
         { type: 'progress', value: newProgress },
-        { type: 'score', value: newProgress },
+        { type: 'score', value: newScore },
         { type: 'choice', itemId: questionIndex, value: idx },
         { type: 'coordinates', payload: newCoordinates }
       ]);
