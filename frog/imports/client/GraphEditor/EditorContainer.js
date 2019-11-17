@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
-import Clear from '@material-ui/icons/Clear';
+import { ArrowBack } from '@material-ui/icons';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
@@ -103,7 +103,7 @@ class Editor extends React.Component<Object, StateT> {
             <>
               <Button
                 variant="minimal"
-                icon={<Clear />}
+                icon={<ArrowBack />}
                 onClick={() => history.push('/')}
               />
               <Breadcrumb paths={['Graph Editor']} />

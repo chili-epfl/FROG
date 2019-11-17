@@ -349,7 +349,7 @@ class ActivityRunner extends React.Component<*, *> {
 }
 
 export default ({
-  liDataStructure: [0, 1, 2, 3, 4].map((row, i) =>
+  dataStructure: [0, 1, 2, 3, 4].map((row, i) =>
     ['', 'A', 'B', 'C', 'D'].map((col, j) => {
       if (i === 0 && j === 0) {
         return { readOnly: true, value: '                ' };
@@ -365,7 +365,6 @@ export default ({
   ),
   name: 'Spreadsheet',
   id: 'li-spreadsheet',
-  //  $FlowFixMe
   Viewer: ActivityRunner,
   ThumbViewer: () => (
     <div>

@@ -146,16 +146,18 @@ const MultiWrapper = (props: {
 
   const dashNames =
     names ||
-    Object.keys(aTDash || {}).filter(name => {
-      const cond = aTDash[name].displayCondition;
-      if (!cond) {
-        return true;
-      }
-      if (typeof cond === 'string') {
-        return !!activity.data[cond];
-      }
-      return cond(activity.data);
-    });
+    (aTDash
+      ? Object.keys(aTDash).filter(name => {
+          const cond = aTDash[name].displayCondition;
+          if (!cond) {
+            return true;
+          }
+          if (typeof cond === 'string') {
+            return !!activity.data[cond];
+          }
+          return cond(activity.data);
+        })
+      : []);
   if (aT.meta?.supportsLearningItems && aT.id !== 'ac-chat') {
     dashNames.push('Content');
   }

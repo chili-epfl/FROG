@@ -143,7 +143,6 @@ const RawEditActivity = ({
     a => a.id !== activity._id
   );
   return (
-    // $FlowFixMe
     <div className="bootstrap" style={{ height: '100%', overflowY: 'scroll' }}>
       <div
         style={{
@@ -174,20 +173,7 @@ const RawEditActivity = ({
               {activity.template && !isEmpty(activity.template) && (
                 <>
                   <br />
-                  Activity has data template.{' '}
-                  <A
-                    onClick={() => {
-                      store.ui.setShowPreview({
-                        activityTypeId: activity.activityType,
-                        activityId: activity._id,
-                        config: activity.data,
-                        template: activity.template
-                      });
-                    }}
-                  >
-                    Show
-                  </A>{' '}
-                  -{' '}
+                  Activity has data template.
                   {!isEmpty(activity.template.lis) && (
                     <>
                       <A
@@ -207,7 +193,7 @@ const RawEditActivity = ({
                   )}
                   <A
                     onClick={() => {
-                      storeTemplateData(activity._id, {});
+                      storeTemplateData(activity._id, null);
                     }}
                   >
                     Remove

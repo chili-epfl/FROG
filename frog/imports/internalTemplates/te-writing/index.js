@@ -1,6 +1,6 @@
 // @flow
 
-import { isObject, isBoolean } from 'lodash';
+import { isObject, isBoolean, isNumber } from 'lodash';
 
 import p1 from './p1';
 import p2 from './p2';
@@ -91,6 +91,8 @@ const processTemplate = (template, replacements) => {
     const toReplace =
       isObject(val) || isBoolean(val) || Array.isArray(val)
         ? JSON.stringify(val)
+        : isNumber(val)
+        ? val
         : `"${val}"`;
     return acc.replace(`"{{${x}}}"`, toReplace);
   }, template);
