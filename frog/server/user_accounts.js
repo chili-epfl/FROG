@@ -137,7 +137,9 @@ Meteor.methods({
   },
   'make.admin': token => {
     if (token === Meteor.settings.token) {
-      Meteor.users.update(Meteor.userId(), { $set: { isAdmin: true } });
+      Meteor.users.update(Meteor.userId(), {
+        $set: { 'profile.isAdmin': true }
+      });
       return 'Success';
     }
     return 'Fail';

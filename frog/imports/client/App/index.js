@@ -211,6 +211,7 @@ const FROGRouter = withRouter(
             } else if (res === 'Success') {
               alert('User promoted to admin');
             }
+            this.props.history.push('/');
           });
           return;
         }

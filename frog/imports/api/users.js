@@ -9,8 +9,7 @@ type MeteorUser = {
   emails?: string[],
   username: string,
   isAnonymous: boolean,
-  profile?: { displayName: string },
-  isAdmin?: boolean
+  profile?: { displayName: string, isAdmin?: boolean }
 };
 type UserObj = {
   id?: string,
@@ -61,7 +60,7 @@ export const getUserType = (user?: UserObj): UserType => {
 export const checkUserAdmin = (user?: UserObj): UserType => {
   const selectedUser = getUser(user);
   if (!selectedUser) return false;
-  return selectedUser.isAdmin;
+  return selectedUser.profile?.isAdmin;
 };
 /**
  * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
