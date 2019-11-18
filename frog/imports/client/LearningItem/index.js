@@ -131,11 +131,7 @@ class LearningItem extends React.Component<
         } else {
           const lid = props.dataFn.createLearningItem(
             liT.id,
-            // The type definition has a field `dataStructure`
-            // and not `liDataStructure`. Is it a bug in the code or
-            // in the type definition ?
-            // $FlowFixMe
-            liT.liDataStructure,
+            liT.dataStructure,
             {
               draft: true
             }

@@ -41,11 +41,13 @@ const publish = async (graphId, history) => {
 };
 
 const RenameBox = withStyles(styles)(({ classes, graphId }) => {
+  const graph = Graphs.findOne(graphId);
+  if (!graph) return null;
   return (
     <input
       className={classes.rename}
       type="text"
-      defaultValue={Graphs.findOne(graphId).name || 'none'}
+      defaultValue={graph.name || 'none'}
       onBlur={e => renameGraph(graphId, e.target.value)}
     />
   );

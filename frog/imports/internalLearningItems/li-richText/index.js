@@ -48,7 +48,7 @@ export class Editor extends React.Component<*, *> {
 export default ({
   name: 'Rich text',
   id: 'li-richText',
-  liDataStructure: {
+  dataStructure: {
     [path]: {
       ops: [
         {

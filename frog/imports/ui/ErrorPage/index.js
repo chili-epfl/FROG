@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 
 import { Button } from '/imports/ui/Button';
+import { Logo } from '/imports/ui/Logo';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -29,6 +30,11 @@ const useStyle = makeStyles(theme => ({
     margin: theme.spacing(4, 0),
     display: 'flex',
     justifyContent: 'center'
+  },
+  logoWrapper: {
+    margin: theme.spacing(2, 0),
+    display: 'flex',
+    justifyContent: 'center'
   }
 }));
 
@@ -44,6 +50,9 @@ const ErrorPage = (props: ErrorPageProps) => {
   return (
     <div className={classes.root}>
       <div className={classes.container}>
+        <div className={classes.logoWrapper}>
+          <Logo />
+        </div>
         <Typography className={classes.heading}>{props.title}</Typography>
         <Typography className={classes.text}>{props.message}</Typography>
         <div className={classes.buttonWrapper}>

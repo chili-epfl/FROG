@@ -29,9 +29,8 @@ type OrchestrationViewPropsT = {
   session: Object,
   activities: Object,
   students: Object,
-  error: String,
-  history: Object,
-  token?: String
+  error: Object,
+  history: Object
 };
 
 const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
@@ -44,7 +43,11 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
 
   if (!props.session) {
     return (
-      <ErrorPage title="Error" message={props.error} history={props.history} />
+      <ErrorPage
+        title={props.error.title}
+        message={props.error.message}
+        history={props.history}
+      />
     );
   }
   const currentActivities = props.session.openActivities.map(x =>

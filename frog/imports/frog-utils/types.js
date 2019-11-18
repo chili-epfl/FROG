@@ -148,7 +148,7 @@ export type ActivityPackageT = {
   },
   config: Object,
   configUI?: Object,
-  dataStructure?: any,
+  dataStructure?: Object | Function,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (
     dataUnitStructT,
@@ -408,5 +408,6 @@ export type LearningItemT<T> = {
     search: string,
     dataFn: Object,
     isPlayback?: boolean
-  ) => boolean
+  ) => boolean,
+  disableDragging?: boolean
 };

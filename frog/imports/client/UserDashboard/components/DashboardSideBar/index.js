@@ -30,7 +30,12 @@ const useStyles = makeStyles(theme => ({
     color: '#FFFFFF',
     position: 'fixed',
     bottom: theme.spacing(2),
-    right: theme.spacing(2)
+    right: theme.spacing(2),
+    boxShadow: '0 0 20px rgba(0,0,0,.2)',
+    transition: '.25s',
+    '&:hover': {
+      backgroundColor: '#24a595'
+    }
   },
   panelMargin: {
     marginTop: theme.spacing(4)

@@ -59,10 +59,16 @@ module.exports = {
       'QUALIA_ONE_BUNDLE_TYPE=modern NODE_OPTIONS="--max_old_space_size=8192" cd frog && meteor',
       'Starting Meteor'
     ),
-    test: fromRoot(
-      `nps -s lockfiles eslint.normal flow jest`,
-      'Running LockFiles, Flow, ESLint and Jest'
-    ),
+    test: {
+      default: fromRoot(
+        `nps -s eslint.normal flow jest`,
+        'Running Flow, ESLint and Jest'
+      ),
+      ci: fromRoot(
+        `nps -s lockfiles eslint.normal flow jest`,
+        'Running LockFiles, Flow, ESLint and Jest'
+      )
+    },
     eslint: {
       default: fromRoot(
         'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx"',

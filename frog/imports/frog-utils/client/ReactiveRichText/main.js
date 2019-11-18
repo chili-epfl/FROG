@@ -682,7 +682,7 @@ class ReactiveRichText extends Component<
     return filter(
       allLiTypes,
       type =>
-        get(type, 'liDataStructure') &&
+        get(type, 'dataStructure') &&
         get(type, 'Editor') &&
         get(type, 'id') !== 'li-richText' &&
         get(type, 'id') !== 'li-doubleRichText'

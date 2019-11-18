@@ -165,8 +165,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
   };
 
   render() {
-    const whiteList = this.props.whiteList;
-    const types = whiteList
+    const { whiteList } = this.props;
+    const types: Object[] = whiteList
       ? activityTypes
           .concat(operatorTypes)
           .filter(x => whiteList.includes(x.id))
@@ -177,7 +177,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
 
     const select = this.props.onSelect
       ? this.props.onSelect
-      : aT => {
+      : (aT: Object) => {
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
           const { store, activity } = this.props;

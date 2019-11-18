@@ -140,8 +140,7 @@ export default class Activity extends Elem {
         this.plane = newact.plane;
         this.activityType = newact.activityType;
         const errors = store.graphErrors.filter(x => x.id === this.id);
-        const error = errors.filter(x => x.severity === 'error');
-        if (error.length === 0) {
+        if (!errors.find(x => x.severity === 'error')) {
           if (isEmpty(toJS(this.dataDelayed))) {
             this.setDataDelayedNow(newact.data);
           } else {

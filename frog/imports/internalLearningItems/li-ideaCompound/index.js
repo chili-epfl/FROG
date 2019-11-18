@@ -73,7 +73,7 @@ export default ({
   ThumbViewer: FlexViewer,
   Viewer: FlexViewer,
   Editor,
-  liDataStructure: {
+  dataStructure: {
     title: '',
     attachments: [],
     contents: {
