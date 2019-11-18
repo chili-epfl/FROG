@@ -90,14 +90,18 @@ Meteor.methods({
       return [];
     }
   },
-  'frog.userid.login': function(userId) {
+  'frog.userid.login': function(userId, token) {
     const self = this;
     const userDoc = Meteor.users.findOne({ _id: userId });
     if (!userDoc) {
       throw new Meteor.Error('Unable to find any user with the given userId');
     }
-    const result = Accounts._loginUser(self, userId);
-    return result;
+    if (token === userDoc.impersonationToken) {
+      const result = Accounts._loginUser(self, userId);
+      return result;
+    } else {
+      return 'INCORRECT_TOKEN';
+    }
   },
   'frog.session.settings': function(slug) {
     if (typeof slug !== 'string') {
@@ -156,12 +160,5 @@ Meteor.methods({
     } else {
       return 'Not admin';
     }
-  },
-  'impersonation.login': (userId, token) => {
-    const user = Meteor.users.findOne(userId);
-    if (user.impersonationToken === token) {
-      return true;
-    }
-    return false;
   }
 });

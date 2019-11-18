@@ -32,7 +32,7 @@ import LearnLandingPage from './LearnLanding';
 
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import Dialog from '@material-ui/core/Dialog';
-import { getUserType, checkUserAdmin } from '/imports/api/users';
+import { getUserType } from '/imports/api/users';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -215,33 +215,22 @@ const FROGRouter = withRouter(
           return;
         }
         if (query.u && query.token) {
-          Meteor.call(
-            'impersonation.login',
-            query.u,
-            query.token,
-            (error, result) => {
-              if (result) {
-                this.setState({ mode: 'loggingIn' });
-                LocalSettings.UrlCoda = `?u=${query.u}&token=${query.token}`;
-                Meteor.call('frog.userid.login', query.u, (err, res) => {
-                  if (err) {
-                    console.error(err);
-                    this.setState({ mode: 'noSession' });
-                    return;
-                  }
-                  subscriptionCallback(
-                    err,
-                    res,
-                    x => this.setState({ mode: x }),
-                    false
-                  );
-                  this.setState({ mode: 'ready' });
-                });
-              } else {
-                console.error(error);
-              }
+          this.setState({ mode: 'loggingIn' });
+          LocalSettings.UrlCoda = `?u=${query.u}&token=${query.token}`;
+          Meteor.call('frog.userid.login', query.u, query.token, (err, res) => {
+            if (err) {
+              console.error(err);
+              this.setState({ mode: 'noSession' });
+              return;
             }
-          );
+            subscriptionCallback(
+              err,
+              res,
+              x => this.setState({ mode: x }),
+              false
+            );
+            this.setState({ mode: 'ready' });
+          });
           return;
         }
         const username =
