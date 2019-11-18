@@ -43,10 +43,14 @@ const TopBarWrapper = ({
   };
 
   const adminImpersonate = (id: string) => {
-    if (checkUserAdmin()) {
-      history.push(`?u=${id}`);
-      window.location.reload();
-    }
+    Meteor.call('impersonation.token', id, (err, res) => {
+      if (err) {
+        console.info(err);
+      } else {
+        history.push(`?u=${id}&token=${res}`);
+        window.location.reload();
+      }
+    });
   };
 
   const openSignUpModal = () => {

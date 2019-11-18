@@ -147,5 +147,21 @@ Meteor.methods({
       return 'Success';
     }
     return 'Fail';
+  },
+  'impersonation.token': userId => {
+    if (checkUserAdmin()) {
+      const newToken = uuid();
+      Meteor.users.update(userId, { $set: { impersonationToken: newToken } });
+      return newToken;
+    } else {
+      return 'Not admin';
+    }
+  },
+  'impersonation.login': (userId, token) => {
+    const user = Meteor.users.findOne(userId);
+    if (user.impersonationToken === token) {
+      return true;
+    }
+    return false;
   }
 });
