@@ -202,7 +202,6 @@ const FROGRouter = withRouter(
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
         if (query.setAdmin) {
-          LocalSettings.UrlCoda = '?setAdmin=' + query.setAdmin;
           Meteor.call('make.admin', query.setAdmin, (err, res) => {
             if (err) {
               alert(`Error setting admin account: ${err}`);

@@ -3,7 +3,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
-import { getUserType } from '/imports/api/users';
+import { getUserType, checkUserAdmin } from '/imports/api/users';
 import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
@@ -83,8 +83,12 @@ Meteor.methods({
     }
   },
   'frog.users.all': function() {
-    const userList = Meteor.users.find().fetch();
-    return userList;
+    if (checkUserAdmin()) {
+      const userList = Meteor.users.find().fetch();
+      return userList;
+    } else {
+      return [];
+    }
   },
   'frog.userid.login': function(userId) {
     const self = this;
@@ -138,7 +142,7 @@ Meteor.methods({
   'make.admin': token => {
     if (token === Meteor.settings.token) {
       Meteor.users.update(Meteor.userId(), {
-        $set: { 'profile.isAdmin': true }
+        $set: { isAdmin: true }
       });
       return 'Success';
     }
