@@ -24,6 +24,10 @@ const useStyle = makeStyles(theme => ({
     padding: theme.spacing(1, 0),
     margin: theme.spacing(1, 0),
     borderBottom: '1px solid rgba(0,0,0,.1)'
+  },
+  rowEmail: {
+    display: 'block',
+    fontSize: '0.9em'
   }
 }));
 
@@ -66,6 +70,14 @@ const UsersListModal = (props: UsersListModalProps) => {
     }
   };
 
+  const parseEmail = user => {
+    try {
+      return user.emails[0].address;
+    } catch {
+      return null;
+    }
+  };
+
   const handleChange = attr => event => {
     const userList = value.completeList;
     const searchQuery = event.target.value.toLowerCase();
@@ -74,7 +86,10 @@ const UsersListModal = (props: UsersListModalProps) => {
         return (
           parseUsername(item)
             .toLowerCase()
-            .indexOf(searchQuery) > -1
+            .indexOf(searchQuery) > -1 ||
+          (parseEmail(item)
+            ? parseEmail(item).indexOf(searchQuery) > -1
+            : false)
         );
       });
       setValue({ ...value, [attr]: filteredList });
@@ -110,6 +125,7 @@ const UsersListModal = (props: UsersListModalProps) => {
                   }}
                 >
                   {parseUsername(user)}
+                  <i className={classes.rowEmail}>{parseEmail(user)}</i>
                 </RowButton>
               ))
             ) : (
