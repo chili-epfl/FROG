@@ -214,10 +214,17 @@ const FROGRouter = withRouter(
           });
           return;
         }
-        if (query.u && query.token) {
+        if (query.u) {
           this.setState({ mode: 'loggingIn' });
-          LocalSettings.UrlCoda = `?u=${query.u}&token=${query.token}`;
-          Meteor.call('frog.userid.login', query.u, query.token, (err, res) => {
+          const userId = query.u;
+          let token = 'Anonymous';
+          if (query.token) {
+            token = query.token;
+            LocalSettings.UrlCoda = `?u=${userId}&token=${token}`;
+          } else {
+            LocalSettings.UrlCoda = `?u=${userId}`;
+          }
+          Meteor.call('frog.userid.login', userId, token, (err, res) => {
             if (err) {
               console.error(err);
               this.setState({ mode: 'noSession' });

@@ -96,7 +96,7 @@ Meteor.methods({
     if (!userDoc) {
       throw new Meteor.Error('Unable to find any user with the given userId');
     }
-    if (token === userDoc.impersonationToken) {
+    if (userDoc.isAnonymous || token === userDoc.impersonationToken) {
       const result = Accounts._loginUser(self, userId);
       return result;
     } else {

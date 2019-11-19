@@ -121,7 +121,10 @@ const UsersListModal = (props: UsersListModalProps) => {
                   key={user._id}
                   size="large"
                   onClick={() => {
-                    props.impersonate(user._id);
+                    props.impersonate(
+                      user._id,
+                      user.isAnonymous ? 'Anonymous' : 'Verified'
+                    );
                   }}
                 >
                   {parseUsername(user)}

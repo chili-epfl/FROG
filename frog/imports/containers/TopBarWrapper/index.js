@@ -42,15 +42,20 @@ const TopBarWrapper = ({
     setAdminModal(false);
   };
 
-  const adminImpersonate = (id: string) => {
-    Meteor.call('impersonation.token', id, (err, res) => {
-      if (err) {
-        console.info(err);
-      } else {
-        history.push(`?u=${id}&token=${res}`);
-        window.location.reload();
-      }
-    });
+  const adminImpersonate = (id: string, type: string) => {
+    if (type !== 'Anonymous') {
+      Meteor.call('impersonation.token', id, (err, res) => {
+        if (err) {
+          console.info(err);
+        } else {
+          history.push(`?u=${id}&token=${res}`);
+          window.location.reload();
+        }
+      });
+    } else {
+      history.push(`?u=${id}`);
+      window.location.reload();
+    }
   };
 
   const openSignUpModal = () => {
