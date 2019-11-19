@@ -126,8 +126,6 @@ export const exportSession = async (sessionId: string) => {
   const activities = Activities.find({ graphId: session.graphId }).fetch();
   const operators = Operators.find({ graphId: session.graphId }).fetch();
   const litems = await fetchSessionLIs(sessionId);
-  console.log(litems);
-
   const files = UploadList.find({ sessionId }).fetch();
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
