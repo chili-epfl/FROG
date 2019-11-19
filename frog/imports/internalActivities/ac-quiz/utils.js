@@ -90,7 +90,7 @@ export const computeScore = (
   form: { [qIdx: number]: { [idx: string]: boolean, text: string } }
 ) => {
   return questions.reduce(
-    (acc, q, qIdx) => (isCorrect(form[qIdx], q) ? acc + 1 : acc),
+    (acc, q, qIdx) => (form[qIdx] && isCorrect(form[qIdx], q) ? acc + 1 : acc),
     0
   );
 };
