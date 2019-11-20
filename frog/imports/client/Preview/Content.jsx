@@ -10,6 +10,10 @@ import {
   MosaicWindow
 } from 'react-mosaic-component';
 import {
+  ActivitySplitWindow,
+  ActivityWindow
+} from '/imports/ui/ActivitySplitWindow';
+import {
   cloneDeep,
   getInitialState,
   withDragDropContext,
@@ -222,6 +226,30 @@ const ContentController = ({
     />
   );
 
+  const renderElement = (name, instance) => {
+    return name === 'dashboard' && activityType.dashboards ? (
+      <ActivityWindow
+        title={'dashboard - ' + activityType.meta.name}
+        key={JSON.stringify({ config, showData })}
+      >
+        <Dashboard />
+      </ActivityWindow>
+    ) : (
+      <ActivityWindow
+        key={JSON.stringify({ config, showData, reloadActivity })}
+        title={
+          name +
+          '/' +
+          ['individual', instance, 'all'][plane - 1] +
+          ' - ' +
+          activityType.meta.name
+        }
+      >
+        <Run name={name} instance={instance} />
+      </ActivityWindow>
+    );
+  };
+
   return (
     <div style={{ height: '100%' }}>
       {showDashExample ? (
@@ -233,7 +261,19 @@ const ContentController = ({
       ) : users.length === 1 && !showDash ? (
         <Run name={users[0]} idx={0} instance={instances[0]} />
       ) : (
-        <MosaicWithoutDragDropContext
+        <ActivitySplitWindow>
+          {showDash
+            ? [
+                ['dashboard', 'dashboard'],
+                ...users.map((name, idx) => [name, instances[idx]])
+              ].map(arr => {
+                return renderElement(arr[0], arr[1]);
+              })
+            : [users.map((name, idx) => [name, instances[idx]])].map(arr => {
+                return renderElement(arr[0], arr[1]);
+              })}
+        </ActivitySplitWindow>
+        /* <MosaicWithoutDragDropContext
           renderTile={([name, instance], path) =>
             name === 'dashboard' && activityType.dashboards ? (
               <MosaicWindow
@@ -269,7 +309,7 @@ const ContentController = ({
                 ]
               : users.map((name, idx) => [name, instances[idx]])
           )}
-        />
+        /> */
       )}
     </div>
   );

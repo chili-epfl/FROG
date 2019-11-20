@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import { MosaicWithoutDragDropContext } from 'react-mosaic-component';
+import { ActivitySplitWindow } from '/imports/ui/ActivitySplitWindow';
 import AppBar from '@material-ui/core/AppBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -60,19 +60,18 @@ export const ActivityContainer = ({
     return 'No activity';
   }
   return (
-    <MosaicWithoutDragDropContext
-      renderTile={(activityId, path) => (
-        <Runner
-          activity={activities.find(x => x._id === activityId)}
-          path={path}
-          sessionId={sessionId}
-          paused={paused}
-        />
-      )}
-      initialValue={getInitialState(
-        sortBy(activities, 'title').map(x => x._id)
-      )}
-    />
+    <ActivitySplitWindow>
+      {sortBy(activities, 'title').map(activity => {
+        return (
+          <Runner
+            activity={activities.find(x => x._id === activity._id)}
+            sessionId={sessionId}
+            paused={paused}
+            key={activity._id}
+          />
+        );
+      })}
+    </ActivitySplitWindow>
   );
 };
 
