@@ -3,10 +3,28 @@
 import operator from '../operatorRunner';
 
 const payload = {
-  s1: { data: { coordinates: { x: 0, y: 0 } }, config: {} },
-  s2: { data: { coordinates: { x: 3, y: 4 } }, config: {} },
-  s3: { data: { coordinates: { x: 0, y: 0 } }, config: {} },
-  s4: { data: { coordinates: { x: 3, y: -4 } }, config: {} }
+  G6QjT87QBhyF4wnMo: {
+    data: {
+      answers: {
+        G6QjT87QBhyF4wnMo: { A: 1, BB: 2, CCC: 3, DDDD: 4, EEEEE: 5 }
+      }
+    }
+  },
+  ZzYgmJkvuugv7BfLw: {
+    data: {
+      answers: { ZzYgmJkvuugv7BfLw: { DDDD: 1, EEEEE: 2 } }
+    }
+  },
+  eAuSCJbcShEbHNgmj: {
+    data: {
+      answers: { eAuSCJbcShEbHNgmj: { A: 1, CCC: 2, DDDD: 3 } }
+    }
+  },
+  pTNa8W776KB9pWQbH: {
+    data: {
+      answers: { pTNa8W776KB9pWQbH: { EEEEE: 1, DDDD: 2, CCC: 3, BB: 4, A: 5 } }
+    }
+  }
 };
 
 test('Operator works with 0 students', () =>
@@ -26,10 +44,10 @@ test('Operator works with 0 students', () =>
         config: {},
         data: {
           distanceMatrix: [
-            [0, 5, 0, 5],
-            [5, 0, 5, 8],
-            [0, 5, 0, 5],
-            [5, 8, 5, 0]
+            [0, 18, 2, 40],
+            [18, 0, 4, 2],
+            [2, 4, 0, 18],
+            [40, 2, 18, 0]
           ]
         }
       }
