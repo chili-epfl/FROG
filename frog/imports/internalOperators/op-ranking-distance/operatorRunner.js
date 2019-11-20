@@ -10,13 +10,20 @@ const operator = (_, object) => {
     globalStructure: { studentIds }
   } = object;
 
-  console.log(payload);
-  const distance = (ranksA, ranksB) => 0;
+  // we compute the distance between two students as the sum
+  // of square differences between their assigned ranks
+  const distance = (a, b) =>
+    Object.keys(a).reduce(
+      (d, key) => (b[key] ? d + (b[key] - a[key]) ** 2 : d),
+      0
+    );
 
   const distanceMatrix = studentIds.map(A =>
     studentIds.map(B => {
-      const ranksA = payload[A] && payload[A].data.ranks;
-      const ranksB = payload[B] && payload[B].data.ranks;
+      const answersA = payload[A] && payload[A].data.answers;
+      const answersB = payload[B] && payload[B].data.answers;
+      const ranksA = answersA && answersA[A];
+      const ranksB = answersB && answersB[B];
       if (!ranksA || !ranksB) {
         return 0;
       } else {
