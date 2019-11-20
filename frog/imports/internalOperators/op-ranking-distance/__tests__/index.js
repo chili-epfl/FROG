@@ -24,10 +24,13 @@ const payload = {
     data: {
       answers: { pTNa8W776KB9pWQbH: { EEEEE: 1, DDDD: 2, CCC: 3, BB: 4, A: 5 } }
     }
+  },
+  zzzzzzzzzzzzzzzzz: {
+    data: {}
   }
 };
 
-test('Operator works with 0 students', () =>
+test('Operator ranking distance', () =>
   expect(
     operator(
       {},
@@ -44,10 +47,11 @@ test('Operator works with 0 students', () =>
         config: {},
         data: {
           distanceMatrix: [
-            [0, 18, 2, 40],
-            [18, 0, 4, 2],
-            [2, 4, 0, 18],
-            [40, 2, 18, 0]
+            [0, 18, 2, 40, 0],
+            [18, 0, 4, 2, 0],
+            [2, 4, 0, 18, 0],
+            [40, 2, 18, 0, 0],
+            [0, 0, 0, 0, 0]
           ]
         }
       }
