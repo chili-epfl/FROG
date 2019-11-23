@@ -27,6 +27,8 @@ const useStyle = makeStyles(theme => ({
     position: 'relative',
     display: 'grid',
     gridTemplateAreas: '"one two" "one three"',
+    gridTemplateColumns: '50% 50%',
+    gridTemplateRows: '50% 50%',
     height: '100%',
     width: '100%',
     background: '#EEE',
