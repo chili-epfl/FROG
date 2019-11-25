@@ -23,7 +23,9 @@ const useStyle = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    borderBottom: '1px solid #EEE'
+    background: '#DDD',
+    borderBottom: '1px solid rgba(0,0,0,0.1)',
+    fontWeight: '500'
   }
 }));
 
