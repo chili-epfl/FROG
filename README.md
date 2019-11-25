@@ -5,17 +5,19 @@ __Visit [our blog](https://froglearning.wordpress.com) to see pedagogical scenar
 Fabricating and running orchestration graphs. To learn more about the design and
 architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
 
+You can test FROG at https://chilifrog.ch.
+
 * **[How to install](#set-up)**
 * **[Development](#development)**
 * **[Licensing](#licensing)**
 
 ## Videos
 
-* [Installation and initial setup
-  (3:21)](https://www.youtube.com/watch?v=QutJR7W5ib8) **Out of date**
+* [Introduction to Chilifrog
+  (11:33)](https://www.youtube.com/watch?v=N2v13ZLb7IY)
 * [Preview functionality
   (10:49)](https://www.youtube.com/watch?v=HQDD8-T4ilU&t=18s)
-* [How to use the graph editor and teacher orchestration view
+* [How to use the graph editor and teacher orchestration view (old)
   (17:25)](https://www.youtube.com/watch?v=GOsFwaKBFvs&feature=youtu.be)
 
 ## Graph editor
@@ -46,20 +48,27 @@ architecture, visit our [wiki](https://github.com/chili-epfl/FROG/wiki).
   * `./initial_setup.sh` (if problem occur with bcrypt you can try to run
     `meteor npm install --python=python2.7` from the `frog/` directory)
 
+  * add the following lines to your `/etc/hosts`:
+  ```
+  127.0.0.1 learn.chilifrog-local.com
+  127.0.0.1 chilifrog-local.com
+  ```
+  
   * go to the `frog/` directory and run `meteor` (or run `npm start server` from any directory)
 
   * see more developer scripts and details [here](https://github.com/chili-epfl/FROG/wiki/Development-workflow-and-tools)
 
 * Connect to FROG by typing in your browser
-  * http://localhost:3000/teacher?login=username to connect as a teacher
-  * http://localhost:3000/XXXX to connect to the session with ID 'XXXX' (this session has to exist first)
+  * http://learn.chilifrog-local.com:3000/ to connect as a teacher
+  * http://chilifrog-local.com:3000/XXXX to connect to the session with ID 'XXXX' (this session has to exist first)
+  * http://chilifrog-local.com:3000/wiki/x to edit the wiki named x (will be automatically created)
 
 ### Troubleshooting initial setup
 
 * Make sure Meteor works (`meteor --version`) (note that the Meteor version is
   not important, Meteor will automatically download and install the correct
   version when run the first time)
-* Make sure you have an up-to-date version of Node 9 or 10 (`node --version`), and
+* Make sure you have an up-to-date version of Node 12 (`node --version`), and
   that `npm` works (`npm --version` -- will not be the same as the Node version)
 * We do not support Windows - you might be able to get it to run, but all of our
   scripts etc, presume MacOS/Linux
@@ -91,26 +100,6 @@ Meteor. This means a specific workflow:
   - to update dependencies after pulling or switching to another branch, run `npm start yarn`
   - to add dependencies or do other yarn actions, first do `npm start unlink`, then do your actions, and then `npm start link` to
     be able to run the server again
-
-* In development mode, you can use the URL shorthand `<host>?login={user}` to
-  automatically login as a given user (which will be automatically created if it
-  does not yet exist). For example, `http://localhost:3000/<slug>?login=peter`, will
-  open the student view logged in as peter. To access to the
-  graph editor and the teacher orchestration dashboard you need to use the URL shorthand `<host>/teacher/login={user}`. If you want to see the
-  "projector mode", you log in like `<host>/teacher/projector/<slug>?login=teacher`. The slug is displayed once you create a new session.
-
-* If you open a number of windows in the same browser, they will all be
-  logged in as the latest user, because of cookies. A way around this is to add
-  entries like this in /etc/hosts:
-
-      127.0.0.1	localhost
-      127.0.0.1	dev1
-      127.0.0.1	dev2
-      127.0.0.1	dev3
-
-Reload `/etc/hosts` (on
-[MacOS](https://superuser.com/questions/346518/how-do-i-refresh-the-hosts-file-on-os-x)),
-and then log in to different users on different "domains".
 
 ## Code style/testing
 

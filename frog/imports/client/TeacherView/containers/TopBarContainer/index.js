@@ -93,7 +93,7 @@ export const TopBarContainer = withRouter(({ history }) => {
             icon={<SaveAlt fontSize="small" />}
             onClick={session.exportSession}
           >
-            Export session
+            Download Session Data
           </RowButton>
           <RowButton
             icon={<SaveAlt fontSize="small" />}
