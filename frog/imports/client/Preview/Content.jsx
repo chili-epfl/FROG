@@ -217,7 +217,6 @@ const Content = ({
   );
 
   const renderElement = (name, instance) => {
-    console.info(`Name: ${name} ; Instance: ${instance}`);
     return name === 'dashboard' && activityType.dashboards ? (
       <ActivityWindow
         title={'dashboard - ' + activityType.meta.name}
