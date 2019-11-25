@@ -156,7 +156,5 @@ class PreviewPage extends React.Component<any, any> {
 PreviewPage.displayName = 'PreviewPage';
 
 export default (props: any) => (
-  <ErrorWrapper>
     <PreviewPage {...props} />
-  </ErrorWrapper>
 );
