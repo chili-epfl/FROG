@@ -31,14 +31,18 @@ const useStyle = makeStyles(theme => ({
 
 type ActivityWindowProps = {
   children?: React.Element<*>,
-  title?: String
+  title?: string
 };
 
 export const ActivityWindow = (props: ActivityWindowProps) => {
   const classes = useStyle();
 
   return (
-    <div className={`${classes.root} ${props.title && classes.rootWithTitle}`}>
+    <div
+      className={`${classes.root} ${
+        props.title ? classes.rootWithTitle : null
+      }`}
+    >
       {props.title && (
         <div className={classes.title}>
           <Typography variant="subtitle2">{props.title}</Typography>
