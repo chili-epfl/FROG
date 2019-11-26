@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
-import { SupervisedUserCircle, Edit } from '@material-ui/icons';
-import Clear from '@material-ui/icons/Clear';
+import { SupervisedUserCircle, Edit, ArrowBack } from '@material-ui/icons';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Breadcrumb } from '/imports/ui/Breadcrumb';
 
@@ -119,7 +119,7 @@ export const SimpleTopBar = withRouter(({ title, history }) => (
       <>
         <Button
           variant="minimal"
-          icon={<Clear />}
+          icon={<ArrowBack />}
           onClick={() => history.push('/')}
         />
         <Breadcrumb paths={[title]} />
