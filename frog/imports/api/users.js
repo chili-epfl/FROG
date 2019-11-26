@@ -60,7 +60,7 @@ export const getUserType = (user?: UserObj): UserType => {
   else return 'No user logged in';
 };
 
-export const checkUserAdmin = (user?: UserObj): UserType => {
+export const checkUserAdmin = (user?: UserObj): Boolean => {
   const selectedUser = getUser(user);
   if (!selectedUser) return false;
   return selectedUser.isAdmin;
