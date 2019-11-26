@@ -11,6 +11,10 @@ const useStyle = makeStyles(theme => ({
     overflow: 'auto'
   },
   rootWithTitle: {
+    position: 'relative',
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
     display: 'grid',
     gridTemplateRows: `${theme.spacing(4)}px 1fr`
   },
@@ -38,11 +42,7 @@ export const ActivityWindow = (props: ActivityWindowProps) => {
   const classes = useStyle();
 
   return (
-    <div
-      className={`${classes.root} ${
-        props.title ? classes.rootWithTitle : null
-      }`}
-    >
+    <div className={props.title ? classes.rootWithTitle : classes.root}>
       {props.title && (
         <div className={classes.title}>
           <Typography variant="subtitle2">{props.title}</Typography>

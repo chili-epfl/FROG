@@ -62,7 +62,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 type ActivitySplitWindowProps = {
-  children?: React.Element<*>[]
+  children: React.Element<*>[]
 };
 
 export const ActivitySplitWindow = (props: ActivitySplitWindowProps) => {
