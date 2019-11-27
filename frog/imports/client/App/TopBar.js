@@ -25,7 +25,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   appbar: {
-    background: '#31BFAE',
+    background: theme.palette.primary.main,
     boxShadow: '0 0 10px rgba(0,0,0,0.05)'
   },
   button: {

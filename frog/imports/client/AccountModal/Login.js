@@ -11,7 +11,6 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
 import { blueGrey } from '@material-ui/core/colors';
-import { primaryColor, primaryColorDark } from '../../ui/LandingPage/constants';
 import { useToast } from '/imports/ui/Toast';
 
 const styles = (theme: Object) => ({
@@ -23,28 +22,30 @@ const styles = (theme: Object) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: primaryColor
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
   submit: {
-    background: primaryColor,
+    background: theme.palette.primary.main,
     margin: theme.spacing(2, 0),
     padding: theme.spacing(2),
     boxShadow: '0 5px 20px rgba(0,0,0,0.05)',
     transition: '.25s ease',
     cursor: 'pointer',
+    color: '#FFF',
 
     '&:hover': {
-      background: primaryColorDark
+      background: theme.palette.primary.dark
     }
   },
   link: {
     cursor: 'pointer',
-    color: blueGrey[300],
-    fontSize: '1rem'
+    color: blueGrey[500],
+    fontSize: '1rem',
+    textTransform: 'capitalize'
   }
 });
 
@@ -132,7 +133,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link
+              <Button
                 href="#"
                 variant="body2"
                 className={classes.link}
@@ -153,16 +154,16 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
                 }}
               >
                 Forgot password?
-              </Link>
+              </Button>
             </Grid>
             <Grid item>
-              <Link
+              <Button
                 onClick={openSignUpForm}
                 className={classes.link}
                 variant="body2"
               >
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </Button>
             </Grid>
           </Grid>
         </form>

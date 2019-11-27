@@ -44,7 +44,13 @@ const SideBarHelperText = ({ classes }) => (
 export const IconButton = ({ icon, onClick, tooltip }: Object) => (
   <div className="bootstrap">
     <Button
-      style={{ width: '35px', height: '25px' }}
+      style={{
+        width: '40px',
+        height: '30px',
+        border: '1px solid #EEE',
+        margin: '1px',
+        boxShadow: 'none'
+      }}
       data-tip={tooltip}
       onClick={onClick}
     >

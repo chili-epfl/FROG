@@ -69,7 +69,7 @@ const OrchestrationViewRaw = (props: OrchestrationViewPropsT) => {
       students={props.students}
     >
       {showAccountModal ? (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} PaperProps={{ elevation: 1 }}>
           <AccountModal
             formToDisplay="signup"
             closeModal={() => {

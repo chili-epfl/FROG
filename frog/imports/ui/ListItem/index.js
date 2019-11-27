@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { MoreVert } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItemSecondaryAction } from '@material-ui/core';
+import { blueGrey } from '@material-ui/core/colors';
 import { OverflowMenu } from '../OverflowMenu';
 import { RowButton, RowTitle } from '../RowItems';
 import { Button } from '../Button';
@@ -23,6 +24,9 @@ const useStyles = makeStyles(theme => ({
   },
   status: {
     margin: theme.spacing(2, 2, 2, 2)
+  },
+  icon: {
+    color: blueGrey[200]
   }
 }));
 
@@ -105,7 +109,7 @@ export const ContentListItem = ({
   return (
     <ListItem alignItems="flex-start" divider button onClick={callback}>
       <ListItemIcon>
-        <Icon />
+        <Icon className={classes.icon} />
       </ListItemIcon>
 
       <ListItemText primary={itemTitle} secondary={secondaryText} />

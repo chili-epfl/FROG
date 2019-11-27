@@ -148,7 +148,7 @@ export class ChangeableText extends React.Component<
             <i
               role="button"
               tabIndex={0}
-              style={{ color: 'blue' }}
+              style={{ color: '#546e7a', marginLeft: '8px' }}
               onClick={() => this.setState({ edit: true })}
               className={`fa fa-pencil ${onlyHover ? 'show-on-hover' : ''}`}
             />
@@ -165,7 +165,7 @@ export class ChangeableText extends React.Component<
             <i
               role="button"
               tabIndex={0}
-              style={{ color: 'blue' }}
+              style={{ color: '#546e7a', marginLeft: '8px' }}
               onClick={() => this.setState({ edit: true })}
               className={`fa fa-pencil ${onlyHover ? 'show-on-hover' : ''}`}
             />
