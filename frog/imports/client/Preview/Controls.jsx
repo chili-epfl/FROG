@@ -19,7 +19,7 @@ import { initActivityDocuments, DocId } from './Content';
 import { activityTypesObj } from '/imports/activityTypes';
 import { addDefaultExample } from './index';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     padding: '4px',
     margin: '4px',
