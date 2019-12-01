@@ -7,7 +7,7 @@ const useStyle = makeStyles(theme => ({
   root: {
     position: 'fixed',
     top: '0',
-    height: theme.spacing(10),
+    height: theme.spacing(9),
     background: '#FFF',
     display: 'flex',
     justifyContent: 'space-between',
