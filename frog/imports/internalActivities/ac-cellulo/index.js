@@ -2,7 +2,7 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import defaultDashboard from './dashboard';
-
+import AppH from './components/app';
 const meta = {
   name: 'Cellulo test activity',
   shortDesc: 'New activity, no description available',

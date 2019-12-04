@@ -8,6 +8,9 @@ export const HeatMap = ({ Data }: { Data: number[] }) => {
         alt="Logo"
         height="420"
         width="420"
+        position="absolute"
+        left="100px"
+        top="450px"
       />
       <h1>dsdsds{Data[1]}</h1>
     </div>
