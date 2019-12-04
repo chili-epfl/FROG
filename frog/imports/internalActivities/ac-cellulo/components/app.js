@@ -22,12 +22,17 @@ class App extends Component {
       blurValue: this.defaultBlurValue,
       radiusValue: this.defaultRadiusValue
     };
+
     this.handleWindowClose = this.handleWindowClose.bind(this);
   }
 
   componentWillMount() {
     console.log('App.componentWillMount() props: ', this.props);
     window.addEventListener('beforeunload', this.handleWindowClose);
+  }
+
+  componentWillUnMount() {
+    window.removeEventListener('beforeunload', this.handleWindowClose);
   }
 
   async handleWindowClose(e) {

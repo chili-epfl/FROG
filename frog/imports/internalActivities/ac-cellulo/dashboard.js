@@ -6,7 +6,7 @@ import AppH from './components/app';
 const Viewer = ({ sendMsg, state, activity }) => {
   return (
     <div>
-      <EventChart events={state.events} />
+      <AppH />
     </div>
   );
 };
