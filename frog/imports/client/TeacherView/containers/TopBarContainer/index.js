@@ -21,9 +21,10 @@ import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowDivider, RowButton } from '/imports/ui/RowItems';
 import { useModal } from '/imports/ui/Modal';
 import { getSessionTypeInfo } from '../../../UserDashboard/data-utils/helpers';
-
+import { cloneSession } from '/imports/api/sessions';
 import { OrchestrationContext } from '../../context';
 import { SettingsModal } from './SettingsModal';
+import { store } from '../../../GraphEditor/store';
 
 export const TopBarContainer = withRouter(({ history }) => {
   const [showModal] = useModal();
@@ -38,24 +39,11 @@ export const TopBarContainer = withRouter(({ history }) => {
     );
   };
 
-  const cloneSession = () => {
+  const callCloneSession = () => {
     const sessionType = getSessionTypeInfo(session)
       .split('|')[0]
       .trim();
-    console.info(sessionType);
-    switch (sessionType) {
-      case 'Single Activity':
-        console.info(session);
-        break;
-      case 'Template':
-        console.info(session);
-        break;
-      case 'Graph':
-        console.info(session);
-        break;
-      default:
-        alert('Error: Unknown Session Type for Cloning');
-    }
+    cloneSession(session.id, sessionType, history, store);
   };
 
   return (
@@ -85,7 +73,7 @@ export const TopBarContainer = withRouter(({ history }) => {
           </RowButton>
           <RowButton
             icon={<LibraryAdd fontSize="small" />}
-            onClick={cloneSession}
+            onClick={callCloneSession}
           >
             Clone Session
           </RowButton>

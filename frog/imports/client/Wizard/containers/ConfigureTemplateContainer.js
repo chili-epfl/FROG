@@ -21,6 +21,8 @@ import { createSession } from '../store/session';
 
 import { ConfigureTemplate } from '../components/steps/ConfigureTemplate';
 
+import { store } from '../../GraphEditor/store';
+
 export const ConfigureTemplateContainer = _.flow(withRouter)(
   ({ history, match }) => {
     const templateId = getTemplateId(match.url);
@@ -30,7 +32,7 @@ export const ConfigureTemplateContainer = _.flow(withRouter)(
     ]);
 
     const [numberOfEdits, setNumberOfEdits] = React.useState(0);
-    const [config, setConfig] = React.useState(undefined);
+    const [config, setConfig] = React.useState(store.wizardConfig);
     const [waitingForSessionCreation, setWaiting] = React.useState(false);
 
     const onSubmit = () => {

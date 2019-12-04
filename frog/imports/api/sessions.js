@@ -14,6 +14,7 @@ import {
 } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
+import { graphToString } from './exportGraph';
 
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
@@ -231,6 +232,50 @@ export const updateOpenActivities = (
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
+export const cloneSession = (
+  sessionId: string,
+  sessionType: string,
+  history: any,
+  store: Object
+) => {
+  console.info(sessionType);
+  switch (sessionType) {
+    case 'Single Activity':
+      Meteor.call('clone.singleActivitySession', sessionId, (err, res) => {
+        if (err) {
+          alert('Error cloning single activity based session');
+          return;
+        }
+        if (res) {
+          store.setWizardConfig(res.config);
+          console.info(res.config);
+          history.push(`/wizard/${res.activityType}`);
+        }
+      });
+      break;
+    case 'Template':
+      Meteor.call('clone.templateSession', sessionId);
+      break;
+    case 'Graph':
+      Meteor.call('clone.graphSession', sessionId, (err, res) => {
+        if (err) {
+          alert('Error cloning graph-based session');
+          return;
+        }
+        if (res) {
+          const sourceGraphId = res.sourceGraph;
+          const graphObj = JSON.parse(graphToString(sourceGraphId));
+          const newGraphId = addGraph(graphObj, res.name);
+          history.push(`/teacher/graph/${newGraphId}`);
+        }
+      });
+      break;
+    default:
+      alert('Error: Undetermined session type.');
+      break;
+  }
+};
+
 // if slug is empty, will automatically generate a unique slug, returns sessionId
 export const addSessionFn = (graphId: string, slug?: string): string => {
   if (Meteor.isServer) {
@@ -296,6 +341,27 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
 
 Meteor.methods({
   'add.session': addSessionFn,
+  'clone.templateSession': sessionId => {
+    const session = Sessions.findOne(sessionId);
+    console.log(session);
+    return null;
+  },
+  'clone.singleActivitySession': sessionId => {
+    const session = Sessions.findOne(sessionId);
+    if (session) {
+      return { ...session.simpleConfig };
+    } else {
+      return null;
+    }
+  },
+  'clone.graphSession': sessionId => {
+    const session = Sessions.findOne(sessionId);
+    if (session) {
+      return { sourceGraph: session.fromGraphId, name: session.name };
+    } else {
+      return null;
+    }
+  },
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
     if (!session) {
