@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sampleData } from './data';
 
 class Heatmap extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     // Component-level properties (these are not part of the state)
@@ -27,7 +27,8 @@ class Heatmap extends Component {
     this.state = {
       width: this.props.width,
       height: this.props.height,
-      data: typeof this.props.data === 'undefined' ? sampleData : this.props.data,
+      data:
+        typeof this.props.data === 'undefined' ? sampleData : this.props.data,
       maxOccurances: this.props.maxOccurances
     };
 
@@ -49,9 +50,11 @@ class Heatmap extends Component {
     // console.log('Heatmap.componentDidUpdate() prevProps, prevState, snapshot', prevProps, prevState, snapshot);
 
     /* eslint-disable react/no-did-update-set-state */
-    if (prevProps.data.length !== this.props.data.length) {
-      // console.log('Heatmap.componentDidUpdate(): updating this.state.data.  prevProps.data.length, this.props.data.length', prevProps.data.length, this.props.data.length);
-      this.setState({ data: this.props.data });
+    if (prevProps.data && this.props.data) {
+      if (prevProps.data.length !== this.props.data.length) {
+        // console.log('Heatmap.componentDidUpdate(): updating this.state.data.  prevProps.data.length, this.props.data.length', prevProps.data.length, this.props.data.length);
+        this.setState({ data: this.props.data });
+      }
     }
     /* eslint-enable react/no-did-update-set-state */
   }
@@ -60,23 +63,32 @@ class Heatmap extends Component {
     console.log('Heatmap.getSnapshotBeforeUpdate() called.');
     // console.log('Heatmap.getSnapshotBeforeUpdate() prevProps, prevState', prevProps, prevState);
 
-    if (prevProps.blur !== this.props.blur || prevProps.radius !== this.props.radius) {
-      console.log('Heatmap.getSnapshotBeforeUpdate() redrawing this.props.blur, this.props.radius', this.props.blur, this.props.radius);
+    if (
+      prevProps.blur !== this.props.blur ||
+      prevProps.radius !== this.props.radius
+    ) {
+      console.log(
+        'Heatmap.getSnapshotBeforeUpdate() redrawing this.props.blur, this.props.radius',
+        this.props.blur,
+        this.props.radius
+      );
       this.createCircleBrushCanvas(this.props.radius, this.props.blur);
       this.draw();
     }
 
-    if (prevProps.data.length !== prevState.data.length) {
-      // console.log('Heatmap.getSnapshotBeforeUpdate(): redrawing prevProps.data.length, prevState.data.length', prevProps.data.length, prevState.data.length);
-      this.draw();
+    if (prevProps.data && prevState.data) {
+      if (prevProps.data.length !== prevState.data.length) {
+        // console.log('Heatmap.getSnapshotBeforeUpdate(): redrawing prevProps.data.length, prevState.data.length', prevProps.data.length, prevState.data.length);
+        this.draw();
+      }
     }
 
     return null;
   }
 
   // Callback Ref function
-  setCanvas(element) {
-    this.canvas = element;
+  setCanvas(ref) {
+    this.canvas = ref;
     this.canvasContext = this.canvas.getContext('2d');
   }
 
@@ -102,7 +114,8 @@ class Heatmap extends Component {
     this.circleCanvasRadius = r2;
     this.circleCanvas.width = this.circleCanvas.height = r2 * 2;
 
-    circleCanvasContext.shadowOffsetX = circleCanvasContext.shadowOffsetY = r2 * 2;
+    circleCanvasContext.shadowOffsetX = circleCanvasContext.shadowOffsetY =
+      r2 * 2;
     circleCanvasContext.shadowBlur = b;
     circleCanvasContext.shadowColor = 'black';
 
@@ -154,7 +167,11 @@ class Heatmap extends Component {
     for (let i = 0, len = data.length, p; i < len; i++) {
       p = data[i];
       ctx.globalAlpha = Math.min(Math.max(p[2] / maxOccurances, opacity), 1);
-      ctx.drawImage(this.circleCanvas, p[0] - this.circleCanvasRadius, p[1] - this.circleCanvasRadius);
+      ctx.drawImage(
+        this.circleCanvas,
+        p[0] - this.circleCanvasRadius,
+        p[1] - this.circleCanvasRadius
+      );
     }
 
     // colorize the heatmap, using opacity value of each pixel to get the right color from our gradient
