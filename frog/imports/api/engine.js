@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { type ActivityDbT } from '/imports/frog-utils';
 
-import { Activities, Connections } from './activities';
+import { Activities, Connections, UniqueIds } from './activities';
 import { Products } from './products';
 import { Operators } from './operators';
 import { Objects } from './objects';
@@ -167,6 +167,18 @@ export const runSessionFn = (sessionId: string) => {
         }
       });
     }
+
+    const uniqueIds = Activities.find({
+      graphId: session.graphId,
+      'data.uniqueId': { $exists: true }
+    });
+    uniqueIds.forEach(act =>
+      UniqueIds.update(
+        act.data.uniqueId,
+        { activityId: act._id },
+        { upsert: true }
+      )
+    );
   }
 };
 

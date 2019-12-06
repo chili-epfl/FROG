@@ -103,7 +103,7 @@ const Question = withStyles(styles)(({ texts, question, answers, classes }) => {
 });
 
 const Viewer = withStyles(styles)(
-  ({ state, classes }: { state: Object, classes: Object }) => (
+  ({ state, classes }: {state: Object, classes: Object}) => (
     <div className={classes.root}>
       {state.result.map(([k, v, idx]) => (
         <Question

@@ -16169,10 +16169,15 @@ react-dropzone@^8.0.4:
     prop-types "^15.6.2"
     prop-types-extra "^1.1.0"
 
-react-error-overlay@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.1.tgz#b8d3cf9bb991c02883225c48044cb3ee20413e0f"
-  integrity sha512-V9yoTr6MeZXPPd4nV/05eCBvGH9cGzc52FN8fs0O0TVQ3HYYf1n7EgZVtHbldRq5xU9zEzoXIITjYNIfxDDdUw==
+react-dynamic-charts@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-dynamic-charts/-/react-dynamic-charts-1.0.5.tgz#54dcc31a32954e0a8ff77533df455673620c92f8"
+  integrity sha512-4IFZnw7hXFK+mg3cIdTu6BE4gCmR+ZzGYYoF7CtyNjfhdSBmbeyRpZitJxUftsmpJEG/H3yVnultoUMyQa/Jzg==
+
+react-error-overlay@^5.1.6:
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
+  integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
 react-fast-compare@2.0.4, react-fast-compare@^2.0.0:
   version "2.0.4"
