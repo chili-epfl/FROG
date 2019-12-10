@@ -48,8 +48,9 @@ const useStyle = makeStyles(theme => ({
     flex: 1,
     background: '#FFF',
     margin: theme.spacing(0.5),
-    borderRadius: theme.spacing(1),
-    overflow: 'auto'
+    borderRadius: theme.spacing(0.5),
+    overflow: 'hidden',
+    boxShadow: '0px 1px 4px  black'
   },
   smallWindow: {
     height: `calc(50% - ${theme.spacing(1)}px)`,
@@ -57,7 +58,8 @@ const useStyle = makeStyles(theme => ({
     background: '#FFF',
     margin: theme.spacing(0.5),
     borderRadius: theme.spacing(1),
-    overflow: 'auto'
+    overflow: 'hidden',
+    boxShadow: '0px 1px 4px  black'
   }
 }));
 

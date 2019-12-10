@@ -8,28 +8,23 @@ const useStyle = makeStyles(theme => ({
     position: 'relative',
     height: '100%',
     width: '100%',
-    overflow: 'auto'
-  },
-  rootWithTitle: {
-    position: 'relative',
-    height: '100%',
-    width: '100%',
-    overflow: 'auto',
-    display: 'grid',
-    gridTemplateRows: `${theme.spacing(4)}px 1fr`
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
   },
   title: {
+    flex: 0,
     width: '100%',
-    position: 'relative',
-    top: '0px',
-    left: '0px',
-    height: theme.spacing(4),
     display: 'flex',
     alignItems: 'center',
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(1),
     background: '#DDD',
     borderBottom: '1px solid rgba(0,0,0,0.1)',
-    fontWeight: '500'
+    fontWeight: '700'
+  },
+  content: {
+    flex: 1,
+    overflow: 'hidden'
   }
 }));
 
@@ -42,13 +37,13 @@ export const ActivityWindow = (props: ActivityWindowProps) => {
   const classes = useStyle();
 
   return (
-    <div className={props.title ? classes.rootWithTitle : classes.root}>
+    <div className={classes.root}>
       {props.title && (
         <div className={classes.title}>
           <Typography variant="subtitle2">{props.title}</Typography>
         </div>
       )}
-      {props.children}
+      <div className={classes.content}>{props.children}</div>
     </div>
   );
 };
