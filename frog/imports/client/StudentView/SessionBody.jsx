@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { sortBy } from 'lodash';
 import { Meteor } from 'meteor/meteor';
-import { MosaicWithoutDragDropContext } from 'react-mosaic-component';
+import { ActivitySplitWindow } from '/imports/ui/ActivitySplitWindow';
 import AppBar from '@material-ui/core/AppBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,10 +12,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import { Accounts } from 'meteor/accounts-base';
-import { getInitialState, withDragDropContext } from '/imports/frog-utils';
-import { compose, toClass } from 'recompose';
 import { withRouter } from 'react-router';
-
 import { Activities } from '/imports/api/activities';
 import { logLogin } from '/imports/api/logs';
 import { Sessions } from '/imports/api/sessions';
@@ -60,19 +57,18 @@ export const ActivityContainer = ({
     return 'No activity';
   }
   return (
-    <MosaicWithoutDragDropContext
-      renderTile={(activityId, path) => (
-        <Runner
-          activity={activities.find(x => x._id === activityId)}
-          path={path}
-          sessionId={sessionId}
-          paused={paused}
-        />
-      )}
-      initialValue={getInitialState(
-        sortBy(activities, 'title').map(x => x._id)
-      )}
-    />
+    <ActivitySplitWindow>
+      {sortBy(activities, 'title').map(activity => {
+        return (
+          <Runner
+            activity={activities.find(x => x._id === activity._id)}
+            sessionId={sessionId}
+            paused={paused}
+            key={activity._id}
+          />
+        );
+      })}
+    </ActivitySplitWindow>
   );
 };
 
@@ -142,7 +138,7 @@ const StudentView = withRouter(({ activities, session, classes, history }) => (
 
 const StyledStudentView = withStyles(styles)(StudentView);
 
-class SessionBodyController extends React.Component<
+class SessionBody extends React.Component<
   {
     activities: Array<Object>,
     session: Object
@@ -169,11 +165,6 @@ class SessionBodyController extends React.Component<
     );
   }
 }
-
-const SessionBody = compose(
-  withDragDropContext,
-  toClass
-)(SessionBodyController);
 
 SessionBody.displayName = 'SessionBody';
 

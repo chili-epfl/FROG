@@ -3,7 +3,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { MosaicWindow } from 'react-mosaic-component';
+import { ActivityWindow } from '/imports/ui/ActivitySplitWindow';
 import * as Sentry from '@sentry/browser';
 
 import { focusStudent, getMergedExtractedUnit } from '/imports/frog-utils';
@@ -27,7 +27,7 @@ const getStructure = activity => {
   }
 };
 
-const Runner = ({ path, activity, sessionId, object, paused }) => {
+const Runner = ({ activity, sessionId, object, paused }) => {
   Sentry.addBreadcrumb({
     category: 'studentview',
     data: { activity, sessionId, object }
@@ -163,15 +163,12 @@ const Runner = ({ path, activity, sessionId, object, paused }) => {
   );
 
   return (
-    <MosaicWindow
-      toolbarControls={[<div key={1} />]}
-      draggable={false}
+    <ActivityWindow
       key={activity._id}
-      path={path}
       title={activity.title + ' ' + title + (paused ? ' - PAUSED' : '')}
     >
       {Torun}
-    </MosaicWindow>
+    </ActivityWindow>
   );
 };
 

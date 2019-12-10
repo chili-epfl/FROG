@@ -1,20 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { compose, toClass } from 'recompose';
 import { uniq } from 'lodash';
 import { toJS } from 'mobx';
 
 import {
-  MosaicWithoutDragDropContext,
-  MosaicWindow
-} from 'react-mosaic-component';
-import {
-  cloneDeep,
-  getInitialState,
-  withDragDropContext,
-  uuid
-} from '/imports/frog-utils';
+  ActivitySplitWindow,
+  ActivityWindow
+} from '/imports/ui/ActivitySplitWindow';
+import { cloneDeep, uuid } from '/imports/frog-utils';
 
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import LearningItem from '/imports/client/LearningItem';
@@ -122,7 +116,7 @@ export const initActivityDocuments = (
   });
 };
 
-const ContentController = ({
+const Content = ({
   showDashExample,
   plane,
   instances,
@@ -222,6 +216,30 @@ const ContentController = ({
     />
   );
 
+  const renderElement = (name, instance) => {
+    return name === 'dashboard' && activityType.dashboards ? (
+      <ActivityWindow
+        title={'dashboard - ' + activityType.meta.name}
+        key={JSON.stringify({ config, showData })}
+      >
+        <Dashboard />
+      </ActivityWindow>
+    ) : (
+      <ActivityWindow
+        key={JSON.stringify({ config, showData, reloadActivity })}
+        title={
+          name +
+          '/' +
+          ['individual', instance, 'all'][plane - 1] +
+          ' - ' +
+          activityType.meta.name
+        }
+      >
+        <Run name={name} instance={instance} />
+      </ActivityWindow>
+    );
+  };
+
   return (
     <div style={{ height: '100%' }}>
       {showDashExample ? (
@@ -233,51 +251,23 @@ const ContentController = ({
       ) : users.length === 1 && !showDash ? (
         <Run name={users[0]} idx={0} instance={instances[0]} />
       ) : (
-        <MosaicWithoutDragDropContext
-          renderTile={([name, instance], path) =>
-            name === 'dashboard' && activityType.dashboards ? (
-              <MosaicWindow
-                title={'dashboard - ' + activityType.meta.name}
-                toolbarControls={[<div key={instance} />]}
-                key={JSON.stringify({ config, showData })}
-                path={path}
-              >
-                <Dashboard />
-              </MosaicWindow>
-            ) : (
-              <MosaicWindow
-                path={path}
-                toolbarControls={[<div key={instance} />]}
-                key={JSON.stringify({ config, showData, reloadActivity })}
-                title={
-                  name +
-                  '/' +
-                  ['individual', instance, 'all'][plane - 1] +
-                  ' - ' +
-                  activityType.meta.name
-                }
-              >
-                <Run name={name} instance={instance} />
-              </MosaicWindow>
-            )
-          }
-          initialValue={getInitialState(
-            showDash
-              ? [
-                  ['dashboard', 'dashboard'],
-                  ...users.map((name, idx) => [name, instances[idx]])
-                ]
-              : users.map((name, idx) => [name, instances[idx]])
-          )}
-        />
+        <ActivitySplitWindow>
+          {showDash
+            ? [
+                ['dashboard', 'dashboard'],
+                ...users.map((name, idx) => [name, instances[idx]])
+              ].map(([name, instance]) => {
+                return renderElement(name, instance);
+              })
+            : users
+                .map((name, idx) => [name, instances[idx]])
+                .map(([name, instance]) => {
+                  return renderElement(name, instance);
+                })}
+        </ActivitySplitWindow>
       )}
     </div>
   );
 };
-
-const Content = compose(
-  withDragDropContext,
-  toClass
-)(ContentController);
 
 export default Content;
