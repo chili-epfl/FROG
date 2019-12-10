@@ -256,13 +256,13 @@ const Content = ({
             ? [
                 ['dashboard', 'dashboard'],
                 ...users.map((name, idx) => [name, instances[idx]])
-              ].map(arr => {
-                return renderElement(arr[0], arr[1]);
+              ].map(([name, instance]) => {
+                return renderElement(name, instance);
               })
             : users
                 .map((name, idx) => [name, instances[idx]])
-                .map(arr => {
-                  return renderElement(arr[0], arr[1]);
+                .map(([name, instance]) => {
+                  return renderElement(name, instance);
                 })}
         </ActivitySplitWindow>
       )}
