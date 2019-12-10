@@ -7,6 +7,7 @@ import { isEmpty, omit } from 'lodash';
 import { SimpleTopBar } from '/imports/containers/TopBarWrapper';
 import Preview, { connection, restartBackend } from './Preview';
 import { activityTypesObj } from '/imports/activityTypes';
+import ErrorWrapper from './ErrorWrapper';
 import { initActivityDocuments, DocId } from './Content';
 import { initDashboardDocuments } from './dashboardInPreviewAPI';
 
@@ -154,4 +155,8 @@ class PreviewPage extends React.Component<any, any> {
 
 PreviewPage.displayName = 'PreviewPage';
 
-export default (props: any) => <PreviewPage {...props} />;
+export default (props: any) => (
+  <ErrorWrapper>
+    ￼ <PreviewPage {...props} />￼
+  </ErrorWrapper>
+);
