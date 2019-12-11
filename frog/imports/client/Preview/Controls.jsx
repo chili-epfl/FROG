@@ -41,7 +41,8 @@ const styles = () => ({
   exampleButtonDeeplink: {
     textTransform: 'none',
     fontStyle: 'italic'
-  }
+  },
+  previewIcons: { display: 'flex', alignItems: 'center', fontSize: '1.25em' }
 });
 
 const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
@@ -183,9 +184,7 @@ export default withStyles(styles)((props: Object) => {
       )}
 
       {storeTemplateFn ? (
-        <div
-          style={{ display: 'flex', alignItems: 'center', fontSize: '1.25em' }}
-        >
+        <div className={classes.previewIcons}>
           <Icon
             onClick={calculateAndStore}
             icon="fa fa-floppy-o"
