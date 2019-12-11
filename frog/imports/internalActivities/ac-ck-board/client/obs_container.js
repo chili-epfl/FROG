@@ -44,7 +44,7 @@ class ObservationContainer extends React.Component<*, *> {
       >
         <div>
           <Paper
-            elevation={24}
+            elevation={12}
             style={{
               transform: `scale(${scaling}`,
               transformOrigin: '0 0',
