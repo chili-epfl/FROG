@@ -157,6 +157,6 @@ PreviewPage.displayName = 'PreviewPage';
 
 export default (props: any) => (
   <ErrorWrapper>
-    ￼ <PreviewPage {...props} />￼
+    <PreviewPage {...props} />
   </ErrorWrapper>
 );

@@ -186,21 +186,19 @@ export default withStyles(styles)((props: Object) => {
         <div
           style={{ display: 'flex', alignItems: 'center', fontSize: '1.25em' }}
         >
-          <span>
-            <Icon
-              onClick={calculateAndStore}
-              icon="fa fa-floppy-o"
-              tooltip="Store data as template for the activity"
-              color={iconActive}
-            />
-            <Icon
-              onClick={refresh}
-              icon="fa fa-refresh"
-              tooltip="Reset reactive data"
-              color={iconActive}
-            />
-          </span>
-          <p
+          <Icon
+            onClick={calculateAndStore}
+            icon="fa fa-floppy-o"
+            tooltip="Store data as template for the activity"
+            color={iconActive}
+          />
+          <Icon
+            onClick={refresh}
+            icon="fa fa-refresh"
+            tooltip="Reset reactive data"
+            color={iconActive}
+          />
+          <span
             style={{
               textAlign: 'center',
               fontSize: '1.25rem',
@@ -209,7 +207,7 @@ export default withStyles(styles)((props: Object) => {
             }}
           >
             Activity preview
-          </p>
+          </span>
         </div>
       ) : (
         <>
