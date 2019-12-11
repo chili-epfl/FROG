@@ -26,15 +26,15 @@ import { OverflowMenu } from '/imports/ui/OverflowMenu';
 
 const useStyles = makeStyles(theme => ({
   fab: {
-    backgroundColor: '#31bfae',
+    backgroundColor: theme.palette.primary.main,
     color: '#FFFFFF',
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
-    boxShadow: '0 0 20px rgba(0,0,0,.2)',
+    boxShadow: '0 0 10px rgba(0,0,0,.1)',
     transition: '.25s',
     '&:hover': {
-      backgroundColor: '#24a595'
+      backgroundColor: theme.palette.primary.light
     }
   },
   panelMargin: {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
-import { primaryColor } from '../constants';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -41,7 +40,7 @@ const useStyle = makeStyles(theme => ({
     transition: '.25s ease',
 
     '&:hover': {
-      color: primaryColor
+      color: theme.palette.primary.main
     }
   },
   footerText: {

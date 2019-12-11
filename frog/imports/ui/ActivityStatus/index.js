@@ -4,7 +4,7 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Check, Warning } from '@material-ui/icons';
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles(theme => ({
   root: {
     width: '8px',
     height: '8px',
@@ -26,14 +26,14 @@ const useStyle = makeStyles(() => ({
     '&.active': {
       width: '16px',
       height: '16px',
-      border: '3px solid #31BFAE',
+      border: `3px solid ${theme.palette.primary.main}`,
       animation: `$pulse 2500ms 500ms infinite`
     },
 
     '&.completed': {
       width: '16px',
       height: '16px',
-      border: '8px solid #31BFAE'
+      border: `8px solid ${theme.palette.primary.main}`
     },
 
     '&.error': {

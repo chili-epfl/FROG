@@ -2,7 +2,6 @@
 //
 
 import * as React from 'react';
-import ReactTooltip from 'react-tooltip';
 import ShareDB from '@teamwork/sharedb';
 import Draggable from 'react-draggable';
 
@@ -123,7 +122,6 @@ const StatelessPreview = (props: Object) => {
           <Controls {...props} classes={undefined} />
         </div>
       </Draggable>
-      <ReactTooltip delayShow={300} place="right" />
     </Dialog>
   );
 
@@ -135,7 +133,6 @@ const StatelessPreview = (props: Object) => {
         <Paper className={classes.noModalPreviewContent}>
           {PreviewContent}
         </Paper>
-        <ReactTooltip delayShow={300} place="right" />
       </div>
     </div>
   );
@@ -143,9 +140,7 @@ const StatelessPreview = (props: Object) => {
   const GraphEditorP = (
     <div style={{ width: '100%' }}>
       <Controls {...props} classes={undefined} />
-      {/* Subtracting Controls Height */}
       <div style={{ height: 'calc(100% - 44px)' }}>{PreviewContent}</div>
-      <ReactTooltip delayShow={300} place="right" />
     </div>
   );
 

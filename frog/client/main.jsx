@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { blueGrey } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Buffer from 'buffer';
 import * as Sentry from '@sentry/browser';
@@ -22,6 +23,12 @@ Sentry.init({
 
 const theme = createMuiTheme({
   palette: {
+    primary: {
+      light: '#26B7C6',
+      main: '#22A6B3',
+      dark: '#1D8C97'
+    },
+    secondary: blueGrey,
     background: {
       default: '#fff'
     }

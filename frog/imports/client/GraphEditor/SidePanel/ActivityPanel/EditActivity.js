@@ -146,7 +146,7 @@ const RawEditActivity = ({
     <div className="bootstrap" style={{ height: '100%', overflowY: 'scroll' }}>
       <div
         style={{
-          backgroundColor: '#eee',
+          backgroundColor: '#FFF',
           minHeight: '110px',
           padding: '0 10px'
         }}

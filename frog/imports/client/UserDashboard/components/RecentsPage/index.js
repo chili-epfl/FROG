@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  icon: {
+    color: theme.palette.secondary.main
   }
 }));
 
@@ -52,7 +55,7 @@ export const RecentsPage = ({
           <Paper className={classes.paper} elevation={0}>
             <div className={classes.buttonRows}>
               <Typography variant="h5" align="left">
-                <ShowChart /> Drafts
+                <ShowChart className={classes.icon} /> Drafts
               </Typography>
               <Button
                 icon={<Add />}
@@ -82,7 +85,7 @@ export const RecentsPage = ({
       <Grid item xs={6}>
         <Paper className={classes.paper} elevation={0}>
           <Typography variant="h5">
-            <Bookmark /> Sessions
+            <Bookmark className={classes.icon} /> Sessions
           </Typography>
 
           <List dense>
@@ -130,7 +133,7 @@ export const RecentsPage = ({
           <Paper className={classes.paper} elevation={0}>
             <div className={classes.buttonRows}>
               <Typography variant="h5" align="left">
-                <DescriptionIcon /> Templates
+                <DescriptionIcon className={classes.icon} /> Templates
               </Typography>
             </div>
 
