@@ -40,10 +40,10 @@ export const ConfigureTemplate = (props: ConfigureTemplatePropsT) => {
   const classes = useStyle();
   return (
     <>
-      <Typography className={classes.title} variant="h2">
+      <Typography className={classes.title} variant="h4">
         Configure {props.name}
       </Typography>
-      <Typography className={classes.description} variant="body2">
+      <Typography className={classes.description} variant="body1">
         {props.shortDesc}
       </Typography>
       <SplitLayout

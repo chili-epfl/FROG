@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
-import { blueGrey } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core';
+import { Logo } from '/imports/ui/Logo';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -12,13 +12,6 @@ const useStyle = makeStyles(theme => ({
     padding: theme.spacing(0, 4),
     margin: '0',
     boxShadow: '0px 5px 10px rgba(0,0,0,.025)'
-  },
-  logo: {
-    fontWeight: '600',
-    fontSize: '16px',
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    color: blueGrey[600]
   }
 }));
 
@@ -26,7 +19,7 @@ export const Header = () => {
   const classes = useStyle();
   return (
     <div className={classes.root}>
-      <Typography className={classes.logo}>Frog</Typography>
+      <Logo />
     </div>
   );
 };

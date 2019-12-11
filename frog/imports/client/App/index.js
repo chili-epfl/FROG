@@ -330,7 +330,7 @@ const FROGRouter = withRouter(
         ) : (
           <Switch>
             {getUserType() === 'Legacy' ? (
-              <Dialog open>
+              <Dialog open PaperProps={{ elevation: 1 }}>
                 <AccountModal
                   formToDisplay="signup"
                   variant="legacy"

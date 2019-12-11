@@ -10,13 +10,12 @@ const useStyle = makeStyles(theme => ({
 
     display: 'grid',
     gridTemplateRows: '1fr',
-    gridTemplateColumns: '64px 1fr 64px'
+    gridTemplateColumns: '128px 1fr 64px'
   },
   border: {
     position: 'relative'
   },
   innerBorder: {
-    width: '64px',
     position: 'fixed',
     display: 'flex',
     flexFlow: 'column nowrap',

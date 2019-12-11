@@ -4,7 +4,6 @@ import {
   Avatar,
   Button,
   TextField,
-  Link,
   Grid,
   Container,
   Typography
@@ -12,6 +11,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
 import { getUsername, getUserType } from '/imports/api/users';
+import { blueGrey } from '@material-ui/core/colors';
 import {
   errorBasedOnChars,
   emailErrors,
@@ -50,16 +50,26 @@ const styles = (theme: Object) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(2, 0, 2, 0)
+    padding: theme.spacing(2),
+    margin: theme.spacing(0, 0, 2, 0),
+    boxShadow: 'none',
+    color: '#FFF',
+
+    '&:hover': {
+      background: theme.palette.primary.dark
+    }
   },
   loginLink: {
+    textTransform: 'capitalize',
+    color: blueGrey[500],
+    fontSize: '1rem',
     cursor: 'pointer'
   }
 });
@@ -219,13 +229,13 @@ class SignUp extends React.Component<SignUpPropsT, SignUpStateT> {
 
             <Grid container justify="flex-end">
               <Grid item>
-                <Link
+                <Button
                   className={classes.loginLink}
                   onClick={this.props.openLoginForm}
                   variant="body2"
                 >
                   Already have an account? Sign in
-                </Link>
+                </Button>
               </Grid>
             </Grid>
           </form>

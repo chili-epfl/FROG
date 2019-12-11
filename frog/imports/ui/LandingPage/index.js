@@ -9,7 +9,6 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { StepRow } from './StepRow';
 import { ActivityCard } from './ActivityCard';
-import { primaryColor, primaryColorDark } from './constants';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -30,7 +29,7 @@ const useStyle = makeStyles(theme => ({
   title: {
     width: '50%',
     minWidth: '300px',
-    fontWeight: '400',
+    fontWeight: '500',
     fontSize: '3.25rem',
     textAlign: 'center',
     color: blueGrey[900]
@@ -38,7 +37,7 @@ const useStyle = makeStyles(theme => ({
   titleColor: {
     fontWeight: '500',
     fontSize: '2.25rem',
-    color: primaryColor,
+    color: theme.palette.primary.main,
     marginBottom: theme.spacing(4)
   },
   subtitle: {
@@ -60,13 +59,13 @@ const useStyle = makeStyles(theme => ({
     margin: theme.spacing(2, 0)
   },
   lineButton: {
-    color: primaryColor,
+    color: theme.palette.primary.main,
     textTransform: 'none',
-    fontSize: '1.25rem',
+    fontSize: '1.3rem',
     padding: theme.spacing(0.25),
     fontWeight: '600',
     boxShadow: '0 0 0 transparent',
-    borderBottom: `2px solid ${primaryColor}`,
+    borderBottom: `2px solid ${theme.palette.primary.main}`,
     borderRadius: '0',
     cursor: 'pointer',
 
@@ -84,7 +83,7 @@ const useStyle = makeStyles(theme => ({
   },
   gradientSection: {
     padding: theme.spacing(8, 0),
-    background: `linear-gradient(to bottom right, ${primaryColor}, ${primaryColorDark})`
+    background: `linear-gradient(to bottom right, ${theme.palette.primary.light}, ${theme.palette.primary.main})`
   },
   whiteh2: {
     color: '#FFF',
@@ -101,17 +100,16 @@ const useStyle = makeStyles(theme => ({
     margin: `${theme.spacing(6)}px auto`
   },
   whiteButton: {
-    color: primaryColor,
+    color: theme.palette.primary.main,
     background: '#FFF',
     textTransform: 'none',
     fontSize: '1rem',
     padding: theme.spacing(1, 3.5),
     fontWeight: '500',
     boxShadow: '0 0 0 transparent',
-    borderBottom: `2px solid ${primaryColor}`,
     borderRadius: '25px',
     '&:hover': {
-      background: '#FFF'
+      background: blueGrey[50]
     },
     '&:active': {
       boxShadow: '0 0 0 transparent'

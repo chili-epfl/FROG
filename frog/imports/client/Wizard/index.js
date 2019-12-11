@@ -6,6 +6,7 @@ import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Clear } from '@material-ui/icons';
+import { Typography } from '@material-ui/core';
 
 import { Logo } from '/imports/ui/Logo';
 import { Button } from '/imports/ui/Button';
@@ -40,16 +41,30 @@ const SingleActivity = _.flow(withRouter)(({ history }) => {
         </div>
       }
     >
-      <Switch>
-        <Route
-          path={[
-            ...availableTemplates[0].map(listing => `/wizard/${listing.id}`),
-            ...availableTemplates[1].map(listing => `/wizard/${listing.id}`)
-          ]}
-          component={ConfigureTemplateContainer}
-        />
-        <Route component={SelectTemplateContainer} />
-      </Switch>
+      <>
+        <Typography
+          variant="h6"
+          align="center"
+          style={{
+            paddingBottom: '32px',
+            fontWeight: '500',
+            textTransform: 'uppercase',
+            letterSpacing: '2px'
+          }}
+        >
+          Create with Wizard
+        </Typography>
+        <Switch>
+          <Route
+            path={[
+              ...availableTemplates[0].map(listing => `/wizard/${listing.id}`),
+              ...availableTemplates[1].map(listing => `/wizard/${listing.id}`)
+            ]}
+            component={ConfigureTemplateContainer}
+          />
+          <Route component={SelectTemplateContainer} />
+        </Switch>
+      </>
     </BaseLayout>
   );
 });

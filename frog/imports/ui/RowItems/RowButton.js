@@ -18,11 +18,11 @@ const useStyle = makeStyles(theme => ({
 
     '&.active': {
       color: 'white',
-      background: '#31BFAE'
+      background: theme.palette.primary.main
     },
 
     '&.size-default': {
-      height: '32px'
+      height: '36px'
     },
     '&.size-large': {
       height: '48px'

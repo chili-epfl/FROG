@@ -12,7 +12,7 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {
     background: 'transparent',
-    borderBottom: `1px solid ${theme.palette.grey[300]}`
+    boxShadow: `1px solid ${theme.palette.grey[300]}`
   },
   menuButton: {
     marginRight: theme.spacing(2)
