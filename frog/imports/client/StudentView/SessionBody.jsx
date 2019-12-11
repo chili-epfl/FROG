@@ -24,41 +24,30 @@ let loggedIn = false;
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexGrow: 1,
     height: '100%',
     width: '100%',
-    overflow: 'auto'
-  },
-  appbar: {
-    borderBottom: '1px solid #EEE',
-    boxShadow: 'none'
+    overflow: 'hidden'
   },
   toolbar: {
     minHeight: 48,
     height: 48,
-    background: '#FFF'
+    background: theme.palette.primary.dark,
+    color: '#fff'
   },
   userTitle: {
     flex: 1,
     fontSize: '1.5em',
-    fontWeight: '500',
-    color: '#000'
+    fontWeight: '700'
   },
-  mainContent: {
+  content: {
     width: '100%',
-    marginTop: 48
-  },
-  navbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    marginTop: '48px',
+    height: 'calc(100% - 48px)'
   },
   button: {
     fontWeight: '500',
     textTransform: 'capitalize',
-    fontSize: '1.1em',
-    color: '#444'
+    fontSize: '1.1em'
   },
   message: {
     padding: theme.spacing(3)
@@ -91,41 +80,39 @@ export const ActivityContainer = ({
 
 const StudentView = withRouter(({ activities, session, classes, history }) => (
   <div className={classes.root}>
-    <div className={classes.navbar}>
-      <AppBar className={classes.appbar}>
-        <Toolbar className={classes.toolbar}>
-          {Meteor.user() && (
-            <Typography type="h6" color="inherit" className={classes.userTitle}>
-              {getUsername()}
-            </Typography>
-          )}
-          {Meteor.userId() === session.ownerId && (
-            <Button
-              className={classes.button}
-              color="inherit"
-              onClick={() => {}}
-              href={`/t/${session.slug}`}
-              target="_blank"
-            >
-              Orchestration View
-            </Button>
-          )}
+    <AppBar>
+      <Toolbar className={classes.toolbar}>
+        {Meteor.user() && (
+          <Typography type="h6" color="inherit" className={classes.userTitle}>
+            {getUsername()}
+          </Typography>
+        )}
+        {Meteor.userId() === session.ownerId && (
           <Button
             className={classes.button}
             color="inherit"
-            onClick={() => {
-              history.push('/');
-              Meteor.logout();
-              Accounts._unstoreLoginToken();
-              window.notReady();
-            }}
+            onClick={() => {}}
+            href={`/t/${session.slug}`}
+            target="_blank"
           >
-            Logout
+            Orchestration View
           </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-    <div className={classes.mainContent}>
+        )}
+        <Button
+          className={classes.button}
+          color="inherit"
+          onClick={() => {
+            history.push('/');
+            Meteor.logout();
+            Accounts._unstoreLoginToken();
+            window.notReady();
+          }}
+        >
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
+    <div className={classes.content}>
       {(() => {
         if (!activities || activities.length === 0) {
           if (session.state === 'READY' || session.state === 'CREATED') {
