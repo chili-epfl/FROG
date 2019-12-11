@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap';
 import { connect } from '../store';
 import ActivityPanel from './ActivityPanel';
 import OperatorPanel from './OperatorPanel';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
@@ -22,6 +23,17 @@ const styles = {
     height: '100%'
   }
 };
+
+const useStyles = makeStyles({
+  button: {
+    width: '40px',
+    height: '30px',
+    border: '1px solid #EEE',
+    margin: '1px',
+    boxShadow: 'none'
+  },
+  spanIcon: { position: 'static', verticalAlign: 'top' }
+});
 
 const SideBarHelperText = ({ classes }) => (
   <Grid
@@ -41,26 +53,16 @@ const SideBarHelperText = ({ classes }) => (
   </Grid>
 );
 
-export const IconButton = ({ icon, onClick, tooltip }: Object) => (
-  <div className="bootstrap">
-    <Button
-      style={{
-        width: '40px',
-        height: '30px',
-        border: '1px solid #EEE',
-        margin: '1px',
-        boxShadow: 'none'
-      }}
-      data-tip={tooltip}
-      onClick={onClick}
-    >
-      <span
-        className={icon}
-        style={{ position: 'static', verticalAlign: 'top' }}
-      />
-    </Button>
-  </div>
-);
+export const IconButton = ({ icon, onClick, tooltip }: Object) => {
+  const classes = useStyles();
+  return (
+    <div className="bootstrap">
+      <Button className={classes.button} data-tip={tooltip} onClick={onClick}>
+        <span className={`${icon} ${classes.spanIcon}`} />
+      </Button>
+    </div>
+  );
+};
 
 const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);
 
