@@ -20,7 +20,6 @@ const styles = theme => ({
     flexGrow: 1,
     width: '100%',
     height: '100%',
-    backgroundColor: theme.palette.background.paper,
     overflow: 'hidden'
   },
   dash: {

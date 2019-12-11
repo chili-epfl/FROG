@@ -22,31 +22,37 @@ import { getUsername } from '/imports/api/users';
 
 let loggedIn = false;
 
-const styles = {
+const styles = theme => ({
   root: {
-    display: 'flex',
-    flexGrow: 1,
     height: '100%',
     width: '100%',
-    overflow: 'auto'
+    overflow: 'hidden'
   },
   toolbar: {
     minHeight: 48,
-    height: 48
+    height: 48,
+    background: theme.palette.primary.dark,
+    color: '#fff'
   },
-  flex: {
-    flex: 1
+  userTitle: {
+    flex: 1,
+    fontSize: '1.5em',
+    fontWeight: '700'
   },
-  mainContent: {
+  content: {
     width: '100%',
-    marginTop: 48
+    marginTop: '48px',
+    height: 'calc(100% - 48px)'
   },
-  navbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+  button: {
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    fontSize: '1.1em'
+  },
+  message: {
+    padding: theme.spacing(3)
   }
-};
+});
 
 export const ActivityContainer = ({
   activities,
@@ -74,59 +80,69 @@ export const ActivityContainer = ({
 
 const StudentView = withRouter(({ activities, session, classes, history }) => (
   <div className={classes.root}>
-    <div className={classes.navbar}>
-      <AppBar>
-        <Toolbar className={classes.toolbar}>
-          {Meteor.user() && (
-            <Typography
-              type="subheading"
-              color="inherit"
-              className={classes.flex}
-            >
-              {getUsername()}
-            </Typography>
-          )}
-          {Meteor.userId() === session.ownerId && (
-            <Button
-              className={classes.button}
-              color="inherit"
-              onClick={() => {}}
-              href="/t"
-              target="_blank"
-            >
-              Orchestration View
-            </Button>
-          )}
+    <AppBar>
+      <Toolbar className={classes.toolbar}>
+        {Meteor.user() && (
+          <Typography type="h6" color="inherit" className={classes.userTitle}>
+            {getUsername()}
+          </Typography>
+        )}
+        {Meteor.userId() === session.ownerId && (
           <Button
             className={classes.button}
             color="inherit"
-            onClick={() => {
-              history.push('/' + session.slug);
-              Meteor.logout();
-              Accounts._unstoreLoginToken();
-              window.notReady();
-            }}
+            onClick={() => {}}
+            href={`/t/${session.slug}`}
+            target="_blank"
           >
-            Logout
+            Orchestration View
           </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-    <div className={classes.mainContent}>
+        )}
+        <Button
+          className={classes.button}
+          color="inherit"
+          onClick={() => {
+            history.push('/');
+            Meteor.logout();
+            Accounts._unstoreLoginToken();
+            window.notReady();
+          }}
+        >
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
+    <div className={classes.content}>
       {(() => {
         if (!activities || activities.length === 0) {
           if (session.state === 'READY' || session.state === 'CREATED') {
-            return <h1>Waiting for teacher to start the session</h1>;
+            return (
+              <Typography variant="h4" className={classes.message}>
+                Waiting for teacher to start the session
+              </Typography>
+            );
           }
           if (session.state === 'STARTED') {
-            return <h1>No activity right now</h1>;
+            return (
+              <Typography variant="h4" className={classes.message}>
+                No activity right now
+              </Typography>
+            );
           }
           if (session.state === 'FINISHED') {
-            return <h1>Session finished</h1>;
+            return (
+              <Typography variant="h4" className={classes.message}>
+                Session finished
+              </Typography>
+            );
           }
         }
         if (session.state === 'PAUSED') {
-          return <h1>Paused</h1>;
+          return (
+            <Typography variant="h4" className={classes.message}>
+              Paused
+            </Typography>
+          );
         }
         return (
           <ActivityContainer activities={activities} sessionId={session._id} />
