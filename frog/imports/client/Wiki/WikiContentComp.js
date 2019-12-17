@@ -1,5 +1,6 @@
 import React from 'react';
 import { WikiContext } from '/imports/frog-utils';
+import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 
 import Button from '@material-ui/core/Button';
@@ -119,6 +120,17 @@ class WikiContentComp extends React.Component<> {
       });
     }
   };
+
+  componentDidMount() {
+    if (!this.props.embed && this.props.side !== 'right') {
+      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
+      Mousetrap.bindGlobal('ctrl+e', () => {
+        this.props.checkEdit().then(x => {
+          if (x) this.setState({ docMode: 'edit' });
+        });
+      });
+    }
+  }
 
   render() {
     const widthSize = this.props.side ? '50%' : '100%';
