@@ -32,11 +32,14 @@ const Viewer = ({ data }: { data: liDataT }) => {
     return <p>Could not import Reactive Component</p>;
   }
 
-  const activityType = activityTypesObj[data.acType];
+  const acRunnerId = data.acType.startsWith('li-')
+    ? 'ac-single-li'
+    : data.acType;
+  const activityType = activityTypesObj[acRunnerId];
   const ActivityToRun = ReactiveHOC(
     data.rz,
     undefined
-  )(activityRunners[data.acType]);
+  )(activityRunners[acRunnerId]);
 
   return (
     <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
