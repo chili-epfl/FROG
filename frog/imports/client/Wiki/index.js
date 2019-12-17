@@ -807,7 +807,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (
       instanceId &&
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowEdit &&
+      fullPageObj.pageSettings.allowEdit === false &&
       instanceId !== Meteor.userId()
     ) {
       this.props.showModal(
