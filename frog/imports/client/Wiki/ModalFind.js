@@ -47,7 +47,7 @@ export const PagesLinks = ({
       };
       return (
         <li key={pageId} data-testid="wiki_page_item">
-          <div
+          <span
             style={pageLinkStyle}
             onClick={e => {
               const sideToSend = e.shiftKey ? 'right' : 'left';
@@ -56,9 +56,9 @@ export const PagesLinks = ({
             }}
           >
             <Highlight searchStr={search} text={pageTitle} />
-          </div>
+          </span>
           {currentPageBool &&
-            (search.trim().length === 0 &&
+            search.trim().length === 0 &&
               pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
                 0 && (
                 <ul>
@@ -86,7 +86,7 @@ export const PagesLinks = ({
                       </li>
                     ))}
                 </ul>
-              ))}
+              )}
         </li>
       );
     });

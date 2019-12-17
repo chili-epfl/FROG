@@ -33,9 +33,10 @@ const Viewer = ({ data }: { data: liDataT }) => {
   }
 
   const activityType = activityTypesObj[data.acType];
-  const ActivityToRun = ReactiveHOC(data.rz, undefined)(
-    activityRunners[data.acType]
-  );
+  const ActivityToRun = ReactiveHOC(
+    data.rz,
+    undefined
+  )(activityRunners[data.acType]);
 
   return (
     <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
@@ -75,8 +76,5 @@ export default ({
   ),
   Viewer,
   Editor: Viewer,
-  search: (data, search) =>
-    data.title.toLowerCase().includes(search) ||
-    data.content.toLowerCase().includes(search),
   disableDragging: true
 }: LearningItemT<liDataT>);
