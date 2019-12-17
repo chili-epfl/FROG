@@ -236,7 +236,12 @@ class WikiContentComp extends React.Component<> {
               this.setState({ showTitleEditButton: false });
             }}
           >
-            <span style={titleStyle}>{this.state.pageTitleString}</span>
+            <span style={titleStyle}>
+              {this.state.pageTitleString}
+              {this.props.currentPageObj.instanceName &&
+                this.props.currentPageObj.instanceId !== Meteor.userId() &&
+                ` / ${this.props.currentPageObj.instanceName}`}
+            </span>
             {this.state.showTitleEditButton && (
               <Edit
                 onClick={this.handleEditingTitle}
