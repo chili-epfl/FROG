@@ -1166,27 +1166,25 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
               />
             )}
             <div style={wikiPagesDivContainerStyle}>
-              {this.state.currentPageObj && (
-                <WikiContentComp
-                  hidden={
-                    this.state.currentPageObj.pageSettings?.hidden &&
-                    this.state.privilege !== PRIVILEGE_OWNER
-                  }
-                  wikiId={this.wikiId}
-                  wikiDoc={this.wikiDoc}
-                  currentPageObj={this.state.currentPageObj}
-                  mode={this.state.mode}
-                  changeMode={this.changeMode}
-                  changeTitle={this.changeTitle}
-                  openDeletedPageModal={this.openDeletedPageModal}
-                  goToPage={this.goToPage}
-                  dashboardSearch={this.state.dashboardSearch}
-                  side={this.state.mode === 'splitview' ? 'left' : null}
-                  checkEdit={() => this.editAccess('editPage')}
-                  settings={this.state.settings}
-                  embed={this.props.embed}
-                />
-              )}
+              <WikiContentComp
+                hidden={
+                  this.state.currentPageObj.pageSettings?.hidden &&
+                  this.state.privilege !== PRIVILEGE_OWNER
+                }
+                wikiId={this.wikiId}
+                wikiDoc={this.wikiDoc}
+                currentPageObj={this.state.currentPageObj}
+                mode={this.state.mode}
+                changeMode={this.changeMode}
+                changeTitle={this.changeTitle}
+                openDeletedPageModal={this.openDeletedPageModal}
+                goToPage={this.goToPage}
+                dashboardSearch={this.state.dashboardSearch}
+                side={this.state.mode === 'splitview' ? 'left' : null}
+                checkEdit={() => this.editAccess('editPage')}
+                settings={this.state.settings}
+                embed={this.props.embed}
+              />
               {this.state.mode === 'splitview' && (
                 <WikiContentComp
                   hidden={
