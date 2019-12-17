@@ -201,10 +201,30 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
+        if (query.setAdmin) {
+          Meteor.call('make.admin', query.setAdmin, (err, res) => {
+            if (err) {
+              alert(`Error setting admin account: ${err}`);
+            } else if (res === 'Fail') {
+              alert('Failed to promote user to admin');
+            } else if (res === 'Success') {
+              alert('User promoted to admin');
+            }
+            this.props.history.push('/');
+          });
+          return;
+        }
         if (query.u) {
           this.setState({ mode: 'loggingIn' });
-          LocalSettings.UrlCoda = '?u=' + query.u;
-          Meteor.call('frog.userid.login', query.u, (err, res) => {
+          const userId = query.u;
+          let token = 'Anonymous';
+          if (query.token) {
+            token = query.token;
+            LocalSettings.UrlCoda = `?u=${userId}&token=${token}`;
+          } else {
+            LocalSettings.UrlCoda = `?u=${userId}`;
+          }
+          Meteor.call('frog.userid.login', userId, token, (err, res) => {
             if (err) {
               console.error(err);
               this.setState({ mode: 'noSession' });
