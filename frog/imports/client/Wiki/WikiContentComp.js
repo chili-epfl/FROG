@@ -1,5 +1,6 @@
 import React from 'react';
 import { WikiContext } from '/imports/frog-utils';
+import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 
 import Button from '@material-ui/core/Button';
@@ -45,7 +46,11 @@ class WikiContentComp extends React.Component<> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentPageObj.id !== this.props.currentPageObj.id) {
+    if (
+      nextProps.currentPageObj.id !== this.props.currentPageObj.id ||
+      nextProps.currentPageObj.instanceId !==
+        this.props.currentPageObj.instanceId
+    ) {
       this.setState({
         docMode: 'view',
         pageTitleString: nextProps.currentPageObj.title,
@@ -53,24 +58,24 @@ class WikiContentComp extends React.Component<> {
         showTitleEditButton: false,
         error: null
       });
-    } else if (
-      nextProps.currentPageObj.title !== this.props.currentPageObj.title
-    ) {
-      this.setState({ pageTitleString: nextProps.currentPageObj.title });
-    } else if (
-      nextProps.currentPageObj.hidden !== this.props.currentPageObj.hidden
-    ) {
-      this.setState({ hidden: nextProps.currentPageObj.hidden });
-    }
+    } else {
+      if (nextProps.currentPageObj.title !== this.props.currentPageObj.title) {
+        this.setState({ pageTitleString: nextProps.currentPageObj.title });
+      } else if (
+        nextProps.currentPageObj.hidden !== this.props.currentPageObj.hidden
+      ) {
+        this.setState({ hidden: nextProps.currentPageObj.hidden });
+      }
 
-    // After changing page, set the mode to view until we have checked
-    // that the user is allowed to edit or not
-    if (this.state.docMode === 'edit') {
-      this.setState({ docMode: 'view' }, () => {
-        this.props.checkEdit().then(result => {
-          if (result) this.setState({ docMode: 'edit' });
+      // After changing page, set the mode to view until we have checked
+      // that the user is allowed to edit or not
+      if (this.state.docMode === 'edit') {
+        this.setState({ docMode: 'view' }, () => {
+          this.props.checkEdit().then(result => {
+            if (result) this.setState({ docMode: 'edit' });
+          });
         });
-      });
+      }
     }
   }
 
@@ -119,6 +124,17 @@ class WikiContentComp extends React.Component<> {
       });
     }
   };
+
+  componentDidMount() {
+    if (!this.props.embed && this.props.side !== 'right') {
+      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
+      Mousetrap.bindGlobal('ctrl+e', () => {
+        this.props.checkEdit().then(x => {
+          if (x) this.setState({ docMode: 'edit' });
+        });
+      });
+    }
+  }
 
   render() {
     const widthSize = this.props.side ? '50%' : '100%';

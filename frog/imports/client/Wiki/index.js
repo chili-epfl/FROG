@@ -163,11 +163,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
       Mousetrap.bindGlobal('ctrl+n', this.createPageModal);
-      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => {
-        const { settings } = this.state;
-        if (!settings.readOnly) this.setState({ docMode: 'edit' });
-      });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
       );
