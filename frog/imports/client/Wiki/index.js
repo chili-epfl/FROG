@@ -900,8 +900,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     });
 
   render() {
-    if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
+    if (!this.state.currentPageObj) return null;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
     let foundPages = validPages;
@@ -1166,25 +1166,27 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
               />
             )}
             <div style={wikiPagesDivContainerStyle}>
-              <WikiContentComp
-                hidden={
-                  this.state.currentPageObj.pageSettings?.hidden &&
-                  this.state.privilege !== PRIVILEGE_OWNER
-                }
-                wikiId={this.wikiId}
-                wikiDoc={this.wikiDoc}
-                currentPageObj={this.state.currentPageObj}
-                mode={this.state.mode}
-                changeMode={this.changeMode}
-                changeTitle={this.changeTitle}
-                openDeletedPageModal={this.openDeletedPageModal}
-                goToPage={this.goToPage}
-                dashboardSearch={this.state.dashboardSearch}
-                side={this.state.mode === 'splitview' ? 'left' : null}
-                checkEdit={() => this.editAccess('editPage')}
-                settings={this.state.settings}
-                embed={this.props.embed}
-              />
+              {this.state.currentPageObj && (
+                <WikiContentComp
+                  hidden={
+                    this.state.currentPageObj.pageSettings?.hidden &&
+                    this.state.privilege !== PRIVILEGE_OWNER
+                  }
+                  wikiId={this.wikiId}
+                  wikiDoc={this.wikiDoc}
+                  currentPageObj={this.state.currentPageObj}
+                  mode={this.state.mode}
+                  changeMode={this.changeMode}
+                  changeTitle={this.changeTitle}
+                  openDeletedPageModal={this.openDeletedPageModal}
+                  goToPage={this.goToPage}
+                  dashboardSearch={this.state.dashboardSearch}
+                  side={this.state.mode === 'splitview' ? 'left' : null}
+                  checkEdit={() => this.editAccess('editPage')}
+                  settings={this.state.settings}
+                  embed={this.props.embed}
+                />
+              )}
               {this.state.mode === 'splitview' && (
                 <WikiContentComp
                   hidden={
