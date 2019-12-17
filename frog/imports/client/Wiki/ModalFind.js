@@ -59,34 +59,34 @@ export const PagesLinks = ({
           </span>
           {currentPageBool &&
             search.trim().length === 0 &&
-              pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
-                0 && (
-                <ul>
-                  {pages
-                    .filter(x => x.title.startsWith(pageTitle + '/'))
-                    .map(subpage => (
-                      <li
-                        key={subpage.title}
-                        style={{
-                          color:
-                            subpage.title.split('/')[1] === currentInstance
-                              ? 'blue'
-                              : '#585858',
-                          cursor: 'pointer'
+            pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
+              0 && (
+              <ul>
+                {pages
+                  .filter(x => x.title.startsWith(pageTitle + '/'))
+                  .map(subpage => (
+                    <li
+                      key={subpage.title}
+                      style={{
+                        color:
+                          subpage.title.split('/')[1] === currentInstance
+                            ? 'blue'
+                            : '#585858',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <span
+                        onClick={e => {
+                          onSelect(subpage.title);
+                          e.preventDefault();
                         }}
                       >
-                        <span
-                          onClick={e => {
-                            onSelect(subpage.title);
-                            e.preventDefault();
-                          }}
-                        >
-                          {' - ' + subpage.title.split('/')[1]}
-                        </span>
-                      </li>
-                    ))}
-                </ul>
-              )}
+                        {' - ' + subpage.title.split('/')[1]}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            )}
         </li>
       );
     });

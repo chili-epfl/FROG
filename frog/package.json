@@ -158,7 +158,7 @@
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "nps": "^5.9.3",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "react-test-renderer": "^16.8.6",
     "regenerator-runtime": "^0.13.1"
   }

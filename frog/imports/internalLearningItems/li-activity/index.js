@@ -36,10 +36,9 @@ const Viewer = ({ data }: { data: liDataT }) => {
     ? 'ac-single-li'
     : data.acType;
   const activityType = activityTypesObj[acRunnerId];
-  const ActivityToRun = ReactiveHOC(
-    data.rz,
-    undefined
-  )(activityRunners[acRunnerId]);
+  const ActivityToRun = ReactiveHOC(data.rz, undefined)(
+    activityRunners[acRunnerId]
+  );
 
   return (
     <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
