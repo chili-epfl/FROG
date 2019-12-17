@@ -359,7 +359,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.getInstanceId(fullPageObj);
     if (
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowView &&
+      fullPageObj.pageSettings.allowView === false &&
       instanceId !== Meteor.userId() &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
@@ -564,7 +564,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     );
     if (
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowView &&
+      fullPageObj.pageSettings.allowView === false &&
       instanceId !== Meteor.userId() &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
