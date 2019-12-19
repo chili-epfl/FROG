@@ -126,7 +126,7 @@ export default class Store {
 
   valid: Object;
 
-  wizardConfig: Object;
+  wizardConfig: string;
 
   setId: (string, ?boolean) => void;
 
@@ -141,6 +141,8 @@ export default class Store {
   setTemplateSource: Function;
 
   setWizardConfig: Object => void;
+
+  getWizardConfig: void => Object;
 
   constructor() {
     extendObservable(this, {
@@ -351,7 +353,11 @@ export default class Store {
       }),
 
       setWizardConfig: action(config => {
-        this.wizardConfig = config;
+        this.wizardConfig = JSON.stringify(config);
+      }),
+
+      getWizardConfig: action(() => {
+        return JSON.parse(this.wizardConfig);
       }),
 
       undo: action(() => {

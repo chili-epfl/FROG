@@ -20,7 +20,6 @@ import { Button } from '/imports/ui/Button';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowDivider, RowButton } from '/imports/ui/RowItems';
 import { useModal } from '/imports/ui/Modal';
-import { getSessionTypeInfo } from '../../../UserDashboard/data-utils/helpers';
 import { cloneSession } from '/imports/api/sessions';
 import { OrchestrationContext } from '../../context';
 import { SettingsModal } from './SettingsModal';
@@ -40,10 +39,7 @@ export const TopBarContainer = withRouter(({ history }) => {
   };
 
   const callCloneSession = () => {
-    const sessionType = getSessionTypeInfo(session)
-      .split('|')[0]
-      .trim();
-    cloneSession(session.id, sessionType, history, store);
+    cloneSession(session.id, history, store);
   };
 
   return (

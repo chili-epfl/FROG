@@ -32,7 +32,8 @@ export const ConfigureTemplateContainer = _.flow(withRouter)(
     ]);
 
     const [numberOfEdits, setNumberOfEdits] = React.useState(0);
-    const [config, setConfig] = React.useState(store.wizardConfig);
+    const [config, setConfig] = React.useState(store.getWizardConfig());
+    store.setWizardConfig({});
     const [waitingForSessionCreation, setWaiting] = React.useState(false);
 
     const onSubmit = () => {
@@ -65,6 +66,7 @@ export const ConfigureTemplateContainer = _.flow(withRouter)(
             }}
             hidePreview
             noOffset
+            config={config || {}}
           />
         </ConfigureTemplate>
         <div

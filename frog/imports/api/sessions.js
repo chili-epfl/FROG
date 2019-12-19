@@ -234,46 +234,35 @@ export const removeSession = (sessionId: string) =>
 
 export const cloneSession = (
   sessionId: string,
-  sessionType: string,
   history: any,
   store: Object
 ) => {
-  console.info(sessionType);
-  switch (sessionType) {
-    case 'Single Activity':
-      Meteor.call('clone.singleActivitySession', sessionId, (err, res) => {
-        if (err) {
-          alert('Error cloning single activity based session');
-          return;
-        }
-        if (res) {
-          store.setWizardConfig(res.config);
-          console.info(res.config);
-          history.push(`/wizard/${res.activityType}`);
-        }
-      });
-      break;
-    case 'Template':
-      Meteor.call('clone.templateSession', sessionId);
-      break;
-    case 'Graph':
-      Meteor.call('clone.graphSession', sessionId, (err, res) => {
-        if (err) {
-          alert('Error cloning graph-based session');
-          return;
-        }
-        if (res) {
-          const sourceGraphId = res.sourceGraph;
-          const graphObj = JSON.parse(graphToString(sourceGraphId));
-          const newGraphId = addGraph(graphObj, res.name);
-          history.push(`/teacher/graph/${newGraphId}`);
-        }
-      });
-      break;
-    default:
-      alert('Error: Undetermined session type.');
-      break;
-  }
+  Meteor.call('session.info', sessionId, (err, session) => {
+    if (err) {
+      alert('Error Cloning Graph');
+      console.info(err);
+      return;
+    } else {
+      const sessionType = session.singleActivity
+        ? 'Single Activity'
+        : session.template
+        ? 'Template'
+        : 'Graph';
+      if (sessionType === 'Single Activity') {
+        store.setWizardConfig(session.simpleConfig.config);
+        history.push(`/wizard/${session.simpleConfig.activityType}`);
+      } else if (sessionType === 'Template') {
+        store.setWizardConfig(session.simpleConfig.config);
+        history.push(`/wizard/${session.simpleConfig.activityType}`);
+      } else {
+        const graphObj = JSON.parse(graphToString(session.fromGraphId));
+        graphObj.graph.name = session.name;
+        const newGraphId = addGraph(graphObj);
+        history.push(`/teacher/graph/${newGraphId}`);
+      }
+      return;
+    }
+  });
 };
 
 // if slug is empty, will automatically generate a unique slug, returns sessionId
@@ -341,26 +330,9 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
 
 Meteor.methods({
   'add.session': addSessionFn,
-  'clone.templateSession': sessionId => {
+  'session.info': sessionId => {
     const session = Sessions.findOne(sessionId);
-    console.log(session);
-    return null;
-  },
-  'clone.singleActivitySession': sessionId => {
-    const session = Sessions.findOne(sessionId);
-    if (session) {
-      return { ...session.simpleConfig };
-    } else {
-      return null;
-    }
-  },
-  'clone.graphSession': sessionId => {
-    const session = Sessions.findOne(sessionId);
-    if (session) {
-      return { sourceGraph: session.fromGraphId, name: session.name };
-    } else {
-      return null;
-    }
+    return session;
   },
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
