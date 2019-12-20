@@ -163,11 +163,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
       Mousetrap.bindGlobal('ctrl+n', this.createPageModal);
-      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => {
-        const { settings } = this.state;
-        if (!settings.readOnly) this.setState({ docMode: 'edit' });
-      });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
       );
@@ -364,7 +359,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.getInstanceId(fullPageObj);
     if (
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowView &&
+      fullPageObj.pageSettings.allowView === false &&
       instanceId !== Meteor.userId() &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
@@ -569,7 +564,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     );
     if (
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowView &&
+      fullPageObj.pageSettings.allowView === false &&
       instanceId !== Meteor.userId() &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
@@ -812,7 +807,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (
       instanceId &&
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowEdit &&
+      fullPageObj.pageSettings.allowEdit === false &&
       instanceId !== Meteor.userId()
     ) {
       this.props.showModal(
@@ -905,8 +900,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     });
 
   render() {
-    if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
+    if (!this.state.currentPageObj) return null;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
     let foundPages = validPages;

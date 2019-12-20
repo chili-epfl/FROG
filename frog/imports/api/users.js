@@ -11,6 +11,7 @@ type MeteorUser = {
   emails?: EmailT[],
   username: string,
   isAnonymous: boolean,
+  isAdmin?: boolean,
   profile?: { displayName: string }
 };
 type UserObj = {
@@ -57,6 +58,12 @@ export const getUserType = (user?: UserObj): UserType => {
   else if (isVerifiedUser({ meteorUser: selectedUser })) return 'Verified';
   else if (selectedUser.username) return 'Legacy';
   else return 'No user logged in';
+};
+
+export const checkUserAdmin = (user?: UserObj): boolean => {
+  const selectedUser = getUser(user);
+  if (!selectedUser) return false;
+  return selectedUser.isAdmin ? selectedUser.isAdmin : false;
 };
 /**
  * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.

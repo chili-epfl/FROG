@@ -11,7 +11,7 @@ import {
 
 const useStyle = makeStyles(theme => ({
   submit: {
-    background: '#31BFAE',
+    background: theme.palette.primary.main,
     margin: theme.spacing(2, 0),
     padding: theme.spacing(2),
     boxShadow: '0 5px 20px rgba(0,0,0,0.05)',
@@ -19,7 +19,7 @@ const useStyle = makeStyles(theme => ({
     cursor: 'pointer',
 
     '&:hover': {
-      background: '#25a697'
+      background: theme.palette.primary.light
     }
   }
 }));
@@ -46,7 +46,7 @@ const TemplateModal = (props: TemplateModalProps) => {
   };
 
   return (
-    <Dialog open={props.open}>
+    <Dialog open={props.open} PaperProps={{ elevation: 1 }}>
       <DialogTitle>Save as Template</DialogTitle>
       <DialogContent>
         <TextField

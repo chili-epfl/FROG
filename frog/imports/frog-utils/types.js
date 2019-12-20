@@ -148,7 +148,7 @@ export type ActivityPackageT = {
   },
   config: Object,
   configUI?: Object,
-  dataStructure?: any,
+  dataStructure?: Object | Function,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (
     dataUnitStructT,

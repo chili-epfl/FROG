@@ -26,11 +26,11 @@ const useStyle = makeStyles(theme => ({
     '&.variant-minimal': {},
     '&.variant-primary': {
       color: 'white',
-      background: '#31BFAE'
+      background: theme.palette.primary.main
     },
     '&.variant-raised': {
       background: 'white',
-      boxShadow: theme.shadows[2]
+      boxShadow: theme.shadows[1]
     },
 
     '&.size-default': {

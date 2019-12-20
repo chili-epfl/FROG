@@ -6,7 +6,7 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
-import { blueGrey, indigo, red } from '@material-ui/core/colors';
+import { blueGrey, red } from '@material-ui/core/colors';
 
 import { Header } from './Header';
 
@@ -41,14 +41,14 @@ const useStyle = makeStyles(theme => ({
     marginLeft: '0'
   },
   button: {
-    background: indigo[500],
+    background: theme.palette.primary.main,
     color: '#FFF',
     fontSize: '12px',
     boxShadow: '0 0 0 transparent',
     padding: theme.spacing(2),
 
     '&:hover': {
-      background: indigo[700]
+      background: theme.palette.primary.dark
     },
     '&:active': {
       boxShadow: '0 0 0 transparent'

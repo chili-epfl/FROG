@@ -1,5 +1,6 @@
 import { chainUpgrades } from '/imports/frog-utils';
 import pkg from '../index';
+import { computeScore } from '../utils';
 
 test('all correct formatProduct', () => {
   expect(
@@ -94,6 +95,13 @@ test('chainUpgrades02to1', () => {
 
 test('chainUpgrades01to1', () => {
   expect(chainUpgrades(pkg.upgradeFunctions, -1, 1)(dataV1)).toEqual(dataV3);
+});
+
+test('Testing function computeScore', () => {
+  const scores = Object.values(reactiveData).map(({ data }) =>
+    computeScore(config.questions, data.form)
+  );
+  expect(scores).toEqual([0, 0, 2, 0, 0, 0, 1, 1, 0, 0, 2, 1, 0, 0, 0, 0]);
 });
 
 const config = {

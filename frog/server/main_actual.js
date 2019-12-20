@@ -71,20 +71,15 @@ findOperatorsMongo({})
     })
   );
 
-if (
-  process.env.NODE_ENV === 'production' &&
-  !Meteor.settings.public.friendlyProduction
-) {
-  if (!Meteor.settings.token) {
-    Meteor.settings.token = uuid();
-  }
-  console.info('Meteor login token ', Meteor.settings.token);
-  GlobalSettings.update(
-    'token',
-    { value: Meteor.settings.token },
-    { upsert: true }
-  );
+if (!Meteor.settings.token) {
+  Meteor.settings.token = uuid();
 }
+console.info('Meteor login token ', Meteor.settings.token);
+GlobalSettings.update(
+  'token',
+  { value: Meteor.settings.token },
+  { upsert: true }
+);
 
 Meteor.publish('globalSettings', function() {
   return GlobalSettings.find({});
@@ -97,7 +92,13 @@ Meteor.publish('userData', function() {
     return this.ready();
   }
   return Meteor.users.find(this.userId, {
-    fields: { username: 1, isAnonymous: 1, joinedSessions: 1, role: 1 }
+    fields: {
+      username: 1,
+      isAnonymous: 1,
+      isAdmin: 1,
+      joinedSessions: 1,
+      role: 1
+    }
   });
 });
 

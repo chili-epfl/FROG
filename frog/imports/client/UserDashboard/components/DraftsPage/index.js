@@ -17,6 +17,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  icon: {
+    color: theme.palette.secondary.main
   }
 }));
 
@@ -36,7 +39,7 @@ export const DraftsPage = ({
         <Paper className={classes.paper} elevation={0}>
           <div className={classes.buttonRows}>
             <Typography variant="h5" align="left">
-              <ShowChart /> Drafts
+              <ShowChart className={classes.icon} /> Drafts
             </Typography>
             <Button icon={<Add />} onClick={actionCallback} variant="primary" />
           </div>

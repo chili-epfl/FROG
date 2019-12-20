@@ -31,7 +31,7 @@ const styles = {
   inputContainer: {
     display: 'flex',
     flex: '0 0 auto',
-    background: '#EAEAEA',
+    background: '#FAFAFA',
     justifyContent: 'center',
     padding: '20px'
   },

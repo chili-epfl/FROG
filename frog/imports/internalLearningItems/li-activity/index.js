@@ -32,9 +32,12 @@ const Viewer = ({ data }: { data: liDataT }) => {
     return <p>Could not import Reactive Component</p>;
   }
 
-  const activityType = activityTypesObj[data.acType];
+  const acRunnerId = data.acType.startsWith('li-')
+    ? 'ac-single-li'
+    : data.acType;
+  const activityType = activityTypesObj[acRunnerId];
   const ActivityToRun = ReactiveHOC(data.rz, undefined)(
-    activityRunners[data.acType]
+    activityRunners[acRunnerId]
   );
 
   return (
@@ -75,8 +78,5 @@ export default ({
   ),
   Viewer,
   Editor: Viewer,
-  search: (data, search) =>
-    data.title.toLowerCase().includes(search) ||
-    data.content.toLowerCase().includes(search),
   disableDragging: true
 }: LearningItemT<liDataT>);

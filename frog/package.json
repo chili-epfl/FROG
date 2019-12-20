@@ -7,8 +7,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
-    "@blueprintjs/core": "^3.10.0",
-    "@blueprintjs/icons": "^3.4.0",
     "@houshuang/davefeedread": "^0.5.0",
     "@houshuang/pdf-annotate.js": "^0.0.8",
     "@houshuang/pdfjs-dist": "1.4.162",
@@ -105,7 +103,6 @@
     "react-loadable": "^5.5.0",
     "react-measure": "^2.2.4",
     "react-modal": "^3.8.1",
-    "react-mosaic-component": "^2.0.2",
     "react-player": "^1.9.3",
     "react-plotly.js": "^2.2.0",
     "react-resize-aware": "^2.7.2",
@@ -161,7 +158,7 @@
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "nps": "^5.9.3",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "react-test-renderer": "^16.8.6",
     "regenerator-runtime": "^0.13.1"
   }
