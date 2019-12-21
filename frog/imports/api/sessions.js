@@ -237,30 +237,20 @@ export const cloneSession = (
   history: any,
   store: Object
 ) => {
-  Meteor.call('session.info', sessionId, (err, session) => {
+  Meteor.call('session.clone', sessionId, (err, res) => {
     if (err) {
-      alert('Error Cloning Graph');
       console.info(err);
-      return;
-    } else {
-      const sessionType = session.singleActivity
-        ? 'Single Activity'
-        : session.template
-        ? 'Template'
-        : 'Graph';
-      if (sessionType === 'Single Activity') {
-        store.setWizardConfig(session.simpleConfig.config);
-        history.push(`/wizard/${session.simpleConfig.activityType}`);
-      } else if (sessionType === 'Template') {
-        store.setWizardConfig(session.simpleConfig.config);
-        history.push(`/wizard/${session.simpleConfig.activityType}`);
+    } else if (res) {
+      if (res.type === 'Graph') {
+        history.push(`/teacher/graph/`);
+        store.setId(res.graphId);
+      } else if (res.type === 'Single Activity') {
+        store.setWizardConfig(res.config);
+        history.push(`/wizard/${res.activityType}`);
       } else {
-        const graphObj = JSON.parse(graphToString(session.fromGraphId));
-        graphObj.graph.name = session.name;
-        const newGraphId = addGraph(graphObj);
-        history.push(`/teacher/graph/${newGraphId}`);
+        store.setWizardConfig(res.config);
+        history.push(`/wizard/${res.activityType}`);
       }
-      return;
     }
   });
 };
@@ -330,9 +320,35 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
 
 Meteor.methods({
   'add.session': addSessionFn,
-  'session.info': sessionId => {
+  'session.clone': sessionId => {
     const session = Sessions.findOne(sessionId);
-    return session;
+    if (session) {
+      const sessionType = session.singleActivity
+        ? 'Single Activity'
+        : session.template
+        ? 'Template'
+        : 'Graph';
+      if (sessionType === 'Single Activity') {
+        return {
+          type: 'Single Activity',
+          config: session.simpleConfig.config,
+          activityType: session.simpleConfig.activityType
+        };
+      } else if (sessionType === 'Template') {
+        return {
+          type: 'Template',
+          config: session.simpleConfig.config,
+          activityType: session.simpleConfig.activityType
+        };
+      } else {
+        const graphObj = JSON.parse(graphToString(session.fromGraphId));
+        graphObj.graph.name = session.name;
+        const newGraphId = addGraph(graphObj);
+        return { type: 'Graph', graphId: newGraphId };
+      }
+    } else {
+      return 'Error fetching session details';
+    }
   },
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
