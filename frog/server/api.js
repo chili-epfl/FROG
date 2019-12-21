@@ -3,6 +3,10 @@ import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 import WebSocket from 'ws';
 
+import {
+  addNewWikiPage,
+  createNewEmptyWikiDoc
+} from '/imports/api/wikiDocHelpers';
 import { uuid } from '/imports/frog-utils';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Accounts } from 'meteor/accounts-base';
@@ -615,48 +619,48 @@ WebApp.connectHandlers.use('/api/wikiSubmit', async (request, response) => {
         'Require wiki and body request parameters, and body payload with text content type'
       );
     }
+
     const genericDoc = serverConnection.get('li');
     const dataFn = generateReactiveFn(genericDoc);
+
     const newId = dataFn.createLearningItem(
       'li-richText',
       body,
       {
-        wikiId: wiki
+        title: page
       },
       undefined,
       undefined,
       id
     );
 
-    const op = {
-      p: ['pages', newId],
-      oi: {
-        liId: newId,
-        id: newId,
-        valid: true,
-        created: true,
-        title: page,
-        liType: 'li-richText',
-        plane: 3
-      }
-    };
-
     const wikiDoc = serverConnection.get('wiki', wiki);
-    await new Promise(resolve => {
-      wikiDoc.subscribe(() => {
-        if (!wikiDoc.type) {
-          wikiDoc.create({ wikiId: wiki, pages: {} });
-        }
-        wikiDoc.submitOp(op);
-        wikiDoc.destroy();
-        resolve();
-      });
+    wikiDoc.subscribe(() => {
+      if (!wikiDoc.type) {
+        const liId = dataFn.createLearningItem('li-richText', undefined, {
+          wikiId: wiki
+        });
+        createNewEmptyWikiDoc(wikiDoc, wiki, liId);
+      }
+
+      addNewWikiPage(
+        wikiDoc,
+        page,
+        true,
+        'li-richText',
+        newId,
+        1,
+        {},
+        undefined,
+        undefined,
+        undefined,
+        id
+      );
+      genericDoc.destroy();
+
+      response.writeHead(200);
+      response.end();
     });
-
-    genericDoc.destroy();
-
-    response.writeHead(200);
-    response.end();
   } catch (e) {
     console.error(e);
     response.writeHead(500);

@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
 import { Visibility, VisibilityOff, Close } from '@material-ui/icons';
-import { primaryColor, primaryColorDark } from '../constants';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -57,11 +56,11 @@ const useStyle = makeStyles(theme => ({
     margin: theme.spacing(1, 0),
     padding: theme.spacing(1.5, 0),
     width: '100%',
-    background: primaryColor,
+    background: theme.palette.primary.main,
     color: '#FFF',
 
     '&:hover': {
-      background: primaryColorDark
+      background: theme.palette.primary.dark
     }
   },
   closeIcon: {

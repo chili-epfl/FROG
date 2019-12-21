@@ -12,9 +12,10 @@ export const addNewWikiPage = (
   pageSettings: PageSettingsT,
   instances: Object = {},
   socialStructure: Object,
-  noNewInstances: boolean
+  noNewInstances: boolean,
+  presetPageId: ?string
 ) => {
-  const pageId = uuid();
+  const pageId = presetPageId || uuid();
   const obj: Object = {
     id: pageId,
     valid: true,

@@ -38,7 +38,11 @@ export const ModalController = (props: ModalControllerPropsT) => {
         hideModal
       }}
     >
-      {Modal !== null && <Dialog open>{Modal}</Dialog>}
+      {Modal !== null && (
+        <Dialog open PaperProps={{ elevation: 1 }}>
+          {Modal}
+        </Dialog>
+      )}
       {props.children}
     </ModalContext.Provider>
   );

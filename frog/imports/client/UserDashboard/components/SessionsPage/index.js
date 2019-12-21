@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: 'left',
     color: theme.palette.text.primary
+  },
+  icon: {
+    color: theme.palette.secondary.main
   }
 }));
 
@@ -25,7 +28,7 @@ export const SessionsPage = ({ sessionsList }: SessionsPagePropsT) => {
       <Grid item xs={12}>
         <Paper className={classes.paper} elevation={0}>
           <Typography variant="h5" align="left">
-            <Bookmark /> Sessions
+            <Bookmark className={classes.icon} /> Sessions
           </Typography>
 
           <List>

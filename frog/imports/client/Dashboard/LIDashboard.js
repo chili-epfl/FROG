@@ -325,7 +325,7 @@ class ZoomViewRaw extends React.Component<*, *> {
       <Dialog open onClose={close} classes={{ paper: classes.paper }}>
         <div className={classes.zoomViewContainer}>
           <div onClick={close} className={classes.closeZoom} />
-          <Paper className={classes.liRoot} elevation={8}>
+          <Paper className={classes.liRoot} elevation={1}>
             <div style={{ display: 'flex' }}>
               <div style={{ alignSelf: 'flex-start', marginRight: 'auto' }}>
                 Scrub history

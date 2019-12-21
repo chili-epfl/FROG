@@ -17,6 +17,12 @@ const dataStructure = formData => ({
   coordinates: { x: 0, y: 0, valid: false }
 });
 
+const mergeFunction = (object, dataFn) => {
+  if (object.data && object.data.form) {
+    dataFn.objInsert(object.data.form, 'form');
+  }
+};
+
 export default ({
   id: 'ac-quiz',
   type: 'react-component',
@@ -29,5 +35,6 @@ export default ({
   dataStructure,
   dashboards,
   exportData,
-  formatProduct
+  formatProduct,
+  mergeFunction
 }: ActivityPackageT);

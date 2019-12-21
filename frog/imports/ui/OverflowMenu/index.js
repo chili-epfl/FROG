@@ -26,6 +26,7 @@ export const OverflowMenu = (props: OverflowMenuPropsT) => {
       <div onClick={handleClick}>{props.button}</div>
       <Popover
         id="overflow-menu"
+        elevation={1}
         anchorEl={anchorEl}
         open={anchorEl !== null}
         onClose={handleClose}

@@ -31,8 +31,8 @@ const getLink = (rawtitle, create) => {
   }
 };
 
-const baseurl = 'https://icchilisrv3.epfl.ch';
-// const baseurl = 'http://localhost:3000';
+// const baseurl = 'https://icchilisrv3.epfl.ch';
+const baseurl = 'http://localhost:3000';
 
 const postWiki = async (page, content) => {
   console.info(
@@ -124,14 +124,15 @@ const convertLink = doc => ({
           }
 
           // console.log(x.slice(3, -3), getLink(x.slice(3, -3)));
+          //
           if (getLink(x.slice(3, -3))) {
             return {
               insert: {
                 'wiki-link': {
-                  title: x.slice(3, -3),
                   id: getLink(x.slice(3, -3)),
-                  wikiId: wiki,
+                  title: x.slice(3, -3),
                   liId: getLink(x.slice(3, -3)),
+                  liType: 'li-richText',
                   created: true,
                   valid: true
                 }
