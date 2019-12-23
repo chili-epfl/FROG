@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { RowButton } from '/imports/ui/RowItems';
 import { Meteor } from 'meteor/meteor';
-import { getUser } from '/imports/api/users';
 
 const useStyle = makeStyles(theme => ({
   root: {

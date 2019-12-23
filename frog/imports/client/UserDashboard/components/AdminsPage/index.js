@@ -41,7 +41,7 @@ export const AdminsPage = ({ history }: { history: Object }) => {
     }
   };
 
-  const parseUsersList = (userList, history) => {
+  const parseUsersList = userList => {
     return userList.map(item => {
       return {
         itemIcon: AccountBox,
@@ -54,7 +54,7 @@ export const AdminsPage = ({ history }: { history: Object }) => {
     });
   };
 
-  const parseSessionsList = (sessionList, history) => {
+  const parseSessionsList = sessionList => {
     return parseSessionData(sessionList, history).map((item, index) => {
       return {
         ...item,
@@ -65,7 +65,7 @@ export const AdminsPage = ({ history }: { history: Object }) => {
     });
   };
 
-  const parseGraphsList = (graphList, history) => {
+  const parseGraphsList = graphList => {
     return parseDraftData(graphList, history).map((item, index) => {
       return {
         ...item,
@@ -86,21 +86,21 @@ export const AdminsPage = ({ history }: { history: Object }) => {
       if (err) {
         console.info(err);
       }
-      setUsersList(parseUsersList(res, history));
+      setUsersList(parseUsersList(res));
     });
     // Newly Created Sessions
     Meteor.call('admin.recentSessions', (err, res) => {
       if (err) {
         console.info(err);
       }
-      setSessionsList(parseSessionsList(res, history));
+      setSessionsList(parseSessionsList(res));
     });
     // Newly Created Graphs
     Meteor.call('admin.recentGraphs', (err, res) => {
       if (err) {
         console.info(err);
       }
-      setGraphsList(parseGraphsList(res, history));
+      setGraphsList(parseGraphsList(res));
     });
   }, []);
 

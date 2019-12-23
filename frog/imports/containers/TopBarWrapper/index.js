@@ -13,7 +13,7 @@ import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { Button } from '/imports/ui/Button';
 import { useModal } from '/imports/ui/Modal';
 import { RowButton, RowDivider, RowTitle } from '/imports/ui/RowItems';
-import { getUsername, getUserType, getUser } from '/imports/api/users';
+import { getUsername, getUserType } from '/imports/api/users';
 import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { PersonalProfileModal } from '/imports/client/AccountModal/PersonalProfileModal';

@@ -60,16 +60,6 @@ export const getUserType = (user?: UserObj): UserType => {
   else return 'No user logged in';
 };
 
-export const checkUserAdmin = (user?: UserObj): boolean => {
-  Meteor.call('check.admin', (err, res) => {
-    if (err) {
-      console.info(err);
-      return false;
-    }
-    console.log(res);
-    return res;
-  });
-};
 /**
  * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
  * If there is no user logged in, returns undefined.

@@ -12,7 +12,6 @@ import {
   TemplatesListT
 } from '/imports/ui/Types/types';
 import { clearAllTemplates } from '/imports/api/templates';
-import { getUser } from '/imports/api/users';
 
 type DashboardContentContainerPropsT = {
   history: RouterHistory,

@@ -177,6 +177,8 @@ Meteor.methods({
         .map(doc => {
           if (!doc.isAnonymous) {
             return { ...doc, nameReference: parseUsername(doc) };
+          } else {
+            return null;
           }
         })
         .filter(doc => {
