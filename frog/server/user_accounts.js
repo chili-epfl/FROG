@@ -3,8 +3,9 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
-import { getUserType, checkUserAdmin } from '/imports/api/users';
+import { getUserType, getUser } from '/imports/api/users';
 import { Sessions } from '../imports/api/sessions';
+import { Graphs } from '../imports/api/graphs';
 
 const doLogin = (user, self) => {
   if (user) {
@@ -29,6 +30,18 @@ const doLogin = (user, self) => {
 
   const result = Accounts._loginUser(self, userId);
   return result;
+};
+
+const parseUsername = user => {
+  if (user.isAnonymous) {
+    return 'Anonymous User';
+  } else if (user.emails && user.profile) {
+    return user.profile.displayName;
+  } else if (user.username) {
+    return user.username;
+  } else {
+    return 'Undefined User';
+  }
 };
 
 const cleanStudentList = studentList =>
@@ -80,14 +93,6 @@ Meteor.methods({
       }
 
       return doLogin(username, self);
-    }
-  },
-  'frog.users.all': function() {
-    if (checkUserAdmin()) {
-      const userList = Meteor.users.find().fetch();
-      return userList;
-    } else {
-      return [];
     }
   },
   'frog.userid.login': function(userId, token) {
@@ -153,12 +158,63 @@ Meteor.methods({
     return 'Fail';
   },
   'impersonation.token': userId => {
-    if (checkUserAdmin()) {
+    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    if (userDoc?.isAdmin) {
       const newToken = uuid();
       Meteor.users.update(userId, { $set: { impersonationToken: newToken } });
       return newToken;
     } else {
       return 'Not admin';
+    }
+  },
+  'admin.users.all': function() {
+    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    if (userDoc?.isAdmin) {
+      const userList = Meteor.users
+        .find({}, { sort: { createdAt: -1 } })
+        .fetch();
+      return userList
+        .map(doc => {
+          if (!doc.isAnonymous) {
+            return { ...doc, nameReference: parseUsername(doc) };
+          }
+        })
+        .filter(doc => {
+          return doc != null;
+        });
+    } else {
+      return [];
+    }
+  },
+  'check.admin': () => {
+    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    if (userDoc) {
+      return userDoc.isAdmin;
+    } else {
+      return false;
+    }
+  },
+  'admin.recentSessions': () => {
+    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    if (userDoc?.isAdmin) {
+      const sessionsList = Sessions.find(
+        {},
+        { sort: { startedAt: -1 } }
+      ).fetch();
+      return sessionsList.map(doc => {
+        const owner = Meteor.users.findOne({ _id: doc.ownerId });
+        return { ...doc, ownerName: parseUsername(owner) };
+      });
+    }
+  },
+  'admin.recentGraphs': () => {
+    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    if (userDoc?.isAdmin) {
+      const graphsList = Graphs.find({}, { sort: { createdAt: -1 } }).fetch();
+      return graphsList.map(doc => {
+        const owner = Meteor.users.findOne({ _id: doc.ownerId });
+        return { ...doc, ownerName: parseUsername(owner) };
+      });
     }
   }
 });

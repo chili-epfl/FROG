@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { RowButton } from '/imports/ui/RowItems';
 import { Meteor } from 'meteor/meteor';
+import { getUser } from '/imports/api/users';
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -46,7 +47,7 @@ const UsersListModal = (props: UsersListModalProps) => {
   });
 
   React.useEffect(() => {
-    Meteor.call('frog.users.all', (err, res) => {
+    Meteor.call('admin.users.all', (err, res) => {
       if (err) {
         console.info(err);
         setValue({ ...value, message: 'Error Loading Users' });
@@ -57,18 +58,6 @@ const UsersListModal = (props: UsersListModalProps) => {
       }
     });
   }, []);
-
-  const parseUsername = user => {
-    if (user.isAnonymous) {
-      return 'Anonymous User';
-    } else if (user.emails && user.profile) {
-      return user.profile.displayName;
-    } else if (user.username) {
-      return user.username;
-    } else {
-      return 'Undefined User';
-    }
-  };
 
   const parseEmail = user => {
     try {
@@ -84,9 +73,7 @@ const UsersListModal = (props: UsersListModalProps) => {
     if (searchQuery.length > 0) {
       const filteredList = userList.filter(item => {
         return (
-          parseUsername(item)
-            .toLowerCase()
-            .indexOf(searchQuery) > -1 ||
+          item.nameReference.toLowerCase().indexOf(searchQuery) > -1 ||
           (parseEmail(item)
             ? parseEmail(item).indexOf(searchQuery) > -1
             : false)
@@ -127,7 +114,7 @@ const UsersListModal = (props: UsersListModalProps) => {
                     );
                   }}
                 >
-                  {parseUsername(user)}
+                  {user.nameReference}
                   <i className={classes.rowEmail}>{parseEmail(user)}</i>
                 </RowButton>
               ))

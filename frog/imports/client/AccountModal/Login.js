@@ -134,7 +134,6 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
             <Grid item xs>
               <Button
                 href="#"
-                variant="body2"
                 className={classes.link}
                 onClick={() => {
                   Meteor.call('send.password.reminder', email, err => {
@@ -156,11 +155,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                onClick={openSignUpForm}
-                className={classes.link}
-                variant="body2"
-              >
+              <Button onClick={openSignUpForm} className={classes.link}>
                 {"Don't have an account? Sign Up"}
               </Button>
             </Grid>

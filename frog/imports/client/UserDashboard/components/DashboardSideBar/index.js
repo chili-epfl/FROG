@@ -7,7 +7,8 @@ import {
   Add,
   KeyboardArrowRight,
   OpenInNew,
-  MoreVert
+  MoreVert,
+  AccountBox
 } from '@material-ui/icons';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ArchiveIcon from '@material-ui/icons/Archive';
@@ -44,38 +45,24 @@ const useStyles = makeStyles(theme => ({
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
-  callbackSessionsView: () => void,
-  callbackDraftsView: () => void,
-  callbackTemplatesView: () => void,
-  callbackArchivesView: () => void,
-  callbackRecentsView: () => void,
-  sessionsActive: boolean,
-  draftsActive: boolean,
-  templatesActive: Boolean,
-  recentsActive: boolean,
-  archivesActive: boolean,
+  callbackView: () => void,
   activePage: string,
   history: any,
+  showSessions: boolean,
   showDrafts: boolean,
   showTemplates: boolean,
-  showArchives: boolean
+  showArchives: boolean,
+  showAdmin: boolean
 };
 export const DashboardSideBar = ({
-  callbackRecentsView,
-  callbackSessionsView,
-  callbackDraftsView,
-  callbackTemplatesView,
-  callbackArchivesView,
-  sessionsActive,
-  draftsActive,
-  templatesActive,
-  recentsActive,
-  archivesActive,
+  callbackView,
   history,
   activePage,
+  showSessions,
   showDrafts,
   showTemplates,
   showArchives,
+  showAdmin,
   children
 }: DashBoardSideBarPropsT) => {
   const classes = useStyles();
@@ -102,9 +89,11 @@ export const DashboardSideBar = ({
               showArchives && (
                 <Panel>
                   <RowButton
-                    active={archivesActive}
+                    active={activePage === 'Archives'}
                     icon={<ArchiveIcon />}
-                    onClick={callbackArchivesView}
+                    onClick={() => {
+                      callbackView('Archives');
+                    }}
                   >
                     Archive
                   </RowButton>
@@ -116,8 +105,10 @@ export const DashboardSideBar = ({
               {showDrafts && (
                 <>
                   <RowButton
-                    onClick={callbackRecentsView}
-                    active={recentsActive}
+                    onClick={() => {
+                      callbackView('Recents');
+                    }}
+                    active={activePage === 'Recents'}
                     icon={<AccessTimeOutlined />}
                     rightIcon={<KeyboardArrowRight fontSize="small" />}
                   >
@@ -125,8 +116,10 @@ export const DashboardSideBar = ({
                   </RowButton>
                   <RowButton
                     icon={<ShowChart />}
-                    active={draftsActive}
-                    onClick={callbackDraftsView}
+                    active={activePage === 'Drafts'}
+                    onClick={() => {
+                      callbackView('Drafts');
+                    }}
                     rightIcon={<KeyboardArrowRight fontSize="small" />}
                   >
                     Drafts
@@ -135,8 +128,10 @@ export const DashboardSideBar = ({
               )}
               <RowButton
                 icon={<Bookmark />}
-                active={sessionsActive}
-                onClick={callbackSessionsView}
+                active={showSessions}
+                onClick={() => {
+                  callbackView('Sessions');
+                }}
                 rightIcon={<KeyboardArrowRight fontSize="small" />}
               >
                 Sessions
@@ -144,11 +139,25 @@ export const DashboardSideBar = ({
               {showTemplates && (
                 <RowButton
                   icon={<DescriptionIcon />}
-                  active={templatesActive}
-                  onClick={callbackTemplatesView}
+                  active={activePage === 'Templates'}
+                  onClick={() => {
+                    callbackView('Templates');
+                  }}
                   rightIcon={<KeyboardArrowRight fontSize="small" />}
                 >
                   Templates
+                </RowButton>
+              )}
+              {showAdmin && (
+                <RowButton
+                  icon={<AccountBox />}
+                  active={activePage === 'Admin Control'}
+                  onClick={() => {
+                    callbackView('Admin Control');
+                  }}
+                  rightIcon={<KeyboardArrowRight fontSize="small" />}
+                >
+                  Admin Control
                 </RowButton>
               )}
             </Panel>

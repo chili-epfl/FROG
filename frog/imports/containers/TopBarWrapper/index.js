@@ -13,7 +13,7 @@ import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { Button } from '/imports/ui/Button';
 import { useModal } from '/imports/ui/Modal';
 import { RowButton, RowDivider, RowTitle } from '/imports/ui/RowItems';
-import { getUsername, getUserType, checkUserAdmin } from '/imports/api/users';
+import { getUsername, getUserType, getUser } from '/imports/api/users';
 import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 import AccountModal from '/imports/client/AccountModal/AccountModal';
 import { PersonalProfileModal } from '/imports/client/AccountModal/PersonalProfileModal';
@@ -33,6 +33,8 @@ const TopBarWrapper = ({
   const [showModal] = useModal();
 
   const [adminModal, setAdminModal] = React.useState(false);
+
+  const [userAdmin, setUserAdmin] = React.useState(false);
 
   const openAdminModal = () => {
     setAdminModal(true);
@@ -80,6 +82,15 @@ const TopBarWrapper = ({
   };
   const userType = getUserType();
 
+  React.useEffect(() => {
+    Meteor.call('check.admin', (err, res) => {
+      if (err) {
+        console.info(err);
+      }
+      setUserAdmin(res);
+    });
+  }, []);
+
   return (
     <>
       <TopBar
@@ -116,7 +127,7 @@ const TopBarWrapper = ({
                   <RowButton onClick={openPersonalProfileModal} icon={<Edit />}>
                     Edit your profile
                   </RowButton>
-                  {checkUserAdmin() && (
+                  {userAdmin && (
                     <RowButton
                       onClick={openAdminModal}
                       icon={<AccountBoxIcon />}
@@ -147,7 +158,7 @@ const TopBarWrapper = ({
           </>
         }
       />
-      {checkUserAdmin() && adminModal && (
+      {userAdmin && adminModal && (
         <UsersListModal
           open={adminModal}
           closeModal={closeAdminModal}
