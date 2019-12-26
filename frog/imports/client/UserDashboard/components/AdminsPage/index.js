@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Meteor } from 'meteor/meteor';
-import { List, Grid, Typography, Paper } from '@material-ui/core';
+import { List, Grid, Typography, Paper, Tabs, Tab } from '@material-ui/core';
 import { Bookmark, AccountBox, Description } from '@material-ui/icons';
 import { ContentListItem } from '/imports/ui/ListItem';
 import {
@@ -11,6 +11,10 @@ import {
 } from '/imports/client/UserDashboard/data-utils/helpers';
 
 const useStyles = makeStyles(theme => ({
+  tabbar: {
+    padding: theme.spacing(0),
+    borderBottom: '1px solid #EAEAEA'
+  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'left',
@@ -103,6 +107,11 @@ export const AdminsPage = ({ history }: { history: Object }) => {
   const [usersList, setUsersList] = React.useState([]);
   const [sessionsList, setSessionsList] = React.useState([]);
   const [graphsList, setGraphsList] = React.useState([]);
+  const [tab, setTab] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setTab(newValue);
+  };
 
   React.useEffect(() => {
     // Newly Added Users
@@ -129,38 +138,46 @@ export const AdminsPage = ({ history }: { history: Object }) => {
   }, []);
 
   return (
-    <Grid container>
-      {usersList.length > 0 && (
-        <Grid
-          item
-          xs={sessionsList.length > 0 || graphsList.length > 0 ? 6 : 12}
+    <>
+      <Paper className={classes.tabbar} elevation={0}>
+        <Tabs
+          value={tab}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
         >
-          <Paper className={classes.paper} elevation={0}>
-            <div className={classes.buttonRows}>
-              <Typography variant="h5" align="left">
-                <AccountBox className={classes.icon} /> Recently Added Users
+          <Tab label={<Typography>Users</Typography>} />
+          <Tab label={<Typography>Sessions</Typography>} />
+          <Tab label={<Typography>Graphs</Typography>} />
+        </Tabs>
+      </Paper>
+      <Grid container>
+        {tab === 0 && usersList.length > 0 && (
+          <Grid item xs={12}>
+            <Paper className={classes.paper} elevation={0}>
+              <div className={classes.buttonRows}>
+                <Typography variant="h5" align="left">
+                  <AccountBox className={classes.icon} /> Recently Added Users
+                </Typography>
+              </div>
+
+              <List dense>
+                {usersList.map((props, index) => {
+                  return <ContentListItem key={index} {...props} />;
+                })}
+              </List>
+            </Paper>
+          </Grid>
+        )}
+        {tab === 1 && sessionsList.length > 0 && (
+          <Grid item xs={12}>
+            <Paper className={classes.paper} elevation={0}>
+              <Typography variant="h5">
+                <Bookmark className={classes.icon} /> Recently Created Sessions
               </Typography>
-            </div>
 
-            <List dense>
-              {usersList.slice(0, 6).map((props, index) => {
-                return <ContentListItem key={index} {...props} />;
-              })}
-            </List>
-          </Paper>
-        </Grid>
-      )}
-      {sessionsList.length > 0 && (
-        <Grid item xs={usersList.length > 0 || graphsList.length > 0 ? 6 : 12}>
-          <Paper className={classes.paper} elevation={0}>
-            <Typography variant="h5">
-              <Bookmark className={classes.icon} /> Recently Created Sessions
-            </Typography>
-
-            <List dense>
-              {sessionsList
-                .slice(0, 6)
-                .map(
+              <List dense>
+                {sessionsList.map(
                   (
                     {
                       itemIcon,
@@ -185,30 +202,29 @@ export const AdminsPage = ({ history }: { history: Object }) => {
                     />
                   )
                 )}
-            </List>
-          </Paper>
-        </Grid>
-      )}
-      {graphsList.length > 0 && (
-        <Grid
-          item
-          xs={sessionsList.length > 0 || usersList.length > 0 ? 6 : 12}
-        >
-          <Paper className={classes.paper} elevation={0}>
-            <div className={classes.buttonRows}>
-              <Typography variant="h5" align="left">
-                <Description className={classes.icon} /> Recently Created Graphs
-              </Typography>
-            </div>
+              </List>
+            </Paper>
+          </Grid>
+        )}
+        {tab === 2 && graphsList.length > 0 && (
+          <Grid item xs={12}>
+            <Paper className={classes.paper} elevation={0}>
+              <div className={classes.buttonRows}>
+                <Typography variant="h5" align="left">
+                  <Description className={classes.icon} /> Recently Created
+                  Graphs
+                </Typography>
+              </div>
 
-            <List dense>
-              {graphsList.slice(0, 6).map((props, index) => {
-                return <ContentListItem key={index} {...props} />;
-              })}
-            </List>
-          </Paper>
-        </Grid>
-      )}
-    </Grid>
+              <List dense>
+                {graphsList.map((props, index) => {
+                  return <ContentListItem key={index} {...props} />;
+                })}
+              </List>
+            </Paper>
+          </Grid>
+        )}
+      </Grid>
+    </>
   );
 };
