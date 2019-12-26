@@ -158,7 +158,8 @@ Meteor.methods({
     return 'Fail';
   },
   'impersonation.token': userId => {
-    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    const currentUser = getUser();
+    const userDoc = Meteor.users.findOne({ _id: currentUser._id });
     if (userDoc?.isAdmin) {
       const newToken = uuid();
       Meteor.users.update(userId, { $set: { impersonationToken: newToken } });
@@ -168,7 +169,8 @@ Meteor.methods({
     }
   },
   'admin.users.all': function() {
-    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    const currentUser = getUser();
+    const userDoc = Meteor.users.findOne({ _id: currentUser._id });
     if (userDoc?.isAdmin) {
       const userList = Meteor.users
         .find({}, { sort: { createdAt: -1 } })
@@ -189,7 +191,8 @@ Meteor.methods({
     }
   },
   'check.admin': () => {
-    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    const currentUser = getUser();
+    const userDoc = Meteor.users.findOne({ _id: currentUser._id });
     if (userDoc) {
       return userDoc.isAdmin;
     } else {
@@ -197,7 +200,8 @@ Meteor.methods({
     }
   },
   'admin.recentSessions': () => {
-    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    const currentUser = getUser();
+    const userDoc = Meteor.users.findOne({ _id: currentUser._id });
     if (userDoc?.isAdmin) {
       const sessionsList = Sessions.find(
         {},
@@ -210,7 +214,8 @@ Meteor.methods({
     }
   },
   'admin.recentGraphs': () => {
-    const userDoc = Meteor.users.findOne({ _id: getUser()._id });
+    const currentUser = getUser();
+    const userDoc = Meteor.users.findOne({ _id: currentUser._id });
     if (userDoc?.isAdmin) {
       const graphsList = Graphs.find({}, { sort: { createdAt: -1 } }).fetch();
       return graphsList.map(doc => {

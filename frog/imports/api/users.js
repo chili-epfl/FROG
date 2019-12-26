@@ -65,7 +65,7 @@ export const getUserType = (user?: UserObj): UserType => {
  * If there is no user logged in, returns undefined.
  * @param: {User=} user
  */
-export const getUser = (user?: UserObj): ?MeteorUser => {
+export const getUser = (user?: UserObj): MeteorUser => {
   // object spread to allow destructure a null object
   const { id, meteorUser } = { ...user };
   if (id) return Meteor.users.findOne(id);

@@ -33,7 +33,7 @@ type RecentsPagePropsT = {
   draftsList: DraftsListT,
   templatesList: TemplatesListT,
   actionCallback: () => void,
-  viewCallback: () => void
+  viewCallback: string => void
 };
 
 export const RecentsPage = ({

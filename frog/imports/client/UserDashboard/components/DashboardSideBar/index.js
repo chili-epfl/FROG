@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 
 type DashBoardSideBarPropsT = {
   children: React.Node | React.Node[],
-  callbackView: () => void,
+  callbackView: string => void,
   activePage: string,
   history: any,
   showSessions: boolean,

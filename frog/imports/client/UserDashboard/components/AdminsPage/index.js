@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Meteor } from 'meteor/meteor';
 import { List, Grid, Typography, Paper } from '@material-ui/core';
 import { Bookmark, AccountBox, Description } from '@material-ui/icons';
 import { ContentListItem } from '/imports/ui/ListItem';
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 export const AdminsPage = ({ history }: { history: Object }) => {
   const classes = useStyles();
 
-  const parseDate = (date): Date => {
+  const parseDate = (date): string => {
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}/${date.getMonth() +
       1}/${date.getFullYear()}`;
   };
@@ -41,15 +42,28 @@ export const AdminsPage = ({ history }: { history: Object }) => {
     }
   };
 
+  const impersonationCallback = (id, path = '') => {
+    Meteor.call('impersonation.token', id, (err, res) => {
+      if (err) {
+        console.info(err);
+      } else {
+        history.push(`${path}/?u=${id}&token=${res}`);
+        window.location.reload();
+      }
+    });
+  };
+
   const parseUsersList = userList => {
-    return userList.map(item => {
+    return userList.map((item, index) => {
       return {
         itemIcon: AccountBox,
         itemTitle: item.nameReference,
         itemType: parseEmail(item),
         dateCreated: parseDate(item.createdAt),
         dateObj: item.createdAt,
-        callback: () => {}
+        callback: () => {
+          impersonationCallback(userList[index]._id);
+        }
       };
     });
   };
@@ -59,7 +73,12 @@ export const AdminsPage = ({ history }: { history: Object }) => {
       return {
         ...item,
         itemType: `${item.itemType} | Owner: ${sessionList[index].ownerName}`,
-        callback: () => {},
+        callback: () => {
+          impersonationCallback(
+            sessionList[index].ownerId,
+            `/t/${sessionList[index].slug}`
+          );
+        },
         secondaryActions: null
       };
     });
@@ -70,7 +89,12 @@ export const AdminsPage = ({ history }: { history: Object }) => {
       return {
         ...item,
         itemType: `Owner: ${graphList[index].ownerName}`,
-        callback: () => {},
+        callback: () => {
+          impersonationCallback(
+            graphList[index].ownerId,
+            `/teacher/graph/${graphList[index]._id}`
+          );
+        },
         secondaryActions: null
       };
     });
