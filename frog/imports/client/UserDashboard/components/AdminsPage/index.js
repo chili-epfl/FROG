@@ -51,7 +51,7 @@ export const AdminsPage = ({ history }: { history: Object }) => {
       if (err) {
         console.info(err);
       } else {
-        history.push(`${path}/?u=${id}&token=${res}`);
+        history.push(`/?u=${id}&token=${res}&redirect=${path}`);
         window.location.reload();
       }
     });
