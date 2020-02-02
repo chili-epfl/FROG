@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { values, type ActivityRunnerPropsT } from '/imports/frog-utils';
 import FlipMove from 'react-flip-move';
-import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
@@ -15,7 +14,30 @@ import { makeStyles } from '@material-ui/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import { orderBy } from 'lodash';
-import { IconButton, CardContent } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+
+const useStyles = makeStyles(_ => ({
+  container: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'auto'
+  },
+  card: {
+    padding: '4px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+  addLI: { flex: '1 0 0px' },
+  instruction: {
+    fontSize: '128%',
+    padding: '4px',
+    margin: '4px',
+    border: '2px solid black',
+    boxShadow: '0px 1px 5px 0px #666'
+  }
+}));
 
 const red = '#AA0000';
 const blue = '#0000FF';
@@ -31,40 +53,30 @@ const chooseColor = (vote, isUp) => {
   }
 };
 
-const useStyles = makeStyles({
-  card: { margin: 5, padding: 5 },
-  cardContent: { width: '500px' },
-  addGeneral: { float: 'right' }
-});
-
 const AddingLI = ({ LearningItem, config }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card} raised>
-      <CardContent>
-        <div className={classes.cardContent}>
-          {config.specificLI && (
-            <LearningItem
-              liType={config.liType || 'li-idea'}
-              type="create"
-              meta={{ score: 0, students: {} }}
-              autoInsert
-            />
-          )}
+    <div className={classes.card}>
+      {config.specificLI && (
+        <div className={classes.addLI}>
+          <LearningItem
+            liType={config.liType || 'li-idea'}
+            type="create"
+            meta={{ score: 0, students: {} }}
+            autoInsert
+          />
         </div>
+      )}
 
-        {config.allowGeneralLI && (
-          <div className={classes.addGeneral}>
-            <LearningItem
-              type="create"
-              meta={{ score: 0, students: {} }}
-              autoInsert
-            />
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {config.allowGeneralLI && (
+        <LearningItem
+          type="create"
+          meta={{ score: 0, students: {} }}
+          autoInsert
+        />
+      )}
+    </div>
   );
 };
 
@@ -151,7 +163,7 @@ class Idea extends React.Component<
           }}
         >
           {showMouseover && focus && (
-            <div style={{ width: '100%/' }}>
+            <div style={{ width: '100%' }}>
               <font size={4}>
                 {config.allowDelete && (
                   <IconButton size="small" onClick={() => delFn(meta)}>
@@ -267,65 +279,63 @@ const IdeaList = ({
   const [zoom, setZoom] = React.useState();
 
   return (
-    <>
-      <List style={{ width: '100%' }}>
-        <FlipMove duration={750} easing="ease-out">
-          {(config.sort
-            ? orderBy(values(data), x => parseInt(x.score, 10), ['desc'])
-            : values(data)
-          ).map(x => (
-            <div key={x.id}>
-              <LearningItem
-                id={x.li}
-                notEmpty
-                type={
-                  edit === x.id
-                    ? 'edit'
-                    : zoom === x.id
-                    ? history
-                      ? 'history'
-                      : 'view'
-                    : config.expandItems
-                    ? 'view'
-                    : 'thumbView'
-                }
-                render={({ zoomable, editable, children }) => (
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      borderRadius: '5px',
-                      padding: '5px'
+    <List style={{ width: '100%' }}>
+      <FlipMove duration={750} easing="ease-out">
+        {(config.sort
+          ? orderBy(values(data), x => parseInt(x.score, 10), ['desc'])
+          : values(data)
+        ).map(x => (
+          <div key={x.id}>
+            <LearningItem
+              id={x.li}
+              notEmpty
+              type={
+                edit === x.id
+                  ? 'edit'
+                  : zoom === x.id
+                  ? history
+                    ? 'history'
+                    : 'view'
+                  : config.expandItems
+                  ? 'view'
+                  : 'thumbView'
+              }
+              render={({ zoomable, editable, children }) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '5px',
+                    padding: '5px'
+                  }}
+                >
+                  <Idea
+                    edit={edit === x.id}
+                    zoomable={zoomable || history}
+                    editable={editable}
+                    config={config}
+                    meta={x}
+                    vote={vote}
+                    userInfo={userInfo}
+                    delFn={item => dataFn.objDel(item, item.id)}
+                    editFn={e => {
+                      setZoom(false);
+                      setEdit(edit === e ? false : e);
+                    }}
+                    zoomFn={e => {
+                      setEdit(false);
+                      setZoom(zoom === e ? false : e);
                     }}
                   >
-                    <Idea
-                      edit={edit === x.id}
-                      zoomable={zoomable || history}
-                      editable={editable}
-                      config={config}
-                      meta={x}
-                      vote={vote}
-                      userInfo={userInfo}
-                      delFn={item => dataFn.objDel(item, item.id)}
-                      editFn={e => {
-                        setZoom(false);
-                        setEdit(edit === e ? false : e);
-                      }}
-                      zoomFn={e => {
-                        setEdit(false);
-                        setZoom(zoom === e ? false : e);
-                      }}
-                    >
-                      {children}
-                    </Idea>
-                  </div>
-                )}
-              />
-            </div>
-          ))}
-        </FlipMove>
-      </List>
-    </>
+                    {children}
+                  </Idea>
+                </div>
+              )}
+            />
+          </div>
+        ))}
+      </FlipMove>
+    </List>
   );
 };
 
@@ -366,35 +376,35 @@ const ListComponent = ({
   const LearningItem = dataFn.LearningItem;
   const slider = activityData.config.zoomShowsHistory;
   return (
-    <>
-      <div style={{ width: '100%' }}>
-        <Grid container direction="row">
-          <p>{activityData.config.text}</p>
-          <IdeaList
-            config={activityData.config}
-            data={data}
-            vote={vote}
-            dataFn={dataFn}
-            userInfo={userInfo}
-            LearningItem={LearningItem}
-            history={slider}
-          />
-        </Grid>
-      </div>
-    </>
+    <IdeaList
+      config={activityData.config}
+      data={data}
+      vote={vote}
+      dataFn={dataFn}
+      userInfo={userInfo}
+      LearningItem={LearningItem}
+      history={slider}
+    />
   );
 };
 
-const ActivityRunner = (props: ActivityRunnerPropsT) => (
-  <div>
-    <ListComponent {...props} />
-    {props.activityData.config.allowCreate && (
-      <AddingLI
-        LearningItem={props.dataFn.LearningItem}
-        config={props.activityData.config}
-      />
-    )}
-  </div>
-);
+const ActivityRunner = (props: ActivityRunnerPropsT) => {
+  const classes = useStyles();
+
+  const { text } = props.activityData.config;
+
+  return (
+    <div className={classes.container}>
+      {text && <p className={classes.instruction}>{text}</p>}
+      <ListComponent {...props} />
+      {props.activityData.config.allowCreate && (
+        <AddingLI
+          LearningItem={props.dataFn.LearningItem}
+          config={props.activityData.config}
+        />
+      )}
+    </div>
+  );
+};
 
 export default ActivityRunner;
