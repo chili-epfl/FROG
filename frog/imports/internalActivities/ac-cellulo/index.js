@@ -2,7 +2,9 @@
 
 import { type ActivityPackageT } from 'frog-utils';
 import defaultDashboard from './dashboard';
-import AppH from './components/app';
+import defaultDashboard2 from './dashboard2';
+import RoboManage from './RoboManage';
+import Assess from './Assess';
 const meta = {
   name: 'Cellulo test activity',
   shortDesc: 'New activity, no description available',
@@ -31,6 +33,11 @@ export default ({
   configVersion: 1,
   meta,
   config,
-  dashboards: { default: defaultDashboard },
+  dashboards: {
+    RoboMap: defaultDashboard,
+    eventchart: defaultDashboard2,
+    RoboManag: RoboManage,
+    RoboAssess: Assess
+  },
   dataStructure
 }: ActivityPackageT);

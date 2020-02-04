@@ -5,7 +5,9 @@ import { type ActivityRunnerT } from 'frog-utils';
 
 // the actual component that the student sees
 const ActivityRunner = ({ activityData }) => (
-  <div>{JSON.stringify(activityData)}</div>
+  <div>
+    <h1>Hello</h1>
+  </div>
 );
 
 export default (ActivityRunner: ActivityRunnerT);

@@ -5,17 +5,34 @@ export const EventChart = events => {
     <div
       style={{
         position: 'absolute',
-        top: '500px',
+        top: '100px',
         left: '600px'
       }}
     >
-      <svg width="400" height="110">
-        <rect width="300" height="20" fill="white" stroke="black" />
+      <h1
+        style={{
+          position: 'absolute',
+          top: '-60px',
+          left: '0px'
+        }}
+      >
+        Event Bars
+      </h1>
+      <svg width="800" height="110">
+        <rect width="600" height="20" fill="white" stroke="black" />
       </svg>
-
+      <h2
+        style={{
+          position: 'absolute',
+          top: '-10px',
+          left: '-100px'
+        }}
+      >
+        Group 1
+      </h2>
       {events['events'].map((x, i) => (
         <div>
-          {x[1] === 'run' ? (
+          {x[1] === 'vpl:run' ? (
             <img
               src="/clientFiles/ac-cellulo/icon.svg"
               height="20"
@@ -29,7 +46,7 @@ export const EventChart = events => {
           ) : (
             <h3></h3>
           )}
-          {x[1] === 'pause' ? (
+          {x[1] === 'vpl:stop' ? (
             <img
               src="/clientFiles/ac-cellulo/pause.svg"
               height="20"

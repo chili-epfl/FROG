@@ -54,6 +54,7 @@ class Heatmap extends Component {
       if (prevProps.data.length !== this.props.data.length) {
         // console.log('Heatmap.componentDidUpdate(): updating this.state.data.  prevProps.data.length, this.props.data.length', prevProps.data.length, this.props.data.length);
         this.setState({ data: this.props.data });
+        this.draw();
       }
     }
     /* eslint-enable react/no-did-update-set-state */
@@ -78,7 +79,11 @@ class Heatmap extends Component {
 
     if (prevProps.data && prevState.data) {
       if (prevProps.data.length !== prevState.data.length) {
-        // console.log('Heatmap.getSnapshotBeforeUpdate(): redrawing prevProps.data.length, prevState.data.length', prevProps.data.length, prevState.data.length);
+        console.log(
+          'Heatmap.getSnapshotBeforeUpdate(): redrawing prevProps.data.length, prevState.data.length',
+          prevProps.data.length,
+          prevState.data.length
+        );
         this.draw();
       }
     }

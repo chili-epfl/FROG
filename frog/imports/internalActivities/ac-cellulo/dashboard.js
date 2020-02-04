@@ -1,16 +1,52 @@
 import * as React from 'react';
-import { HeatMap } from './heatMap';
-import { EventChart } from './EventChart';
 import AppH from './components/app';
 
 const Viewer = ({ sendMsg, state, activity }) => {
+  const doWhatIWantWithXY = (x, y) => {
+    sendMsg(
+      JSON.stringify({
+        positionx: (x / 96) * 25.4 * 5,
+        positiony: (y / 96) * 25.4 * 5
+      })
+    );
+  };
+
   return (
     <div>
-      <AppH />
+      <div
+        style={{
+          position: 'relative'
+        }}
+      >
+        <h1
+          style={{
+            position: 'absolute',
+            top: '100px',
+            left: '400px'
+          }}
+        >
+          Aggregated Picture of Classroom
+        </h1>
+
+        {state.heatmapData.map((x, i) => (
+          <div
+            style={{
+              position: 'absolute',
+              top: 300 + Math.round(i / 3) * 500 + 'px',
+              left: 400 + (i % 2) * 600 + 'px'
+            }}
+          >
+            <AppH
+              func={doWhatIWantWithXY}
+              data={x}
+              TeamNumber={state.TeamNumber + 1}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
-const Numofteams = 2;
 const widthGridTable = 10;
 const heightGridTable = 10;
 const prepareDataForDisplay = state => state;
@@ -25,17 +61,23 @@ const mergeLog = (state, log) => {
     state.events.push([log.timestamp.getTime(), 'run']);
   }
   //console.log(log.timestamp.getTime() - state.events[15][0]);
-  if (log.Payload.positionx) {
-    state.gridTable[Number((log.Payload.positionx / 10).toFixed(0))][0] =
-      state.gridTable[Number((log.Payload.positionx / 10).toFixed(0))][0] + 1;
+  if ('Payload' in log) {
+    state.heatmapData[log.ID.TeamNumber].push([
+      Number(((log.Payload.positionx * 96) / 25.4 / 5).toFixed(0)),
+      Number(((log.Payload.positiony * 96) / 25.4 / 5).toFixed(0)),
+      1
+    ]);
+    state.TeamNumber = log.ID.TeamNumber;
   }
-  console.log(Number((6.388689).toFixed(0)));
-  console.log(state.events.length);
-  console.log(log);
-  console.log(state.gridTable);
+  console.log(state.heatmapData);
 };
+
 export default {
   initData: {
+    TeamNumber: 0,
+    heatmapData: new Array(4)
+      .fill(0)
+      .map(() => new Array(1).fill(0).map(() => new Array(3).fill(0))),
     gridTable: new Array(heightGridTable)
       .fill(0)
       .map(() => new Array(widthGridTable).fill(0)),
