@@ -82,20 +82,19 @@ wss.on(
       Meteor.bindEnvironment(data => {
         console.info('received', data);
         try {
-          const uniques = UniqueIds.find({ activityUniqueId: id }).fetch();
-          console.log(uniques);
-          uniques.forEach(u => {
-            console.log(u);
-            console.log(Activities.findOne(u._id));
+          const activities = Activities.find({
+            'data.uniqueId': id,
+            actualStartingTime: { $exists: true },
+            actualClosingTime: { $exists: false }
           });
-          const unique = uniques[0];
-
-          const logmsg = JSON.parse(data);
-          if (!unique) throw 'UniqueId not found';
-          logmsg.activityId = unique.activityId;
-          logmsg.activityType = 'ac-cellulo';
-          console.info('log msg:', logmsg);
-          Meteor.call('merge.log', logmsg);
+          console.log(activities);
+          activities.forEach(a => {
+            const logmsg = JSON.parse(data);
+            logmsg.activityId = a._id;
+            logmsg.activityType = 'ac-cellulo';
+            console.info('log msg:', logmsg);
+            Meteor.call('merge.log', logmsg);
+          });
         } catch (e) {
           ws.send(e.message);
           console.error(e);
