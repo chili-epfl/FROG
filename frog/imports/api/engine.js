@@ -174,8 +174,8 @@ export const runSessionFn = (sessionId: string) => {
     });
     uniqueIds.forEach(act =>
       UniqueIds.update(
-        act.data.uniqueId,
-        { activityId: act._id },
+        act._id,
+        { activityUniqueId: act.data.uniqueId },
         { upsert: true }
       )
     );

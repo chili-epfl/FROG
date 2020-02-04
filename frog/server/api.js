@@ -82,11 +82,11 @@ wss.on(
       Meteor.bindEnvironment(data => {
         console.info('received', data);
         try {
-          const uniques = UniqueIds.find(id).fetch();
+          const uniques = UniqueIds.find({ activityUniqueId: id }).fetch();
           console.log(uniques);
           uniques.forEach(u => {
             console.log(u);
-            console.log(Activities.findOne(unique.activityId));
+            console.log(Activities.findOne(u._id));
           });
           const unique = uniques[0];
 
