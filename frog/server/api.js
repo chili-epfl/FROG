@@ -88,13 +88,13 @@ wss.on(
             actualClosingTime: { $exists: false }
           }).fetch();
           console.log(activities);
-          activities.forEach(a => {
-            const logmsg = JSON.parse(data);
-            logmsg.activityId = a._id;
-            logmsg.activityType = 'ac-cellulo';
-            console.info('log msg:', logmsg);
-            Meteor.call('merge.log', logmsg);
-          });
+          // activities.forEach(a => {
+          //   const logmsg = JSON.parse(data);
+          //   logmsg.activityId = a._id;
+          //   logmsg.activityType = 'ac-cellulo';
+          //   console.info('log msg:', logmsg);
+          //   Meteor.call('merge.log', logmsg);
+          // });
         } catch (e) {
           ws.send(e.message);
           console.error(e);
