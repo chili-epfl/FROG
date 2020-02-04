@@ -15,7 +15,7 @@ import requestFun from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
 import { Sessions } from '/imports/api/sessions';
-import { UniqueIds } from '/imports/api/activities';
+import { UniqueIds, Activities } from '/imports/api/activities';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
@@ -82,9 +82,16 @@ wss.on(
       Meteor.bindEnvironment(data => {
         console.info('received', data);
         try {
-          const unique = UniqueIds.findOne(id);
+          const uniques = UniqueIds.find(id).fetch();
+          console.log(uniques);
+          uniques.forEach(u => {
+            console.log(u);
+            console.log(Activities.findOne(unique.activityId));
+          });
+          const unique = uniques[0];
+
           const logmsg = JSON.parse(data);
-          if (!unique) throw("UniqueId not found")
+          if (!unique) throw 'UniqueId not found';
           logmsg.activityId = unique.activityId;
           logmsg.activityType = 'ac-cellulo';
           console.info('log msg:', logmsg);
