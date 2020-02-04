@@ -86,7 +86,10 @@ wss.on(
             'data.uniqueId': id,
             actualStartingTime: { $exists: true },
             actualClosingTime: { $exists: false }
-          }).fetch();
+          })
+            .sort({ actualStartingTime: -1 })
+            .limit(5)
+            .fetch();
           console.log(activities);
           // activities.forEach(a => {
           //   const logmsg = JSON.parse(data);
