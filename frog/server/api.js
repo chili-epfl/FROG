@@ -82,14 +82,14 @@ wss.on(
       Meteor.bindEnvironment(data => {
         console.info('received', data);
         try {
-          const activities = Activities.find({
-            'data.uniqueId': id,
-            actualStartingTime: { $exists: true },
-            actualClosingTime: { $exists: false }
-          })
-            .sort({ actualStartingTime: -1 })
-            .limit(5)
-            .fetch();
+          const activities = Activities.find(
+            {
+              'data.uniqueId': id,
+              actualStartingTime: { $exists: true },
+              actualClosingTime: { $exists: false }
+            },
+            { sort: { actualStartingTime: -1 }, limit: 5 }
+          ).fetch();
           console.log(activities);
           // activities.forEach(a => {
           //   const logmsg = JSON.parse(data);
