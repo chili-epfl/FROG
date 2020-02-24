@@ -150,7 +150,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
     const { boxes, dropBins } = this.state;
 
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
           <Typography variant="h5" color="secondary" gutterBottom>
             Question
@@ -163,7 +163,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
           <Typography variant="h6" gutterBottom align="center">
             Your Ticket
           </Typography>
-          <Grid container spacing={16}>
+          <Grid container spacing={3}>
             {dropBins.map(({ id, accepts, lastDroppedItem }, index) => (
               <Grid key={id} item xs={12} sm={6}>
                 <DropElements
@@ -177,17 +177,17 @@ class DragDropController extends React.Component<PropsT, StateT> {
           </Grid>
         </Grid>
         <Grid item sm={6}>
-          <Grid container spacing={24}>
+          <Grid container spacing={3}>
             {boxes.map(({ id, type, values }) => (
               <Grid key={id} item sm={id === 'city' ? 12 : 6}>
-                <Grid container spacing={24}>
+                <Grid container spacing={3}>
                   <Grid item sm={12}>
                     <Typography variant="h6" gutterBottom align="center">
                       {capitalizeFirstLetter(id)}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} sm={12}>
-                    <Grid container spacing={8} justify="center">
+                    <Grid container spacing={2} justify="center">
                       {values.map(item => (
                         <Grid key={item} item sm={4}>
                           <Box name={item} type={type} />

@@ -13,11 +13,14 @@ import mergeLog from '../mergeLog';
 const styles = {
   main: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   container: {
     padding: '40px',
-    height: '100%'
+    flex: 1,
+    overflow: 'auto'
   },
   progressBarHeight: { height: '12px' },
   progressBarColor: { backgroundColor: '#F45B69' },

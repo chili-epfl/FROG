@@ -68,7 +68,7 @@ export function commandDataStructure(command: string) {
     answer[C2] = '2nd';
   }
 
-  return {
+  const ret = {
     from: cities[0],
     to: cities[1],
     fare: answer[0],
@@ -77,6 +77,6 @@ export function commandDataStructure(command: string) {
     travel: answer[3],
     text: command
   };
-}
 
-export const testing = true;
+  return ret;
+}

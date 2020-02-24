@@ -86,7 +86,7 @@ export const CommandGuidelines = () => (
 );
 
 export const StartingGuidelines = () => (
-  <Grid container spacing={24}>
+  <Grid container spacing={3}>
     <Grid item style={{ width: '100%' }}>
       <Typography variant="h3" gutterBottom>
         Train Activity
@@ -151,7 +151,7 @@ const SpecificGuidelineController = ({
   classes: Object
 }) => (
   <Grid container justify="center">
-    <Grid container className={step > 0 ? classes.guidelines : ''} spacing={24}>
+    <Grid container className={step > 0 ? classes.guidelines : ''} spacing={3}>
       <Grid item sm={12}>
         <SwitchGuidelines whichInterface={whichInterface} />
       </Grid>

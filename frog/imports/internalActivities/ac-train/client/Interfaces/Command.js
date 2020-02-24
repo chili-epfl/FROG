@@ -92,7 +92,7 @@ class Command extends React.Component<PropsT, StateT> {
               onKeyPress={this.handleEnter}
             />
           </CardContent>
-          <CardActions className={classes.actions} disableActionSpacing>
+          <CardActions className={classes.actions}>
             <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </CardActions>
         </Card>
