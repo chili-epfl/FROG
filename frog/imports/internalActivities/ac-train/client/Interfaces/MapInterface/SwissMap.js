@@ -18,8 +18,8 @@ const SwissMap = ({
   onClickCity
 }: {
   canSelectCity: boolean,
-  position: Object,
-  elementDimensions: Object,
+  position?: Object,
+  elementDimensions?: Object,
   onClickCity: Function
 }) => {
   const classes = useStyles();
