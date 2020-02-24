@@ -169,7 +169,7 @@ class MapInterface extends React.Component<PropsT, StateT> {
           </CardContent>
           <Divider />
           <CardContent>
-            <Grid container spacing={16}>
+            <Grid container spacing={10}>
               <Grid item xs={12} md={8} lg={6}>
                 <ReactCursorPosition>
                   <SwissMap
@@ -199,7 +199,7 @@ class MapInterface extends React.Component<PropsT, StateT> {
               </Grid>
             </Grid>
           </CardContent>
-          <CardActions className={classes.actions} disableActionSpacing>
+          <CardActions className={classes.actions}>
             <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </CardActions>
         </Card>

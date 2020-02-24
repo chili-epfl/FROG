@@ -119,7 +119,7 @@ class Form extends React.Component<PropsT, StateT> {
               </TextField>
             ))}
           </CardContent>
-          <CardActions className={classes.actions} disableActionSpacing>
+          <CardActions className={classes.actions}>
             <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </CardActions>
         </Card>

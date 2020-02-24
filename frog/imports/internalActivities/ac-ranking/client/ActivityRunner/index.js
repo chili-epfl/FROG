@@ -113,7 +113,13 @@ const ActivityRunner = props => {
   };
 
   return (
-    <div className="bootstrap">
+    <div
+      className="bootstrap"
+      style={{
+        height: '100%',
+        overflow: 'auto'
+      }}
+    >
       <Container>
         {data.completed ? (
           <Completed {...props} />
