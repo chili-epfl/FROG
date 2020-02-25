@@ -51,6 +51,7 @@ const ActivityEnded = () => (
   </div>
 );
 
+// $FlowFixMe
 class Main extends React.Component<ActivityRunnerPropsT & { classes: any }> {
   interfaces: Array<string>;
 
@@ -64,6 +65,7 @@ class Main extends React.Component<ActivityRunnerPropsT & { classes: any }> {
     dataFn.numIncr(1, 'step');
   };
 
+  // eslint-disable-next-line
   componentWillMount() {
     const { userInfo } = this.props;
 

@@ -93,7 +93,8 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'react/sort-comp': 'off',
-    'react/state-in-constructor': 'off'
+    'react/state-in-constructor': 'off',
+    'max-classes-per-file': 'off'
   },
   parserOptions: {
     ecmaVersion: 2016,
