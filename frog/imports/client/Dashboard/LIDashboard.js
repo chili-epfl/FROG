@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Meteor } from 'meteor/meteor';
@@ -99,7 +100,7 @@ class MyMenu extends React.Component<any, any> {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <Button
           variant="outlined"
           onClick={e => this.setState({ open: e.currentTarget })}
@@ -121,7 +122,7 @@ class MyMenu extends React.Component<any, any> {
             ))}
           </Menu>
         )}
-      </React.Fragment>
+      </>
     );
   }
 }
