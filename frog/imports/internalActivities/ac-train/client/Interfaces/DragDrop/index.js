@@ -202,6 +202,7 @@ class DragDropController extends React.Component<PropsT, StateT> {
         </Grid>
         <Grid item xs={12} sm={12}>
           <Grid container>
+            {/* $FlowFixMe */}
             <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </Grid>
         </Grid>

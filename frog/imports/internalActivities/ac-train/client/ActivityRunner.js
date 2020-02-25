@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import seededShuffle from 'seededshuffle';
 import { type ActivityRunnerPropsT } from '/imports/frog-utils';
@@ -142,8 +143,7 @@ const RunnerController = props => {
 
 const StyledRunner = withStyles(styles)(RunnerController);
 
-export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
-  render() {
-    return this.props.data && <StyledRunner {...this.props} />;
-  }
-}
+const ActivityRunner = (props: ActivityRunnerPropsT) =>
+  props.data && <StyledRunner {...props} />;
+
+export default ActivityRunner;

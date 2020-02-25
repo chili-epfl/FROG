@@ -77,7 +77,7 @@ class Form extends React.Component<PropsT, StateT> {
     bike: ''
   };
 
-  handleChange = prop => event => {
+  handleChange = (prop: string) => event => {
     this.setState({ [prop]: event.target.value });
   };
 
@@ -120,6 +120,7 @@ class Form extends React.Component<PropsT, StateT> {
             ))}
           </CardContent>
           <CardActions className={classes.actions}>
+            {/* $FlowFixMe */}
             <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </CardActions>
         </Card>

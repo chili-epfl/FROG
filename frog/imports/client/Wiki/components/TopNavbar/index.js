@@ -54,6 +54,7 @@ const TopNavbar = (props: TopNavBarPropsT) => {
       }}
     >
       {primaryNavItems.map((item, index) => (
+        // $FlowFixMe
         <PrimaryButton key={index} {...item} />
       ))}
       <PrimaryButton style={isAnonymous ? { fontStyle: 'italic' } : {}}>

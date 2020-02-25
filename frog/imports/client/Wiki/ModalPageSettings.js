@@ -130,7 +130,7 @@ class PageSettingsModal extends React.Component<PropsT, StateT> {
     }
   };
 
-  handleCheckbox = target => e =>
+  handleCheckbox = (target: string) => e =>
     this.setState({
       ...this.state,
       pageSettings: { ...this.state.pageSettings, [target]: e.target.checked }

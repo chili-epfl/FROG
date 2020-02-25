@@ -170,6 +170,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
     const { activity } = this.state;
     return (
       activity && (
+        // $FlowFixMe
         <DashboardReactiveWrapper activity={activity} {...this.props} />
       )
     );

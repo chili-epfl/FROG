@@ -92,7 +92,8 @@ module.exports = {
     'react/no-unused-state': 'off',
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
-    'react/sort-comp': 'off'
+    'react/sort-comp': 'off',
+    'react/state-in-constructor': 'off'
   },
   parserOptions: {
     ecmaVersion: 2016,

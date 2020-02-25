@@ -56,12 +56,13 @@ const transformData = (data, type, filtered, sortData) => {
     if (sortData) {
       formatData.sort();
     }
+    const dataAxis: string = type === 'histogram' ? 'x' : 'y';
     return {
       type: { dots: 'scatter', box: 'box', histogram: 'histogram' }[type],
       mode: 'markers',
       histofunc: k,
       name: k,
-      [type === 'histogram' ? 'x' : 'y']: formatData
+      [dataAxis]: formatData
     };
   });
   return result;

@@ -66,7 +66,11 @@ const Quiz = ({
         questions.map(([question, questionIndex], i) => (
           <Question
             key={questionIndex}
-            {...{ ...props, question, index: i, questionIndex }}
+            // $FlowFixMe
+            {...props}
+            question={question}
+            index={i}
+            questinoIndex={questionIndex}
           />
         ))}
       <BottomNav
@@ -83,8 +87,10 @@ const Quiz = ({
   );
 };
 
-const DefaultExport: React.ComponentType<*> = withState('index', 'setIndex', 0)(
-  Quiz
-);
+const DefaultExport: React.ComponentType<*> = withState(
+  'index',
+  'setIndex',
+  0
+)(Quiz);
 
 export default DefaultExport;
