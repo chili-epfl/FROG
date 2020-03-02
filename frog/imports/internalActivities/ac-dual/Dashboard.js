@@ -28,10 +28,10 @@ const options = (title, yLabel, xLabel, xmin, xmax) => ({
 });
 
 const Viewer = (props: DashboardViewerPropsT) => (
-  <React.Fragment>
+  <>
     <SymmetryStats {...props} task="easy" />
     <SymmetryStats {...props} task="hard" />
-  </React.Fragment>
+  </>
 );
 
 const SymmetryStats = ({

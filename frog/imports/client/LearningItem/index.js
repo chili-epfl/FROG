@@ -17,7 +17,7 @@ import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
 class LearningItem extends React.Component<
-  LIComponentPropsT & { dataFn: Doc },
+  { ...LIComponentPropsT, dataFn: Doc },
   { reload: string }
 > {
   state = { reload: '' };

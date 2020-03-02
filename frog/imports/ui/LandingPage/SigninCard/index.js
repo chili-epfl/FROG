@@ -108,7 +108,7 @@ export const SigninCard = (props: SigninCardProps) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div className={classes.blackScreen} />
       <div className={classes.root}>
         <IconButton
@@ -184,6 +184,6 @@ export const SigninCard = (props: SigninCardProps) => {
           </Button>
         </form>
       </div>
-    </React.Fragment>
+    </>
   );
 };

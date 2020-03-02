@@ -81,7 +81,7 @@ export const DashboardSideBar = ({
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <SidebarLayout
         sidebar={
           <Sidebar
@@ -198,6 +198,6 @@ export const DashboardSideBar = ({
         <Autofix style={{ marginRight: '10px' }} />
         Create with wizard
       </Fab>
-    </React.Fragment>
+    </>
   );
 };

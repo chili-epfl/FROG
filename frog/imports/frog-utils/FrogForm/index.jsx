@@ -1,7 +1,5 @@
 // @flow
 
-import * as React from 'react';
-
 import withTheme from 'react-jsonschema-form/lib/withTheme';
 
 import { ObjectFieldTemplate } from './ObjectFieldTemplate';

@@ -54,5 +54,10 @@ export default withTracker(() => {
     operatorTypesObj[ext.id] = ext;
   });
 
-  return { ready: every(subscriptions.map(x => x.ready()), Boolean) };
+  return {
+    ready: every(
+      subscriptions.map(x => x.ready()),
+      Boolean
+    )
+  };
 })(TeacherContainer);

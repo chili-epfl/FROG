@@ -19,7 +19,7 @@ const Help = ({
   open: boolean,
   children?: React.Node
 }) => (
-  <React.Fragment>
+  <>
     <Button color="secondary" onClick={onOpen}>
       Help
     </Button>
@@ -38,7 +38,7 @@ const Help = ({
         </Button>
       </DialogActions>
     </Dialog>
-  </React.Fragment>
+  </>
 );
 
 export default Help;

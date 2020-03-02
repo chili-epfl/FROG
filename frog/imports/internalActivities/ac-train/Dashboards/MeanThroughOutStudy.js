@@ -56,7 +56,7 @@ const MeanThrougOutStudy = ({
         ? { x: [1, totalIterations] }
         : { x: [1, totalIterations], y: [0, 1] };
     return (
-      <React.Fragment>
+      <>
         <Paper className={classes.root} elevation={4}>
           <Grid container>
             <Grid item xs={12}>
@@ -83,7 +83,7 @@ const MeanThrougOutStudy = ({
             </Grid>
           </Grid>
         </Paper>
-      </React.Fragment>
+      </>
     );
   } else {
     return (

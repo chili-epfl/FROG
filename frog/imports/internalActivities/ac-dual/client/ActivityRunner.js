@@ -41,7 +41,11 @@ const styles = {
   }
 };
 
-const Activity = withState('ready', 'setReady', false)(props => {
+const Activity = withState(
+  'ready',
+  'setReady',
+  false
+)(props => {
   const {
     data: { step },
     dataFn,
@@ -70,14 +74,14 @@ const Activity = withState('ready', 'setReady', false)(props => {
     );
   } else {
     return (
-      <React.Fragment>
+      <>
         <ActivityWithSpeed {...props} />
         <div style={styles.activityCountdown}>
           <CountDownTimer start={Date.now()} length={activityTime}>
             {texts.timeLeft}
           </CountDownTimer>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 });
@@ -108,7 +112,7 @@ class ActivityWithSpeed extends React.Component<any, any> {
     const { speed } = this.state;
 
     return (
-      <React.Fragment>
+      <>
         <div style={styles.text}>{texts.guidelines[step]}</div>
         <div style={{ display: 'flex' }}>
           {(step === 1 || step === 2 || step === 3) && (
@@ -118,7 +122,7 @@ class ActivityWithSpeed extends React.Component<any, any> {
             <Symmetry {...this.props} width={200} height={300} speed={speed} />
           )}
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

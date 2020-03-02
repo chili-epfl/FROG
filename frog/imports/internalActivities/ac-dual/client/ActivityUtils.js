@@ -49,7 +49,7 @@ const GuidelinesWS = ({
   guidelines: string,
   classes: Object
 }) => (
-  <React.Fragment>
+  <>
     <div style={{ ...styles.container, padding: '20px' }}>
       <HTML html={guidelines} />
       <div style={{ marginTop: '20px' }}>
@@ -62,7 +62,7 @@ const GuidelinesWS = ({
         </Button>
       </div>
     </div>
-  </React.Fragment>
+  </>
 );
 
 export const Guidelines = withStyles(styles)(GuidelinesWS);

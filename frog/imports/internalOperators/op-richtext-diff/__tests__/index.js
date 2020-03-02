@@ -54,7 +54,7 @@ const data = {
 };
 
 test('Basic diff', () => {
-  expect(
+  return expect(
     (() =>
       new Promise(async resolve => {
         await op(config, data, dataFn);

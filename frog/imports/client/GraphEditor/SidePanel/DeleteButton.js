@@ -12,7 +12,7 @@ import { IconButton } from './index';
 
 export default withVisibility(
   ({ msg, onConfirmation, visible, setVisibility, tooltip }: Object) => (
-    <React.Fragment>
+    <>
       <IconButton
         onClick={() => setVisibility(true)}
         icon="glyphicon glyphicon-trash"
@@ -39,6 +39,6 @@ export default withVisibility(
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </>
   )
 );

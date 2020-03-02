@@ -91,7 +91,10 @@ const AddElementRow = ({ data, dataFn, dataset, logger }) => (
       <IconButton
         onClick={() => {
           logger({ type: 'added entry', itemId: dataset });
-          dataFn.listAppend(data.columns.map(() => ''), [dataset, 'values']);
+          dataFn.listAppend(
+            data.columns.map(() => ''),
+            [dataset, 'values']
+          );
         }}
       >
         <Add />

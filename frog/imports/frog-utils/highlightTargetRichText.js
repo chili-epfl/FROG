@@ -20,9 +20,7 @@ export const highlightTargetRichText = (content: Object, target: string) => {
                 targetIdxPtr,
                 targetIdxPtr + target.length
               ),
-              attributes: Object.assign({}, op.attributes, {
-                background: '#ffff00'
-              })
+              attributes: { ...op.attributes, background: '#ffff00' }
             });
             targetIdxPtr += target.length;
           }

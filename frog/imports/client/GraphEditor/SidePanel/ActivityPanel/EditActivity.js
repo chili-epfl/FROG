@@ -56,7 +56,7 @@ const SelectParticipationMode = ({ activity, onChange }) => (
         Only teacher edits, students have read-only views
       </option>
       <option value="projector">
-        {"Only displayed in teacher's projector mode"}
+        Only displayed in teacher's projector mode
       </option>
     </FormControl>
   </FormGroup>
@@ -281,7 +281,7 @@ const RawEditActivity = ({
       )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
       {(advancedOpen || activity.streamTarget) && (
-        <React.Fragment>
+        <>
           <div>
             <A onClick={() => copyURL(activity)}>
               Copy link for headless FROG to clipboard
@@ -297,7 +297,7 @@ const RawEditActivity = ({
             />
           </div>
           <FileForm />
-        </React.Fragment>
+        </>
       )}
       <ReactTooltip />
     </div>

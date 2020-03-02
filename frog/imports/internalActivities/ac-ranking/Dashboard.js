@@ -4,7 +4,12 @@ import { CoordinatesDashboard, ProgressDashboard } from '/imports/frog-utils';
 
 export const getXYFromRanking = (answers: Object, config: Object) => {
   // the hardcoded coordinates of each option
-  const coordinates = [[8, 8], [8, -8], [-8, 8], [-8, -8]];
+  const coordinates = [
+    [8, 8],
+    [8, -8],
+    [-8, 8],
+    [-8, -8]
+  ];
   // the weights attributed to each ranked option for a weighted average
   const weights = [6, 3, 1, 0];
 

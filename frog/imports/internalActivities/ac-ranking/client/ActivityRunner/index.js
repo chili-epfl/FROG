@@ -42,7 +42,7 @@ const styles = {
 };
 
 const Completed = ({ dataFn }) => (
-  <React.Fragment>
+  <>
     <h1>Activity completed!</h1>
     <div style={{ width: '100%' }}>
       <button
@@ -53,7 +53,7 @@ const Completed = ({ dataFn }) => (
         Back to activity
       </button>
     </div>
-  </React.Fragment>
+  </>
 );
 
 const ActivityRunner = props => {
@@ -156,7 +156,7 @@ const ActivityRunner = props => {
               </div>
             </div>
             {nKey(answers[userInfo.id] || {}) < config.answers.length && (
-              <React.Fragment>
+              <>
                 <hr style={{ height: '5px' }} />
                 <div>
                   <div style={{ width: '100%' }}>
@@ -183,7 +183,7 @@ const ActivityRunner = props => {
                     </div>
                   </div>
                 </div>
-              </React.Fragment>
+              </>
             )}
             <hr style={{ height: '5px' }} />
             {config.justify && <Justification {...props} key="justification" />}

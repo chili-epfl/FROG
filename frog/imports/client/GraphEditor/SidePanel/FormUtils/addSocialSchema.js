@@ -47,66 +47,98 @@ export default (schema: Object, uiSchema: ?Object): Object => {
   delete newSchema.properties.component;
 
   const socialMerges = socialPaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'socialAttributeWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'socialAttributeWidget'
+      }
+    )
   );
   const quillMerges = quillPaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'quillWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'quillWidget'
+      }
+    )
   );
   const LIMerges = LITypePaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'learningItemTypeWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'learningItemTypeWidget'
+      }
+    )
   );
   const LIEditorMerges = LITypeEditorPaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'learningItemTypeEditorWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'learningItemTypeEditorWidget'
+      }
+    )
   );
   const anyActivityMerges = anyActivityPaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'anyActivityWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'anyActivityWidget'
+      }
+    )
   );
 
   const sourceActivityMerges = sourceActivityPaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'sourceActivityWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'sourceActivityWidget'
+      }
+    )
   );
 
   const targetActivityMerges = targetActivityPaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:widget': 'targetActivityWidget'
-    })
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:widget': 'targetActivityWidget'
+      }
+    )
   );
 
   const rteMerges = rtePaths.map(x =>
-    set({}, x.filter(y => y !== 'properties'), {
-      'ui:field': 'rteField',
-      rte: {
-        toolbarConfig: {
-          display: [
-            'INLINE_STYLE_BUTTONS',
-            'LINK_BUTTONS',
-            'BLOCK_TYPE_BUTTONS',
-            'IMAGE_BUTTON'
-          ],
-          INLINE_STYLE_BUTTONS: [
-            { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
-            { label: 'Italic', style: 'ITALIC' },
-            { label: 'Underline', style: 'UNDERLINE' }
-          ],
-          BLOCK_TYPE_BUTTONS: [
-            { label: 'UL', style: 'unordered-list-item' },
-            { label: 'OL', style: 'ordered-list-item' }
-          ]
+    set(
+      {},
+      x.filter(y => y !== 'properties'),
+      {
+        'ui:field': 'rteField',
+        rte: {
+          toolbarConfig: {
+            display: [
+              'INLINE_STYLE_BUTTONS',
+              'LINK_BUTTONS',
+              'BLOCK_TYPE_BUTTONS',
+              'IMAGE_BUTTON'
+            ],
+            INLINE_STYLE_BUTTONS: [
+              { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
+              { label: 'Italic', style: 'ITALIC' },
+              { label: 'Underline', style: 'UNDERLINE' }
+            ],
+            BLOCK_TYPE_BUTTONS: [
+              { label: 'UL', style: 'unordered-list-item' },
+              { label: 'OL', style: 'ordered-list-item' }
+            ]
+          }
         }
       }
-    })
+    )
   );
 
   const newUiSchema = merge(
