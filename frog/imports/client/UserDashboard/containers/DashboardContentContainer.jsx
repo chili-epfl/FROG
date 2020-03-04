@@ -4,6 +4,7 @@ import { RecentsPage } from '/imports/client/UserDashboard/components/RecentsPag
 import { DraftsPage } from '/imports/client/UserDashboard/components/DraftsPage';
 import { TemplatesPage } from '/imports/client/UserDashboard/components/TemplatesPage';
 import { ArchivesPage } from '/imports/client/UserDashboard/components/ArchivesPage';
+import { AdminsPage } from '/imports/client/UserDashboard/components/AdminsPage';
 import { SessionsPage } from '/imports/client/UserDashboard/components/SessionsPage';
 import {
   DraftsListT,
@@ -26,68 +27,9 @@ export const DashboardContentContainer = ({
   templatesList,
   archives
 }: DashboardContentContainerPropsT) => {
-  const [selectedPage, setSelectedPage] = React.useState({
-    sessionsView: false,
-    draftsView: false,
-    templatesView: false,
-    recentsView: true,
-    archivesView: false
-  });
   const [activePage, setActivePage] = React.useState(
     draftsList.length === 0 ? 'Sessions' : 'Recents'
   );
-
-  const onSelectRecentsView = () => {
-    setActivePage('Recents');
-    setSelectedPage({
-      sessionsView: false,
-      draftsView: false,
-      templatesView: false,
-      recentsView: true,
-      archivesView: false
-    });
-  };
-  const onSelectSessionsView = () => {
-    setActivePage('Sessions');
-    setSelectedPage({
-      sessionsView: true,
-      recentsView: false,
-      templatesView: false,
-      draftsView: false,
-      archivesView: false
-    });
-  };
-  const onSelectDraftsView = () => {
-    setActivePage('Drafts');
-    setSelectedPage({
-      sessionsView: false,
-      draftsView: true,
-      templatesView: false,
-      recentsView: false,
-      archivesView: false
-    });
-  };
-  const onSelectTemplatesView = () => {
-    setActivePage('Templates');
-    setSelectedPage({
-      sessionsView: false,
-      draftsView: false,
-      templatesView: true,
-      recentsView: false,
-      archivesView: false
-    });
-  };
-
-  const onSelectArchivesView = () => {
-    setActivePage('Archives');
-    setSelectedPage({
-      sessionsView: false,
-      draftsView: false,
-      templatesView: false,
-      recentsView: false,
-      archivesView: true
-    });
-  };
 
   const sortList = (list): SessionListT | DraftsListT | TemplatesListT => {
     return list.sort((a, b) => b.dateObj - a.dateObj);
@@ -123,9 +65,7 @@ export const DashboardContentContainer = ({
             draftsList={sortedDraftsList}
             templatesList={sortedTemplatesList}
             actionCallback={() => history.push('/teacher/graph/new')}
-            moreCallbackSessions={onSelectSessionsView}
-            moreCallbackDrafts={onSelectDraftsView}
-            moreCallbackTemplates={onSelectTemplatesView}
+            viewCallback={setActivePage}
           />
         );
       case 'Sessions':
@@ -156,6 +96,9 @@ export const DashboardContentContainer = ({
           />
         );
 
+      case 'Admin Control':
+        return <AdminsPage history={history} />;
+
       default:
         return (
           <RecentsPage
@@ -163,28 +106,29 @@ export const DashboardContentContainer = ({
             draftsList={sortedDraftsList}
             templatesList={sortedTemplatesList}
             actionCallback={() => history.push('/teacher')}
-            moreCallbackSessions={onSelectSessionsView}
-            moreCallbackDrafts={onSelectDraftsView}
-            moreCallbackTemplates={onSelectTemplatesView}
+            viewCallback={setActivePage}
           />
         );
     }
   };
 
+  const [userAdmin, setUserAdmin] = React.useState(false);
+
+  React.useEffect(() => {
+    Meteor.call('check.admin', (err, res) => {
+      if (err) {
+        console.info(err);
+      }
+      setUserAdmin(res);
+    });
+  }, []);
+
   return (
     <DashboardSideBar
-      callbackSessionsView={onSelectSessionsView}
-      callbackRecentsView={onSelectRecentsView}
-      callbackDraftsView={onSelectDraftsView}
-      callbackTemplatesView={onSelectTemplatesView}
-      callbackArchivesView={onSelectArchivesView}
-      sessionsActive={draftsList.length === 0 || selectedPage.sessionsView}
-      draftsActive={selectedPage.draftsView}
-      recentsActive={selectedPage.recentsView}
-      templatesActive={selectedPage.templatesView}
-      archivesActive={selectedPage.archivesView}
+      callbackView={setActivePage}
       activePage={activePage}
       history={history}
+      showSessions={draftsList.length === 0 || activePage === 'Sessions'}
       showDrafts={draftsList.length > 0}
       showTemplates={templatesList.length > 0}
       showArchives={
@@ -192,6 +136,7 @@ export const DashboardContentContainer = ({
         archives.sessions.length > 0 ||
         archives.templates.length > 0
       }
+      showAdmin={userAdmin}
     >
       <ComponentToRender />
     </DashboardSideBar>

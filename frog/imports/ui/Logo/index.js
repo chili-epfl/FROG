@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core';
 const LogoSVG = () => (
   <svg
     width="80"
-    height="auto"
     viewBox="0 0 650 266"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

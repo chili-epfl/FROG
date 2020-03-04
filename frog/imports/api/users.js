@@ -60,17 +60,12 @@ export const getUserType = (user?: UserObj): UserType => {
   else return 'No user logged in';
 };
 
-export const checkUserAdmin = (user?: UserObj): boolean => {
-  const selectedUser = getUser(user);
-  if (!selectedUser) return false;
-  return selectedUser.isAdmin ? selectedUser.isAdmin : false;
-};
 /**
  * Returns the appropriate user object based on the type of user. If no user is passed as args then will return the current user object.
  * If there is no user logged in, returns undefined.
  * @param: {User=} user
  */
-const getUser = (user?: UserObj): ?MeteorUser => {
+export const getUser = (user?: UserObj): MeteorUser => {
   // object spread to allow destructure a null object
   const { id, meteorUser } = { ...user };
   if (id) return Meteor.users.findOne(id);

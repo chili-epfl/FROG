@@ -33,9 +33,7 @@ type RecentsPagePropsT = {
   draftsList: DraftsListT,
   templatesList: TemplatesListT,
   actionCallback: () => void,
-  moreCallbackSessions: () => void,
-  moreCallbackDrafts: () => void,
-  moreCallbackTemplates: () => void
+  viewCallback: string => void
 };
 
 export const RecentsPage = ({
@@ -43,9 +41,7 @@ export const RecentsPage = ({
   draftsList,
   templatesList,
   actionCallback,
-  moreCallbackDrafts,
-  moreCallbackSessions,
-  moreCallbackTemplates
+  viewCallback
 }: RecentsPagePropsT) => {
   const classes = useStyles();
   return (
@@ -71,7 +67,9 @@ export const RecentsPage = ({
             </List>
             {draftsList.length > 6 && (
               <Button
-                onClick={moreCallbackDrafts}
+                onClick={() => {
+                  viewCallback('Drafts');
+                }}
                 icon={<MoreHoriz />}
                 variant="minimal"
               >
@@ -119,7 +117,9 @@ export const RecentsPage = ({
           </List>
           {sessionsList.length > 6 && (
             <Button
-              onClick={moreCallbackSessions}
+              onClick={() => {
+                viewCallback('Sessions');
+              }}
               icon={<MoreHoriz />}
               variant="minimal"
             >
@@ -168,7 +168,9 @@ export const RecentsPage = ({
             </List>
             {templatesList.length > 6 && (
               <Button
-                onClick={moreCallbackTemplates}
+                onClick={() => {
+                  viewCallback('Templates');
+                }}
                 icon={<MoreHoriz />}
                 variant="minimal"
               >

@@ -237,6 +237,9 @@ const FROGRouter = withRouter(
               false
             );
             this.setState({ mode: 'ready' });
+            if (query.redirect) {
+              this.props.history.push(query.redirect);
+            }
           });
           return;
         }
