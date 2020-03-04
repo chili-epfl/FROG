@@ -8,6 +8,8 @@ import Buffer from 'buffer';
 import * as Sentry from '@sentry/browser';
 import App from '/imports/client/App';
 
+console.log('main.jsx 1');
+
 Sentry.init({
   dsn: 'https://59d972c46140436a8bd7094bd6e3eb82@sentry.io/214223',
   release: Meteor.gitCommitHash,
@@ -39,7 +41,12 @@ const theme = createMuiTheme({
 });
 
 global.Buffer = Buffer.Buffer;
+
+console.log('main.jsx 2');
+
 Meteor.startup(() => {
+  console.log('main.jsx 3');
+
   render(
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
@@ -47,4 +54,6 @@ Meteor.startup(() => {
     </MuiThemeProvider>,
     document.getElementById('render-target')
   );
+
+  console.log('main.jsx 4');
 });
