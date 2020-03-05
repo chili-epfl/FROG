@@ -34,8 +34,6 @@ import AccountModal from '/imports/client/AccountModal/AccountModal';
 import Dialog from '@material-ui/core/Dialog';
 import { getUserType } from '/imports/api/users';
 
-console.log('App/index.js 1');
-
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
   loading: () => null,
@@ -110,7 +108,6 @@ const FROGRouter = withRouter(
 
     constructor(props) {
       super(props);
-      console.log('App/index.js 2');
 
       this.state = { mode: 'waiting' };
       if (Meteor.user()) {
@@ -121,13 +118,9 @@ const FROGRouter = withRouter(
           }
         });
       }
-
-      console.log('App/index.js 3');
     }
 
     componentDidMount() {
-      console.log('App/index.js 4');
-
       this.update();
       Modal.setAppElement('#render-target');
       window.notReady = this.notReady;
@@ -332,8 +325,6 @@ const FROGRouter = withRouter(
     };
 
     render() {
-      console.log('App/index.js 5');
-
       const learnUrl = window.location.hostname.slice(0, 6) === 'learn.';
       const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
@@ -453,8 +444,6 @@ export default class Root extends React.Component<
   };
 
   render() {
-    console.log('App/index.js 6');
-
     if (this.state.mode === 'waiting') {
       return <p>Waiting</p>;
     } else if (this.state.api && this.state.data) {

@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { makeStyles, Container, Typography, Button } from '@material-ui/core';
+import { Container, Typography, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { blueGrey } from '@material-ui/core/colors';
 import { withRouter } from 'react-router';
 

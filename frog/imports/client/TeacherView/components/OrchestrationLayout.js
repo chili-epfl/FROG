@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Sidebar } from '/imports/ui/Sidebar';
 import { PopupLayout } from '/imports/ui/Layout/PopupLayout';

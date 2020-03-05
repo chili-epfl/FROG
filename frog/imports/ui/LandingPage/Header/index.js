@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { Logo } from '/imports/ui/Logo';
 import { blueGrey } from '@material-ui/core/colors';
 

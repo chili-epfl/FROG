@@ -7,7 +7,7 @@ import {
   Stop,
   Pause,
   SkipNext,
-  Rewind,
+  FastRewind,
   Refresh,
   Clear
 } from '@material-ui/icons';
@@ -45,7 +45,7 @@ const variants = {
   },
   prev: {
     title: 'Previous Activity',
-    icon: Rewind
+    icon: FastRewind
   },
   restart: {
     title: 'Restart Session',

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
-  makeStyles,
   Typography,
   TextField,
   InputAdornment,
   IconButton,
   Button
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { blueGrey } from '@material-ui/core/colors';
 import { Visibility, VisibilityOff, Close } from '@material-ui/icons';
 
