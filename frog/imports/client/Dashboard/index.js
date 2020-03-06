@@ -57,14 +57,12 @@ const RawDashboardComp = ({
   const Dash = aT.dashboards[name].Viewer;
   return state ? (
     <Dash
-      {...{
-        state,
-        users,
-        activity,
-        instances,
-        object,
-        LearningItem: dataFn.LearningItem
-      }}
+      state={state}
+      users={users}
+      activity={activity}
+      instances={instances}
+      object={object}
+      LearningItem={dataFn.LearningItem}
     />
   ) : null;
 };
@@ -172,6 +170,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
     const { activity } = this.state;
     return (
       activity && (
+        // $FlowFixMe
         <DashboardReactiveWrapper activity={activity} {...this.props} />
       )
     );

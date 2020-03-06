@@ -39,6 +39,7 @@ const theme = createMuiTheme({
 });
 
 global.Buffer = Buffer.Buffer;
+
 Meteor.startup(() => {
   render(
     <MuiThemeProvider theme={theme}>

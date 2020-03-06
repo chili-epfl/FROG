@@ -49,7 +49,7 @@ const Viewer = ({ state }: DashboardViewerPropsT) => {
           avgTime(results[x])
         ]);
   return (
-    <React.Fragment>
+    <>
       <Chart
         chartType="LineChart"
         columns={[
@@ -80,7 +80,7 @@ const Viewer = ({ state }: DashboardViewerPropsT) => {
           45000
         )}
       />
-    </React.Fragment>
+    </>
   );
 };
 

@@ -174,10 +174,10 @@ class SessionBody extends React.Component<
       return <CircularProgress />;
     }
     return (
-      <React.Fragment>
+      <>
         {session.countdownStartTime && <Countdown session={session} />}
         <StyledStudentView session={session} activities={activities} />
-      </React.Fragment>
+      </>
     );
   }
 }

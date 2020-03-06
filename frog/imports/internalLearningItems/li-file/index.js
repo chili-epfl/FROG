@@ -30,10 +30,10 @@ export const Creator: React.ComponentType<*> = compose(
   props.spinner ? (
     <CircularProgress />
   ) : (
-    <React.Fragment>
+    <>
       <UploadBar {...props} />
       {props.webcamOn && <WebcamInterface {...props} />}
-    </React.Fragment>
+    </>
   )
 );
 

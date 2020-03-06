@@ -96,7 +96,7 @@ const TopBarWrapper = ({
               <RowTitle>Logged in as {getUsername()} </RowTitle>
               <RowDivider />
               {userType === 'Anonymous' && (
-                <React.Fragment>
+                <>
                   <RowButton
                     onClick={openSignUpModal}
                     icon={<LockOutlinedIcon />}
@@ -109,10 +109,10 @@ const TopBarWrapper = ({
                   >
                     Login
                   </RowButton>
-                </React.Fragment>
+                </>
               )}
               {userType === 'Verified' && (
-                <React.Fragment>
+                <>
                   <RowButton onClick={openPersonalProfileModal} icon={<Edit />}>
                     Edit your profile
                   </RowButton>
@@ -127,10 +127,10 @@ const TopBarWrapper = ({
                   <RowButton onClick={doLogout} icon={<LockOutlinedIcon />}>
                     Logout
                   </RowButton>
-                </React.Fragment>
+                </>
               )}
               {userType === 'Legacy' && (
-                <React.Fragment>
+                <>
                   <RowButton
                     onClick={openSignUpModal}
                     icon={<LockOutlinedIcon />}
@@ -141,7 +141,7 @@ const TopBarWrapper = ({
                   <RowButton onClick={doLogout} icon={<LockOutlinedIcon />}>
                     Logout
                   </RowButton>
-                </React.Fragment>
+                </>
               )}
             </OverflowMenu>
           </>

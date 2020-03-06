@@ -197,7 +197,7 @@ class Interface extends React.Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         <RunActivity
           whichInterface={whichInterface}
           ticket={getCommandForTicket(question)}
@@ -207,7 +207,7 @@ class Interface extends React.Component {
           onHelpClose={this.handleHelpClose}
           ticker={secondsRemaining}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

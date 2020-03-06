@@ -72,7 +72,7 @@ export const checkUserAdmin = (user?: UserObj): boolean => {
  */
 const getUser = (user?: UserObj): ?MeteorUser => {
   // object spread to allow destructure a null object
-  const { id, meteorUser } = { ...user };
+  const { id, meteorUser } = user || {};
   if (id) return Meteor.users.findOne(id);
   else if (meteorUser) return meteorUser;
   else return Meteor.user();

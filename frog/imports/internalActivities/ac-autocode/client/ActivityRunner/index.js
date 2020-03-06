@@ -53,6 +53,7 @@ class ActivityRunner extends React.Component<
               tests={config.tests}
               runCode={this.runCode}
               handleError={this.handleError}
+              // $FlowFixMe
               {...props}
             />
           )}

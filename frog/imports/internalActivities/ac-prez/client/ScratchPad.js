@@ -559,16 +559,16 @@ class ScratchPad extends Component {
       >
         <div>
           <div style={toolbarStyle}>
-            <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+            <div style={{ ...groupDivStyle, ...leftyStyle }}>
               {annotateItems}
             </div>
-            <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
+            <div style={{ ...groupDivStyle, ...drawingItemsStyle }}>
               <span>{drawingItems}</span>
             </div>
-            <div style={Object.assign({}, groupDivStyle, midStyle)}>
+            <div style={{ ...groupDivStyle, ...midStyle }}>
               <span>ScratchPad</span>
             </div>
-            <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+            <div style={{ ...groupDivStyle, ...rightyStyle }}>
               {modifyingitems}
             </div>
           </div>

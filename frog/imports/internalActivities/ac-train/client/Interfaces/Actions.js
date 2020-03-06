@@ -49,7 +49,7 @@ class Actions extends React.Component {
       submitAnswer
     } = this.props;
     return (
-      <React.Fragment>
+      <>
         <IconButton className={classes.tickerButton}>
           <Timer />
           <span className={classes.ticker}>:{ticker}</span>
@@ -67,7 +67,7 @@ class Actions extends React.Component {
             Buy
           </Button>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

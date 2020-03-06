@@ -434,7 +434,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       }
     }
 
-    const mergedObj = Object.assign({}, fullPageObj, instanceObj);
+    const mergedObj = { ...fullPageObj, ...instanceObj };
     return mergedObj;
   };
 

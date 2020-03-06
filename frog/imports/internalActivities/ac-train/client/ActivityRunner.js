@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import seededShuffle from 'seededshuffle';
 import { type ActivityRunnerPropsT } from '/imports/frog-utils';
@@ -50,6 +51,7 @@ const ActivityEnded = () => (
   </div>
 );
 
+// $FlowFixMe
 class Main extends React.Component<ActivityRunnerPropsT & { classes: any }> {
   interfaces: Array<string>;
 
@@ -63,6 +65,7 @@ class Main extends React.Component<ActivityRunnerPropsT & { classes: any }> {
     dataFn.numIncr(1, 'step');
   };
 
+  // eslint-disable-next-line
   componentWillMount() {
     const { userInfo } = this.props;
 
@@ -142,8 +145,7 @@ const RunnerController = props => {
 
 const StyledRunner = withStyles(styles)(RunnerController);
 
-export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
-  render() {
-    return this.props.data && <StyledRunner {...this.props} />;
-  }
-}
+const ActivityRunner = (props: ActivityRunnerPropsT) =>
+  props.data && <StyledRunner {...props} />;
+
+export default ActivityRunner;

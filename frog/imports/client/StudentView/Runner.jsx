@@ -54,7 +54,7 @@ const Runner = ({ activity, sessionId, object, paused }) => {
         ]
           .map(x => object.globalStructure?.students[x])
           .sort()
-      : undefined;
+      : [];
 
   let groupingValue;
   if ([3, 4].includes(activity.plane)) {
@@ -142,15 +142,13 @@ const Runner = ({ activity, sessionId, object, paused }) => {
       <RunActivity
         key={reactiveId}
         activityTypeId={activity.activityType}
-        {...{
-          reactiveId,
-          logger,
-          stream,
-          activityData,
-          groupingValue,
-          sessionId,
-          readOnly
-        }}
+        reactiveId={reactiveId}
+        logger={logger}
+        stream={stream}
+        activityData={activityData}
+        groupingValue={groupingValue}
+        sessionId={sessionId}
+        readOnly={readOnly}
         activityId={activity._id}
         username={
           getUsername(undefined, { activityRunner: true }) || 'No Username'

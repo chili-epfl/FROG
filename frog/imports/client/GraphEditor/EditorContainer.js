@@ -53,13 +53,13 @@ const styles = () => ({
 });
 
 const EditorPanel = withStyles(styles)(({ classes }) => (
-  <React.Fragment>
+  <>
     <div className={classes.editor}>
       <ReactTooltip delayShow={500} />
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-  </React.Fragment>
+  </>
 ));
 
 type StateT = {

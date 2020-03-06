@@ -71,17 +71,17 @@ let noAnswerTimeout;
 let delayTimeout;
 
 const Guidelines = ({ start, guidelines, name }) => (
-  <React.Fragment>
+  <>
     <div style={styles.text}>Welcome {name}!</div>
     <div style={styles.guidelines}>
       <HTML html={guidelines} />
     </div>
     <div style={{ ...styles.commands, width: '120px' }}>
       <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
-        {'Start'}
+        Start
       </Button>
     </div>
-  </React.Fragment>
+  </>
 );
 
 const CountDownTimer = TimedComponent(({ timeNow, length, start }) => {
@@ -93,10 +93,10 @@ const Delay = ({ next, delay }) => {
   clearTimeout(delayTimeout);
   delayTimeout = setTimeout(next, delay);
   return (
-    <React.Fragment>
+    <>
       <div style={styles.text}>Waiting for next question</div>
       <CountDownTimer start={Date.now()} length={delay} />
-    </React.Fragment>
+    </>
   );
 };
 
@@ -142,7 +142,7 @@ const Question = props => {
   clearTimeout(noAnswerTimeout);
   noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
   return (
-    <React.Fragment>
+    <>
       <div style={styles.text}>
         <HTML html={curQuestion[0].question} />
       </div>
@@ -161,11 +161,15 @@ const Question = props => {
         })}
       </div>
       <CountDownTimer start={Date.now()} length={activityData.config.maxTime} />
-    </React.Fragment>
+    </>
   );
 };
 
-const Main = withState('question', 'setQuestion', null)(props => {
+const Main = withState(
+  'question',
+  'setQuestion',
+  null
+)(props => {
   const { activityData, question, setQuestion, data, logger } = props;
   const { questions, delay, guidelines } = activityData.config;
   const { name } = props.userInfo;

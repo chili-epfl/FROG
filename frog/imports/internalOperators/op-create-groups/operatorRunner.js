@@ -6,7 +6,7 @@ const operator = (configData, object) => {
   const { globalStructure } = object;
   const ids = shuffle(globalStructure.studentIds);
 
-  const newGrouping =
+  const newGrouping: string =
     configData.grouping && configData.grouping.length > 0
       ? configData.grouping
       : 'group';

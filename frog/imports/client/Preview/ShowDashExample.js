@@ -358,7 +358,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
           />
         </div>
         {!isEmpty(logs) && (
-          <React.Fragment>
+          <>
             <div style={{ height: '30px' }}>
               <DashboardSelector
                 onChange={x => {
@@ -403,7 +403,7 @@ class ShowDashExample extends React.Component<PropsT, StateT> {
                 this.throttledDisplaySubset(e);
               }}
             />
-          </React.Fragment>
+          </>
         )}
         <Paper style={{ height: 'calc(100vh - 250px)' }}>
           {this.props.showLogs ? (

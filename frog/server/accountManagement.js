@@ -27,8 +27,10 @@ export const createAccount = (
   if (
     password !== '' &&
     password &&
-    (email !== '' && email) &&
-    (profile?.displayName && profile?.displayName !== '')
+    email !== '' &&
+    email &&
+    profile?.displayName &&
+    profile?.displayName !== ''
   ) {
     if (
       passwordErrors(password) !== '' ||

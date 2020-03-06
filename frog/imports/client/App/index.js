@@ -40,6 +40,7 @@ const TeacherContainer = Loadable({
   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer'),
   componentDescription: 'Teacher container'
 });
+
 const APICall = Loadable({
   loader: () => import('./APICall'),
   loading: () => null,
@@ -107,6 +108,7 @@ const FROGRouter = withRouter(
 
     constructor(props) {
       super(props);
+
       this.state = { mode: 'waiting' };
       if (Meteor.user()) {
         Meteor.subscribe('userData', {
@@ -443,7 +445,7 @@ export default class Root extends React.Component<
 
   render() {
     if (this.state.mode === 'waiting') {
-      return null;
+      return <p>Waiting</p>;
     } else if (this.state.api && this.state.data) {
       return (
         <>

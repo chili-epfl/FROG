@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import {
   type LIComponentPropsT,
@@ -16,10 +17,7 @@ import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
 class LearningItem extends React.Component<
-  {
-    ...{| dataFn: Doc |},
-    ...LIComponentPropsT
-  },
+  { ...LIComponentPropsT, dataFn: Doc },
   { reload: string }
 > {
   state = { reload: '' };

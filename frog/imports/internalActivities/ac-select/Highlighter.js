@@ -72,7 +72,7 @@ export default ({
           }`;
           highlightStyles =
             isActive === true && activeStyle != null
-              ? Object.assign({}, highlightStyle, activeStyle)
+              ? { ...highlightStyle, ...activeStyle }
               : highlightStyle;
           const word = searchWords[text.toLowerCase()];
           return word ? (

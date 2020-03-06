@@ -73,7 +73,11 @@ const Debug = ({
 }) => {
   const debug = () => {
     const stdout = [];
-    runCode(data.code, out => stdout.push(out), () => {}).then(
+    runCode(
+      data.code,
+      out => stdout.push(out),
+      () => {}
+    ).then(
       () => {
         logger({
           type: 'debug',
@@ -117,8 +121,10 @@ const TestPanel = (props: Object) => [
   <Feedback key="feedback" {...props.feedback} />
 ];
 
-const ex: React.ComponentType<*> = withState('feedback', 'setFeedback', {})(
-  TestPanel
-);
+const ex: React.ComponentType<*> = withState(
+  'feedback',
+  'setFeedback',
+  {}
+)(TestPanel);
 
 export default ex;

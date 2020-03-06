@@ -21,6 +21,9 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 # e.g. "meteor/meteor"
 module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/build/programs/web.browser/packages/\1'
 
+[lints]
+deprecated-utility=off
+
 [libs]
 .*node_modules/fbjs/flow/lib
 

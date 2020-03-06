@@ -260,7 +260,7 @@ class Symmetry extends React.Component<
     );
 
     return (
-      <React.Fragment>
+      <>
         <div style={styles.container}>
           <Canvas figure={this.state.figure} {...this.props} />
           <div>
@@ -284,7 +284,7 @@ class Symmetry extends React.Component<
             length={activityData.config.symmetryTime}
           />
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

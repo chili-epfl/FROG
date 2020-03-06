@@ -156,7 +156,7 @@ export const setParticipation = (
 };
 
 export const setStreamTarget = (activityId: string, streamTarget: string) => {
-  const operation = streamTarget ? '$set' : '$unset';
+  const operation: string = streamTarget ? '$set' : '$unset';
   Activities.update(activityId, { [operation]: { streamTarget } });
 };
 

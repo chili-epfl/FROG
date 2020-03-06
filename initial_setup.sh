@@ -17,7 +17,7 @@ then
     exit 1
 fi
     
-YARN_VERSION='1.16.0'
+YARN_VERSION='1.22.0'
 if which yarn && [[ `yarn --version` == $YARN_VERSION ]]; then
     echo 'Using pre-installed global Yarn'; YARN=yarn
 else

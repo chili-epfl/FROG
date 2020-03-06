@@ -74,45 +74,47 @@ const texts = {
 let noAnswerTimeout;
 let delayTimeout;
 
-const Form = withState('language', 'setLanguage', null)(
-  ({ language, setLanguage, onSubmit, name }) => (
-    <React.Fragment>
-      <div style={styles.text}>Welcome {name}!</div>
-      <div style={styles.text}>Choisis ton langage</div>
-      <div style={styles.text}>Choose your language</div>
-      <div style={styles.commands}>
+const Form = withState(
+  'language',
+  'setLanguage',
+  null
+)(({ language, setLanguage, onSubmit, name }) => (
+  <>
+    <div style={styles.text}>Welcome {name}!</div>
+    <div style={styles.text}>Choisis ton langage</div>
+    <div style={styles.text}>Choose your language</div>
+    <div style={styles.commands}>
+      <Button
+        variant="contained"
+        style={{ ...styles.button, left: 0 }}
+        color={language === 'fr' ? 'primary' : undefined}
+        onClick={() => setLanguage('fr')}
+      >
+        Français
+      </Button>
+      <Button
+        variant="contained"
+        style={{ ...styles.button, right: 0 }}
+        color={language === 'en' ? 'primary' : undefined}
+        onClick={() => setLanguage('en')}
+      >
+        English
+      </Button>
+    </div>
+    {language !== null && (
+      <div style={{ ...styles.commands, width: '100px' }}>
         <Button
           variant="contained"
-          style={{ ...styles.button, left: 0 }}
-          color={language === 'fr' ? 'primary' : undefined}
-          onClick={() => setLanguage('fr')}
+          style={{ ...styles.button, width: '100%' }}
+          onClick={() => onSubmit(language)}
+          bsStyle="primary"
         >
-          Français
-        </Button>
-        <Button
-          variant="contained"
-          style={{ ...styles.button, right: 0 }}
-          color={language === 'en' ? 'primary' : undefined}
-          onClick={() => setLanguage('en')}
-        >
-          English
+          Submit
         </Button>
       </div>
-      {language !== null && (
-        <div style={{ ...styles.commands, width: '100px' }}>
-          <Button
-            variant="contained"
-            style={{ ...styles.button, width: '100%' }}
-            onClick={() => onSubmit(language)}
-            bsStyle="primary"
-          >
-            Submit
-          </Button>
-        </div>
-      )}
-    </React.Fragment>
-  )
-);
+    )}
+  </>
+));
 
 const Guidelines = ({ start, guidelines, lang }) => (
   <>
@@ -183,7 +185,7 @@ const Question = props => {
   noAnswerTimeout = setTimeout(onClick(undefined), activityData.config.maxTime);
 
   return (
-    <React.Fragment>
+    <>
       <div style={styles.text}>
         {texts[lang].colorSentence(objectName)}
         <span style={{ color: colorFill }}>{colorName}</span>
@@ -205,11 +207,15 @@ const Question = props => {
         </Button>
       </div>
       <CountDownTimer start={Date.now()} length={activityData.config.maxTime} />
-    </React.Fragment>
+    </>
   );
 };
 
-const Main = withState('question', 'setQuestion', null)(props => {
+const Main = withState(
+  'question',
+  'setQuestion',
+  null
+)(props => {
   const { activityData, question, setQuestion, data, dataFn, logger } = props;
   const { maxQuestions, delay } = activityData.config;
   const lang = data.language;

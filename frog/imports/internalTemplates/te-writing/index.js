@@ -93,7 +93,9 @@ const processTemplate = (template, replacements) => {
         ? JSON.stringify(val)
         : isNumber(val)
         ? val
-        : `"${val}"`;
+        : // $FlowFixMe
+          `"${val}"`;
+    // $FlowFixMe
     return acc.replace(`"{{${x}}}"`, toReplace);
   }, template);
   return [result];

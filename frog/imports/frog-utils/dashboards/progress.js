@@ -13,7 +13,10 @@ import { values } from '../toArray';
 
 const Viewer = (props: Object) => {
   const { state, activity } = props;
-  const nowLine = [{ x: state.now, y: 0 }, { x: state.now, y: 1 }];
+  const nowLine = [
+    { x: state.now, y: 0 },
+    { x: state.now, y: 1 }
+  ];
   const toVictoryFormat = (data, isPred) =>
     (data || []).map((y, i) => {
       const _x = isPred

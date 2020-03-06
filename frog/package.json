@@ -6,7 +6,6 @@
     "start": "nps"
   },
   "dependencies": {
-    "@babel/runtime": "^7.3.1",
     "@houshuang/davefeedread": "^0.5.0",
     "@houshuang/pdf-annotate.js": "^0.0.8",
     "@houshuang/pdfjs-dist": "1.4.162",
@@ -98,7 +97,7 @@
     "react-icons": "^3.3.0",
     "react-iframe": "^1.3.3",
     "react-json-view": "1.19.1",
-    "react-jsonschema-form": "^1.6.1",
+    "react-jsonschema-form": "^1.8.1",
     "react-jsonschema-form-extras": "^0.9.40",
     "react-loadable": "^5.5.0",
     "react-measure": "^2.2.4",
@@ -131,35 +130,5 @@
     "victory": "^31.2.0",
     "wolfy87-eventemitter": "^5.2.5",
     "ws": "^6.1.3"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@babel/plugin-proposal-decorators": "7.3.0",
-    "@babel/plugin-proposal-json-strings": "7.2.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "7.2.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.3.2",
-    "@babel/plugin-proposal-optional-chaining": "7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "7.2.0",
-    "@babel/plugin-syntax-import-meta": "7.2.0",
-    "@babel/plugin-transform-flow-strip-types": "7.2.3",
-    "@babel/preset-env": "7.3.1",
-    "@babel/runtime": "7.2.0",
-    "babel-eslint": "10.0.1",
-    "enzyme": "^3.8.0",
-    "eslint": "^6.0.0",
-    "eslint-config-prettier": "^5.0.0",
-    "eslint-plugin-flowtype": "^3.11.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.1",
-    "flow-bin": "^0.101.1",
-    "jest": "^24.8.0",
-    "jest-cli": "^24.8.0",
-    "nps": "^5.9.3",
-    "prettier": "^1.19.1",
-    "react-test-renderer": "^16.8.6",
-    "regenerator-runtime": "^0.13.1"
   }
 }

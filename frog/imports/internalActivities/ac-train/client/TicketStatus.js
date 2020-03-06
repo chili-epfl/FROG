@@ -45,18 +45,18 @@ type IntervalPropsT = {
 };
 
 const Transition = ({ classes }) => (
-  <React.Fragment>
+  <>
     <Grid item xs={12} className={classes.center}>
       <CircularProgress size={50} />
     </Grid>
     <Grid>
       <Typography align="center">Checking status of your ticket...</Typography>
     </Grid>
-  </React.Fragment>
+  </>
 );
 
 const ValidationStatus = ({ isCorrect, classes }) => (
-  <React.Fragment>
+  <>
     <Grid item xs={12} className={classes.center}>
       <Fab className={isCorrect ? classes.success : classes.failure}>
         {isCorrect ? <Check /> : <Clear />}
@@ -70,7 +70,7 @@ const ValidationStatus = ({ isCorrect, classes }) => (
         {isCorrect ? validationText['success'] : validationText['failure']}
       </Typography>
     </Grid>
-  </React.Fragment>
+  </>
 );
 
 class TicketStatus extends React.Component<IntervalPropsT> {

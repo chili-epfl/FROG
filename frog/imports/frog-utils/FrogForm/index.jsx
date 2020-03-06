@@ -1,6 +1,6 @@
 // @flow
 
-import { withTheme } from 'react-jsonschema-form';
+import withTheme from 'react-jsonschema-form/lib/withTheme';
 
 import { ObjectFieldTemplate } from './ObjectFieldTemplate';
 import { FieldTemplate } from './FieldTemplate';
@@ -13,8 +13,8 @@ const customTheme = {
 };
 
 /**
- * Themed instance of a `react-jsonschema-form` Form. Adds first and second
- * level layouts for object type parameters
+ * Themed instance of a `react-jsonschema-form` Form. Adds
+ * first and second level layouts for object type parameters
  */
 const FrogForm = withTheme(customTheme);
 

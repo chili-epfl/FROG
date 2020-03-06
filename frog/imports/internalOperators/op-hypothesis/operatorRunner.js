@@ -51,9 +51,10 @@ const mapQuery = (query, config) => {
           createdBy: 'op-hypothesis',
           username: parseAnnotation(x).username,
           payload: {
-            rows: [x, ...query.filter(y => y.references?.[0] === x.id)].map(
-              item => parseAnnotation(item)
-            )
+            rows: [
+              x,
+              ...query.filter(y => y.references?.[0] === x.id)
+            ].map(item => parseAnnotation(item))
           }
         }
       }));

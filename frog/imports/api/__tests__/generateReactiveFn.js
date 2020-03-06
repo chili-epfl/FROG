@@ -36,8 +36,22 @@ const wrapOps = (ops, initial = {}) =>
 // array of [initial, [ops], result]
 const tests = [
   [[], [['listAppend', ['hi']]], ['hi']],
-  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
-  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
+  [
+    [],
+    [
+      ['listAppend', ['hi']],
+      ['listPrepend', ['hello']]
+    ],
+    ['hello', 'hi']
+  ],
+  [
+    [],
+    [
+      ['listAppend', ['hi']],
+      ['listPrepend', ['hello']]
+    ],
+    ['hello', 'hi']
+  ],
   [
     [],
     [

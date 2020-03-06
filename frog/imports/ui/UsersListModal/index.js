@@ -2,12 +2,13 @@ import * as React from 'react';
 import {
   Button,
   TextField,
-  makeStyles,
   Dialog,
   DialogActions,
   DialogContent,
   Typography
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { RowButton } from '/imports/ui/RowItems';
 import { Meteor } from 'meteor/meteor';
 

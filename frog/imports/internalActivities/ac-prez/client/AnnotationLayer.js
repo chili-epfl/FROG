@@ -842,7 +842,7 @@ class AnnotationLayer extends Component {
     const cursorItem = (
       <IconButton
         disabled={cursorDisable}
-        style={Object.assign({}, cursorStyle, iconButtonStyle)}
+        style={{ ...cursorStyle, ...iconButtonStyle }}
         color={cursorColor}
         onClick={() => this.setActiveToolbarItem('cursor')}
       >
@@ -991,19 +991,17 @@ class AnnotationLayer extends Component {
         <div>
           {debugItems}
           <div style={toolbarStyle}>
-            <div style={Object.assign({}, groupDivStyle, leftyStyle)}>
+            <div style={{ ...groupDivStyle, ...leftyStyle }}>
               {annotateItems}
             </div>
-            <div style={Object.assign({}, groupDivStyle, drawingItemsStyle)}>
+            <div style={{ ...groupDivStyle, ...drawingItemsStyle }}>
               <span>{drawingItems}</span>
             </div>
-            <div style={Object.assign({}, groupDivStyle, midStyle)}>
-              {pagingItems}
-            </div>
-            <div style={Object.assign({}, groupDivStyle, zoomyStyle)}>
+            <div style={{ ...groupDivStyle, ...midStyle }}>{pagingItems}</div>
+            <div style={{ ...groupDivStyle, ...zoomyStyle }}>
               {zoomingItems}
             </div>
-            <div style={Object.assign({}, groupDivStyle, rightyStyle)}>
+            <div style={{ ...groupDivStyle, ...rightyStyle }}>
               {modifyingitems}
             </div>
           </div>

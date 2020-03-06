@@ -72,7 +72,7 @@ class LearningItemWithSlider extends React.Component<
       return <CircularProgress />;
     }
     return (
-      <React.Fragment>
+      <>
         <Slider
           style={{ width: '95%', margin: '0 auto' }}
           value={this.state.currentRev}
@@ -89,7 +89,7 @@ class LearningItemWithSlider extends React.Component<
           isPlayback
           data={this.state.revisions[this.state.currentRev]}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

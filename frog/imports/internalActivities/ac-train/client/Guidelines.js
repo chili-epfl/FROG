@@ -14,7 +14,7 @@ const styles = {
 };
 
 export const DragAndDropGuidelines = () => (
-  <React.Fragment>
+  <>
     <Typography variant="h6" gutterBottom>
       Drag-and-drop interface.
     </Typography>
@@ -24,11 +24,11 @@ export const DragAndDropGuidelines = () => (
       ticket (origin, destination, fare, etc.) using the mouse, dragging them
       onto the appropriate box/field (from, to, fare, bike, etc.).
     </Typography>
-  </React.Fragment>
+  </>
 );
 
 export const FormGuidelines = () => (
-  <React.Fragment>
+  <>
     <Typography variant="h6" gutterBottom>
       Form interface:
     </Typography>
@@ -37,11 +37,11 @@ export const FormGuidelines = () => (
       Choose your city, destination, fare and other options from dropdown fields
       in a form.
     </Typography>
-  </React.Fragment>
+  </>
 );
 
 export const MapGuidelines = () => (
-  <React.Fragment>
+  <>
     <Typography variant="h6" gutterBottom>
       Map interface:
     </Typography>
@@ -52,11 +52,11 @@ export const MapGuidelines = () => (
       second is the destination. Other options are to be chosen from the form
       under the map.
     </Typography>
-  </React.Fragment>
+  </>
 );
 
 export const CommandGuidelines = () => (
-  <React.Fragment>
+  <>
     <Typography variant="h6" gutterBottom>
       Command line interface:
     </Typography>
@@ -82,7 +82,7 @@ export const CommandGuidelines = () => (
       will order a ticket 1st class one-way from Zurich to Lausanne with a
       discount for young people and without bike.
     </Typography>
-  </React.Fragment>
+  </>
 );
 
 export const StartingGuidelines = () => (

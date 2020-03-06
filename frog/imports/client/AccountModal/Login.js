@@ -161,7 +161,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
                 className={classes.link}
                 variant="body2"
               >
-                {"Don't have an account? Sign Up"}
+                Don't have an account? Sign Up
               </Button>
             </Grid>
           </Grid>

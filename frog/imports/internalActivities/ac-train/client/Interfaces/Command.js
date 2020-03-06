@@ -93,6 +93,7 @@ class Command extends React.Component<PropsT, StateT> {
             />
           </CardContent>
           <CardActions className={classes.actions}>
+            {/* $FlowFixMe */}
             <Actions submitAnswer={this.handleSubmit} {...actionProps} />
           </CardActions>
         </Card>

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
-  makeStyles,
   Typography,
   TextField,
   InputAdornment,
   IconButton,
   Button
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { blueGrey } from '@material-ui/core/colors';
 import { Visibility, VisibilityOff, Close } from '@material-ui/icons';
 
@@ -108,7 +109,7 @@ export const SigninCard = (props: SigninCardProps) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div className={classes.blackScreen} />
       <div className={classes.root}>
         <IconButton
@@ -184,6 +185,6 @@ export const SigninCard = (props: SigninCardProps) => {
           </Button>
         </form>
       </div>
-    </React.Fragment>
+    </>
   );
 };

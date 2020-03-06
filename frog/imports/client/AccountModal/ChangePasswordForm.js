@@ -52,7 +52,7 @@ const ChangePasswordForm = ({ onChangePassword }: ChangePasswordFormPropsT) => {
     confirmNewPassword: ''
   });
 
-  const handleChange = prop => event => {
+  const handleChange = (prop: string) => event => {
     setErrors({ ...errors, [prop]: '' });
     setValues({ ...values, [prop]: event.target.value });
   };

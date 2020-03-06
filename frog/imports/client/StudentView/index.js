@@ -86,9 +86,9 @@ class StudentViewComp extends React.Component<
     }
 
     return (
-      <React.Fragment>
+      <>
         <SessionBody token={this.props.token} />
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -149,7 +149,11 @@ export default withTracker(props => {
   return {
     session: Sessions.findOne({ slug }),
     token: GlobalSettings.findOne('token'),
-    ready: every(subscriptions.map(x => x.ready()), Boolean) && slug,
+    ready:
+      every(
+        subscriptions.map(x => x.ready()),
+        Boolean
+      ) && slug,
     slug
   };
 })(StudentViewComp);

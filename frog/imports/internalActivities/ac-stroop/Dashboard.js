@@ -43,7 +43,7 @@ const Viewer = ({ state }: DashboardViewerPropsT) => {
     ['Inconsistent', avgTime(inconsistent)]
   ];
   return (
-    <React.Fragment>
+    <>
       <Chart
         chartType="BarChart"
         data={errorData}
@@ -54,7 +54,7 @@ const Viewer = ({ state }: DashboardViewerPropsT) => {
         data={timeData}
         options={options('Average time', 'Average time (ms)', 0, 4000)}
       />
-    </React.Fragment>
+    </>
   );
 };
 
