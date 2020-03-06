@@ -136,27 +136,29 @@ const Main = props => {
 };
 
 // the actual component that the student sees
-const Runner = withStyles(styles)((props: ActivityRunnerPropsT) => {
-  const { step } = props.data;
-  const { classes, ...rest } = props;
-  const p = Math.round((step / 4) * 100);
-  return (
-    <div style={styles.main}>
-      <LinearProgress
-        variant="determinate"
-        value={p}
-        classes={{
-          root: classes.root,
-          bar1Determinate: classes.bar1Determinate
-        }}
-      />
-      {/* THIS DO NOT LABEL THE PROGRESS BAR */}
-      <div style={styles.container}>
-        <Main {...rest} />
+const Runner = withStyles(styles)(
+  (props: ActivityRunnerPropsT & { classes: Object }) => {
+    const { step } = props.data;
+    const { classes, ...rest } = props;
+    const p = Math.round((step / 4) * 100);
+    return (
+      <div style={styles.main}>
+        <LinearProgress
+          variant="determinate"
+          value={p}
+          classes={{
+            root: classes.root,
+            bar1Determinate: classes.bar1Determinate
+          }}
+        />
+        {/* THIS DO NOT LABEL THE PROGRESS BAR */}
+        <div style={styles.container}>
+          <Main {...rest} />
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
