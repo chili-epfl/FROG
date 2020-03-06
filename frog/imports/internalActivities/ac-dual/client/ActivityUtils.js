@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { TimedComponent, HTML } from '/imports/frog-utils';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 
 export const styles = {
   button: {
@@ -22,6 +22,14 @@ export const styles = {
   },
   activityCountdown: {
     display: 'flex'
+  },
+  scoreHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 300,
+    fontSize: '200%',
+    marginTop: 16
   }
 };
 
@@ -33,8 +41,8 @@ export const texts = {
     'Are the two shapes symmetrical? Click Yes or No to answer. ' +
       'You can also use the Keyboard: Y/O for Yes and N for No.',
     'Do not let the ball fall and break the bricks! Use left and right arrows to move.',
-    'Now do both tasks at the same time!',
-    'Now do both tasks at the same time!'
+    'Now do both games at the same time!',
+    'Now do both games at the same time!'
   ],
   end: 'Activity completed! Thank you!',
   timeLeft: 'Time left in Task -> '

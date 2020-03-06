@@ -45,11 +45,11 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
 
   componentDidMount() {
     this._mounted = true;
-    const { props, interval } = this.props;
+    const { interval } = this.props;
     this.interval = Number(
       setInterval(() => {
         if (this._mounted) {
-          this.setState({ timeNow: new Date(), props });
+          this.setState({ timeNow: new Date() });
         }
       }, interval || 3000)
     );
@@ -61,9 +61,9 @@ class TimedComponentClass extends React.Component<PropsT, StateT> {
   }
 
   render() {
-    const { component } = this.props;
+    const { component, props } = this.props;
     const Component = component;
-    const { props, timeNow } = this.state;
+    const { timeNow } = this.state;
     return <Component {...props} timeNow={timeNow} />;
   }
 }
