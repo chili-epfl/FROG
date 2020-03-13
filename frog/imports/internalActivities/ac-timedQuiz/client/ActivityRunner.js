@@ -1,45 +1,47 @@
 // @flow
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   type ActivityRunnerPropsT,
   TimedComponent,
   HTML
 } from '/imports/frog-utils';
-import { ProgressBar, Button } from 'react-bootstrap';
-import { withState } from 'recompose';
+
+import { LinearProgress, Button } from '@material-ui/core';
+
 import { shuffle } from 'lodash';
 
+let noAnswerTimeout;
+let delayTimeout;
+
 const styles = {
-  button: {
-    width: 'auto',
-    margin: '10px',
-    position: 'relative',
-    whiteSpace: 'normal',
-    float: 'center',
-    display: 'inline-block'
-  },
-  text: { width: '100%', fontSize: 'large', textAlign: 'center' },
-  guidelines: { width: '100%' },
+  text: { width: '420px', fontSize: 'large', textAlign: 'center' },
+  guidelines: { width: '420px' },
   container: {
-    width: '500px',
-    height: '400px',
-    margin: 'auto',
-    marginTop: '80px'
+    width: '100%',
+    flex: '1',
+    marginTop: '16px',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   main: {
     width: '100%',
     height: '100%',
-    position: 'absolute'
+    display: 'flex',
+    flexDirection: 'column'
   },
   commands: {
-    width: '100%',
-    height: '50px',
-    margin: 'auto',
-    position: 'relative',
-    marginTop: '50px',
-    display: 'block'
-  }
+    flex: '0 0 auto',
+    width: '300px',
+    margin: '12px',
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'center',
+    overflow: 'hidden'
+  },
+  button: { flex: '0 0 128px', margin: '4px' }
 };
 
 const questionsWithIndex = props => {
@@ -67,9 +69,6 @@ const generateExample = (q, progress) => {
   };
 };
 
-let noAnswerTimeout;
-let delayTimeout;
-
 const Guidelines = ({ start, guidelines, name }) => (
   <>
     <div style={styles.text}>Welcome {name}!</div>
@@ -77,7 +76,7 @@ const Guidelines = ({ start, guidelines, name }) => (
       <HTML html={guidelines} />
     </div>
     <div style={{ ...styles.commands, width: '120px' }}>
-      <Button style={{ ...styles.button, width: '100%' }} onClick={start}>
+      <Button variant="contained" color="primary" onClick={start}>
         Start
       </Button>
     </div>
@@ -152,8 +151,10 @@ const Question = props => {
           return (
             <Button
               key={key}
-              style={{ ...styles.button }}
+              variant="contained"
+              color="secondary"
               onClick={onClick(option)}
+              style={styles.button}
             >
               {option.choice}
             </Button>
@@ -165,12 +166,9 @@ const Question = props => {
   );
 };
 
-const Main = withState(
-  'question',
-  'setQuestion',
-  null
-)(props => {
-  const { activityData, question, setQuestion, data, logger } = props;
+const Main = props => {
+  const [question, setQuestion] = useState(null);
+  const { activityData, data, logger } = props;
   const { questions, delay, guidelines } = activityData.config;
   const { name } = props.userInfo;
   let shuffledQ = questionsWithIndex(props);
@@ -192,11 +190,13 @@ const Main = withState(
     };
     return <Delay next={next} delay={delay} props={props} />;
   } else if (data.progress < questions.length) {
-    return <Question {...props} />;
+    return (
+      <Question {...props} question={question} setQuestion={setQuestion} />
+    );
   } else {
     return <div style={styles.text}>Activity completed! Thank you</div>;
   }
-});
+};
 
 // the actual component that the student sees
 const Runner = (props: ActivityRunnerPropsT) => {
@@ -205,8 +205,12 @@ const Runner = (props: ActivityRunnerPropsT) => {
   const p = Math.round((100 * data.progress) / questions.length);
 
   return (
-    <div className="bootstrap" style={styles.main}>
-      <ProgressBar now={p} label={`${p}%`} />
+    <div style={styles.main}>
+      <LinearProgress
+        variant="determinate"
+        value={p}
+        style={{ height: '16px' }}
+      />
       <div style={styles.container}>
         <Main {...props} />
       </div>
