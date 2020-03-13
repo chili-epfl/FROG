@@ -49,8 +49,6 @@ const dataStructure = {
   step: 0
 };
 
-// the actual component that the student sees
-
 export default ({
   id: 'ac-dual',
   type: 'react-component',

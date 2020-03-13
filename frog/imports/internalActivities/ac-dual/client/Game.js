@@ -218,14 +218,14 @@ class Game extends React.Component<*, *> {
     ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
 
     // Score
-    ctx.font = '12px Roboto Mono';
+    ctx.font = '16px Roboto Mono';
     ctx.textAlign = 'center';
-    ctx.fillText(`Score: ${this.score}`, 30, 10);
+    ctx.fillText(`Score: ${this.score}`, 42, 16);
 
     // Errors
-    ctx.font = '12px Roboto Mono';
+    ctx.font = '16px Roboto Mono';
     ctx.textAlign = 'center';
-    ctx.fillText(`Errors: ${this.errors}`, width - 30, 10);
+    ctx.fillText(`Errors: ${this.errors}`, width - 42, 16);
 
     if (!this.start) {
       // Error boundary

@@ -1,11 +1,12 @@
-import * as React from 'react';
-import { type ActivityRunnerPropsT } from '/imports/frog-utils';
-import { withState } from 'recompose';
+// @flow
+
+import React, { useState } from 'react';
 import Mousetrap from 'mousetrap';
 
 import { withStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { LinearProgress } from '@material-ui/core';
 
+import type { ActivityRunnerPropsT } from '/imports/frog-utils';
 import { texts, Guidelines, CountDownTimer } from './ActivityUtils';
 import Symmetry from './Symmetry';
 import Game from './Game';
@@ -22,7 +23,7 @@ const styles = {
   bar1Determinate: {
     backgroundColor: '#8994D1'
   },
-  text: { fontSize: 'large' },
+  text: { width: 400, textAlign: 'center', fontSize: 'large' },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -31,28 +32,27 @@ const styles = {
   main: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#bbb'
+    backgroundColor: '#bbb',
+    overflow: 'auto'
   },
   commands: {
     marginTop: '20px'
   },
   activityCountdown: {
+    marginTop: 16,
+    fontSize: 'large',
     display: 'flex'
   }
 };
 
-const Activity = withState(
-  'ready',
-  'setReady',
-  false
-)(props => {
+const Activity = props => {
   const {
     data: { step },
     dataFn,
     activityData,
     logger
   } = props;
-  const { ready, setReady } = props;
+  const [ready, setReady] = useState(false);
   const { timeOfEachActivity } = activityData.config;
   const activityTime = (timeOfEachActivity || 30000) * (step > 1 ? 2 : 1);
 
@@ -84,7 +84,7 @@ const Activity = withState(
       </>
     );
   }
-});
+};
 
 class ActivityWithSpeed extends React.Component<any, any> {
   speedIncreaseInterval: any;
@@ -106,9 +106,7 @@ class ActivityWithSpeed extends React.Component<any, any> {
   }
 
   render() {
-    const {
-      data: { step }
-    } = this.props;
+    const { step } = this.props.data;
     const { speed } = this.state;
 
     return (
@@ -128,8 +126,7 @@ class ActivityWithSpeed extends React.Component<any, any> {
 }
 
 const Main = props => {
-  const { data } = props;
-  const { step } = data;
+  const { step } = props.data;
 
   if (step < 4) {
     return <Activity {...props} />;
@@ -139,27 +136,29 @@ const Main = props => {
 };
 
 // the actual component that the student sees
-const Runner = withStyles(styles)((props: ActivityRunnerPropsT) => {
-  const { step } = props.data;
-  const { classes, ...rest } = props;
-  const p = Math.round((step / 4) * 100);
-  return (
-    <div style={styles.main}>
-      <LinearProgress
-        variant="determinate"
-        value={p}
-        classes={{
-          root: classes.root,
-          bar1Determinate: classes.bar1Determinate
-        }}
-      />
-      {/* THIS DO NOT LABEL THE PROGRESS BAR */}
-      <div style={styles.container}>
-        <Main {...rest} />
+const Runner = withStyles(styles)(
+  (props: ActivityRunnerPropsT & { classes: Object }) => {
+    const { step } = props.data;
+    const { classes, ...rest } = props;
+    const p = Math.round((step / 4) * 100);
+    return (
+      <div style={styles.main}>
+        <LinearProgress
+          variant="determinate"
+          value={p}
+          classes={{
+            root: classes.root,
+            bar1Determinate: classes.bar1Determinate
+          }}
+        />
+        {/* THIS DO NOT LABEL THE PROGRESS BAR */}
+        <div style={styles.container}>
+          <Main {...rest} />
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default class ActivityRunner extends React.Component<ActivityRunnerPropsT> {
   componentWillUnmount() {
