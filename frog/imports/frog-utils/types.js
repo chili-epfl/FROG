@@ -105,7 +105,7 @@ export type validateConfigFnT = Object => null | {
 export type LogT = {|
   type: string,
   itemId?: string,
-  value?: string | number,
+  value?: string | number | Array<any>,
   payload?: Object
 |};
 
