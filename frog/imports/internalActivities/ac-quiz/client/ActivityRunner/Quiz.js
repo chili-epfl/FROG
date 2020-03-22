@@ -70,7 +70,7 @@ const Quiz = ({
             {...props}
             question={question}
             index={i}
-            questinoIndex={questionIndex}
+            questionIndex={questionIndex}
           />
         ))}
       <BottomNav
