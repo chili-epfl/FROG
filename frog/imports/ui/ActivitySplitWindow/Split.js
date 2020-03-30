@@ -49,7 +49,7 @@ const useStyle = makeStyles(theme => ({
     background: '#FFF',
     margin: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
-    overflow: 'hidden',
+    overflow: 'auto',
     boxShadow: '0px 1px 3px rgba(0,0,0,.5)'
   },
   smallWindow: {
@@ -58,7 +58,7 @@ const useStyle = makeStyles(theme => ({
     background: '#FFF',
     margin: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
-    overflow: 'hidden',
+    overflow: 'auto',
     boxShadow: '0px 1px 3px rgba(0,0,0,.5)'
   }
 }));

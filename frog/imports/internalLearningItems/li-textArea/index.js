@@ -1,18 +1,13 @@
+// @flow
+
 import * as React from 'react';
 import {
   type LearningItemT,
   ReactiveText,
   HighlightSearchText
 } from '/imports/frog-utils';
-import { withStyles } from '@material-ui/styles';
 
-const styles = () => ({
-  button: {
-    float: 'right'
-  }
-});
-
-const FlexViewer = withStyles(styles)(({ data, search, type }) => {
+const FlexViewer = ({ data, search, type }) => {
   const shouldShorten = type === 'thumbView';
   return (
     <HighlightSearchText
@@ -21,26 +16,26 @@ const FlexViewer = withStyles(styles)(({ data, search, type }) => {
       shorten={shouldShorten}
     />
   );
-});
+};
 
-const Editor = withStyles(styles)(({ dataFn, classes, large }) => (
-  <div className={classes.editorContainer}>
+const Editor = ({ dataFn }) => {
+  return (
     <ReactiveText
-      style={large ? { height: '600px' } : {}}
+      style={{ height: '400px' }}
       path="text"
       dataFn={dataFn}
       type="textarea"
-      rows={large && 20}
+      rows={20}
     />
-  </div>
-));
+  );
+};
 
 export default ({
   name: 'Text area',
   id: 'li-textArea',
   dataStructure: { text: '' },
-  ThumbViewer: FlexViewer,
-  Viewer: FlexViewer,
+  ThumbViewer: props => <FlexViewer {...props} type="thumbView" />,
+  Viewer: props => <FlexViewer {...props} type="normalView" />,
   Editor,
   search: (data, search) => data.text.toLowerCase().includes(search)
-}: LearningItemT<{ title: string, content: string }>);
+}: LearningItemT<{ text: string }>);

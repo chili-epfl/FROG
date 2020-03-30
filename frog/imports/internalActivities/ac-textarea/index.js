@@ -4,7 +4,7 @@ import { type ActivityPackageT, uuid } from '/imports/frog-utils';
 import { compact } from 'lodash';
 
 const meta = {
-  name: 'Text area',
+  name: 'Activity Text Area',
   shortDesc: 'Students can edit new or existing text',
   description: 'Can also show configurable prompt',
   category: 'Deprecated core tools',
