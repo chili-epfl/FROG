@@ -8,7 +8,6 @@ import Draggable from 'react-draggable';
 import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
@@ -130,9 +129,7 @@ const StatelessPreview = (props: Object) => {
       <ConfigPanel {...props} classes={undefined} />
       <div className={classes.noModal}>
         <Controls {...props} classes={undefined} />
-        <Paper className={classes.noModalPreviewContent}>
-          {PreviewContent}
-        </Paper>
+        <div className={classes.noModalPreviewContent}>{PreviewContent}</div>
       </div>
     </div>
   );
