@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import {
   type LIComponentPropsT,
@@ -16,10 +17,7 @@ import LearningItemWithSlider from './LearningItemWithSlider';
 import RenderLearningItem from './RenderLearningItem';
 
 class LearningItem extends React.Component<
-  {
-    ...{| dataFn: Doc |},
-    ...LIComponentPropsT
-  },
+  { ...LIComponentPropsT, dataFn: Doc },
   { reload: string }
 > {
   state = { reload: '' };
@@ -62,7 +60,7 @@ class LearningItem extends React.Component<
           : (newprops: Object) => (
               <RenderLearningItem
                 notEmpty={props.notEmpty}
-                fallback={props.fallback}
+                fallback={props.fallback ? props.fallback : null}
                 disableDragging={props.disableDragging}
                 data={id.liDocument}
                 dataFn={props.dataFn}
@@ -131,7 +129,7 @@ class LearningItem extends React.Component<
         } else {
           const lid = props.dataFn.createLearningItem(
             liT.id,
-            liT.liDataStructure,
+            liT.dataStructure,
             {
               draft: true
             }

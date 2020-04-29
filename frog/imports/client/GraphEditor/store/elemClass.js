@@ -1,6 +1,7 @@
 // @flow
 
 import { extendObservable, action } from 'mobx';
+import * as Sentry from '@sentry/browser';
 import { store } from './index';
 import Activity from './activity';
 
@@ -19,9 +20,16 @@ export default class Elem {
 
   remove: boolean => void;
 
+  title: string;
+
   constructor() {
     extendObservable(this, {
       select: action(() => {
+        Sentry.addBreadcrumb({
+          category: 'graph',
+          message: 'Selected ' + this.klass,
+          data: { class: this.klass, id: this.id, title: this.title }
+        });
         store.ui.setLibraryOpen(false);
         if (store.state.mode === 'readOnly') {
           if (this.klass !== 'connection') {
@@ -60,15 +68,15 @@ export default class Elem {
           return 'white';
         }
         if (this.highlighted) {
-          return 'yellow';
+          return '#CCEEEA';
         }
         switch (this.state) {
           case 'computing':
-            return '#ffff00';
+            return '#E8D77E';
           case 'computed':
-            return '#72FF70';
+            return '#CCEEEA';
           case 'error':
-            return '#ff0000';
+            return '#E04E4E';
           default:
             return 'white';
         }
@@ -85,12 +93,12 @@ export default class Elem {
       get strokeColor(): string {
         const errors = store.graphErrors.filter(x => x.id === this.id);
         if (errors.length === 0) {
-          return 'grey';
+          return '#626B75';
         }
         if (errors.find(x => x.type === 'missingType')) {
-          return '#e6e8fc';
+          return '#D9E5F0';
         }
-        return '#C72616';
+        return '#E04E4E';
       }
     });
   }

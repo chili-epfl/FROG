@@ -83,7 +83,11 @@ const ActivityChoiceMenu = withStyles(styles)(
 );
 ActivityChoiceMenu.displayName = 'ActivityChoiceMenu';
 
-const DashboardNav = withState('activityId', 'setActivityId', null)(props => {
+const DashboardNav = withState(
+  'activityId',
+  'setActivityId',
+  null
+)(props => {
   const { activityId, setActivityId, session, activities, classes } = props;
   const { openActivities } = session;
   const acWithDash = activities

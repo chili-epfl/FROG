@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
-import { type LogT } from '/imports/frog-utils';
+import { type LogT, HTML } from '/imports/frog-utils';
 
 const styles = () => ({
   container: {
@@ -45,7 +45,9 @@ const CategoryBox = ({
       setCategory(category);
     }}
   >
-    <span className={classes.text}>{category}</span>
+    <span className={classes.text}>
+      <HTML html={category} />
+    </span>
   </button>
 );
 

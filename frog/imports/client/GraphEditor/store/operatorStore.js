@@ -95,7 +95,11 @@ export default class OperatorStore {
       addOperator: action(() => {
         if (store.state.mode === 'placingOperator') {
           this.all.push(
-            new Operator(...store.ui.socialCoordsTime, store.state.operatorType)
+            new Operator(
+              store.ui.socialCoordsTime[0],
+              store.ui.socialCoordsTime[1] - 95,
+              store.state.operatorType
+            )
           );
           store.state = { mode: 'normal' };
           store.addHistory();

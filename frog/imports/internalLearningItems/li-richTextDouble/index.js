@@ -77,7 +77,7 @@ export class Editor extends React.Component<*, *> {
 export default ({
   name: 'Double rich text',
   id: 'li-doubleRichText',
-  liDataStructure: {
+  dataStructure: {
     text: {
       ops: [
         {

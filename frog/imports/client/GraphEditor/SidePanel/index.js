@@ -6,22 +6,34 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Button } from 'react-bootstrap';
 
+import { makeStyles } from '@material-ui/core/styles';
 import { connect } from '../store';
 import ActivityPanel from './ActivityPanel';
 import OperatorPanel from './OperatorPanel';
 
 const styles = {
   root: {
-    height: 'calc(100vh - 112px)',
+    height: 'calc(100vh - 50px - 300px)',
     backgroundColor: '#ffffff',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    width: '500px',
+    borderRight: '1px solid #EAEAEA',
+    width: '400px',
     overflowX: 'auto'
   },
   helperContainer: {
     height: '100%'
   }
 };
+
+const useStyles = makeStyles({
+  button: {
+    width: '40px',
+    height: '30px',
+    border: '1px solid #EEE',
+    margin: '1px',
+    boxShadow: 'none'
+  },
+  spanIcon: { position: 'static', verticalAlign: 'top' }
+});
 
 const SideBarHelperText = ({ classes }) => (
   <Grid
@@ -34,24 +46,23 @@ const SideBarHelperText = ({ classes }) => (
       <Typography variant="h6" align="center" gutterBottom>
         Select an activity or an operator to configure it.
       </Typography>
-      <Typography variant="subtitle1" align="center">
+      {/* <Typography variant="subtitle1" align="center">
         Press the <kbd>w</kbd> key to toggle the sidebar.
-      </Typography>
+      </Typography> */}
     </div>
   </Grid>
 );
 
-export const IconButton = ({ icon, onClick, tooltip }: Object) => (
-  <div className="bootstrap">
-    <Button
-      style={{ width: '35px', height: '25px' }}
-      data-tip={tooltip}
-      onClick={onClick}
-    >
-      <span className={icon} style={{ verticalAlign: 'top' }} />
-    </Button>
-  </div>
-);
+export const IconButton = ({ icon, onClick, tooltip }: Object) => {
+  const classes = useStyles();
+  return (
+    <div className="bootstrap">
+      <Button className={classes.button} data-tip={tooltip} onClick={onClick}>
+        <span className={`${icon} ${classes.spanIcon}`} />
+      </Button>
+    </div>
+  );
+};
 
 const StyledSideBarHelperText = withStyles(styles)(SideBarHelperText);
 

@@ -1,4 +1,5 @@
 // @flow
+
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { omitBy, isNil } from 'lodash';
@@ -156,7 +157,7 @@ export const setParticipation = (
 };
 
 export const setStreamTarget = (activityId: string, streamTarget: string) => {
-  const operation = streamTarget ? '$set' : '$unset';
+  const operation: string = streamTarget ? '$set' : '$unset';
   Activities.update(activityId, { [operation]: { streamTarget } });
 };
 

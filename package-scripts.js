@@ -59,10 +59,16 @@ module.exports = {
       'QUALIA_ONE_BUNDLE_TYPE=modern NODE_OPTIONS="--max_old_space_size=8192" cd frog && meteor',
       'Starting Meteor'
     ),
-    test: fromRoot(
-      `nps -s eslint.normal`,
-      'Running LockFiles, Flow, ESLint and Jest - jest and flow temporarily disabled'
-    ),
+    test: {
+      default: fromRoot(
+        `nps -s eslint.normal flow jest`,
+        'Running Flow, ESLint and Jest'
+      ),
+      ci: fromRoot(
+        `nps -s lockfiles eslint.normal flow jest`,
+        'Running LockFiles, Flow, ESLint and Jest'
+      )
+    },
     eslint: {
       default: fromRoot(
         'fastlint --working-copy --print0 origin/develop --glob "**/*.{js,jsx}" | xargs -0 eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx"',
@@ -73,11 +79,11 @@ module.exports = {
         'Running ESLint in Fix mode'
       ),
       normal: fromRoot(
-        'eslint --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
+        'eslint --cache -c .eslintrc-prettier.js --ext .js,.jsx frog/',
         'Running ESLint in normal mode'
       ),
       normalfix: fromRoot(
-        'eslint --fix --cache -c .eslintrc-prettier.js --ext ".js,.jsx" .',
+        'eslint --fix --cache -c .eslintrc-prettier.js --ext .js,.jsx frog/',
         'Running ESLint in normal fix mode'
       )
     },

@@ -4,7 +4,7 @@ import { compact, some } from 'lodash';
 import { entries } from '/imports/frog-utils';
 
 const regex = /(&nbsp;|<([^>]+)>)/gi;
-const stripTags = html => html.replace(regex, '');
+const stripTags = html => html && html.replace(regex, '');
 
 export const exportData = (config: Object, { payload }: Object) => {
   const csv = Object.keys(payload).map(instanceId => {
@@ -76,6 +76,23 @@ export const computeProgress = (
     0
   );
   return nAnsweredQuestions / questions.length;
+};
+
+export const isCorrect = (
+  qData: { [idx: string]: boolean, text: string },
+  qConfig: { answers: Object[], text: boolean }
+) => {
+  return !qConfig.answers.some((x, i) => !!x.isCorrect !== !!qData[`${i}`]);
+};
+
+export const computeScore = (
+  questions: { answers: Object[], text: boolean }[],
+  form: { [qIdx: number]: { [idx: string]: boolean, text: string } }
+) => {
+  return questions.reduce(
+    (acc, q, qIdx) => (form[qIdx] && isCorrect(form[qIdx], q) ? acc + 1 : acc),
+    0
+  );
 };
 
 export const formatProduct = (

@@ -42,7 +42,7 @@ const RawDashboardComp = ({
   ready,
   object
 }: DashboardCompPropsT) => {
-  if (name === 'Learning Items') {
+  if (name === 'Content') {
     return <LIDashboard activityId={activity._id} />;
   }
   if (!ready && !state) {
@@ -57,15 +57,13 @@ const RawDashboardComp = ({
   const Dash = aT.dashboards[name].Viewer;
   return state ? (
     <Dash
-      {...{
-        state,
-        users,
-        activity,
-        instances,
-        object,
-        sendMsg: msg => Meteor.call('ws.send', activity.data.uniqueId, msg),
-        LearningItem: dataFn.LearningItem
-      }}
+      state={state}
+      users={users}
+      activity={activity}
+      instances={instances}
+      object={object}
+      sendMsg={msg => Meteor.call('ws.send', activity.data.uniqueId, msg)}
+      LearningItem={dataFn.LearningItem}
     />
   ) : null;
 };
@@ -173,6 +171,7 @@ export class DashboardSubscriptionWrapper extends React.Component<
     const { activity } = this.state;
     return (
       activity && (
+        // $FlowFixMe
         <DashboardReactiveWrapper activity={activity} {...this.props} />
       )
     );

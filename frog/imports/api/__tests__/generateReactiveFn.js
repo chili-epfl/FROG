@@ -3,7 +3,7 @@ import { uuid } from '/imports/frog-utils';
 import { generateReactiveFn } from '../generateReactiveFn';
 
 jest.mock('/imports/frog-utils', () =>
-  require.requireActual('../../../../__mocks__//imports/frog-utils')
+  require.requireActual('/../__mocks__/frog-utils')
 );
 
 const share = new ShareDB();
@@ -36,8 +36,22 @@ const wrapOps = (ops, initial = {}) =>
 // array of [initial, [ops], result]
 const tests = [
   [[], [['listAppend', ['hi']]], ['hi']],
-  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
-  [[], [['listAppend', ['hi']], ['listPrepend', ['hello']]], ['hello', 'hi']],
+  [
+    [],
+    [
+      ['listAppend', ['hi']],
+      ['listPrepend', ['hello']]
+    ],
+    ['hello', 'hi']
+  ],
+  [
+    [],
+    [
+      ['listAppend', ['hi']],
+      ['listPrepend', ['hello']]
+    ],
+    ['hello', 'hi']
+  ],
   [
     [],
     [

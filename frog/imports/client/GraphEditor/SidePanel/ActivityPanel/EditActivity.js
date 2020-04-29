@@ -25,7 +25,6 @@ import { RenameField } from '../../Rename';
 import FileForm from '../fileUploader';
 import ExportButton from './ExportButton';
 import { SelectAttributeWidget } from '../FormUtils';
-import { IconButton } from '../index';
 import ConfigForm from '../ConfigForm';
 import DeleteButton from '../DeleteButton';
 
@@ -57,7 +56,7 @@ const SelectParticipationMode = ({ activity, onChange }) => (
         Only teacher edits, students have read-only views
       </option>
       <option value="projector">
-        {"Only displayed in teacher's projector mode"}
+        Only displayed in teacher's projector mode
       </option>
     </FormControl>
   </FormGroup>
@@ -137,15 +136,17 @@ const RawEditActivity = ({
   }
 
   const activityType = activityTypesObj[activity.activityType];
+  if (!activityType) {
+    return <h3>No such installed activity type {activity.activityType}</h3>;
+  }
   const otherActivityIds = store.activityStore.all.filter(
     a => a.id !== activity._id
   );
   return (
-    // $FlowFixMe
     <div className="bootstrap" style={{ height: '100%', overflowY: 'scroll' }}>
       <div
         style={{
-          backgroundColor: '#eee',
+          backgroundColor: '#FFF',
           minHeight: '110px',
           padding: '0 10px'
         }}
@@ -172,20 +173,7 @@ const RawEditActivity = ({
               {activity.template && !isEmpty(activity.template) && (
                 <>
                   <br />
-                  Activity has data template.{' '}
-                  <A
-                    onClick={() => {
-                      store.ui.setShowPreview({
-                        activityTypeId: activity.activityType,
-                        activityId: activity._id,
-                        config: activity.data,
-                        template: activity.template
-                      });
-                    }}
-                  >
-                    Show
-                  </A>{' '}
-                  -{' '}
+                  Activity has data template.
                   {!isEmpty(activity.template.lis) && (
                     <>
                       <A
@@ -205,7 +193,7 @@ const RawEditActivity = ({
                   )}
                   <A
                     onClick={() => {
-                      storeTemplateData(activity._id, {});
+                      storeTemplateData(activity._id, null);
                     }}
                   >
                     Remove
@@ -221,21 +209,11 @@ const RawEditActivity = ({
               right: '2px'
             }}
           >
-            <ValidButton activityId={activity._id} errorColor={errorColor} />
+            <div style={{ zIndex: '1000', position: 'relative', left: '5px' }}>
+              <ValidButton activityId={activity._id} errorColor={errorColor} />
+            </div>
             {errorColor === lightGreen[500] && (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <IconButton
-                  icon="glyphicon glyphicon-eye-open"
-                  tooltip="Preview"
-                  onClick={() => {
-                    store.ui.setShowPreview({
-                      activityTypeId: activity.activityType,
-                      activityId: activity._id,
-                      config: activity.data,
-                      template: activity.template
-                    });
-                  }}
-                />
                 <ExportButton {...{ activity, madeChanges }} />
               </div>
             )}
@@ -303,7 +281,7 @@ const RawEditActivity = ({
       )}
       <A onClick={() => setAdvancedOpen(!advancedOpen)}>Advanced...</A>
       {(advancedOpen || activity.streamTarget) && (
-        <React.Fragment>
+        <>
           <div>
             <A onClick={() => copyURL(activity)}>
               Copy link for headless FROG to clipboard
@@ -319,7 +297,7 @@ const RawEditActivity = ({
             />
           </div>
           <FileForm />
-        </React.Fragment>
+        </>
       )}
       <ReactTooltip />
     </div>

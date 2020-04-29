@@ -3,6 +3,7 @@
 import { isEmpty, isEqual, sortBy } from 'lodash';
 import { extendObservable, action } from 'mobx';
 import Stringify from 'json-stable-stringify';
+import * as Sentry from '@sentry/browser';
 
 import valid from '/imports/api/validGraphFn';
 import {
@@ -103,6 +104,10 @@ export default class Store {
 
   graphId: string;
 
+  templateSource: ?string;
+
+  templateOpenFlag: boolean;
+
   _graphDuration: number;
 
   graphDuration: number;
@@ -129,6 +134,10 @@ export default class Store {
 
   deleteSelected: (?boolean) => void;
 
+  setTemplateOpenFlag: Function;
+
+  setTemplateSource: Function;
+
   constructor() {
     extendObservable(this, {
       _state: null,
@@ -138,6 +147,8 @@ export default class Store {
       session: new Session(),
       ui: new UI(),
       graphId: '',
+      templateSource: null,
+      templateOpenFlag: false,
       graphErrors: [],
       valid: undefined,
       _graphDuration: 60,
@@ -199,6 +210,10 @@ export default class Store {
       }),
       // should check for new global version of graph
       setId: action((id: string, readOnly: boolean = false) => {
+        Sentry.addBreadcrumb({
+          category: 'graph',
+          message: 'SetId ' + id
+        });
         const desiredUrl = `${this.url}/${id}`;
         if (
           this.browserHistory &&
@@ -262,7 +277,16 @@ export default class Store {
         this.history = [];
         window.setTimeout(() => mongoWatch(id));
         this.state = { mode: 'normal' };
-        this.ui.setSidepanelOpen(false);
+        this.ui.setSidepanelOpen(true);
+        this.templateSource = graph ? graph.templateSource : null;
+      }),
+
+      setTemplateSource: action(templateId => {
+        this.templateSource = templateId;
+      }),
+
+      setTemplateOpenFlag: action(flag => {
+        this.templateOpenFlag = flag;
       }),
 
       addHistory: action(() => {

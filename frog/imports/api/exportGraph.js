@@ -12,8 +12,8 @@ const clean = obj => {
   return ret;
 };
 
-export const graphToString = graphId =>
-  Stringify({
+export const graphToString = graphId => {
+  return Stringify({
     graph: omit(findOneGraphMongo(graphId), 'sessionId'),
     activities: findActivitiesMongo({ graphId }).map(x => clean(x)),
     operators: findOperatorsMongo({ graphId }).map(x => clean(x)),
@@ -21,6 +21,7 @@ export const graphToString = graphId =>
       .fetch()
       .map(x => clean(x))
   });
+};
 
 const cleanFilename = s =>
   s.replace(/[^a-z0-9_-]/gi, '_').replace(/_{2,}/g, '_');
@@ -34,8 +35,9 @@ export const exportGraph = (store: Object) => {
   FileSaver.saveAs(blob, fname + '.frog', true);
 };
 
-export const duplicateGraph = (store, graphId) =>
+export const duplicateGraph = (store, graphId) => {
   doImportGraph(store, { target: { result: graphToString(graphId) } });
+};
 
 export const doImportGraph = (
   store?: Object,

@@ -1,4 +1,7 @@
 // @flow
+
+import { Meteor } from 'meteor/meteor';
+
 import { getUsername } from '/imports/api/users';
 import ShareDB from '@teamwork/sharedb';
 import { cloneDeep } from 'lodash';
@@ -50,7 +53,7 @@ const duplicateLIs = (rz, lis) => {
 export const mergeOneInstance = async (
   grouping: string,
   activity: ActivityDbT,
-  dataStructure: any,
+  initData: Object,
   mergeFunction: ?Function,
   activityData: Object,
   structure: structureDefT,
@@ -61,17 +64,15 @@ export const mergeOneInstance = async (
   onBehalfOf?: string
 ) => {
   let data;
-  let newDataStructure = dataStructure;
+  let newInitData = initData;
   if (
     activity.template &&
     activity.template.duplicate &&
     activity.template.lis
   ) {
-    newDataStructure = duplicateLIs(
-      activity.template.rz,
-      activity.template.lis
-    );
+    newInitData = duplicateLIs(activity.template.rz, activity.template.lis);
   }
+
   if (mergeFunction) {
     const instanceActivityData =
       providedInstanceActivityData !== undefined // allows it to be null and still picked up
@@ -95,11 +96,7 @@ export const mergeOneInstance = async (
             'load',
             Meteor.bindEnvironment(async () => {
               try {
-                doc.create(
-                  newDataStructure !== undefined
-                    ? cloneDeep(newDataStructure)
-                    : {}
-                );
+                doc.create(newInitData ? cloneDeep(newInitData) : {});
               } catch (e) {
                 // eslint-disable-next-line no-console
                 console.error(
@@ -118,9 +115,13 @@ export const mergeOneInstance = async (
                 createdInActivity: activity._id,
                 sessionId
               };
-              const groupingKey = activity.groupingKey;
-              if (groupingKey) {
+              const groupingKey = activity.groupingKey || 'missingGroupingKey';
+              if (activity.plane === 2) {
                 meta.createdByInstance = { [groupingKey]: grouping };
+              } else if (activity.plane === 1) {
+                meta.createdByInstance = { individual: grouping };
+              } else {
+                meta.createdByInstance = { all: 'all' };
               }
 
               const dataFn = generateReactiveFn(
@@ -152,7 +153,7 @@ export const mergeOneInstance = async (
       );
     }
   } else {
-    data = newDataStructure || {};
+    data = newInitData || {};
   }
 
   const serverDoc = serverConnection.get(
@@ -232,25 +233,29 @@ const mergeData = (
   if (!group) {
     createDashboards(activity);
 
-    if (createGroups[0]) {
-      const session = Sessions.findOne(sessionId);
-      const owner = session.ownerId;
-      Promise.await(
-        mergeOneInstance(
-          owner,
-          activity,
-          initData,
-          mergeFunction,
-          activityData,
-          structure,
-          object,
-          undefined,
-          undefined,
-          sessionId,
-          createGroups[0]
-        )
-      );
-    }
+    const session = Sessions.findOne(sessionId);
+    const owner = session.ownerId;
+    const hasInstance = createGroups.length > 0;
+    Promise.await(
+      mergeOneInstance(
+        owner,
+        activity,
+        initData,
+        mergeFunction,
+        activityData,
+        structure,
+        object,
+        !hasInstance
+          ? {
+              data: null,
+              config: activity.data
+            }
+          : undefined,
+        undefined,
+        sessionId,
+        hasInstance ? createGroups[0] : undefined
+      )
+    );
   }
 };
 

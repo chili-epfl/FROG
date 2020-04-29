@@ -3,7 +3,7 @@
 import React from 'react';
 import { HTML, ReactiveText } from '/imports/frog-utils';
 
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,7 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { condShuffle } from './Quiz';
-import { computeProgress, computeCoordinates } from '../../utils';
+import { computeProgress, computeCoordinates, computeScore } from '../../utils';
 
 const styles = theme => ({
   root: {
@@ -22,7 +22,7 @@ const styles = theme => ({
     margin: '4px'
   },
   formControl: {
-    margin: theme.spacing()
+    margin: theme.spacing(1)
   },
   header: {
     backgroundColor: '#ddd',
@@ -70,7 +70,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
   <FormControl component="fieldset" className={classes.formControl}>
     <RadioGroup
       aria-label="answers"
-      value={Object.keys(data).find(k => data[k] === true)}
+      value={Object.keys(data).find(k => data[k] === true) || ''}
       name="answers"
       onChange={e => onChange(e.target.value)}
     >
@@ -78,6 +78,7 @@ const Select = withStyles(styles)(({ classes, answers, data, onChange }) => (
         <FormControlLabel
           key={idx}
           value={idx.toString()}
+          checked={!!data[idx]}
           classes={{ root: classes.text }}
           control={<Radio classes={{ root: classes.check }} />}
           label={<HTML html={choice} />}
@@ -163,10 +164,11 @@ export default withStyles(styles)(
 
       const newProgress = computeProgress(configQuestions, newForm);
       const newCoordinates = computeCoordinates(configQuestions, newForm);
+      const newScore = computeScore(configQuestions, newForm);
 
       logger([
         { type: 'progress', value: newProgress },
-        { type: 'score', value: newProgress },
+        { type: 'score', value: newScore },
         { type: 'choice', itemId: questionIndex, value: idx },
         { type: 'coordinates', payload: newCoordinates }
       ]);

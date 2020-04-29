@@ -29,6 +29,7 @@ const Quiz = ({
   const { config } = activityData;
 
   const questionsWithIndex = config.questions.map((x, i) => [x, i]);
+
   const questions = ['questions', 'both'].includes(config.shuffle)
     ? condShuffle(questionsWithIndex, 'questions', '', groupingValue)
     : questionsWithIndex;
@@ -65,7 +66,11 @@ const Quiz = ({
         questions.map(([question, questionIndex], i) => (
           <Question
             key={questionIndex}
-            {...{ ...props, question, index: i, questionIndex }}
+            // $FlowFixMe
+            {...props}
+            question={question}
+            index={i}
+            questionIndex={questionIndex}
           />
         ))}
       <BottomNav
@@ -82,8 +87,10 @@ const Quiz = ({
   );
 };
 
-const DefaultExport: React.ComponentType<*> = withState('index', 'setIndex', 0)(
-  Quiz
-);
+const DefaultExport: React.ComponentType<*> = withState(
+  'index',
+  'setIndex',
+  0
+)(Quiz);
 
 export default DefaultExport;

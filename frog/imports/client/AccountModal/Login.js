@@ -3,13 +3,14 @@ import {
   Avatar,
   Button,
   TextField,
-  Link,
   Grid,
   Typography,
   Container
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
+import { blueGrey } from '@material-ui/core/colors';
+import { useToast } from '/imports/ui/Toast';
 
 const styles = (theme: Object) => ({
   paper: {
@@ -20,17 +21,30 @@ const styles = (theme: Object) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(2, 0, 2, 0)
+    background: theme.palette.primary.main,
+    margin: theme.spacing(2, 0),
+    padding: theme.spacing(2),
+    boxShadow: '0 5px 20px rgba(0,0,0,0.05)',
+    transition: '.25s ease',
+    cursor: 'pointer',
+    color: '#FFF',
+
+    '&:hover': {
+      background: theme.palette.primary.dark
+    }
   },
-  signupLink: {
-    cursor: 'pointer'
+  link: {
+    cursor: 'pointer',
+    color: blueGrey[500],
+    fontSize: '1rem',
+    textTransform: 'capitalize'
   }
 });
 
@@ -45,6 +59,7 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
   const setters = { email: setEmail, password: setPassword };
+  const [showToast] = useToast();
 
   const handleChange = (
     event: SyntheticInputEvent<EventTarget>,
@@ -117,18 +132,37 @@ const Login = ({ classes, onLogin, openSignUpForm }: LoginPropsT) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Button
+                href="#"
+                variant="body2"
+                className={classes.link}
+                onClick={() => {
+                  Meteor.call('send.password.reminder', email, err => {
+                    if (err) {
+                      showToast(
+                        'Could not find user with that email. Please try to enter another email in the email field above',
+                        'error'
+                      );
+                    } else {
+                      showToast(
+                        'Sent a message to your e-mail address with a new password. Please check your spam folder if you have not received it within a few minutes. Use the new password to log in, and then change the password.',
+                        'success'
+                      );
+                    }
+                  });
+                }}
+              >
                 Forgot password?
-              </Link>
+              </Button>
             </Grid>
             <Grid item>
-              <Link
+              <Button
                 onClick={openSignUpForm}
-                className={classes.signupLink}
+                className={classes.link}
                 variant="body2"
               >
-                {"Don't have an account? Sign Up"}
-              </Link>
+                Don't have an account? Sign Up
+              </Button>
             </Grid>
           </Grid>
         </form>

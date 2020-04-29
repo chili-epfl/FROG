@@ -14,7 +14,7 @@ const splitArray = (ary, splits) => {
 const operator = (configData, object) => {
   const { socialStructure } = object;
 
-  const newGrouping =
+  const newGrouping: string =
     configData.grouping && configData.grouping.length > 0
       ? configData.grouping
       : 'groupCombined';

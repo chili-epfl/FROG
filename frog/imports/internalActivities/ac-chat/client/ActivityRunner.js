@@ -31,7 +31,7 @@ const styles = {
   inputContainer: {
     display: 'flex',
     flex: '0 0 auto',
-    background: '#EAEAEA',
+    background: '#FAFAFA',
     justifyContent: 'center',
     padding: '20px'
   },
@@ -112,7 +112,7 @@ class ChatController extends React.Component<StyledPropsT> {
     return (
       <div className={classes.root}>
         {activityData.config.title && (
-          <h4 className={classes.header}>{activityData.config.title}</h4>
+          <h2 className={classes.header}>{activityData.config.title}</h2>
         )}
         {instanceMembers && !isEmpty(instanceMembers) && (
           <p>Group members: {instanceMembers.join(', ')}</p>

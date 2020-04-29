@@ -71,6 +71,17 @@ export const runNextActivity = (sessionId: string) => {
       Sessions.update(sessionId, {
         $set: { state: 'FINISHED', nextOpenActivities: [] }
       });
+    } else {
+      const [_, _2, last] = calculateNextOpen(
+        newTimeInGraph,
+        activities,
+        sessionId
+      );
+      if (last) {
+        Sessions.update(sessionId, {
+          $set: { lastActivity: true }
+        });
+      }
     }
   }
 };

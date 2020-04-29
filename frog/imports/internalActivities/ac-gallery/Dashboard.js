@@ -43,7 +43,7 @@ const mergeLog = (state: any, log: LogDbT) => {
   if (actionTypes.includes(action)) {
     if (!state[log.instanceId]) {
       state[log.instanceId] = actionTypes.reduce(
-        (acc, i) => ({ ...acc, [i]: 0 }),
+        (acc, i: string) => ({ ...acc, [i]: 0 }),
         {}
       );
     }

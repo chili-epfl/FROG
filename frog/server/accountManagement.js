@@ -6,6 +6,7 @@ import {
   emailErrors,
   passwordErrors
 } from '/imports/frog-utils/validationHelpers';
+import { getUserType } from '/imports/api/users';
 
 type Profile = { displayName: string };
 
@@ -22,31 +23,36 @@ export const createAccount = (
   password: string,
   profile: Profile
 ) => {
+  // Validate input params to prevent incorrect data from the console/client.
   if (
     password !== '' &&
     password &&
-    (email !== '' && email) &&
-    (profile?.displayName && profile?.displayName !== '')
+    email !== '' &&
+    email &&
+    profile?.displayName &&
+    profile?.displayName !== ''
   ) {
-    // Validate input params
     if (
       passwordErrors(password) !== '' ||
       emailErrors(email) !== '' ||
-      errorBasedOnChars(profile?.displayName, 1, 'Display Name') !== ''
+      errorBasedOnChars(profile?.displayName, 1, 'Name') !== ''
     ) {
       throw new Meteor.Error(
         passwordErrors(password) +
           '  ' +
           emailErrors(email) +
           '  ' +
-          errorBasedOnChars(profile?.displayName, 1, 'Display Name')
+          errorBasedOnChars(profile?.displayName, 1, 'Name')
       );
     } else if (!Accounts.findUserByEmail(email)) {
       const user = Meteor.user();
-
-      if (user?.isAnonymous) {
-        // checks for duplicate email and displays error on the console.
-
+      // if the user is anonymous or a legacy user we want to simply add the email and password to their
+      // account. This allows them to keep the graphs and activities they created when they didn't have an
+      // account. Else we just create a new account
+      if (
+        getUserType({ meteorUser: user }) === 'Anonymous' ||
+        getUserType({ meteorUser: user }) === 'Legacy'
+      ) {
         Meteor.users.update(user._id, {
           $set: {
             emails: [{ address: email, verified: false }],
@@ -68,6 +74,7 @@ export const createAccount = (
           }
         });
       }
+      // error handling
     } else {
       throw new Meteor.Error('dup-email', 'Email already exists');
     }
@@ -76,6 +83,22 @@ export const createAccount = (
   }
 };
 
+export const changeDisplayName = (newDisplayName: string) => {
+  if (
+    getUserType() === 'Verified' &&
+    errorBasedOnChars(newDisplayName, 1, 'Name') === ''
+  ) {
+    Meteor.users.update(Meteor.user()._id, {
+      $set: {
+        profile: { displayName: newDisplayName }
+      }
+    });
+  } else {
+    throw new Meteor.Error('error', 'Could not change name');
+  }
+};
+
 Meteor.methods({
-  'create.account': createAccount
+  'create.account': createAccount,
+  'change.displayname': changeDisplayName
 });

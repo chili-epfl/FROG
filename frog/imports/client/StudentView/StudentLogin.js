@@ -134,7 +134,8 @@ class StudentLogin extends React.Component<
               {studentlist && (
                 <div className={classes.container}>
                   {!settings.restrictList &&
-                  (settings.tooLate && !settings.allowLateLogin) ? (
+                  settings.tooLate &&
+                  !settings.allowLateLogin ? (
                     <h2>
                       Too late for new users to join this session, but existing
                       users can select their name below
@@ -223,7 +224,4 @@ class StudentLogin extends React.Component<
   }
 }
 
-export default compose(
-  withStyles(styles),
-  withRouter
-)(StudentLogin);
+export default compose(withStyles(styles), withRouter)(StudentLogin);

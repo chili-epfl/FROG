@@ -86,7 +86,9 @@ type ConfigPropsT = {
   activity: ActivityDbT,
   onConfigChange?: Function,
   setValid: Function,
-  reload?: string
+  reload?: string,
+  onSubmit?: Function,
+  showSubmit: any
 };
 
 class Config extends React.Component<
@@ -174,7 +176,7 @@ class Config extends React.Component<
 }
 
 type PropsT = {
-  activityType?: string,
+  activityType: string,
   categories?: string[],
   activityMapping?: Object,
   allOpen?: boolean,
@@ -189,7 +191,9 @@ type PropsT = {
   setActivityTypeId?: string,
   hideLibrary?: boolean,
   whiteList?: string[],
-  noOffset?: boolean
+  noOffset?: boolean,
+  onSubmit?: Function,
+  showSubmit?: any
 };
 
 class State {
@@ -392,14 +396,14 @@ const Errors = observer(({ noOffset }) => (
           noOffset
             ? {
                 position: 'absolute',
-                top: '0px',
-                left: '0px',
+                top: '20px',
+                right: '50px',
                 zIndex: 99
               }
             : {
                 position: 'absolute',
-                left: '0px',
-                top: '120px',
+                right: '0px',
+                top: '50px',
                 zIndex: 99
               }
         }

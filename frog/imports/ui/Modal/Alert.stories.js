@@ -19,7 +19,7 @@ const AlertModalWrapper = (props: {
   );
 };
 
-storiesOf('Modal/AlertModal', module)
+storiesOf('UI/Modal/AlertModal', module)
   .addDecorator(storyFn => <ModalController>{storyFn()}</ModalController>)
   .add('simple', () => (
     <AlertModalWrapper title="Hello World!" content="This is an alert modal." />

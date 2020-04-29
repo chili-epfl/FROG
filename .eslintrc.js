@@ -38,7 +38,6 @@ module.exports = {
     'func-names': 'off',
     'global-require': 'off',
     'import/extensions': 'off',
-    'import/imports-first': ['warn', 'DISABLE-absolute-first'],
     'import/no-absolute-path': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/no-named-default': 'off',
@@ -49,6 +48,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/aria-proptypes': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
     'jsx-a11y/heading-has-content': 'off',
     'jsx-a11y/href-no-hash': 'off',
     'jsx-a11y/label-has-for': 'off',
@@ -85,6 +85,7 @@ module.exports = {
     'react/jsx-indent-props': 'off',
     'react/jsx-no-target-blank': 'off',
     'react/jsx-wrap-multilines': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/no-access-state-in-setstate': 'off',
     'react/no-multi-comp': 'off',
     'react/no-unescaped-entities': 'off',
@@ -92,7 +93,11 @@ module.exports = {
     'react/no-unused-state': 'off',
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
-    'react/sort-comp': 'off'
+    'react/sort-comp': 'off',
+    'react/state-in-constructor': 'off',
+    'max-classes-per-file': 'off',
+    'react/no-deprecated': 'warn',
+    'no-async-promise-executor': 'off'
   },
   parserOptions: {
     ecmaVersion: 2016,

@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/styles';
+import { blueGrey } from '@material-ui/core/colors';
 import CloseIcon from '@material-ui/icons/Close';
 import { Fab, Button } from '@material-ui/core';
 import { uuid } from '/imports/frog-utils';
@@ -21,13 +22,18 @@ import { addDefaultExample } from './index';
 const styles = () => ({
   root: {
     padding: '4px',
-    margin: '4px'
+    margin: '4px',
+    boxShadow: '0px 0px 0px rgba(0,0,0,0)',
+    border: '1px solid #EAEAEA'
   },
   closeButton: {
     float: 'right',
-    marginRight: '5px',
-    backgroundColor: 'red',
-    color: 'white'
+    margin: '5px',
+    height: '35px',
+    width: '35px',
+    backgroundColor: blueGrey[50],
+    color: blueGrey[500],
+    boxShadow: 'none'
   },
   exampleButton: {
     textTransform: 'none'
@@ -35,7 +41,8 @@ const styles = () => ({
   exampleButtonDeeplink: {
     textTransform: 'none',
     fontStyle: 'italic'
-  }
+  },
+  previewIcons: { display: 'flex', alignItems: 'center', fontSize: '1.25em' }
 });
 
 const names = `Chen Li,Maurice,Edgar,Noel,Ole,Stian,Jenny,Prastut,Louis,Monte Rosa,Lyskamm,Weisshorn,Matterhorn,Dent Blanche,Grand Combin,Finsteraarhorn,Zinalrothorn,Alphubel,Rimpfischhorn,Aletschhorn,Strahlhorn,Dent d'Hérens,Breithorn,Jungfrau,Mönch,Schreckhorn,Ober Gabelhorn,Piz Bernina,Gross Fiescherhorn,Gross Grünhorn,Weissmies,Lagginhorn,Piz Zupò,Gletscherhorn,Eiger,Grand Cornier,Piz Roseg,Bietschhorn,Trugberg,Gross Wannenhorn,Aiguille d'Argentière,Ruinette,Bouquetins,Tour Noir,Nesthorn,Mont Dolen`.split(
@@ -161,39 +168,60 @@ export default withStyles(styles)((props: Object) => {
     storeTemplateFn({ rz, lis });
   };
 
+  const iconActive = '#22A6B3';
+  const iconInactive = blueGrey[200];
+
   return (
     <Paper className={classes.root}>
-      <Fab onClick={_dismiss} className={classes.closeButton} data-tip="Close">
-        <CloseIcon />
-      </Fab>
+      {!storeTemplateFn && (
+        <Fab
+          onClick={_dismiss}
+          className={classes.closeButton}
+          data-tip="Close"
+        >
+          <CloseIcon />
+        </Fab>
+      )}
 
       {storeTemplateFn ? (
-        <>
+        <div className={classes.previewIcons}>
           <Icon
             onClick={calculateAndStore}
             icon="fa fa-floppy-o"
             tooltip="Store data as template for the activity"
-            color="#3d76b8"
+            color={iconActive}
           />
           <Icon
             onClick={refresh}
             icon="fa fa-refresh"
             tooltip="Reset reactive data"
+            color={iconActive}
           />
-        </>
+          <span
+            style={{
+              textAlign: 'center',
+              fontSize: '1.25rem',
+              fontWeigh: '500',
+              margin: '0px 15px'
+            }}
+          >
+            Activity preview
+          </span>
+        </div>
       ) : (
         <>
-          <div>
+          <div style={{ fontSize: '1.25em' }}>
             <Icon
               onClick={() => setShowData(!showData)}
               icon={showData ? 'fa fa-address-card-o' : 'fa fa-table'}
               tooltip={showData ? 'Show component' : 'Show underlying data'}
+              color={iconActive}
             />
             {activityType.dashboards && (
               <Icon
                 onClick={() => setShowDash(!showDash)}
                 icon="fa fa-tachometer"
-                color={showDash ? '#3d76b8' : '#b3cae6'}
+                color={showDash ? iconActive : iconInactive}
                 tooltip="Toggle dashboard"
               />
             )}
@@ -201,26 +229,26 @@ export default withStyles(styles)((props: Object) => {
               <Icon
                 onClick={() => setShowDashExample(!showDashExample)}
                 icon="fa fa-line-chart"
-                color={showDashExample ? '#3d76b8' : '#b3cae6'}
+                color={showDashExample ? iconActive : iconInactive}
                 tooltip="Toggle example logs dashboard"
               />
             )}
             <Icon
               onClick={() => setShowLogs(!showLogs)}
               icon="fa fa-list"
-              color={showLogs ? '#3d76b8' : '#b3cae6'}
+              color={showLogs ? iconActive : iconInactive}
               tooltip="Toggle log table"
             />
             <Icon
               onClick={addStudent}
               icon="fa fa-user-plus"
-              color="#3d76b8"
+              color={iconActive}
               tooltip="Add a user"
             />
             <Icon
               onClick={removeStudent}
               icon="fa fa-user-times"
-              color={users.length > 1 ? '#3d76b8' : '#b3cae6'}
+              color={users.length > 1 ? iconActive : iconInactive}
               tooltip="Remove one user"
             />
             <Icon
@@ -230,18 +258,20 @@ export default withStyles(styles)((props: Object) => {
                   plane - 1
                 ]
               }
-              color="#3d76b8"
+              color={iconActive}
               tooltip="Change plane"
             />
             <Icon
               onClick={refresh}
               icon="fa fa-refresh"
               tooltip="Reset reactive data"
+              color={iconActive}
             />
             <Icon
               onClick={() => setFullWindow(!fullWindow)}
               icon="fa fa-arrows-alt"
               tooltip="Toggle full window"
+              color={iconActive}
             />
           </div>
           {!showDashExample && (
@@ -254,6 +284,11 @@ export default withStyles(styles)((props: Object) => {
                   disableRipple
                   disableTouchRipple
                   color="primary"
+                  style={
+                    i === example
+                      ? { color: 'white', boxShadow: 'none' }
+                      : { color: iconActive }
+                  }
                   className={
                     'example ' +
                     (ex.type === 'deeplink'

@@ -12,10 +12,11 @@ export const addNewWikiPage = (
   pageSettings: PageSettingsT,
   instances: Object = {},
   socialStructure: Object,
-  noNewInstances: boolean
+  noNewInstances: boolean,
+  presetPageId: ?string
 ) => {
-  const pageId = uuid();
-  const obj = {
+  const pageId = presetPageId || uuid();
+  const obj: Object = {
     id: pageId,
     valid: true,
     created: setCreated || false,
@@ -42,10 +43,10 @@ export const addNewWikiPage = (
 
 export const addNewInstancePage = (
   wikiDoc: Object,
-  pageId,
-  instanceId,
-  instanceName,
-  liId
+  pageId: string,
+  instanceId: string,
+  instanceName: string,
+  liId: string
 ) => {
   const instanceObj = {
     instanceId,
@@ -61,7 +62,11 @@ export const addNewInstancePage = (
   wikiDoc.submitOp(op);
 };
 
-export const invalidateWikiPage = (wikiDoc: Object, pageId, cb) => {
+export const invalidateWikiPage = (
+  wikiDoc: Object,
+  pageId: string,
+  cb: Function
+) => {
   const op = {
     p: ['pages', pageId, 'valid'],
     od: true,
@@ -74,7 +79,11 @@ export const invalidateWikiPage = (wikiDoc: Object, pageId, cb) => {
   }
 };
 
-export const changeWikiPageTitle = (wikiDoc: Object, pageId, newPageTitle) => {
+export const changeWikiPageTitle = (
+  wikiDoc: Object,
+  pageId: string,
+  newPageTitle: string
+) => {
   const op = {
     p: ['pages', pageId, 'title'],
     od: null,
@@ -84,7 +93,7 @@ export const changeWikiPageTitle = (wikiDoc: Object, pageId, newPageTitle) => {
   wikiDoc.submitOp(op);
 };
 
-export const markPageAsCreated = (wikiDoc: Object, pageId) => {
+export const markPageAsCreated = (wikiDoc: Object, pageId: string) => {
   const op = {
     p: ['pages', pageId, 'created'],
     od: false,
@@ -94,7 +103,11 @@ export const markPageAsCreated = (wikiDoc: Object, pageId) => {
   wikiDoc.submitOp(op);
 };
 
-export const restoreWikiPage = (wikiDoc: Object, pageId, cb) => {
+export const restoreWikiPage = (
+  wikiDoc: Object,
+  pageId: string,
+  cb: Function
+) => {
   const op = {
     p: ['pages', pageId, 'valid'],
     od: false,
@@ -107,7 +120,11 @@ export const restoreWikiPage = (wikiDoc: Object, pageId, cb) => {
   }
 };
 
-export const changeWikiPageLI = (wikiDoc: Object, pageId, newLiId) => {
+export const changeWikiPageLI = (
+  wikiDoc: Object,
+  pageId: string,
+  newLiId: string
+) => {
   const op = {
     p: ['pages', pageId, 'liId'],
     od: null,
@@ -117,7 +134,12 @@ export const changeWikiPageLI = (wikiDoc: Object, pageId, newLiId) => {
   wikiDoc.submitOp(op);
 };
 
-export const createNewEmptyWikiDoc = (wikiDoc: Object, wikiId, liId, owner) => {
+export const createNewEmptyWikiDoc = (
+  wikiDoc: Object,
+  wikiId: string,
+  liId: string,
+  owner: any
+) => {
   const emptyDocValues = {
     wikiId,
     owners: Array.of(owner),
@@ -145,7 +167,7 @@ export const createNewEmptyWikiDoc = (wikiDoc: Object, wikiId, liId, owner) => {
   wikiDoc.create(emptyDocValues);
 };
 
-export const completelyDeleteWikiPage = (wikiDoc: Object, pageId) => {
+export const completelyDeleteWikiPage = (wikiDoc: Object, pageId: string) => {
   const op = {
     p: ['pages', pageId],
     od: null

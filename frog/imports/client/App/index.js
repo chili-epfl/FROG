@@ -4,6 +4,7 @@ import path from 'path';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { InjectData } from 'meteor/staringatlights:inject-data';
+import * as Sentry from '@sentry/browser';
 import { Accounts } from 'meteor/accounts-base';
 import * as React from 'react';
 import Modal from 'react-modal';
@@ -20,14 +21,18 @@ import {
 import { withRouter } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { toObject as queryToObject } from 'query-parse';
-
 import { ErrorBoundary } from './ErrorBoundary';
 import StudentView from '../StudentView';
 import StudentLogin from '../StudentView/StudentLogin';
 import { LocalSettings } from '/imports/api/settings';
+import Wizard from '/imports/client/Wizard';
 import WikiRouter from '../Wiki/WikiRouter';
-import SingleActivity from '../SingleActivity';
 import { connection } from './connection';
+import LearnLandingPage from './LearnLanding';
+
+import AccountModal from '/imports/client/AccountModal/AccountModal';
+import Dialog from '@material-ui/core/Dialog';
+import { getUserType } from '/imports/api/users';
 
 const TeacherContainer = Loadable({
   loader: () => import('./TeacherContainer'),
@@ -35,6 +40,7 @@ const TeacherContainer = Loadable({
   serverSideRequirePath: path.resolve(__dirname, './TeacherContainer'),
   componentDescription: 'Teacher container'
 });
+
 const APICall = Loadable({
   loader: () => import('./APICall'),
   loading: () => null,
@@ -49,6 +55,15 @@ try {
   console.error('Initializing local storage', e);
 }
 
+const changeUser = () => {
+  connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+  Sentry.configureScope(scope => {
+    scope.setUser({
+      email: Meteor.user()?.emails?.[0]?.address || Meteor.userId()
+    });
+  });
+};
+
 const subscriptionCallback = (error, response, setState, storeInSession) => {
   if (response === 'NOTVALID') {
     setState('error');
@@ -61,13 +76,13 @@ const subscriptionCallback = (error, response, setState, storeInSession) => {
       );
     } else {
       Meteor.connection.setUserId(response.id);
-      connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+      changeUser();
     }
 
     Meteor.subscribe('userData', {
       onReady: () => {
         setState('ready');
-        connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+        changeUser();
       }
     });
   }
@@ -93,12 +108,13 @@ const FROGRouter = withRouter(
 
     constructor(props) {
       super(props);
+
       this.state = { mode: 'waiting' };
       if (Meteor.user()) {
         Meteor.subscribe('userData', {
           onReady: () => {
             this.setState({ mode: 'ready' });
-            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+            changeUser();
           }
         });
       }
@@ -139,7 +155,7 @@ const FROGRouter = withRouter(
         this.props.match.params.slug,
         (err, res) => {
           if (res) {
-            connection.createFetchQuery('rz', { resetUserId: Meteor.userId() });
+            changeUser();
           }
           subscriptionCallback(
             err,
@@ -161,9 +177,7 @@ const FROGRouter = withRouter(
         } else {
           Meteor.subscribe('userData', {
             onReady: () => {
-              connection.createFetchQuery('rz', {
-                resetUserId: Meteor.userId()
-              });
+              changeUser();
               this.setState({ mode: 'ready' });
             }
           });
@@ -189,10 +203,30 @@ const FROGRouter = withRouter(
       });
       if (!this.wait) {
         const query = queryToObject(this.props.location.search.slice(1));
+        if (query.setAdmin) {
+          Meteor.call('make.admin', query.setAdmin, (err, res) => {
+            if (err) {
+              alert(`Error setting admin account: ${err}`);
+            } else if (res === 'Fail') {
+              alert('Failed to promote user to admin');
+            } else if (res === 'Success') {
+              alert('User promoted to admin');
+            }
+            this.props.history.push('/');
+          });
+          return;
+        }
         if (query.u) {
           this.setState({ mode: 'loggingIn' });
-          LocalSettings.UrlCoda = '?u=' + query.u;
-          Meteor.call('frog.userid.login', query.u, (err, res) => {
+          const userId = query.u;
+          let token = 'Anonymous';
+          if (query.token) {
+            token = query.token;
+            LocalSettings.UrlCoda = `?u=${userId}&token=${token}`;
+          } else {
+            LocalSettings.UrlCoda = `?u=${userId}`;
+          }
+          Meteor.call('frog.userid.login', userId, token, (err, res) => {
             if (err) {
               console.error(err);
               this.setState({ mode: 'noSession' });
@@ -291,9 +325,12 @@ const FROGRouter = withRouter(
     };
 
     render() {
+      const learnUrl = window.location.hostname.slice(0, 6) === 'learn.';
       const user = Meteor.user();
       if (this.state.mode === 'tooLate') {
-        return <h1>Too late to join this session</h1>;
+        return (
+          <LearnLandingPage errorMessage="Too late to join this session" />
+        );
       }
       const query = queryToObject(this.props.location.search.slice(1));
       if (query.login) {
@@ -301,33 +338,48 @@ const FROGRouter = withRouter(
       } else if (this.state.mode === 'loggingIn') {
         return <CircularProgress />;
       } else if (this.state.mode === 'ready' && user) {
-        return (
+        return learnUrl ? (
           <Switch>
-            <Route path="/duplicate" component={SingleActivity} />
-            <Route path="/wiki" component={WikiRouter} />
-            <Route path="/teacher/projector/:slug" component={StudentView} />
-            <Route path="/teacher/" component={TeacherContainer} />
-            <Route path="/t/:slug" component={TeacherContainer} />
-            <Route path="/t" component={TeacherContainer} />
             <Route path="/:slug" component={StudentView} />
             <Route
               path="/"
               exact
               render={() =>
-                LocalSettings.follow ? <StudentView /> : <SingleActivity />
+                LocalSettings.follow ? <StudentView /> : <LearnLandingPage />
               }
             />
+          </Switch>
+        ) : (
+          <Switch>
+            {getUserType() === 'Legacy' ? (
+              <Dialog open PaperProps={{ elevation: 1 }}>
+                <AccountModal
+                  formToDisplay="signup"
+                  variant="legacy"
+                  closeModal={() => {}}
+                />
+              </Dialog>
+            ) : null}
+            <Route path="/duplicate" component={Wizard} />
+            <Route path="/wiki" component={WikiRouter} />
+            <Route path="/teacher/projector/:slug" component={StudentView} />
+            <Route path="/teacher/" component={TeacherContainer} />
+            <Route path="/t/:slug" component={TeacherContainer} />
+            <Route path="/t" component={TeacherContainer} />
+            <Route path="/wizard" component={Wizard} />
+            <Route path="/" exact component={TeacherContainer} />
           </Switch>
         );
       }
       if (this.state.mode === 'error') {
         return <h1>There was an error logging in</h1>;
       }
-      if (this.state.mode === 'noSession') {
-        return <h1>No such session exists</h1>;
+      if (this.state.mode === 'noSession' && learnUrl) {
+        return <LearnLandingPage errorMessage="This session does not exist" />;
       }
       return (
-        this.state.mode === 'studentlist' && (
+        this.state.mode === 'studentlist' &&
+        learnUrl && (
           <StudentLogin
             settings={this.state.settings}
             login={this.login}
@@ -393,7 +445,7 @@ export default class Root extends React.Component<
 
   render() {
     if (this.state.mode === 'waiting') {
-      return null;
+      return <p>Waiting</p>;
     } else if (this.state.api && this.state.data) {
       return (
         <>

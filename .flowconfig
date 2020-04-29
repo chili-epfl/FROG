@@ -21,8 +21,15 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 # e.g. "meteor/meteor"
 module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/build/programs/web.browser/packages/\1'
 
+[lints]
+deprecated-utility=off
+
 [libs]
 .*node_modules/fbjs/flow/lib
+
+[declarations]
+<PROJECT_ROOT>/flow-typed/npm/material-ui_v1.x.x.js
+<PROJECT_ROOT>/node_modules/mobx/lib/mobx.js.flow
 
 [ignore]
 # Ignore the `.meteor/local` packages that aren't important
@@ -52,4 +59,5 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/frog/.meteor/local/buil
 .*node_modules/cypress/*
 .*node_modules/react-draggable/lib/*
 .*/.meteor/.*/package.json
+<PROJECT_ROOT>/packages/.*
 frogapi-test

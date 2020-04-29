@@ -3,7 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
-import { type LogT, type LogDbT } from '/imports/frog-utils';
+import { type LogT } from '/imports/frog-utils';
 import { LocalSettings } from './settings';
 
 export const Logs = new Mongo.Collection('logs');
@@ -28,7 +28,7 @@ export const engineLogger = (
       sessionId,
       type,
       value
-    }: $Diff<LogDbT, { timestamp: Date }>)
+    }: Object)
   );
 
 export const teacherLogger = (

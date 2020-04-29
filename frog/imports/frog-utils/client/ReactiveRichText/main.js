@@ -18,6 +18,7 @@ import {
 import QuillCursors from '@minervaproject/quill-cursors';
 import Dialog from '@material-ui/core/Dialog';
 
+import { values } from '/imports/frog-utils/toArray';
 import { HighlightSearchText } from '/imports/frog-utils/HighlightSearchText';
 import { highlightTargetRichText } from '/imports/frog-utils/highlightTargetRichText';
 import { cloneDeep } from '/imports/frog-utils/cloneDeep';
@@ -86,7 +87,8 @@ type ReactivePropsT = {
   data?: Object,
   readOnly?: boolean,
   shorten?: number,
-  userId?: string,
+  userId: string,
+  username?: string,
   search?: string,
   onChange?: Function,
   autoFocus?: boolean
@@ -192,7 +194,7 @@ class ReactiveRichText extends Component<
     return raw;
   };
 
-  updateCursor = range => {
+  updateCursor = (range: Object) => {
     const { userId, username } = this.props;
     const doc = this.props.dataFn?.doc;
     doc.submitPresence({
@@ -229,7 +231,7 @@ class ReactiveRichText extends Component<
     this.cursors = cursors;
   };
 
-  handlePresenceUpdate(srcList, submitted, that) {
+  handlePresenceUpdate(srcList: string[], submitted: ?boolean, that: Object) {
     if (!that.quillRef) {
       console.warn('No Quillref');
       return;
@@ -400,7 +402,9 @@ class ReactiveRichText extends Component<
     if (!this.props.shorten) {
       const editor = this.quillRef && this.quillRef.getEditor();
       if (this.props.autoFocus) {
-        this.quillRef.focus();
+        // disabling for now, until we can figure out how to avoid problems
+        // in the graph editor
+        // this.quillRef.focus();
       }
       if (editor) {
         // LI blots in existing content always trigger a change with source 'user'
@@ -678,7 +682,7 @@ class ReactiveRichText extends Component<
     return filter(
       allLiTypes,
       type =>
-        get(type, 'liDataStructure') &&
+        get(type, 'dataStructure') &&
         get(type, 'Editor') &&
         get(type, 'id') !== 'li-richText' &&
         get(type, 'id') !== 'li-doubleRichText'
@@ -789,13 +793,13 @@ class ReactiveRichText extends Component<
                       allowedChars: /^[A-Za-z\sÅÄÖåäö/0-9_ !""$&'()*+,-.:;<=>?@#[\]^_`{|}~]*$/,
                       mentionDenotationChars: ['@'],
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages();
+                        const valuesList = wikiContext.getOnlyValidWikiPages();
 
                         if (searchTerm.length === 0) {
-                          renderList(values, searchTerm);
+                          renderList(valuesList, searchTerm);
                         } else {
                           const matches = [];
-                          for (const valueObj of values) {
+                          for (const valueObj of valuesList) {
                             const text = (valueObj.title || '').toLowerCase();
                             const searchLower = (
                               searchTerm || ''
@@ -811,7 +815,7 @@ class ReactiveRichText extends Component<
                               const pageTitle = parts[0];
                               const searchInstanceName = parts[1];
                               if (text.indexOf(pageTitle) > -1) {
-                                for (const instanceObj of Object.values(
+                                for (const instanceObj of values(
                                   valueObj.instances
                                 )) {
                                   const instanceName = instanceObj.instanceName.toLowerCase();
@@ -855,14 +859,14 @@ class ReactiveRichText extends Component<
                       mentionDenotationChars: ['#'],
                       type: 'embed',
                       source: (searchTerm, renderList) => {
-                        const values = wikiContext.getOnlyValidWikiPages();
+                        const valuesList = wikiContext.getOnlyValidWikiPages();
 
                         if (searchTerm.length === 0) {
-                          renderList(values, searchTerm);
+                          renderList(valuesList, searchTerm);
                         } else {
                           const matches = [];
 
-                          for (const valueObj of values) {
+                          for (const valueObj of valuesList) {
                             const text = (valueObj.title || '').toLowerCase();
                             const searchLower = (
                               searchTerm || ''

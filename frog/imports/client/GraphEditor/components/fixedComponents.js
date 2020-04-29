@@ -28,7 +28,7 @@ export const PanMap = connect(
 );
 
 const onDoubleClick = (x, e) => {
-  store.activityStore.addActivity(x, e.nativeEvent.offsetX, e.shiftKey);
+  store.activityStore.addActivity(x, e.nativeEvent.offsetX - 10, e.shiftKey);
 };
 
 export const LevelLines = connect(
@@ -39,24 +39,27 @@ export const LevelLines = connect(
     scaled
   }: StoreProp & { scaled: boolean }) => (
     <g>
-      {[1, 2, 3, 4].map(plane => (
+      {[1, 2, 3].map(plane => (
         <g key={plane}>
+          <text x="5" y={300 * (1 - plane / 4) - 5} fill="#8698AB">
+            {['Individual', 'Group', 'Class'][plane - 1]}
+          </text>
           <line
             x1={0}
-            y1={(5 - plane) * 100 + 65}
+            y1={300 * (1 - plane / 4)}
             x2={graphWidth * (scaled ? scale : 4)}
-            y2={(5 - plane) * 100 + 65}
-            stroke="grey"
+            y2={300 * (1 - plane / 4)}
+            stroke="#8698AB"
             strokeWidth={5 - plane === 1 ? 2 : 1}
             strokeDasharray={5 - plane === 1 ? '10,10' : '5,5'}
           />
           <rect
             onDoubleClick={e => onDoubleClick(plane, e)}
             x={0}
-            y={(5 - plane) * 100 + 45}
+            y={300 * (1 - plane / 4) - 14}
             width={graphWidth * (scaled ? scale : 4)}
             fill="transparent"
-            height={40}
+            height={28}
           />
         </g>
       ))}
@@ -83,12 +86,13 @@ export const TimeScale = connect(
           return (
             <g key={i}>
               {divider < 20 || i % 5 === 0 ? (
-                <line x1={x} y1={600 - length} x2={x} y2={600} stroke="grey" />
-              ) : null}
-              {i % divider === 0 ? (
-                <text x={x - 15} y={540}>
-                  {i + ' min.'}
-                </text>
+                <line
+                  x1={x}
+                  y1={300 - length}
+                  x2={x}
+                  y2={300}
+                  stroke="#8698AB"
+                />
               ) : null}
             </g>
           );

@@ -1,12 +1,13 @@
 export default {
   graph: {
     _id: 'cjxllw3sl000168ixh1qrnsht',
-    name: '#Peer review    (5)',
+    name: 'Peer review',
     ownerId: 'NqjebGBP8qbpQrYev',
     createdAt: '2019-07-02T09:24:54.453Z',
     graphVersion: 2,
     broken: false,
-    duration: 60
+    duration: 60,
+    templateGraph: true
   },
   activities: [
     {
@@ -80,7 +81,7 @@ export default {
       activityType: 'ac-gallery',
       configVersion: 1,
       data: { expand: true, showUserName: true },
-      participationMode: 'projector',
+      participationMode: '{{participationMode}}',
       actualStartingTime: '2019-07-02T09:39:25.336Z'
     },
     {

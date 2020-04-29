@@ -26,7 +26,7 @@ const TopPanel = ({
   canPreview
 }) => (
   <div style={{ backgroundColor: '#eee' }}>
-    <div style={{ position: 'absolute', left: -40 }}>
+    <div style={{ position: 'absolute', left: -40, overflow: 'visible' }}>
       <ErrorList activityId={operator._id} />
     </div>
     <FlexView>
@@ -95,7 +95,7 @@ export default ({
 }) => {
   const graphOperator = all.find(act => act.id === operator._id);
   const operatorType = operatorTypesObj[operator.operatorType];
-  if (!graphOperator || !operatorType) return;
+  if (!graphOperator || !operatorType) return null;
 
   let errorColor;
   const errors = graphErrors.filter(x => x.id === operator._id);

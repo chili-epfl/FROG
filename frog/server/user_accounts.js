@@ -3,7 +3,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { uuid } from '/imports/frog-utils';
-
+import { getUserType, checkUserAdmin } from '/imports/api/users';
 import { Sessions } from '../imports/api/sessions';
 
 const doLogin = (user, self) => {
@@ -45,13 +45,15 @@ const cleanStudentList = studentList =>
     : '';
 
 Meteor.methods({
-  'frog.username.login': function(user, token, isStudentList, slug) {
+  'frog.username.login': function(username, token, isStudentList, slug) {
     const self = this;
+    const userObj = Meteor.users.findOne({ username });
+    // for anonymous login
+    if (username === null) return doLogin(username, self);
     if (
       !isStudentList &&
-      process.env.NODE_ENV === 'production' &&
-      !Meteor.settings.public.friendlyProduction &&
-      token !== Meteor.settings.token
+      userObj &&
+      getUserType({ meteorUser: userObj }) === 'Verified'
     ) {
       return 'NOTVALID';
     } else {
@@ -64,29 +66,42 @@ Meteor.methods({
             !studentlist
               .split('\n')
               .map(x => x.toUpperCase())
-              .includes(user.toUpperCase())
+              .includes(username.toUpperCase())
           ) {
             Sessions.update(session._id, {
               $set: {
                 'settings.studentlist': cleanStudentList(
-                  studentlist + '\n' + user
+                  studentlist + '\n' + username
                 )
               }
             });
           }
         }
       }
-      return doLogin(user, self);
+
+      return doLogin(username, self);
     }
   },
-  'frog.userid.login': function(userId) {
+  'frog.users.all': function() {
+    if (checkUserAdmin()) {
+      const userList = Meteor.users.find().fetch();
+      return userList;
+    } else {
+      return [];
+    }
+  },
+  'frog.userid.login': function(userId, token) {
     const self = this;
     const userDoc = Meteor.users.findOne({ _id: userId });
     if (!userDoc) {
       throw new Meteor.Error('Unable to find any user with the given userId');
     }
-    const result = Accounts._loginUser(self, userId);
-    return result;
+    if (userDoc.isAnonymous || token === userDoc.impersonationToken) {
+      const result = Accounts._loginUser(self, userId);
+      return result;
+    } else {
+      return 'INCORRECT_TOKEN';
+    }
   },
   'frog.session.settings': function(slug) {
     if (typeof slug !== 'string') {
@@ -127,5 +142,23 @@ Meteor.methods({
         isAnonymous: false
       }
     });
+  },
+  'make.admin': token => {
+    if (token === Meteor.settings.token) {
+      Meteor.users.update(Meteor.userId(), {
+        $set: { isAdmin: true }
+      });
+      return 'Success';
+    }
+    return 'Fail';
+  },
+  'impersonation.token': userId => {
+    if (checkUserAdmin()) {
+      const newToken = uuid();
+      Meteor.users.update(userId, { $set: { impersonationToken: newToken } });
+      return newToken;
+    } else {
+      return 'Not admin';
+    }
   }
 });

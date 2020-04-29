@@ -105,7 +105,7 @@ export type validateConfigFnT = Object => null | {
 export type LogT = {|
   type: string,
   itemId?: string,
-  value?: string | number,
+  value?: string | number | Array<any>,
   payload?: Object
 |};
 
@@ -148,7 +148,7 @@ export type ActivityPackageT = {
   },
   config: Object,
   configUI?: Object,
-  dataStructure?: any,
+  dataStructure?: Object | Function,
   validateConfig?: validateConfigFnT[],
   mergeFunction?: (
     dataUnitStructT,
@@ -172,6 +172,19 @@ export type ActivityPackageT = {
     formContext: Object
   }>,
   LearningItems?: LearningItemT<*>[]
+};
+
+export type TemplatePackageT = {
+  id: string,
+  config: Object,
+  type: string,
+  meta: {
+    name: string,
+    shortName?: string,
+    shortDesc: string,
+    description: string
+  },
+  makeTemplate: (config: Object) => Object
 };
 
 export type DashboardT = {
@@ -395,5 +408,6 @@ export type LearningItemT<T> = {
     search: string,
     dataFn: Object,
     isPlayback?: boolean
-  ) => boolean
+  ) => boolean,
+  disableDragging?: boolean
 };

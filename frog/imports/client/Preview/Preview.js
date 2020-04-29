@@ -2,15 +2,12 @@
 //
 
 import * as React from 'react';
-import ReactTooltip from 'react-tooltip';
-import Modal from 'react-modal';
 import ShareDB from '@teamwork/sharedb';
 import Draggable from 'react-draggable';
 
 import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 
 import { activityTypesObj } from '/imports/activityTypes';
 import { Logs } from './dashboardInPreviewAPI';
@@ -37,7 +34,6 @@ export const restartBackend = () => {
 const styles = {
   main: {
     display: 'flex',
-    marginTop: '48px',
     height: 'calc(100vh - 48px)'
   },
   noModal: {
@@ -94,8 +90,7 @@ const StatelessPreview = (props: Object) => {
   const {
     delay,
     activityTypeId,
-    modal,
-    dismiss,
+    graphEditor,
     showLogs,
     fullWindow,
     showDashExample,
@@ -126,7 +121,6 @@ const StatelessPreview = (props: Object) => {
           <Controls {...props} classes={undefined} />
         </div>
       </Draggable>
-      <ReactTooltip delayShow={300} place="right" />
     </Dialog>
   );
 
@@ -135,28 +129,19 @@ const StatelessPreview = (props: Object) => {
       <ConfigPanel {...props} classes={undefined} />
       <div className={classes.noModal}>
         <Controls {...props} classes={undefined} />
-        <Paper className={classes.noModalPreviewContent}>
-          {PreviewContent}
-        </Paper>
-        <ReactTooltip delayShow={300} place="right" />
+        <div className={classes.noModalPreviewContent}>{PreviewContent}</div>
       </div>
     </div>
   );
 
-  const ModalP = (
-    <Modal
-      ariaHideApp={false}
-      contentLabel={'Preview of ' + activityTypeId}
-      isOpen
-      onRequestClose={dismiss}
-    >
+  const GraphEditorP = (
+    <div style={{ width: '100%' }}>
       <Controls {...props} classes={undefined} />
-      {PreviewContent}
-      <ReactTooltip delayShow={300} place="right" />
-    </Modal>
+      <div style={{ height: 'calc(100% - 44px)' }}>{PreviewContent}</div>
+    </div>
   );
 
-  return fullWindow ? FullWindowP : modal ? ModalP : NoModalP;
+  return fullWindow ? FullWindowP : graphEditor ? GraphEditorP : NoModalP;
 };
 
 export default withStyles(styles)(StatelessPreview);

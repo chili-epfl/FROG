@@ -20,7 +20,7 @@ export const RenameBox = connect(
         style={{
           position: 'absolute',
           left: `${renameOpen.screenX}px`,
-          top: `${renameOpen.y + 102}px`
+          top: `calc(100vh - 300px + ${renameOpen.y}px`
         }}
       >
         <RenameField activityId={renameOpen.id} onSubmit={endRename} />
@@ -50,6 +50,11 @@ export const RenameField = connect(
           onSubmit={(value: string) => {
             renameOpen.rename(value);
             onSubmit();
+          }}
+          style={{
+            padding: '5px',
+            fontSize: '12px',
+            width: `calc(100% - 20px)`
           }}
         />
       );

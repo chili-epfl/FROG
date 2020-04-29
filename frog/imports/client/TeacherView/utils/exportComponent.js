@@ -21,10 +21,11 @@ import { graphToString } from '/imports/api/exportGraph';
 import downloadLog from './downloadLog';
 import exportGraphPNG from '../../GraphEditor/utils/exportPicture';
 import { getUsername } from '/imports/api/users';
+import { connection } from '/imports/client/App/connection';
 
 const userIds = {};
 
-const userLookup = (userId: string): [string, string] => {
+const userLookup = (userId: string): [string, ?string] => {
   if (userId === 'instanceId') {
     return ['userid', 'username'];
   }
@@ -34,7 +35,7 @@ const userLookup = (userId: string): [string, string] => {
   }
   const userobj = Meteor.users.findOne(userId);
   const ret = userobj
-    ? [userobj.userid || '', getUsername({ userObj: userobj })]
+    ? [userobj.userid || '', getUsername({ meteorUser: userobj })]
     : [userId, ''];
   userIds[userId] = ret;
   return ret;
@@ -52,13 +53,13 @@ export const generateExport = (
   item: ActivityDbT,
   object: Object,
   product: Object,
-  img: Object
+  folder: Object
 ) => {
   const aT = activityTypesObj[item.activityType];
-  img.file('product.json', Stringify(product));
-  img.file('object.json', Stringify(object));
-  img.file('config.json', Stringify(item.data));
-  img.file('activity.json', Stringify(omit(item, 'data')));
+  folder.file('product.json', Stringify(product));
+  folder.file('object.json', Stringify(object));
+  folder.file('config.json', Stringify(item.data));
+  folder.file('activity.json', Stringify(omit(item, 'data')));
   if (aT && aT.exportData && product && product.activityData) {
     let data = aT.exportData(item.data, product.activityData);
     data = cleanEmptyCols(data);
@@ -71,7 +72,7 @@ export const generateExport = (
         })
         .join('\n');
     }
-    img.file('data.tsv', data);
+    folder.file('data.tsv', data);
   }
   if (item.plane === 2 && object && object.socialStructure) {
     const struct = object.socialStructure[item.groupingKey];
@@ -86,7 +87,10 @@ export const generateExport = (
       .join('\n');
     const userfile = 'userid\tusername\tinstanceid\n' + mappings;
 
-    img.file('usermappings-' + (item.groupingKey || '???') + '.tsv', userfile);
+    folder.file(
+      'usermappings-' + (item.groupingKey || '???') + '.tsv',
+      userfile
+    );
   }
 };
 
@@ -107,13 +111,26 @@ const objectProductPromise = id =>
     Meteor.call('get.object.product', id, (_, result) => resolve(result))
   );
 
-export const exportSession = (sessionId: string) => {
+const fetchSessionLIs = sessionId => {
+  const query = { sessionId };
+  const litems = new Promise(resolve => {
+    connection.createFetchQuery('li', query, {}, (err, results) => {
+      resolve(results.map(x => ({ ...x.data, id: x.id })));
+    });
+  });
+  return litems;
+};
+
+export const exportSession = async (sessionId: string) => {
   const session = Sessions.findOne(sessionId);
   const activities = Activities.find({ graphId: session.graphId }).fetch();
   const operators = Operators.find({ graphId: session.graphId }).fetch();
+  const litems = await fetchSessionLIs(sessionId);
   const files = UploadList.find({ sessionId }).fetch();
   const zip = new JSZip();
   const activitySequence = getActivitySequence(activities);
+
+  const acFolder = zip.folder('ac');
   activities.forEach(async act => {
     const result = await objectProductPromise(act._id);
     const object = result[0];
@@ -121,17 +138,17 @@ export const exportSession = (sessionId: string) => {
     if (!product) {
       product = await productPromise(act._id);
     }
-    const img = zip.folder(
+    const acfo = acFolder.folder(
       `${activitySequence[act._id]}-${slugo(act.title || '').slice(0, 20)}__p${
         act.plane
       }__${act.activityType}-${act._id.slice(-4)}`
     );
-    generateExport(act, object, product, img);
+    generateExport(act, object, product, acfo);
   });
 
-  const opfolder = zip.folder('op');
+  const opFolder = zip.folder('op');
   operators.forEach(async op => {
-    const opfo = opfolder.folder(
+    const opfo = opFolder.folder(
       `${slugo((op.title || '').slice(0, 20))}__${
         op.operatorType
       }-${op._id.slice(-4)}`
@@ -141,6 +158,11 @@ export const exportSession = (sessionId: string) => {
     opfo.file('product.json', Stringify(product));
     opfo.file('object.json', Stringify(object));
     opfo.file('config.json', Stringify(op.data));
+  });
+
+  const liFolder = zip.folder('li');
+  litems.forEach(li => {
+    liFolder.file(li.id + '.json', Stringify(li));
   });
 
   // const fileFolder = zip.folder('files')

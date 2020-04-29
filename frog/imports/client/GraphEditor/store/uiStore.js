@@ -116,7 +116,7 @@ export default class uiStore {
     const user = Meteor.user();
 
     extendObservable(this, {
-      sidepanelOpen: false,
+      sidepanelOpen: true,
       svgRef: null,
       scale: 1,
       windowWidth: 1000,
@@ -242,8 +242,8 @@ export default class uiStore {
 
       updateGraphWidth: action(() => {
         const oldPan = this.panTime;
-        const boxWidth = this.sidepanelOpen ? 500 : 0;
-        this.graphWidth = this.windowWidth - boxWidth;
+        // const boxWidth = this.sidepanelOpen ? 400 : 0;
+        this.graphWidth = this.windowWidth; // - boxWidth;
         this.panx = timeToPx(oldPan, this.scale) / this.scale;
       }),
 

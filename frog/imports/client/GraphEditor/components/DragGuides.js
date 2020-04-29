@@ -18,7 +18,7 @@ const VerticalLine = ({ x }) => (
     x1={x}
     y1={0}
     x2={x}
-    y2={600}
+    y2={300}
     stroke="grey"
     strokeWidth={1}
     strokeDasharray="5,5"
@@ -28,12 +28,12 @@ const VerticalLine = ({ x }) => (
 const ShadedBox = ({ x, current }) => (
   <rect
     stroke="transparent"
-    fill="#f9f3d2"
-    fillOpacity={0.3}
+    fill="#CDDEEF"
+    fillOpacity={0}
     x={Math.min(current, x)}
     y={0}
     width={Math.abs(x - current)}
-    height={600}
+    height={300}
   />
 );
 

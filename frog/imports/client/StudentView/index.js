@@ -7,6 +7,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { every } from 'lodash';
 import { UserStatus } from 'meteor/mizzao:user-status';
+import LearnLandingPage from '../App/LearnLanding';
 
 import { Sessions } from '/imports/api/sessions';
 import { GlobalSettings, LocalSettings } from '/imports/api/settings';
@@ -67,7 +68,7 @@ class StudentViewComp extends React.Component<
       return <h1>Waiting for teacher to select new session</h1>;
     }
     if (this.state.result === 'error') {
-      return <h1>Error: {this.state.message}</h1>;
+      return <LearnLandingPage errorMessage={this.state.message} />;
     }
     if (!this.props.ready) {
       return <CircularProgress />;
@@ -85,9 +86,9 @@ class StudentViewComp extends React.Component<
     }
 
     return (
-      <React.Fragment>
+      <>
         <SessionBody token={this.props.token} />
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -148,7 +149,11 @@ export default withTracker(props => {
   return {
     session: Sessions.findOne({ slug }),
     token: GlobalSettings.findOne('token'),
-    ready: every(subscriptions.map(x => x.ready()), Boolean) && slug,
+    ready:
+      every(
+        subscriptions.map(x => x.ready()),
+        Boolean
+      ) && slug,
     slug
   };
 })(StudentViewComp);

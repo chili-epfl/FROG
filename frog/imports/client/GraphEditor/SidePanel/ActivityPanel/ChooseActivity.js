@@ -9,17 +9,17 @@ import ReactTooltip from 'react-tooltip';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { Cloud, Close } from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/styles';
 import Search from '@material-ui/icons/Search';
-import Cloud from '@material-ui/icons/Cloud';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
+import { Button } from '../../../../ui/Button';
 import { connect } from '../../store';
 import Library from '../../RemoteControllers/RemoteLibrary';
 
@@ -165,8 +165,8 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
   };
 
   render() {
-    const whiteList = this.props.whiteList;
-    const types = whiteList
+    const { whiteList } = this.props;
+    const types: Object[] = whiteList
       ? activityTypes
           .concat(operatorTypes)
           .filter(x => whiteList.includes(x.id))
@@ -177,7 +177,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
 
     const select = this.props.onSelect
       ? this.props.onSelect
-      : aT => {
+      : (aT: Object) => {
           const defaultConf = jsonSchemaDefaults(aT.config);
           addActivity(aT.id, defaultConf, this.props.activity._id);
           const { store, activity } = this.props;
@@ -226,11 +226,13 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
         key={categoryName}
       />
     );
+
+    if (!store || !store.ui) return null;
     return (
       <Grid>
         <div className={classes.topPanel}>
           <Grid item>
-            <Typography variant="h4">Select Activity Type</Typography>
+            <Typography variant="h5">Select Activity Type</Typography>
           </Grid>
           <Grid container spacing={2} alignItems="flex-end" item>
             <Grid item>
@@ -245,18 +247,23 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
             </Grid>
             <Grid item>
               <Button
-                variant="contained"
-                color={!store.ui.libraryOpen ? 'primary' : 'secondary'}
+                icon={
+                  !store.ui.libraryOpen ? (
+                    <Cloud fontSize="small" />
+                  ) : (
+                    <Close fontSize="small" />
+                  )
+                }
+                variant="primary"
                 onClick={this.handleToggle}
               >
-                <Cloud className={classes.Library} />
-                Library
+                {!store.ui.libraryOpen ? 'Open Library' : 'Close Library'}
               </Button>
             </Grid>
           </Grid>
         </div>
         <List component="nav">
-          {!this.props.store.ui.libraryOpen &&
+          {!store.ui.libraryOpen &&
             this.state.searchStr === '' &&
             categories.map((x: string, idx: number) => {
               if (activityMapping)
@@ -272,7 +279,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                   idx
                 );
             })}
-          {!this.props.store.ui.libraryOpen &&
+          {!store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length !== 0 &&
             filteredList.map(x => (
@@ -292,7 +299,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 <ListItemText inset primary={x.meta.name} />
               </ListItem>
             ))}
-          {!this.props.store.ui.libraryOpen &&
+          {!store.ui.libraryOpen &&
             this.state.searchStr !== '' &&
             filteredList.length === 0 && (
               <ListItem key="no-match-search">
@@ -302,7 +309,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
                 />
               </ListItem>
             )}
-          {this.props.store.ui.libraryOpen && (
+          {store.ui.libraryOpen && (
             <Library
               key="library"
               libraryType="activity"
@@ -310,7 +317,7 @@ class ChooseActivityTypeController extends Component<PropsT, StateT> {
               setIdRemove={this.props.setIdRemove}
               activityId={this.props.activity._id}
               setActivityTypeId={this.props.setActivityTypeId}
-              store={this.props.store}
+              store={store}
               locallyChanged={this.props.locallyChanged}
               changesLoaded={this.props.changesLoaded}
               onSelect={this.props.onSelect}

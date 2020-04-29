@@ -3,17 +3,19 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { MosaicWindow } from 'react-mosaic-component';
-import { focusStudent, getMergedExtractedUnit } from '/imports/frog-utils';
+import { ActivityWindow } from '/imports/ui/ActivitySplitWindow';
+import * as Sentry from '@sentry/browser';
 
+import { focusStudent, getMergedExtractedUnit } from '/imports/frog-utils';
 import { activityTypesObj } from '/imports/activityTypes';
 import { activityRunners } from '/imports/client/activityRunners';
 import { createLogger } from '/imports/api/logs';
 import { Objects } from '/imports/api/objects';
 import { LocalSettings } from '/imports/api/settings';
 import { Sessions } from '/imports/api/sessions';
-import ReactiveHOC from './ReactiveHOC';
 import { getUsername } from '/imports/api/users';
+
+import ReactiveHOC from './ReactiveHOC';
 
 const getStructure = activity => {
   if (activity.plane === 1) {
@@ -25,25 +27,34 @@ const getStructure = activity => {
   }
 };
 
-const Runner = ({ path, activity, sessionId, object, single }) => {
+const Runner = ({ activity, sessionId, object, paused }) => {
+  Sentry.addBreadcrumb({
+    category: 'studentview',
+    data: { activity, sessionId, object }
+  });
   if (!activity) {
     return <p>NULL ACTIVITY</p>;
   }
   if (!object) {
     return null;
   }
-  const isTeacher = Meteor.userId() === Sessions.findOne(sessionId)?.ownerId;
+  const session = Sessions.findOne(sessionId);
+  if (!session) {
+    console.error('No session');
+    return null;
+  }
+  const isTeacher = Meteor.userId() === session.ownerId;
 
   const socStructure = focusStudent(object.socialStructure);
   const studentSoc = socStructure[Meteor.userId()];
   const instanceMembers =
-    !isTeacher && activity.plane === 2
+    !isTeacher && activity.plane === 2 && studentSoc
       ? object.socialStructure[activity.groupingKey][
           studentSoc[activity.groupingKey]
         ]
           .map(x => object.globalStructure?.students[x])
           .sort()
-      : undefined;
+      : [];
 
   let groupingValue;
   if ([3, 4].includes(activity.plane)) {
@@ -55,36 +66,50 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   }
 
   const groupingStr = activity.groupingKey ? activity.groupingKey + '/' : '';
-  let title =
-    '(' +
-    groupingStr +
-    (isTeacher && activity.plane === 2 ? '' : groupingValue) +
-    ')';
+  let title = '(' + groupingStr + groupingValue + ')';
+  // only specify grouping key if it differs from "group"
+  if (activity.plane === 2 && isTeacher) {
+    title = `(Group activity${
+      activity.groupingKey !== 'group'
+        ? `, grouped by ${activity.groupingKey}`
+        : ''
+    }, PREVIEW)`;
+  }
   if (activity.plane === 1) {
-    title = `(individual/${getUsername()})`;
+    title = isTeacher
+      ? '(Individual activity, PREVIEW)'
+      : `(individual/${getUsername(undefined, { activityRunner: true }) ||
+          ''})`;
+  }
+  if (activity.plane === 3) {
+    title = '(Whole class)';
   }
 
   const config = activity.data;
 
   // if teacher is previewing p1/p2 activity, grab data from first instance
   const activityStructure = getStructure(activity);
+  let activityData;
   if (
     groupingValue !== 'all' &&
     isTeacher &&
     object.globalStructure.studentIds.length === 0
   ) {
-    return <h1>Cannot preview activity when no students are in session</h1>;
+    activityData = {
+      data: activityTypesObj[activity.activityType].dataStructure || {},
+      config: activity.data
+    };
+  } else {
+    activityData = getMergedExtractedUnit(
+      config,
+      object.activityData,
+      activityStructure,
+      groupingValue !== 'all' && isTeacher
+        ? Object.keys(object.activityData.payload)[0]
+        : groupingValue,
+      object.socialStructure
+    );
   }
-
-  const activityData = getMergedExtractedUnit(
-    config,
-    object.activityData,
-    activityStructure,
-    groupingValue !== 'all' && isTeacher
-      ? Object.keys(object.activityData.payload)[0]
-      : groupingValue,
-    object.socialStructure
-  );
 
   const stream = value => {
     Meteor.call('stream', activity, groupingValue, value);
@@ -92,6 +117,15 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
   const reactiveId = activity._id + '/' + groupingValue;
   const logger = createLogger(sessionId, groupingValue, activity);
   const readOnly = activity.participationMode === 'readonly' && !isTeacher;
+  Sentry.addBreadcrumb({
+    category: 'studentview',
+    data: {
+      activityData,
+      groupingKey: activity.groupingKey,
+      groupingValue,
+      readOnly
+    }
+  });
 
   const Torun = (
     <div
@@ -108,17 +142,17 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
       <RunActivity
         key={reactiveId}
         activityTypeId={activity.activityType}
-        {...{
-          reactiveId,
-          logger,
-          stream,
-          activityData,
-          groupingValue,
-          sessionId,
-          readOnly
-        }}
+        reactiveId={reactiveId}
+        logger={logger}
+        stream={stream}
+        activityData={activityData}
+        groupingValue={groupingValue}
+        sessionId={sessionId}
+        readOnly={readOnly}
         activityId={activity._id}
-        username={getUsername()}
+        username={
+          getUsername(undefined, { activityRunner: true }) || 'No Username'
+        }
         userid={Meteor.userId()}
         groupingKey={activity.groupingKey}
         instanceMembers={instanceMembers}
@@ -126,21 +160,14 @@ const Runner = ({ path, activity, sessionId, object, single }) => {
     </div>
   );
 
-  if (single) {
-    return Torun;
-  } else {
-    return (
-      <MosaicWindow
-        toolbarControls={[<div key={1} />]}
-        draggable={false}
-        key={activity._id}
-        path={path}
-        title={activity.title + ' ' + title}
-      >
-        {Torun}
-      </MosaicWindow>
-    );
-  }
+  return (
+    <ActivityWindow
+      key={activity._id}
+      title={activity.title + ' ' + title + (paused ? ' - PAUSED' : '')}
+    >
+      {Torun}
+    </ActivityWindow>
+  );
 };
 
 type PropsT = {
@@ -193,7 +220,14 @@ export class RunActivity extends React.Component<PropsT, {}> {
       meta.createdByInstance = { [groupingKey]: groupingValue };
     }
 
-    const RunComp = activityRunners[activityType.id];
+    const acRunnerId = activityType.id.startsWith('li-')
+      ? 'ac-single-li'
+      : activityType.id;
+    const RunComp = activityRunners[acRunnerId];
+    if (!RunComp) {
+      Sentry.captureException('No valid activity id ' + activityType.id);
+      return <h1>'Not valid activity id ' + activityType.id</h1>;
+    }
     RunComp.displayName = activityType.id;
     const formatProduct = LocalSettings.api
       ? activityType.formatProduct
@@ -204,7 +238,9 @@ export class RunActivity extends React.Component<PropsT, {}> {
             this.props.activityData?.config || {},
             x,
             groupingKey,
-            username
+            username,
+            undefined,
+            -1
           )
       : undefined;
 

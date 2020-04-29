@@ -9,9 +9,8 @@ import Operators from './Operators';
 import Lines, { DragLine } from './components/Lines';
 import { LevelLines, PanMap, TimeScale } from './components/fixedComponents';
 import ScrollFields from './components/ScrollFields';
-import DragGuides from './components/DragGuides';
 import ProgressLines from './components/ProgressLines';
-import { ErrorList } from './Validator';
+// import { ErrorList } from './Validator';
 
 const scrollMouse = e => {
   e.preventDefault();
@@ -23,8 +22,8 @@ const scrollMouse = e => {
 };
 
 const mousemove = e => {
-  // We do -100 here because there is 100px above the graph editor
-  store.ui.socialMove(e.clientX, e.clientY - 100);
+  // Subtracting Graph Editor's position from the top of the screen
+  store.ui.socialMove(e.clientX, e.clientY - (window.innerHeight - 300 - 100));
 };
 
 const Graph = connect(
@@ -43,29 +42,31 @@ const Graph = connect(
     isSvg,
     isEditable,
     isSession,
-    hasPanMap,
     hasTimescale,
+    hasPanMap,
     hideOperatorsAndConnections
   }: StoreProp & {
     scaled: boolean,
     isSvg: boolean,
+    hasTimescale: boolean,
     isEditable: boolean,
     isSession: boolean,
     hasPanMap: boolean,
-    hasTimescale: boolean,
     hideOperatorsAndConnections: boolean
   }) => (
     <svg
       width="100%"
       height="100%"
       onMouseMove={mousemove}
+      onScroll={e => e.preventDefault()}
       onWheel={scrollMouse}
+      fill="#3E4A57"
     >
       <svg
         viewBox={
           scaled
-            ? [panOffset, 0, graphWidth, 600].join(' ')
-            : [0, 0, 4 * graphWidth, 600].join(' ')
+            ? [panOffset, 0, graphWidth, 300].join(' ')
+            : [0, 0, 4 * graphWidth, 300].join(' ')
         }
         preserveAspectRatio="none"
         ref={ref => {
@@ -77,18 +78,10 @@ const Graph = connect(
         <rect
           x={0}
           y={0}
-          fill="#f2e6a6"
-          width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={200}
-          onClick={canvasClick}
-        />
-        <rect
-          x={0}
-          y={200}
-          fill="#fcf9e9"
+          fill="#EAF1F8"
           stroke="transparent"
           width={scaled ? graphWidth * scale : graphWidth * 4}
-          height={400}
+          height="300px"
           onClick={canvasClick}
         />
         <LevelLines scaled={scaled} />
@@ -96,7 +89,7 @@ const Graph = connect(
         <Activities scaled={scaled} />
         {!hideOperatorsAndConnections && <Operators scaled={scaled} />}
         {isSession && <ProgressLines scaled={scaled} />}
-        {isEditable && <DragGuides />}
+
         {hasTimescale && <TimeScale scaled={scaled} />}
         {isEditable && scrollEnabled && <DragLine />}
         <Activities scaled={scaled} transparent />
@@ -108,7 +101,7 @@ const Graph = connect(
       {scaled && scrollEnabled && (
         <ScrollFields width={graphWidth} height={600} />
       )}
-      {!hasPanMap && <ErrorList />}
+      {/* {!hasPanMap && <ErrorList />} */}
     </svg>
   )
 );

@@ -69,7 +69,7 @@ const Creator = withStyles(styles)(({ createLearningItem }) => {
 export default ({
   name: 'Single Word/Sentence',
   id: 'li-short',
-  liDataStructure: { topic: '' },
+  dataStructure: { topic: '' },
   ThumbViewer,
   Editor,
   Creator,

@@ -1,27 +1,15 @@
 // @flow
 
-import * as React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router';
 
-import SessionList from './SessionList';
-import OrchestrationView from './OrchestrationView';
+import { OrchestrationView } from './OrchestrationView';
 
 import { GlobalSettings, LocalSettings } from '/imports/api/settings';
 import { Activities } from '/imports/api/activities';
 import { Graphs } from '/imports/api/graphs';
 import { Sessions } from '/imports/api/sessions';
-
-const TeacherView = props => (
-  <>
-    {props.session ? (
-      <OrchestrationView {...props} />
-    ) : (
-      <SessionList {...props} />
-    )}
-  </>
-);
 
 const TeacherViewRunner = withRouter(
   withTracker(({ match, history }) => {
@@ -41,9 +29,6 @@ const TeacherViewRunner = withRouter(
       }
     }
 
-    if (!session) {
-      session = user.profile && Sessions.findOne(user.profile.controlSession);
-    }
     if (
       session &&
       (!match.params.slug ||
@@ -56,11 +41,29 @@ const TeacherViewRunner = withRouter(
     if (session) {
       Meteor.subscribe('teacher.graph', session.graphId);
       Meteor.subscribe('session.students', session.slug);
+      Meteor.subscribe('session_activities', session.slug);
+      if (
+        !(
+          Meteor.user().joinedSessions &&
+          Meteor.user().joinedSessions.includes(session.slug)
+        )
+      ) {
+        Meteor.call('session.join', session.slug);
+      }
     }
     const activities =
       session && Activities.find({ graphId: session.graphId }).fetch();
     const students =
       session && Meteor.users.find({ joinedSessions: session.slug }).fetch();
+
+    let error = { title: 'Error', message: '' };
+    if (!session) {
+      error = {
+        title: 'Session Not Found',
+        message: 'This session does not exist'
+      };
+    }
+
     return {
       sessions: Sessions.find().fetch(),
       session,
@@ -68,9 +71,10 @@ const TeacherViewRunner = withRouter(
       activities,
       token: GlobalSettings.findOne('token'),
       students,
-      user
+      user,
+      error
     };
-  })(TeacherView)
+  })(OrchestrationView)
 );
 
 TeacherViewRunner.displayName = 'TeacherViewRunner';

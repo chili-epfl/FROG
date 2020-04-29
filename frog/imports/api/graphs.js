@@ -5,7 +5,6 @@ import { Mongo } from 'meteor/mongo';
 import { uuid, chainUpgrades } from '/imports/frog-utils';
 
 import { Sessions, addSessionFn } from './sessions';
-import { runNextActivity } from './engine';
 import { templatesObj } from '/imports/internalTemplates';
 import {
   Activities,
@@ -13,6 +12,7 @@ import {
   insertActivityMongo,
   addActivity
 } from './activities';
+import { activityTypesObj } from '/imports/activityTypes';
 import { Operators, insertOperatorMongo } from './operators';
 import {
   GraphCurrentVersion,
@@ -35,7 +35,7 @@ export const createSessionFromActivity = (
 } | void => {
   if (Meteor.isServer) {
     let graphId;
-    let activityId;
+    let activityId = '';
     let instructions;
     if (activityType.slice(0, 3) === 'te-') {
       const template = templatesObj[activityType];
@@ -44,6 +44,7 @@ export const createSessionFromActivity = (
       graphId = doImportGraph(undefined, graphString);
     } else {
       graphId = addGraph();
+      Graphs.update(graphId, { $set: { published: true, wizardGraph: true } });
       activityId = addActivity(activityType, config);
       Activities.update(activityId, {
         $set: {
@@ -51,7 +52,7 @@ export const createSessionFromActivity = (
           plane,
           length: 5,
           startTime: 5,
-          title: 'Single activity'
+          title: activityTypesObj[activityType].meta.name
         }
       });
     }
@@ -66,7 +67,6 @@ export const createSessionFromActivity = (
         simpleConfig: { activityType, config, plane }
       }
     });
-    runNextActivity(session._id);
 
     const slug = session.slug;
     return { slug, sessionId, graphId, activityId };
@@ -135,17 +135,18 @@ export const findOneGraphMongo = (id: string) => {
   }
 };
 
-export const addGraph = (graphObj?: Object): string => {
+export const addGraph = (graphObj?: Object, nameVal?: String): string => {
   const graphObjTmp = graphObj && graphObj.graph && upgradeGraph(graphObj);
   const graphId = uuid();
-  const name =
-    (graphObjTmp && graphObjTmp.graph && graphObjTmp.graph.name) || 'Unnamed';
+  const name = graphObjTmp?.graph?.name || nameVal || 'Unnamed';
   insertGraphMongo({
     ...((graphObjTmp && graphObjTmp.graph) || {}),
     _id: graphId,
     name,
     ownerId: Meteor.userId(),
-    createdAt: new Date()
+    createdAt: new Date(),
+    templateSource: graphObj?.templateSource,
+    uiStatus: 'active'
   });
   if (!graphObjTmp) {
     return graphId;
@@ -212,6 +213,13 @@ export const addGraph = (graphObj?: Object): string => {
 export const renameGraph = (graphId: string, name: string) =>
   Graphs.update(graphId, { $set: { name } });
 
+export const setGraphTemplate = (graphId: string, templateId: string) =>
+  Graphs.update(graphId, { $set: { templateSource: templateId } });
+
+export const setGraphUIStatus = (graphId: string, val: boolean) => {
+  Graphs.update(graphId, { $set: { uiStatus: val } });
+};
+
 // updating graph from graph editor
 export const mergeGraph = (mergeObj: Object) => {
   Meteor.call('graph.merge', mergeObj);
@@ -226,6 +234,11 @@ export const setCurrentGraph = (graphId: string) => {
 };
 
 export const assignGraph = (wantedId?: string) => {
+  if (wantedId === 'new') {
+    const graphId = addGraph();
+    setCurrentGraph(graphId);
+    return graphId;
+  }
   const user = Meteor.user();
   if (wantedId && Graphs.findOne(wantedId)) {
     return wantedId;

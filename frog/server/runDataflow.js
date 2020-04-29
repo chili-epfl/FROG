@@ -20,7 +20,6 @@ import { Activities, Connections } from '../imports/api/activities';
 import { Operators } from '../imports/api/operators';
 import { addObject } from '../imports/api/objects';
 import remote from './runRemoteOperator';
-import { getUsername } from '/imports/api/users';
 
 declare var Promise: any;
 
@@ -108,7 +107,7 @@ const runDataflow = (
   const globalStructure: { studentIds: string[], students: Object } = {
     studentIds: eligibleStudents.map(student => student._id),
     students: eligibleStudents.reduce(
-      (acc, x) => ({ ...acc, [x._id]: getUsername({ userObj: x }) }),
+      (acc, x) => ({ ...acc, [x._id]: x.username }),
       {}
     )
   };

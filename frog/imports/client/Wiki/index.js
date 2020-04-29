@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from 'react';
 import { findKey } from 'lodash';
 import Mousetrap from 'mousetrap';
@@ -7,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
 import { values, entries } from '/imports/frog-utils';
 import { withModal, type ModalParentPropsT } from '/imports/ui/Modal';
-import { getUsername, isVerifiedUser } from '/imports/api/users';
+import { getUsername, getUserType } from '/imports/api/users';
 import Button from '@material-ui/core/Button';
 import History from '@material-ui/icons/History';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
@@ -66,9 +64,11 @@ import {
   PRIVILEGE_VIEW,
   PRIVILEGE_NONE
 } from '/imports/api/wikiTypes';
+import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
+import { PersonalProfileModal } from '../AccountModal/PersonalProfileModal';
 
 type WikiCompPropsT = {
-  setPage?: (pageobj: PageObjT, replace: boolean) => void,
+  setPage?: (pageobj: PageObjT, replace?: boolean) => void,
   pageObj: PageObjT,
   embed?: boolean,
   query?: Object
@@ -79,18 +79,29 @@ type WikiCompStateT = {
   mode: string,
   error: ?string,
   openCreator: ?Object,
-  findModalOpen: boolean,
+  findModalOpen?: boolean,
   search: '',
-  urlInstance: ?string,
-  noInstance: ?boolean,
-  username: string,
+  urlInstance?: string,
+  noInstance?: boolean,
+  username: ?string,
   isAnonymous: boolean,
-  settings: WikiSettingsT,
-  privilege: 'owner' | 'editor' | 'user' | 'none'
+  settings: WikiSettingsT | Object,
+  privilege?: 'owner' | 'editor' | 'user' | 'none',
+  currentPageObj?: Object,
+  docMode: string,
+  pagesData: ?any,
+  initialPageTitle: string,
+  deletedPageModalOpen?: boolean,
+  currentDeletedPageId?: string,
+  currentDeletedPageTitle?: string,
+  rightSideCurrentPageObj?: any,
+  createModalOpen?: boolean
 };
 
 class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   wikiDoc: Object = {};
+
+  wikiId: string;
 
   config: Object = {};
 
@@ -115,20 +126,21 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     const query = this.props.query;
     this.wikiId = this.props.pageObj.wikiId;
     this.state = {
-      username: getUsername(undefined, true),
+      username: getUsername(undefined, { wiki: true }),
       isAnonymous: Meteor.user().isAnonymous,
       pagesData: null,
       dashboardSearch: null,
       pageId: null,
       currentPageObj: null,
-      initialPageTitle: this.props.pageObj.pageTitle,
+      initialPageTitle: this.props.pageObj.pageTitle || '',
       mode: 'document',
       docMode: query?.edit ? PERM_PASSWORD_TO_EDIT : PERM_PASSWORD_TO_VIEW,
       error: null,
       openCreator: false,
       search: '',
       rightSideCurrentPageObj: null,
-      isOwner: false
+      isOwner: false,
+      settings: {}
     };
   }
 
@@ -151,10 +163,6 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     window.wikiDoc = this.wikiDoc;
     if (!this.props.embed) {
       Mousetrap.bindGlobal('ctrl+n', this.createPageModal);
-      Mousetrap.bindGlobal('ctrl+s', () => this.setState({ docMode: 'view' }));
-      Mousetrap.bindGlobal('ctrl+e', () => {
-        if (!this.state.settings.readOnly) this.setState({ docMode: 'edit' });
-      });
       Mousetrap.bindGlobal('ctrl+f', () =>
         this.setState({ findModalOpen: true })
       );
@@ -169,7 +177,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         prevProps.pageObj.pageTitle !== pageTitle) ||
       prevProps.pageObj.instance !== this.props.pageObj.instance
     ) {
-      this.goToPageTitle(pageTitle, this.props.pageObj.instance);
+      this.goToPageTitle(pageTitle || '', this.props.pageObj.instance);
     }
   }
 
@@ -178,8 +186,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   }
 
   handleSettings = async privilege => {
+    const { settings } = this.state;
     // Show locked modal if the wiki is locked
-    if (this.state.settings.locked && privilege !== PRIVILEGE_OWNER) {
+    if (settings.locked && privilege !== PRIVILEGE_OWNER) {
       this.setState({ currentPageObj: null });
       this.props.showModal(<LockedModal />);
       return false;
@@ -189,7 +198,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     }
     // Ask for password if wiki access is password restricted
     if (
-      this.state.settings.restrict === PERM_PASSWORD_TO_VIEW &&
+      settings.restrict === PERM_PASSWORD_TO_VIEW &&
       privilege !== PRIVILEGE_VIEW &&
       privilege !== PRIVILEGE_OWNER
     ) {
@@ -199,7 +208,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <PasswordModal
             callback={resolve}
             hideModal={this.props.hideModal}
-            actualPassword={this.state.settings.password}
+            actualPassword={settings && settings.password}
           />
         );
       });
@@ -223,10 +232,9 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.props.hideModal();
     }
     if (
-      ((this.state.settings.readOnly ||
-        this.state.settings.restrict === PERM_PASSWORD_TO_EDIT) &&
+      ((settings.readOnly || settings.restrict === PERM_PASSWORD_TO_EDIT) &&
         privilege !== PRIVILEGE_OWNER) ||
-      (!this.state.settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
+      (!settings.allowPageCreation && privilege !== PRIVILEGE_OWNER)
     )
       wikiStore.setPreventPageCreation(true);
     else wikiStore.setPreventPageCreation(false);
@@ -234,12 +242,12 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   getPrivilege() {
-    if (this.wikiDoc.data.owners?.find(x => x === Meteor.userId()))
+    const { owners, editors, users } = this.wikiDoc.data;
+    if (owners && owners.find(x => x === Meteor.userId()))
       return PRIVILEGE_OWNER;
-    if (this.wikiDoc.data.editors?.find(x => x === Meteor.userId()))
+    if (editors && editors.find(x => x === Meteor.userId()))
       return PRIVILEGE_EDIT;
-    if (this.wikiDoc.data.users?.find(x => x === Meteor.userId()))
-      return PRIVILEGE_VIEW;
+    if (users && users.find(x => x === Meteor.userId())) return PRIVILEGE_VIEW;
     return PRIVILEGE_NONE;
   }
 
@@ -320,7 +328,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     this.initialLoad = false;
     const parsedPages = wikiStore.parsedPages;
     const pageTitle = getPageTitle(parsedPages, this.state.initialPageTitle);
-    const pageTitleLower = pageTitle.toLowerCase();
+    const pageTitleLower = (pageTitle || '').toLowerCase();
     let fullPageObj = parsedPages[pageTitleLower];
 
     if (!fullPageObj) {
@@ -351,7 +359,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       this.getInstanceId(fullPageObj);
     if (
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowView &&
+      fullPageObj.pageSettings.allowView === false &&
       instanceId !== Meteor.userId() &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
@@ -374,7 +382,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (!currentPageObj) {
       if (!fullPageObj.noNewInstances) {
         this.initialLoad = true;
-        const instanceName = getUsername(undefined, true);
+        const instanceName = getUsername(undefined, { wiki: true });
         this.createNewInstancePage(fullPageObj, instanceId, instanceName);
       }
       return;
@@ -397,15 +405,19 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         currentPageObj
       },
       () => {
-        const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
-        this.props.setPage({
-          wikiId: this.wikiId,
-          pageTitle: currentPageObj.title,
-          instance:
-            instanceId && instanceId !== this.getInstanceId(fullPageObj)
-              ? instanceName
-              : null
-        });
+        const instanceName =
+          this.getInstanceNameForId(fullPageObj, instanceId) || '';
+        const instance =
+          instanceId && instanceId !== this.getInstanceId(fullPageObj)
+            ? instanceName
+            : '';
+        if (this.props.setPage) {
+          this.props.setPage({
+            wikiId: this.wikiId,
+            pageTitle: currentPageObj.title,
+            instance
+          });
+        }
       }
     );
   };
@@ -422,7 +434,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
       }
     }
 
-    const mergedObj = Object.assign({}, fullPageObj, instanceObj);
+    const mergedObj = { ...fullPageObj, ...instanceObj };
     return mergedObj;
   };
 
@@ -449,7 +461,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
   };
 
   getInstanceNameForUser = pageObj => {
-    if (pageObj.plane === 1) return getUsername(undefined, true);
+    if (pageObj.plane === 1) return getUsername(undefined, { wiki: true });
     if (pageObj.plane === 2) {
       const userId = Meteor.userId();
       const groupNumber = findKey(pageObj.socialStructure, x =>
@@ -483,8 +495,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     addNewInstancePage(
       this.wikiDoc,
       pageObj.id,
-      instanceId,
-      instanceName,
+      instanceId || 'noInstanceId',
+      instanceName || 'noInstanceName',
       liId
     );
     return {
@@ -515,6 +527,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
 
   changeTitle = (pageId, newPageTitle) => {
     changeWikiPageTitle(this.wikiDoc, pageId, sanitizeTitle(newPageTitle));
+    // $FlowFixMe
     this.props.setPage(
       {
         wikiId: this.wikiId,
@@ -551,7 +564,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     );
     if (
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowView &&
+      fullPageObj.pageSettings.allowView === false &&
       instanceId !== Meteor.userId() &&
       this.state.privilege !== PRIVILEGE_OWNER
     ) {
@@ -606,33 +619,26 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         if (!newCurrentPageObj || side === 'right') return;
 
         const instanceName = this.getInstanceNameForId(fullPageObj, instanceId);
-        if (cb) {
+        if (this.props.setPage) {
+          const instance =
+            instanceId && instanceId !== this.getInstanceId(fullPageObj)
+              ? instanceName || ''
+              : '';
           this.props.setPage(
             {
               wikiId: this.wikiId,
               pageTitle: newCurrentPageObj.title,
-              instance:
-                instanceId && instanceId !== this.getInstanceId(fullPageObj)
-                  ? instanceName
-                  : null
+              instance
             },
             true
           );
-          return cb();
         }
-        this.props.setPage({
-          wikiId: this.wikiId,
-          pageTitle: newCurrentPageObj.title,
-          instance:
-            instanceId && instanceId !== this.getInstanceId(fullPageObj)
-              ? instanceName
-              : null
-        });
+        if (cb) return cb();
       }
     );
   };
 
-  goToPageTitle = (pageTitle, instanceName, side, cb) => {
+  goToPageTitle = (pageTitle: string, instanceName, side, cb) => {
     const pageTitleLower = sanitizeTitle(pageTitle.toLowerCase());
     const pageId = wikiStore.parsedPages[pageTitleLower].id;
     const instanceId = this.getInstanceIdForName(
@@ -801,7 +807,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     if (
       instanceId &&
       fullPageObj.pageSettings !== undefined &&
-      !fullPageObj.pageSettings.allowEdit &&
+      fullPageObj.pageSettings.allowEdit === false &&
       instanceId !== Meteor.userId()
     ) {
       this.props.showModal(
@@ -894,8 +900,8 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
     });
 
   render() {
-    if (!this.state.currentPageObj) return null;
     const validPages = wikiStore.pagesArrayOnlyValid;
+    if (!this.state.currentPageObj) return null;
     const invalidPages = wikiStore.pagesArrayOnlyInvalid;
 
     let foundPages = validPages;
@@ -1035,8 +1041,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         }
       });
     }
-
-    if (Meteor.user().isAnonymous || !isVerifiedUser() || !Meteor.user()) {
+    if (getUserType() === 'Anonymous') {
       secondaryNavItems.push({
         title: 'Create an account',
         icon: LockOutlinedIcon,
@@ -1049,7 +1054,35 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
         callback: () =>
           this.props.showModal(<AccountModal formToDisplay="login" />)
       });
-    } else {
+    } else if (getUserType() === 'Verified') {
+      secondaryNavItems.push({
+        title: 'Logout',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          sessionStorage.removeItem('frog.sessionToken');
+          Meteor.logout(() => {
+            resetShareDBConnection();
+            window.location.reload();
+          });
+        }
+      });
+
+      secondaryNavItems.push({
+        title: 'View/Edit profile',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<PersonalProfileModal />);
+        }
+      });
+    } else if (getUserType() === 'Legacy') {
+      secondaryNavItems.push({
+        title: 'Upgrade your account',
+        icon: LockOutlinedIcon,
+        callback: () => {
+          this.props.showModal(<AccountModal formToDisplay="signup" />);
+        }
+      });
+
       secondaryNavItems.push({
         title: 'Logout',
         icon: LockOutlinedIcon,
@@ -1126,7 +1159,7 @@ class WikiComp extends React.Component<WikiCompPropsT, WikiCompStateT> {
           <div style={contentDivStyle}>
             {!this.props.embed && (
               <WikiTopNavbar
-                username={getUsername(undefined, true)}
+                username={getUsername(undefined, { wiki: true })}
                 isAnonymous={Meteor.user().isAnonymous}
                 primaryNavItems={primaryNavItems}
                 secondaryNavItems={secondaryNavItems}

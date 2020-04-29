@@ -3,6 +3,10 @@ import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 import WebSocket from 'ws';
 
+import {
+  addNewWikiPage,
+  createNewEmptyWikiDoc
+} from '/imports/api/wikiDocHelpers';
 import { uuid } from '/imports/frog-utils';
 import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { Accounts } from 'meteor/accounts-base';
@@ -541,6 +545,12 @@ WebApp.connectHandlers.use('/multiFollow', (request, response) => {
   if (root.slice(-1) === '/') {
     root = root.slice(0, -1);
   }
+  let learnRoot;
+  if (root === 'http://localhost:3000') {
+    learnRoot = 'http://learn.chilifrog-local.com:3000';
+  } else {
+    learnRoot = 'https://learn.chilifrog.ch';
+  }
   const url = require('url').parse(request.url);
   const layout = url.query ? extractParam(url.query, 'layout') : '';
   const more = url.query ? extractParam(url.query, 'more') : '';
@@ -576,27 +586,27 @@ iframe { height: 100%; width: 100%; }
       <iframe id='iframe1' 
      ${
        layout === '3+1' || layout === '2+1+1'
-         ? `src=${root}/teacher/orchestration?debugLogin=${follow}&scaled=true>`
-         : `src=${root}?follow=${follow}&followLogin=${
+         ? `src=${root}/t/?login=${follow}&scaled=true>`
+         : `src=${learnRoot}?follow=${follow}&followLogin=${
              more ? 'Alisa' : 'Chen%20Li'
            }${scaledStr}>`
      }
 </iframe>
     </div>
     <div id="div2">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+      <iframe id='iframe1' src=${learnRoot}?follow=${follow}&followLogin=${
     layout === '2+1+1' ? follow : more ? 'Niels' : 'Peter'
   }${scaledStr}></iframe>
     </div>
     ${layout !== '2' &&
       `
     <div id="div3">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+      <iframe id='iframe1' src=${learnRoot}?follow=${follow}&followLogin=${
         more ? 'Natasha' : 'Anna'
       }${scaledStr}></iframe>
     </div>
     <div id="div4">
-      <iframe id='iframe1' src=${root}?follow=${follow}&followLogin=${
+      <iframe id='iframe1' src=${learnRoot}?follow=${follow}&followLogin=${
         more ? 'Bob' : 'Aliya'
       }${scaledStr}></iframe>
     </div>`}
@@ -627,48 +637,48 @@ WebApp.connectHandlers.use('/api/wikiSubmit', async (request, response) => {
         'Require wiki and body request parameters, and body payload with text content type'
       );
     }
+
     const genericDoc = serverConnection.get('li');
     const dataFn = generateReactiveFn(genericDoc);
+
     const newId = dataFn.createLearningItem(
       'li-richText',
       body,
       {
-        wikiId: wiki
+        title: page
       },
       undefined,
       undefined,
       id
     );
 
-    const op = {
-      p: ['pages', newId],
-      oi: {
-        liId: newId,
-        id: newId,
-        valid: true,
-        created: true,
-        title: page,
-        liType: 'li-richText',
-        plane: 3
-      }
-    };
-
     const wikiDoc = serverConnection.get('wiki', wiki);
-    await new Promise(resolve => {
-      wikiDoc.subscribe(() => {
-        if (!wikiDoc.type) {
-          wikiDoc.create({ wikiId: wiki, pages: {} });
-        }
-        wikiDoc.submitOp(op);
-        wikiDoc.destroy();
-        resolve();
-      });
+    wikiDoc.subscribe(() => {
+      if (!wikiDoc.type) {
+        const liId = dataFn.createLearningItem('li-richText', undefined, {
+          wikiId: wiki
+        });
+        createNewEmptyWikiDoc(wikiDoc, wiki, liId);
+      }
+
+      addNewWikiPage(
+        wikiDoc,
+        page,
+        true,
+        'li-richText',
+        newId,
+        1,
+        {},
+        undefined,
+        undefined,
+        undefined,
+        id
+      );
+      genericDoc.destroy();
+
+      response.writeHead(200);
+      response.end();
     });
-
-    genericDoc.destroy();
-
-    response.writeHead(200);
-    response.end();
   } catch (e) {
     console.error(e);
     response.writeHead(500);

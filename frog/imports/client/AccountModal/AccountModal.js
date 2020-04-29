@@ -6,8 +6,17 @@ import { useToast } from '/imports/ui/Toast';
 import { Meteor } from 'meteor/meteor';
 import SignUp from './SignUp';
 import Login from './Login';
+import { resetShareDBConnection } from '/imports/client/App/resetShareDBConnection';
 
-const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
+const AccountModal = ({
+  formToDisplay,
+  closeModal,
+  variant
+}: {
+  formToDisplay: string,
+  closeModal?: Function,
+  variant?: 'guest' | 'legacy' | 'default'
+}) => {
   const [form, setForm] = React.useState(null);
   const [showToast, hideToast] = useToast();
   const [_1, hideModal] = useModal();
@@ -49,6 +58,7 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
       if (error) {
         errorLoginToastKey = showToast('Could not login!  ' + error, 'error');
       } else {
+        resetShareDBConnection();
         hideModal();
       }
     });
@@ -63,8 +73,19 @@ const AccountModal = ({ formToDisplay }: { formToDisplay: string }) => {
 
   const toRender = form || formToDisplay;
 
+  const getActionValues = () => {
+    switch (variant) {
+      case 'guest':
+        return [{ title: 'Continue as Guest', callback: closeModal }];
+      case 'legacy':
+        return [];
+      default:
+        return [{ title: 'Cancel', callback: modalCallback }];
+    }
+  };
+
   return (
-    <Modal title="" actions={[{ title: 'Cancel', callback: modalCallback }]}>
+    <Modal title="" actions={getActionValues()}>
       {toRender === 'signup' ? (
         <SignUp
           openLoginForm={openLoginForm}

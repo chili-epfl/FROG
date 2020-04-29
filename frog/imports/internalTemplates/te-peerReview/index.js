@@ -23,7 +23,7 @@ export const config = {
     },
     first: {
       type: 'object',
-      title: 'First phase, authoring',
+      title: 'Stage 1, authoring',
       description: 'Students are asked to write, individually or in groups',
       properties: {
         instructions: {
@@ -34,7 +34,7 @@ export const config = {
     },
     second: {
       type: 'object',
-      title: 'Second phase, peer-review',
+      title: 'Stage 2, peer-review',
       description:
         'Students see one or several written products from other students, and are asked to review/provide feedback according to a prompt',
       properties: {
@@ -54,7 +54,7 @@ export const config = {
     },
     third: {
       type: 'object',
-      title: 'Third phase, revision',
+      title: 'Stage 3, revision',
       description:
         'Students see the feedback from other students/groups, and are able to continue revising their own texts',
       properties: {
@@ -63,6 +63,19 @@ export const config = {
           type: 'rte',
           description:
             'Prompt shown to students when they are revising their own products'
+        }
+      }
+    },
+
+    fourth: {
+      type: 'object',
+      title: 'Stage 4, debrief',
+      description:
+        "Written products are shown on the projector, and optionally on students' screens",
+      properties: {
+        alsoShowStudents: {
+          title: "Also show all products on students's screens",
+          type: 'boolean'
         }
       }
     }
@@ -102,24 +115,23 @@ const processTemplate = (template, replacements) => {
   return [result];
 };
 
-const makeTemplate = conf => {
-  const template = JSON.stringify(
-    conf.general?.plane === 'individual' ? p1 : p2
-  );
+const makeTemplate = (conf: Object) => {
+  const template = JSON.stringify(conf.general?.plane === 'group' ? p2 : p1);
   const replacements = {
     instructions: conf.first?.instructions || '',
     reviewPrompt: conf.second?.reviewPrompt || '',
     reviseInstructions: conf.third?.reviseInstructions || '',
-    reviewCount: conf.second?.reviewCount || 1
+    reviewCount: conf.second?.reviewCount || 1,
+    participationMode: conf.fourth?.alsoShowStudents ? 'everyone' : 'projector'
   };
   return [
     processTemplate(template, replacements),
-    conf.general?.plane === 'individual' ? p1Instructions : p2Instructions
+    conf.general?.plane === 'group' ? p2Instructions : p1Instructions
   ];
 };
 
 const meta = {
-  name: 'Peer review template',
+  name: 'Peer review flow',
   shortDesc: `Students write, review their peers' contributions, and revise their own texts`,
   description: `This template generates a peer review flow with four stages:
     
@@ -128,7 +140,10 @@ const meta = {
  - **Stage 3**: Students then receive the feedback from other students, and can continue to work on their contributions, taking into account the feedback from the other students
  - **Stage 4**: Finally, all contributions are sent to the projector for the teacher to discuss and debrief.
 
- ![Screenshots](/clientFiles/te-peerReview/te-peerReview.png)`
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-1.png)
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-2.png)
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-3.png)
+ ![Screenshots](/clientFiles/te-peerReview/te-peerReview-4.png)`
 };
 
 export default {

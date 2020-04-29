@@ -41,19 +41,19 @@ test('Distribute 2 to each group', () =>
   }));
 
 test('Distribute 5 to each group, no overlap', () => {
-  expect(
+  return expect(
     operator({ grouping: 'group', maxitems: 5, overlap: false }, { ...object })
   ).resolves.toMatchSnapshot();
 });
 
 test('Distribute 5 to each group,  overlap', () => {
-  expect(
+  return expect(
     operator({ grouping: 'group', maxitems: 5, overlap: true }, { ...object })
   ).resolves.toMatchSnapshot();
 });
 
 test('Distribute 2 to each student, overlap', () => {
-  expect(
+  return expect(
     operator({ maxitems: 2, overlap: true, individual: true }, { ...object })
   ).resolves.toMatchSnapshot();
 });

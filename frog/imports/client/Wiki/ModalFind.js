@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -24,7 +24,7 @@ export const PagesLinks = ({
   search: string,
   index: ?number,
   onSelect: Function
-}) =>
+}): React.Element<*>[] =>
   pages
     .filter(x => !x.title.includes('/'))
     .map((pageObj, i) => {
@@ -47,7 +47,7 @@ export const PagesLinks = ({
       };
       return (
         <li key={pageId} data-testid="wiki_page_item">
-          <div
+          <span
             style={pageLinkStyle}
             onClick={e => {
               const sideToSend = e.shiftKey ? 'right' : 'left';
@@ -56,37 +56,37 @@ export const PagesLinks = ({
             }}
           >
             <Highlight searchStr={search} text={pageTitle} />
-          </div>
+          </span>
           {currentPageBool &&
-            (search.trim().length === 0 &&
-              pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
-                0 && (
-                <ul>
-                  {pages
-                    .filter(x => x.title.startsWith(pageTitle + '/'))
-                    .map(subpage => (
-                      <li
-                        key={subpage.title}
-                        style={{
-                          color:
-                            subpage.title.split('/')[1] === currentInstance
-                              ? 'blue'
-                              : '#585858',
-                          cursor: 'pointer'
+            search.trim().length === 0 &&
+            pages.filter(x => x.title.startsWith(pageTitle + '/')).length >
+              0 && (
+              <ul>
+                {pages
+                  .filter(x => x.title.startsWith(pageTitle + '/'))
+                  .map(subpage => (
+                    <li
+                      key={subpage.title}
+                      style={{
+                        color:
+                          subpage.title.split('/')[1] === currentInstance
+                            ? 'blue'
+                            : '#585858',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <span
+                        onClick={e => {
+                          onSelect(subpage.title);
+                          e.preventDefault();
                         }}
                       >
-                        <span
-                          onClick={e => {
-                            onSelect(subpage.title);
-                            e.preventDefault();
-                          }}
-                        >
-                          {' - ' + subpage.title.split('/')[1]}
-                        </span>
-                      </li>
-                    ))}
-                </ul>
-              ))}
+                        {' - ' + subpage.title.split('/')[1]}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            )}
         </li>
       );
     });

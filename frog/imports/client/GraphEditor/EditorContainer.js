@@ -5,14 +5,13 @@ import { withStyles } from '@material-ui/styles';
 import ReactTooltip from 'react-tooltip';
 import { Graphs } from '/imports/api/graphs';
 import Grid from '@material-ui/core/Grid';
+import { ArrowBack } from '@material-ui/icons';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 import { removeActivity } from '/imports/api/remoteActivities';
-import { storeTemplateData } from '/imports/api/activities';
 import { removeGraph } from '/imports/api/remoteGraphs';
 import { LibraryStates } from '/imports/api/cache';
-
 import { connect } from './store';
 import Graph from './Graph';
 import { RenameBox } from './Rename';
@@ -22,33 +21,45 @@ import ChangelogModal from './ChangelogModal';
 import ModalExport from './RemoteControllers/ModalExport';
 import ModalImport from './RemoteControllers/ModalImport';
 import ModalDelete from './RemoteControllers/ModalDelete';
-
+import { withRouter } from 'react-router';
 import TopPanel from './TopPanel';
-import Preview from '../Preview';
-import OperatorPreview from '../Preview/OperatorPreview';
-import TopBar from '../App/TopBar';
+import PreviewPanel from './PreviewPanel';
+import { TopBarAccountsWrapper } from '/imports/containers/TopBarWrapper';
+import { Breadcrumb } from '/imports/ui/Breadcrumb';
+import { Button } from '/imports/ui/Button';
 
 const styles = () => ({
   root: {
-    marginTop: '48px',
-    height: 'calc(100vh - 48px)',
+    height: '100vh',
     overflowX: 'auto'
   },
-  editor: { height: 600 },
-  editorWithPanMap: { height: 150 }
+  editor: { height: 298, background: '#EAF1F8' },
+  editorWithPanMap: { height: 150 },
+  graphEditorWrapper: {
+    display: 'flex'
+  },
+  preview: {
+    position: 'relative',
+    padding: '25px',
+    width: 'calc(100vw - 400px)',
+    height: 'calc(100vh - 50px - 300px)',
+    overflow: 'auto'
+  },
+  previewContainer: {
+    width: '100%',
+    height: '100%',
+    display: 'flex'
+  }
 });
 
 const EditorPanel = withStyles(styles)(({ classes }) => (
-  <React.Fragment>
+  <>
     <div className={classes.editor}>
       <ReactTooltip delayShow={500} />
       <Graph scaled hasTimescale isEditable />
     </div>
     <RenameBox />
-    <div className={classes.editorWithPanMap}>
-      <Graph hasPanMap />
-    </div>
-  </React.Fragment>
+  </>
 ));
 
 type StateT = {
@@ -82,38 +93,36 @@ class Editor extends React.Component<Object, StateT> {
   }
 
   render() {
-    const { classes, store } = this.props;
-    const show = this.props.store.ui.showPreview;
-    if (show && show.activityTypeId) {
-      return (
-        <Preview
-          modal
-          activityTypeId={show.activityTypeId}
-          config={show.config}
-          template={show.template}
-          storeTemplateFn={data => {
-            storeTemplateData(show.activityId, data);
-            window.alert('Template stored/updated');
-          }}
-          dismiss={() => store.ui.setShowPreview(false)}
-        />
-      );
-    }
+    const { classes, store, history } = this.props;
     const setDelete = val => this.setState({ deleteOpen: val });
     const setIdRemove = val => this.setState({ idRemove: val });
     return (
       <div className={classes.root}>
-        <TopBar />
-        <Grid container>
-          <Grid item xs={12}>
+        <TopBarAccountsWrapper
+          navigation={
+            <>
+              <Button
+                variant="minimal"
+                icon={<ArrowBack />}
+                onClick={() => history.push('/')}
+              />
+              <Breadcrumb paths={['Graph Editor']} />
+            </>
+          }
+          actions={
             <TopPanel
+              graphId={store.graphId}
+              history={history}
+              errors={store.graphErrors}
               openExport={() => this.setState({ exportOpen: true })}
               openImport={() => this.setState({ importOpen: true })}
-              {...{
-                setDelete,
-                setIdRemove
-              }}
+              setDelete={setDelete}
+              setIdRemove={setIdRemove}
             />
+          }
+        />
+        <Grid container>
+          <Grid item xs={12}>
             <ModalExport
               exportType="graph"
               modalOpen={this.state.exportOpen}
@@ -121,7 +130,7 @@ class Editor extends React.Component<Object, StateT> {
               graphId={store.graphId}
               graphName={store}
               metadatas={LibraryStates.graphList.find(
-                x => x.uuid === Graphs.findOne(store.graphId).parentId
+                x => x.uuid === Graphs.findOne(store.graphId)?.parentId
               )}
               madeChanges={() => this.setState({ locallyChanged: true })}
             />
@@ -144,19 +153,28 @@ class Editor extends React.Component<Object, StateT> {
             />
           </Grid>
           <Grid item xs={12}>
-            <Grid container id="graph-editor">
-              <Grid item xs>
-                <EditorPanel />
-              </Grid>
-              <SidePanel
-                madeChanges={() => this.setState({ locallyChanged: true })}
-                locallyChanged={this.state.locallyChanged}
-                changesLoaded={() => this.setState({ locallyChanged: true })}
-                {...{
-                  setDelete,
-                  setIdRemove
-                }}
-              />
+            <div className={classes.graphEditorWrapper}>
+              <div>
+                <SidePanel
+                  madeChanges={() => this.setState({ locallyChanged: true })}
+                  locallyChanged={this.state.locallyChanged}
+                  changesLoaded={() => this.setState({ locallyChanged: true })}
+                  {...{
+                    setDelete,
+                    setIdRemove
+                  }}
+                />
+              </div>
+              <div className={classes.preview}>
+                <div className={classes.previewContainer}>
+                  <PreviewPanel />
+                </div>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid item xs>
+              <EditorPanel />
             </Grid>
           </Grid>
         </Grid>
@@ -168,19 +186,12 @@ class Editor extends React.Component<Object, StateT> {
           show={store.ui.showChangelogModal}
           hide={() => store.ui.setShowChangelogModal(false)}
         />
-        {show && show.operatorTypeId && (
-          <OperatorPreview
-            operatorTypeId={show.operatorTypeId}
-            config={show.config}
-            dismiss={() => this.props.store.ui.setShowPreview(null)}
-          />
-        )}
       </div>
     );
   }
 }
-
-const StyledEditor = withStyles(styles)(Editor);
+const withRouterEditor = withRouter(Editor);
+const StyledEditor = withStyles(styles)(withRouterEditor);
 
 const SubscriptionWrapper = withTracker(({ graphId }) => {
   const subscription = Meteor.subscribe('teacher.graph', graphId);

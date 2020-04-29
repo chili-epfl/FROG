@@ -29,7 +29,7 @@ export const AlertModal = (props: AlertModalPropsT) => {
         actions.map(action => ({
           ...action,
           callback: () => {
-            action.callback();
+            if (action.callback) action.callback();
             hideModal();
           }
         }))

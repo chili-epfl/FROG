@@ -1,7 +1,8 @@
 // @flow
 
-import { extendObservable, action } from 'mobx';
+import { extendObservable, action, toJS } from 'mobx';
 import cuid from 'cuid';
+import { debounce, isEmpty } from 'lodash';
 
 import { store } from './index';
 import Elem from './elemClass';
@@ -20,6 +21,14 @@ export default class Activity extends Elem {
   over: boolean;
 
   data: Object;
+
+  dataDelayed: Object;
+
+  setDataDelayed: Object => void;
+
+  setDataDelayedNow: Object => void;
+
+  debouncedSetDataDelayed: Object => void;
 
   activityType: string;
 
@@ -114,8 +123,13 @@ export default class Activity extends Elem {
       klass: 'activity',
       state,
       data: data || {},
+      dataDelayed: data || {},
       activityType,
       wasMoved: false,
+
+      setDataDelayedNow: action((config: Object) => {
+        this.dataDelayed = config;
+      }),
 
       update: action((newact: $Shape<Activity>) => {
         this.length = newact.length;
@@ -125,6 +139,14 @@ export default class Activity extends Elem {
         this.data = newact.data;
         this.plane = newact.plane;
         this.activityType = newact.activityType;
+        const errors = store.graphErrors.filter(x => x.id === this.id);
+        if (!errors.find(x => x.severity === 'error')) {
+          if (isEmpty(toJS(this.dataDelayed))) {
+            this.setDataDelayedNow(newact.data);
+          } else {
+            this.debouncedSetDataDelayed(newact.data);
+          }
+        }
       }),
 
       rename: action((newname: string) => {
@@ -301,7 +323,7 @@ export default class Activity extends Elem {
 
       get y(): number {
         const offset = store.activityStore.activityOffsets[this.id];
-        return (5 - this.plane) * 100 + 50 - offset * 30;
+        return 300 * (1 - this.plane / 4) - 14 - offset * 30;
       },
 
       get endTime(): number {
@@ -367,4 +389,10 @@ export default class Activity extends Elem {
       }
     });
   }
+
+  setDataDelayed = (config: Object) => {
+    this.setDataDelayedNow(config);
+  };
+
+  debouncedSetDataDelayed = debounce(this.setDataDelayed, 1000);
 }

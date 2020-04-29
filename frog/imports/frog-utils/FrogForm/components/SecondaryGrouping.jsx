@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import type { ObjectFieldTemplatePropsT } from '../types';
 
@@ -45,8 +46,8 @@ export const SecondaryGrouping = (props: ObjectFieldTemplatePropsT) => {
         )}
       </div>
       <div className={classes.fields}>
-        {properties.map(p => (
-          <div>{p.content}</div>
+        {properties.map((p, i) => (
+          <div key={i}>{p.content}</div>
         ))}
       </div>
     </div>

@@ -77,6 +77,10 @@ Meteor.methods({
 export const removeAllUsers = (session: string) =>
   Meteor.call('remove.all.users', session);
 
+export const setSessionUIStatus = (sessionId: string, val: boolean) => {
+  Sessions.update(sessionId, { $set: { uiStatus: val } });
+};
+
 export const setTeacherSession = (sessionId: ?string) => {
   if (!sessionId) {
     Meteor.users.update(Meteor.userId(), {
@@ -243,20 +247,10 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
 
     const sessionId = uuid();
     const graph = Graphs.findOne(graphId);
-    const match = graph.name.match(/(.+)\((\d+)\)$/);
-    let newName;
-    if (match) {
-      newName = match[1] + ' (' + (parseInt(match[2], 10) + 1) + ')';
-    } else {
-      newName = graph.name + ' (2)';
-    }
-    if (newName[0] !== '#') {
-      newName = '#' + newName;
-    }
     const activities = Activities.find({ graphId }).fetch();
 
     const copyGraphId = addGraph({
-      graph: { ...graph, name: newName },
+      graph: { ...graph, sessionGraph: true, name: graph.name },
       activities,
       operators: Operators.find({ graphId }).fetch(),
       connections: Connections.find({ graphId }).fetch()
@@ -278,7 +272,7 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,
-      name: newName,
+      name: graph.name,
       graphId: copyGraphId,
       state: 'CREATED',
       ownerId: Meteor.userId(),
@@ -287,7 +281,8 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
       countdownLength: DEFAULT_COUNTDOWN_LENGTH,
       pausedAt: null,
       openActivities: [],
-      slug: newSlug
+      slug: newSlug,
+      uiStatus: 'active'
     });
     updateNextOpenActivities(sessionId, -1, activities);
     Graphs.update(copyGraphId, { $set: { sessionId } });

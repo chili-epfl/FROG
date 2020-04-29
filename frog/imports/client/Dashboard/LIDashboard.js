@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Meteor } from 'meteor/meteor';
@@ -99,7 +100,7 @@ class MyMenu extends React.Component<any, any> {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <Button
           variant="outlined"
           onClick={e => this.setState({ open: e.currentTarget })}
@@ -121,7 +122,7 @@ class MyMenu extends React.Component<any, any> {
             ))}
           </Menu>
         )}
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -227,6 +228,19 @@ class Dashboard extends React.Component<any, any> {
         </div>
         <div className={classes.masonry}>
           {res.map(liObj => {
+            let owner;
+            if (liObj.createdByInstance) {
+              const inst = liObj.createdByInstance;
+              if (inst.individual) {
+                owner = Meteor.users.findOne(inst.individual)?.username;
+              } else if (!inst.all) {
+                const keys = Object.keys(liObj.createdByInstance);
+                if (keys.length > 0) {
+                  const key = keys[0];
+                  owner = `${key}: ${inst[key]}`;
+                }
+              }
+            }
             return (
               <LearningItem
                 search={this.state.search}
@@ -246,6 +260,7 @@ class Dashboard extends React.Component<any, any> {
                     }
                   >
                     {props.children}
+                    {owner && <i>{owner}</i>}
                   </Paper>
                 )}
               />
@@ -311,7 +326,7 @@ class ZoomViewRaw extends React.Component<*, *> {
       <Dialog open onClose={close} classes={{ paper: classes.paper }}>
         <div className={classes.zoomViewContainer}>
           <div onClick={close} className={classes.closeZoom} />
-          <Paper className={classes.liRoot} elevation={8}>
+          <Paper className={classes.liRoot} elevation={1}>
             <div style={{ display: 'flex' }}>
               <div style={{ alignSelf: 'flex-start', marginRight: 'auto' }}>
                 Scrub history

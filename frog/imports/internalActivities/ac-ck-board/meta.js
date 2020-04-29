@@ -1,5 +1,3 @@
-// @flow
-
 const learningItems = [
   {
     id: '1',
@@ -38,28 +36,33 @@ const data = {
 };
 
 export const meta = {
-  name: 'Common Knowledge board',
+  name: 'Idea board',
   mode: 'collab',
   shortDesc: '2D board for placing items',
   category: 'Core tools',
   supportsLearningItems: true,
-  description:
-    'All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.',
+  description: `All imported items are placed on a 2D space. Optionally, teacher can designate four named quadrants. Students can drag boxes to organize or group ideas. Incoming items have title and content.
+    
+ ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board-1.png)
+ ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board-2.png)
+ ![Screenshots](/clientFiles/ac-ck-board/ac-ck-board-3.png)`,
   exampleData: [
     {
       title: 'Board',
-      config: { quadrants: false },
+      config: { board: { quadrants: false } },
       data,
       learningItems
     },
     {
       title: 'Quadrants and boxes',
       config: {
-        quadrants: true,
-        quadrant1: 'Capitalism',
-        quadrant2: 'Socialism',
-        quadrant3: 'Modernism',
-        quadrant4: 'Post-modernism'
+        board: {
+          quadrants: true,
+          quadrant1: 'Capitalism',
+          quadrant2: 'Socialism',
+          quadrant3: 'Modernism',
+          quadrant4: 'Post-modernism'
+        }
       },
       data: {
         ...data,
@@ -259,9 +262,11 @@ export const meta = {
     {
       title: 'Background image',
       config: {
-        quadrants: false,
-        image: true,
-        imageurl: '/clientFiles/ac-ck-board/researchCycle.png'
+        board: {
+          quadrants: false,
+          image: true,
+          imageurl: '/clientFiles/ac-ck-board/researchCycle.png'
+        }
       },
       data,
       learningItems
@@ -272,84 +277,120 @@ export const meta = {
 export const config = {
   type: 'object',
   properties: {
-    title: { title: 'Title', type: 'string' },
-    allowCreate: {
-      title: 'Enable adding new Learning Items',
-      type: 'boolean',
-      default: true
+    general: {
+      type: 'object',
+      title: 'General settings',
+      description: '',
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+          description: 'Explain to the students what they should be doing'
+        }
+      }
     },
-    onlySpecificLI: {
-      title: 'Only allow specific Learning Item Type',
-      type: 'boolean',
-      default: true
+    board: {
+      title: 'Board configuration',
+      type: 'object',
+      properties: {
+        image: {
+          title:
+            'Display background image  (could be anything from a life-cycle diagram, a Venn diagram, or even just a textured background)',
+          type: 'boolean'
+        },
+        imageurl: {
+          title: 'URL of background image',
+          type: 'string'
+        },
+        quadrants: {
+          title:
+            'Draw four quadrants (this splits the board into four quadrants, whose names you can specify below. The items receive the color of the quadrant that they are placed on)',
+          type: 'boolean'
+        },
+        quadrant1: {
+          title: 'Quadrant 1 title',
+          type: 'string'
+        },
+        quadrant2: {
+          title: 'Quadrant 2 title',
+          type: 'string'
+        },
+        quadrant3: {
+          title: 'Quadrant 3 title',
+          type: 'string'
+        },
+        quadrant4: {
+          title: 'Quadrant 4 title',
+          type: 'string'
+        }
+      }
     },
-    liType: {
-      title: 'Learning Item type',
-      type: 'learningItemType',
-      default: 'li-short'
-    },
-    allowDelete: { title: 'Enable deleting Learning Items', type: 'boolean' },
-    studentEditOwn: {
-      title: 'Only let students move their own items',
-      type: 'boolean'
-    },
-    studentEditOthers: {
-      title: "Only let students move other students' items",
-      type: 'boolean'
-    },
-    showUsername: {
-      title: 'Display student names when available',
-      type: 'boolean',
-      default: true
-    },
-    image: {
-      title: 'Display background image',
-      type: 'boolean'
-    },
-    imageurl: {
-      title: 'URL of background image',
-      type: 'string'
-    },
-    quadrants: {
-      title: 'Draw four quadrants, named as below',
-      type: 'boolean'
-    },
-    quadrant1: {
-      title: 'Quadrant 1 title',
-      type: 'string'
-    },
-    quadrant2: {
-      title: 'Quadrant 2 title',
-      type: 'string'
-    },
-    quadrant3: {
-      title: 'Quadrant 3 title',
-      type: 'string'
-    },
-    quadrant4: {
-      title: 'Quadrant 4 title',
-      type: 'string'
+    learningItems: {
+      type: 'object',
+      title: 'Student-created content (Learning Items)',
+      properties: {
+        allowCreate: {
+          title: 'Enable adding new items',
+          type: 'boolean',
+          default: true,
+          description:
+            'Should students be able to add new items, or just work on the pre-existing content?'
+        },
+        liType: {
+          title: 'Type of new items',
+          type: 'learningItemType',
+          default: 'li-short',
+          description:
+            'What kind of new items should students add - new words, images, or other media?'
+        },
+        allowDelete: {
+          title: 'Enable deleting items',
+          type: 'boolean',
+          description: 'Should students be able to delete content?'
+        },
+        studentEditOwn: {
+          title: 'Only let students move their own items',
+          type: 'boolean',
+          description:
+            'Should students be restricted to only moving their own items, or can they move all the items, regardless of who created them?'
+        },
+        studentEditOthers: {
+          title: "Only let students move other students' items",
+          type: 'boolean',
+          description:
+            "Sometimes we want students to only be able to move other people's items, for example in a pair collaboration situation"
+        },
+        showUsername: {
+          title: 'Display student names when available',
+          type: 'boolean',
+          default: true,
+          description:
+            'It can be useful to see who created each item, but at other times, students might feel more comfortable in an anonymous setting'
+        }
+      }
     }
   }
 };
 
 export const configUI = {
-  quadrant1: { conditional: 'quadrants' },
-  quadrant2: { conditional: 'quadrants' },
-  quadrant3: { conditional: 'quadrants' },
-  quadrant4: { conditional: 'quadrants' },
-  imageurl: { conditional: 'image' },
-  image: { conditional: (formData: Object) => !formData.quadrants },
-  quadrants: { conditional: (formData: Object) => !formData.image },
-  onlySpecificLI: { conditional: 'allowCreate' },
-  liType: {
-    conditional: (formData: Object) =>
-      formData.allowCreate && formData.onlySpecificLI
+  'board.quadrant1': { conditional: formData => formData.board.quadrants },
+  'board.quadrant2': { conditional: formData => formData.board.quadrants },
+  'board.quadrant3': { conditional: formData => formData.board.quadrants },
+  'board.quadrant4': { conditional: formData => formData.board.quadrants },
+  'board.imageurl': { conditional: formData => formData.board.image },
+  'board.image': {
+    conditional: (formData: Object) => !formData.board.quadrants
   },
-  studentEditOwn: {
-    conditional: (formData: Object) => !formData.studentEditOthers
+  'board.quadrants': {
+    conditional: (formData: Object) => !formData.board.image
   },
-  studentEditOthers: {
-    conditional: (formData: Object) => !formData.studentEditOwn
+  'learningItems.liType': {
+    conditional: (formData: Object) => formData.learningItems.allowCreate
+  },
+  'learningItems.studentEditOwn': {
+    conditional: (formData: Object) => !formData.learningItems.studentEditOthers
+  },
+  'learningItems.studentEditOthers': {
+    conditional: (formData: Object) => !formData.learningItems.studentEditOwn
   }
 };
