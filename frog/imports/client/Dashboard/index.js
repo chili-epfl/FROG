@@ -55,6 +55,7 @@ const RawDashboardComp = ({
     return <p>The selected activity has no dashboard</p>;
   }
   const Dash = aT.dashboards[name].Viewer;
+  // where sendMsg is defined (called from)
   return state ? (
     <Dash
       state={state}

@@ -180,7 +180,7 @@ export const updateSessionState = (
 
 const updateSessionCountdownLength = (id: string, countdownLength: number) =>
   Sessions.update(id, { $set: { countdownLength } });
-
+  
 const updateSessionCountdownStartTime = (
   id: string,
   countdownStartTime: number
@@ -268,7 +268,7 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
         slugSize += 1;
       }
     }
-
+    
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,

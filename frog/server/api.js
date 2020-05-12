@@ -75,21 +75,30 @@ const wss = new WebSocket.Server({
 
 const Connections = {};
 
+// export this for usage inside ControlButton.js (set default value to null)
+// for example if url from inside QML is localhost:10000?QCMT then "url" field will be QCMT 
+const celluloUrl = {};
+
+
+// emitted when the handshake with the client is complete
 wss.on(
   'connection',
   Meteor.bindEnvironment((ws, req) => {
     const id = req.url.split('?')[1];
     console.info('connection ', id);
+    celluloUrl['url'] = id;
+    // maps a new socket to the index, id, of Connections map
     Connections[id] = ws;
     ws.on(
       'message',
       Meteor.bindEnvironment(data => {
         console.info('received', data);
         try {
-          const unique = UniqueIds.findOne(id);
+          // id here is the session id
+          const unique = UniqueIds.findOne(id); // id typed in (if mutliple running activity youre not sending activity to the same place but youre sending it to )
           const logmsg = JSON.parse(data);
           logmsg.activityId = unique.activityId;
-          logmsg.activityType = 'ac-cellulo';
+          logmsg.activityType = 'ac-quiz'; // was ac-cellulo previously
           console.info('log msg:', logmsg);
           Meteor.call('merge.log', logmsg);
         } catch (e) {
@@ -101,10 +110,13 @@ wss.on(
   })
 );
 
+// id is from activity.data.uniqueId inside imports/client/Dashboard/index.js
 const wsSend = (id, msg) => {
+  console.log('hello from inside api.js ' + id)
   if (Connections[id]) {
     Connections[id].send(msg);
   } else {
+    console.log('error is thrown inside api.js no such websocket id')
     throw 'No such websocket id';
   }
 };

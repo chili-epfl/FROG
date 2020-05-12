@@ -1,7 +1,7 @@
 // @flow
 
 import {
-  ProgressDashboard,
+  ProgressDashboard, 
   LeaderBoard,
   CoordinatesDashboard
 } from '/imports/frog-utils';

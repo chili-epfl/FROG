@@ -9,10 +9,10 @@ import {
   VictoryAxis
 } from 'victory';
 import { type LogDbT, type ActivityDbT } from '../types';
-import { values } from '../toArray';
+import { values } from '../toArray'; 
 
 const Viewer = (props: Object) => {
-  const { state, activity } = props;
+  const { sendMsg, state, activity } = props;
   const nowLine = [
     { x: state.now, y: 0 },
     { x: state.now, y: 1 }
@@ -75,7 +75,12 @@ const Viewer = (props: Object) => {
           }}
         />
       </VictoryChart>
+      <div> 
+      <button onClick={() => { console.log("content of activity is " + JSON.stringify(activity) +"end trxn in progress.js"); console.log("state is " + JSON.stringify(state)+" end JSON"); Meteor.call('ws.send', 'hellooo', "clasroom progress is " + state.progress); console.log("print something from progress.js");  }}>
+      Send progress to cellulo
+      </button>
       <p>Total users: {state.users}</p>
+      </div>
     </div>
   );
 };
@@ -107,7 +112,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
     progress.forEach((_, timeWindow) => {
       const d = data.filter(([___, t]) => t < timeWindow * WINDOW);
       const [p] = d.length > 0 ? d[d.length - 1] : [0];
-      progress[timeWindow] += p;
+      progress[timeWindow] += p; // last element of array is the progress (print it to check)
       completion[timeWindow] += p < 1 ? 0 : 1;
     });
 
