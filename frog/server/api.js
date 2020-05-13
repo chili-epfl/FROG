@@ -86,7 +86,6 @@ wss.on(
   Meteor.bindEnvironment((ws, req) => {
     const id = req.url.split('?')[1];
     console.info('connection ', id);
-    celluloUrl['url'] = id;
     // maps a new socket to the index, id, of Connections map
     Connections[id] = ws;
     ws.on(
@@ -95,6 +94,7 @@ wss.on(
         console.info('received', data);
         try {
           // id here is the session id
+          console.log("id is inside api.js"+id)
           const unique = UniqueIds.findOne(id); // id typed in (if mutliple running activity youre not sending activity to the same place but youre sending it to )
           const logmsg = JSON.parse(data);
           logmsg.activityId = unique.activityId;
@@ -109,6 +109,8 @@ wss.on(
     );
   })
 );
+
+export default Connections;
 
 // id is from activity.data.uniqueId inside imports/client/Dashboard/index.js
 const wsSend = (id, msg) => {

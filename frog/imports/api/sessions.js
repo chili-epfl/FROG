@@ -180,7 +180,7 @@ export const updateSessionState = (
 
 const updateSessionCountdownLength = (id: string, countdownLength: number) =>
   Sessions.update(id, { $set: { countdownLength } });
-  
+
 const updateSessionCountdownStartTime = (
   id: string,
   countdownStartTime: number

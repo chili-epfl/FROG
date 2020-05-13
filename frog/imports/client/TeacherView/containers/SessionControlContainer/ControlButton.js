@@ -12,7 +12,8 @@ import {
   Refresh,
   Clear
 } from '@material-ui/icons';
-import { Sessions } from '../../../../api/sessions';
+import { Sessions } from '/imports/api/sessions';
+//import { Connections } from "imports/../../server/api.js";
 import { RowButton } from '/imports/ui/RowItems';
 
 const variants = {
@@ -70,9 +71,18 @@ type ControlButtonProps = {
 };
 
 function sendCtrlActionToCellulo(){
+  // "uiStatus" active means the activity is either present on the UI or not (archived)
+  // "state" has flow diagram READY => STARTED => [PAUSED] => FINISHED (paused is an optional state)
+  // since multiple sessions can be in state STARTED (even though the teacher the will be running at most one session at a time)
+  // Thus simplify by assuming we take most recently opened (MRO) READY | STARTED session 
+
+  let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
+  console.log("slug of MRO sessions")
+  console.log(mroSession)
+  console.log("slug of MRO sessions end")
   //const stuff = Sessions.i
     //console.log(" sessionId has value "+JSON.stringify(stuff))
-     Meteor.call('ws.send', 1234, "an action was called from inside ControlButton.js");
+    // Meteor.call('ws.send', Se, "an action was called from inside ControlButton.js");
 }
 
 export const ControlButton = (props: ControlButtonProps) => {
