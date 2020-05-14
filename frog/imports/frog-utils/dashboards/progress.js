@@ -9,7 +9,7 @@ import {
   VictoryAxis
 } from 'victory';
 import { type LogDbT, type ActivityDbT } from '../types';
-import { values } from '../toArray'; 
+import { values } from '../toArray';
 
 function sendProgressToCellulo(progress, nbrOfStudents){
   // Unfortunately, using Sessions.findOne (as in ControlButton.js) does not work since import Sessions causes an error "WithVisibility is not a function"
@@ -22,7 +22,7 @@ function sendProgressToCellulo(progress, nbrOfStudents){
 }
 
 const Viewer = (props: Object) => {
-  const { state, activity } = props;
+  const { sendSesMsg, state, activity } = props;
   const nowLine = [
     { x: state.now, y: 0 },
     { x: state.now, y: 1 }
@@ -86,7 +86,10 @@ const Viewer = (props: Object) => {
           }}
         />
       </VictoryChart>
-      <div> 
+      <div>
+      <button onClick={() => {sendSesMsg('clasroom progress is ' + state.progress[state.progress.length]); console.log('progress: ' + state.progress.length);}}>
+      Send progress to cellulo
+      </button>
       <p>Total users: {state.users}</p>
       </div>
     </div>
@@ -127,7 +130,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
      // user: { '3mMavApLMFoHmHAva': [ [ 0, 0.165 ], [ 0, 0.413 ] ] }, 
      // maxTime: 0.413
      //}
-      
+
 
     //console.log("activity has values")
     //console.log(activity)

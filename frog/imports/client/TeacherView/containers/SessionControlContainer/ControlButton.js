@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-//import { celluloUrl } from '/server/api'; 
+//import { celluloUrl } from '/server/api';
 
 import {
   PlayArrow,
@@ -102,7 +102,7 @@ export const ControlButton = (props: ControlButtonProps) => {
   // props is of the form {"variant": "pause"}
   const title = variant.title;
   const Icon = variant.icon;
-  
+
   return (
     <RowButton icon={<Icon fontSize="small" />} onClick={()=>{console.log('inside ControlButton.js'); sendCtrlActionToCellulo(props); props.onClick()}}> 
       {title}

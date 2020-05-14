@@ -268,7 +268,7 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
         slugSize += 1;
       }
     }
-    
+
     Sessions.insert({
       _id: sessionId,
       fromGraphId: graphId,

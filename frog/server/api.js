@@ -110,11 +110,9 @@ export default Connections;
 
 // id is from activity.data.uniqueId inside imports/client/Dashboard/index.js
 const wsSend = (id, msg) => {
-  console.log('hello from inside api.js ' + id)
   if (Connections[id]) {
     Connections[id].send(msg);
   } else {
-    console.log('error is thrown inside api.js no such websocket id')
     throw 'No such websocket id';
   }
 };
@@ -582,7 +580,7 @@ div { overflow: none; width: 50%; height: ${
 #div2 { background: #AAA; }
 #div3 { background: #777; }
 #div4 { background: #444; }
-.container { height: calc(100vh - 30px); 
+.container { height: calc(100vh - 30px);
 width: 100vw;
 overflow: none;
 }
@@ -593,7 +591,7 @@ iframe { height: 100%; width: 100%; }
   <body>
     <div class="container">
     <div id="div1">
-      <iframe id='iframe1' 
+      <iframe id='iframe1'
      ${
        layout === '3+1' || layout === '2+1+1'
          ? `src=${root}/t/?login=${follow}&scaled=true>`

@@ -12,6 +12,8 @@ import { OrchestrationContext } from '../../context';
 // this panel needs to be re-rendered when a cellulo command is sent
 export const SessionControlContainer = () => {
   const session = React.useContext(OrchestrationContext);
+  // use the slug and put the messages here
+  console.log('session slug: ' + session.slug);
 
   return (
     <Panel>
