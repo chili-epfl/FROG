@@ -2,7 +2,6 @@ import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 import WebSocket from 'ws';
-
 import {
   addNewWikiPage,
   createNewEmptyWikiDoc
@@ -75,15 +74,12 @@ const wss = new WebSocket.Server({
 
 const Connections = {};
 
-// export this for usage inside ControlButton.js (set default value to null)
-// for example if url from inside QML is localhost:10000?QCMT then "url" field will be QCMT 
-const celluloUrl = {};
-
 
 // emitted when the handshake with the client is complete
 wss.on(
   'connection',
   Meteor.bindEnvironment((ws, req) => {
+  
     const id = req.url.split('?')[1];
     console.info('connection ', id);
     // maps a new socket to the index, id, of Connections map

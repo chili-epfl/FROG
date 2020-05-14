@@ -70,19 +70,27 @@ type ControlButtonProps = {
   onClick: () => void
 };
 
-function sendCtrlActionToCellulo(){
+function sendCtrlActionToCellulo(props){
   // "uiStatus" active means the activity is either present on the UI or not (archived)
-  // "state" has flow diagram READY => STARTED => [PAUSED] => FINISHED (paused is an optional state)
+  // "state" has lifecycle READY => STARTED => [PAUSED] => FINISHED (paused is an optional state)
   // since multiple sessions can be in state STARTED (even though the teacher the will be running at most one session at a time)
-  // Thus simplify by assuming we take most recently opened (MRO) READY | STARTED session 
+  // Thus simplify by assuming we take most recently opened (MRO) READY | STARTED | PAUSED session 
 
-  let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
-  console.log("slug of MRO sessions")
+  let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
+  console.log("slug of MRO sessions") // used for debugging
   console.log(mroSession)
   console.log("slug of MRO sessions end")
-  //const stuff = Sessions.i
-    //console.log(" sessionId has value "+JSON.stringify(stuff))
-    // Meteor.call('ws.send', Se, "an action was called from inside ControlButton.js");
+
+  // If control action is "START" then the state of the session is READY and the nextActivities field is 
+  // a list of objects (usually one object) the first element of which is a JSON object with fields {activityId, description}
+  // openActivities is an empty list
+
+  // If control action is "PAUSE" then openActivities is a list of ints (representing the ids of the current activities)
+
+  // If action is "Next" then openActivities are done and nextActivities will be the current activity
+
+  // REMARK: the description field (see above) usually ends in (p3) indicating the plane of the activity (class is plane 3, team is plane2, individual is plane1)
+  Meteor.call('ws.send', mroSession.slug, ""+props.variant);
 }
 
 export const ControlButton = (props: ControlButtonProps) => {
@@ -92,7 +100,7 @@ export const ControlButton = (props: ControlButtonProps) => {
   const Icon = variant.icon;
   
   return (
-    <RowButton icon={<Icon fontSize="small" />} onClick={()=>{console.log('inside ControlButton.js'); sendCtrlActionToCellulo(); props.onClick()}}> 
+    <RowButton icon={<Icon fontSize="small" />} onClick={()=>{console.log('inside ControlButton.js'); sendCtrlActionToCellulo(props); props.onClick()}}> 
       {title}
     </RowButton>
   );

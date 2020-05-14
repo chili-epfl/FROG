@@ -8,6 +8,8 @@ import { ControlButton } from './ControlButton';
 
 import { OrchestrationContext } from '../../context';
 
+// in order to have cellulo call next activity ON frog then we must call similarly session.next after packet parsing is done inside api.js 
+// this panel needs to be re-rendered when a cellulo command is sent
 export const SessionControlContainer = () => {
   const session = React.useContext(OrchestrationContext);
 
