@@ -7,6 +7,10 @@ export const config = {
       type: 'string',
       title: 'Title'
     },
+    uniqueId: {
+      title: 'Unique ID for use with submitLog',
+      type: 'string'
+    },
     guidelines: {
       type: 'rte',
       title: 'Guidelines'

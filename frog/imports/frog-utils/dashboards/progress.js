@@ -9,10 +9,10 @@ import {
   VictoryAxis
 } from 'victory';
 import { type LogDbT, type ActivityDbT } from '../types';
-import { values } from '../toArray'; 
+import { values } from '../toArray';
 
 const Viewer = (props: Object) => {
-  const { sendMsg, state, activity } = props;
+  const { sendSesMsg, state, activity } = props;
   const nowLine = [
     { x: state.now, y: 0 },
     { x: state.now, y: 1 }
@@ -75,8 +75,8 @@ const Viewer = (props: Object) => {
           }}
         />
       </VictoryChart>
-      <div> 
-      <button onClick={() => { console.log("content of activity is " + JSON.stringify(activity) +"end trxn in progress.js"); console.log("state is " + JSON.stringify(state)+" end JSON"); Meteor.call('ws.send', 'hellooo', "clasroom progress is " + state.progress); console.log("print something from progress.js");  }}>
+      <div>
+      <button onClick={() => {sendSesMsg('clasroom progress is ' + state.progress[state.progress.length]); console.log('progress: ' + state.progress.length);}}>
       Send progress to cellulo
       </button>
       <p>Total users: {state.users}</p>

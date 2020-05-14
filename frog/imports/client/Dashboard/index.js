@@ -35,6 +35,7 @@ type DashboardCompPropsT = {
 
 const RawDashboardComp = ({
   activity,
+  sessionId,
   users,
   instances,
   name,
@@ -51,11 +52,17 @@ const RawDashboardComp = ({
   const aT = activityTypesObj[activity.activityType];
   const doc = conn.get('li', 'bookmark');
   const dataFn = generateReactiveFn(doc, LearningItem);
+
+  const session = Sessions.findOne(sessionId);
+  const slug = session.slug;
+
   if (!aT.dashboards || !aT.dashboards[name] || !aT.dashboards[name].Viewer) {
     return <p>The selected activity has no dashboard</p>;
   }
   const Dash = aT.dashboards[name].Viewer;
   // where sendMsg is defined (called from)
+  console.log("uniqueID " + activity.data.uniqueId);
+  console.log('slug: ' + slug);
   return state ? (
     <Dash
       state={state}
@@ -63,7 +70,8 @@ const RawDashboardComp = ({
       activity={activity}
       instances={instances}
       object={object}
-      sendMsg={msg => Meteor.call('ws.send', activity.data.uniqueId, msg)}
+      sendActMsg={msg => Meteor.call('ws.send', activity.data.uniqueId, msg)}
+      sendSesMsg={msg => Meteor.call('ws.send', slug, msg)}
       LearningItem={dataFn.LearningItem}
     />
   ) : null;

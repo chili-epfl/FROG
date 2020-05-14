@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-//import { celluloUrl } from '/server/api'; 
+//import { celluloUrl } from '/server/api';
 
 import {
   PlayArrow,
@@ -12,7 +12,7 @@ import {
   Refresh,
   Clear
 } from '@material-ui/icons';
-import { Sessions } from '../../../../api/sessions';
+//import { Sessions } from '../../../../api/sessions';
 import { RowButton } from '/imports/ui/RowItems';
 
 const variants = {
@@ -69,20 +69,15 @@ type ControlButtonProps = {
   onClick: () => void
 };
 
-function sendCtrlActionToCellulo(){
-  //const stuff = Sessions.i
-    //console.log(" sessionId has value "+JSON.stringify(stuff))
-     Meteor.call('ws.send', 1234, "an action was called from inside ControlButton.js");
-}
 
 export const ControlButton = (props: ControlButtonProps) => {
   const variant = variants[props.variant];
   // props is of the form {"variant": "pause"}
   const title = variant.title;
   const Icon = variant.icon;
-  
+
   return (
-    <RowButton icon={<Icon fontSize="small" />} onClick={()=>{console.log('inside ControlButton.js'); sendCtrlActionToCellulo(); props.onClick()}}> 
+    <RowButton icon={<Icon fontSize="small" />} onClick={()=>{props.onClick()}}>
       {title}
     </RowButton>
   );

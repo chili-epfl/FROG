@@ -10,6 +10,8 @@ import { OrchestrationContext } from '../../context';
 
 export const SessionControlContainer = () => {
   const session = React.useContext(OrchestrationContext);
+  // use the slug and put the messages here
+  console.log('session slug: ' + session.slug);
 
   return (
     <Panel>
