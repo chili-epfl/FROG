@@ -12,7 +12,11 @@ import { type LogDbT, type ActivityDbT } from '../types';
 import { values } from '../toArray';
 
 const Viewer = (props: Object) => {
+<<<<<<< HEAD
   const { sendSesMsg, state, activity } = props;
+=======
+  const { state, activity } = props;
+>>>>>>> 38689d02b634cb5f77ff6ff328c1c2bdd79e30d3
   const nowLine = [
     { x: state.now, y: 0 },
     { x: state.now, y: 1 }
@@ -25,6 +29,11 @@ const Viewer = (props: Object) => {
       const _y = y / Math.max(1, state.users);
       return { x: _x, y: _y };
     });
+
+  function sendProgressToCellulo(){
+    //let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
+    //Meteor.call('ws.send', mroSession.slug, ""+JSON.stringify(state));
+  }
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -85,6 +94,7 @@ const Viewer = (props: Object) => {
   );
 };
 
+// IN SECONDS!
 const WINDOW = 10;
 const PREDICT_LENGTH = 300;
 
@@ -105,13 +115,36 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   const comppred: number[] = new Array(lengthPrediction).fill(0);
   const progpred: number[] = new Array(lengthPrediction).fill(0);
 
+  // compute progress of each student
   values(state.user).forEach(data => {
     if (!data) return;
+
+    console.log("state has values ")
+    console.log(state) // for a quiz of 16 questions state.user shows { all: [ [ 0, 0.125 ] ] } after answering first question
+    console.log("state has values end")
+
+    //state is of the form
+    //{
+     // user: { '3mMavApLMFoHmHAva': [ [ 0, 0.165 ], [ 0, 0.413 ] ] }, // where
+     // maxTime: 0.413
+     //}
+
+
+    console.log("activity has values")
+    console.log(activity)
+    console.log("activity has values end")
+
+    console.log("data has values")
+    console.log(data)
+    console.log("data has values end")
 
     // Compute OBSERVED data
     progress.forEach((_, timeWindow) => {
       const d = data.filter(([___, t]) => t < timeWindow * WINDOW);
-      const [p] = d.length > 0 ? d[d.length - 1] : [0];
+      console.log("magic d value is ")
+      console.log(d)
+      console.log("magic values end")
+      const [p] = d.length > 0 ? d[d.length - 1] : [0]; // p is the first value of array given by d[d.length - 1]
       progress[timeWindow] += p; // last element of array is the progress (print it to check)
       completion[timeWindow] += p < 1 ? 0 : 1;
     });
