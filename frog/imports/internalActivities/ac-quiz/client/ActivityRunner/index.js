@@ -3,7 +3,8 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
+import {getUsername} from '/imports/api/users'
+import { Sessions } from '/imports/api/sessions';
 import { type ActivityRunnerPropsT, HTML } from '/imports/frog-utils';
 
 import Quiz from './Quiz';
@@ -44,12 +45,30 @@ class ActivityRunner extends React.Component<
     this.props.logger({ type: 'progress', value: 0 });
   }
 
+  // added a help button in this render method
   render() {
     const { classes, ...propsNoClasses } = this.props;
     const { activityData, data, dataFn } = propsNoClasses;
     const { title, guidelines } = activityData.config;
+    const sendStuckSignalToCellulo = (studentUsername)=> {
+      // get the MRO (most recently opened) started session
+      let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } })
+      try { 
+        Meteor.call('ws.send', mroSession.slug, studentUsername + " stuck");
+      }catch(err){
+    
+      }
+    }
     return (
       <div className={classes.main}>
+        { 
+          <button onClick={() => { console.log("user "+getUsername() + " has requested help"); 
+                                   sendStuckSignalToCellulo(getUsername()) 
+                                 }
+                          }>
+            Request help
+          </button>
+        }
         {title && title !== '' && <h1>{title}</h1>}
         {guidelines && guidelines !== '<p><br></p>' && (
           <div className={classes.container}>

@@ -11,6 +11,16 @@ import {
 import { type LogDbT, type ActivityDbT } from '../types';
 import { values } from '../toArray'; 
 
+function sendProgressToCellulo(progress, nbrOfStudents){
+  // Unfortunately, using Sessions.findOne (as in ControlButton.js) does not work since import Sessions causes an error "WithVisibility is not a function"
+  console.log("progress sent from progress.js")
+  try{
+    Meteor.call('ws.send', "PROGRESS", ""+progress+":"+nbrOfStudents);
+  }catch(err){
+
+  }
+}
+
 const Viewer = (props: Object) => {
   const { state, activity } = props;
   const nowLine = [
@@ -26,10 +36,6 @@ const Viewer = (props: Object) => {
       return { x: _x, y: _y };
     });
 
-  function sendProgressToCellulo(){
-    //let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
-    //Meteor.call('ws.send', mroSession.slug, ""+JSON.stringify(state));
-  }
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -81,13 +87,6 @@ const Viewer = (props: Object) => {
         />
       </VictoryChart>
       <div> 
-      <button onClick={() => { console.log("content of activity is " + JSON.stringify(activity) +"end trxn in progress.js"); 
-        console.log("state is " + JSON.stringify(state)+" end JSON"); 
-        sendProgressToCellulo();
-        //Meteor.call('ws.send', 'hellooo', "clasroom progress is " + state.progress); 
-        console.log("print something from progress.js");  }}>
-      Send progress to cellulo
-      </button>
       <p>Total users: {state.users}</p>
       </div>
     </div>
@@ -119,35 +118,33 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   values(state.user).forEach(data => {
     if (!data) return;
 
-    console.log("state has values ")
-    console.log(state) // for a quiz of 16 questions state.user shows { all: [ [ 0, 0.125 ] ] } after answering first question
-    console.log("state has values end")
+    //console.log("state has values ")
+    //console.log(state) // for a quiz of 16 questions state.user shows { all: [ [ 0, 0.125 ] ] } after answering first question
+    //console.log("state has values end")
 
     //state is of the form
     //{
-     // user: { '3mMavApLMFoHmHAva': [ [ 0, 0.165 ], [ 0, 0.413 ] ] }, // where 
+     // user: { '3mMavApLMFoHmHAva': [ [ 0, 0.165 ], [ 0, 0.413 ] ] }, 
      // maxTime: 0.413
      //}
       
 
-    console.log("activity has values")
-    console.log(activity)
-    console.log("activity has values end")
+    //console.log("activity has values")
+    //console.log(activity)
+    //console.log("activity has values end")
 
-    console.log("data has values")
-    console.log(data)
-    console.log("data has values end")
+    //console.log("data has values")
+    //console.log(data)
+    //console.log("data has values end")
 
     // Compute OBSERVED data
     progress.forEach((_, timeWindow) => {
       const d = data.filter(([___, t]) => t < timeWindow * WINDOW);
-      console.log("magic d value is ")
-      console.log(d)
-      console.log("magic values end")
       const [p] = d.length > 0 ? d[d.length - 1] : [0]; // p is the first value of array given by d[d.length - 1]
       progress[timeWindow] += p; // last element of array is the progress (print it to check)
       completion[timeWindow] += p < 1 ? 0 : 1;
     });
+    sendProgressToCellulo(progress, Object.keys(state.user).length);
 
     // Compute PREDICTED data
     const [__, startTime] = data[0];
