@@ -11,11 +11,12 @@ import {
 import { type LogDbT, type ActivityDbT } from '../types';
 import { values } from '../toArray';
 
-function sendProgressToCellulo(progress, nbrOfStudents){
+function sendProgressToCellulo(func, progress, nbrOfStudents){
   // Unfortunately, using Sessions.findOne (as in ControlButton.js) does not work since import Sessions causes an error "WithVisibility is not a function"
   console.log("progress sent from progress.js")
   try{
-    Meteor.call('ws.send', "PROGRESS", ""+progress+":"+nbrOfStudents);
+    // func is sendSesMsg
+    func(""+progress+":"+nbrOfStudents)
   }catch(err){
 
   }
@@ -27,6 +28,7 @@ const Viewer = (props: Object) => {
     { x: state.now, y: 0 },
     { x: state.now, y: 1 }
   ];
+  
   const toVictoryFormat = (data, isPred) =>
     (data || []).map((y, i) => {
       const _x = isPred
@@ -35,8 +37,8 @@ const Viewer = (props: Object) => {
       const _y = y / Math.max(1, state.users);
       return { x: _x, y: _y };
     });
-
-
+  sendProgressToCellulo(sendSesMsg, state.progress[state.progress.length - 1], state.users);
+  
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
       <VictoryChart style={{ height: '100%' }} theme={VictoryTheme.material}>
@@ -87,9 +89,6 @@ const Viewer = (props: Object) => {
         />
       </VictoryChart>
       <div>
-      <button onClick={() => {sendSesMsg('clasroom progress is ' + state.progress[state.progress.length]); console.log('progress: ' + state.progress.length);}}>
-      Send progress to cellulo
-      </button>
       <p>Total users: {state.users}</p>
       </div>
     </div>
@@ -131,15 +130,6 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
      // maxTime: 0.413
      //}
 
-
-    //console.log("activity has values")
-    //console.log(activity)
-    //console.log("activity has values end")
-
-    //console.log("data has values")
-    //console.log(data)
-    //console.log("data has values end")
-
     // Compute OBSERVED data
     progress.forEach((_, timeWindow) => {
       const d = data.filter(([___, t]) => t < timeWindow * WINDOW);
@@ -147,7 +137,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
       progress[timeWindow] += p; // last element of array is the progress (print it to check)
       completion[timeWindow] += p < 1 ? 0 : 1;
     });
-    sendProgressToCellulo(progress, Object.keys(state.user).length);
+    
 
     // Compute PREDICTED data
     const [__, startTime] = data[0];
@@ -161,6 +151,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
       comppred[timeWindow] += p < 1 ? 0 : 1;
     });
   });
+  
 
   return {
     comppred,
