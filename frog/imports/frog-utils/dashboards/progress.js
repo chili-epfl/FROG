@@ -28,7 +28,6 @@ const Viewer = (props: Object) => {
     { x: state.now, y: 0 },
     { x: state.now, y: 1 }
   ];
-  
   const toVictoryFormat = (data, isPred) =>
     (data || []).map((y, i) => {
       const _x = isPred

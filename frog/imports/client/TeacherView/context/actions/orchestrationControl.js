@@ -21,7 +21,7 @@ export const orchestrationControl = (session: Object) => ({
     teacherLogger(session._id, 'teacher.pause');
     updateSessionState(session._id, 'PAUSED', TimeSync.serverTime());
   },
-  next: () => nextActivity(session._id),
+  next: () => {nextActivity(session._id); },
   prev: () => {
     const response = window.confirm(
       'Go back one step? Warning, you will loose all data produced since then!'

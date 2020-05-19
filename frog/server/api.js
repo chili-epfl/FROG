@@ -2,6 +2,8 @@ import fs from 'fs';
 import { resolve as pathResolve, join } from 'path';
 import urlPkg from 'url';
 import WebSocket from 'ws';
+import { teacherLogger } from '/imports/api/logs';
+import { nextActivity, goBack } from '/imports/api/engine';
 import {
   addNewWikiPage,
   createNewEmptyWikiDoc
@@ -22,6 +24,8 @@ import { UniqueIds } from '/imports/api/activities';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
 import setupH5PRoutes from './h5p';
+// orchestr. control is inside /Users/amroa/tangible/FROG/frog/imports/client/TeacherView/context/index
+
 
 WebApp.connectHandlers.use(bodyParser.urlencoded({ extended: true }));
 WebApp.connectHandlers.use(bodyParser.json({ limit: 50000000000 }));
@@ -89,14 +93,25 @@ wss.on(
       Meteor.bindEnvironment(data => {
         console.info('received', data);
         try {
-          // id here is the session id
-          console.log("id is inside api.js"+id)
-          const unique = UniqueIds.findOne(id); // id typed in (if mutliple running activity youre not sending activity to the same place but youre sending it to )
-          const logmsg = JSON.parse(data);
-          logmsg.activityId = unique.activityId;
-          logmsg.activityType = 'ac-quiz'; // was ac-cellulo previously
-          console.info('log msg:', logmsg);
-          Meteor.call('merge.log', logmsg);
+          if (data.includes("next"))
+          {
+            // id here is the session id
+            console.log("id is inside api.js"+id)
+            const unique = UniqueIds.findOne(id); // id typed in (if mutliple running activity youre not sending activity to the same place but youre sending it to )
+            let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
+          
+            console.log("slug of MRO sessions in api.js") // used for debugging
+            console.log(mroSession)
+            console.log("slug of MRO sessions end")
+
+            nextActivity(mroSession._id)
+          }
+          
+          //const logmsg = JSON.parse(data);
+          //logmsg.activityId = unique.activityId;
+          //logmsg.activityType = 'ac-quiz'; // was ac-cellulo previously
+          //console.info('log msg:', logmsg);
+          //Meteor.call('merge.log', logmsg);
         } catch (e) {
           ws.send(e.message);
           console.error(e);
@@ -106,7 +121,6 @@ wss.on(
   })
 );
 
-export default Connections;
 
 // id is from activity.data.uniqueId inside imports/client/Dashboard/index.js
 const wsSend = (id, msg) => {
@@ -116,8 +130,19 @@ const wsSend = (id, msg) => {
     throw 'No such websocket id';
   }
 };
-
+// receive from socket with id "id"
+const wsReceive = (id, func1) => {
+    console.log("received called")
+    Connections[id].on('message',
+    data => { console.log('received action from Cellulo') 
+                    if (data.inclues("pause")){
+                        func1(data)
+                          } 
+                        }
+                      )
+}
 Meteor.methods({ 'ws.send': wsSend });
+Meteor.methods({ 'ws.receive': wsReceive });
 
 WebApp.connectHandlers.use('', (request, response, next) => {
   if (request.headers?.host === 'frogwrite.ch') {

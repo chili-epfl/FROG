@@ -63,6 +63,7 @@ const RawDashboardComp = ({
   // where sendMsg is defined (called from)
   console.log("uniqueID " + activity.data.uniqueId);
   console.log('slug: ' + slug);
+  Meteor.call('ws.receive', slug, console.log)
   return state ? (
     <Dash
       state={state}
