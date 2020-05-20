@@ -19,7 +19,8 @@ import bodyParser from 'body-parser';
 import requestFun from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
-import { Sessions } from '/imports/api/sessions';
+import { Sessions,   updateSessionState, restartSession, removeAllUsers } from '/imports/api/sessions';
+import { TimeSync } from 'meteor/mizzao:timesync';
 import { UniqueIds } from '/imports/api/activities';
 import { serverConnection } from './share-db-manager';
 import { mergeOneInstance } from './mergeData';
@@ -92,19 +93,32 @@ wss.on(
       'message',
       Meteor.bindEnvironment(data => {
         console.info('received', data);
+        // Meteor.bindEnvironment should not be omitted otherwise throws  AssertionError: Cannot await without a Fiber
         try {
-          if (data.includes("next"))
-          {
-            // id here is the session id
-            console.log("id is inside api.js"+id)
-            const unique = UniqueIds.findOne(id); // id typed in (if mutliple running activity youre not sending activity to the same place but youre sending it to )
-            let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
-          
-            console.log("slug of MRO sessions in api.js") // used for debugging
-            console.log(mroSession)
-            console.log("slug of MRO sessions end")
+          let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) 
+          console.log("session state is inside api.js "+JSON.stringify(mroSession)+" end session state")
+          if (data.includes("next")){
+            // "id" here is the session slug
+            console.log("next activity from cellulo")
+            nextActivity(mroSession._id) // here it is actually 64 bit id
+          }
+          else if (data.includes("prev")){
+            console.log("previous activity from cellulo")
+            goBack(mroSession._id);
+          }
+          else if (data.includes("continue")){
+            console.log("continue activity from cellulo")
+            // teacherLogger(mroSession._id, 'teacher.pause-resume');  throws Meteor.userId can only be invoked in method calls or publications error somehow
+            updateSessionState(mroSession._id, 'STARTED', TimeSync.serverTime()); // TypeError: Cannot read property 'serverTime' of undefined
+          }
+          else if (data.includes("pause")) {
+            console.log("pause activity from cellulo")
+            //teacherLogger(mroSession._id, 'teacher.pause'); throws same error as above
+            updateSessionState(mroSession._id, 'PAUSED', TimeSync.serverTime()); // TypeError: Cannot read property 'serverTime' of undefined
 
-            nextActivity(mroSession._id)
+          }
+          else if (data.includes("stop")){
+            updateSessionState(mroSession._id, 'STOPPED')
           }
           
           //const logmsg = JSON.parse(data);
@@ -116,7 +130,7 @@ wss.on(
           ws.send(e.message);
           console.error(e);
         }
-      })
+      }) // closing ) of Meteor.bindEnvironment
     );
   })
 );
