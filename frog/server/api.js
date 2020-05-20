@@ -108,13 +108,13 @@ wss.on(
           }
           else if (data.includes("continue")){
             console.log("continue activity from cellulo")
-            // teacherLogger(mroSession._id, 'teacher.pause-resume');  throws Meteor.userId can only be invoked in method calls or publications error somehow
-            updateSessionState(mroSession._id, 'STARTED', TimeSync.serverTime()); // TypeError: Cannot read property 'serverTime' of undefined
+            // teacherLogger(mroSession._id, 'teacher.pause-resume');  throws Meteor.userId can only be invoked in method calls or publications 
+            updateSessionState(mroSession._id, 'STARTED', mroSession.startedAt+1); 
           }
           else if (data.includes("pause")) {
             console.log("pause activity from cellulo")
             //teacherLogger(mroSession._id, 'teacher.pause'); throws same error as above
-            updateSessionState(mroSession._id, 'PAUSED', TimeSync.serverTime()); // TypeError: Cannot read property 'serverTime' of undefined
+            updateSessionState(mroSession._id, 'PAUSED', mroSession.startedAt+1); // when it was TimeSync.serverTime it threw TypeError: Cannot read property 'serverTime' of undefined
 
           }
           else if (data.includes("stop")){
@@ -144,19 +144,8 @@ const wsSend = (id, msg) => {
     throw 'No such websocket id';
   }
 };
-// receive from socket with id "id"
-const wsReceive = (id, func1) => {
-    console.log("received called")
-    Connections[id].on('message',
-    data => { console.log('received action from Cellulo') 
-                    if (data.inclues("pause")){
-                        func1(data)
-                          } 
-                        }
-                      )
-}
+
 Meteor.methods({ 'ws.send': wsSend });
-Meteor.methods({ 'ws.receive': wsReceive });
 
 WebApp.connectHandlers.use('', (request, response, next) => {
   if (request.headers?.host === 'frogwrite.ch') {
