@@ -84,8 +84,8 @@ function sendCtrlActionToCellulo(props){
   console.log("slug of MRO sessions end")
 
   console.log("graph start")
-  const graphidd = mroSession['fromGraphId']
-  const all_activities = Activities.find({ graphidd }).fetch();
+  const graphidd = mroSession['graphId']
+  const all_activities = Activities.find({ graphId: graphidd }).fetch();
   console.log(all_activities)
   console.log("graph end")
 
