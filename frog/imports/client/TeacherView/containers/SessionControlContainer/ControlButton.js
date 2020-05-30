@@ -13,6 +13,8 @@ import {
   Clear
 } from '@material-ui/icons';
 import { Sessions } from '/imports/api/sessions';
+import { Activities } from '/imports/api/activities';
+import { Graphs } from '/imports/api/graphs';
 //import { Connections } from "imports/../../server/api.js";
 import { RowButton } from '/imports/ui/RowItems';
 
@@ -81,6 +83,12 @@ function sendCtrlActionToCellulo(props){
   console.log(mroSession)
   console.log("slug of MRO sessions end")
 
+  console.log("graph start")
+  const graphidd = mroSession['fromGraphId']
+  const all_activities = Activities.find({ graphidd }).fetch();
+  console.log(all_activities)
+  console.log("graph end")
+
   // If control action is "START" then the state of the session is READY and the nextActivities field is 
   // a list of objects (usually one object) the first element of which is a JSON object with fields {activityId, description}
   // openActivities is an empty list
@@ -90,11 +98,7 @@ function sendCtrlActionToCellulo(props){
   // If action is "Next" then openActivities are done and nextActivities will be the current activity
 
   // REMARK: the description field (see above) usually ends in (p3) indicating the plane of the activity (class is plane 3, team is plane2, individual is plane1)
-  try { 
-    Meteor.call('ws.send', mroSession.slug, ""+props.variant);
-  }catch(err){
-
-  }
+  // mroSession.slug 
 }
 
 export const ControlButton = (props: ControlButtonProps) => {
