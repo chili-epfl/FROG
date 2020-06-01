@@ -54,7 +54,7 @@ class ActivityRunner extends React.Component<
       // get the MRO (most recently opened) started session
       let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } })
       try { 
-        Meteor.call('ws.send', mroSession.slug, studentUsername + " stuck");
+        Meteor.call('ws.send', mroSession.slug, "stuck "+studentUsername);
       }catch(err){
     
       }

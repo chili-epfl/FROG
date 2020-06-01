@@ -83,11 +83,16 @@ function sendCtrlActionToCellulo(props){
   console.log(mroSession)
   console.log("slug of MRO sessions end")
 
-  console.log("graph start")
   const graphidd = mroSession['graphId']
   const all_activities = Activities.find({ graphId: graphidd }).fetch();
-  console.log(all_activities)
-  console.log("graph end")
+  if (mroSession['state'] == 'READY'){ // if the state is 'READY' the only control action is "start session" in which case signal to Cellulo that it has started sending the relevant signal
+    Meteor.call('ws.send', mroSession['slug'], "begin "+JSON.stringify(all_activities))
+    Meteor.call('ws.send', mroSession['slug'], "studentCount" + JSON.stringify(Meteor.users.find().count())) // sends number of users
+  }
+  else {
+    Meteor.call('ws.send', mroSession['slug'], "activity data"+JSON.stringify(all_activities))
+    Meteor.call('ws.send', mroSession['slug'], props['variant'])
+  }
 
   // If control action is "START" then the state of the session is READY and the nextActivities field is 
   // a list of objects (usually one object) the first element of which is a JSON object with fields {activityId, description}
@@ -99,6 +104,7 @@ function sendCtrlActionToCellulo(props){
 
   // REMARK: the description field (see above) usually ends in (p3) indicating the plane of the activity (class is plane 3, team is plane2, individual is plane1)
   // mroSession.slug 
+  console.log(props['variant'])
 }
 
 export const ControlButton = (props: ControlButtonProps) => {

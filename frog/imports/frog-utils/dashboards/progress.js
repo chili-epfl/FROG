@@ -11,16 +11,6 @@ import {
 import { type LogDbT, type ActivityDbT } from '../types';
 import { values } from '../toArray';
 
-function sendProgressToCellulo(func, progress, nbrOfStudents){
-  // Unfortunately, using Sessions.findOne (as in ControlButton.js) does not work since import Sessions causes an error "WithVisibility is not a function"
-  console.log("progress sent from progress.js")
-  try{
-    // func is sendSesMsg
-    func(""+progress+":"+nbrOfStudents)
-  }catch(err){
-
-  }
-}
 
 const Viewer = (props: Object) => {
   const { sendSesMsg, state, activity } = props;
@@ -36,7 +26,7 @@ const Viewer = (props: Object) => {
       const _y = y / Math.max(1, state.users);
       return { x: _x, y: _y };
     });
-  sendProgressToCellulo(sendSesMsg, state.progress[state.progress.length - 1], state.users);
+  //sendProgressToCellulo(sendSesMsg, state.progress[state.progress.length - 1], state.users);
   
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>

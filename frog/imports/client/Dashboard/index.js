@@ -61,9 +61,9 @@ const RawDashboardComp = ({
   }
   const Dash = aT.dashboards[name].Viewer;
   // where sendMsg is defined (called from)
-  console.log("uniqueID " + activity.data.uniqueId);
-  console.log('slug: ' + slug);
-  Meteor.call('ws.receive', slug, console.log)
+
+  // send the users every time the dashboard of an activity is loaded to keep accurate track of the number of users in cellulo
+  // however since users passed argument (down below) is an empty object (effectively a bug) the number of users is sent using Meteor in ControlButton.js
   return state ? (
     <Dash
       state={state}

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { HTML, ReactiveText } from '/imports/frog-utils';
-
+import {getUsername} from '/imports/api/users'
+import { Sessions } from '/imports/api/sessions';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -163,6 +164,8 @@ export default withStyles(styles)(
       const configQuestions = activityData.config.questions;
 
       const newProgress = computeProgress(configQuestions, newForm);
+      let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
+      Meteor.call('ws.send', mroSession.slug, "progress " + getUsername()+", "+JSON.stringify(newProgress))
       const newCoordinates = computeCoordinates(configQuestions, newForm);
       const newScore = computeScore(configQuestions, newForm);
 
