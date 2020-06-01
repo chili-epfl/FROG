@@ -19,6 +19,7 @@ import bodyParser from 'body-parser';
 import requestFun from 'request';
 
 import { activityTypesObj, activityTypes } from '/imports/activityTypes';
+import { Activities } from '/imports/api/activities';
 import { Sessions,   updateSessionState, restartSession, removeAllUsers } from '/imports/api/sessions';
 import { TimeSync } from 'meteor/mizzao:timesync';
 import { UniqueIds } from '/imports/api/activities';
@@ -96,8 +97,11 @@ wss.on(
         // Meteor.bindEnvironment should not be omitted otherwise throws  AssertionError: Cannot await without a Fiber
         try {
           let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) 
-          console.log("session state is inside api.js "+JSON.stringify(mroSession)+" end session state")
-          if (data.includes("next")){
+          if (data.includes("fetch")){
+            const all_activities = Activities.find({ graphId: mroSession['graphId'] }).fetch()
+            ws.send("activity data"+JSON.stringify(all_activities))
+          }
+          else if (data.includes("next")){
             // "id" here is the session slug
             console.log("next activity from cellulo")
             nextActivity(mroSession._id) // here it is actually 64 bit id
@@ -120,7 +124,7 @@ wss.on(
           else if (data.includes("stop")){
             updateSessionState(mroSession._id, 'STOPPED')
           }
-          
+          // older code (was not used)
           //const logmsg = JSON.parse(data);
           //logmsg.activityId = unique.activityId;
           //logmsg.activityType = 'ac-quiz'; // was ac-cellulo previously

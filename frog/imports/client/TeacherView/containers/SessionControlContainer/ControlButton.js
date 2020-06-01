@@ -79,9 +79,6 @@ function sendCtrlActionToCellulo(props){
   // Thus simplify by assuming we take most recently opened (MRO) READY | STARTED | PAUSED session 
 
   let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
-  console.log("slug of MRO sessions") // used for debugging
-  console.log(mroSession)
-  console.log("slug of MRO sessions end")
 
   const graphidd = mroSession['graphId']
   const all_activities = Activities.find({ graphId: graphidd }).fetch();
@@ -90,7 +87,6 @@ function sendCtrlActionToCellulo(props){
     Meteor.call('ws.send', mroSession['slug'], "studentCount" + JSON.stringify(Meteor.users.find().count())) // sends number of users
   }
   else {
-    Meteor.call('ws.send', mroSession['slug'], "activity data"+JSON.stringify(all_activities))
     Meteor.call('ws.send', mroSession['slug'], props['variant'])
   }
 
