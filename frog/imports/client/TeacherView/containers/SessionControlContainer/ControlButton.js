@@ -103,8 +103,7 @@ function sendCtrlActionToCellulo(props){
   // If action is "Next" then openActivities are done and nextActivities will be the current activity
 
   // REMARK: the description field (see above) usually ends in (p3) indicating the plane of the activity (class is plane 3, team is plane2, individual is plane1)
-  // mroSession.slug 
-  console.log(props['variant'])
+  // mroSession.slug
 }
 
 export const ControlButton = (props: ControlButtonProps) => {

@@ -109,9 +109,7 @@ const prepareDataForDisplay = (state: Object, activity: ActivityDbT) => {
   values(state.user).forEach(data => {
     if (!data) return;
 
-    //console.log("state has values ")
-    //console.log(state) // for a quiz of 16 questions state.user shows { all: [ [ 0, 0.125 ] ] } after answering first question
-    //console.log("state has values end")
+    // for a quiz of 16 questions state.user shows { all: [ [ 0, 0.125 ] ] } after answering first question
 
     //state is of the form
     //{
