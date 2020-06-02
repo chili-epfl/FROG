@@ -79,15 +79,16 @@ function sendCtrlActionToCellulo(props){
   // Thus simplify by assuming we take most recently opened (MRO) READY | STARTED | PAUSED session 
 
   let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
-
+  let slug =  mroSession['slug']
   const graphidd = mroSession['graphId']
   const all_activities = Activities.find({ graphId: graphidd }).fetch();
   if (mroSession['state'] == 'READY'){ // if the state is 'READY' the only control action is "start session" in which case signal to Cellulo that it has started sending the relevant signal
-    Meteor.call('ws.send', mroSession['slug'], "begin "+JSON.stringify(all_activities))
-    Meteor.call('ws.send', mroSession['slug'], "studentCount" + JSON.stringify(Meteor.users.find().count())) // sends number of users
+    Meteor.call('ws.send', slug, "begin "+JSON.stringify(all_activities))
+    Meteor.call('ws.send', slug, "studentCount" + JSON.stringify(Meteor.users.find(      { joinedSessions: { $in: [ slug ]} }      ).count())) // sends number of users in this session
+    Meteor.call('ws.send', slug, "students" + JSON.stringify(Meteor.users.find(      { joinedSessions: { $in: [ slug ]} }      ).fetch()))
   }
   else {
-    Meteor.call('ws.send', mroSession['slug'], props['variant'])
+    Meteor.call('ws.send', slug, props['variant'])
   }
 
   // If control action is "START" then the state of the session is READY and the nextActivities field is 

@@ -97,9 +97,11 @@ wss.on(
         // Meteor.bindEnvironment should not be omitted otherwise throws  AssertionError: Cannot await without a Fiber
         try {
           let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) 
-          if (data.includes("fetch")){
+          if (data.includes("fetch")){ // triggered if the session is not started from frog
             const all_activities = Activities.find({ graphId: mroSession['graphId'] }).fetch()
             ws.send("activity data"+JSON.stringify(all_activities))
+            ws.send("studentCount" + JSON.stringify(Meteor.users.find(      { joinedSessions: { $in: [ slug ]} }      ).count())) // sends number of users in this session
+            ws.send("students" + JSON.stringify(Meteor.users.find(      { joinedSessions: { $in: [ slug ]} }      ).fetch()))
           }
           else if (data.includes("next")){
             // "id" here is the session slug
@@ -123,6 +125,7 @@ wss.on(
           }
           else if (data.includes("stop")){
             updateSessionState(mroSession._id, 'STOPPED')
+            nextActivity(mroSession._id)
           }
           // older code (was not used)
           //const logmsg = JSON.parse(data);
