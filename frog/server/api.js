@@ -105,12 +105,33 @@ wss.on(
           }
           else if (data.includes("next")){
             // "id" here is the session slug
-            console.log("next activity from cellulo")
-            nextActivity(mroSession._id) // here it is actually 64 bit id
+            // message "next" sent from cellulo (or "next:jump" where "jump" specifies a jump forward of one or more activities)
+
+            // check if there is a jump specified (triggered by picking up the robot and moving it to different later activity)
+            let delimiterIdx  = data.indexOf(":")
+            if (delimiterIdx > 0){
+              let jumpLength = parseInt(data.substring(delimiterIdx+1)) 
+              for (let i = 0; i < jumpLength; i++){
+                nextActivity(mroSession._id) 
+                console.log("jumped")
+              }
+            }
+            else{
+              nextActivity(mroSession._id) // here it is actually 64 bit id
+            }
           }
           else if (data.includes("prev")){
-            console.log("previous activity from cellulo")
-            goBack(mroSession._id);
+            // "prev" message sent from cellulo" (similarly a jump backward can be specified)
+            let delimiterIdx  = data.indexOf(":")
+            if (delimiterIdx > 0){
+              let jumpLength = parseInt(data.substring(delimiterIdx+1)) 
+              for (let i = 0; i < jumpLength; i++){
+                goBack(mroSession._id) 
+              }
+            }
+            else {
+              goBack(mroSession._id);
+            }
           }
           else if (data.includes("continue")){
             console.log("continue activity from cellulo")

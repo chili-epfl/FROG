@@ -163,9 +163,12 @@ export default withStyles(styles)(
       const newForm = { ...data.form, [questionIndex]: newQuestion };
       const configQuestions = activityData.config.questions;
 
+      // seem to be same index
+      console.log("index "+index + " questionIndex "+ questionIndex)
+
       const newProgress = computeProgress(configQuestions, newForm);
       let mroSession = Sessions.findOne({state:  { $in: ['STARTED', 'READY', 'PAUSED'] }   }, { sort: { startedAt: -1 } }) // -1 is descending order so highest time first
-      Meteor.call('ws.send', mroSession.slug, "progress " + getUsername()+", "+JSON.stringify(newProgress))
+      Meteor.call('ws.send', mroSession.slug, "progress " + getUsername()+", "+JSON.stringify(newProgress)+":"+questionIndex)
       const newCoordinates = computeCoordinates(configQuestions, newForm);
       const newScore = computeScore(configQuestions, newForm);
 
