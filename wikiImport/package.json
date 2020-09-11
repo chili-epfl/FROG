@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "cuid": "^2.1.6",
-    "node-fetch": "^2.4.1"
+    "node-fetch": "^2.6.1"
   }
 }
