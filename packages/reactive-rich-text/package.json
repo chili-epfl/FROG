@@ -27,7 +27,7 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "reconnectingwebsocket": "^1.0.0",
-    "ws": "^6.2.1"
+    "ws": "^7.4.6"
   },
   "browserslist": [
     ">0.2%",
