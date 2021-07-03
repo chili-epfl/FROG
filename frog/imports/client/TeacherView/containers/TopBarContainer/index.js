@@ -9,6 +9,7 @@ import {
   Restore,
   Clear,
   SaveAlt,
+  LibraryAdd,
   CloudDownload,
   Cast,
   ArrowBack
@@ -20,9 +21,10 @@ import { Button } from '/imports/ui/Button';
 import { OverflowMenu } from '/imports/ui/OverflowMenu';
 import { RowDivider, RowButton } from '/imports/ui/RowItems';
 import { useModal } from '/imports/ui/Modal';
-
+import { cloneSession } from '/imports/api/sessions';
 import { OrchestrationContext } from '../../context';
 import { SettingsModal } from './SettingsModal';
+import { store } from '../../../GraphEditor/store';
 
 export const TopBarContainer = withRouter(({ history }) => {
   const [showModal] = useModal();
@@ -35,6 +37,10 @@ export const TopBarContainer = withRouter(({ history }) => {
         onChange={settings => session.updateSettings(settings)}
       />
     );
+  };
+
+  const callCloneSession = () => {
+    cloneSession(session.id, history, store);
   };
 
   return (
@@ -61,6 +67,12 @@ export const TopBarContainer = withRouter(({ history }) => {
             onClick={showSettingsModal}
           >
             Session Settings
+          </RowButton>
+          <RowButton
+            icon={<LibraryAdd fontSize="small" />}
+            onClick={callCloneSession}
+          >
+            Clone Session
           </RowButton>
           <RowDivider />
           <RowButton

@@ -70,7 +70,7 @@ const getSessionTitle = (session): meteorSessionObjectT => {
   else return session.name;
 };
 
-const getSessionTypeInfo = (session): meteorSessionObjectT => {
+export const getSessionTypeInfo = (session): meteorSessionObjectT => {
   if (session.singleActivity) return `Single Activity | Slug: ${session.slug}`;
   else if (session.template) return `Template | Slug: ${session.slug}`;
   else return `Graph | Slug: ${session.slug}`;

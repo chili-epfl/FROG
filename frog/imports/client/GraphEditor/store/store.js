@@ -126,6 +126,8 @@ export default class Store {
 
   valid: Object;
 
+  wizardConfig: string;
+
   setId: (string, ?boolean) => void;
 
   setBrowserHistory: (?Object, ?string) => void;
@@ -137,6 +139,10 @@ export default class Store {
   setTemplateOpenFlag: Function;
 
   setTemplateSource: Function;
+
+  setWizardConfig: Object => void;
+
+  getWizardConfig: void => Object;
 
   constructor() {
     extendObservable(this, {
@@ -153,6 +159,7 @@ export default class Store {
       valid: undefined,
       _graphDuration: 60,
       readOnly: false,
+      wizardConfig: null,
 
       get graphDuration(): number {
         return this.ui.isSvg ? this.ui.furthestObject : this._graphDuration;
@@ -343,6 +350,14 @@ export default class Store {
             }
           });
         }
+      }),
+
+      setWizardConfig: action(config => {
+        this.wizardConfig = JSON.stringify(config);
+      }),
+
+      getWizardConfig: action(() => {
+        return JSON.parse(this.wizardConfig);
       }),
 
       undo: action(() => {

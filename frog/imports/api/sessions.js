@@ -14,6 +14,7 @@ import {
 } from './engine';
 import { Graphs, addGraph } from './graphs';
 import valid from './validGraphFn';
+import { graphToString } from './exportGraph';
 
 const SessionTimeouts = {};
 const DEFAULT_COUNTDOWN_LENGTH = 10000;
@@ -231,6 +232,29 @@ export const updateOpenActivities = (
 export const removeSession = (sessionId: string) =>
   Meteor.call('flush.session', sessionId);
 
+export const cloneSession = (
+  sessionId: string,
+  history: any,
+  store: Object
+) => {
+  Meteor.call('session.clone', sessionId, (err, res) => {
+    if (err) {
+      console.info(err);
+    } else if (res) {
+      if (res.type === 'Graph') {
+        history.push(`/teacher/graph/`);
+        store.setId(res.graphId);
+      } else if (res.type === 'Single Activity') {
+        store.setWizardConfig(res.config);
+        history.push(`/wizard/${res.activityType}`);
+      } else {
+        store.setWizardConfig(res.config);
+        history.push(`/wizard/${res.activityType}`);
+      }
+    }
+  });
+};
+
 // if slug is empty, will automatically generate a unique slug, returns sessionId
 export const addSessionFn = (graphId: string, slug?: string): string => {
   if (Meteor.isServer) {
@@ -296,6 +320,36 @@ export const addSessionFn = (graphId: string, slug?: string): string => {
 
 Meteor.methods({
   'add.session': addSessionFn,
+  'session.clone': sessionId => {
+    const session = Sessions.findOne(sessionId);
+    if (session) {
+      const sessionType = session.singleActivity
+        ? 'Single Activity'
+        : session.template
+        ? 'Template'
+        : 'Graph';
+      if (sessionType === 'Single Activity') {
+        return {
+          type: 'Single Activity',
+          config: session.simpleConfig.config,
+          activityType: session.simpleConfig.activityType
+        };
+      } else if (sessionType === 'Template') {
+        return {
+          type: 'Template',
+          config: session.simpleConfig.config,
+          activityType: session.simpleConfig.activityType
+        };
+      } else {
+        const graphObj = JSON.parse(graphToString(session.fromGraphId));
+        graphObj.graph.name = session.name;
+        const newGraphId = addGraph(graphObj);
+        return { type: 'Graph', graphId: newGraphId };
+      }
+    } else {
+      return 'Error fetching session details';
+    }
+  },
   'flush.session': sessionId => {
     const session = Sessions.findOne(sessionId);
     if (!session) {
