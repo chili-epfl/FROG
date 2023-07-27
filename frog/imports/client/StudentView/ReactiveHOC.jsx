@@ -9,6 +9,29 @@ import { generateReactiveFn } from '/imports/api/generateReactiveFn';
 import { ErrorBoundary } from '../App/ErrorBoundary';
 import { connection } from '../App/connection';
 
+const SubscriptionCache = {};
+
+const docSubscribe = async (conn, coll, id) =>
+  new Promise(async resolve => {
+    const key = `${coll}#${id}`;
+    if (SubscriptionCache[key]) {
+      SubscriptionCache[key].listeners += 1;
+      resolve(SubscriptionCache[key].doc);
+    }
+
+    const doc = await new Promise(resolv2 => {
+      const localDoc = conn.get(coll, id);
+      localDoc.setMaxListeners(3000);
+      if (localDoc.type) {
+        resolv2(localDoc);
+      }
+      localDoc.subscribe(() => resolv2(localDoc));
+    });
+
+    SubscriptionCache[key] = { listeners: 1, doc };
+    resolve(doc);
+  });
+
 type ReactiveCompPropsT = Object;
 
 type ReactiveCompsStateT = {
@@ -68,30 +91,30 @@ const ReactiveHOC = (
           data: rawData
         });
       } else {
-        this.doc = (conn || connection || {}).get(collection || 'rz', docId);
-        this.doc.setMaxListeners(3000);
-        this.doc.subscribe();
+        docSubscribe(conn || connection, collection || 'rz', docId).then(e => {
+          this.doc = e;
 
-        this.interval = window.setInterval(() => {
-          this.intervalCount += 1;
-          if (this.intervalCount > 10) {
-            this.setState({ timeout: true });
-            window.clearInterval(this.interval);
-            this.interval = undefined;
-          } else {
+          this.interval = window.setInterval(() => {
+            this.intervalCount += 1;
+            if (this.intervalCount > 10) {
+              this.setState({ timeout: true });
+              window.clearInterval(this.interval);
+              this.interval = undefined;
+            } else {
+              this.update();
+            }
+          }, 1000);
+
+          if (this.doc.type) {
             this.update();
+          } else {
+            this.doc.once('load', () => {
+              this.update();
+            });
           }
-        }, 1000);
-
-        if (this.doc.type) {
-          this.update();
-        } else {
-          this.doc.once('load', () => {
+          this.doc.on('op', () => {
             this.update();
           });
-        }
-        this.doc.on('op', () => {
-          this.update();
         });
       }
     };
@@ -142,8 +165,10 @@ const ReactiveHOC = (
     };
 
     componentWillUnmount = () => {
-      this.doc.removeListener('op', this.update);
-      this.doc.removeListener('load', this.update);
+      if (this.doc) {
+        this.doc.removeListener('op', this.update);
+        this.doc.removeListener('load', this.update);
+      }
       this.unmounted = true;
       if (this.interval) {
         window.clearInterval(this.interval);
